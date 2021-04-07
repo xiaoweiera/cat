@@ -9,19 +9,15 @@ const summary = reactive<SummaryModel>({
   totalProject: 0,
   person: 0,
 })
-let interval = null
 
 onMounted(async() => {
-  interval = setInterval(() => {
-    await axios.get('/api/v1/growthpad/summary')
-        .then(({ data }) => {
-          const val: SummaryModel = data.data
-          Object.assign(summary, val)
-        })
-  }, 1000)
+  await axios.get('/api/v1/growthpad/summary')
+      .then(({ data }) => {
+        const val: SummaryModel = data.data
+        Object.assign(summary, val)
+      })
 })
 
-onUnmounted(() => clearInterval(interval))
 
 </script>
 <template>
