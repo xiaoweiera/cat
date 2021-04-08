@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { defineProps, reactive, ref, onMounted } from 'vue'
 import axios from 'axios'
+import { defineProps, reactive, ref, onMounted, onUnmounted } from 'vue'
+import { loadProject } from '~/logic/growthpad/projects'
 
 const props = defineProps({
   status: {
@@ -11,29 +12,26 @@ const props = defineProps({
 
 const projects = ref([])
 
-const init = async() => {
-  axios.get(`api/v1/growthpad/projects?status=${props.status}`)
-      .then(({ data }) => {
-        if (data.data.length === 0) {
-          projects.value = [
-            {},
-            {},
-            {},
-          ]
-        }
-        else {
-          projects.value = data.data
-        }
-        console.log('resp', data, 'value', projects.value)
-      })
-  console.log(projects.value)
+const title = {
+  progress: '即将开始',
+}
+
+let interval = null
+
+const init = () => {
+  interval = setInterval(() => {
+    loadProject(props.status, (data) => {
+      projects.value = data
+    })
+  }, 5000)
 }
 onMounted(init)
+onUnmounted(() => clearInterval(interval))
 </script>
 <template>
   <div class="flex">
     <div v-for="project in projects" class="flex-1">
-      <GrowthpadProject :project="project"/>
+      <GrowthpadProject :project="project" :title="title[props.status]"/>
     </div>
   </div>
 </template>

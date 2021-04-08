@@ -32,6 +32,14 @@
       <GrowthpadProjects :status="'progress'"/>
     </div>
     <!--  我参与的 / 已结束 -->
+    <div class="progress text-left">
+      <p class="project-status-title">⛳️ 我参与的</p>
+      <GrowthpadProjects :status="'progress'"/>
+    </div>
+    <div class="progress text-left">
+      <p class="project-status-title">⛳️ 已结束</p>
+      <GrowthpadProjects :status="'done'"/>
+    </div>
     <GrowthpadFooter/>
   </div>
 </template>

@@ -4,6 +4,8 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "indent": "off",
+    "curly": "off",
+    "node/no-callback-literal": 0,
     "@typescript-eslint/indent": "off",
     "vue/singleline-html-element-content-newline": "off"
   }

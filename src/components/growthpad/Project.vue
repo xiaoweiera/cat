@@ -5,6 +5,7 @@ import type { ProjectInfo, ProjectStatus } from '~/types/growthpad'
 
 const props = defineProps({
   project: Object as PropType<ProjectInfo>,
+  title: String,
 })
 const formatRemainder = (ts: number | undefined): String => {
   if (ts === 0 || ts === undefined) {
@@ -15,7 +16,7 @@ const formatRemainder = (ts: number | undefined): String => {
 </script>
 <template>
   <div class="project">
-    <p class="text-center">即将开始</p>
+    <p class="text-center">{{ title }}</p>
     <div class="flex">
       <p class="desc">奖励数量</p>
       <p class="ml-2">{{ props.project?.reward_total || '-' }}</p>

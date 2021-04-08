@@ -1,4 +1,38 @@
 import type { MockMethod } from 'vite-plugin-mock'
+import { ProjectInfo } from '~/types/growthpad'
+
+const projects = [
+  {
+    symbol: 'ETH',
+    name: 'ETH',
+    desc: 'wala',
+    reward_total: '10000',
+    reward_value: '222222',
+    reward_1_person: '123123123',
+    start_ts: 10000,
+    status: 'progress',
+  },
+  {
+    symbol: 'BTC',
+    name: 'BTC',
+    desc: 'wala',
+    reward_total: '10000000',
+    reward_value: '22222222',
+    reward_1_person: '123123123',
+    start_ts: 10000000,
+    status: 'progress',
+  },
+  {
+    symbol: 'MDX',
+    name: 'MDX',
+    desc: 'walaMDX',
+    reward_total: '10000000',
+    reward_value: '22222222',
+    reward_1_person: '123123123',
+    start_ts: 10000000,
+    status: 'progress',
+  },
+] as ProjectInfo[]
 
 export default [
   {
@@ -19,9 +53,11 @@ export default [
     url: '/api/v1/growthpad/projects',
     method: 'get',
     response: ({ query: { status } }: { query: { status: String } }) => {
+      console.log('request query', status)
+      const data: ProjectInfo[] = projects.filter(p => p.status === status)
       return {
         code: 0,
-        data: [],
+        data,
       }
     },
   },
