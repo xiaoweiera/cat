@@ -18,7 +18,6 @@ onMounted(async() => {
       })
 })
 
-
 </script>
 <template>
   <div class="data-summary flex w-4/5 my-4 text-center rounded-md shadow-md p-2">

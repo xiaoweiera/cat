@@ -15,4 +15,14 @@ export default [
       }
     },
   },
+  {
+    url: '/api/v1/growthpad/projects',
+    method: 'get',
+    response: ({ query: { status } }: { query: { status: String } }) => {
+      return {
+        code: 0,
+        data: [],
+      }
+    },
+  },
 ] as MockMethod[]

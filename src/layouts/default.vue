@@ -4,5 +4,4 @@
     <router-view/>
     <Footer/>
   </main>
-  <p>default layout</p>
 </template>
