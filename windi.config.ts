@@ -16,6 +16,9 @@ export default defineConfig({
           primary: '#2B8DFE',
         },
       },
+      borderRadius: {
+        large: '44px',
+      },
       opacity: {
         85: '.85',
       },

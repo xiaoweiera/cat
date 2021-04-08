@@ -3,13 +3,18 @@ import { ProjectInfo } from '~/types/growthpad'
 
 const projects = [
   {
+    chain: 'Heco',
     symbol: 'ETH',
+    slug: 'heco-ether',
+    logo: '',
     name: 'ETH',
     desc: 'wala',
     reward_total: '10000',
     reward_value: '222222',
     reward_1_person: '123123123',
     start_ts: 10000,
+    end_ts: 1000000000,
+    active: false,
     status: 'progress',
   },
   {
@@ -20,6 +25,7 @@ const projects = [
     reward_value: '22222222',
     reward_1_person: '123123123',
     start_ts: 10000000,
+    active: true,
     status: 'progress',
   },
   {
@@ -30,6 +36,7 @@ const projects = [
     reward_value: '22222222',
     reward_1_person: '123123123',
     start_ts: 10000000,
+    active: true,
     status: 'progress',
   },
   {
