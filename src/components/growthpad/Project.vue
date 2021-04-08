@@ -7,6 +7,7 @@ const props = defineProps({
   project: Object as PropType<ProjectInfo>,
   title: String,
 })
+
 const formatRemainder = (ts: number | undefined): String => {
   if (ts === 0 || ts === undefined) {
     return '00 天 00小时 00分钟'
@@ -14,6 +15,9 @@ const formatRemainder = (ts: number | undefined): String => {
   return ''
 }
 
+/**
+ * 右侧背景图片
+ **/
 const rightTopImageStyle = () => {
   const style = {}
   if (props.project.status === 'done') {
@@ -25,6 +29,9 @@ const rightTopImageStyle = () => {
   return style
 }
 
+/**
+ * 按钮颜色样式
+ **/
 const projectBtnStyle = () => {
   const style = {}
   if (props.project.status === 'done') {
@@ -42,6 +49,7 @@ const projectBtnStyle = () => {
   style.backgroundColor = 'green'
   return style
 }
+
 
 </script>
 <template>
@@ -61,8 +69,10 @@ const projectBtnStyle = () => {
       <p class="ml-2 m-1">{{ props.project?.reward_1_person || '-' }}</p>
     </div>
     <div class="flex">
-      <p class="desc">距奖励距离</p>
-      <p class="ml-2 m-1">{{ formatRemainder(props.project?.start_ts) }}</p>
+      <div v-if="props.active">
+        <p class="desc">距奖励距离</p>
+        <p class="ml-2 m-1">{{ formatRemainder(props.project?.start_ts) }}</p>
+      </div>
     </div>
     <div class="project-default-btn" :style="projectBtnStyle()">
       立即参与 ->
