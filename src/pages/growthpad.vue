@@ -21,7 +21,6 @@ const activeTab = ref('1')
         </div>
         <GrowthpadSummary/>
         <div class="join-in">
-          申请入驻GrowthPad ->
         </div>
 
       </div>
@@ -36,8 +35,8 @@ const activeTab = ref('1')
     </div>
 
     <!--  我参与的 / 已结束 -->
-    <div class="text-left my-8">
-      <a-tabs default-active-key="1" v-model:activyKey="activeKey" @change="callback">
+    <div class="project-container">
+      <a-tabs default-active-key="1" v-model:activyKey="activeKey" @change="callback" size="small" type="line">
         <a-tab-pane key="1" tab="⛳️ 我参与的">
           <GrowthpadProjects :status="'progress'"/>
         </a-tab-pane>
@@ -65,6 +64,10 @@ const activeTab = ref('1')
   line-height: 140%;
 }
 
+.join-in {
+  background-image: url("growthpad/join-button.svg");
+  @apply h-32 bg-no-repeat w-auto;
+}
 .project-status-title {
   color: #033666;
   font-family: "PingFang SC";
@@ -72,5 +75,35 @@ const activeTab = ref('1')
   font-style: normal;
   font-size: 18px;
   line-height: 28px;
+}
+
+.project-container {
+  overflow: hidden;
+  @apply text-left my-12;
+}
+
+.project-container > .ant-tabs-card > .ant-tabs-content {
+  height: 240px;
+
+  //margin-top: -16px;
+}
+
+.project-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
+  //background: #fff;
+  padding: 16px;
+}
+
+.project-container > .ant-tabs-card > .ant-tabs-bar {
+  //border-color: #fff;
+}
+
+.project-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+  border-color: transparent;
+  background: transparent;
+}
+
+.project-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+  border-color: #fff;
+  background: #fff;
 }
 </style>

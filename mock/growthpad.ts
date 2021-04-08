@@ -30,7 +30,7 @@ const projects = [
     reward_value: '22222222',
     reward_1_person: '123123123',
     start_ts: 10000000,
-    status: 'progress',
+    status: 'done',
   },
 ] as ProjectInfo[]
 
@@ -53,8 +53,8 @@ export default [
     url: '/api/v1/growthpad/projects',
     method: 'get',
     response: ({ query: { status } }: { query: { status: String } }) => {
-      console.log('request query', status)
       const data: ProjectInfo[] = projects.filter(p => p.status === status)
+      // console.log('request query', status, data)
       return {
         code: 0,
         data,

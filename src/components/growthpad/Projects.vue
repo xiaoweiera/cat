@@ -30,7 +30,7 @@ onUnmounted(() => clearInterval(interval))
 </script>
 <template>
   <div class="flex">
-    <div v-for="project in projects" class="flex-1">
+    <div v-for="project in projects" class="flex-1" :key="props.status + project.symbol">
       <GrowthpadProject :project="project" :title="title[props.status]"/>
     </div>
   </div>

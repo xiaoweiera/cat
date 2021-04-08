@@ -67,10 +67,9 @@
 }
 
 .join-us {
-  background-image: url("growthpad/join-bg.png");
-  background-position: right;
+  background-image: url("growthpad/foot-join-bg.png");
   background-size: contain;
   background-repeat: no-repeat;
-  @apply bg-global-primary mx-auto h-30 mt-12 rounded-lg;
+  @apply h-32 mt-12;
 }
 </style>
