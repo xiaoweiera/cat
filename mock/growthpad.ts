@@ -23,6 +23,26 @@ const projects = [
     status: 'progress',
   },
   {
+    symbol: 'BTC',
+    name: 'BTC',
+    desc: 'wala',
+    reward_total: '10000000',
+    reward_value: '22222222',
+    reward_1_person: '123123123',
+    start_ts: 10000000,
+    status: 'progress',
+  },
+  {
+    symbol: 'BTC',
+    name: 'BTC',
+    desc: 'wala',
+    reward_total: '10000000',
+    reward_value: '22222222',
+    reward_1_person: '123123123',
+    start_ts: 10000000,
+    status: 'progress',
+  },
+  {
     symbol: 'MDX',
     name: 'MDX',
     desc: 'walaMDX',
@@ -53,7 +73,7 @@ export default [
     url: '/api/v1/growthpad/projects',
     method: 'get',
     response: ({ query: { status } }: { query: { status: String } }) => {
-      const data: ProjectInfo[] = projects.filter(p => p.status === status)
+      const data: ProjectInfo[] = projects.filter(p => p.status === status).slice(0, 6)
       // console.log('request query', status, data)
       return {
         code: 0,
