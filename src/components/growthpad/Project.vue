@@ -50,10 +50,9 @@ const projectBtnStyle = () => {
   return style
 }
 
-
 </script>
 <template>
-  <div class="project relative">
+  <div class="project">
     <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>
     <p class="text-center mb-4">{{ title }}</p>
     <div class="flex">
@@ -86,7 +85,7 @@ const projectBtnStyle = () => {
   width: 384px;
   height: 338px;
 
-  @apply shadow-lg p-5 m-5;
+  @apply shadow-lg p-5 m-5 relative;
 }
 
 .desc {
