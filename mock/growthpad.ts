@@ -18,7 +18,10 @@ const projects = [
     status: 'progress',
   },
   {
+    chain: 'Heco',
     symbol: 'BTC',
+    slug: 'bitcoin',
+    logo: '',
     name: 'BTC',
     desc: 'wala',
     reward_total: '10000000',
@@ -29,7 +32,10 @@ const projects = [
     status: 'progress',
   },
   {
+    chain: 'Heco',
     symbol: 'BTC',
+    slug: 'bitcoin2',
+    logo: '',
     name: 'BTC',
     desc: 'wala',
     reward_total: '10000000',
@@ -40,7 +46,10 @@ const projects = [
     status: 'progress',
   },
   {
+    chain: 'Heco',
     symbol: 'BTC',
+    slug: 'bitcoin3',
+    logo: '',
     name: 'BTC',
     desc: 'wala',
     reward_total: '10000000',
@@ -50,6 +59,9 @@ const projects = [
     status: 'progress',
   },
   {
+    chain: 'Heco',
+    slug: 'mdex',
+    logo: '',
     symbol: 'MDX',
     name: 'MDX',
     desc: 'walaMDX',

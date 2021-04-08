@@ -3,7 +3,7 @@
     <div class="why-us">为什么选择我们</div>
     <div class="flex">
       <div class="flex-1 mt-8">
-        <img src="growthpad/feature1.svg" alt="" class="mx-auto">
+        <img src="/assets/growthpad/feature1.svg" alt="" class="mx-auto">
         <div class="feature-title">精准触达、用户更真实</div>
         <div class="feature-detail">
           <p>全面完善的链上信息画像、精准的项目用户特征数据库</p>
@@ -12,7 +12,7 @@
       </div>
 
       <div class="flex-1 mt-8">
-        <img src="growthpad/feature2.svg" alt="" class="mx-auto">
+        <img src="/assets/growthpad/feature2.svg" alt="" class="mx-auto">
         <div class="feature-title">甄选流量、投放更精准</div>
         <div class="feature-detail">
           <p>庞大的用户基础，以数百社群和媒体矩阵为核心</p>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="flex-1 mt-8">
-        <img src="growthpad/feature3.svg" alt="" class="mx-auto">
+        <img src="/assets/growthpad/feature3.svg" alt="" class="mx-auto">
         <div class="feature-title">多维服务、效率更高</div>
         <div class="feature-detail">
           <p>围绕您的需求定制增长策略</p>
@@ -44,6 +44,7 @@
   color: #033666;
   @apply mt-4;
 }
+
 .feature-title {
   font-family: "PingFang SC";
   font-style: normal;
@@ -67,7 +68,7 @@
 }
 
 .join-us {
-  background-image: url("growthpad/foot-join-bg.png");
+  background-image: url("/assets/growthpad/foot-join-bg.png");
   background-size: contain;
   background-repeat: no-repeat;
   @apply h-32 mt-12;

@@ -29,7 +29,7 @@ onMounted(init)
 onUnmounted(() => clearInterval(interval))
 </script>
 <template>
-  <div class="grid grid-cols-3 gap-4">
+  <div class="grid grid-cols-3 gap-5">
     <div v-for="project in projects" :key="props.status + project.symbol">
       <GrowthpadProject :project="project" :title="title[props.status]"/>
     </div>

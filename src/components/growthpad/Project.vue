@@ -1,18 +1,24 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 
-import type { ProjectInfo, ProjectStatus } from '~/types/growthpad'
+import type { ProjectInfo } from '~/types/growthpad'
 
 const props = defineProps({
   project: Object as PropType<ProjectInfo>,
   title: String,
 })
 
+const router = useRouter()
 const formatRemainder = (ts: number | undefined): String => {
   if (ts === 0 || ts === undefined) {
     return '00 天 00小时 00分钟'
   }
   return ''
+}
+
+const go = (value: String) => {
+  router.push(`/growthpad/${encodeURIComponent(value)}`)
 }
 
 /**
@@ -21,10 +27,10 @@ const formatRemainder = (ts: number | undefined): String => {
 const rightTopImageStyle = () => {
   const style = {}
   if (props.project.status === 'done') {
-    style.backgroundImage = 'url("growthpad/join-button.svg")'
+    style.backgroundImage = 'url("/assets/growthpad/join-button.svg")'
   }
   else if (props.project.chain === 'Heco') {
-    style.backgroundImage = 'url("growthpad/feature1.svg")'
+    style.backgroundImage = 'url("/assets/growthpad/feature1.svg")'
   }
   return style
 }
@@ -73,7 +79,7 @@ const projectBtnStyle = () => {
         <p class="ml-2 m-1">{{ formatRemainder(props.project?.start_ts) }}</p>
       </div>
     </div>
-    <div class="project-default-btn" :style="projectBtnStyle()">
+    <div class="project-default-btn" :style="projectBtnStyle()" @click="go(props.project.slug)">
       立即参与 ->
     </div>
   </div>
@@ -85,7 +91,7 @@ const projectBtnStyle = () => {
   width: 384px;
   height: 338px;
 
-  @apply shadow-lg p-5 m-5 relative;
+  @apply shadow-lg p-5 m-5 relative mx-auto;
 }
 
 .desc {

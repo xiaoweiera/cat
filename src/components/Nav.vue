@@ -15,17 +15,17 @@ const navIsSelect = (path) => {
 
 <template>
   <nav class="flex items-center justify-start px-6 mt-2">
-    <img src="logo.svg" alt="KingData" class="flex-none p-2">
+    <img src="/assets/logo.svg" alt="KingData" class="flex-none p-2">
 
     <div class="flex-grow mt-2">
       <div class="flex font-normal text-base text-navItem-default">
-        <img src="more-nav-item.svg" alt="more">
+        <img src="/assets/more-nav-item.svg" alt="more">
         <router-link to="index" :class="navIsSelect('#')">7x27 小时监控</router-link>
         <router-link to="#" :class="navIsSelect('#')">数据图表</router-link>
         <router-link to="#" :class="navIsSelect('#')">DeFi 行情</router-link>
         <router-link to="#" :class="navIsSelect('#')">流动性分析</router-link>
         <router-link to="reports" :class="navIsSelect('reports')">研究报告</router-link>
-        <router-link to="growthpad" :class="navIsSelect('growthpad')">Growthpad</router-link>
+        <router-link to="/growthpad" :class="navIsSelect('growthpad')">Growthpad</router-link>
       </div>
     </div>
 
