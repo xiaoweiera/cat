@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const activeTab = ref('1')
 </script>
 
 <template>
@@ -31,15 +34,19 @@
       <p class="project-status-title">⛳️ 正在进行</p>
       <GrowthpadProjects :status="'progress'"/>
     </div>
+
     <!--  我参与的 / 已结束 -->
-    <div class="progress text-left">
-      <p class="project-status-title">⛳️ 我参与的</p>
-      <GrowthpadProjects :status="'progress'"/>
+    <div class="text-left my-8">
+      <a-tabs default-active-key="1" v-model:activyKey="activeKey" @change="callback">
+        <a-tab-pane key="1" tab="⛳️ 我参与的">
+          <GrowthpadProjects :status="'progress'"/>
+        </a-tab-pane>
+        <a-tab-pane key="2" tab="⛳️ 已结束">
+          <GrowthpadProjects :status="'done'"/>
+        </a-tab-pane>
+      </a-tabs>
     </div>
-    <div class="progress text-left">
-      <p class="project-status-title">⛳️ 已结束</p>
-      <GrowthpadProjects :status="'done'"/>
-    </div>
+
     <GrowthpadFooter/>
   </div>
 </template>

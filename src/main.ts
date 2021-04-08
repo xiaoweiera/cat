@@ -1,6 +1,9 @@
 import { ViteSSG } from 'vite-ssg'
 import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'layouts-generated'
+import Antd from 'ant-design-vue'
+
+import 'ant-design-vue/dist/antd.css'
 import App from './App.vue'
 import 'virtual:windi.css'
 import 'virtual:windi-devtools'
@@ -14,6 +17,7 @@ export const createApp = ViteSSG(
   { routes },
   (ctx) => {
     // install all modules under `modules/`
+    ctx.app.use(Antd)
     Object.values(import.meta.globEager('./modules/*.ts')).map(i => i.install?.(ctx))
   },
 )
