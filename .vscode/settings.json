@@ -14,4 +14,7 @@
   "files.associations": {
     "*.css": "postcss",
   },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }
