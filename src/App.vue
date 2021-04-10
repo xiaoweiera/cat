@@ -17,3 +17,17 @@ useHead({
 <template>
   <router-view/>
 </template>
+<style>
+@media screen and (max-width: 768px) {
+  .xshidden{
+    display: none !important;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .mdhidden{
+    display: none !important;
+  }
+}
+</style>

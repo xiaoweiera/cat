@@ -85,7 +85,7 @@ const props = defineProps({
 
       <div class="my-5">
         <p class="text-base">代币发行情况</p>
-        <div class="grid grid-cols-4 mt-4">
+        <div class="grid grid-cols-4 mt-4 ">
           <div class="flex">
             <p class="summary-title">代币名称</p>
             <p>MDX</p>

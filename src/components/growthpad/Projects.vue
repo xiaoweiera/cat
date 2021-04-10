@@ -23,15 +23,23 @@ const init = () => {
     loadProject(props.status, (data) => {
       projects.value = data
     })
-  }, 5000)
+  }, 1000)
 }
 onMounted(init)
 onUnmounted(() => clearInterval(interval))
 </script>
 <template>
-  <div class="grid grid-cols-3 gap-5">
-    <div v-for="project in projects" :key="props.status + project.symbol">
-      <GrowthpadProject :project="project" :title="title[props.status]"/>
+  <div class="grid mt-4 md:mt-6 gap-4 md:gap-6 md:mt-6 lg:grid-cols-2 xl:grid-cols-3    ">
+    <div class="w-full  projectContainer" v-for="project in projects" :key="props.status + project.symbol">
+
+      <GrowthpadProject  :project="project" :title="title[props.status]"/>
     </div>
   </div>
 </template>
+<style>
+.projectContainer{
+  //max-width: 384px;
+  min-width: 345px;
+
+}
+</style>
