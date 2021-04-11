@@ -56,7 +56,7 @@ const projectBtnStyle = () => {
     return style
   }
   else if(props.project.status === 'doing'){
-    style.backgroundCOlor='#2B8DFE'
+    style.backgroundColor='#2B8DFE'
     return style
   }
   else if(props.project.status==='over'){
