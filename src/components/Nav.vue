@@ -7,34 +7,53 @@ const route = useRoute()
 const select = route.path.split('/')[1] || ''
 const navIsSelect = (path) => {
   if (path === select) {
-    return 'mx-1 text-global-primary'
+    return 'text-global-primary ml-kd32px'
   }
-  return 'mx-1 text-global-default opacity-85'
+  return ' text-global-default opacity-85 ml-kd32px '
 }
 </script>
 
 <template>
-  <nav class="flex items-center justify-start px-6 mt-2">
-    <img src="/assets/logo.svg" alt="KingData" class="flex-none p-2">
-
-    <div class="flex-grow mt-2">
+  <nav class="xshidden flex items-center  px-6 h-18 font-kdFang    justify-start">
+    <img src="/assets/logo.svg" alt="KingData" class="flex-none ">
+    <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal text-base text-navItem-default">
-        <img src="/assets/more-nav-item.svg" alt="more">
-        <router-link to="index" :class="navIsSelect('#')">7x27 小时监控</router-link>
+<!--        <img src="/assets/more-nav-item.svg" alt="more">-->
         <router-link to="#" :class="navIsSelect('#')">数据图表</router-link>
-        <router-link to="#" :class="navIsSelect('#')">DeFi 行情</router-link>
-        <router-link to="#" :class="navIsSelect('#')">流动性分析</router-link>
+        <router-link  to="index" :class="navIsSelect('#')">7x27 小时监控</router-link>
+<!--        <router-link to="#" :class="navIsSelect('#')">DeFi 行情</router-link>-->
+<!--        <router-link to="#" :class="navIsSelect('#')">流动性分析</router-link>-->
         <router-link to="reports" :class="navIsSelect('reports')">研究报告</router-link>
         <router-link to="/growthpad" :class="navIsSelect('growthpad')">Growthpad</router-link>
       </div>
     </div>
 
-    <ul class="flex-none text-navItem-default">
-      <button class="bg-blue-600 w-20 h-10 rounded-md mx-1 px-1">
-        <a href="#" class="text-white">链接钱包</a>
-      </button>
+    <ul class="flex-none text-golbal-default">
+<!--      <button class="bg-blue-600 w-20 h-10 rounded-md mx-1 px-1">-->
+<!--        <a href="#" class="text-white">链接钱包</a>-->
+<!--      </button>-->
       <a href="#" :class="navIsSelect('#')">APP下载</a>
       <a href="#"></a>
     </ul>
   </nav>
+  <div class="mdhidden flex items-center justify-between h-15 bg px-5 ">
+    <img
+        class="w-6 h-6 mt-1.5"
+        src="https://res.ikingdata.com/nav/list.png"
+        alt=""
+    />
+    <img
+      class="w-25 h-8"
+      src="https://res.ikingdata.com/nav/topicLogo.png"
+      alt=""
+    />
+    <div> </div>
+  </div>
 </template>
+<style lang="postcss" scoped>
+.bg{
+  background: #EAF3FE;
+  box-shadow: 0px 1px 0px rgba(43, 140, 255, 0.02), 0px 4px 12px rgba(0, 0, 0, 0.06);
+
+}
+</style>

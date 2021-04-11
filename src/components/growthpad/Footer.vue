@@ -1,8 +1,8 @@
 <template>
-  <div class="text-center">
+  <div class="text-center mt-15 md:mt-20">
     <div class="why-us">为什么选择我们</div>
-    <div class="flex">
-      <div class="flex-1 mt-8">
+    <div class="grid sm:grid-cols-1 gap-6  md:gap-7 mt-8  md:grid-cols-2 xl:grid-cols-3 ">
+      <div class="flex-1 min-w-min288px ">
         <img src="/assets/growthpad/feature1.svg" alt="" class="mx-auto">
         <div class="feature-title">精准触达、用户更真实</div>
         <div class="feature-detail">
@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="flex-1 mt-8">
+      <div class="flex-1 min-w-min288px">
         <img src="/assets/growthpad/feature2.svg" alt="" class="mx-auto">
         <div class="feature-title">甄选流量、投放更精准</div>
         <div class="feature-detail">
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="flex-1 mt-8">
+      <div class="flex-1 min-w-min288px">
         <img src="/assets/growthpad/feature3.svg" alt="" class="mx-auto">
         <div class="feature-title">多维服务、效率更高</div>
         <div class="feature-detail">
@@ -30,47 +30,51 @@
       </div>
     </div>
   </div>
-  <div class="join-us">
+  <div class="join-mobile-us mt-15 mdhidden">
+    <a class="w-full h-full" href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full" src="https://res.ikingdata.com/nav/mobileFoot.png" alt="">
+    </a>
+  </div>
+  <div class="join-us xshidden relative flex  items-center">
+    <a class="w-full"  href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
+    <img class="w-full " src="/assets/growthpad/footer.png" alt="">
+    </a>
   </div>
 </template>
 
 <style scoped lang="postcss">
+.imgVisit{
+  width: 179px;
+  height: 34px;
+  @apply absolute right-19;
+}
+.imgVisitImg{
+  width: 179px;
+  height: 34px;
+}
 .why-us {
-  font-family: "PingFang SC";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 150%;
-  color: #033666;
-  @apply mt-4;
+
+  @apply font-medium font-kdFang  text-kd24px150 text-global-highTitle;
 }
 
 .feature-title {
-  font-family: "PingFang SC";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 28px;
-  color: #033666;
-  @apply mt-4;
+
+  @apply mt-3 text-kd16px24px md:text-kd18px150 text-global-highTitle font-kdFang font-normal;
 }
 
 .feature-detail {
-  font-family: PingFang SC;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 18px;
-  /* or 129% */
 
-  text-align: center;
-  @apply text-global-default opacity-85 mt-4;
+  @apply text-global-default text-kd12px16px md:text-kd14px18px  opacity-85 font-kdFang  mt-1.5;
 }
 
 .join-us {
-  background-image: url("/assets/growthpad/foot-join-bg.png");
+  max-width: 1200px;
+  margin-top:81px;
+  //background-image: url("/assets/growthpad/footer.png");
   background-size: contain;
   background-repeat: no-repeat;
-  @apply h-32 mt-12;
+  @apply h-50 mb-10;
+}
+.join-mobile-us{
+  width:100%;
 }
 </style>
