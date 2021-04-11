@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const activeTab = ref('1')
+import { ref,onMounted} from 'vue'
+import {wxShare} from '~/lib/wxShare.ts'
+onMounted(async() => {
+  wxShare('Kingdata','KingData, 数据赋能交易,快人一步, 遇见财富')
+})
+// const activeTab = ref('1')
 </script>
-
 <template>
-  <div class="max-w-mx1440 px-4 md:px-30   flex flex-col ">
+  <div class="max-w-mx1440  md:mt-20  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
       <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">
         <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">
@@ -24,27 +26,31 @@ const activeTab = ref('1')
         <GrowthpadSummary/>
 
         <div class="join-in md:mt-kd32px mt-kd35px ">
-          <a href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank"><img src="/assets/growthpad/join-button.svg" alt=""></a>
+          <a href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank"><img src="https://res.ikingdata.com/nav/join.png" alt=""></a>
         </div>
 
       </div>
       <img src="https://res.ikingdata.com/nav/hero-money.png" alt="" class="xshidden hero-money mt-6 mx-auto    xl:ml-10.5 xl:mt-0 ">
     </div>
 
-    <!--  正在进行中-->
+    <!--  即将开始-->
     <div class="progress text-left mt-15 md:mt-20 ">
       <p class="project-status-title   text-center md:text-left">⏱ 即将开始</p>
       <GrowthpadProjects :status="'progress'"/>
     </div>
-
-    <!--  我参与的 / 已结束 -->
+    <!--  正在进行-->
+<!--    <div class="progress text-left mt-15 md:mt-20 ">-->
+<!--      <p class="project-status-title   text-center md:text-left">⛳️ 正在进行</p>-->
+<!--      <GrowthpadProjects :status="'doing'"/>-->
+<!--    </div>-->
+<!--      我参与的 / 已结束-->
 <!--    <div class="project-container">-->
-<!--      <a-tabs default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">-->
-<!--        <a-tab-pane key="1" tab="🎰 我参与的">-->
-<!--          <GrowthpadProjects :status="'progress'"/>-->
-<!--        </a-tab-pane>-->
-<!--        <a-tab-pane key="2" tab="🎯 已结束">-->
+<!--      <a-tabs tabBarGutter="48px" default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">-->
+<!--        <a-tab-pane key="1" class="text-kd18px28px" tab="🎰 我参与的">-->
 <!--          <GrowthpadProjects :status="'done'"/>-->
+<!--        </a-tab-pane>-->
+<!--        <a-tab-pane key="2" class="text-kd18px28px"  tab="🎯 已结束">-->
+<!--          <GrowthpadProjects :status="'over'"/>-->
 <!--        </a-tab-pane>-->
 <!--      </a-tabs>-->
 <!--    </div>-->
@@ -59,6 +65,19 @@ const activeTab = ref('1')
   width: 518px;
   height: 388px;
 
+}
+/deep/.ant-tabs-tab{
+  font-size:18px;
+  line-height:28px;
+  padding:0px !important;
+
+  padding-bottom:8px !important;
+}
+/deep/.ant-tabs-tab-active{
+  color: #2B8DFE !important;
+}
+/deep/.ant-tabs-tab{
+  color: rgba(37, 62, 111, 0.65);
 }
 .imgBg{
   background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
@@ -89,7 +108,7 @@ const activeTab = ref('1')
   width:187px !important;
   height:42px !important;
   //background-image: url("/assets/growthpad/join-button.svg");
-  @apply  bg-no-repeat w-auto mx-auto md:ml-0;
+  @apply   w-auto mx-auto md:ml-0;
 }
 .project-status-title {
   color: #033666;

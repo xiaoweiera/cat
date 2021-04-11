@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import {ref} from "vue";
 
+let show = ref(false)
+const changeShow=(state)=>{
+  show.value=state
+}
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
@@ -15,7 +20,7 @@ const navIsSelect = (path) => {
 
 <template>
   <nav class="xshidden flex items-center  px-6 h-18 font-kdFang    justify-start">
-    <img src="/assets/logo.svg" alt="KingData" class="flex-none ">
+    <img  src="/assets/logo.svg" alt="KingData" class="flex-none ">
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal text-base text-navItem-default">
 <!--        <img src="/assets/more-nav-item.svg" alt="more">-->
@@ -37,7 +42,7 @@ const navIsSelect = (path) => {
     </ul>
   </nav>
   <div class="mdhidden flex items-center justify-between h-15 bg px-5 ">
-    <img
+    <img @click="changeShow(true)"
         class="w-6 h-6 mt-1.5"
         src="https://res.ikingdata.com/nav/list.png"
         alt=""
@@ -49,6 +54,15 @@ const navIsSelect = (path) => {
     />
     <div> </div>
   </div>
+  <div v-if="show" class="mdhidden bg-white w-70 fixed z-3 top-0 h-full">
+    <img @click="changeShow(false)" src="https://res.ikingdata.com/nav/vclose.png" class="absolute right-3 top-3 w-5 h-5" alt="">
+      <div class="flex flex-col ml-4 mt-10">
+        <a class="text-kd16px18px font-medium text-global-default w-20 mb-3" href="https://www.kingdata.com/topic">数据图表</a>
+        <a class="text-kd16px18px font-medium text-global-default w-27 mb-3" href="https://www.kingdata.com/news">7x27 小时监控</a>
+        <a class="text-kd16px18px font-medium text-global-default w-20 mb-43" href="https://www.kingdata.com/reports">研究报告</a>
+      </div>
+  </div>
+
 </template>
 <style lang="postcss" scoped>
 .bg{
