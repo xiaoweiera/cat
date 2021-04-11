@@ -39,6 +39,7 @@ specifiers:
   vue: ^3.0.10
   vue-i18n: ^9.1.2
   vue-router: ^4.0.5
+  weixin-js-sdk: 1.2.0
 
 dependencies:
   '@vueuse/core': 4.8.1_vue@3.0.10
@@ -49,6 +50,7 @@ dependencies:
   vue: 3.0.10
   vue-i18n: 9.1.2_vue@3.0.10
   vue-router: 4.0.5_vue@3.0.10
+  weixin-js-sdk: 1.2.0
 
 devDependencies:
   '@antfu/eslint-config': 0.6.2_eslint@7.23.0+typescript@4.2.4
@@ -6502,6 +6504,10 @@ packages:
     resolution: {integrity: sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==}
     engines: {node: '>=10.4'}
     dev: true
+
+  /weixin-js-sdk/1.2.0:
+    resolution: {integrity: sha1-UTKUnrZbPU5fPgUr07axCr30fVU=}
+    dev: false
 
   /whatwg-encoding/1.0.5:
     resolution: {integrity: sha512-b5lim54JOPN9HtzvK9HFXvBma/rnfFeqsic0hSpjtDbVxR3dJKLc+KB4V6GgiGOvl7CY/KNh8rxSo9DKQrnUEw==}

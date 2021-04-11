@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 const projects = ref([])
-
+projects.value=[{},{},{}]
 const title = {
   progress: '即将开始',
 }
@@ -25,7 +25,8 @@ const init = () => {
     })
   }, 1000)
 }
-onMounted(init)
+
+// onMounted(init)
 onUnmounted(() => clearInterval(interval))
 </script>
 <template>

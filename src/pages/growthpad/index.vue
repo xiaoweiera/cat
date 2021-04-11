@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
+import { ref,onMounted} from 'vue'
+import {wxShare} from '../../api/wxShare.ts'
+onMounted(async() => {
+  wxShare('Kingdata','KingData, 数据赋能交易,快人一步, 遇见财富')
+})
 const activeTab = ref('1')
 </script>
-
 <template>
   <div class="max-w-mx1440  md:mt-20  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
@@ -37,21 +39,21 @@ const activeTab = ref('1')
       <GrowthpadProjects :status="'progress'"/>
     </div>
     <!--  正在进行-->
-    <div class="progress text-left mt-15 md:mt-20 ">
-      <p class="project-status-title   text-center md:text-left">⛳️ 正在进行</p>
-      <GrowthpadProjects :status="'doing'"/>
-    </div>
+<!--    <div class="progress text-left mt-15 md:mt-20 ">-->
+<!--      <p class="project-status-title   text-center md:text-left">⛳️ 正在进行</p>-->
+<!--      <GrowthpadProjects :status="'doing'"/>-->
+<!--    </div>-->
 <!--      我参与的 / 已结束-->
-    <div class="project-container">
-      <a-tabs tabBarGutter="48px" default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">
-        <a-tab-pane key="1" class="text-kd18px28px" tab="🎰 我参与的">
-          <GrowthpadProjects :status="'done'"/>
-        </a-tab-pane>
-        <a-tab-pane key="2" class="text-kd18px28px"  tab="🎯 已结束">
-          <GrowthpadProjects :status="'over'"/>
-        </a-tab-pane>
-      </a-tabs>
-    </div>
+<!--    <div class="project-container">-->
+<!--      <a-tabs tabBarGutter="48px" default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">-->
+<!--        <a-tab-pane key="1" class="text-kd18px28px" tab="🎰 我参与的">-->
+<!--          <GrowthpadProjects :status="'done'"/>-->
+<!--        </a-tab-pane>-->
+<!--        <a-tab-pane key="2" class="text-kd18px28px"  tab="🎯 已结束">-->
+<!--          <GrowthpadProjects :status="'over'"/>-->
+<!--        </a-tab-pane>-->
+<!--      </a-tabs>-->
+<!--    </div>-->
 
     <GrowthpadFooter/>
   </div>

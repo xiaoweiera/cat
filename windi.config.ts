@@ -56,9 +56,6 @@ export default defineConfig({
 
                 },
             },
-            borderRadius:{
-                'jj':'100px'
-            },
             opacity: {
                 85: '.85',
             },
