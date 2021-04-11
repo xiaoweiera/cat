@@ -2,7 +2,7 @@ FROM node:lts-alpine as base
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm install -g pnpm
+RUN npm install -g pnpm && pnpm i
 COPY . .
 RUN pnpm run build
 
