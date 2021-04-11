@@ -16,12 +16,15 @@ export default defineConfig({
                 'kd12px18px': ['12px', '18px'],
                 'kd18px28px': ['18px', '28px'],
                 'kd36px':['36px','140%'],
+                'kd42px110':['42px','110%'],
+                'kd16px150':['16px','150%'],
                 'kd26px140':['26px','140%'],
                 'kd12px16px':['12px','16px'],
                 'kd24px30px':['24px','30px'],
                 'kd16px24px':['16px','24px'],
                 'kd14px18px':['14px','18px'],
                 'kd24px150':['24px','150%'],
+                'kd24px36px':['24px','36px'],
                 'kd24px110':['24px','110%']
             },
             fontFamily: {
