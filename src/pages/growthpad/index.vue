@@ -5,7 +5,7 @@ const activeTab = ref('1')
 </script>
 
 <template>
-  <div class="max-w-mx1440 px-4  flex flex-col ">
+  <div class="max-w-mx1440 px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
       <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">
         <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">
