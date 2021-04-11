@@ -24,7 +24,7 @@ const activeTab = ref('1')
         <GrowthpadSummary/>
 
         <div class="join-in md:mt-kd32px mt-kd35px ">
-          <a href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank"><img src="/assets/growthpad/join-button.svg" alt=""></a>
+          <a href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank"><img src="https://res.ikingdata.com/nav/join.png" alt=""></a>
         </div>
 
       </div>
@@ -42,16 +42,16 @@ const activeTab = ref('1')
       <GrowthpadProjects :status="'doing'"/>
     </div>
 <!--      我参与的 / 已结束-->
-<!--    <div class="project-container">-->
-<!--      <a-tabs tabBarGutter="48px" default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">-->
-<!--        <a-tab-pane key="1" class="text-kd18px28px" tab="🎰 我参与的">-->
-<!--          <GrowthpadProjects :status="'done'"/>-->
-<!--        </a-tab-pane>-->
-<!--        <a-tab-pane key="2" class="text-kd18px28px"  tab="🎯 已结束">-->
-<!--          <GrowthpadProjects :status="'over'"/>-->
-<!--        </a-tab-pane>-->
-<!--      </a-tabs>-->
-<!--    </div>-->
+    <div class="project-container">
+      <a-tabs tabBarGutter="48px" default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">
+        <a-tab-pane key="1" class="text-kd18px28px" tab="🎰 我参与的">
+          <GrowthpadProjects :status="'done'"/>
+        </a-tab-pane>
+        <a-tab-pane key="2" class="text-kd18px28px"  tab="🎯 已结束">
+          <GrowthpadProjects :status="'over'"/>
+        </a-tab-pane>
+      </a-tabs>
+    </div>
 
     <GrowthpadFooter/>
   </div>
@@ -106,7 +106,7 @@ const activeTab = ref('1')
   width:187px !important;
   height:42px !important;
   //background-image: url("/assets/growthpad/join-button.svg");
-  @apply  bg-no-repeat w-auto mx-auto md:ml-0;
+  @apply   w-auto mx-auto md:ml-0;
 }
 .project-status-title {
   color: #033666;

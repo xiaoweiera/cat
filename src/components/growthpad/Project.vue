@@ -52,7 +52,16 @@ const tipImg = () => {
 const projectBtnStyle = () => {
   const style = {}
   if (props.project.status === 'done') {
-    style.backgroundColor = 'none'
+    style.backgroundColor = '#0EC674'
+    return style
+  }
+  else if(props.project.status === 'doing'){
+    style.backgroundCOlor='#2B8DFE'
+    return style
+  }
+  else if(props.project.status==='over'){
+    style.backgroundColor='#ffffff'
+    style.opacity=0.3
     return style
   }
   if (props.project.status === 'progress') {
@@ -70,6 +79,7 @@ const projectBtnStyle = () => {
 </script>
 <template>
   <div  class="project font-kdFang relative">
+
 <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
     <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150">{{ title }}</p>
     <img v-if="status==='doing' || status==='done'" class="absolute opacity-6 right-3.5 top-2.5  w-43 h-43" :src="tipImg()" alt="">
@@ -98,7 +108,7 @@ const projectBtnStyle = () => {
       <p class="desc">每人可领取</p>
       <p class="ml-8 text-kd14px18px">{{ props.project?.reward_1_person || '-' }}</p>
     </div>
-    <div class="flex mt-3 items-end  font-normal ">
+    <div v-if="status!=='over'" class="flex mt-3 items-end  font-normal ">
       <p class="desc">距奖励距离</p>
       <div class="ml-8 flex  text-left items-center  justify-center text-global-primary ">
         <div class="flex items-end">
@@ -111,12 +121,15 @@ const projectBtnStyle = () => {
         </div>
         <div class="flex ml-2 items-end">
           <div class="text-kd24px110 font-bold font-kdExp">00</div>
-          <div class="ml-1 text-kd12px18px">分钟</div>
+          <div class="ml-1 text-kd12px18px ">分钟</div>
         </div>
       </div>
     </div>
-
-<!--    <div class="project-default-btn" :style="projectBtnStyle()" @click="go(props.project.slug)">-->
+    <div v-if="status!=='progress'" :style="projectBtnStyle()" @click="go(props.project.slug)" class="flex items-center justify-center text- mt-6 bg-global-primary py-2.5 px-3 goButton">
+      <div :class="status==='over'?'text-global-primary text-kd14px18px font-medium':'text-white text-kd14px18px font-medium'">参与预热任务</div>
+      <img class="ml-1.5" src="https://res.ikingdata.com/nav/goTip.svg" alt="">
+    </div>
+<!--    <div class="project-default-btn"  @click="go(props.project.slug)">-->
 <!--      立即参与 ->-->
 <!--    </div>-->
   </div>
