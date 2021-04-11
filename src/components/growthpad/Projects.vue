@@ -10,24 +10,23 @@ const props = defineProps({
   },
 })
 
-const projects = ref([])
-projects.value=[{},{},{}]
+const projects = ref([{},{},{}])
 const title = {
   progress: '即将开始',
 }
 
 let interval = null
 
-const init = () => {
-  interval = setInterval(() => {
-    loadProject(props.status, (data) => {
-      projects.value = data
-    })
-  }, 1000)
-}
+// const init = () => {
+//   interval = setInterval(() => {
+//     loadProject(props.status, (data) => {
+//       projects.value = data
+//     })
+//   }, 1000)
+// }
 
 // onMounted(init)
-onUnmounted(() => clearInterval(interval))
+// onUnmounted(() => clearInterval(interval))
 </script>
 <template>
   <div class=" grid grid-cols-1  mt-4 md:mt-6 gap-4 md:gap-6 md:mt-6 lg:grid-cols-2 xl:grid-cols-3    ">

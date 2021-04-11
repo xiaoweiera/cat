@@ -57,9 +57,9 @@ const navIsSelect = (path) => {
   <div v-if="show" class="mdhidden bg-white w-70 fixed z-3 top-0 h-full">
     <img @click="changeShow(false)" src="https://res.ikingdata.com/nav/vclose.png" class="absolute right-3 top-3 w-5 h-5" alt="">
       <div class="flex flex-col ml-4 mt-10">
-        <a class="text-kd16px24px font-medium text-global-default w-20 mb-3" href="https://www.kingdata.com/topic">数据图表</a>
-        <a class="text-kd16px24px font-medium text-global-default w-27 mb-3" href="https://www.kingdata.com/news">7x27 小时监控</a>
-        <a class="text-kd16px24px font-medium text-global-default w-20 mb-43" href="https://www.kingdata.com/reports">研究报告</a>
+        <a class="text-kd16px18px font-medium text-global-default w-20 mb-3" href="https://www.kingdata.com/topic">数据图表</a>
+        <a class="text-kd16px18px font-medium text-global-default w-27 mb-3" href="https://www.kingdata.com/news">7x27 小时监控</a>
+        <a class="text-kd16px18px font-medium text-global-default w-20 mb-43" href="https://www.kingdata.com/reports">研究报告</a>
       </div>
   </div>
 

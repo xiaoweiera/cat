@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref,onMounted} from 'vue'
-import {wxShare} from '../../api/wxShare.ts'
+import {wxShare} from '../../lib/wxShare.ts'
 onMounted(async() => {
   wxShare('Kingdata','KingData, 数据赋能交易,快人一步, 遇见财富')
 })
-const activeTab = ref('1')
+// const activeTab = ref('1')
 </script>
 <template>
   <div class="max-w-mx1440  md:mt-20  px-4 md:px-30   flex flex-col ">
