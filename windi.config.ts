@@ -11,7 +11,10 @@ export default defineConfig({
         extend: {
             fontSize: {
                 'kd14px22px': ['14px', '22px'],
+                'kd14px20px': ['14px', '20px'],
                 'kd12px22px': ['12px', '22px'],
+                'kd12px18px': ['12px', '18px'],
+                'kd18px28px': ['18px', '28px'],
                 'kd36px':['36px','140%'],
                 'kd26px140':['26px','140%'],
                 'kd12px16px':['12px','16px'],
@@ -49,6 +52,9 @@ export default defineConfig({
                     mobileBody:'#D8E8FF',
 
                 },
+            },
+            borderRadius:{
+                'jj':'100px'
             },
             opacity: {
                 85: '.85',
