@@ -1,17 +1,17 @@
 FROM node:lts-alpine as base
 
 FROM base as build-stage
-WORKDIR /app
+WORKDIR /build
 COPY package*.json ./
-RUN npm install -g pnpm
 COPY . .
-RUN pnpm i && pnpm run build
+RUN npm install -g pnpm && pnpm i && pnpm run build
 
 # production stage
 FROM base as production-stage
 WORKDIR /app
 RUN npm i vite
 COPY package.json ./
-COPY --from=build-stage /app/dist /app/dist
+COPY --from=build-stage /build/dist /app/dist
 EXPOSE 5000
+
 CMD ["npm", "run", "preview"]
