@@ -11,6 +11,7 @@ RUN pnpm i && pnpm run build
 FROM base as production-stage
 WORKDIR /app
 RUN npm i vite
+COPY package.json ./
 COPY --from=build-stage /app/dist /app/dist
 EXPOSE 5000
 CMD ["npm", "run", "preview"]
