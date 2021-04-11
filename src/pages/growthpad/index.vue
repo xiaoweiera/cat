@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref,onMounted} from 'vue'
-import {wxShare} from '../../lib/wxShare.ts'
+import {wxShare} from '~/lib/wxShare.ts'
 onMounted(async() => {
   wxShare('Kingdata','KingData, 数据赋能交易,快人一步, 遇见财富')
 })
