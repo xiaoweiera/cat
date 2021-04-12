@@ -11,7 +11,7 @@
     <!--        alt=""-->
     <!--    />-->
   </div>
-  <div class=" containerbgs    md:bg-opacity-100">
+  <div class=" containerbgs  bg-global-body   md:bg-opacity-100" >
     <Nav class="relative "></Nav>
     <main class="  w-full   flex justify-center  ">
       <router-view/>
