@@ -36,6 +36,7 @@
 @media screen and (min-width: 768px) {
   .containerbgs {
     background-image: url("https://res.ikingdata.com/nav/kgBodytopBg.jpg");
+    background-size:100% 100%;
   }
 }
 

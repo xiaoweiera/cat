@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { defineProps, reactive, ref, onMounted, onUnmounted } from 'vue'
-import { loadProject } from '~/logic/growthpad/projects'
+// import { loadProject } from '~/logic/growthpad/projects'
 
 const props = defineProps({
   status: {
