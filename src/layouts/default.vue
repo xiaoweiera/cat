@@ -1,12 +1,12 @@
 <template >
-  <div class="yuanDiv">
+  <div class="circleContainer">
     <img
-        class="img-responsive abBgLeft"
+        class="img-responsive bgLeft"
         src="https://res.ikingdata.com/nav/yuanLeft.png"
         alt=""
     />
     <img
-        class="img-responsive abBgRight"
+        class="img-responsive bgRight"
         src="https://res.ikingdata.com/nav/yuanRight.png"
         alt=""
     />
@@ -20,7 +20,7 @@
   </div>
 </template>
 <style>
-.yuanDiv {
+.circleContainer {
   position: fixed;
   width: 100%;
   z-index:1 ;
@@ -29,22 +29,16 @@
   background-color: white;
   background-image: url("https://res.ikingdata.com/nav/kongtouBg.png");
 }
-
-.rightCom {
-  display: flex;
-}
-
-.abBgLeft {
+.bgLeft {
   position: absolute;
   float: left;
   z-index: -11;
 }
 
-.abBgRight {
+.bgRight {
   position: absolute;
   float: right;
   z-index: -11;
 }
-
 </style>
 
