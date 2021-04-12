@@ -20,7 +20,7 @@ import { onMounted, reactive, onUnmounted } from 'vue'
 
 </script>
 <template>
-  <div class="flex tagContainer  items-center  text-center  shadow-md py-2 px-4 md:py-4 mt-6 md:mt-kd32px">
+  <div class="flex tagContainer  items-center  text-center  py-2 px-4 md:py-4 mt-6 md:mt-kd32px">
     <div class="flex-1">
       <div class="text-global-primary text-kd24px30px">
         -
@@ -54,7 +54,9 @@ import { onMounted, reactive, onUnmounted } from 'vue'
 </template>
 <style scoped lang="postcss">
 .tagContainer{
-  border: 1px solid rgba(43, 141, 255, 0.08);
+
+  //border: 1px solid rgba(43, 141, 255, 0.08);
+  background-image: url("https://res.ikingdata.com/nav/moneyContainerBg.png");
   background: linear-gradient(180deg, #FFFFFF 0%, #EDF5FF 100%);
   box-sizing: border-box;
   box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26);
