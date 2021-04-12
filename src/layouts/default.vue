@@ -13,7 +13,7 @@
   </div>
   <div class=" containerbgs  bg-global-body   md:bg-opacity-100" >
     <Nav class="relative "></Nav>
-    <main class="  w-full   flex justify-center  ">
+    <main class="  w-full  flex justify-center  ">
       <router-view/>
       <Footer/>
     </main>
@@ -25,8 +25,6 @@
   width: 100%;
   z-index: 1;
 }
-
-
 @media screen and (max-width: 768px) {
   .containerbgs {
     background-image: url("https://res.ikingdata.com/nav/kongtouBg.png");

@@ -78,8 +78,8 @@ const projectBtnStyle = () => {
 
 </script>
 <template>
-  <div  class="project font-kdFang relative">
-    <img style="border-radius: 13px" class="absolute  w-full  h-full left-0 top-0 z-1 " src="https://res.ikingdata.com/nav/cardBgnoBroder.png" alt="">
+  <div   class="project  font-kdFang relative">
+<!--    <img style="border-radius: 13px" class="absolute  w-full  h-full left-0 top-0 z-1 " src="https://res.ikingdata.com/nav/cardBgnoBroder.png" alt="">-->
 <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
 <div class="relative z-2">
     <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150">{{ title }}</p>
@@ -138,12 +138,16 @@ const projectBtnStyle = () => {
 </template>
 
 <style scoped>
+
 .project {
+  background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
+  border: 1px solid rgba(43, 141, 255, 0.08);
   box-sizing: border-box;
   box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26);
   border-radius: 12px;
   @apply   relative p-6  w-full;
 }
+
 .shadows{
   filter: drop-shadow(0px 0px 20px rgba(43, 141, 254, 0.16));
 }
