@@ -26,7 +26,9 @@ export default defineConfig({
                 'kd14px18px':['14px','18px'],
                 'kd24px150':['24px','150%'],
                 'kd24px36px':['24px','36px'],
-                'kd24px110':['24px','110%']
+                'kd24px110':['24px','110%'],
+                'kd42px50px':['42px','50px'],
+                'kd24px32px':['24px','32px']
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
@@ -38,7 +40,7 @@ export default defineConfig({
                 'kd4px':'4px',
             },
             maxWidth: {
-                'mx1440': '1440px'
+                'mx1440': '1440px',
             },
             minWidth:{
                 'min288px':'288px',
