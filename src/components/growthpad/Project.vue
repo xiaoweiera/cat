@@ -79,8 +79,9 @@ const projectBtnStyle = () => {
 </script>
 <template>
   <div  class="project font-kdFang relative">
-
+    <img style="border-radius: 13px" class="absolute  w-full  h-full left-0 top-0 z-1 " src="https://res.ikingdata.com/nav/cardBgnoBroder.png" alt="">
 <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
+<div class="relative z-2">
     <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150">{{ title }}</p>
     <img v-if="status==='doing' || status==='done'" class="absolute opacity-6 right-3.5 top-2.5  w-43 h-43" :src="tipImg()" alt="">
     <div v-if="status!=='progress'" class="flex">
@@ -132,13 +133,12 @@ const projectBtnStyle = () => {
 <!--    <div class="project-default-btn"  @click="go(props.project.slug)">-->
 <!--      立即参与 ->-->
 <!--    </div>-->
+</div>
   </div>
 </template>
 
 <style scoped>
 .project {
-  background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
-  border: 1px solid rgba(43, 141, 255, 0.08);
   box-sizing: border-box;
   box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26);
   border-radius: 12px;

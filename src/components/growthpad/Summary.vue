@@ -54,8 +54,8 @@ onMounted(async() => {
 </template>
 <style scoped lang="postcss">
 .tagContainer{
-  background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
   border: 1px solid rgba(43, 141, 255, 0.08);
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDF5FF 100%);
   box-sizing: border-box;
   box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26);
   border-radius: 12px;

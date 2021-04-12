@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-// import { wxShare } from '~/lib/wxShare.ts'
+import { onMounted } from 'vue'
+import { wxShare } from '~/lib/wxShare'
 
 onMounted(async() => {
-  // wxShare('Kingdata', 'KingData, 数据赋能交易,快人一步, 遇见财富')
+  wxShare('Kingdata', 'KingData, 数据赋能交易,快人一步, 遇见财富')
 })
 // const activeTab = ref('1')
 </script>
 <template>
-  <div class="max-w-mx1440  md:mt-20  px-4 md:px-30   flex flex-col ">
+  <div class="max-w-mx1440 containerbg  md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
       <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">
         <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">
@@ -72,7 +72,7 @@ onMounted(async() => {
 
 }
 
-/deep/ .ant-tabs-tab {
+::v-deep(.ant-tabs-tab) {
   font-size: 18px;
   line-height: 28px;
   padding: 0px !important;
@@ -80,11 +80,11 @@ onMounted(async() => {
   padding-bottom: 8px !important;
 }
 
-/deep/ .ant-tabs-tab-active {
+::v-deep(.ant-tabs-tab-active) {
   color: #2B8DFE !important;
 }
 
-/deep/ .ant-tabs-tab {
+::v-deep(.ant-tabs-tab) {
   color: rgba(37, 62, 111, 0.65);
 }
 

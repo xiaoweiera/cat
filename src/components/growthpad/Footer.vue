@@ -58,7 +58,7 @@
 
 .feature-title {
 
-  @apply mt-3 text-kd16px24px md:text-kd18px150 text-global-highTitle font-kdFang font-normal;
+  @apply mt-3 text-kd16px24px md:text-kd18px27 text-global-highTitle font-kdFang font-normal;
 }
 
 .feature-detail {
