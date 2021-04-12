@@ -43,8 +43,7 @@ const navIsSelect = (path:String): String => {
       <!--      <button class="bg-blue-600 w-20 h-10 rounded-md mx-1 px-1">-->
       <!--        <a href="#" class="text-white">链接钱包</a>-->
       <!--      </button>-->
-      <a href="https://www.ikingdata.com/download" :class="navIsSelect('#')">APP下载</a>
-      <a href="#"></a>
+      <a href="https://www.ikingdata.com/download" target="_blank" :class="navIsSelect('#')">APP下载</a>
     </ul>
   </nav>
   <div class="mdhidden navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">

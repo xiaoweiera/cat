@@ -1,42 +1,48 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { wxShare } from '~/lib/wxShare'
-import { useHead } from '@vueuse/head'
+import {onMounted} from 'vue'
+import {wxShare} from '~/lib/wxShare'
+import {useHead} from '@vueuse/head'
 
 useHead({
   title: 'GrowthPad————数据驱动DeFi项目快速增长',
   meta: [
     {
-      name:'keywords',
-      content:"BTC, ETH, EOS, USDT, 波卡, DeFi, DOT,智能投研, 大数据分析, coinmarket, 数字货币数据分析,数字货币行业大数据, 虚拟币数据分析, Coinmarketcap, 中文版 Coinmarketcap, 区块链, 大数据, 数据分析, 比特币, 莱比特, 以太坊, ETH, EOS, 钱包, 共识算法, 舆情分析, cryptocompare, coinmarket, 数字货币数据分析,投资,投资顾问, 智能投资,智投,投资工具,数据分析,数据可视化,Digital currency data analysis, Digital currency industry big data, 数字货币行业大数据, 虚拟币数据分析, Virtual currency data analysis, 中文版Coinmarketcap, blockchain, big data, BTC, 比特币, 莱比特, LTC, 以太坊, ETH, EOS, 钱包, wallet, 共识算法, 舆情分析, Consensus algorithm,cryptocompare, Public opinion analysis 增长平台  GrowthPad",
+      name: 'keywords',
+      content: "BTC, ETH, EOS, USDT, 波卡, DeFi, DOT,智能投研, 大数据分析, coinmarket, 数字货币数据分析,数字货币行业大数据, 虚拟币数据分析, Coinmarketcap, 中文版 Coinmarketcap, 区块链, 大数据, 数据分析, 比特币, 莱比特, 以太坊, ETH, EOS, 钱包, 共识算法, 舆情分析, cryptocompare, coinmarket, 数字货币数据分析,投资,投资顾问, 智能投资,智投,投资工具,数据分析,数据可视化,Digital currency data analysis, Digital currency industry big data, 数字货币行业大数据, 虚拟币数据分析, Virtual currency data analysis, 中文版Coinmarketcap, blockchain, big data, BTC, 比特币, 莱比特, LTC, 以太坊, ETH, EOS, 钱包, wallet, 共识算法, 舆情分析, Consensus algorithm,cryptocompare, Public opinion analysis 增长平台  GrowthPad",
     },
     {
-      name:'description',
-      content:'GrowthPad 旨在根据精准的用户行为画像，精妙的建模、高效的任务模式，让项目方可以摆脱传统的冷启动方式，精准找到目标用户。同样平台也帮助企业把丰厚的奖励分发给目标用户，避免羊毛党和科学家，真正的做到了企业快速增长。',
+      name: 'description',
+      content: 'GrowthPad 旨在根据精准的用户行为画像，精妙的建模、高效的任务模式，让项目方可以摆脱传统的冷启动方式，精准找到目标用户。同样平台也帮助企业把丰厚的奖励分发给目标用户，避免羊毛党和科学家，真正的做到了企业快速增长。',
     },
   ],
 })
-
-onMounted(async() => {
+onMounted(async () => {
   wxShare('GrowthPad', '数据驱动DeFi项目快速增长')
 })
 // const activeTab = ref('1')
 </script>
 <template>
-  <div class="max-w-mx1440 containerbg  md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
+  <div class="max-w-mx1440 containerbg mixed   md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
-      <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">
-        <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">
+      <!--      <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">-->
+      <!--        <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">-->
+      <!--      </div>-->
+      <div class="mdhidden flex items-center justify-center w-full pt-4.25 px-8   ">
+        <video autoplay="true" loop="true">
+          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
+                  type="video/mp4">
+        </video>
       </div>
       <div class="mxWidth  font-kdFang">
-        <div class="text-kd26px140 md:text-kd36px  font-semibold text-global-highTitle">
-          <div>GrowthPad</div>
-          <div>数据驱动 DeFi 项目快速增长</div>
+        <div class="text-kd12px22px md:text-kd36px  font-semibold text-global-highTitle">
+          <div class="text-kd42px50px flex justify-center">GrowthPad</div>
+          <div class="text-kd24px32px flex justify-center">数据驱动 DeFi 项目快速增长</div>
         </div>
         <div class="text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 ">
-          <div>GrowthPad 凭借 KingData 对 ETH、HECO、BSC、OKChain 四大公链全量链上数据以及各公链主流项目数据的挖掘和分析，建立了丰富的用户行为特征数据库。</div>
-          <div class="mt-3">GrowthPad
-            旨在根据精准的用户行为画像，精妙的建模、高效的任务模式，让项目方可以摆脱传统的冷启动方式，精准找到目标用户。同样平台也帮助企业把丰厚的奖励分发给目标用户，避免羊毛党和科学家，真正的做到了企业快速增长。
+          <div>GrowthPad
+            通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
+          </div>
+          <div class="mt-3">GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。
           </div>
         </div>
         <GrowthpadSummary/>
@@ -48,9 +54,13 @@ onMounted(async() => {
         </div>
 
       </div>
-      <img src="https://res.ikingdata.com/nav/hero-money.png" alt=""
-           class="xshidden hero-money mt-6 mx-auto    xl:ml-10.5 xl:mt-0 "
-      >
+      <div class="xshidden hero-money   mt-6 xl:ml-10.5 xl:mt-0">
+        <video class="hero-money" autoplay="true" loop="true">
+          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+
     </div>
 
     <!--  即将开始-->
@@ -80,10 +90,13 @@ onMounted(async() => {
 </template>
 
 <style scoped>
+.mixed {
+  mix-blend-mode: darken;
+}
 
 .hero-money {
-  width: 518px;
-  height: 388px;
+  width: 486px;
+  height: 434px;
 
 }
 
@@ -118,7 +131,7 @@ onMounted(async() => {
 }
 
 .mxWidth {
-
+  max-width: 640px;
   @apply flex-1 md:w-160 md:min-w-min430px;
 }
 
