@@ -15,6 +15,7 @@
     "vue": "^3.0.10",
     "vue-i18n": "^9.1.2",
     "vue-router": "^4.0.5",
+    "wechat-jssdk": "^5.0.7",
     "weixin-js-sdk": "1.2.0"
   },
   "devDependencies": {
