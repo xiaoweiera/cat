@@ -36,7 +36,7 @@
   </div>
   <div class="join-us xshidden relative flex  items-center">
     <a class="w-full"  href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
-    <img class="w-full " src="/assets/growthpad/footer.png" alt="">
+    <img class="w-full " src="https://res.ikingdata.com/nav/ktFooter.jpg" alt="">
     </a>
   </div>
 </template>
