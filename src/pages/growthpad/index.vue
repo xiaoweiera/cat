@@ -35,8 +35,8 @@ onMounted(async () => {
       </div>
       <div class="mxWidth  font-kdFang">
         <div class="text-kd12px22px md:text-kd36px  font-semibold text-global-highTitle">
-          <div class="text-kd42px50px flex justify-center">GrowthPad</div>
-          <div class="text-kd24px32px flex justify-center">数据驱动 DeFi 项目快速增长</div>
+          <div class="text-kd42px50px flex justify-center md:justify-start">GrowthPad</div>
+          <div class="text-kd24px32px flex justify-center md:justify-start">数据驱动 DeFi 项目快速增长</div>
         </div>
         <div class="text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 ">
           <div>GrowthPad
