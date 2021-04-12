@@ -16,6 +16,7 @@ useHead({
     },
   ],
 })
+
 onMounted(async () => {
   wxShare('GrowthPad', '数据驱动DeFi项目快速增长')
 })
@@ -28,7 +29,7 @@ onMounted(async () => {
       <!--        <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">-->
       <!--      </div>-->
       <div class="mdhidden flex items-center justify-center w-full pt-4.25 px-8   ">
-        <video autoplay="true" loop="true">
+        <video  muted=“muted” autoplay="true" loop="true">
           <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
                   type="video/mp4">
         </video>
@@ -55,7 +56,7 @@ onMounted(async () => {
 
       </div>
       <div class="xshidden hero-money   mt-6 xl:ml-10.5 xl:mt-0">
-        <video class="hero-money" autoplay="true" loop="true">
+        <video  muted=“muted” class="hero-money" autoplay="true" loop="true">
           <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
                   type="video/mp4">
         </video>

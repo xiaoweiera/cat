@@ -2,21 +2,21 @@
 import axios from 'axios'
 import { onMounted, reactive, onUnmounted } from 'vue'
 
-import type { SummaryModel } from '~/types/growthpad'
-
-const summary = reactive<SummaryModel>({
-  total: 0,
-  totalProject: 0,
-  person: 0,
-})
-
-onMounted(async() => {
-  await axios.get('/api/v1/growthpad/summary')
-      .then(({ data }) => {
-        const val: SummaryModel = data.data
-        Object.assign(summary, val)
-      })
-})
+// import type { SummaryModel } from '~/types/growthpad'
+//
+// const summary = reactive<SummaryModel>({
+//   total: 0,
+//   totalProject: 0,
+//   person: 0,
+// })
+//
+// onMounted(async() => {
+//   await axios.get('/api/v1/growthpad/summary')
+//       .then(({ data }) => {
+//         const val: SummaryModel = data.data
+//         Object.assign(summary, val)
+//       })
+// })
 
 </script>
 <template>
