@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="w-full px-4  mt-6 mb-15 md:mb-26.5  md:mt-15  md:px-55 font-kdFang ">
+  <div class="w-full px-4 relative z-2  mt-6 mb-15 md:mb-26.5  md:mt-15  md:px-55 font-kdFang ">
     <img class="xshidden absolute left-0 top-24.5" src="/assets/growthpad/detail-bg.svg" alt="/">
     <div class="remainder flex flex-wrap md:justify-between font-kdFang">
       <div class="info">

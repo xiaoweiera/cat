@@ -19,17 +19,21 @@ const navIsSelect = (path) => {
 </script>
 
 <template>
-  <nav class="xshidden flex items-center  px-6 h-18 font-kdFang    justify-start">
+  <nav class="xshidden flex items-center relative z-2      px-6 h-18 font-kdFang    justify-start">
     <img  src="/assets/logo.svg" alt="KingData" class="flex-none ">
     <div class="flex-grow mt-2 ml-12">
-      <div class="flex font-normal text-base text-navItem-default">
-<!--        <img src="/assets/more-nav-item.svg" alt="more">-->
-        <router-link to="#" :class="navIsSelect('#')">数据图表</router-link>
-        <router-link  to="index" :class="navIsSelect('#')">7x27 小时监控</router-link>
-<!--        <router-link to="#" :class="navIsSelect('#')">DeFi 行情</router-link>-->
-<!--        <router-link to="#" :class="navIsSelect('#')">流动性分析</router-link>-->
-        <router-link to="reports" :class="navIsSelect('reports')">研究报告</router-link>
-        <router-link to="/growthpad" :class="navIsSelect('growthpad')">Growthpad</router-link>
+      <div class="flex font-normal  text-base text-navItem-default">
+<!--   <img src="/assets/more-nav-item.svg" alt="more">-->
+        <a :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/topic">数据图表</a>
+        <a :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/news">7x27 小时监控</a>
+        <a :class="navIsSelect('reports')" target="_blank"  href="https://www.kingdata.com/reports">研究报告</a>
+        <a :class="navIsSelect('growthpad')" target="_blank"  href="https://www.kingdata.com/reports">GrowthPad</a>
+<!--        <router-link to="https://www.baidu.com" :class="navIsSelect('#')">数据图表</router-link>-->
+<!--        <router-link  to="index" :class="navIsSelect('#')">7x27 小时监控</router-link>-->
+<!--&lt;!&ndash;        <router-link to="#" :class="navIsSelect('#')">DeFi 行情</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        <router-link to="#" :class="navIsSelect('#')">流动性分析</router-link>&ndash;&gt;-->
+<!--        <router-link to="reports" :class="navIsSelect('reports')">研究报告</router-link>-->
+<!--        <router-link to="/growthpad" :class="navIsSelect('growthpad')">Growthpad</router-link>-->
       </div>
     </div>
 
@@ -37,11 +41,11 @@ const navIsSelect = (path) => {
 <!--      <button class="bg-blue-600 w-20 h-10 rounded-md mx-1 px-1">-->
 <!--        <a href="#" class="text-white">链接钱包</a>-->
 <!--      </button>-->
-      <a href="#" :class="navIsSelect('#')">APP下载</a>
+      <a href="https://www.ikingdata.com/download" :class="navIsSelect('#')">APP下载</a>
       <a href="#"></a>
     </ul>
   </nav>
-  <div class="mdhidden flex items-center justify-between h-15 bg px-5 ">
+  <div class="mdhidden bg flex items-center relative z-2 justify-between h-15 bg px-5 ">
     <img @click="changeShow(true)"
         class="w-6 h-6 mt-1.5"
         src="https://res.ikingdata.com/nav/list.png"

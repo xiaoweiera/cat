@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref,onMounted} from 'vue'
-import {wxShare} from '~/lib/wxShare.ts'
+import {wxShare} from '../../lib/wxShare.ts'
 onMounted(async() => {
   wxShare('Kingdata','KingData, 数据赋能交易,快人一步, 遇见财富')
 })
 // const activeTab = ref('1')
 </script>
 <template>
-  <div class="max-w-mx1440  md:mt-20  px-4 md:px-30   flex flex-col ">
+  <div class="max-w-mx1440 containerbg  md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
       <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">
         <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">
@@ -62,28 +62,28 @@ onMounted(async() => {
 <style scoped>
 
 .hero-money {
-  width: 518px;
-  height: 388px;
+width: 518px;
+height: 388px;
 
 }
 /deep/.ant-tabs-tab{
-  font-size:18px;
-  line-height:28px;
-  padding:0px !important;
+font-size:18px;
+line-height:28px;
+padding:0px !important;
 
-  padding-bottom:8px !important;
+padding-bottom:8px !important;
 }
 /deep/.ant-tabs-tab-active{
-  color: #2B8DFE !important;
+color: #2B8DFE !important;
 }
 /deep/.ant-tabs-tab{
-  color: rgba(37, 62, 111, 0.65);
+color: rgba(37, 62, 111, 0.65);
 }
 .imgBg{
-  background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
-  border: 1px solid rgba(43, 141, 255, 0.08);
-  box-sizing: border-box;
-  /* 4-12/蓝 */
+background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
+border: 1px solid rgba(43, 141, 255, 0.08);
+box-sizing: border-box;
+/* 4-12/蓝 */
   box-shadow: 0px 4px 12px rgba(44, 140, 248, 0.08);
   border-radius: 12px;
 }

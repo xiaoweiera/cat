@@ -15,6 +15,7 @@ export default defineConfig({
                 'kd12px22px': ['12px', '22px'],
                 'kd12px18px': ['12px', '18px'],
                 'kd18px28px': ['18px', '28px'],
+                'kd18px27px': ['18px', '27px'],
                 'kd36px':['36px','140%'],
                 'kd42px110':['42px','110%'],
                 'kd16px150':['16px','150%'],
