@@ -40,10 +40,13 @@ onMounted(async () => {
                       type="video/mp4">
             </video>
   </div>
+  <div class="mdhidden flex items-center mixed absolute justify-center w-full pt-1.25 px-8  ">
+    <img src="https://res.ikingdata.com/nav/mobileMoneyImg.jpg" alt="" class="w-60 h-50">
+  </div>
   <div class="max-w-mx1440 containerbg    md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
-            <div class="mdhidden flex items-center justify-center w-full pt-1.25 px-8  ">
-              <img src="https://res.ikingdata.com/nav/mobileMoneyImg.jpg" alt="" class="w-60 h-50">
+            <div class="mdhidden flex  h-52 items-center justify-center w-full pt-1.25 px-8  ">
+<!--              <img src="https://res.ikingdata.com/nav/mobileMoneyImg.jpg" alt="" class="w-60 h-50">-->
             </div>
       <div class="mxWidth  font-kdFang">
         <div class="text-kd12px22px md:text-kd36px  font-semibold text-global-highTitle">
