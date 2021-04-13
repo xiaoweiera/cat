@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useHead } from '@vueuse/head'
-import { wxShare } from '~/lib/wxShare'
+import {ref, onMounted} from 'vue'
+import {useHead} from '@vueuse/head'
+import {wxShare} from '~/lib/wxShare'
 
 useHead({
-  title: 'GrowthPad————数据驱动DeFi项目快速增长',
+  title: 'GrowthPad 数据驱动DeFi项目快速增长',
   meta: [
     {
       name: 'keywords',
@@ -16,23 +16,38 @@ useHead({
     },
   ],
 })
-
+let positionContainer = ref(null)
+let video = ref(null)
+const videoMap = () => {
+  const top = positionContainer.value.getBoundingClientRect().top;
+  const left = positionContainer.value.getBoundingClientRect().left;
+  video.value.style.top = (document.documentElement.scrollTop + top) + 'px';
+  video.value.style.left = left + 'px';
+  video.value.style.display = 'block'
+}
 onMounted(async () => {
+  videoMap();
+  window.onresize = () => {
+    videoMap();
+  }
   wxShare('GrowthPad', '数据驱动DeFi项目快速增长')
 })
 // const activeTab = ref('1')
 </script>
 <template>
-  <div class="max-w-mx1440 containerbg mixed   md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
+  <div ref="video" class="mt-10 xshidden absolute hero-money hidden  mixed  ">
+    <video muted=“muted” class="hero-money" autoplay="true" loop="true">
+      <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
+              type="video/mp4">
+    </video>
+  </div>
+  <div class="mdhidden flex items-center mixed absolute justify-center w-full pt-1.25 px-8  ">
+    <img src="https://res.ikingdata.com/nav/mobileMoneyImg.jpg" alt="" class="w-60 h-50">
+  </div>
+  <div class="max-w-mx1440 containerbg    md:mt-20 relative z-2  px-4 md:px-30   flex flex-col ">
     <div class="hero w-full flex-wrap   flex items-center   justify-between">
-      <!--      <div class="mdhidden flex items-center justify-center w-full py-4.25 px-18 my-4  imgBg">-->
-      <!--        <img src="https://res.ikingdata.com/nav/mobileMoney.png" alt="" class="moneyImg">-->
-      <!--      </div>-->
-      <div class="mdhidden flex items-center justify-center w-full pt-4.25 px-8   ">
-        <video  muted=“muted” autoplay="true" loop="true">
-          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
-                  type="video/mp4">
-        </video>
+      <div class="mdhidden flex  h-52 items-center justify-center w-full pt-1.25 px-8  ">
+        <!--              <img src="https://res.ikingdata.com/nav/mobileMoneyImg.jpg" alt="" class="w-60 h-50">-->
       </div>
       <div class="mxWidth  font-kdFang">
         <div class="text-kd12px22px md:text-kd36px  font-semibold text-global-highTitle">
@@ -41,9 +56,9 @@ onMounted(async () => {
         </div>
         <div class="text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 ">
           <div>GrowthPad
-            通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
+            通过精准的用户行为画像，建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目快速增长。
           </div>
-          <div class="mt-3">GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。
+          <div class="mt-3">GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC。
           </div>
         </div>
         <GrowthpadSummary/>
@@ -55,11 +70,11 @@ onMounted(async () => {
         </div>
 
       </div>
-      <div class="xshidden hero-money   mt-6 xl:ml-10.5 xl:mt-0">
-        <video  muted=“muted” class="hero-money" autoplay="true" loop="true">
-          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
-                  type="video/mp4">
-        </video>
+      <div ref="positionContainer" class="xshidden hero-money  mt-6 xl:ml-10.5 xl:mt-0">
+        <!--        <video  muted=“muted” class="hero-money" autoplay="true" loop="true">-->
+        <!--          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"-->
+        <!--                  type="video/mp4">-->
+        <!--        </video>-->
       </div>
 
     </div>

@@ -19,6 +19,14 @@
         document.documentElement.classList.toggle('dark', true)
     })()
   </script>
+  <script>
+      (function() {
+          const hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?fdb9f024136898f0d5822f8a4b71b036";
+          const dom = document.getElementsByTagName("script")[0];
+          dom.parentNode.insertBefore(hm, dom);
+      })();
+  </script>
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

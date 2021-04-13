@@ -11,9 +11,9 @@
     <!--        alt=""-->
     <!--    />-->
   </div>
-  <div class=" containerbgs  bg-global-body   md:bg-opacity-100" >
+  <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
     <Nav class="relative "></Nav>
-    <main class="  w-full   flex justify-center  ">
+    <main class="  w-full  flex justify-center  ">
       <router-view/>
       <Footer/>
     </main>
@@ -26,7 +26,6 @@
   z-index: 1;
 }
 
-
 @media screen and (max-width: 768px) {
   .containerbgs {
     background-image: url("https://res.ikingdata.com/nav/kongtouBg.png");
@@ -36,7 +35,7 @@
 @media screen and (min-width: 768px) {
   .containerbgs {
     background-image: url("https://res.ikingdata.com/nav/kgBodytopBg.jpg");
-    background-size:100% 100%;
+    background-size: 100% 100%;
   }
 }
 

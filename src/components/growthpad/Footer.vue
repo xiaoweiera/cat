@@ -30,13 +30,13 @@
       </div>
     </div>
   </div>
-  <div class="join-mobile-us mt-15 mdhidden">
-    <a class="w-full h-full" href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full" src="https://res.ikingdata.com/nav/mobileFoot.png" alt="">
+  <div class="join-mobile-us mt-15 mb-15 mdhidden">
+    <a class="w-full h-full" href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full" src="https://res.ikingdata.com/nav/mobileFootImg.png" alt="">
     </a>
   </div>
   <div class="join-us xshidden relative flex  items-center">
     <a class="w-full"  href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
-    <img class="w-full " src="https://res.ikingdata.com/nav/ktFooter.jpg" alt="">
+    <img class="w-full " src="https://res.ikingdata.com/nav/pcFooter.jpg" alt="">
     </a>
   </div>
 </template>
@@ -57,8 +57,7 @@
 }
 
 .feature-title {
-
-  @apply mt-3 text-kd16px24px md:text-kd18px27 text-global-highTitle font-kdFang font-normal;
+  @apply mt-3 text-kd16px24px md:text-kd18px27px text-global-highTitle font-kdFang font-normal;
 }
 
 .feature-detail {
