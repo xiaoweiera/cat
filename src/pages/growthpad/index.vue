@@ -35,7 +35,7 @@ onMounted(async () => {
 // const activeTab = ref('1')
 </script>
 <template>
-  <div ref="video" class="mt-10 xshidden absolute hero-money hidden  mixed  ">
+  <div ref="video" class=" xshidden absolute hero-money hidden  mixed  ">
     <video muted=“muted” class="hero-money" autoplay="true" loop="true">
       <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
               type="video/mp4">
@@ -70,7 +70,7 @@ onMounted(async () => {
         </div>
 
       </div>
-      <div ref="positionContainer" class="xshidden hero-money  mt-6 xl:ml-10.5 xl:mt-0">
+      <div ref="positionContainer" class="xshidden hero-money  mt-6 md:mt-0 xl:ml-10.5 xl:mt-0">
         <!--        <video  muted=“muted” class="hero-money" autoplay="true" loop="true">-->
         <!--          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"-->
         <!--                  type="video/mp4">-->
