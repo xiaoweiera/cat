@@ -31,11 +31,11 @@
     </div>
   </div>
   <div class="join-mobile-us mt-15 mb-15 mdhidden">
-    <a class="w-full h-full" href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full" src="https://res.ikingdata.com/nav/mobileFootImg.png" alt="">
+    <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full shadowImg" src="https://res.ikingdata.com/nav/mobileFootImg.png" alt="">
     </a>
   </div>
-  <div class="join-us xshidden relative flex  items-center">
-    <a class="w-full"  href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
+  <div class="join-us xshidden   relative flex  items-center">
+    <a class="w-full shadowImg"  href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
     <img class="w-full " src="https://res.ikingdata.com/nav/pcFooter.jpg" alt="">
     </a>
   </div>
@@ -64,11 +64,12 @@
 
   @apply text-global-default text-kd12px16px md:text-kd14px18px  opacity-85 font-kdFang  mt-1.5;
 }
-
+.shadowImg{
+  box-shadow: 0px 26px 66px -18px rgba(43, 141, 255, 0.6);
+}
 .join-us {
   max-width: 1200px;
   margin-top:81px;
-  //background-image: url("/assets/growthpad/footer.png");
   background-size: contain;
   background-repeat: no-repeat;
   @apply h-50 mb-10;
