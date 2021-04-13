@@ -149,10 +149,8 @@ const projectBtnStyle = () => {
 <style scoped>
 
 .project {
-  background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
-  border: 1px solid rgba(43, 141, 255, 0.08);
-  box-sizing: border-box;
-  box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26);
+  background: linear-gradient(180deg, #F6F7FF 0%, #DDEAFD 100%);
+  box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26), inset 0px -3px 66px rgba(255, 255, 255, 0.7);
   border-radius: 12px;
   @apply relative p-6  w-full;
 }
