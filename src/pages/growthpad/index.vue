@@ -18,16 +18,15 @@ useHead({
 })
 let positionContainer = ref(null)
 let video = ref(null)
-let showVideo = ref(false)
 const videoMap = () => {
   const top = positionContainer.value.getBoundingClientRect().top;
   const left = positionContainer.value.getBoundingClientRect().left;
   video.value.style.top = (document.documentElement.scrollTop + top) + 'px';
   video.value.style.left = left + 'px';
+  video.value.style.display = 'block'
 }
 onMounted(async () => {
   videoMap();
-  showVideo.value = true
   window.onresize = () => {
     videoMap();
   }
@@ -36,7 +35,7 @@ onMounted(async () => {
 // const activeTab = ref('1')
 </script>
 <template>
-  <div ref="video" v-show="showVideo" class="mt-10 xshidden absolute hero-money  mixed  ">
+  <div ref="video" class="mt-10 xshidden absolute hero-money hidden  mixed  ">
     <video muted=“muted” class="hero-money" autoplay="true" loop="true">
       <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
               type="video/mp4">
