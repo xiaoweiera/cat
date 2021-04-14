@@ -25,11 +25,14 @@ const tableData = [{
 },]
 </script>
 <template>
+  <div class="flex items-center   mb-5">
+    <div class="text-kd18px28px font-normal mr-1.5">DeFi 借贷平台存款 APY 对比</div>
+    <div class="text-kd14px20px font-normal text-global-default opacity-65">(4秒前更新)</div>
+  </div>
   <!--  <div class="flex flex-col">-->
   <el-table
       :data="tableData"
       style="width: 100%"
-      height="250"
   >
     <el-table-column
         fixed
@@ -86,9 +89,7 @@ const tableData = [{
         </div>
       </template>
     </el-table-column>
-
   </el-table>
-  <el-button type="success">ohoho</el-button>
   <!--  </div>-->
 </template>
 
