@@ -11,6 +11,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Prism from 'markdown-it-prism'
 import { viteMockServe } from 'vite-plugin-mock'
+import styleImport from 'vite-plugin-style-import'
 
 export default defineConfig({
   resolve: {
@@ -21,6 +22,21 @@ export default defineConfig({
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
+    }),
+    styleImport({
+      libs: [
+        {
+          libraryName: 'element-plus',
+          esModule: true,
+          ensureStyleFile: true,
+          resolveStyle: (name) => {
+            return `element-plus/lib/theme-chalk/${name}.css`
+          },
+          resolveComponent: (name) => {
+            return `element-plus/lib/${name}`
+          },
+        },
+      ],
     }),
     viteMockServe({
       mockPath: 'mock',
