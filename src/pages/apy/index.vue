@@ -28,7 +28,7 @@ const tagList=[
 
     <!--  dibu-->
     <!--    <GrowthpadFooter/>-->
-    <!--    <GrowthpadFooter/>-->
+        <ApyTable/>
     <ApyFooter/>
   </div>
 
