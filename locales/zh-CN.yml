@@ -11,3 +11,44 @@ intro:
   hi: 你好，{name}
   whats-your-name: 输入你的名字
 not-found: 未找到页面
+nav:
+  download: App 下载
+
+hero:
+  title: GrowthPad
+  subtitle: 数据驱动 DeFi 项目快速增长
+
+  desc1: GrowthPad 通过精准的用户行为画像，建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目快速增长。
+  desc2: GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC。
+
+summary:
+  award_total: 奖励总价值
+  projects: 服务项目
+  person_count: 参与总人数
+
+project:
+  status:
+    coming: 即将开始
+  award_number: '奖励数量'
+  reward_value: '奖励价值'
+  per_person: '每人可领取'
+  remaing_time: '距奖励距离'
+  day: 天
+  hour: 小时
+  minute: 分钟
+
+
+feature:
+  title: '为什么选择我们'
+  feature1:
+    title: '精准触达、用户更真实'
+    desc1: '全面完善的链上信息画像、精准的项目用户特征数据库'
+    desc2: '一步找到想要的用户'
+  feature2:
+    title: '甄选流量、投放更精准'
+    desc1: '庞大的用户基础，以数百社群和媒体矩阵为核心'
+    desc2: '甄选海内外优质流量'
+  feature3:
+    title: '多维服务、效率更高'
+    desc1: '围绕您的需求定制增长策略'
+    desc2: '实现全方位推广服务'
