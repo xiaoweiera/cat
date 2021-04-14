@@ -10,6 +10,7 @@ export default defineConfig({
     theme: {
         extend: {
             fontSize: {
+                'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],
                 'kd14px20px': ['14px', '20px'],
                 'kd12px22px': ['12px', '22px'],
@@ -28,7 +29,10 @@ export default defineConfig({
                 'kd24px36px':['24px','36px'],
                 'kd24px110':['24px','110%'],
                 'kd42px50px':['42px','50px'],
-                'kd24px32px':['24px','32px']
+                'kd24px32px':['24px','32px'],
+                'kd36px36px':['36px','36px'],
+                'kd10px14px':['10px','14px'],
+                'kd24px24px':['24px','24px']
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
@@ -56,6 +60,8 @@ export default defineConfig({
                     primary: '#2B8DFE',
                     highTitle:'#033666',
                     mobileBody:'#D8E8FF',
+                    numGreen:'#00B464',
+                    numRed:'#E9592D'
 
                 },
             },
