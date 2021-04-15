@@ -1,23 +1,7 @@
 <script setup lang="ts">
-import axios from 'axios'
-import {onMounted, reactive, onUnmounted} from 'vue'
+import { useI18n } from 'vue-i18n'
 
-// import type { SummaryModel } from '~/types/growthpad'
-//
-// const summary = reactive<SummaryModel>({
-//   total: 0,
-//   totalProject: 0,
-//   person: 0,
-// })
-//
-// onMounted(async() => {
-//   await axios.get('/api/v1/growthpad/summary')
-//       .then(({ data }) => {
-//         const val: SummaryModel = data.data
-//         Object.assign(summary, val)
-//       })
-// })
-
+const { t } = useI18n()
 </script>
 <template>
   <div class="flex tagContainer  items-center  text-center  py-2 px-4 md:py-4 mt-6 md:mt-kd32px">
@@ -27,7 +11,7 @@ import {onMounted, reactive, onUnmounted} from 'vue'
         <!--        ${{ summary.total.toLocaleString() }}-->
       </div>
       <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px">
-        奖励总价值
+        {{ t('summary.award_total') }}
       </div>
     </div>
     <div class=" w-0.25 bg-global-default opacity-10 h-6"></div>
@@ -37,7 +21,7 @@ import {onMounted, reactive, onUnmounted} from 'vue'
         <!--        {{ summary.totalProject.toLocaleString() }}-->
       </div>
       <div class="text-global-default opacity-65 mt-kd4px  text-kd14px18px">
-        服务项目
+        {{ t('summary.projects') }}
       </div>
     </div>
     <div class=" w-0.25 bg-global-default opacity-10 h-6"></div>
@@ -47,7 +31,7 @@ import {onMounted, reactive, onUnmounted} from 'vue'
         <!--        {{ summary.person.toLocaleString() }}-->
       </div>
       <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px">
-        参与总人数
+        {{ t('summary.person_count') }}
       </div>
     </div>
   </div>
