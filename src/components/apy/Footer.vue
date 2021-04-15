@@ -1,12 +1,10 @@
 <template>
-  <div class="join-mobile-us mt-15 mb-15 mdhidden">
+  <div class="join-mobile-us mb-12 px-4 md:px-0 md:mt-15 md:mb-15 mdhidden">
     <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full shadowImg" src="https://res.ikingdata.com/nav/apyMobileFooter.png" alt="">
     </a>
   </div>
-  <div class="join-us xshidden   relative flex  items-center">
-    <a class="w-full shadowImg"  href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
-      <img class="w-full " src="https://res.ikingdata.com/nav/apyFooter.png" alt="">
-    </a>
+  <div class="join-us xshidden mx-auto   relative flex  items-center">
+      <img class="w-full shadowImg " src="https://res.ikingdata.com/nav/apyFooter.png" alt="">
   </div>
 </template>
 
@@ -38,10 +36,8 @@
 }
 .join-us {
   max-width: 1200px;
-  margin-top:81px;
   background-size: contain;
   background-repeat: no-repeat;
-  @apply h-50 mb-10;
 }
 .join-mobile-us{
   width:100%;

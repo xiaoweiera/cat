@@ -21,7 +21,7 @@ const navIsSelect = (path:String): String => {
 </script>
 
 <template>
-  <nav class="xshidden flex items-center relative z-2      px-6 h-18 font-kdFang    justify-start">
+  <nav class="xshidden flex items-center relative z-2  headerBg     px-6 h-18 font-kdFang    justify-start">
     <img  src="/assets/logo.svg" alt="KingData" class="flex-none ">
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
@@ -70,6 +70,9 @@ const navIsSelect = (path:String): String => {
 
 </template>
 <style lang="postcss" scoped>
+.headerBg{
+  box-shadow: 0 0.5px 0 rgb(43 140 255 / 8%), 0 2px 12px rgb(0 50 108 / 8%);
+}
 .navLogoBg{
   background: #EAF3FE;
   box-shadow: 0px 1px 0px rgba(43, 140, 255, 0.02), 0px 4px 12px rgba(0, 0, 0, 0.06);

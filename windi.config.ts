@@ -14,6 +14,7 @@ export default defineConfig({
                 'kd14px22px': ['14px', '22px'],
                 'kd14px20px': ['14px', '20px'],
                 'kd12px22px': ['12px', '22px'],
+                'kd12px20px': ['12px', '20px'],
                 'kd12px18px': ['12px', '18px'],
                 'kd18px28px': ['18px', '28px'],
                 'kd18px27px': ['18px', '27px'],
@@ -32,7 +33,8 @@ export default defineConfig({
                 'kd24px32px':['24px','32px'],
                 'kd36px36px':['36px','36px'],
                 'kd10px14px':['10px','14px'],
-                'kd24px24px':['24px','24px']
+                'kd24px24px':['24px','24px'],
+                'kd24px100':['24px','100%']
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
@@ -61,7 +63,8 @@ export default defineConfig({
                     highTitle:'#033666',
                     mobileBody:'#D8E8FF',
                     numGreen:'#00B464',
-                    numRed:'#E9592D'
+                    numRed:'#E9592D',
+                    time:'#A2A4A8'
 
                 },
             },

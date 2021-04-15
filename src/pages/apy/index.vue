@@ -1,43 +1,94 @@
 <script setup lang="ts">
-const tagList=[
-  {id:1,name:'ETH',img:'https://res.ikingdata.com/nav/apyEth.png'},
-  {id:2,name:'Heco',img:'https://res.ikingdata.com/nav/apyHeco.png'},
-  {id:3,name:'Okchain',img:'https://res.ikingdata.com/nav/apyEth.png'},
-  {id:4,name:'BSC',img:'https://res.ikingdata.com/nav/apyBsc.png'},
+const tagList = [
+  {id: 1, select: true, name: 'ETH', img: 'https://res.ikingdata.com/nav/apyEth.png'},
+  {id: 2, select: false, name: 'Heco', img: 'https://res.ikingdata.com/nav/apyHeco.png'},
+  {id: 3, select: false, name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
+  {id: 4, select: false, name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
 </script>
 
 <template>
-  <!--  <ApyChart/>-->
-  <!--top description-->
-  <div class=" flex  flex-col w-full max-w-360 px-30  md:mb-40">
-    <div class="text-kd24px24px  md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
-    <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal">我们已经为每个加密货币类别创建了索引。类别按24小时价格变化排名。单击密码类别名称可查看指数的组成部分及其最近的价格表现。</div>
-    <div class="flex" >
-      <div v-for="item in tagList" class="rounded-md mb-15 flex mt-4 mr-1 bg-global-primary bg-opacity-8 py-1.25 px-3.75 items-center justify-center">
-        <img class="w-4.5 h-4.5 mr-1" :src='item.img' alt="">
-        <div class="text-kd14px20px text-global-primary font-normal  font-kdExp">{{item.name}}</div>
+
+  <div class=" flex-col w-full max-w-360    md:mb-25">
+    <!-- 头部描述信息-->
+    <div class="px-4 md:px-30">
+      <div class="text-kd24px100 md:text-kd24px24px  md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
+      <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal">
+        我们已经为每个加密货币类别创建了索引。类别按24小时价格变化排名。单击密码类别名称可查看指数的组成部分及其最近的价格表现。
+      </div>
+      <!--          链上集合-->
+      <div class="flex ">
+        <div v-for="item in tagList"
+             :class="item.select?'selectTag tag':'tag'">
+          <img class="w-4.5 h-4.5 mr-1" :src='item.img' alt="">
+          <div class="text-kd12px20px md:text-kd14px20px text-global-primary  font-normal  font-kdExp">{{
+              item.name
+            }}
+          </div>
+        </div>
       </div>
     </div>
-    <!--  jie-->
-    <!--    <ApyTableData />-->
-    <!--    <ApyChart/>-->
-    <!--  dai-->
-
-    <!--  danbi-->
-
-    <!--  dibu-->
-    <!--    <GrowthpadFooter/>-->
-        <ApyTable/>
+    <!-- table表格-->
+    <div :class="j%2!==0? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
+         v-for="(item,j) in [{},{},{}]">
+      <ApyTable/>
+      <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+        <div v-for="(chart,i) in [{},{},{}]" class="flex flex-col mt-8 md:mt-5 relative">
+          <!--          描述信息-->
+          <ApyDes/>
+          <!--          平台列表-->
+          <ApyPlat/>
+          <!--          图表-->
+          <ApyChart line="1" :id="'one'+i+j"/>
+          <div v-if="i>0" class=" absolute border-1 h-full -left-6 "></div>
+        </div>
+      </div>
+    </div>
     <ApyFooter/>
+    <!--    浮动tag-->
+    <div class="tagContainer w-18 h-28 flex-col fixed fixed right-2  2xl:right-40 top-70">
+      <a class="selected block text-kd12px16px font-medium mb-4  pl-2   text-global-primary">存款 APY</a>
+      <a class=" text-kd12px16px block font-medium mb-4 pl-2  text-global-default opacity-65 ">借款利息</a>
+      <a class="text-kd12px16px block font-medium mb-4 pl-2  text-global-default opacity-65 ">单币机枪池</a>
+      <a class="text-kd12px16px block font-medium mb-4 pl-2   text-global-default opacity-65">回到顶部</a>
+    </div>
   </div>
 
 </template>
 <style scoped>
-.rightTag{
+.cardBg {
+  background-image: url('https://res.ikingdata.com/nav/apyCardBg.png');
+  background-size: cover;
+}
+
+.selected {
+  border-left: 2px solid #2B8DFE;
+  @apply relative right-0.3;
+}
+
+.tagContainer {
+  border-left: 1px solid rgba(37, 62, 111, 0.1);
+}
+
+.tag {
+  @apply rounded-md  flex mt-4 md:mr-1  py-1.25 px-3.75 items-center justify-center;
+}
+
+.selectTag {
+  @apply bg-global-primary bg-opacity-8;
+}
+
+@media screen and (max-width: 880px) {
+  .tagContainer {
+    display: none;
+  }
+}
+
+.rightTag {
   box-shadow: inset 1px 0px 0px rgba(37, 62, 111, 0.1);
 }
-.leftBorder{
-  border-left:2px solid #2B8DFE;
+
+.leftBorder {
+  border-left: 2px solid #2B8DFE;
 }
 </style>

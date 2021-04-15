@@ -22,7 +22,7 @@ import {onMounted, reactive, onUnmounted} from 'vue'
 <template>
   <div class="flex tagContainer  items-center  text-center  py-2 px-4 md:py-4 mt-6 md:mt-kd32px">
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px">
+      <div class="text-global-primary text-kd24px30px font-kdExp">
         -
         <!--        ${{ summary.total.toLocaleString() }}-->
       </div>
@@ -32,7 +32,7 @@ import {onMounted, reactive, onUnmounted} from 'vue'
     </div>
     <div class=" w-0.25 bg-global-default opacity-10 h-6"></div>
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px">
+      <div class="text-global-primary text-kd24px30px font-kdExp">
         -
         <!--        {{ summary.totalProject.toLocaleString() }}-->
       </div>
@@ -42,7 +42,7 @@ import {onMounted, reactive, onUnmounted} from 'vue'
     </div>
     <div class=" w-0.25 bg-global-default opacity-10 h-6"></div>
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px">
+      <div class="text-global-primary text-kd24px30px font-kdExp">
         -
         <!--        {{ summary.person.toLocaleString() }}-->
       </div>
