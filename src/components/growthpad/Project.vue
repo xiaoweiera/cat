@@ -123,7 +123,7 @@ const projectBtnStyle = () => {
         <p class="ml-8 text-kd14px18px">{{ props.project?.reward_1_person || '-' }}</p>
       </div>
       <div v-if="status!=='over'" class="flex mt-3 items-end  font-normal ">
-        <p class="desc">{{ t('t.remaing_time') }}</p>
+        <p class="desc">{{ t('project.remaing_time') }}</p>
         <div class="ml-8 flex  text-left items-center  justify-center text-global-primary ">
           <div class="flex items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>

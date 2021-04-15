@@ -29,4 +29,7 @@ useHead({
     display: none !important;
   }
 }
+.hand{
+  cursor: pointer;
+}
 </style>

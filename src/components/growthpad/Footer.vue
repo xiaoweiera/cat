@@ -36,8 +36,10 @@ const { t } = useI18n()
       </div>
     </div>
   </div>
+  <GrowthpadCompany/>
   <div class="join-mobile-us mt-15 mb-15 mdhidden">
     <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full shadowImg"
+                                                                               :src="t('imgList.mobileImg')"
                                                                                src="https://res.ikingdata.com/nav/mobileFootImg.png"
                                                                                alt=""
     >
@@ -45,7 +47,7 @@ const { t } = useI18n()
   </div>
   <div class="join-us xshidden   relative flex  items-center">
     <a class="w-full shadowImg" href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
-      <img class="w-full " src="https://res.ikingdata.com/nav/pcFooter.jpg" alt="">
+      <img class="w-full " :src="t('imgList.footImg')" alt="">
     </a>
   </div>
 </template>
@@ -82,10 +84,11 @@ const { t } = useI18n()
 
 .join-us {
   max-width: 1200px;
-  margin-top: 81px;
+
+  margin-top:80px;
   background-size: contain;
   background-repeat: no-repeat;
-  @apply h-50 mb-10;
+  @apply  mb-10;
 }
 
 .join-mobile-us {

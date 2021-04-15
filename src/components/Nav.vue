@@ -11,7 +11,10 @@ const {
 let show = ref(false)
 // @ts-ignore
 const changeShow = (state: boolean) => {
-  show.value = state
+  if(locale.value==='zh-CN'){
+    show.value = state
+  }
+
 }
 
 const route = useRoute()
@@ -25,7 +28,6 @@ const navIsSelect = (path: String): String => {
 }
 const toggleLocales = () => {
   const locales = availableLocales
-  console.log(locales)
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
 }
 </script>
@@ -36,35 +38,37 @@ const toggleLocales = () => {
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
         <!--   <img src="/assets/more-nav-item.svg" alt="more">-->
-        <a :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/topic">数据图表</a>
-        <a :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/news">7x27 小时监控</a>
-        <a :class="navIsSelect('reports')" target="_blank" href="https://www.kingdata.com/reports">研究报告</a>
+<!--        <a v-if="locale==='zh-CN'" :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/topic">数据图表</a>-->
+<!--        <a v-if="locale==='zh-CN'" :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/news">7x27 小时监控</a>-->
+<!--        <a v-if="locale==='zh-CN'" :class="navIsSelect('reports')" target="_blank" href="https://www.kingdata.com/reports">研究报告</a>-->
         <router-link to="/growthpad" :class="navIsSelect('growthpad')">GrowthPad</router-link>
       </div>
     </div>
 
-    <ul class="flex-none text-golbal-default">
-      <!--      <button class="bg-blue-600 w-20 h-10 rounded-md mx-1 px-1">-->
-      <!--        <a href="#" class="text-white">链接钱包</a>-->
-      <!--      </button>-->
-      <a class="icon-btn mx-2" :title="t('button.toggle_langs')" @click="toggleLocales">
-        <carbon-language/>
-      </a>
+    <ul class=" text-golbal-default flex">
+      <div @click="toggleLocales" class="flex items-center hand">
+        <div class="mr-1 text-global-default opacity-85 ml-kd32px"> {{t('lang')}}</div>
+        <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
+      </div>
       <a href="https://www.ikingdata.com/download" target="_blank" :class="navIsSelect('#')">{{ t('nav.download') }}</a>
     </ul>
   </nav>
   <div class="mdhidden navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">
-    <img @click="changeShow(true)"
-         class="w-6 h-6 mt-1.5"
-         src="https://res.ikingdata.com/nav/list.png"
-         alt=""
-    />
+<!--    <img @click="changeShow(true)"-->
+<!--         class="w-6 h-6 mt-1.5"-->
+<!--         src="https://res.ikingdata.com/nav/list.png"-->
+<!--         alt=""-->
+<!--    />-->
     <img
         class="w-25 h-8"
         src="https://res.ikingdata.com/nav/topicLogo.png"
         alt=""
     />
-    <div></div>
+    <div @click="toggleLocales" class="flex items-center hand">
+      <div class="mr-1 text-global-default opacity-85 ml-kd32px"> {{t('lang')}}</div>
+      <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
+      <a href="https://www.ikingdata.com/download" target="_blank" class="text-global-default opacity-85 ml-3 ">{{ t('nav.download') }}</a>
+    </div>
   </div>
   <div v-if="show" class="mdhidden bg-white w-70 fixed z-3 top-0 h-full">
     <img @click="changeShow(false)" src="https://res.ikingdata.com/nav/vclose.png"
