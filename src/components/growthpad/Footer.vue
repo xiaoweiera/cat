@@ -30,6 +30,7 @@
       </div>
     </div>
   </div>
+  <GrowthpadCompany/>
   <div class="join-mobile-us mt-15 mb-15 mdhidden">
     <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full shadowImg" src="https://res.ikingdata.com/nav/mobileFootImg.png" alt="">
     </a>
@@ -69,10 +70,10 @@
 }
 .join-us {
   max-width: 1200px;
-  margin-top:81px;
+  margin-top:80px;
   background-size: contain;
   background-repeat: no-repeat;
-  @apply h-50 mb-10;
+  @apply  mb-10;
 }
 .join-mobile-us{
   width:100%;

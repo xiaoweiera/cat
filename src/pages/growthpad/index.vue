@@ -16,8 +16,15 @@ useHead({
     },
   ],
 })
+let qr=ref(false)
 let positionContainer = ref(null)
 let video = ref(null)
+const showQr=()=>{
+  qr.value=true
+}
+const closeQr=()=>{
+  qr.value=false
+}
 const videoMap = () => {
   const top = positionContainer.value.getBoundingClientRect().top;
   const left = positionContainer.value.getBoundingClientRect().left;
@@ -60,21 +67,31 @@ onMounted(async () => {
           </div>
           <div class="mt-3">GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC。
           </div>
+          <div class="flex mt-4 md:mt-8.25 relative z-30 items-center ">
+            <div class="text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px">支持</div>
+            <img class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5  md:h-5" src="https://res.ikingdata.com/nav/platHeco.png" alt="">
+            <img class="mr-3 md:mr-4 w-30.8 h-4 md:w-38.5 md:h-5 " src="https://res.ikingdata.com/nav/platBin.png" alt="">
+            <img class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5" src="https://res.ikingdata.com/nav/platEth.png" alt="">
+          </div>
         </div>
         <GrowthpadSummary/>
-
-        <div class="join-in md:mt-kd32px mt-kd35px ">
+        <div class="flex flex-col md:flex-row md:justify-start justify-center items-center">
+        <div class="join-in  md:mt-kd32px mt-kd35px  w-40">
           <a href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank"><img
               src="https://res.ikingdata.com/nav/join.png" alt=""
           ></a>
         </div>
-
+        <div class="flex md:mt-kd32px mt-kd32px ml-4 relative">
+<!--          <img class="platImg" src="https://res.ikingdata.com/nav/KTelegram.png" alt="">-->
+          <a href="https://twitter.com/KingData_com" target="_blank"> <img class="platImg" src="https://res.ikingdata.com/nav/KTwitter.png" alt=""></a>
+          <a href="https://weibo.com/jinseshuju?topnav=1&wvr=6&topsug=1" target="_blank"> <img class="platImg" src="https://res.ikingdata.com/nav/Kweibo.png" alt=""></a>
+<!--          <img class="platImg" src="https://res.ikingdata.com/nav/Kmedium.png" alt="">-->
+          <img class="platImg"  @mouseenter="showQr()" @mouseleave="closeQr()" src="https://res.ikingdata.com/nav/Kwechat.png" alt="">
+          <img v-if="qr"    class="w-29 h-35 absolute bottom-12 -right-3" src="https://res.ikingdata.com/nav/growthQRcode.png" alt="">
+        </div>
+        </div>
       </div>
       <div ref="positionContainer" class="xshidden hero-money  mt-6 md:mt-0 xl:ml-10.5 xl:mt-0">
-        <!--        <video  muted=“muted” class="hero-money" autoplay="true" loop="true">-->
-        <!--          <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"-->
-        <!--                  type="video/mp4">-->
-        <!--        </video>-->
       </div>
 
     </div>
@@ -115,7 +132,9 @@ onMounted(async () => {
   height: 434px;
 
 }
-
+.platImg{
+  @apply w-6 h-6 mr-8;
+}
 ::v-deep(.ant-tabs-tab) {
   font-size: 18px;
   line-height: 28px;
@@ -162,9 +181,9 @@ onMounted(async () => {
 
 .join-in {
   width: 187px !important;
-  height: 42px !important;
+  //height: 42px !important;
 //background-image: url("/assets/growthpad/join-button.svg");
-  @apply w-auto mx-auto md:ml-0;
+  @apply w-auto  md:ml-0;
 }
 
 .project-status-title {
