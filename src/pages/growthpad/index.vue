@@ -47,10 +47,10 @@ onMounted(async () => {
       </div>
       <div class="mxWidth  font-kdFang">
         <div class="text-kd12px22px md:text-kd36px140   font-semibold text-global-highTitle">
-          <div class="text-kd42px50px md:text-kd36px140 flex justify-center md:justify-start barlow font-semibold ">
+          <div class="text-kd42px50px md:text-kd36px140 flex justify-center md:justify-start i8n-font-Barlow font-semibold ">
             GrowthPad
           </div>
-          <div class="text-kd24px32px md:text-kd36px140 flex justify-center md:justify-start barlow font-semibold ">
+          <div class="text-kd24px32px md:text-kd36px140 flex justify-center md:justify-start i8n-font-Barlow font-semibold ">
             {{ t('hero.subtitle') }}
           </div>
         </div>

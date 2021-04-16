@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import {ref, onMounted} from 'vue'
+import {ref} from 'vue'
 import {useRoute} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 import {useHead} from "@vueuse/head";
-
 let show = ref(false)
-// @ts-ignore
-
-
 const route = useRoute()
 const select = route.path.split('/')[1] || ''
 // @ts-ignore
@@ -48,7 +44,7 @@ useHead({
 
 <template>
   <nav class="xshidden flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
-    <img src="/assets/logo.svg" alt="KingData" class="flex-none ">
+    <a href="https://www.kingdata.com" target="_blank"><img src="/assets/logo.svg" alt="KingData" class="flex-none "></a>
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
         <router-link to="/growthpad" :class="navIsSelect('growthpad')">GrowthPad</router-link>
@@ -68,11 +64,11 @@ useHead({
     </ul>
   </nav>
   <div class="mdhidden navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">
-    <img
+    <a href="https://www.kingdata.com" target="_blank"><img
         class="w-25 h-8"
         src="https://res.ikingdata.com/nav/topicLogo.png"
         alt=""
-    />
+    /></a>
     <div @click="toggleLocales" class="flex items-center hand">
       <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter"> {{ t('lang') }}</div>
       <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">

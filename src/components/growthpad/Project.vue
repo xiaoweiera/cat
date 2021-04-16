@@ -85,7 +85,7 @@ const projectBtnStyle = () => {
     <!--    <img style="border-radius: 13px" class="absolute  w-full  h-full left-0 top-0 z-1 " src="https://res.ikingdata.com/nav/cardBgnoBroder.png" alt="">-->
     <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
     <div class="relative z-2">
-      <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150 barlow font-medium">{{ t('project.status.coming') }}</p>
+      <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150 i8n-font-Barlow font-medium">{{ t('project.status.coming') }}</p>
       <img v-if="status==='doing' || status==='done'" class="absolute opacity-6 right-3.5 top-2.5  w-43 h-43"
            :src="tipImg()" alt=""
       >

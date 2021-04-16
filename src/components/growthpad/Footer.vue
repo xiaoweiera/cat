@@ -6,11 +6,11 @@ const {t} = useI18n()
 </script>
 <template>
   <div class="text-center mt-15 md:mt-20">
-    <div class="why-us barlow font-semibold">{{ t('feature.title') }}</div>
+    <div class="why-us i8n-font-Barlow font-semibold">{{ t('feature.title') }}</div>
     <div class="grid sm:grid-cols-1 gap-6  md:gap-7 mt-8  md:grid-cols-2 xl:grid-cols-3 ">
       <div class="flex-1 min-w-min288px ">
         <img src="/assets/growthpad/feature1.svg" alt="" class="w-35 md:w-43.75 mx-auto">
-        <div class="feature-title barlow font-medium">{{ t('feature.feature1.title') }}</div>
+        <div class="feature-title i8n-font-Barlow font-medium">{{ t('feature.feature1.title') }}</div>
         <div class="feature-detail">
           <p class="i8n-font-inter">{{ t('feature.feature1.desc1') }}</p>
           <p class="i8n-font-inter">{{ t('feature.feature1.desc2') }}</p>
@@ -19,7 +19,7 @@ const {t} = useI18n()
 
       <div class="flex-1 min-w-min288px">
         <img src="/assets/growthpad/feature2.svg" alt="" class="w-35 md:w-43.75 mx-auto">
-        <div class="feature-title barlow font-medium">{{ t('feature.feature2.title') }}</div>
+        <div class="feature-title i8n-font-Barlow font-medium">{{ t('feature.feature2.title') }}</div>
         <div class="feature-detail">
           <p class="i8n-font-inter">{{ t('feature.feature2.desc1') }}</p>
         </div>
@@ -27,7 +27,7 @@ const {t} = useI18n()
 
       <div class="flex-1 min-w-min288px">
         <img src="/assets/growthpad/feature3.svg" alt="" class="w-35 md:w-43.75 mx-auto">
-        <div class="feature-title barlow font-medium">{{ t('feature.feature3.title') }}</div>
+        <div class="feature-title i8n-font-Barlow font-medium">{{ t('feature.feature3.title') }}</div>
         <div class="feature-detail">
           <p class="i8n-font-inter">{{ t('feature.feature3.desc1') }}</p>
           <p class="i8n-font-inter">{{ t('feature.feature3.desc2') }}</p>
