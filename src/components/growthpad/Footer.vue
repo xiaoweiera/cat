@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import {useI18n} from 'vue-i18n'
-import type {ProjectInfo} from '~/types/growthpad'
-
 const {t} = useI18n()
 </script>
 <template>
