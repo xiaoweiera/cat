@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
 import '~/styles/font.css'
+import {onMounted, ref} from "vue";
+import {useI18n} from "vue-i18n";
+const {t} = useI18n()
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
@@ -14,11 +17,18 @@ useHead({
   ],
 })
 </script>
-
 <template>
-  <router-view/>
+  <div :class="t('lang')==='En'?'en':'cn'">
+  <router-view />
+  </div>
 </template>
 <style>
+.en .i8n-font-Barlow {
+  font-family: i8n-font-Barlow !important
+}
+.en .i8n-font-inter{
+  font-family: i8n-font-inter !important
+}
 @media screen and (max-width: 768px) {
   .xshidden{
     display: none !important;

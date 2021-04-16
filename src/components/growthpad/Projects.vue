@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { defineProps, reactive, ref, onMounted, onUnmounted } from 'vue'
+import { defineProps, ref } from 'vue'
 
 const props = defineProps({
   status: {
@@ -8,7 +8,6 @@ const props = defineProps({
     required: true,
   },
 })
-
 const { t } = useI18n()
 const projects = ref([{}, {}, {}])
 const title = {
