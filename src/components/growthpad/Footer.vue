@@ -35,15 +35,15 @@ const {t} = useI18n()
   </div>
   <GrowthpadCompany/>
   <div class="join-mobile-us mt-15 mb-15 mdhidden">
-    <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full shadowImg"
+    <a class="w-full h-full rounded " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="rounded w-full h-full shadowImg"
                                                                                :src="t('imgList.mobileImg')"
-                                                                               src="https://res.ikingdata.com/nav/mobileFootImg.png"
+
                                                                                alt=""
     >
     </a>
   </div>
   <div class="join-us xshidden   relative flex  items-center">
-    <a class="w-full shadowImg" href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
+    <a class="w-full shadowImg rounded" href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
       <img class="w-full " :src="t('imgList.footImg')" alt="">
     </a>
   </div>
