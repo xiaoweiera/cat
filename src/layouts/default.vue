@@ -1,3 +1,18 @@
+<script setup lang="ts">
+
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const router = useRouter()
+  const loc = window.location
+  // 二级域名 growthpad.xxx.com/ 跳转到 growthpad.xxx.com/growthpad
+  if (loc.host.startsWith('growthpad') && loc.pathname === '/') {
+    router.push('/growthpad')
+  }
+})
+</script>
+
 <template>
   <div class="circleContainer">
   </div>
