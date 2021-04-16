@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
 import '~/styles/font.css'
+import {onMounted, ref} from "vue";
+import {useI18n} from "vue-i18n";
+const {
+  t,
+  availableLocales,
+  locale,
+} = useI18n()
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
@@ -13,12 +20,29 @@ useHead({
     },
   ],
 })
+//判断中英文
+let lang=ref('en') //true是英文
+//设置语言
+const setLang=()=>{
+  const locales = availableLocales
+  lang.value=locales[(locales.indexOf(locale.value) + 1) % locales.length]
+}
+onMounted(()=>{
+  setLang()
+})
 </script>
-
 <template>
-  <router-view/>
+  <div :class="t('lang')==='En'?'en':'cn'">
+  <router-view />
+  </div>
 </template>
 <style>
+.en .barlow {
+  font-family: Barlow !important
+}
+.en .inter{
+  font-family: Inter !important
+}
 @media screen and (max-width: 768px) {
   .xshidden{
     display: none !important;

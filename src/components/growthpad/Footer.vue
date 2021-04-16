@@ -1,37 +1,36 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import type { ProjectInfo } from '~/types/growthpad'
+import {useI18n} from 'vue-i18n'
+import type {ProjectInfo} from '~/types/growthpad'
 
-const { t } = useI18n()
+const {t} = useI18n()
 </script>
 <template>
   <div class="text-center mt-15 md:mt-20">
-    <div class="why-us">{{ t('feature.title') }}</div>
+    <div class="why-us barlow font-semibold">{{ t('feature.title') }}</div>
     <div class="grid sm:grid-cols-1 gap-6  md:gap-7 mt-8  md:grid-cols-2 xl:grid-cols-3 ">
       <div class="flex-1 min-w-min288px ">
         <img src="/assets/growthpad/feature1.svg" alt="" class="w-35 md:w-43.75 mx-auto">
-        <div class="feature-title">{{ t('feature.feature1.title') }}</div>
+        <div class="feature-title barlow font-medium">{{ t('feature.feature1.title') }}</div>
         <div class="feature-detail">
-          <p>{{ t('feature.feature1.desc1') }}</p>
-          <p>{{ t('feature.feature1.desc2') }}</p>
+          <p class="inter">{{ t('feature.feature1.desc1') }}</p>
+          <p class="inter">{{ t('feature.feature1.desc2') }}</p>
         </div>
       </div>
 
       <div class="flex-1 min-w-min288px">
         <img src="/assets/growthpad/feature2.svg" alt="" class="w-35 md:w-43.75 mx-auto">
-        <div class="feature-title">{{ t('feature.feature2.title') }}</div>
+        <div class="feature-title barlow font-medium">{{ t('feature.feature2.title') }}</div>
         <div class="feature-detail">
-          <p>{{ t('feature.feature2.desc1') }}</p>
-          <p>{{ t('feature.feature2.desc2') }}</p>
+          <p class="inter">{{ t('feature.feature2.desc1') }}</p>
         </div>
       </div>
 
       <div class="flex-1 min-w-min288px">
         <img src="/assets/growthpad/feature3.svg" alt="" class="w-35 md:w-43.75 mx-auto">
-        <div class="feature-title">{{ t('feature.feature3.title') }}</div>
+        <div class="feature-title barlow font-medium">{{ t('feature.feature3.title') }}</div>
         <div class="feature-detail">
-          <p>{{ t('feature.feature3.desc1') }}</p>
-          <p>{{ t('feature.feature3.desc2') }}</p>
+          <p class="inter">{{ t('feature.feature3.desc1') }}</p>
+          <p class="inter">{{ t('feature.feature3.desc2') }}</p>
         </div>
       </div>
     </div>
@@ -85,10 +84,10 @@ const { t } = useI18n()
 .join-us {
   max-width: 1200px;
 
-  margin-top:80px;
+  margin-top: 80px;
   background-size: contain;
   background-repeat: no-repeat;
-  @apply  mb-10;
+  @apply mb-10;
 }
 
 .join-mobile-us {

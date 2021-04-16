@@ -51,15 +51,14 @@ project:
   minute: Minute
 
 feature:
-  title: 'WHY US'
+  title: 'WHY US ?'
   feature1:
     title: 'Precise reach, more real users'
     desc1: 'Comprehensive and perfect information portrait on the chain, accurate database of project user characteristics'
     desc2: 'One step to find the desired users'
   feature2:
     title: 'Selecting traffic, more accurate placement'
-    desc1: 'Huge user base, with hundreds of communities and media matrix as the core'
-    desc2: 'Selecting high-quality traffic from home and abroad'
+    desc1: 'Huge user base, with hundreds of communities and media matrix as the core, Selecting high-quality traffic from home and abroad'
   feature3:
     title: 'Multi-dimensional service, more efficient'
     desc1: 'Customized growth strategy around your needs'

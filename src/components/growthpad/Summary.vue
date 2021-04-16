@@ -10,7 +10,7 @@ const { t } = useI18n()
         -
         <!--        ${{ summary.total.toLocaleString() }}-->
       </div>
-      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px">
+      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px inter ">
         {{ t('summary.award_total') }}
       </div>
     </div>
@@ -20,7 +20,7 @@ const { t } = useI18n()
         -
         <!--        {{ summary.totalProject.toLocaleString() }}-->
       </div>
-      <div class="text-global-default opacity-65 mt-kd4px  text-kd14px18px">
+      <div class="text-global-default opacity-65 mt-kd4px  text-kd14px18px inter">
         {{ t('summary.projects') }}
       </div>
     </div>
@@ -30,7 +30,7 @@ const { t } = useI18n()
         -
         <!--        {{ summary.person.toLocaleString() }}-->
       </div>
-      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px">
+      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px inter">
         {{ t('summary.person_count') }}
       </div>
     </div>

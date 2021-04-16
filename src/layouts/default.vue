@@ -1,15 +1,5 @@
 <template>
   <div class="circleContainer">
-    <!--    <img-->
-    <!--        class="img-responsive bgLeft"-->
-    <!--        src="https://res.ikingdata.com/nav/yuanLeft.png"-->
-    <!--        alt=""-->
-    <!--    />-->
-    <!--    <img-->
-    <!--        class="img-responsive bgRight"-->
-    <!--        src="https://res.ikingdata.com/nav/yuanRight.png"-->
-    <!--        alt=""-->
-    <!--    />-->
   </div>
   <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
     <Nav class="relative "></Nav>

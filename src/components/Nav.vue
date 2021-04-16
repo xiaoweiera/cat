@@ -1,23 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
+import {ref, onMounted} from 'vue'
+import {useRoute} from 'vue-router'
+import {useI18n} from 'vue-i18n'
 import {useHead} from "@vueuse/head";
 
-const {
-  t,
-  availableLocales,
-  locale,
-} = useI18n()
 let show = ref(false)
 // @ts-ignore
-const changeShow = (state: boolean) => {
-  if(locale.value==='zh-CN'){
-    show.value = state
-  }
 
-}
-const title=ref(t('hero.subtitle'))
+
 const route = useRoute()
 const select = route.path.split('/')[1] || ''
 // @ts-ignore
@@ -27,15 +17,26 @@ const navIsSelect = (path: String): String => {
   }
   return ' text-global-default opacity-85 ml-kd32px '
 }
-
+const {
+  t,
+  availableLocales,
+  locale,
+} = useI18n()
+const title = ref(t('hero.subtitle'))
+const changeShow = (state: boolean) => {
+  if (locale.value === 'zh-CN') {
+    show.value = state
+  }
+}
+//判断中英文
+let lang = ref(true) //true是英文
 const toggleLocales = () => {
   const locales = availableLocales
-
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
-  title.value=t('hero.subtitle')
+  title.value = t('hero.subtitle')
 }
 useHead({
-  title:  title,
+  title: title,
   meta: [
     {
       name: 'keywords',
@@ -51,41 +52,37 @@ useHead({
 
 
 <template>
-  <nav class="xshidden flex items-center relative z-2      px-6 h-18 font-kdFang    justify-start">
+  <nav class="xshidden flex items-center relative z-2 inter    px-6 h-18 font-kdFang    justify-start">
     <img src="/assets/logo.svg" alt="KingData" class="flex-none ">
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
-        <!--   <img src="/assets/more-nav-item.svg" alt="more">-->
-<!--        <a v-if="locale==='zh-CN'" :class="navIsSelect('#')" target="_blank" href="https://www.kingdata.com/topic">数据图表</a>-->
         <router-link to="/growthpad" :class="navIsSelect('growthpad')">GrowthPad</router-link>
-        <a  class=" text-global-default opacity-85 ml-kd32px " target="_blank" :href="t('nav.applySrc')">{{t('nav.apply')}}</a>
-        <a  class=" text-global-default opacity-85 ml-kd32px " target="_blank" :href="t('nav.aboutSrc')">{{t('nav.about')}}</a>
+        <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
+           :href="t('nav.applySrc')">{{ t('nav.apply') }}</a>
+        <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
+           :href="t('nav.aboutSrc')">{{ t('nav.about') }}</a>
       </div>
     </div>
 
     <ul class=" text-golbal-default flex">
       <div @click="toggleLocales" class="flex items-center hand">
-        <div class="mr-1 text-global-default opacity-85 ml-kd32px"> {{t('lang')}}</div>
+        <div class="mr-1 text-global-default opacity-85 ml-kd32px "> {{ t('lang') }}</div>
         <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
       </div>
       <a href="https://www.ikingdata.com/download" target="_blank" :class="navIsSelect('#')">{{ t('nav.download') }}</a>
     </ul>
   </nav>
   <div class="mdhidden navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">
-<!--    <img @click="changeShow(true)"-->
-<!--         class="w-6 h-6 mt-1.5"-->
-<!--         src="https://res.ikingdata.com/nav/list.png"-->
-<!--         alt=""-->
-<!--    />-->
     <img
         class="w-25 h-8"
         src="https://res.ikingdata.com/nav/topicLogo.png"
         alt=""
     />
     <div @click="toggleLocales" class="flex items-center hand">
-      <div class="mr-1 text-global-default opacity-85 ml-kd32px"> {{t('lang')}}</div>
+      <div class="mr-1 text-global-default opacity-85 ml-kd32px inter"> {{ t('lang') }}</div>
       <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
-      <a href="https://www.ikingdata.com/download" target="_blank" class="text-global-default opacity-85 ml-3 ">{{ t('nav.download') }}</a>
+      <a href="https://www.ikingdata.com/download" target="_blank"
+         class="text-global-default opacity-85 ml-3 inter">{{ t('nav.download') }}</a>
     </div>
   </div>
   <div v-if="show" class="mdhidden bg-white w-70 fixed z-3 top-0 h-full">
@@ -101,11 +98,11 @@ useHead({
       >研究报告</a>
     </div>
   </div>
-
 </template>
 <style lang="postcss" scoped>
 .navLogoBg {
   background: #EAF3FE;
   box-shadow: 0px 1px 0px rgba(43, 140, 255, 0.02), 0px 4px 12px rgba(0, 0, 0, 0.06);
 }
+
 </style>

@@ -2,3 +2,11 @@
     font-family: D-DIN Exp;
     src: url('/assets/font/D-DINExp.otf');
 }
+@font-face {
+    font-family: Barlow;
+    src: url('/assets/font/barlowSemiCondensed-Medium.ttf');
+}
+@font-face {
+    font-family: Inter;
+    src: url('/assets/font/Inter-Regular.otf');
+}
