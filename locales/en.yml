@@ -11,3 +11,52 @@ intro:
   hi: Hi, {name}!
   whats-your-name: What's your name?
 not-found: Not found
+nav:
+  download: Download
+hero:
+  title: GrowthPad
+  subtitle: Growth Your DeFi Project
+
+  desc1: 'GrowthPad is designed to enable products to get rid of the traditional cold start method and find target users quickly and precisely through accurate user behavior profile, modeling and efficient task model. It also helps projects to distribute generous rewards to target users and avoid ineffective users to achieve rapid project growth.'
+  desc2: 'GrowthPad has comprehensively mined and analyzed on-chain data and mainstream project data of public chains, and established a rich database of user behavior characteristics. Currently supported public chains include: ETH, HECO, BSC.'
+plat:
+  des: Support
+
+Partners: Partners
+lang: En
+
+
+imgList:
+  applyImg: 'https://res.ikingdata.com/nav/applyEn.png'
+  footImg: 'https://res.ikingdata.com/nav/pcFooterEn.png'
+  mobileImg: 'https://res.ikingdata.com/nav/mobileFooterEn.png'
+summary:
+  award_total: 'Total raised funds'
+  projects: 'Total established projects'
+  person_count: 'Total Participated Person'
+
+project:
+  status:
+    coming: 'Coming Soon'
+  award_number: 'number of awards'
+  reward_value: 'reward value'
+  per_person: 'per person'
+  remaing_time: 'time left'
+  day: Day
+  hour: Hour
+  minute: Minute
+
+feature:
+  title: 'Why Us'
+  feature1:
+    title: 'Precise reach, more real users'
+    desc1: 'Comprehensive and perfect information portrait on the chain, accurate database of project user characteristics'
+    desc2: 'One step to find the desired users'
+  feature2:
+    title: 'Selecting traffic, more accurate placement'
+    desc1: 'Huge user base, with hundreds of communities and media matrix as the core'
+    desc2: 'Selecting high-quality traffic from home and abroad'
+  feature3:
+    title: 'Multi-dimensional service, more efficient'
+    desc1: 'Customized growth strategy around your needs'
+    desc2: 'Realize a full range of promotion services'

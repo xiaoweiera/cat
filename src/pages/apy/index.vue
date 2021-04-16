@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {getColumns} from '~/api/apy'
 const tagList = [
   {id: 1, select: true, name: 'ETH', img: 'https://res.ikingdata.com/nav/apyEth.png'},
   {id: 2, select: false, name: 'Heco', img: 'https://res.ikingdata.com/nav/apyHeco.png'},
