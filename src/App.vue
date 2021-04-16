@@ -20,16 +20,6 @@ useHead({
     },
   ],
 })
-//判断中英文
-let lang=ref('en') //true是英文
-//设置语言
-const setLang=()=>{
-  const locales = availableLocales
-  lang.value=locales[(locales.indexOf(locale.value) + 1) % locales.length]
-}
-onMounted(()=>{
-  setLang()
-})
 </script>
 <template>
   <div :class="t('lang')==='En'?'en':'cn'">
@@ -40,8 +30,8 @@ onMounted(()=>{
 .en .barlow {
   font-family: Barlow !important
 }
-.en .inter{
-  font-family: Inter !important
+.en .i8n-font-inter{
+  font-family: i8n-font-inter !important
 }
 @media screen and (max-width: 768px) {
   .xshidden{

@@ -12,8 +12,8 @@ const {t} = useI18n()
         <img src="/assets/growthpad/feature1.svg" alt="" class="w-35 md:w-43.75 mx-auto">
         <div class="feature-title barlow font-medium">{{ t('feature.feature1.title') }}</div>
         <div class="feature-detail">
-          <p class="inter">{{ t('feature.feature1.desc1') }}</p>
-          <p class="inter">{{ t('feature.feature1.desc2') }}</p>
+          <p class="i8n-font-inter">{{ t('feature.feature1.desc1') }}</p>
+          <p class="i8n-font-inter">{{ t('feature.feature1.desc2') }}</p>
         </div>
       </div>
 
@@ -21,7 +21,7 @@ const {t} = useI18n()
         <img src="/assets/growthpad/feature2.svg" alt="" class="w-35 md:w-43.75 mx-auto">
         <div class="feature-title barlow font-medium">{{ t('feature.feature2.title') }}</div>
         <div class="feature-detail">
-          <p class="inter">{{ t('feature.feature2.desc1') }}</p>
+          <p class="i8n-font-inter">{{ t('feature.feature2.desc1') }}</p>
         </div>
       </div>
 
@@ -29,8 +29,8 @@ const {t} = useI18n()
         <img src="/assets/growthpad/feature3.svg" alt="" class="w-35 md:w-43.75 mx-auto">
         <div class="feature-title barlow font-medium">{{ t('feature.feature3.title') }}</div>
         <div class="feature-detail">
-          <p class="inter">{{ t('feature.feature3.desc1') }}</p>
-          <p class="inter">{{ t('feature.feature3.desc2') }}</p>
+          <p class="i8n-font-inter">{{ t('feature.feature3.desc1') }}</p>
+          <p class="i8n-font-inter">{{ t('feature.feature3.desc2') }}</p>
         </div>
       </div>
     </div>

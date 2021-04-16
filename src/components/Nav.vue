@@ -23,11 +23,6 @@ const {
   locale,
 } = useI18n()
 const title = ref(t('hero.subtitle'))
-const changeShow = (state: boolean) => {
-  if (locale.value === 'zh-CN') {
-    show.value = state
-  }
-}
 //判断中英文
 let lang = ref(true) //true是英文
 const toggleLocales = () => {
@@ -52,7 +47,7 @@ useHead({
 
 
 <template>
-  <nav class="xshidden flex items-center relative z-2 inter    px-6 h-18 font-kdFang    justify-start">
+  <nav class="xshidden flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
     <img src="/assets/logo.svg" alt="KingData" class="flex-none ">
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
@@ -79,16 +74,16 @@ useHead({
         alt=""
     />
     <div @click="toggleLocales" class="flex items-center hand">
-      <div class="mr-1 text-global-default opacity-85 ml-kd32px inter"> {{ t('lang') }}</div>
+      <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter"> {{ t('lang') }}</div>
       <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
       <a href="https://www.ikingdata.com/download" target="_blank"
-         class="text-global-default opacity-85 ml-3 inter">{{ t('nav.download') }}</a>
+         class="text-global-default opacity-85 ml-3 i8n-font-inter">{{ t('nav.download') }}</a>
     </div>
   </div>
   <div v-if="show" class="mdhidden bg-white w-70 fixed z-3 top-0 h-full">
-    <img @click="changeShow(false)" src="https://res.ikingdata.com/nav/vclose.png"
-         class="absolute right-3 top-3 w-5 h-5" alt=""
-    >
+<!--    <img @click="changeShow(false)" src="https://res.ikingdata.com/nav/vclose.png"-->
+<!--         class="absolute right-3 top-3 w-5 h-5" alt=""-->
+<!--    >-->
     <div class="flex flex-col ml-4 mt-10">
       <a class="text-kd16px18px font-medium text-global-default w-20 mb-3" href="https://www.kingdata.com/topic"
       >数据图表</a>

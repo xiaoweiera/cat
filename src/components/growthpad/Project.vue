@@ -125,15 +125,15 @@ const projectBtnStyle = () => {
         <div class="ml-8 flex  text-left items-center  justify-center text-global-primary ">
           <div class="flex items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px inter font-normal" style="font-size:12px">{{ t('project.day') }}</div>
+            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal" style="font-size:12px">{{ t('project.day') }}</div>
           </div>
           <div class="flex ml-2 items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px inter font-normal">{{ t('project.hour') }}</div>
+            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal">{{ t('project.hour') }}</div>
           </div>
           <div class="flex ml-2 items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px inter font-normal ">{{ t('project.minute') }}</div>
+            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal ">{{ t('project.minute') }}</div>
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@ const projectBtnStyle = () => {
 
 .desc {
   width: 70px;
-  font-family: Inter !important;
+  font-family: i8n-font-inter !important;
   @apply text-global-defalut opacity-65 text-kd14px18px ;
 }
 

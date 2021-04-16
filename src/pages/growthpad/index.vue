@@ -54,13 +54,13 @@ onMounted(async () => {
             {{ t('hero.subtitle') }}
           </div>
         </div>
-        <div class=" text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 inter inter200">
+        <div class=" text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 i8n-font-inter i8n-font-inter200">
           <div>{{ t('hero.desc1') }}</div>
           <div class="mt-3">{{ t('hero.desc2') }}</div>
 
         </div>
         <div class="flex mt-4  md:mt-8.25 relative z-30 items-center ">
-          <div class="text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px inter inter200">{{
+          <div class="text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200">{{
               t('plat.des')
             }}
           </div>
@@ -101,7 +101,7 @@ onMounted(async () => {
 
     <!--  即将开始-->
     <div class="progress text-left mt-15 md:mt-20 ">
-      <div class="project-status-title   text-center md:text-left inter font-medium">⏱ {{
+      <div class="project-status-title   text-center md:text-left i8n-font-inter font-medium">⏱ {{
           t('project.status.coming')
         }}
       </div>
@@ -129,11 +129,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.en .barlow600 {
-  @apply font-semibold;
-}
-
-.en .inter200 {
+.en .i8n-font-inter200 {
   @apply font-extralight;
 }
 

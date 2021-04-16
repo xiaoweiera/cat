@@ -35,7 +35,7 @@ export default defineConfig({
                 "kdFang": 'PingFang SC',
                 "kdExp":'D-DIN Exp',
                 "kdBarlow":'barlow',
-                "kdInter":'Inter',
+                "kdInter":'i8n-font-inter',
 
             },
             margin: {
