@@ -11,7 +11,7 @@ onMounted(() => {
   if (loc.host.startsWith('growthpad') || loc.pathname === '/') {
     setTimeout(() => {
       router.push('/growthpad')
-    }, 420)
+    }, 360)
     // window.location.href=`${loc.protocol}//${loc.host}/growthpad`
   }
 })
