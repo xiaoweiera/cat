@@ -9,7 +9,7 @@ const { t } = useI18n()
     <div class="why-us">{{ t('feature.title') }}</div>
     <div class="grid sm:grid-cols-1 gap-6  md:gap-7 mt-8  md:grid-cols-2 xl:grid-cols-3 ">
       <div class="flex-1 min-w-min288px ">
-        <img src="/assets/growthpad/feature1.svg" alt="" class="mx-auto">
+        <img src="/assets/growthpad/feature1.svg" alt="" class="w-35 md:w-43.75 mx-auto">
         <div class="feature-title">{{ t('feature.feature1.title') }}</div>
         <div class="feature-detail">
           <p>{{ t('feature.feature1.desc1') }}</p>
@@ -18,7 +18,7 @@ const { t } = useI18n()
       </div>
 
       <div class="flex-1 min-w-min288px">
-        <img src="/assets/growthpad/feature2.svg" alt="" class="mx-auto">
+        <img src="/assets/growthpad/feature2.svg" alt="" class="w-35 md:w-43.75 mx-auto">
         <div class="feature-title">{{ t('feature.feature2.title') }}</div>
         <div class="feature-detail">
           <p>{{ t('feature.feature2.desc1') }}</p>
@@ -27,7 +27,7 @@ const { t } = useI18n()
       </div>
 
       <div class="flex-1 min-w-min288px">
-        <img src="/assets/growthpad/feature3.svg" alt="" class="mx-auto">
+        <img src="/assets/growthpad/feature3.svg" alt="" class="w-35 md:w-43.75 mx-auto">
         <div class="feature-title">{{ t('feature.feature3.title') }}</div>
         <div class="feature-detail">
           <p>{{ t('feature.feature3.desc1') }}</p>

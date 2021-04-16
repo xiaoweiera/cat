@@ -1,29 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useHead } from '@vueuse/head'
 import { useI18n } from 'vue-i18n'
 import { wxShare } from '~/lib/wxShare'
 
 const { t } = useI18n()
-useHead({
-  title: 'GrowthPad 数据驱动DeFi项目快速增长',
-  meta: [
-    {
-      name: 'keywords',
-      content: 'BTC, ETH, EOS, USDT, 波卡, DeFi, DOT,智能投研, 大数据分析, coinmarket, 数字货币数据分析,数字货币行业大数据, 虚拟币数据分析, Coinmarketcap, 中文版 Coinmarketcap, 区块链, 大数据, 数据分析, 比特币, 莱比特, 以太坊, ETH, EOS, 钱包, 共识算法, 舆情分析, cryptocompare, coinmarket, 数字货币数据分析,投资,投资顾问, 智能投资,智投,投资工具,数据分析,数据可视化,Digital currency data analysis, Digital currency industry big data, 数字货币行业大数据, 虚拟币数据分析, Virtual currency data analysis, 中文版Coinmarketcap, blockchain, big data, BTC, 比特币, 莱比特, LTC, 以太坊, ETH, EOS, 钱包, wallet, 共识算法, 舆情分析, Consensus algorithm,cryptocompare, Public opinion analysis 增长平台  GrowthPad',
-    },
-    {
-      name: 'description',
-      content: 'GrowthPad 旨在根据精准的用户行为画像，精妙的建模、高效的任务模式，让项目方可以摆脱传统的冷启动方式，精准找到目标用户。同样平台也帮助企业把丰厚的奖励分发给目标用户，避免羊毛党和科学家，真正的做到了企业快速增长。',
-    },
-  ],
-})
 let qr=ref(false)
 let positionContainer = ref(null)
 let video = ref(null)
 const showQr=()=>{
   qr.value=true
 }
+
 const closeQr=()=>{
   qr.value=false
 }
@@ -60,9 +47,9 @@ onMounted(async() => {
         <!--              <img src="https://res.ikingdata.com/nav/mobileMoneyImg.jpg" alt="" class="w-60 h-50">-->
       </div>
       <div class="mxWidth  font-kdFang">
-        <div class="text-kd12px22px md:text-kd36px  font-semibold text-global-highTitle">
-          <div class="text-kd42px50px flex justify-center md:justify-start">GrowthPad</div>
-          <div class="text-kd24px32px flex justify-center md:justify-start">{{ t('hero.subtitle') }}</div>
+        <div class="text-kd12px22px md:text-kd36px140  font-semibold text-global-highTitle">
+          <div class="text-kd42px50px md:text-kd36px140 flex justify-center md:justify-start">GrowthPad</div>
+          <div class="text-kd24px32px md:text-kd36px140 flex justify-center md:justify-start">{{ t('hero.subtitle') }}</div>
         </div>
         <div class="text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 ">
           <div>{{ t('hero.desc1') }}</div>
@@ -72,7 +59,7 @@ onMounted(async() => {
         <div class="flex mt-4 md:mt-8.25 relative z-30 items-center ">
           <div class="text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px">{{ t('plat.des') }}</div>
           <img class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5  md:h-5" src="https://res.ikingdata.com/nav/platHeco.png" alt="">
-          <img class="mr-3 md:mr-4 w-30.8 h-4 md:w-38.5 md:h-5 " src="https://res.ikingdata.com/nav/platBin.png" alt="">
+          <img class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5 " src="https://res.ikingdata.com/nav/platBinance.png" alt="">
           <img class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5" src="https://res.ikingdata.com/nav/platEth.png" alt="">
         </div>
         <GrowthpadSummary/>
@@ -171,7 +158,7 @@ onMounted(async() => {
 }
 
 .mxWidth {
-  max-width: 640px;
+  max-width: 657px;
   @apply flex-1 md:w-160 md:min-w-min430px;
 }
 
