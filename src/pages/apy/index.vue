@@ -1,11 +1,22 @@
 <script setup lang="ts">
 import {getColumns} from '~/api/apy'
+getColumns
+import {onMounted} from 'vue'
 const tagList = [
   {id: 1, select: true, name: 'ETH', img: 'https://res.ikingdata.com/nav/apyEth.png'},
   {id: 2, select: false, name: 'Heco', img: 'https://res.ikingdata.com/nav/apyHeco.png'},
   {id: 3, select: false, name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false, name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
+const getColumnsList = () => {
+  const params={chain:'bsc'}
+  console.log('111')
+  getColumns(params,(data)=>{
+    console.log(data)
+  })
+}
+
+onMounted(getColumnsList)
 </script>
 
 <template>
@@ -17,17 +28,7 @@ const tagList = [
       <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal">
         我们已经为每个加密货币类别创建了索引。类别按24小时价格变化排名。单击密码类别名称可查看指数的组成部分及其最近的价格表现。
       </div>
-      <!--          链上集合-->
-      <div class="flex ">
-        <div v-for="item in tagList"
-             :class="item.select?'selectTag tag':'tag'">
-          <img class="w-4.5 h-4.5 mr-1" :src='item.img' alt="">
-          <div class="text-kd12px20px md:text-kd14px20px text-global-primary  font-normal  font-kdExp">{{
-              item.name
-            }}
-          </div>
-        </div>
-      </div>
+      <ApyChain :tagList="tagList"/>
     </div>
     <!-- table表格-->
     <div :class="j%2!==0? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
@@ -71,13 +72,6 @@ const tagList = [
   border-left: 1px solid rgba(37, 62, 111, 0.1);
 }
 
-.tag {
-  @apply rounded-md  flex mt-4 md:mr-1  py-1.25 px-3.75 items-center justify-center;
-}
-
-.selectTag {
-  @apply bg-global-primary bg-opacity-8;
-}
 
 @media screen and (max-width: 880px) {
   .tagContainer {
