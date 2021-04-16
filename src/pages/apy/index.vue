@@ -1,26 +1,33 @@
 <script setup lang="ts">
 import {getColumns} from '~/api/apy'
-getColumns
-import {onMounted} from 'vue'
+import axios from 'axios'
+import {onMounted,ref} from 'vue'
+import type { SummaryModel } from '~/types/growthpad'
+
+
 const tagList = [
   {id: 1, select: true, name: 'ETH', img: 'https://res.ikingdata.com/nav/apyEth.png'},
   {id: 2, select: false, name: 'Heco', img: 'https://res.ikingdata.com/nav/apyHeco.png'},
   {id: 3, select: false, name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false, name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
-const getColumnsList = () => {
+let headerList=ref([])
+//得到header
+const getColumnsList = async () => {
   const params={chain:'bsc'}
-  console.log('111')
-  getColumns(params,(data)=>{
-    console.log(data)
-  })
-}
+  await axios.get('/api/v1/apy/getColumns')
+      .then(({ data }) => {
+        const {code,result}=data
+       if(code===0) headerList.value=result
+      })
 
-onMounted(getColumnsList)
+}
+onMounted(() => {
+  getColumnsList()
+})
 </script>
 
 <template>
-
   <div class=" flex-col w-full max-w-360    md:mb-25">
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
@@ -33,7 +40,7 @@ onMounted(getColumnsList)
     <!-- table表格-->
     <div :class="j%2!==0? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
          v-for="(item,j) in [{},{},{}]">
-      <ApyTable/>
+      <ApyTable :headerList="headerList"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chart,i) in [{},{},{}]" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->

@@ -19,15 +19,6 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
-  port: 3333,
-  hostname: "0.0.0.0",
-  proxy: {
-    '/apis': {
-      target: 'https://ikingdata.com/',
-      changeOrigin: true,
-      rewrite: path => path.replace(/^\/api/, '')
-    }
-  },
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],

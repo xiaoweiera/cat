@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import {ElButton, ElSwitch, ElTable, ElTableColumn} from 'element-plus'
-import {ref} from "vue";
-
+import {ref,defineProps} from "vue";
+const props = defineProps({
+  headerList: {
+    type: Array,
+  }
+})
 const tableData = [{
   date: '2016-05-03',
   name: '王小虎',
@@ -96,11 +100,14 @@ const ok = ref(true)
           </div>
         </template>
       </el-table-column>
-      <el-table-column v-for="item in [{},{},{},{},{}]"
+      <el-table-column v-for="(item,i) in headerList"
                        prop="name"
                        label="MDX"
                        width="212"
       >
+        <template #header="scope">
+          <ApyHeaderColumn :headerData="item"/>
+        </template>
         <template #default="scope">
           <div class="w-53 h-full flex flex-col justify-center   px-3">
             <div class="flex mb-0.5 items-center">

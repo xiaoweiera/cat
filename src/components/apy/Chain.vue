@@ -3,7 +3,7 @@ import {defineProps} from 'vue'
 
 const props = defineProps({
   tagList: {
-    type: [],
+    type: Array,
   }
 })
 </script>
