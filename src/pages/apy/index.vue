@@ -2,6 +2,7 @@
 import {getColumns} from '~/api/apy'
 import axios from 'axios'
 import {onMounted,ref} from 'vue'
+
 import type { SummaryModel } from '~/types/growthpad'
 
 
@@ -11,7 +12,9 @@ const tagList = [
   {id: 3, select: false, name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false, name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
+let newHeaderList=ref([])
 let headerList=ref([])
+let dataSet=ref([])
 //得到header
 const getColumnsList = async () => {
   const params={chain:'bsc'}
@@ -20,10 +23,51 @@ const getColumnsList = async () => {
         const {code,result}=data
        if(code===0) headerList.value=result
       })
-
 }
-onMounted(() => {
-  getColumnsList()
+//table数据
+const getDataSet = async () => {
+  const params={chain:'bsc'}
+  await axios.get('/api/v1/apy/dataset')
+      .then(({ data }) => {
+        const {code,result}=data
+        if(code===0) {
+          dataSet.value=result
+        }
+      })
+}
+//根据table header得到表哥需要的header里面
+const getHeaderItem= (name)=>{
+  let result={}
+  headerList.value.forEach(item=>{
+    if(item.token_name===name){
+      result=item
+      return result
+    }
+  })
+
+  return result
+}
+const allHeader=async()=>{
+  let allDataSet=dataSet.value
+  let newHeader=[]  //根据table得到的header
+  //得到所有行的header
+  allDataSet.forEach(item=>{
+    item.data.forEach(itemTwo=>{
+      if(!newHeader.includes(itemTwo.token_name)){
+        newHeader.push(itemTwo.token_name)
+      }
+    })
+  })
+  //获得所有对应的header
+  newHeader.forEach((item,i)=>{newHeaderList.value.push(getHeaderItem(item))})
+  // newHeaderList.value=newList
+  // console.log(newHeaderList.value.length,newHeaderList.value)
+}
+onMounted(async() => {
+  // getColumns()
+   getColumnsList()
+  await getDataSet()
+  allHeader()
 })
 </script>
 
@@ -40,9 +84,9 @@ onMounted(() => {
     <!-- table表格-->
     <div :class="j%2!==0? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
          v-for="(item,j) in [{},{},{}]">
-      <ApyTable :headerList="headerList"/>
+      <ApyTable :dataSet="dataSet" :headerList="newHeaderList"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-        <div v-for="(chart,i) in [{},{},{}]" class="flex flex-col mt-8 md:mt-5 relative">
+        <div v-for="(chart,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->
           <ApyDes/>
           <!--          平台列表-->

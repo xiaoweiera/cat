@@ -19,7 +19,9 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
+
   plugins: [
+
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
@@ -125,7 +127,6 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
   },
-
   optimizeDeps: {
     include: [
       'vue',

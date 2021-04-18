@@ -12,9 +12,9 @@ const props = defineProps({
     <div class="font-normal text-kd14px18px text-global-highTitle">{{props.headerData.token_name}}</div>
   </div>
   <div class="flex">
-    <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">${{props.headerData.token_price}}</div>
-    <div class="px-1.5 py-0.25 text-kd12px16px bg-global-numGreen text-global-numGreen rounded bg-opacity-10 font-bold flex items-center">
-      +{{props.headerData.change}}
+    <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">${{props.headerData.price}}</div>
+    <div  :class="props.headerData.change>=0?'Greem percent':'Red percent'">
+      {{props.headerData.change?props.headerData.change:+0}}
     </div>
   </div>
 </template>
@@ -23,7 +23,17 @@ const props = defineProps({
 .tag {
   @apply rounded-md  flex mt-4 md:mr-1  py-1.25 px-3.75 items-center justify-center;
 }
+.Greem{
+  @apply text-global-numGreen bg-global-numGreen;
+}
+.Red {
+  @apply text-global-numRed bg-global-numRed;
+}
 
+
+.percent{
+  @apply  px-1.5 py-0.25 text-kd12px16px  rounded bg-opacity-10 font-bold flex items-center;
+}
 .selectTag {
   @apply bg-global-primary bg-opacity-8;
 }
