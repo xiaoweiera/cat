@@ -2,7 +2,6 @@
 import {ref, onMounted} from 'vue'
 import {useI18n} from 'vue-i18n'
 import {wxShare} from '~/lib/wxShare'
-
 const {t} = useI18n()
 let qr = ref(false)
 let positionContainer = ref(null)
