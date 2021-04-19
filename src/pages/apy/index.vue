@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getColumns} from '~/api/apy'
+import {getColumns,getDataset} from '~/api/apy'
 import axios from 'axios'
 import {onMounted,ref} from 'vue'
 
@@ -12,67 +12,37 @@ const tagList = [
   {id: 3, select: false, name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false, name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
-let newHeaderList=ref([])
-let headerList=ref([])
-let dataSet=ref([])
-//得到header
-const getColumnsList = async () => {
-  const params={chain:'bsc'}
-  await axios.get('/api/v1/apy/getColumns')
-      .then(({ data }) => {
-        const {code,result}=data
-       if(code===0) headerList.value=result
-      })
-}
-//table数据
-const getDataSet = async () => {
-  const params={chain:'bsc'}
-  await axios.get('/api/v1/apy/dataset')
-      .then(({ data }) => {
-        const {code,result}=data
-        if(code===0) {
-          dataSet.value=result
-        }
-      })
-}
-//根据table header得到表哥需要的header里面
-const getHeaderItem= (name)=>{
-  let result={}
-  headerList.value.forEach(item=>{
-    if(item.token_name===name){
-      result=item
-      return result
-    }
-  })
 
-  return result
+let dataTableList=ref([])
+const listType=[{name:'lend',title:'DeFi 借贷平台存款 APY 对比'},{name:'loan',title:'DeFi 借贷平台借款利息对比'},{name:'machine_gun_pool',title:'DeFi 单币种机枪池 APY 对比'}]
+//得到header
+const getTableData = async () => {
+  const params={chain:'bsc'}
+
+  for(let i=0;i<listType.length-1;i++){
+    const item=listType[i]
+    const param={chain:'bsc',category:item.name}
+    let dataList=[]
+    let headerList=[]
+    //获取header
+    const headerData=await getColumns(param);
+    if(headerData.data.code===0) headerList=headerData.data.data
+    //获取dataSet
+    const dataTable=await getDataset(param);
+    if(dataTable.data.code===0)  dataList=dataTable.data.data
+    if(dataList.length>0)  dataTableList.value.push({title:item.title,header:headerList,dataTable:dataList})
+  }
 }
-const allHeader=async()=>{
-  let allDataSet=dataSet.value
-  let newHeader=[]  //根据table得到的header
-  //得到所有行的header
-  allDataSet.forEach(item=>{
-    item.data.forEach(itemTwo=>{
-      if(!newHeader.includes(itemTwo.token_name)){
-        newHeader.push(itemTwo.token_name)
-      }
-    })
-  })
-  //获得所有对应的header
-  newHeader.forEach((item,i)=>{newHeaderList.value.push(getHeaderItem(item))})
-  // newHeaderList.value=newList
-  // console.log(newHeaderList.value.length,newHeaderList.value)
-}
+
 onMounted(async() => {
-  // getColumns()
-   getColumnsList()
-  await getDataSet()
-  allHeader()
+  await getTableData()
+  console.log('table数据',dataTableList.value)
+  // await getDataSet()
 })
 </script>
 
 <template>
-  <div class=" flex-col w-full max-w-360    md:mb-25">
+  <div class=" flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
       <div class="text-kd24px100 md:text-kd24px24px  md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
@@ -83,8 +53,8 @@ onMounted(async() => {
     </div>
     <!-- table表格-->
     <div :class="j%2!==0? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
-         v-for="(item,j) in [{},{},{}]">
-      <ApyTable :dataSet="dataSet" :headerList="newHeaderList"/>
+         v-for="(item,j) in []">
+      <ApyTable :title="item.title" :dataSet="item.dataTable" :headerList="item.header"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chart,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->

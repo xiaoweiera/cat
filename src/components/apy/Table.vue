@@ -2,6 +2,7 @@
 import {ElButton, ElSwitch, ElTable, ElTableColumn} from 'element-plus'
 import {ref,defineProps,onMounted} from "vue";
 const props = defineProps({
+  title:{type:String},
   dataSet:{
     type:Array
   },
@@ -20,9 +21,8 @@ const show=(data,name)=>{
     }
   })
 }
-const aa=(data,name)=>{
+const getItem=(data,name)=>{
   let result=''
-  console.log('1111')
   data.data.forEach(item=>{
     if(item.token_name===name){
       result=item
@@ -30,48 +30,12 @@ const aa=(data,name)=>{
   })
   return result;
 }
-const tableData = [{
-  date: '2016-05-03',
-  name: '王小虎',
-  province: '上海',
-  city: '普陀区',
-  address: '上海市普陀区金沙江路 1518 弄',
-  zip: 200333,
-}, {
-  date: '2016-05-02',
-  name: '王小虎',
-  province: '上海',
-  city: '普陀区',
-  address: '上海市普陀区金沙江路 1518 弄',
-  zip: 200333,
-}, {
-  date: '2016-05-04',
-  name: '王小虎',
-  province: '上海',
-  city: '普陀区',
-  address: '上海市普陀区金沙江路 1518 弄',
-  zip: 200333,
-}, , {
-  date: '2016-05-04',
-  name: '王小虎',
-  province: '上海',
-  city: '普陀区',
-  address: '上海市普陀区金沙江路 1518 弄',
-  zip: 200333,
-}, , {
-  date: '2016-05-04',
-  name: '王小虎',
-  province: '上海',
-  city: '普陀区',
-  address: '上海市普陀区金沙江路 1518 弄',
-  zip: 200333,
-},]
 const ok = ref(true)
 </script>
 <template>
   <div class="flex flex-wrap items-center justify-between  mb-8  md:mb-5">
     <div class="flex items-center">
-      <div class="text-kd18px28px font-medium mr-1.5">DeFi 借贷平台存款 APY 对比</div>
+      <div class="text-kd18px28px font-medium mr-1.5">{{title}}</div>
       <div class="text-kd14px20px font-normal text-global-default opacity-65">(4秒前更新)</div>
     </div>
     <div>
@@ -138,15 +102,19 @@ const ok = ref(true)
           <div  class="w-53 h-full flex flex-col justify-center   px-3">
             <div class="flex mb-0.5 items-center  flex-wrap ">
               <span class="desName mr-1">收到利息</span>
-              <div class="desNum ">{{aa(scope.row,item.token_name).apy}}</div>
+              <div class="desNum ">{{getItem(scope.row,item.token_name).apy}}</div>
             </div>
             <div class="flex mb-0.5  items-center flex-wrap">
               <div class="desName mr-1">产出</div>
-              <div class="text-global-hightTitle text-kd12px16px ">{{aa(scope.row,item.token_name).apy_detail}}</div>
+              <div class="text-global-hightTitle text-kd12px16px ">{{getItem(scope.row,item.token_name).apy_detail}}</div>
             </div>
             <div class="flex mb-0.4  items-center flex-wrap">
               <div class="desName mr-1">存款总额</div>
-              <div class="text-global-hightTitle text-kd12px16px">{{aa(scope.row,item.token_name).tvl}}</div>
+              <div class="text-global-hightTitle text-kd12px16px">{{getItem(scope.row,item.token_name).tvl}}</div>
+            </div>
+            <div class="flex mb-0.4  items-center flex-wrap">
+              <div class="desName mr-1">借款总量</div>
+              <div class="text-global-hightTitle text-kd12px16px">{{getItem(scope.row,item.token_name).quota_used}}</div>
             </div>
           </div>
         </template>
@@ -159,9 +127,22 @@ const ok = ref(true)
 .t_btn2 /deep/  .el-table, .el-table__expanded-cell {
   background-color: #F6FAFD;
 }
+  /deep/.el-table {
+    thead {
+      color: #fff;
+      font-weight: 500;
+      background: linear-gradient(to right, #6fa3fe, #4cdafe) !important;
+      & th {
 
+        background-color: transparent;
+      }
+      & tr {
+        background-color: transparent;
+      }
+    }
+  }
 .t_btn2 /deep/  .el-table--enable-row-transition .el-table__body td, .el-table .cell{
-  background-color: #F6FAFD;
+  background-color: transparent;
 }
 .t_btn2 /deep/  .el-table__row>td{
   border: none;
@@ -176,8 +157,6 @@ const ok = ref(true)
 .el-table::before {
   height: 0px;
 }
-
-
 
 ::v-deep(.el-switch__core) {
   width: 35px !important;

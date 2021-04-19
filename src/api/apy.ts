@@ -1,11 +1,18 @@
 // @ts-ignore
-import request from 'axios'
+import request from '~/lib/request'
 
 //table header
-export function getColumns() {
+export function getColumns(query:any) {
     return request({
-        url: `/api/apy/columns/`,
+        url: `/api/apy/columns`,
         method: 'get',
-        params:{chain:'bsc'}
+        params:query
+    })
+}
+export function getDataset(query:any) {
+    return request({
+        url: `/api/apy/dataset`,
+        method: 'get',
+        params:query
     })
 }

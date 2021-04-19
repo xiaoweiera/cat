@@ -10,10 +10,8 @@ const go = () => {
   if (name.value)
     router.push(`/hi/${encodeURIComponent(name.value)}`)
 }
-
 const { t } = useI18n()
 </script>
-
 <template>
   <div>
     <p class="text-4xl">
@@ -42,7 +40,6 @@ const { t } = useI18n()
       @keydown.enter="go"
     >
     <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
     <div>
       <button
         class="m-3 text-sm btn"
