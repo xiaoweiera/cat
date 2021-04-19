@@ -3,7 +3,7 @@ import {getColumns,getDataset} from '~/api/apy'
 import axios from 'axios'
 import {onMounted,ref} from 'vue'
 
-import type { SummaryModel } from '~/types/growthpad'
+import type { RowResponse, HeaderModel, TableModel } from '~/types/apy'
 
 
 const tagList = [
@@ -13,31 +13,27 @@ const tagList = [
   {id: 4, select: false, name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
 
-let dataTableList=ref([])
+
+let dataTable=ref<TableModel[]>([])
 const listType=[{name:'lend',title:'DeFi 借贷平台存款 APY 对比'},{name:'loan',title:'DeFi 借贷平台借款利息对比'},{name:'machine_gun_pool',title:'DeFi 单币种机枪池 APY 对比'}]
 //得到header
 const getTableData = async () => {
   const params={chain:'bsc'}
 
-  for(let i=0;i<listType.length-1;i++){
+  for(let i=0;i<listType.length;i++){
     const item=listType[i]
     const param={chain:'bsc',category:item.name}
-    let dataList=[]
-    let headerList=[]
     //获取header
-    const headerData=await getColumns(param);
-    if(headerData.data.code===0) headerList=headerData.data.data
+    let {data:{code, data: headers}}=await getColumns(param);
     //获取dataSet
-    const dataTable=await getDataset(param);
-    if(dataTable.data.code===0)  dataList=dataTable.data.data
-    if(dataList.length>0)  dataTableList.value.push({title:item.title,header:headerList,dataTable:dataList})
+    let   {data:{code:codess, data: rowss}}= await getDataset(param);
+    let  {data:{code:codes, data: rows}} = await getDataset(param);
+    dataTable.value.push( { title: item.title, headers, rows })
   }
 }
 
 onMounted(async() => {
   await getTableData()
-  console.log('table数据',dataTableList.value)
-  // await getDataSet()
 })
 </script>
 
@@ -52,9 +48,9 @@ onMounted(async() => {
       <ApyChain :tagList="tagList"/>
     </div>
     <!-- table表格-->
-    <div :class="j%2!==0? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
-         v-for="(item,j) in []">
-      <ApyTable :title="item.title" :dataSet="item.dataTable" :headerList="item.header"/>
+    <div :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
+         v-for="(item,index) in dataTable">
+      <ApyTable :index="index" :title="item.title" :dataSet="item.rows" :headerList="item.headers"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chart,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->
@@ -76,7 +72,6 @@ onMounted(async() => {
       <a class="text-kd12px16px block font-medium mb-4 pl-2   text-global-default opacity-65">回到顶部</a>
     </div>
   </div>
-
 </template>
 <style scoped>
 .cardBg {
