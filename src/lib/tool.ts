@@ -21,3 +21,14 @@ export const numberTwo=(value:any)=>{
       return   value.toFixed(2)+'%'
     }
 }
+//数字正负判断
+export const numColor=(value:any)=>{
+    if(!value){
+        return '+0'
+    }else if(value>=0){
+        return '+'+value
+    }
+    else{
+        return  value
+    }
+}

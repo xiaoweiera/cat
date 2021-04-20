@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {defineProps} from 'vue'
-
+import { numColor } from '~/lib/tool'
 const props = defineProps({
   headerData: {
     type: Object,
@@ -14,7 +14,7 @@ const props = defineProps({
   <div class="flex">
     <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">${{props.headerData.price}}</div>
     <div  :class="props.headerData.change>=0?'Greem percent':'Red percent'">
-      {{props.headerData.change?props.headerData.change:+0}}
+      {{numColor(props.headerData.change)}}
     </div>
   </div>
 </template>

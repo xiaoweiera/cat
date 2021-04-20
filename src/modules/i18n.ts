@@ -11,11 +11,10 @@ const messages = Object.fromEntries(
       return [key.slice(14, yaml ? -5 : -4), value.default]
     }),
 )
-
 export const install: UserModule = ({ app }) => {
   const i18n = createI18n({
     legacy: false,
-    locale: 'en',//zh-CN
+    locale: 'en', // zh-CN
     messages,
   })
 

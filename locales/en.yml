@@ -13,14 +13,18 @@ intro:
 not-found: Not found
 nav:
   download: Download
+  apply: Project Application
+  applySrc: 'http://ikingdata.mikecrm.com/kbZDdCb'
+  about: About
+  aboutSrc: 'https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c'
 hero:
   title: GrowthPad
-  subtitle: Growth Your DeFi Project
+  subtitle: Data-driven business growth platform
 
-  desc1: 'GrowthPad is designed to enable products to get rid of the traditional cold start method and find target users quickly and precisely through accurate user behavior profile, modeling and efficient task model. It also helps projects to distribute generous rewards to target users and avoid ineffective users to achieve rapid project growth.'
-  desc2: 'GrowthPad has comprehensively mined and analyzed on-chain data and mainstream project data of public chains, and established a rich database of user behavior characteristics. Currently supported public chains include: ETH, HECO, BSC.'
+  desc1: GrowthPad is designed to helps the project accurately screen and locate users. The targeted users only need to do some simple growth tasks to get rich rewards from the platform. GrowthPad avoids the participation of invalid users while also freeing the project from the traditional single launch and promotion. In this way, the project has achieved a truly healthy and rapid growth.
+  desc2: 'GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently supported public chains include: ETH, HECO, BSC, OKChain.'
 plat:
-  des: Support
+  des: Supproted
 
 Partners: Partners
 lang: En
@@ -31,32 +35,32 @@ imgList:
   footImg: 'https://res.ikingdata.com/nav/pcFooterEn.png'
   mobileImg: 'https://res.ikingdata.com/nav/mobileFooterEn.png'
 summary:
-  award_total: 'Total raised funds'
-  projects: 'Total established projects'
-  person_count: 'Total Participated Person'
+  award_total: 'Rewarded'
+  projects: 'Projects'
+  person_count: 'Users'
 
 project:
   status:
     coming: 'Coming Soon'
-  award_number: 'number of awards'
-  reward_value: 'reward value'
-  per_person: 'per person'
-  remaing_time: 'time left'
+  award_number: 'Rewards'
+  reward_value: 'Values'
+  per_person: 'PerPersion'
+  remaing_time: 'TimeLeft'
   day: Day
   hour: Hour
   minute: Minute
 
 feature:
-  title: 'Why Us'
+  title: 'WHY US ?'
   feature1:
     title: 'Precise reach, more real users'
     desc1: 'Comprehensive and perfect information portrait on the chain, accurate database of project user characteristics'
     desc2: 'One step to find the desired users'
   feature2:
     title: 'Selecting traffic, more accurate placement'
-    desc1: 'Huge user base, with hundreds of communities and media matrix as the core'
-    desc2: 'Selecting high-quality traffic from home and abroad'
+    desc1: 'Huge user base, with hundreds of communities and media matrix as the core, Selecting high-quality traffic from home and abroad'
   feature3:
     title: 'Multi-dimensional service, more efficient'
     desc1: 'Customized growth strategy around your needs'
     desc2: 'Realize a full range of promotion services'
+  webTitle: Data-driven business growth platform

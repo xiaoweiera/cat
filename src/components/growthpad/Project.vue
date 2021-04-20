@@ -85,9 +85,7 @@ const projectBtnStyle = () => {
     <!--    <img style="border-radius: 13px" class="absolute  w-full  h-full left-0 top-0 z-1 " src="https://res.ikingdata.com/nav/cardBgnoBroder.png" alt="">-->
     <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
     <div class="relative z-2">
-      <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150">{{
-          title
-        }}</p>
+      <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150 i8n-font-Barlow font-medium">{{ t('project.status.coming') }}</p>
       <img v-if="status==='doing' || status==='done'" class="absolute opacity-6 right-3.5 top-2.5  w-43 h-43"
            :src="tipImg()" alt=""
       >
@@ -97,7 +95,7 @@ const projectBtnStyle = () => {
             <img class="w-10.5 h-10.5" src="https://res.ikingdata.com/nav/payLogo.png" alt="">
             <div class="ml-2 text-kd24px150 font-medium text-global-highTitle">MDEX</div>
             <div v-if="status==='doing'"
-                 class="font-medium bg-global-primary bg-opacity-12 time px-3 ml-4 py-1.5 text-global-primary text-kd14px18px"
+                 class=" font-medium bg-global-primary bg-opacity-12 time px-3 ml-4 py-1.5 text-global-primary text-kd14px18px"
             >
               ⏱ {{ t('project.status.coming') }}
             </div>
@@ -127,15 +125,15 @@ const projectBtnStyle = () => {
         <div class="ml-8 flex  text-left items-center  justify-center text-global-primary ">
           <div class="flex items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px" style="font-size:12px">{{ t('project.day') }}</div>
+            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal" style="font-size:12px">{{ t('project.day') }}</div>
           </div>
           <div class="flex ml-2 items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px">{{ t('project.hour') }}</div>
+            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal">{{ t('project.hour') }}</div>
           </div>
           <div class="flex ml-2 items-end">
             <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px ">{{ t('project.minute') }}</div>
+            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal ">{{ t('project.minute') }}</div>
           </div>
         </div>
       </div>
@@ -177,6 +175,7 @@ const projectBtnStyle = () => {
 
 .desc {
   width: 70px;
+  font-family: i8n-font-inter !important;
   @apply text-global-defalut opacity-65 text-kd14px18px ;
 }
 

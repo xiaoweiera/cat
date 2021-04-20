@@ -4,13 +4,13 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>
 <template>
-  <div class="flex tagContainer  items-center  text-center  py-2 px-4 md:py-4 mt-6 md:mt-kd32px">
+  <div class="flex tagContainer font-kdExp  items-center  text-center  py-2 px-4 md:py-4 mt-6 md:mt-kd32px">
     <div class="flex-1">
       <div class="text-global-primary text-kd24px30px font-kdExp">
         -
         <!--        ${{ summary.total.toLocaleString() }}-->
       </div>
-      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px">
+      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px i8n-font-inter ">
         {{ t('summary.award_total') }}
       </div>
     </div>
@@ -20,7 +20,7 @@ const { t } = useI18n()
         -
         <!--        {{ summary.totalProject.toLocaleString() }}-->
       </div>
-      <div class="text-global-default opacity-65 mt-kd4px  text-kd14px18px">
+      <div class="text-global-default opacity-65 mt-kd4px  text-kd14px18px i8n-font-inter">
         {{ t('summary.projects') }}
       </div>
     </div>
@@ -30,7 +30,7 @@ const { t } = useI18n()
         -
         <!--        {{ summary.person.toLocaleString() }}-->
       </div>
-      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px">
+      <div class="text-global-default opacity-65 mt-kd4px text-kd14px18px i8n-font-inter">
         {{ t('summary.person_count') }}
       </div>
     </div>

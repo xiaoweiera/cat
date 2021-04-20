@@ -5,7 +5,6 @@ import App from './App.vue'
 import 'virtual:windi.css'
 import 'virtual:windi-devtools'
 import './styles/main.css'
-import { ElButton, ElSelect } from 'element-plus'
 
 const routes = setupLayouts(generatedRoutes)
 
@@ -15,8 +14,6 @@ export const createApp = ViteSSG(
   { routes },
   (ctx) => {
     // install all modules under `modules/`
-    ctx.app.use(ElButton)
-    ctx.app.use(ElSelect)
     Object.values(import.meta.globEager('./modules/*.ts')).map(i => i.install?.(ctx))
   },
 )

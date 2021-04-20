@@ -34,11 +34,15 @@ export default defineConfig({
                 'kd36px36px':['36px','36px'],
                 'kd10px14px':['10px','14px'],
                 'kd24px24px':['24px','24px'],
-                'kd24px100':['24px','100%']
+                'kd24px100':['24px','100%'],
+                'kd36px140':['36px','140%']
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
-                "kdExp":'D-DIN Exp'
+                "kdExp":'D-DIN Exp',
+                "kdBarlow":'barlow',
+                "kdInter":'i8n-font-inter',
+
             },
             margin: {
                 'kd32px': '32px',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ElButton, ElSwitch, ElTable, ElTableColumn} from 'element-plus'
+import {ElButton, ElSwitch, ElTable, ElTableColumn,ElLoading} from 'element-plus'
 import {ref, defineProps, onMounted, onUpdated, reactive, watch, computed} from "vue";
 import {numberFormat, numberTwo} from '~/lib/tool'
 import type {HeaderModel} from '~/types/apy'
@@ -118,13 +118,13 @@ onMounted(() => {
 //单元格背景色
 const addClass = ({row, column, rowIndex, columnIndex}) => {
   if (row.data[columnIndex - 1] && columnIndex > 0 && row.data[columnIndex - 1][0].high_light === true) {
-    return 'border:1px solid none;background:rgba(9, 217, 142, 0.2);'
+    return 'background:rgba(9, 217, 142, 0.2);'
   } else {
-    return 'border:1px solid none;'
+    return 'background:#F6FAFD;'
   }
 }
 const addHeaderClass=()=>{
-  return 'background:linear-gradient(to right,#F6FAFD,#F6FAFD,#F6FAFD);'
+  return 'background:rgba(43, 141, 254, 0.14)'
 }
 //删选
 const filterFunc = (args) => {
@@ -162,7 +162,6 @@ const filterFunc = (args) => {
   <div class="flex flex-col">
     <el-table
         :data="renderData"
-        :header-row-style="addHeaderClass"
         :header-cell-style="'background:rgba(43, 141, 254, 0.14)'"
         :cell-style="addClass"
         style="width: 100%;"
@@ -201,8 +200,6 @@ const filterFunc = (args) => {
           <ApyHeaderColumn :headerData="item"/>
         </template>
         <template #default="scope">
-          <!--          table里面的单个表格-->
-          <!--          {{scope.row.data[i]?scope.row.data[i].token_name:'&#45;&#45;'}}-->
           <ApyTableItem :index="index" :itemData="scope.row.data[i]"/>
         </template>
       </el-table-column>

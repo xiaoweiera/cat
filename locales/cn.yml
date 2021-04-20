@@ -13,12 +13,16 @@ intro:
 not-found: 未找到页面
 nav:
   download: App 下载
+  apply: 项目申请
+  applySrc: 'http://ikingdata.mikecrm.com/kbZDdCb'
+  about: 产品介绍
+  aboutSrc: 'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'
 hero:
   title: GrowthPad
   subtitle: 数据驱动 DeFi 项目快速增长
 
-  desc1: GrowthPad 通过精准的用户行为画像，建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目快速增长。
-  desc2: GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC。
+  desc1: 通过数据帮助项目精准筛选、定位用户，被定位的用户只需做一些简单的增长任务就能获得平台给予的丰厚奖励，GrowthPad 在避免无效用户参与的同时也让项目摆脱了传统单一的启动和推广方式，实现了项目真正健康快速的增长。
+  desc2: GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。
 
 plat:
   des: 支持
@@ -60,3 +64,5 @@ feature:
     title: '多维服务、效率更高'
     desc1: '围绕您的需求定制增长策略'
     desc2: '实现全方位推广服务'
+  webTitle: GrowthPad 数据驱动DeFi项目快速增长
+
