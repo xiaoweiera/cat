@@ -11,21 +11,28 @@
 </head>
 <body>
   <div id="app" style="height: auto !important;"  class="bg-global-body containerbgs"></div>
-  <script>
-    (function() {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      const setting = localStorage.getItem('color-schema') || 'auto'
-      if (setting === 'dark' || (prefersDark && setting !== 'light'))
-        document.documentElement.classList.toggle('dark', true)
-    })()
-  </script>
+
   <script>
       (function() {
-          const hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?fdb9f024136898f0d5822f8a4b71b036";
-          const dom = document.getElementsByTagName("script")[0];
-          dom.parentNode.insertBefore(hm, dom);
+          if (window.location.href.indexOf('local')===-1) {
+              const hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?fdb9f024136898f0d5822f8a4b71b036";
+              const dom = document.getElementsByTagName("script")[0];
+              dom.parentNode.insertBefore(hm, dom);
+          }
       })();
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6C3PFMZE1"></script>
+  <script>
+      if (window.location.href.indexOf('local')===-1) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+              dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-V6C3PFMZE1');
+      }
   </script>
   <script type="module" src="/src/main.ts"></script>
 </body>

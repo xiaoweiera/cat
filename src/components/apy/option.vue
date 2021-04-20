@@ -29,7 +29,8 @@ const change = () => {
       <div class="flex md:flex-row flex-col  md:items-center">
         <div class="mr-3 mt-3  md:mt-1 text-kd14px18px text-global-highTitle opacity-65 font-normal">池子指标</div>
         <div class="flex items-center flex-wrap ">
-          <div v-for="(item,i) in options" class="flex items-center mt-3 mr-3  md:mt-0">
+          <template v-for="(item,i) in options">
+          <div  v-if="i>0" class="flex items-center mt-3 mr-3  md:mt-0">
             <div class="mr-2">
               <el-switch
                   width="39"
@@ -42,6 +43,7 @@ const change = () => {
             </div>
             <div class=" mt-1 text-kd14px18px font-normal text-global-highTitle">{{ item.name }}</div>
           </div>
+          </template>
         </div>
       </div>
     </div>

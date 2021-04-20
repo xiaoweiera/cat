@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {ElButton, ElSwitch, ElTable, ElTableColumn} from 'element-plus'
-import {ref, defineProps, onMounted, reactive, computed} from "vue";
+import {ref, defineProps, onMounted,onUpdated, reactive,watch,computed} from "vue";
+import {numberFormat,numberTwo} from '~/lib/tool'
 import type {HeaderModel} from '~/types/apy'
-
 const props = defineProps({
   title: {type: String},
   dataSet: {
@@ -16,21 +16,10 @@ const props = defineProps({
   }
 })
 
-let filterItems = reactive([])
 let renderData = reactive([])
 
-const changeOption = (arg) => {
-  // return R.map(datas => {
-  //   return {...item, 'tvl': {...item.tvl, show: !arg[0]}}
-  // })
-  if (filterItems.length !== 0) {
-    return []
-  }
-  return props.dataSet
-}
 const options=ref({token_name:true,})
-onMounted(() => {
-  console.log('fffff',props.dataSet)
+const init=()=>{
   let newData = props.dataSet
   let newList = []
   newData.forEach((item, i) => {
@@ -44,51 +33,72 @@ onMounted(() => {
       })
       //存款
       if(props.index===0) {
-        options.value=[{key:'apy',name:'收到利息',status:true},{key:'apy_detail',name:'产出',status:true},{key:'tvl',name:'存款总额',status:true},{key:'quota_used',name:'借款总量',status:true}]
+        options.value=[{key:'apy',name:'收到利息',status:true},{key:'apy_detail',name:'产出',status:true},{key:'tvl',name:'存款总额',status:true},{key:'quota_used',name:'借款总量',status:false}]
         newItem.data.push([{
           token_name: hasData.token_name,
           high_light: hasData.high_light,
           name: '收到利息',
           key: 'apy',
-          value: hasData.apy,
+          value: numberTwo(hasData.apy),
           status: true
         }, {name: '产出', key: 'apy_detail', value: hasData.apy_detail, status: true}, {
-          name: '存款总额', key: 'tvl', value: hasData.tvl,
+          name: '存款总额', key: 'tvl', value: numberFormat(hasData.tvl),
           status: true
-        }, {name: '借款总量', key: 'quota_used', value: hasData.quota_used, status: true}])
+        }, {name: '借款总量', key: 'quota_used', value:numberFormat(hasData.quota_used) , status: false}])
       }
       else if(props.index===1){
         options.value=[{key:'apy',name:'支付利率',status:true},{key:'apy_detail',name:'计息',status:true},
-          {key:'quota_remain',name:'可借',status:true},
-          {key:'quota_remain_percent',name:'剩余额度',status:true}]
-          newItem.data.push([{
+          {key:'quota_remain',name:'可借',status:false},
+          {key:'quota_remain*quota_remain_percent',name:'借出',status:false},
+          {key:'quota_remain_percent',name:'剩余额度',status:false}]
+        newItem.data.push([{
           token_name: hasData.token_name,
           high_light: hasData.high_light,
           name: '支付利率',
           key: 'apy',
-          value: hasData.apy,
+          value:numberTwo(hasData.apy),
           status: true
-        }, {name: '计息', key: 'apy_detail', value: hasData.apy_detail, status: true}, {
-          name: '可借', key: 'quota_remain', value: hasData.quota_remain,
-          status: true
-        },{name: '借出', key: 'hasData.quota_remain*hasData.quota_remain_percent', value:hasData.quota_remain*hasData.quota_remain_percent, status: true}
-        , {name: '剩余额度', key: 'quota_remain_percent', value: hasData.quota_remain_percent, status: true}])
+        }, {name: '计息', key: 'apy_detail', value: numberFormat(hasData.apy_detail), status: true}, {
+          name: '可借', key: 'quota_remain', value:numberFormat(hasData.quota_remain) ,
+          status: false
+        },{name: '借出', key: 'quota_remain*quota_remain_percent', value:numberFormat(hasData.quota_remain*hasData.quota_remain_percent), status: false}
+          , {name: '剩余额度', key: 'quota_remain_percent', value: numberFormat(hasData.quota_remain_percent), status: false}])
       }
-      else if(props.index===3){
-
+      else if(props.index===2){
+        options.value=[{key:'apy',name:'收到利息',status:true},{key:'apy_detail',name:'产出币种',status:true},{key:'quote',name:'可投额度',status:true},
+          {key:'tvl',name:'总锁仓',status:false},
+          {key:'quota_remain_percent',name:'剩余额度',status:false}]
+        newItem.data.push([{
+          token_name: hasData.token_name,
+          high_light: hasData.high_light,
+          name: '收到利息',
+          key: 'apy',
+          value: numberTwo(hasData.apy),
+          status: true
+        }, {name: '产出', key: 'apy_detail', value: numberFormat(hasData.apy_detail), status: true}, {
+          name: '可投出额度', key: 'quote', value: numberFormat(hasData.quota_remain),
+          status: true
+        },{name: '总锁仓', key: 'tvl', value:numberFormat(hasData.tvl), status: false}
+          , {name: '剩余额度', key: 'quota_remain_percent', value:numberFormat(hasData.quota_remain_percent), status: false}])
       }
     })
     newList.push(newItem)
   })
-  if (props.index === 0) {
-    Object.assign(renderData, newList)
-  } else {
-    Object.assign(renderData, newList)
+  Object.assign(renderData, newList)
+}
+onMounted(() => {
+  init();
+})
+const addClass=({row, column, rowIndex, columnIndex})=>{
+  return 'background:#F6FAFD';
+  if(row.data[columnIndex] && columnIndex>0  && row.data[columnIndex][0].high_light===true) {
+    return 'background:red' //rgb(105,0,7)
+  }
+  else if(row.data[columnIndex] && columnIndex>0  && !row.data[columnIndex][0].high_light){
+    return 'background:green'
   }
 
-})
-
-const ok = ref(true)
+}
 //删选
 const filterFunc = (args) => {
   let newData=[]
@@ -97,14 +107,14 @@ const filterFunc = (args) => {
     item.data.forEach((itemTwo,j)=>{
       //没列的数据
       let newItemTwo=[]
-      itemTwo.forEach(keyData=>{
-        args.forEach(keys=>{
-          if(keys.key===keyData.key)
-          {
-            newItemTwo.push({high_light:keyData.high_light,key:keyData.key,name:keyData.name,status:keys.status,token_name:keyData.token_name,value:keyData.value})
-          }
-        })
-
+      itemTwo.forEach((keyData,n)=>{
+        //第一个永远显示
+          args.forEach(keys=>{
+            if(keys.key===keyData.key)
+            {
+              newItemTwo.push({high_light:keyData.high_light,key:keyData.key,name:keyData.name,status:keys.status,token_name:keyData.token_name,value:keyData.value})
+            }
+          })
       })
       newItem.push(newItemTwo)
     })
@@ -120,7 +130,7 @@ const filterFunc = (args) => {
     <el-table
         :data="renderData"
         :header-cell-style="'background:rgba(43, 141, 254, 0.14)'"
-        :cell-style="'background:#F6FAFD'"
+        :cell-style="addClass"
         style="width: 100%;"
     >
       <el-table-column
@@ -151,7 +161,6 @@ const filterFunc = (args) => {
         </template>
       </el-table-column>
       <el-table-column    v-for="(item,i) in headerList"
-                       prop="name"
                        width="212"
       >
         <template #header="scope">
@@ -196,7 +205,9 @@ const filterFunc = (args) => {
 .t_btn2 /deep/ .el-table__row > td {
   border: none;
 }
-
+.cellGreen{
+  background:green;
+}
 /deep/ .el-table__fixed {
   border: 0px solid #F6FAFD;
 }
