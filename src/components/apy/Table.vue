@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {ElButton, ElSwitch, ElTable, ElTableColumn} from 'element-plus'
-import {ref, defineProps, onMounted,onUpdated, reactive,watch,computed} from "vue";
-import {numberFormat,numberTwo} from '~/lib/tool'
+import {ref, defineProps, onMounted, onUpdated, reactive, watch, computed} from "vue";
+import {numberFormat, numberTwo} from '~/lib/tool'
 import type {HeaderModel} from '~/types/apy'
+
 const props = defineProps({
   title: {type: String},
   dataSet: {
@@ -15,15 +16,14 @@ const props = defineProps({
     type: Number
   }
 })
+let renderData = ref([])
 //监听tag切换
-watch(()=>props.dataSet,(a,b)=>{
+watch(() => props.dataSet, (a, b) => {
   init()
 })
-
-let renderData = reactive([])
-
-const options=ref({token_name:true,})
-const init=()=>{
+const options = ref([])
+//初始化
+const init = () => {
   let newData = props.dataSet
   let newList = []
   newData.forEach((item, i) => {
@@ -36,8 +36,12 @@ const init=()=>{
         }
       })
       //存款
-      if(props.index===0) {
-        options.value=[{key:'apy',name:'收到利息',status:true},{key:'apy_detail',name:'产出',status:true},{key:'tvl',name:'存款总额',status:true},{key:'quota_used',name:'借款总量',status:false}]
+      if (props.index === 0) {
+        options.value = [{key: 'apy', name: '收到利息', status: true}, {
+          key: 'apy_detail',
+          name: '产出',
+          status: true
+        }, {key: 'tvl', name: '存款总额', status: true}, {key: 'quota_used', name: '借款总量', status: false}]
         newItem.data.push([{
           token_name: hasData.token_name,
           high_light: hasData.high_light,
@@ -48,30 +52,42 @@ const init=()=>{
         }, {name: '产出', key: 'apy_detail', value: hasData.apy_detail, status: true}, {
           name: '存款总额', key: 'tvl', value: numberFormat(hasData.tvl),
           status: true
-        }, {name: '借款总量', key: 'quota_used', value:numberFormat(hasData.quota_used) , status: false}])
-      }
-      else if(props.index===1){
-        options.value=[{key:'apy',name:'支付利率',status:true},{key:'apy_detail',name:'计息',status:true},
-          {key:'quota_remain',name:'可借',status:false},
-          {key:'quota_remain*quota_remain_percent',name:'借出',status:false},
-          {key:'quota_remain_percent',name:'剩余额度',status:false}]
+        }, {name: '借款总量', key: 'quota_used', value: numberFormat(hasData.quota_used), status: false}])
+      } else if (props.index === 1) {
+        options.value = [{key: 'apy', name: '支付利率', status: true}, {key: 'apy_detail', name: '计息', status: true},
+          {key: 'quota_remain', name: '可借', status: false},
+          {key: 'quota_remain*quota_remain_percent', name: '借出', status: false},
+          {key: 'quota_remain_percent', name: '剩余额度', status: false}]
         newItem.data.push([{
           token_name: hasData.token_name,
           high_light: hasData.high_light,
           name: '支付利率',
           key: 'apy',
-          value:numberTwo(hasData.apy),
+          value: numberTwo(hasData.apy),
           status: true
-        }, {name: '计息', key: 'apy_detail', value: numberFormat(hasData.apy_detail), status: true}, {
-          name: '可借', key: 'quota_remain', value:numberFormat(hasData.quota_remain) ,
+        }, {name: '计息', key: 'apy_detail', value: hasData.apy_detail, status: true}, {
+          name: '可借', key: 'quota_remain', value: numberFormat(hasData.quota_remain),
           status: false
-        },{name: '借出', key: 'quota_remain*quota_remain_percent', value:numberFormat(hasData.quota_remain*hasData.quota_remain_percent), status: false}
-          , {name: '剩余额度', key: 'quota_remain_percent', value: numberFormat(hasData.quota_remain_percent), status: false}])
-      }
-      else if(props.index===2){
-        options.value=[{key:'apy',name:'收到利息',status:true},{key:'apy_detail',name:'产出币种',status:true},{key:'quote',name:'可投额度',status:true},
-          {key:'tvl',name:'总锁仓',status:false},
-          {key:'quota_remain_percent',name:'剩余额度',status:false}]
+        }, {
+          name: '借出',
+          key: 'quota_remain*quota_remain_percent',
+          value: numberFormat(hasData.quota_remain * hasData.quota_remain_percent),
+          status: false
+        }
+          , {
+            name: '剩余额度',
+            key: 'quota_remain_percent',
+            value: numberFormat(hasData.quota_remain_percent),
+            status: false
+          }])
+      } else if (props.index === 2) {
+        options.value = [{key: 'apy', name: '收到利息', status: true}, {
+          key: 'apy_detail',
+          name: '产出币种',
+          status: true
+        }, {key: 'quote', name: '可投额度', status: true},
+          {key: 'tvl', name: '总锁仓', status: false},
+          {key: 'quota_remain_percent', name: '剩余额度', status: false}]
         newItem.data.push([{
           token_name: hasData.token_name,
           high_light: hasData.high_light,
@@ -79,53 +95,66 @@ const init=()=>{
           key: 'apy',
           value: numberTwo(hasData.apy),
           status: true
-        }, {name: '产出', key: 'apy_detail', value: numberFormat(hasData.apy_detail), status: true}, {
+        }, {name: '产出', key: 'apy_detail', value: hasData.apy_detail, status: true}, {
           name: '可投出额度', key: 'quote', value: numberFormat(hasData.quota_remain),
           status: true
-        },{name: '总锁仓', key: 'tvl', value:numberFormat(hasData.tvl), status: false}
-          , {name: '剩余额度', key: 'quota_remain_percent', value:numberFormat(hasData.quota_remain_percent), status: false}])
+        }, {name: '总锁仓', key: 'tvl', value: numberFormat(hasData.tvl), status: false}
+          , {
+            name: '剩余额度',
+            key: 'quota_remain_percent',
+            value: numberFormat(hasData.quota_remain_percent),
+            status: false
+          }])
       }
     })
     newList.push(newItem)
   })
-  Object.assign(renderData, newList)
+  renderData.value = newList;
+
 }
 onMounted(() => {
   init();
 })
-const addClass=({row, column, rowIndex, columnIndex})=>{
-  return 'background:#F6FAFD';
-  if(row.data[columnIndex] && columnIndex>0  && row.data[columnIndex][0].high_light===true) {
-    return 'background:red' //rgb(105,0,7)
+//单元格背景色
+const addClass = ({row, column, rowIndex, columnIndex}) => {
+  if (row.data[columnIndex - 1] && columnIndex > 0 && row.data[columnIndex - 1][0].high_light === true) {
+    return 'border:1px solid none;background:rgba(9, 217, 142, 0.2);'
+  } else {
+    return 'border:1px solid none;'
   }
-  else if(row.data[columnIndex] && columnIndex>0  && !row.data[columnIndex][0].high_light){
-    return 'background:green'
-  }
-
+}
+const addHeaderClass=()=>{
+  return 'background:linear-gradient(to right,#F6FAFD,#F6FAFD,#F6FAFD);'
 }
 //删选
 const filterFunc = (args) => {
-  let newData=[]
-  renderData.forEach((item,i)=>{
-    let newItem=[]
-    item.data.forEach((itemTwo,j)=>{
+  let newData = []
+  renderData.value.forEach((item, i) => {
+    let newItem = []
+    item.data.forEach((itemTwo, j) => {
       //没列的数据
-      let newItemTwo=[]
-      itemTwo.forEach((keyData,n)=>{
+      let newItemTwo = []
+      itemTwo.forEach((keyData, n) => {
         //第一个永远显示
-          args.forEach(keys=>{
-            if(keys.key===keyData.key)
-            {
-              newItemTwo.push({high_light:keyData.high_light,key:keyData.key,name:keyData.name,status:keys.status,token_name:keyData.token_name,value:keyData.value})
-            }
-          })
+        args.forEach(keys => {
+          if (keys.key === keyData.key) {
+            newItemTwo.push({
+              high_light: keyData.high_light,
+              key: keyData.key,
+              name: keyData.name,
+              status: keys.status,
+              token_name: keyData.token_name,
+              value: keyData.value
+            })
+          }
+        })
       })
       newItem.push(newItemTwo)
     })
-    newData.push({project_name:item.project_name,data:newItem})
+    newData.push({project_name: item.project_name, data: newItem})
 
   })
-  Object.assign(renderData, newData)
+  renderData.value = newData;
 }
 </script>
 <template>
@@ -133,6 +162,7 @@ const filterFunc = (args) => {
   <div class="flex flex-col">
     <el-table
         :data="renderData"
+        :header-row-style="addHeaderClass"
         :header-cell-style="'background:rgba(43, 141, 254, 0.14)'"
         :cell-style="addClass"
         style="width: 100%;"
@@ -156,7 +186,7 @@ const filterFunc = (args) => {
                   {{ scope.row.project_name }}
                 </div>
                 <div
-                     class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary">
+                    class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary">
                   借贷平台
                 </div>
               </div>
@@ -164,7 +194,7 @@ const filterFunc = (args) => {
           </div>
         </template>
       </el-table-column>
-      <el-table-column    v-for="(item,i) in headerList"
+      <el-table-column v-for="(item,i) in headerList"
                        width="212"
       >
         <template #header="scope">
@@ -173,54 +203,22 @@ const filterFunc = (args) => {
         <template #default="scope">
           <!--          table里面的单个表格-->
           <!--          {{scope.row.data[i]?scope.row.data[i].token_name:'&#45;&#45;'}}-->
-          <ApyTableItem :index="index"  :itemData="scope.row.data[i]"/>
-        </template >
+          <ApyTableItem :index="index" :itemData="scope.row.data[i]"/>
+        </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <style scoped>
+::v-deep(.el-table td) {
+  border-bottom: 0;
+}
+
 .t_btn2 /deep/ .el-table, .el-table__expanded-cell {
   background-color: #F6FAFD;
 }
 
-/deep/ .el-table {
-  thead {
-    color: #fff;
-    font-weight: 500;
-    background: linear-gradient(to right, #6fa3fe, #4cdafe) !important;
-
-    & th {
-
-      background-color: transparent;
-    }
-
-    & tr {
-      background-color: transparent;
-    }
-  }
-}
-
-.t_btn2 /deep/ .el-table--enable-row-transition .el-table__body td, .el-table .cell {
-  background-color: transparent;
-}
-
-.t_btn2 /deep/ .el-table__row > td {
-  border: none;
-}
-.cellGreen{
-  background:green;
-}
-/deep/ .el-table__fixed {
-  border: 0px solid #F6FAFD;
-}
-
-/deep/ .el-table__fixed-right::before, /deep/ .el-table__fixed::before {
-  background-color: transparent;
-}
-
-/* 清除底部横线 */
 .el-table::before {
   height: 0px;
 }

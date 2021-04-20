@@ -22,7 +22,7 @@ const change = () => {
 <template>
   <div class="flex flex-wrap items-center justify-between  mb-8  md:mb-5">
     <div class="flex items-center">
-      <div class="text-kd18px28px font-medium mr-1.5" @click="change()">{{ title }}</div>
+      <div class="text-kd18px28px font-medium mr-1.5">{{ title }}</div>
       <div class="text-kd14px20px font-normal text-global-default opacity-65">(4秒前更新)</div>
     </div>
     <div>

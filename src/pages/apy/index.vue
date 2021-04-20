@@ -19,7 +19,7 @@ const getTableData = async () => {
   let newData=[]
   for(let i=0;i<listType.length;i++){
     const item=listType[i]
-    const param={chain:'heco',category:item.name}
+    const param={chain:'bsc',category:item.name}
     //获取header
     let {data:{code, data: headers}}=await getColumns(param);
     //获取dataSet
@@ -30,6 +30,7 @@ const getTableData = async () => {
 }
 //根据链查询
 const filterTableData=async (name)=>{
+  tagSelet.value=name
   let newData=[]
   for(let i=0;i<listType.length;i++){
     const item=listType[i]
@@ -41,9 +42,8 @@ const filterTableData=async (name)=>{
     newData.push( { title: item.title, headers, rows })
   }
   Object.assign(dataTable,newData)
-  tagSelet.value=name
-  // dataTable.value=[]
-  // dataTable.value=data
+
+
 }
 onMounted(async() => {
   await getTableData()
