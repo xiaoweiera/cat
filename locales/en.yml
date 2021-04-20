@@ -64,14 +64,4 @@ feature:
     desc1: 'Customized growth strategy around your needs'
     desc2: 'Realize a full range of promotion services'
   webTitle: Data-driven business growth platform
-examples:
-  title: 'GrowthPad Project Campaigns'
-  des: 'Various types of projects such as DEX growth, machine gun pool growth, loan projects, brand enhancement, etc., support project customization'
-  bannerImg: 'https://res.ikingdata.com/nav/exBannerEn.png'
-  phoneBannerImg: 'https://res.ikingdata.com/nav/exPhoneBannerEn.png'
-  leftImg: 'https://res.ikingdata.com/nav/exLeftEn.png'
-  rightImg: 'https://res.ikingdata.com/nav/exRightEn.png'
-  dex: 'dex'
-  vaults: 'vaults'
-  lending: 'lending'
-  contentImg: 'https://res.ikingdata.com/nav/exContentEn.png'
+examples: 'examples'

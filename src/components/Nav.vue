@@ -58,7 +58,7 @@ onMounted(() => lang.value = currentLang(route))
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
         <router-link to="/growthpad" :class="navIsSelect('growthpad')">GrowthPad</router-link>
-        <router-link to="/growthpad/examples" :class="navIsSelect('growthpad/examples')">examples</router-link>
+        <router-link to="/growthpad/examples" :class="navIsSelect('growthpad/examples')">{{ t('examples') }}</router-link>
         <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
            :href="t('nav.applySrc')"
         >{{ t('nav.apply') }}</a>
