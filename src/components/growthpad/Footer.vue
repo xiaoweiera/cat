@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import {useI18n} from 'vue-i18n'
+import {defineProps} from "vue";
 const {t} = useI18n()
+const props = defineProps({
+  //是否是简约footer
+  small: {
+    type: Boolean,
+  },
+})
 </script>
 <template>
-  <div class="text-center mt-15 md:mt-20">
+<div v-if="!small">
+  <div  class="text-center mt-15 md:mt-20">
     <div class="why-us i8n-font-Barlow font-semibold">{{ t('feature.title') }}</div>
     <div class="grid sm:grid-cols-1 gap-6  md:gap-7 mt-8  md:grid-cols-2 xl:grid-cols-3 ">
       <div class="flex-1 min-w-min288px ">
@@ -34,7 +42,8 @@ const {t} = useI18n()
     </div>
   </div>
   <GrowthpadCompany/>
-  <div class="join-mobile-us mt-15 mb-15 mdhidden">
+  </div>
+  <div class="join-mobile-us mt-12 mb-15 mdhidden">
     <a class="w-full h-full rounded " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="rounded w-full h-full shadowImg"
                                                                                :src="t('imgList.mobileImg')"
 

@@ -4,7 +4,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
 import { currentLang } from '~/lib/lang'
-
 const route = useRoute()
 const router = useRouter()
 const select = ref(route.path.slice(1, route.path.length) || '')
@@ -19,6 +18,7 @@ const {
   locale,
 } = useI18n()
 const lang = ref(currentLang(route))
+
 const toggleLocales = () => {
   lang.value = lang.value === 'en' ? 'cn' : 'en'
   router.replace({
@@ -29,8 +29,9 @@ const toggleLocales = () => {
     },
   })
 }
-watch(lang, () => {
-  locale.value = lang.value
+// locale.value = lang.value
+watch(() => lang.value, (newValue) => {
+  locale.value = newValue
 })
 watch(() => route.path, (newValue) => {
   select.value = newValue.slice(1, newValue.length)
@@ -48,17 +49,19 @@ useHead({
     },
   ],
 })
-onMounted(() => lang.value = currentLang(route))
+onMounted(() => {
+  lang.value = currentLang(route)
+  locale.value = lang.value
+})
 </script>
-
 <template>
   <nav class="xshidden flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
     <a href="https://www.kingdata.com" target="_blank"><img src="/assets/logo.svg" alt="KingData" class="flex-none "
     ></a>
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
-        <router-link to="/growthpad" :class="navIsSelect('growthpad')">GrowthPad</router-link>
-        <router-link to="/growthpad/examples" :class="navIsSelect('growthpad/examples')">{{ t('examples') }}</router-link>
+        <router-link :to="'/growthpad?lang='+locale" :class="navIsSelect('growthpad')">GrowthPad</router-link>
+        <router-link :to="'/growthpad/examples?lang='+locale" :class="navIsSelect('growthpad/examples')">{{ t('examples') }}</router-link>
         <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
            :href="t('nav.applySrc')"
         >{{ t('nav.apply') }}</a>
@@ -67,7 +70,6 @@ onMounted(() => lang.value = currentLang(route))
         >{{ t('nav.about') }}</a>
       </div>
     </div>
-
     <ul class=" text-golbal-default flex">
       <div @click="toggleLocales()" class="flex items-center hand">
         <div class="mr-1 text-global-default opacity-85 ml-kd32px "> {{ t('lang') }}</div>
