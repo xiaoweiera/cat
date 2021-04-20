@@ -3,13 +3,13 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
+import { currentLang } from '~/lib/lang'
 
 const route = useRoute()
 const router = useRouter()
-const select = route.path.split('/')[1] || ''
-// @ts-ignore
+const select = ref(route.path.slice(1, route.path.length) || '')
 const navIsSelect = (path: String): String => {
-  if (path === select) {
+  if (path === select.value) {
     return 'text-global-primary ml-kd32px'
   }
   return ' text-global-default opacity-85 ml-kd32px '
@@ -18,9 +18,7 @@ const {
   t,
   locale,
 } = useI18n()
-const lang = ref('en')
-const title = ref(t('hero.subtitle'))
-// @ts-ignore
+const lang = ref(currentLang(route))
 const toggleLocales = () => {
   lang.value = lang.value === 'en' ? 'cn' : 'en'
   router.replace({
@@ -33,10 +31,12 @@ const toggleLocales = () => {
 }
 watch(lang, () => {
   locale.value = lang.value
-  title.value = t('hero.subtitle')
+})
+watch(() => route.path, (newValue) => {
+  select.value = newValue.slice(1, newValue.length)
 })
 useHead({
-  title,
+  title: t('hero.subtitle'),
   meta: [
     {
       name: 'keywords',
@@ -48,10 +48,7 @@ useHead({
     },
   ],
 })
-onMounted(() => {
-  const v = route.query?.lang
-  lang.value = ['en', 'cn'].includes(v) ? v : 'en'
-})
+onMounted(() => lang.value = currentLang(route))
 </script>
 
 <template>
@@ -61,6 +58,7 @@ onMounted(() => {
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
         <router-link to="/growthpad" :class="navIsSelect('growthpad')">GrowthPad</router-link>
+        <router-link to="/growthpad/examples" :class="navIsSelect('growthpad/examples')">examples</router-link>
         <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
            :href="t('nav.applySrc')"
         >{{ t('nav.apply') }}</a>
