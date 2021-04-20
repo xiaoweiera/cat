@@ -41,7 +41,7 @@ const filterTableData=async (name)=>{
     newData.push( { title: item.title, headers, rows })
   }
   Object.assign(dataTable,newData)
-  console.log('心智',dataTable)
+  tagSelet.value=name
   // dataTable.value=[]
   // dataTable.value=data
 }

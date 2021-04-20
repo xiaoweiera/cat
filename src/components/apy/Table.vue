@@ -15,6 +15,7 @@ const props = defineProps({
     type: Number
   }
 })
+//监听tag切换
 watch(()=>props.dataSet,(a,b)=>{
   init()
 })
