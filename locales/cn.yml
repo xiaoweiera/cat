@@ -64,5 +64,15 @@ feature:
     title: '多维服务、效率更高'
     desc1: '围绕您的需求定制增长策略'
     desc2: '实现全方位推广服务'
-  webTitle: GrowthPad 数据驱动DeFi项目快速增长
-
+  webTitle: 'GrowthPad 数据驱动DeFi项目快速增长'
+examples:
+  title: 'GrowthPad 项目案例'
+  des: 'DEX增长、机枪池增长、借贷项目、增强品牌宣传等多种类型项目，支持项目定制'
+  bannerImg: 'https://res.ikingdata.com/nav/exBanner.png'
+  phoneBannerImg: 'https://res.ikingdata.com/nav/exPhoneBanner.png'
+  leftImg: 'https://res.ikingdata.com/nav/exLeft.png'
+  rightImg: 'https://res.ikingdata.com/nav/exRight.png'
+  dex: 'DEX 增长'
+  vaults: '机枪池增长'
+  lending: '借贷项目增长'
+  contentImg: 'https://res.ikingdata.com/nav/exContent.png'
