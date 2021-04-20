@@ -50,14 +50,10 @@ onMounted(async () => {
             GrowthPad
           </div>
           <div class="text-kd24px32px md:text-kd36px140 flex justify-center md:justify-start i8n-font-Barlow font-semibold ">
-            {{ t('hero.subtitle') }}
+            {{ t('heroProjects.subtitle') }}
           </div>
         </div>
-        <div class=" text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 i8n-font-inter i8n-font-inter200">
-          <div>{{ t('hero.desc1') }}</div>
-          <div class="mt-3">{{ t('hero.desc2') }}</div>
-
-        </div>
+<!--        heroProjects-->
         <div class="flex mt-4  md:mt-8.25 relative z-30 items-center ">
           <div class="text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200">{{
               t('plat.des')
@@ -105,7 +101,7 @@ onMounted(async () => {
       </div>
       <GrowthpadProjects :status="'progress'"/>
     </div>
-    <GrowthpadFooter/>
+    <GrowthpadExamplefooter/>
   </div>
 </template>
 

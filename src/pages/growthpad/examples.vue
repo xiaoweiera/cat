@@ -130,7 +130,7 @@ watch(() => locale.value, (newValue, oldValue) => {
 
       </div>
 <!--     pc端-->
-     <div class="xshidden">
+     <div class="xshidden px-25">
        <img   :src="localConfig.one" alt="">
        <img  class=" mt-7" :src="localConfig.two" alt="">
        <img class=" mt-7" :src="localConfig.stree" alt="">
