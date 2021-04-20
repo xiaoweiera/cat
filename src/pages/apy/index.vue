@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import {getColumns,getDataset} from '~/api/apy'
 import axios from 'axios'
-
 import {onMounted, reactive, ref} from 'vue'
-
 import type { RowResponse, HeaderModel, TableModel } from '~/types/apy'
 import Table = WebAssembly.Table;
 const tagList = [
@@ -12,7 +10,6 @@ const tagList = [
   {id: 3, select: false,key:'ok', name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false,key:'bsc', name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
-let keyNum=ref(0)
 let tagSelet=ref('bsc')
 let dataTable=reactive<TableModel>([])
 // let dataTable=ref<TableModel[]>([])
@@ -44,8 +41,7 @@ const filterTableData=async (name)=>{
     newData.push( { title: item.title, headers, rows })
   }
   Object.assign(dataTable,newData)
-  console.log(dataTable,newData)
-  // console.log(data)
+  console.log('心智',dataTable)
   // dataTable.value=[]
   // dataTable.value=data
 }
@@ -67,7 +63,7 @@ onMounted(async() => {
     <!-- table表格-->
     <div :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
          v-for="(item,index) in dataTable">
-      <ApyTable :key="keyNum" :index="index" :title="item.title" :dataSet="item.rows" :headerList="item.headers"/>
+      <ApyTable :index="index" :title="item.title" :dataSet="item.rows" :headerList="item.headers"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chart,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->

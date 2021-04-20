@@ -15,6 +15,9 @@ const props = defineProps({
     type: Number
   }
 })
+watch(()=>props.dataSet,(a,b)=>{
+  init()
+})
 
 let renderData = reactive([])
 
