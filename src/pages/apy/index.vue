@@ -69,7 +69,7 @@ onMounted(async() => {
 const loading=true
 </script>
 <template>
-  <div  v-loading="loading"    class=" flex-col w-full max-w-360  md:mb-25">
+  <div   class=" flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div  class="px-4 md:px-30">
       <div class="text-kd24px100 md:text-kd24px24px  md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
