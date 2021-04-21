@@ -7,7 +7,8 @@ const props = defineProps({
   id: {
     type: String,
   },
-  line: {type: String}
+  line: {type: String},
+  chartType:{type:String}
 })
 
 

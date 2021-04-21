@@ -9,6 +9,7 @@ const tagList = [
   {id: 3, select: false,key:'ok', name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false,key:'bsc', name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
+const chartOption=['project','token','pay']
 let tagSelet=ref('bsc')
 let dataTable=reactive<TableModel>([])
 // let dataTable=ref<TableModel[]>([])
@@ -65,13 +66,13 @@ onMounted(async() => {
          v-for="(item,index) in dataTable">
       <ApyTable :index="index" :title="item.title" :dataSet="item.rows" :headerList="item.headers"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-        <div v-for="(chart,i) in [{},{},{}]" class="flex flex-col mt-8 md:mt-5 relative">
+        <div v-for="(chartType,i) in chartOption" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->
           <ApyDes/>
           <!--          平台列表-->
           <ApyPlat/>
           <!--          图表-->
-          <ApyChart line="1" :id="'one'+index+i"/>
+          <ApyChart line="1" :chartType="chartType" :chain="tagSelet" :id="'one'+index+i"/>
           <div v-if="i>0" class=" absolute border-1 h-full -left-6 "></div>
         </div>
       </div>
