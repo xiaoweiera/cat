@@ -3,7 +3,7 @@ import {defineProps, ref, onMounted, useContext} from 'vue'
 import {ElSwitch} from 'element-plus'
 
 const props = defineProps({
-  project:{String},
+  project:{type:String},
   title: {
     type: String
   },

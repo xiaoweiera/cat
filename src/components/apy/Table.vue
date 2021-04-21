@@ -3,7 +3,6 @@ import {ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading} from 'element-plu
 import {ref, defineProps, onMounted, onUpdated, reactive, watch, computed} from "vue";
 import {numberFormat, numberTwo} from '~/lib/tool'
 import type {CoinModel, HeaderModel, RowModel, TableModel} from '~/types/apy'
-
 const props = defineProps({
   project:{type:String},
   title: {type: String},
@@ -116,6 +115,7 @@ const addClass = ({row, column, rowIndex, columnIndex}) => {
     return 'background:#F6FAFD;'
   }
 }
+const loading=true
 const addHeaderClass = () => {
   return 'background:rgba(43, 141, 254, 0.14)'
 }
@@ -152,7 +152,7 @@ const filterFunc = (args) => {
 </script>
 <template>
   <ApyOption :project="project"  :options="options" :filterFunc="filterFunc" :title="title" :index="index"/>
-  <div class="flex flex-col">
+  <div  class="flex flex-col">
     <el-table
         :data="renderData"
         :header-cell-style="'background:rgba(43, 141, 254, 0.14)'"

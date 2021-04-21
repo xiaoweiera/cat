@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {getColumns,getDataset} from '~/api/apy'
 import {onMounted, reactive, ref} from 'vue'
+import { ElLoading} from 'element-plus'
 import type { RowModel, TableModel } from '~/types/apy'
 const tagList = [
   {id: 1, select: true,key:'eth', name: 'ETH', img: 'https://res.ikingdata.com/nav/apyEth.png'},
@@ -8,15 +9,14 @@ const tagList = [
   {id: 3, select: false,key:'ok', name: 'Okchain', img: 'https://res.ikingdata.com/nav/apyOkchain.png'},
   {id: 4, select: false,key:'bsc', name: 'BSC', img: 'https://res.ikingdata.com/nav/apyBsc.png'},
 ]
-const chartOption=['project','token','pay']
 let tagSelet=ref('bsc')
-
-let dataTable=reactive<TableModel>([])
+let dataTable=ref<TableModel[]>([])
 const listType=[{name:'lend',title:'DeFi 借贷平台存款 APY 对比'}
   ,{name:'loan',title:'DeFi 借贷平台借款利息对比'},{name:'machine_gun_pool',title:'DeFi 单币种机枪池 APY 对比'}
 ]
+//判断首次加载的高度
 let requested=ref(false)
-//得到header
+//得到数据
 const getTableData = async () => {
   let newData=[]
   for(let i=0;i<listType.length;i++){
@@ -30,10 +30,11 @@ const getTableData = async () => {
     //表格的每一行
     const rows:RowModel[]=dataResult.data.data
     const table:TableModel={project:item.name, title: item.title, headers, rows}
-    newData.push(table)
+    dataTable.value[i] = table
+    // newData.push(table)
   }
   requested.value=true
-  Object.assign(dataTable,newData)
+  // Object.assign(dataTable,newData)
 }
 //根据链查询
 const filterTableData=async (name)=>{
@@ -55,15 +56,19 @@ const filterTableData=async (name)=>{
 const floatRightData=ref([{key:'lend',name:'存款 APY'},{key:'loan',name:'借款利息'},{key:'machine_gun_pool',name:'单币机枪池'},{key:'back',name:'回到顶部'}])
 const selectTag=ref('存款 APY')
 const changeTag=(name)=>{
+  console.log(name)
+  if(name==='回到顶部'){
+    document.scrollingElement.scrollTop=0
+  }
   selectTag.value=name
 }
 onMounted(async() => {
-  console.log('dataTabl111111e')
   await getTableData()
 })
+const loading=true
 </script>
 <template>
-  <div     class=" flex-col w-full max-w-360  md:mb-25">
+  <div  v-loading="loading"    class=" flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div  class="px-4 md:px-30">
       <div class="text-kd24px100 md:text-kd24px24px  md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
