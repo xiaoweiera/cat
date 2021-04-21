@@ -29,15 +29,18 @@ const toggleLocales = () => {
     },
   })
 }
+let title=ref('')
 // locale.value = lang.value
 watch(() => lang.value, (newValue) => {
   locale.value = newValue
+  title.value=t('hero.subtitle')
 })
+
 watch(() => route.path, (newValue) => {
   select.value = newValue.slice(1, newValue.length)
 })
 useHead({
-  title: t('hero.subtitle'),
+  title: title,
   meta: [
     {
       name: 'keywords',
@@ -52,6 +55,7 @@ useHead({
 onMounted(() => {
   lang.value = currentLang(route)
   locale.value = lang.value
+  title.value=t('hero.subtitle')
 })
 </script>
 <template>
