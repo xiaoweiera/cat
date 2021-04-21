@@ -51,7 +51,11 @@ const props = defineProps({
     >
     </a>
   </div>
-  <div class="join-us xshidden   relative flex  items-center">
+  <div style=" max-width: 1200px;
+  margin-top: 80px;
+  margin-bottom:40px;
+  background-size: contain;
+  background-repeat: no-repeat;" class="join-us xshidden   relative flex  items-center">
     <a class="w-full shadowImg rounded" href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank">
       <img class="w-full " :src="t('imgList.footImg')" alt="">
     </a>
@@ -86,7 +90,6 @@ const props = defineProps({
 .shadowImg {
   box-shadow: 0px 26px 66px -18px rgba(43, 141, 255, 0.6);
 }
-
 .join-us {
   max-width: 1200px;
   margin-top: 80px;
