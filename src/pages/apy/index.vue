@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import {getColumns,getDataset} from '~/api/apy'
-import axios from 'axios'
 import {onMounted, reactive, ref} from 'vue'
-import type { RowResponse, HeaderModel, TableModel } from '~/types/apy'
+import type { RowModel, TableModel } from '~/types/apy'
 const tagList = [
   {id: 1, select: true,key:'eth', name: 'ETH', img: 'https://res.ikingdata.com/nav/apyEth.png'},
   {id: 2, select: false,key:'heco', name: 'Heco', img: 'https://res.ikingdata.com/nav/apyHeco.png'},
@@ -11,9 +10,12 @@ const tagList = [
 ]
 const chartOption=['project','token','pay']
 let tagSelet=ref('bsc')
+
 let dataTable=reactive<TableModel>([])
-// let dataTable=ref<TableModel[]>([])
-const listType=[{name:'lend',title:'DeFi 借贷平台存款 APY 对比'},{name:'loan',title:'DeFi 借贷平台借款利息对比'},{name:'machine_gun_pool',title:'DeFi 单币种机枪池 APY 对比'}]
+const listType=[{name:'lend',title:'DeFi 借贷平台存款 APY 对比'}
+  ,{name:'loan',title:'DeFi 借贷平台借款利息对比'},{name:'machine_gun_pool',title:'DeFi 单币种机枪池 APY 对比'}
+]
+let requested=ref(false)
 //得到header
 const getTableData = async () => {
   let newData=[]
@@ -23,9 +25,14 @@ const getTableData = async () => {
     //获取header
     let {data:{code, data: headers}}=await getColumns(param);
     //获取dataSet
-    let  {data:{code:codes, data: rows}} = await getDataset(param);
-    newData.push( { title: item.title, headers, rows })
+
+    let  dataResult = await getDataset(param);
+    //表格的每一行
+    const rows:RowModel[]=dataResult.data.data
+    const table:TableModel={project:item.name, title: item.title, headers, rows}
+    newData.push(table)
   }
+  requested.value=true
   Object.assign(dataTable,newData)
 }
 //根据链查询
@@ -45,9 +52,13 @@ const filterTableData=async (name)=>{
 
 
 }
-const floatRightData=ref(['存款 APY','借款利息','单币机枪池','回到顶部'])
+const floatRightData=ref([{key:'lend',name:'存款 APY'},{key:'loan',name:'借款利息'},{key:'machine_gun_pool',name:'单币机枪池'},{key:'back',name:'回到顶部'}])
 const selectTag=ref('存款 APY')
+const changeTag=(name)=>{
+  selectTag.value=name
+}
 onMounted(async() => {
+  console.log('dataTabl111111e')
   await getTableData()
 })
 </script>
@@ -62,11 +73,12 @@ onMounted(async() => {
       <ApyChain :filterTableData="filterTableData" :tagSelet="tagSelet" :tagList="tagList"/>
     </div>
     <!-- table表格-->
-    <div :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
+    <div :class="requested?'':'heightAuto'">
+    <div v-if="requested"  :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
          v-for="(item,index) in dataTable">
-      <ApyTable :index="index" :title="item.title" :dataSet="item.rows" :headerList="item.headers"/>
+      <ApyTable :index="index" :project="item.project" :title="item.title" :dataSet="item.rows" :headerList="item.headers"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-        <div v-for="(chartType,i) in chartOption" class="flex flex-col mt-8 md:mt-5 relative">
+        <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->
           <ApyDes/>
           <!--          平台列表-->
@@ -77,15 +89,28 @@ onMounted(async() => {
         </div>
       </div>
     </div>
-    <ApyFooter/>
+    </div>
+    <ApyFooter />
     <!--    浮动tag-->
-
     <div class="tagContainer  w-18 h-28 flex-col fixed fixed right-2  2xl:right-40 top-70">
-      <a v-for="item in floatRightData" :class="selectTag===item? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' ">{{item}}</a>
+      <template v-for="item in floatRightData" >
+        <a @click="changeTag(item.name)" :href="'#'+item.key" :class="selectTag===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' ">{{item.name}}</a>
+      </template>
     </div>
   </div>
 </template>
 <style scoped>
+@media screen and (max-width: 768px) {
+  .heightAuto{
+    height: calc( 100vh - 357px);
+  }
+}
+@media screen and (min-width: 768px) {
+  .heightAuto{
+    height: calc( 100vh - 417px);
+  }
+}
+
 .floatRightTag{
   @apply text-kd12px16px font-medium mb-4  pl-2;
 }

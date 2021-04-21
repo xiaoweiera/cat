@@ -14,7 +14,28 @@ export interface ItemModel {
     token_name: String
 }
 
-
+export interface coinModelInfo{
+    name:string,
+    key: string,
+    value: string,
+    status: boolean
+}
+export interface CoinModel{
+        project_name:string,
+        token_name:string,
+        apy: number,
+        apy_detail: number,
+        quota_remain: string,
+        quota_remain_percent: string,
+        quota_used: string,
+        tvl: number,
+        quota: string,
+        timestamp: string,
+        interval: number,
+        chain: string,
+        category: string,
+        high_light: boolean
+}
 export interface HeaderModel {
     token_name: String
     price: Number
@@ -24,7 +45,7 @@ export interface HeaderModel {
 
 export interface RowModel {
     project_name: String
-    data: ItemModel[]
+    data: CoinModel[]
 }
 
 export interface RowResponse {
@@ -33,7 +54,9 @@ export interface RowResponse {
 }
 
 export interface TableModel {
-    title:String,
+    project:string,
+    title:string,
     headers:HeaderModel[],
     rows:RowModel[]
 }
+

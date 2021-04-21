@@ -81,7 +81,6 @@ const {t} = useI18n()
 
 .join-us {
   max-width: 1200px;
-
   margin-top: 80px;
   background-size: contain;
   background-repeat: no-repeat;
