@@ -23,7 +23,9 @@ hero:
 
   desc1: 通过数据帮助项目精准筛选、定位用户，被定位的用户只需做一些简单的增长任务就能获得平台给予的丰厚奖励，GrowthPad 在避免无效用户参与的同时也让项目摆脱了传统单一的启动和推广方式，实现了项目真正健康快速的增长。
   desc2: GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。
-
+heroProjects:
+  title: GrowthPad
+  subtitle: 支持喜欢的项目并领取 Token
 plat:
   des: 支持
 
@@ -64,5 +66,22 @@ feature:
     title: '多维服务、效率更高'
     desc1: '围绕您的需求定制增长策略'
     desc2: '实现全方位推广服务'
-  webTitle: GrowthPad 数据驱动DeFi项目快速增长
+  webTitle: 'GrowthPad 数据驱动DeFi项目快速增长'
 
+projects:
+    title: '如何参与项目'
+    feature1:
+      title: '白名单'
+      desc1: '我们根据项目的特性会制定不同策略的白名单，白名单是通过通过数据筛选出来的行业忠实用户'
+    feature2:
+      title: '完成任务'
+      desc1: '为了 DeFi 行业的健康发展，让优质项目被跟多人知道，我们需要做一些简单的增长任务'
+      desc2: '甄选海内外优质流量'
+    feature3:
+      title: '获取奖励'
+      desc1: '当我们完成任务后，就后获得相应的奖励到我们的钱包'
+      desc2: '实现全方位推广服务'
+    feature4:
+      title: '立即参与'
+      desc1: '每次奖励都会有时间限制，在相应的时间范围内，我们对忠实用户进行奖励'
+examples: '案例'

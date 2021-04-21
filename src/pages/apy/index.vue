@@ -46,11 +46,12 @@ const filterTableData=async (name)=>{
     //获取header
     let {data:{code, data: headers}}=await getColumns(param);
     //获取dataSet
-    let  {data:{code:codes, data: rows}} = await getDataset(param);
-    newData.push( { title: item.title, headers, rows })
+    let  dataResult = await getDataset(param);
+    //表格的每一行
+    const rows:RowModel[]=dataResult.data.data
+    const table:TableModel={project:item.name, title: item.title, headers, rows}
+    dataTable.value[i] = table
   }
-  Object.assign(dataTable,newData)
-
 
 }
 const floatRightData=ref([{key:'lend',name:'存款 APY'},{key:'loan',name:'借款利息'},{key:'machine_gun_pool',name:'单币机枪池'},{key:'back',name:'回到顶部'}])

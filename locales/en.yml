@@ -23,6 +23,14 @@ hero:
 
   desc1: GrowthPad is designed to helps the project accurately screen and locate users. The targeted users only need to do some simple growth tasks to get rich rewards from the platform. GrowthPad avoids the participation of invalid users while also freeing the project from the traditional single launch and promotion. In this way, the project has achieved a truly healthy and rapid growth.
   desc2: 'GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently supported public chains include: ETH, HECO, BSC, OKChain.'
+heroProjects:
+  title: GrowthPad
+  subtitle: Earn crypt while supporting favorite projects
+  listImg: 'https://res.ikingdata.com/nav/proList.png'
+  playImg: 'https://res.ikingdata.com/nav/proPlay.png'
+  moneyImg: 'https://res.ikingdata.com/nav/proMoney.png'
+  handImg: 'https://res.ikingdata.com/nav/proHand.png'
+
 plat:
   des: Supproted
 
@@ -64,3 +72,19 @@ feature:
     desc1: 'Customized growth strategy around your needs'
     desc2: 'Realize a full range of promotion services'
   webTitle: Data-driven business growth platform
+
+projects:
+  title: 'How to participate in the project'
+  feature1:
+    title: 'WHITE LIST'
+    desc1: 'We will formulate a whitelist of different strategies according to the characteristics of the project. The whitelist is a loyal user in the industry filtered through data.'
+  feature2:
+    title: 'GROWTH TASKS'
+    desc1: 'For the healthy development of the DeFi industry and let high-quality projects be known to many people, we need to do some simple growth tasks. '
+  feature3:
+    title: 'GET REWARDS'
+    desc1: 'When we complete the task, we will get the corresponding reward to our wallet.'
+  feature4:
+    title: 'Participate now'
+    desc1: 'Each reward will have a time limit, within the corresponding time frame, we will reward loyal users.'
+examples: 'Examples'
