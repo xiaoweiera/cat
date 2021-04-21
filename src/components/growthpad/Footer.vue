@@ -89,11 +89,10 @@ const props = defineProps({
 
 .join-us {
   max-width: 1200px;
-
   margin-top: 80px;
+  margin-bottom:40px;
   background-size: contain;
   background-repeat: no-repeat;
-  @apply mb-10;
 }
 
 .join-mobile-us {
