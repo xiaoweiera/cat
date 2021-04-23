@@ -12,13 +12,6 @@ const props = defineProps({
     type: Number,
   },
 })
-watch(() => props.itemData, (newVal) => {
-  // console.log('wocao', newVal)
-})
-
-onMounted(() => {
-  // console.log('mountttt', props.itemData)
-})
 </script>
 <template>
   <div class="w-53 h-full flex flex-col justify-center   px-3">

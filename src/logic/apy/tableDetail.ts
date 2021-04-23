@@ -16,15 +16,16 @@ export const filterByOptions = (headers, rows, options) => {
     return {
       project_name: row.project_name,
       data: headers.map(({ token_name }: { token_name: String }, columnIdx: Number) => {
+        const cellOrigin = row.data[token_name]
         return {
           rowIdx,
           columnIdx,
+          high_light: cellOrigin?.high_light || false,
           data: options.map((option) => {
             const obj = {}
             obj['name'] = option.name
             obj['key'] = option.key
             if (row.data[token_name]) {
-              const cellOrigin = row.data[token_name]
               if (option.format_func) {
                 obj['value'] = option.format_func(cellOrigin[option.key])
               }

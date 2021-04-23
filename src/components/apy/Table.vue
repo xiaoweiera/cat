@@ -37,7 +37,7 @@ const addClass = ({
   rowIndex,
   columnIndex,
 }) => {
-  if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.data?.high_light === true) {
+  if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
     return 'background:rgba(9, 217, 142, 0.2);'
   }
   return 'background:#F6FAFD;'
@@ -56,6 +56,7 @@ watch(() => options.value.data, (a, b) => {
     <el-table
         :data="renderCells"
         :header-cell-style="headerCellStyle"
+        :cell-style="addClass"
         style="width: 100%;"
     >
       <el-table-column
