@@ -15,26 +15,26 @@ export interface ItemModel {
 }
 
 export interface coinModelInfo {
-  name: string,
-  key: string,
-  value: string,
+  name: string
+  key: string
+  value: string
   status: boolean
 }
 
 export interface CoinModel {
-  project_name: string,
-  token_name: string,
-  apy: number,
-  apy_detail: number,
-  quota_remain: string,
-  quota_remain_percent: string,
-  quota_used: string,
-  tvl: number,
-  quota: string,
-  timestamp: string,
-  interval: number,
-  chain: string,
-  category: string,
+  project_name: string
+  token_name: string
+  apy: number
+  apy_detail: number
+  quota_remain: string
+  quota_remain_percent: string
+  quota_used: string
+  tvl: number
+  quota: string
+  timestamp: string
+  interval: number
+  chain: string
+  category: string
   high_light: boolean
 }
 

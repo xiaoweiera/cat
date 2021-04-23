@@ -1,3 +1,5 @@
+import { numberFormat, percent2Precision } from '~/lib/tool'
+
 export const chainConfig = [{
   select: false,
   key: 'eth',
@@ -27,6 +29,7 @@ export const tableConfig = [
         key: 'apy',
         name: '收到利息',
         status: true,
+        format_func: percent2Precision,
       }, {
         key: 'apy_detail',
         name: '产出',
@@ -35,10 +38,12 @@ export const tableConfig = [
         key: 'tvl',
         name: '存款总额',
         status: true,
+        format_func: numberFormat,
       }, {
         key: 'quota_used',
         name: '借款总量',
         status: false,
+        format_func: numberFormat,
       },
       ],
       select: 'apy',
@@ -53,6 +58,7 @@ export const tableConfig = [
           key: 'apy',
           name: '支付利率',
           status: true,
+          format_func: percent2Precision,
         }, {
           key: 'apy_detail',
           name: '计息',
@@ -62,16 +68,19 @@ export const tableConfig = [
           key: 'quota_remain',
           name: '可借',
           status: false,
+          format_func: numberFormat,
         },
         {
           key: 'quota_remain*quota_remain_percent',
           name: '借出',
           status: false,
+          format_cb: (v: any) => numberFormat(v.quota_remain * v.quota_remain_percent),
         },
         {
           key: 'quota_remain_percent',
           name: '剩余额度',
           status: false,
+          format_func: numberFormat,
         }],
       select: 'apy',
     },
@@ -84,6 +93,7 @@ export const tableConfig = [
           key: 'apy',
           name: '收到利息',
           status: true,
+          format_func: percent2Precision,
         }, {
           key: 'apy_detail',
           name: '产出币种',
@@ -92,16 +102,19 @@ export const tableConfig = [
           key: 'quote',
           name: '可投额度',
           status: true,
+          format_func: numberFormat,
         },
         {
           key: 'tvl',
           name: '总锁仓',
           status: false,
+          format_func: numberFormat,
         },
         {
           key: 'quota_remain_percent',
           name: '剩余额度',
           status: false,
+          format_func: numberFormat,
         },
       ],
       select: 'apy',

@@ -34,10 +34,9 @@ const clickOption = option => select.value = option.key
             <div v-if="i>0" class="flex items-center mt-3 mr-3  md:mt-0">
               <div class="mr-2">
                 <el-switch
-                    width="39"
                     active-color="#2B8DFE"
+                    :validate-event="false"
                     @change="clickOption(item)"
-                    validate-event="false"
                     inactive-color="rgba(37, 62, 111, 0.1)"
                     v-model="item.status"
                 >

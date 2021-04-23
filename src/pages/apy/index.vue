@@ -41,30 +41,23 @@ onMounted(async() => fetchTableByChain('bsc'))
       <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal">
         我们已经为每个加密货币类别创建了索引。类别按24小时价格变化排名。单击密码类别名称可查看指数的组成部分及其最近的价格表现。
       </div>
-      <!--      <ApyChain :filterTableData="filterTableData" :tagSelet="tagSelet" :tagList="tagList"/>-->
       <ApyChains :chains="chains"/>
     </div>
     <!-- table表格-->
-    <div :class="requested?'':'heightAuto'">
-      <div
-          :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
-          v-for="(item,index) in tables"
-      >
-        <!--        {{item}}-->
-        <!--        <ApyTable :index="index" :project="'....'" :title="'....'" :dataSet="item.value.rows"-->
-        <!--                  :headerList="item.value.headers" :loading="item.value.loading"-->
-        <!--        />-->
-        <ApyTable :index="index" :project="'....'" :title="item.title" :tableData="item"/>
-        <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-          <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
-            <!--          描述信息-->
-            <ApyDes/>
-            <!--          平台列表-->
-            <ApyPlat/>
-            <!--          图表-->
-            <ApyChart line="1" :chartType="chartType" :chain="tagSelet" :id="'one'+index+i"/>
-            <div v-if="i>0" class=" absolute border-1 h-full -left-6 "></div>
-          </div>
+    <div
+        :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
+        v-for="(item,index) in tables"
+    >
+      <ApyTable :index="index" :project="'....'" :title="item.title" :tableData="item"/>
+      <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+        <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
+          <!--          描述信息-->
+          <ApyDes/>
+          <!--          平台列表-->
+          <ApyPlat/>
+          <!--          图表-->
+          <ApyChart line="1" :chartType="chartType" :chain="tagSelet" :id="'one'+index+i"/>
+          <div v-if="i>0" class=" absolute border-1 h-full -left-6 "></div>
         </div>
       </div>
     </div>
