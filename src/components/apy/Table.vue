@@ -1,135 +1,174 @@
 <script setup lang="ts">
-import {ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading} from 'element-plus'
-import {ref, defineProps, onMounted, onUpdated, reactive, watch, computed} from "vue";
-import {numberFormat, numberTwo} from '~/lib/tool'
-import type {CoinModel, HeaderModel, RowModel, TableModel} from '~/types/apy'
+// @ts-ignore
+import { ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading } from 'element-plus'
+import { ref, defineProps, onMounted, onUpdated, reactive, watch, computed, toRefs, toRef, watchEffect } from 'vue'
+import { numberFormat, percent2Precision } from '~/lib/tool'
+import type { CoinModel, HeaderModel, RowModel, TableModel } from '~/types/apy'
+
 const props = defineProps({
-  project:{type:String},
-  title: {type: String},
-  dataSet: {type: Array},
-  headerList: {type: Object as PropTypes<HeaderModel[]>},
-  index: {type: Number}
+  project: { type: String },
+  title: { type: String },
+  dataSet: { type: Array },
+  // Object of <HeaderModel[]>
+  headerList: { type: Object },
+  index: { type: Number },
+  tableData: { type: Object },
 })
-let renderData = ref([])
-//监听tag切换
-watch(() => props.dataSet, (a, b) => {
-  init()
+const renderData = ref([])
+const {
+  rows,
+  headers,
+  options,
+  loading,
+} = toRefs(props.tableData)
+
+watch(() => loading.value, (v) => {
+  console.log('====', v)
 })
-const options = ref([])
-//初始化
+
+// 初始化
 const init = () => {
-  let newData: [RowModel] = props.dataSet
-  let newList: [RowModel] = []
-  console.log()
+  const newData: RowModel[] = []
+  const newList: RowModel[] = []
   newData.forEach((item, i) => {
-    let newItem: RowModel = {project_name: item.project_name, data: []}
+    const newItem: RowModel = {
+      project_name: item.project_name,
+      data: [],
+    }
     props.headerList.forEach((itemTwo, jj) => {
-      //币种信息
-      let coin: CoinModel = item.data[itemTwo.token_name] ? item.data[itemTwo.token_name] : {}
-      //存款
+      // 币种信息
+      const coin: CoinModel = item.data[itemTwo.token_name] ? item.data[itemTwo.token_name] : {}
+      // 存款
       if (props.index === 0) {
-        options.value = [{key: 'apy', name: '收到利息', status: true}, {
-          key: 'apy_detail',
-          name: '产出',
-          status: true
-        }, {key: 'tvl', name: '存款总额', status: true}, {key: 'quota_used', name: '借款总量', status: false}]
         newItem.data.push([{
           token_name: coin.token_name,
           high_light: coin.high_light,
           name: '收到利息',
           key: 'apy',
-          value: numberTwo(coin.apy),
-          status: true
-        }, {name: '产出', key: 'apy_detail', value: coin.apy_detail, status: true}, {
-          name: '存款总额', key: 'tvl', value: numberFormat(coin.tvl),
-          status: true
-        }, {name: '借款总量', key: 'quota_used', value: numberFormat(coin.quota_used), status: false}])
-      } else if (props.index === 1) {
-        options.value = [{key: 'apy', name: '支付利率', status: true}, {key: 'apy_detail', name: '计息', status: true},
-          {key: 'quota_remain', name: '可借', status: false},
-          {key: 'quota_remain*quota_remain_percent', name: '借出', status: false},
-          {key: 'quota_remain_percent', name: '剩余额度', status: false}]
-        newItem.data.push([{
-          token_name: coin.token_name,
-          high_light: coin.high_light,
-          name: '支付利率',
-          key: 'apy',
-          value: numberTwo(coin.apy),
-          status: true
-        }, {name: '计息', key: 'apy_detail', value: coin.apy_detail, status: true}, {
-          name: '可借', key: 'quota_remain', value: numberFormat(coin.quota_remain),
-          status: false
+          value: percent2Precision(coin.apy),
+          status: true,
         }, {
-          name: '借出',
-          key: 'quota_remain*quota_remain_percent',
-          value: numberFormat(coin.quota_remain * coin.quota_remain_percent),
-          status: false
-        }
-          , {
-            name: '剩余额度',
-            key: 'quota_remain_percent',
-            value: numberFormat(coin.quota_remain_percent),
-            status: false
-          }])
-      } else if (props.index === 2) {
-        options.value = [{key: 'apy', name: '收到利息', status: true}, {
+          name: '产出',
           key: 'apy_detail',
-          name: '产出币种',
-          status: true
-        }, {key: 'quote', name: '可投额度', status: true},
-          {key: 'tvl', name: '总锁仓', status: false},
-          {key: 'quota_remain_percent', name: '剩余额度', status: false}]
-        newItem.data.push([{
-          token_name: coin.token_name,
-          high_light: coin.high_light,
-          name: '收到利息',
-          key: 'apy',
-          value: numberTwo(coin.apy),
-          status: true
-        }, {name: '产出', key: 'apy_detail', value: coin.apy_detail, status: true}, {
-          name: '可投出额度', key: 'quote', value: numberFormat(coin.quota_remain),
-          status: true
-        }, {name: '总锁仓', key: 'tvl', value: numberFormat(coin.tvl), status: false}
-          , {
-            name: '剩余额度',
-            key: 'quota_remain_percent',
-            value: numberFormat(coin.quota_remain_percent),
-            status: false
-          }])
+          value: coin.apy_detail,
+          status: true,
+        }, {
+          name: '存款总额',
+          key: 'tvl',
+          value: numberFormat(coin.tvl),
+          status: true,
+        }, {
+          name: '借款总量',
+          key: 'quota_used',
+          value: numberFormat(coin.quota_used),
+          status: false,
+        }])
       }
+      // else if (props.index === 1) {
+      //   newItem.data.push([{
+      //     token_name: coin.token_name,
+      //     high_light: coin.high_light,
+      //     name: '支付利率',
+      //     key: 'apy',
+      //     value: percent2Precision(coin.apy),
+      //     status: true,
+      //   }, {
+      //     name: '计息',
+      //     key: 'apy_detail',
+      //     value: coin.apy_detail,
+      //     status: true,
+      //   }, {
+      //     name: '可借',
+      //     key: 'quota_remain',
+      //     value: numberFormat(coin.quota_remain),
+      //     status: false,
+      //   }, {
+      //     name: '借出',
+      //     key: 'quota_remain*quota_remain_percent',
+      //     value: numberFormat(coin.quota_remain * coin.quota_remain_percent),
+      //     status: false,
+      //   },
+      //     {
+      //       name: '剩余额度',
+      //       key: 'quota_remain_percent',
+      //       value: numberFormat(coin.quota_remain_percent),
+      //       status: false,
+      //     }])
+      // }
+      // else if (props.index === 2) {
+      //   newItem.data.push([{
+      //     token_name: coin.token_name,
+      //     high_light: coin.high_light,
+      //     name: '收到利息',
+      //     key: 'apy',
+      //     value: percent2Precision(coin.apy),
+      //     status: true,
+      //   }, {
+      //     name: '产出',
+      //     key: 'apy_detail',
+      //     value: coin.apy_detail,
+      //     status: true,
+      //   }, {
+      //     name: '可投出额度',
+      //     key: 'quote',
+      //     value: numberFormat(coin.quota_remain),
+      //     status: true,
+      //   }, {
+      //     name: '总锁仓',
+      //     key: 'tvl',
+      //     value: numberFormat(coin.tvl),
+      //     status: false,
+      //   },
+      //     {
+      //       name: '剩余额度',
+      //       key: 'quota_remain_percent',
+      //       value: numberFormat(coin.quota_remain_percent),
+      //       status: false,
+      //     }])
+      // }
     })
     newList.push(newItem)
-
   })
-  renderData.value = newList;
+  renderData.value = newList
   console.log(renderData.value)
 }
-onMounted(() => {
-  init();
+// 监听tag切换
+watch(() => props.dataSet, (a, b) => {
+  // init()
 })
-//单元格背景色
-const addClass = ({row, column, rowIndex, columnIndex}) => {
+
+onMounted(() => {
+  // init()
+})
+// 单元格背景色
+const addClass = ({
+  row,
+  column,
+  rowIndex,
+  columnIndex,
+}) => {
   if (row.data[columnIndex - 1] && columnIndex > 0 && row.data[columnIndex - 1][0].high_light === true) {
     return 'background:rgba(9, 217, 142, 0.2);'
-  } else {
+  }
+  else {
     return 'background:#F6FAFD;'
   }
 }
-const loading=true
+// const loading = true
 const addHeaderClass = () => {
   return 'background:rgba(43, 141, 254, 0.14)'
 }
-//删选
+// 删选
 const filterFunc = (args) => {
-  let newData = []
+  const newData = []
   renderData.value.forEach((item, i) => {
-    let newItem = []
+    const newItem = []
     item.data.forEach((itemTwo, j) => {
-      //没列的数据
-      let newItemTwo = []
+      // 没列的数据
+      const newItemTwo = []
       itemTwo.forEach((keyData, n) => {
-        //第一个永远显示
-        args.forEach(keys => {
+        // 第一个永远显示
+        args.forEach((keys) => {
           if (keys.key === keyData.key) {
             newItemTwo.push({
               high_light: keyData.high_light,
@@ -137,22 +176,34 @@ const filterFunc = (args) => {
               name: keyData.name,
               status: keys.status,
               token_name: keyData.token_name,
-              value: keyData.value
+              value: keyData.value,
             })
           }
         })
       })
       newItem.push(newItemTwo)
     })
-    newData.push({project_name: item.project_name, data: newItem})
-
+    newData.push({
+      project_name: item.project_name,
+      data: newItem,
+    })
   })
-  renderData.value = newData;
+  renderData.value = newData
 }
+watch(() => options.select, (a, b) => {
+  const filterArgs = options.data.map((i) => {
+    if (i.name !== a) {
+      return i
+    }
+    i.status = !i.status
+    return i
+  })
+  filterFunc(filterArgs)
+})
 </script>
 <template>
-  <ApyOption :project="project"  :options="options" :filterFunc="filterFunc" :title="title" :index="index"/>
-  <div  class="flex flex-col">
+  <ApyTableFilters :project="project" :options="options" :title="title"/>
+  <div class="flex flex-col">
     <el-table
         :data="renderData"
         :header-cell-style="'background:rgba(43, 141, 254, 0.14)'"
@@ -178,7 +229,8 @@ const filterFunc = (args) => {
                   {{ scope.row.project_name }}
                 </div>
                 <div
-                    class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary">
+                    class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary"
+                >
                   借贷平台
                 </div>
               </div>
@@ -186,26 +238,27 @@ const filterFunc = (args) => {
           </div>
         </template>
       </el-table-column>
-      <el-table-column v-for="(item,i) in headerList"
-                       width="212"
+      <el-table-column
+          v-for="(item,i) in headerList"
+          width="212"
       >
         <template #header="scope">
-          <ApyHeaderColumn :headerData="item"/>
+          <ApyHeaderColumn :header-data="item"/>
         </template>
         <template #default="scope">
-          <ApyTableItem :index="index" :itemData="scope.row.data[i]"/>
+          <ApyTableItem :index="index" :item-data="scope.row.data[i]"/>
         </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="postcss">
 ::v-deep(.el-table td) {
   border-bottom: 0;
 }
 
-.t_btn2 /deep/ .el-table, .el-table__expanded-cell {
+.t_btn2 ::v-deep(.el-table, .el-table__expanded-cell) {
   background-color: #F6FAFD;
 }
 
@@ -232,6 +285,4 @@ el-table th, .el-table tr {
 //background: blue !important;
 }
 
-
 </style>
-

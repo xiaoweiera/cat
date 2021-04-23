@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import {defineProps} from 'vue'
-import { numColor } from '~/lib/tool'
+import { defineProps } from 'vue'
+import { percent2Precision, numColor } from '~/lib/tool'
+
 const props = defineProps({
   headerData: {
     type: Object,
-  }
+  },
 })
 </script>
 <template>
-  <div class="flex items-center mb-1.5"><img class="w-6 h-6 mr-1.5" src="https://res.ikingdata.com/nav/apyHeco.png" alt="">
-    <div class="font-normal text-kd14px18px text-global-highTitle">{{props.headerData.token_name}}</div>
+  <div class="flex items-center mb-1.5"><img class="w-6 h-6 mr-1.5" src="https://res.ikingdata.com/nav/apyHeco.png"
+                                             alt=""
+  >
+    <div class="font-normal text-kd14px18px text-global-highTitle">{{ props.headerData.token_name }}</div>
   </div>
   <div class="flex">
-    <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">${{props.headerData.price}}</div>
-    <div  :class="props.headerData.change>=0?'Greem percent':'Red percent'">
-      {{numColor(props.headerData.change)}}
+    <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">${{ percent2Precision(props.headerData.price) }}</div>
+    <div :class="props.headerData.change>=0?'Greem percent':'Red percent'">
+      {{ numColor(props.headerData.change) }}
     </div>
   </div>
 </template>
@@ -23,17 +26,20 @@ const props = defineProps({
 .tag {
   @apply rounded-md  flex mt-4 md:mr-1  py-1.25 px-3.75 items-center justify-center;
 }
-.Greem{
+
+.Greem {
   @apply text-global-numGreen bg-global-numGreen;
 }
+
 .Red {
   @apply text-global-numRed bg-global-numRed;
 }
 
 
-.percent{
-  @apply  px-1.5 py-0.25 text-kd12px16px  rounded bg-opacity-10 font-bold flex items-center;
+.percent {
+  @apply px-1.5 py-0.25 text-kd12px16px  rounded bg-opacity-10 font-bold flex items-center;
 }
+
 .selectTag {
   @apply bg-global-primary bg-opacity-8;
 }

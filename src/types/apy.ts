@@ -10,53 +10,59 @@
 // "timestamp":1618830000,
 // "high_light":false}
 export interface ItemModel {
-    project_name: String
-    token_name: String
+  project_name: String
+  token_name: String
 }
 
-export interface coinModelInfo{
-    name:string,
-    key: string,
-    value: string,
-    status: boolean
+export interface coinModelInfo {
+  name: string,
+  key: string,
+  value: string,
+  status: boolean
 }
-export interface CoinModel{
-        project_name:string,
-        token_name:string,
-        apy: number,
-        apy_detail: number,
-        quota_remain: string,
-        quota_remain_percent: string,
-        quota_used: string,
-        tvl: number,
-        quota: string,
-        timestamp: string,
-        interval: number,
-        chain: string,
-        category: string,
-        high_light: boolean
+
+export interface CoinModel {
+  project_name: string,
+  token_name: string,
+  apy: number,
+  apy_detail: number,
+  quota_remain: string,
+  quota_remain_percent: string,
+  quota_used: string,
+  tvl: number,
+  quota: string,
+  timestamp: string,
+  interval: number,
+  chain: string,
+  category: string,
+  high_light: boolean
 }
+
 export interface HeaderModel {
-    token_name: String
-    price: Number
-    change: Number
+  token_name: String
+  price: Number
+  change: Number
 }
-
 
 export interface RowModel {
-    project_name: String
-    data: CoinModel[]
+  project_name: String
+  data: CoinModel[]
 }
 
 export interface RowResponse {
-    code: Number
-    data: RowModel[]
+  code: Number
+  data: RowModel[]
+}
+
+export interface OriginTableModel {
+  headers: HeaderModel[]
+  rows: RowModel[]
 }
 
 export interface TableModel {
-    project:string,
-    title:string,
-    headers:HeaderModel[],
-    rows:RowModel[]
+  project: string
+  title: string
+  headers: HeaderModel[]
+  rows: RowModel[]
 }
 
