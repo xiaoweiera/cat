@@ -1,9 +1,10 @@
 <template>
   <div class="join-mobile-us mb-12 px-4 md:px-0 md:mt-15 md:mb-15 mdhidden">
-    <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="w-full h-full shadowImg"
-                                                                               src="https://res.ikingdata.com/nav/apyMobileFooter.png"
-                                                                               alt=""
-    >
+    <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb">
+      <img class="w-full h-full shadowImg"
+           src="https://res.ikingdata.com/nav/apyMobileFooter.png"
+           alt=""
+      >
     </a>
   </div>
   <div class="join-us xshidden mx-auto   relative flex  items-center">
