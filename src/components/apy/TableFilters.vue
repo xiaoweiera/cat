@@ -17,7 +17,15 @@ const {
   select,
 } = toRefs(props.options)
 
-const clickOption = option => select.value = option.key
+const clickOption = (option) => {
+  realOptions.value = realOptions.value.map((i) => {
+    if (i.name !== option.name) {
+      return i
+    }
+    i.status = option.status
+    return i
+  })
+}
 
 </script>
 <template>
@@ -30,7 +38,7 @@ const clickOption = option => select.value = option.key
       <div class="flex md:flex-row flex-col  md:items-center">
         <div class="mr-3 mt-3 md:mt-1 text-kd14px18px text-global-highTitle opacity-65 font-normal">池子指标 :</div>
         <div class="flex items-center flex-wrap ">
-          <template v-for="(item,i) in realOptions">
+          <div v-for="(item,i) in realOptions">
             <div v-if="i>0" class="flex items-center mt-3 mr-3  md:mt-0">
               <div class="mr-2">
                 <el-switch
@@ -44,7 +52,7 @@ const clickOption = option => select.value = option.key
               </div>
               <div class=" mt-1 text-kd14px18px font-normal text-global-highTitle">{{ item.name }}</div>
             </div>
-          </template>
+          </div>
         </div>
       </div>
     </div>

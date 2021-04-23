@@ -46,16 +46,8 @@ const addClass = ({
 const headerCellStyle = () => {
   return 'background-color: rgba(43,131,254,0.14)'
 }
-watch(() => options.value.select, (a, b) => {
-  options.value.data = options.value.data.map((i) => {
-    if (i.name !== a) {
-      return i
-    }
-    i.status = !i.status
-    return i
-  })
-  options.value.select = a
-  renderCells.value = filterByOptions(headers.value, rows.value, options.value.data)
+watch(() => options.value.data, (a, b) => {
+  renderCells.value = filterByOptions(headers.value, rows.value, a)
 })
 </script>
 <template>
@@ -101,7 +93,7 @@ watch(() => options.value.select, (a, b) => {
           <ApyHeaderColumn :header-data="item"/>
         </template>
         <template #default="scope">
-          <ApyTableItem :index="index" :itemData="scope.row.data[i].data"/>
+          <ApyTableItem :index="index" :itemData="scope.row.data[i]?.data"/>
         </template>
       </el-table-column>
     </el-table>
