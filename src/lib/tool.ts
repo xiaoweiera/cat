@@ -1,16 +1,18 @@
-export const numberFormat = (value: any) => {
-  if (value === null) {
-    return null
+export const numberFormat = (value: any,noUnit:any) => {
+  if (!value) {
+    return null;
   }
-  const k = 10000
-  const sizes = ['', '万', '亿', '万亿']
+  let k = 10000,
+      sizes = ["", "万", "亿", "万亿"],
+      i;
   if (value < k) {
     return parseFloat(value).toFixed(2)
   }
-  const i = Math.floor(Math.log(value) / Math.log(k))
-  const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
-  const unit = sizes[i]
-  return `$${values}${unit}`
+  i = Math.floor(Math.log(value) / Math.log(k));
+  let values = parseFloat((value / Math.pow(k, i)).toFixed(2))
+  let unit = sizes[i]
+  let v=noUnit?values + unit:'$' + values + unit
+  return v
 }
 // 保留两位
 // export const numberTwo = (value: any) => {
@@ -47,3 +49,5 @@ export const numColor = (value: any) => {
     return value
   }
 }
+
+
