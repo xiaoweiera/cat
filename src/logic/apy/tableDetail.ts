@@ -1,47 +1,61 @@
-import { CoinModel } from '~/types/apy'
+import { CoinModel, HeaderModel, OptionModel, RowModel } from '~/types/apy'
 
-interface CellDetail {
-  token_name: String
-  high_light: String
-  data: CellItem[]
+interface CellRenderModel {
+  name: String
+  key: String
+  status: boolean
+  value?: String
 }
 
-interface RowItem {
-  project_name: String
-  cells: CellDetail[]
+/**
+ * 单个元内具体内容
+ * @param option 点击控制选项
+ * @param cellOrigin 单元格对应的数据
+ * @return {CellRenderModel} 格式化后的单元格内容
+ */
+const cellContent = (option: OptionModel, cellOrigin: CoinModel): CellRenderModel => {
+  const obj: CellRenderModel = {
+    name: option.name,
+    key: option.key,
+    status: option.status,
+  }
+  // 对应单元格内没有数据
+  if (!cellOrigin) {
+    return obj
+  }
+  // @ts-ignore
+  const val = cellOrigin[option.key]
+  if (option.format_func) {
+    obj.value = option.format_func(val)
+  }
+  else if (option.format_cb) {
+    obj.value = option.format_cb(cellOrigin)
+  }
+  else {
+    obj.value = val || '-'
+  }
+  return obj
 }
 
-export const filterByOptions = (headers, rows, options) => {
-  return rows.map((row, rowIdx: Number) => {
+/**
+ * 格式化表格显示内容
+ * @param headers {HeaderModel[]} 表头
+ * @param rows {RowModel[]} 具体内容
+ * @param options {OptionModel[]} 点击选项
+ * @return {Array[Object]}
+ */
+export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], options: OptionModel[]) => {
+  return rows.map((row) => {
     return {
       project_name: row.project_name,
-      data: headers.map(({ token_name }: { token_name: String }, columnIdx: Number) => {
-        const cellOrigin = row.data[token_name]
+      data: headers.map(({ token_name }: { token_name: String }) => {
+        // @ts-ignore
+        const cellOrigin: CoinModel = row.data[token_name]
         return {
-          rowIdx,
-          columnIdx,
           high_light: cellOrigin?.high_light || false,
-          data: options.map((option) => {
-            const obj = {}
-            obj['name'] = option.name
-            obj['key'] = option.key
-            if (row.data[token_name]) {
-              if (option.format_func) {
-                obj['value'] = option.format_func(cellOrigin[option.key])
-              }
-              else if (option.format_cb) {
-                obj['value'] = option.format_cb(cellOrigin)
-              }
-              else {
-                obj['value'] = cellOrigin[option.key] ? cellOrigin[option.key] : '-'
-              }
-              obj['status'] = option.status
-            }
-            return obj
-          }),
+          data: options.map(opt => cellContent(opt, cellOrigin)),
         }
       }),
     }
-
   })
 }

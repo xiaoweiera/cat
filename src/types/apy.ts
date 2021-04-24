@@ -9,6 +9,7 @@
 // "quota":null,
 // "timestamp":1618830000,
 // "high_light":false}
+
 export interface ItemModel {
   project_name: String
   token_name: String
@@ -42,11 +43,12 @@ export interface HeaderModel {
   token_name: String
   price: Number
   change: Number
+  logo: String
 }
 
 export interface RowModel {
   project_name: String
-  data: CoinModel[]
+  data: Map<String, CoinModel>
 }
 
 export interface RowResponse {
@@ -66,3 +68,10 @@ export interface TableModel {
   rows: RowModel[]
 }
 
+export interface OptionModel {
+  key: string
+  name: string
+  status: boolean
+  format_func: Function
+  format_cb: Function
+}

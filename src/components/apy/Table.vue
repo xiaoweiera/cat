@@ -1,17 +1,13 @@
 <script setup lang="ts">
 // @ts-ignore
 import { ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading } from 'element-plus'
-import { ref, defineProps, onMounted, onUpdated, reactive, watch, computed, toRefs, toRef, watchEffect } from 'vue'
-import { numberFormat, percent2Precision } from '~/lib/tool'
-import type { CoinModel, HeaderModel, RowModel, TableModel } from '~/types/apy'
+import { ref, defineProps, watch, toRefs } from 'vue'
 import { filterByOptions } from '~/logic/apy/tableDetail'
 
 const props = defineProps({
   project: { type: String },
   title: { type: String },
-  dataSet: { type: Array },
   // Object of <HeaderModel[]>
-  headerList: { type: Object },
   index: { type: Number },
   tableData: { type: Object },
 })
@@ -33,8 +29,6 @@ watch(() => loading.value, (v) => {
 // 单元格背景色
 const addClass = ({
   row,
-  column,
-  rowIndex,
   columnIndex,
 }) => {
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
@@ -43,12 +37,9 @@ const addClass = ({
   return 'background:#F6FAFD;'
 }
 
-const headerCellStyle = () => {
-  return 'background-color: rgba(43,131,254,0.14)'
-}
-watch(() => options.value.data, (a, b) => {
-  renderCells.value = filterByOptions(headers.value, rows.value, a)
-})
+const headerCellStyle = () => 'background-color: rgba(43,131,254,0.14)'
+watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
+
 </script>
 <template>
   <ApyTableFilters :project="project" :options="options" :title="title"/>
