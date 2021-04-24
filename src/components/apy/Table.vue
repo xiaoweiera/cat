@@ -54,7 +54,7 @@ watch(() => options.value.data, (a, b) => {
 
   <ApyTableFilters :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col">
-    tableData.loading
+    <img v-if="tableData.loading" class="loading" src="/assets/loading.gif" alt="">
     <el-table
         :data="renderCells"
         :header-cell-style="headerCellStyle"
