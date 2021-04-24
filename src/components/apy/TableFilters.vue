@@ -18,13 +18,16 @@ const {
 } = toRefs(props.options)
 
 const clickOption = (option) => {
-  realOptions.value = realOptions.value.map((i) => {
-    if (i.name !== option.name) {
+  setTimeout(()=>{
+    realOptions.value = realOptions.value.map((i) => {
+      if (i.name !== option.name) {
+        return i
+      }
+      i.status = option.status
       return i
-    }
-    i.status = option.status
-    return i
-  })
+    })
+  },300)
+
 }
 
 </script>

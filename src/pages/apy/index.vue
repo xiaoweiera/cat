@@ -48,7 +48,8 @@ onMounted(async() => fetchTableByChain('bsc'))
         :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
         v-for="(item,index) in tables"
     >
-      <ApyTable :index="index" :project="'....'" :title="item.title" :tableData="item"/>
+
+      <ApyTable  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->
