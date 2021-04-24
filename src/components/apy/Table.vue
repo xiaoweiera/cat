@@ -51,8 +51,10 @@ watch(() => options.value.data, (a, b) => {
 })
 </script>
 <template>
-  <ApyTableFilters :project="project" :options="options" :title="title"/>
+
+  <ApyTableFilters :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col">
+    tableData.loading
     <el-table
         :data="renderCells"
         :header-cell-style="headerCellStyle"
