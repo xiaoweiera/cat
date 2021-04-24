@@ -51,11 +51,11 @@ watch(() => options.value.data, (a, b) => {
 })
 </script>
 <template>
-
   <ApyTableFilters :project="tableData.slug" :options="options" :title="title"/>
-  <div class="flex flex-col">
-    <img v-if="tableData.loading" class="loading" src="/assets/loading.gif" alt="">
+  <div class="flex flex-col relative minWidth">
+    <img v-if="tableData.loading"  class="loading" src="/assets/loading.gif" alt="">
     <el-table
+         v-if="!tableData.loading"
         :data="renderCells"
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"
@@ -70,7 +70,7 @@ watch(() => options.value.data, (a, b) => {
           <div class="text-kd12px16px text-global-default opacity-65">价格/涨跌幅</div>
         </template>
         <template #default="scope">
-          <div class="min-w-35  w-35   justify-center   flex flex-col">
+          <div  class="min-w-35  w-35   justify-center   flex flex-col">
             <div class="flex px-3  items-center  ">
               <img class="w-8 h-8 mr-1.5" src="https://res.ikingdata.com/nav/platForm.png" alt="">
               <div class="flex flex-col ">
@@ -96,7 +96,7 @@ watch(() => options.value.data, (a, b) => {
           <ApyHeaderColumn :header-data="item"/>
         </template>
         <template #default="scope">
-          <ApyTableItem :index="index" :itemData="scope.row.data[i]?.data"/>
+          <ApyTableItem  :index="index" :itemData="scope.row.data[i]?.data"/>
         </template>
       </el-table-column>
     </el-table>
@@ -104,6 +104,20 @@ watch(() => options.value.data, (a, b) => {
 </template>
 
 <style scoped lang="postcss">
+.minWidth{
+  min-height:200px;
+}
+.loading {
+  width: 150px;
+  height:150px;
+  margin: 0 auto;
+  mix-blend-mode: darken;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:20px;
+  z-index: 11;
+}
 ::v-deep(.el-table td) {
   border-bottom: 0;
 }
