@@ -54,7 +54,8 @@ export const requestTables = () => {
     // @ts-ignore
     tables.value[index].options.select = options.select
     tables.value[index].title = title
-    const {
+
+    let {
       data: {
         data: headers,
       },
@@ -66,9 +67,11 @@ export const requestTables = () => {
         data: rows,
       },
     } = await getDataset(params)
+
     tables.value[index].rows = rows
     tables.value[index].loading = false
   }
+
   return {
     tables,
     requestData,

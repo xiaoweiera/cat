@@ -7,12 +7,12 @@ import { filterByOptions } from '~/logic/apy/tableDetail'
 const props = defineProps({
   project: { type: String },
   title: { type: String },
-  // Object of <HeaderModel[]>
   index: { type: Number },
   tableData: { type: Object },
 })
 const {
   rows,
+  // ref<HeaderModel[]>({})
   headers,
   options,
   loading,
