@@ -9,6 +9,7 @@ const props = defineProps({
   title: { type: String },
   index: { type: Number },
   tableData: { type: Object },
+  timer:{type:Number}
 })
 const {
   rows,
@@ -31,6 +32,7 @@ const addClass = ({
   row,
   columnIndex,
 }) => {
+
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
     return 'background:rgba(9, 217, 142, 0.2);'
   }
@@ -42,7 +44,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
 
 </script>
 <template>
-  <ApyTableFilters :project="tableData.slug" :options="options" :title="title"/>
+  <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col relative minWidth">
     <img v-if="tableData.loading"  class="loading" src="/assets/loading.gif" alt="">
     <el-table

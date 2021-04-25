@@ -33,11 +33,11 @@ export const tableConfig = [
             }, {
                 key: 'apy_detail',
                 name: '产出',
-                status: true,
+                status: false,
             }, {
                 key: 'tvl',
                 name: '存款总额',
-                status: true,
+                status: false,
                 format_func: numberFormat,
             }, {
                 key: 'quota_used',
@@ -62,7 +62,7 @@ export const tableConfig = [
                 }, {
                     key: 'apy_detail',
                     name: '计息',
-                    status: true,
+                    status: false,
                 },
                 {
                     key: 'quota_remain',
@@ -97,11 +97,11 @@ export const tableConfig = [
                 }, {
                     key: 'apy_detail',
                     name: '产出币种',
-                    status: true,
+                    status: false,
                 }, {
                     key: 'quote',
                     name: '可投额度',
-                    status: true,
+                    status: false,
                     format_func: numberFormat,
                 },
                 {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from 'vue'
+import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import { requestTables, defaultChains } from '~/logic/apy'
 import { chainConfig, tableConfig, anchorConfig } from '~/logic/apy/config'
 
@@ -24,14 +24,34 @@ const fetchTableByChain = (chain: String) => {
   })
 }
 
+const timer = ref(60)
+let timerInterval = null
+const intervalFetchTableByChain = (chainId: String, timeout=60) => {
+  fetchTableByChain(chainId)
+  timerInterval = setInterval(() => {
+    if (timer.value !== 0) {
+      timer.value -= 1
+      return
+    }
+    timer.value = timeout
+    fetchTableByChain(chainId)
+  }, 1000)
+}
+
 watch(() => chains.data, (newVal) => {
+  if (timerInterval) {
+    clearInterval(timerInterval)
+    timer.value = 60
+    timerInterval = null
+  }
   newVal.forEach((i) => {
     if (i.select) {
-      fetchTableByChain(i.key)
+      intervalFetchTableByChain(i.key)
     }
   })
 })
-onMounted(async() => fetchTableByChain('bsc'))
+onMounted(async() => intervalFetchTableByChain('bsc'))
+onUnmounted(() => clearInterval(timerInterval))
 </script>
 <template>
   <div class=" flex-col w-full max-w-360  md:mb-25">
@@ -49,7 +69,7 @@ onMounted(async() => fetchTableByChain('bsc'))
         v-for="(item,index) in tables"
     >
 
-      <ApyTable  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
+      <ApyTable :timer="timer"  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->

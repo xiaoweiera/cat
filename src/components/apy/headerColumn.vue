@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import {defineProps} from 'vue'
 // @ts-ignore
-import { toFixedNumber, numColor } from '~/lib/tool'
+import {toFixedNumber, numColor} from '~/lib/tool'
 
 // @ts-ignore
 const props = defineProps({
@@ -9,10 +9,11 @@ const props = defineProps({
     type: Object,
   },
 })
+const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/apyHeco.png'
 </script>
 <template>
   <div class="flex items-center mb-1.5">
-    <img class="w-6 h-6 mr-1.5" src="https://res.ikingdata.com/nav/apyHeco.png"
+    <img class="w-6 h-6 mr-1.5" :src="getLogo()"
          alt=""
     >
     <div class="font-normal text-kd14px18px text-global-highTitle">{{ props.headerData.token_name }}</div>

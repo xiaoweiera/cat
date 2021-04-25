@@ -10,6 +10,7 @@ const props = defineProps({
     type: String,
   },
   options: { type: Object },
+  timer:{type:Number}
 })
 
 const {
@@ -35,7 +36,7 @@ const clickOption = (option) => {
   <div :id="project" class="flex flex-wrap items-center justify-between  mb-8  md:mb-5">
     <div class="flex items-center">
       <div class="text-kd18px28px font-medium mr-1.5">{{ title }}</div>
-      <div class="text-kd14px20px font-normal text-global-default opacity-65">({{ time }} 秒后更新)</div>
+      <div class="text-kd14px20px font-normal text-global-default opacity-65">({{ timer }} 秒后更新)</div>
     </div>
     <div>
       <div class="flex md:flex-row flex-col  md:items-center">
