@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
+import {onMounted, onUnmounted, ref, watch} from 'vue'
 import { requestTables, defaultChains } from '~/logic/apy'
 import { chainConfig, tableConfig, anchorConfig } from '~/logic/apy/config'
 
@@ -9,8 +9,9 @@ const {
   requestData: fetchTableData,
 } = requestTables()
 const selectedAnchor = ref('存款 APY')
-const clickAnchor = (name: String) => {
+const clickAnchor = (name: string) => {
   if (name === '回到顶部') {
+    //@ts-ignore
     document.scrollingElement.scrollTop = 0
   }
   selectedAnchor.value = name
@@ -25,7 +26,8 @@ const fetchTableByChain = (chain: String) => {
 }
 
 const timer = ref(60)
-let timerInterval = null
+let timerInterval:any = null
+const isFirstShow=ref(true)
 const intervalFetchTableByChain = (chainId: String, timeout=60) => {
   fetchTableByChain(chainId)
   timerInterval = setInterval(() => {
@@ -34,6 +36,7 @@ const intervalFetchTableByChain = (chainId: String, timeout=60) => {
       return
     }
     timer.value = timeout
+    isFirstShow.value=false
     fetchTableByChain(chainId)
   }, 1000)
 }
@@ -41,10 +44,11 @@ const intervalFetchTableByChain = (chainId: String, timeout=60) => {
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
     clearInterval(timerInterval)
+    isFirstShow.value=true
     timer.value = 60
     timerInterval = null
   }
-  newVal.forEach((i) => {
+  newVal.forEach((i:any) => {
     if (i.select) {
       intervalFetchTableByChain(i.key)
     }
@@ -69,7 +73,7 @@ onUnmounted(() => clearInterval(timerInterval))
         v-for="(item,index) in tables"
     >
 
-      <ApyTable :timer="timer"  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
+      <ApyTable :isFirstShow="isFirstShow" :timer="timer"  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->

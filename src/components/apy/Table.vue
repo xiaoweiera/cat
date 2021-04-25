@@ -9,7 +9,8 @@ const props = defineProps({
   title: { type: String },
   index: { type: Number },
   tableData: { type: Object },
-  timer:{type:Number}
+  timer:{type:Number},
+  isFirstShow:{type:Boolean}
 })
 const {
   rows,
@@ -46,9 +47,9 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
 <template>
   <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col relative minWidth">
-    <img v-if="tableData.loading"  class="loading" src="/assets/loading.gif" alt="">
+    <img v-if="tableData.loading && isFirstShow"  class="loading" src="/assets/loading.gif" alt="">
     <el-table
-         v-if="!tableData.loading"
+        v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"

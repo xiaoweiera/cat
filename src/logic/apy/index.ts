@@ -55,7 +55,7 @@ export const requestTables = () => {
     tables.value[index].options.select = options.select
     tables.value[index].title = title
 
-    let {
+    const {
       data: {
         data: headers,
       },
