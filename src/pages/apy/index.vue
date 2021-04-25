@@ -26,6 +26,7 @@ const fetchTableByChain = (chain: String) => {
 
 const timer = ref(60)
 let timerInterval = null
+const isFirstShow=ref(true)
 const intervalFetchTableByChain = (chainId: String, timeout=60) => {
   fetchTableByChain(chainId)
   timerInterval = setInterval(() => {
@@ -33,6 +34,7 @@ const intervalFetchTableByChain = (chainId: String, timeout=60) => {
       timer.value -= 1
       return
     }
+    isFirstShow.value=false
     timer.value = timeout
     fetchTableByChain(chainId)
   }, 1000)
@@ -41,6 +43,7 @@ const intervalFetchTableByChain = (chainId: String, timeout=60) => {
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
     clearInterval(timerInterval)
+    isFirstShow.value=true
     timer.value = 60
     timerInterval = null
   }
@@ -69,7 +72,7 @@ onUnmounted(() => clearInterval(timerInterval))
         v-for="(item,index) in tables"
     >
 
-      <ApyTable :timer="timer"  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
+      <ApyTable :isFirstShow="isFirstShow" :timer="timer"  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
           <!--          描述信息-->

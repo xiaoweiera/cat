@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 import { ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading } from 'element-plus'
-import { ref, defineProps, watch, toRefs } from 'vue'
+import { ref, defineProps, watch, toRefs,onMounted } from 'vue'
 import { filterByOptions } from '~/logic/apy/tableDetail'
 
 const props = defineProps({
@@ -9,7 +9,8 @@ const props = defineProps({
   title: { type: String },
   index: { type: Number },
   tableData: { type: Object },
-  timer:{type:Number}
+  timer:{type:Number},
+  isFirstShow:{type:Boolean}
 })
 const {
   rows,
@@ -44,11 +45,12 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
 
 </script>
 <template>
+  {{tableData.loading}}{{isFirstShow}}
   <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col relative minWidth">
-    <img v-if="tableData.loading"  class="loading" src="/assets/loading.gif" alt="">
+    <img v-if="tableData.loading && isFirstShow"  class="loading" src="/assets/loading.gif" alt="">
     <el-table
-         v-if="!tableData.loading"
+         v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"
