@@ -23,7 +23,7 @@ const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://r
       ${{ toFixedNumber(props.headerData.price) }}
     </div>
     <div :class="props.headerData.change>=0?'Greem percent':'Red percent'">
-      {{ numColor(props.headerData.change) }}
+      {{ numColor(props.headerData.change) }}%
     </div>
   </div>
 </template>

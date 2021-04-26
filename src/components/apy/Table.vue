@@ -12,27 +12,21 @@ const props = defineProps({
   timer:{type:Number},
   isFirstShow:{type:Boolean}
 })
-const {
-  rows,
-  // ref<HeaderModel[]>({})
-  headers,
-  options,
-  loading,
-} = toRefs(props.tableData)
+//@ts-ignore
+const {rows, headers, options, loading} = toRefs(props.tableData)
 
 const renderCells = ref([])
 
 watch(() => loading.value, (v) => {
   if (!v) {
+    //@ts-ignore
     renderCells.value = filterByOptions(headers.value, rows.value, options.value.data)
   }
 })
 
 // 单元格背景色
-const addClass = ({
-  row,
-  columnIndex,
-}) => {
+//@ts-ignore
+const addClass = ({row, columnIndex}) => {
 
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
     return 'background:rgba(9, 217, 142, 0.2);'

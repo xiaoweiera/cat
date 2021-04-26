@@ -10,6 +10,7 @@
     "@vueuse/core": "^4.8.2",
     "@vueuse/head": "^0.5.1",
     "echarts": "^5.1.0",
+    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "prism-theme-vars": "^0.2.2",
     "ramda": "^0.27.1",

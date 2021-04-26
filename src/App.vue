@@ -29,6 +29,14 @@ useHead({
 .en .i8n-font-inter{
   font-family: i8n-font-inter !important
 }
+div,
+img,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
 @media screen and (max-width: 768px) {
   .xshidden{
     display: none !important;

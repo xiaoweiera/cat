@@ -27,7 +27,7 @@ export const tableConfig = [
         options: {
             data: [{
                 key: 'apy',
-                name: '收到利息',
+                name: 'APY',
                 status: true,
                 format_func: percent2Precision,
             }, {
@@ -56,7 +56,7 @@ export const tableConfig = [
             data: [
                 {
                     key: 'apy',
-                    name: '支付利率',
+                    name: '利息',
                     status: true,
                     format_func: percent2Precision,
                 }, {
@@ -84,14 +84,15 @@ export const tableConfig = [
                 }],
             select: 'apy',
         },
-    }, {
+    },
+    {
         name: 'machine_gun_pool',
         title: 'DeFi 单币种机枪池 APY 对比',
         options: {
             data: [
                 {
                     key: 'apy',
-                    name: '收到利息',
+                    name: 'APY',
                     status: true,
                     format_func: percent2Precision,
                 }, {
@@ -121,7 +122,32 @@ export const tableConfig = [
         },
     },
 ]
-
+export  const chartsConfig=[
+    {
+        category:'lend',
+        chartAll:[
+            {title:'各币种借款APY趋势对比'},
+            {title:'在不同平台存款的 APY 趋势对比'},
+            {title:'各平台存款总额'},
+        ]
+    },
+    {
+        category:'loan',
+        chartAll:[
+            {title:'各币种借款APY趋势对比'},
+            {title:'在不同平台存款的 APY 趋势对比'},
+            {title:'各平台借款总额'},
+        ]
+    },
+    {
+        category:'machine_gun_pool',
+        chartAll:[
+            {title:'各币种借款APY趋势对比'},
+            {title:'在不同机枪池 APY 趋势对比'},
+            {title:'各平台的信息对比'},
+        ]
+    },
+]
 export const anchorConfig = [
     {
         key: 'lend',
