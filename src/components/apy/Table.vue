@@ -58,20 +58,20 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
         </template>
         <template #default="scope">
           <div  class="min-w-35  w-35   justify-center   flex flex-col">
-            <div class="flex px-3  items-center  ">
-              <img class="w-8 h-8 mr-1.5" :src="scope.row.icon?scope.row.icon:'https://res.ikingdata.com/nav/platForm.png'" alt="">
+              <a class="flex px-3  items-center hand  " :href="scope.row.url" target="_blank">
+              <img class="w-8 h-8 mr-1.5" :src="scope.row.icon?scope.row.icon:'https://res.ikingdata.com/nav/platLogo.jpg'" alt="">
               <div class="flex flex-col ">
                 <div class="font-kdExp mb-1  text-kd14px18px text-global-highTitle font-normal">
-                  {{ scope.row.project_name }}
+                 {{ scope.row.project_name }}
                 </div>
                 <div
                     class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary"
                 >
-                  <span v-if="index<2">借贷平台</span>
+                  <span v-if="props.index<2">借贷平台</span>
                   <span v-else>机枪池</span>
                 </div>
               </div>
-            </div>
+              </a>
           </div>
         </template>
       </el-table-column>

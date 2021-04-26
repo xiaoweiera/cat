@@ -9,8 +9,7 @@ const props = defineProps({
   id: {type: String},
   chartData: {type: Object},
   tableIndex: {type: Number},
-  chartIndex: {type: Number},
-  timer: {type: Object}
+  chartIndex: {type: Number}
 })
 const xData = ref([])
 const serise = ref([])

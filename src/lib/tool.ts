@@ -12,10 +12,9 @@ export const numberFormat = (value: any, noUnit: any) => {
         return parseFloat(value).toFixed(2)
     }
     i = Math.floor(Math.log(value) / Math.log(k));
-    let values = parseFloat((value / Math.pow(k, i)).toFixed(2))
-    let unit = sizes[i]
-    let v = noUnit ? values + unit : '$' + values + unit
-    return v
+    const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
+    const unit = sizes[i]
+    return  noUnit ? values + unit : '$' + values + unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
     if (!value) {

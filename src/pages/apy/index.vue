@@ -93,7 +93,7 @@ onUnmounted(() => clearInterval(timerInterval))
                 :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <template v-for="(item,i) in charts[index].chartAll">
-          <ApyChart :timer="timer" :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
+          <ApyChart  :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
 
         </template>
 
