@@ -9,6 +9,7 @@ const props = defineProps({
     type: Object,
   },
 })
+//@ts-ignore
 const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/apyHeco.png'
 </script>
 <template>
@@ -20,10 +21,10 @@ const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://r
   </div>
   <div class="flex">
     <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">
-      ${{ toFixedNumber(props.headerData.price) }}
+      <span v-if="props.headerData.price">$</span>{{ toFixedNumber(props.headerData.price) }}
     </div>
     <div :class="props.headerData.change>=0?'Greem percent':'Red percent'">
-      {{ numColor(props.headerData.change) }}%
+      {{ numColor(props.headerData.change) }}<span v-if="props.headerData.change">%</span>
     </div>
   </div>
 </template>

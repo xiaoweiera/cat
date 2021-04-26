@@ -113,6 +113,7 @@ export const initChart = (category:string,charts: any,index:number, chartIndex: 
 export const requestChart = () => {
     const charts = ref<chartItem[]>([])
     const requestChartData = async (chain: string, category: string, index: number, chartIndex: number, title: string) => {
+        //@ts-ignore
         initChart(category,charts,index, chartIndex, title)
         const param = {chain: chain, category: category}
         if(chartIndex===0){

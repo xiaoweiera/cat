@@ -15,7 +15,6 @@ const props = defineProps({
 const xData = ref([])
 const serise = ref([])
 const tagList = reactive({platforms: [], selected: ''})
-
 let myChart: any = null
 //画图
 const draw = () => {
@@ -26,7 +25,6 @@ const draw = () => {
       yLabelFormat
   );
   myChart.setOption(opts);
-
 }
 onMounted(() => {
   //@ts-ignore
@@ -36,14 +34,12 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', myChart.resize)
 })
-
 const initChart = (newVal: string) => {
   //@ts-ignore
   const {x_data, y_data} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
   xData.value = x_data.value
   serise.value = getSerise(y_data.value)
 }
-
 watch(() => props.chartData?.option, async () => {
   //@ts-ignore
   tagList.platforms = getChartTag(props.chartData.option, props.tableIndex, props.chartIndex).value
@@ -51,7 +47,6 @@ watch(() => props.chartData?.option, async () => {
   initChart(tagList.selected)
   draw()
 })
-
 watch(() => tagList.selected, (newVal) => {
   initChart(newVal)
   draw()

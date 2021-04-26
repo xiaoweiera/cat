@@ -14,13 +14,13 @@ specifiers:
   autoprefixer: ^10.2.5
   axios: ^0.21.1
   cross-env: ^7.0.3
+  dayjs: ^1.10.4
   echarts: ^5.1.0
   element-plus: ^1.0.2-beta.40
   eslint: ^7.23.0
   https-localhost: ^4.6.4
   markdown-it-prism: ^2.1.6
   mockjs: ^1.1.0
-  moment: ^2.29.1
   nprogress: ^0.2.0
   pnpm: ^6.0.1
   postcss: ^8.2.9
@@ -47,8 +47,8 @@ specifiers:
 dependencies:
   '@vueuse/core': 4.8.2_vue@3.0.11
   '@vueuse/head': 0.5.1_vue@3.0.11
+  dayjs: 1.10.4
   echarts: 5.1.0
-  moment: 2.29.1
   nprogress: 0.2.0
   prism-theme-vars: 0.2.2
   ramda: 0.27.1
@@ -2534,7 +2534,6 @@ packages:
 
   /dayjs/1.10.4:
     resolution: {integrity: sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==}
-    dev: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -4483,10 +4482,6 @@ packages:
     resolution: {integrity: sha512-1lM+BMLGuDfsdwf3rsgBSrxJwAZHFIrQ8YR61xIqdHo0uNKI9M52wNpHSrliZATJp51On6JD0AfRxd4YGSU0lw==}
     engines: {node: '>=6'}
     dev: true
-
-  /moment/2.29.1:
-    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
-    dev: false
 
   /mongodb/3.6.3:
     resolution: {integrity: sha512-rOZuR0QkodZiM+UbQE5kDsJykBqWi0CL4Ec2i1nrGrUI3KO11r6Fbxskqmq3JK2NH7aW4dcccBuUujAP0ERl5w==}

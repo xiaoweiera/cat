@@ -1,5 +1,5 @@
 //@ts-ignore
-import moment from "moment";
+import dayjs from "dayjs";
 
 export const numberFormat = (value: any, noUnit: any) => {
     if (!value) {
@@ -32,20 +32,20 @@ export const percent2Precision = (value: any): String => {
 // 数字正负判断
 export const numColor = (value: any) => {
     if (!value) {
-        return '+0'
+        return '-'
     } else if (value >= 0) {
-        return '+' + value
+        return '+' + toFixedNumber(value,2)
     } else {
-        return value
+        return toFixedNumber(value,2)
     }
 }
 
 export function formatTimeMD(date: string) {
-    return moment(parseInt(date + "000")).format("MM/DD");
+    return dayjs(parseInt(date + "000")).format("MM/DD");
 }
 
 export function formatTimeHour(date: string) {
-    return moment(parseInt(date + "000")).format("MM/DD HH:mm");
+    return dayjs(parseInt(date + "000")).format("MM/DD HH:mm");
 }
 
 export const tooptipsModel = (item: any, color: any, value: any) => {
