@@ -49,6 +49,7 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
       timer.value -= 1
       return
     }
+    isFirstShow.value=false
     timer.value = timeout
     isFirstShow.value = false
     fetchTableByChain(chainId)

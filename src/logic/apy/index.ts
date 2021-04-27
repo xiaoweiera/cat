@@ -81,7 +81,6 @@ export const requestTables = () => {
                 data: rows,
             },
         } = await getDataset(params)
-
         tables.value[index].rows = rows
         tables.value[index].loading = false
     }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 import { ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading } from 'element-plus'
-import { ref, defineProps, watch, toRefs } from 'vue'
+import { ref, defineProps, watch, toRefs,onMounted } from 'vue'
 import { filterByOptions } from '~/logic/apy/tableDetail'
 
 const props = defineProps({
