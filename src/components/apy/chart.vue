@@ -2,7 +2,7 @@
 //@ts-ignore
 import * as echarts from 'echarts'
 import {defineProps, ref, onMounted, watch, reactive, onUnmounted} from 'vue'
-import {getXY_data, getSerise, getModel, yLabelFormat, getChartTag} from '~/logic/apy/formatChart'
+import {getXY_data, getSerise, getModel, yLabelFormat, getPlat} from '~/logic/apy/formatChart'
 import {chartOption} from '~/lib/chartOption'
 
 const props = defineProps({
@@ -17,22 +17,19 @@ const tags = reactive({platforms: [], selected: ''})
 let myChart: any = null
 //画图
 const draw = () => {
-  const opts = chartOption(
+  myChart.setOption(chartOption(
       xChartData.value,
       getModel,
       serise.value,
       yLabelFormat
-  );
-  myChart.setOption(opts, true);
+  ), true);
 }
 onMounted(() => {
   //@ts-ignore
   myChart = echarts.init(document.getElementById(props.id), "light");
   window.addEventListener("resize", myChart.resize);
 })
-onUnmounted(() => {
-  window.removeEventListener('resize', myChart.resize)
-})
+onUnmounted(() => window.removeEventListener('resize', myChart.resize))
 const reRenderChart = (newVal: string) => {
   //@ts-ignore  props.chartData.option  接口返回过来的数据
   const {xData, yData} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
@@ -45,11 +42,10 @@ watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   if (!newOptions?.data) {
     return
   }
-  tags.platforms = getChartTag(newOptions, props.tableIndex, props.chartIndex).value
+  tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
   if (!oldOptions?.data) {
     tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
   }
-
   reRenderChart(tags.selected)
 })
 watch(() => tags.selected, (newVal) => reRenderChart(newVal))

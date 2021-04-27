@@ -2,7 +2,6 @@
 import {formatTimeHour, numberFormat, toFixedNumber, tooptipsModel} from '~/lib/tool'
 //@ts-ignore
 import { tableConfig } from '~/logic/apy/config'
- import {ref} from 'vue'
 export interface chartModel{
     code:number
     data:object
@@ -49,15 +48,5 @@ export const getModel = (params: any) => {
 //@ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)
 
-export const getChartTag = (data: any, tableIndex: number, chartIndex: number) => {
-    const tagList = ref([])
-    if (chartIndex === 0) {
-        tagList.value = data.data.map((item: any) => item.project_name)
-    } else if (chartIndex === 1) {
-        tagList.value = data.data.map((item: any) => item.token_name)
-    } else {
-        //@ts-ignore
-        tagList.value =tableIndex===2? ['TVL', '用户总收益', '平均APY']:[]
-    }
-    return tagList
-}
+
+export const getPlat=(chartData:any,tableIndex:number,chartIndex:number)=>tableConfig[tableIndex].charts[chartIndex].platData(chartData)

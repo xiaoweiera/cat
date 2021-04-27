@@ -14,7 +14,14 @@ interface gunModel {
     tvl: projectItem[]
     machine_gun_pool_avg_apy: projectItem[]
 }
-
+interface requsetProjectModel{
+    code:number,
+    data:projectItem[]
+}
+interface requsetTokenModel{
+    code:number,
+    data:tokenItem[]
+}
 interface projectItem {
     project_name: string
     x_axis: object
@@ -70,7 +77,7 @@ interface chartItem {
     data: projectItem[]
 }
 
-//得到xy轴 第一个表
+
 const getxyDataWithField = (data: chartItem, field: String) => {
     //@ts-ignore
     let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
@@ -92,7 +99,7 @@ const getxyDataWithField = (data: chartItem, field: String) => {
 
 //得到xy轴 第一个表
 export const getxyData = (data: chartItem) => getxyDataWithField(data, 'token_name')
-
+//得到xy轴 第二个表
 export const getCoinData = (data: chartItem) => getxyDataWithField(data, 'project_name')
 //第三个表
 export const getInfoData = (data: any) => {
@@ -111,6 +118,11 @@ export const getInfoData = (data: any) => {
 
     return {xData, yData}
 }
+//获取平台列表--筛选
+export const getProjectPlat=(data:requsetProjectModel)=>data.data.map((item: projectItem) => item['project_name'])
+export const getTokenPlat=(data:requsetTokenModel)=>data.data.map((item: tokenItem) => item['token_name'])
+export const getInfoPlat=()=>[]
+export const getInfoHasPlat=()=>['TVL', '用户总收益', '平均APY']
 
 interface requestItem {
     chain: string
@@ -123,4 +135,6 @@ interface requestItem {
 export const requestLendData = async (param: requestItem) => (await getChart(param))?.data
 export const requestLoanData = async (param: requestItem) => (await getChart(param))?.data
 export const requestGunData = async (param: requestItem) => (await getChartByMoney(param))?.data
+
+
 

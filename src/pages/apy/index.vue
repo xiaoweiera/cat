@@ -7,7 +7,6 @@ import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/
 const {chains} = defaultChains(chainConfig)
 //@ts-ignore
 const {tables, requestData: fetchTableData} = requestTables()
-
 //@ts-ignore
 const {charts, requestChartData: fetchChartData} = requestChart()
 const selectedAnchor = ref('存款 APY')
@@ -39,7 +38,6 @@ const fetchChartByChain = (chain: String) => {
 
   })
 }
-
 const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
@@ -72,9 +70,8 @@ watch(() => chains.data, (newVal) => {
     }
   })
 })
-onMounted(async () => {
-  intervalFetchTableByChain('bsc')
-})
+onMounted(() => intervalFetchTableByChain('bsc'))
+
 onUnmounted(() => clearInterval(timerInterval))
 </script>
 <template>

@@ -14,14 +14,14 @@ export const numberFormat = (value: any, noUnit: any) => {
     i = Math.floor(Math.log(value) / Math.log(k));
     const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
     const unit = sizes[i]
-    return  noUnit ? values + unit : '$' + values + unit
+    return noUnit ? values + unit : '$' + values + unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
     if (!value) {
         return ''
     }
-    const round=Math.pow(10,rounded)
-    return Math.round(value * round) / round
+    const vil = Math.pow(10, rounded)
+    return Math.round(value * vil) / vil
 }
 export const percent2Precision = (value: any): String => {
     if (!value) {
@@ -34,19 +34,14 @@ export const numColor = (value: any) => {
     if (!value) {
         return '-'
     } else if (value >= 0) {
-        return '+' + toFixedNumber(value,2)
+        return '+' + toFixedNumber(value, 2)
     } else {
-        return toFixedNumber(value,2)
+        return toFixedNumber(value, 2)
     }
 }
 
-export function formatTimeMD(date: string) {
-    return dayjs(parseInt(date + "000")).format("MM/DD");
-}
-
-export function formatTimeHour(date: string) {
-    return dayjs(parseInt(date + "000")).format("MM/DD HH:mm");
-}
+export const formatTimeMD = (date: string) => dayjs(parseInt(date + "000")).format("MM/DD")
+export const formatTimeHour = (date: string) => dayjs(parseInt(date + "000")).format("MM/DD HH:mm")
 
 export const tooptipsModel = (item: any, color: any, value: any) => {
     const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -55,7 +50,6 @@ export const tooptipsModel = (item: any, color: any, value: any) => {
     let svg =
         "data:image/svg+xml;base64," +
         window.btoa(unescape(encodeURIComponent(origin)));
-
     return `<span style="display:flex;
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
     align-items: center;"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${item}  ${value}</p></span>`;

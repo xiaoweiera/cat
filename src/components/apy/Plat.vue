@@ -15,13 +15,9 @@ const clickTag = (name: string) => {
 }
 const isShowMore = ref(false)
 //@ts-ignore
-const showMore = () => {
-  isShowMore.value = true
-}
+const showMore = () => isShowMore.value = true
 //@ts-ignore
-const closeMore = () => {
-  isShowMore.value = false
-}
+const closeMore = () => isShowMore.value = false
 </script>
 <template>
   <div class="flex mt-3 w-full min-h-7 relative  items-center  justify-between ">

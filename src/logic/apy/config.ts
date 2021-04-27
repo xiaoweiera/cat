@@ -10,7 +10,11 @@ import {
     getInfoData,
     requestLendData,
     requestLoanData,
-    requestGunData
+    requestGunData,
+    getProjectPlat,
+    getTokenPlat,
+    getInfoPlat,
+    getInfoHasPlat
 } from '~/logic/apy/chartFormatTool'
 
 export const chainConfig = [{
@@ -41,6 +45,7 @@ export const chartsConfig = {
             requestData: requestLendData,
             chartData: getChartProjectData,
             xyData: getxyData,
+            platData:getProjectPlat,
             param: {keyword1: 'project_name', keyword2: 'token_name'}
         },
         {
@@ -48,15 +53,17 @@ export const chartsConfig = {
             requestData: requestLoanData,
             chartData: getChartTokenData,
             xyData: getCoinData,
+            platData:getTokenPlat,
             param: {keyword1: 'token_name', keyword2: 'project_name'}
         },
-        {title: '各平台存款总额', requestData: requestGunData, chartData: lendDataFormat, xyData: getInfoData, param: {}},
+        {title: '各平台存款总额', requestData: requestGunData, chartData: lendDataFormat, xyData: getInfoData,platData:getInfoPlat, param: {}},
     ], loan: [
         {
             title: '各币种借款APY趋势对比',
             requestData: requestLendData,
             chartData: getChartProjectData,
             xyData: getxyData,
+            platData:getProjectPlat,
             param: {keyword1: 'project_name', keyword2: 'token_name'}
         },
         {
@@ -64,9 +71,10 @@ export const chartsConfig = {
             requestData: requestLoanData,
             chartData: getChartTokenData,
             xyData: getCoinData,
+            platData:getTokenPlat,
             param: {keyword1: 'token_name', keyword2: 'project_name'}
         },
-        {title: '各平台借款总额', requestData: requestGunData, chartData: loanDataFormat, xyData: getInfoData, param: {}},
+        {title: '各平台借款总额', requestData: requestGunData, chartData: loanDataFormat, xyData: getInfoData,platData:getInfoPlat, param: {}},
     ],
     machine_gun_pool: [
         {
@@ -74,6 +82,7 @@ export const chartsConfig = {
             requestData: requestLendData,
             chartData: getChartProjectData,
             xyData: getxyData,
+            platData:getProjectPlat,
             param: {keyword1: 'project_name', keyword2: 'token_name'}
         },
         {
@@ -81,9 +90,10 @@ export const chartsConfig = {
             requestData: requestLoanData,
             chartData: getChartTokenData,
             xyData: getCoinData,
+            platData:getTokenPlat,
             param: {keyword1: 'token_name', keyword2: 'project_name'}
         },
-        {title: '各平台的信息对比', requestData: requestGunData, chartData: gunDataFormat, xyData: getInfoData, param: {}},
+        {title: '各平台的信息对比', requestData: requestGunData, chartData: gunDataFormat, xyData: getInfoData,platData:getInfoHasPlat, param: {}},
     ]
 }
 
