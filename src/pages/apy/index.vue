@@ -19,13 +19,6 @@ const clickAnchor = (name: string) => {
   }
   selectedAnchor.value = name
 }
-// const fetchChart = (chain: string) => {
-//   chartsConfig.map((item, i) => {
-//     item.chartAll.map((itemTwo, chartIndex) => {
-//       fetchChartData(chain, item.category, i, chartIndex, itemTwo.title)
-//     })
-//   })
-// }
 const fetchTableByChain = (chain: String) => {
   tableConfig.map((i, idx) => {
     return fetchTableData(idx, i.name, i.title, i.options, {
@@ -36,8 +29,8 @@ const fetchTableByChain = (chain: String) => {
 }
 const fetchChartByChain = (chain: String) => {
   tableConfig.map((chartItem, tableIndex) => {
-    chartItem.charts.map((chart,chartIndex)=>{
-      return fetchChartData(tableIndex,chartIndex,chartItem.name,chart.title,chart.requestData,chart.chartData, chart.xyData, {
+    chartItem.charts.map((chart, chartIndex) => {
+      return fetchChartData(tableIndex, chartIndex, chartItem.name, chart.title, chart.requestData, chart.chartData, chart.xyData, {
         chain,
         category: chartItem.name,
         ...chart.param
@@ -61,7 +54,7 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
     timer.value = timeout
     isFirstShow.value = false
     fetchTableByChain(chainId)
-    // fetchChart(chainId)
+    fetchChartByChain(chainId)
   }, 1000)
 }
 
@@ -97,14 +90,12 @@ onUnmounted(() => clearInterval(timerInterval))
     <!-- table表格-->
     <div
         :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
-        v-for="(item,index) in tables"
-    >
-
+        v-for="(item,index) in tables">
       <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index" :project="item.project" :title="item.title"
                 :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <template v-for="(item,i) in charts[index].chartAll">
-          <ApyChart  :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
+          <ApyChart :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
 
         </template>
 

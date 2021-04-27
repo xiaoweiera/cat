@@ -20,7 +20,8 @@ export const toFixedNumber = (value: any, rounded = 2) => {
     if (!value) {
         return ''
     }
-    return Number(value).toFixed(rounded)
+    const round=Math.pow(10,rounded)
+    return Math.round(value * round) / round
 }
 export const percent2Precision = (value: any): String => {
     if (!value) {

@@ -53,13 +53,13 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
           width="140"
       >
         <template #header="scope">
-          <div class="text-kd12px16px text-global-default opacity-65 ">项目/币种</div>
+          <div class="text-kd12px16px text-global-default opacity-65 mb-2.5 ">项目/币种</div>
           <div class="text-kd12px16px text-global-default opacity-65">价格/涨跌幅</div>
         </template>
         <template #default="scope">
           <div  class="min-w-35  w-35   justify-center   flex flex-col">
               <a class="flex px-3  items-center hand  " :href="scope.row.url" target="_blank">
-              <img class="w-8 h-8 mr-1.5" :src="scope.row.icon?scope.row.icon:'https://res.ikingdata.com/nav/platLogo.jpg'" alt="">
+              <img class="w-8 h-8 mr-1.5" :src="scope.row.icon" alt="">
               <div class="flex flex-col ">
                 <div class="font-kdExp mb-1  text-kd14px18px text-global-highTitle font-normal">
                  {{ scope.row.project_name }}

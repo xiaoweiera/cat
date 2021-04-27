@@ -11,19 +11,19 @@ const props = defineProps({
   tableIndex: {type: Number},
   chartIndex: {type: Number}
 })
-const xData = ref([])
+const xChartData = ref([])
 const serise = ref([])
 const tags = reactive({platforms: [], selected: ''})
 let myChart: any = null
 //画图
 const draw = () => {
   const opts = chartOption(
-      xData.value,
+      xChartData.value,
       getModel,
       serise.value,
       yLabelFormat
   );
-  myChart.setOption(opts);
+  myChart.setOption(opts, true);
 }
 onMounted(() => {
   //@ts-ignore
@@ -36,26 +36,30 @@ onUnmounted(() => {
 const reRenderChart = (newVal: string) => {
   //@ts-ignore  props.chartData.option  接口返回过来的数据
   const {xData, yData} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
-  xData.value = xData
+  xChartData.value = xData
   serise.value = getSerise(yData)
+  draw()
 }
-watch(() => props.chartData?.option,  (newOptions) => {
+watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   //@ts-ignore
+  if (!newOptions?.data) {
+    return
+  }
   tags.platforms = getChartTag(newOptions, props.tableIndex, props.chartIndex).value
-  tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
+  if (!oldOptions?.data) {
+    tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
+  }
+
   reRenderChart(tags.selected)
-  draw()
 })
-watch(() => tags.selected, (newVal) => {
-  reRenderChart(newVal)
-  draw()
-})
+watch(() => tags.selected, (newVal) => reRenderChart(newVal))
 </script>
 <template>
   <div class="mt-5 relative">
-    <ApyDes :title="props.chartData.title" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex" :selected="tags.selected "/>
+    <ApyDes :title="props.chartData.title" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"
+            :selected="tags.selected "/>
     <!--          平台列表-->
-    <ApyPlat :chartIndex="chartIndex" :tags="tags"/>
+    <ApyPlat :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
     <div class="mt-1.5 md:mt-3 font-kdFang relative ">
       <div class=" h-35 w-full  h-full" :id="props.id">

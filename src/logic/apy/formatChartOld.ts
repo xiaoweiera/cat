@@ -29,7 +29,7 @@ export const getXY_data = (chartData:chartModel,tableIndex:number,chartIndex: nu
                     return item.project_name === selected
                 } else if (chartIndex === 1) {
                     return item.token_name === selected
-                } else {
+                } else formatTimeHour{
                     return item.token_name === selected
                 }
             }

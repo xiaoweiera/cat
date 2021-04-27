@@ -1,5 +1,5 @@
-import {formatTimeHour,toFixedNumber} from '~/lib/tool'
-import {getChart,getChartByMoney} from "~/api/apy";
+import {formatTimeHour, toFixedNumber} from '~/lib/tool'
+import {getChart, getChartByMoney} from "~/api/apy";
 
 interface lendModel {
     total_supply: projectItem[]
@@ -27,35 +27,34 @@ interface tokenItem {
     y_axis: object
 }
 
-export  interface tableCofigModel{
+export interface tableCofigModel {
     name: string
     title: string
     options: object
     charts: chartModel[]
 }
-export interface chartModel{
+
+export interface chartModel {
     title: string
-    chartData:Function
-    xyData:Function
+    chartData: Function
+    xyData: Function
 }
-export interface newModel{
-    title:string
+
+export interface newModel {
+    title: string
 }
+
 //------------------第n个table的第三个表----------------
-export const lendDataFormat = (data: lendModel) => {
-    return data.total_supply
-}
-export const loanDataFormat = (data: loanModel) => {
-    return data.total_borrowed
-}
+export const lendDataFormat = (data: lendModel) => data.total_supply
+export const loanDataFormat = (data: loanModel) => data.total_borrowed
 export const gunDataFormat = (data: gunModel, selected: string) => {
     if (selected === 'TVL') {
         return data.tvl
-    } else if (selected === '用户总收益') {
-        return data.reward_cap
-    } else {
-        return data.machine_gun_pool_avg_apy
     }
+    if (selected === '用户总收益') {
+        return data.reward_cap
+    }
+    return data.machine_gun_pool_avg_apy
 }
 //-----------------------------------------------------
 
@@ -71,26 +70,33 @@ interface chartItem {
     data: projectItem[]
 }
 
-//得到xy轴 第一二个表
-export const getxyData = (data: chartItem) => {
+//得到xy轴 第一个表
+const getxyDataWithField = (data: chartItem, field: String) => {
     //@ts-ignore
     let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
-    let yData = data.data.map((item: projectItem) => {
-        //@ts-ignore
-        let yData = item.y_axis.map((itemTwo: any) => {
-            return {
-                value: toFixedNumber(itemTwo, 2)
-            }
-        })
-        return {yData: yData}
+    //@ts-ignore
+    let yData = data.data.map((item: tokenItem) => {
+        return {
+            // @ts-ignore
+            name: item[field],
+            // @ts-ignore
+            yData: item.y_axis.map((y: any) => {
+                return {
+                    value: toFixedNumber(y, 2)
+                }
+            })
+        }
     })
-    console.log(data)
-    console.log(xData,yData)
     return {xData, yData}
 }
+
+//得到xy轴 第一个表
+export const getxyData = (data: chartItem) => getxyDataWithField(data, 'token_name')
+
+export const getCoinData = (data: chartItem) => getxyDataWithField(data, 'project_name')
 //第三个表
 export const getInfoData = (data: any) => {
-   if(!data) return
+    if (!data) return
     //@ts-ignore
     let xData = data[0].x_axis.map((item: any) => formatTimeHour(item))
     let yData = data.map((item: projectItem) => {
@@ -100,29 +106,21 @@ export const getInfoData = (data: any) => {
                 value: toFixedNumber(itemTwo, 2)
             }
         })
-        return {yData: yData}
+        return {name: item.project_name, yData: yData}
     })
 
     return {xData, yData}
 }
 
-interface  requestItem {
+interface requestItem {
     chain: string
     category: string
     keyWord1: string
     keyWord2: string
 }
+
 //接口请求
-export const requestLendData=async (param:requestItem)=>{
-    const {data: data} = await getChart(param)
-    return data
-}
-export const requestLoanData=async (param:requestItem)=>{
-    const {data: data} = await getChart(param)
-    return data
-}
-export const requestGunData=async (param:requestItem)=>{
-    const {data: data} = await getChartByMoney(param)
-    return data
-}
+export const requestLendData = async (param: requestItem) => (await getChart(param))?.data
+export const requestLoanData = async (param: requestItem) => (await getChart(param))?.data
+export const requestGunData = async (param: requestItem) => (await getChartByMoney(param))?.data
 

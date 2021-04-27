@@ -10,12 +10,12 @@ export interface chartModel{
 export const getXY_data = (requestChartData:chartModel,tableIndex:number,chartIndex: number, selected: string) => {
     //@ts-ignore
     const data=tableConfig[tableIndex].charts[chartIndex].chartData(requestChartData.data,selected)
+
     //@ts-ignore
-    const {xData,yData}=tableConfig[tableIndex].charts[chartIndex].xyData(data)
-    return {xData, yData}
+
+    return tableConfig[tableIndex].charts[chartIndex].xyData(data)
 }
 export const getSerise = (yData: any) => {
-    console.log(yData)
     try {
         return yData.map((item: any) => {
             return {
@@ -47,9 +47,8 @@ export const getModel = (params: any) => {
     return time + result.join('');
 }
 //@ts-ignore
-export const yLabelFormat = (num: any) => {
-    return numberFormat(num, true);
-}
+export const yLabelFormat = (num: any) => numberFormat(num, true)
+
 export const getChartTag = (data: any, tableIndex: number, chartIndex: number) => {
     const tagList = ref([])
     if (chartIndex === 0) {

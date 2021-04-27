@@ -98,9 +98,7 @@ const yAxisKline = (yFormat: any) => {
                 textStyle: {
                     color: "#989898"
                 },
-                formatter: (value: any) => {
-                    return yFormat(value);
-                }
+                formatter: (value: any) => yFormat(value)
             }
         }
     ];
