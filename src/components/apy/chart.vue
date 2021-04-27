@@ -39,9 +39,7 @@ const reRenderChart = (newVal: string) => {
   serise.value = getSerise(yData)
   draw()
 }
-watch(()=>props.chainId,()=>{
-  isChangeChain.value=true
-})
+watch(()=>props.chainId,()=>isChangeChain.value=true)
 watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   //@ts-ignore
   if (!newOptions?.data) {

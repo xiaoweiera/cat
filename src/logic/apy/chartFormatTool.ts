@@ -14,14 +14,17 @@ interface gunModel {
     tvl: projectItem[]
     machine_gun_pool_avg_apy: projectItem[]
 }
-interface requsetProjectModel{
-    code:number,
-    data:projectItem[]
+
+interface requsetProjectModel {
+    code: number,
+    data: projectItem[]
 }
-interface requsetTokenModel{
-    code:number,
-    data:tokenItem[]
+
+interface requsetTokenModel {
+    code: number,
+    data: tokenItem[]
 }
+
 interface projectItem {
     project_name: string
     x_axis: object
@@ -66,10 +69,7 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
 //-----------------------------------------------------
 
 //第一个图表
-export const getChartProjectData = (data: projectItem[], selected: string) =>
-{
-   return  data.find((item: any) => item.project_name === selected)
-}
+export const getChartProjectData = (data: projectItem[], selected: string) => data.find((item: any) => item.project_name === selected)
 //第二个图表
 export const getChartTokenData = (data: tokenItem[], selected: string) => data.find((item: any) => item.token_name === selected)
 
@@ -79,6 +79,7 @@ interface chartItem {
     project_name: string
     data: projectItem[]
 }
+
 const getxyDataWithField = (data: chartItem, field: String) => {
     //@ts-ignore
     let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
@@ -120,10 +121,10 @@ export const getInfoData = (data: any) => {
     return {xData, yData}
 }
 //获取平台列表--筛选
-export const getProjectPlat=(data:requsetProjectModel)=>data.data.map((item: projectItem) => item['project_name'])
-export const getTokenPlat=(data:requsetTokenModel)=>data.data.map((item: tokenItem) => item['token_name'])
-export const getInfoPlat=()=>[]
-export const getInfoHasPlat=()=>['TVL', '用户总收益', '平均APY']
+export const getProjectPlat = (data: requsetProjectModel) => data.data.map((item: projectItem) => item['project_name'])
+export const getTokenPlat = (data: requsetTokenModel) => data.data.map((item: tokenItem) => item['token_name'])
+export const getInfoPlat = () => []
+export const getInfoHasPlat = () => ['TVL', '用户总收益', '平均APY']
 
 interface requestItem {
     chain: string
