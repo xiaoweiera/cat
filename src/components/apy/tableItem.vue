@@ -14,7 +14,7 @@ const props = defineProps({
 })
 </script>
 <template>
-  <div class="w-53 h-full flex flex-col justify-center   px-3">
+  <div class="w-full h-full flex flex-col justify-center   px-3">
     <template v-for="(item,i) in itemData">
       <div v-if="item.status" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1">{{ item.name }}</span>
