@@ -21,8 +21,8 @@ hero:
   title: GrowthPad
   subtitle: Data-driven business growth platform
 
-  desc1: GrowthPad is designed to helps the project accurately screen and locate users. The targeted users only need to do some simple growth tasks to get rich rewards from the platform. GrowthPad avoids the participation of invalid users while also freeing the project from the traditional single launch and promotion. In this way, the project has achieved a truly healthy and rapid growth.
-  desc2: 'GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently supported public chains include: ETH, HECO, BSC, OKChain.'
+  desc1: 'GrowthPad is aimed to help the project accurately screen and locate users through data. The targeted user only needs to do some simple growth tasks to get rich rewards from the platform. GrowthPad avoids the participation of invalid users while also freeing the project from the traditional single launch and promotion, realizing the truly healthy and rapid growth of the project'
+  desc2: 'GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain'
 heroProjects:
   title: GrowthPad
   subtitle: Earn crypt while supporting favorite projects
@@ -50,6 +50,7 @@ summary:
 project:
   status:
     coming: 'Coming Soon'
+    progress: 'In Progress'
   award_number: 'Rewards'
   reward_value: 'Values'
   per_person: 'PerPersion'
@@ -62,11 +63,11 @@ feature:
   title: 'WHY US ?'
   feature1:
     title: 'Precise reach, more real users'
-    desc1: 'Comprehensive and perfect information portrait on the chain, accurate database of project user characteristics'
-    desc2: 'One step to find the desired users'
+    desc1: 'Comprehensive and complete information portrait on the chain, accurate database of project user characteristics'
+    desc2: 'Find the user you want in one step'
   feature2:
     title: 'Selecting traffic, more accurate placement'
-    desc1: 'Huge user base, with hundreds of communities and media matrix as the core, Selecting high-quality traffic from home and abroad'
+    desc1: 'Huge user base, with hundreds of communities and media matrix as the core'
   feature3:
     title: 'Multi-dimensional service, more efficient'
     desc1: 'Customized growth strategy around your needs'
