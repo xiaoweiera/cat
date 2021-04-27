@@ -1,5 +1,5 @@
 import {formatTimeHour,toFixedNumber} from '~/lib/tool'
-import {getChart} from "~/api/apy";
+import {getChart,getChartByMoney} from "~/api/apy";
 
 interface lendModel {
     total_supply: projectItem[]
@@ -84,10 +84,12 @@ export const getxyData = (data: chartItem) => {
         })
         return {yData: yData}
     })
+    console.log(data)
+    console.log(xData,yData)
     return {xData, yData}
 }
 //第三个表
-export const getInfoData = (data: projectItem[]) => {
+export const getInfoData = (data: any) => {
    if(!data) return
     //@ts-ignore
     let xData = data[0].x_axis.map((item: any) => formatTimeHour(item))
@@ -100,6 +102,7 @@ export const getInfoData = (data: projectItem[]) => {
         })
         return {yData: yData}
     })
+
     return {xData, yData}
 }
 
@@ -119,7 +122,7 @@ export const requestLoanData=async (param:requestItem)=>{
     return data
 }
 export const requestGunData=async (param:requestItem)=>{
-    const {data: data} = await getChart(param)
+    const {data: data} = await getChartByMoney(param)
     return data
 }
 

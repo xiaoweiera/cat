@@ -1,6 +1,5 @@
 import {ref, reactive} from 'vue'
 import {getColumns, getDataset} from '~/api/apy'
-import {getChart,getChartByMoney} from '~/api/apy'
 
 interface TableParams {
     chain: String

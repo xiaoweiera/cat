@@ -10,12 +10,12 @@ export interface chartModel{
 export const getXY_data = (requestChartData:chartModel,tableIndex:number,chartIndex: number, selected: string) => {
     //@ts-ignore
     const data=tableConfig[tableIndex].charts[chartIndex].chartData(requestChartData.data,selected)
-
     //@ts-ignore
     const {xData,yData}=tableConfig[tableIndex].charts[chartIndex].xyData(data)
     return {xData, yData}
 }
 export const getSerise = (yData: any) => {
+    console.log(yData)
     try {
         return yData.map((item: any) => {
             return {

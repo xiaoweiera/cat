@@ -5,14 +5,10 @@ import {defineProps, onMounted, ref} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
 
 const props = defineProps({
+  title:{type:String},
   selected: {type: String},
   tableIndex: {type: Number},
   chartIndex: {type: Number}
-})
-const title = ref('')
-onMounted(() => {
-  //@ts-ignore
-  // title.value = chartsConfig[props.tableIndex].chartAll[props.chartIndex].title
 })
 </script>
 <template>

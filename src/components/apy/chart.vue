@@ -35,13 +35,13 @@ onUnmounted(() => {
 })
 const reRenderChart = (newVal: string) => {
   //@ts-ignore  props.chartData.option  接口返回过来的数据
-  const {x_data, y_data} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
-  xData.value = x_data
-  serise.value = getSerise(y_data)
+  const {xData, yData} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
+  xData.value = xData
+  serise.value = getSerise(yData)
 }
-watch(() => props.chartData?.option, async () => {
+watch(() => props.chartData?.option,  (newOptions) => {
   //@ts-ignore
-  tags.platforms = getChartTag(props.chartData.option, props.tableIndex, props.chartIndex).value
+  tags.platforms = getChartTag(newOptions, props.tableIndex, props.chartIndex).value
   tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
   reRenderChart(tags.selected)
   draw()
@@ -53,7 +53,7 @@ watch(() => tags.selected, (newVal) => {
 </script>
 <template>
   <div class="mt-5 relative">
-    <ApyDes :tableIndex="props.tableIndex" :chartIndex="props.chartIndex" :selected="tags.selected "/>
+    <ApyDes :title="props.chartData.title" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex" :selected="tags.selected "/>
     <!--          平台列表-->
     <ApyPlat :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->

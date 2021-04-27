@@ -61,7 +61,7 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
     timer.value = timeout
     isFirstShow.value = false
     fetchTableByChain(chainId)
-    fetchChart(chainId)
+    // fetchChart(chainId)
   }, 1000)
 }
 
