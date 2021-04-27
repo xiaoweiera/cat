@@ -13,7 +13,7 @@ const props = defineProps({
 const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/platLogo.jpg'
 </script>
 <template>
-  <div class="flex items-center mb-1.5">
+  <div class="flex w-full items-center mb-1.5">
     <img class="w-6 h-6 mr-1.5" :src="getLogo()"
          alt=""
     >

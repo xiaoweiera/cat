@@ -78,7 +78,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
       <el-table-column
           v-for="(item, i) in headers"
           :key="`${index}-${i}-${item.token_name}`"
-          width="212"
+          width="180"
       >
         <template #header="scope">
           <ApyHeaderColumn :header-data="item"/>

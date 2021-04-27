@@ -9,12 +9,14 @@ const props = defineProps({
   id: {type: String},
   chartData: {type: Object},
   tableIndex: {type: Number},
-  chartIndex: {type: Number}
+  chartIndex: {type: Number},
+  chainId:{type:String}
 })
 const xChartData = ref([])
 const serise = ref([])
 const tags = reactive({platforms: [], selected: ''})
 let myChart: any = null
+const isChangeChain=ref(true)
 //画图
 const draw = () => {
   myChart.setOption(chartOption(
@@ -37,15 +39,20 @@ const reRenderChart = (newVal: string) => {
   serise.value = getSerise(yData)
   draw()
 }
+watch(()=>props.chainId,()=>{
+  isChangeChain.value=true
+})
 watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   //@ts-ignore
   if (!newOptions?.data) {
     return
   }
+  //@ts-ignore
   tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
-  if (!oldOptions?.data) {
+  if (!oldOptions?.data || isChangeChain) {
     tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
   }
+  isChangeChain.value=false
   reRenderChart(tags.selected)
 })
 watch(() => tags.selected, (newVal) => reRenderChart(newVal))

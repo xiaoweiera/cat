@@ -66,7 +66,10 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
 //-----------------------------------------------------
 
 //第一个图表
-export const getChartProjectData = (data: projectItem[], selected: string) => data.find((item: any) => item.project_name === selected)
+export const getChartProjectData = (data: projectItem[], selected: string) =>
+{
+   return  data.find((item: any) => item.project_name === selected)
+}
 //第二个图表
 export const getChartTokenData = (data: tokenItem[], selected: string) => data.find((item: any) => item.token_name === selected)
 
@@ -76,8 +79,6 @@ interface chartItem {
     project_name: string
     data: projectItem[]
 }
-
-
 const getxyDataWithField = (data: chartItem, field: String) => {
     //@ts-ignore
     let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
