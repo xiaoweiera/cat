@@ -38,10 +38,10 @@ const fetchChartByChain = (chain: String) => {
 
   })
 }
-const timer = ref(60)
+const timer = ref(10)
 let timerInterval: any = null
 const isFirstShow = ref(true)
-const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
+const intervalFetchTableByChain = (chainId: string, timeout = 10) => {
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
   timerInterval = setInterval(() => {
@@ -67,7 +67,6 @@ watch(() => chains.data, (newVal) => {
   newVal.forEach((i: any) => {
     if (i.select) {
       intervalFetchTableByChain(i.key)
-      fetchChart(i.key)
     }
   })
 })
@@ -93,7 +92,7 @@ onUnmounted(() => clearInterval(timerInterval))
                 :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <template v-for="(item,i) in charts[index].chartAll">
-          <ApyChart :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
+          <ApyChart :chainId="chainId" :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
 
         </template>
 
