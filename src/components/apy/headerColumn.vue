@@ -9,7 +9,8 @@ const props = defineProps({
     type: Object,
   },
 })
-const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/apyHeco.png'
+//@ts-ignore
+const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/platLogo.jpg'
 </script>
 <template>
   <div class="flex items-center mb-1.5">
@@ -20,10 +21,10 @@ const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://r
   </div>
   <div class="flex">
     <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">
-      ${{ toFixedNumber(props.headerData.price) }}
+      <span :class="props.headerData.price?'':'ml-2'">{{props.headerData.price?'$':'-'}}</span>{{ toFixedNumber(props.headerData.price) }}
     </div>
-    <div :class="props.headerData.change>=0?'Greem percent':'Red percent'">
-      {{ numColor(props.headerData.change) }}
+    <div v-if="props.headerData.change || props.headerData.change===0 " :class="props.headerData.change>=0?'Greem percent':'Red percent'">
+      {{ numColor(props.headerData.change) }}<span v-if="props.headerData.change">%</span>
     </div>
   </div>
 </template>

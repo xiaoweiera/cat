@@ -1,4 +1,21 @@
 import {numberFormat, percent2Precision} from '~/lib/tool'
+import {
+    lendDataFormat,
+    loanDataFormat,
+    gunDataFormat,
+    getChartProjectData,
+    getChartTokenData,
+    getxyData,
+    getCoinData,
+    getInfoData,
+    requestLendData,
+    requestLoanData,
+    requestGunData,
+    getProjectPlat,
+    getTokenPlat,
+    getInfoPlat,
+    getInfoHasPlat
+} from '~/logic/apy/chartFormatTool'
 
 export const chainConfig = [{
     select: false,
@@ -20,6 +37,66 @@ export const chainConfig = [{
     },
 ]
 
+
+export const chartsConfig = {
+    lend: [
+        {
+            title: '各币种存款APY趋势对比',
+            requestData: requestLendData,
+            chartData: getChartProjectData,
+            xyData: getxyData,
+            platData:getProjectPlat,
+            param: {keyword1: 'project_name', keyword2: 'token_name'}
+        },
+        {
+            title: '在不同平台存款的 APY 趋势对比',
+            requestData: requestLoanData,
+            chartData: getChartTokenData,
+            xyData: getCoinData,
+            platData:getTokenPlat,
+            param: {keyword1: 'token_name', keyword2: 'project_name'}
+        },
+        {title: '各平台存款总额', requestData: requestGunData, chartData: lendDataFormat, xyData: getInfoData,platData:getInfoPlat, param: {}},
+    ], loan: [
+        {
+            title: '各币种借款APY趋势对比',
+            requestData: requestLendData,
+            chartData: getChartProjectData,
+            xyData: getxyData,
+            platData:getProjectPlat,
+            param: {keyword1: 'project_name', keyword2: 'token_name'}
+        },
+        {
+            title: '在不同平台借款的 APY 趋势对比',
+            requestData: requestLoanData,
+            chartData: getChartTokenData,
+            xyData: getCoinData,
+            platData:getTokenPlat,
+            param: {keyword1: 'token_name', keyword2: 'project_name'}
+        },
+        {title: '各平台借款总额', requestData: requestGunData, chartData: loanDataFormat, xyData: getInfoData,platData:getInfoPlat, param: {}},
+    ],
+    machine_gun_pool: [
+        {
+            title: '各币种机枪池APY趋势对比',
+            requestData: requestLendData,
+            chartData: getChartProjectData,
+            xyData: getxyData,
+            platData:getProjectPlat,
+            param: {keyword1: 'project_name', keyword2: 'token_name'}
+        },
+        {
+            title: '在不同机枪池 APY 趋势对比',
+            requestData: requestLoanData,
+            chartData: getChartTokenData,
+            xyData: getCoinData,
+            platData:getTokenPlat,
+            param: {keyword1: 'token_name', keyword2: 'project_name'}
+        },
+        {title: '各平台的信息对比', requestData: requestGunData, chartData: gunDataFormat, xyData: getInfoData,platData:getInfoHasPlat, param: {}},
+    ]
+}
+
 export const tableConfig = [
     {
         name: 'lend',
@@ -27,7 +104,7 @@ export const tableConfig = [
         options: {
             data: [{
                 key: 'apy',
-                name: '收到利息',
+                name: 'APY',
                 status: true,
                 format_func: percent2Precision,
             }, {
@@ -48,6 +125,7 @@ export const tableConfig = [
             ],
             select: 'apy',
         },
+        charts: chartsConfig.lend
     },
     {
         name: 'loan',
@@ -56,7 +134,7 @@ export const tableConfig = [
             data: [
                 {
                     key: 'apy',
-                    name: '支付利率',
+                    name: '利息',
                     status: true,
                     format_func: percent2Precision,
                 }, {
@@ -84,14 +162,16 @@ export const tableConfig = [
                 }],
             select: 'apy',
         },
-    }, {
+        charts: chartsConfig.loan
+    },
+    {
         name: 'machine_gun_pool',
         title: 'DeFi 单币种机枪池 APY 对比',
         options: {
             data: [
                 {
                     key: 'apy',
-                    name: '收到利息',
+                    name: 'APY',
                     status: true,
                     format_func: percent2Precision,
                 }, {
@@ -119,6 +199,7 @@ export const tableConfig = [
             ],
             select: 'apy',
         },
+        charts: chartsConfig.machine_gun_pool
     },
 ]
 

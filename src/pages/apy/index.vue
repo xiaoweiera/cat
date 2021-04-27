@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
-import { requestTables, defaultChains } from '~/logic/apy'
-import { chainConfig, tableConfig, anchorConfig } from '~/logic/apy/config'
+import {onMounted, onUnmounted, ref, watch} from 'vue'
+import {requestTables, defaultChains, requestChart} from '~/logic/apy'
+//@ts-ignore
+import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 
-const { chains } = defaultChains(chainConfig)
-const {
-  tables,
-  requestData: fetchTableData,
-} = requestTables()
+const {chains} = defaultChains(chainConfig)
+//@ts-ignore
+const {tables, requestData: fetchTableData} = requestTables()
+//@ts-ignore
+const {charts, requestChartData: fetchChartData} = requestChart()
 const selectedAnchor = ref('存款 APY')
-const clickAnchor = (name: String) => {
+//@ts-ignore
+const clickAnchor = (name: string) => {
   if (name === '回到顶部') {
+    //@ts-ignore
     document.scrollingElement.scrollTop = 0
   }
   selectedAnchor.value = name
@@ -23,12 +26,24 @@ const fetchTableByChain = (chain: String) => {
     })
   })
 }
+const fetchChartByChain = (chain: String) => {
+  tableConfig.map((chartItem, tableIndex) => {
+    chartItem.charts.map((chart, chartIndex) => {
+      return fetchChartData(tableIndex, chartIndex, chartItem.name, chart.title, chart.requestData, chart.chartData, chart.xyData, {
+        chain,
+        category: chartItem.name,
+        ...chart.param
+      })
+    })
 
+  })
+}
 const timer = ref(60)
-let timerInterval = null
-const isFirstShow=ref(true)
-const intervalFetchTableByChain = (chainId: String, timeout=60) => {
+let timerInterval: any = null
+const isFirstShow = ref(true)
+const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   fetchTableByChain(chainId)
+  fetchChartByChain(chainId)
   timerInterval = setInterval(() => {
     if (timer.value !== 0) {
       timer.value -= 1
@@ -36,24 +51,28 @@ const intervalFetchTableByChain = (chainId: String, timeout=60) => {
     }
     isFirstShow.value=false
     timer.value = timeout
+    isFirstShow.value = false
     fetchTableByChain(chainId)
+    fetchChartByChain(chainId)
   }, 1000)
 }
 
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
     clearInterval(timerInterval)
-    isFirstShow.value=true
+    isFirstShow.value = true
     timer.value = 60
     timerInterval = null
   }
-  newVal.forEach((i) => {
+  newVal.forEach((i: any) => {
     if (i.select) {
       intervalFetchTableByChain(i.key)
+      fetchChart(i.key)
     }
   })
 })
-onMounted(async() => intervalFetchTableByChain('bsc'))
+onMounted(() => intervalFetchTableByChain('bsc'))
+
 onUnmounted(() => clearInterval(timerInterval))
 </script>
 <template>
@@ -69,25 +88,20 @@ onUnmounted(() => clearInterval(timerInterval))
     <!-- table表格-->
     <div
         :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
-        v-for="(item,index) in tables"
-    >
-
-      <ApyTable :isFirstShow="isFirstShow" :timer="timer"  :index="index" :project="item.project" :title="item.title" :tableData="item"/>
+        v-for="(item,index) in tables">
+      <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index" :project="item.project" :title="item.title"
+                :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-        <div v-for="(chartType,i) in []" class="flex flex-col mt-8 md:mt-5 relative">
-          <!--          描述信息-->
-          <ApyDes/>
-          <!--          平台列表-->
-          <ApyPlat/>
-          <!--          图表-->
-          <ApyChart line="1" :chartType="chartType" :chain="tagSelet" :id="'one'+index+i"/>
-          <div v-if="i>0" class=" absolute border-1 h-full -left-6 "></div>
-        </div>
+        <template v-for="(item,i) in charts[index].chartAll">
+          <ApyChart :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
+
+        </template>
+
       </div>
     </div>
     <ApyFooter/>
     <!--    浮动tag-->
-    <div class="tagContainer  w-18 h-28 flex-col fixed fixed right-2  2xl:right-40 top-70">
+    <div class="tagContainer  w-18 h-28 flex-col fixed fixed right-2   2xl:right-10 top-70">
       <template v-for="item in anchorConfig">
         <a @click="clickAnchor(item.name)" :href="'#'+item.key"
            :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "

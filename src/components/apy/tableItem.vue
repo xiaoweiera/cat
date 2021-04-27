@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, onMounted, watch } from 'vue'
+import { defineProps } from 'vue'
 
 const props = defineProps({
   itemData: {

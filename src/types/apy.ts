@@ -48,6 +48,8 @@ export interface HeaderModel {
 
 export interface RowModel {
   project_name: String
+  icon:String
+  url:String
   data: Map<String, CoinModel>
 }
 

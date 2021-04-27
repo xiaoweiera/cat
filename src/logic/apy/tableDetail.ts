@@ -48,6 +48,8 @@ export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], option
   return rows.map((row) => {
     return {
       project_name: row.project_name,
+      icon:row.icon,
+      url:row.url,
       data: headers.map(({ token_name }: { token_name: String }) => {
         // @ts-ignore
         const cellOrigin: CoinModel = row.data[token_name]

@@ -25,3 +25,10 @@ export function getChart(query: any) {
     params: query,
   })
 }
+export function getChartByMoney(query:any){
+  return request({
+    url: '/api/apy/summary_chart/',
+    method: 'get',
+    params: query,
+  })
+}
