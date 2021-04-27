@@ -13,7 +13,7 @@ const props = defineProps({
 })
 const xData = ref([])
 const serise = ref([])
-const tagList = reactive({platforms: [], selected: ''})
+const tags = reactive({platforms: [], selected: ''})
 let myChart: any = null
 //画图
 const draw = () => {
@@ -33,29 +33,29 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', myChart.resize)
 })
-const initChart = (newVal: string) => {
-  //@ts-ignore
+const reRenderChart = (newVal: string) => {
+  //@ts-ignore  props.chartData.option  接口返回过来的数据
   const {x_data, y_data} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
-  xData.value = x_data.value
-  serise.value = getSerise(y_data.value)
+  xData.value = x_data
+  serise.value = getSerise(y_data)
 }
 watch(() => props.chartData?.option, async () => {
   //@ts-ignore
-  tagList.platforms = getChartTag(props.chartData.option, props.tableIndex, props.chartIndex).value
-  tagList.selected = tagList.platforms.length > 0 ? tagList.platforms[0] : ''
-  initChart(tagList.selected)
+  tags.platforms = getChartTag(props.chartData.option, props.tableIndex, props.chartIndex).value
+  tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
+  reRenderChart(tags.selected)
   draw()
 })
-watch(() => tagList.selected, (newVal) => {
-  initChart(newVal)
+watch(() => tags.selected, (newVal) => {
+  reRenderChart(newVal)
   draw()
 })
 </script>
 <template>
   <div class="mt-5 relative">
-    <ApyDes :tableIndex="props.tableIndex" :chartIndex="props.chartIndex" :selected="tagList.selected "/>
+    <ApyDes :tableIndex="props.tableIndex" :chartIndex="props.chartIndex" :selected="tags.selected "/>
     <!--          平台列表-->
-    <ApyPlat :chartIndex="chartIndex" :tagList="tagList"/>
+    <ApyPlat :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
     <div class="mt-1.5 md:mt-3 font-kdFang relative ">
       <div class=" h-35 w-full  h-full" :id="props.id">

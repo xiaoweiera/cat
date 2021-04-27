@@ -12,7 +12,7 @@ const props = defineProps({
 const title = ref('')
 onMounted(() => {
   //@ts-ignore
-  title.value = chartsConfig[props.tableIndex].chartAll[props.chartIndex].title
+  // title.value = chartsConfig[props.tableIndex].chartAll[props.chartIndex].title
 })
 </script>
 <template>

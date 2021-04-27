@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref, watch} from 'vue'
 import {requestTables, defaultChains, requestChart} from '~/logic/apy'
-
 //@ts-ignore
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 
 const {chains} = defaultChains(chainConfig)
 //@ts-ignore
 const {tables, requestData: fetchTableData} = requestTables()
+
 //@ts-ignore
 const {charts, requestChartData: fetchChartData} = requestChart()
 const selectedAnchor = ref('存款 APY')
@@ -19,14 +19,13 @@ const clickAnchor = (name: string) => {
   }
   selectedAnchor.value = name
 }
-const fetchChart = (chain: string) => {
-  chartsConfig.map((item, i) => {
-    item.chartAll.map((itemTwo, chartIndex) => {
-      fetchChartData(chain, item.category, i, chartIndex, itemTwo.title)
-    })
-  })
-
-}
+// const fetchChart = (chain: string) => {
+//   chartsConfig.map((item, i) => {
+//     item.chartAll.map((itemTwo, chartIndex) => {
+//       fetchChartData(chain, item.category, i, chartIndex, itemTwo.title)
+//     })
+//   })
+// }
 const fetchTableByChain = (chain: String) => {
   tableConfig.map((i, idx) => {
     return fetchTableData(idx, i.name, i.title, i.options, {
@@ -35,13 +34,25 @@ const fetchTableByChain = (chain: String) => {
     })
   })
 }
+const fetchChartByChain = (chain: String) => {
+  tableConfig.map((chartItem, tableIndex) => {
+    chartItem.charts.map((chart,chartIndex)=>{
+      return fetchChartData(tableIndex,chartIndex,chartItem.name,chart.title,chart.requestData,chart.chartData, chart.xyData, {
+        chain,
+        category: chartItem.name,
+        ...chart.param
+      })
+    })
+
+  })
+}
 
 const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
 const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   fetchTableByChain(chainId)
-  fetchChart(chainId)
+  fetchChartByChain(chainId)
   timerInterval = setInterval(() => {
     if (timer.value !== 0) {
       timer.value -= 1

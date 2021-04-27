@@ -1,5 +1,5 @@
 import {numberFormat, percent2Precision} from '~/lib/tool'
-
+import {lendDataFormat,loanDataFormat,gunDataFormat,getChartProjectData,getChartTokenData,getxyData,getInfoData,requestLendData,requestLoanData,requestGunData} from '~/logic/apy/chartFormatTool'
 export const chainConfig = [{
     select: false,
     key: 'eth',
@@ -19,6 +19,27 @@ export const chainConfig = [{
         img: 'https://res.ikingdata.com/nav/apyBsc.png',
     },
 ]
+
+
+export const chartsConfig = {
+    lend: [
+        {title: '各币种借款APY趋势对比', requestData:requestLendData, chartData:getChartProjectData, xyData:getxyData,param:{keyword1: 'project_name', keyword2: 'token_name'}},
+        {title: '在不同平台存款的 APY 趋势对比',requestData:requestLoanData,chartData:getChartTokenData, xyData:getxyData,param:{keyword1: 'token_name', keyword2: 'project_name'}},
+        {title: '各平台存款总额',requestData:requestGunData,chartData:lendDataFormat, xyData:getInfoData,param:{}},
+    ]
+    ,
+    loan: [
+        {title: '各币种借款APY趋势对比',requestData:requestLendData,chartData:getChartProjectData,xyData:getxyData,param:{keyword1: 'project_name', keyword2: 'token_name'}},
+        {title: '在不同平台存款的 APY 趋势对比',requestData:requestLoanData,chartData:getChartTokenData, xyData:getxyData,param:{keyword1: 'token_name', keyword2: 'project_name'}},
+        {title: '各平台借款总额',requestData:requestGunData,chartData:loanDataFormat, xyData:getInfoData,param:{}},
+    ]
+    ,
+    machine_gun_pool: [
+        {title: '各币种借款APY趋势对比',requestData:requestLendData,chartData:getChartProjectData, xyData:getxyData,param:{keyword1: 'project_name', keyword2: 'token_name'}},
+        {title: '在不同机枪池 APY 趋势对比',requestData:requestLoanData,chartData:getChartTokenData, xyData:getxyData,param:{keyword1: 'token_name', keyword2: 'project_name'}},
+        {title: '各平台的信息对比',requestData:requestGunData,chartData:gunDataFormat, xyData:getInfoData,param:{}},
+    ]
+}
 
 export const tableConfig = [
     {
@@ -48,6 +69,7 @@ export const tableConfig = [
             ],
             select: 'apy',
         },
+        charts: chartsConfig.lend
     },
     {
         name: 'loan',
@@ -84,6 +106,7 @@ export const tableConfig = [
                 }],
             select: 'apy',
         },
+        charts: chartsConfig.loan
     },
     {
         name: 'machine_gun_pool',
@@ -120,34 +143,10 @@ export const tableConfig = [
             ],
             select: 'apy',
         },
+        charts: chartsConfig.machine_gun_pool
     },
 ]
-export  const chartsConfig=[
-    {
-        category:'lend',
-        chartAll:[
-            {title:'各币种借款APY趋势对比'},
-            {title:'在不同平台存款的 APY 趋势对比'},
-            {title:'各平台存款总额'},
-        ]
-    },
-    {
-        category:'loan',
-        chartAll:[
-            {title:'各币种借款APY趋势对比'},
-            {title:'在不同平台存款的 APY 趋势对比'},
-            {title:'各平台借款总额'},
-        ]
-    },
-    {
-        category:'machine_gun_pool',
-        chartAll:[
-            {title:'各币种借款APY趋势对比'},
-            {title:'在不同机枪池 APY 趋势对比'},
-            {title:'各平台的信息对比'},
-        ]
-    },
-]
+
 export const anchorConfig = [
     {
         key: 'lend',

@@ -20,7 +20,7 @@ interface chartItem {
     chartAll: Object,
 }
 
-interface chartModel {
+export interface chartModel {
     category:String
     title: String
     tagList:Object
@@ -92,15 +92,15 @@ export const requestTables = () => {
         requestData,
     }
 }
-export const initChart = (category:string,charts: any,index:number, chartIndex: number, title: string, selectTag: string) => {
-    if (!charts.value[index]) {
-        charts.value[index] = reactive({
+export const initChart = (category:string,charts: any,tableIndex:number, chartIndex: number, title: string, selectTag: string) => {
+    if (!charts.value[tableIndex]) {
+        charts.value[tableIndex] = reactive({
             chartAll:reactive<chartModel[]>([])
         })
     }
-    if(!charts.value[index].chartAll[chartIndex]){
+    if(!charts.value[tableIndex].chartAll[chartIndex]){
 
-        charts.value[index].chartAll[chartIndex] = reactive<chartModel>({
+        charts.value[tableIndex].chartAll[chartIndex] = reactive<chartModel>({
             category:category,
             title,
             tagList:reactive<chartTag[]>([]),
@@ -112,26 +112,12 @@ export const initChart = (category:string,charts: any,index:number, chartIndex: 
 }
 export const requestChart = () => {
     const charts = ref<chartItem[]>([])
-    const requestChartData = async (chain: string, category: string, index: number, chartIndex: number, title: string) => {
+    //name :lend loan 机枪池
+    const requestChartData = async (tableIndex:number,chartIndex:number,category:string,title: string,requestData:Function, chartData:Function, xyDataFun: Function,param:any) => {
         //@ts-ignore
-        initChart(category,charts,index, chartIndex, title)
-        const param = {chain: chain, category: category}
-        if(chartIndex===0){
-            //第一个图表
-            let {data: lendData} = await getChart({...param, keyword1: 'project_name', keyword2: 'token_name'})
-            //@ts-ignore
-             charts.value[index].chartAll[chartIndex].option=lendData
-        }else if(chartIndex===1){
-            //第二个图表
-            let {data: loanData} = await getChart({...param, keyword1: 'token_name', keyword2: 'project_name'})
-            //@ts-ignore
-            charts.value[index].chartAll[chartIndex].option=loanData
-        }else{
-            //第二个图表
-            let {data: gunData} = await getChartByMoney({...param})
-            //@ts-ignore
-            charts.value[index].chartAll[chartIndex].option=gunData
-        }
+        initChart(category,charts,tableIndex, chartIndex, title)
+        //@ts-ignore
+        charts.value[tableIndex].chartAll[chartIndex].option=await requestData(param)
     }
     return {
         charts,
