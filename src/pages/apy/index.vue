@@ -38,10 +38,10 @@ const fetchChartByChain = (chain: String) => {
 
   })
 }
-const timer = ref(10)
+const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
-const intervalFetchTableByChain = (chainId: string, timeout = 10) => {
+const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
   timerInterval = setInterval(() => {
