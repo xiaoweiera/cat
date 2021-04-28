@@ -1,4 +1,4 @@
-import {formatTimeHour, toFixedNumber} from '~/lib/tool'
+import {formatTimeHour, toFixedNumber,numberFormat} from '~/lib/tool'
 import {getChart, getChartByMoney} from "~/api/apy";
 
 interface lendModel {
@@ -12,7 +12,7 @@ interface loanModel {
 interface gunModel {
     reward_cap: projectItem[]
     tvl: projectItem[]
-    machine_gun_pool_avg_apy: projectItem[]
+    machine_gun_pool_single_avg_apy: projectItem[]
 }
 
 interface requsetProjectModel {
@@ -64,7 +64,8 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
     if (selected === '用户总收益') {
         return data.reward_cap
     }
-    return data.machine_gun_pool_avg_apy
+
+    return data.machine_gun_pool_single_avg_apy
 }
 //-----------------------------------------------------
 
@@ -83,20 +84,28 @@ interface chartItem {
 const getxyDataWithField = (data: chartItem, field: String) => {
     //@ts-ignore
     let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
+    let min=0
+    let max=0
     //@ts-ignore
     let yData = data.data.map((item: tokenItem) => {
         return {
             // @ts-ignore
             name: item[field],
             // @ts-ignore
-            yData: item.y_axis.map((y: any) => {
+            yData: item.y_axis.map((yValue: any) => {
+                if(yValue){
+                    min=min===0?yValue:getMin(min,yValue)
+
+                    max=max===0?yValue:getMax(max,yValue)
+                }
                 return {
-                    value: toFixedNumber(y, 2)
+                    value:toFixedNumber(yValue, 2),
+                    formatValue:numberFormat(yValue,true)
                 }
             })
         }
     })
-    return {xData, yData}
+    return {xData, yData,min,max}
 }
 
 //得到xy轴 第一个表
@@ -108,18 +117,27 @@ export const getInfoData = (data: any) => {
     if (!data) return
     //@ts-ignore
     let xData = data[0].x_axis.map((item: any) => formatTimeHour(item))
+    let min=0
+    let max=0
     let yData = data.map((item: projectItem) => {
         //@ts-ignore
-        let yData = item.y_axis.map((itemTwo: any) => {
+        let yData = item.y_axis.map((yValue: any) => {
+            if(yValue){
+                min=min===0?yValue:getMin(min,yValue)
+                max=max===0?yValue:getMax(max,yValue)
+            }
+
             return {
-                value: toFixedNumber(itemTwo, 2)
+                value: toFixedNumber(yValue, 2),
+                formatValue:numberFormat(yValue,true)
             }
         })
         return {name: item.project_name, yData: yData}
     })
-
-    return {xData, yData}
+    return {xData, yData,min,max}
 }
+const getMin=(min:number,yValue:any)=>min<yValue?min:yValue
+const getMax=(max:number,yValue:any)=>max>yValue?max:yValue
 //获取平台列表--筛选
 export const getProjectPlat = (data: requsetProjectModel) => data.data.map((item: projectItem) => item['project_name'])
 export const getTokenPlat = (data: requsetTokenModel) => data.data.map((item: tokenItem) => item['token_name'])
@@ -134,9 +152,8 @@ interface requestItem {
 }
 
 //接口请求
-export const requestLendData = async (param: requestItem) => (await getChart(param))?.data
+export const requestLendData = async (param: requestItem) =>  (await getChart(param))?.data
 export const requestLoanData = async (param: requestItem) => (await getChart(param))?.data
 export const requestGunData = async (param: requestItem) => (await getChartByMoney(param))?.data
-
 
 

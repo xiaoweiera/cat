@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref, watch} from 'vue'
 import {requestTables, defaultChains, requestChart} from '~/logic/apy'
@@ -5,7 +6,7 @@ import {requestTables, defaultChains, requestChart} from '~/logic/apy'
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 
 const {chains} = defaultChains(chainConfig)
-const chainParam =ref('bsc')
+const chainParam =ref('')
 //@ts-ignore
 const {tables, requestData: fetchTableData} = requestTables()
 //@ts-ignore
@@ -29,7 +30,7 @@ const fetchTableByChain = (chain: String) => {
 }
 const fetchChartByChain = (chain: String) => {
   tableConfig.map((chartItem, tableIndex) => {
-    chartItem.charts.map((chart, chartIndex) => {
+    chartItem.charts.map((chart:any, chartIndex:number) => {
       return fetchChartData(tableIndex, chartIndex, chartItem.name, chart.title, chart.requestData, chart.chartData, chart.xyData, {
         chain,
         category: chartItem.name,
@@ -43,6 +44,7 @@ const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
 const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
+  chainParam.value=chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
   timerInterval = setInterval(() => {
@@ -72,7 +74,7 @@ watch(() => chains.data, (newVal) => {
     }
   })
 })
-onMounted(() => intervalFetchTableByChain('bsc'))
+onMounted(() => intervalFetchTableByChain('heco'))
 
 onUnmounted(() => clearInterval(timerInterval))
 </script>
@@ -80,9 +82,10 @@ onUnmounted(() => clearInterval(timerInterval))
   <div class=" flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
-      <div class="text-kd24px100 md:text-kd24px24px  md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
+      <div class="text-kd24px100 md:text-kd24px24px font- md:text-kd36px36px mt-8 md:mt-9.25">DeFi APY 大全</div>
       <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal">
-        我们已经为每个加密货币类别创建了索引。类别按24小时价格变化排名。单击密码类别名称可查看指数的组成部分及其最近的价格表现。
+        <div>本站收集整理了三条公链各借贷平台和机枪池的数据，根据类型将其分类方便您的查看。</div>
+        <div>风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。</div>
       </div>
       <ApyChains :chains="chains"/>
     </div>
@@ -90,11 +93,12 @@ onUnmounted(() => clearInterval(timerInterval))
     <div
         :class="index%2!==0 ? 'cardBg px-4 py-12  md:px-30 md:py-15':'px-4 py-12 md:px-30 md:py-15' "
         v-for="(item,index) in tables">
-      <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index" :project="item.project" :title="item.title"
+
+      <ApyTable v-if="item.headers.length>0" :isFirstShow="isFirstShow" :timer="timer" :index="index" :project="item.project" :title="item.title"
                 :tableData="item"/>
-      <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-        <template v-for="(item,i) in charts[index].chartAll">
-          <ApyChart :chainId="chainParam" :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
+      <div   class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+        <template v-for="(itemChart,i) in charts[index].chartAll">
+          <ApyChart  :chainId="chainParam" :tableIndex="index" :chartIndex="i" :chartData="itemChart" :id="index+''+i"/>
 
         </template>
 
@@ -166,3 +170,9 @@ onUnmounted(() => clearInterval(timerInterval))
   border-left: 2px solid #2B8DFE;
 }
 </style>
+
+<route lang="yaml">
+meta:
+layout: home
+</route>
+

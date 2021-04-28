@@ -19,6 +19,7 @@ onMounted(() => {
   </div>
   <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
     <Nav class="relative "></Nav>
+<!--    <ApyHeader />-->
     <main class="  w-full  flex justify-center  ">
       <router-view/>
       <Footer/>
@@ -34,6 +35,7 @@ onMounted(() => {
 }
 
 @media screen and (min-width: 768px) {
+
   .containerbgs {
     background-image: url("https://res.ikingdata.com/nav/kgBodytopBg.jpg");
     background-size: cover;

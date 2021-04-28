@@ -44,7 +44,8 @@ const clickOption = (option) => {
         <div class="flex items-center flex-wrap ">
           <div v-for="(item,i) in realOptions">
             <div v-if="i>0" class="flex items-center mt-3 mr-3  md:mt-0">
-              <div class="mr-2">
+              <div class=" mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">{{ item.name }}</div>
+              <div >
                 <el-switch
                     active-color="#2B8DFE"
                     :validate-event="false"
@@ -54,7 +55,6 @@ const clickOption = (option) => {
                 >
                 </el-switch>
               </div>
-              <div class=" mt-1 text-kd14px18px font-normal text-global-highTitle">{{ item.name }}</div>
             </div>
           </div>
         </div>

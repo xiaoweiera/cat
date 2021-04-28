@@ -14,6 +14,11 @@ const props = defineProps({
 <template>
   <div class="flex justify-between items-center">
     <div class="text-kd14p18px text-global-highTitle font-normal">{{ selected + ' ' + title }}</div>
-    <div class="text-kd12px16px text-global-time font-normal ">更新：1分钟前</div>
+    <div class="text-kd12px16px  timeColor font-normal ">更新：1分钟前</div>
   </div>
 </template>
+<style lang="postcss" scoped>
+.timeColor{
+  color:rgba(37,62,111,0.65)
+}
+</style>

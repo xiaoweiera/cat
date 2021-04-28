@@ -8,7 +8,7 @@ const grid = () => {
     };
 };
 
-const tooltips = (getModel: Function) => {
+const tooltips = (getModel: Function,unit:string) => {
     return {
         padding: [8, 10, 8, 10],
         trigger: "axis",
@@ -19,7 +19,7 @@ const tooltips = (getModel: Function) => {
         },
         borderWidth: 1.5,
         borderColor: "rgba(0, 0, 0, 0.06)",
-        formatter: (params: any) => getModel(params)
+        formatter: (params: any) => getModel(params,unit)
     };
 };
 
@@ -69,19 +69,18 @@ const xAxis = (xData: any) => {
             align: "left",
             splitNumber: 3,
             axisLabel: {
-                align: "center",
+                align: "left",
                 // showMinLabel: false,
-                // showMaxLabel: false,
+                showMaxLabel: false,
                 splitNumber: 1,
                 textStyle: {
                     color: "#989898"
                 }
             },
-
         }
     ];
 };
-const yAxisKline = (yFormat: any) => {
+const yAxisKline = (yFormat: any,min:number,max:number) => {
     return [
         {
             splitLine: {
@@ -92,13 +91,17 @@ const yAxisKline = (yFormat: any) => {
                 },
                 show: true //隐藏或显示
             },
+
             type: "value",
+            min:min,
+            max:max,
+            interval: min === max ? max / 4 : (max - min) / 4,
             axisLabel: {
                 fontSize: 12,
                 textStyle: {
                     color: "#989898"
                 },
-                formatter: (value: any) => yFormat(value)
+                formatter: (value: any) => yFormat(value)+'%'
             }
         }
     ];
@@ -108,14 +111,17 @@ export const chartOption: any = (
     xData: any,
     getModel: Function,
     series: any,
-    yFormat: any
+    yFormat: any,
+    min:number,
+    max:number,
+    unit:string
 ) => {
     return {
         grid: grid(),
-        tooltip: tooltips(getModel),
+        tooltip: tooltips(getModel,unit),
         graphic: graphic(),
         xAxis: xAxis(xData),
-        yAxis: yAxisKline(yFormat),
+        yAxis: yAxisKline(yFormat,min,max),
         series: series
     };
 };

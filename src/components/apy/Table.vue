@@ -26,14 +26,12 @@ watch(() => loading.value, (v) => {
 // 单元格背景色
 //@ts-ignore
 const addClass = ({row, columnIndex}) => {
-
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
-    return 'background:rgba(9, 217, 142, 0.2);'
+    return 'background:#BEEEE7'
   }
-  return 'background:#F6FAFD;'
+  return 'background:#EBF3FD'
 }
-
-const headerCellStyle = () => 'background-color: rgba(43,131,254,0.14)'
+const headerCellStyle = () => 'background-color: #E3EFFD'
 watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
 
 </script>

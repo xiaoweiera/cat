@@ -14,6 +14,22 @@ export const getXY_data = (requestChartData: chartModel, tableIndex: number, cha
     //@ts-ignore
     return tableConfig[tableIndex].charts[chartIndex].xyData(data)
 }
+export const getUnit=(tableIndex: number, chartIndex: number,selected:string)=>{
+    if(selected==='平均APY'){return '%'}
+   return  tableConfig[tableIndex].charts[chartIndex].unit
+}
+interface chartTipModel{
+    formatValue:string
+    value:number
+}
+interface chartTipData{
+    data:chartTipModel
+}
+const orderByDesc=(data:any)=>{
+    return data.sort(function (oldObj:chartTipData, newObj:chartTipData) {
+        return ( newObj.data.value-oldObj.data.value );
+    });
+}
 export const getSerise = (yData: any) => {
     if (!yData) {
         return
@@ -32,18 +48,19 @@ export const getSerise = (yData: any) => {
         }
     })
 }
-export const getModel = (params: any) => {
+export const getModel = (params: any,unit:string) => {
     if (!params[0]) {
         return
     }
+    params=orderByDesc(params)
     const title = params[0].axisValue;
     let f = tooptipsModel;
     const time = `<div>${title}</div>`
     //@ts-ignore
     const result = params.map(({seriesName, data, seriesIndex: idx, color}) => {
-        let {value} = data;
+        let {value,formatValue} = data;
         if (value) {
-            return f(seriesName, color, value);
+            return f(seriesName, color, formatValue,unit);
         }
     });
     return time + result.join('');

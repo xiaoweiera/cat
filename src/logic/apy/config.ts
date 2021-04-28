@@ -17,6 +17,45 @@ import {
     getInfoHasPlat
 } from '~/logic/apy/chartFormatTool'
 
+export const headerConfig = [
+    {
+        name: "数据图表",
+        url: "https://ikingdata.com",
+    },
+    {
+        name: "7x24小时监控",
+        url: "https://ikingdata.com/news",
+    },
+    {
+        name: "研究报告",
+        url: "https://ikingdata.com/reports/",
+        type: 'public'
+    },
+    {
+        name: "GrowthPad",
+        url: "https://ikingdata.com/growthpad",
+        type: 'public'
+    },
+    {
+        name: "APY",
+        url: "",
+        type: 'public'
+    },
+]
+export const tools = [
+    {
+        name: "区块链数据分析资源网站",
+        url: "https://nav.ikingdata.com/nav",
+    },
+    {
+        name: "历史的今天",
+        url: "https://ikingdata.com/tih",
+    },
+    {
+        name: "板块龙头",
+        url: "https://ikingdata.com/bull",
+    },
+]
 export const chainConfig = [{
     select: false,
     key: 'eth',
@@ -24,13 +63,13 @@ export const chainConfig = [{
     img: 'https://res.ikingdata.com/nav/apyEth.png',
 },
     {
-        select: false,
+        select: true,
         key: 'heco',
         name: 'Heco',
         img: 'https://res.ikingdata.com/nav/apyHeco.png',
     },
     {
-        select: true,
+        select: false,
         key: 'bsc',
         name: 'BSC',
         img: 'https://res.ikingdata.com/nav/apyBsc.png',
@@ -45,36 +84,57 @@ export const chartsConfig = {
             requestData: requestLendData,
             chartData: getChartProjectData,
             xyData: getxyData,
-            platData:getProjectPlat,
-            param: {keyword1: 'project_name', keyword2: 'token_name'}
+            platData: getProjectPlat,
+            param: {keyword1: 'project_name', keyword2: 'token_name'},
+            unit: '%'
         },
         {
             title: '在不同平台存款的 APY 趋势对比',
             requestData: requestLoanData,
             chartData: getChartTokenData,
             xyData: getCoinData,
-            platData:getTokenPlat,
-            param: {keyword1: 'token_name', keyword2: 'project_name'}
+            platData: getTokenPlat,
+            param: {keyword1: 'token_name', keyword2: 'project_name'},
+            unit: '%'
         },
-        {title: '各平台存款总额', requestData: requestGunData, chartData: lendDataFormat, xyData: getInfoData,platData:getInfoPlat, param: {}},
-    ], loan: [
+        {
+            title: '各平台存款总额',
+            requestData: requestGunData,
+            chartData: lendDataFormat,
+            xyData: getInfoData,
+            platData: getInfoPlat,
+            param: {},
+            unit: '$'
+        },
+    ],
+    loan: [
         {
             title: '各币种借款APY趋势对比',
             requestData: requestLendData,
             chartData: getChartProjectData,
             xyData: getxyData,
-            platData:getProjectPlat,
-            param: {keyword1: 'project_name', keyword2: 'token_name'}
+            platData: getProjectPlat,
+            param: {keyword1: 'project_name', keyword2: 'token_name'},
+            unit: '%'
         },
         {
             title: '在不同平台借款的 APY 趋势对比',
             requestData: requestLoanData,
             chartData: getChartTokenData,
             xyData: getCoinData,
-            platData:getTokenPlat,
-            param: {keyword1: 'token_name', keyword2: 'project_name'}
+            platData: getTokenPlat,
+            param: {keyword1: 'token_name', keyword2: 'project_name'},
+            unit: '%'
         },
-        {title: '各平台借款总额', requestData: requestGunData, chartData: loanDataFormat, xyData: getInfoData,platData:getInfoPlat, param: {}},
+        {
+            title: '各平台借款总额',
+            requestData: requestGunData,
+            chartData: loanDataFormat,
+            xyData: getInfoData,
+            platData: getInfoPlat,
+            param: {},
+            unit: '$'
+        },
     ],
     machine_gun_pool: [
         {
@@ -82,24 +142,34 @@ export const chartsConfig = {
             requestData: requestLendData,
             chartData: getChartProjectData,
             xyData: getxyData,
-            platData:getProjectPlat,
-            param: {keyword1: 'project_name', keyword2: 'token_name'}
+            platData: getProjectPlat,
+            param: {keyword1: 'project_name', keyword2: 'token_name'},
+            unit: '%'
         },
         {
             title: '在不同机枪池 APY 趋势对比',
             requestData: requestLoanData,
             chartData: getChartTokenData,
             xyData: getCoinData,
-            platData:getTokenPlat,
-            param: {keyword1: 'token_name', keyword2: 'project_name'}
+            platData: getTokenPlat,
+            param: {keyword1: 'token_name', keyword2: 'project_name'},
+            unit: '%'
         },
-        {title: '各平台的信息对比', requestData: requestGunData, chartData: gunDataFormat, xyData: getInfoData,platData:getInfoHasPlat, param: {}},
+        {
+            title: '各平台的信息对比',
+            requestData: requestGunData,
+            chartData: gunDataFormat,
+            xyData: getInfoData,
+            platData: getInfoHasPlat,
+            param: {},
+            unit: '$'
+        },
     ]
 }
 
 export const tableConfig = [
     {
-        name: 'lend',
+        name: 'lend_single',
         title: 'DeFi 借贷平台存款 APY 对比',
         options: {
             data: [{
@@ -128,7 +198,7 @@ export const tableConfig = [
         charts: chartsConfig.lend
     },
     {
-        name: 'loan',
+        name: 'loan_single',
         title: 'DeFi 借贷平台借款利息对比',
         options: {
             data: [
@@ -165,7 +235,7 @@ export const tableConfig = [
         charts: chartsConfig.loan
     },
     {
-        name: 'machine_gun_pool',
+        name: 'machine_gun_pool_single',
         title: 'DeFi 单币种机枪池 APY 对比',
         options: {
             data: [
