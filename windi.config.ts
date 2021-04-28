@@ -35,7 +35,9 @@ export default defineConfig({
                 'kd10px14px':['10px','14px'],
                 'kd24px24px':['24px','24px'],
                 'kd24px100':['24px','100%'],
-                'kd36px140':['36px','140%']
+                'kd36px140':['36px','140%'],
+                'kd20px24px':['20px','24px'],
+                'kd24px112':['24px','112'],
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',

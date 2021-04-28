@@ -50,7 +50,7 @@ useHead({
   meta: [
     {
       name: 'keywords',
-      content: 'Heco生态币,BSC生态币,ETH生态币,挖矿收益,生态币年化收益,DeFi挖矿，Heco挖矿、BSC挖矿、ETH挖矿、挖矿收益APY大全'
+      content: 'Heco生态币,BSC生态币,ETH生态币,挖矿收益,生态币年化收益,DeFi挖矿,Heco挖矿,BSC挖矿,ETH挖矿,挖矿收益APY大全'
     },
     {
       name: 'description',
@@ -71,9 +71,9 @@ onMounted(() => {
     <div class="flex-grow mt-2  h-full ">
       <div class="flex font-normal h-full items-center  text-base text-navItem-default">
         <template v-for="(item,i) in headerConfig">
-          <a :class="i===0?'oneHeaderItem':item.name==='APY'?'headerItem hfull':'headerItem' " target="_blank"
+          <a :class="i===0?'oneHeaderItem':headerConfig.length-1===i?'headerItem hfull':'headerItem' " target="_blank"
              :href="item.url"
-          ><span :class="item.name==='APY'?'mt-1':''">{{item.name}}</span></a>
+          ><span :class="headerConfig.length-1===i?'mt-0.5':''">{{item.name}}</span></a>
         </template>
       </div>
     </div>

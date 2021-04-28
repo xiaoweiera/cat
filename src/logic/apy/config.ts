@@ -37,7 +37,7 @@ export const headerConfig = [
         type: 'public'
     },
     {
-        name: "APY",
+        name: "Defi挖矿收益APY大全",
         url: "",
         type: 'public'
     },
@@ -169,6 +169,43 @@ export const chartsConfig = {
 
 export const tableConfig = [
     {
+        name: 'machine_gun_pool_single',
+        title: 'DeFi 单币种机枪池 APY 对比',
+        options: {
+            data: [
+                {
+                    key: 'apy',
+                    name: 'APY',
+                    status: true,
+                    format_func: percent2Precision,
+                }, {
+                    key: 'apy_detail',
+                    name: '产出币种',
+                    status: true,
+                }, {
+                    key: 'quote',
+                    name: '可投额度',
+                    status: true,
+                    format_func: numberFormat,
+                },
+                {
+                    key: 'tvl',
+                    name: '总锁仓',
+                    status: true,
+                    format_func: numberFormat,
+                },
+                {
+                    key: 'quota_remain_percent',
+                    name: '剩余额度',
+                    status: true,
+                    format_func: numberFormat,
+                },
+            ],
+            select: 'apy',
+        },
+        charts: chartsConfig.machine_gun_pool
+    },
+    {
         name: 'lend_single',
         title: 'DeFi 借贷平台存款 APY 对比',
         options: {
@@ -180,16 +217,16 @@ export const tableConfig = [
             }, {
                 key: 'apy_detail',
                 name: '产出',
-                status: false,
+                status: true,
             }, {
                 key: 'tvl',
                 name: '存款总额',
-                status: false,
+                status: true,
                 format_func: numberFormat,
             }, {
                 key: 'quota_used',
                 name: '借款总量',
-                status: false,
+                status: true,
                 format_func: numberFormat,
             },
             ],
@@ -210,69 +247,31 @@ export const tableConfig = [
                 }, {
                     key: 'apy_detail',
                     name: '计息',
-                    status: false,
+                    status: true,
                 },
                 {
                     key: 'quota_remain',
                     name: '可借',
-                    status: false,
+                    status: true,
                     format_func: numberFormat,
                 },
                 {
                     key: 'quota_remain*quota_remain_percent',
                     name: '借出',
-                    status: false,
-                    format_cb: (v: any) => numberFormat(v.quota_remain * v.quota_remain_percent, false),
+                    status: true,
+                    format_cb: (v: any) => numberFormat(v.quota_used, false),
                 },
                 {
                     key: 'quota_remain_percent',
                     name: '剩余额度',
-                    status: false,
+                    status: true,
                     format_func: numberFormat,
                 }],
             select: 'apy',
         },
         charts: chartsConfig.loan
     },
-    {
-        name: 'machine_gun_pool_single',
-        title: 'DeFi 单币种机枪池 APY 对比',
-        options: {
-            data: [
-                {
-                    key: 'apy',
-                    name: 'APY',
-                    status: true,
-                    format_func: percent2Precision,
-                }, {
-                    key: 'apy_detail',
-                    name: '产出币种',
-                    status: false,
-                }, {
-                    key: 'quote',
-                    name: '可投额度',
-                    status: false,
-                    format_func: numberFormat,
-                },
-                {
-                    key: 'tvl',
-                    name: '总锁仓',
-                    status: false,
-                    format_func: numberFormat,
-                },
-                {
-                    key: 'quota_remain_percent',
-                    name: '剩余额度',
-                    status: false,
-                    format_func: numberFormat,
-                },
-            ],
-            select: 'apy',
-        },
-        charts: chartsConfig.machine_gun_pool
-    },
 ]
-
 export const anchorConfig = [
     {
         key: 'lend',

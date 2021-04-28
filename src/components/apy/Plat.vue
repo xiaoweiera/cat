@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
 import {defineProps, ref, toRefs} from 'vue'
-
 const props = defineProps({
   tags: {type: Object},
   chartIndex: {type: Number}
@@ -27,11 +25,9 @@ const getIsMore=(name:string)=>{
     //@ts-ignore
     let item=props.tags.platforms[i]
     if(item===name && i<3){
-      console.log('true')
       isMore.value=true
       return false
     }else{
-      console.log('falsefalse')
       isMore.value=false
     }
   }
@@ -48,12 +44,10 @@ const getIsMore=(name:string)=>{
     </div>
     <div v-if="chartIndex!==2 && tags.platforms.length>3" @mouseenter="showMore()" @mouseleave="closeMore()"
          class="flex items-center mr-3  absolute right-0 mt-1 pb-2 h-10 pl-2  ">
-      <div class="flex items-center px-2 py-0.5  -mr-2.6 opacity-65   text-kd14px20px selectTag tag">
+      <div :class="!isMore?'selectTagDefault selectTag tag':'selectTagDefault'">
         {{!isMore?selectedTag:'更多'}}
         <img class="w-2 h-1 ml-3" src="https://res.ikingdata.com/nav/apyDown.png" alt="">
       </div>
-
-
     </div>
     <div id="dialog" v-show="isShowMore" @mouseenter="showMore()" @mouseleave="closeMore()"
          class="tagBg hand md:mx-10  flex flex-wrap  dropList absolute -right-9  pt-1.5 bg-white  top-9 z-20   ">
@@ -69,6 +63,9 @@ const getIsMore=(name:string)=>{
   </div>
 </template>
 <style scoped>
+.selectTagDefault{
+  @apply flex items-center px-2 py-0.5  -mr-2.6 opacity-65   text-kd14px20px;
+}
 .selectTag {
   @apply text-global-primary  bg-global-primary;
 }

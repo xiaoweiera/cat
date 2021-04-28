@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import {defineProps, onMounted, ref} from 'vue'
 
 const props = defineProps({
   itemData: {
@@ -12,26 +12,63 @@ const props = defineProps({
     type: Number,
   },
 })
+const isShow = ref(false)
+const isNullFun = (data: any) => {
+  data.forEach(item => {
+    if (item.value) {
+      isShow.value = true
+    }
+  })
+}
+const getColor = (index: number, data: string) => {
+  if (index !== 0 || !data) {
+    return ''
+  }
+  if (data.indexOf('-') <0) {
+    return 'greenTxt'
+  } else {
+    return 'redTxt'
+  }
+}
+onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div class="w-full h-full flex flex-col justify-center   px-3">
+  <div v-if="isShow" class="w-full h-full flex flex-col justify-center   px-3">
     <template v-for="(item,i) in itemData">
       <div v-if="item.status" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1 ">{{ item.name }}</span>
-        <div :class="i===0?'desNum ':'text-global-hightTitle text-kd12px16px' ">{{ item.value ? item.value : '-' }}</div>
+        <div :class="i===0?'desNum ':'text-global-hightTitle text-kd12px16px '  "><span :class="getColor(i,item.value)">{{
+            item.value ? item.value : '-'
+          }}</span></div>
       </div>
     </template>
+  </div>
+  <div v-else class="w-full h-full flex flex-col justify-center items-center    px-3">
+    <img src="https://res.ikingdata.com/nav/tableLogo.png" alt="">
   </div>
 </template>
 
 <style scoped lang="postcss">
-.Green {
-  @apply text-global-numGreen bg-global-numGreen;
+.tableLogo{
+  width:112.39px;
+  height:36px;
+}
+.greenTxt {
+  color: #00A44B;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.redTxt {
+  color: #E9592D;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .Red {
-  @apply text-global-numRed bg-global-numRed;
+  @apply text-global-numRed;
 }
+
 .topBg {
   background: linear-gradient(270deg, rgba(43, 141, 254, 0) 0%, rgba(43, 141, 254, 0.04) 2.61%, rgba(43, 141, 254, 0.04) 93.5%, rgba(43, 141, 254, 0) 100%);
 }

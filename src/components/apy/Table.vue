@@ -33,7 +33,6 @@ const addClass = ({row, columnIndex}) => {
 }
 const headerCellStyle = () => 'background-color: #E3EFFD'
 watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
-
 </script>
 <template>
   <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
@@ -65,8 +64,8 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
                 <div
                     class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary"
                 >
-                  <span v-if="props.index<2">借贷平台</span>
-                  <span v-else>机枪池</span>
+                  <span v-if="props.index==0">机枪池</span>
+                  <span v-else>借贷平台</span>
                 </div>
               </div>
               </a>
@@ -76,7 +75,6 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
       <el-table-column
           v-for="(item, i) in headers"
           :key="`${index}-${i}-${item.token_name}`"
-          width="180"
       >
         <template #header="scope">
           <ApyHeaderColumn :header-data="item"/>

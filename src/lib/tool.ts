@@ -50,7 +50,7 @@ export const tooptipsModel = (item: any, color: any, value: any,unit:string) => 
     let svg =
         "data:image/svg+xml;base64," +
         window.btoa(unescape(encodeURIComponent(origin)));
-    const info=unit==='$'?`${unit}${value}  ${item}`:`${item}  ${value}${unit}`
+    const info=unit==='$'?`${item} ${unit}${value}`:`${item}  ${value}${unit}`
 
     return `<span style="display:flex;
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;

@@ -20,9 +20,9 @@ interface chartItem {
 }
 
 export interface chartModel {
-    category:String
+    category: String
     title: String
-    tagList:Object
+    tagList: Object
     option: Object
     selectTag: Object
     loading: Boolean
@@ -33,10 +33,12 @@ interface ChainModel {
     name: String
     img: String
 }
-interface chartTag{
-    name:String,
-    select:Boolean
+
+interface chartTag {
+    name: String,
+    select: Boolean
 }
+
 export const defaultChains = (defaults: ChainModel[]) => {
     const chains = reactive({data: defaults})
 
@@ -90,18 +92,18 @@ export const requestTables = () => {
         requestData,
     }
 }
-export const initChart = (category:string,charts: any,tableIndex:number, chartIndex: number, title: string, selectTag: string) => {
+export const initChart = (category: string, charts: any, tableIndex: number, chartIndex: number, title: string, selectTag: string) => {
     if (!charts.value[tableIndex]) {
         charts.value[tableIndex] = reactive({
-            chartAll:reactive<chartModel[]>([])
+            chartAll: reactive<chartModel[]>([])
         })
     }
-    if(!charts.value[tableIndex].chartAll[chartIndex]){
+    if (!charts.value[tableIndex].chartAll[chartIndex]) {
 
         charts.value[tableIndex].chartAll[chartIndex] = reactive<chartModel>({
-            category:category,
+            category: category,
             title,
-            tagList:reactive<chartTag[]>([]),
+            tagList: reactive<chartTag[]>([]),
             option: reactive({}),
             selectTag,
             loading: false
@@ -111,14 +113,37 @@ export const initChart = (category:string,charts: any,tableIndex:number, chartIn
 export const requestChart = () => {
     const charts = ref<chartItem[]>([])
     //name :lend loan 机枪池
-    const requestChartData = async (tableIndex:number,chartIndex:number,category:string,title: string,requestData:Function, chartData:Function, xyDataFun: Function,param:any) => {
+    const requestChartData = async (tableIndex: number, chartIndex: number, category: string, title: string, requestData: Function, chartData: Function, xyDataFun: Function, param: any) => {
         //@ts-ignore
-        initChart(category,charts,tableIndex, chartIndex, title)
+        initChart(category, charts, tableIndex, chartIndex, title)
         //@ts-ignore
-        charts.value[tableIndex].chartAll[chartIndex].option=await requestData(param)
+        charts.value[tableIndex].chartAll[chartIndex].option = getResult(await requestData(param))
     }
     return {
         charts,
         requestChartData
     }
+}
+const getResult = (result: any) => {
+    const code = result.code
+    if (code === 1) {
+        result = null
+    } else if (code === 0) {
+        if (result.data == 0 && result.data.length === 0) {
+            result = null
+        } else {
+            if (result.data.total_supply) {
+                if (result.data.total_supply.length === 0) {
+                    result = null
+                }
+            } else if (result.total_borrowed) {
+                if (result.data.total_supply.length === 0) {
+                    result = null
+                } else if (result.tvl.length === 0) {
+                    result = null
+                }
+            }
+        }
+    }
+    return result
 }

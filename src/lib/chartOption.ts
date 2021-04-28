@@ -39,7 +39,7 @@ const graphic = () => {
                     z: 100,
                     style: {
                         fill: "rgba(43, 140, 255, 0.08)",
-                        text: "iKingData.com",
+                        text: "KingData.com",
                         font: "bold 22px sans-serif"
                     }
                 }
