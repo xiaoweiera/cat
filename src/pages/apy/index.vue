@@ -5,6 +5,7 @@ import {requestTables, defaultChains, requestChart} from '~/logic/apy'
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 
 const {chains} = defaultChains(chainConfig)
+const chainParam =ref('bsc')
 //@ts-ignore
 const {tables, requestData: fetchTableData} = requestTables()
 //@ts-ignore
@@ -66,6 +67,7 @@ watch(() => chains.data, (newVal) => {
   }
   newVal.forEach((i: any) => {
     if (i.select) {
+      chainParam.value=i.key
       intervalFetchTableByChain(i.key)
     }
   })
@@ -92,7 +94,7 @@ onUnmounted(() => clearInterval(timerInterval))
                 :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <template v-for="(item,i) in charts[index].chartAll">
-          <ApyChart :chainId="chainId" :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
+          <ApyChart :chainId="chainParam" :tableIndex="index" :chartIndex="i" :chartData="item" :id="index+''+i"/>
 
         </template>
 

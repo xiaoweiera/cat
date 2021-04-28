@@ -47,7 +47,8 @@ watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   }
   //@ts-ignore
   tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
-  if (!oldOptions?.data || isChangeChain) {
+  console.log(isChangeChain.value)
+  if (!oldOptions?.data || isChangeChain.value) {
     tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
   }
   isChangeChain.value=false
