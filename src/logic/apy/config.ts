@@ -16,7 +16,15 @@ import {
     getInfoPlat,
     getInfoHasPlat
 } from '~/logic/apy/chartFormatTool'
-
+export  const unitConfig={
+    '可投额度':{unit:'$'},
+    '总锁仓':{unit:'$'},
+    '剩余额度':{unit:'%'},
+    '存款总额':{unit:'$'},
+    '借款总量':{unit:'$'},
+    '可借':{unit:'$'},
+    '借出':{unit:'$'},
+}
 export const headerConfig = [
     {
         name: "数据图表",
@@ -184,10 +192,10 @@ export const tableConfig = [
                     format_func: percent2Precision,
                 }, {
                     key: 'apy_detail',
-                    name: '产出币种',
+                    name: '产出',
                     status: true,
                 }, {
-                    key: 'quote',
+                    key: 'quota_remain',
                     name: '可投额度',
                     status: true,
                     format_func: numberFormat,
@@ -281,14 +289,14 @@ export const tableConfig = [
 export const anchorConfig = [
     {
         key: 'machine_gun_pool_single',
-        name: '单币机枪池',
+        name: '机枪池APY',
     },
     {
         key: 'lend_single',
-        name: '存款 APY',
+        name: '存款APY',
     }, {
         key: 'loan_single',
-        name: '借款利息',
+        name: '借款APY',
     },  {
         key: 'back',
         name: '回到顶部',

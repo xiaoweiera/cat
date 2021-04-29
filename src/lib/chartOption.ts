@@ -8,7 +8,7 @@ const grid = () => {
     };
 };
 
-const tooltips = (getModel: Function,unit:string) => {
+const tooltips = (getModel: Function, unit: string) => {
     return {
         padding: [8, 10, 8, 10],
         trigger: "axis",
@@ -19,7 +19,7 @@ const tooltips = (getModel: Function,unit:string) => {
         },
         borderWidth: 1.5,
         borderColor: "rgba(0, 0, 0, 0.06)",
-        formatter: (params: any) => getModel(params,unit)
+        formatter: (params: any) => getModel(params, unit)
     };
 };
 
@@ -80,7 +80,7 @@ const xAxis = (xData: any) => {
         }
     ];
 };
-const yAxisKline = (yFormat: any,min:number,max:number) => {
+const yAxisKline = (yFormat: any, min: number, max: number, unit: string) => {
     return [
         {
             splitLine: {
@@ -93,15 +93,22 @@ const yAxisKline = (yFormat: any,min:number,max:number) => {
             },
 
             type: "value",
-            min:min,
-            max:max,
+            min: min,
+            max: max,
             interval: min === max ? max / 4 : (max - min) / 4,
             axisLabel: {
                 fontSize: 12,
                 textStyle: {
                     color: "#989898"
                 },
-                formatter: (value: any) => yFormat(value)+'%'
+                formatter: (value: any) => {
+                    if (unit === '$') {
+                        return unit + yFormat(value)
+                    } else {
+                        return yFormat(value) + unit
+                    }
+                }
+
             }
         }
     ];
@@ -112,16 +119,16 @@ export const chartOption: any = (
     getModel: Function,
     series: any,
     yFormat: any,
-    min:number,
-    max:number,
-    unit:string
+    min: number,
+    max: number,
+    unit: string
 ) => {
     return {
         grid: grid(),
-        tooltip: tooltips(getModel,unit),
+        tooltip: tooltips(getModel, unit),
         graphic: graphic(),
         xAxis: xAxis(xData),
-        yAxis: yAxisKline(yFormat,min,max),
+        yAxis: yAxisKline(yFormat, min, max, unit),
         series: series
     };
 };

@@ -61,7 +61,6 @@ const initDefaultTable = (tables: any, slug: String, title: String, index: numbe
         tables.value[index].loading = true
     }
 }
-
 export const requestTables = () => {
     const tables = ref<TableItem[]>([])
     const requestData = async (index: number, slug: String, title: String, options: any, params: TableParams) => {
@@ -86,7 +85,6 @@ export const requestTables = () => {
         tables.value[index].rows = rows
         tables.value[index].loading = false
     }
-
     return {
         tables,
         requestData,

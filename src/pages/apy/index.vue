@@ -47,17 +47,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  timerInterval = setInterval(() => {
-    if (timer.value !== 0) {
-      timer.value -= 1
-      return
-    }
-    isFirstShow.value = false
-    timer.value = timeout
-    isFirstShow.value = false
-    fetchTableByChain(chainId)
-    fetchChartByChain(chainId)
-  }, 1000)
+  // timerInterval = setInterval(() => {
+  //   if (timer.value !== 0) {
+  //     timer.value -= 1
+  //     return
+  //   }
+  //   isFirstShow.value = false
+  //   timer.value = timeout
+  //   isFirstShow.value = false
+  //   fetchTableByChain(chainId)
+  //   fetchChartByChain(chainId)
+  // }, 1000)
 }
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
@@ -82,14 +82,16 @@ onUnmounted(() => clearInterval(timerInterval))
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
       <div class="text-kd24px100 md:text-kd24px24px font- md:text-kd36px36px mt-8 md:mt-15 text-center">DeFi挖矿收益APY大全</div>
-      <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal text-center">
-        <div>本站收集整理了三条公链各借贷平台和机枪池的数据，根据类型将其分类方便您的查看。</div>
-        <div>风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。</div>
+      <div class="mt-4  text-global-default opacity-65 font-normal ">
+        <div class="text-kd14px22px md:text-center">本站收集整理了三条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看。</div>
+        <div style="color:#E9592D;" class="text-kd12px18px md:text-center mt-1">风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。</div>
       </div>
       <div class="text-center flex justify-center md:mb-15">
         <ApyChains :chains="chains"/>
       </div>
-
+    </div>
+    <div class="mdhidden">
+      <ApyMobileTag />
     </div>
     <!-- table表格-->
     <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
@@ -106,7 +108,7 @@ onUnmounted(() => clearInterval(timerInterval))
     </div>
     <ApyFooter/>
     <!--    浮动tag-->
-    <div class="tagContainer  w-18 h-28 flex-col fixed fixed right-2   2xl:right-10 top-70">
+    <div class="tagContainer  w-19  h-28 flex-col fixed fixed right-2   2xl:right-10 top-70">
       <template v-for="item in anchorConfig">
         <a @click="clickAnchor(item.name)" :href="'#'+item.key"
            :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "

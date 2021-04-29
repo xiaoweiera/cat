@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { useHead } from '@vueuse/head'
-import { currentLang } from '~/lib/lang'
+import {onMounted, ref, watch} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import {useI18n} from 'vue-i18n'
+import {useHead} from '@vueuse/head'
+import {currentLang} from '~/lib/lang'
+
 const route = useRoute()
 const router = useRouter()
-import {headerConfig,tools} from '~/logic/apy/config'
+import {headerConfig, tools} from '~/logic/apy/config'
+import {ElDrawer} from 'element-plus'
+
 const select = ref(route.path.slice(1, route.path.length) || '')
 const navIsSelect = (path: String): String => {
   if (path === select.value) {
@@ -30,17 +33,17 @@ const toggleLocales = () => {
     },
   })
 }
-let title=ref('')
+let title = ref('')
 // locale.value = lang.value
 watch(() => lang.value, (newValue) => {
   locale.value = newValue
-  title.value=t('hero.subtitle')
+  title.value = t('hero.subtitle')
 })
 
 watch(() => route.path, (newValue) => {
   select.value = newValue.slice(1, newValue.length)
 })
-const isShowMore=ref(false)
+const isShowMore = ref(false)
 //@ts-ignore
 const showMore = () => isShowMore.value = true
 //@ts-ignore
@@ -58,14 +61,26 @@ useHead({
     },
   ],
 })
+const show = ref(true)
 onMounted(() => {
   lang.value = currentLang(route)
   locale.value = lang.value
-  title.value=t('hero.subtitle')
+  title.value = t('hero.subtitle')
 })
+const showDialog = () => show.value = !show.value
 </script>
 <template>
-  <nav class="xshidden headerBg flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
+  <!--  <el-drawer-->
+  <!--      v-model="show"-->
+  <!--      direction="ltr"-->
+  <!--      :with-header="false"-->
+  <!--      size="50%"-->
+  <!--     >-->
+  <!--    <div class=" w-200">-->
+  <!--    </div>-->
+  <!--  </el-drawer>-->
+  <nav
+      class="xshidden headerBg flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
     <a href="https://www.kingdata.com" target="_blank"><img src="/assets/logo.svg" alt="KingData" class="flex-none mb-2"
     ></a>
     <div class="flex-grow mt-2  h-full ">
@@ -73,27 +88,26 @@ onMounted(() => {
         <template v-for="(item,i) in headerConfig">
           <a :class="i===0?'oneHeaderItem':headerConfig.length-1===i?'headerItem hfull':'headerItem' " target="_blank"
              :href="item.url"
-          ><span :class="headerConfig.length-1===i?'mt-0.5':''">{{item.name}}</span></a>
+          ><span :class="headerConfig.length-1===i?'mt-0.5':''">{{ item.name }}</span></a>
         </template>
       </div>
     </div>
     <ul @mouseleave="closeMore()" class="text-golbal-default flex items-center hand">
-      <div @mouseenter="showMore()"   class="text-global-default opacity-85  h-15  flex items-center ">工具</div>
+      <div @mouseenter="showMore()" class="text-global-default opacity-85  h-15  flex items-center ">工具</div>
       <img
           class="w-3 ml-1.5 "
           src="https://res.ikingdata.com/nav/downTip.png"
           alt=""
       />
-      <div v-if="isShowMore"   class="bg-white w-46.5 rounded-md absolute  right-14 py-1.5  top-13  px-4 text-font-kd14px18px">
+      <div v-if="isShowMore"
+           class="bg-white w-46.5 rounded-md absolute  right-14 py-1.5  top-13  px-4 text-font-kd14px18px">
         <div v-for="item in tools" class="toolItem text-global-default text-kd14px18px opacity-85 tool">
-          <a :href="item.url" target="_blank">{{item.name}}</a>
+          <a :href="item.url" target="_blank">{{ item.name }}</a>
         </div>
       </div>
       <a href="https://www.ikingdata.com/download" target="_blank" :class="navIsSelect('#')">APP 下载</a>
     </ul>
   </nav>
-
-
 
   <div class="mdhidden headerBg navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">
     <a href="https://www.kingdata.com" target="_blank"><img
@@ -111,25 +125,31 @@ onMounted(() => {
   </div>
 </template>
 <style lang="postcss" scoped>
-.toolItem:hover{
+.toolItem:hover {
   @apply text-global-primary;
 }
-.headerItem{
+
+.headerItem {
   @apply text-global-default opacity-85 mb-2 ml-8 flex items-center;
 }
-.oneHeaderItem{
+
+.oneHeaderItem {
   @apply text-global-default opacity-85 mb-2 ml-12 flex items-center;
 }
-.tool{
+
+.tool {
   padding: 6px 0px;
 }
-.hfull{
-  height:100%;
-  border-bottom:2px solid #2b8cff;
+
+.hfull {
+  height: 100%;
+  border-bottom: 2px solid #2b8cff;
 }
-.headerBg{
+
+.headerBg {
   box-shadow: 0 0.5px 0 rgb(43 140 255 / 4%), 0 2px 12px rgb(0 50 108 / 4%);
 }
+
 .navLogoBg {
   background: #EAF3FE;
 }

@@ -9,12 +9,12 @@ export const numberFormat = (value: any, noUnit: any) => {
         sizes = ["", "万", "亿", "万亿"],
         i;
     if (value < k) {
-        return   Math.round(value * 100) / 100
+        return       Math.round(value * 100) / 100
     }
     i = Math.floor(Math.log(value) / Math.log(k));
     const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
     const unit = sizes[i]
-    return noUnit ? values + unit : '$' + values + unit
+    return  values + unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
     if (!value) {

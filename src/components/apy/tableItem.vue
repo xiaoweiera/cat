@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {defineProps, onMounted, ref} from 'vue'
+//@ts-ignore
+import {unitConfig} from '~/logic/apy/config'
 
 const props = defineProps({
   itemData: {
@@ -24,20 +26,22 @@ const getColor = (index: number, data: string) => {
   if (index !== 0 || !data) {
     return ''
   }
-  if (data.indexOf('-') <0) {
-    return 'greenTxt'
+  if (data.indexOf('-') < 0) {
+    return 'greenTxt '
   } else {
     return 'redTxt'
   }
 }
-const getValue=(data:any)=>{
-  if(!data.value)return '-'
-  else{
-    if(data.name==='剩余额度'){
-      return data.value+'%'
-    }else{
-      return data.value
+const getValue = (data: any, i) => {
+  if(data) {
+    if (!data.value) return '-'
+    if (unitConfig[data.name]) {
+      if (unitConfig[data.name].unit === '$')
+        return unitConfig[data.name]?.unit + data.value
+      else
+        return data.value + unitConfig[data.name]?.unit
     }
+    return data.value
   }
 }
 onMounted(() => isNullFun(props.itemData))
@@ -47,7 +51,8 @@ onMounted(() => isNullFun(props.itemData))
     <template v-for="(item,i) in itemData">
       <div v-if="item.status" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1 ">{{ item.name }}</span>
-        <div :class="i===0?'desNum ':'text-global-hightTitle text-kd12px16px '  "><span :class="getColor(i,item.value)">{{getValue(item)}}</span></div>
+        <div :class="i===0?'desNum ':'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px '  "><span :class="getColor(i,item.value)">{{ getValue(item, i) }}</span>
+        </div>
       </div>
     </template>
   </div>
@@ -57,20 +62,19 @@ onMounted(() => isNullFun(props.itemData))
 </template>
 
 <style scoped lang="postcss">
-.tableLogo{
-  width:112.39px;
-  height:36px;
+.tableLogo {
+  width: 112.39px;
+  height: 36px;
 }
+
 .greenTxt {
   color: #00A44B;
-  font-size: 20px;
-  line-height: 24px;
+  @apply text-kd16px16px  md:text-kd20px24px;
 }
 
 .redTxt {
   color: #E9592D;
-  font-size: 20px;
-  line-height: 24px;
+  @apply text-kd16px16px md:text-kd20px24px;
 }
 
 .Red {
@@ -82,15 +86,14 @@ onMounted(() => isNullFun(props.itemData))
 }
 
 .desName {
-  @apply text-kd12px16px flex items-center text-global-default font-normal opacity-65;
+  @apply text-kd10px16px text-global-default opacity-60 md:text-kd12px16px flex items-center  font-normal  ;
 }
 
 .desNum {
-  font-size: 14px;
-  @apply font-kdExp font-bold text-global-highTitle ;
+  @apply text-kd10px16px text-global-default opacity-60  md:text-kd14px0px font-kdExp font-bold  ;
 }
 
 .desInfo {
-  @apply text-kd12px16px font-kdExp font-normal;
+  @apply text-kd10px16px text-global-default opacity-60 md:text-kd12px16px font-kdExp font-normal;
 }
 </style>

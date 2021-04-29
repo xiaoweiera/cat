@@ -50,7 +50,7 @@ const getIsMore=(name:string)=>{
       </div>
     </div>
     <div id="dialog" v-show="isShowMore" @mouseenter="showMore()" @mouseleave="closeMore()"
-         class="tagBg hand md:mx-10  flex flex-wrap  dropList absolute -right-9  pt-1.5 bg-white  top-9 z-20   ">
+         class="tagBg hand md:mx-10  flex flex-wrap  dropList absolute right-0 md:-right-9  pt-1.5 bg-white  top-9 z-20   ">
       <div
            class=" grid grid-cols-1  flex-wrap py-1.5 text-kd14px18px  font-normal  ">
         <template v-for="(item,i) in tags.platforms">

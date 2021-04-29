@@ -32,6 +32,7 @@ const addClass = ({row, columnIndex}) => {
   return 'background:#EBF3FD'
 }
 const headerCellStyle = () => 'background-color: #E3EFFD;'
+// const headerCellStyle = () => 'background-color: rgba(43, 141, 254, 0.06);'
 watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
 </script>
 <template>
@@ -39,6 +40,8 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
   <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col relative minWidth">
     <img v-if="tableData.loading && isFirstShow"  class="loading" src="/assets/loading.gif" alt="">
+    <div class="xshidden">
+<!--      pc-->
     <el-table
         v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
@@ -48,6 +51,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
     >
       <el-table-column
           fixed
+          class-name="aa"
           width="140"
       >
         <template #header="scope">
@@ -56,7 +60,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
         </template>
         <template #default="scope">
           <div  class="min-w-35  w-35   justify-center   flex flex-col">
-              <a class="flex px-3  items-center hand  " :href="scope.row.url" target="_blank">
+              <a class="flex  md:px-3  items-center hand  " :href="scope.row.url" target="_blank">
               <img class="w-8 h-8 mr-1.5" :src="scope.row.icon" alt="">
               <div class="flex flex-col ">
                 <div class="font-kdExp mb-1  text-kd14px18px text-global-highTitle font-normal">
@@ -74,6 +78,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
         </template>
       </el-table-column>
       <el-table-column
+          min-width="140"
           v-for="(item, i) in headers"
           :key="`${index}-${i}-${item.token_name}`"
       >
@@ -85,6 +90,58 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
         </template>
       </el-table-column>
     </el-table>
+    </div>
+<!--    手机-->
+  <div class="mdhidden">
+    <el-table
+        v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
+        :data="renderCells"
+        :header-cell-style="headerCellStyle"
+        :cell-style="addClass"
+        style="width: 100%;"
+    >
+      <el-table-column
+          fixed
+          class-name="aa"
+          width="103"
+      >
+        <template #header="scope">
+          <div class="text-kd12px16px text-global-default opacity-65 mb-2.5 ">项目/币种</div>
+          <div class="text-kd12px16px text-global-default opacity-65">价格/涨跌幅</div>
+        </template>
+        <template #default="scope">
+          <div  class="min-w-35  w-35   justify-center   flex flex-col">
+            <a class="flex px-1.5 md:px-3  items-center hand  " :href="scope.row.url" target="_blank">
+              <img class="md:w-8 md:h-8 w-6 h-6 mr-1.5" :src="scope.row.icon" alt="">
+              <div class="flex flex-col ">
+                <div class="font-kdExp mb-1 text-kd12px18px  md:text-kd14px18px text-global-highTitle font-normal">
+                  {{ scope.row.project_name }}
+                </div>
+                <div
+                    class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd9px14px md:text-kd10px14px text-global-primary"
+                >
+                  <span v-if="props.index==0">机枪池</span>
+                  <span v-else>借贷平台</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+          min-width="140"
+          v-for="(item, i) in headers"
+          :key="`${index}-${i}-${item.token_name}`"
+      >
+        <template #header="scope">
+          <ApyHeaderColumn :header-data="item"/>
+        </template>
+        <template #default="scope">
+          <ApyTableItem  :index="index" :itemData="scope.row.data[i]?.data"/>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
   </div>
   </div>
 </template>

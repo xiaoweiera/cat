@@ -27,6 +27,7 @@ onMounted(() => {
 <style>
 @media screen and (max-width: 768px) {
   .containerbgs {
+    //background:#F6FAFD;
     background-image: url("https://res.ikingdata.com/nav/kongtouBg.png");
     background-size:cover;
   }
@@ -35,6 +36,7 @@ onMounted(() => {
 @media screen and (min-width: 768px) {
 
   .containerbgs {
+    //background:#F6FAFD;
     background-image: url("https://res.ikingdata.com/nav/kgBodytopBg.jpg");
     background-size: cover;
   }

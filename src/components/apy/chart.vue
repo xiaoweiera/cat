@@ -23,6 +23,7 @@ let maxY=0
 const isChangeChain=ref(true)
 //画图
 const draw = () => {
+// :selected="tags.selected"
   myChart.setOption(chartOption(
       xChartData.value,
       getModel,
@@ -68,9 +69,9 @@ watch(() => props.chartData?.option, (newOptions, oldOptions) => {
 watch(() => tags.selected, (newVal) => reRenderChart(newVal))
 </script>
 <template>
-  <div class="mt-5 relative mb-25">
+  <div class=" md:mt-5 relative  mt-6  md:mb-20">
     <ApyDes :title="props.chartData.title"  :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"
-            :selected="tags.selected "/>
+            :selected="tags.selected"/>
     <!--          平台列表-->
     <ApyPlat   :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->

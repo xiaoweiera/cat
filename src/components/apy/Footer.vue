@@ -1,5 +1,5 @@
 <template>
-  <div class="join-mobile-us mb-12 px-4 md:px-0 md:mt-15 md:mb-15 mdhidden">
+  <div class="join-mobile-us mb-12 px-4 md:px-0 mt-4 md:mt-15 md:mb-15 mdhidden">
     <a class="w-full h-full " href="http://ikingdata.mikecrm.com/kbZDdCb">
       <img class="w-full h-full shadowImg"
            src="https://res.ikingdata.com/nav/apyMobileFooter.png"
@@ -7,7 +7,7 @@
       >
     </a>
   </div>
-  <div class="join-us xshidden mx-auto   relative flex  items-center">
+  <div class="join-us xshidden mx-auto  md:mt-5  relative flex  items-center">
     <img class="w-full shadowImg " src="https://res.ikingdata.com/nav/apyFooter.png" alt="">
   </div>
 </template>
@@ -43,7 +43,6 @@
 }
 
 .join-us {
-  margin-top: -40px;
   max-width: 1440px;
   padding: 0px 120px 0px 120px;
   background-size: contain;
