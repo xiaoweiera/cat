@@ -10,10 +10,17 @@ const props = defineProps({
   tableIndex: {type: Number},
   chartIndex: {type: Number}
 })
+const getTitle=()=>{
+  if(props.chartIndex===2){
+    return props.title+props.selected+'对比'
+  }else{
+   return props.selected+' '+props.title
+  }
+}
 </script>
 <template>
   <div class="flex justify-between items-center">
-    <div class="text-kd14p18px text-global-highTitle font-normal">{{ selected + ' ' + title }}</div>
+    <div class="text-kd14p18px text-global-highTitle font-normal">{{getTitle()}}</div>
     <div class="text-kd12px16px  timeColor font-normal ">更新：1分钟前</div>
   </div>
 </template>

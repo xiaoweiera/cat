@@ -37,7 +37,7 @@ export const headerConfig = [
         type: 'public'
     },
     {
-        name: "Defi挖矿收益APY大全",
+        name: "DeFi挖矿收益APY大全",
         url: "",
         type: 'public'
     },
@@ -156,7 +156,7 @@ export const chartsConfig = {
             unit: '%'
         },
         {
-            title: '各平台的信息对比',
+            title: '各平台的',
             requestData: requestGunData,
             chartData: gunDataFormat,
             xyData: getInfoData,
@@ -166,6 +166,10 @@ export const chartsConfig = {
         },
     ]
 }
+
+
+
+
 
 export const tableConfig = [
     {
@@ -198,6 +202,7 @@ export const tableConfig = [
                     key: 'quota_remain_percent',
                     name: '剩余额度',
                     status: true,
+                    unit:'%',
                     format_func: numberFormat,
                 },
             ],
@@ -265,6 +270,7 @@ export const tableConfig = [
                     key: 'quota_remain_percent',
                     name: '剩余额度',
                     status: true,
+                    unit:'%',
                     format_func: numberFormat,
                 }],
             select: 'apy',
@@ -274,15 +280,16 @@ export const tableConfig = [
 ]
 export const anchorConfig = [
     {
-        key: 'lend',
+        key: 'machine_gun_pool_single',
+        name: '单币机枪池',
+    },
+    {
+        key: 'lend_single',
         name: '存款 APY',
     }, {
-        key: 'loan',
+        key: 'loan_single',
         name: '借款利息',
-    }, {
-        key: 'machine_gun_pool',
-        name: '单币机枪池',
-    }, {
+    },  {
         key: 'back',
         name: '回到顶部',
     },

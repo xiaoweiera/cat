@@ -68,7 +68,7 @@ watch(() => props.chartData?.option, (newOptions, oldOptions) => {
 watch(() => tags.selected, (newVal) => reRenderChart(newVal))
 </script>
 <template>
-  <div class="mt-5 relative">
+  <div class="mt-5 relative mb-25">
     <ApyDes :title="props.chartData.title"  :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"
             :selected="tags.selected "/>
     <!--          平台列表-->

@@ -46,7 +46,7 @@ const showMore = () => isShowMore.value = true
 //@ts-ignore
 const closeMore = () => isShowMore.value = false
 useHead({
-  title: 'Defi挖矿收益APY大全',
+  title: 'DeFi挖矿收益APY大全',
   meta: [
     {
       name: 'keywords',

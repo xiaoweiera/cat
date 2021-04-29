@@ -73,15 +73,6 @@ watch(() => chains.data, (newVal) => {
     }
   })
 })
-watch(()=>tables.value,(newVal)=>{
-  newTable.value=newVal.map(item=>{
-    if(item.rows) {
-      console.log(item.rows)
-      return item
-    }
-
-  })
-})
 onMounted(() => intervalFetchTableByChain('heco'))
 
 onUnmounted(() => clearInterval(timerInterval))
@@ -90,20 +81,20 @@ onUnmounted(() => clearInterval(timerInterval))
   <div class=" flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
-      <div class="text-kd24px100 md:text-kd24px24px font- md:text-kd36px36px mt-8 md:mt-15 text-center">Defi挖矿收益APY大全</div>
+      <div class="text-kd24px100 md:text-kd24px24px font- md:text-kd36px36px mt-8 md:mt-15 text-center">DeFi挖矿收益APY大全</div>
       <div class="mt-4 text-kd14px22px text-global-default opacity-65 font-normal text-center">
         <div>本站收集整理了三条公链各借贷平台和机枪池的数据，根据类型将其分类方便您的查看。</div>
         <div>风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。</div>
       </div>
-      <div class="text-center flex justify-center">
+      <div class="text-center flex justify-center md:mb-15">
         <ApyChains :chains="chains"/>
       </div>
 
     </div>
     <!-- table表格-->
-    <div :class="index%2!==0 ? 'cardBg tableDefault':'tableDefault' "
+    <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
         v-for="(item,index) in tables">
-      <ApyTable  :isFirstShow="isFirstShow" :timer="timer" :index="index"
+      <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index"
                 :project="item.project" :title="item.title"
                 :tableData="item"/>
       <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
@@ -126,7 +117,7 @@ onUnmounted(() => clearInterval(timerInterval))
 </template>
 <style scoped lang="postcss">
 .tableDefault {
-  @apply px-4 py-12  md:px-30 md:py-15;
+  @apply px-4 md:px-30 ;
 }
 
 @media screen and (max-width: 768px) {

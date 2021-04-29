@@ -43,6 +43,7 @@
 }
 
 .join-us {
+  margin-top: -40px;
   max-width: 1440px;
   padding: 0px 120px 0px 120px;
   background-size: contain;

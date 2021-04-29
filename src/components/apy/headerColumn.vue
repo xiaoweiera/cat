@@ -19,7 +19,7 @@ const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://r
     >
     <div class="font-normal text-kd14px18px text-global-highTitle">{{ props.headerData.token_name }}</div>
   </div>
-  <div class="flex">
+  <div class="flex flex-wrap">
     <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">
       <span :class="props.headerData.price?'':'ml-2'">{{props.headerData.price?'$':'-'}}</span>{{ toFixedNumber(props.headerData.price) }}
     </div>

@@ -30,21 +30,29 @@ const getColor = (index: number, data: string) => {
     return 'redTxt'
   }
 }
+const getValue=(data:any)=>{
+  if(!data.value)return '-'
+  else{
+    if(data.name==='剩余额度'){
+      return data.value+'%'
+    }else{
+      return data.value
+    }
+  }
+}
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div v-if="isShow" class="w-full h-full flex flex-col justify-center   px-3">
+  <div v-if="isShow" class="w-full h-full flex flex-col justify-center ">
     <template v-for="(item,i) in itemData">
       <div v-if="item.status" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1 ">{{ item.name }}</span>
-        <div :class="i===0?'desNum ':'text-global-hightTitle text-kd12px16px '  "><span :class="getColor(i,item.value)">{{
-            item.value ? item.value : '-'
-          }}</span></div>
+        <div :class="i===0?'desNum ':'text-global-hightTitle text-kd12px16px '  "><span :class="getColor(i,item.value)">{{getValue(item)}}</span></div>
       </div>
     </template>
   </div>
   <div v-else class="w-full h-full flex flex-col justify-center items-center    px-3">
-    <img src="https://res.ikingdata.com/nav/tableLogo.png" alt="">
+    <img style="width:112px;" src="https://res.ikingdata.com/nav/tableLogo.png" alt="">
   </div>
 </template>
 

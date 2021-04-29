@@ -31,10 +31,11 @@ const addClass = ({row, columnIndex}) => {
   }
   return 'background:#EBF3FD'
 }
-const headerCellStyle = () => 'background-color: #E3EFFD'
+const headerCellStyle = () => 'background-color: #E3EFFD;'
 watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
 </script>
 <template>
+  <div v-if="props.tableData.rows" class="tableHeaderTop">
   <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
   <div class="flex flex-col relative minWidth">
     <img v-if="tableData.loading && isFirstShow"  class="loading" src="/assets/loading.gif" alt="">
@@ -84,6 +85,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
         </template>
       </el-table-column>
     </el-table>
+  </div>
   </div>
 </template>
 
