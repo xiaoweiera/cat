@@ -29,9 +29,9 @@ const addClass = ({row, columnIndex}) => {
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
     return 'background:#BEEEE7'
   }
-  return 'background:#EBF3FD'
+  return 'background:#F6FAFD'
 }
-const headerCellStyle = () => 'background-color: #E3EFFD;'
+const headerCellStyle = () => 'background-color: rgba(43, 141, 254, 0.06);border:none;'
 // const headerCellStyle = () => 'background-color: rgba(43, 141, 254, 0.06);'
 watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
 </script>
@@ -45,7 +45,6 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
     <el-table
         v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
-        border
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"
         style="width: 100%;"
@@ -96,7 +95,6 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
     <el-table
         v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
-        border
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"
         style="width: 100%;"
