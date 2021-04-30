@@ -85,7 +85,7 @@ onUnmounted(() => clearInterval(timerInterval))
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
       <div class="flex justify-center items-center mt-8 md:mt-15 ">
-        <div style="font-weight: bold" class="flexjustify-center mr-2 md:mr-3 text-kd24px100  text-global-highTitle md:text-kd36px36px">
+        <div style="font-weight: bold" class="flex justify-center mr-2 md:mr-3 text-kd24px100  text-global-highTitle md:text-kd36px36px">
           DeFi挖矿收益APY大全
         </div>
         <a href="http://ikingdata.mikecrm.com/ijyjMFO" target="_blank"

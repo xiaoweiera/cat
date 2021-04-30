@@ -13,7 +13,7 @@ const getAnchor = (names: string) => {
 }
 </script>
 <template>
-  <div class="h-5" :id="'m'+title"></div>
+  <div  :class="tableIndex===0?'h-5':'h-14'" :id="'m'+title"></div>
   <div class="flex w-full justify-around   relative   items-center">
     <template v-for="(item,index) in anchorConfig">
       <a :href="'#m'+item.key" @click="getAnchor(item.name)" v-if="item.name!=='回到顶部'" style="height:28px"
