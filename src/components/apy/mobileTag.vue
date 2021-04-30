@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {defineProps, ref,toRefs} from 'vue'
 import {anchorConfig} from '~/logic/apy/config'
-const selectedAnchor=ref('机枪池APY')
-const getAnchor = (name: string) => {
-  selectedAnchor.value = name
+const props = defineProps({
+  tableIndex: { type: Number },
+  selectedMobileAnchor:{type:String},
+  title:{type:String}
+})
+const {name:changeName}=toRefs(props.selectedMobileAnchor)
+const getAnchor = (names: string) => {
+  changeName.value = names
 }
 </script>
 <template >
-  <div  class="flex w-full justify-around  relative  py-2 mt-5 items-center">
-    <template v-for="item in anchorConfig">
-      <a :href="'#'+item.key" @click="getAnchor(item.name)" v-if="item.name!=='回到顶部'"  style="height:28px;"  :class="selectedAnchor===item.name?'selected tag':'tag'">{{item.name}}</a>
+  <div class="h-5" :id="'m-'+title"></div>
+  <div    class="flex w-full justify-around   relative   items-center">
+    <template v-for="(item,index) in anchorConfig">
+      <a :href="'#m-'+item.key" @click="getAnchor(item.name)" v-if="item.name!=='回到顶部'"  style="height:28px;"  :class="selectedMobileAnchor.name===item.name?'selected tag':'tag'">{{item.name}}</a>
     </template>
   </div>
 </template>

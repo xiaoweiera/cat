@@ -34,7 +34,7 @@ const getColor = (index: number, data: string) => {
 }
 const getValue = (data: any, i) => {
   if(data) {
-    if (!data.value) return '-'
+    if (!data.value && data.value!==0) return '-'
     if (unitConfig[data.name]) {
       if (unitConfig[data.name].unit === '$')
         return unitConfig[data.name]?.unit + data.value
@@ -90,7 +90,7 @@ onMounted(() => isNullFun(props.itemData))
 }
 
 .desNum {
-  @apply text-kd10px16px text-global-default opacity-60  md:text-kd14px0px font-kdExp font-bold  ;
+  @apply text-kd16px16px text-global-default   md:text-kd24px24px font-kdExp font-bold  ;
 }
 
 .desInfo {

@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 
 export const numberFormat = (value: any, noUnit: any) => {
-    if (!value) {
+    if (!value && value!==0 && value!=='0') {
         return null;
     }
     let k = 10000,

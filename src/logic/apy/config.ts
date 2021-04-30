@@ -83,8 +83,6 @@ export const chainConfig = [{
         img: 'https://res.ikingdata.com/nav/apyBsc.png',
     },
 ]
-
-
 export const chartsConfig = {
     lend: [
         {
@@ -174,11 +172,6 @@ export const chartsConfig = {
         },
     ]
 }
-
-
-
-
-
 export const tableConfig = [
     {
         name: 'machine_gun_pool_single',

@@ -8,8 +8,8 @@ onMounted(() => {
   const loc = window.location
   // 二级域名 growthpad.xxx.com/ 跳转到 growthpad.xxx.com/growthpad
   // console.log(loc.host.startsWith('growthpad'), loc.host, loc.pathname)
-  if (loc.host.startsWith('growthpad') && loc.pathname === '/') {
-    router.push('/growthpad')
+  if (loc.host.startsWith('apy') && loc.pathname === '/') {
+    router.push('/apy')
   }
 })
 </script>

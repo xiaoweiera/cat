@@ -45,13 +45,13 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
     <el-table
         v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
+        border
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"
         style="width: 100%;"
     >
       <el-table-column
           fixed
-          class-name="aa"
           width="140"
       >
         <template #header="scope">
@@ -96,13 +96,13 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
     <el-table
         v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
         :data="renderCells"
+        border
         :header-cell-style="headerCellStyle"
         :cell-style="addClass"
         style="width: 100%;"
     >
       <el-table-column
           fixed
-          class-name="aa"
           width="103"
       >
         <template #header="scope">
@@ -110,18 +110,18 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
           <div class="text-kd12px16px text-global-default opacity-65">价格/涨跌幅</div>
         </template>
         <template #default="scope">
-          <div  class="min-w-35  w-35   justify-center   flex flex-col">
-            <a class="flex px-1.5 md:px-3  items-center hand  " :href="scope.row.url" target="_blank">
+          <div  class="justify-center   flex flex-col">
+            <a class="flex  md:px-3 flex-wrap justify-center  items-center hand  " :href="scope.row.url" target="_blank">
               <img class="md:w-8 md:h-8 w-6 h-6 mr-1.5" :src="scope.row.icon" alt="">
-              <div class="flex flex-col ">
-                <div class="font-kdExp mb-1 text-kd12px18px  md:text-kd14px18px text-global-highTitle font-normal">
+              <div class="flex flex-col  ">
+                <div class="font-kdExp text-center mb-1 text-kd12px18px  md:text-kd14px18px text-global-highTitle font-normal">
                   {{ scope.row.project_name }}
                 </div>
                 <div
-                    class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd9px14px md:text-kd10px14px text-global-primary"
+                    class="font-normal rounded h-4.5 w-max mx-auto  px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd9px14px md:text-kd10px14px text-global-primary"
                 >
                   <span v-if="props.index==0">机枪池</span>
-                  <span v-else>借贷平台</span>
+                  <span v-else >借贷平台</span>
                 </div>
               </div>
             </a>
@@ -147,6 +147,16 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
 </template>
 
 <style scoped lang="postcss">
+::v-deep(.el-table th.gutter){
+  display: table-cell !important;
+}
+::v-deep(.el-table colgroup.gutter ){
+  display: table-cell !important;
+}
+
+table {
+  width: 100% !important;
+}
 .minWidth{
   min-height:200px;
 }
@@ -162,34 +172,15 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
   z-index: 11;
 }
 ::v-deep(.el-table td) {
-  border-bottom: 0;
+  border:1px solid rgba(0, 0, 0, 0.02);
+  //border-color: rgba(0, 0, 0, 0.02);
 }
 
-.t_btn2 ::v-deep(.el-table, .el-table__expanded-cell) {
-  background-color: #F6FAFD;
-}
 
-.el-table::before {
-  height: 0px;
-}
 
-::v-deep(.el-switch__core) {
-  width: 35px !important;
-  height: 18px;
-}
 
-::v-deep(.el-switch__action) {
-  height: 12px !important;
-  width: 12px !important;
-  margin-top: 1px;
-}
 
-el-table th, .el-table tr {
-  background-color: red;
-}
 
-::v-deep(.el-table tr) {
-//background: blue !important;
-}
+
 
 </style>

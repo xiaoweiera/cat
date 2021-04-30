@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, ref, watch} from 'vue'
+import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import {requestTables, defaultChains, requestChart} from '~/logic/apy'
 //@ts-ignore
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
-
+import {wxShare} from '~/lib/wxShare'
 const {chains} = defaultChains(chainConfig)
 const chainParam = ref('')
 //@ts-ignore
 const {tables, requestData: fetchTableData} = requestTables()
 //@ts-ignore
 const {charts, requestChartData: fetchChartData} = requestChart()
-const selectedAnchor = ref('存款 APY')
+const selectedAnchor = ref('机枪池APY')
 //@ts-ignore
 const clickAnchor = (name: string) => {
   if (name === '回到顶部') {
@@ -38,7 +38,6 @@ const fetchChartByChain = (chain: String) => {
     })
   })
 }
-
 const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
@@ -47,17 +46,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  // timerInterval = setInterval(() => {
-  //   if (timer.value !== 0) {
-  //     timer.value -= 1
-  //     return
-  //   }
-  //   isFirstShow.value = false
-  //   timer.value = timeout
-  //   isFirstShow.value = false
-  //   fetchTableByChain(chainId)
-  //   fetchChartByChain(chainId)
-  // }, 1000)
+  timerInterval = setInterval(() => {
+    if (timer.value !== 0) {
+      timer.value -= 1
+      return
+    }
+    isFirstShow.value = false
+    timer.value = timeout
+    isFirstShow.value = false
+    fetchTableByChain(chainId)
+    fetchChartByChain(chainId)
+  }, 1000)
 }
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
@@ -73,8 +72,11 @@ watch(() => chains.data, (newVal) => {
     }
   })
 })
-onMounted(() => intervalFetchTableByChain('heco'))
-
+const selectedMobileAnchor=reactive({name:'机枪池APY'})
+onMounted(() => {
+  wxShare('DeFi挖矿收益APY大全', 'DeFi挖矿收益APY大全')
+  intervalFetchTableByChain('heco')
+})
 onUnmounted(() => clearInterval(timerInterval))
 </script>
 <template>
@@ -90,12 +92,13 @@ onUnmounted(() => clearInterval(timerInterval))
         <ApyChains :chains="chains"/>
       </div>
     </div>
-    <div class="mdhidden">
-      <ApyMobileTag />
-    </div>
+
     <!-- table表格-->
     <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
         v-for="(item,index) in tables">
+      <a class="mdhidden" :href="'#table'+index">
+        <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor" />
+      </a>
       <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index"
                 :project="item.project" :title="item.title"
                 :tableData="item"/>

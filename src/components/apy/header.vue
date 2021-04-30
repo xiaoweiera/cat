@@ -108,7 +108,6 @@ const showDialog = () => show.value = !show.value
       <a href="https://www.ikingdata.com/download" target="_blank" :class="navIsSelect('#')">APP 下载</a>
     </ul>
   </nav>
-
   <div class="mdhidden headerBg navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">
     <a href="https://www.kingdata.com" target="_blank"><img
         class="w-25 h-8"
@@ -116,11 +115,11 @@ const showDialog = () => show.value = !show.value
         alt=""
     /></a>
     <div @click="toggleLocales()" class="flex items-center hand">
-      <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter"> {{ t('lang') }}</div>
+      <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter"> 中文</div>
       <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
       <a href="https://www.ikingdata.com/download" target="_blank"
          class="text-global-default opacity-85 ml-3 i8n-font-inter"
-      >{{ t('nav.download') }}</a>
+      >下载</a>
     </div>
   </div>
 </template>
