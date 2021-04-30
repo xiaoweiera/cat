@@ -81,7 +81,7 @@ const closeDown = () => {
           <div @mousemove="openDown" @mouseleave="closeDown"
                class="text-global-highTitle opacity-85 text-kd14px18px hand">扫码下载 App，获取 APY 第一名变化提醒
           </div>
-          <img v-if="showDownLoad" style="width:136px;height:136px;" class="absolute  z-111 top-9 right-0"
+          <img v-if="showDownLoad" style="width:136px;height:136px;" class="absolute  z-111 top-8 right-0"
                src="https://res.ikingdata.com/nav/apyDownLoad.png" alt="">
         </div>
       </div>

@@ -121,6 +121,7 @@ onUnmounted(() => clearInterval(timerInterval))
         >{{ item.name }}</a>
       </template>
     </div>
+    <img @click="clickAnchor('回到顶部')" class="fixed bottom-10 right-5 w-11 h-11  hand " src="https://res.ikingdata.com/nav/apyBack.png" alt="">
   </div>
 </template>
 <style scoped lang="postcss">
