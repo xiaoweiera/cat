@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
-onMounted(() => {
-  const router = useRouter()
-  const loc = window.location
-  if (loc.host.startsWith('apy') && loc.pathname === '/') {
-    router.push('/apy')
-  }
-})
+// onMounted(() => {
+//   const router = useRouter()
+//   const loc = window.location
+//   if (loc.host.startsWith('apy') && loc.pathname === '/') {
+//     router.push('/apy')
+//   }
+// })
 </script>
 <template>
   <div class="circleContainer">
