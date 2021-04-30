@@ -15,7 +15,7 @@ const getAnchor = (names: string) => {
   <div class="h-5" :id="'m-'+title"></div>
   <div    class="flex w-full justify-around   relative   items-center">
     <template v-for="(item,index) in anchorConfig">
-      <a :href="'#m-'+item.key" @click="getAnchor(item.name)" v-if="item.name!=='回到顶部'"  style="height:28px;"  :class="selectedMobileAnchor.name===item.name?'selected tag':'tag'">{{item.name}}</a>
+      <a :href="'#m-'+item.key" @click="getAnchor(item.name)" v-if="item.name!=='回到顶部'"  style="height:28px;"  :class="tableIndex==index?'selected tag':'tag'">{{item.name}}</a>
     </template>
   </div>
 </template>

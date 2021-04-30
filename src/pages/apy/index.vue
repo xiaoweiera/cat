@@ -83,7 +83,10 @@ onUnmounted(() => clearInterval(timerInterval))
   <div class=" flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
-      <div class="text-kd24px100 md:text-kd24px24px font- md:text-kd36px36px mt-8 md:mt-15 text-center">DeFi挖矿收益APY大全</div>
+      <div class="flex justify-center items-center mt-8 md:mt-15 ">
+        <div class="flex justify-center mr-2 md:mr-3 text-kd24px100  text-global-highTitle md:text-kd36px36px">DeFi挖矿收益APY大全</div>
+        <a href="http://ikingdata.mikecrm.com/ijyjMFO" target="_blank" class="goForm text-kd12px20px font-normal">申请收录</a>
+      </div>
       <div class="mt-4  text-global-default opacity-65 font-normal ">
         <div class="text-kd14px22px md:text-center">本站收集整理了三条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看。</div>
         <div style="color:#E9592D;" class="text-kd12px18px md:text-center mt-1">风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。</div>
@@ -95,7 +98,7 @@ onUnmounted(() => clearInterval(timerInterval))
 
     <!-- table表格-->
     <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
-        v-for="(item,index) in tables">
+         v-for="(item,index) in tables">
       <a class="mdhidden" :href="'#table'+index">
         <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor" />
       </a>
@@ -150,7 +153,13 @@ onUnmounted(() => clearInterval(timerInterval))
 .rightTag {
   @apply text-global-default block opacity-65;
 }
-
+.goForm{
+padding:4px 12px;
+  color:rgba(254, 254, 254, 1);
+  /* color / 主色 */
+  background: #2B8DFE;
+  border-radius: 34px;
+}
 .cardBg {
   background-image: url('https://res.ikingdata.com/nav/apyCardBg.png');
   background-size: cover;
@@ -182,7 +191,7 @@ onUnmounted(() => clearInterval(timerInterval))
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: home
+layout: home
 </route>
 // @formatter:off
 
