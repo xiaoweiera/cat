@@ -51,7 +51,7 @@ const closeDown=()=>{
       <div style="font-size:24px;" class=" font-medium mr-1.5">{{ title }}</div>
       <div class="text-kd14px20px font-normal text-global-default opacity-65">({{ timer }} 秒后更新)</div>
     </div>
-<!--    pc-->
+<!-- pc-->
     <div class="xshidden w-full">
       <div class="flex md:flex-row flex-col items-center justify-between w-full mt-5 md:items-center">
         <div class="flex items-center  ">
