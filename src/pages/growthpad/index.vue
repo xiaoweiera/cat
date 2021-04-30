@@ -53,21 +53,22 @@ onMounted(async () => {
             {{ t('hero.subtitle') }}
           </div>
         </div>
-        <div class=" text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 i8n-font-inter i8n-font-inter200">
+        <div class="text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 i8n-font-inter i8n-font-inter200">
           <div>{{ t('hero.desc1') }}</div>
           <div class="mt-3">{{ t('hero.desc2') }}</div>
 
         </div>
-        <div class="flex mt-4  md:mt-8.25 relative z-30 items-center ">
-          <div class="text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200">{{
+        <div class="flex mt-4  md:mt-7.25 relative z-30 items-center md:flex-nowrap flex-wrap ">
+          <div class="text-global-default mt-1 opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200">{{
               t('plat.des')
             }}
           </div>
-          <img class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5  md:h-5" src="https://res.ikingdata.com/nav/platHeco.png"
+          <img class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5  md:h-5 mt-1" src="https://res.ikingdata.com/nav/platHeco.png"
                alt="">
-          <img class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5 " src="https://res.ikingdata.com/nav/platBinance.png"
+          <img class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5 mt-1" src="https://res.ikingdata.com/nav/platBinance.png"
                alt="">
-          <img class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5" src="https://res.ikingdata.com/nav/platEth.png" alt="">
+          <img class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5 mt-1" src="https://res.ikingdata.com/nav/platEth.png" alt="">
+          <img class="mr-3 md:mr-4 w-22 h-4 md:w-28.5 md:h-4.5 mt-1 " src="https://res.ikingdata.com/nav/apyOkChain.png" alt="">
         </div>
         <GrowthpadSummary/>
         <div class="flex flex-col md:flex-row md:justify-start justify-center items-center">

@@ -74,7 +74,7 @@ watch(() => chains.data, (newVal) => {
 })
 const selectedMobileAnchor=reactive({name:'机枪池APY'})
 onMounted(() => {
-  wxShare('DeFi挖矿收益APY大全', 'DeFi挖矿收益APY大全')
+  wxShare('DeFi挖矿收益APY大全', '全网最全的挖矿收益APY大全，数十家项目数据多维度对比。')
   intervalFetchTableByChain('heco')
 })
 onUnmounted(() => clearInterval(timerInterval))
@@ -99,7 +99,7 @@ onUnmounted(() => clearInterval(timerInterval))
     <!-- table表格-->
     <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
          v-for="(item,index) in tables">
-      <a class="mdhidden" :href="'#table'+index">
+      <a class="mdhidden" >
         <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor" />
       </a>
       <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index"
