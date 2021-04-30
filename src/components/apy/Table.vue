@@ -31,7 +31,7 @@ const addClass = ({row, columnIndex}) => {
   }
   return 'background:#F6FAFD'
 }
-const headerCellStyle = () => 'background-color: rgba(43, 141, 254, 0.06);border:none;'
+const headerCellStyle = () => 'background-color: rgba(234, 243, 253, 1);border:none;'
 // const headerCellStyle = () => 'background-color: rgba(43, 141, 254, 0.06);'
 watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(headers.value, rows.value, a))
 </script>

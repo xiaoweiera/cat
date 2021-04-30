@@ -24,7 +24,7 @@ import { onMounted } from 'vue'
 @media screen and (max-width: 768px) {
   .containerbgs {
     //background:#F6FAFD;
-    background-image: url("https://res.ikingdata.com/nav/kongtouBg.png");
+    background-image: url("https://res.ikingdata.com/nav/apyTopBg.png");
     background-size:cover;
   }
 }
@@ -32,9 +32,9 @@ import { onMounted } from 'vue'
 @media screen and (min-width: 768px) {
 
   .containerbgs {
-    //background:#F6FAFD;
-    background-image: url("https://res.ikingdata.com/nav/kgBodytopBg.jpg") ;
-    background-size: cover;
+    background:#F6FAFD;
+    background: url("https://res.ikingdata.com/nav/apyTopBg.png");
+    background-size:cover;
   }
 }
 
