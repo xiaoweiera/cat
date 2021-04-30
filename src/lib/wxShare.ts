@@ -4,6 +4,7 @@ import request from 'axios'
 
 const getShareConfig = (url: String) => {
   return request.post('/v6/wechat/share-config', { url }, { baseURL: 'https://api.jinse.com' })
+    // return request.post('/wechat_config', { url }, { baseURL: 'https://ikingdata.com' })
 }
 const imgDefault = 'https://res.ikingdata.com/nav/kingdata.png'
 const wxShare = (title: String, desc: String): void => {
