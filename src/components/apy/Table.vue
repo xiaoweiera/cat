@@ -33,7 +33,7 @@ watch(() => loading.value, (v) => {
 //@ts-ignore
 const addClass = ({row, columnIndex}) => {
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.high_light) {
-    return 'background:#F6FAFD'
+    return 'background:rgba(9, 217, 142, 0.2)'
   }
   return 'background:#F6FAFD'
 }
