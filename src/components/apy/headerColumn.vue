@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps} from 'vue'
+import {defineProps,ref} from 'vue'
 // @ts-ignore
 import {toFixedNumber, numColor} from '~/lib/tool'
 
@@ -10,31 +10,36 @@ const props = defineProps({
   },
   orderByApy:{type:Function}
 })
-const orderBy=(type:string)=>{
-  props.orderByApy(props.headerData.token_name,type)
+const type=ref('up')
+const orderBy=()=>{
+  type.value=type.value==='up'?'down':'up'
+  props.orderByApy(props.headerData.token_name,type.value)
 }
 //@ts-ignore
 const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/platLogo.jpg'
 </script>
 <template>
-  <div class="flex  w-full items-center mb-1.5">
-    <img class="w-6 h-6 mr-1.5" :src="getLogo()"
-         alt=""
-    >
-    <div class="font-normal text-kd14px18px  text-global-highTitle">{{ props.headerData.token_name }}</div>
-    <div >
-      <img @click="orderBy('up')" class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/apyOrderUp.png" alt="">
-      <img @click="orderBy('down')" class="w-2 h-1 ml-2 mt-0.5" src="https://res.ikingdata.com/nav/apyOrderDown.png" alt="">
+  <div @click="orderBy" class="hand">
+    <div class="flex  w-full items-center mb-1.5">
+      <img class="w-6 h-6 mr-1.5" :src="getLogo()"
+           alt=""
+      >
+      <div class="font-normal text-kd14px18px  text-global-highTitle">{{ props.headerData.token_name }}</div>
+      <div >
+        <img class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/apyOrderUp.png" alt="">
+        <img  class="w-2 h-1 ml-2 mt-0.5" src="https://res.ikingdata.com/nav/apyOrderDown.png" alt="">
+      </div>
+    </div>
+    <div class="flex  flex-wrap">
+      <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">
+        <span :class="props.headerData.price?'':'ml-2'">{{props.headerData.price?'$':'-'}}</span>{{ toFixedNumber(props.headerData.price) }}
+      </div>
+      <div v-if="props.headerData.change || props.headerData.change===0 " :class="props.headerData.change>=0?'Greem percent':'Red percent'">
+        {{ numColor(props.headerData.change) }}<span v-if="props.headerData.change">%</span>
+      </div>
     </div>
   </div>
-  <div class="flex  flex-wrap">
-    <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">
-      <span :class="props.headerData.price?'':'ml-2'">{{props.headerData.price?'$':'-'}}</span>{{ toFixedNumber(props.headerData.price) }}
-    </div>
-    <div v-if="props.headerData.change || props.headerData.change===0 " :class="props.headerData.change>=0?'Greem percent':'Red percent'">
-      {{ numColor(props.headerData.change) }}<span v-if="props.headerData.change">%</span>
-    </div>
-  </div>
+
 </template>
 <style scoped lang="postcss">
 
