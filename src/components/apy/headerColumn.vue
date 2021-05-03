@@ -8,18 +8,26 @@ const props = defineProps({
   headerData: {
     type: Object,
   },
+  orderByApy:{type:Function}
 })
+const orderBy=(type:string)=>{
+  props.orderByApy(props.headerData.token_name,type)
+}
 //@ts-ignore
 const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/platLogo.jpg'
 </script>
 <template>
-  <div class="flex w-full items-center mb-1.5">
+  <div class="flex  w-full items-center mb-1.5">
     <img class="w-6 h-6 mr-1.5" :src="getLogo()"
          alt=""
     >
-    <div class="font-normal text-kd14px18px text-global-highTitle">{{ props.headerData.token_name }}</div>
+    <div class="font-normal text-kd14px18px  text-global-highTitle">{{ props.headerData.token_name }}</div>
+    <div >
+      <img @click="orderBy('up')" class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/apyUp.png" alt="">
+      <img @click="orderBy('down')" class="w-2 h-1 ml-2 mt-0.5" src="https://res.ikingdata.com/nav/apyDown.png" alt="">
+    </div>
   </div>
-  <div class="flex flex-wrap">
+  <div class="flex  flex-wrap">
     <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">
       <span :class="props.headerData.price?'':'ml-2'">{{props.headerData.price?'$':'-'}}</span>{{ toFixedNumber(props.headerData.price) }}
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, onMounted, ref} from 'vue'
+import {defineProps, onMounted, ref, watch} from 'vue'
 //@ts-ignore
 import {unitConfig} from '~/logic/apy/config'
 
@@ -44,6 +44,10 @@ const getValue = (data: any, i) => {
     return data.value
   }
 }
+watch(()=>props.itemData,()=>{
+  isShow.value=false
+  isNullFun(props.itemData)
+})
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>

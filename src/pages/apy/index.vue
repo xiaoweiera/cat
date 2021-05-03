@@ -4,7 +4,7 @@ import {requestTables, defaultChains, requestChart} from '~/logic/apy'
 //@ts-ignore
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 import {wxShare} from '~/lib/wxShare'
-
+import * as R  from 'ramda'
 const {chains} = defaultChains(chainConfig)
 const chainParam = ref('')
 //@ts-ignore

@@ -30,11 +30,10 @@ import { onMounted } from 'vue'
 }
 
 @media screen and (min-width: 768px) {
-
   .containerbgs {
-    background:#F6FAFD;
-    background: url("https://res.ikingdata.com/nav/apyTopBg.png");
-    background-size:cover;
+    background: url(https://res.ikingdata.com/nav/apyTopBg.png) #F6FAFD;
+    background-size: 100% 446px;
+    background-repeat: no-repeat;
   }
 }
 

@@ -1,10 +1,11 @@
-import { CoinModel, HeaderModel, OptionModel, RowModel } from '~/types/apy'
+import {CoinModel, HeaderModel, OptionModel, RowModel} from '~/types/apy'
+import * as R from "ramda";
 
 interface CellRenderModel {
-  name: String
-  key: String
-  status: boolean
-  value?: String
+    name: String
+    key: String
+    status: boolean
+    value?: String
 }
 
 /**
@@ -14,27 +15,25 @@ interface CellRenderModel {
  * @return {CellRenderModel} 格式化后的单元格内容
  */
 const cellContent = (option: OptionModel, cellOrigin: CoinModel): CellRenderModel => {
-  const obj: CellRenderModel = {
-    name: option.name,
-    key: option.key,
-    status: option.status,
-  }
-  // 对应单元格内没有数据
-  if (!cellOrigin) {
+    const obj: CellRenderModel = {
+        name: option.name,
+        key: option.key,
+        status: option.status,
+    }
+    // 对应单元格内没有数据
+    if (!cellOrigin) {
+        return obj
+    }
+    // @ts-ignore
+    const val = cellOrigin[option.key]
+    if (option.format_func) {
+        obj.value = option.format_func(val)
+    } else if (option.format_cb) {
+        obj.value = option.format_cb(cellOrigin)
+    } else {
+        obj.value = val || '-'
+    }
     return obj
-  }
-  // @ts-ignore
-  const val = cellOrigin[option.key]
-  if (option.format_func) {
-    obj.value = option.format_func(val)
-  }
-  else if (option.format_cb) {
-    obj.value = option.format_cb(cellOrigin)
-  }
-  else {
-    obj.value = val || '-'
-  }
-  return obj
 }
 
 /**
@@ -44,20 +43,38 @@ const cellContent = (option: OptionModel, cellOrigin: CoinModel): CellRenderMode
  * @param options {OptionModel[]} 点击选项
  * @return {Array[Object]}
  */
-export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], options: OptionModel[]) => {
-  return rows ? rows.map((row) => {
-    return {
-      project_name: row.project_name,
-      icon:row.icon,
-      url:row.url,
-      data: headers.map(({ token_name }: { token_name: String }) => {
-        // @ts-ignore
-        const cellOrigin: CoinModel = row.data[token_name]
-        return {
-          high_light: cellOrigin?.high_light || false,
-          data: options.map(opt => cellContent(opt, cellOrigin)),
+export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], options: OptionModel[], key: string, type: string) => {
+    let sortByFirstItem = null;
+    if (key) {
+        if (type === 'up') {
+            sortByFirstItem = R.sortWith([R.ascend(R.prop('orderValue'))]);
+        } else {
+            sortByFirstItem = R.sortWith([R.descend(R.prop('orderValue'))]);
         }
-      }),
+        //@ts-ignore
+        rows = sortByFirstItem(R.map((item: any) => ({
+            ...item,
+            orderValue: item.data[key] ? item.data[key].apy : null
+        }), rows))
     }
-  }) : []
+    return rows ? rows.map((row) => {
+        return {
+            //@ts-ignore
+            project_name: row.project_name,
+            //@ts-ignore
+            icon: row.icon,
+            //@ts-ignore
+            url: row.url,
+            data: headers.map(({token_name}: { token_name: String }) => {
+                // @ts-ignore
+                const cellOrigin: CoinModel = row.data[token_name]
+                return {
+                    high_light: cellOrigin?.high_light || false,
+                    data: options.map(opt => cellContent(opt, cellOrigin)),
+                }
+            }),
+        }
+    }) : []
 }
+
+
