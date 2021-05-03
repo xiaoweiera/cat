@@ -23,8 +23,8 @@ const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://r
     >
     <div class="font-normal text-kd14px18px  text-global-highTitle">{{ props.headerData.token_name }}</div>
     <div >
-      <img @click="orderBy('up')" class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/apyUp.png" alt="">
-      <img @click="orderBy('down')" class="w-2 h-1 ml-2 mt-0.5" src="https://res.ikingdata.com/nav/apyDown.png" alt="">
+      <img @click="orderBy('up')" class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/apyOrderUp.png" alt="">
+      <img @click="orderBy('down')" class="w-2 h-1 ml-2 mt-0.5" src="https://res.ikingdata.com/nav/apyOrderDown.png" alt="">
     </div>
   </div>
   <div class="flex  flex-wrap">
