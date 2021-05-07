@@ -23,7 +23,6 @@ let maxY=0
 const isChangeChain=ref(true)
 //画图
 const draw = () => {
-// :selected="tags.selected"
   myChart.setOption(chartOption(
       xChartData.value,
       getModel,
@@ -76,9 +75,11 @@ watch(() => tags.selected, (newVal) => reRenderChart(newVal))
     <ApyPlat   :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
     <div class="mt-1.5 md:mt-3 font-kdFang relative ">
+      <img class="w-4 h-4 absolute right-0 hand -top-3" src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">
       <div class=" h-35 w-full  h-full" :id="props.id">
       </div>
     </div>
     <div v-if="chartIndex>0" class="xshidden absolute border-1 h-full top-0  -left-6 "></div>
   </div>
+  <ApyBigChart />
 </template>
