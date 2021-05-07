@@ -21,6 +21,10 @@ let myChart: any = null
 let minY=0
 let maxY=0
 const isChangeChain=ref(true)
+const state=ref(false)
+const changeState=(v)=>{
+  alert('2')
+  state.value=v}
 //画图
 const draw = () => {
   myChart.setOption(chartOption(
@@ -75,11 +79,11 @@ watch(() => tags.selected, (newVal) => reRenderChart(newVal))
     <ApyPlat   :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
     <div class="mt-1.5 md:mt-3 font-kdFang relative ">
-      <img class="w-4 h-4 absolute right-0 hand -top-3" src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">
+      <img @click="changeState(true)" class="w-4 h-4 absolute right-0 hand -top-3" src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">
       <div class=" h-35 w-full  h-full" :id="props.id">
       </div>
     </div>
     <div v-if="chartIndex>0" class="xshidden absolute border-1 h-full top-0  -left-6 "></div>
   </div>
-  <ApyBigChart />
+  <ApyBigChart :state="state" :changeState="changeState" />
 </template>
