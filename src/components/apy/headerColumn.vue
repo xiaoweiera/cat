@@ -11,10 +11,17 @@ const props = defineProps({
   orderByApy:{type:Function}
 })
 const type=ref('up')
+const orderNum=ref(0)
+const orderList={0:{value:'no',src:'https://res.ikingdata.com/nav/apyNoOrder.png'},1:{value:'desc',src:'https://res.ikingdata.com/nav/apyDesc.png'},2:{value:'asc',src:'https://res.ikingdata.com/nav/apyAsc.png'}}
 const orderBy=()=>{
-  type.value=type.value==='up'?'down':'up'
-  props.orderByApy(props.headerData.token_name,type.value)
+  if(orderNum.value===3){
+    orderNum.value=0
+  }
+  orderTip.value=orderList[orderNum.value].src
+  props.orderByApy(props.headerData.token_name,orderList[orderNum.value].value)
+  orderNum.value++
 }
+const orderTip=ref('https://res.ikingdata.com/nav/apyNoOrder.png')
 //@ts-ignore
 const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/platLogo.jpg'
 </script>
@@ -25,10 +32,7 @@ const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://r
            alt=""
       >
       <div class="font-normal text-kd14px18px  text-global-highTitle">{{ props.headerData.token_name }}</div>
-      <div >
-        <img class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/apyOrderUp.png" alt="">
-        <img  class="w-2 h-1 ml-2 mt-0.5" src="https://res.ikingdata.com/nav/apyOrderDown.png" alt="">
-      </div>
+        <img  class="w-2 h-2.5 ml-2" :src="orderTip" alt="">
     </div>
     <div class="flex  flex-wrap">
       <div class="text-kd14px18px text-global-highTitle font-normal mr-1 5">

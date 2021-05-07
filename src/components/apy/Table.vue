@@ -18,8 +18,11 @@ const renderCells = ref([])
 const key = ref(null)
 const type = ref(null)
 const orderByApy = (keyValue: string, typeValue: string) => {
-  key.value = keyValue
-  type.value = typeValue
+  if(typeValue==='no'){
+    key.value = keyValue
+    type.value = typeValue
+  }
+
   renderCells.value = filterByOptions(headers.value, rows.value, options.value.data, keyValue, typeValue)
 }
 

@@ -2,7 +2,7 @@
 //@ts-ignore
 import * as echarts from 'echarts'
 import {defineProps, ref, onMounted, watch, reactive, onUnmounted} from 'vue'
-import {getXY_data, getSerise, getModel, yLabelFormat, getPlat,getUnit} from '~/logic/apy/formatChart'
+import {getXY_data, getSerise, getModel, yLabelFormat, getPlat, getUnit} from '~/logic/apy/formatChart'
 import {chartOption} from '~/lib/chartOption'
 
 const props = defineProps({
@@ -10,21 +10,32 @@ const props = defineProps({
   chartData: {type: Object},
   tableIndex: {type: Number},
   chartIndex: {type: Number},
-  chainId:{type:String},
+  chainId: {type: String},
 
 })
-const unit=ref('')
+const unit = ref('')
 const xChartData = ref([])
 const serise = ref([])
 const tags = reactive({platforms: [], selected: ''})
 let myChart: any = null
-let minY=0
-let maxY=0
-const isChangeChain=ref(true)
-const state=ref(false)
-const changeState=(v)=>{
-  alert('2')
-  state.value=v}
+let minY = 0
+let maxY = 0
+const isChangeChain = ref(true)
+const state = ref(false)
+const bigOption = ref({})
+const changeState = (v) => {
+  bigOption.value = {
+    xChartData,
+    getModel,
+    serise,
+    yLabelFormat,
+    minY,
+    maxY,
+    unit
+  }
+  console.log(bigOption.value)
+  state.value = v
+}
 //画图
 const draw = () => {
   myChart.setOption(chartOption(
@@ -46,16 +57,16 @@ onMounted(() => {
 onUnmounted(() => window.removeEventListener('resize', myChart.resize))
 const reRenderChart = (newVal: string) => {
   //@ts-ignore  props.chartData.option  接口返回过来的数据
-  const {xData, yData,min,max} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
+  const {xData, yData, min, max} = getXY_data(props.chartData.option, props.tableIndex, props.chartIndex, newVal)
   //@ts-ignore
-   unit.value =getUnit(props.tableIndex, props.chartIndex,newVal)
+  unit.value = getUnit(props.tableIndex, props.chartIndex, newVal)
   xChartData.value = xData
-  minY=min
-  maxY=max
+  minY = min
+  maxY = max
   serise.value = getSerise(yData)
   draw()
 }
-watch(()=>props.chainId,()=>isChangeChain.value=true)
+watch(() => props.chainId, () => isChangeChain.value = true)
 watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   //@ts-ignore
   if (!newOptions?.data) {
@@ -66,24 +77,26 @@ watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   if (!oldOptions?.data || isChangeChain.value) {
     tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
   }
-  isChangeChain.value=false
+  isChangeChain.value = false
   reRenderChart(tags.selected)
 })
 watch(() => tags.selected, (newVal) => reRenderChart(newVal))
 </script>
 <template>
   <div class=" md:mt-5 relative  mt-6  md:mb-20">
-    <ApyDes :title="props.chartData.title"  :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"
+    <ApyDes :title="props.chartData.title" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"
             :selected="tags.selected"/>
     <!--          平台列表-->
-    <ApyPlat   :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
+    <ApyPlat :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
     <div class="mt-1.5 md:mt-3 font-kdFang relative ">
-      <img @click="changeState(true)" class="w-4 h-4 absolute right-0 hand -top-3" src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">
+<!--      <img @click="changeState(true)" class="w-4 h-4 absolute right-0 hand -top-3"-->
+<!--           src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">-->
       <div class=" h-35 w-full  h-full" :id="props.id">
       </div>
     </div>
     <div v-if="chartIndex>0" class="xshidden absolute border-1 h-full top-0  -left-6 "></div>
   </div>
-  <ApyBigChart :state="state" :changeState="changeState" />
+
+  <ApyBigChart :bigOption="bigOption" :title="props.chartData.title" :selected="tags.selected" :state="state" :changeState="changeState"/>
 </template>

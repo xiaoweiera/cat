@@ -1,25 +1,23 @@
 <script setup lang="ts">
 //@ts-ignore
 import * as echarts from 'echarts'
-import {defineProps, onMounted, ref} from 'vue'
+import {defineProps, onMounted, ref,watch} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
 
 const props = defineProps({
   state:{type:Boolean},
   changeState:{type:Function},
+  title:{type:String},
+  selected:{type:String},
+  bigOption:{type:Object}
 })
-const getTitle=()=>{
-  if(props.chartIndex===2){
-    return props.title+props.selected+'对比'
-  }else{
-    return props.selected+' '+props.title
-  }
-}
-
+watch(()=>props.bigOption,(v,o)=>{
+  console.log('3333',props.title, props.selected, props.bigOption)
+})
 </script>
 <template>
   <div v-if="state" class="dialogModel">
-    <img class="closeButton" @click="changeState(false)" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
+    <img class="closeButton hand" @click="changeState(false)" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
     <div class="dialogChart">
 
     </div>
@@ -31,8 +29,8 @@ const getTitle=()=>{
   position: fixed;
   height:100%;
   z-index:10;
-  background: rgba(68, 90, 132, 0.3);
-  backdrop-filter: blur(1.4px);
+  background: rgba(68, 90, 132, 0.4);
+  backdrop-filter: blur(10px);
   top:0;
   left:0;
   margin:0 auto;
