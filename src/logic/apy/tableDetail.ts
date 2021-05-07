@@ -44,27 +44,13 @@ const cellContent = (option: OptionModel, cellOrigin: CoinModel): CellRenderMode
  * @return {Array[Object]}
  */
 export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], options: OptionModel[], key: string, type: string) => {
-    console.log('vvv',key)
     if (key) {
-        console.log('jjj')
         const getProp = R.curry((propName: string, obj: any) => obj && obj[propName] ? obj[propName] : null)
         const getApy = R.compose(getProp('apy'), getProp(key), getProp('data'))
         const sortF = type === 'asc' ? R.ascend : R.descend
         //@ts-ignore
         rows = R.sortWith([sortF(getApy)])(rows)
     }
-    // if (key) {
-    //     if (type === 'up') {
-    //         sortByFirstItem = R.sortWith([R.ascend(R.prop('orderValue'))]);
-    //     } else {
-    //         sortByFirstItem = R.sortWith([R.descend(R.prop('orderValue'))]);
-    //     }
-    //     //@ts-ignore
-    //     rows = sortByFirstItem(R.map((item: any) => ({
-    //         ...item,
-    //         orderValue: item.data[key] ? item.data[key].apy : null
-    //     }), rows))
-    // }
     return rows ? rows.map((row) => {
         return {
             //@ts-ignore
