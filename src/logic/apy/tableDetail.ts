@@ -44,7 +44,9 @@ const cellContent = (option: OptionModel, cellOrigin: CoinModel): CellRenderMode
  * @return {Array[Object]}
  */
 export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], options: OptionModel[], key: string, type: string) => {
+    console.log('vvv',key)
     if (key) {
+        console.log('jjj')
         const getProp = R.curry((propName: string, obj: any) => obj && obj[propName] ? obj[propName] : null)
         const getApy = R.compose(getProp('apy'), getProp(key), getProp('data'))
         const sortF = type === 'asc' ? R.ascend : R.descend
