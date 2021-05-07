@@ -11,7 +11,7 @@ const props = defineProps({
   orderByApy:{type:Function}
 })
 const type=ref('up')
-const orderNum=ref(0)
+const orderNum=ref(1)
 const orderList={0:{value:'no',src:'https://res.ikingdata.com/nav/apyNoOrder.png'},1:{value:'desc',src:'https://res.ikingdata.com/nav/apyDesc.png'},2:{value:'asc',src:'https://res.ikingdata.com/nav/apyAsc.png'}}
 const orderBy=()=>{
   if(orderNum.value===3){
