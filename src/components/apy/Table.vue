@@ -18,11 +18,10 @@ const renderCells = ref([])
 const key = ref(null)
 const type = ref(null)
 const orderByApy = (keyValue: string, typeValue: string) => {
-  key.value = keyValue
-  type.value = typeValue
-  renderCells.value = filterByOptions(headers.value, rows.value, options.value.data, keyValue, typeValue)
+  key.value =typeValue!=='no'? keyValue:null
+  type.value = typeValue!=='no'? typeValue:null
+  renderCells.value = filterByOptions(headers.value, rows.value, options.value.data, key.value, type.value)
 }
-
 watch(() => loading.value, (v) => {
   if (!v) {
     //@ts-ignore
