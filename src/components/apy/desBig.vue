@@ -4,7 +4,11 @@ import * as echarts from 'echarts'
 import {defineProps, onMounted,watch, ref,reactive} from 'vue'
 
 import {chartsConfig} from '~/logic/apy/config'
-import {ElDatePicker} from 'element-plus'
+import {ElDatePicker,locale} from 'element-plus'
+import lang from 'element-plus/lib/locale/lang/zh-cn'
+import 'dayjs/locale/zh-cn'
+
+locale(lang)
 import {dataToTimestamp,formatDefaultTime} from '~/lib/tool'
 
 
@@ -55,20 +59,7 @@ watch(()=>time.value,(n,o)=>{
   </div>
 </template>
 <style lang="postcss" scoped>
-.timeContainer {
-  ::v-deep(.el-input__inner) {
-    margin-right: 0px;
-    padding-right: 0px;
-    padding: 0px 8px 0px 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: bold;
-  }
- ::v-deep(.el-range-editor--mini.el-input__inner){
-    width:180px !important;
-  }
-}
+
 .timeColor{
   color:#A2A4A8;
 }

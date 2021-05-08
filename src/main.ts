@@ -5,7 +5,10 @@ import App from './App.vue'
 import 'virtual:windi.css'
 import 'virtual:windi-devtools'
 import './styles/main.css'
-
+import lang from 'element-plus/lib/locale/lang/zh-cn'
+import locale from 'element-plus/lib/locale'
+// 设置语言
+locale.use(lang)
 const routes = setupLayouts(generatedRoutes)
 
 // https://github.com/antfu/vite-ssg
