@@ -56,4 +56,10 @@ export const tooptipsModel = (item: any, color: any, value: any,unit:string) => 
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
     align-items: center;"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${info}</p></span>`;
 };
+//时间转化为时间戳
+export function dataToTimestamp(time:string) {
+    return dayjs(time).valueOf() / 1000;
+}
+export const formatDefaultTime = (date: string) => dayjs(date).format("YYYY-MM-DD")
+
 

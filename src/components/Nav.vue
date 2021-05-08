@@ -59,7 +59,6 @@ onMounted(() => {
 })
 </script>
 <template>
-
   <nav class="xshidden flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
     <a href="https://www.kingdata.com" target="_blank"><img src="/assets/logo.svg" alt="KingData" class="flex-none "
     ></a>

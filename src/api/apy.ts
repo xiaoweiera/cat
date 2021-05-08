@@ -17,7 +17,6 @@ export function getDataset(query: any) {
     params: query,
   })
 }
-
 export function getChart(query: any) {
   return request({
     url: '/api/apy/apy_charts/',
@@ -51,3 +50,4 @@ export const getMediaList = async function<T>(): Promise<T[]> {
   }
   return list
 }
+
