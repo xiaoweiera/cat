@@ -28,7 +28,7 @@
 
 <style scoped lang="postcss">
   .swiper {
-    padding-bottom: 50px;
+    padding-bottom: 30px;
   }
   .swiper-slide {
     width: 38%;
