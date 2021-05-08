@@ -89,7 +89,7 @@ watch(() => tags.selected, (newVal) => reRenderChart(newVal))
     <ApyPlat :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
     <div class="mt-1.5 md:mt-3 font-kdFang relative ">
-      <img @click="changeState(true)" class="w-4 h-4 absolute right-0 hand -top-3"
+      <img  @click="changeState(true)" class="xshidden w-4 h-4 absolute right-0 hand -top-3"
            src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">
       <div class=" h-35 w-full  h-full" :id="props.id">
       </div>

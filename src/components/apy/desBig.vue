@@ -2,6 +2,7 @@
 //@ts-ignore
 import * as echarts from 'echarts'
 import {defineProps, onMounted,watch, ref,reactive} from 'vue'
+
 import {chartsConfig} from '~/logic/apy/config'
 import {ElDatePicker} from 'element-plus'
 import {dataToTimestamp,formatDefaultTime} from '~/lib/tool'
@@ -40,7 +41,7 @@ watch(()=>time.value,(n,o)=>{
 <template>
   <div class="flex justify-between items-center">
     <div class="text-kd18px28px text-global-highTitle font-normal">{{getTitle()}}</div>
-    <div class="block">
+    <div class="timeContainer">
       <el-date-picker
           size="mini"
           v-model="time"
@@ -54,7 +55,7 @@ watch(()=>time.value,(n,o)=>{
   </div>
 </template>
 <style lang="postcss" scoped>
-.block {
+.timeContainer {
   ::v-deep(.el-input__inner) {
     margin-right: 0px;
     padding-right: 0px;
@@ -66,31 +67,6 @@ watch(()=>time.value,(n,o)=>{
   }
  ::v-deep(.el-range-editor--mini.el-input__inner){
     width:180px !important;
-  }
-  /deep/.el-range__icon {
-    display: none;
-  }
-  /deep/.el-range-input {
-    color: #2b8dfe;
-    font-size: 14px;
-  }
-  /deep/.el-range-input {
-    color: #2b8dfe;
-    width: 50%;
-    font-size: 14px;
-  }
-  /deep/.el-range-editor--mini.el-input__inner {
-    height: 26px;
-    border: none;
-  }
-  /deep/.el-range-separator {
-    font-weight: 100;
-    padding: 0 0;
-    line-height: 28px;
-    color: #2b8dfe;
-  }
-  /deep/.el-range__close-icon {
-    display: none;
   }
 }
 .timeColor{
