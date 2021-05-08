@@ -12,8 +12,21 @@ export interface Media {
   [key: string]: any // 可扩展属性
 }
 
+const test: Media[] = [
+  { url: 'https://www.kingdata.com/', image: '/assets/apy/m1.jpg' },
+  { url: 'https://www.kingdata.com/', image: '/assets/apy/m2.jpg' },
+  { url: 'https://www.kingdata.com/', image: '/assets/apy/m3.jpg' },
+  { url: '', image: '/assets/apy/m4.jpg' },
+  { url: '', image: '/assets/apy/m5.png' },
+  { url: 'https://www.kingdata.com/', image: '/assets/apy/m1.jpg' },
+  { url: '', image: '/assets/apy/m2.jpg' },
+  { url: 'https://www.kingdata.com/', image: '/assets/apy/m3.jpg' },
+  { url: '', image: '/assets/apy/m4.jpg' },
+  { url: 'https://www.kingdata.com/', image: '/assets/apy/m5.png' },
+]
+
 // 媒体列表
-export const list = reactive<Media[]>([])
+export const list = reactive<Media[]>(test)
 
 // 获取媒体列表数据
 export const requestMediaList = async function() {

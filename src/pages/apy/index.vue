@@ -84,7 +84,11 @@ onUnmounted(() => clearInterval(timerInterval))
   <div class="flex-col w-full max-w-360  md:mb-25">
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
-      <div class="flex justify-center items-center mt-8 md:mt-15 ">
+      <!-- 大屏时隐藏 -->
+      <div class="mdhidden">
+        <ApyBanner></ApyBanner>
+      </div>
+      <div class="flex justify-center items-center mt-4 md:mt-15 ">
         <div style="font-weight: bold" class="flex justify-center mr-2 md:mr-3 text-kd24px100  text-global-highTitle md:text-kd36px36px">
           DeFi挖矿收益APY大全
         </div>
@@ -100,8 +104,9 @@ onUnmounted(() => clearInterval(timerInterval))
       <div class="text-center flex justify-center md:mb-15">
         <ApyChains :chains="chains"/>
       </div>
-      <div>
-        <ApyMedia></ApyMedia>
+      <!-- 小屏时隐藏 -->
+      <div class="xshidden">
+        <ApyAds></ApyAds>
       </div>
     </div>
 
