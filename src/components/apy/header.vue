@@ -70,15 +70,6 @@ onMounted(() => {
 const showDialog = () => show.value = !show.value
 </script>
 <template>
-  <!--  <el-drawer-->
-  <!--      v-model="show"-->
-  <!--      direction="ltr"-->
-  <!--      :with-header="false"-->
-  <!--      size="50%"-->
-  <!--     >-->
-  <!--    <div class=" w-200">-->
-  <!--    </div>-->
-  <!--  </el-drawer>-->
   <nav
       class="xshidden headerBg flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
     <a href="https://www.kingdata.com" target="_blank"><img src="/assets/logo.svg" alt="KingData" class="flex-none mb-2"

@@ -17,7 +17,6 @@ export function getDataset(query: any) {
     params: query,
   })
 }
-
 export function getChart(query: any) {
   return request({
     url: '/api/apy/apy_charts/',
@@ -32,3 +31,4 @@ export function getChartByMoney(query:any){
     params: query,
   })
 }
+

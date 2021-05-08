@@ -4,7 +4,6 @@ import {requestTables, defaultChains, requestChart} from '~/logic/apy'
 //@ts-ignore
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 import {wxShare} from '~/lib/wxShare'
-import * as R  from 'ramda'
 const {chains} = defaultChains(chainConfig)
 const chainParam = ref('')
 //@ts-ignore
@@ -100,6 +99,7 @@ onUnmounted(() => clearInterval(timerInterval))
       <div class="text-center flex justify-center md:mb-15">
         <ApyChains :chains="chains"/>
       </div>
+
     </div>
 
     <!-- table表格-->
