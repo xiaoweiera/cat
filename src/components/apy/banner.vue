@@ -4,7 +4,7 @@
   // 引入 swiper vue 组件
   import { Swiper, SwiperSlide } from 'swiper/vue'
   // 广告位数据
-  import { list, requestMediaList } from '~/logic/apy/media'
+  import { list, requestMediaList } from '~/logic/apy/ads'
   // 引入 swiper 样式
   import 'swiper/swiper-bundle.css'
   // 装载 swiper 组件
