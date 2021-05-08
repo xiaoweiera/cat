@@ -25,7 +25,6 @@
     </Swiper>
   </div>
 </template>
-
 <style scoped lang="postcss">
   .swiper {
     padding-bottom: 30px;
