@@ -55,7 +55,7 @@ watch(()=>time.value,(n,o)=>{
 </template>
 <style lang="postcss" scoped>
 .block {
-  /deep/.el-input__inner {
+  ::v-deep(.el-input__inner) {
     margin-right: 0px;
     padding-right: 0px;
     padding: 0px 8px 0px 8px;
@@ -63,7 +63,6 @@ watch(()=>time.value,(n,o)=>{
     align-items: center;
     justify-content: space-between;
     font-weight: bold;
-
   }
  ::v-deep(.el-range-editor--mini.el-input__inner){
     width:180px !important;
