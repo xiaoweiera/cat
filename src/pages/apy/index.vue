@@ -85,7 +85,7 @@ onUnmounted(() => clearInterval(timerInterval))
     <!-- 头部描述信息-->
     <div class="px-4 md:px-30">
       <!-- 大屏时隐藏 -->
-      <div class="mdhidden">
+      <div class="mdhidden mt-6">
         <ApyBanner></ApyBanner>
       </div>
       <div class="flex justify-center items-center mt-4 md:mt-15 ">
