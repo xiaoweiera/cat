@@ -1,11 +1,6 @@
 <script setup lang="ts">
-  import { onBeforeMount } from 'vue'
   // 广告位数据
-  import { list, requestMediaList } from '~/logic/apy/ads'
-
-  onBeforeMount(() => {
-    requestMediaList()
-  })
+  import { list } from '~/logic/apy/ads'
 </script>
 
 <template>

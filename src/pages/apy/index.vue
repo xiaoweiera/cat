@@ -95,7 +95,7 @@ onUnmounted(() => clearInterval(timerInterval))
         <a href="http://ikingdata.mikecrm.com/ijyjMFO" target="_blank"
            class="goForm text-kd12px20px font-normal">申请收录</a>
       </div>
-      <div class="mt-4  text-global-default opacity-65 font-normal ">
+      <div class="mt-4 text-global-default opacity-65 font-normal ">
         <div class="text-kd14px22px md:text-center">本站收集整理了三条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看。</div>
         <div style="color:#E9592D;" class="text-kd12px18px md:text-center mt-1">
           风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。
