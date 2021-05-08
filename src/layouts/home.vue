@@ -21,7 +21,7 @@
 @media screen and (min-width: 768px) {
   .containerbgs {
     background: url(https://res.ikingdata.com/nav/apyTopBg.png) #F6FAFD;
-    background-size: 100% 610px;
+    background-size: 100% 611px;
     background-repeat: no-repeat;
   }
 }

@@ -87,8 +87,8 @@ export const chainConfig = [
   {
     select: false,
     key: 'hsc',
-    name: 'Hoo',
-    img: '/assets/hoo.svg',
+    name: 'HSC',
+    img: 'https://res.ikingdata.com/nav/apyHsc.png',
   },
 ]
 export const chartsConfig = {
