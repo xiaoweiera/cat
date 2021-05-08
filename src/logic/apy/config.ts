@@ -86,7 +86,7 @@ export const chainConfig = [
   },
   {
     select: false,
-    key: 'hoo',
+    key: 'hsc',
     name: 'Hoo',
     img: '/assets/hoo.svg',
   },

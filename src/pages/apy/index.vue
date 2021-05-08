@@ -73,7 +73,7 @@ watch(() => chains.data, (newVal) => {
     }
   })
 })
-const selectedMobileAnchor = reactive({name: '机枪池APY'})
+const selectedMobileAnchor = reactive({ name: '机枪池APY' })
 onMounted(() => {
   wxShare('DeFi挖矿收益APY大全', '全网最全的挖矿收益APY大全，数十家项目数据多维度对比。')
   intervalFetchTableByChain('heco')
@@ -102,7 +102,7 @@ onUnmounted(() => clearInterval(timerInterval))
         </div>
       </div>
       <div class="text-center flex justify-center md:mb-15">
-        <ApyChains :chains="chains"/>
+        <ApyChains :chains="chains" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
@@ -112,24 +112,30 @@ onUnmounted(() => clearInterval(timerInterval))
 
     <!-- table表格-->
     <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
-         v-for="(item,index) in tables">
-      <a class="mdhidden">
-        <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor"/>
-      </a>
-      <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index"
-                :project="item.project" :title="item.title"
-                :tableData="item"/>
-      <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-        <template v-for="(itemChart,i) in charts[index].chartAll">
-          <ApyChart v-show="itemChart.option" :chainId="chainParam" :tableIndex="index" :chartIndex="i"
-                    :chartData="itemChart" :id="index+''+i"/>
-        </template>
-      </div>
+         v-for="(item,index) in tables" :key="index">
+      <!-- chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
+      <template v-if="chainParam === 'hsc' && index === 0 ">
+        <div></div>
+      </template>
+      <template v-else>
+        <a class="mdhidden">
+          <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor"/>
+        </a>
+        <ApyTable :isFirstShow="isFirstShow" :timer="timer" :index="index"
+                  :project="item.project" :title="item.title"
+                  :tableData="item"/>
+        <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+          <template v-for="(itemChart,i) in charts[index].chartAll" :key="`${index}-${i}`">
+            <ApyChart v-show="itemChart.option" :chainId="chainParam" :tableIndex="index" :chartIndex="i"
+                      :chartData="itemChart" :id="index+''+i"/>
+          </template>
+        </div>
+      </template>
     </div>
     <ApyFooter/>
     <!--    浮动tag-->
     <div class="tagContainer  w-19  h-28 flex-col fixed fixed right-2   2xl:right-10 top-70">
-      <template v-for="item in anchorConfig">
+      <template v-for="(item, index) in anchorConfig" :key="index">
         <a @click="clickAnchor(item.name)" :href="'#'+item.key"
            :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "
         >{{ item.name }}</a>
