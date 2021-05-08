@@ -27,6 +27,7 @@ specifiers:
   postcss: ^8.2.13
   prism-theme-vars: ^0.2.2
   ramda: ^0.27.1
+  swiper: ^6.5.9
   tailwindcss: ^2.1.2
   typescript: ^4.2.4
   vite: ^2.2.3
@@ -54,6 +55,7 @@ dependencies:
   nprogress: 0.2.0
   prism-theme-vars: 0.2.2
   ramda: 0.27.1
+  swiper: 6.5.9
   vue: 3.0.11
   vue-i18n: 9.1.6_vue@3.0.11
   vue-router: 4.0.6_vue@3.0.11
@@ -2722,6 +2724,12 @@ packages:
       domhandler: 4.2.0
       entities: 2.2.0
     dev: true
+
+  /dom7/3.0.0:
+    resolution: {integrity: sha512-oNlcUdHsC4zb7Msx7JN3K0Nro1dzJ48knvBOnDPKJ2GV9wl1i5vydJZUSyOfrkKFDZEud/jBsTk92S/VGSAe/g==}
+    dependencies:
+      ssr-window: 3.0.0
+    dev: false
 
   /domelementtype/2.2.0:
     resolution: {integrity: sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==}
@@ -5818,6 +5826,10 @@ packages:
       tweetnacl: 0.14.5
     dev: true
 
+  /ssr-window/3.0.0:
+    resolution: {integrity: sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==}
+    dev: false
+
   /statuses/1.5.0:
     resolution: {integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=}
     engines: {node: '>= 0.6'}
@@ -5940,6 +5952,15 @@ packages:
     dependencies:
       has-flag: 4.0.0
     dev: true
+
+  /swiper/6.5.9:
+    resolution: {integrity: sha512-zO3UCLVEiOXZontAQWBNpWFZGV3WaXwHSgvng0qIGLVMyxYGD6w78S7YkGAu/XBam1SBQNZzxqfFc/LDjNdq/A==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 3.0.0
+      ssr-window: 3.0.0
+    dev: false
 
   /symbol-tree/3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}

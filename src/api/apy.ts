@@ -25,10 +25,29 @@ export function getChart(query: any) {
     params: query,
   })
 }
-export function getChartByMoney(query:any){
+export function getChartByMoney(query:any) {
   return request({
     url: '/api/apy/summary_chart/',
     method: 'get',
     params: query,
   })
+}
+// 获取媒体列表
+export const getMediaList = async function<T>(): Promise<T[]> {
+  const url = '/api/v2/commercial'
+  const params = {
+    position: 5,
+  }
+  const list: T[] = []
+  try {
+    const result = await request({ url, params, method: 'get' })
+    const data = result?.data?.data
+    if (data) {
+      list.push(...data)
+    }
+  }
+  catch (e) {
+    // todo
+  }
+  return list
 }
