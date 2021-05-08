@@ -234,7 +234,6 @@ onMounted(async () => {
   border-color: transparent;
   background: transparent;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
   border-color: #fff;
   background: #fff;
@@ -243,6 +242,6 @@ onMounted(async () => {
 // @formatter:off
 <route lang="yaml">
 meta:
- layout: growthPad
+ layout: growthpadLayout
 </route>
 // @formatter:off
