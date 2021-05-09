@@ -81,7 +81,7 @@ const selectTag = (timeM: timeModel) => {
   }, filterOption.value)
 }
 //@ts-ignore
-const closeDialog = () =>{ props.closeModel()}
+// const closeDialog = () =>{ props.closeModel()}
 </script>
 <template>
   <div class="flex justify-between items-center">
@@ -107,9 +107,9 @@ const closeDialog = () =>{ props.closeModel()}
           </el-date-picker>
         </div>
       </div>
-      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">
-        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">
-      </div>
+<!--      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">-->
+<!--        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">-->
+<!--      </div>-->
     </div>
 
   </div>
