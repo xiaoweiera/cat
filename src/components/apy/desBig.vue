@@ -5,13 +5,12 @@ import {defineProps, onMounted, watch, ref, reactive} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
 
 
-import {ElDatePicker, ElButton, locale} from 'element-plus'
+import {ElDatePicker, ElButton} from 'element-plus'
 
-import lang from 'element-plus/lib/locale/lang/zh-cn'
-import 'dayjs/locale/zh-cn'
+// import lang from 'element-plus/lib/locale/lang/zh-cn'
+// import 'dayjs/locale/zh-cn' locale(lang)
 import * as R from 'ramda'
 
-locale(lang)
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 
 interface timeModel {
@@ -26,7 +25,6 @@ const props = defineProps({
   tableIndex: {type: Number},
   chartIndex: {type: Number},
   changeTime: {type: Function},
-  closeModel: {type: Function}
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
@@ -35,8 +33,6 @@ const getTitle = () => {
     return props.selected + ' ' + props.title
   }
 }
-// dataToTimestamp('2021-11-03')
-
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
@@ -64,7 +60,7 @@ watch(() => beginTime.value, (n, o) => {
     return
   }
   beginTime.value = n
-  endTime.value = dataToTimestamp(formatDefaultTime())//默认当天
+  endTime.value = dataToTimestamp(formatDefaultTime(null))//默认当天
   props.changeTime(beginTime.value, endTime.value)
 })
 const selectTag = (timeM: timeModel) => {
@@ -80,8 +76,8 @@ const selectTag = (timeM: timeModel) => {
     else item.selected = false
   }, filterOption.value)
 }
-//@ts-ignore
-// const closeDialog = () =>{ props.closeModel()}
+//@ts-ignore //  const closeDialog = () =>{ props.closeModel()}
+
 </script>
 <template>
   <div class="flex justify-between items-center">
