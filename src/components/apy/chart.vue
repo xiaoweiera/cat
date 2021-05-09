@@ -23,7 +23,7 @@ const isChangeChain = ref(true)
 const state = ref(false)
 const bigOption = ref({})
 //@ts-ignore
-const changeState = (stateValue:boolean) => {
+const changeState = (stateValue: boolean) => {
   bigOption.value = {
     xChartData,
     getModel,
@@ -88,15 +88,18 @@ watch(() => tags.selected, (newVal) => reRenderChart(newVal))
     <!--          平台列表-->
     <ApyPlat :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
     <!--          图表-->
-    <div class="mt-1.5 md:mt-3 font-kdFang relative ">
-      <img  @click="changeState(true)" class="xshidden w-4 h-4 absolute right-0 hand -top-3"
+    <div class="mt-1.5 md:mt-3 font-kdFang relative">
+      <img @click="changeState(true)"
+           class=" xshidden w-4 h-4   flex items-center justify-center z-10  absolute right-0 hand -top-3"
            src="https://res.ikingdata.com/nav/apyChartBig.png" alt="">
       <div class=" h-35 w-full  h-full" :id="props.id">
       </div>
     </div>
     <div v-if="chartIndex>0" class="xshidden absolute border-1 h-full top-0  -left-6 "></div>
   </div>
-  <div v-if="state" >
-    <ApyBigChart  :id="id" :chartData="chartData" :tableIndex="tableIndex" :chartIndex="chartIndex" :chainId="chainId" :bigOption="bigOption" :title="props.chartData.title" :selected="tags.selected" :state="state" :changeState="changeState"/>
+  <div v-if="state">
+    <ApyBigChart :id="id" :chartData="chartData" :tableIndex="tableIndex" :chartIndex="chartIndex" :chainId="chainId"
+                 :bigOption="bigOption" :title="props.chartData.title" :selected="tags.selected" :state="state"
+                 :changeState="changeState"/>
   </div>
 </template>

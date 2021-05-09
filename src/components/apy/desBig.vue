@@ -1,107 +1,198 @@
 <script setup lang="ts">
 //@ts-ignore
 import * as echarts from 'echarts'
-import {defineProps, onMounted,watch, ref,reactive} from 'vue'
-
+import {defineProps, onMounted, watch, ref, reactive} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
-import {ElDatePicker,ElButton,locale} from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
+
+import {ElDatePicker, ElButton, locale} from 'element-plus'
+
 import lang from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
+import * as R from 'ramda'
 
 locale(lang)
-import {dataToTimestamp,formatDefaultTime} from '~/lib/tool'
+import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 
+interface timeModel {
+  name: string
+  value: number
+  selected: boolean
+}
 
 const props = defineProps({
-  title:{type:String},
+  title: {type: String},
   selected: {type: String},
   tableIndex: {type: Number},
   chartIndex: {type: Number},
-  changeTime:{type:Function}
+  changeTime: {type: Function},
+  closeModel: {type: Function}
 })
-const getTitle=()=>{
-  if(props.chartIndex===2){
-    return props.title+props.selected+'对比'
-  }else{
-    return props.selected+' '+props.title
+const getTitle = () => {
+  if (props.chartIndex === 2) {
+    return props.title + props.selected + '对比'
+  } else {
+    return props.selected + ' ' + props.title
   }
 }
 // dataToTimestamp('2021-11-03')
-const time=ref(null)
-const beginTime=ref(0)
-const endTime=ref(0)
-watch(()=>props.selected,(n,o)=>{
-  time.value=null
+
+const time = ref(null)
+const beginTime = ref(0)
+const endTime = ref(0)
+const editTime = ref(false)//控制是否显示自定义时间
+const closeShow = ref(false)
+const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
+  name: '近1月',
+  value: 30,
+  selected: false
+}, {name: '近3月', value: 90, selected: false}, {name: '自定义', value: 0, selected: false}])
+
+watch(() => props.selected, (n, o) => {
+  time.value = null
 })
-watch(()=>time.value,(n,o)=>{
-  if(time.value) {
+watch(() => time.value, (n, o) => {
+  if (time.value) {
     beginTime.value = dataToTimestamp(formatDefaultTime(n[0]))
     endTime.value = dataToTimestamp(formatDefaultTime(n[1]))
-    props.changeTime(dataToTimestamp(formatDefaultTime(n[0])), dataToTimestamp(formatDefaultTime(n[1])))
+    props.changeTime(beginTime.value, endTime.value)
   }
 })
-
+watch(() => beginTime.value, (n, o) => {
+  if (editTime.value === true) {
+    return
+  }
+  beginTime.value = n
+  endTime.value = dataToTimestamp(formatDefaultTime())//默认当天
+  props.changeTime(beginTime.value, endTime.value)
+})
+const selectTag = (timeM: timeModel) => {
+  if (timeM.name === '自定义') {
+    editTime.value = true
+  } else {
+    beginTime.value = getagoTimeStamp(timeM.value)
+    editTime.value = false //关闭自定义
+    time.value = null //自定义清空
+  }
+  R.map(item => {
+    if (item.name === timeM.name) item.selected = true
+    else item.selected = false
+  }, filterOption.value)
+}
+const closeDialog = () => props.closeModel(false)
 </script>
 <template>
   <div class="flex justify-between items-center">
-    <div class="text-kd18px28px text-global-highTitle font-normal">{{getTitle()}}</div>
-    <div class="timeContainer">
-      <el-date-picker
-          type="dates"
-          v-model="time"
-          placeholder="选择一个或多个日期">
-      </el-date-picker>
-      <el-date-picker
-          size="mini"
-          v-model="time"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始"
-          end-placeholder="结束"
-      >
-      </el-date-picker>
+    <div class="text-kd18px28px text-global-highTitle font-normal">{{ getTitle() }}</div>
+    <div class="flex">
+      <div class="flex h-7.8 items-center timeFilter">
+        <template v-for="(item,index) in filterOption">
+          <div v-if="item.name!=='自定义' || (item.name==='自定义' && !editTime)" @click="selectTag(item)"
+               :class="item.selected?'timeTagSelected':'timeTag'">
+            {{ item.name }}
+          </div>
+        </template>
+        <div v-if="editTime" class="timeContainer">
+          <el-date-picker
+              :clearable="closeShow"
+              size="mini"
+              v-model="time"
+              type="daterange"
+              range-separator="–"
+              start-placeholder="开始"
+              end-placeholder="结束"
+          >
+          </el-date-picker>
+        </div>
+      </div>
+      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">
+        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">
+      </div>
     </div>
+
   </div>
 </template>
 <style lang="postcss" scoped>
-.timeContainer {
-  /deep/.el-input__inner {
-    margin-right: 0px;
-    padding-right: 0px;
-    width: 2px;
-    padding: 0px 8px 0px 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: bold;
-  }
-  /deep/.el-range__icon {
-    display: none;
-  }
-  /deep/.el-range-input {
-    color: #2b8dfe;
-    font-size: 14px;
-  }
-  /deep/.el-range-input {
-    color: #2b8dfe;
-    width: 50%;
-    font-size: 14px;
-  }
-  /deep/.el-range-editor--mini.el-input__inner {
-    height: 26px;
-    border: none;
-  }
-  /deep/.el-range-separator {
-    font-weight: 100;
-    padding: 0 0;
-    line-height: 28px;
-    color: #2b8dfe;
-  }
-  /deep/.el-range__close-icon {
-    display: none;
-  }
+.timeTag {
+  border-radius: 2px;
+  cursor: pointer;
+  @apply px-2 py-1 text-kd14px18px text-global-default opacity-65;
 }
-.timeColor{
-  color:#A2A4A8;
+
+.timeTagSelected {
+  cursor: pointer;
+  border-radius: 2px;
+  @apply px-2 py-1 text-kd14px18px text-global-primary bg-white;
+}
+
+.timeFilter {
+  padding: 2px;
+  background: rgba(43, 141, 254, 0.08);
+  border-radius: 4px;
+}
+
+::v-deep(.el-range-editor--mini .el-range-input) {
+  width: 100px !important;
+  font-family: PingFang SC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(37, 62, 111, 0.85);
+}
+
+::v-deep(.el-range-editor--mini .el-range-separator) {
+  font-family: 'i8n-font-inter';
+}
+
+::v-deep(.el-range-editor--mini.el-input__inner) {
+  width: 235px;
+  border: none;
+}
+
+::v-deep(.el-input__inner) {
+  margin-right: 0px;
+  padding-right: 0px;
+  width: 2px;
+  padding: 0px 8px 0px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+::v-deep(.el-range__icon) {
+  display: none;
+}
+
+::v-deep(.el-range-input) {
+  color: #2b8dfe;
+  width: 50%;
+  font-size: 14px;
+}
+
+::v-deep(.el-range-separator) {
+  padding: 0 0;
+  line-height: 28px;
+  color: #2b8dfe;
+}
+
+::v-deep(.el-date-editor .el-range-separator) {
+  margin: 0px 5px;
+  padding: 0;
+}
+
+::v-deep(.el-range__close-icon) {
+  display: none;
+}
+
+.timeColor {
+  color: #A2A4A8;
+}
+
+.closeSmall {
+  border: 1px solid #E7E7E7;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 </style>

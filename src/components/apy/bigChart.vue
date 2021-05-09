@@ -2,48 +2,47 @@
 //@ts-ignore
 import * as echarts from 'echarts'
 import {defineProps, onMounted, reactive, ref, watch} from 'vue'
-// import {chartsConfig} from '~/logic/apy/config'
 import {chartOption} from "~/lib/chartOptionBig";
 import {
   getModel,
   getPlat,
   getSerise,
   getUnit,
-  getXY_data,
   getTimeData,
   yLabelFormat,
   getLengent
 } from "~/logic/apy/formatChart";
 import {tableConfig} from "~/logic/apy/config";
+
 const props = defineProps({
-  id:{type:String},
-  state:{type:Boolean},
+  id: {type: String},
+  state: {type: Boolean},
   chartData: {type: Object},
   tableIndex: {type: Number},
   chartIndex: {type: Number},
   chainId: {type: String},
-  changeState:{type:Function},
-  title:{type:String},
-  selected:{type:String},
-  bigOption:{type:Object},
+  changeState: {type: Function},
+  title: {type: String},
+  selected: {type: String},
+  bigOption: {type: Object},
 })
 const unit = ref('')
 const xChartData = ref([])
 const serise = ref([])
-const legendData=ref([])
+const legendData = ref([])
 const tags = reactive({platforms: [], selected: ''})
 let myChart: any = null
 let minY = 0
 let maxY = 0
-const beginTime=ref('')
-const endTime=ref('')
+const beginTime = ref('')
+const endTime = ref('')
 //请求参数
-let param={
-  chain:props.chainId,
-  category:props.chartData.category,
-  ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
-  from_ts:'',
-  to_ts:''
+//@ts-ignore
+let param = {
+  chain: props.chainId,
+  category: props.chartData.category, ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
+  from_ts: '',
+  to_ts: ''
 }
 const isChangeChain = ref(true)
 //画图
@@ -59,31 +58,38 @@ const draw = () => {
       unit.value
   ), true);
 }
-const changeTime= (beginTimeStr:string,endTimeStr:string)=>{
-  beginTime.value=beginTimeStr
-  endTime.value=endTimeStr
+const changeTime = (beginTimeStr: string, endTimeStr: string) => {
+  beginTime.value = beginTimeStr
+  endTime.value = endTimeStr
   reRenderChart()
 }
-const reRenderChart =async () => {
-  let param={
-    chain:props.chainId,
-    category:props.chartData.category,
-    ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
+const reRenderChart = async () => {
+  //@ts-ignore
+  let param = {
+    chain: props.chainId,
+    category: props.chartData.category, ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
   }
-  if(beginTime.value){
-    param={
+  if (beginTime.value) {
+    param = {
       ...param,
-      from_ts:beginTime.value,
-      to_ts:endTime.value
+      from_ts: beginTime.value,
+      to_ts: endTime.value
     }
   }
-  const {xData, yData, min, max} =await getTimeData(tableConfig[props.tableIndex].charts[props.chartIndex].requestData,param,props.tableIndex,props.chartIndex,tags.selected)
+  //@ts-ignore
+  const {
+    xData,
+    yData,
+    min,
+    max
+  } = await getTimeData(tableConfig[props.tableIndex].charts[props.chartIndex].requestData, param, props.tableIndex, props.chartIndex, tags.selected)
+  //@ts-ignore
   unit.value = getUnit(props.tableIndex, props.chartIndex, tags.selected)
   xChartData.value = xData
   minY = min
   maxY = max
   serise.value = getSerise(yData)
-  legendData.value=getLengent(yData)
+  legendData.value = getLengent(yData)
   draw()
 }
 
@@ -94,6 +100,7 @@ watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   }
   //@ts-ignore
   if (!oldOptions?.data || isChangeChain.value) {
+    //@ts-ignore
     tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
     tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
   }
@@ -105,64 +112,73 @@ watch(() => tags.selected, () => {
 })
 onMounted(() => {
   //@ts-ignore
-  myChart = echarts.init(document.getElementById(props.id+'big'), "light");
+  myChart = echarts.init(document.getElementById(props.id + 'big'), "light");
   window.addEventListener("resize", myChart.resize);
-  let newOptions=props.chartData?.option
+  let newOptions = props.chartData?.option
   if (!newOptions?.data) {
     return
   }
   //@ts-ignore
   tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
   if (isChangeChain.value) {
+    //@ts-ignore
     tags.selected = props.selected
   }
   isChangeChain.value = false
   reRenderChart()
 })
+//@ts-ignore
+const closeModel = () => {
+  props.changeState(false)
+}
 </script>
 <template>
-  <div class="dialogModel">
-    <img class="closeButton hand" @click="changeState(false)" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
-    <div class="dialogChart  px-5 py-5.1" >
-      <ApyDesBig :changeTime="changeTime"  :title="props.chartData.title"   :selected="tags.selected"  :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
+  <div class="dialogModel" @click="closeModel">
+    <img class="closeButton hand" @click="closeModel" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
+    <div class="dialogChart  px-5 py-5.1" @click.stop="">
+      <ApyDesBig :closeModel="closeModel" :changeTime="changeTime" :title="props.chartData.title"
+                 :selected="tags.selected" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
       <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
-    <div :id="props.id+'big'" class="whNumber">
-  </div>
+      <div :id="props.id+'big'" class="whNumber">
+      </div>
     </div>
   </div>
 </template>
 <style lang="postcss" scoped>
-.whNumber{
+.whNumber {
   width: 100%;
-  height:92%
+  height: 92%
 }
-.dialogModel{
-  width:100%;
+
+.dialogModel {
+  width: 100%;
   position: fixed;
-  height:100%;
-  z-index:10;
+  height: 100%;
+  z-index: 10;
   background: rgba(68, 90, 132, 0.4);
   backdrop-filter: blur(10px);
-  top:0;
-  left:0;
-  margin:0 auto;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
 }
-.dialogChart{
+
+.dialogChart {
   background: white;
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  margin:auto;
+  margin: auto;
   width: 80%;
-  height:83%;
+  height: 83%;
 }
-.closeButton{
+
+.closeButton {
   width: 16.97px;
   height: 16.97px;
   position: absolute;
-  right:7%;
-  top:4.5%;
+  right: 7%;
+  top: 4.5%;
 }
 </style>
