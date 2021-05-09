@@ -3,7 +3,8 @@
 import * as echarts from 'echarts'
 import {defineProps, onMounted, watch, ref, reactive} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
-import 'element-plus/lib/theme-chalk/index.css'
+
+
 import {ElDatePicker, ElButton, locale} from 'element-plus'
 
 import lang from 'element-plus/lib/locale/lang/zh-cn'
