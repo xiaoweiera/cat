@@ -41,6 +41,7 @@ const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
 const editTime = ref(false)//控制是否显示自定义时间
+//@ts-ignore
 const closeShow = ref(false)
 const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
   name: '近1月',
@@ -79,7 +80,8 @@ const selectTag = (timeM: timeModel) => {
     else item.selected = false
   }, filterOption.value)
 }
-const closeDialog = () => props.closeModel(false)
+//@ts-ignore
+const closeDialog = () =>{ props.closeModel()}
 </script>
 <template>
   <div class="flex justify-between items-center">
