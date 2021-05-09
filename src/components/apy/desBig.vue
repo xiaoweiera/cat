@@ -4,7 +4,7 @@ import * as echarts from 'echarts'
 import {defineProps, onMounted,watch, ref,reactive} from 'vue'
 
 import {chartsConfig} from '~/logic/apy/config'
-import {ElDatePicker,locale} from 'element-plus'
+import {ElDatePicker,ElButton,locale} from 'element-plus'
 import lang from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
 
@@ -47,6 +47,11 @@ watch(()=>time.value,(n,o)=>{
     <div class="text-kd18px28px text-global-highTitle font-normal">{{getTitle()}}</div>
     <div class="timeContainer">
       <el-date-picker
+          type="dates"
+          v-model="time"
+          placeholder="选择一个或多个日期">
+      </el-date-picker>
+      <el-date-picker
           size="mini"
           v-model="time"
           type="daterange"
@@ -59,7 +64,43 @@ watch(()=>time.value,(n,o)=>{
   </div>
 </template>
 <style lang="postcss" scoped>
-
+.timeContainer {
+  /deep/.el-input__inner {
+    margin-right: 0px;
+    padding-right: 0px;
+    width: 2px;
+    padding: 0px 8px 0px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  /deep/.el-range__icon {
+    display: none;
+  }
+  /deep/.el-range-input {
+    color: #2b8dfe;
+    font-size: 14px;
+  }
+  /deep/.el-range-input {
+    color: #2b8dfe;
+    width: 50%;
+    font-size: 14px;
+  }
+  /deep/.el-range-editor--mini.el-input__inner {
+    height: 26px;
+    border: none;
+  }
+  /deep/.el-range-separator {
+    font-weight: 100;
+    padding: 0 0;
+    line-height: 28px;
+    color: #2b8dfe;
+  }
+  /deep/.el-range__close-icon {
+    display: none;
+  }
+}
 .timeColor{
   color:#A2A4A8;
 }
