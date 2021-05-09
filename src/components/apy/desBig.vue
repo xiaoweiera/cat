@@ -5,12 +5,13 @@ import {defineProps, onMounted, watch, ref, reactive} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
 
 
-import {ElDatePicker, ElButton} from 'element-plus'
+import {ElDatePicker, ElButton, locale} from 'element-plus'
 
-// import lang from 'element-plus/lib/locale/lang/zh-cn'
-// import 'dayjs/locale/zh-cn' locale(lang)
+import lang from 'element-plus/lib/locale/lang/zh-cn'
+import 'dayjs/locale/zh-cn'
 import * as R from 'ramda'
 
+locale(lang)
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 
 interface timeModel {
@@ -25,6 +26,7 @@ const props = defineProps({
   tableIndex: {type: Number},
   chartIndex: {type: Number},
   changeTime: {type: Function},
+  // closeModel: {type: Function}
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
