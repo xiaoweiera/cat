@@ -217,3 +217,10 @@ onMounted(async () => {
   background: #fff;
 }
 </style>
+
+// @formatter:off
+<route lang="yaml">
+meta:
+ layout: growthpadLayout
+</route>
+// @formatter:off

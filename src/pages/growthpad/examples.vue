@@ -171,3 +171,9 @@ watch(() => locale.value, (newValue, oldValue) => {
   border-radius: 4px;
 }
 </style>
+// @formatter:off
+<route lang="yaml">
+meta:
+ layout: growthpadLayout
+</route>
+// @formatter:off
