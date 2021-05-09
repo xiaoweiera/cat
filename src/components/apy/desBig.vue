@@ -5,12 +5,9 @@ import {defineProps, onMounted, watch, ref, reactive} from 'vue'
 import {chartsConfig} from '~/logic/apy/config'
 
 
-import {ElDatePicker, ElButton, locale} from 'element-plus'
-
+import {ElDatePicker, ElButton,locale} from 'element-plus'
 import lang from 'element-plus/lib/locale/lang/zh-cn'
-import 'dayjs/locale/zh-cn'
 import * as R from 'ramda'
-
 locale(lang)
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 
@@ -26,7 +23,7 @@ const props = defineProps({
   tableIndex: {type: Number},
   chartIndex: {type: Number},
   changeTime: {type: Function},
-  // closeModel: {type: Function}
+  closeModel: {type: Function}
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
@@ -62,7 +59,7 @@ watch(() => beginTime.value, (n, o) => {
     return
   }
   beginTime.value = n
-  endTime.value = dataToTimestamp(formatDefaultTime(null))//默认当天
+  endTime.value = dataToTimestamp(formatDefaultTime())//默认当天
   props.changeTime(beginTime.value, endTime.value)
 })
 const selectTag = (timeM: timeModel) => {
@@ -78,8 +75,8 @@ const selectTag = (timeM: timeModel) => {
     else item.selected = false
   }, filterOption.value)
 }
-//@ts-ignore //  const closeDialog = () =>{ props.closeModel()}
-
+//@ts-ignore
+const closeDialog = () =>{ props.closeModel()}
 </script>
 <template>
   <div class="flex justify-between items-center">
@@ -105,9 +102,9 @@ const selectTag = (timeM: timeModel) => {
           </el-date-picker>
         </div>
       </div>
-<!--      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">-->
-<!--        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">-->
-<!--      </div>-->
+      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">
+        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">
+      </div>
     </div>
 
   </div>
