@@ -62,7 +62,6 @@ export function dataToTimestamp(time:string) {
 }
 export const formatDefaultTime = (date: string) => dayjs(date).format("YYYY-MM-DD")
 //得到对应时间的时间戳  如 前7天 前30天
-
 export const  getagoTimeStamp=(day:number)=>{
    return dataToTimestamp(dayjs().subtract(day, "days").format("YYYY-MM-DD"));
 }
