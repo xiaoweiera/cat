@@ -196,3 +196,10 @@
   @apply w-17.5  text-kd14px18px text-global-default opacity-65;
 }
 </style>
+
+// @formatter:off
+<route lang="yaml">
+meta:
+ layout: growthpadLayout
+</route>
+// @formatter:off
