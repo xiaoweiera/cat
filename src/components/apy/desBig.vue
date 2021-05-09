@@ -6,7 +6,6 @@ import {defineProps, watch, ref} from 'vue'
 import { chartsConfig } from '~/logic/apy/config'
 //@ts-ignore
 import {ElDatePicker, ElButton} from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
 // import lang from 'element-plus/lib/locale/lang/zh-cn' locale(lang)
 import * as R from 'ramda'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
