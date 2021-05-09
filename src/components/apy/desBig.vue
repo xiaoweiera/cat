@@ -1,14 +1,14 @@
 <script setup lang="ts">
 //@ts-ignore
 import * as echarts from 'echarts'
-import {defineProps, onMounted, watch, ref, reactive} from 'vue'
-import {chartsConfig} from '~/logic/apy/config'
-
-
-import {ElDatePicker, ElButton,locale} from 'element-plus'
-import lang from 'element-plus/lib/locale/lang/zh-cn'
+import {defineProps, watch, ref} from 'vue'
+//@ts-ignore
+import { chartsConfig } from '~/logic/apy/config'
+//@ts-ignore
+import {ElDatePicker, ElButton} from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
+// import lang from 'element-plus/lib/locale/lang/zh-cn' locale(lang)
 import * as R from 'ramda'
-locale(lang)
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 
 interface timeModel {
@@ -76,7 +76,9 @@ const selectTag = (timeM: timeModel) => {
   }, filterOption.value)
 }
 //@ts-ignore
-const closeDialog = () =>{ props.closeModel()}
+const closeDialog = () => {
+  props.closeModel()
+}
 </script>
 <template>
   <div class="flex justify-between items-center">
@@ -110,6 +112,7 @@ const closeDialog = () =>{ props.closeModel()}
   </div>
 </template>
 <style lang="postcss" scoped>
+
 .timeTag {
   border-radius: 2px;
   cursor: pointer;
