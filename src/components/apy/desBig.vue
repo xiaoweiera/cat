@@ -5,7 +5,7 @@ import {defineProps, watch, ref} from 'vue'
 //@ts-ignore
 import { chartsConfig } from '~/logic/apy/config'
 //@ts-ignore
-import {ElDatePicker, ElIcon,ElButton} from 'element-plus'
+import {ElDatePicker,ElIcon} from 'element-plus'
 
 import * as R from 'ramda'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
@@ -111,6 +111,9 @@ const closeDialog = () =>props.closeModel()
 </template>
 
 <style lang="postcss" scoped>
+.is-left{
+  color:red;
+}
 .timeTag {
   border-radius: 2px;
   cursor: pointer;
