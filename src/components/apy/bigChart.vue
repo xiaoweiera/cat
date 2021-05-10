@@ -136,7 +136,7 @@ const closeModel = () => {
   <div class="dialogModel" @click="closeModel">
     <img class="closeButton hand" @click="closeModel" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
     <div class="dialogChart  px-5 py-5.1" @click.stop="">
-      <ApyDesBig :closeModel="closeModel" :changeTime="changeTime" :title="props.chartData.title"
+      <ApyDesBig  :changeTime="changeTime" :title="props.chartData.title"
                  :selected="tags.selected" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
       <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
       <div :id="props.id+'big'" class="whNumber">

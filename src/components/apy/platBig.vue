@@ -8,7 +8,6 @@ const props = defineProps({
 const {selected: selectedTag} = toRefs(props.tags)
 //@ts-ignore
 const clickTag = (name: string) => {
-  getIsMore(name)
   selectedTag.value = name
   isShowMore.value = false
 }
@@ -18,20 +17,6 @@ const showMore = () => isShowMore.value = true
 //@ts-ignore
 const closeMore = () => isShowMore.value = false
 const isMore=ref(true)
-//判断是不是外面三个平台
-const getIsMore=(name:string)=>{
-  //@ts-ignore
-  for(let i=0;i<props.tags.platforms.length-1;i++){
-    //@ts-ignore
-    let item=props.tags.platforms[i]
-    if(item===name && i<3){
-      isMore.value=true
-      return false
-    }else{
-      isMore.value=false
-    }
-  }
-}
 </script>
 <template>
   <div class="flex mt-3 w-full min-h-7 relative  items-center  justify-between ">

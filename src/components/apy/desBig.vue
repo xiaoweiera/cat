@@ -19,8 +19,7 @@ const props = defineProps({
   selected: {type: String},
   tableIndex: {type: Number},
   chartIndex: {type: Number},
-  changeTime: {type: Function},
-  closeModel: {type: Function}
+  changeTime: {type: Function}
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
@@ -43,9 +42,9 @@ const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
   selected: false
 }, {name: '近3月', value: 90, selected: false}, {name: '自定义', value: 0, selected: false}])
 
-watch(() => props.selected, (n, o) => {
-  time.value = null
-})
+// watch(() => props.selected, (n, o) => {
+//   time.value = null
+// })
 watch(() => time.value, (n, o) => {
   if (time.value) {
     beginTime.value = dataToTimestamp(formatDefaultTime(n[0]))
@@ -76,8 +75,6 @@ const selectTag = (timeM: timeModel) => {
     else item.selected = false
   }, filterOption.value)
 }
-//@ts-ignore
-const closeDialog = () =>props.closeModel()
 </script>
 <template>
   <div class="flex justify-between items-center">
@@ -103,9 +100,7 @@ const closeDialog = () =>props.closeModel()
           </el-date-picker>
         </div>
       </div>
-      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">
-        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">
-      </div>
+
     </div>
   </div>
 </template>
