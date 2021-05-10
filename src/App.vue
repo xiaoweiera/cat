@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
 import '~/styles/font.css'
-import {onMounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
 const {t} = useI18n()
 // https://github.com/vueuse/head
@@ -23,6 +22,9 @@ useHead({
   </div>
 </template>
 <style>
+button{
+  outline: 0 !important;
+}
 .en .i8n-font-Barlow {
   font-family: i8n-font-Barlow !important
 }
@@ -31,6 +33,7 @@ useHead({
 }
 div,
 img,
+button,
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;

@@ -5,12 +5,8 @@ import {defineProps, watch, ref} from 'vue'
 //@ts-ignore
 import { chartsConfig } from '~/logic/apy/config'
 //@ts-ignore
-import {ElDatePicker, ElButton} from 'element-plus'
-// import lang from 'element-plus/lib/locale/lang/zh-cn' locale(lang)
-// import 'element-plus/lib/theme-chalk/el-time-picker.css'
-// import 'element-plus/lib/theme-chalk/el-color-picker.css'
-// import 'element-plus/lib/theme-chalk/el-container.css'
-// import 'element-plus/lib/theme-chalk/base.css'
+import {ElDatePicker, ElIcon} from 'element-plus'
+
 import * as R from 'ramda'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 
@@ -39,7 +35,7 @@ const getTitle = () => {
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
-const editTime = ref(false)//控制是否显示自定义时间
+const editTime = ref(true)//控制是否显示自定义时间
 //@ts-ignore
 const closeShow = ref(false)
 const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
@@ -55,7 +51,7 @@ watch(() => time.value, (n, o) => {
   if (time.value) {
     beginTime.value = dataToTimestamp(formatDefaultTime(n[0]))
     endTime.value = dataToTimestamp(formatDefaultTime(n[1]))
-    props.changeTime(beginTime.value, endTime.value)
+    props?.changeTime(beginTime.value, endTime.value)
   }
 })
 watch(() => beginTime.value, (n, o) => {
@@ -64,14 +60,15 @@ watch(() => beginTime.value, (n, o) => {
   }
   beginTime.value = n
   endTime.value = dataToTimestamp(formatDefaultTime())//默认当天
-  props.changeTime(beginTime.value, endTime.value)
+  props?.changeTime(beginTime.value, endTime.value)
 })
 const selectTag = (timeM: timeModel) => {
+
   if (timeM.name === '自定义') {
     editTime.value = true
   } else {
     beginTime.value = getagoTimeStamp(timeM.value)
-    editTime.value = false //关闭自定义
+    editTime.value = true //关闭自定义
     time.value = null //自定义清空
   }
   R.map(item => {
@@ -80,9 +77,7 @@ const selectTag = (timeM: timeModel) => {
   }, filterOption.value)
 }
 //@ts-ignore
-const closeDialog = () => {
-  props.closeModel()
-}
+const closeDialog = () =>props.closeModel()
 </script>
 <template>
   <div class="flex justify-between items-center">
@@ -112,13 +107,9 @@ const closeDialog = () => {
         <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">
       </div>
     </div>
-
   </div>
 </template>
 <style lang="postcss" scoped>
-
-
-
 .timeTag {
   border-radius: 2px;
   cursor: pointer;
@@ -136,7 +127,6 @@ const closeDialog = () => {
   background: rgba(43, 141, 254, 0.08);
   border-radius: 4px;
 }
-
 ::v-deep(.el-range-editor--mini .el-range-input) {
   width: 100px !important;
   font-family: PingFang SC;
