@@ -35,7 +35,7 @@ const getTitle = () => {
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
-const editTime = ref(true)//控制是否显示自定义时间
+const editTime = ref(false)//控制是否显示自定义时间
 //@ts-ignore
 const closeShow = ref(false)
 const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
@@ -68,7 +68,7 @@ const selectTag = (timeM: timeModel) => {
     editTime.value = true
   } else {
     beginTime.value = getagoTimeStamp(timeM.value)
-    editTime.value = true //关闭自定义
+    editTime.value = false //关闭自定义
     time.value = null //自定义清空
   }
   R.map(item => {
