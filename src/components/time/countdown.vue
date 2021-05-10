@@ -10,18 +10,22 @@
   const hour = ref('0')
   const minute = ref('0')
   const end = ref(0)
+  // 监听传入进来的时间值
   watch(props.value, () => {
     const time = dayjs(props.value, format)
     end.value = time.valueOf()
   }, { immediate: true })
+  // 计算倒计时 - 天
   const getDay = function(duration: number): string {
     const number = parseInt(duration / 1000 / 60 / 60 / 24, 10)
     return number < 10 ? `0${number}` : String(number)
   }
+  // 计算倒计时 - 时
   const getHour = function(duration: number): string {
     const number = parseInt(duration / 1000 / 60 / 60 % 24, 10)
     return number < 10 ? `0${number}` : String(number)
   }
+  // 计算倒计时 - 分
   const getMinute = function(duration: number): string {
     const number = parseInt(duration / 1000 / 60 % 60, 10)
     return number < 10 ? `0${number}` : String(number)
@@ -33,6 +37,7 @@
     // 当前时间
     const now = dayjs().valueOf()
     const duration = end.value - now
+    // 结束倒计时
     if (duration < 0) {
       day.value = '00'
       hour.value = '00'
@@ -59,23 +64,35 @@
 
 <template>
   <div class="flex text-center justify-between items-center">
-    <p class="flex flex-col flex-wrap">
-      <span>{{ day }}</span>
-      <span>Days</span>
+    <p class="flex flex-col flex-wrap text-center">
+      <span class="font-bold time-value font-kdExp">{{ day }}</span>
+      <span class="text-sm font-kdFang">Days</span>
     </p>
-    <p>:</p>
-    <p class="flex flex-col flex-wrap">
-      <span>{{ hour }}</span>
-      <span>Hours</span>
+    <p>
+      <span class="font-bold text-2xl">:</span>
     </p>
-    <p>:</p>
-    <p class="flex flex-col flex-wrap">
-      <span>{{ minute }}</span>
-      <span>Minutes</span>
+    <p class="flex flex-col flex-wrap text-center">
+      <span class="font-bold time-value font-kdExp">{{ hour }}</span>
+      <span class="text-sm font-kdFang">Hours</span>
+    </p>
+    <p>
+      <span class="font-bold text-2xl">:</span>
+    </p>
+    <p class="flex flex-col flex-wrap text-center">
+      <span class="font-bold time-value font-kdExp">{{ minute }}</span>
+      <span class="text-sm font-kdFang">Minutes</span>
     </p>
   </div>
 </template>
 
 <style scoped>
-
+  .time-value {
+    font-size: 42px;
+  }
+  .font-bold {
+    color: #2B8DFE;
+  }
+  .text-sm {
+    color: rgba(37, 62, 111, 0.65);
+  }
 </style>

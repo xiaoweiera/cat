@@ -21,7 +21,7 @@
       { text: '4' },
     ],
   }
-  const code = '<frame src="https://embed.KingData.com/embe d/s/914814682750.htm"style-"border: none;" width="490"height=”164” frameborder="0" scrolling="no" allowfullscreen></iframe>'
+  const code = '<frame src="https://embed.KingData.com/embed/s/914814682750.htm" style-"border: none;" width="490" height="164" frameborder="0" scrolling="no" allowfullscreen></iframe>'
 </script>
 <template>
   <div class="container flex">
@@ -47,17 +47,17 @@
       <growthpadExamplesAbout />
     </div>
     <div class="ml-15 tips hidden md:block">
-      <div class="w-full">
+      <div class="w-full pt-15">
         <div>
           <p>开始倒计时</p>
           <TimeCountdown value="2021-05-12 12:12:00" />
         </div>
-        <div class="rounded-2xl">
-          <h2>添加项目卡片</h2>
-          <p>将此项目卡片添加到你的网站</p>
-          <div>
+        <div class="mt-15">
+          <h2 class="font-medium">添加项目卡片</h2>
+          <p class="text-xs sub">将此项目卡片添加到你的网站</p>
+          <div class="mt-3 rounded-xl p-3 share-code">
             <p class="break-all">{{ code }}</p>
-            <span>复制代码</span>
+            <span class="text-xs font-color-theme">复制代码</span>
           </div>
         </div>
       </div>
@@ -69,11 +69,18 @@
   .tips {
     width: 220px;
   }
+  .share-code {
+    background: linear-gradient(180deg, #F8F9FF 0%, #E3EEFF 100%);
+    box-shadow: 0 6px 24px -12px rgba(43, 141, 255, 0.16);
+  }
+  .sub {
+    color: rgba(37, 62, 111, 0.65);
+  }
 </style>
 
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: home
+  layout: examples
 </route>
 // @formatter:off

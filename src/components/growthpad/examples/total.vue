@@ -41,9 +41,5 @@
 <style scoped lang="postcss">
   .total {
     min-height: 310px;
-    background-image: url("/assets/growthpad/examples/background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 </style>
