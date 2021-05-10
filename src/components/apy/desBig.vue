@@ -5,102 +5,15 @@ import {defineProps, watch, ref} from 'vue'
 //@ts-ignore
 import { chartsConfig } from '~/logic/apy/config'
 //@ts-ignore
-import {
-  ElAlert,
-  ElAside,
-  ElAutocomplete,
-  ElAvatar,
-  ElBacktop,
-  ElBadge,
-  ElBreadcrumb,
-  ElBreadcrumbItem,
-  ElButton,
-  ElButtonGroup,
-  ElCalendar,
-  ElCard,
-  ElCarousel,
-  ElCarouselItem,
-  ElCascader,
-  ElCascaderPanel,
-  ElCheckbox,
-  ElCheckboxButton,
-  ElCheckboxGroup,
-  ElCol,
-  ElCollapse,
-  ElCollapseItem,
-  ElCollapseTransition,
-  ElColorPicker,
-  ElContainer,
-  ElDatePicker,
-  ElDialog,
-  ElDivider,
-  ElDrawer,
-  ElDropdown,
-  ElDropdownItem,
-  ElDropdownMenu,
-  ElFooter,
-  ElForm,
-  ElFormItem,
-  ElHeader,
-  ElIcon,
-  ElImage,
-  ElInput,
-  ElInputNumber,
-  ElLink,
-  ElMain,
-  ElMenu,
-  ElMenuItem,
-  ElMenuItemGroup,
-  ElOption,
-  ElOptionGroup,
-  ElPageHeader,
-  ElPagination,
-  ElPopconfirm,
-  ElPopover,
-  ElPopper,
-  ElProgress,
-  ElRadio,
-  ElRadioButton,
-  ElRadioGroup,
-  ElRate,
-  ElRow,
-  ElScrollbar,
-  ElSelect,
-  ElSlider,
-  ElStep,
-  ElSteps,
-  ElSubmenu,
-  ElSwitch,
-  ElTabPane,
-  ElTable,
-  ElTableColumn,
-  ElTabs,
-  ElTag,
-  ElTimePicker,
-  ElTimeSelect,
-  ElTimeline,
-  ElTimelineItem,
-  ElTooltip,
-  ElTransfer,
-  ElTree,
-  ElUpload,
-  ElInfiniteScroll,
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElNotification,
-} from 'element-plus';
+import {ElDatePicker, ElIcon} from 'element-plus'
 
 import * as R from 'ramda'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
-
-
 interface timeModel {
   name: string
   value: number
   selected: boolean
 }
-
 const props = defineProps({
   title: {type: String},
   selected: {type: String},
@@ -116,6 +29,8 @@ const getTitle = () => {
     return props.selected + ' ' + props.title
   }
 }
+const testDom=ref(null)
+
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
@@ -149,6 +64,7 @@ watch(() => beginTime.value, (n, o) => {
 const selectTag = (timeM: timeModel) => {
 
   if (timeM.name === '自定义') {
+    document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
   } else {
     beginTime.value = getagoTimeStamp(timeM.value)
@@ -174,8 +90,8 @@ const closeDialog = () =>props.closeModel()
             {{ item.name }}
           </div>
         </template>
-        <div v-if="editTime" class="timeContainer">
-          <el-date-picker
+        <div v-show="editTime" class="timeContainer">
+          <el-date-picker id="datePickerDom"
               :clearable="closeShow"
               size="mini"
               v-model="time"
@@ -193,6 +109,7 @@ const closeDialog = () =>props.closeModel()
     </div>
   </div>
 </template>
+
 <style lang="postcss" scoped>
 .timeTag {
   border-radius: 2px;
