@@ -21,8 +21,9 @@ export default defineConfig({
   },
 
   plugins: [
-
-    Vue(),
+    Vue({
+      include: [/\.vue$/, /\.md$/],
+    }),
     styleImport({
       libs: [
         {
