@@ -7,8 +7,13 @@ import { chartsConfig } from '~/logic/apy/config'
 //@ts-ignore
 import {ElDatePicker, ElButton} from 'element-plus'
 // import lang from 'element-plus/lib/locale/lang/zh-cn' locale(lang)
+import 'element-plus/lib/theme-chalk/el-time-picker.css'
+import 'element-plus/lib/theme-chalk/el-color-picker.css'
+import 'element-plus/lib/theme-chalk/el-container.css'
+import 'element-plus/lib/theme-chalk/base.css'
 import * as R from 'ramda'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
+
 
 interface timeModel {
   name: string
@@ -111,6 +116,8 @@ const closeDialog = () => {
   </div>
 </template>
 <style lang="postcss" scoped>
+
+
 
 .timeTag {
   border-radius: 2px;
