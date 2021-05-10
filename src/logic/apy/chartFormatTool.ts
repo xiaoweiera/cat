@@ -80,7 +80,6 @@ interface chartItem {
     project_name: string
     data: projectItem[]
 }
-
 const getxyDataWithField = (data: chartItem, field: String) => {
     if(!data) return {}
     //@ts-ignore
