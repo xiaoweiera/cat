@@ -37,17 +37,15 @@ export const getMediaList = async function<T>(): Promise<T[]> {
   const params = {
     position: 5,
   }
-  const list: T[] = []
   try {
     const result = await request({ url, params, method: 'get' })
     const data = result?.data?.data
     if (data) {
-      list.push(...data)
+      return data as T[]
     }
   }
   catch (e) {
     // todo
   }
-  return list
+  return []
 }
-
