@@ -17,21 +17,21 @@
 
 <template>
   <div>
-    <h2>{{ title }}</h2>
-    <DotCountGroup>
+    <h2 class="font-medium text-base">{{ title }}</h2>
+    <DotCountGroup class="pt-4">
       <ul>
-        <li v-for="(item, index) in list" :key="index">
-          <div class="flex mt-1 p-1">
-            <DotCount size="sm" :skin="skin"/>
-            <div class="ml-1 flex-1 flex justify-between">
-              <slot data="item">
-                <growthpadExamplesTask :data="item" />
-              </slot>
-            </div>
-          </div>
+        <li v-for="(item, index) in list" :key="index" :class="{ 'mt-1': index > 0 }">
+          <slot data="item" :skin="skin">
+            <growthpadExamplesTask :data="item" :skin="skin" />
+          </slot>
         </li>
       </ul>
     </DotCountGroup>
   </div>
 </template>
 
+<style scoped>
+  h2 {
+    color: #033666;
+  }
+</style>

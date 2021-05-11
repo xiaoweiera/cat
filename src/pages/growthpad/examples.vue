@@ -11,10 +11,10 @@
     <div class="flex-1">
       <growthpadExamplesDasboard />
       <div>
-        <growthpadExamplesTaskList skin="orange" title="task1.title" :list="TaskList1" />
+        <growthpadExamplesTaskList skin="orange" title="白名单资格预审" :list="TaskList1" />
       </div>
       <div class="pt-15">
-        <growthpadExamplesTaskList skin="blue" title="task2.title" :list="TaskList2" />
+        <growthpadExamplesTaskList skin="blue" title="增长任务（根据项目需求定制）" :list="TaskList2" />
       </div>
       <div>
         <h2>登记地址</h2>
