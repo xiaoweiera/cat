@@ -5,24 +5,20 @@ import {defineProps, watch, ref} from 'vue'
 //@ts-ignore
 import { chartsConfig } from '~/logic/apy/config'
 //@ts-ignore
-import {ElDatePicker, ElButton} from 'element-plus'
-// import lang from 'element-plus/lib/locale/lang/zh-cn' locale(lang)
+import {ElDatePicker} from 'element-plus'
 import * as R from 'ramda'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
-
 interface timeModel {
   name: string
   value: number
   selected: boolean
 }
-
 const props = defineProps({
   title: {type: String},
   selected: {type: String},
   tableIndex: {type: Number},
   chartIndex: {type: Number},
-  changeTime: {type: Function},
-  closeModel: {type: Function}
+  changeTime: {type: Function}
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
@@ -31,6 +27,7 @@ const getTitle = () => {
     return props.selected + ' ' + props.title
   }
 }
+const testDom=ref(null)
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
@@ -42,30 +39,22 @@ const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
   value: 30,
   selected: false
 }, {name: '近3月', value: 90, selected: false}, {name: '自定义', value: 0, selected: false}])
-
-watch(() => props.selected, (n, o) => {
-  time.value = null
-})
 watch(() => time.value, (n, o) => {
   if (time.value) {
-    beginTime.value = dataToTimestamp(formatDefaultTime(n[0]))
-    endTime.value = dataToTimestamp(formatDefaultTime(n[1]))
-    props.changeTime(beginTime.value, endTime.value)
+    updateChart(dataToTimestamp(formatDefaultTime(n[0])),dataToTimestamp(formatDefaultTime(n[1])))
   }
 })
-watch(() => beginTime.value, (n, o) => {
-  if (editTime.value === true) {
-    return
-  }
-  beginTime.value = n
-  endTime.value = dataToTimestamp(formatDefaultTime())//默认当天
-  props.changeTime(beginTime.value, endTime.value)
-})
+const updateChart=(begin:number,end:number)=>{
+  beginTime.value = begin
+  endTime.value = end
+  props?.changeTime(beginTime.value, endTime.value)
+}
 const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
+    document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
   } else {
-    beginTime.value = getagoTimeStamp(timeM.value)
+    updateChart(getagoTimeStamp(timeM.value),dataToTimestamp(formatDefaultTime()))
     editTime.value = false //关闭自定义
     time.value = null //自定义清空
   }
@@ -73,10 +62,6 @@ const selectTag = (timeM: timeModel) => {
     if (item.name === timeM.name) item.selected = true
     else item.selected = false
   }, filterOption.value)
-}
-//@ts-ignore
-const closeDialog = () => {
-  props.closeModel()
 }
 </script>
 <template>
@@ -90,8 +75,8 @@ const closeDialog = () => {
             {{ item.name }}
           </div>
         </template>
-        <div v-if="editTime" class="timeContainer">
-          <el-date-picker
+        <div v-show="editTime" class="timeContainer">
+          <el-date-picker id="datePickerDom"
               :clearable="closeShow"
               size="mini"
               v-model="time"
@@ -103,13 +88,11 @@ const closeDialog = () => {
           </el-date-picker>
         </div>
       </div>
-      <div @click="closeDialog" class="closeSmall w-7.5 h-7.5 flex items-center justify-center ml-6 hand">
-        <img class="w-4 h-4" src="https://res.ikingdata.com/nav/apySmall.png" alt="">
-      </div>
-    </div>
 
+    </div>
   </div>
 </template>
+
 <style lang="postcss" scoped>
 
 .timeTag {
@@ -117,7 +100,6 @@ const closeDialog = () => {
   cursor: pointer;
   @apply px-2 py-1 text-kd14px18px text-global-default opacity-65;
 }
-
 .timeTagSelected {
   cursor: pointer;
   border-radius: 2px;
@@ -129,7 +111,6 @@ const closeDialog = () => {
   background: rgba(43, 141, 254, 0.08);
   border-radius: 4px;
 }
-
 ::v-deep(.el-range-editor--mini .el-range-input) {
   width: 100px !important;
   font-family: PingFang SC;

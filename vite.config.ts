@@ -21,7 +21,6 @@ export default defineConfig({
   },
 
   plugins: [
-
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),

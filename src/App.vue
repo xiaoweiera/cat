@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
 import '~/styles/font.css'
-import {onMounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
 const {t} = useI18n()
 // https://github.com/vueuse/head
@@ -23,6 +22,45 @@ useHead({
   </div>
 </template>
 <style>
+[class*=" el-icon-"], [class^=el-icon-] {
+  font-family: element-icons!important;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: baseline;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.el-picker-panel__icon-btn {
+  font-size: 12px;
+  color: #303133;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  margin-top: 8px;
+}
+.el-icon-d-arrow-left:before {
+  content:'<<'
+}
+.el-icon-arrow-left:before {
+  margin-left: 10px;
+  content:'<'
+}
+.el-icon-arrow-right:before {
+  margin-right: 10px;
+  content:'>'
+}
+.el-icon-d-arrow-right:before {
+  content:'>>'
+}
+button{
+  outline: 0 !important;
+}
 .en .i8n-font-Barlow {
   font-family: i8n-font-Barlow !important
 }
@@ -31,6 +69,7 @@ useHead({
 }
 div,
 img,
+button,
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;

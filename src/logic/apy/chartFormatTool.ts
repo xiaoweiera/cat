@@ -49,11 +49,9 @@ export interface chartModel {
     chartData: Function
     xyData: Function
 }
-
 export interface newModel {
     title: string
 }
-
 //------------------第n个table的第三个表----------------
 export const lendDataFormat = (data: lendModel) => data.total_supply
 export const loanDataFormat = (data: loanModel) => data.total_borrowed
@@ -64,24 +62,19 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
     if (selected === '用户总收益') {
         return data.reward_cap
     }
-
     return data.machine_gun_pool_single_avg_apy
 }
-//-----------------------------------------------------
-
 //第一个图表
-export const getChartProjectData = (data: projectItem[], selected: string) => data.find((item: any) => item.project_name === selected)
+export const getChartProjectData = (data: projectItem[], selected: string) => data?.find((item: any) => item.project_name === selected)
 //第二个图表
-export const getChartTokenData = (data: tokenItem[], selected: string) => data.find((item: any) => item.token_name === selected)
-
-
+export const getChartTokenData = (data: tokenItem[], selected: string) => data?.find((item: any) => item.token_name === selected)
 //得到x轴y轴
 interface chartItem {
     project_name: string
     data: projectItem[]
 }
-
 const getxyDataWithField = (data: chartItem, field: String) => {
+    if(!data) return {}
     //@ts-ignore
     let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
     let min=0
