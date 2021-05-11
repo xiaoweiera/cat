@@ -1,39 +1,20 @@
 <script setup lang="ts">
   import { ref } from 'vue'
+  // @ts-ignore
   import { ElInput, ElButton } from 'element-plus'
+  import { shareCode, TaskList1, TaskList2 } from '~/logic/growthpad/examples'
+  // 地址
   const address = ref('')
-
-  const task1 = {
-    title: '白名单资格预审',
-    list: [
-      { text: '1' },
-      { text: '2' },
-      { text: '3' },
-      { text: '4' },
-    ],
-  }
-  const task2 = {
-    title: '增长任务（根据项目需求定制）',
-    list: [
-      { text: '1' },
-      { text: '2' },
-      { text: '3' },
-      { text: '4' },
-    ],
-  }
-  const code = '<frame src="https://embed.KingData.com/embed/s/914814682750.htm" style-"border: none;" width="490" height="164" frameborder="0" scrolling="no" allowfullscreen></iframe>'
 </script>
 <template>
   <div class="container flex">
     <div class="flex-1">
-      <growthpadExamplesTotal />
+      <growthpadExamplesDasboard />
       <div>
-        <growthpadExamplesList title="task1.title" :list="task1.list">
-        </growthpadExamplesList>
+        <growthpadExamplesTaskList skin="orange" title="task1.title" :list="TaskList1" />
       </div>
       <div class="pt-15">
-        <growthpadExamplesList title="task2.title" :list="task2.list">
-        </growthpadExamplesList>
+        <growthpadExamplesTaskList skin="blue" title="task2.title" :list="TaskList2" />
       </div>
       <div>
         <h2>登记地址</h2>
@@ -56,7 +37,7 @@
           <h2 class="font-medium">添加项目卡片</h2>
           <p class="text-xs sub">将此项目卡片添加到你的网站</p>
           <div class="mt-3 rounded-xl p-3 share-code">
-            <p class="break-all">{{ code }}</p>
+            <p class="break-all">{{ shareCode }}</p>
             <span class="text-xs font-color-theme">复制代码</span>
           </div>
         </div>

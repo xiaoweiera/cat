@@ -1,7 +1,10 @@
 <script setup lang="ts">
   import { defineProps, computed } from 'vue'
   const props = defineProps({
-    value: [String, Number],
+    value: {
+      type: [String, Number],
+    },
+    img: { type: String },
     size: {
       validator(value: string): boolean {
         return ['sm', 'lg'].includes(value)
@@ -11,16 +14,41 @@
       },
     },
   })
-
+  // @ts-ignore
   const char = computed((): string => {
-    const [text = ''] = `${props.value}`
-    return text
+    if (props.value) {
+      const [text = ''] = `${props.value}`
+      return text
+    }
+    return ''
   })
-
+  // class Name
+  // @ts-ignore
+  const className = computed(() => {
+    const data: any = {}
+    data[props.size] = true
+    // 如果 img 属性存在，则以图片形式展示
+    if (props.img) {
+      data['inline-block'] = true
+      return data
+    }
+    data.dot = true
+    data['inline-flex'] = true
+    data['justify-center'] = true
+    data['items-center'] = true
+    return data
+  })
 </script>
 
 <template>
-  <span class="dot inline-flex justify-center items-center" :class="size">{{ char }}</span>
+  <span :class="className">
+    <template v-if="img">
+      <img class="w-full w-max inline-block" :src="img" />
+    </template>
+    <template v-else-if="char">
+      <template>{{ char }}</template>
+    </template>
+  </span>
 </template>
 
 <style scoped>
@@ -29,11 +57,11 @@
     border-radius: 50%;
     color: #fff;
   }
-  .dot.sm {
+  .sm {
     width: 24px;
     height: 24px;
   }
-  .dot.lg {
+  .lg {
     width: 42px;
     height: 42px;
     font-size: 28px;
