@@ -8,6 +8,7 @@ const props = defineProps({
 const {selected: selectedTag} = toRefs(props.tags)
 //@ts-ignore
 const clickTag = (name: string) => {
+
   selectedTag.value = name
   isShowMore.value = false
 }
