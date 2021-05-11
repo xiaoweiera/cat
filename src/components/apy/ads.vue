@@ -5,12 +5,12 @@
 
 <template>
   <div class="max-w-full" v-show="list.length">
-    <div v-if="list.length < 5" class="flex flex-nowrap justify-center pb-12">
+    <div v-if="list.length < 5" class="flex flex-nowrap justify-center pb-6.5">
       <div class="ad-basis" v-for="(item, index) in list" :class="{'ml-6': index > 0}" :key="index">
         <ApyAd :url="item.url" :image="item.image"></ApyAd>
       </div>
     </div>
-    <div v-else class="grid grid-cols-5 pb-6">
+    <div v-else class="grid grid-cols-5 pb-6.5">
       <div class="grid-item" v-for="(item, index) in list" :key="index">
         <ApyAd :url="item.url" :image="item.image"></ApyAd>
       </div>
@@ -28,6 +28,6 @@
     margin-right: -12px;
   }
   .grid-item {
-    padding: 0 12px 24px 12px;
+    padding: 0 12px 0px 12px;
   }
 </style>

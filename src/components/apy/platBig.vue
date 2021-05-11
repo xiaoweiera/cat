@@ -21,7 +21,7 @@ const isMore=ref(true)
 </script>
 <template>
   <div class="flex mt-3 w-full min-h-7 relative  items-center  justify-between ">
-    <div class="flex justify-between">
+    <div class="flex  flex-wrap">
       <template v-for="(item,i) in tags.platforms">
         <span @click="clickTag(item)" :class="selectedTag===item?'selectTag tag hand':'tag hand'">{{
             item

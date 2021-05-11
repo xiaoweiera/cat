@@ -57,6 +57,7 @@ export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], option
             project_name: row.project_name,
             //@ts-ignore
             icon: row.icon,
+            chain:row.chain,
             //@ts-ignore
             url: row.url,
             data: headers.map(({token_name}: { token_name: String }) => {

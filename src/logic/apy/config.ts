@@ -90,6 +90,12 @@ export const chainConfig = [
     name: 'HSC',
     img: 'https://res.ikingdata.com/nav/apyHsc.png',
   },
+  {
+    select: false,
+    key: 'all',
+    name: '全部',
+    img: 'https://res.ikingdata.com/nav/apyAllTip.png',
+  },
 ]
 export const chartsConfig = {
   lend: [

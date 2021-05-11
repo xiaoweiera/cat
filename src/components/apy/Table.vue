@@ -5,6 +5,7 @@ import {ref, defineProps, watch, toRefs, onMounted} from 'vue'
 import {filterByOptions} from '~/logic/apy/tableDetail'
 
 const props = defineProps({
+  chains:{type:String},
   project: {type: String},
   title: {type: String},
   index: {type: Number},
@@ -12,6 +13,7 @@ const props = defineProps({
   timer: {type: Number},
   isFirstShow: {type: Boolean}
 })
+
 //@ts-ignore
 const {rows, headers, options, loading} = toRefs(props.tableData)
 const renderCells = ref([])
@@ -28,6 +30,15 @@ watch(() => loading.value, (v) => {
     renderCells.value = filterByOptions(headers.value, rows.value, options.value.data, key.value, type.value)
   }
 })
+const chainInfo={
+  'eth':{name:'ETH',color:'rgba(37, 62, 111, 0.65)',bgcolor:'rgba(27, 27, 27, 0.1)'},
+  'heco':{name:'HECO',color:'#12AD50', bgcolor:'rgba(18, 173, 80, 0.1)'},
+  'bsc':{name:'BSC',color:'#CEA100',bgcolor:'rgba(206, 161, 0, 0.1)'},
+  'hsc':{name:'ETH',color:'#00C19C',bgcolor:'rgba(0, 193, 156, 0.1)'},
+}
+const getPlatInfo=(name:string)=>{
+  return chainInfo[name]
+}
 // 单元格背景色
 //@ts-ignore
 const addClass = ({row, columnIndex}) => {
@@ -70,11 +81,14 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
                     <div class="font-kdExp mb-1  text-kd14px18px text-global-highTitle font-normal">
                       {{ scope.row.project_name }}
                     </div>
-                    <div
-                        class="font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary"
-                    >
+                    <div class="tableItemType">
                       <span v-if="props.index==0">机枪池</span>
                       <span v-else>借贷平台</span>
+                    </div>
+                    <div v-if="props.chains==='all'" class="tableItemTypePlat mt-1" :style="{background:getPlatInfo(scope.row.chain).bgcolor,color:getPlatInfo(scope.row.chain).color}">
+                      <span >
+                        {{getPlatInfo(scope.row.chain).name}}
+                       </span>
                     </div>
                   </div>
                 </a>
@@ -122,11 +136,12 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
                         class="font-kdExp text-center mb-1 text-kd12px18px  md:text-kd14px18px text-global-highTitle font-normal">
                       {{ scope.row.project_name }}
                     </div>
-                    <div
-                        class="font-normal rounded h-4.5 w-max mx-auto  px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd9px14px md:text-kd10px14px text-global-primary"
-                    >
+                    <div class="tableItemType">
                       <span v-if="props.index==0">机枪池</span>
                       <span v-else>借贷平台</span>
+                    </div>
+                    <div v-if="props.chains==='all'" class="tableItemTypePlat mt-1" :style="{background:getPlatInfo(scope.row.chain).bgcolor,color:getPlatInfo(scope.row.chain).color}">
+                      <span >{{scope.row.chain}}</span>
                     </div>
                   </div>
                 </a>
@@ -152,6 +167,12 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
 </template>
 
 <style scoped lang="postcss">
+.tableItemType{
+  @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary;
+}
+.tableItemTypePlat{
+  @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px ;
+}
 ::v-deep(.el-table th.gutter) {
   display: table-cell !important;
 }
