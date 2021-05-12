@@ -128,7 +128,7 @@ export default defineConfig({
     script: 'async',
     formatting: 'minify',
     onFinished: () => {
-      // fixme,  这里不应该保留，
+      // fixme, 这里不应该保留，
       process.exit(0)
     },
   },
