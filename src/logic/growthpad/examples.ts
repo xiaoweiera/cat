@@ -148,7 +148,7 @@ export const TaskList2 = reactive<TaskItem[]>([
     wait: '去完成',
     href: '/',
     tooltip: {
-      icon: 'twitter',
+      icon: 'twitter-white',
       value: 'Follow@KingData_com',
     },
     badge: '3K followers',
@@ -160,7 +160,7 @@ export const TaskList2 = reactive<TaskItem[]>([
     wait: '去完成',
     href: '/',
     tooltip: {
-      icon: 'twitter',
+      icon: 'twitter-white',
       value: 'Follow@Dev',
     },
     badge: '518K followers',

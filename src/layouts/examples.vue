@@ -3,7 +3,7 @@
   </div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">
     <ApyHeader/>
-    <main class="w-full flex justify-center examples">
+    <main class="w-full flex justify-center examples pb-15">
       <router-view/>
       <Footer/>
     </main>

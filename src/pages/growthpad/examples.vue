@@ -7,6 +7,8 @@
   // 地址
   // @ts-ignore
   const address = ref('')
+  // @ts-ignore
+  const countdown = ref('2021-05-20 12:00:00')
 </script>
 <template>
   <div class="container flex">
@@ -33,7 +35,7 @@
       <div class="w-full pt-15">
         <div>
           <p>开始倒计时</p>
-          <TimeCountdown value="2021-05-12 12:12:00" />
+          <TimeCountdown :value="countdown" />
         </div>
         <div class="mt-15">
           <h2 class="font-medium">添加项目卡片</h2>

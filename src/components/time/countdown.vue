@@ -11,27 +11,28 @@
   const minute = ref('0')
   const end = ref(0)
   // 监听传入进来的时间值
-  watch(props.value, () => {
+  watch(props.value as any, () => {
     const time = dayjs(props.value, format)
     end.value = time.valueOf()
+    console.log(end.value)
   }, { immediate: true })
   // 计算倒计时 - 天
   const getDay = function(duration: number): string {
-    const number = parseInt(duration / 1000 / 60 / 60 / 24, 10)
+    const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
     return number < 10 ? `0${number}` : String(number)
   }
   // 计算倒计时 - 时
   const getHour = function(duration: number): string {
-    const number = parseInt(duration / 1000 / 60 / 60 % 24, 10)
+    const number = parseInt((duration / 1000 / 60 / 60 % 24) as any, 10)
     return number < 10 ? `0${number}` : String(number)
   }
   // 计算倒计时 - 分
   const getMinute = function(duration: number): string {
-    const number = parseInt(duration / 1000 / 60 % 60, 10)
+    const number = parseInt((duration / 1000 / 60 % 60) as any, 10)
     return number < 10 ? `0${number}` : String(number)
   }
   // 倒计时
-  let intemout
+  let intemout: any
   const timeout = () => {
     clearTimeout(intemout)
     // 当前时间
@@ -51,7 +52,7 @@
     // 计算倒计时剩余分
     minute.value = getMinute(duration)
     // 计算倒计时剩余秒
-    const seconds = parseInt(duration / 1000 % 60, 10)
+    const seconds = parseInt((duration / 1000 % 60) as any, 10)
     if (seconds < 60) {
       intemout = setTimeout(timeout, 1000 * (60 - seconds))
     }
