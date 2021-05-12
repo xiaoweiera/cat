@@ -14,7 +14,12 @@
         <div class="flex items-center">
           <span class="description">{{ data.description }}</span>
           <template v-if="data.tooltip">
-            <span class="ml-1.5 tooltip py-1.5 px-1 rounded">{{ data.tooltip }}</span>
+            <span class="ml-1.5 tooltip py-1.5 px-1 rounded">
+              <template v-if="data.tooltip.icon">
+                <IconFont class="mr-1" :type="data.tooltip.icon" />
+              </template>
+              <span>{{ data.tooltip.value }}</span>
+            </span>
           </template>
           <template v-if="data.badge">
             <span class="ml-4 badge py-1.5 px-2 rounded">{{ data.badge }}</span>

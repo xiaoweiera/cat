@@ -6,11 +6,11 @@
 <template>
   <div class="py-15 total">
     <div class="flex items-center pb-5">
-      <DotChar :img="Icon" size="lg" />
+      <DotChar :img="Icon" size="xl" />
       <span class="text-2xl ml-2">{{ Name }} 增长</span>
       <span class="ml-4 hot py-1.5 px-3 rounded text-sm">
         <b class="font-medium">🔥</b>
-        <b class="font-medium ml-4">{{ Dasboard.status }}</b>
+        <b class="font-medium ml-3">{{ Dasboard.status }}</b>
       </span>
     </div>
     <div>

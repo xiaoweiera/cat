@@ -7,7 +7,7 @@
     img: { type: String },
     size: {
       validator(value: string): boolean {
-        return ['sm', 'lg'].includes(value)
+        return ['sm', 'xl', 'lg'].includes(value)
       },
       default: (): string => {
         return 'sm'
@@ -60,6 +60,10 @@
   .sm {
     width: 24px;
     height: 24px;
+  }
+  .xl {
+    width: 32px;
+    height: 32px;
   }
   .lg {
     width: 42px;

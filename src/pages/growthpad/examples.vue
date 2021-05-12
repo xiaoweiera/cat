@@ -2,8 +2,10 @@
   import { ref } from 'vue'
   // @ts-ignore
   import { ElInput, ElButton } from 'element-plus'
+  // @ts-ignore
   import { shareCode, TaskList1, TaskList2 } from '~/logic/growthpad/examples'
   // 地址
+  // @ts-ignore
   const address = ref('')
 </script>
 <template>
@@ -16,12 +18,12 @@
       <div class="pt-15">
         <growthpadExamplesTaskList skin="blue" title="增长任务（根据项目需求定制）" :list="TaskList2" />
       </div>
-      <div>
-        <h2>登记地址</h2>
+      <div class="py-15">
+        <h2 class="pb-4 text-base font-semibold">REGISTERED ADDRESS</h2>
         <div class="flex">
           <ElInput v-model="address" placeholder="请输入内容"></ElInput>
           <div class="ml-4">
-            <ElButton>登记</ElButton>
+            <ElButton type="primary">登记</ElButton>
           </div>
         </div>
       </div>
