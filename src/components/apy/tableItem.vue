@@ -53,7 +53,7 @@ onMounted(() => isNullFun(props.itemData))
 <template>
   <div v-if="isShow" class="w-full h-full flex flex-col justify-center ">
     <template v-for="(item,i) in itemData">
-      <div v-if="item.status" class="flex mb-0.5 items-center  flex-wrap ">
+      <div v-if="item.status && getValue(item, i)!=='-'" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1 ">{{ item.name }}</span>
         <div :class="i===0?'desNum ':'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px '  "><span :class="getColor(i,item.value)">{{ getValue(item, i) }}</span>
         </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 import {ElButton, ElSwitch, ElTable, ElTableColumn, ElLoading} from 'element-plus'
-import {ref, defineProps, watch, toRefs, onMounted} from 'vue'
+import {ref, defineProps, watch, toRefs, reactive} from 'vue'
 import {filterByOptions} from '~/logic/apy/tableDetail'
 
 const props = defineProps({
@@ -19,9 +19,11 @@ const {rows, headers, options, loading} = toRefs(props.tableData)
 const renderCells = ref([])
 const key = ref(null)
 const type = ref(null)
-const orderByApy = (keyValue: string, typeValue: string) => {
+const selectHeaderIndex=reactive({indexValue:0})
+const orderByApy = (keyValue: string, typeValue: string,headerIndex:number) => {
   key.value =typeValue!=='no'? keyValue:null
   type.value = typeValue!=='no'? typeValue:null
+  selectHeaderIndex.indexValue=headerIndex
   renderCells.value = filterByOptions(headers.value, rows.value, options.value.data, key.value, type.value)
 }
 watch(() => loading.value, (v) => {
@@ -101,7 +103,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
               :key="`${index}-${i}-${item.token_name}`"
           >
             <template #header="scope">
-              <ApyHeaderColumn :orderByApy="orderByApy" :header-data="item"/>
+              <ApyHeaderColumn :orderByApy="orderByApy" :selectHeaderIndex="selectHeaderIndex" :headerIndex="i" :header-data="item"/>
             </template>
             <template #default="scope">
               <ApyTableItem :index="index" :itemData="scope.row.data[i]?.data"/>

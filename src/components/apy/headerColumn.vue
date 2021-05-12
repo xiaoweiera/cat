@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps,ref} from 'vue'
+import {defineProps,ref,watch} from 'vue'
 // @ts-ignore
 import {toFixedNumber, numColor} from '~/lib/tool'
 
@@ -8,8 +8,12 @@ const props = defineProps({
   headerData: {
     type: Object,
   },
-  orderByApy:{type:Function}
+  orderByApy:{type:Function},
+  headerIndex:{type:Number},
+  selectHeaderIndex:{type:Object}
+
 })
+//@ts-ignore
 const type=ref('up')
 const orderNum=ref(1)
 const orderList={0:{value:'no',src:'https://res.ikingdata.com/nav/apyNoOrder.png'},1:{value:'desc',src:'https://res.ikingdata.com/nav/apyDesc.png'},2:{value:'asc',src:'https://res.ikingdata.com/nav/apyAsc.png'}}
@@ -18,16 +22,23 @@ const orderBy=()=>{
     orderNum.value=0
   }
   orderTip.value=orderList[orderNum.value].src
-  props.orderByApy(props.headerData.token_name,orderList[orderNum.value].value)
+  props.orderByApy(props.headerData?.token_name,orderList[orderNum.value].value,props.headerIndex)
   orderNum.value++
 }
 const orderTip=ref('https://res.ikingdata.com/nav/apyNoOrder.png')
+watch(()=>props.selectHeaderIndex?.indexValue,()=>{
+  if(props.headerIndex!==props.selectHeaderIndex?.indexValue){
+    orderNum.value=1
+    orderTip.value='https://res.ikingdata.com/nav/apyNoOrder.png'
+  }
+})
 //@ts-ignore
 const getLogo = () => props.headerData.logo ? props.headerData.logo : 'https://res.ikingdata.com/nav/platLogo.jpg'
 </script>
 <template>
   <div @click="orderBy" class="hand">
     <div class="flex  w-full items-center mb-1.5">
+
       <img class="w-6 h-6 mr-1.5" :src="getLogo()"
            alt=""
       >
