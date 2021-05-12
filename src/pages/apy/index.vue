@@ -74,7 +74,7 @@ watch(() => chains.data, (newVal) => {
 })
 const selectedMobileAnchor = reactive({ name: '机枪池APY' })
 onMounted(() => {
-  wxShare('DeFi挖矿收益APY大全', '全网最全的挖矿收益APY大全，数十家项目数据多维度对比。')
+  wxShare('DeFi挖矿收益APY大全', '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。')
   intervalFetchTableByChain('heco')
 })
 onUnmounted(() => clearInterval(timerInterval))

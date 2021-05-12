@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, ref, toRefs} from 'vue'
+import {defineProps, ref, toRefs,onMounted} from 'vue'
 const props = defineProps({
   tags: {type: Object},
   chartIndex: {type: Number}
@@ -12,6 +12,9 @@ const clickTag = (name: string) => {
   selectedTag.value = name
   isShowMore.value = false
 }
+//显示的个数
+const showNum=ref(3)
+
 const isShowMore = ref(false)
 //@ts-ignore
 const showMore = () => isShowMore.value = true
@@ -32,17 +35,22 @@ const getIsMore=(name:string)=>{
     }
   }
 }
+onMounted(()=>{
+  if(props.chartIndex===0){
+    showNum.value=2
+  }
+})
 </script>
 <template>
   <div class="flex mt-3 w-full min-h-7 relative  items-center  justify-between ">
     <div class="flex justify-between">
       <template v-for="(item,i) in tags.platforms">
-        <span @click="clickTag(item)" v-if="i<3" :class="selectedTag===item?'selectTag tag hand':'tag hand'">{{
+        <span @click="clickTag(item)" v-if="i<showNum" :class="selectedTag===item?'selectTag tag hand':'tag hand'">{{
             item
           }}</span>
       </template>
     </div>
-    <div v-if="chartIndex!==2 && tags.platforms.length>3" @mouseenter="showMore()" @mouseleave="closeMore()"
+    <div v-if="chartIndex!==2 && tags.platforms.length>showNum" @mouseenter="showMore()" @mouseleave="closeMore()"
          class="flex items-center mr-3  absolute right-0 mt-1 pb-2 h-10 pl-2  ">
       <div :class="!isMore?'selectTagDefault selectTag tag':'selectTagDefault'">
         {{!isMore?selectedTag:'更多'}}
