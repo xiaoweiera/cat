@@ -1,5 +1,6 @@
-import {formatTimeHour, toFixedNumber,numberFormat} from '~/lib/tool'
+import {formatTimeHour, toFixedNumber, numberFormat} from '~/lib/tool'
 import {getChart, getChartByMoney} from "~/api/apy";
+import * as R from 'ramda'
 
 interface lendModel {
     total_supply: projectItem[]
@@ -49,9 +50,11 @@ export interface chartModel {
     chartData: Function
     xyData: Function
 }
+
 export interface newModel {
     title: string
 }
+
 //------------------第n个table的第三个表----------------
 export const lendDataFormat = (data: lendModel) => data.total_supply
 export const loanDataFormat = (data: loanModel) => data.total_borrowed
@@ -68,39 +71,104 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
 export const getChartProjectData = (data: projectItem[], selected: string) => data?.find((item: any) => item.project_name === selected)
 //第二个图表
 export const getChartTokenData = (data: tokenItem[], selected: string) => data?.find((item: any) => item.token_name === selected)
+
 //得到x轴y轴
 interface chartItem {
     project_name: string
     data: projectItem[]
 }
+
 const getxyDataWithField = (data: chartItem, field: String) => {
-    if(!data) return {}
+    if (!data) return {}
     //@ts-ignore
-    let xData = data.data[0].x_axis.map((item: any) => formatTimeHour(item))
-    let min=0
-    let max=0
+
+    let min = 0
+    let max = 0
     //@ts-ignore
-    let yData = data.data.map((item: tokenItem) => {
+    const [allTime, Newdata]=getDataByTime(data.data,field)
+    let xData =allTime.map((item: any) => formatTimeHour(item))
+    //@ts-ignore
+    let yData = Newdata.map((item: tokenItem) => {
         return {
             // @ts-ignore
-            name: item[field],
+            name: item.name,
             // @ts-ignore
             yData: item.y_axis.map((yValue: any) => {
-                if(yValue){
-                    min=min===0?yValue:getMin(min,yValue)
-
-                    max=max===0?yValue:getMax(max,yValue)
+                if (yValue) {
+                    min = min === 0 ? yValue : getMin(min, yValue)
+                    max = max === 0 ? yValue : getMax(max, yValue)
                 }
                 return {
-                    value:toFixedNumber(yValue, 2),
-                    formatValue:numberFormat(yValue,true)
+                    value: toFixedNumber(yValue, 2),
+                    formatValue: numberFormat(yValue, true)
                 }
             })
         }
     })
-    return {xData, yData,min,max}
+    return {xData, yData, min, max}
 }
-
+//@ts-ignore  第一个第二个图
+const getDataByTime = (data: tokenItem[],field:string) => {
+    let allTime = []
+    let newData=[]
+    //获取所有的xTime
+    R.map((item: tokenItem) => {
+        //@ts-ignore
+        R.map((time: string) => {
+           if(!allTime.includes(time)) allTime.push(time)
+        }, item.x_axis)
+    }, data)
+    allTime = R.sort((a, b) => a - b, allTime);
+    R.map((item: tokenItem) => {
+        let NewYData=[]
+        //@ts-ignore
+        R.map((time: string) => {
+            let yValue=null
+            //@ts-ignore
+            item.x_axis.map((itemX,i)=>{
+                if(time===itemX){
+                    //@ts-ignore
+                    yValue=item.y_axis[i]
+                }
+            })
+            NewYData.push(yValue)
+        }, allTime)
+        //@ts-ignore
+        newData.push({name:item[field],y_axis:NewYData})
+    }, data)
+    return [allTime,newData]
+}
+//@ts-ignore  第三个图
+const getDataByTimeMark = (data: projectItem[]) => {
+    let allTime = []
+    let newData=[]
+    //获取所有的xTime
+    R.map((item: projectItem) => {
+        //@ts-ignore
+        R.map((time: string) => {
+            if(!allTime.includes(time)) allTime.push(time)
+        }, item.x_axis)
+    }, data)
+    allTime = R.sort((a, b) => a - b, allTime);
+    R.map((item: projectItem) => {
+        let NewYData=[]
+        //@ts-ignore
+        R.map((time: string) => {
+            let yValue=null
+            //@ts-ignore
+            item.x_axis.map((itemX,i)=>{
+                if(time===itemX){
+                    //@ts-ignore
+                    yValue=item.y_axis[i]
+                }
+            })
+            NewYData.push(yValue)
+        }, allTime)
+        //@ts-ignore
+        newData.push({name:item.project_name,y_axis:NewYData})
+    }, data)
+    return [allTime,newData]
+}
 //得到xy轴 第一个表
 export const getxyData = (data: chartItem) => getxyDataWithField(data, 'token_name')
 //得到xy轴 第二个表
@@ -108,29 +176,29 @@ export const getCoinData = (data: chartItem) => getxyDataWithField(data, 'projec
 //第三个表
 export const getInfoData = (data: any) => {
     if (!data) return
+    let min = 0
+    let max = 0
     //@ts-ignore
-    let xData = data[0].x_axis.map((item: any) => formatTimeHour(item))
-    let min=0
-    let max=0
-    let yData = data.map((item: projectItem) => {
+    const [allTime, Newdata]=getDataByTimeMark(data)
+    let xData =allTime.map((item: any) => formatTimeHour(item))
+    let yData = Newdata.map((item: projectItem) => {
         //@ts-ignore
         let yData = item.y_axis.map((yValue: any) => {
-            if(yValue){
-                min=min===0?yValue:getMin(min,yValue)
-                max=max===0?yValue:getMax(max,yValue)
+            if (yValue) {
+                min = min === 0 ? yValue : getMin(min, yValue)
+                max = max === 0 ? yValue : getMax(max, yValue)
             }
-
             return {
                 value: toFixedNumber(yValue, 2),
-                formatValue:numberFormat(yValue,true)
+                formatValue: numberFormat(yValue, true)
             }
         })
-        return {name: item.project_name, yData: yData}
+        return {name: item.name, yData: yData}
     })
-    return {xData, yData,min,max}
+    return {xData, yData, min, max}
 }
-const getMin=(min:number,yValue:any)=>min<yValue?min:yValue
-const getMax=(max:number,yValue:any)=>max>yValue?max:yValue
+const getMin = (min: number, yValue: any) => min < yValue ? min : yValue
+const getMax = (max: number, yValue: any) => max > yValue ? max : yValue
 //获取平台列表--筛选
 export const getProjectPlat = (data: requsetProjectModel) => data.data.map((item: projectItem) => item['project_name'])
 export const getTokenPlat = (data: requsetTokenModel) => data.data.map((item: tokenItem) => item['token_name'])
@@ -145,7 +213,7 @@ interface requestItem {
 }
 
 //接口请求
-export const requestLendData = async (param: requestItem) =>  (await getChart(param))?.data
+export const requestLendData = async (param: requestItem) => (await getChart(param))?.data
 export const requestLoanData = async (param: requestItem) => (await getChart(param))?.data
 export const requestGunData = async (param: requestItem) => (await getChartByMoney(param))?.data
 
