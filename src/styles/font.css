@@ -10,3 +10,7 @@
     font-family: i8n-font-inter;
     src: url('/assets/font/Inter-Regular.otf');
 }
+
+.font-color-theme {
+  color: #2B8DFE;
+}

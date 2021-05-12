@@ -31,14 +31,14 @@
   .swiper-slide {
     width: 38%;
   }
-  .swiper /deep/ .swiper-pagination-bullet {
+  .swiper :deep(.swiper-pagination-bullet) {
     width: 12px;
     height: 3px;
     background: rgba(37, 62, 111, 0.1);
     border-radius: 2px;
     opacity: 1;
   }
-  .swiper /deep/ .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  .swiper :deep(.swiper-pagination-bullet.swiper-pagination-bullet-active)  {
     background-color: #2B8DFE;
   }
 </style>
