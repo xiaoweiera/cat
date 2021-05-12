@@ -76,18 +76,20 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
               <div class="text-kd12px16px text-global-default opacity-65">价格/涨跌幅</div>
             </template>
             <template #default="scope">
-              <div class="min-w-35  w-35   justify-center   flex flex-col">
-                <a class="flex  md:px-3  items-center hand  " :href="scope.row.url" target="_blank">
-                  <img class="w-8 h-8 mr-1.5" :src="scope.row.icon" alt="">
-                  <div class="flex flex-col ">
-                    <div class="font-kdExp mb-1  text-kd14px18px text-global-highTitle font-normal">
+              <div class="justify-center   flex flex-col">
+                <a class="flex  flex-col md:px-0 ml-3  hand  " :href="scope.row.url" target="_blank">
+                  <div class="flex text-left  items-center">
+                    <img class="w-8 h-8 mr-2 " :src="scope.row.icon" alt="">
+                    <div class="font-kdExp  text-kd14px18px text-global-highTitle font-normal">
                       {{ scope.row.project_name }}
                     </div>
+                  </div>
+                  <div class="flex  mt-2  items-center">
                     <div class="tableItemType">
                       <span v-if="props.index==0">机枪池</span>
                       <span v-else>借贷平台</span>
                     </div>
-                    <div v-if="props.chains==='all'" class="tableItemTypePlat mt-1" :style="{background:getPlatInfo(scope.row.chain).bgcolor,color:getPlatInfo(scope.row.chain).color}">
+                    <div v-if="props.chains==='all'" class="tableItemTypePlat ml-2" :style="{background:getPlatInfo(scope.row.chain).bgcolor,color:getPlatInfo(scope.row.chain).color}">
                       <span >
                         {{getPlatInfo(scope.row.chain).name}}
                        </span>
@@ -135,15 +137,15 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
                   <img class="md:w-8 mx-auto my-0 md:h-8 w-6 h-6 md:mr-1.5" :src="scope.row.icon" alt="">
                   <div class="flex flex-col  ">
                     <div
-                        class="font-kdExp text-center mb-1 text-kd12px18px  md:text-kd14px18px text-global-highTitle font-normal">
+                        class="font-kdExp ml-0.5 text-center mb-1 text-kd12px18px  md:text-kd14px18px text-global-highTitle font-normal">
                       {{ scope.row.project_name }}
                     </div>
-                    <div class="tableItemType">
-                      <span v-if="props.index==0">机枪池</span>
-                      <span v-else>借贷平台</span>
+                    <div class=" text-center ">
+                      <span class="tableItemType" v-if="props.index==0">机枪池</span>
+                      <span class="tableItemType" v-else>借贷平台</span>
                     </div>
-                    <div v-if="props.chains==='all'" class="tableItemTypePlat mt-1" :style="{background:getPlatInfo(scope.row.chain).bgcolor,color:getPlatInfo(scope.row.chain).color}">
-                      <span >{{scope.row.chain}}</span>
+                    <div v-if="props.chains==='all'" class="w-full text-center"  >
+                      <span class="tableItemTypePlat  " :style="{background:getPlatInfo(scope.row.chain).bgcolor,color:getPlatInfo(scope.row.chain).color}">{{scope.row.chain}}</span>
                     </div>
                   </div>
                 </a>
@@ -169,6 +171,10 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
 </template>
 
 <style scoped lang="postcss">
+::v-deep( .el-table td){
+  padding:8px 0;
+
+}
 .tableItemType{
   @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary;
 }

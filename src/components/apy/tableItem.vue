@@ -51,7 +51,7 @@ watch(()=>props.itemData,()=>{
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div v-if="isShow" class="w-full h-full flex flex-col justify-center ">
+  <div v-if="isShow" class="w-full h-full  flex flex-col justify-center ">
     <template v-for="(item,i) in itemData">
       <div v-if="item.status && getValue(item, i)!=='-'" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1 ">{{ item.name }}</span>
