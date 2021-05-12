@@ -78,35 +78,6 @@ interface chartItem {
     data: projectItem[]
 }
 
-const getxyDataWithField = (data: chartItem, field: String) => {
-    if (!data) return {}
-    //@ts-ignore
-
-    let min = 0
-    let max = 0
-    //@ts-ignore
-    const [xItems, result] = getDataByTime(data.data, field)
-    let xData = xItems.map((item: any) => formatTimeHour(item))
-    //@ts-ignore
-    let yData = result.map((item: tokenItem) => {
-        return {
-            // @ts-ignore
-            name: item.name,
-            // @ts-ignore
-            yData: item.y_axis.map((yValue: any) => {
-                if (yValue) {
-                    min = min === 0 ? yValue : getMin(min, yValue)
-                    max = max === 0 ? yValue : getMax(max, yValue)
-                }
-                return {
-                    value: toFixedNumber(yValue, 2),
-                    formatValue: numberFormat(yValue, true)
-                }
-            })
-        }
-    })
-    return {xData, yData, min, max}
-}
 const getDataByTime = (data, field) => {
     const xItems = R.sort((a, b) => a - b, R.uniq(R.flatten(R.map(i => i.x_axis, data))))
     const result = R.map(i => {
@@ -125,35 +96,67 @@ const getDataByTime = (data, field) => {
     return [xItems, result]
 }
 
-
-//得到xy轴 第一个表
-export const getxyData = (data: chartItem) => getxyDataWithField(data, 'token_name')
-//得到xy轴 第二个表
-export const getCoinData = (data: chartItem) => getxyDataWithField(data, 'project_name')
-//第三个表
-export const getInfoData = (data: any) => {
-    if (!data) return
+const getxyDataWithField = (data: chartItem, field: String) => {
+    if (!data) return {}
+    //@ts-ignore
     let min = 0
     let max = 0
     //@ts-ignore
-    const [xItems, result] = getDataByTime(data, 'project_name')
+    const [xItems, result] = getDataByTime(data, field)
     let xData = xItems.map((item: any) => formatTimeHour(item))
-    let yData = result.map((item: projectItem) => {
-        //@ts-ignore
-        let yData = item.y_axis.map((yValue: any) => {
-            if (yValue) {
-                min = min === 0 ? yValue : getMin(min, yValue)
-                max = max === 0 ? yValue : getMax(max, yValue)
-            }
-            return {
-                value: toFixedNumber(yValue, 2),
-                formatValue: numberFormat(yValue, true)
-            }
-        })
-        return {name: item.name, yData: yData}
+    //@ts-ignore
+    let yData = result.map((item: tokenItem | projectItem) => {
+        return {
+            // @ts-ignore
+            name: item.name,
+            // @ts-ignore
+            yData: item.y_axis.map((yValue: any) => {
+                if (yValue) {
+                    min = min === 0 ? yValue : getMin(min, yValue)
+                    max = max === 0 ? yValue : getMax(max, yValue)
+                }
+                return {
+                    value: toFixedNumber(yValue, 2),
+                    formatValue: numberFormat(yValue, true)
+                }
+            })
+        }
     })
     return {xData, yData, min, max}
 }
+
+
+//第三个表
+// export const getInfoData = (data: any) => {
+//     if (!data) return
+//     let min = 0
+//     let max = 0
+//     //@ts-ignore
+//     const [xItems, result] = getDataByTime(data, 'project_name')
+//     let xData = xItems.map((item: any) => formatTimeHour(item))
+//     let yData = result.map((item: projectItem) => {
+//         //@ts-ignore
+//         let yData = item.y_axis.map((yValue: any) => {
+//             if (yValue) {
+//                 min = min === 0 ? yValue : getMin(min, yValue)
+//                 max = max === 0 ? yValue : getMax(max, yValue)
+//             }
+//             return {
+//                 value: toFixedNumber(yValue, 2),
+//                 formatValue: numberFormat(yValue, true)
+//             }
+//         })
+//         return {name: item.name, yData: yData}
+//     })
+//     return {xData, yData, min, max}
+// }
+
+//得到xy轴 第一个表
+export const getxyData = (data: chartItem) => getxyDataWithField(data.data, 'token_name')
+//得到xy轴 第二个表
+export const getCoinData = (data: chartItem) => getxyDataWithField(data.data, 'project_name')
+//得到xy轴 第三个表
+export const getInfoData = (data: any) => getxyDataWithField(data, 'project_name')
 const getMin = (min: number, yValue: any) => min < yValue ? min : yValue
 const getMax = (max: number, yValue: any) => max > yValue ? max : yValue
 //获取平台列表--筛选
