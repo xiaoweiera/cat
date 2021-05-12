@@ -107,70 +107,6 @@ const getxyDataWithField = (data: chartItem, field: String) => {
     })
     return {xData, yData, min, max}
 }
-// //@ts-ignore  第一个第二个图
-// const getDataByTime = (data: tokenItem[],field:string) => {
-//     let allTime = []
-//     let newData=[]
-//     //获取所有的xTime
-//     R.map((item: tokenItem) => {
-//         //@ts-ignore
-//         R.map((time: string) => {
-//            if(!allTime.includes(time)) allTime.push(time)
-//         }, item.x_axis)
-//     }, data)
-//     allTime = R.sort((a, b) => a - b, allTime);
-//     R.map((item: tokenItem) => {
-//         let NewYData=[]
-//         //@ts-ignore
-//         R.map((time: string) => {
-//             let yValue=null
-//             //@ts-ignore
-//             item.x_axis.map((itemX,i)=>{
-//                 if(time===itemX){
-//                     //@ts-ignore
-//                     yValue=item.y_axis[i]
-//                 }
-//             })
-//             NewYData.push(yValue)
-//         }, allTime)
-//         //@ts-ignore
-//         newData.push({name:item[field],y_axis:NewYData})
-//     }, data)
-//     return [allTime,newData]
-// }
-// //@ts-ignore  第三个图
-// const getDataByTimeMark = (data: projectItem[]) => {
-//     let allTime = []
-//     let newData=[]
-//     //获取所有的xTime
-//     R.map((item: projectItem) => {
-//         //@ts-ignore
-//         R.map((time: string) => {
-//             if(!allTime.includes(time)) allTime.push(time)
-//         }, item.x_axis)
-//     }, data)
-//     allTime = R.sort((a, b) => a - b, allTime);
-//     R.map((item: projectItem) => {
-//         let NewYData=[]
-//         //@ts-ignore
-//         R.map((time: string) => {
-//             let yValue=null
-//             //@ts-ignore
-//             item.x_axis.map((itemX,i)=>{
-//                 if(time===itemX){
-//                     //@ts-ignore
-//                     yValue=item.y_axis[i]
-//                 }
-//             })
-//             NewYData.push(yValue)
-//         }, allTime)
-//         //@ts-ignore
-//         newData.push({name:item.project_name,y_axis:NewYData})
-//     }, data)
-//     return [allTime,newData]
-// }
-
-
 const getDataByTime = (data, field) => {
     const xItems = R.sort((a, b) => a - b, R.uniq(R.flatten(R.map(i => i.x_axis, data))))
     const result = R.map(i => {
@@ -186,7 +122,6 @@ const getDataByTime = (data, field) => {
                 }, xItems),
         }
     }, data)
-    console.log('值',result)
     return [xItems, result]
 }
 
