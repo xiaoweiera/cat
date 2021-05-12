@@ -14,7 +14,7 @@ const clickItem = (chain) => {
 }
 </script>
 <template>
-  <div class="flex ">
+  <div class="flex  w-full justify-center">
     <div class="hand" @click="clickItem(item)" v-for="(item, index) in outerChains" :class="item.select?'selectTag tag':'tag'" :key="index">
       <img class="md:w-8 md:h-8 md:mr-1.4 w-6 h-6 mr-1" :src="item.img" alt="">
       <div :class="item.select?'selectTxt':'txt'">{{
@@ -27,7 +27,7 @@ const clickItem = (chain) => {
 
 <style scoped lang="postcss">
 .tag {
-  @apply text-global-default     rounded-md  flex mt-3 py-1.25 px-4 md:mt-4 md:mr-11.1  md:py-1.25 md:px-3.75 items-center justify-center;
+  @apply text-global-default     rounded-md  flex mt-3 py-1.25 px-1 md:mt-4 md:mr-11.1  md:py-1.25 md:px-3.75 items-center justify-center;
 }
 .txt{
   @apply text-kd14px20px md:text-kd24px150 text-global-default opacity-65 font-normal  ;
