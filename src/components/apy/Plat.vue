@@ -62,7 +62,7 @@ onMounted(()=>{
       <div
            class=" grid grid-cols-1  flex-wrap py-1.5 text-kd14px18px  font-normal  ">
         <template v-for="(item,i) in tags.platforms">
-          <div @click="clickTag(item)" v-if="i>2"
+          <div @click="clickTag(item)" v-if="i>showNum-1"
                :class="selectedTag===item?'  hand moreTag  selectTag ':'hand moreTag' ">{{ item }}
           </div>
         </template>
