@@ -19,7 +19,9 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
-
+  build: {
+    chunkSizeWarningLimit: 1500,
+  },
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
@@ -125,6 +127,10 @@ export default defineConfig({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    onFinished: () => {
+      // fixme, 这里不应该保留，
+      process.exit(0)
+    },
   },
   optimizeDeps: {
     include: [
