@@ -243,73 +243,73 @@ export const tableConfig = [
     },
     charts: chartsConfig.machine_gun_pool,
   },
-  // {
-  //   name: 'lend_single',
-  //   title: 'DeFi 借贷平台存款 APY 对比',
-  //   options: {
-  //     data: [{
-  //       key: 'apy',
-  //       name: 'APY',
-  //       status: true,
-  //       format_func: percent2Precision,
-  //     }, {
-  //       key: 'apy_detail',
-  //       name: '产出',
-  //       status: true,
-  //     }, {
-  //       key: 'tvl',
-  //       name: '存款总额',
-  //       status: true,
-  //       format_func: numberFormat,
-  //     }, {
-  //       key: 'quota_used',
-  //       name: '借款总量',
-  //       status: true,
-  //       format_func: numberFormat,
-  //     },
-  //     ],
-  //     select: 'apy',
-  //   },
-  //   charts: chartsConfig.lend,
-  // },
-  // {
-  //   name: 'loan_single',
-  //   title: 'DeFi 借贷平台借款利息对比',
-  //   options: {
-  //     data: [
-  //       {
-  //         key: 'apy',
-  //         name: '利息',
-  //         status: true,
-  //         format_func: percent2Precision,
-  //       }, {
-  //         key: 'apy_detail',
-  //         name: '计息',
-  //         status: true,
-  //       },
-  //       {
-  //         key: 'quota_remain',
-  //         name: '可借',
-  //         status: true,
-  //         format_func: numberFormat,
-  //       },
-  //       {
-  //         key: 'quota_remain*quota_remain_percent',
-  //         name: '借出',
-  //         status: true,
-  //         format_cb: (v: any) => numberFormat(v.quota_used, false),
-  //       },
-  //       {
-  //         key: 'quota_remain_percent',
-  //         name: '剩余额度',
-  //         status: true,
-  //         unit: '%',
-  //         format_func: numberFormat,
-  //       }],
-  //     select: 'apy',
-  //   },
-  //   charts: chartsConfig.loan,
-  // },
+  {
+    name: 'lend_single',
+    title: 'DeFi 借贷平台存款 APY 对比',
+    options: {
+      data: [{
+        key: 'apy',
+        name: 'APY',
+        status: true,
+        format_func: percent2Precision,
+      }, {
+        key: 'apy_detail',
+        name: '产出',
+        status: true,
+      }, {
+        key: 'tvl',
+        name: '存款总额',
+        status: true,
+        format_func: numberFormat,
+      }, {
+        key: 'quota_used',
+        name: '借款总量',
+        status: true,
+        format_func: numberFormat,
+      },
+      ],
+      select: 'apy',
+    },
+    charts: chartsConfig.lend,
+  },
+  {
+    name: 'loan_single',
+    title: 'DeFi 借贷平台借款利息对比',
+    options: {
+      data: [
+        {
+          key: 'apy',
+          name: '利息',
+          status: true,
+          format_func: percent2Precision,
+        }, {
+          key: 'apy_detail',
+          name: '计息',
+          status: true,
+        },
+        {
+          key: 'quota_remain',
+          name: '可借',
+          status: true,
+          format_func: numberFormat,
+        },
+        {
+          key: 'quota_remain*quota_remain_percent',
+          name: '借出',
+          status: true,
+          format_cb: (v: any) => numberFormat(v.quota_used, false),
+        },
+        {
+          key: 'quota_remain_percent',
+          name: '剩余额度',
+          status: true,
+          unit: '%',
+          format_func: numberFormat,
+        }],
+      select: 'apy',
+    },
+    charts: chartsConfig.loan,
+  },
 ]
 export const anchorConfig = [
   {

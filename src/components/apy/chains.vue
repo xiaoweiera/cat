@@ -42,6 +42,7 @@
   watch(router, getTabs)
   // 处理数据
   onBeforeMount(getTabs)
+  // utm_source=https://apy.kingdata.com
 </script>
 <template>
   <div class="flex  w-full justify-center">

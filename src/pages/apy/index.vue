@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
+import { useRouter } from 'vue-router'
 import {requestTables, defaultChains, requestChart} from '~/logic/apy'
 //@ts-ignore
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
@@ -11,6 +12,9 @@ const {tables, requestData: fetchTableData} = requestTables()
 //@ts-ignore
 const {charts, requestChartData: fetchChartData} = requestChart()
 const selectedAnchor = ref('机枪池APY')
+// const chainQuery=ref('')
+// const router=useRouter()
+// console.log(router.params)
 //@ts-ignore
 const clickAnchor = (name: string) => {
   if (name === '回到顶部') {
@@ -38,6 +42,7 @@ const fetchChartByChain = (chain: String) => {
     })
   })
 }
+
 const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
@@ -46,17 +51,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  // timerInterval = setInterval(() => {
-  //   if (timer.value !== 0) {
-  //     timer.value -= 1
-  //     return
-  //   }
-  //   isFirstShow.value = false
-  //   timer.value = timeout
-  //   isFirstShow.value = false
-  //   fetchTableByChain(chainId)
-  //   fetchChartByChain(chainId)
-  // }, 1000)
+  timerInterval = setInterval(() => {
+    if (timer.value !== 0) {
+      timer.value -= 1
+      return
+    }
+    isFirstShow.value = false
+    timer.value = timeout
+    isFirstShow.value = false
+    fetchTableByChain(chainId)
+    fetchChartByChain(chainId)
+  }, 1000)
 }
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
@@ -101,6 +106,7 @@ onUnmounted(() => clearInterval(timerInterval))
         </div>
       </div>
       <div class="text-center flex justify-center md:mb-5">
+        <!-- active 默认选中项 -->
         <ApyChains :chains="chains" active="heco" />
       </div>
       <!-- 小屏时隐藏 -->
