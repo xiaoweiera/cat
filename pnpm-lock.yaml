@@ -23,7 +23,7 @@ specifiers:
   markdown-it-prism: ^2.1.6
   mockjs: ^1.1.0
   nprogress: ^0.2.0
-  pnpm: ^6.2.1
+  pnpm: ^6.3.0
   postcss: ^8.2.13
   prism-theme-vars: ^0.2.2
   ramda: ^0.27.1
@@ -78,7 +78,7 @@ devDependencies:
   https-localhost: 4.6.4
   markdown-it-prism: 2.1.6
   mockjs: 1.1.0
-  pnpm: 6.2.1
+  pnpm: 6.3.0
   postcss: 8.2.13
   tailwindcss: 2.1.2_941a81a5c9afb5d3c8bce0db60f786b1
   typescript: 4.2.4
@@ -5001,8 +5001,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pnpm/6.2.1:
-    resolution: {integrity: sha512-aSrlGL3703pXhMaxFpFLAFakvpla0PaGN2/zOh5oG2qbvJ+jKuGkpHPhpLyAnhs/z+Je3wBaYA7vETu1f1xwqQ==}
+  /pnpm/6.3.0:
+    resolution: {integrity: sha512-mSeVHYbCiPgpQjoib15GzeYae9Ttth1WKuhGe49UwlttYRHYXEsvW+JsEiX4Zm9bltFvSl7dKevCCrm1JJB0qg==}
     engines: {node: '>=12.17'}
     hasBin: true
     dev: true
