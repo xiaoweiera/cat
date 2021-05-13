@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { defineProps, toRefs } from 'vue'
+import { defineProps, toRefs,ref } from 'vue'
 
 const props = defineProps({
   chains: Object,
 })
-
 const { data: outerChains } = toRefs(props.chains)
 const clickItem = (chain) => {
   outerChains.value = outerChains.value.map((i) => {
@@ -14,8 +13,9 @@ const clickItem = (chain) => {
 }
 </script>
 <template>
+<!--  utm_source=https://apy.kingdata.com-->
   <div class="flex  w-full justify-center">
-    <a href="?utm_source=https://apy.kingdata.com" class="hand" @click="clickItem(item)" v-for="(item, index) in outerChains" :class="item.select?'selectTag tag':'tag'" :key="index">
+    <a  class="hand" @click="clickItem(item)" v-for="(item, index) in outerChains" :class="item.select?'selectTag tag':'tag'" :key="index">
       <img class="md:w-8 md:h-8 md:mr-1.4 w-6 h-6 mr-1" :src="item.img" alt="">
       <div :class="item.select?'selectTxt':'txt'">{{
           item.name
