@@ -15,13 +15,13 @@ const clickItem = (chain) => {
 </script>
 <template>
   <div class="flex  w-full justify-center">
-    <div class="hand" @click="clickItem(item)" v-for="(item, index) in outerChains" :class="item.select?'selectTag tag':'tag'" :key="index">
+    <a href="?utm_source=https://apy.kingdata.com" class="hand" @click="clickItem(item)" v-for="(item, index) in outerChains" :class="item.select?'selectTag tag':'tag'" :key="index">
       <img class="md:w-8 md:h-8 md:mr-1.4 w-6 h-6 mr-1" :src="item.img" alt="">
       <div :class="item.select?'selectTxt':'txt'">{{
           item.name
         }}
       </div>
-    </div>
+    </a>
   </div>
 </template>
 

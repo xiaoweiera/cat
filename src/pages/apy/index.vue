@@ -46,17 +46,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  timerInterval = setInterval(() => {
-    if (timer.value !== 0) {
-      timer.value -= 1
-      return
-    }
-    isFirstShow.value = false
-    timer.value = timeout
-    isFirstShow.value = false
-    fetchTableByChain(chainId)
-    fetchChartByChain(chainId)
-  }, 1000)
+  // timerInterval = setInterval(() => {
+  //   if (timer.value !== 0) {
+  //     timer.value -= 1
+  //     return
+  //   }
+  //   isFirstShow.value = false
+  //   timer.value = timeout
+  //   isFirstShow.value = false
+  //   fetchTableByChain(chainId)
+  //   fetchChartByChain(chainId)
+  // }, 1000)
 }
 watch(() => chains.data, (newVal) => {
   if (timerInterval) {
@@ -91,7 +91,7 @@ onUnmounted(() => clearInterval(timerInterval))
         <div style="font-weight: bold" class="flex justify-center mr-2 md:mr-3 text-kd24px100  text-global-highTitle md:text-kd36px36px">
           DeFi挖矿收益APY大全
         </div>
-        <a href="http://ikingdata.mikecrm.com/ijyjMFO" target="_blank"
+        <a href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com" target="_blank"
            class="goForm text-kd12px20px font-normal">申请收录</a>
       </div>
       <div class="mt-4 text-global-default opacity-65 font-normal ">

@@ -5,7 +5,6 @@
     <ApyHeader/>
     <main class="  w-full  flex justify-center  ">
       <router-view/>
-      <Footer/>
     </main>
   </div>
 </template>
@@ -20,7 +19,7 @@
 @media screen and (min-width: 768px) {
   .containerbgs {
     background: url(https://res.ikingdata.com/nav/apyTopBg.png) #F6FAFD;
-    background-size: 100% 529px;
+    background-size: 100% 555px;
     background-repeat: no-repeat;
   }
 }

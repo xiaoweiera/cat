@@ -77,7 +77,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
             </template>
             <template #default="scope">
               <div class="justify-center   flex flex-col">
-                <a class="flex  flex-col md:px-0 ml-3  hand  " :href="scope.row.url" target="_blank">
+                <a class="flex  flex-col md:px-0 ml-3  hand  " :href="scope.row.url+'?utm_source=https://apy.kingdata.com'" target="_blank">
                   <div class="flex text-left  items-center">
                     <img class="w-8 h-8 mr-2 " :src="scope.row.icon" alt="">
                     <div class="font-kdExp  text-kd14px18px text-global-highTitle font-normal">
@@ -100,7 +100,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
             </template>
           </el-table-column>
           <el-table-column
-              min-width="140"
+              min-width="132"
               v-for="(item, i) in headers"
               :key="`${index}-${i}-${item.token_name}`"
           >
@@ -133,7 +133,7 @@ watch(() => options.value.data, (a, _) => renderCells.value = filterByOptions(he
             <template #default="scope">
               <div class="justify-center     flex flex-col">
                 <a class="flex   flex-col    md:px-3 flex-wrap justify-center  items-center hand  "
-                   :href="scope.row.url" target="_blank">
+                   :href="scope.row.url+'?utm_source=https://apy.kingdata.com'" target="_blank">
                   <img class="md:w-8 mx-auto my-0 md:h-8 w-6 h-6 md:mr-1.5" :src="scope.row.icon" alt="">
                   <div class="flex flex-col  ">
                     <div
