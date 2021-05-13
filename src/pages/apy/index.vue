@@ -101,7 +101,7 @@ onUnmounted(() => clearInterval(timerInterval))
         </div>
       </div>
       <div class="text-center flex justify-center md:mb-5">
-        <ApyChains :chains="chains" />
+        <ApyChains :chains="chains" active="heco" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">

@@ -1,27 +1,58 @@
 <script setup lang="ts">
-import { defineProps, toRefs } from 'vue'
-
-const props = defineProps({
-  chains: Object,
-})
-
-const { data: outerChains } = toRefs(props.chains)
-const clickItem = (chain) => {
-  outerChains.value = outerChains.value.map((i) => {
-    i.select = i.name === chain.name
-    return i
+  import { useRoute } from 'vue-router'
+  import { defineProps, toRefs, toRaw, onBeforeMount, watch } from 'vue'
+  // 定义属性
+  const props = defineProps({
+    chains: Object,
+    active: String,
   })
-}
+  // 获取当前路由对象
+  const router = useRoute()
+  interface Query {
+    [key: string]: string
+  }
+  interface Item {
+    img: string // icon
+    key: string // 键
+    name: string // 名称
+    select: boolean // 选择状态
+  }
+  // @ts-ignore
+  const { data: outerChains } = toRefs(props.chains)
+  // @ts-ignore
+  const getTabs = function() {
+    const $router = toRaw(router)
+    const query: Query = $router.query.value as any
+    let value: string = props.active as string
+    if (query && query.key) {
+      value = `${query.key}`.toLocaleLowerCase()
+    }
+    const list: Item[] = outerChains.value.map((item: Item) => {
+      if (item.key === value) {
+        item.select = true
+      }
+      else {
+        item.select = false
+      }
+      return item
+    })
+    outerChains.value = list
+  }
+  // 监听路由变化
+  watch(router, getTabs)
+  // 处理数据
+  onBeforeMount(getTabs)
 </script>
 <template>
   <div class="flex  w-full justify-center">
-    <a href="?utm_source=https://apy.kingdata.com" class="hand" @click="clickItem(item)" v-for="(item, index) in outerChains" :class="item.select?'selectTag tag':'tag'" :key="index">
-      <img class="md:w-8 md:h-8 md:mr-1.4 w-6 h-6 mr-1" :src="item.img" alt="">
-      <div :class="item.select?'selectTxt':'txt'">{{
-          item.name
-        }}
-      </div>
-    </a>
+    <template v-for="(item, index) in outerChains" :key="index">
+      <router-link :to="`?key=${item.key}&utm_source=https://apy.kingdata.com `" class="hand inline-block" :class="item.select ? 'selectTag tag' : 'tag'">
+        <img class="md:w-8 md:h-8 md:mr-1.4 w-6 h-6 mr-1" :src="item.img" alt="">
+        <div :class="item.select ? 'selectTxt' : 'txt'">
+          <span>{{ item.name }}</span>
+        </div>
+      </router-link>
+    </template>
   </div>
 </template>
 
