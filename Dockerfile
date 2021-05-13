@@ -2,9 +2,11 @@ FROM node:lts-alpine as base
 
 FROM base as build-stage
 WORKDIR /build
-COPY package*.json ./
+RUN npm i -g pnpm
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm i
 COPY . .
-RUN npm install -g pnpm && pnpm i && pnpm run build
+RUN pnpm run build
 
 # production stage
 FROM base as production-stage
