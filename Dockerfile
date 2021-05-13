@@ -12,7 +12,6 @@ WORKDIR /app
 RUN npm i vite
 COPY package.json ./
 COPY --from=build-stage /build/dist /app/dist
-COPY vite.config.ts /app
 EXPOSE 5000
 
 CMD ["npm", "run", "preview"]
