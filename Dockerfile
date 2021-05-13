@@ -11,7 +11,8 @@ RUN npm run build
 # production stage
 FROM base as production-stage
 WORKDIR /app
-RUN npm i vite
+# 这里指定版本， 用于忽略host的问题
+RUN npm i vite@2.2.3
 COPY package.json ./
 COPY --from=build-stage /build/dist /app/dist
 EXPOSE 5000
