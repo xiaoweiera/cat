@@ -4,7 +4,8 @@
     "dev": "vite --port 3333",
     "build": "cross-env NODE_ENV=production vite-ssg build --verbose",
     "preview": "vite preview",
-    "preview-https": "serve dist"
+    "preview-https": "serve dist",
+    "serve": "vite serve --host 0.0.0.0"
   },
   "dependencies": {
     "@types/ramda": "^0.27.40",
@@ -42,7 +43,7 @@
     "postcss": "^8.2.13",
     "tailwindcss": "^2.1.2",
     "typescript": "^4.2.4",
-    "vite": "^2.3.2",
+    "vite": "^2.2.3",
     "vite-plugin-components": "^0.9.1",
     "vite-plugin-icons": "^0.5.0",
     "vite-plugin-md": "^0.6.3",
