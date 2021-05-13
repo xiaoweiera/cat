@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 3333",
-    "build": "cross-env NODE_ENV=production vite-ssg build --verbose",
+    "build": "cross-env NODE_ENV=production vite-ssg build",
     "preview": "vite preview",
     "preview-https": "serve dist",
     "serve": "vite serve --host 0.0.0.0"
@@ -41,6 +41,7 @@
     "mockjs": "^1.1.0",
     "pnpm": "^6.3.0",
     "postcss": "^8.2.13",
+    "rollup": "^2.47.0",
     "tailwindcss": "^2.1.2",
     "typescript": "^4.2.4",
     "vite": "^2.3.2",
@@ -53,6 +54,7 @@
     "vite-plugin-style-import": "^0.10.0",
     "vite-plugin-vue-layouts": "^0.3.1",
     "vite-plugin-windicss": "^0.15.10",
-    "vite-ssg": "^0.10.0"
+    "vite-ssg": "^0.10.0",
+    "vue-template-compiler": "^2.6.12"
   }
 }
