@@ -78,7 +78,7 @@ interface chartItem {
     data: projectItem[]
 }
 
-const getDataByTime = (data, field) => {
+const getDataByTime = (data:any, field:string) => {
     const xItems = R.sort((a, b) => a - b, R.uniq(R.flatten(R.map(i => i.x_axis, data))))
     const result = R.map(i => {
         return {

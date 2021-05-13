@@ -64,6 +64,7 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   }, 1000)
 }
 watch(() => chains.data, (newVal) => {
+  console.log('testtest',chains.data)
   if (timerInterval) {
     clearInterval(timerInterval)
     isFirstShow.value = true
@@ -80,7 +81,7 @@ watch(() => chains.data, (newVal) => {
 const selectedMobileAnchor = reactive({ name: '机枪池APY' })
 onMounted(() => {
   wxShare('DeFi挖矿收益APY大全', '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。')
-  intervalFetchTableByChain('heco')
+  // intervalFetchTableByChain('heco')
 })
 onUnmounted(() => clearInterval(timerInterval))
 </script>
