@@ -43,16 +43,23 @@
   // 处理数据
   onBeforeMount(getTabs)
   // utm_source=https://apy.kingdata.com
+  // 计算跳转地址
+  // @ts-ignore
+  const getHref = function(data: Item): string {
+    const key = data.key
+    const utm_source = 'https://apy.kingdata.com'
+    return `?key=${key}&utm_source=${utm_source}`
+  }
 </script>
 <template>
   <div class="flex  w-full justify-center">
     <template v-for="(item, index) in outerChains" :key="index">
-      <router-link :to="`?key=${item.key}&utm_source=https://apy.kingdata.com `" class="hand inline-block" :class="item.select ? 'selectTag tag' : 'tag'">
+      <a :href="getHref(item)" class="hand inline-block" :class="item.select ? 'selectTag tag' : 'tag'">
         <img class="md:w-8 md:h-8 md:mr-1.4 w-6 h-6 mr-1" :src="item.img" alt="">
         <div :class="item.select ? 'selectTxt' : 'txt'">
           <span>{{ item.name }}</span>
         </div>
-      </router-link>
+      </a>
     </template>
   </div>
 </template>
