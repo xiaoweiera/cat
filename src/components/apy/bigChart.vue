@@ -139,7 +139,11 @@ const closeModel = () => {
       <ApyDesBig  :changeTime="changeTime" :title="props.chartData.title"
                  :selected="tags.selected" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
       <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
-      <div :id="props.id+'big'" class="whNumber">
+      <div class="flex relative whNumber">
+        <div :id="props.id+'big'" class="whChartNumber">
+        </div>
+        <!--        分析器 下拉框-->
+        <ApyFilterChart />
       </div>
     </div>
   </div>
@@ -149,7 +153,10 @@ const closeModel = () => {
   width: 100%;
   height: 92%
 }
-
+.whChartNumber{
+  flex:1;
+  height: 100%;
+}
 .dialogModel {
   width: 100%;
   position: fixed;
