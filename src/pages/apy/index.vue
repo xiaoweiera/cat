@@ -132,9 +132,7 @@ onUnmounted(() => clearInterval(timerInterval))
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
-
     </div>
-
     <!-- table表格-->
     <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
          v-for="(item,index) in tables" :key="index">

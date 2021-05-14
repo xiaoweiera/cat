@@ -112,7 +112,7 @@ watch(() => tags.selected, () => {
 })
 onMounted(() => {
   //@ts-ignore
-  myChart = echarts.init(document.getElementById(props.id + 'big'), "light");
+  myChart = echarts.init(document.getElementById(props.id + 'big'), "light",{renderer: 'svg'});
   window.addEventListener("resize", myChart.resize);
   let newOptions = props.chartData?.option
   if (!newOptions?.data) {
