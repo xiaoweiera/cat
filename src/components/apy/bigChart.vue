@@ -140,16 +140,10 @@ const closeModel = () => {
                  :selected="tags.selected" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
       <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
       <div class="flex relative whNumber">
-<<<<<<< HEAD
-        <div :id="props.id+'big'" class="whChartNumber"></div>
-        <!-- 分析器 下拉框 -->
-        <ApyFilterChart />
-=======
         <div :id="props.id+'big'" class="whChartNumber">
         </div>
         <!--        分析器 下拉框-->
         <ApyFilterChart  :chartIndex="chartIndex"/>
->>>>>>> f51854405b65ebb815e98d2b3af9e89987e77bea
       </div>
     </div>
   </div>

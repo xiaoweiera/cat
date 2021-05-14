@@ -21,11 +21,6 @@ onBeforeMount( initData(param))
 </script>
 <template>
   <div class=" w-56 ml-5">
-<<<<<<< HEAD
-    <!--    所在链-->
-    <div class="items-center justify-between w-full  h-10 h-7.5 mb-6">
-      <ApyChartFilter   :chains="chains"/>
-=======
     <!-- 所在链-->
     <div class="items-center justify-between w-full  h-10 h-7.5 mb-6">
       <ApyChartFilter   :dataList="chains"/>
@@ -33,7 +28,6 @@ onBeforeMount( initData(param))
       <ApyChartFilter   :dataList="plats"/>
       <ApyChartFilter v-if="props.chartIndex!==2"   :dataList="coins"/>
       <ApyChartFilter   :dataList="marks"/>
->>>>>>> f51854405b65ebb815e98d2b3af9e89987e77bea
     </div>
   </div>
 </template>
