@@ -17,7 +17,6 @@ export const debounce = function<T>(callback: Callback, time?: number): T {
   // @ts-ignore
   return function(...args: any[]) {
     clearTimeout(timeout)
-    console.time('debounce')
     timeout = setTimeout(() => {
       // @ts-ignore
       return callback.apply(self, args)

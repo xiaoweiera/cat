@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 import * as echarts from 'echarts'
+import * as utils from '~/utils/index'
 import {defineProps, onMounted, reactive, ref, watch} from 'vue'
 import {chartOption} from "~/lib/chartOptionBig";
 import {
@@ -58,22 +59,19 @@ const draw = () => {
       unit.value,
   ), true)
 }
-const changeTime = (beginTimeStr: string, endTimeStr: string) => {
-  beginTime.value = beginTimeStr
-  endTime.value = endTimeStr
-  reRenderChart()
-}
-const reRenderChart = async function () {
+
+const reRenderChart = utils.debounce(async function () {
   // @ts-ignore
   let param = {
     chain: props.chainId,
-    category: props.chartData.category, ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
+    category: props.chartData.category,
+    ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
   }
   if (beginTime.value) {
     param = {
       ...param,
       from_ts: beginTime.value,
-      to_ts: endTime.value
+      to_ts: endTime.value,
     }
   }
   // @ts-ignore
@@ -91,7 +89,14 @@ const reRenderChart = async function () {
   serise.value = getSerise(yData)
   legendData.value = getLengent(yData)
   draw()
+}, 600)
+
+const changeTime = (beginTimeStr: string, endTimeStr: string) => {
+  beginTime.value = beginTimeStr
+  endTime.value = endTimeStr
+  reRenderChart()
 }
+
 
 watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   // @ts-ignore
