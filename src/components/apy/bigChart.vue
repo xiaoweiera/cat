@@ -143,7 +143,7 @@ const closeModel = () => {
         <div :id="props.id+'big'" class="whChartNumber">
         </div>
         <!--        分析器 下拉框-->
-        <ApyFilterChart />
+        <ApyFilterChart  :chartIndex="chartIndex"/>
       </div>
     </div>
   </div>
