@@ -71,18 +71,17 @@ export const getModel = (params: any,unit:string) => {
     if (!params[0]) {
         return
     }
-    params=orderByDesc(params)
-    const title = params[0].axisValue;
-    let f = tooptipsModel;
+    params = orderByDesc(params)
+    const title = params[0].axisValue
     const time = `<div>${title}</div>`
-    //@ts-ignore
-    const result = params.map(({seriesName, data, seriesIndex: idx, color}) => {
-        let {value,formatValue} = data;
+    // @ts-ignore
+    const result = params.map(({ seriesName, data, seriesIndex: idx, color}) => {
+        let {value,formatValue} = data
         if (value) {
-            return f(seriesName, color, formatValue,unit);
+            return tooptipsModel(seriesName, color, formatValue,unit);
         }
-    });
-    return time + result.join('');
+    })
+    return time + result.join('')
 }
 //@ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)

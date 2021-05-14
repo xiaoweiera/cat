@@ -15,7 +15,7 @@ const chains=reactive({name:'所在链',select:'HECO',data:['ETH','HECO','BSC','
 <template>
   <div class=" w-56 ml-5">
     <!--    所在链-->
-    <div class="flex items-center justify-between w-full  h-10 h-7.5 mb-6">
+    <div class="items-center justify-between w-full  h-10 h-7.5 mb-6">
       <ApyChartFilter   :chains="chains"/>
     </div>
   </div>
