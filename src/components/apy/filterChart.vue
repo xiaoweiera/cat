@@ -1,31 +1,39 @@
 <script setup lang="ts">
-import { ref,reactive,watch,defineProps,onBeforeMount} from 'vue'
+import {ref, reactive, watch, defineProps, onBeforeMount, onMounted} from 'vue'
 import { getInfo} from '~/logic/apy/chartOption'
 const props=defineProps({
-  chartIndex:Number
+  chainId:String,
+  category:String,
+  chartIndex:Number,
 })
 interface  dataSetModel{
   chain:string
   category:string
 }
-const param:dataSetModel=reactive({ chain:'heco', category:'machine_gun_pool_single'})
-const chains=reactive({name:'所在链',select:'HECO',data:['ETH','HECO','BSC','HSC']})
-const types=reactive({name:'类型',select:'',data:[]})
-const plats=reactive({name:'平台',select:'',data:[]})
-const coins=reactive({name:'币种',select:'',data:[]})
-const marks=reactive({name:'指标',select:'',data:[]})
-const initData=async(param:dataSetModel)=>{
-  await getInfo(param)
-}
-onBeforeMount( initData(param))
+const typeName='type'
+const param:dataSetModel={ chain:props.chainId, category:props.category}
+const {chains,types,plats,coins,marks,getData}=getInfo(param)
+
+watch(()=>chains.select,(n,o)=>{
+  param.chain=n.toLowerCase()
+  getData(param)
+})
+watch(()=>types.select,(n,o)=>{
+  console.log(n)
+  param.category=n
+  getData(param)
+})
+onMounted(()=>{
+  getData()
+})
 </script>
 <template>
   <div class=" w-56 ml-5">
     <!-- 所在链-->
     <div class="items-center justify-between w-full  h-10 h-7.5 mb-6">
       <ApyChartFilter   :dataList="chains"/>
-      <ApyChartFilter   :dataList="types"/>
-      <ApyChartFilter   :dataList="plats"/>
+      <ApyChartFilter :typeName="typeName"  :dataList="types"/>
+      <ApyChartFilter    :dataList="plats"/>
       <ApyChartFilter v-if="props.chartIndex!==2"   :dataList="coins"/>
       <ApyChartFilter   :dataList="marks"/>
     </div>

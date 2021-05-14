@@ -98,7 +98,7 @@ const getDataByTime = (data: any, field: string) => {
     return [xItems, result]
 }
 
-const getxyDataWithField = (data: chartItem, field: String) => {
+const getxyDataWithField = (data: projectItem[], field: String) => {
     if (!data) return {}
     // @ts-ignore
     let min = 0

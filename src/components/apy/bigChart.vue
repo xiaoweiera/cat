@@ -89,8 +89,7 @@ const reRenderChart = utils.debounce(async function () {
   serise.value = getSerise(yData)
   legendData.value = getLengent(yData)
   draw()
-}, 600)
-
+}, 300)
 const changeTime = (beginTimeStr: string, endTimeStr: string) => {
   beginTime.value = beginTimeStr
   endTime.value = endTimeStr
@@ -148,7 +147,7 @@ const closeModel = () => {
         <div :id="props.id+'big'" class="whChartNumber">
         </div>
         <!--        分析器 下拉框-->
-        <ApyFilterChart  :chartIndex="chartIndex"/>
+        <ApyFilterChart  :category="chartData.category" :chainId="chainId"  :chartIndex="chartIndex"/>
       </div>
     </div>
   </div>

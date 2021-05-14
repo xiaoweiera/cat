@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {defineProps,toRefs} from 'vue'
+import {defineProps,toRefs,onMounted} from 'vue'
+import {getTypeNameByKey} from '~/logic/apy/chartOption'
 import { ElSelect,ElOption,ElIcon} from 'element-plus'
 interface dropModel {
   name:string
@@ -7,10 +8,10 @@ interface dropModel {
   data:object
 }
 const props=defineProps({
+  typeName:String,
   dataList:Object
 })
 const optionModel:dropModel=toRefs(props.dataList)
-
 </script>
 <template>
   <div class=" w-56" >
@@ -21,7 +22,7 @@ const optionModel:dropModel=toRefs(props.dataList)
         <el-option class="h-7.5"
                    v-for="item in optionModel.data.value"
                    :key="item"
-                   :label="item"
+                   :label="typeName==='type'?getTypeNameByKey(item):item"
                    :value="item">
         </el-option>
       </el-select>
