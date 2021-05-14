@@ -2,26 +2,45 @@
 import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import { useRouter } from 'vue-router'
 import {requestTables, defaultChains, requestChart} from '~/logic/apy'
-//@ts-ignore
+// @ts-ignore
 import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
 import {wxShare} from '~/lib/wxShare'
 const {chains} = defaultChains(chainConfig)
 const chainParam = ref('')
-//@ts-ignore
-const {tables, requestData: fetchTableData} = requestTables()
-//@ts-ignore
-const {charts, requestChartData: fetchChartData} = requestChart()
+// @ts-ignore
+const { tables, requestData: fetchTableData } = requestTables()
+// @ts-ignore
+const { charts, requestChartData: fetchChartData } = requestChart()
 const selectedAnchor = ref('机枪池APY')
 // const chainQuery=ref('')
 // const router=useRouter()
 // console.log(router.params)
-//@ts-ignore
-const clickAnchor = (name: string) => {
+// @ts-ignore
+
+// 计算元素距离 body 的位置
+const offsetY = function(dom: HTMLElement, number = 0): number {
+  const body = document.body || document.querySelector('body')
+  if (dom) {
+    const value = number + dom.offsetTop
+    const parent = dom.offsetParent
+    if (parent === body) {
+      return value
+    }
+    return offsetY(parent, value)
+  }
+  return number
+}
+
+const clickAnchor = (name: string, key?: string) => {
   if (name === '回到顶部') {
-    //@ts-ignore
+    // @ts-ignore
     document.scrollingElement.scrollTop = 0
   }
   selectedAnchor.value = name
+  if (key) {
+    const top = offsetY(document.querySelector(`#content-${key}`))
+    document.scrollingElement.scrollTop = top
+  }
 }
 const fetchTableByChain = (chain: String) => {
   tableConfig.map((i, idx) => {
@@ -37,7 +56,7 @@ const fetchChartByChain = (chain: String) => {
       return fetchChartData(tableIndex, chartIndex, chartItem.name, chart.title, chart.requestData, chart.chartData, chart.xyData, {
         chain,
         category: chartItem.name,
-        ...chart.param
+        ...chart.param,
       })
     })
   })
@@ -123,7 +142,7 @@ onUnmounted(() => clearInterval(timerInterval))
       <template v-if="chainParam === 'hsc' && index === 0 ">
         <div></div>
       </template>
-      <template v-else>
+      <div v-else :id="`content-${item.slug}`">
         <a class="mdhidden">
           <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor"/>
         </a>
@@ -136,19 +155,21 @@ onUnmounted(() => clearInterval(timerInterval))
                       :chartData="itemChart" :id="index+''+i"/>
           </template>
         </div>
-      </template>
+      </div>
     </div>
     <ApyFooter/>
-    <!--    浮动tag-->
-    <div class="tagContainer  w-19  h-28 flex-col fixed fixed right-2   2xl:right-10 top-70">
-      <template v-for="(item, index) in anchorConfig" :key="index">
-        <a @click="clickAnchor(item.name)" :href="'#'+item.key"
-           :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "
-        >{{ item.name }}</a>
-      </template>
+    <!--浮动tag-->
+    <div>
+      <div class="tagContainer  w-19 h-28 flex-col 2xl:right-10 fixed right-2 top-70">
+        <template v-for="(item, index) in anchorConfig" :key="index">
+          <a class="hand" @click="clickAnchor(item.name, item.key)"
+             :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "
+          >{{ item.name }}</a>
+        </template>
+      </div>
+      <img @click="clickAnchor('回到顶部')" class="mdhidden bottom-10 right-5 w-11 h-11 hand"
+           src="https://res.ikingdata.com/nav/apyBack.png">
     </div>
-    <img @click="clickAnchor('回到顶部')" class="mdhidden fixed bottom-10 right-5 w-11 h-11  hand "
-         src="https://res.ikingdata.com/nav/apyBack.png" alt="">
   </div>
 </template>
 <style scoped lang="postcss">
