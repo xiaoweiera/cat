@@ -7,9 +7,9 @@ interface dropModel {
   data:object
 }
 const props=defineProps({
-  chains:Object
+  dataList:Object
 })
-const optionModel:dropModel=toRefs(props.chains)
+const optionModel:dropModel=toRefs(props.dataList)
 
 </script>
 <template>

@@ -126,32 +126,6 @@ const getxyDataWithField = (data: chartItem, field: String) => {
     })
     return { xData, yData, min, max }
 }
-
-// 第三个表
-// export const getInfoData = (data: any) => {
-//     if (!data) return
-//     let min = 0
-//     let max = 0
-//     //@ts-ignore
-//     const [xItems, result] = getDataByTime(data, 'project_name')
-//     let xData = xItems.map((item: any) => formatTimeHour(item))
-//     let yData = result.map((item: projectItem) => {
-//         //@ts-ignore
-//         let yData = item.y_axis.map((yValue: any) => {
-//             if (yValue) {
-//                 min = min === 0 ? yValue : getMin(min, yValue)
-//                 max = max === 0 ? yValue : getMax(max, yValue)
-//             }
-//             return {
-//                 value: toFixedNumber(yValue, 2),
-//                 formatValue: numberFormat(yValue, true)
-//             }
-//         })
-//         return {name: item.name, yData: yData}
-//     })
-//     return {xData, yData, min, max}
-// }
-
 //得到xy轴 第一个表
 export const getxyData = (data: chartItem) => {
   return data ? getxyDataWithField(data.data, 'token_name') : []
