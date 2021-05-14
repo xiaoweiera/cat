@@ -64,7 +64,6 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   }, 1000)
 }
 watch(() => chains.data, (newVal) => {
-  console.log('testtest',chains.data)
   if (timerInterval) {
     clearInterval(timerInterval)
     isFirstShow.value = true
