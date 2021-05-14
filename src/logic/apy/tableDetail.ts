@@ -60,7 +60,7 @@ export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], option
             chain:row.chain,
             //@ts-ignore
             url: row.url,
-            data: headers.map(({token_name}: { token_name: String }) => {
+            data: headers?.map(({token_name}: { token_name: String }) => {
                 // @ts-ignore
                 const cellOrigin: CoinModel = row.data[token_name]
                 return {
@@ -71,5 +71,3 @@ export const filterByOptions = (headers: HeaderModel[], rows: RowModel[], option
         }
     }) : []
 }
-
-

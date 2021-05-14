@@ -8,6 +8,7 @@
     "serve": "vite serve --host 0.0.0.0"
   },
   "dependencies": {
+    "@fengqiaogang/safe-get": "^0.1.1",
     "@types/ramda": "^0.27.40",
     "@vueuse/core": "^4.9.0",
     "@vueuse/head": "^0.5.1",

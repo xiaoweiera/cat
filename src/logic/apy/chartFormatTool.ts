@@ -1,6 +1,25 @@
-import {formatTimeHour, toFixedNumber, numberFormat} from '~/lib/tool'
-import {getChart, getChartByMoney} from "~/api/apy";
+import { formatTimeHour, toFixedNumber, numberFormat } from '~/lib/tool'
+import { getChart, getChartByMoney } from "~/api/apy"
 import * as R from 'ramda'
+
+interface projectItem {
+  project_name: string
+  x_axis: object
+  y_axis: object
+}
+
+interface tokenItem {
+  token_name: string
+  x_axis: object
+  y_axis: object
+}
+
+export interface chartModel {
+  title: string
+  chartData: Function
+  xyData: Function
+}
+
 
 interface lendModel {
     total_supply: projectItem[]
@@ -17,25 +36,13 @@ interface gunModel {
 }
 
 interface requsetProjectModel {
-    code: number,
+    code: number
     data: projectItem[]
 }
 
 interface requsetTokenModel {
-    code: number,
+    code: number
     data: tokenItem[]
-}
-
-interface projectItem {
-    project_name: string
-    x_axis: object
-    y_axis: object
-}
-
-interface tokenItem {
-    token_name: string
-    x_axis: object
-    y_axis: object
 }
 
 export interface tableCofigModel {
@@ -45,17 +52,12 @@ export interface tableCofigModel {
     charts: chartModel[]
 }
 
-export interface chartModel {
-    title: string
-    chartData: Function
-    xyData: Function
-}
 
 export interface newModel {
     title: string
 }
 
-//------------------第n个table的第三个表----------------
+// ------------------第n个table的第三个表----------------
 export const lendDataFormat = (data: lendModel) => data.total_supply
 export const loanDataFormat = (data: loanModel) => data.total_borrowed
 export const gunDataFormat = (data: gunModel, selected: string) => {
@@ -67,25 +69,25 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
     }
     return data.machine_gun_pool_single_avg_apy
 }
-//第一个图表
+// 第一个图表
 export const getChartProjectData = (data: projectItem[], selected: string) => data?.find((item: any) => item.project_name === selected)
-//第二个图表
+// 第二个图表
 export const getChartTokenData = (data: tokenItem[], selected: string) => data?.find((item: any) => item.token_name === selected)
 
-//得到x轴y轴
+// 得到x轴y轴
 interface chartItem {
     project_name: string
     data: projectItem[]
 }
 
-const getDataByTime = (data:any, field:string) => {
+const getDataByTime = (data: any, field: string) => {
     const xItems = R.sort((a, b) => a - b, R.uniq(R.flatten(R.map(i => i.x_axis, data))))
     const result = R.map(i => {
         return {
             name: i[field],
             y_axis:
                 R.map(date => {
-                    let idx = i.x_axis.indexOf(date)
+                    const idx = i.x_axis.indexOf(date)
                     if (idx) {
                         return i.y_axis[idx]
                     }
@@ -98,14 +100,14 @@ const getDataByTime = (data:any, field:string) => {
 
 const getxyDataWithField = (data: chartItem, field: String) => {
     if (!data) return {}
-    //@ts-ignore
+    // @ts-ignore
     let min = 0
     let max = 0
-    //@ts-ignore
+    // @ts-ignore
     const [xItems, result] = getDataByTime(data, field)
-    let xData = xItems.map((item: any) => formatTimeHour(item))
-    //@ts-ignore
-    let yData = result.map((item: tokenItem | projectItem) => {
+    const xData = xItems.map((item: any) => formatTimeHour(item))
+    // @ts-ignore
+    const yData = result.map((item: tokenItem | projectItem) => {
         return {
             // @ts-ignore
             name: item.name,
@@ -117,16 +119,15 @@ const getxyDataWithField = (data: chartItem, field: String) => {
                 }
                 return {
                     value: toFixedNumber(yValue, 2),
-                    formatValue: numberFormat(yValue, true)
+                    formatValue: numberFormat(yValue, true),
                 }
-            })
+            }),
         }
     })
-    return {xData, yData, min, max}
+    return { xData, yData, min, max }
 }
 
-
-//第三个表
+// 第三个表
 // export const getInfoData = (data: any) => {
 //     if (!data) return
 //     let min = 0
@@ -152,16 +153,26 @@ const getxyDataWithField = (data: chartItem, field: String) => {
 // }
 
 //得到xy轴 第一个表
-export const getxyData = (data: chartItem) => getxyDataWithField(data.data, 'token_name')
+export const getxyData = (data: chartItem) => {
+  return data ? getxyDataWithField(data.data, 'token_name') : []
+}
 //得到xy轴 第二个表
-export const getCoinData = (data: chartItem) => getxyDataWithField(data.data, 'project_name')
+export const getCoinData = (data: chartItem) => {
+  return data ? getxyDataWithField(data.data, 'project_name') : []
+}
 //得到xy轴 第三个表
-export const getInfoData = (data: any) => getxyDataWithField(data, 'project_name')
+export const getInfoData = (data: any) => {
+  return data ? getxyDataWithField(data, 'project_name') : []
+}
 const getMin = (min: number, yValue: any) => min < yValue ? min : yValue
 const getMax = (max: number, yValue: any) => max > yValue ? max : yValue
 //获取平台列表--筛选
-export const getProjectPlat = (data: requsetProjectModel) => data.data.map((item: projectItem) => item['project_name'])
-export const getTokenPlat = (data: requsetTokenModel) => data.data.map((item: tokenItem) => item['token_name'])
+export const getProjectPlat = (data: requsetProjectModel) => {
+  return data ? data.data.map((item: projectItem) => item['project_name']) : []
+}
+export const getTokenPlat = (data: requsetTokenModel) => {
+  return data ? data.data.map((item: tokenItem) => item['token_name']) : []
+}
 export const getInfoPlat = () => []
 export const getInfoHasPlat = () => ['TVL', '用户总收益', '平均APY']
 
@@ -176,5 +187,3 @@ interface requestItem {
 export const requestLendData = async (param: requestItem) => (await getChart(param))?.data
 export const requestLoanData = async (param: requestItem) => (await getChart(param))?.data
 export const requestGunData = async (param: requestItem) => (await getChartByMoney(param))?.data
-
-

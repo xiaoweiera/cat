@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@antfu/eslint-config': ^0.6.4
+  '@fengqiaogang/safe-get': ^0.1.1
   '@iconify/json': ^1.1.331
   '@intlify/vite-plugin-vue-i18n': ^2.1.1
   '@types/nprogress': ^0.2.0
@@ -49,6 +50,7 @@ specifiers:
   wechat-jssdk: ^5.0.7
 
 dependencies:
+  '@fengqiaogang/safe-get': 0.1.1
   '@types/ramda': 0.27.40
   '@vueuse/core': 4.10.0_vue@3.0.11
   '@vueuse/head': 0.5.1_vue@3.0.11
@@ -1227,6 +1229,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fengqiaogang/safe-get/0.1.1:
+    resolution: {integrity: sha512-BFXKNgqpHHRuQC+/WzxcTq8iR8G5H1VXUK75H3ppog3I7K+cU928slOC6TaNdUoDmrrry3S2V1VsiEWVNm6rNA==}
+    dev: false
 
   /@fullhuman/postcss-purgecss/3.1.3:
     resolution: {integrity: sha512-kwOXw8fZ0Lt1QmeOOrd+o4Ibvp4UTEBFQbzvWldjlKv5n+G9sXfIPn1hh63IQIL8K8vbvv1oYMJiIUbuy9bGaA==}

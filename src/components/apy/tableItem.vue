@@ -16,7 +16,7 @@ const props = defineProps({
 })
 const isShow = ref(false)
 const isNullFun = (data: any) => {
-  data.forEach(item => {
+  data && data.forEach(item => {
     if (item.value) {
       isShow.value = true
     }
