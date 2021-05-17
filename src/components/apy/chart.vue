@@ -38,13 +38,13 @@ const changeState = (stateValue: boolean) => {
 // 画图
 const draw = () => {
   myChart.setOption(chartOption(
-      xChartData.value,
-      getModel,
-      serise.value,
-      yLabelFormat,
-      minY,
-      maxY,
-      unit.value,
+    xChartData.value,
+    getModel,
+    serise.value,
+    yLabelFormat,
+    minY,
+    maxY,
+    unit.value,
   ), true)
 }
 

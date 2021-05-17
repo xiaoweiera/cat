@@ -1,18 +1,18 @@
 <script setup lang="ts">
-  import { onBeforeMount } from 'vue'
-  import SwiperCore, { Pagination } from 'swiper'
-  // 引入 swiper vue 组件
-  // @ts-ignore
-  import { Swiper, SwiperSlide } from 'swiper/vue'
-  // 广告位数据
-  // @ts-ignore
-  import { list, requestMediaList } from '~/logic/apy/ads'
-  // 引入 swiper 样式
-  import 'swiper/swiper-bundle.css'
-  // 装载 swiper 组件
-  SwiperCore.use([Pagination])
-  // 获取数据
-  onBeforeMount(requestMediaList)
+import { onBeforeMount } from 'vue'
+import SwiperCore, { Pagination } from 'swiper'
+// 引入 swiper vue 组件
+// @ts-ignore
+import { Swiper, SwiperSlide } from 'swiper/vue'
+// 广告位数据
+// @ts-ignore
+import { list, requestMediaList } from '~/logic/apy/ads'
+// 引入 swiper 样式
+import 'swiper/swiper-bundle.css'
+// 装载 swiper 组件
+SwiperCore.use([Pagination])
+// 获取数据
+onBeforeMount(requestMediaList)
 </script>
 
 <template>

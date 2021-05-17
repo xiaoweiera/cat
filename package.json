@@ -1,11 +1,27 @@
 {
   "private": true,
   "scripts": {
+    "precommit": "lint-staged",
     "dev": "vite --port 3333",
     "build": "cross-env NODE_ENV=production vite-ssg build",
     "preview": "vite preview",
     "preview-https": "serve dist",
     "serve": "vite serve --host 0.0.0.0"
+  },
+  "lint-staged": {
+    "./src/**/**/*.vue": "eslint",
+    "./src/**/**/*.ts": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-preset-env": {},
+      "autoprefixer": {}
+    }
   },
   "dependencies": {
     "@fengqiaogang/safe-get": "^0.1.1",
@@ -14,7 +30,9 @@
     "@vueuse/head": "^0.5.1",
     "dayjs": "^1.10.4",
     "echarts": "^5.1.1",
+    "husky": "^6.0.0",
     "intl-format": "^1.2.0",
+    "lint-staged": "^11.0.0",
     "nprogress": "^0.2.0",
     "prism-theme-vars": "^0.2.2",
     "ramda": "^0.27.1",

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { ProjectInfo } from '~/types/growthpad'
-
+// @ts-ignore
 const { t } = useI18n()
 
 const props = defineProps({
@@ -13,14 +13,15 @@ const props = defineProps({
 })
 
 const router = useRouter()
+// @ts-ignore
 const formatRemainder = (ts: number | undefined): String => {
   if (ts === 0 || ts === undefined) {
     return '00 天 00小时 00分钟'
   }
   return '00 天 00小时 00分钟'
 }
-
-const go = (value: String) => {
+// @ts-ignore
+const go = (value: string) => {
   router.push(`/growthpad/${encodeURIComponent(value)}`)
 }
 

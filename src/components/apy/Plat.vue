@@ -26,7 +26,7 @@ const getIsMore = (name: string) => {
       isMore.value = true
       return false
     }
-else {
+    else {
       isMore.value = false
     }
   }

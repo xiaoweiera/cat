@@ -4,6 +4,8 @@ const props = defineProps({
   tags: { type: Object },
   chartIndex: { type: Number },
 })
+const isShowMore = ref(false)
+// const isMore = ref(true)
 // @ts-ignore
 const { selected: selectedTag } = toRefs(props.tags)
 // @ts-ignore
@@ -11,12 +13,12 @@ const clickTag = (name: string) => {
   selectedTag.value = name
   isShowMore.value = false
 }
-const isShowMore = ref(false)
+
 // @ts-ignore
 const showMore = () => isShowMore.value = true
 // @ts-ignore
 const closeMore = () => isShowMore.value = false
-const isMore = ref(true)
+
 </script>
 <template>
   <div class="flex mt-3 w-full min-h-7 relative  items-center  justify-between ">

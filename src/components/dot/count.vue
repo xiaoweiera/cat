@@ -1,27 +1,27 @@
 <script setup lang="ts">
-  import { defineProps, computed } from 'vue'
-  const props = defineProps({
-    size: {
-      validator(value: string): boolean {
-        return ['sm', 'lg'].includes(value)
-      },
-      default: (): string => {
-        return 'sm'
-      },
+import { defineProps, computed } from 'vue'
+const props = defineProps({
+  size: {
+    validator(value: string): boolean {
+      return ['sm', 'lg'].includes(value)
     },
-    skin: {
-      validator(value: string): boolean {
-        return ['orange', 'blue'].includes(value)
-      },
+    default: (): string => {
+      return 'sm'
     },
-  })
-  // className
-  const className = computed(() => {
-    const data = {}
-    data[props.size] = true
-    data[`skin-${props.skin}`] = true
-    return data
-  })
+  },
+  skin: {
+    validator(value: string): boolean {
+      return ['orange', 'blue'].includes(value)
+    },
+  },
+})
+// className
+const className = computed(() => {
+  const data = {}
+  data[props.size] = true
+  data[`skin-${props.skin}`] = true
+  return data
+})
 </script>
 
 <template>

@@ -11,7 +11,7 @@ onMounted(() => {
   if (loc.host.startsWith('growthpad') && loc.pathname === '/') {
     router.push('/growthpad')
   }
- else if (loc.host.startsWith('apy') && loc.pathname === '/') {
+  else if (loc.host.startsWith('apy') && loc.pathname === '/') {
     router.push('/apy')
   }
 })

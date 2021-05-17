@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { defineProps, computed } from 'vue'
-  const props = defineProps({
-    url: String,
-    image: String,
-  })
-  const style = computed((): string => {
-    return `background-image: url(${props.image});`
-  })
+import { defineProps, computed } from 'vue'
+const props = defineProps({
+  url: String,
+  image: String,
+})
+const style = computed((): string => {
+  return `background-image: url(${props.image});`
+})
 </script>
 
 <template>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import { useRoute } from 'vue-router'
-  import { defineProps, toRefs, toRaw, onBeforeMount, watch } from 'vue'
-  // 定义属性
-  const props = defineProps({
-    chains: Object,
-    active: String,
-  })
-  // 获取当前路由对象
-  const router = useRoute()
+import { useRoute } from 'vue-router'
+import { defineProps, toRefs, toRaw, onBeforeMount, watch } from 'vue'
+// 定义属性
+const props = defineProps({
+  chains: Object,
+  active: String,
+})
+// 获取当前路由对象
+const router = useRoute()
   interface Query {
     [key: string]: string
   }
@@ -18,38 +18,38 @@
     select: boolean // 选择状态
   }
   // @ts-ignore
-  const { data: outerChains } = toRefs(props.chains)
-  // @ts-ignore
-  const getTabs = function() {
-    const $router = toRaw(router)
-    const query: Query = $router.query.value as any
-    let value: string = props.active as string
-    if (query && query.key) {
-      value = `${query.key}`.toLocaleLowerCase()
+const { data: outerChains } = toRefs(props.chains)
+// @ts-ignore
+const getTabs = function() {
+  const $router = toRaw(router)
+  const query: Query = $router.query.value as any
+  let value: string = props.active as string
+  if (query && query.key) {
+    value = `${query.key}`.toLocaleLowerCase()
+  }
+  const list: Item[] = outerChains.value.map((item: Item) => {
+    if (item.key === value) {
+      item.select = true
     }
-    const list: Item[] = outerChains.value.map((item: Item) => {
-      if (item.key === value) {
-        item.select = true
-      }
-      else {
-        item.select = false
-      }
-      return item
-    })
-    outerChains.value = list
-  }
-  // 监听路由变化
-  watch(router, getTabs)
-  // 处理数据
-  onBeforeMount(getTabs)
-  // utm_source=https://apy.kingdata.com
-  // 计算跳转地址
-  // @ts-ignore
-  const getHref = function(data: Item): string {
-    const key = data.key
-    const utm_source = 'https://apy.kingdata.com'
-    return `?key=${key}&utm_source=${utm_source}`
-  }
+    else {
+      item.select = false
+    }
+    return item
+  })
+  outerChains.value = list
+}
+// 监听路由变化
+watch(router, getTabs)
+// 处理数据
+onBeforeMount(getTabs)
+// utm_source=https://apy.kingdata.com
+// 计算跳转地址
+// @ts-ignore
+const getHref = function(data: Item): string {
+  const key = data.key
+  const utm_source = 'https://apy.kingdata.com'
+  return `?key=${key}&utm_source=${utm_source}`
+}
 </script>
 <template>
   <div class="flex  w-full justify-center">

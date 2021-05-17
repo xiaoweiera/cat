@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { defineProps } from 'vue'
-  defineProps({
-    data: Object,
-    skin: String,
-  })
+import { defineProps } from 'vue'
+defineProps({
+  data: Object,
+  skin: String,
+})
 </script>
 
 <template>

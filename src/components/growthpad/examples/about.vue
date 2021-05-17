@@ -1,21 +1,21 @@
 <script setup lang="ts">
-  import { computed, ref } from 'vue'
-  // @ts-ignore
-  import { Name, Icon, About } from '~/logic/growthpad/examples'
-  // 多少列
-  const cols = 3
-  // @ts-ignore
-  const list = computed(() => {
-    const array: Array<any[]> = []
-    for (let i = 0; i < cols; i++) {
-      const value = About.minutias.filter((item, index: number) => {
-        return index % cols === i
-      })
-      array.push(value)
-    }
-    return array
-  })
-  const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
+import { computed, ref } from 'vue'
+// @ts-ignore
+import { Name, Icon, About } from '~/logic/growthpad/examples'
+// 多少列
+const cols = 3
+// @ts-ignore
+const list = computed(() => {
+  const array: Array<any[]> = []
+  for (let i = 0; i < cols; i++) {
+    const value = About.minutias.filter((item, index: number) => {
+      return index % cols === i
+    })
+    array.push(value)
+  }
+  return array
+})
+const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
 </script>
 
 <template>

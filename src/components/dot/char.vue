@@ -1,43 +1,43 @@
 <script setup lang="ts">
-  import { defineProps, computed } from 'vue'
-  const props = defineProps({
-    value: {
-      type: [String, Number],
+import { defineProps, computed } from 'vue'
+const props = defineProps({
+  value: {
+    type: [String, Number],
+  },
+  img: { type: String },
+  size: {
+    validator(value: string): boolean {
+      return ['sm', 'xl', 'lg'].includes(value)
     },
-    img: { type: String },
-    size: {
-      validator(value: string): boolean {
-        return ['sm', 'xl', 'lg'].includes(value)
-      },
-      default: (): string => {
-        return 'sm'
-      },
+    default: (): string => {
+      return 'sm'
     },
-  })
-  // @ts-ignore
-  const char = computed((): string => {
-    if (props.value) {
-      const [text = ''] = `${props.value}`
-      return text
-    }
-    return ''
-  })
-  // class Name
-  // @ts-ignore
-  const className = computed(() => {
-    const data: any = {}
-    data[props.size] = true
-    // 如果 img 属性存在，则以图片形式展示
-    if (props.img) {
-      data['inline-block'] = true
-      return data
-    }
-    data.dot = true
-    data['inline-flex'] = true
-    data['justify-center'] = true
-    data['items-center'] = true
+  },
+})
+// @ts-ignore
+const char = computed((): string => {
+  if (props.value) {
+    const [text = ''] = `${props.value}`
+    return text
+  }
+  return ''
+})
+// class Name
+// @ts-ignore
+const className = computed(() => {
+  const data: any = {}
+  data[props.size] = true
+  // 如果 img 属性存在，则以图片形式展示
+  if (props.img) {
+    data['inline-block'] = true
     return data
-  })
+  }
+  data.dot = true
+  data['inline-flex'] = true
+  data['justify-center'] = true
+  data['items-center'] = true
+  return data
+})
 </script>
 
 <template>

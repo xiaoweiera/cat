@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  // @ts-ignore
-  import { Name, Icon, Dasboard } from '~/logic/growthpad/examples'
+// @ts-ignore
+import { Name, Icon, Dasboard } from '~/logic/growthpad/examples'
 </script>
 
 <template>

@@ -24,7 +24,7 @@ const getTitle = () => {
   if (props.chartIndex === 2) {
     return `${props.title + props.selected}对比`
   }
- else {
+  else {
     return `${props.selected} ${props.title}`
   }
 }
@@ -40,29 +40,36 @@ const filterOption = ref([{ name: '近7天', value: 7, selected: true }, {
   value: 30,
   selected: false,
 }, { name: '近3月', value: 90, selected: false }, { name: '自定义', value: 0, selected: false }])
-watch(() => time.value, (n, o) => {
-  if (time.value) {
-    updateChart(dataToTimestamp(formatDefaultTime(n[0])), dataToTimestamp(formatDefaultTime(n[1])))
-  }
-})
+
 const updateChart = (begin: number, end: number) => {
   beginTime.value = begin
   endTime.value = end
   props?.changeTime(beginTime.value, endTime.value)
 }
+
+watch(() => time.value, (n, o) => {
+  if (time.value) {
+    updateChart(dataToTimestamp(formatDefaultTime(n[0])), dataToTimestamp(formatDefaultTime(n[1])))
+  }
+})
+
 const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
     document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
   }
- else {
+  else {
     updateChart(getagoTimeStamp(timeM.value), dataToTimestamp(formatDefaultTime()))
     editTime.value = false // 关闭自定义
     time.value = null // 自定义清空
   }
-  R.map((item) => {
-    if (item.name === timeM.name) item.selected = true
-    else item.selected = false
+  R.forEach((item) => {
+    if (item.name === timeM.name) {
+      item.selected = true
+    }
+    else {
+      item.selected = false
+    }
   }, filterOption.value)
 }
 </script>

@@ -18,6 +18,8 @@ const {
   select,
 } = toRefs(props.options)
 
+const show = ref(false)
+
 const clickOption = (option) => {
   setTimeout(() => {
     realOptions.value = realOptions.value.map((i) => {
@@ -30,7 +32,7 @@ const clickOption = (option) => {
     show.value = !show.value
   }, 300)
 }
-const show = ref(false)
+
 const optionShow = () => {
   show.value = true
 }

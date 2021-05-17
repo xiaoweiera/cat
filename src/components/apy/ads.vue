@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  // 广告位数据
-  import { list } from '~/logic/apy/ads'
+// 广告位数据
+import { list } from '~/logic/apy/ads'
 </script>
 
 <template>

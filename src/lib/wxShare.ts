@@ -3,10 +3,10 @@ import WxSdk from 'wechat-jssdk'
 import request from 'axios'
 
 const getShareConfig = (url: String) => {
-    if (url.indexOf('ikingdata.com') > 0) {
-        return request.post('/v6/wechat/share-config', { url }, { baseURL: 'https://api.jinse.com' })
-    }
-    return request.post('/api/wechat_config/', { url }, { baseURL: 'https://kingdata.com' })
+  if (url.indexOf('ikingdata.com') > 0) {
+    return request.post('/v6/wechat/share-config', { url }, { baseURL: 'https://api.jinse.com' })
+  }
+  return request.post('/api/wechat_config/', { url }, { baseURL: 'https://kingdata.com' })
 }
 const imgDefault = 'https://res.ikingdata.com/nav/kingdata.png'
 const wxShare = (title: String, desc: String): void => {

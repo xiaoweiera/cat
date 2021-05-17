@@ -60,14 +60,14 @@ export const About = reactive<AboutData>({
   ],
   detail: `Dex is an AMM decentralized exchange based on the concept of fund pools. It proposes and implements a dual-chain DEX model based on the Huobi ecological Heco chain and Ethereum. At the same time, DEX will also support a dual mining mechanism for liquidity and transactions.
 
-Dex innovatively adopts a dual mining mechanism. The “dual mining” here refers to the first one: support Uniswap LP, Sushiswap LP and single currency mortgage mining on Ethereum before LP migration. Among them, mortgage Sushiswap LP can get Sushi at the same time. With Dex tokens, one-click dual mining is realized, and it also refers to: After the migration, trading and liquidity dual mining will be opened on Heco.`
+Dex innovatively adopts a dual mining mechanism. The “dual mining” here refers to the first one: support Uniswap LP, Sushiswap LP and single currency mortgage mining on Ethereum before LP migration. Among them, mortgage Sushiswap LP can get Sushi at the same time. With Dex tokens, one-click dual mining is realized, and it also refers to: After the migration, trading and liquidity dual mining will be opened on Heco.`,
 })
 
 // 分享代码
 export const shareCode = ref('<frame src="https://embed.KingData.com/embed/s/914814682750.htm" style-"border: none;" width="490" height="164" frameborder="0" scrolling="no" allowfullscreen></iframe>')
 
 interface Tooltip {
-  icon: string,
+  icon: string
   value: string
 }
 

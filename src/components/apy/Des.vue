@@ -14,8 +14,8 @@ const getTitle = () => {
   if (props.chartIndex === 2) {
     return `${props.title + props.selected}对比`
   }
-else {
-   return `${props.selected} ${props.title}`
+  else {
+    return `${props.selected} ${props.title}`
   }
 }
 </script>

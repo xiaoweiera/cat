@@ -1,18 +1,18 @@
 <script setup lang="ts">
-  import { defineProps } from 'vue'
-  defineProps({
-    title: String,
-    list: {
-      type: Array,
-      default: () => [],
+import { defineProps } from 'vue'
+defineProps({
+  title: String,
+  list: {
+    type: Array,
+    default: () => [],
+  },
+  // 主题颜色
+  skin: {
+    validator(value: string): boolean {
+      return ['orange', 'blue'].includes(value)
     },
-    // 主题颜色
-    skin: {
-      validator(value: string): boolean {
-        return ['orange', 'blue'].includes(value)
-      },
-    },
-  })
+  },
+})
 </script>
 
 <template>

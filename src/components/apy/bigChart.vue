@@ -42,7 +42,7 @@ const endTime = ref('')
 const param = {
   chain: props.chainId,
   category: props.chartData.category,
-...tableConfig[props.tableIndex].charts[props.chartIndex].param,
+  ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
   from_ts: '',
   to_ts: '',
 }
@@ -50,14 +50,14 @@ const isChangeChain = ref(true)
 // 画图
 const draw = () => {
   myChart.setOption(chartOption(
-      xChartData.value,
-      getModel,
-      serise.value,
-      legendData.value,
-      yLabelFormat,
-      minY,
-      maxY,
-      unit.value,
+    xChartData.value,
+    getModel,
+    serise.value,
+    legendData.value,
+    yLabelFormat,
+    minY,
+    maxY,
+    unit.value,
   ), true)
 }
 

@@ -49,63 +49,63 @@ const change = (name) => {
   tag.value = name
 }
 watch(() => tag.value, (newValue, oldValue) => {
-    if (newValue === 'dex') {
-      enConfig.one = 'https://res.ikingdata.com/nav/dexOne.png'
-      enConfig.two = 'https://res.ikingdata.com/nav/dexTwo.png'
-      enConfig.stree = 'https://res.ikingdata.com/nav/dexStree.png'
-      cnConfig.one = 'https://res.ikingdata.com/nav/dexOneCn.png'
-      cnConfig.two = 'https://res.ikingdata.com/nav/dexTwoCn.png'
-      cnConfig.stree = 'https://res.ikingdata.com/nav/dexStreeCn.png'
+  if (newValue === 'dex') {
+    enConfig.one = 'https://res.ikingdata.com/nav/dexOne.png'
+    enConfig.two = 'https://res.ikingdata.com/nav/dexTwo.png'
+    enConfig.stree = 'https://res.ikingdata.com/nav/dexStree.png'
+    cnConfig.one = 'https://res.ikingdata.com/nav/dexOneCn.png'
+    cnConfig.two = 'https://res.ikingdata.com/nav/dexTwoCn.png'
+    cnConfig.stree = 'https://res.ikingdata.com/nav/dexStreeCn.png'
 
-      enConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneDexOne.png'
-      enConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneDexTwo.png'
-      enConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneDexStree.png'
-      cnConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneDexOneCn.png'
-      cnConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneDexTwoCn.png'
-      cnConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneDexStreeCn.png'
-    }
-else if (tag.value === 'vaults') {
-      enConfig.one = 'https://res.ikingdata.com/nav/vaultsOne.png'
-      enConfig.two = 'https://res.ikingdata.com/nav/vaultsTwo.png'
-      enConfig.stree = 'https://res.ikingdata.com/nav/vaultsStree.png'
-      cnConfig.one = 'https://res.ikingdata.com/nav/vaultsOneCn.png'
-      cnConfig.two = 'https://res.ikingdata.com/nav/vaultsTwoCn.png'
-      cnConfig.stree = 'https://res.ikingdata.com/nav/vaultsStreeCn.png'
+    enConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneDexOne.png'
+    enConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneDexTwo.png'
+    enConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneDexStree.png'
+    cnConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneDexOneCn.png'
+    cnConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneDexTwoCn.png'
+    cnConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneDexStreeCn.png'
+  }
+  else if (tag.value === 'vaults') {
+    enConfig.one = 'https://res.ikingdata.com/nav/vaultsOne.png'
+    enConfig.two = 'https://res.ikingdata.com/nav/vaultsTwo.png'
+    enConfig.stree = 'https://res.ikingdata.com/nav/vaultsStree.png'
+    cnConfig.one = 'https://res.ikingdata.com/nav/vaultsOneCn.png'
+    cnConfig.two = 'https://res.ikingdata.com/nav/vaultsTwoCn.png'
+    cnConfig.stree = 'https://res.ikingdata.com/nav/vaultsStreeCn.png'
 
-      enConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneVaultsOne.png'
-      enConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneVaultsTwo.png'
-      enConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneVaultsStree.png'
-      cnConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneVaultsOneCn.png'
-      cnConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneVaultsTwoCn.png'
-      cnConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneVaultsStreeCn.png'
-    }
-else {
-      enConfig.one = 'https://res.ikingdata.com/nav/lendingOne.png'
-      enConfig.two = 'https://res.ikingdata.com/nav/lendingTwo.png'
-      enConfig.stree = 'https://res.ikingdata.com/nav/lendingStree.png'
-      cnConfig.one = 'https://res.ikingdata.com/nav/lendingOneCn.png'
-      cnConfig.two = 'https://res.ikingdata.com/nav/lendingTwoCn.png'
-      cnConfig.stree = 'https://res.ikingdata.com/nav/lendingStreeCn.png'
+    enConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneVaultsOne.png'
+    enConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneVaultsTwo.png'
+    enConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneVaultsStree.png'
+    cnConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneVaultsOneCn.png'
+    cnConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneVaultsTwoCn.png'
+    cnConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneVaultsStreeCn.png'
+  }
+  else {
+    enConfig.one = 'https://res.ikingdata.com/nav/lendingOne.png'
+    enConfig.two = 'https://res.ikingdata.com/nav/lendingTwo.png'
+    enConfig.stree = 'https://res.ikingdata.com/nav/lendingStree.png'
+    cnConfig.one = 'https://res.ikingdata.com/nav/lendingOneCn.png'
+    cnConfig.two = 'https://res.ikingdata.com/nav/lendingTwoCn.png'
+    cnConfig.stree = 'https://res.ikingdata.com/nav/lendingStreeCn.png'
 
-      enConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneLendingOne.png'
-      enConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneLendingTwo.png'
-      enConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneLendingStree.png'
-      cnConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneLendingOneCn.png'
-      cnConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneLendingTwoCn.png'
-      cnConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneLendingStreeCn.png'
-    }
-    if (locale.value === 'en') {
-      localConfig.value = enConfig
-    }
-else {
-      localConfig.value = cnConfig
-    }
+    enConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneLendingOne.png'
+    enConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneLendingTwo.png'
+    enConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneLendingStree.png'
+    cnConfig.phoneOne = 'https://res.ikingdata.com/nav/phoneLendingOneCn.png'
+    cnConfig.phoneTwo = 'https://res.ikingdata.com/nav/phoneLendingTwoCn.png'
+    cnConfig.phoneStree = 'https://res.ikingdata.com/nav/phoneLendingStreeCn.png'
+  }
+  if (locale.value === 'en') {
+    localConfig.value = enConfig
+  }
+  else {
+    localConfig.value = cnConfig
+  }
 })
 watch(() => locale.value, (newValue, oldValue) => {
   if (newValue === 'en') {
     localConfig.value = enConfig
   }
-else {
+  else {
     localConfig.value = cnConfig
   }
 })

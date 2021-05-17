@@ -29,7 +29,7 @@ const getColor = (index: number, data: string) => {
   if (!data.includes('-')) {
     return 'greenTxt '
   }
- else {
+  else {
     return 'redTxt'
   }
 }
