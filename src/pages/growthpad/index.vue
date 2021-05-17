@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {ref, onMounted} from 'vue'
-import {useI18n} from 'vue-i18n'
-import {wxShare} from '~/lib/wxShare'
-const {t} = useI18n()
-let qr = ref(false)
-let positionContainer = ref(null)
-let video = ref(null)
+import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { wxShare } from '~/lib/wxShare'
+const { t } = useI18n()
+const qr = ref(false)
+const positionContainer = ref(null)
+const video = ref(null)
 const showQr = () => {
   qr.value = true
 }
@@ -16,11 +16,11 @@ const closeQr = () => {
 const videoMap = () => {
   const top = positionContainer.value.getBoundingClientRect().top
   const left = positionContainer.value.getBoundingClientRect().left
-  video.value.style.top = (document.documentElement.scrollTop + top) + 'px'
-  video.value.style.left = left + 'px'
+  video.value.style.top = `${document.documentElement.scrollTop + top}px`
+  video.value.style.left = `${left}px`
   video.value.style.display = 'block'
 }
-onMounted(async () => {
+onMounted(async() => {
   videoMap()
   window.onresize = () => {
     videoMap()
@@ -32,8 +32,9 @@ onMounted(async () => {
 <template>
   <div ref="video" class=" xshidden absolute hero-money hidden  mixed  ">
     <video muted="“muted”" class="hero-money" autoplay="true" loop="true">
-      <source src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
-              type="video/mp4"
+      <source
+        src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
+        type="video/mp4"
       >
     </video>
   </div>
@@ -56,56 +57,76 @@ onMounted(async () => {
         <div class="text-kd12px22px md:text-kd14px22px text-global-default  opacity-65 mt-4 md:mt-6 i8n-font-inter i8n-font-inter200">
           <div>{{ t('hero.desc1') }}</div>
           <div class="mt-3">{{ t('hero.desc2') }}</div>
-
         </div>
         <div class="flex mt-4  md:mt-7.25 relative z-30 items-center md:flex-nowrap flex-wrap ">
-          <div class="text-global-default mt-1 opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200">{{
+          <div class="text-global-default mt-1 opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200">
+            {{
               t('plat.des')
             }}
           </div>
-          <img class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5  md:h-5 mt-1" src="https://res.ikingdata.com/nav/platHeco.png"
-               alt="">
-          <img class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5 mt-1" src="https://res.ikingdata.com/nav/platBinance.png"
-               alt="">
+          <img
+            class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5  md:h-5 mt-1"
+            src="https://res.ikingdata.com/nav/platHeco.png"
+            alt=""
+          >
+          <img
+            class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5 mt-1"
+            src="https://res.ikingdata.com/nav/platBinance.png"
+            alt=""
+          >
           <img class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5 mt-1" src="https://res.ikingdata.com/nav/platEth.png" alt="">
           <img class="mr-3 md:mr-4 w-22 h-4 md:w-28.5 md:h-4.5 mt-1 " src="https://res.ikingdata.com/nav/apyOkChain.png" alt="">
         </div>
-        <GrowthpadSummary/>
+        <GrowthpadSummary />
         <div class="flex flex-col md:flex-row md:justify-start justify-center items-center">
           <div class="join-in  md:mt-kd32px mt-kd35px  w-40">
             <a href="http://ikingdata.mikecrm.com/kbZDdCb" target="_blank"><img
-                class="applyImg"
-                :src="t('imgList.applyImg')"
-                alt=""></a>
+              class="applyImg"
+              :src="t('imgList.applyImg')"
+              alt=""
+            ></a>
           </div>
           <div class="flex mt-8 ml-8 relative">
             <!--          <img class="platImg" src="https://res.ikingdata.com/nav/KTelegram.png" alt="">-->
-            <a href="https://twitter.com/KingData_com" target="_blank"> <img class="platImg"
-                                                                             src="https://res.ikingdata.com/nav/KTwitter.png"
-                                                                             alt=""></a>
-            <a href="https://weibo.com/jinseshuju?topnav=1&wvr=6&topsug=1" target="_blank"> <img class="platImg"
-                                                                                                 src="https://res.ikingdata.com/nav/Kweibo.png"
-                                                                                                 alt=""></a>
+            <a href="https://twitter.com/KingData_com" target="_blank"> <img
+              class="platImg"
+              src="https://res.ikingdata.com/nav/KTwitter.png"
+              alt=""
+            ></a>
+            <a href="https://weibo.com/jinseshuju?topnav=1&wvr=6&topsug=1" target="_blank"> <img
+              class="platImg"
+              src="https://res.ikingdata.com/nav/Kweibo.png"
+              alt=""
+            ></a>
             <!--          <img class="platImg" src="https://res.ikingdata.com/nav/Kmedium.png" alt="">-->
-            <img class="platImg" @mouseenter="showQr()" @mouseleave="closeQr()"
-                 src="https://res.ikingdata.com/nav/Kwechat.png" alt="">
-            <img v-if="qr" class="w-29 h-35 absolute bottom-12 -right-3"
-                 src="https://res.ikingdata.com/nav/growthQRcode.png" alt="">
+            <img
+              class="platImg"
+              src="https://res.ikingdata.com/nav/Kwechat.png"
+              alt=""
+              @mouseenter="showQr()"
+              @mouseleave="closeQr()"
+            >
+            <img
+              v-if="qr"
+              class="w-29 h-35 absolute bottom-12 -right-3"
+              src="https://res.ikingdata.com/nav/growthQRcode.png"
+              alt=""
+            >
           </div>
         </div>
       </div>
       <div ref="positionContainer" class="xshidden hero-money  mt-6 md:mt-0 xl:ml-10.5 xl:mt-0">
       </div>
-
     </div>
 
     <!--  即将开始-->
     <div class="progress text-left mt-15 md:mt-20 ">
-      <div class="project-status-title   text-center md:text-left i8n-font-inter font-medium">⏱ {{
+      <div class="project-status-title   text-center md:text-left i8n-font-inter font-medium">
+        ⏱ {{
           t('project.status.coming')
         }}
       </div>
-      <GrowthpadProjects :status="'progress'"/>
+      <GrowthpadProjects :status="'progress'" />
     </div>
     <!--  正在进行-->
     <!--    <div class="progress text-left mt-15 md:mt-20 ">-->
@@ -124,7 +145,7 @@ onMounted(async () => {
     <!--      </a-tabs>-->
     <!--    </div>-->
 
-    <GrowthpadFooter/>
+    <GrowthpadFooter />
   </div>
 </template>
 
@@ -242,6 +263,6 @@ onMounted(async () => {
 // @formatter:off
 <route lang="yaml">
 meta:
- layout: growthpadLayout
+  layout: growthpadLayout
 </route>
 // @formatter:off

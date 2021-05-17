@@ -1,9 +1,10 @@
 <template>
   <div class="join-mobile-us mb-12 px-4 md:px-0 mt-4 md:mt-15 md:mb-15 mdhidden">
     <a class="w-full h-full " target="_blank" href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com">
-      <img class="w-full h-full shadowImg"
-           src="https://res.ikingdata.com/nav/apyMobileFooter.png"
-           alt=""
+      <img
+        class="w-full h-full shadowImg"
+        src="https://res.ikingdata.com/nav/apyMobileFooter.png"
+        alt=""
       >
     </a>
   </div>

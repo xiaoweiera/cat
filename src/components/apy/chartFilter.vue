@@ -1,28 +1,30 @@
 <script setup lang="ts">
-import {defineProps,toRefs} from 'vue'
-import { ElSelect,ElOption,ElIcon} from 'element-plus'
+import { defineProps, toRefs } from 'vue'
+import { ElSelect, ElOption, ElIcon } from 'element-plus'
 interface dropModel {
-  name:string
-  select:string
-  data:object
+  name: string
+  select: string
+  data: object
 }
-const props=defineProps({
-  dataList:Object
+const props = defineProps({
+  dataList: Object,
 })
-const optionModel:dropModel=toRefs(props.dataList)
+const optionModel: dropModel = toRefs(props.dataList)
 
 </script>
 <template>
-  <div class=" w-56" >
+  <div class=" w-56">
     <!--    所在链-->
     <div class="flex items-center justify-between w-full  h-10 h-7.5 mb-6">
-      <div class="selectDes ">{{optionModel.name.value}}</div>
-      <el-select class="w-42  " v-model="optionModel.select.value"  placeholder="请选择">
-        <el-option class="h-7.5"
-                   v-for="item in optionModel.data.value"
-                   :key="item"
-                   :label="item"
-                   :value="item">
+      <div class="selectDes ">{{ optionModel.name.value }}</div>
+      <el-select v-model="optionModel.select.value" class="w-42  " placeholder="请选择">
+        <el-option
+          v-for="item in optionModel.data.value"
+          :key="item"
+          class="h-7.5"
+          :label="item"
+          :value="item"
+        >
         </el-option>
       </el-select>
     </div>

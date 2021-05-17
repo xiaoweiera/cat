@@ -16,8 +16,15 @@
 </script>
 
 <template>
-  <div class="max-w-full" v-show="list.length">
-    <Swiper class="swiper" :pagination="{ clickable: true }" slidesPerView="auto" :spaceBetween="12" :freeMode="true" :resizeObserver="true">
+  <div v-show="list.length" class="max-w-full">
+    <Swiper
+      class="swiper"
+      :pagination="{ clickable: true }"
+      slides-per-view="auto"
+      :space-between="12"
+      :free-mode="true"
+      :resize-observer="true"
+    >
       <SwiperSlide v-for="(item, index) in list" :key="index">
         <ApyAd :url="item.url" :image="item.image"></ApyAd>
       </SwiperSlide>

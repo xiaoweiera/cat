@@ -8,7 +8,7 @@
 
 <template>
   <div class="flex p-1.5 task-content items-center" :class="`skin-${skin}`">
-    <DotCount size="sm" :skin="skin"/>
+    <DotCount size="sm" :skin="skin" />
     <div class="ml-1 flex-1 flex justify-between items-center">
       <div class="flex-1 flex justify-between items-center text-sm">
         <div class="flex items-center">

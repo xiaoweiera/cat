@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {defineProps, onMounted, ref, watch} from 'vue'
-//@ts-ignore
-import {unitConfig} from '~/logic/apy/config'
+import { defineProps, onMounted, ref, watch } from 'vue'
+// @ts-ignore
+import { unitConfig } from '~/logic/apy/config'
 
 const props = defineProps({
   itemData: {
@@ -16,7 +16,7 @@ const props = defineProps({
 })
 const isShow = ref(false)
 const isNullFun = (data: any) => {
-  data && data.forEach(item => {
+  data && data.forEach((item) => {
     if (item.value) {
       isShow.value = true
     }
@@ -26,15 +26,16 @@ const getColor = (index: number, data: string) => {
   if (index !== 0 || !data) {
     return ''
   }
-  if (data.indexOf('-') < 0) {
+  if (!data.includes('-')) {
     return 'greenTxt '
-  } else {
+  }
+ else {
     return 'redTxt'
   }
 }
 const getValue = (data: any, i) => {
-  if(data) {
-    if (!data.value && data.value!==0) return '-'
+  if (data) {
+    if (!data.value && data.value !== 0) return '-'
     if (unitConfig[data.name]) {
       if (unitConfig[data.name].unit === '$')
         return unitConfig[data.name]?.unit + data.value
@@ -44,8 +45,8 @@ const getValue = (data: any, i) => {
     return data.value
   }
 }
-watch(()=>props.itemData,()=>{
-  isShow.value=false
+watch(() => props.itemData, () => {
+  isShow.value = false
   isNullFun(props.itemData)
 })
 onMounted(() => isNullFun(props.itemData))
@@ -55,7 +56,8 @@ onMounted(() => isNullFun(props.itemData))
     <template v-for="(item,i) in itemData">
       <div v-if="item.status && getValue(item, i)!=='-'" class="flex mb-0.5 items-center  flex-wrap ">
         <span class="desName mr-1 ">{{ item.name }}</span>
-        <div :class="i===0?'desNum ':'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px '  "><span :class="getColor(i,item.value)">{{ getValue(item, i) }}</span>
+        <div :class="i===0?'desNum ':'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px ' ">
+          <span :class="getColor(i,item.value)">{{ getValue(item, i) }}</span>
         </div>
       </div>
     </template>

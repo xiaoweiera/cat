@@ -1,50 +1,51 @@
 <script setup lang="ts">
-//@ts-ignore
+// @ts-ignore
 import * as echarts from 'echarts'
-import {defineProps, watch, ref} from 'vue'
-//@ts-ignore
-import { chartsConfig } from '~/logic/apy/config'
-//@ts-ignore
-import {ElDatePicker} from 'element-plus'
+import { defineProps, watch, ref } from 'vue'
+// @ts-ignore
+// @ts-ignore
+import { ElDatePicker } from 'element-plus'
 import * as R from 'ramda'
-import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
+import { chartsConfig } from '~/logic/apy/config'
+import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 interface timeModel {
   name: string
   value: number
   selected: boolean
 }
 const props = defineProps({
-  title: {type: String},
-  selected: {type: String},
-  tableIndex: {type: Number},
-  chartIndex: {type: Number},
-  changeTime: {type: Function}
+  title: { type: String },
+  selected: { type: String },
+  tableIndex: { type: Number },
+  chartIndex: { type: Number },
+  changeTime: { type: Function },
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
-    return props.title + props.selected + '对比'
-  } else {
-    return props.selected + ' ' + props.title
+    return `${props.title + props.selected}对比`
+  }
+ else {
+    return `${props.selected} ${props.title}`
   }
 }
-const testDom=ref(null)
+const testDom = ref(null)
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
-const editTime = ref(false)//控制是否显示自定义时间
-//@ts-ignore
+const editTime = ref(false)// 控制是否显示自定义时间
+// @ts-ignore
 const closeShow = ref(false)
-const filterOption = ref([{name: '近7天', value: 7, selected: true}, {
+const filterOption = ref([{ name: '近7天', value: 7, selected: true }, {
   name: '近1月',
   value: 30,
-  selected: false
-}, {name: '近3月', value: 90, selected: false}, {name: '自定义', value: 0, selected: false}])
+  selected: false,
+}, { name: '近3月', value: 90, selected: false }, { name: '自定义', value: 0, selected: false }])
 watch(() => time.value, (n, o) => {
   if (time.value) {
-    updateChart(dataToTimestamp(formatDefaultTime(n[0])),dataToTimestamp(formatDefaultTime(n[1])))
+    updateChart(dataToTimestamp(formatDefaultTime(n[0])), dataToTimestamp(formatDefaultTime(n[1])))
   }
 })
-const updateChart=(begin:number,end:number)=>{
+const updateChart = (begin: number, end: number) => {
   beginTime.value = begin
   endTime.value = end
   props?.changeTime(beginTime.value, endTime.value)
@@ -53,12 +54,13 @@ const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
     document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
-  } else {
-    updateChart(getagoTimeStamp(timeM.value),dataToTimestamp(formatDefaultTime()))
-    editTime.value = false //关闭自定义
-    time.value = null //自定义清空
   }
-  R.map(item => {
+ else {
+    updateChart(getagoTimeStamp(timeM.value), dataToTimestamp(formatDefaultTime()))
+    editTime.value = false // 关闭自定义
+    time.value = null // 自定义清空
+  }
+  R.map((item) => {
     if (item.name === timeM.name) item.selected = true
     else item.selected = false
   }, filterOption.value)
@@ -70,25 +72,28 @@ const selectTag = (timeM: timeModel) => {
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
         <template v-for="(item,index) in filterOption">
-          <div v-if="item.name!=='自定义' || (item.name==='自定义' && !editTime)" @click="selectTag(item)"
-               :class="item.selected?'timeTagSelected':'timeTag'">
+          <div
+            v-if="item.name!=='自定义' || (item.name==='自定义' && !editTime)"
+            :class="item.selected?'timeTagSelected':'timeTag'"
+            @click="selectTag(item)"
+          >
             {{ item.name }}
           </div>
         </template>
         <div v-show="editTime" class="timeContainer">
-          <el-date-picker id="datePickerDom"
-              :clearable="closeShow"
-              size="mini"
-              v-model="time"
-              type="daterange"
-              range-separator="–"
-              start-placeholder="开始"
-              end-placeholder="结束"
+          <el-date-picker
+            id="datePickerDom"
+            v-model="time"
+            :clearable="closeShow"
+            size="mini"
+            type="daterange"
+            range-separator="–"
+            start-placeholder="开始"
+            end-placeholder="结束"
           >
           </el-date-picker>
         </div>
       </div>
-
     </div>
   </div>
 </template>

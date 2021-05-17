@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {ElForm,ElFormItem, ElInput} from 'element-plus'
-import {ref, defineProps, watch, toRefs, onMounted} from 'vue'
-const temp=ref({
+import { ElForm, ElFormItem, ElInput } from 'element-plus'
+import { ref, defineProps, watch, toRefs, onMounted } from 'vue'
+const temp = ref({
   area_code: '+86',
   tel: '',
   msm: '',
@@ -9,38 +9,38 @@ const temp=ref({
   confirmPwd: '',
   code: '',
 })
-const formLogo=ref({
+const formLogo = ref({
   area_code: '+86',
   tel: '',
   pwd: '',
-  checked: ''
+  checked: '',
 })
-const isShow=ref(false)
-const time=ref('获取验证码')
-const timePwd=ref('获取验证码')
-const type=ref('注册')
+const isShow = ref(false)
+const time = ref('获取验证码')
+const timePwd = ref('获取验证码')
+const type = ref('注册')
 </script>
 <template>
-  <div class="outDiv" >
+  <div class="outDiv">
     <div class="logoDiv">
       <img
-          class="img-responsive logoImg"
-          src="https://res.ikingdata.com/nav/logoJpg.png"
-          alt=""
+        class="img-responsive logoImg"
+        src="https://res.ikingdata.com/nav/logoJpg.png"
+        alt=""
       />
     </div>
     <el-form
-        v-if="type == '注册' || type == '重置密码'"
-        :model="temp"
-        class="form"
+      v-if="type == '注册' || type == '重置密码'"
+      :model="temp"
+      class="form"
     >
       <el-form-item v-if="type === '注册'">
         <div class="codeC">
           <span class="numC rightNo">+86</span>
           <el-input
-              v-model="temp.tel"
-              placeholder="请输入手机号"
-              class="input-with-select leftNo"
+            v-model="temp.tel"
+            placeholder="请输入手机号"
+            class="input-with-select leftNo"
           >
           </el-input>
         </div>

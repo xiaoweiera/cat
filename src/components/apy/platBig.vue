@@ -1,31 +1,30 @@
 <script setup lang="ts">
-import {defineProps, ref, toRefs} from 'vue'
+import { defineProps, ref, toRefs } from 'vue'
 const props = defineProps({
-  tags: {type: Object},
-  chartIndex: {type: Number}
+  tags: { type: Object },
+  chartIndex: { type: Number },
 })
-//@ts-ignore
-const {selected: selectedTag} = toRefs(props.tags)
-//@ts-ignore
+// @ts-ignore
+const { selected: selectedTag } = toRefs(props.tags)
+// @ts-ignore
 const clickTag = (name: string) => {
-
   selectedTag.value = name
   isShowMore.value = false
 }
 const isShowMore = ref(false)
-//@ts-ignore
+// @ts-ignore
 const showMore = () => isShowMore.value = true
-//@ts-ignore
+// @ts-ignore
 const closeMore = () => isShowMore.value = false
-const isMore=ref(true)
+const isMore = ref(true)
 </script>
 <template>
   <div class="flex mt-3 w-full min-h-7 relative  items-center  justify-between ">
     <div class="flex  flex-wrap">
       <template v-for="(item,i) in tags.platforms">
-        <span @click="clickTag(item)" :class="selectedTag===item?'selectTag tag hand':'tag hand'">{{
-            item
-          }}</span>
+        <span :class="selectedTag===item?'selectTag tag hand':'tag hand'" @click="clickTag(item)">{{
+          item
+        }}</span>
       </template>
     </div>
   </div>
@@ -51,7 +50,6 @@ const isMore=ref(true)
   border: 1px solid #F0F0F0;
   box-shadow: 0px 4px 12px rgba(3, 54, 102, 0.08);
   border-radius: 4px;
-
 
 }
 </style>

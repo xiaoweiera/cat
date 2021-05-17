@@ -29,18 +29,18 @@ const toggleLocales = () => {
     },
   })
 }
-let title=ref('')
+const title = ref('')
 // locale.value = lang.value
 watch(() => lang.value, (newValue) => {
   locale.value = newValue
-  title.value=t('hero.subtitle')
+  title.value = t('hero.subtitle')
 })
 
 watch(() => route.path, (newValue) => {
   select.value = newValue.slice(1, newValue.length)
 })
 useHead({
-  title: title,
+  title,
   meta: [
     {
       name: 'keywords',
@@ -55,27 +55,34 @@ useHead({
 onMounted(() => {
   lang.value = currentLang(route)
   locale.value = lang.value
-  title.value=t('hero.subtitle')
+  title.value = t('hero.subtitle')
 })
 </script>
 <template>
   <nav class="xshidden flex items-center relative z-2 i8n-font-inter    px-6 h-18 font-kdFang    justify-start">
-    <a href="https://www.kingdata.com" target="_blank"><img src="/assets/logo.svg" alt="KingData" class="flex-none "
+    <a href="https://www.kingdata.com" target="_blank"><img
+      src="/assets/logo.svg"
+      alt="KingData"
+      class="flex-none "
     ></a>
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal  text-base text-navItem-default">
         <router-link :to="'/growthpad?lang='+locale" :class="navIsSelect('growthpad')">GrowthPad</router-link>
         <router-link :to="'/growthpad/examples?lang='+locale" :class="navIsSelect('growthpad/examples')">{{ t('examples') }}</router-link>
-        <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
-           :href="t('nav.applySrc')"
+        <a
+          class=" text-global-default opacity-85 ml-kd32px "
+          target="_blank"
+          :href="t('nav.applySrc')"
         >{{ t('nav.apply') }}</a>
-        <a class=" text-global-default opacity-85 ml-kd32px " target="_blank"
-           :href="t('nav.aboutSrc')"
+        <a
+          class=" text-global-default opacity-85 ml-kd32px "
+          target="_blank"
+          :href="t('nav.aboutSrc')"
         >{{ t('nav.about') }}</a>
       </div>
     </div>
     <ul class=" text-golbal-default flex">
-      <div @click="toggleLocales()" class="flex items-center hand">
+      <div class="flex items-center hand" @click="toggleLocales()">
         <div class="mr-1 text-global-default opacity-85 ml-kd32px "> {{ t('lang') }}</div>
         <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
       </div>
@@ -84,15 +91,17 @@ onMounted(() => {
   </nav>
   <div class="mdhidden navLogoBg flex items-center relative z-2 justify-between h-15 bg px-5 ">
     <a href="https://www.kingdata.com" target="_blank"><img
-        class="w-25 h-8"
-        src="https://res.ikingdata.com/nav/topicLogo.png"
-        alt=""
+      class="w-25 h-8"
+      src="https://res.ikingdata.com/nav/topicLogo.png"
+      alt=""
     /></a>
-    <div @click="toggleLocales()" class="flex items-center hand">
+    <div class="flex items-center hand" @click="toggleLocales()">
       <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter"> {{ t('lang') }}</div>
       <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">
-      <a href="https://www.ikingdata.com/download" target="_blank"
-         class="text-global-default opacity-85 ml-3 i8n-font-inter"
+      <a
+        href="https://www.ikingdata.com/download"
+        target="_blank"
+        class="text-global-default opacity-85 ml-3 i8n-font-inter"
       >{{ t('nav.download') }}</a>
     </div>
   </div>

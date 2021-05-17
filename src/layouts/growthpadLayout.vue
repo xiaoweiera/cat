@@ -4,8 +4,8 @@
   <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
     <Nav class="relative "></Nav>
     <main class="  w-full  flex justify-center  ">
-      <router-view/>
-      <Footer/>
+      <router-view />
+      <Footer />
     </main>
   </div>
 </template>
@@ -37,4 +37,3 @@
   z-index: -11;
 }
 </style>
-

@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import {useI18n} from 'vue-i18n'
-import {defineProps} from "vue";
-const {t} = useI18n()
+import { useI18n } from 'vue-i18n'
+import { defineProps } from 'vue'
+const { t } = useI18n()
 
 </script>
 <template>
-  <div >
-
-<!--    heroProjects:-->
-<!--    title: GrowthPad-->
-<!--    subtitle: 支持喜欢的项目并领取 Token-->
-    <div  class="text-center mt-15 md:mt-20">
+  <div>
+    <!--    heroProjects:-->
+    <!--    title: GrowthPad-->
+    <!--    subtitle: 支持喜欢的项目并领取 Token-->
+    <div class="text-center mt-15 md:mt-20">
       <div class="why-us i8n-font-Barlow font-semibold">{{ t('projects.title') }}</div>
       <div class="grid sm:grid-cols-1 gap-6  md:gap-7 mt-8  md:grid-cols-2 xl:grid-cols-4 ">
         <div class="flex-1 min-w-min288px ">
@@ -41,18 +40,18 @@ const {t} = useI18n()
           <div class="feature-title i8n-font-Barlow font-medium">{{ t('projects.feature4.title') }}</div>
           <div class="feature-detail">
             <p class="i8n-font-inter">{{ t('projects.feature4.desc1') }}</p>
-
           </div>
         </div>
       </div>
     </div>
-    <GrowthpadCompany/>
+    <GrowthpadCompany />
   </div>
   <div class="join-mobile-us mt-12 mb-15 mdhidden">
-    <a class="w-full h-full rounded " href="http://ikingdata.mikecrm.com/kbZDdCb"><img class="rounded w-full h-full shadowImg"
-                                                                                       :src="t('imgList.mobileImg')"
+    <a class="w-full h-full rounded " href="http://ikingdata.mikecrm.com/kbZDdCb"><img
+      class="rounded w-full h-full shadowImg"
+      :src="t('imgList.mobileImg')"
 
-                                                                                       alt=""
+      alt=""
     >
     </a>
   </div>

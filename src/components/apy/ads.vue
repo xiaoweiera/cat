@@ -4,14 +4,14 @@
 </script>
 
 <template>
-  <div class="max-w-full" v-show="list.length">
+  <div v-show="list.length" class="max-w-full">
     <div v-if="list.length < 5" class="flex flex-nowrap justify-center pb-6.5">
-      <div class="ad-basis" v-for="(item, index) in list" :class="{'ml-6': index > 0}" :key="index">
+      <div v-for="(item, index) in list" :key="index" class="ad-basis" :class="{'ml-6': index > 0}">
         <ApyAd :url="item.url" :image="item.image"></ApyAd>
       </div>
     </div>
     <div v-else class="grid grid-cols-5 pb-6.5">
-      <div class="grid-item" v-for="(item, index) in list" :key="index">
+      <div v-for="(item, index) in list" :key="index" class="grid-item">
         <ApyAd :url="item.url" :image="item.image"></ApyAd>
       </div>
     </div>

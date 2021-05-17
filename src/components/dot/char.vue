@@ -45,9 +45,7 @@
     <template v-if="img">
       <img class="w-full w-max inline-block" :src="img" />
     </template>
-    <template v-else-if="char">
-      <template>{{ char }}</template>
-    </template>
+    <template v-else-if="char">{{ char }}</template>
   </span>
 </template>
 

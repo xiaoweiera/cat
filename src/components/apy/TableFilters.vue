@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {defineProps, toRefs, ref} from 'vue'
+import { defineProps, toRefs, ref } from 'vue'
 // @ts-ignore
-import {ElSwitch} from 'element-plus'
+import { ElSwitch } from 'element-plus'
 
 const props = defineProps({
-  time: {type: Number},
-  project: {type: String},
+  time: { type: Number },
+  project: { type: String },
   title: {
     type: String,
   },
-  options: {type: Object},
-  timer: {type: Number}
+  options: { type: Object },
+  timer: { type: Number },
 })
 
 const {
@@ -64,11 +64,11 @@ const closeDown = () => {
                 </div>
                 <div>
                   <el-switch
-                      active-color="#2B8DFE"
-                      :validate-event="false"
-                      @change="clickOption(item)"
-                      inactive-color="rgba(37, 62, 111, 0.1)"
-                      v-model="item.status"
+                    v-model="item.status"
+                    active-color="#2B8DFE"
+                    :validate-event="false"
+                    inactive-color="rgba(37, 62, 111, 0.1)"
+                    @change="clickOption(item)"
                   >
                   </el-switch>
                 </div>
@@ -78,11 +78,20 @@ const closeDown = () => {
         </div>
         <div class="flex items-center relative">
           <img class="w-4 h-4 mr-1" src="https://res.ikingdata.com/nav/apyBell.png" alt="">
-          <div @mousemove="openDown" @mouseleave="closeDown"
-               class="text-global-highTitle opacity-85 text-kd14px18px hand">扫码下载 App，获取 APY 第一名变化提醒
+          <div
+            class="text-global-highTitle opacity-85 text-kd14px18px hand"
+            @mousemove="openDown"
+            @mouseleave="closeDown"
+          >
+            扫码下载 App，获取 APY 第一名变化提醒
           </div>
-          <img v-if="showDownLoad" style="width:136px;height:136px;" class="shadowQr absolute  z-111 top-5 right-0"
-               src="https://res.ikingdata.com/nav/apyDownqr.png" alt="">
+          <img
+            v-if="showDownLoad"
+            style="width:136px;height:136px;"
+            class="shadowQr absolute  z-111 top-5 right-0"
+            src="https://res.ikingdata.com/nav/apyDownqr.png"
+            alt=""
+          >
         </div>
       </div>
     </div>
@@ -96,7 +105,7 @@ const closeDown = () => {
           </div>
           <div class="text-kd14px20px font-normal text-global-default opacity-65">({{ timer }} 秒后更新)</div>
         </div>
-        <div v-show="show" @mousemove="optionShow" class=" optionModel">
+        <div v-show="show" class=" optionModel" @mousemove="optionShow">
           <div v-for="(item,i) in realOptions">
             <div v-if="i>0" class="flex items-center mr-1.5 mt-4 h-4.5  justify-between ">
               <div class=" mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
@@ -104,11 +113,11 @@ const closeDown = () => {
               </div>
               <div>
                 <el-switch
-                    active-color="#2B8DFE"
-                    :validate-event="false"
-                    @change="clickOption(item)"
-                    inactive-color="rgba(37, 62, 111, 0.1)"
-                    v-model="item.status"
+                  v-model="item.status"
+                  active-color="#2B8DFE"
+                  :validate-event="false"
+                  inactive-color="rgba(37, 62, 111, 0.1)"
+                  @change="clickOption(item)"
                 >
                 </el-switch>
               </div>

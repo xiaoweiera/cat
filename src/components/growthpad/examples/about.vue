@@ -38,7 +38,7 @@
     <h2 class="text-base">Economic model</h2>
     <div class="flex justify-between pt-2">
       <div v-for="(data, i) in list" :key="i">
-        <p v-for="(item, index) in data" class="text-sm" :class="{'mt-1': index > 0}" :key="`${i}-${index}`">
+        <p v-for="(item, index) in data" :key="`${i}-${index}`" class="text-sm" :class="{'mt-1': index > 0}">
           <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
           <span class="inline-block minutia-value">{{ item.value }}</span>
         </p>

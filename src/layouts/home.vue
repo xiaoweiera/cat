@@ -2,9 +2,9 @@
   <div class="circleContainer">
   </div>
   <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
-    <ApyHeader/>
+    <ApyHeader />
     <main class="  w-full  flex justify-center  ">
-      <router-view/>
+      <router-view />
     </main>
   </div>
 </template>
@@ -35,4 +35,3 @@
   z-index: -11;
 }
 </style>
-

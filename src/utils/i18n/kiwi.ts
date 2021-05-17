@@ -16,15 +16,6 @@ interface Args {
   [key: string]: any
 }
 
-interface MessageConfig {
-  [key: string]: string
-}
-
-interface Config {
-  zh_CN?: MessageConfig
-  en_US?: MessageConfig
-}
-
 interface API {
   /**
   * 初始化对应语言
@@ -45,9 +36,9 @@ interface API {
   template(str: string, args: Args): string
   /**
    * 模版分词
-   * @param text 
-   * @param mode 
-   * @param args 
+   * @param text
+   * @param mode
+   * @param args
    */
   part(text: string, mode?: number, args?: Args): string
   /**
@@ -90,6 +81,5 @@ format.part = function(text: string, mode?: number, args?: Args) {
   }
   return format.template(text, {})
 }
-
 
 export default format

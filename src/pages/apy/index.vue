@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
-import { useRouter } from 'vue-router'
-import {requestTables, defaultChains, requestChart} from '~/logic/apy'
+import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+// import { useRouter } from 'vue-router'
+import { requestTables, defaultChains, requestChart } from '~/logic/apy'
 // @ts-ignore
-import {chainConfig, tableConfig, anchorConfig, chartsConfig} from '~/logic/apy/config'
-import {wxShare} from '~/lib/wxShare'
-const {chains} = defaultChains(chainConfig)
+import { chainConfig, tableConfig, anchorConfig, chartsConfig } from '~/logic/apy/config'
+import { wxShare } from '~/lib/wxShare'
+const { chains } = defaultChains(chainConfig)
 const chainParam = ref('')
 // @ts-ignore
 const { tables, requestData: fetchTableData } = requestTables()
@@ -51,8 +51,8 @@ const fetchTableByChain = (chain: String) => {
   })
 }
 const fetchChartByChain = (chain: String) => {
-  tableConfig.map((chartItem, tableIndex) => {
-    chartItem.charts.map((chart: any, chartIndex: number) => {
+  tableConfig.forEach((chartItem, tableIndex) => {
+    chartItem.charts.forEach((chart: any, chartIndex: number) => {
       return fetchChartData(tableIndex, chartIndex, chartItem.name, chart.title, chart.requestData, chart.chartData, chart.xyData, {
         chain,
         category: chartItem.name,
@@ -115,8 +115,11 @@ onUnmounted(() => clearInterval(timerInterval))
         <div style="font-weight: bold" class="flex justify-center mr-2 md:mr-3 text-kd24px100  text-global-highTitle md:text-kd36px36px">
           DeFi挖矿收益APY大全
         </div>
-        <a href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com" target="_blank"
-           class="goForm text-kd12px20px font-normal">申请收录</a>
+        <a
+          href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com"
+          target="_blank"
+          class="goForm text-kd12px20px font-normal"
+        >申请收录</a>
       </div>
       <div class="mt-4 text-global-default opacity-65 font-normal ">
         <div class="text-kd14px22px md:text-center">本站收集整理了多条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看。</div>
@@ -132,43 +135,62 @@ onUnmounted(() => clearInterval(timerInterval))
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
-
     </div>
 
     <!-- table表格-->
-    <div :class="index%2!==0 ? ' tableDefault':'tableDefault' "
-         v-for="(item,index) in tables" :key="index">
+    <div
+      v-for="(item,index) in tables"
+      :key="index"
+      :class="index%2!==0 ? ' tableDefault':'tableDefault' "
+    >
       <!-- chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
       <template v-if="chainParam === 'hsc' && index === 0 ">
         <div></div>
       </template>
       <div v-else :id="`content-${item.slug}`">
         <a class="mdhidden">
-          <ApyMobileTag :title="item.slug" :tableIndex="index" :selectedMobileAnchor="selectedMobileAnchor"/>
+          <ApyMobileTag :title="item.slug" :table-index="index" :selected-mobile-anchor="selectedMobileAnchor" />
         </a>
-        <ApyTable :chains="chainParam" :isFirstShow="isFirstShow" :timer="timer" :index="index"
-                  :project="item.project" :title="item.title"
-                  :tableData="item"/>
+        <ApyTable
+          :chains="chainParam"
+          :is-first-show="isFirstShow"
+          :timer="timer"
+          :index="index"
+          :project="item.project"
+          :title="item.title"
+          :table-data="item"
+        />
         <div class="grid  md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
           <template v-for="(itemChart,i) in charts[index].chartAll" :key="`${index}-${i}`">
-            <ApyChart v-show="itemChart.option" :chainId="chainParam" :tableIndex="index" :chartIndex="i"
-                      :chartData="itemChart" :id="index+''+i"/>
+            <ApyChart
+              v-show="itemChart.option"
+              :id="index+''+i"
+              :chain-id="chainParam"
+              :table-index="index"
+              :chart-index="i"
+              :chart-data="itemChart"
+            />
           </template>
         </div>
       </div>
     </div>
-    <ApyFooter/>
+    <ApyFooter />
     <!--浮动tag-->
     <div>
       <div class="tagContainer  w-19 h-28 flex-col 2xl:right-10 fixed right-2 top-70">
         <template v-for="(item, index) in anchorConfig" :key="index">
-          <a class="hand" @click="clickAnchor(item.name, item.key)"
-             :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "
+          <a
+            class="hand"
+            :class="selectedAnchor===item.name? 'floatRightTag  selectRightTag hand':'floatRightTag  rightTag hand' "
+            @click="clickAnchor(item.name, item.key)"
           >{{ item.name }}</a>
         </template>
       </div>
-      <img @click="clickAnchor('回到顶部')" class="mdhidden bottom-10 right-5 w-11 h-11 hand"
-           src="https://res.ikingdata.com/nav/apyBack.png">
+      <img
+        class="mdhidden bottom-10 right-5 w-11 h-11 hand"
+        src="https://res.ikingdata.com/nav/apyBack.png"
+        @click="clickAnchor('回到顶部')"
+      >
     </div>
   </div>
 </template>
@@ -224,7 +246,6 @@ onUnmounted(() => clearInterval(timerInterval))
   border-left: 1px solid rgba(37, 62, 111, 0.1);
 }
 
-
 @media screen and (max-width: 880px) {
   .tagContainer {
     display: none;
@@ -243,7 +264,6 @@ onUnmounted(() => clearInterval(timerInterval))
 // @formatter:off
 <route lang="yaml">
 meta:
- layout: home
+  layout: home
 </route>
 // @formatter:off
-

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // @ts-ignore
 import * as echarts from 'echarts'
+import { defineProps, onMounted, reactive, ref, watch } from 'vue'
 import * as utils from '~/utils/index'
-import {defineProps, onMounted, reactive, ref, watch} from 'vue'
-import {chartOption} from "~/lib/chartOptionBig";
+import { chartOption } from '~/lib/chartOptionBig'
 import {
   getModel,
   getPlat,
@@ -11,9 +11,9 @@ import {
   getUnit,
   getTimeData,
   yLabelFormat,
-  getLengent
-} from "~/logic/apy/formatChart";
-import { tableConfig } from "~/logic/apy/config";
+  getLengent,
+} from '~/logic/apy/formatChart'
+import { tableConfig } from '~/logic/apy/config'
 
 const props = defineProps({
   id: { type: String },
@@ -31,7 +31,7 @@ const unit = ref('')
 const xChartData = ref([])
 const serise = ref([])
 const legendData = ref([])
-const tags = reactive({platforms: [], selected: ''})
+const tags = reactive({ platforms: [], selected: '' })
 let myChart: any = null
 let minY = 0
 let maxY = 0
@@ -39,9 +39,10 @@ const beginTime = ref('')
 const endTime = ref('')
 // 请求参数
 // @ts-ignore
-let param = {
+const param = {
   chain: props.chainId,
-  category: props.chartData.category, ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
+  category: props.chartData.category,
+...tableConfig[props.tableIndex].charts[props.chartIndex].param,
   from_ts: '',
   to_ts: '',
 }
@@ -60,7 +61,7 @@ const draw = () => {
   ), true)
 }
 
-const reRenderChart = utils.debounce(async function () {
+const reRenderChart = utils.debounce(async() => {
   // @ts-ignore
   let param = {
     chain: props.chainId,
@@ -97,7 +98,6 @@ const changeTime = (beginTimeStr: string, endTimeStr: string) => {
   reRenderChart()
 }
 
-
 watch(() => props.chartData?.option, (newOptions, oldOptions) => {
   // @ts-ignore
   if (!newOptions?.data) {
@@ -117,7 +117,7 @@ watch(() => tags.selected, () => {
 })
 onMounted(() => {
   // @ts-ignore
-  myChart = echarts.init(document.getElementById(props.id + 'big'), "light");
+  myChart = echarts.init(document.getElementById(`${props.id}big`), 'light')
   window.addEventListener('resize', myChart.resize)
   const newOptions = props.chartData?.option
   if (!newOptions?.data) {
@@ -139,16 +139,21 @@ const closeModel = () => {
 </script>
 <template>
   <div class="dialogModel" @click="closeModel">
-    <img class="closeButton hand" @click="closeModel" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
+    <img class="closeButton hand" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="" @click="closeModel">
     <div class="dialogChart  px-5 py-5.1" @click.stop="">
-      <ApyDesBig  :changeTime="changeTime" :title="props.chartData.title"
-                 :selected="tags.selected" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
-      <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
+      <ApyDesBig
+        :change-time="changeTime"
+        :title="props.chartData.title"
+        :selected="tags.selected"
+        :table-index="props.tableIndex"
+        :chart-index="props.chartIndex"
+      />
+      <ApyPlatBig :chart-data="chartData" :chart-index="chartIndex" :tags="tags" />
       <div class="flex relative whNumber">
         <div :id="props.id+'big'" class="whChartNumber">
         </div>
         <!--        分析器 下拉框-->
-        <ApyFilterChart  :chartIndex="chartIndex"/>
+        <ApyFilterChart :chart-index="chartIndex" />
       </div>
     </div>
   </div>

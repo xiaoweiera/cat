@@ -86,16 +86,20 @@ const projectBtnStyle = () => {
     <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
     <div class="relative z-2">
       <p v-if="status==='progress'" class="text-center flex flex-col text-global-highTitle text-kd24px150 i8n-font-Barlow font-medium">{{ t('project.status.coming') }}</p>
-      <img v-if="status==='doing' || status==='done'" class="absolute opacity-6 right-3.5 top-2.5  w-43 h-43"
-           :src="tipImg()" alt=""
+      <img
+        v-if="status==='doing' || status==='done'"
+        class="absolute opacity-6 right-3.5 top-2.5  w-43 h-43"
+        :src="tipImg()"
+        alt=""
       >
       <div v-if="status!=='progress'" class="flex">
         <div>
           <div class="flex items-center">
             <img class="w-10.5 h-10.5" src="https://res.ikingdata.com/nav/payLogo.png" alt="">
             <div class="ml-2 text-kd24px150 font-medium text-global-highTitle">MDEX</div>
-            <div v-if="status==='doing'"
-                 class=" font-medium bg-global-primary bg-opacity-12 time px-3 ml-4 py-1.5 text-global-primary text-kd14px18px"
+            <div
+              v-if="status==='doing'"
+              class=" font-medium bg-global-primary bg-opacity-12 time px-3 ml-4 py-1.5 text-global-primary text-kd14px18px"
             >
               ⏱ {{ t('project.status.coming') }}
             </div>
@@ -104,8 +108,11 @@ const projectBtnStyle = () => {
             HECO上最大的DEX交易所HECO上最大的DEX交易所HECO上最大的DEX...
           </div>
         </div>
-        <img v-if="status==='over'" class=" opacity-80 relative left-1 -top-0.5 shadows   w-30 h-30.5" :src="tipImg()"
-             alt=""
+        <img
+          v-if="status==='over'"
+          class=" opacity-80 relative left-1 -top-0.5 shadows   w-30 h-30.5"
+          :src="tipImg()"
+          alt=""
         >
       </div>
       <div class="flex  mt-6 items-center font-normal">
@@ -137,11 +144,14 @@ const projectBtnStyle = () => {
           </div>
         </div>
       </div>
-      <div v-if="status!=='progress'" :style="projectBtnStyle()" @click="go(props.project.slug)"
-           class="flex items-center justify-center text- mt-6 bg-global-primary py-2.5 px-3 goButton"
+      <div
+        v-if="status!=='progress'"
+        :style="projectBtnStyle()"
+        class="flex items-center justify-center text- mt-6 bg-global-primary py-2.5 px-3 goButton"
+        @click="go(props.project.slug)"
       >
         <div
-            :class="status==='over'?'text-global-primary text-kd14px18px font-medium':'text-white text-kd14px18px font-medium'"
+          :class="status==='over'?'text-global-primary text-kd14px18px font-medium':'text-white text-kd14px18px font-medium'"
         >
           参与预热任务
         </div>

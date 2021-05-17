@@ -19,11 +19,15 @@ const change = (name: String) => {
 <template>
   <!--  链上集合-->
   <div class="flex ">
-    <div class="hand" @click="change(item.key)" v-for="item in tagList"
-         :class="item.key===tagSelect?'selectTag tag':'tag'"
+    <div
+      v-for="item in tagList"
+      class="hand"
+      :class="item.key===tagSelect?'selectTag tag':'tag'"
+      @click="change(item.key)"
     >
       <img class="w-4.5 h-4.5 mr-1" :src="item.img" alt="">
-      <div class="text-kd12px20px md:text-kd14px20px text-global-primary  font-normal  font-kdExp">{{
+      <div class="text-kd12px20px md:text-kd14px20px text-global-primary  font-normal  font-kdExp">
+        {{
           item.name
         }}
       </div>
