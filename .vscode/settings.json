@@ -17,5 +17,7 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "vscode-i18n-linter.langPrefix": "langs/zh-CN/"
+  "vscode-i18n-linter.langPrefix": "langs/zh-CN/",
+  "vetur.completion.autoImport": false,
+  "windicss.enableHoverPreview": false
 }

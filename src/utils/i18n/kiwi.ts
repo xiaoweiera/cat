@@ -2,6 +2,7 @@
  * @file 国际化
  */
 
+import * as R from 'ramda'
 import IntlFormat from 'intl-format'
 import zhCNLangs from '../../../langs/zh_CN/index'
 
@@ -13,6 +14,15 @@ import zhCNLangs from '../../../langs/zh_CN/index'
 
 interface Args {
   [key: string]: any
+}
+
+interface MessageConfig {
+  [key: string]: string
+}
+
+interface Config {
+  zh_CN?: MessageConfig
+  en_US?: MessageConfig
 }
 
 interface API {
@@ -34,6 +44,13 @@ interface API {
   */
   template(str: string, args: Args): string
   /**
+   * 模版分词
+   * @param text 
+   * @param mode 
+   * @param args 
+   */
+  part(text: string, mode?: number, args?: Args): string
+  /**
   * 获取对应语言的值
   * @param name: 对应语言的模板的 Key
   * @param options: 模板的参数
@@ -47,6 +64,32 @@ const langs = {
   zh_CN: zhCNLangs,
 }
 
-const intlFormat: Langs = (IntlFormat.init('zh_CN', langs) as any)
+const format: Langs = (IntlFormat.init('zh_CN', langs) as any)
 
-export default intlFormat
+const part = function(text: string, mode: number, args: Args): string {
+  const array = R.map(R.trim, R.split('|', text))
+  const size = R.length(array)
+  let value = array[mode]
+  // 如果下标大于分词数量，则以最后一个为准
+  if (!value && mode >= size) {
+    value = array[size - 1]
+  }
+  return format.template(value, args)
+}
+
+// @ts-ignore
+format.part = function(text: string, mode?: number, args?: Args) {
+  if (mode || mode === 0) {
+    if (mode && typeof mode === 'object') {
+      return format.template(text, mode as Args)
+    }
+    if (typeof mode === 'number' || typeof mode === 'string') {
+      const index = parseInt(mode as any, 10)
+      return part(text, isNaN(index) ? 0 : index, args || {})
+    }
+  }
+  return format.template(text, {})
+}
+
+
+export default format
