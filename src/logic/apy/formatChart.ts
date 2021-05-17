@@ -1,6 +1,6 @@
-//@ts-ignore
+// @ts-ignore
 import {formatTimeHour, numberFormat, toFixedNumber, tooptipsModel} from '~/lib/tool'
-//@ts-ignore
+// @ts-ignore
 import {tableConfig} from '~/logic/apy/config'
 export interface chartModel {
     code: number
@@ -14,12 +14,12 @@ export interface timeModel {
     from_ts :string
     to_ts :string
 }
-//时间选择后得到新的数据
-export const getTimeData=async (requestData:Function,param:timeModel,tableIndex:number,chartIndex:number,selected:string)=> {
-    const requstData=await requestData(param)
-    const data = tableConfig[tableIndex].charts[chartIndex].chartData(requstData.data, selected)
-    //@ts-ignore
-    return tableConfig[tableIndex].charts[chartIndex].xyData(data)
+// 时间选择后得到新的数据
+export const getTimeData = async (requestData:Function,param:timeModel,tableIndex:number,chartIndex:number,selected:string) => {
+  const requstData = await requestData(param)
+  const data = tableConfig[tableIndex].charts[chartIndex].chartData(requstData.data, selected)
+  // @ts-ignore
+  return tableConfig[tableIndex].charts[chartIndex].xyData(data)
 }
 export const getXY_data = (requestChartData: chartModel, tableIndex: number, chartIndex: number, selected: string) => {
     //@ts-ignore
@@ -71,18 +71,17 @@ export const getModel = (params: any,unit:string) => {
     if (!params[0]) {
         return
     }
-    params=orderByDesc(params)
-    const title = params[0].axisValue;
-    let f = tooptipsModel;
+    params = orderByDesc(params)
+    const title = params[0].axisValue
     const time = `<div>${title}</div>`
-    //@ts-ignore
-    const result = params.map(({seriesName, data, seriesIndex: idx, color}) => {
-        let {value,formatValue} = data;
+    // @ts-ignore
+    const result = params.map(({ seriesName, data, seriesIndex: idx, color}) => {
+        let {value,formatValue} = data
         if (value) {
-            return f(seriesName, color, formatValue,unit);
+            return tooptipsModel(seriesName, color, formatValue,unit);
         }
-    });
-    return time + result.join('');
+    })
+    return time + result.join('')
 }
 //@ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)

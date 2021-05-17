@@ -1,6 +1,12 @@
 {
   "extends": "@antfu",
   "rules": {
+    // 关闭 console 验证
+    "no-console": "off",
+    // 使用单引号
+    "quotes": ["error", "single"],
+    // 末尾不使用分号
+    "semi": ["error", "never" ],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "indent": "off",
