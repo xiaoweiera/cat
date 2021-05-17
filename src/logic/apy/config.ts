@@ -18,13 +18,13 @@ import {
 } from '~/logic/apy/chartFormatTool'
 
 export const unitConfig = {
-  '可投额度': { unit: '$' },
-  '总锁仓': { unit: '$' },
-  '剩余额度': { unit: '%' },
-  '存款总额': { unit: '$' },
-  '借款总量': { unit: '$' },
-  '可借': { unit: '$' },
-  '借出': { unit: '$' },
+  可投额度: { unit: '$' },
+  总锁仓: { unit: '$' },
+  剩余额度: { unit: '%' },
+  存款总额: { unit: '$' },
+  借款总量: { unit: '$' },
+  可借: { unit: '$' },
+  借出: { unit: '$' },
 }
 export const headerConfig = [
   {

@@ -16,5 +16,6 @@
   },
   "editor.quickSuggestions": {
     "strings": true
-  }
+  },
+  "vscode-i18n-linter.langPrefix": "langs/zh-CN/"
 }

@@ -21,6 +21,7 @@ specifiers:
   element-plus: ^1.0.2-beta.41
   eslint: ^7.25.0
   https-localhost: ^4.6.4
+  intl-format: ^1.2.0
   markdown-it-prism: ^2.1.6
   mockjs: ^1.1.0
   nprogress: ^0.2.0
@@ -56,6 +57,7 @@ dependencies:
   '@vueuse/head': 0.5.1_vue@3.0.11
   dayjs: 1.10.4
   echarts: 5.1.1
+  intl-format: 1.2.0
   nprogress: 0.2.0
   prism-theme-vars: 0.2.2
   ramda: 0.27.1
@@ -3921,6 +3923,24 @@ packages:
       side-channel: 1.0.4
     dev: true
 
+  /intl-format/1.2.0:
+    resolution: {integrity: sha512-ZejRVMY64lj/TWW4jeKIrd658fEoRQfydADvO+NWRsE6g9SDmpcTDj7NOr/K9XtCKum8wQgA87Spe2jrcUjFkQ==}
+    dependencies:
+      intl-messageformat: 2.2.0
+      lodash.get: 4.4.2
+    dev: false
+
+  /intl-messageformat-parser/1.4.0:
+    resolution: {integrity: sha1-tD1FqXRoytvkQzHXS7Ho3qRPwHU=}
+    deprecated: We've written a new parser that's 6x faster and is backwards compatible. Please use @formatjs/icu-messageformat-parser
+    dev: false
+
+  /intl-messageformat/2.2.0:
+    resolution: {integrity: sha1-NFvNRt5jC3aDMwwuUhd/9eq0hPw=}
+    dependencies:
+      intl-messageformat-parser: 1.4.0
+    dev: false
+
   /ipaddr.js/1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -4357,6 +4377,10 @@ packages:
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha1-gteb/zCmfEAF/9XiUVMArZyk168=}
     dev: true
+
+  /lodash.get/4.4.2:
+    resolution: {integrity: sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=}
+    dev: false
 
   /lodash.isempty/4.4.0:
     resolution: {integrity: sha1-b4bL7di+TsmHvpqvM8loTbGzHn4=}

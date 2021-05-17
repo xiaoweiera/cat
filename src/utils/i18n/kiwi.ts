@@ -3,7 +3,7 @@
  */
 
 import IntlFormat from 'intl-format'
-import zhCNLangs from '../../langs/zh_CN/index'
+import zhCNLangs from '../../../langs/zh_CN/index'
 
 // const LangEnum = {
 //   zh_CN: 'zh_CN',
