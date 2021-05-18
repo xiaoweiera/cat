@@ -81,9 +81,8 @@ export const filterByOptions = (
         // @ts-ignore
         url: row.url,
         data: headers?.map(({ token_name }: { token_name: String }) => {
-          const cellOrigin: CoinModel | undefined = row.data.get(
-              token_name as string,
-          )
+          // @ts-ignore
+          const cellOrigin = row.data[token_name] as any
           return {
             high_light: cellOrigin
               ? cellOrigin.high_light

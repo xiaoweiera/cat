@@ -281,7 +281,7 @@ export const getInfo = (params: dataSetModel, propsChartIndex: number) => {
           : ''
     // filterName=chartIndex===0?filterName:(chartIndex===2?(plats.select==='全部'?'':plats.select):'')
     // @ts-ignore
-    const data = tableConfig[tableIndex[param.category]].charts[
+    const data: any = tableConfig[tableIndex[param.category]].charts[
       chartIndex
     ].chartData(requstData.data, tagItem)
     // @ts-ignore
