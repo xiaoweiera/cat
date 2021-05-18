@@ -1,6 +1,9 @@
 {
   "extends": "@antfu",
   "rules": {
+    "arrow-parens": ["error", "always"],
+    // 缩紧风格
+    "brace-style": ["error", "1tbs"],
     // 关闭 console 验证
     "no-console": "off",
     // 使用单引号
@@ -44,7 +47,7 @@
     // 小括号内不允许有空格
     "space-in-parens": ["error", "never"],
     // 三元表达式不允许换行
-    "multiline-ternary": ["error", "never"],
+    "multiline-ternary": ["error", "always"],
     // 禁止连续赋值
     "no-multi-assign": ["error"],
     // 运算符前后有空格

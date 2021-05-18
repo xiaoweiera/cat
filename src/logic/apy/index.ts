@@ -2,41 +2,41 @@ import { ref, reactive } from 'vue'
 import { getColumns, getDataset } from '~/api/apy'
 
 interface TableParams {
-    chain: String
-    category: String
+  chain: String
+  category: String
 }
 
 interface TableItem {
-    slug: String
-    title: String
-    headers: Object
-    rows: Object
-    options: Object
-    loading: boolean
+  slug: String
+  title: String
+  headers: Object
+  rows: Object
+  options: Object
+  loading: boolean
 }
 
 interface chartItem {
-    chartAll: Object
+  chartAll: Object
 }
 
 export interface chartModel {
-    category: String
-    title: String
-    tagList: Object
-    option: Object
-    selectTag: Object
-    loading: Boolean
+  category: String
+  title: String
+  tagList: Object
+  option: Object
+  selectTag: Object
+  loading: Boolean
 }
 
 interface ChainModel {
-    key: String
-    name: String
-    img: String
+  key: String
+  name: String
+  img: String
 }
 
 interface chartTag {
-    name: String
-    select: Boolean
+  name: String
+  select: Boolean
 }
 
 export const defaultChains = (defaults: ChainModel[]) => {
@@ -44,7 +44,12 @@ export const defaultChains = (defaults: ChainModel[]) => {
 
   return { chains }
 }
-const initDefaultTable = (tables: any, slug: String, title: String, index: number) => {
+const initDefaultTable = (
+  tables: any,
+  slug: String,
+  title: String,
+  index: number,
+) => {
   if (!tables.value[index]) {
     tables.value[index] = reactive<TableItem>({
       headers: {},
@@ -57,14 +62,19 @@ const initDefaultTable = (tables: any, slug: String, title: String, index: numbe
       }),
       loading: true,
     })
-  }
-  else {
+  } else {
     tables.value[index].loading = true
   }
 }
 export const requestTables = () => {
   const tables = ref<TableItem[]>([])
-  const requestData = async(index: number, slug: String, title: String, options: any, params: TableParams) => {
+  const requestData = async(
+    index: number,
+    slug: String,
+    title: String,
+    options: any,
+    params: TableParams,
+  ) => {
     initDefaultTable(tables, slug, title, index)
     // @ts-ignore
     tables.value[index].options.data = options.data
@@ -72,16 +82,12 @@ export const requestTables = () => {
     tables.value[index].options.select = options.select
     tables.value[index].title = title
     const {
-      data: {
-        data: headers,
-      },
+      data: { data: headers },
     } = await getColumns(params)
     tables.value[index].headers = headers
     // 获取dataSet
     const {
-      data: {
-        data: rows,
-      },
+      data: { data: rows },
     } = await getDataset(params)
     tables.value[index].rows = rows
     tables.value[index].loading = false
@@ -91,7 +97,14 @@ export const requestTables = () => {
     requestData,
   }
 }
-export const initChart = (category: string, charts: any, tableIndex: number, chartIndex: number, title: string, selectTag: string) => {
+export const initChart = (
+  category: string,
+  charts: any,
+  tableIndex: number,
+  chartIndex: number,
+  title: string,
+  selectTag: string,
+) => {
   if (!charts.value[tableIndex]) {
     charts.value[tableIndex] = reactive({
       chartAll: reactive<chartModel[]>([]),
@@ -113,22 +126,18 @@ const getResult = (result: any) => {
   const code = result.code
   if (code === 1) {
     result = null
-  }
-  else if (code === 0) {
+  } else if (code === 0) {
     if (result.data && result.data.length === 0) {
       result = null
-    }
-    else {
+    } else {
       if (result.data.total_supply) {
         if (result.data.total_supply.length === 0) {
           result = null
         }
-      }
-      else if (result.total_borrowed) {
+      } else if (result.total_borrowed) {
         if (result.data.total_supply.length === 0) {
           result = null
-        }
-        else if (result.tvl.length === 0) {
+        } else if (result.tvl.length === 0) {
           result = null
         }
       }
@@ -140,11 +149,22 @@ const getResult = (result: any) => {
 export const requestChart = () => {
   const charts = ref<chartItem[]>([])
   // name :lend loan 机枪池
-  const requestChartData = async(tableIndex: number, chartIndex: number, category: string, title: string, requestData: Function, chartData: Function, xyDataFun: Function, param: any) => {
+  const requestChartData = async(
+    tableIndex: number,
+    chartIndex: number,
+    category: string,
+    title: string,
+    requestData: Function,
+    chartData: Function,
+    xyDataFun: Function,
+    param: any,
+  ) => {
     // @ts-ignore
     initChart(category, charts, tableIndex, chartIndex, title)
     // @ts-ignore
-    charts.value[tableIndex].chartAll[chartIndex].option = getResult(await requestData(param))
+    charts.value[tableIndex].chartAll[chartIndex].option = getResult(
+      await requestData(param),
+    )
   }
   return {
     charts,

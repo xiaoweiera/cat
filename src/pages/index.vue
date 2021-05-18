@@ -8,8 +8,7 @@ onMounted(() => {
   // console.log(loc.host.startsWith('growthpad'), loc.host, loc.pathname)
   if (location.host.startsWith('growthpad') && location.pathname === '/') {
     router.push('/growthpad')
-  }
-  else if (location.host.startsWith('apy') && location.pathname === '/') {
+  } else if (location.host.startsWith('apy') && location.pathname === '/') {
     router.push('/apy')
   }
 })

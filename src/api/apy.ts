@@ -32,10 +32,7 @@ export function getChartByMoney(query: any) {
   })
 }
 // 获取媒体列表
-export const getMediaList = async function<T>(): Promise<T[]> {
-
-  const a=1234
-
+export const getMediaList = async function <T>(): Promise<T[]> {
   const url = '/api/v2/commercial'
   const params = {
     position: 5,
@@ -46,8 +43,7 @@ export const getMediaList = async function<T>(): Promise<T[]> {
     if (data) {
       return data as T[]
     }
-  }
-  catch (e) {
+  } catch (e) {
     // todo
   }
   return []

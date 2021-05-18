@@ -8,8 +8,7 @@ try {
   if (window) {
     (window as any).intlFormat = kiwi
   }
-}
-catch (error) {
+} catch (error) {
   // todo
 }
 

@@ -6,13 +6,13 @@
     "build": "cross-env NODE_ENV=production vite-ssg build",
     "preview": "vite preview",
     "preview-https": "serve dist",
-    "serve": "vite serve --host 0.0.0.0"
+    "serve": "vite serve --host 0.0.0.0",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "./src/**/*.{vue,ts}": [
       "prettier --write",
-      "eslint --ext .ts,.vue ./src",
-      "git add"
+      "eslint --fix --ext .ts,.vue ./src"
     ]
   },
   "husky": {
@@ -80,6 +80,7 @@
     "vite-plugin-vue-layouts": "^0.3.1",
     "vite-plugin-windicss": "^0.15.10",
     "vite-ssg": "^0.10.0",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "husky": "^6.0.0"
   }
 }

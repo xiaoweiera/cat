@@ -11,25 +11,35 @@ const hour = ref('0')
 const minute = ref('0')
 const end = ref(0)
 // 监听传入进来的时间值
-watch(props.value as any, () => {
-  const time = dayjs(props.value, format)
-  end.value = time.valueOf()
-  console.log(end.value)
-}, { immediate: true })
+watch(
+  props.value as any,
+  () => {
+    const time = dayjs(props.value, format)
+    end.value = time.valueOf()
+    console.log(end.value)
+  },
+  { immediate: true },
+)
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
   const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
+  return number < 10
+    ? `0${number}`
+    : String(number)
 }
 // 计算倒计时 - 时
 const getHour = function(duration: number): string {
-  const number = parseInt((duration / 1000 / 60 / 60 % 24) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
+  const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10)
+  return number < 10
+    ? `0${number}`
+    : String(number)
 }
 // 计算倒计时 - 分
 const getMinute = function(duration: number): string {
-  const number = parseInt((duration / 1000 / 60 % 60) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
+  const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
+  return number < 10
+    ? `0${number}`
+    : String(number)
 }
 // 倒计时
 let intemout: any
@@ -52,11 +62,10 @@ const timeout = () => {
   // 计算倒计时剩余分
   minute.value = getMinute(duration)
   // 计算倒计时剩余秒
-  const seconds = parseInt((duration / 1000 % 60) as any, 10)
+  const seconds = parseInt(((duration / 1000) % 60) as any, 10)
   if (seconds < 60) {
     intemout = setTimeout(timeout, 1000 * (60 - seconds))
-  }
-  else {
+  } else {
     intemout = setTimeout(timeout, 1000 * 60)
   }
 }
@@ -87,13 +96,13 @@ timeout()
 </template>
 
 <style scoped>
-  .time-value {
-    font-size: 42px;
-  }
-  .font-bold {
-    color: #2B8DFE;
-  }
-  .text-sm {
-    color: rgba(37, 62, 111, 0.65);
-  }
+.time-value {
+  font-size: 42px;
+}
+.font-bold {
+  color: #2b8dfe;
+}
+.text-sm {
+  color: rgba(37, 62, 111, 0.65);
+}
 </style>

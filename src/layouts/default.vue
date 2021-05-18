@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 
@@ -10,8 +9,7 @@ onMounted(() => {
   // console.log(loc.host.startsWith('growthpad'), loc.host, loc.pathname)
   if (loc.host.startsWith('growthpad') && loc.pathname === '/') {
     router.push('/growthpad')
-  }
-  else if (loc.host.startsWith('apy') && loc.pathname === '/') {
+  } else if (loc.host.startsWith('apy') && loc.pathname === '/') {
     router.push('/apy')
   }
 })

@@ -23,8 +23,7 @@ const props = defineProps({
 const getTitle = () => {
   if (props.chartIndex === 2) {
     return `${props.title + props.selected}对比`
-  }
-  else {
+  } else {
     return `${props.selected} ${props.title}`
   }
 }
@@ -32,14 +31,19 @@ const testDom = ref(null)
 const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
-const editTime = ref(false)// 控制是否显示自定义时间
+const editTime = ref(false) // 控制是否显示自定义时间
 // @ts-ignore
 const closeShow = ref(false)
-const filterOption = ref([{ name: '近7天', value: 7, selected: true }, {
-  name: '近1月',
-  value: 30,
-  selected: false,
-}, { name: '近3月', value: 90, selected: false }, { name: '自定义', value: 0, selected: false }])
+const filterOption = ref([
+  { name: '近7天', value: 7, selected: true },
+  {
+    name: '近1月',
+    value: 30,
+    selected: false,
+  },
+  { name: '近3月', value: 90, selected: false },
+  { name: '自定义', value: 0, selected: false },
+])
 
 const updateChart = (begin: number, end: number) => {
   beginTime.value = begin
@@ -47,27 +51,34 @@ const updateChart = (begin: number, end: number) => {
   props?.changeTime(beginTime.value, endTime.value)
 }
 
-watch(() => time.value, (n, o) => {
-  if (time.value) {
-    updateChart(dataToTimestamp(formatDefaultTime(n[0])), dataToTimestamp(formatDefaultTime(n[1])))
-  }
-})
+watch(
+  () => time.value,
+  (n, o) => {
+    if (time.value) {
+      updateChart(
+        dataToTimestamp(formatDefaultTime(n[0])),
+        dataToTimestamp(formatDefaultTime(n[1])),
+      )
+    }
+  },
+)
 
 const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
     document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
-  }
-  else {
-    updateChart(getagoTimeStamp(timeM.value), dataToTimestamp(formatDefaultTime()))
+  } else {
+    updateChart(
+      getagoTimeStamp(timeM.value),
+      dataToTimestamp(formatDefaultTime()),
+    )
     editTime.value = false // 关闭自定义
     time.value = null // 自定义清空
   }
   R.forEach((item) => {
     if (item.name === timeM.name) {
       item.selected = true
-    }
-    else {
+    } else {
       item.selected = false
     }
   }, filterOption.value)
@@ -75,13 +86,17 @@ const selectTag = (timeM: timeModel) => {
 </script>
 <template>
   <div class="flex justify-between items-center">
-    <div class="text-kd18px28px text-global-highTitle font-normal">{{ getTitle() }}</div>
+    <div class="text-kd18px28px text-global-highTitle font-normal">
+      {{ getTitle() }}
+    </div>
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
-        <template v-for="(item,index) in filterOption">
+        <template v-for="(item, index) in filterOption">
           <div
-            v-if="item.name!=='自定义' || (item.name==='自定义' && !editTime)"
-            :class="item.selected?'timeTagSelected':'timeTag'"
+            v-if="
+              item.name !== '自定义' || (item.name === '自定义' && !editTime)
+            "
+            :class="item.selected ? 'timeTagSelected' : 'timeTag'"
             @click="selectTag(item)"
           >
             {{ item.name }}
@@ -106,7 +121,6 @@ const selectTag = (timeM: timeModel) => {
 </template>
 
 <style lang="postcss" scoped>
-
 .timeTag {
   border-radius: 2px;
   cursor: pointer;
@@ -179,11 +193,11 @@ const selectTag = (timeM: timeModel) => {
 }
 
 .timeColor {
-  color: #A2A4A8;
+  color: #a2a4a8;
 }
 
 .closeSmall {
-  border: 1px solid #E7E7E7;
+  border: 1px solid #e7e7e7;
   box-sizing: border-box;
   border-radius: 4px;
 }
