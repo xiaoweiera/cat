@@ -5,10 +5,8 @@ import * as utils from '~/utils/index'
 import { chartOption } from '~/lib/chartOptionBig'
 import {
   getModel,
-  getPlat,
   getSerise,
   getUnit,
-  getTimeData,
   yLabelFormat,
   getLengent,
 } from '~/logic/apy/formatChart'

@@ -80,10 +80,11 @@ const setDes = () => {
   // 得到标题
   title.value
     = tableConfig[tableIndex[types.select]].charts[isChartIndex.value].title
-  // siChartIndex 当前是第几种chart
-  if (isChartIndex.value === 0) {
+  // isChartIndex 当前是第几种chart
+
+  if (isChartIndex.value === 0 && props.chartIndex !== 2) {
     selected.value = plats.select
-  } else if (isChartIndex.value === 1) {
+  } else if (isChartIndex.value === 1 && props.chartIndex !== 2) {
     selected.value = coins.select
   } else {
     selected.value = marks.select
