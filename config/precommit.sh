@@ -25,5 +25,5 @@ then
 fi
 
 # 执行 lint-staged 中定义的其它检查
-eslint --config .eslintrc --ext .ts,.vue ./src
+lint-staged
 
