@@ -258,9 +258,10 @@ export const getInfo = (params: dataSetModel, propsChartIndex: number) => {
       ...tableConfig[tableIndex[param.category]].charts[chartIndex].param,
     }
     // @ts-ignore
-    const requstData = await tableConfig[tableIndex[param.category]].charts[
-      chartIndex
-    ].requestData(reqParam)
+    const key = tableIndex[param.category] as string
+    // @ts-ignore
+    const tabledata = tableConfig[key]
+    const requstData = await tabledata.charts[chartIndex].requestData(reqParam)
     // 第一个图表的话就是平台tag，第二个就是币tag
     const tagItem
       = chartIndex === 0

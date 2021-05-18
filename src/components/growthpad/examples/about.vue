@@ -1,5 +1,7 @@
 <script setup lang="ts">
+// @ts-ignore
 import { computed, ref } from 'vue'
+import I18n from '~/utils/i18n/index'
 // @ts-ignore
 import { Name, Icon, About } from '~/logic/growthpad/examples'
 // 多少列
@@ -26,13 +28,17 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
   </div>
   <div class="py-6">
     <p class="flex items-center">
-      <b class="text-base font-medium">Website</b>
+      <b class="text-base font-medium">{{
+        I18n.growthpad.examples.about.website
+      }}</b>
       <a
         class="mx-4 text-sm font-color-theme"
         :href="About.website"
         target="_blank"
       >{{ About.website }}</a>
-      <b class="text-base font-medium mr-4">Community</b>
+      <b class="text-base font-medium mr-4">{{
+        I18n.growthpad.examples.about.community
+      }}</b>
       <template v-for="(type, index) in communitys" :key="index">
         <IconFont class="mr-4" :type="type" />
       </template>
@@ -55,7 +61,7 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
     </div>
   </div>
   <div class="mt-6">
-    <h2 class="pb-2">Project Detail</h2>
+    <h2 class="pb-2">{{ I18n.growthpad.examples.about.projectDetail }}</h2>
     <p class="detail text-sm">{{ About.detail }}</p>
   </div>
 </template>

@@ -31,7 +31,9 @@ const countdown = ref('2021-05-20 12:00:00')
         />
       </div>
       <div class="py-15">
-        <h2 class="pb-4 text-base font-semibold">REGISTERED ADDRESS</h2>
+        <h2 class="pb-4 text-base font-semibold">
+          {{ I18n.growthpad.examples.register }}
+        </h2>
         <div class="flex">
           <ElInput
             v-model="address"
