@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "precommit": "lint-staged",
+    "precommit": "sh config/precommit.sh",
     "dev": "vite --port 3333",
     "build": "cross-env NODE_ENV=production vite-ssg build",
     "preview": "vite preview",
@@ -10,13 +10,10 @@
   },
   "lint-staged": {
     "./src/**/*.{vue,ts}": [
-      "eslint --ext .ts,.vue"
+      "prettier --write",
+      "eslint --ext .ts,.vue ./src",
+      "git add"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "postcss": {
     "plugins": {
@@ -35,6 +32,8 @@
     "intl-format": "^1.2.0",
     "lint-staged": "^11.0.0",
     "nprogress": "^0.2.0",
+    "prettier": "^2.3.0",
+    "prettier-stylelint": "^0.4.2",
     "prism-theme-vars": "^0.2.2",
     "ramda": "^0.27.1",
     "swiper": "^6.5.9",
