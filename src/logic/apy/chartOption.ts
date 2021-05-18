@@ -268,7 +268,7 @@ export const getInfo = (params: dataSetModel, propsChartIndex: number) => {
         : chartIndex === 2
           ? marks.select
           : coins.select
-    // 第一个图表的话就能筛选币种，第二个不能，默认一个币种展示全部平台
+    // 第一个图表的话就能筛选币种，第二个不能，默认一个币种展示全部平台的
     filterName
       = chartIndex === 0
         ? coins.select === '全部'
