@@ -851,9 +851,14 @@
         "signature": "29d503800c046634eee08e51b2262e75b3e43fadcb247629a841f951f41fb379",
         "affectsGlobalScope": false
       },
+      "./langs/zh_cn/growthpad.ts": {
+        "version": "6c38072c5c94063447ae4e723b232ea3446fbb908a2210319d6cc58cd96512b6",
+        "signature": "bc5b458a39362a86403521f55b899079a9b741497b06bb875df209dbb068e83a",
+        "affectsGlobalScope": false
+      },
       "./langs/zh_cn/index.ts": {
-        "version": "6391136be4c6a72e4fd1308690b119491ca4b26c42b03da46d6dbc88179261c4",
-        "signature": "6ac2642898682a1e721bb7b254a17ab3512119d249421b9f00c7e53ad36a6627",
+        "version": "9115cce65482a54e0986f5df380580c0c06bfd971c4da10896e84b1152bfcb31",
+        "signature": "a599bb7c912bdb9371dfeb211520a08a985a9942393c6e8b0ef92d118adcd6f1",
         "affectsGlobalScope": false
       },
       "./mock/apy.ts": {
@@ -1002,22 +1007,22 @@
         "affectsGlobalScope": false
       },
       "./src/logic/apy/chartformattool.ts": {
-        "version": "91dd646f52e38bdf3f9f3aafe4c4289a44d0ec31a42b59d65c04375f6ffd8563",
+        "version": "9002798393072e42f90dec9d72a2e92e038f8dded5e8c241273aa683ef433037",
         "signature": "daad8174209b7b864203279dc241cb89b0cc148f80bcc6eb3cf377ee0f8fb0f0",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/config.ts": {
-        "version": "f5631bc795a8fa41c54796723b99536039d0fba55e8676ceea267d3e53798b7c",
+        "version": "c0a4393a705d9ff9d9b733d2e509419b078e27b94fa762cd2b5fe5d090e7cb4b",
         "signature": "9894755e6747e9a53824a6ff4dfe28e73e070eefc8c476d1fe4398f6182d4dc2",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/chartoption.ts": {
-        "version": "55fe23d8e01121a6230d32aaaf22ed61c3a5f55e10e801e6184b08846fdb95e5",
-        "signature": "5bf6d4c4be3f1a130b9aa9ef1ec92abd44ff6cefbc41fd2f87490191c5b21844",
+        "version": "b79d39cc027cb29994d833958735e2491c4d56dfb88d0f0da5628b57f1d9aa53",
+        "signature": "faa4fcdca0520c9c870680c3db44929790134dd3a56ebc251914150bca0cb486",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/formatchart.ts": {
-        "version": "4bb2ded235073771595baecfc24ca5100fa8524fd88c86b906c5244332dfd8f6",
+        "version": "bfe420e5ec76c79239f845de22add177542774fef4e895b865ca89cc02e54f67",
         "signature": "68f29de70c94b7a2375e3e3279b1101c053ac837121b1dc52492c858912fa305",
         "affectsGlobalScope": false
       },
@@ -1036,8 +1041,23 @@
         "signature": "ef7daff2a724ff1ebced3129121f7dd51bb6b53d93968fd0c0f6e482e8a8c3d0",
         "affectsGlobalScope": false
       },
+      "./node_modules/.pnpm/intl-format@1.2.0/node_modules/intl-format/built/src/index.d.ts": {
+        "version": "60456c5e3279a4d150ac54305940338c024bb68f386e7a7d9dd8858ddafedf75",
+        "signature": "60456c5e3279a4d150ac54305940338c024bb68f386e7a7d9dd8858ddafedf75",
+        "affectsGlobalScope": false
+      },
+      "./src/utils/i18n/kiwi.ts": {
+        "version": "14678e08c179ad34ab55178d1b0206bad6dac005969c32e605cf4da1aceeb7bb",
+        "signature": "b78822ed0fa861d74df87dfef7471fbf5a6f7d2fed38e39dfdb856cd15349bb4",
+        "affectsGlobalScope": false
+      },
+      "./src/utils/i18n/index.ts": {
+        "version": "864f08cc5238e1b35d89a45f5e75a7685d072a916593a35adfbbfdb82f3ca211",
+        "signature": "00f76791cd0bf8b647e5f13fa74d78ac623bbd348683d29dc28fd29ba224cb9e",
+        "affectsGlobalScope": false
+      },
       "./src/logic/growthpad/examples.ts": {
-        "version": "59b7792fa4804ff570c2b61b1a8a6bfc73d70d0a5f8aec38e4256a0b915ab2a7",
+        "version": "db93f3dff6aea237c08ffd93cf0a2386d0c56fbe6509f858eed27f8af2d7a2b8",
         "signature": "f06d1fb5e69a8ac9ef70c148bf383b768b7a80baa0fb30592686efba62e84fdc",
         "affectsGlobalScope": false
       },
@@ -1121,21 +1141,6 @@
         "signature": "a822db990d5c2b8a0493ca9d293f8918cb6f7942a5d5dd4c674817a954b3deda",
         "affectsGlobalScope": false
       },
-      "./node_modules/.pnpm/intl-format@1.2.0/node_modules/intl-format/built/src/index.d.ts": {
-        "version": "60456c5e3279a4d150ac54305940338c024bb68f386e7a7d9dd8858ddafedf75",
-        "signature": "60456c5e3279a4d150ac54305940338c024bb68f386e7a7d9dd8858ddafedf75",
-        "affectsGlobalScope": false
-      },
-      "./src/utils/i18n/kiwi.ts": {
-        "version": "14678e08c179ad34ab55178d1b0206bad6dac005969c32e605cf4da1aceeb7bb",
-        "signature": "b78822ed0fa861d74df87dfef7471fbf5a6f7d2fed38e39dfdb856cd15349bb4",
-        "affectsGlobalScope": false
-      },
-      "./src/utils/i18n/index.ts": {
-        "version": "864f08cc5238e1b35d89a45f5e75a7685d072a916593a35adfbbfdb82f3ca211",
-        "signature": "00f76791cd0bf8b647e5f13fa74d78ac623bbd348683d29dc28fd29ba224cb9e",
-        "affectsGlobalScope": false
-      },
       "./node_modules/.pnpm/vite@2.3.2/node_modules/vite/client.d.ts": {
         "version": "a85fe1edaa8b78bc8f85268b8461a466f3575c3a0ad95cc0cf34ac55372d141b",
         "signature": "a85fe1edaa8b78bc8f85268b8461a466f3575c3a0ad95cc0cf34ac55372d141b",
@@ -1183,7 +1188,8 @@
     },
     "referencedMap": {
       "./langs/zh_cn/index.ts": [
-        "./langs/zh_cn/apy.ts"
+        "./langs/zh_cn/apy.ts",
+        "./langs/zh_cn/growthpad.ts"
       ],
       "./mock/apy.ts": [
         "./node_modules/.pnpm/vite-plugin-mock@2.5.0_a776a243b231f80c867c1ec6672b1e7d/node_modules/vite-plugin-mock/dist/index.d.ts"
@@ -1751,7 +1757,8 @@
         "./node_modules/.pnpm/@vueuse+core@4.10.0_vue@3.0.11/node_modules/@vueuse/core/dist/index.d.ts"
       ],
       "./src/logic/growthpad/examples.ts": [
-        "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts"
+        "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts",
+        "./src/utils/i18n/index.ts"
       ],
       "./src/logic/growthpad/projects.ts": [
         "./node_modules/.pnpm/axios@0.21.1/node_modules/axios/index.d.ts"
@@ -2396,6 +2403,7 @@
     },
     "semanticDiagnosticsPerFile": [
       "./langs/zh_cn/apy.ts",
+      "./langs/zh_cn/growthpad.ts",
       "./langs/zh_cn/index.ts",
       "./mock/apy.ts",
       "./mock/growthpad.ts",
@@ -2600,9 +2608,134 @@
       "./src/lib/wxshare.ts",
       "./src/logic/apy/ads.ts",
       "./src/logic/apy/chartformattool.ts",
-      "./src/logic/apy/chartoption.ts",
+      [
+        "./src/logic/apy/chartoption.ts",
+        [
+          {
+            "file": "./src/logic/apy/chartoption.ts",
+            "start": 2248,
+            "length": 217,
+            "messageText": "Object is possibly 'undefined'.",
+            "category": 1,
+            "code": 2532
+          },
+          {
+            "file": "./src/logic/apy/chartoption.ts",
+            "start": 2614,
+            "length": 153,
+            "messageText": "Object is possibly 'undefined'.",
+            "category": 1,
+            "code": 2532
+          },
+          {
+            "file": "./src/logic/apy/chartoption.ts",
+            "start": 2621,
+            "length": 21,
+            "code": 2345,
+            "category": 1,
+            "messageText": {
+              "messageText": "Argument of type '(item: platInfo) => object | undefined' is not assignable to parameter of type '(a: platInfo) => boolean'.",
+              "category": 1,
+              "code": 2345,
+              "next": [
+                {
+                  "messageText": "Type 'object | undefined' is not assignable to type 'boolean'.",
+                  "category": 1,
+                  "code": 2322,
+                  "next": [
+                    {
+                      "messageText": "Type 'undefined' is not assignable to type 'boolean'.",
+                      "category": 1,
+                      "code": 2322
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "file": "./src/logic/apy/chartoption.ts",
+            "start": 7549,
+            "length": 8,
+            "code": 2345,
+            "category": 1,
+            "messageText": {
+              "messageText": "Argument of type '{ keyword1: string; keyword2: string; chain: string; category: string; from_ts: number; to_ts: number; } | { keyword1: string; keyword2: string; chain: string; category: string; from_ts: number; to_ts: number; } | { ...; } | { ...; } | { ...; }' is not assignable to parameter of type 'requestItem'.",
+              "category": 1,
+              "code": 2345,
+              "next": [
+                {
+                  "messageText": "Type '{ keyword1: string; keyword2: string; chain: string; category: string; from_ts: number; to_ts: number; }' is missing the following properties from type 'requestItem': keyWord1, keyWord2",
+                  "category": 1,
+                  "code": 2739
+                }
+              ]
+            }
+          },
+          {
+            "file": "./src/logic/apy/chartoption.ts",
+            "start": 8352,
+            "length": 4,
+            "code": 2345,
+            "category": 1,
+            "messageText": {
+              "messageText": "Argument of type 'projectItem | tokenItem | projectItem[] | undefined' is not assignable to parameter of type 'chartItem'.",
+              "category": 1,
+              "code": 2345,
+              "next": [
+                {
+                  "messageText": "Type 'undefined' is not assignable to type 'chartItem'.",
+                  "category": 1,
+                  "code": 2322
+                }
+              ]
+            }
+          }
+        ]
+      ],
       "./src/logic/apy/config.ts",
-      "./src/logic/apy/formatchart.ts",
+      [
+        "./src/logic/apy/formatchart.ts",
+        [
+          {
+            "file": "./src/logic/apy/formatchart.ts",
+            "start": 25,
+            "length": 14,
+            "messageText": "'formatTimeHour' is declared but its value is never read.",
+            "category": 1,
+            "code": 6133,
+            "reportsUnnecessary": true
+          },
+          {
+            "file": "./src/logic/apy/formatchart.ts",
+            "start": 59,
+            "length": 13,
+            "messageText": "'toFixedNumber' is declared but its value is never read.",
+            "category": 1,
+            "code": 6133,
+            "reportsUnnecessary": true
+          },
+          {
+            "file": "./src/logic/apy/formatchart.ts",
+            "start": 996,
+            "length": 21,
+            "code": 2345,
+            "category": 1,
+            "messageText": {
+              "messageText": "Argument of type 'object' is not assignable to parameter of type 'gunModel & lendModel & loanModel & projectItem[] & tokenItem[]'.",
+              "category": 1,
+              "code": 2345,
+              "next": [
+                {
+                  "messageText": "Type '{}' is missing the following properties from type 'gunModel': reward_cap, tvl, machine_gun_pool_single_avg_apy",
+                  "category": 1,
+                  "code": 2739
+                }
+              ]
+            }
+          }
+        ]
+      ],
       "./src/logic/apy/index.ts",
       "./src/logic/apy/tabledetail.ts",
       "./src/logic/dark.ts",
@@ -2628,6 +2761,10 @@
     "affectedFilesPendingEmit": [
       [
         "./langs/zh_cn/apy.ts",
+        1
+      ],
+      [
+        "./langs/zh_cn/growthpad.ts",
         1
       ],
       [

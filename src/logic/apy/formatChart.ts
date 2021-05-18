@@ -1,10 +1,5 @@
 // @ts-ignore
-import {
-  formatTimeHour,
-  numberFormat,
-  toFixedNumber,
-  tooptipsModel,
-} from '~/lib/tool'
+import { numberFormat, tooptipsModel } from '~/lib/tool'
 // @ts-ignore
 import { tableConfig } from '~/logic/apy/config'
 export interface chartModel {
@@ -43,7 +38,7 @@ export const getXY_data = (
 ) => {
   // @ts-ignore
   const data = tableConfig[tableIndex].charts[chartIndex].chartData(
-    requestChartData.data,
+    requestChartData.data as any,
     selected,
   )
   // @ts-ignore

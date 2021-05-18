@@ -89,27 +89,22 @@ const getAllCoinData = (platsSelect: string, data: any, chain: string) => {
       .slice(platsSelect.indexOf('(') + 1, platsSelect.indexOf(')'))
       .toLowerCase()
     // @ts-ignore
-    // eslint-disable-next-line array-callback-return
-    return Object.keys(
-      R.find((item: platInfo) => {
-        if (
-          (item.project_name === project_name && item.chain === chain)
-          || platsSelect === '全部'
-        ) {
-          return item.data as any
-        }
-      }, data).data,
-    )
+    const item: platInfo = R.find((item: platInfo) => {
+      const status: boolean
+        = item.project_name === project_name && item.chain === chain
+      if (status || platsSelect === '全部') {
+        return true
+      }
+    }, data)
+    return Object.keys(item.data)
   } else {
     // @ts-ignore 当链不是ALl的时候得到coins.data
-    // eslint-disable-next-line array-callback-return
-    return Object.keys(
-      R.find((item: platInfo) => {
-        if (item.project_name === platsSelect || platsSelect === '全部') {
-          return item.data
-        }
-      }, data).data,
-    )
+    const temp: platInfo = R.find((item: platInfo) => {
+      if (item.project_name === platsSelect || platsSelect === '全部') {
+        return true
+      }
+    }, data)
+    return Object.keys(temp.data)
   }
 }
 // 根据链得到所有平台 plats.data

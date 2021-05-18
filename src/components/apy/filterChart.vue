@@ -25,7 +25,7 @@ interface dataSetModel {
 const typeName = 'type'
 const { selected } = toRefs(props.tags)
 const { title } = toRefs(props.chartData)
-const param: dataSetModel = {
+let param: dataSetModel = {
   chain: props.chainId,
   chartIndex: props.chartIndex,
   category: props.category,
@@ -46,7 +46,6 @@ const {
 
 // 重新绘制
 const newDraw = async(filterName) => {
-  let param: any = {}
   filterName = filterName === '全部'
     ? ''
     : filterName
