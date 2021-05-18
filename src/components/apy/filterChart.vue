@@ -5,7 +5,7 @@ import { tableConfig, tableIndex } from '~/logic/apy/config'
 
 const props = defineProps({
   chainId: String,
-  chartData: Object,
+  chartDataFilter: Object,
   category: String,
   chartIndex: Number,
   selectedTag: String,
@@ -24,7 +24,7 @@ interface dataSetModel {
 
 const typeName = 'type'
 const { selected } = toRefs(props.tags)
-const { title } = toRefs(props.chartData)
+const { title } = toRefs(props.chartDataFilter)
 let param: dataSetModel = {
   chain: props.chainId,
   chartIndex: props.chartIndex,
@@ -80,14 +80,18 @@ const setDes = () => {
   // 得到标题
   title.value
     = tableConfig[tableIndex[types.select]].charts[isChartIndex.value].title
-  // isChartIndex 当前是第几种chart
-
+  // isChartIndex 当前是第几种chart 当第一个图表更改的时候select是plat
   if (isChartIndex.value === 0 && props.chartIndex !== 2) {
     selected.value = plats.select
   } else if (isChartIndex.value === 1 && props.chartIndex !== 2) {
     selected.value = coins.select
   } else {
-    selected.value = marks.select
+    // 当设置标题的时候如果是机枪池就带上选择的marks指标，因为只有机枪池有分类
+    if (types.select === 'machine_gun_pool_single') {
+      selected.value = marks.select
+    } else {
+      selected.value = ''
+    }
   }
 }
 

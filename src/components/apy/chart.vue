@@ -57,7 +57,6 @@ const draw = () => {
     true,
   )
 }
-
 onMounted(() => {
   // @ts-ignore
   myChart = echarts.init(document.getElementById(props.id), 'light')
