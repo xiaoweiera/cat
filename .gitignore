@@ -8,4 +8,3 @@ node_modules
 # intellij stuff
 .idea/
 .vscode
-tsconfig.tsbuildinfo
