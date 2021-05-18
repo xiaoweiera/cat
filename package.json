@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "eslint": "eslint --ext .ts,.vue ./src --fix",
     "precommit": "sh config/precommit.sh",
     "dev": "vite --port 3333",
     "build": "cross-env NODE_ENV=production vite-ssg build",
@@ -12,7 +13,7 @@
   "lint-staged": {
     "./src/**/*.{vue,ts}": [
       "prettier --write",
-      "eslint --ext .ts,.vue ./src --fix",
+      "npm run eslint",
       "git add"
     ]
   },

@@ -1002,23 +1002,23 @@
         "affectsGlobalScope": false
       },
       "./src/logic/apy/chartformattool.ts": {
-        "version": "67c07b58238092ecbf3ca9894ebf0765576484ecb653d2c4cc7eb349dc759c60",
-        "signature": "baabb1782bb2201df98da73c8eb605a288916e9dc518ec362803c780adc0b154",
-        "affectsGlobalScope": false
-      },
-      "./src/logic/apy/chartoption.ts": {
-        "version": "24d667e3325bef47c838785acbe81349e6f492efc63672e3f20d29089c5c9d50",
-        "signature": "86a45252f810e5eb430cca123ed38eea31a315c3447a6471cc1840ac708044a6",
+        "version": "91dd646f52e38bdf3f9f3aafe4c4289a44d0ec31a42b59d65c04375f6ffd8563",
+        "signature": "daad8174209b7b864203279dc241cb89b0cc148f80bcc6eb3cf377ee0f8fb0f0",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/config.ts": {
-        "version": "4501dd39f38380d14637ecb8f19c6bbfc60d2e9bcd93a75c214a38ea955b78c4",
-        "signature": "894bda4c84dd6e37e6b9db91bf98c670ad9b7f70c963f072ebf9cebd6e4fafb4",
+        "version": "f5631bc795a8fa41c54796723b99536039d0fba55e8676ceea267d3e53798b7c",
+        "signature": "9894755e6747e9a53824a6ff4dfe28e73e070eefc8c476d1fe4398f6182d4dc2",
+        "affectsGlobalScope": false
+      },
+      "./src/logic/apy/chartoption.ts": {
+        "version": "55fe23d8e01121a6230d32aaaf22ed61c3a5f55e10e801e6184b08846fdb95e5",
+        "signature": "5bf6d4c4be3f1a130b9aa9ef1ec92abd44ff6cefbc41fd2f87490191c5b21844",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/formatchart.ts": {
-        "version": "56dc7ae58de9f8d04bc2cd0dd321bca81eb0e6dab0a60fe22f0dba2c52b216c0",
-        "signature": "11b1c7667ff2b145c916dcdbfe97397b73b2be6966c1411ae607b0c05cddc017",
+        "version": "4bb2ded235073771595baecfc24ca5100fa8524fd88c86b906c5244332dfd8f6",
+        "signature": "68f29de70c94b7a2375e3e3279b1101c053ac837121b1dc52492c858912fa305",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/index.ts": {
@@ -1726,7 +1726,10 @@
         "./src/lib/tool.ts"
       ],
       "./src/logic/apy/chartoption.ts": [
-        "./src/api/apy.ts"
+        "./node_modules/.pnpm/@types+ramda@0.27.40/node_modules/@types/ramda/index.d.ts",
+        "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts",
+        "./src/api/apy.ts",
+        "./src/logic/apy/config.ts"
       ],
       "./src/logic/apy/config.ts": [
         "./src/lib/tool.ts",
@@ -1734,7 +1737,6 @@
       ],
       "./src/logic/apy/formatchart.ts": [
         "./src/lib/tool.ts",
-        "./src/logic/apy/chartformattool.ts",
         "./src/logic/apy/config.ts"
       ],
       "./src/logic/apy/index.ts": [
@@ -2342,11 +2344,8 @@
       "./src/logic/apy/ads.ts": [
         "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts"
       ],
-      "./src/logic/apy/config.ts": [
-        "./src/logic/apy/chartformattool.ts"
-      ],
-      "./src/logic/apy/formatchart.ts": [
-        "./src/logic/apy/chartformattool.ts"
+      "./src/logic/apy/chartoption.ts": [
+        "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts"
       ],
       "./src/logic/apy/index.ts": [
         "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts"

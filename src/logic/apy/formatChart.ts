@@ -1,10 +1,15 @@
+// @ts-ignore
+import {
+  formatTimeHour,
+  numberFormat,
+  toFixedNumber,
+  tooptipsModel,
+} from '~/lib/tool'
+// @ts-ignore
 import { tableConfig } from '~/logic/apy/config'
-import { numberFormat, tooptipsModel } from '~/lib/tool'
-import { projectItem } from '~/logic/apy/chartFormatTool'
-
 export interface chartModel {
   code: number
-  data: projectItem[]
+  data: object
 }
 export interface timeModel {
   chain: string
@@ -36,20 +41,20 @@ export const getXY_data = (
   chartIndex: number,
   selected: string,
 ) => {
-  const { data = [] } = requestChartData
-  const result = tableConfig[tableIndex].charts[chartIndex].chartData(
-    data as any,
+  // @ts-ignore
+  const data = tableConfig[tableIndex].charts[chartIndex].chartData(
+    requestChartData.data,
     selected,
   )
   // @ts-ignore
-  return tableConfig[tableIndex].charts[chartIndex].xyData(result)
+  return tableConfig[tableIndex].charts[chartIndex].xyData(data)
 }
 export const getUnit = (
   tableIndex: number,
   chartIndex: number,
   selected: string,
 ) => {
-  if (selected === '平均APY') {
+  if (selected === '平均APY' || selected === 'APY') {
     return '%'
   }
   return tableConfig[tableIndex].charts[chartIndex].unit
@@ -97,10 +102,9 @@ export const getModel = (params: any, unit: string) => {
   params = orderByDesc(params)
   const title = params[0].axisValue
   const time = `<div>${title}</div>`
-  // todo
-  // result 无返回值，怎么能使用 join
-  const result = params.forEach((result: any) => {
-    const { seriesName, data, color } = result
+  // @ts-ignore
+  // eslint-disable-next-line array-callback-return
+  const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
     if (value) {
       return tooptipsModel(seriesName, color, formatValue, unit)
@@ -110,7 +114,7 @@ export const getModel = (params: any, unit: string) => {
 }
 // @ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)
-
+// @ts-ignore
 export const getPlat = (
   chartData: any,
   tableIndex: number,

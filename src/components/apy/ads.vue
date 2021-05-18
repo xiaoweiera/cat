@@ -1,12 +1,22 @@
 <script setup lang="ts">
-// 广告位数据
+/**
+ * @file 广告位数据
+ * @author svon.me@gmail.com
+ */
+
+// @ts-ignore
 import { list } from '~/logic/apy/ads'
 </script>
 
 <template>
   <div v-show="list.length" class="max-w-full">
     <div v-if="list.length < 5" class="flex flex-nowrap justify-center pb-6.5">
-      <div v-for="(item, index) in list" :key="index" class="ad-basis" :class="{'ml-6': index > 0}">
+      <div
+        v-for="(item, index) in list"
+        :key="index"
+        class="ad-basis"
+        :class="{ 'ml-6': index > 0 }"
+      >
         <ApyAd :url="item.url" :image="item.image"></ApyAd>
       </div>
     </div>
@@ -19,15 +29,15 @@ import { list } from '~/logic/apy/ads'
 </template>
 
 <style scoped lang="postcss">
-  .ad-basis {
-    flex-basis: 20%;
-    max-width: 20%;
-  }
-  .grid {
-    margin-left: -12px;
-    margin-right: -12px;
-  }
-  .grid-item {
-    padding: 0 12px 0px 12px;
-  }
+.ad-basis {
+  flex-basis: 20%;
+  max-width: 20%;
+}
+.grid {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+.grid-item {
+  padding: 0 12px 0px 12px;
+}
 </style>

@@ -6,6 +6,7 @@
     "brace-style": ["error", "1tbs"],
     // 关闭 console 验证
     "no-console": "off",
+    "array-callback-return": "off",
     // 使用单引号
     "quotes": ["error", "single"],
     // 末尾不使用分号
