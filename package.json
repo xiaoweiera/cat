@@ -12,7 +12,8 @@
   "lint-staged": {
     "./src/**/*.{vue,ts}": [
       "prettier --write",
-      "eslint --fix --ext .ts,.vue ./src"
+      "eslint --ext .ts,.vue ./src --fix",
+      "git add"
     ]
   },
   "husky": {

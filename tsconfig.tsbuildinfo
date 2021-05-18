@@ -887,7 +887,7 @@
         "affectsGlobalScope": false
       },
       "./src/main.ts": {
-        "version": "156b8ac41a4475a9fc9050e24dcd187bc6b76ec5727eabbfd3fc4b7d0f66208c",
+        "version": "38f2008d19398fc11d908006fa256929331199c3af081d941f08f208ffa564cb",
         "signature": "a2a3d155bde55ec6aaafa994a5b6d16d5b2fae17b487a17b8108bb855a6ded3d",
         "affectsGlobalScope": false
       },
@@ -912,22 +912,22 @@
         "affectsGlobalScope": false
       },
       "./src/api/apy.ts": {
-        "version": "a6b37232a15b4ecd64163a4e7a0c39ee7f064160229c180a34da8d88aae20d40",
+        "version": "b1746951ee392a319644120730df59ac935f6611688d1d810db32616d29db28e",
         "signature": "260acdf48fd208e0d157b16ac92072f2c6d448fe6e6664f7bd6e40ba5aedb415",
         "affectsGlobalScope": false
       },
       "./src/lib/chartoption.ts": {
-        "version": "a06760a6edee48b85e3368f09a11a2e28109f13c02bc78911601ccb970ed4d6a",
+        "version": "2e0c0d462f8ce59023510b18593114e75b459ecc99e367d1de0f2ddf6035f1c9",
         "signature": "49b8a5d5473b8043863bfd0555752e488be11f1faa4945198375936878a28319",
         "affectsGlobalScope": false
       },
       "./src/lib/chartoptionbig.ts": {
-        "version": "250661ee5ca748961355dc5578757d3a9cbf14b34c255ec05801909442bf87ae",
+        "version": "b9307c0c544ebd9ed7068548d5115826b6b952566e364cf113565dd3b745b681",
         "signature": "49b8a5d5473b8043863bfd0555752e488be11f1faa4945198375936878a28319",
         "affectsGlobalScope": false
       },
       "./src/lib/lang.ts": {
-        "version": "8608dbe2543cc5c9e0467349c0ac35e1de7f6dfbadc0eeb4c9821168a5c16c79",
+        "version": "bfc44adda764e892586b4c3003d381e4035f92298921d1126c418f349dd4d0a4",
         "signature": "b9dc81642496860b7b9bf5cf597ceab7560807f78bbefbc05142238613d3d158",
         "affectsGlobalScope": false
       },
@@ -947,7 +947,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/tool.ts": {
-        "version": "78ba9ab63ad49fd779cc8a0ef9e4cdbffaa520693ade0ca3021c3a80338662da",
+        "version": "ca136a5c5bab6664978d97397860566b7b080fe3fab1794be7aa88bd1672fd6b",
         "signature": "9df0038c0c4b4ba9ccce59e778e0649ebb956a04d9398448e9c7c4030b9bd312",
         "affectsGlobalScope": false
       },
@@ -1002,8 +1002,8 @@
         "affectsGlobalScope": false
       },
       "./src/logic/apy/chartformattool.ts": {
-        "version": "7b340452d8e1eba02dd8bd4b758b3c6a2b118afd82c8e5c9053003545345c28a",
-        "signature": "2f09abb14b607a5b94a3c01e3f0edcc6be5dfaef0170bdca99f62832ce7b2608",
+        "version": "67c07b58238092ecbf3ca9894ebf0765576484ecb653d2c4cc7eb349dc759c60",
+        "signature": "baabb1782bb2201df98da73c8eb605a288916e9dc518ec362803c780adc0b154",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/chartoption.ts": {
@@ -1013,16 +1013,16 @@
       },
       "./src/logic/apy/config.ts": {
         "version": "4501dd39f38380d14637ecb8f19c6bbfc60d2e9bcd93a75c214a38ea955b78c4",
-        "signature": "875c3959aef2de0f9b842bc22ca161668da27d16f5e31df26eeda7e4959d4027",
+        "signature": "894bda4c84dd6e37e6b9db91bf98c670ad9b7f70c963f072ebf9cebd6e4fafb4",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/formatchart.ts": {
-        "version": "f0e17df931c55fc06acf380190a4be2b05fce1e49ecf869ef3b748141fbbd7e3",
-        "signature": "3fd3d87856acbd837b3af7bf936bf14e7624e62fcfabcf2537877ed03614afa9",
+        "version": "56dc7ae58de9f8d04bc2cd0dd321bca81eb0e6dab0a60fe22f0dba2c52b216c0",
+        "signature": "11b1c7667ff2b145c916dcdbfe97397b73b2be6966c1411ae607b0c05cddc017",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/index.ts": {
-        "version": "a0b9753e48ffab80baf57519f73f8ef5b309ff377ab5c8aa34a2041cbe70b960",
+        "version": "3a4da79dc9adf3f6ddc0ac383a02c47be6bce347d3f5b02ce13fd75db4bcc72f",
         "signature": "e23790c012708658809ec0b358b9adbd6cf469df156583222af8bb67427ccbe7",
         "affectsGlobalScope": false
       },
@@ -1032,7 +1032,7 @@
         "affectsGlobalScope": false
       },
       "./src/logic/apy/tabledetail.ts": {
-        "version": "04fe7c110c4dff5da96dc59c60aa9286751671332fc191c0226f8b86f72bf0b9",
+        "version": "8c80b2059001468f6d3cdc144357c16c69382a4c9026465090556105e35cdf72",
         "signature": "ef7daff2a724ff1ebced3129121f7dd51bb6b53d93968fd0c0f6e482e8a8c3d0",
         "affectsGlobalScope": false
       },
@@ -1092,7 +1092,7 @@
         "affectsGlobalScope": false
       },
       "./src/modules/i18n.ts": {
-        "version": "b8d66ee6a6f89c74fed8190a46f41b37a4c54086ce26ddf7f7087202aff2a856",
+        "version": "9b3f2e5a1f20d94d4ed8d9a99257ed883cd4a379ca4eba7fc7c173ce6e4d4944",
         "signature": "1646274e27d57358ff1921b731736d3af4de247e68464ba825ee97ad2b440349",
         "affectsGlobalScope": false
       },
@@ -1127,7 +1127,7 @@
         "affectsGlobalScope": false
       },
       "./src/utils/i18n/kiwi.ts": {
-        "version": "05e6ad4ae607566b809be1e54835d8bd6eea7c05f9d30de8ae66965542cabc5c",
+        "version": "dc55650407034b164d63b5c08f451640cc7ae2a5659f1e1904eaa05f377e3cf0",
         "signature": "7548bd5144a571877be6fa571d697c5aaba4f23509c443797ba91379ff3a5cb2",
         "affectsGlobalScope": false
       },
@@ -1734,6 +1734,7 @@
       ],
       "./src/logic/apy/formatchart.ts": [
         "./src/lib/tool.ts",
+        "./src/logic/apy/chartformattool.ts",
         "./src/logic/apy/config.ts"
       ],
       "./src/logic/apy/index.ts": [
@@ -2340,6 +2341,12 @@
       ],
       "./src/logic/apy/ads.ts": [
         "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts"
+      ],
+      "./src/logic/apy/config.ts": [
+        "./src/logic/apy/chartformattool.ts"
+      ],
+      "./src/logic/apy/formatchart.ts": [
+        "./src/logic/apy/chartformattool.ts"
       ],
       "./src/logic/apy/index.ts": [
         "./node_modules/.pnpm/vue@3.0.11/node_modules/vue/dist/vue.d.ts"

@@ -2,7 +2,7 @@ import * as R from 'ramda'
 import { formatTimeHour, toFixedNumber, numberFormat } from '~/lib/tool'
 import { getChart, getChartByMoney } from '~/api/apy'
 
-interface projectItem {
+export interface projectItem {
   project_name: string
   x_axis: object
   y_axis: object

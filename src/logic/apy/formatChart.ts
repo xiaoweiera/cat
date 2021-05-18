@@ -1,15 +1,10 @@
-// @ts-ignore
-import {
-  formatTimeHour,
-  numberFormat,
-  toFixedNumber,
-  tooptipsModel,
-} from '~/lib/tool'
-// @ts-ignore
 import { tableConfig } from '~/logic/apy/config'
+import { numberFormat, tooptipsModel } from '~/lib/tool'
+import { projectItem } from '~/logic/apy/chartFormatTool'
+
 export interface chartModel {
   code: number
-  data: object
+  data: projectItem[]
 }
 export interface timeModel {
   chain: string
@@ -41,13 +36,13 @@ export const getXY_data = (
   chartIndex: number,
   selected: string,
 ) => {
-  // @ts-ignore
-  const data = tableConfig[tableIndex].charts[chartIndex].chartData(
-    requestChartData.data,
+  const { data = [] } = requestChartData
+  const result = tableConfig[tableIndex].charts[chartIndex].chartData(
+    data as any,
     selected,
   )
   // @ts-ignore
-  return tableConfig[tableIndex].charts[chartIndex].xyData(data)
+  return tableConfig[tableIndex].charts[chartIndex].xyData(result)
 }
 export const getUnit = (
   tableIndex: number,
@@ -102,15 +97,15 @@ export const getModel = (params: any, unit: string) => {
   params = orderByDesc(params)
   const title = params[0].axisValue
   const time = `<div>${title}</div>`
-  // @ts-ignore
-  const result = params.forEach(
-    ({ seriesName, data, seriesIndex: idx, color }) => {
-      const { value, formatValue } = data
-      if (value) {
-        return tooptipsModel(seriesName, color, formatValue, unit)
-      }
-    },
-  )
+  // todo
+  // result 无返回值，怎么能使用 join
+  const result = params.forEach((result: any) => {
+    const { seriesName, data, color } = result
+    const { value, formatValue } = data
+    if (value) {
+      return tooptipsModel(seriesName, color, formatValue, unit)
+    }
+  })
   return time + result.join('')
 }
 // @ts-ignore

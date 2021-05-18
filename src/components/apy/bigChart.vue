@@ -49,16 +49,19 @@ const param = {
 const isChangeChain = ref(true)
 // 画图
 const draw = () => {
-  myChart.setOption(chartOption(
-    xChartData.value,
-    getModel,
-    serise.value,
-    legendData.value,
-    yLabelFormat,
-    minY,
-    maxY,
-    unit.value,
-  ), true)
+  myChart.setOption(
+    chartOption(
+      xChartData.value,
+      getModel,
+      serise.value,
+      legendData.value,
+      yLabelFormat,
+      minY,
+      maxY,
+      unit.value,
+    ),
+    true,
+  )
 }
 
 const reRenderChart = utils.debounce(async() => {
@@ -76,12 +79,13 @@ const reRenderChart = utils.debounce(async() => {
     }
   }
   // @ts-ignore
-  const {
-    xData,
-    yData,
-    min,
-    max,
-  } = await getTimeData(tableConfig[props.tableIndex].charts[props.chartIndex].requestData, param, props.tableIndex, props.chartIndex, tags.selected)
+  const { xData, yData, min, max } = await getTimeData(
+    tableConfig[props.tableIndex].charts[props.chartIndex].requestData,
+    param,
+    props.tableIndex,
+    props.chartIndex,
+    tags.selected,
+  )
   // @ts-ignore
   unit.value = getUnit(props.tableIndex, props.chartIndex, tags.selected)
   xChartData.value = xData
@@ -98,23 +102,31 @@ const changeTime = (beginTimeStr: string, endTimeStr: string) => {
   reRenderChart()
 }
 
-watch(() => props.chartData?.option, (newOptions, oldOptions) => {
-  // @ts-ignore
-  if (!newOptions?.data) {
-    return
-  }
-  // @ts-ignore
-  if (!oldOptions?.data || isChangeChain.value) {
+watch(
+  () => props.chartData?.option,
+  (newOptions, oldOptions) => {
     // @ts-ignore
-    tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
-    tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
-  }
-  isChangeChain.value = false
-  reRenderChart()
-})
-watch(() => tags.selected, () => {
-  reRenderChart()
-})
+    if (!newOptions?.data) {
+      return
+    }
+    // @ts-ignore
+    if (!oldOptions?.data || isChangeChain.value) {
+      // @ts-ignore
+      tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
+      tags.selected = tags.platforms.length > 0
+        ? tags.platforms[0]
+        : ''
+    }
+    isChangeChain.value = false
+    reRenderChart()
+  },
+)
+watch(
+  () => tags.selected,
+  () => {
+    reRenderChart()
+  },
+)
 onMounted(() => {
   // @ts-ignore
   myChart = echarts.init(document.getElementById(`${props.id}big`), 'light')
@@ -139,8 +151,13 @@ const closeModel = () => {
 </script>
 <template>
   <div class="dialogModel" @click="closeModel">
-    <img class="closeButton hand" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="" @click="closeModel">
-    <div class="dialogChart  px-5 py-5.1" @click.stop="">
+    <img
+      class="closeButton hand"
+      src="https://res.ikingdata.com/nav/apyBigClose.png"
+      alt=""
+      @click="closeModel"
+    />
+    <div class="dialogChart px-5 py-5.1" @click.stop="">
       <ApyDesBig
         :change-time="changeTime"
         :title="props.chartData.title"
@@ -148,10 +165,13 @@ const closeModel = () => {
         :table-index="props.tableIndex"
         :chart-index="props.chartIndex"
       />
-      <ApyPlatBig :chart-data="chartData" :chart-index="chartIndex" :tags="tags" />
+      <ApyPlatBig
+        :chart-data="chartData"
+        :chart-index="chartIndex"
+        :tags="tags"
+      />
       <div class="flex relative whNumber">
-        <div :id="props.id+'big'" class="whChartNumber">
-        </div>
+        <div :id="props.id + 'big'" class="whChartNumber"></div>
         <!--        分析器 下拉框-->
         <ApyFilterChart :chart-index="chartIndex" />
       </div>
@@ -161,10 +181,10 @@ const closeModel = () => {
 <style lang="postcss" scoped>
 .whNumber {
   width: 100%;
-  height: 92%
+  height: 92%;
 }
-.whChartNumber{
-  flex:1;
+.whChartNumber {
+  flex: 1;
   height: 100%;
 }
 .dialogModel {
