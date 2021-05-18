@@ -1,8 +1,8 @@
 <script setup lang="ts">
-//@ts-ignore
 import * as echarts from 'echarts'
-import {defineProps, onMounted, reactive, ref, watch} from 'vue'
-import {chartOption} from "~/lib/chartOptionBig";
+import { defineProps, onMounted, reactive, ref, watch } from 'vue'
+import * as utils from '~/utils/index'
+import { chartOption } from '~/lib/chartOptionBig'
 import {
   getModel,
   getPlat,
@@ -10,44 +10,45 @@ import {
   getUnit,
   getTimeData,
   yLabelFormat,
-  getLengent
-} from "~/logic/apy/formatChart";
-import {tableConfig} from "~/logic/apy/config";
+  getLengent,
+} from '~/logic/apy/formatChart'
+import { tableConfig } from '~/logic/apy/config'
 
 const props = defineProps({
-  id: {type: String},
-  state: {type: Boolean},
-  chartData: {type: Object},
-  tableIndex: {type: Number},
-  chartIndex: {type: Number},
-  chainId: {type: String},
-  changeState: {type: Function},
-  title: {type: String},
-  selected: {type: String},
-  bigOption: {type: Object},
+  id: { type: String },
+  state: { type: Boolean },
+  chartData: { type: Object },
+  tableIndex: { type: Number },
+  chartIndex: { type: Number },
+  chainId: { type: String },
+  changeState: { type: Function },
+  title: { type: String },
+  selected: { type: String },
+  bigOption: { type: Object },
 })
 const unit = ref('')
 const xChartData = ref([])
 const serise = ref([])
 const legendData = ref([])
-const tags = reactive({platforms: [], selected: ''})
+const tags = reactive({ platforms: [], selected: '' })
 let myChart: any = null
 let minY = 0
 let maxY = 0
 const beginTime = ref('')
 const endTime = ref('')
-//请求参数
-//@ts-ignore
-let param = {
+// 请求参数
+// @ts-ignore
+const param = {
   chain: props.chainId,
-  category: props.chartData.category, ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
+  category: props.chartData.category,
+  ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
   from_ts: '',
-  to_ts: ''
+  to_ts: '',
 }
-const isChangeChain = ref(true)
-//画图
+// 画图
 const draw = () => {
-  myChart.setOption(chartOption(
+  myChart.setOption(
+    chartOption(
       xChartData.value,
       getModel,
       serise.value,
@@ -55,36 +56,36 @@ const draw = () => {
       yLabelFormat,
       minY,
       maxY,
-      unit.value
-  ), true);
+      unit.value,
+    ),
+    true,
+  )
 }
 const changeTime = (beginTimeStr: string, endTimeStr: string) => {
   beginTime.value = beginTimeStr
   endTime.value = endTimeStr
-  reRenderChart()
 }
-const reRenderChart = async () => {
-  //@ts-ignore
-  let param = {
-    chain: props.chainId,
-    category: props.chartData.category, ...tableConfig[props.tableIndex].charts[props.chartIndex].param,
-  }
-  if (beginTime.value) {
-    param = {
-      ...param,
-      from_ts: beginTime.value,
-      to_ts: endTime.value
-    }
-  }
-  //@ts-ignore
-  const {
-    xData,
-    yData,
-    min,
-    max
-  } = await getTimeData(tableConfig[props.tableIndex].charts[props.chartIndex].requestData, param, props.tableIndex, props.chartIndex, tags.selected)
-  //@ts-ignore
-  unit.value = getUnit(props.tableIndex, props.chartIndex, tags.selected)
+
+onMounted(() => {
+  // @ts-ignore
+  myChart = echarts.init(document.getElementById(`${props.id}big`), 'light')
+  window.addEventListener('resize', myChart.resize)
+})
+// @ts-ignore
+const closeModel = () => {
+  props.changeState(false)
+}
+const optionData = (
+  xData,
+  yData,
+  min,
+  max,
+  tableIndex,
+  chartIndex,
+  selectUnitName,
+) => {
+  // @ts-ignore
+  unit.value = getUnit(tableIndex, chartIndex, selectUnitName)
   xChartData.value = xData
   minY = min
   maxY = max
@@ -92,54 +93,38 @@ const reRenderChart = async () => {
   legendData.value = getLengent(yData)
   draw()
 }
-
-watch(() => props.chartData?.option, (newOptions, oldOptions) => {
-  //@ts-ignore
-  if (!newOptions?.data) {
-    return
-  }
-  //@ts-ignore
-  if (!oldOptions?.data || isChangeChain.value) {
-    //@ts-ignore
-    tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
-    tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
-  }
-  isChangeChain.value = false
-  reRenderChart()
-})
-watch(() => tags.selected, () => {
-  reRenderChart()
-})
-onMounted(() => {
-  //@ts-ignore
-  myChart = echarts.init(document.getElementById(props.id + 'big'), "light",{renderer: 'svg'});
-  window.addEventListener("resize", myChart.resize);
-  let newOptions = props.chartData?.option
-  if (!newOptions?.data) {
-    return
-  }
-  //@ts-ignore
-  tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
-  if (isChangeChain.value) {
-    //@ts-ignore
-    tags.selected = props.selected
-  }
-  isChangeChain.value = false
-  reRenderChart()
-})
-//@ts-ignore
-const closeModel = () => {
-  props.changeState(false)
-}
 </script>
 <template>
   <div class="dialogModel" @click="closeModel">
-    <img class="closeButton hand" @click="closeModel" src="https://res.ikingdata.com/nav/apyBigClose.png" alt="">
-    <div class="dialogChart  px-5 py-5.1" @click.stop="">
-      <ApyDesBig  :changeTime="changeTime" :title="props.chartData.title"
-                 :selected="tags.selected" :tableIndex="props.tableIndex" :chartIndex="props.chartIndex"/>
-      <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>
-      <div :id="props.id+'big'" class="whNumber">
+    <img
+      class="closeButton hand"
+      src="https://res.ikingdata.com/nav/apyBigClose.png"
+      alt=""
+      @click="closeModel"
+    />
+    <div class="dialogChart px-5 py-5.1" @click.stop="">
+      <ApyDesBig
+        :change-time="changeTime"
+        :title="props.chartData.title"
+        :selected="tags.selected"
+        :table-index="props.tableIndex"
+        :chart-index="props.chartIndex"
+      />
+      <!--      <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>-->
+      <div class="flex relative whNumber mt-5">
+        <div :id="props.id + 'big'" class="whChartNumber"></div>
+        <!--        分析器 下拉框-->
+        <ApyFilterChart
+          :begin-time="beginTime"
+          :chart-data="chartData"
+          :tags="tags"
+          :end-time="endTime"
+          :option-data="optionData"
+          :selected-tag="selected"
+          :category="chartData.category"
+          :chain-id="chainId"
+          :chart-index="chartIndex"
+        />
       </div>
     </div>
   </div>
@@ -147,9 +132,12 @@ const closeModel = () => {
 <style lang="postcss" scoped>
 .whNumber {
   width: 100%;
-  height: 92%
+  height: 92%;
 }
-
+.whChartNumber {
+  flex: 1;
+  height: 100%;
+}
 .dialogModel {
   width: 100%;
   position: fixed;

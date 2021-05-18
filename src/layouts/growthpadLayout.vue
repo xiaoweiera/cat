@@ -1,26 +1,24 @@
 <template>
-  <div class="circleContainer">
-  </div>
-  <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
-    <Nav class="relative "></Nav>
-    <main class="  w-full  flex justify-center  ">
-      <router-view/>
-      <Footer/>
+  <div class="circleContainer"></div>
+  <div class="containerbgs bg-global-body md:bg-opacity-100">
+    <Nav class="relative"></Nav>
+    <main class="w-full flex justify-center">
+      <router-view />
+      <Footer />
     </main>
   </div>
 </template>
 <style>
 @media screen and (max-width: 768px) {
   .containerbgs {
-    background-image: url("https://res.ikingdata.com/nav/kongtouBg.png");
-    background-size:cover;
+    background-image: url('https://res.ikingdata.com/nav/kongtouBg.png');
+    background-size: cover;
   }
 }
 
 @media screen and (min-width: 768px) {
-
   .containerbgs {
-    background-image: url("https://res.ikingdata.com/nav/kgBodytopBg.jpg");
+    background-image: url('https://res.ikingdata.com/nav/kgBodytopBg.jpg');
     background-size: cover;
   }
 }
@@ -37,4 +35,3 @@
   z-index: -11;
 }
 </style>
-

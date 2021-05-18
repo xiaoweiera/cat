@@ -1,0 +1,5 @@
+{
+  "kiwiDir": "./langs",
+  "srcLang": "zh_CN",
+  "distLangs": ["en-US"]
+}

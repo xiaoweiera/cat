@@ -18,8 +18,7 @@ service.interceptors.response.use(
     if (res.status !== 200) {
       // eslint-disable-next-line prefer-promise-reject-errors
       return Promise.reject('error')
-    }
-    else {
+    } else {
       return res
     }
   },

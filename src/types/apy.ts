@@ -11,8 +11,8 @@
 // "high_light":false}
 
 export interface ItemModel {
-  project_name: String
-  token_name: String
+  project_name: string
+  token_name: string
 }
 
 export interface coinModelInfo {
@@ -40,22 +40,22 @@ export interface CoinModel {
 }
 
 export interface HeaderModel {
-  token_name: String
-  price: Number
-  change: Number
-  logo: String
+  token_name: string
+  price: number
+  change: number
+  logo: string
 }
 
 export interface RowModel {
-  project_name: String
-  icon:String
-  chain:String
-  url:String
-  data: Map<String, CoinModel>
+  project_name: string
+  icon: string
+  chain: string
+  url: string
+  data: Map<string, CoinModel>
 }
 
 export interface RowResponse {
-  code: Number
+  code: number
   data: RowModel[]
 }
 
@@ -75,6 +75,6 @@ export interface OptionModel {
   key: string
   name: string
   status: boolean
-  format_func: Function
-  format_cb: Function
+  format_func: () => void
+  format_cb: () => void
 }
