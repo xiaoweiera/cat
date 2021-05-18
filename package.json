@@ -9,8 +9,9 @@
     "serve": "vite serve --host 0.0.0.0"
   },
   "lint-staged": {
-    "./src/**/**/*.vue": "eslint",
-    "./src/**/**/*.ts": "eslint"
+    "./src/**/*.{vue,ts}": [
+      "eslint --ext .ts,.vue"
+    ]
   },
   "husky": {
     "hooks": {
