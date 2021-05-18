@@ -28,7 +28,7 @@ const clickOption = (option) => {
       return i
     })
     show.value = !show.value
-  }, 300)
+  }, 100)
 }
 const show = ref(false)
 const optionShow = () => {

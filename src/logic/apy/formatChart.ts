@@ -28,7 +28,7 @@ export const getXY_data = (requestChartData: chartModel, tableIndex: number, cha
     return tableConfig[tableIndex].charts[chartIndex].xyData(data)
 }
 export const getUnit=(tableIndex: number, chartIndex: number,selected:string)=>{
-    if(selected==='平均APY'){return '%'}
+    if(selected==='平均APY' || selected==='APY'){return '%'}
    return  tableConfig[tableIndex].charts[chartIndex].unit
 }
 interface chartTipModel{
@@ -85,6 +85,5 @@ export const getModel = (params: any,unit:string) => {
 }
 //@ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)
-
-
-export const getPlat = (chartData: any, tableIndex: number, chartIndex: number) => tableConfig[tableIndex].charts[chartIndex].platData(chartData)
+//@ts-ignore
+export const getPlat = (chartData: any, tableIndex: number, chartIndex: number) => tableConfig[tableIndex].charts[chartIndex].platData(chartData);

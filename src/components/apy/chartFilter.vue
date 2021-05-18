@@ -22,7 +22,7 @@ const optionModel:dropModel=toRefs(props.dataList)
         <el-option class="h-7.5"
                    v-for="item in optionModel.data.value"
                    :key="item"
-                   :label="typeName==='type'?getTypeNameByKey(item):item"
+                   :label="typeName==='type'?getTypeNameByKey(item):(item==='ALL'?'全部':item)"
                    :value="item">
         </el-option>
       </el-select>
