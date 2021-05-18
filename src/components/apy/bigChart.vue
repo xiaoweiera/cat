@@ -5,10 +5,8 @@ import * as utils from '~/utils/index'
 import { chartOption } from '~/lib/chartOptionBig'
 import {
   getModel,
-  getPlat,
   getSerise,
   getUnit,
-  getTimeData,
   yLabelFormat,
   getLengent,
 } from '~/logic/apy/formatChart'
@@ -26,6 +24,7 @@ const props = defineProps({
   selected: { type: String },
   bigOption: { type: Object },
 })
+
 const unit = ref('')
 const xChartData = ref([])
 const serise = ref([])
@@ -36,6 +35,7 @@ let minY = 0
 let maxY = 0
 const beginTime = ref('')
 const endTime = ref('')
+const chartDataFilter = reactive({ title: props.chartData.title })
 // 请求参数
 // @ts-ignore
 const param = {
@@ -105,7 +105,7 @@ const optionData = (
     <div class="dialogChart px-5 py-5.1" @click.stop="">
       <ApyDesBig
         :change-time="changeTime"
-        :title="props.chartData.title"
+        :title="chartDataFilter.title"
         :selected="tags.selected"
         :table-index="props.tableIndex"
         :chart-index="props.chartIndex"
@@ -116,7 +116,7 @@ const optionData = (
         <!--        分析器 下拉框-->
         <ApyFilterChart
           :begin-time="beginTime"
-          :chart-data="chartData"
+          :chart-data-filter="chartDataFilter"
           :tags="tags"
           :end-time="endTime"
           :option-data="optionData"

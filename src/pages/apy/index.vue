@@ -17,11 +17,6 @@ const { tables, requestData: fetchTableData } = requestTables()
 // @ts-ignore
 const { charts, requestChartData: fetchChartData } = requestChart()
 const selectedAnchor = ref('机枪池APY')
-// const chainQuery=ref('')
-// const router=useRouter()
-// console.log(router.params)
-// @ts-ignore
-
 // 计算元素距离 body 的位置
 const offsetY = function(dom: HTMLElement, number = 0): number {
   const body = document.body || document.querySelector('body')
