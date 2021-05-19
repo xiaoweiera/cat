@@ -3,7 +3,8 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
-import { currentLang } from '~/lib/lang'
+// import { currentLang } from '~/lib/lang'
+import * as lang from '~/utils/lang'
 const route = useRoute()
 const router = useRouter()
 const select = ref(route.path.slice(1, route.path.length) || '')
@@ -14,17 +15,22 @@ const navIsSelect = (path: String): String => {
   return ' text-global-default opacity-85 ml-kd32px '
 }
 const { t, locale } = useI18n()
-const lang = ref(currentLang(route))
+// const lang = ref(currentLang(route))
 
 const toggleLocales = () => {
-  lang.value = lang.value === 'en'
-    ? 'cn'
-    : 'en'
+  // lang.value = lang.value === 'en'
+  //   ? 'cn'
+  //   : 'en'
+  if (lang.current.value === lang.Language.en) {
+    lang.setCurrent(lang.Language.cn)
+  } else {
+    lang.setCurrent(lang.Language.en)
+  }
   router.replace({
     ...route,
     query: {
       ...route.query,
-      lang: lang.value,
+      lang: lang.current.value,
     },
   })
 }
@@ -60,8 +66,7 @@ useHead({
   ],
 })
 onMounted(() => {
-  lang.value = currentLang(route)
-  locale.value = lang.value
+  locale.value = lang.current.value
   title.value = t('hero.subtitle')
 })
 </script>
