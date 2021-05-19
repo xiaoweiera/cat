@@ -2,7 +2,13 @@
   <div>
     <ElButton type="text" @click="showVisible">登录/注册</ElButton>
   </div>
-  <ElDialog v-model="visible" width="400px" :before-close="handleClose">
+  <ElDialog
+    v-model="visible"
+    custom-class="dialog-login"
+    width="400px"
+    :append-to-body="true"
+    :before-close="handleClose"
+  >
     <UserLogin></UserLogin>
   </ElDialog>
 </template>
@@ -18,4 +24,11 @@ const handleClose = function(next) {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.dialog-login {
+  max-width: 100% !important;
+  .el-dialog__body {
+    padding-top: 0;
+  }
+}
+</style>

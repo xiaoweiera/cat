@@ -48,7 +48,7 @@
     // 小括号内不允许有空格
     "space-in-parens": ["error", "never"],
     // 三元表达式不允许换行
-    "multiline-ternary": ["error", "always"],
+    "multiline-ternary": "off",
     // 禁止连续赋值
     "no-multi-assign": ["error"],
     // 运算符前后有空格
