@@ -130,6 +130,7 @@ onMounted(() => {
           alt=""
         />
       </div>
+      <HeaderLogin></HeaderLogin>
       <a
         href="https://www.ikingdata.com/download"
         target="_blank"
