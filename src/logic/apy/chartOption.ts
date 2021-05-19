@@ -58,13 +58,20 @@ const getMarks = (
       ? selectName
       : marks.data[0]
     // @ts-ignore
-    return marks
+  } else if (chartIndex === 2 && typeSelect === 'lend_single') {
+    // @ts-ignore
+    marks.data = ['存款总额']
+    marks.select = '存款总额'
+  } else if (chartIndex === 2 && typeSelect === 'loan_single') {
+    // @ts-ignore
+    marks.data = ['借款总额']
+    marks.select = '借款总额'
   } else {
     // @ts-ignore
     marks.data = ['APY']
     marks.select = marks.data[0]
-    return marks
   }
+  return marks
 }
 // 获取平台和首次设置mark
 const getPlats = (
