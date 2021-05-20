@@ -98,6 +98,16 @@ watch(() => chains.data, (newVal) => {
 })
 const selectedMobileAnchor = reactive({ name: '机枪池APY' })
 onMounted(() => {
+  const router = useRouter()
+  const loc = window.location
+  // 二级域名 growthpad.xxx.com/ 跳转到 growthpad.xxx.com/growthpad
+  // console.log(loc.host.startsWith('growthpad'), loc.host, loc.pathname)
+  if (loc.host.startsWith('growthpad') && loc.pathname === '/') {
+    router.push('/growthpad')
+  }
+  else if (loc.host.startsWith('apy') && loc.pathname === '/') {
+    router.push('/apy')
+  }
   wxShare('DeFi挖矿收益APY大全', '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。')
   // intervalFetchTableByChain('heco')
 })
