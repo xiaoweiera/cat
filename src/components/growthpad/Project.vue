@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { defineProps, PropType } from 'vue'
+import { defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import type { ProjectInfo } from '~/types/growthpad'
 // @ts-ignore
 const { t } = useI18n()
 
 const props = defineProps({
-  project: Object as PropType<ProjectInfo>,
+  project: Object,
   title: String,
   status: String,
 })

@@ -116,6 +116,7 @@ const yAxisKline = (
       axisTick: {
         show: false, // 隐藏刻度线
       },
+      z: 1000,
       splitLine: {
         // 网格线
         lineStyle: {
@@ -126,13 +127,9 @@ const yAxisKline = (
       },
 
       type: 'value',
-      min: min === max
-        ? null
-        : min,
+      min: min === max ? null : min,
       max,
-      interval: min === max
-        ? max / 4
-        : (max - min) / 4,
+      interval: min === max ? max / 4 : (max - min) / 4,
       axisLabel: {
         inside: true,
         fontSize: 12,
