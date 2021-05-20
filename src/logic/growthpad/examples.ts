@@ -5,6 +5,7 @@
  */
 
 import { ref, reactive } from 'vue'
+import I18n from '~/utils/i18n/index'
 
 // 名称
 export const Name = ref('DEX')
@@ -24,8 +25,10 @@ interface DasboardData {
 }
 
 export const Dasboard = reactive<DasboardData>({
-  status: '进行中',
-  description: '为庆祝 DEX 成功上线 BSC 和 HECO，感谢用户的支持，现联合 KingData, 对部分用户进行奖励，符合条件的用户可以在活动结束后，领取价值 $10000 的奖励。',
+  // 状态
+  status: I18n.growthpad.examples.progress,
+  description:
+    '为庆祝 DEX 成功上线 BSC 和 HECO，感谢用户的支持，现联合 KingData, 对部分用户进行奖励，符合条件的用户可以在活动结束后，领取价值 $10000 的奖励。',
   reward: {
     count: 1000,
     cost: 1000000,
@@ -60,14 +63,16 @@ export const About = reactive<AboutData>({
   ],
   detail: `Dex is an AMM decentralized exchange based on the concept of fund pools. It proposes and implements a dual-chain DEX model based on the Huobi ecological Heco chain and Ethereum. At the same time, DEX will also support a dual mining mechanism for liquidity and transactions.
 
-Dex innovatively adopts a dual mining mechanism. The “dual mining” here refers to the first one: support Uniswap LP, Sushiswap LP and single currency mortgage mining on Ethereum before LP migration. Among them, mortgage Sushiswap LP can get Sushi at the same time. With Dex tokens, one-click dual mining is realized, and it also refers to: After the migration, trading and liquidity dual mining will be opened on Heco.`
+Dex innovatively adopts a dual mining mechanism. The “dual mining” here refers to the first one: support Uniswap LP, Sushiswap LP and single currency mortgage mining on Ethereum before LP migration. Among them, mortgage Sushiswap LP can get Sushi at the same time. With Dex tokens, one-click dual mining is realized, and it also refers to: After the migration, trading and liquidity dual mining will be opened on Heco.`,
 })
 
 // 分享代码
-export const shareCode = ref('<frame src="https://embed.KingData.com/embed/s/914814682750.htm" style-"border: none;" width="490" height="164" frameborder="0" scrolling="no" allowfullscreen></iframe>')
+export const shareCode = ref(
+  '<frame src="https://embed.KingData.com/embed/s/914814682750.htm" style-"border: none;" width="490" height="164" frameborder="0" scrolling="no" allowfullscreen></iframe>',
+)
 
 interface Tooltip {
-  icon: string,
+  icon: string
   value: string
 }
 

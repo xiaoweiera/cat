@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import {defineProps, toRefs, ref} from 'vue'
+import { toRefs, ref, defineProps } from 'vue'
 // @ts-ignore
-import {ElSwitch} from 'element-plus'
+import { ElSwitch } from 'element-plus'
 
 const props = defineProps({
-  time: {type: Number},
-  project: {type: String},
+  time: { type: Number },
+  project: { type: String },
   title: {
     type: String,
   },
-  options: {type: Object},
-  timer: {type: Number}
+  options: { type: Object },
+  timer: { type: Number },
 })
 
-const {
-  data: realOptions,
-  select,
-} = toRefs(props.options)
+const { data: realOptions, select } = toRefs(props.options)
+
+const show = ref(false)
 
 const clickOption = (option) => {
   setTimeout(() => {
@@ -28,9 +27,9 @@ const clickOption = (option) => {
       return i
     })
     show.value = !show.value
-  }, 300)
+  }, 100)
 }
-const show = ref(false)
+
 const optionShow = () => {
   show.value = true
 }
@@ -46,29 +45,76 @@ const closeDown = () => {
 }
 </script>
 <template>
-  <div :id="project" class="flex flex-wrap items-center justify-between mb-3 mt-6 mt-0  md:mb-8  md:mb-3">
-    <div class="xshidden flex items-center justify-center  w-full">
-      <div style="font-size:24px;" class="text-global-highTitle font-medium mr-1.5">{{ title }}</div>
-      <div class="text-kd14px20px font-normal text-global-default opacity-65">({{ timer }} 秒后更新)</div>
+  <div
+    :id="project"
+    class="
+      flex flex-wrap
+      items-center
+      justify-between
+      mb-3
+      mt-6 mt-0
+      md:mb-8 md:mb-3
+    "
+  >
+    <div class="xshidden flex items-center justify-center w-full">
+      <div
+        style="font-size: 24px"
+        class="text-global-highTitle font-medium mr-1.5"
+      >
+        {{ title }}
+      </div>
+      <div class="text-kd14px20px font-normal text-global-default opacity-65">
+        ({{ timer }} 秒后更新)
+      </div>
     </div>
     <!-- pc-->
     <div class="xshidden w-full">
-      <div class="flex md:flex-row flex-col items-center justify-between w-full mt-5 md:items-center">
-        <div class="flex items-center  ">
-          <div class="mr-3 mt-3 md:mt-1 text-kd14px18px text-global-highTitle opacity-65 font-normal">池子指标 :</div>
-          <div class="flex items-center flex-wrap ">
-            <div v-for="(item,i) in realOptions">
-              <div v-if="i>0" class="flex items-center mt-3 mr-3  md:mt-0">
-                <div class=" mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
+      <div
+        class="
+          flex
+          md:flex-row
+          flex-col
+          items-center
+          justify-between
+          w-full
+          mt-5
+          md:items-center
+        "
+      >
+        <div class="flex items-center">
+          <div
+            class="
+              mr-3
+              mt-3
+              md:mt-1
+              text-kd14px18px text-global-highTitle
+              opacity-65
+              font-normal
+            "
+          >
+            池子指标 :
+          </div>
+          <div class="flex items-center flex-wrap">
+            <div v-for="(item, i) in realOptions">
+              <div v-if="i > 0" class="flex items-center mt-3 mr-3 md:mt-0">
+                <div
+                  class="
+                    mt-1
+                    mr-2
+                    text-kd14px18px
+                    font-normal
+                    text-global-highTitle
+                  "
+                >
                   {{ item.name !== '剩余额度' ? item.name : item.name + '(%)' }}
                 </div>
                 <div>
                   <el-switch
-                      active-color="#2B8DFE"
-                      :validate-event="false"
-                      @change="clickOption(item)"
-                      inactive-color="rgba(37, 62, 111, 0.1)"
-                      v-model="item.status"
+                    v-model="item.status"
+                    active-color="#2B8DFE"
+                    :validate-event="false"
+                    inactive-color="rgba(37, 62, 111, 0.1)"
+                    @change="clickOption(item)"
                   >
                   </el-switch>
                 </div>
@@ -77,38 +123,83 @@ const closeDown = () => {
           </div>
         </div>
         <div class="flex items-center relative">
-          <img class="w-4 h-4 mr-1" src="https://res.ikingdata.com/nav/apyBell.png" alt="">
-          <div @mousemove="openDown" @mouseleave="closeDown"
-               class="text-global-highTitle opacity-85 text-kd14px18px hand">扫码下载 App，获取 APY 第一名变化提醒
+          <img
+            class="w-4 h-4 mr-1"
+            src="https://res.ikingdata.com/nav/apyBell.png"
+            alt=""
+          />
+          <div
+            class="text-global-highTitle opacity-85 text-kd14px18px hand"
+            @mousemove="openDown"
+            @mouseleave="closeDown"
+          >
+            扫码下载 App，获取 APY 第一名变化提醒
           </div>
-          <img v-if="showDownLoad" style="width:136px;height:136px;" class="shadowQr absolute  z-111 top-5 right-0"
-               src="https://res.ikingdata.com/nav/apyDownqr.png" alt="">
+          <img
+            v-if="showDownLoad"
+            style="width: 136px; height: 136px"
+            class="shadowQr absolute z-111 top-5 right-0"
+            src="https://res.ikingdata.com/nav/apyDownqr.png"
+            alt=""
+          />
         </div>
       </div>
     </div>
     <!--    mobile-->
-    <div class="mdhidden  mt-6 w-full ">
-      <div class="flex md:flex-row flex-col relative  w-full md:items-center">
-        <div class="flex items-center justify-between  w-full">
-          <div class="flex items-center" @mousemove="optionShow" @mouseleave="optionClose">
-            <div class="mr-1.5 text-kd14px18px text-global-highTitle opacity-65 font-normal">池子指标</div>
-            <img class="w-4.5 h-4.5" src="https://res.ikingdata.com/nav/apySet.png" alt="">
+    <div class="mdhidden mt-6 w-full">
+      <div class="flex md:flex-row flex-col relative w-full md:items-center">
+        <div class="flex items-center justify-between w-full">
+          <div
+            class="flex items-center"
+            @mousemove="optionShow"
+            @mouseleave="optionClose"
+          >
+            <div
+              class="
+                mr-1.5
+                text-kd14px18px text-global-highTitle
+                opacity-65
+                font-normal
+              "
+            >
+              池子指标
+            </div>
+            <img
+              class="w-4.5 h-4.5"
+              src="https://res.ikingdata.com/nav/apySet.png"
+              alt=""
+            />
           </div>
-          <div class="text-kd14px20px font-normal text-global-default opacity-65">({{ timer }} 秒后更新)</div>
+          <div
+            class="text-kd14px20px font-normal text-global-default opacity-65"
+          >
+            ({{ timer }} 秒后更新)
+          </div>
         </div>
-        <div v-show="show" @mousemove="optionShow" class=" optionModel">
-          <div v-for="(item,i) in realOptions">
-            <div v-if="i>0" class="flex items-center mr-1.5 mt-4 h-4.5  justify-between ">
-              <div class=" mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
+        <div v-show="show" class="optionModel" @mousemove="optionShow">
+          <div v-for="(item, i) in realOptions">
+            <div
+              v-if="i > 0"
+              class="flex items-center mr-1.5 mt-4 h-4.5 justify-between"
+            >
+              <div
+                class="
+                  mt-1
+                  mr-2
+                  text-kd14px18px
+                  font-normal
+                  text-global-highTitle
+                "
+              >
                 {{ item.name !== '剩余额度' ? item.name : item.name + '(%)' }}
               </div>
               <div>
                 <el-switch
-                    active-color="#2B8DFE"
-                    :validate-event="false"
-                    @change="clickOption(item)"
-                    inactive-color="rgba(37, 62, 111, 0.1)"
-                    v-model="item.status"
+                  v-model="item.status"
+                  active-color="#2B8DFE"
+                  :validate-event="false"
+                  inactive-color="rgba(37, 62, 111, 0.1)"
+                  @change="clickOption(item)"
                 >
                 </el-switch>
               </div>
@@ -120,8 +211,8 @@ const closeDown = () => {
   </div>
 </template>
 <style lang="postcss" scoped>
-.shadowQr{
-  box-shadow:4px 8px 10px rgb(0 0 0 / 12%);
+.shadowQr {
+  box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.12);
 }
 .optionModel {
   border-radius: 4px;

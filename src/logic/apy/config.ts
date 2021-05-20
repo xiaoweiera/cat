@@ -18,13 +18,13 @@ import {
 } from '~/logic/apy/chartFormatTool'
 
 export const unitConfig = {
-  '可投额度': { unit: '$' },
-  '总锁仓': { unit: '$' },
-  '剩余额度': { unit: '%' },
-  '存款总额': { unit: '$' },
-  '借款总量': { unit: '$' },
-  '可借': { unit: '$' },
-  '借出': { unit: '$' },
+  可投额度: { unit: '$' },
+  总锁仓: { unit: '$' },
+  剩余额度: { unit: '%' },
+  存款总额: { unit: '$' },
+  借款总量: { unit: '$' },
+  可借: { unit: '$' },
+  借出: { unit: '$' },
 }
 export const headerConfig = [
   {
@@ -65,6 +65,11 @@ export const tools = [
     url: 'https://ikingdata.com/bull',
   },
 ]
+export const tableIndex = {
+  machine_gun_pool_single: 0,
+  lend_single: 1,
+  loan_single: 2,
+}
 export const chainConfig = [
   {
     select: false,
@@ -215,11 +220,13 @@ export const tableConfig = [
           name: 'APY',
           status: true,
           format_func: percent2Precision,
-        }, {
+        },
+        {
           key: 'apy_detail',
           name: '产出',
           status: true,
-        }, {
+        },
+        {
           key: 'quota_remain',
           name: '可投额度',
           status: true,
@@ -247,26 +254,30 @@ export const tableConfig = [
     name: 'lend_single',
     title: 'DeFi 借贷平台存款 APY 对比',
     options: {
-      data: [{
-        key: 'apy',
-        name: 'APY',
-        status: true,
-        format_func: percent2Precision,
-      }, {
-        key: 'apy_detail',
-        name: '产出',
-        status: true,
-      }, {
-        key: 'tvl',
-        name: '存款总额',
-        status: true,
-        format_func: numberFormat,
-      }, {
-        key: 'quota_used',
-        name: '借款总量',
-        status: true,
-        format_func: numberFormat,
-      },
+      data: [
+        {
+          key: 'apy',
+          name: 'APY',
+          status: true,
+          format_func: percent2Precision,
+        },
+        {
+          key: 'apy_detail',
+          name: '产出',
+          status: true,
+        },
+        {
+          key: 'tvl',
+          name: '存款总额',
+          status: true,
+          format_func: numberFormat,
+        },
+        {
+          key: 'quota_used',
+          name: '借款总量',
+          status: true,
+          format_func: numberFormat,
+        },
       ],
       select: 'apy',
     },
@@ -282,7 +293,8 @@ export const tableConfig = [
           name: '利息',
           status: true,
           format_func: percent2Precision,
-        }, {
+        },
+        {
           key: 'apy_detail',
           name: '计息',
           status: true,
@@ -305,7 +317,8 @@ export const tableConfig = [
           status: true,
           unit: '%',
           format_func: numberFormat,
-        }],
+        },
+      ],
       select: 'apy',
     },
     charts: chartsConfig.loan,
@@ -319,10 +332,12 @@ export const anchorConfig = [
   {
     key: 'lend_single',
     name: '存款APY',
-  }, {
+  },
+  {
     key: 'loan_single',
     name: '借款APY',
-  }, {
+  },
+  {
     key: 'back',
     name: '回到顶部',
   },

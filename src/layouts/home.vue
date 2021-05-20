@@ -1,10 +1,9 @@
 <template>
-  <div class="circleContainer">
-  </div>
-  <div class=" containerbgs  bg-global-body   md:bg-opacity-100">
-    <ApyHeader/>
-    <main class="  w-full  flex justify-center  ">
-      <router-view/>
+  <div class="circleContainer"></div>
+  <div class="containerbgs bg-global-body md:bg-opacity-100">
+    <ApyHeader />
+    <main class="w-full flex justify-center">
+      <router-view />
     </main>
   </div>
 </template>
@@ -12,13 +11,13 @@
 @media screen and (max-width: 768px) {
   .containerbgs {
     //background:#F6FAFD;
-    background-image: url("https://res.ikingdata.com/nav/apyTopBg.png");
-    background-size:cover;
+    background-image: url('https://res.ikingdata.com/nav/apyTopBg.png');
+    background-size: cover;
   }
 }
 @media screen and (min-width: 768px) {
   .containerbgs {
-    background: url(https://res.ikingdata.com/nav/apyTopBg.png) #F6FAFD;
+    background: url(https://res.ikingdata.com/nav/apyTopBg.png) #f6fafd;
     background-size: 100% 530px;
     background-repeat: no-repeat;
   }
@@ -35,4 +34,3 @@
   z-index: -11;
 }
 </style>
-
