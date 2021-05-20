@@ -2,57 +2,119 @@
 // @ts-ignore
 import { ElTable, ElTableColumn } from 'element-plus'
 import { testData } from '/mock/liquidity'
-const headerTable = () => 'border:1px solid red'
+const headerTable = (row) => {
+  console.log(row)
+}
+const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 </script>
 <template>
-  <div class="w-full h-10">
-    <el-table
-      :data="testData"
-      height="600"
-      cell-style="border:0"
-      :row-style="headerTable"
-      style="width: 100%; height: 600px"
-    >
-      <el-table-column>
-        <template #header="scope">
-          <div>交易对</div>
+  <div class="w-full h-full">
+    <div class="w-full h-full">
+      <ul
+        class="
+          px-3
+          h-7
+          w-full
+          flex
+          items-center
+          text-global-default
+          opacity-65
+          text-kd12px16px
+          font-kdFang
+          tableHeader
+        "
+      >
+        <li class="flex-1">交易对</li>
+        <li class="w-15 pl-1">TVL($)</li>
+        <li class="w-15 pl-1">价格($)</li>
+        <li class="w-15 pl-1">涨跌幅</li>
+      </ul>
+      <div class="w-full h-full showY">
+        <template v-for="(item, i) in testData" :key="i + item.id">
+          <div :class="{ selectRow: i === 1, defaultRow: i !== 1 }">
+            <div class="flex-1 font-kdExp flex items-center overflow-hidden">
+              <img
+                class="w-3 h-3"
+                src="https://res.ikingdata.com/nav/noStart.png"
+                alt=""
+              />
+              <span
+                class="
+                  txtSmall
+                  ml-1.5
+                  text-kd12px16px text-global-default
+                  opacity-85
+                "
+              >{{ item.token0_symbol + '/' + item.token1_symbol }}</span>
+            </div>
+            <div class="tokenRow text-kd12px16px text-global-default">100</div>
+            <div class="tokenRow text-kd12px16px text-global-default">300</div>
+            <div class="percentGreen text-left">+8002%</div>
+          </div>
         </template>
-        <template #default="scope">
-          <span>{{ scope.row.token0_symbol }}</span>
+        <template v-for="(item, i) in testData" :key="i + item.id">
+          <div :class="{ selectRow: i === 1, defaultRow: i !== 1 }">
+            <div class="flex-1 font-kdExp flex items-center overflow-hidden">
+              <img
+                class="w-3 h-3"
+                src="https://res.ikingdata.com/nav/noStart.png"
+                alt=""
+              />
+              <span
+                class="
+                  txtSmall
+                  ml-1.5
+                  text-kd12px16px text-global-default
+                  opacity-85
+                "
+              >{{ item.token0_symbol + '/' + item.token1_symbol }}</span>
+            </div>
+            <div class="tokenRow text-kd12px16px text-global-default">100</div>
+            <div class="tokenRow text-kd12px16px text-global-default">300</div>
+            <div class="percentGreen text-left">+8002%</div>
+          </div>
         </template>
-      </el-table-column>
-      <el-table-column>
-        <template #header="scope">
-          <div>TVL($)</div>
-        </template>
-        <template #default="scope">
-          <span>400</span>
-        </template>
-      </el-table-column>
-      <el-table-column>
-        <template #header="scope">
-          <div>价格($)</div>
-        </template>
-        <template #default="scope">
-          <span>300</span>
-        </template>
-      </el-table-column>
-      <el-table-column>
-        <template #header="scope">
-          <div>涨跌幅</div>
-        </template>
-        <template #default="scope">
-          <span>+200</span>
-        </template>
-      </el-table-column>
-    </el-table>
+      </div>
+    </div>
   </div>
 </template>
 <style lang="postcss" scoped>
-.headerTable {
-  border: 1px solid red;
-}
 ::v-deep(.el-table td) {
   padding: 8px 0;
+}
+.selectRow {
+  border-right: 3px solid rgba(43, 141, 254, 0.9);
+  @apply bg-global-primary bg-opacity-18 flex h-7 px-3 selectRow items-center;
+}
+.defaultRow {
+  @apply flex h-7 px-3 selectRow items-center;
+}
+.tableHeader {
+  border-bottom: 1px solid rgba(37, 62, 111, 0.04);
+  border-top: 1px solid rgba(37, 62, 111, 0.04);
+}
+.txtSmall {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.showY {
+  overflow: hidden;
+  overflow-y: auto;
+}
+.showY::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.1);
+}
+.tokenRow {
+  @apply w-15 pl-1;
+}
+.percentGreen {
+  @apply w-15 pl-1 text-kd12px16px text-global-numGreen;
+}
+.percentRed {
+  @apply w-15 pl-1 text-kd12px16px text-global-numRed;
 }
 </style>

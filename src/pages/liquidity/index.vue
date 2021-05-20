@@ -8,7 +8,7 @@ onBeforeMount(() => {
 })
 </script>
 <template>
-  <div class="flex w-full contentContainer">
+  <div class="flex w-full contentContainer" style="overflow-x: hidden">
     <LiquiditySideContainer />
     <LiquidityMainContainer />
   </div>

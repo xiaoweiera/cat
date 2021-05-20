@@ -15,4 +15,11 @@ import { echartData } from '/mock/liquidity'
   overflow: hidden;
   overflow-y: auto;
 }
+.chartContainer::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.chartContainer::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.1);
+}
 </style>
