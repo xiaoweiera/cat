@@ -309,7 +309,7 @@ export const tableConfig = [
           key: 'quota_remain*quota_remain_percent',
           name: '借出',
           status: true,
-          format_cb: (v: any) => numberFormat(v.quota_used, false),
+          format_cb: (v: any) => numberFormat(v.quota_used),
         },
         {
           key: 'quota_remain_percent',

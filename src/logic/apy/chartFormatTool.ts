@@ -142,7 +142,7 @@ const getxyDataWithField = (
         }
         return {
           value: toFixedNumber(yValue, 2),
-          formatValue: numberFormat(yValue, true),
+          formatValue: numberFormat(yValue),
         }
       }),
     }

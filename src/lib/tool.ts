@@ -1,7 +1,7 @@
 // @ts-ignore
 import dayjs from 'dayjs'
 
-export const numberFormat = (value: any, noUnit: any) => {
+export const numberFormat = (value: any) => {
   if (!value && value !== 0 && value !== '0') {
     return null
   }
@@ -70,15 +70,35 @@ export const tooptipsModel = (
 export function dataToTimestamp(time: string) {
   return dayjs(time).valueOf() / 1000
 }
-
-export const formatDefaultTime = (date: string) => {
+// 得到天颗粒度的时间
+export const formatDefaultTime = (date: number) => {
   if (date) {
     return dayjs(date).format('YYYY-MM-DD')
   } else {
     return dayjs().format('YYYY-MM-DD')
   }
 }
+// 得到小时颗粒度的时间
+export const formatHourTime = (date: number) => {
+  if (date) {
+    return dayjs(date).format('MM/DD HH:mm')
+  } else {
+    return dayjs().format('MM/DD HH:mm')
+  }
+}
 // 得到对应时间的时间戳  如 前7天 前30天
 export const getagoTimeStamp = (day: number) => {
   return dataToTimestamp(dayjs().subtract(day, 'days').format('YYYY-MM-DD'))
+}
+export const min_max = (min: any, max: any, v: any) => {
+  if (v === null) {
+    return [min, max]
+  }
+  if (min === null || min > v) {
+    min = v
+  }
+  if (max === null || max < v) {
+    max = v
+  }
+  return [min, max]
 }

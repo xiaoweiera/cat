@@ -1,0 +1,154 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ElDatePicker } from 'element-plus'
+import * as R from 'ramda'
+const filterOption = ref([
+  { name: '近7天', value: 7, selected: true },
+  {
+    name: '近1月',
+    value: 30,
+    selected: false,
+  },
+  { name: '近3月', value: 90, selected: false },
+  { name: '自定义', value: 0, selected: false },
+])
+interface timeModel {
+  name: string
+  value: number
+  selected: boolean
+}
+const time = ref(null)
+const beginTime = ref(0)
+const endTime = ref(0)
+const editTime = ref(false) // 控制是否显示自定义时间
+const selectTag = (timeM: timeModel) => {
+  if (timeM.name === '自定义') {
+    document.getElementsByClassName('el-range-input')[0].click()
+    editTime.value = true
+  } else {
+    editTime.value = false // 关闭自定义
+    time.value = null // 自定义清空
+  }
+  R.forEach((item) => {
+    if (item.name === timeM.name) {
+      item.selected = true
+    } else {
+      item.selected = false
+    }
+  }, filterOption.value)
+}
+</script>
+<template>
+  <div>
+    <div class="flex">
+      <div class="flex h-7.8 items-center timeFilter">
+        <template v-for="(item, index) in filterOption">
+          <div
+            v-if="
+              item.name !== '自定义' || (item.name === '自定义' && !editTime)
+            "
+            :class="item.selected ? 'timeTagSelected' : 'timeTag'"
+            @click="selectTag(item)"
+          >
+            {{ item.name }}
+          </div>
+        </template>
+        <div v-show="editTime" class="timeContainer">
+          <el-date-picker
+            id="datePickerDom"
+            v-model="time"
+            :clearable="closeShow"
+            size="mini"
+            type="daterange"
+            range-separator="–"
+            start-placeholder="开始"
+            end-placeholder="结束"
+          >
+          </el-date-picker>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="postcss" scoped>
+.timeTag {
+  border-radius: 2px;
+  cursor: pointer;
+  @apply px-2 py-1 text-kd14px18px text-global-default opacity-65;
+}
+.timeTagSelected {
+  cursor: pointer;
+  border-radius: 2px;
+  @apply px-2 py-1 text-kd14px18px text-global-primary bg-white;
+}
+
+.timeFilter {
+  padding: 2px;
+  background: rgba(43, 141, 254, 0.08);
+  border-radius: 4px;
+}
+::v-deep(.el-range-editor--mini .el-range-input) {
+  width: 100px !important;
+  font-family: PingFang SC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(37, 62, 111, 0.85);
+}
+
+::v-deep(.el-range-editor--mini .el-range-separator) {
+  font-family: 'i8n-font-inter';
+}
+
+::v-deep(.el-range-editor--mini.el-input__inner) {
+  width: 235px;
+  border: none;
+}
+
+::v-deep(.el-input__inner) {
+  margin-right: 0px;
+  padding-right: 0px;
+  width: 2px;
+  padding: 0px 8px 0px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+::v-deep(.el-range__icon) {
+  display: none;
+}
+
+::v-deep(.el-range-input) {
+  color: #2b8dfe;
+  width: 50%;
+  font-size: 14px;
+}
+
+::v-deep(.el-range-separator) {
+  padding: 0 0;
+  line-height: 28px;
+  color: #2b8dfe;
+}
+
+::v-deep(.el-date-editor .el-range-separator) {
+  margin: 0px 5px;
+  padding: 0;
+}
+
+::v-deep(.el-range__close-icon) {
+  display: none;
+}
+
+.timeColor {
+  color: #a2a4a8;
+}
+
+.closeSmall {
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+</style>
