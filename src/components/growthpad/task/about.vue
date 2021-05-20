@@ -21,14 +21,14 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
 </script>
 
 <template>
-  <div class="pb-4 text-base font-semibold">Project Info</div>
+  <div class="pb-4 text-base font-semibold">项目介绍</div>
   <div class="flex items-center">
     <DotChar :img="Icon" size="xl" />
-    <span class="ml-3 label">{{ Name }}</span>
+    <span class="ml-3 label">MDEX 去中心化交易所</span>
   </div>
-  <div class="py-6">
+  <div class="mt-6">
     <p class="flex items-center">
-      <b class="text-base font-medium">{{
+      <b class="text-base font-medium h2">{{
         I18n.growthpad.examples.about.website
       }}</b>
       <a
@@ -36,7 +36,7 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
         :href="About.website"
         target="_blank"
       >{{ About.website }}</a>
-      <b class="text-base font-medium mr-4">{{
+      <b class="text-base font-medium mr-4 h2">{{
         I18n.growthpad.examples.about.community
       }}</b>
       <template v-for="(type, index) in communitys" :key="index">
@@ -44,8 +44,12 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
       </template>
     </p>
   </div>
-  <div>
-    <h2 class="text-base">Economic model</h2>
+  <div class="mt-6">
+    <h2 class="pb-2">{{ I18n.growthpad.examples.about.projectDetail }}</h2>
+    <p class="detail text-sm">{{ About.detail }}</p>
+  </div>
+  <div class="mt-6">
+    <h2 class="text-base">奖励代币信息</h2>
     <div class="flex justify-between pt-2">
       <div v-for="(data, i) in list" :key="i">
         <p
@@ -60,13 +64,13 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
       </div>
     </div>
   </div>
-  <div class="mt-6">
-    <h2 class="pb-2">{{ I18n.growthpad.examples.about.projectDetail }}</h2>
-    <p class="detail text-sm">{{ About.detail }}</p>
-  </div>
 </template>
 
 <style scoped>
+h2,
+.h2 {
+  color: #033666;
+}
 .label {
   font-size: 18px;
 }

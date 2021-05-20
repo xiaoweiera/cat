@@ -1,0 +1,167 @@
+<script setup lang="ts">
+import { defineProps, computed } from 'vue'
+import { uuid, getMin, getMax, makeDescription } from '../task'
+import { TaskType } from '~/logic/growthpad/examples'
+const props = defineProps({
+  expant: {
+    type: Boolean,
+    default() {
+      return false
+    },
+  },
+  data: {
+    type: Object,
+  },
+})
+// 判断任务类型是否为阳光普照
+const isAllIn = computed((): boolean => {
+  return props.data?.type === TaskType.allin
+})
+const isWeibo = computed((): boolean => {
+  return props.data?.type === TaskType.weibo
+})
+</script>
+
+<template>
+  <div class="flex">
+    <DotCount size="sm" />
+    <div class="flex-1 ml-2.5">
+      <!-- 默认展开或者任务类型为阳光普照 -->
+      <template v-if="expant || isAllIn">
+        <input
+          :id="data.id"
+          class="task-radio"
+          type="checkbox"
+          checked
+          :name="data.id"
+        />
+      </template>
+      <template v-else>
+        <input
+          :id="data.id"
+          class="task-radio"
+          type="checkbox"
+          :name="data.id"
+        />
+      </template>
+      <div class="task-content">
+        <GrowthpadTaskTitle :data="data">
+          <template v-if="!isAllIn" #right>
+            <span class="reward font-bold font-kdExp inline-block">
+              <template v-if="isWeibo">
+                <span
+                  class="count"
+                >+{{ getMin(data.reward) }}-{{ getMax(data.reward) }}</span>
+              </template>
+              <template v-else>
+                <span class="count">+{{ getMax(data.reward) }}</span>
+              </template>
+              <span class="ml-1">MDX</span>
+            </span>
+            <label class="inline-block ml-1.5" :for="data.id">
+              <span class="hand">
+                <i class="el-icon-arrow-up"></i>
+                <i class="el-icon-arrow-down"></i>
+              </span>
+            </label>
+          </template>
+        </GrowthpadTaskTitle>
+      </div>
+      <div v-if="isAllIn" class="task-children">
+        <!--分享-->
+        <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
+          <GrowthpadTaskShare></GrowthpadTaskShare>
+        </div>
+      </div>
+      <div v-else-if="isWeibo" class="task-children">
+        <!--分享-->
+        <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
+          <GrowthpadTaskWeibo></GrowthpadTaskWeibo>
+        </div>
+      </div>
+      <template v-else>
+        <ul
+          v-if="data.children && data.children.length > 0"
+          class="task-children py-1.5 block w-full"
+        >
+          <li
+            v-for="(item, index) in data.children"
+            :key="index"
+            class="task-item mt-1.5 py-1.5 pr-1.5 pl-3 block"
+          >
+            <GrowthpadTaskMdxChild
+              class="ml-3"
+              :data="item"
+            ></GrowthpadTaskMdxChild>
+          </li>
+        </ul>
+      </template>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.reward {
+  user-select: none;
+  color: #2b8dfe;
+  .count {
+    font-size: 26px;
+  }
+}
+.task-radio {
+  display: none;
+  & ~ .task-content .el-icon-arrow-down {
+    display: inline-block;
+  }
+  & ~ .task-children,
+  & ~ .task-content .el-icon-arrow-up {
+    display: none;
+  }
+  &:checked {
+    & ~ .task-children,
+    & ~ .task-content .el-icon-arrow-up {
+      display: inline-block;
+    }
+    & ~ .task-content .el-icon-arrow-down {
+      display: none;
+    }
+  }
+}
+
+.task-children {
+  counter-reset: number;
+}
+
+.task-item {
+  padding-left: 36px;
+  position: relative;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(43, 141, 254, 0.08) 0%,
+    rgba(43, 141, 254, 0) 100%
+  );
+  &:before {
+    counter-increment: number;
+    content: counter(number);
+    width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #fff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    color: #2b8dfe;
+    font-size: 20px;
+  }
+  &.no-count {
+    padding-left: 12px;
+    &:before {
+      content: none;
+    }
+  }
+}
+</style>

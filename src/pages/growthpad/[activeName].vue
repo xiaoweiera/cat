@@ -1,22 +1,16 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { ref, toRaw, computed, onMounted } from 'vue'
+import { ref, toRaw } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { ElInput, ElButton } from 'element-plus'
 import I18n from '~/utils/i18n/index'
-import { shareCode, TaskList1, TaskList2 } from '~/logic/growthpad/examples'
-
+import { TaskList } from '~/logic/growthpad/examples'
 // 活动名称
-const getActiveName = function(): string {
+const getActiveName = function() {
   const router = toRaw(useRoute())
-  console.log(router)
-  return safeGet<string>(router, 'params.activeName')
+  const params = router.params.value
+  return safeGet<string>(params, 'activeName')
 }
-
-onMounted(() => {
-  const name = getActiveName()
-  console.log('activeName : ', name)
-})
 
 // 地址
 const address = ref('')
@@ -25,22 +19,8 @@ const countdown = ref('2021-05-20 12:00:00')
 <template>
   <div class="container flex">
     <div class="flex-1">
-      <growthpadExamplesDasboard />
-      <div>
-        <growthpadExamplesTaskList
-          skin="orange"
-          :title="I18n.growthpad.examples.whiteList"
-          :list="TaskList1"
-        />
-      </div>
-      <div class="pt-15">
-        <growthpadExamplesTaskList
-          skin="blue"
-          :title="I18n.growthpad.examples.growthTasks"
-          :list="TaskList2"
-        />
-      </div>
-      <div class="py-15">
+      <growthpadTaskDasboard />
+      <div class="pb-15">
         <h2 class="pb-4 text-base font-semibold">
           {{ I18n.growthpad.examples.register }}
         </h2>
@@ -55,26 +35,29 @@ const countdown = ref('2021-05-20 12:00:00')
             </ElButton>
           </div>
         </div>
+        <div class="pt-1.5 text-xs">
+          <p>
+            *
+            请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。
+          </p>
+        </div>
       </div>
-      <growthpadExamplesAbout />
+      <div class="pb-15">
+        <DotCountGroup class="pt-4">
+          <ul>
+            <li v-for="(item, index) in TaskList" :key="index" class="pb-7.5">
+              <growthpadTaskMdxItem :expant="index < 1" :data="item" />
+            </li>
+          </ul>
+        </DotCountGroup>
+      </div>
+      <growthpadTaskAbout />
     </div>
     <div class="ml-15 tips hidden md:block">
       <div class="w-full pt-15">
         <div>
           <p>{{ I18n.growthpad.examples.countdown.title }}</p>
           <TimeCountdown :value="countdown" />
-        </div>
-        <div class="mt-15">
-          <h2 class="font-medium">
-            {{ I18n.growthpad.examples.project.addCard }}}
-          </h2>
-          <p class="text-xs sub">{{ I18n.growthpad.examples.project.desc }}</p>
-          <div class="mt-3 rounded-xl p-3 share-code">
-            <p class="break-all">{{ shareCode }}</p>
-            <span class="text-xs font-color-theme">{{
-              I18n.growthpad.examples.project.copy
-            }}</span>
-          </div>
         </div>
       </div>
     </div>

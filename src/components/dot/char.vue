@@ -41,7 +41,7 @@ const className = computed(() => {
 </script>
 
 <template>
-  <span :class="className">
+  <span class="dot" :class="className">
     <template v-if="img">
       <img class="w-full w-max inline-block" :src="img" />
     </template>
@@ -49,11 +49,12 @@ const className = computed(() => {
   </span>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .dot {
   background: #2749fc;
   border-radius: 50%;
   color: #fff;
+  overflow: hidden;
 }
 .sm {
   width: 24px;

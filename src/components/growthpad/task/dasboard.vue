@@ -15,8 +15,8 @@ const title = computed((): string => {
       <DotChar :img="Icon" size="xl" />
       <span class="text-2xl ml-2">{{ title }}</span>
       <span class="ml-4 hot py-1.5 px-3 rounded text-sm">
-        <b class="font-medium">🔥</b>
-        <b class="font-medium ml-3">{{ Dasboard.status }}</b>
+        <b class="font-medium">⏱ </b>
+        <b class="font-medium ml-3">活动开启时间：2021年x月x日xx:xx（UTC+8）</b>
       </span>
     </div>
     <div>
@@ -30,7 +30,7 @@ const title = computed((): string => {
           </h4>
           <p class="font-color-theme font-kdFang font-bold flex items-end">
             <span class="text-4xl">{{ Dasboard.reward.count }}</span>
-            <span class="ml-1.5">token</span>
+            <span class="ml-1.5">MDX</span>
           </p>
         </li>
         <li class="ml-12">
@@ -51,7 +51,7 @@ const title = computed((): string => {
               <span>-</span>
               <span>{{ Dasboard.reward.limits.slice(-1)[0] }}</span>
             </span>
-            <span class="ml-1.5">token</span>
+            <span class="ml-1.5">MDX</span>
           </p>
         </li>
       </ul>
@@ -64,8 +64,8 @@ const title = computed((): string => {
   min-height: 310px;
 }
 .hot {
-  color: #e9592d;
-  background: rgba(248, 137, 35, 0.14);
+  color: #2083f4;
+  background: rgba(43, 141, 254, 0.1);
 }
 h4 {
   color: rgba(37, 62, 111, 0.65);

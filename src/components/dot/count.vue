@@ -9,17 +9,12 @@ const props = defineProps({
       return 'sm'
     },
   },
-  skin: {
-    validator(value: string): boolean {
-      return ['orange', 'blue'].includes(value)
-    },
-  },
 })
 // className
 const className = computed(() => {
   const data = {}
   data[props.size] = true
-  data[`skin-${props.skin}`] = true
+  data['skin-blue'] = true
   return data
 })
 </script>
@@ -49,12 +44,8 @@ const className = computed(() => {
   height: 42px;
   font-size: 28px;
 }
-.skin-orange {
-  color: #fff;
-  background: #f88923;
-}
 .skin-blue {
   color: #fff;
-  background: #2749fc;
+  background: #2b8dfe;
 }
 </style>
