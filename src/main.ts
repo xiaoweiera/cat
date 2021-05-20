@@ -1,4 +1,5 @@
 import { ViteSSG } from 'vite-ssg'
+// @ts-ignore
 import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'layouts-generated'
 // import 'element-plus/lib/theme-chalk/index.css'

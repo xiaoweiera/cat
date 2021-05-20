@@ -1,15 +1,10 @@
 <script setup lang="ts">
-// @ts-ignore
 import { ref } from 'vue'
-// @ts-ignore
 import { ElInput, ElButton } from 'element-plus'
 import I18n from '~/utils/i18n/index'
-// @ts-ignore
 import { shareCode, TaskList1, TaskList2 } from '~/logic/growthpad/examples'
 // 地址
-// @ts-ignore
 const address = ref('')
-// @ts-ignore
 const countdown = ref('2021-05-20 12:00:00')
 </script>
 <template>
