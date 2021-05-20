@@ -13,6 +13,8 @@ import Prism from 'markdown-it-prism'
 import { viteMockServe } from 'vite-plugin-mock'
 import styleImport from 'vite-plugin-style-import'
 
+// @ts-ignore
+// @ts-ignore
 export default defineConfig({
   server: {
     host: '0.0.0.0',
@@ -73,7 +75,7 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       directoryAsNamespace: true,
       // allow auto import and register components used in markdown
-      customLoaderMatcher: id => id.endsWith('.md'),
+      customLoaderMatcher: (id: string) => id.endsWith('.md'),
 
       // auto import icons
       customComponentResolvers: [
@@ -127,10 +129,11 @@ export default defineConfig({
     }),
   ],
   // https://github.com/antfu/vite-ssg
+  // @ts-ignore
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
-    onFinished: () => {
+    onFinished() {
       // fixme, 这里不应该保留，
       process.exit(0)
     },

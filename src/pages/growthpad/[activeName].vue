@@ -1,8 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { ref, toRaw, computed, onMounted } from 'vue'
+import safeGet from '@fengqiaogang/safe-get'
 import { ElInput, ElButton } from 'element-plus'
 import I18n from '~/utils/i18n/index'
 import { shareCode, TaskList1, TaskList2 } from '~/logic/growthpad/examples'
+
+// 活动名称
+const getActiveName = function(): string {
+  const router = toRaw(useRoute())
+  console.log(router)
+  return safeGet<string>(router, 'params.activeName')
+}
+
+onMounted(() => {
+  const name = getActiveName()
+  console.log('activeName : ', name)
+})
+
 // 地址
 const address = ref('')
 const countdown = ref('2021-05-20 12:00:00')
