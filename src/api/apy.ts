@@ -1,4 +1,7 @@
-// @ts-ignore
+/**
+ * @file apy 相关接口
+ */
+import safeGet from '@fengqiaogang/safe-get'
 import request from '~/lib/request'
 
 // table header
@@ -39,10 +42,8 @@ export const getMediaList = async function <T>(): Promise<T[]> {
   }
   try {
     const result = await request({ url, params, method: 'get' })
-    const data = result?.data?.data
-    if (data) {
-      return data as T[]
-    }
+    const data = safeGet<T[]>(result, 'data.data')
+    return data || []
   } catch (e) {
     // todo
   }

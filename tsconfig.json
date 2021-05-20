@@ -24,5 +24,6 @@
       "~/*": ["src/*"]
     }
   },
+  "include": ["./src", "./types"],
   "exclude": ["dist", "./scripts", "node_modules"]
 }
