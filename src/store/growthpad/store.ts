@@ -11,6 +11,7 @@ import {
   setAdress,
   setTelegram,
   setTwitter,
+  setWeiboContent,
 } from '~/api/growtask'
 
 interface User {
@@ -90,7 +91,19 @@ export default class Store {
     }
   }
 
+  // 转发 twitter
   async setReTwitter(id: string): Promise<any> {
     return this.setTwitter(id)
+  }
+
+  // 发布微博
+  async setWeiboContent(form: FormData): Promise<void> {
+    try {
+      const result = await setWeiboContent(this.projectName, form)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      return Promise.reject(e)
+    }
   }
 }

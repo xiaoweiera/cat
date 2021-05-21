@@ -83,3 +83,17 @@ export const setTwitter = function(
     data: { telegram: id, bsc_token: token },
   })
 }
+
+export const setWeiboContent = function(
+  project: string,
+  data: FormData,
+): Promise<any> {
+  const url = '/api/growthpad/article_image/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data,
+  })
+}
