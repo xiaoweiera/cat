@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { ref, toRaw, onMounted } from 'vue'
-import safeGet from '@fengqiaogang/safe-get'
+import { ref, onMounted } from 'vue'
+
 import I18n from '~/utils/i18n/index'
-import stroe from '~/logic/growthpad/task'
+import Task from '~/logic/growthpad/task'
+import { TaskList } from '~/logic/growthpad/examples'
 
-// 活动名称
-const getActiveName = function() {
-  const router = toRaw(useRoute())
-  const params = router.params.value
-  return safeGet<string>(params, 'activeName')
-}
+const store = Task()
 
-const TaskList = []
 const countdown = ref('2021-05-25 12:00:00')
 
 onMounted(async() => {
-  const name = getActiveName()
-  await stroe.init(name)
-  console.log(stroe)
+  await store.init()
 })
 </script>
 <template>
@@ -26,6 +18,7 @@ onMounted(async() => {
     <div class="flex-1">
       <growthpadTaskDasboard />
       <growthpadTaskAdress />
+      <h2>奖励任务</h2>
       <div class="pb-15">
         <DotCountGroup class="pt-4">
           <ul>
@@ -49,6 +42,11 @@ onMounted(async() => {
 </template>
 
 <style scoped lang="postcss">
+h2 {
+  color: #033666;
+  font-size: 18px;
+  font-weight: 500;
+}
 .tips {
   width: 220px;
 }

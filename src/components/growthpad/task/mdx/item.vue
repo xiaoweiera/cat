@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+import { ElIcon } from 'element-plus'
 import { uuid, getMin, getMax, makeDescription } from '../task'
 import { TaskType } from '~/logic/growthpad/examples'
 const props = defineProps({

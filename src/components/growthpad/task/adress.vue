@@ -2,15 +2,18 @@
 import { reactive, computed } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import I18n from '~/utils/i18n/index'
-import stroe from '~/logic/growthpad/task'
+import Task from '~/logic/growthpad/task'
+
+const store = Task()
+
 // 地址
 const formdata = reactive({
   address: '',
 })
 
 const getToken = function(): string {
-  if (stroe?.user.bsc_token) {
-    return stroe.user.bsc_token
+  if (store?.user.bsc_token) {
+    return store.user.bsc_token
   }
   return ''
 }
@@ -54,7 +57,7 @@ const rules = {
 // 绑定地址
 const bindAddress = async function() {
   try {
-    await stroe.setAdress(formdata.address)
+    await store.setAdress(formdata.address)
   } catch (e) {
     console.log(e)
   }
@@ -66,7 +69,9 @@ const bindAddress = async function() {
     <div v-if="getToken()" class="flex-1">
       <h2 class="pb-4 text-base font-semibold address">
         <span>预计活动奖励：</span>
-        <span class="reward">{{ stroe.user.reward }}MDX</span>
+        <span
+          class="reward"
+        >{{ store.user.reward }}{{ store.getNickName() }}</span>
       </h2>
       <div>
         <p class="text-sm address">您登记的奖励领取地址为：{{ getToken() }}</p>

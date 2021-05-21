@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import * as R from 'ramda'
 import { reactive } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { getProjectInfo, setAdress } from '~/api/growtask'
@@ -16,11 +17,16 @@ export default class Store {
   protected projectName = '' // 项目名称
   // @ts-ignore
   public user: UnwrapNestedRefs<User> // 用户数据
-  constructor() {
+  constructor(type: string) {
+    this.projectName = type
     this.user = reactive<User>({
       invited_count: 0,
       reward: 0,
     })
+  }
+
+  protected getNickName(): string {
+    return this.projectName ? R.toUpper(this.projectName) : ''
   }
 
   private updateData(result: any) {
@@ -35,8 +41,7 @@ export default class Store {
   /**
    * 初始化方法
    */
-  async init(type: string): Promise<void> {
-    this.projectName = type
+  async init(): Promise<void> {
     try {
       const result = await getProjectInfo(this.projectName)
       this.updateData(result)

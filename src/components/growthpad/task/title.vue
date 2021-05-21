@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import { ElIcon } from 'element-plus'
 import { makeDescription } from './task'
 defineProps({
   data: Object,
@@ -16,6 +17,12 @@ defineProps({
               <IconFont class="mr-1" :type="data.tooltip.icon" />
             </template>
             <span class="text-xs">{{ data.tooltip.value }}</span>
+          </span>
+        </template>
+        <template v-if="data.help">
+          <span class="ml-1.5" :help="data.help">
+            <i class="el-icon-warning-outline"></i>
+            <i></i>
           </span>
         </template>
       </div>
