@@ -52,7 +52,7 @@ const getMarks = (
   const marks = { data: [], select: '' }
   if (chartIndex === 2 && typeSelect === 'machine_gun_pool_single') {
     // @ts-ignore
-    marks.data = ['APY', '用户总收益', 'TVL']
+    marks.data = ['平均APY', '用户总收益', 'TVL']
     // @ts-ignore
     marks.select = marks.data.includes(selectName)
       ? selectName
@@ -68,7 +68,7 @@ const getMarks = (
     marks.select = '借款总额'
   } else {
     // @ts-ignore
-    marks.data = ['APY']
+    marks.data = ['平均APY']
     marks.select = marks.data[0]
   }
   return marks
