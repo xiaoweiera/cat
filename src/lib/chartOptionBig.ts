@@ -35,7 +35,6 @@ const graphic = () => {
           type: 'text',
           left: 'center',
           top: 'center',
-          z: 100,
           style: {
             fill: 'rgba(43, 140, 255, 0.08)',
             text: 'KingData.com',
