@@ -1,14 +1,5 @@
 <script setup lang="ts">
-// @ts-ignore
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElCheckbox,
-  ElButton,
-  ElMessage,
-  ElIcon,
-} from 'element-plus'
+import { ElMessage } from 'element-plus'
 import * as rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'

@@ -62,6 +62,7 @@
     "@typescript-eslint/indent": "off",
     "vue/singleline-html-element-content-newline": "off",
     "vue/require-v-for-key": "off",
-    "vue/no-unused-vars": "off"
+    "vue/no-unused-vars": "off",
+    "prefer-promise-reject-errors": "off"
   }
 }

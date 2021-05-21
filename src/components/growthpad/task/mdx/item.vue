@@ -67,13 +67,13 @@ const isWeibo = computed((): boolean => {
           </template>
         </GrowthpadTaskTitle>
       </div>
-      <div v-if="isAllIn" class="task-children">
+      <div v-if="isAllIn" class="task-children w-full">
         <!--分享-->
         <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
           <GrowthpadTaskShare></GrowthpadTaskShare>
         </div>
       </div>
-      <div v-else-if="isWeibo" class="task-children">
+      <div v-else-if="isWeibo" class="task-children w-full">
         <!--分享-->
         <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
           <GrowthpadTaskWeibo></GrowthpadTaskWeibo>
