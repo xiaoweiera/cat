@@ -4,7 +4,7 @@
     "eslint": "eslint --ext .ts,.vue ./src --fix",
     "precommit": "sh scripts/precommit.sh",
     "dev": "vite --port 3333",
-    "build": "cross-env NODE_ENV=production vite-ssg build",
+    "build": "cross-env NODE_ENV=production vite build",
     "preview": "vite preview",
     "preview-https": "serve dist",
     "serve": "vite serve --host 0.0.0.0",
