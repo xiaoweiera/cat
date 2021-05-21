@@ -65,6 +65,7 @@ export const About = reactive<AboutData>({
 })
 
 export enum TaskType {
+  share = 'share',
   vip = 'vip',
   pancake = 'pancake',
   uniswap = 'uniswap',

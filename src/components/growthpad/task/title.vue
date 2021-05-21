@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
+import { ElIcon } from 'element-plus'
 import { makeDescription } from './task'
-defineProps({
+const props = defineProps({
   data: Object,
+})
+
+const href = computed(() => {
+  const href = props.data?.tooltip?.hef || 'http://kingdata.com'
+  return href
 })
 </script>
 <template>
@@ -11,11 +17,21 @@ defineProps({
       <div class="flex items-center pb-1">
         <span class="text-sm title">{{ data.title }}</span>
         <template v-if="data.tooltip">
-          <span class="tooltip rounded ml-1.5 inline-flex items-center">
+          <a
+            class="tooltip rounded ml-1.5 inline-flex items-center"
+            target="_blank"
+            :href="href"
+          >
             <template v-if="data.tooltip.icon">
               <IconFont class="mr-1" :type="data.tooltip.icon" />
             </template>
             <span class="text-xs">{{ data.tooltip.value }}</span>
+          </a>
+        </template>
+        <template v-if="data.help">
+          <span class="ml-1.5" :help="data.help">
+            <i class="el-icon-warning-outline"></i>
+            <i></i>
           </span>
         </template>
       </div>

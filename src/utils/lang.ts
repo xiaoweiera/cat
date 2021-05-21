@@ -37,6 +37,19 @@ export enum Language {
   cht = 'cht', // 繁体中文
   vie = 'vie', // 越南语
 }
+
+function getSearch(): string {
+  try {
+    if (window) {
+      const search = window.location?.search
+      return search ? search.slice(1) : ''
+    }
+  } catch (e) {
+    // todo
+  }
+  return ''
+}
+
 // 获取 url 中的 lang 数据
 // @ts-ignore
 const getQueryLang = function(): Language {
@@ -50,9 +63,9 @@ const getQueryLang = function(): Language {
     map.set(key, value)
   }
   let type: Language = Language.cn
-  const search = window.location.search
+  const search = getSearch()
   if (search) {
-    const array = R.split('&', search.slice(1))
+    const array = R.split('&', search)
     for (let i = 0, len = R.length(array); i < len; i++) {
       const list = R.split('=', array[i])
       const value = list[1]

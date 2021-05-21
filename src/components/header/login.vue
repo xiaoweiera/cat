@@ -14,9 +14,11 @@
 </template>
 
 <script setup lang="ts">
-// @ts-ignore
-import { ElDialog, ElButton } from 'element-plus'
 import { visible, showVisible } from '~/store/header/login'
+import { syncUser } from '~/logic/user/login'
+
+// 刷新用户信息
+syncUser()
 
 // 弹窗关闭前
 const handleClose = function(next) {

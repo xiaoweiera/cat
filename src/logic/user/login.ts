@@ -6,6 +6,10 @@
 import * as R from 'ramda'
 import { reactive, ref, toRaw } from 'vue'
 import * as user from '~/api/user'
+import { getProjectInfo } from '~/api/growtask'
+
+// 是否已登录
+export const isLogin = ref<boolean>(false)
 
 interface FormData {
   mobile: string
@@ -21,7 +25,21 @@ export const formdata = reactive<FormData>({
 
 export const logoForm = ref<any>(null)
 
-// @ts-ignore
+// 更新用户信息
+export const syncUser = async function(): Promise<void> {
+  console.log('sync user')
+  try {
+    // 临时使用一个接口来判断用户是否已登录
+    await getProjectInfo('mdx')
+    console.log('设置登录状态')
+    isLogin.value = true
+    return
+  } catch (e) {
+    // todo
+  }
+  isLogin.value = false
+}
+// 登录
 export const onSubmit = async function(): Promise<any> {
   const form = toRaw(logoForm).value
   try {

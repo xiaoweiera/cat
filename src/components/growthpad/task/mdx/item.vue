@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+import { ElIcon } from 'element-plus'
 import { uuid, getMin, getMax, makeDescription } from '../task'
 import { TaskType } from '~/logic/growthpad/examples'
 const props = defineProps({
@@ -67,13 +68,13 @@ const isWeibo = computed((): boolean => {
           </template>
         </GrowthpadTaskTitle>
       </div>
-      <div v-if="isAllIn" class="task-children">
+      <div v-if="isAllIn" class="task-children w-full">
         <!--分享-->
         <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
           <GrowthpadTaskShare></GrowthpadTaskShare>
         </div>
       </div>
-      <div v-else-if="isWeibo" class="task-children">
+      <div v-else-if="isWeibo" class="task-children w-full">
         <!--分享-->
         <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
           <GrowthpadTaskWeibo></GrowthpadTaskWeibo>

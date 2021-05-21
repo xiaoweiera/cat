@@ -22,7 +22,7 @@ useHead({
     <router-view />
   </div>
 </template>
-<style>
+<style lang="scss">
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;
@@ -90,5 +90,44 @@ a {
 }
 .hand {
   cursor: pointer;
+}
+[help] {
+  cursor: help;
+  position: relative;
+  display: inline-block;
+  i:last-child {
+    &:after {
+      position: absolute;
+      width: 16px;
+      height: 8px;
+      display: block;
+      left: 50%;
+      top: 0;
+      $icon: 'https://res.ikingdata.com/icon/arrow.png';
+      background: #fff url($icon) no-repeat center bottom;
+    }
+  }
+  &:after {
+    display: none;
+    white-space: nowrap;
+    word-break: keep-all;
+    content: attr(help);
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    border-radius: 6px;
+    filter: drop-shadow(0px 6px 18px rgba(0, 0, 0, 0.12));
+    transform: translate(-50%, -8px);
+    padding: 8px 16px;
+    font-size: 14px;
+    color: rgba(37, 62, 111, 0.85);
+    background: #fff;
+  }
+  &:hover,
+  &:active {
+    &:after {
+      display: block;
+    }
+  }
 }
 </style>
