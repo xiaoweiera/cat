@@ -18,7 +18,7 @@ const app = createApp(App)
 app.use(createHead())
 const router = createRouter({
   history: createWebHistory(routes.base),
-  ...routes,
+  routes,
 })
 app.use(router)
 const ctx = { app }
