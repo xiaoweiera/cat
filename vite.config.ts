@@ -4,7 +4,8 @@ import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import ViteIcons, { ViteIconsResolver } from 'vite-plugin-icons'
-import ViteComponents, { ElementPlusResolver } from 'vite-plugin-components'
+// import ViteComponents, { ElementPlusResolver } from 'vite-plugin-components'
+import ViteComponents from 'vite-plugin-components'
 import Markdown from 'vite-plugin-md'
 import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -79,7 +80,7 @@ export default defineConfig({
 
       // auto import icons
       customComponentResolvers: [
-        ElementPlusResolver(),
+        // ElementPlusResolver(),
         // https://github.com/antfu/vite-plugin-icons
         ViteIconsResolver({
           componentPrefix: '',
