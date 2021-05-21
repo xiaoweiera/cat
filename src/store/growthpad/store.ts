@@ -6,7 +6,12 @@
 import * as R from 'ramda'
 import { reactive } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
-import { getProjectInfo, setAdress } from '~/api/growtask'
+import {
+  getProjectInfo,
+  setAdress,
+  setTelegram,
+  setTwitter,
+} from '~/api/growtask'
 
 interface User {
   reward: number
@@ -50,6 +55,7 @@ export default class Store {
     }
   }
 
+  // 设置合约地址
   async setAdress(address: string): Promise<any> {
     try {
       const result = await setAdress(this.projectName, address)
@@ -58,5 +64,33 @@ export default class Store {
     } catch (e) {
       return Promise.reject(e)
     }
+  }
+
+  // 设置 telegram id
+  async setTelegram(id: string): Promise<any> {
+    try {
+      const token = this.user.bsc_token
+      const result = await setTelegram(this.projectName, token, id)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 twitter id
+  async setTwitter(id: string): Promise<any> {
+    try {
+      const token = this.user.bsc_token
+      const result = await setTwitter(this.projectName, token, id)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  }
+
+  async setReTwitter(id: string): Promise<any> {
+    return this.setTwitter(id)
   }
 }

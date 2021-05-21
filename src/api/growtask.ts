@@ -51,3 +51,35 @@ export const setAdress = function(
     data: { bsc_token: address },
   })
 }
+
+// 设置 telegram id
+export const setTelegram = function(
+  project: string,
+  token: string,
+  id: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { telegram: id, bsc_token: token },
+  })
+}
+
+// 设置 twitter
+export const setTwitter = function(
+  project: string,
+  token: string,
+  id: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { telegram: id, bsc_token: token },
+  })
+}
