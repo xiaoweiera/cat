@@ -68,7 +68,9 @@ const changeTime = (beginTimeStr: string, endTimeStr: string) => {
 
 onMounted(() => {
   // @ts-ignore
-  myChart = echarts.init(document.getElementById(`${props.id}big`), 'light')
+  myChart = echarts.init(document.getElementById(`${props.id}big`), 'light', {
+    renderer: 'svg',
+  })
   window.addEventListener('resize', myChart.resize)
 })
 // @ts-ignore

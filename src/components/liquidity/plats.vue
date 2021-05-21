@@ -1,73 +1,77 @@
 <script lang="ts" setup>
 // @ts-ignore
-import { reactive, ref, onBeforeMount } from 'vue'
+import { reactive, ref, toRefs, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import * as R from 'ramda'
+import { platStore } from '~/store/liquidity/state'
 import { exchange_list } from '~/api/liquidity'
-import * as lang from '~/utils/lang'
-const router = useRoute()
-const logos = reactive({ select: {}, data: {} })
-const logoShow = ref(true)
-const routeQuery = reactive(router.query)
-// 获取logo列表
-const getLogo = async() => {
+const route = useRoute()
+const router = useRouter()
+const plats = reactive({ select: {}, data: {} })
+const platShow = ref(false)
+const routeQuery = reactive(route.query)
+// 获取plat列表
+const getPlat = async() => {
   const {
     data: { data },
   } = await exchange_list()
-  logos.data = data
-  console.log(R.find((item) => item.name === routeQuery.plat, logos.data))
-  logos.select
-    = R.find((item) => item.name === routeQuery.plat, logos.data) || logos.data[0]
-  console.log(logos)
+  plats.data = data
+  console.log(R.find((item) => item.name === routeQuery.plat, plats.data))
+  plats.select
+    = R.find((item) => item.name === routeQuery.plat, plats.data) || plats.data[0]
+  console.log(plats)
 }
-const selectLogo = (item: any) => {
-  logos.select = item
-}
-const getHref = (plat: any) => {
+
+const changePlat = (plat: any) => {
+  // const {name}=toRefs(platStore)
+  plats.select = plat
   const utm_source = 'https://apy.kingdata.com'
   const query = {
-    ...router.query,
+    ...route.query,
     plat: plat.name,
     utm_source,
   }
-  return '/liquidity?plat=test'
+  router.replace({
+    ...route,
+    query: { ...query },
+  })
 }
-
 onBeforeMount(() => {
-  getLogo()
+  getPlat()
 })
-const selectLogoChange = (status: boolean) => {
-  logoShow.value = status
+const selectPlatChange = (status: boolean) => {
+  platShow.value = status
 }
 const mouseover = () => {
-  selectLogoChange(true)
+  selectPlatChange(true)
 }
 const mouseLeave = () => {
-  selectLogoChange(true)
+  selectPlatChange(false)
 }
 </script>
 
 <template>
   <div class="flex w-23.75 px-3 relative h-full" @mouseleave="mouseLeave()">
     <div class="flex items-center hand" @click="mouseover()">
-      <img class="w-5 h-5" :src="logos.select.logo" alt="" />
-      <span class="ml-1.5">{{ logos.select.name }}</span>
+      <img class="w-5 h-5" :src="plats.select.logo" alt="" />
+      <span class="ml-1.5">{{ plats.select.name }}</span>
       <img
         class="w-2 h-1 ml-2"
         src="https://res.ikingdata.com/nav/logoList.png"
         alt=""
       />
       <div
-        v-show="logoShow"
+        v-show="platShow"
         class="w-27.25 absolute top-14 left-0 z-2 py-1.5 showContainer"
       >
         <ul>
-          <template v-for="item in logos.data">
+          <template v-for="item in plats.data">
             <li
               class="itemLi hand"
-              :class="{ selectBg: logos.select.name === item.name }"
+              :class="{ selectBg: plats.select.name === item.name }"
+              @click="changePlat(item)"
             >
-              <router-link class="flex items-center" :to="getHref(item)">
+              <div class="flex items-center">
                 <img class="w-4 h-4" :src="item.logo" alt="" />
                 <div
                   class="
@@ -80,7 +84,7 @@ const mouseLeave = () => {
                 >
                   {{ item.name }}
                 </div>
-              </router-link>
+              </div>
             </li>
           </template>
         </ul>
