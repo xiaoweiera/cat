@@ -16,7 +16,7 @@ interface yModel {
   type: string
   unit: string
 }
-// 颗粒度
+// 颗粒度天 时
 const interval = '1h'
 const props = defineProps({
   chartData: Object,
