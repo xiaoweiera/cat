@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import { ref, defineProps } from 'vue'
+import { copyToken } from '~/logic/liquidity/dataTool'
+const props = defineProps({
+  tokenInfo: Object,
+})
+</script>
 <template>
   <div class="w-full sideHeader">
     <!--      logo和搜索框-->
@@ -63,13 +70,14 @@
         <span
           class="text-kd12px16px text-global-default opacity-35"
         >Token地址</span>
-        <span
-          class="ml-1.5 text-global-primary text-kd14px20px"
-        >0xc02a...6cc2</span>
+        <span class="ml-1.5 text-global-primary text-kd14px20px">{{
+          tokenInfo.address
+        }}</span>
         <img
-          class="w-4 h-4"
+          class="w-4 h-4 ml-2 hand"
           src="https://res.ikingdata.com/nav/copy.png"
           alt=""
+          @click="copyToken(tokenInfo.address)"
         />
       </div>
     </div>

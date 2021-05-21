@@ -1,20 +1,41 @@
 <script lang="ts" setup>
 // @ts-ignore
 import { reactive, ref, onBeforeMount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import * as R from 'ramda'
 import { exchange_list } from '~/api/liquidity'
+import * as lang from '~/utils/lang'
+const router = useRoute()
 const logos = reactive({ select: {}, data: {} })
-const logoShow = ref(false)
+const logoShow = ref(true)
+const routeQuery = reactive(router.query)
 // 获取logo列表
 const getLogo = async() => {
   const {
     data: { data },
   } = await exchange_list()
   logos.data = data
-  logos.select = logos.data[0]
+  console.log(R.find((item) => item.name === routeQuery.plat, logos.data))
+  logos.select
+    = R.find((item) => item.name === routeQuery.plat, logos.data) || logos.data[0]
+  console.log(logos)
 }
-const selectLogo = () => {
-  console.log('设置好了')
+const selectLogo = (item: any) => {
+  logos.select = item
 }
+const getHref = (plat: any) => {
+  const utm_source = 'https://apy.kingdata.com'
+  const query = {
+    ...router.query,
+    plat: plat.name,
+    utm_source,
+  }
+  return '/liquidity?plat=test'
+}
+
+onBeforeMount(() => {
+  getLogo()
+})
 const selectLogoChange = (status: boolean) => {
   logoShow.value = status
 }
@@ -22,10 +43,8 @@ const mouseover = () => {
   selectLogoChange(true)
 }
 const mouseLeave = () => {
-  selectLogoChange(false)
+  selectLogoChange(true)
 }
-
-onBeforeMount(getLogo())
 </script>
 
 <template>
@@ -47,20 +66,21 @@ onBeforeMount(getLogo())
             <li
               class="itemLi hand"
               :class="{ selectBg: logos.select.name === item.name }"
-              @click="selectLogoFun(item)"
             >
-              <img class="w-4 h-4" :src="item.logo" alt="" />
-              <div
-                class="
-                  ml-1
-                  text-kd14px20px text-global-default
-                  opacity-65
-                  font-kdExp
-                  py-1.5
-                "
-              >
-                {{ item.name }}
-              </div>
+              <router-link class="flex items-center" :to="getHref(item)">
+                <img class="w-4 h-4" :src="item.logo" alt="" />
+                <div
+                  class="
+                    ml-1
+                    text-kd14px20px text-global-default
+                    opacity-65
+                    font-kdExp
+                    py-1.5
+                  "
+                >
+                  {{ item.name }}
+                </div>
+              </router-link>
             </li>
           </template>
         </ul>

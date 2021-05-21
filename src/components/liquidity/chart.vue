@@ -52,7 +52,7 @@ const draw = (
 }
 onMounted(() => {
   const xData = getXData(props?.chartData.xaxis, interval)
-  const legend = getLegendList(props?.chartData.yaxis, props.chartData.kaxis)
+  const legend = getLegendList(props?.chartData.yaxis, props.chartData.kyaxis)
   const [minM, maxM, kminM, kmaxM, series] = getSeries(
     props?.chartData.yaxis,
     props?.chartData.kyaxis,
