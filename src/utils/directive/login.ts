@@ -6,9 +6,9 @@
 import { isLogin } from '~/logic/user/login'
 import { showVisible } from '~/store/header/login'
 
-const app = function(e: Event) {
+const login = function(e: Event) {
   // 已登录状态
-  if (isLogin.value) {
+  if (isLogin.value || 1 < 2) {
     return true
   }
   // 未登录时
@@ -18,17 +18,16 @@ const app = function(e: Event) {
   showVisible()
 }
 
-// @ts-ignore
-const install = function(vue): void {
+const install = function(vue: any) {
   // 添加指令
   vue.directive('login', {
     created(el: HTMLElement) {
-      el.addEventListener('click', app, true)
+      el.addEventListener('click', login, true)
     },
     beforeUnmount(el: HTMLElement) {
-      el.removeEventListener('click', app)
+      el.removeEventListener('click', login)
     },
   })
 }
 
-export default { install }
+export default install

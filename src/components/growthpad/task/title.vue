@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+// @ts-ignore
 import { ElIcon } from 'element-plus'
+// @ts-ignore
 import { makeDescription } from './task'
 const props = defineProps({
   data: Object,
 })
 
+// @ts-ignore
 const href = computed(() => {
-  const href = props.data?.tooltip?.hef || 'http://kingdata.com'
+  const href = props.data?.tooltip?.href || 'http://kingdata.com'
   return href
 })
 </script>

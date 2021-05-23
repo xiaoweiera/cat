@@ -1,0 +1,19 @@
+/**
+ * @file 校验样式
+ */
+
+.check-box {
+  position: relative;
+  .el-input {
+    :deep(input) {
+      padding-right: 80px;
+      border-radius: 36px;
+    }
+  }
+  .suffix {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}

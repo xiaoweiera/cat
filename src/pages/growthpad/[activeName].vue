@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-
+import { onMounted } from 'vue'
+// @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { TaskList } from '~/logic/growthpad/examples'
-
 const store = Task()
-
-const countdown = ref('2021-05-25 12:00:00')
 
 onMounted(async() => {
   await store.init()
@@ -18,23 +14,13 @@ onMounted(async() => {
     <div class="flex-1">
       <growthpadTaskDasboard />
       <growthpadTaskAdress />
-      <h2>奖励任务</h2>
-      <div class="pb-15">
-        <DotCountGroup class="pt-4">
-          <ul>
-            <li v-for="(item, index) in TaskList" :key="index" class="pb-7.5">
-              <growthpadTaskMdxItem :expant="index < 1" :data="item" />
-            </li>
-          </ul>
-        </DotCountGroup>
-      </div>
-      <growthpadTaskAbout />
+      // todo
     </div>
     <div class="ml-15 tips hidden md:block">
       <div class="w-full pt-15">
         <div>
           <p>{{ I18n.growthpad.examples.countdown.title }}</p>
-          <TimeCountdown :value="countdown" />
+          <TimeCountdown :value="store.dashboard.end" />
         </div>
       </div>
     </div>

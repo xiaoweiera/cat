@@ -7,7 +7,6 @@ import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 const submit = async function() {
   try {
     await onSubmit()
-    console.log('登录成功')
   } catch (e) {
     const message = e?.message
     ElMessage({ type: 'error', message })

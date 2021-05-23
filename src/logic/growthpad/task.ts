@@ -6,25 +6,30 @@ import { toRaw } from 'vue'
 import { useRoute } from 'vue-router'
 import safeGet from '@fengqiaogang/safe-get'
 import Store from '~/store/growthpad/store'
+import { Project, getProjectType } from '~/api/growtask'
 
 // 活动名称
 const getActiveName = function() {
   const router = toRaw(useRoute())
   const params = router.params.value
-  return safeGet<string>(params, 'activeName')
+  const value = safeGet<string>(params, 'activeName')
+  return getProjectType(value)
 }
 
+// 缓存数据
 const cache = new Map<string, Store>()
+cache.set(Project.mdx, new Store(Project.mdx))
 
 // 初始化
-const task = function() {
+const task = function(): Store {
   const name = getActiveName()
-  if (cache.has(name)) {
-    return cache.get(name)
+  // 所有子组件根据路由名称来获取 stroe 数据
+  if (Project.mdx === name && cache.has(Project.mdx)) {
+    // @ts-ignore
+    return cache.get(Project.mdx)
   }
-  const store = new Store(name)
-  cache.set(name, store)
-  return store
+  console.warn('create store = %s', name)
+  return new Store(name)
 }
 
 export default task

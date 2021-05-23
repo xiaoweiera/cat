@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+// @ts-ignore
 import { ElIcon } from 'element-plus'
-import { uuid, getMin, getMax, makeDescription } from '../task'
+// @ts-ignore
+import { uuid, getMin, getMax, makeDescription } from './task'
 import { TaskType } from '~/logic/growthpad/examples'
 const props = defineProps({
   expant: {
@@ -15,9 +17,11 @@ const props = defineProps({
   },
 })
 // 判断任务类型是否为阳光普照
+// @ts-ignore
 const isAllIn = computed((): boolean => {
   return props.data?.type === TaskType.allin
 })
+// @ts-ignore
 const isWeibo = computed((): boolean => {
   return props.data?.type === TaskType.weibo
 })
@@ -90,10 +94,7 @@ const isWeibo = computed((): boolean => {
             :key="index"
             class="task-item mt-1.5 py-1.5 pr-1.5 pl-3 block"
           >
-            <GrowthpadTaskMdxChild
-              class="ml-3"
-              :data="item"
-            ></GrowthpadTaskMdxChild>
+            <GrowthpadTaskChild class="ml-3" :data="item"></GrowthpadTaskChild>
           </li>
         </ul>
       </template>

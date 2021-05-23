@@ -130,4 +130,40 @@ a {
     }
   }
 }
+
+/* 指令消息框 */
+.el-message-box {
+  &.directive-message {
+    padding: 16px;
+    width: 400px;
+    .el-message-box__header {
+      padding: 0 0 16px 0;
+    }
+    .el-message-box__content {
+      padding: 0;
+      p {
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+      }
+    }
+    .el-message-box__title {
+      text-align: center;
+      color: #033666;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .el-message-box__btns {
+      padding: 16px 0 0 0;
+      display: flex;
+      .el-button {
+        flex: 1;
+        width: 0;
+        & + .el-button {
+          margin-left: 12px !important;
+        }
+      }
+    }
+  }
+}
 </style>

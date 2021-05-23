@@ -3,7 +3,7 @@ import { defineProps, ref } from 'vue'
 import Task from '~/logic/growthpad/task'
 
 const store = Task()
-
+// @ts-ignore
 const props = defineProps({
   data: {
     type: Object,
@@ -11,6 +11,7 @@ const props = defineProps({
 })
 const input = ref<string>('')
 
+// @ts-ignore
 const onSubmit = async function() {
   try {
     await store.setTelegram(input.value)
@@ -21,10 +22,14 @@ const onSubmit = async function() {
 </script>
 
 <template>
-  <div class="flex items-center">
+  <div class="check-box">
     <el-input v-model="input" placeholder="输入您加入电报群的ID" size="small" />
-    <div @click="onSubmit">
+    <div class="suffix" @click="onSubmit">
       <slot></slot>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import './input.scss';
+</style>

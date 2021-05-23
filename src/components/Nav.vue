@@ -85,27 +85,22 @@ onMounted(() => {
       justify-start
     "
   >
-    <a
-      href="https://www.kingdata.com"
-      target="_blank"
-    ><img
-      src="/assets/logo.svg"
-      alt="KingData"
-      class="flex-none"
-    /></a>
+    <a href="https://www.kingdata.com" target="_blank">
+      <img src="/assets/logo.svg" alt="KingData" class="flex-none" />
+    </a>
     <div class="flex-grow mt-2 ml-12">
       <div class="flex font-normal text-base text-navItem-default">
         <router-link
           :to="'/growthpad?lang=' + locale"
           :class="navIsSelect('growthpad')"
         >
-          GrowthPad
+          <span>GrowthPad</span>
         </router-link>
         <router-link
           :to="'/growthpad/examples?lang=' + locale"
           :class="navIsSelect('growthpad/examples')"
         >
-          {{ t('examples') }}
+          <span>{{ t('examples') }}</span>
         </router-link>
         <a
           class="text-global-default opacity-85 ml-kd32px"
@@ -152,17 +147,16 @@ onMounted(() => {
       px-5
     "
   >
-    <a
-      href="https://www.kingdata.com"
-      target="_blank"
-    ><img
-      class="w-25 h-8"
-      src="https://res.ikingdata.com/nav/topicLogo.png"
-      alt=""
-    /></a>
+    <a href="https://www.kingdata.com" target="_blank">
+      <img
+        class="w-25 h-8"
+        src="https://res.ikingdata.com/nav/topicLogo.png"
+        alt=""
+      />
+    </a>
     <div class="flex items-center hand" @click="toggleLocales()">
       <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter">
-        {{ t('lang') }}
+        <span>{{ t('lang') }}</span>
       </div>
       <img
         class="w-6 h-6"
@@ -177,9 +171,10 @@ onMounted(() => {
     </div>
   </div>
 </template>
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .headerBg {
-  box-shadow: 0 0.5px 0 rgb(43 140 255 / 8%), 0 2px 12px rgb(0 50 108 / 8%);
+  box-shadow: 0 0.5px 0 rgba(43, 140, 255, 0.08),
+    0 2px 12px rgba(0, 50, 108, 0.08);
 }
 .navLogoBg {
   background: #eaf3fe;

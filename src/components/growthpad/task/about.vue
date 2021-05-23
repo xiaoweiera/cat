@@ -18,6 +18,12 @@ const list = computed(() => {
   return array
 })
 const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
+const shareLink = ref<string[]>([
+  'https://t.me/Can',
+  'https://www.twitter.com/Mdextech',
+  'https://mdex.medium.com/',
+  'https://discord.com/invite/3TYDPktjqC',
+])
 </script>
 
 <template>
@@ -39,9 +45,15 @@ const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
       <b class="text-base font-medium mr-4 h2">{{
         I18n.growthpad.examples.about.community
       }}</b>
-      <template v-for="(type, index) in communitys" :key="index">
+      <a
+        v-for="(type, index) in communitys"
+        :key="index"
+        class="inline-block"
+        target="_blank"
+        :href="shareLink[index]"
+      >
         <IconFont class="mr-4" :type="type" />
-      </template>
+      </a>
     </p>
   </div>
   <div class="mt-6">

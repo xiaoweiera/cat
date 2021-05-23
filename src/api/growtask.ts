@@ -3,25 +3,20 @@
  * @author svon.me@gmail.com
  */
 
-import * as R from 'ramda'
+import { toUpper } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
 import request from '~/lib/request'
 
-enum Project {
+export enum Project {
   mdx = 'MDX',
 }
 
-function getProjectType(project: string): Project {
-  let type: Project
-  switch (R.toUpper(project)) {
-  case Project.mdx:
-    type = Project.mdx
-    break
-  default:
-    break
+export function getProjectType(project: string): Project {
+  if (project && toUpper(project) === Project.mdx) {
+    return Project.mdx
   }
   // @ts-ignore
-  return type
+  return '' as Project
 }
 
 export const getProjectInfo = async function(project: string): Promise<any> {

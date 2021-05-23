@@ -11,7 +11,7 @@ import { createHead } from '@vueuse/head'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './app.vue'
 import './styles/main.css'
-import login from '~/utils/directive/login'
+import directive from '~/utils/directive/index'
 
 const routes = setupLayouts(generatedRoutes)
 
@@ -22,7 +22,7 @@ const router = createRouter({
   routes,
 })
 app.use(router)
-app.use(login)
+app.use(directive)
 const ctx = { app }
 Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
   i.install?.(ctx),
