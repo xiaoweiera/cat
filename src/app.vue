@@ -131,6 +131,10 @@ a {
   }
 }
 
+.none-select {
+  user-select: none;
+}
+
 /* 指令消息框 */
 .el-message-box {
   &.directive-message {

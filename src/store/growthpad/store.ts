@@ -57,6 +57,19 @@ interface User {
   reward: number // 用户当前获得的奖金
   invited_count: number // 用户邀请参与活动的数量
   bsc_token: string // 领取奖励的地址
+  pancake_token: string // pancake  token地址
+  uniswap_token: string // uniswap  token地址
+  sushiswap_token: string // sushiswap  token地址
+  twitter: string // twitter id
+  telegram: string // telegram id
+}
+
+interface Mission {
+  pancake: boolean // pancake验资是否通过
+  uniswap: boolean // uniswap验资是否通过
+  sushiswap: boolean // sushiswap验资是否通过
+  retweet: boolean // 是否转发推特
+  follow_twitter: boolean // 是否关注推特
 }
 
 export default class Store {
@@ -78,7 +91,25 @@ export default class Store {
     invited_count: 0,
     reward: 0,
     bsc_token: '',
+    pancake_token: '', // pancake  token地址
+    uniswap_token: '', // uniswap  token地址
+    sushiswap_token: '', // sushiswap  token地址
+    twitter: '', // twitter id
+    telegram: '', // telegram id
   })
+
+  // 完成状态
+  public mission = reactive<Mission>({
+    pancake: false, // pancake验资是否通过
+    uniswap: false, // uniswap验资是否通过
+    sushiswap: false, // sushiswap验资是否通过
+    retweet: false, // 是否转发推特
+    follow_twitter: false, // 是否关注推特
+  })
+
+  public article_url = ref<string>('article_url') // 用户上传的文章链接
+  public article_image = ref<string>('') // 用户上传的图片
+  public article_audit = ref<boolean>(false) // 用户文章审核状态
 
   private timeout: any = 0
 
@@ -126,12 +157,28 @@ export default class Store {
 
   private updateData(result?: any) {
     const user: User = safeGet<User>(result, 'info')
+    const mission: Mission = safeGet<Mission>(result, 'mission')
     // 更新 info 信息
     if (user) {
-      this.user.invited_count = user.invited_count
-      this.user.reward = user.reward
-      this.user.bsc_token = user.bsc_token
+      this.user.invited_count = user.invited_count as number
+      this.user.reward = user.reward as number
+      this.user.bsc_token = user.bsc_token as string
+      this.user.pancake_token = user.pancake_token
+      this.user.sushiswap_token = user.sushiswap_token
+      this.user.uniswap_token = user.uniswap_token
+      this.user.twitter = user.twitter
+      this.user.telegram = user.telegram
     }
+    if (mission) {
+      this.mission.follow_twitter = !!mission.follow_twitter
+      this.mission.retweet = !!mission.retweet
+      this.mission.pancake = !!mission.pancake
+      this.mission.uniswap = !!mission.uniswap
+      this.mission.sushiswap = !!mission.sushiswap
+    }
+    this.article_audit.value = !!safeGet(result, 'article_audit')
+    this.article_image.value = safeGet<string>(result, 'article_image')
+    this.article_url.value = safeGet<string>(result, 'article_url')
     // this.timeout = setTimeout(() => {
     //   this.init()
     // }, 1000 * 5)

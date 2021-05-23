@@ -15,7 +15,7 @@ const src = computed(() => {
 </script>
 
 <template>
-  <span class="inline-block">
-    <img class="inline-block" :src="src" />
+  <span class="inline-block none-select">
+    <img class="inline-block none-select" :src="src" />
   </span>
 </template>

@@ -30,6 +30,28 @@ export const getProjectInfo = async function(project: string): Promise<any> {
   } catch (e) {
     return Promise.reject(e)
   }
+  // return {
+  //   mission: {
+  //     pancake: true,
+  //     uniswap: true,
+  //     sushiswap: true,
+  //     retweet: true,
+  //     follow_twitter: true,
+  //   },
+  //   info: {
+  //     bsc_token: '0x3280892383292_new',
+  //     pancake_token: 'ox83928930289_new',
+  //     uniswap_token: '0xjiodsuodu_new',
+  //     sushiswap_token: '0xjiodsuodu_new',
+  //     telegram: 'sed_newsd',
+  //     twitter: 'david_8_bot_new',
+  //     invited_count: 0,
+  //     reward: 0,
+  //   },
+  //   article_url: 'https://www.baidu.com',
+  //   article_image: '/media/%E6%B4%BB%E8%88%B9.jpg',
+  //   article_audit: 'New',
+  // }
 }
 
 // 信息登记
