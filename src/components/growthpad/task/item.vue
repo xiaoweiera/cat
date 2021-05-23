@@ -4,7 +4,7 @@ import { defineProps, computed } from 'vue'
 import { ElIcon } from 'element-plus'
 // @ts-ignore
 import { uuid, getMin, getMax, makeDescription } from './task'
-import { TaskType } from '~/logic/growthpad/examples'
+import TaskType from '~/logic/growthpad/tasktype'
 const props = defineProps({
   expant: {
     type: Boolean,
@@ -16,6 +16,7 @@ const props = defineProps({
     type: Object,
   },
 })
+
 // 判断任务类型是否为阳光普照
 // @ts-ignore
 const isAllIn = computed((): boolean => {

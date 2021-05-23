@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TaskType } from '~/logic/growthpad/examples'
+import TaskType from '~/logic/growthpad/tasktype'
 const data = {
   type: TaskType.share,
   title: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',

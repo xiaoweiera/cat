@@ -10,14 +10,18 @@ const input = ''
 </script>
 
 <template>
-  <div className="flex items-center">
+  <div class="check-box">
     <el-input
       v-model="input"
       placeholder="请输入验证的 BSC 地址"
       size="small"
     />
-    <div>
+    <div class="suffix">
       <slot></slot>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import './input.scss';
+</style>

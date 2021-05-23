@@ -21,10 +21,14 @@ const onSubmit = async function() {
 </script>
 
 <template>
-  <div className="flex items-center">
+  <div class="check-box">
     <el-input v-model="input" placeholder="输入您的TwitterID" size="small" />
-    <div @click="onSubmit">
+    <div class="suffix" @click="onSubmit">
       <slot></slot>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import './input.scss';
+</style>
