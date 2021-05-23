@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import dayjs from 'dayjs'
+import { onMounted, computed } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
@@ -37,7 +38,7 @@ onMounted(async() => {
       <div class="w-full pt-15">
         <div>
           <p>{{ I18n.growthpad.examples.countdown.title }}</p>
-          <TimeCountdown :value="store.dashboard.end" />
+          <TimeCountdown :value="store.dashboard.begin" />
         </div>
       </div>
     </div>

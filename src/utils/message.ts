@@ -10,27 +10,16 @@ enum Status {
   Confirm = 'confirm',
 }
 
-const option = {
-  customClass: 'directive-message',
-  dangerouslyUseHTMLString: true,
-  closeOnClickModal: true,
-  showConfirmButton: true,
-  confirmButtonText: '确认',
-  showCancelButton: true,
-  cancelButtonText: '取消',
-  closeOnPressEscape: true,
-}
-
 interface Content {
   value: string
   warn?: string
 }
 
-const message = function(
-  title = '',
-  content: Content | string,
-): Promise<boolean> {
+const getContent = function(content?: Content | string): string {
   let text = ''
+  if (!content) {
+    content = ''
+  }
   if (typeof content === 'string') {
     content = {
       value: content,
@@ -42,20 +31,63 @@ const message = function(
   if (content.warn) {
     text += `<p class="text-xs font-normal" style="color: #E9592D;">*${content.warn}</p>`
   }
-  return new Promise((resolve) => {
-    const setting: any = {
-      ...option,
-      callback: (status: Status) => {
-        if (Status.Cancel === status) {
-          resolve(false)
-        }
-        if (Status.Confirm === status) {
-          resolve(true)
-        }
-      },
+  return `<div>${text}</div>`
+}
+
+const app = function(
+  title: string,
+  content: string,
+  type: 'alert' | 'confirm',
+): Promise<boolean> {
+  const option = {
+    customClass: 'directive-message',
+    dangerouslyUseHTMLString: true,
+    closeOnClickModal: true,
+    showConfirmButton: true,
+    confirmButtonText: '确认',
+    showCancelButton: false,
+    cancelButtonText: '取消',
+    closeOnPressEscape: true,
+  }
+  if (type === 'confirm') {
+    option.showCancelButton = true
+  }
+  return new Promise((resolve: any) => {
+    // @ts-ignore
+    option.callback = (status: Status) => {
+      if (Status.Cancel === status) {
+        resolve(false)
+      }
+      if (Status.Confirm === status) {
+        resolve(true)
+      }
     }
-    ElMessageBox.alert(`<div>${text}</div>`, title, setting)
+    ElMessageBox.alert(content, title || '', option)
   })
+}
+
+const message = function(
+  title: string,
+  content?: Content | string,
+): Promise<boolean> {
+  if (content) {
+    return app(title, '', 'confirm')
+  }
+  return app(title, getContent(content), 'confirm')
+}
+
+message.confirm = function(
+  title: string,
+  content?: Content | string,
+): Promise<boolean> {
+  return message(title, content)
+}
+
+message.alert = function(title: string, content?: Content | string) {
+  if (content) {
+    return app(title, '', 'alert')
+  }
+  return app(title, getContent(content), 'alert')
 }
 
 export default message

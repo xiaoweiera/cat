@@ -50,7 +50,7 @@ const isWeibo = computed((): boolean => {
           :name="data.id"
         />
       </template>
-      <div class="task-content">
+      <label class="task-content block" :for="data.id">
         <GrowthpadTaskTitle :data="data">
           <template v-if="!isAllIn" #right>
             <span class="reward font-bold font-kdExp inline-block">
@@ -64,15 +64,15 @@ const isWeibo = computed((): boolean => {
               </template>
               <span class="ml-1">MDX</span>
             </span>
-            <label class="inline-block ml-1.5" :for="data.id">
+            <span class="inline-block ml-1.5">
               <span class="hand">
                 <i class="el-icon-arrow-up"></i>
                 <i class="el-icon-arrow-down"></i>
               </span>
-            </label>
+            </span>
           </template>
         </GrowthpadTaskTitle>
-      </div>
+      </label>
       <div v-if="isAllIn" class="task-children w-full">
         <!--分享-->
         <div class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">

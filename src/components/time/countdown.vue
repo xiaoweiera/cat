@@ -2,7 +2,7 @@
 // 倒计时
 import dayjs from 'dayjs'
 import { ref, defineProps, watch } from 'vue'
-const format = 'YYYY MM DD HH:mm:ss'
+const format = 'YYYY-MM-DD HH:mm:ss'
 const props = defineProps({
   value: [String, Number],
 })
@@ -16,30 +16,23 @@ watch(
   () => {
     const time = dayjs(props.value, format)
     end.value = time.valueOf()
-    console.log(end.value)
   },
   { immediate: true },
 )
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
   const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
-  return number < 10
-    ? `0${number}`
-    : String(number)
+  return number < 10 ? `0${number}` : String(number)
 }
 // 计算倒计时 - 时
 const getHour = function(duration: number): string {
   const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10)
-  return number < 10
-    ? `0${number}`
-    : String(number)
+  return number < 10 ? `0${number}` : String(number)
 }
 // 计算倒计时 - 分
 const getMinute = function(duration: number): string {
   const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
-  return number < 10
-    ? `0${number}`
-    : String(number)
+  return number < 10 ? `0${number}` : String(number)
 }
 // 倒计时
 let intemout: any

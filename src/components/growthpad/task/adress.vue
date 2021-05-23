@@ -3,7 +3,7 @@ import { reactive, computed, ref, toRaw } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
-import { logoForm } from '~/logic/user/login'
+import activity from '~/logic/growthpad/activity'
 
 const store = Task()
 
@@ -22,6 +22,19 @@ const tokenIsNull = computed<boolean>((): boolean => {
     return true
   }
   return false
+})
+
+const validityValue = computed<string>((): string => {
+  const begin = store?.dashboard?.begin
+  const end = store?.dashboard?.end
+  const value = []
+  if (begin) {
+    value.push(begin)
+  }
+  if (end) {
+    value.push(end)
+  }
+  return value
 })
 
 const isNull = function(address?: string): boolean {
@@ -67,10 +80,17 @@ const bindAddress = async function(): Promise<void> {
   const form = toRaw(addressRef).value
   try {
     await form.validate()
-    const status = await Message('确认地址', {
-      value: formdata.address,
-      warn: '地址一旦确认不可修改',
-    })
+    // 判断活动时间
+    let status = activity(store)
+    // 在活动时间范围内
+    if (status) {
+      // 提示地址确认
+      status = await Message('确认地址', {
+        value: formdata.address,
+        warn: '地址一旦确认不可修改',
+      })
+    }
+    // 地址无误情况下提交地址
     if (status) {
       await store.setAdress(formdata.address)
     }
@@ -129,8 +149,8 @@ const bindAddress = async function(): Promise<void> {
                 </ElInput>
               </el-form-item>
             </div>
-            <div class="ml-4">
-              <ElButton v-login type="primary" native-type="submit">
+            <div v-validity.begin.end="validityValue" class="ml-4">
+              <ElButton type="primary" native-type="submit">
                 <span>{{ I18n.growthpad.examples.submit }}</span>
               </ElButton>
             </div>

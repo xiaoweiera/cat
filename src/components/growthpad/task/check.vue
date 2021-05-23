@@ -2,6 +2,10 @@
 import * as R from 'ramda'
 import { defineProps, computed } from 'vue'
 import TaskType from '~/logic/growthpad/tasktype'
+import Task from '~/logic/growthpad/task'
+
+const store = Task()
+
 const props = defineProps({
   data: {
     type: Object,
@@ -35,48 +39,77 @@ const compsName = computed((): string => {
   const value = `GrowthpadTaskSub${first}${name.slice(1)}`
   return value
 })
+
+const validityValue = computed<string>((): string => {
+  const begin = store?.dashboard?.begin
+  const end = store?.dashboard?.end
+  const value = []
+  if (begin) {
+    value.push(begin)
+  }
+  if (end) {
+    value.push(end)
+  }
+  return value
+})
 </script>
 
 <template>
   <div>
     <template v-if="data.type === TaskType.vip">
       <GrowthpadTaskSubVip :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubVip>
     </template>
     <template v-else-if="data.type === TaskType.telegram">
       <GrowthpadTaskSubTelegram :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubTelegram>
     </template>
     <template v-else-if="data.type === TaskType.twitter">
       <GrowthpadTaskSubTwitter :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubTwitter>
     </template>
     <template v-else-if="data.type === TaskType.retwitter">
       <GrowthpadTaskSubTwitter :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubTwitter>
     </template>
     <template v-else-if="data.type === TaskType.pancake">
       <GrowthpadTaskSubPancake :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubPancake>
     </template>
     <template v-else-if="data.type === TaskType.uniswap">
       <GrowthpadTaskSubUniswap :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubUniswap>
     </template>
     <template v-else-if="data.type === TaskType.sushiswap">
       <GrowthpadTaskSubSushiswap :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubSushiswap>
     </template>
     <template v-else-if="data.type === TaskType.share">
       <GrowthpadTaskSubShare :data="data">
-        <span v-login class="button">{{ buttonValue }}</span>
+        <span v-login v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubShare>
     </template>
   </div>

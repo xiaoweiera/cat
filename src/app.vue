@@ -138,6 +138,9 @@ a {
     width: 400px;
     .el-message-box__header {
       padding: 0 0 16px 0;
+      .el-message-box__headerbtn {
+        display: none;
+      }
     }
     .el-message-box__content {
       padding: 0;
