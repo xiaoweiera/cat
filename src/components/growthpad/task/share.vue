@@ -28,6 +28,7 @@ const link = computed<string>((): string => {
         <span class="ml-6">我的邀请码：</span>
         <i>{{ userData.my_invitation_code }}</i>
         <IconFont
+          v-login
           class="ml-2 hand"
           type="copy"
           @click="copyTxt(link)"

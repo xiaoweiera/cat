@@ -30,14 +30,18 @@ const beginTime = computed<string>((): string => {
 </script>
 
 <template>
-  <div class="py-15 total">
-    <div class="flex items-center pb-5">
-      <DotChar :img="store.icon.value" size="xl" />
-      <span class="text-2xl ml-2">{{ title }}</span>
-      <span class="ml-4 hot py-1.5 px-3 rounded text-sm">
-        <b class="font-medium">⏱ </b>
-        <b class="font-medium ml-3">{{ beginTime }}</b>
-      </span>
+  <div class="pt-15 total">
+    <div class="lg:flex md:items-center pb-5">
+      <div class="flex items-center">
+        <DotChar :img="store.icon.value" size="xl" />
+        <span class="text-2xl ml-2">{{ title }}</span>
+      </div>
+      <div class="md:ml-4 pt-2 md:pt-0">
+        <div class="hot py-1.5 px-3 rounded text-sm">
+          <b class="font-medium">⏱ </b>
+          <b class="font-medium ml-3">{{ beginTime }}</b>
+        </div>
+      </div>
     </div>
     <div>
       <p class="description text-sm">{{ store.dashboard.description }}</p>
@@ -45,33 +49,37 @@ const beginTime = computed<string>((): string => {
     <div class="pt-5">
       <ul class="flex">
         <li>
-          <h4 class="font-normal text-xs mb-1">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
             {{ I18n.growthpad.examples.dashboard.rewards }}
           </h4>
           <p class="font-color-theme font-kdFang font-bold flex items-end">
-            <span class="text-4xl">{{ store.dashboard.rewardCount }}</span>
-            <span class="ml-1.5">MDX</span>
+            <span class="text-2xl md:text-4xl">{{
+              store.dashboard.rewardCount
+            }}</span>
+            <span class="ml-1.5 text-xs md:text-base">{{
+              store.getNickName()
+            }}</span>
           </p>
         </li>
-        <li class="ml-12">
-          <h4 class="font-normal text-xs mb-1">
+        <li class="ml-3 md:12">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
             {{ I18n.growthpad.examples.dashboard.value }}
           </h4>
           <p class="font-color-theme font-kdFang font-bold">
-            <span class="text-4xl">${{ 0 }}</span>
+            <span class="text-2xl md:text-4xl">${{ 0 }}</span>
           </p>
         </li>
-        <li class="ml-12">
-          <h4 class="font-normal text-xs mb-1">
+        <li class="ml-3 md:12">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
             {{ I18n.growthpad.examples.dashboard.perPerson }}
           </h4>
           <p class="font-color-theme font-kdFang font-bold flex items-end">
-            <span class="text-4xl">
+            <span class="text-2xl md:text-4xl whitespace-nowrap">
               <span>{{ minReward(store.dashboard.rewardLimit) }}</span>
               <span>-</span>
               <span>{{ maxReward(store.dashboard.rewardLimit) }}</span>
             </span>
-            <span class="ml-1.5">MDX</span>
+            <span class="ml-1.5">{{ store.getNickName() }}</span>
           </p>
         </li>
       </ul>

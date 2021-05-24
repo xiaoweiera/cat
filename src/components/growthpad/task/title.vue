@@ -15,7 +15,7 @@ const href = computed(() => {
 })
 </script>
 <template>
-  <div class="flex justify-between items-center">
+  <div>
     <div>
       <div class="flex items-center pb-1">
         <span class="text-sm title" v-html="data.title"></span>
@@ -39,7 +39,7 @@ const href = computed(() => {
         </slot>
       </div>
     </div>
-    <div>
+    <div class="whitespace-nowrap">
       <slot name="right"></slot>
     </div>
   </div>

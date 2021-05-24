@@ -51,7 +51,10 @@ const isWeibo = computed((): boolean => {
         />
       </template>
       <label class="task-content block" :for="data.id">
-        <GrowthpadTaskTitle :data="data">
+        <GrowthpadTaskTitle
+          :data="data"
+          class="flex justify-between items-center"
+        >
           <template v-if="!isAllIn" #right>
             <span class="reward font-bold font-kdExp inline-block">
               <template v-if="isWeibo">

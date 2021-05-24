@@ -11,11 +11,20 @@ onMounted(async() => {
 })
 </script>
 <template>
-  <div class="container flex">
+  <div class="container flex px-4 md:px-0">
     <div class="flex-1">
       <growthpadTaskDasboard />
 
-      <growthpadTaskAdress />
+      <div class="pb-15 tips md:hidden">
+        <div class="w-full pt-15">
+          <div>
+            <p>{{ I18n.growthpad.examples.countdown.title }}</p>
+            <TimeCountdown :value="store.dashboard.begin" />
+          </div>
+        </div>
+      </div>
+
+      <growthpadTaskAdress class="md:pt-15" />
 
       <div>
         <h2>奖励任务</h2>

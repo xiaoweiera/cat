@@ -32,7 +32,10 @@ const showReward = computed<boolean>((): boolean => {
 })
 </script>
 <template>
-  <GrowthpadTaskTitle :data="data">
+  <GrowthpadTaskTitle
+    :data="data"
+    class="md:flex md:justify-between md:items-center"
+  >
     <template #right>
       <template v-if="showReward">
         <div class="flex items-center">
@@ -40,7 +43,7 @@ const showReward = computed<boolean>((): boolean => {
             <span class="font-kdExp">{{ getMax(data.reward) }}</span>
             <span class="ml-1 font-kdExp">{{ store.getNickName() }}</span>
           </span>
-          <GrowthpadTaskCheck :data="data"></GrowthpadTaskCheck>
+          <GrowthpadTaskCheck class="flex-1" :data="data"></GrowthpadTaskCheck>
         </div>
       </template>
       <template v-else>

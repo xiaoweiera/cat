@@ -112,7 +112,6 @@ export const copyTxt = (txt: string) => {
   ElMessage({
     message: '已复制邀请链接',
     type: 'success',
-    duration: 1000 * 100,
     showClose: false,
     customClass: 'message-tips',
   })
