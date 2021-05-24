@@ -110,7 +110,7 @@ export const copyTxt = (txt: string) => {
   document.execCommand('copy')
   document.body.removeChild(dom)
   ElMessage({
-    message: '已复制邀请链接 ˉ',
+    message: '已复制邀请链接',
     type: 'success',
     duration: 1000 * 100,
     showClose: false,
