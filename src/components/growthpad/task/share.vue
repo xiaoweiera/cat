@@ -1,14 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
-
+import { copyTxt } from '~/lib/tool'
 const store = Task()
 
 const data = {
   type: TaskType.share,
   title: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
 }
+const link = computed<string>((): string => {
+  const url = 'http://kingdata.com/vip/'
+  const code = userData.my_invitation_code
+  if (code) {
+    return `${url}?code=${code}`
+  }
+  return url
+})
 </script>
 <template>
   <GrowthpadTaskTitle :data="data">
@@ -18,7 +27,11 @@ const data = {
         <i>{{ store.user.invited_count || 0 }}</i>
         <span class="ml-6">我的邀请码：</span>
         <i>{{ userData.my_invitation_code }}</i>
-        <b class="ml-2 el-icon-document-copy"></b>
+        <IconFont
+          class="ml-2 hand"
+          type="copy"
+          @click="copyTxt(link)"
+        ></IconFont>
       </span>
     </template>
     <template #right>

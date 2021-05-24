@@ -1,5 +1,6 @@
 // @ts-ignore
 import dayjs from 'dayjs'
+import { ElMessage } from 'element-plus'
 
 export const numberFormat = (value: any) => {
   if (!value && value !== 0 && value !== '0') {
@@ -57,9 +58,7 @@ export const tooptipsModel = (
     unescape(encodeURIComponent(origin)),
   )}`
   const info
-    = unit === '$'
-      ? `${item} ${unit}${value}`
-      : `${item}  ${value}${unit}`
+    = unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
 
   return `<span style="display:flex;
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
@@ -101,4 +100,20 @@ export const min_max = (min: any, max: any, v: any) => {
     max = v
   }
   return [min, max]
+}
+// copy
+export const copyTxt = (txt: string) => {
+  const dom = document.createElement('input')
+  dom.setAttribute('value', txt)
+  document.body.appendChild(dom)
+  dom.select()
+  document.execCommand('copy')
+  document.body.removeChild(dom)
+  ElMessage({
+    message: '已复制邀请链接 ˉ',
+    type: 'success',
+    duration: 1000 * 100,
+    showClose: false,
+    customClass: 'message-tips',
+  })
 }

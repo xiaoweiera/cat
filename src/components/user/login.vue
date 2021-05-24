@@ -60,11 +60,15 @@ const submit = async function() {
     <div class="pt-4.5 pb-2.5">
       <div class="flex items-center justify-between">
         <a class="inline-block">
-          <span class="font-normal link">注册账号</span>
+          <a
+            href="https://kingdata.com/vip"
+            target="_blank"
+            class="font-normal link"
+          >注册账号</a>
         </a>
-        <a class="inline-block">
-          <span class="font-normal link">忘记密码</span>
-        </a>
+        <!--        <a class="inline-block">-->
+        <!--          <span class="font-normal link">忘记密码</span>-->
+        <!--        </a>-->
       </div>
     </div>
   </el-form>

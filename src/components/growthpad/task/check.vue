@@ -58,70 +58,86 @@ const validityValue = computed<string>((): string => {
   <div>
     <template v-if="data.type === TaskType.vip">
       <GrowthpadTaskSubVip :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubVip>
     </template>
     <template v-else-if="data.type === TaskType.telegram">
       <!-- 判断是否填写了 telegram id -->
       <IconFont v-if="store.user.telegram" type="success"></IconFont>
       <GrowthpadTaskSubTelegram v-else :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubTelegram>
     </template>
     <template v-else-if="data.type === TaskType.twitter">
       <!-- 判断是否关注 twitter -->
       <IconFont v-if="store.mission.follow_twitter" type="success"></IconFont>
       <GrowthpadTaskSubTwitter v-else :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubTwitter>
     </template>
     <template v-else-if="data.type === TaskType.retwitter">
       <!-- 判断是否转发 twitter -->
       <IconFont v-if="store.mission.retweet" type="success"></IconFont>
       <GrowthpadTaskSubRetwitter v-else :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubRetwitter>
     </template>
     <template v-else-if="data.type === TaskType.pancake">
       <!-- 判断pancake验资是否通过 -->
       <IconFont v-if="store.mission.pancake" type="success"></IconFont>
       <GrowthpadTaskSubPancake v-else :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubPancake>
     </template>
     <template v-else-if="data.type === TaskType.uniswap">
       <!-- 判断uniswap验资是否通过 -->
       <IconFont v-if="store.mission.uniswap" type="success"></IconFont>
       <GrowthpadTaskSubUniswap v-else :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubUniswap>
     </template>
     <template v-else-if="data.type === TaskType.sushiswap">
       <!-- 判断sushiswap验资是否通过 -->
       <IconFont v-if="store.mission.uniswap" type="success"></IconFont>
       <GrowthpadTaskSubSushiswap v-else :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubSushiswap>
     </template>
     <template v-else-if="data.type === TaskType.share">
       <GrowthpadTaskSubShare :data="data">
-        <span v-login v-validity.begin.end="validityValue" class="button">{{
-          buttonValue
-        }}</span>
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
       </GrowthpadTaskSubShare>
     </template>
   </div>

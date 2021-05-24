@@ -3,9 +3,9 @@ import jsCookie from 'js-cookie'
 
 const service = axios.create({
   timeout: 20000, // request timeout
-  baseURL: 'https://0a51e53b8768.ngrok.io',
+  // baseURL: 'https://0a51e53b8768.ngrok.io',
   // baseURL: 'https://ikingdata.com',
-  // baseURL: 'https://dev.ikingdata.com',
+  baseURL: 'https://dev.ikingdata.com',
   withCredentials: false,
 })
 service.interceptors.request.use(

@@ -125,16 +125,17 @@ onMounted(() => {
           alt=""
         />
       </div>
-      <HeaderLogin></HeaderLogin>
       <a
         href="https://www.ikingdata.com/download"
         target="_blank"
         :class="navIsSelect('#')"
       >{{ t('nav.download') }}</a>
+      <HeaderLogin></HeaderLogin>
     </ul>
   </nav>
   <div
     class="
+      w-full
       mdhidden
       navLogoBg
       flex

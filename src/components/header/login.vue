@@ -1,7 +1,25 @@
 <template>
   <div v-show="!isLogin">
-    <div>
-      <ElButton type="text" @click="showVisible">登录/注册</ElButton>
+    <div
+      class="
+        hand
+        text-global-default
+        opacity-85
+        text-kd16px24px
+        font-normal
+        ml-7.5
+        flex
+        items-center
+      "
+      @click="showVisible()"
+    >
+      <span type="text" @click="showVisible">登录</span>
+      <img
+        class="w-0.5 h-0.5 ml-1 mr-1 Z"
+        src="https://res.ikingdata.com/nav/dian.png"
+        alt=""
+      />
+      <span type="text" @click="showVisible">注册</span>
     </div>
     <ElDialog
       v-model="visible"
