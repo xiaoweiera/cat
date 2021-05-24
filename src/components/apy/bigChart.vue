@@ -65,7 +65,6 @@ const changeTime = (beginTimeStr: string, endTimeStr: string) => {
   beginTime.value = beginTimeStr
   endTime.value = endTimeStr
 }
-
 onMounted(() => {
   // @ts-ignore
   myChart = echarts.init(document.getElementById(`${props.id}big`), 'light', {
