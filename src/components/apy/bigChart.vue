@@ -72,7 +72,7 @@ onMounted(() => {
   })
   window.addEventListener('resize', myChart.resize)
 })
-// @ts-ignore
+// @ts-ignore 关闭弹框
 const closeModel = () => {
   props.changeState(false)
 }
