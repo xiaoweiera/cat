@@ -71,9 +71,9 @@ const message = function(
   content?: Content | string,
 ): Promise<boolean> {
   if (content) {
-    return app(title, '', 'confirm')
+    return app(title, getContent(content), 'confirm')
   }
-  return app(title, getContent(content), 'confirm')
+  return app(title, '', 'alert')
 }
 
 message.confirm = function(
