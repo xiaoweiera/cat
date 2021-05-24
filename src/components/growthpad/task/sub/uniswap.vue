@@ -4,6 +4,7 @@ import rules from './rule'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
+
 const store = Task()
 
 defineProps({
