@@ -1,14 +1,31 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
+import * as R from 'ramda'
+import { paramChart } from '~/store/liquidity/state'
 const props = defineProps({
   filterData: Object,
+  tagType: String,
 })
+const changeTag = (tag: any) => {
+  paramChart[props.tagType] = tag.name
+  console.log(props.tagType, tag)
+  R.forEach((item) => {
+    if (item.name === tag.name) {
+      item.selected = true
+    } else {
+      item.selected = false
+    }
+  }, props.filterData)
+}
 </script>
 <template>
   <div class="flex ml-3.5">
     <div class="flex h-7.8 items-center timeFilter">
       <template v-for="(item, index) in filterData">
-        <div :class="item.selected ? 'timeTagSelected' : 'timeTag'">
+        <div
+          :class="item.selected ? 'timeTagSelected' : 'timeTag'"
+          @click="changeTag(item)"
+        >
           {{ item.name }}
         </div>
       </template>

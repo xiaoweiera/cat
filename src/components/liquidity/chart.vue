@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { defineProps, onMounted } from 'vue'
+import { defineProps, onMounted, watch, toRefs } from 'vue'
 import * as echarts from 'echarts'
+import { paramChart } from '~/store/liquidity/state'
 import {
   getXData,
   getSeries,
@@ -17,9 +18,17 @@ interface yModel {
   unit: string
 }
 const interval = '1h'
+const pp = toRefs(paramChart)
 const props = defineProps({
   chartData: Object,
 })
+watch(
+  () => paramChart,
+  (n, o) => {
+    console.log(n)
+  },
+  { deep: true },
+)
 const draw = (
   xData: Array<string>,
   series: any,

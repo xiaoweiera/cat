@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { platStore } from '~/store/liquidity/state'
+import { ref, reactive } from 'vue'
+import { platStore, pairStore } from '~/store/liquidity/state'
+const chartType = reactive({ type: 'flow' })
 </script>
 <template>
   <div class="flex flex-1 flex-col">
-    {{ platStore }}
     <!--    右侧第一个header-->
-    <LiquidityMainHeader />
+    <LiquidityMainHeader :chart-type="chartType" />
     <!--    右侧第二个header-->
-    <LiquidityMainToken />
+    <LiquidityMainToken v-if="pairStore" :pair-store="pairStore" />
     <!--    图表集合-->
-    <LiquidityMainChart />
+    <LiquidityMainChart :chart-type="chartType" />
   </div>
 </template>

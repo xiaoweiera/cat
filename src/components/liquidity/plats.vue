@@ -3,7 +3,7 @@
 import { reactive, ref, toRefs, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import * as R from 'ramda'
-import { platStore } from '~/store/liquidity/state'
+import { platStore, pairStore, updateData } from '~/store/liquidity/state'
 import { exchange_list } from '~/api/liquidity'
 const route = useRoute()
 const router = useRouter()
@@ -16,14 +16,22 @@ const getPlat = async() => {
     data: { data },
   } = await exchange_list()
   plats.data = data
-  console.log(R.find((item) => item.name === routeQuery.plat, plats.data))
   plats.select
     = R.find((item) => item.name === routeQuery.plat, plats.data) || plats.data[0]
-  console.log(plats)
+  updateData(platStore, plats.select)
 }
-
+const selectPlatChange = (status: boolean) => {
+  platShow.value = status
+}
+const mouseover = () => {
+  selectPlatChange(true)
+}
+const mouseLeave = () => {
+  selectPlatChange(false)
+}
 const changePlat = (plat: any) => {
   // const {name}=toRefs(platStore)
+  updateData(platStore, plat)
   plats.select = plat
   const utm_source = 'https://apy.kingdata.com'
   const query = {
@@ -35,24 +43,18 @@ const changePlat = (plat: any) => {
     ...route,
     query: { ...query },
   })
+
+  selectPlatChange(false)
 }
 onBeforeMount(() => {
   getPlat()
+  pairStore.value = 'USDT'
 })
-const selectPlatChange = (status: boolean) => {
-  platShow.value = status
-}
-const mouseover = () => {
-  selectPlatChange(true)
-}
-const mouseLeave = () => {
-  selectPlatChange(false)
-}
 </script>
 
 <template>
   <div class="flex w-23.75 px-3 relative h-full" @mouseleave="mouseLeave()">
-    <div class="flex items-center hand" @click="mouseover()">
+    <div class="flex items-center hand" @mouseover="mouseover()">
       <img class="w-5 h-5" :src="plats.select.logo" alt="" />
       <span class="ml-1.5">{{ plats.select.name }}</span>
       <img
