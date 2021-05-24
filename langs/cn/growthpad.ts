@@ -7,7 +7,8 @@ export default {
     address: '输入参与领取奖励的 BSC 地址',
     submit: '登记',
     countdown: {
-      title: '开始倒计时'
+      title: '开始倒计时',
+      endTitle:'结束倒计时'
     },
     dashoard: {
       desc: 'KingData 将联合 MDEX 开启价值超 200,000 美金的空投活动，并设立了超 10 种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励。',

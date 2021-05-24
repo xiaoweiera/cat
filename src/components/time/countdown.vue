@@ -56,6 +56,7 @@ const timeout = () => {
   minute.value = getMinute(duration)
   // 计算倒计时剩余秒
   const seconds = parseInt(((duration / 1000) % 60) as any, 10)
+  console.log(seconds, day.value, hour.value, minute.value)
   if (seconds < 60) {
     intemout = setTimeout(timeout, 1000 * (60 - seconds))
   } else {
@@ -68,21 +69,21 @@ timeout()
 <template>
   <div class="flex text-center justify-between items-center">
     <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp">{{ day }}</span>
+      <span class="font-bold time-value font-kdExp mt-1">{{ day }}</span>
       <span class="text-sm font-kdFang">Days</span>
     </p>
     <p>
       <span class="font-bold text-2xl">:</span>
     </p>
     <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp">{{ hour }}</span>
+      <span class="font-bold time-value font-kdExp mt-1">{{ hour }}</span>
       <span class="text-sm font-kdFang">Hours</span>
     </p>
     <p>
       <span class="font-bold text-2xl">:</span>
     </p>
     <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp">{{ minute }}</span>
+      <span class="font-bold time-value font-kdExp mt-1">{{ minute }}</span>
       <span class="text-sm font-kdFang">Minutes</span>
     </p>
   </div>
