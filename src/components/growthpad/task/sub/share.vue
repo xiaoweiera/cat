@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
 import { userData } from '~/logic/user/login'
-
+import { copyTxt } from '~/lib/tool'
 defineProps({
   data: {
     type: Object,
@@ -19,7 +19,7 @@ const link = computed<string>((): string => {
 </script>
 
 <template>
-  <a class="inline-block" target="_blank" :href="link">
+  <div class="inline-block" @click="copyTxt(link)">
     <slot></slot>
-  </a>
+  </div>
 </template>

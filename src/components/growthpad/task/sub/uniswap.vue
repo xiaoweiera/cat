@@ -5,6 +5,7 @@ import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
 import { checkAddress } from '~/components/growthpad/task/task'
+
 const store = Task()
 
 defineProps({
