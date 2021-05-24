@@ -61,7 +61,7 @@ const data = {
   title: 'MDEX', // 名称
   icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
   dasboard: {
-    begin: '2021-05-24 12:00:00', // 开始时间
+    begin: '2021-05-28 12:00:00', // 开始时间
     end: '2021-05-30 12:00:00', // 结束时间
     description: I18n.growthpad.examples.dashoard.desc, // 描述
     reward: {
