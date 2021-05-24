@@ -141,7 +141,7 @@ export const onRegisterSubmit = async function(): Promise<any> {
 
 // 登录
 export const onSubmit = async function(): Promise<any> {
-  const form = toRaw(formdata).value
+  const form = toRaw(logoForm).value
   try {
     if (form) {
       await form.validate()
