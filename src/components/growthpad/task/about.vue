@@ -1,36 +1,29 @@
 <script setup lang="ts">
-// @ts-ignore
 import { computed, ref } from 'vue'
 import I18n from '~/utils/i18n/index'
-// @ts-ignore
-import { Name, Icon, About } from '~/logic/growthpad/examples'
+import Task from '~/logic/growthpad/task'
+const store = Task()
+
 // 多少列
 const cols = 3
 // @ts-ignore
 const list = computed(() => {
   const array: Array<any[]> = []
-  for (let i = 0; i < cols; i++) {
-    const value = About.minutias.filter((item, index: number) => {
-      return index % cols === i
-    })
-    array.push(value)
-  }
+  // for (let i = 0; i < cols; i++) {
+  //   const value = store.about.minutias.filter((item, index: number) => {
+  //     return index % cols === i
+  //   })
+  //   array.push(value)
+  // }
   return array
 })
-const communitys = ref<string[]>(['telegram', 'twitter', 'vector', 'union'])
-const shareLink = ref<string[]>([
-  'https://t.me/Can',
-  'https://www.twitter.com/Mdextech',
-  'https://mdex.medium.com/',
-  'https://discord.com/invite/3TYDPktjqC',
-])
 </script>
 
 <template>
   <div class="pb-4 text-base font-semibold">项目介绍</div>
   <div class="flex items-center">
-    <DotChar :img="Icon" size="xl" />
-    <span class="ml-3 label">MDEX 去中心化交易所</span>
+    <DotChar :img="store.icon.value" size="xl" />
+    <span class="ml-3 label">{{ store.title.value }} 去中心化交易所</span>
   </div>
   <div class="mt-6">
     <p class="flex items-center">
@@ -39,26 +32,26 @@ const shareLink = ref<string[]>([
       }}</b>
       <a
         class="mx-4 text-sm font-color-theme"
-        :href="About.website"
+        :href="`https://${store.about.website}`"
         target="_blank"
-      >{{ About.website }}</a>
+      >{{ store.about.website }}</a>
       <b class="text-base font-medium mr-4 h2">{{
         I18n.growthpad.examples.about.community
       }}</b>
       <a
-        v-for="(type, index) in communitys"
+        v-for="(item, index) in store.about.share"
         :key="index"
         class="inline-block"
         target="_blank"
-        :href="shareLink[index]"
+        :href="item.href"
       >
-        <IconFont class="mr-4" :type="type" />
+        <IconFont class="mr-4" :type="item.icon" />
       </a>
     </p>
   </div>
   <div class="mt-6">
     <h2 class="pb-2">{{ I18n.growthpad.examples.about.projectDetail }}</h2>
-    <p class="detail text-sm">{{ About.detail }}</p>
+    <p class="detail text-sm">{{ store.about.detail }}</p>
   </div>
   <div class="mt-6">
     <h2 class="text-base">奖励代币信息</h2>

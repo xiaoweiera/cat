@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, reactive, ref, toRaw } from 'vue'
+import { checkAddress } from '../task'
 import rules from './rule'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
@@ -21,8 +22,12 @@ const onSubmit = async function() {
   const form = toRaw(formRef).value
   try {
     await form.validate()
+    // 判断信息登记
+    let status = checkAddress(store)
     // 判断活动时间
-    let status = activity(store)
+    if (status) {
+      status = activity(store)
+    }
     // 在活动时间范围内
     if (status) {
       // 提示地址确认

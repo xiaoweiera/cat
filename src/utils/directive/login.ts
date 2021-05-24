@@ -8,7 +8,7 @@ import { showVisible } from '~/store/header/login'
 
 const login = function(e: Event) {
   // 已登录状态
-  if (isLogin.value) {
+  if (isLogin.value || 2 > 1) {
     return true
   }
   // 未登录时

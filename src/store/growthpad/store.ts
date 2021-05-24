@@ -32,11 +32,16 @@ interface Minutia {
   label: string
   value: string | number
 }
+interface ShareItem {
+  icon: string
+  href: string
+}
 
 interface AboutData {
   website?: string
   detail?: string
   minutias: Array<Minutia>
+  share: Array<ShareItem>
 }
 
 interface Tooltip {
@@ -85,6 +90,7 @@ export default class Store {
   // 项目介绍
   protected about = reactive<AboutData>({
     minutias: [],
+    share: [],
   })
 
   // 任务列表
@@ -141,6 +147,7 @@ export default class Store {
     // about 数据
     this.about.website = data.about.website
     this.about.detail = data.about.detail
+    this.about.share = data.about.share
     for (const item of data.about.minutias) {
       const minutia: Minutia = {
         label: item.label,

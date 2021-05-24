@@ -13,14 +13,20 @@ const props = defineProps({
 })
 
 const showReward = computed<boolean>((): boolean => {
-  if (props.data.type === TaskType.telegram) {
-    return true
-  }
-  if (props.data.type === TaskType.twitter) {
-    return true
-  }
-  if (props.data.type === TaskType.retwitter) {
-    return true
+  if (props?.data?.reward) {
+    const value = getMax([].concat(props.data.reward))
+    if (value === 0) {
+      return false
+    }
+    if (props.data.type === TaskType.telegram) {
+      return true
+    }
+    if (props.data.type === TaskType.twitter) {
+      return true
+    }
+    if (props.data.type === TaskType.retwitter) {
+      return true
+    }
   }
   return false
 })

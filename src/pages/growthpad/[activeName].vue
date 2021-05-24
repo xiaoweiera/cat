@@ -33,6 +33,8 @@ onMounted(async() => {
           </DotCountGroup>
         </div>
       </div>
+
+      <growthpadTaskAbout></growthpadTaskAbout>
     </div>
     <div class="ml-15 tips hidden md:block">
       <div class="w-full pt-15">

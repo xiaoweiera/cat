@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, reactive, ref, toRaw } from 'vue'
+import { checkAddress } from '../task'
 import rules from './rule'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
@@ -20,8 +21,11 @@ const onSubmit = async function() {
   const form = toRaw(formRef).value
   try {
     await form.validate()
+    let status = checkAddress(store)
     // 判断活动时间
-    const status = activity(store)
+    if (status) {
+      status = activity(store)
+    }
     if (status) {
       await store.setReTwitter(formdata.input.value)
     }

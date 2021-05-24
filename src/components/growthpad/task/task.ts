@@ -1,14 +1,22 @@
 import I18n from '~/utils/i18n/index'
+import Store from '~/store/growthpad/store'
+import Message from '~/utils/message'
 
 export const uuid = function(): string {
   return String(Math.random())
 }
 
 export const getMax = function(array: number[]): number {
-  return Math.max.apply(null, array)
+  if (Array.isArray(array) && array.length > 0) {
+    return Math.max.apply(null, array)
+  }
+  return 0
 }
 export const getMin = function(array: number[]): number {
-  return Math.min.apply(null, array)
+  if (Array.isArray(array) && array.length > 0) {
+    return Math.min.apply(null, array)
+  }
+  return 0
 }
 
 export const makeDescription = function(data: any): string {
@@ -23,4 +31,13 @@ export const makeDescription = function(data: any): string {
   return I18n.template(data.description, {
     reward: `<i>${minValue}，${maxValue}</i>`,
   })
+}
+
+export const checkAddress = function(store: Store): boolean {
+  const value = store?.user?.bsc_token
+  if (value) {
+    return true
+  }
+  Message.alert('请先完成信息登记')
+  return false
 }

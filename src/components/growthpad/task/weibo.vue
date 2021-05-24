@@ -6,7 +6,7 @@ const store = Task()
 
 const data = {
   title:
-    '根据粉丝数获得奖励：0-49999粉丝奖励 15MDX；49999-99999粉丝奖励100MDX；大于99999粉丝奖励200MDX.',
+    '根据粉丝数获得奖励：<br/>0-49999粉丝奖励 15MDX；49999-99999粉丝奖励100MDX；大于99999粉丝奖励200MDX.',
   description:
     '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
 }
@@ -86,12 +86,7 @@ const submit = async function() {
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button
-          type="primary"
-          round
-          size="small"
-          native-type="submit"
-        >
+        <el-button type="primary" round size="small" native-type="submit">
           提交
         </el-button>
       </el-form-item>

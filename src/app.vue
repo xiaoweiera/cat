@@ -139,7 +139,7 @@ a {
 .el-message-box {
   &.directive-message {
     padding: 16px;
-    width: 400px;
+    width: 340px;
     .el-message-box__header {
       padding: 0 0 16px 0;
       .el-message-box__headerbtn {

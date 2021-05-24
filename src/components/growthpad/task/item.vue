@@ -57,7 +57,7 @@ const isWeibo = computed((): boolean => {
               <template v-if="isWeibo">
                 <span
                   class="count"
-                >+{{ getMin(data.reward) }}-{{ getMax(data.reward) }}</span>
+                >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
               </template>
               <template v-else>
                 <span class="count">+{{ getMax(data.reward) }}</span>
@@ -65,9 +65,9 @@ const isWeibo = computed((): boolean => {
               <span class="ml-1">MDX</span>
             </span>
             <span class="inline-block ml-1.5">
-              <span class="hand">
-                <i class="el-icon-arrow-up"></i>
-                <i class="el-icon-arrow-down"></i>
+              <span class="hand inline-block">
+                <IconFont type="down" class="icon-arrow-up"></IconFont>
+                <IconFont type="down" class="icon-arrow-down"></IconFont>
               </span>
             </span>
           </template>
@@ -111,21 +111,32 @@ const isWeibo = computed((): boolean => {
     font-size: 26px;
   }
 }
+.icon-arrow-down {
+  transform: rotate(180deg);
+}
+.icon-arrow-up,
+.icon-arrow-down {
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+}
+
 .task-radio {
   display: none;
-  & ~ .task-content .el-icon-arrow-down {
+  & ~ .task-content .icon-arrow-down {
     display: inline-block;
   }
   & ~ .task-children,
-  & ~ .task-content .el-icon-arrow-up {
+  & ~ .task-content .icon-arrow-up {
     display: none;
   }
   &:checked {
     & ~ .task-children,
-    & ~ .task-content .el-icon-arrow-up {
+    & ~ .task-content .icon-arrow-up {
       display: inline-block;
     }
-    & ~ .task-content .el-icon-arrow-down {
+    & ~ .task-content .icon-arrow-down {
       display: none;
     }
   }

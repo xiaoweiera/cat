@@ -4,7 +4,7 @@ export default {
     whiteList: '白名单资格预审',
     growthTasks: '奖励任务',
     register: '信息登记',
-    address: '输入参与领取奖励的 BSC / Heco 地址',
+    address: '输入参与领取奖励的 BSC 地址',
     submit: '登记',
     countdown: {
       title: '开始倒计时'

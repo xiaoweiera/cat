@@ -4,6 +4,7 @@ import rules from './rule'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
+import { checkAddress } from '~/components/growthpad/task/task'
 const store = Task()
 
 defineProps({
@@ -21,8 +22,11 @@ const onSubmit = async function() {
   const form = toRaw(formRef).value
   try {
     await form.validate()
+    let status = checkAddress(store)
     // 判断活动时间
-    let status = activity(store)
+    if (status) {
+      status = activity(store)
+    }
     // 在活动时间范围内
     if (status) {
       // 提示地址确认

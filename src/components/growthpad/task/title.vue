@@ -18,7 +18,7 @@ const href = computed(() => {
   <div class="flex justify-between items-center">
     <div>
       <div class="flex items-center pb-1">
-        <span class="text-sm title">{{ data.title }}</span>
+        <span class="text-sm title" v-html="data.title"></span>
         <template v-if="data.tooltip">
           <a
             class="tooltip rounded ml-1.5 inline-flex items-center"
@@ -33,8 +33,7 @@ const href = computed(() => {
         </template>
         <template v-if="data.help">
           <span class="ml-1.5" :help="data.help">
-            <i class="el-icon-warning-outline"></i>
-            <i></i>
+            <IconFont type="help" />
           </span>
         </template>
       </div>

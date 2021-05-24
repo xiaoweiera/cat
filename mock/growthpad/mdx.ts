@@ -12,7 +12,7 @@ const uuid = function(): string {
   return `task-${value}`
 }
 // 加入 telegram
-const telegram = function() {
+const telegram = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
     title: '加入',
@@ -22,12 +22,12 @@ const telegram = function() {
       value: 'Mdex 电报群',
       href: 'https://t.me/MixDex',
     },
-    reward: [10],
-    description: '活动结束前取消关注视为未完成任务',
+    reward,
+    description,
   }
 }
 // 关注 twitter
-const twitter = function() {
+const twitter = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
     title: '关注',
@@ -37,12 +37,12 @@ const twitter = function() {
       value: 'Mdex Twitter',
       href: 'https://twitter.com/Mdextech',
     },
-    reward: [3],
-    description: '活动结束前取消关注视为未完成任务',
+    reward,
+    description,
   }
 }
 // 转发 twitter
-const retwitter = function() {
+const retwitter = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
     title: '转发',
@@ -52,8 +52,8 @@ const retwitter = function() {
       value: '本条活动 Twitter',
       href: 'https://twitter.com/Mdextech/status/1395323254974214150',
     },
-    reward: [3],
-    description: '活动结束前取消关注视为未完成任务',
+    reward,
+    description,
   }
 }
 
@@ -71,7 +71,7 @@ const data = {
     },
   },
   about: {
-    website: 'https://dex-demo.com', // 项目官网
+    website: 'mdex.com', // 项目官网
     minutias: [
       { label: I18n.growthpad.examples.about.name, value: 'MDX' }, // 代币名称
       { label: I18n.growthpad.examples.about.symbol, value: 'MDX' }, // 代币名称
@@ -88,6 +88,13 @@ const data = {
       },
     ],
     detail: I18n.growthpad.examples.about.detail, // 项目介绍
+    share: [
+      { icon: 'github', href: 'https://github.com/mdexSwap' },
+      { icon: 'telegram', href: 'https://t.me/MixDex' },
+      { icon: 'twitter', href: 'https://twitter.com/Mdextech' },
+      { icon: 'vector', href: 'https://mdex.medium.com/' },
+      { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
+    ],
   },
   taskList: [
     // 任务 1
@@ -103,9 +110,9 @@ const data = {
           title: '成为 Kingdata VIP 用户',
           help: '邀请三个用户注册即可成为 VIP 用户', // 帮助信息
         },
-        telegram(),
-        twitter(),
-        retwitter(),
+        telegram('活动结束前退出电报群则认为未完成任务'),
+        twitter('活动结束前取消关注视为未完成任务'),
+        retwitter('活动结束前删除推文视为未完成任务'),
       ],
     },
     // 任务 2
@@ -113,7 +120,7 @@ const data = {
       id: uuid(),
       type: TaskType.pancake,
       title:
-        'PanCake 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+        'PanCake Swap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
       description: '完成任意任务：{reward}（前1000名用户）',
       reward: [5, 15],
       children: [
@@ -122,9 +129,9 @@ const data = {
           title: '任务资格：Pancake swap 持仓价值超过1万U',
           description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
         },
-        telegram(),
-        twitter(),
-        retwitter(),
+        telegram('活动结束前退出电报群则认为未完成任务', [10]),
+        twitter('活动结束前取消关注视为未完成任务',[3]),
+        retwitter('活动结束前删除推文视为未完成任务',[3]),
       ],
     },
     // 任务 3
@@ -141,9 +148,9 @@ const data = {
           title: '任务资格 Uniswap 持仓价值超过1万U',
           description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
         },
-        telegram(),
-        twitter(),
-        retwitter(),
+        telegram('活动结束前退出电报群则认为未完成任务', [10]),
+        twitter('活动结束前取消关注视为未完成任务',[3]),
+        retwitter('活动结束前删除推文视为未完成任务',[3]),
       ],
     },
     // 任务 4
@@ -151,7 +158,7 @@ const data = {
       id: uuid(),
       type: TaskType.sushiswap,
       title:
-        'Sushiswap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+        'Sushiswap 持仓价值超过 1万 U，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
       description: '完成任意任务：{reward}（前1000名用户）',
       reward: [5, 15],
       children: [
@@ -160,16 +167,16 @@ const data = {
           title: '任务资格：Sushiswap 持仓价值超过1万U',
           description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
         },
-        telegram(),
-        twitter(),
-        retwitter(),
+        telegram('活动结束前退出电报群则认为未完成任务',[10]),
+        twitter('活动结束前取消关注视为未完成任务',[3]),
+        retwitter('活动结束前删除推文视为未完成任务',[3]),
       ],
     },
     // 任务 5
     {
       id: uuid(),
       type: TaskType.weibo,
-      title: '撰写 500 字原创 MDEX 体验文章，并发布在主流媒体。',
+      title: '撰写 500 字以上原创 MDEX 体验文章，并发布在主流媒体。',
       reward: [15, 200],
       children: [],
     },
