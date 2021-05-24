@@ -11,8 +11,11 @@ import {
   getProjectType,
   Project,
   setAdress,
+  setPancake,
+  setSushiswap,
   setTelegram,
   setTwitter,
+  setUniswap,
   setWeiboContent,
 } from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
@@ -255,6 +258,48 @@ export default class Store {
     this.clearTimeout()
     try {
       const result = await setWeiboContent(this.projectName, form)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 pancake
+  async setPancake(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await setPancake(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 uniswap
+  async setUniswap(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await setUniswap(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 sushiswap
+  async setSushiswap(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await setSushiswap(this.projectName, token, value)
       this.updateData(result)
       return result
     } catch (e) {

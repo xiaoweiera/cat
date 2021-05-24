@@ -8,6 +8,7 @@ specifiers:
   '@fengqiaogang/translate': ^1.1.1
   '@iconify/json': ^1.1.344
   '@intlify/vite-plugin-vue-i18n': ^2.1.1
+  '@types/js-cookie': ^2.2.6
   '@types/nprogress': ^0.2.0
   '@types/ramda': ^0.27.40
   '@typescript-eslint/eslint-plugin': ^4.21.0
@@ -64,13 +65,18 @@ specifiers:
   wechat-jssdk: ^5.0.7
 
 dependencies:
+  '@fengqiaogang/config': 1.1.0
+  '@fengqiaogang/safe-get': 0.1.1
+  '@fengqiaogang/safe-set': 0.1.2
+  '@types/js-cookie': 2.2.6
   '@vueuse/core': 4.11.0_vue@3.0.11
   '@vueuse/head': 0.5.1_vue@3.0.11
+  axios: 0.21.1
   d3-dsv: 2.0.0
   dayjs: 1.10.4
   echarts: 5.1.1
-  husky: 6.0.0
   intl-format: 1.2.0
+  js-cookie: 2.2.1
   lint-staged: 11.0.0
   nprogress: 0.2.0
   postcss-preset-env: 6.7.0
@@ -85,9 +91,6 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config': 0.6.5_eslint@7.26.0+typescript@4.2.4
-  '@fengqiaogang/config': 1.1.0
-  '@fengqiaogang/safe-get': 0.1.1
-  '@fengqiaogang/safe-set': 0.1.2
   '@fengqiaogang/translate': 1.1.1
   '@iconify/json': 1.1.344
   '@intlify/vite-plugin-vue-i18n': 2.1.2_29cbdd98a13ce7fbbca361d68b7c9894
@@ -98,12 +101,11 @@ devDependencies:
   '@vue/compiler-sfc': 3.0.11_vue@3.0.11
   '@vue/server-renderer': 3.0.11_vue@3.0.11
   autoprefixer: 10.2.5_postcss@8.2.15
-  axios: 0.21.1
   cross-env: 7.0.3
   element-plus: 1.0.2-beta.44_vue@3.0.11
   eslint: 7.26.0
   https-localhost: 4.6.5
-  js-cookie: 2.2.1
+  husky: 6.0.0
   lodash: 4.17.21
   markdown-it-prism: 2.1.6
   mockjs: 1.1.0
@@ -1263,22 +1265,21 @@ packages:
 
   /@fengqiaogang/argv/1.0.0:
     resolution: {integrity: sha512-8apkE1Vxp0th++bC+bVdP2VW2u232XASDikJ0U/Pnh5uuiOJqiMZ460TVTNb5qbE2i0EN3op36AekWVGEIlMcw==}
-    dev: true
 
   /@fengqiaogang/config/1.1.0:
     resolution: {integrity: sha512-53kp1tZRmIuFyVFqBQGo+mPQDxHdD9V2OWz1gjU01W9yXCDsUjgq5gmF70Om+kXqoYHAWC9IHkoeX7sFAHDyfw==}
     dependencies:
       '@fengqiaogang/argv': 1.0.0
       webpack-merge: 5.7.3
-    dev: true
+    dev: false
 
   /@fengqiaogang/safe-get/0.1.1:
     resolution: {integrity: sha512-BFXKNgqpHHRuQC+/WzxcTq8iR8G5H1VXUK75H3ppog3I7K+cU928slOC6TaNdUoDmrrry3S2V1VsiEWVNm6rNA==}
-    dev: true
+    dev: false
 
   /@fengqiaogang/safe-set/0.1.2:
     resolution: {integrity: sha512-nFOIGo080MkJzpgtMW0nmwLo6cD2eO1gTEmdy5DAIYhJDjbGCZvsfYKXTdHEi7Ww7IZktEMJd/yKLMAtTCk6Jw==}
-    dev: true
+    dev: false
 
   /@fengqiaogang/translate/1.1.1:
     resolution: {integrity: sha512-xW6a98ylEB1VlosTmTViiEZUX8zbXrRy4x+pD9ipR2chJOjn3/fZJmjJ6gQWt8OKijFXdl7PJsPRemIQVW5KWg==}
@@ -1580,6 +1581,10 @@ packages:
   /@types/estree/0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
     dev: true
+
+  /@types/js-cookie/2.2.6:
+    resolution: {integrity: sha512-+oY0FDTO2GYKEV0YPvSshGq9t7YozVkgvXLty7zogQNuCxBhT9/3INX9Q7H1aRZ4SUDRXAKlJuA4EA5nTt7SNw==}
+    dev: false
 
   /@types/json-schema/7.0.7:
     resolution: {integrity: sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==}
@@ -2227,7 +2232,6 @@ packages:
       follow-redirects: 1.14.1
     transitivePeerDependencies:
       - debug
-    dev: true
 
   /babel-plugin-dynamic-import-node/2.3.3:
     resolution: {integrity: sha512-jZVI+s9Zg3IqA/kdi0i6UDCybUI3aSBLnglhYbSSjKlV7yF1F/5LWv8MakQmvYpnbJDS6fcBL2KzHSxNCMtWSQ==}
@@ -2649,7 +2653,6 @@ packages:
       is-plain-object: 2.0.4
       kind-of: 6.0.3
       shallow-clone: 3.0.1
-    dev: true
 
   /clone-regexp/1.0.1:
     resolution: {integrity: sha512-Fcij9IwRW27XedRIJnSOEupS7RVcXtObJXbcUOX93UCLqqOdRpkvzKywOOSizmEK/Is3S/RHX9dLdfo6R1Q1mw==}
@@ -4080,7 +4083,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: true
 
   /for-in/1.0.2:
     resolution: {integrity: sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=}
@@ -4594,7 +4596,7 @@ packages:
   /husky/6.0.0:
     resolution: {integrity: sha512-SQS2gDTB7tBN486QSoKPKQItZw97BMOd+Kdb6ghfpBc0yXyzrddI0oDV5MkDAbuB4X2mO3/nj60TRMcYxwzZeQ==}
     hasBin: true
-    dev: false
+    dev: true
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -4943,7 +4945,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       isobject: 3.0.1
-    dev: true
 
   /is-posix-bracket/0.1.1:
     resolution: {integrity: sha1-MzTceXdDaOkvAW5vvAqI9c1ua8Q=}
@@ -5071,7 +5072,6 @@ packages:
   /isobject/3.0.1:
     resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /isstream/0.1.2:
     resolution: {integrity: sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=}
@@ -5092,7 +5092,7 @@ packages:
 
   /js-cookie/2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
-    dev: true
+    dev: false
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5260,7 +5260,6 @@ packages:
   /kind-of/6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /known-css-properties/0.5.0:
     resolution: {integrity: sha512-LOS0CoS8zcZnB1EjLw4LLqDXw8nvt3AGH5dXLQP3D9O1nLLA+9GC5GnPl5mmF+JiQAtSX4VyZC7KvEtcA4kUtA==}
@@ -7692,7 +7691,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       kind-of: 6.0.3
-    dev: true
 
   /shebang-command/1.2.0:
     resolution: {integrity: sha1-RKrGW2lbAzmJaMOfNj/uXer98eo=}
@@ -9064,7 +9062,6 @@ packages:
     dependencies:
       clone-deep: 4.0.1
       wildcard: 2.0.0
-    dev: true
 
   /wechat-jssdk/5.0.7:
     resolution: {integrity: sha512-xtStnym0rxu4MafWdJ707IdSrPyyUUoWifxrZLLDsvYJmIcAghl/QDH4trHFyDh5MDdCzGICYb7ixrTQHMbo6w==}
@@ -9167,7 +9164,6 @@ packages:
 
   /wildcard/2.0.0:
     resolution: {integrity: sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==}
-    dev: true
 
   /windicss/2.5.14:
     resolution: {integrity: sha512-8Lm7U1M5AzJPbiaVSVz7qWdETRzlkv//5LBMICBBAojos1jo09lUGhNZ5rBzHeldB9JmqYMDOGgrrXHExu0EAg==}

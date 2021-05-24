@@ -32,7 +32,7 @@ const beginTime = computed<string>((): string => {
 <template>
   <div class="py-15 total">
     <div class="flex items-center pb-5">
-      <DotChar :img="store.icon" size="xl" />
+      <DotChar :img="store.icon.value" size="xl" />
       <span class="text-2xl ml-2">{{ title }}</span>
       <span class="ml-4 hot py-1.5 px-3 rounded text-sm">
         <b class="font-medium">⏱ </b>
