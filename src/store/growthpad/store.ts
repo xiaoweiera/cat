@@ -182,9 +182,10 @@ export default class Store {
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')
     this.article_url.value = safeGet<string>(result, 'article_url')
-    // this.timeout = setTimeout(() => {
-    //   this.init()
-    // }, 1000 * 5)
+    // 定时刷新
+    this.timeout = setTimeout(() => {
+      this.init()
+    }, 1000 * 10)
   }
 
   /**
@@ -196,13 +197,6 @@ export default class Store {
       const result = await getProjectInfo(this.projectName)
       this.updateData(result)
     } catch (e) {
-      // this.updateData({
-      //   info: {
-      //     reward: 0,
-      //     invited_count: 0,
-      //     bsc_token: '123456',
-      //   },
-      // })
       this.updateData()
     }
   }
