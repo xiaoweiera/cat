@@ -13,6 +13,12 @@ const props = defineProps({
       return 'svg'
     },
   },
+  size: {
+    type: String,
+    default() {
+      return 'xl'
+    },
+  },
 })
 // @ts-ignore
 const src = computed(() => {
@@ -22,7 +28,11 @@ const src = computed(() => {
 
 <template>
   <span class="inline-block none-select">
-    <img class="inline-block none-select" :class="`icon-${type}`" :src="src" />
+    <img
+      class="inline-block none-select"
+      :class="`icon-${type} size-${size}`"
+      :src="src"
+    />
   </span>
 </template>
 
@@ -35,17 +45,16 @@ const src = computed(() => {
     transform: rotate(1turn);
   }
 }
-.icon-loading {
+
+.size-xl {
   width: 20px;
   height: 20px;
   max-width: 20px;
   max-height: 20px;
   min-width: 20px;
   min-height: 20px;
-  transform-origin: 50% 50%;
-  animation: rotating 0.7s linear infinite;
 }
-.icon-telegram {
+.size-xs {
   width: 12px;
   height: 11px;
   max-width: 12px;
@@ -53,12 +62,9 @@ const src = computed(() => {
   min-width: 12px;
   min-height: 11px;
 }
-.icon-twitter {
-  width: 12px;
-  height: 12px;
-  max-width: 12px;
-  max-height: 12px;
-  min-width: 12px;
-  min-height: 12px;
+
+.icon-loading {
+  transform-origin: 50% 50%;
+  animation: rotating 0.7s linear infinite;
 }
 </style>
