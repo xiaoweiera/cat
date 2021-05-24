@@ -38,7 +38,7 @@ const onSubmit = async function() {
     }
     if (status) {
       loadingStatus.value = true
-      await store.setUniswap(formdata.input.value)
+      await store.setUniswap(formdata.input)
     }
   } catch (e) {
     // todo

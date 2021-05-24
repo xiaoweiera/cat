@@ -28,7 +28,7 @@ const onSubmit = async function() {
     }
     if (status) {
       loadingStatus.value = true
-      await store.setReTwitter(formdata.input.value)
+      await store.setReTwitter(formdata.input)
     }
   } catch (e) {
     console.log(e)

@@ -37,7 +37,7 @@ const onSubmit = async function() {
     }
     if (status) {
       loadingStatus.value = true
-      await store.setSushiswap(formdata.input.value)
+      await store.setSushiswap(formdata.input)
     }
   } catch (e) {
     // todo

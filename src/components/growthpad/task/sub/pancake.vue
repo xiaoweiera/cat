@@ -40,7 +40,7 @@ const onSubmit = async function() {
     }
     if (status) {
       loadingStatus.value = true
-      await store.setPancake(formdata.input.value)
+      await store.setPancake(formdata.input)
     }
   } catch (e) {
     // todo

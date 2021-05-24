@@ -29,7 +29,7 @@ const onSubmit = async function() {
     }
     if (status) {
       loadingStatus.value = true
-      await store.setTelegram(formdata.input.value)
+      await store.setTelegram(formdata.input)
     }
   } catch (e) {
     // todo

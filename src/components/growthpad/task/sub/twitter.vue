@@ -30,7 +30,7 @@ const onSubmit = async function() {
     // 在活动时间范围内
     if (status) {
       loadingStatus.value = true
-      await store.setTwitter(formdata.input.value)
+      await store.setTwitter(formdata.input)
     }
   } catch (e) {
     // todo
