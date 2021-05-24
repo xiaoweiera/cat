@@ -45,7 +45,7 @@ const param = {
   from_ts: '',
   to_ts: '',
 }
-// 画图
+// 画图表
 const draw = () => {
   myChart.setOption(
     chartOption(
