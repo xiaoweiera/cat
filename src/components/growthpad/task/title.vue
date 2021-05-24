@@ -15,20 +15,16 @@ const href = computed(() => {
 })
 </script>
 <template>
-  <div class="flex justify-between items-center">
+  <div>
     <div>
       <div class="flex items-center pb-1">
         <span class="text-sm title" v-html="data.title"></span>
         <template v-if="data.tooltip">
-          <a
-            class="tooltip rounded ml-1.5 inline-flex items-center"
-            target="_blank"
-            :href="href"
-          >
+          <a class="tooltip rounded ml-1.5" target="_blank" :href="href">
             <template v-if="data.tooltip.icon">
               <IconFont class="mr-1" :type="data.tooltip.icon" />
             </template>
-            <span class="text-xs">{{ data.tooltip.value }}</span>
+            <span class="text-xs inline-block">{{ data.tooltip.value }}</span>
           </a>
         </template>
         <template v-if="data.help">
@@ -43,7 +39,7 @@ const href = computed(() => {
         </slot>
       </div>
     </div>
-    <div>
+    <div class="whitespace-nowrap">
       <slot name="right"></slot>
     </div>
   </div>

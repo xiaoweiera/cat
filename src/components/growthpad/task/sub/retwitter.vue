@@ -11,7 +11,7 @@ defineProps({
     type: Object,
   },
 })
-
+const loadingStatus = ref<boolean>(false)
 const formRef = ref<any>(null)
 const formdata = reactive({
   input: '',
@@ -27,7 +27,8 @@ const onSubmit = async function() {
       status = activity(store)
     }
     if (status) {
-      await store.setReTwitter(formdata.input.value)
+      loadingStatus.value = true
+      await store.setReTwitter(formdata.input)
     }
   } catch (e) {
     console.log(e)
@@ -37,7 +38,9 @@ const onSubmit = async function() {
 </script>
 
 <template>
+  <Loading v-if="loadingStatus"></Loading>
   <el-form
+    v-else
     ref="formRef"
     class="check-box"
     label-width="0px"

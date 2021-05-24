@@ -135,6 +135,28 @@ a {
   user-select: none;
 }
 
+.message-tips {
+  min-width: inherit !important;
+  background: #ffffff !important;
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.08),
+    0px 6px 16px rgba(0, 0, 0, 0.06), 0px 9px 28px 8px rgba(0, 0, 0, 0.03) !important;
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  .el-message__icon {
+    &:before {
+      content: none;
+    }
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url('https://res.ikingdata.com/icon/success.svg');
+  }
+  .el-message__content {
+    font-size: 14px !important;
+    color: #00b464 !important;
+  }
+}
+
 /* 指令消息框 */
 .el-message-box {
   &.directive-message {
