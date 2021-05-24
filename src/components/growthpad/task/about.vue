@@ -46,7 +46,7 @@ const list = computed(() => {
         target="_blank"
         :href="item.href"
       >
-        <IconFont class="mr-4" :type="item.icon" />
+        <IconFont class="mr-4" :type="item.icon" size="xl" />
       </a>
     </p>
   </div>

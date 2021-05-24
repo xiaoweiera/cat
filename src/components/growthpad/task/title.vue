@@ -22,7 +22,7 @@ const href = computed(() => {
         <template v-if="data.tooltip">
           <a class="tooltip rounded ml-1.5" target="_blank" :href="href">
             <template v-if="data.tooltip.icon">
-              <IconFont class="mr-1" :type="data.tooltip.icon" />
+              <IconFont class="mr-1" :type="data.tooltip.icon" size="xs" />
             </template>
             <span class="text-xs inline-block">{{ data.tooltip.value }}</span>
           </a>
