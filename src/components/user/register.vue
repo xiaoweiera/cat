@@ -1,19 +1,63 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import * as rules from './rules'
+import { useRoute } from 'vue-router'
+import { toRaw, onMounted, ref } from 'vue'
+import rules from './rules'
 import I18n from '~/utils/i18n/index'
-import { hideVisible } from '~/store/header/login'
-import { formdata, logoForm, onSubmit } from '~/logic/user/login'
+import { showVisible } from '~/store/header/login'
+import {
+  registerData,
+  registerForm,
+  onRegisterSubmit,
+} from '~/logic/user/login'
+import { getCaptcha } from '~/api/user'
+
+// 活动名称
+const getVisitNum = function(): string {
+  const router = toRaw(useRoute())
+  const query = router.query.value
+  return query?.code || ''
+}
+
+onMounted(() => {
+  const code = getVisitNum()
+  registerData.visitNum = code
+})
 
 const submit = async function() {
   try {
-    await onSubmit()
-    hideVisible()
-    window.location.reload()
+    await onRegisterSubmit()
+    showVisible()
   } catch (e) {
     const message = e?.message
     ElMessage({ type: 'error', message })
   }
+}
+
+let codeNumber = 120
+let interval: any = 0
+let codeFlag = false
+const codeValue = ref<string>('获取验证码')
+
+const onGetCode = function() {
+  if (codeFlag) {
+    return false
+  }
+  codeFlag = true
+  getCaptcha(registerData.mobile).catch(() => {
+    // todo
+  })
+  interval = setInterval(() => {
+    if (codeNumber <= 0) {
+      codeNumber = 120
+      clearInterval(interval)
+      codeValue.value = '获取验证码'
+      codeFlag = false
+    } else {
+      codeValue.value = codeNumber
+      codeNumber--
+    }
+  }, 1000)
 }
 </script>
 
@@ -22,55 +66,73 @@ const submit = async function() {
     <img class="inline-block" src="https://res.ikingdata.com/nav/logoJpg.png" />
   </div>
   <el-form
-    ref="logoForm"
+    ref="registerForm"
     class="formLogo"
     :rules="rules"
-    :model="formdata"
+    :model="registerData"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
       <el-input
-        v-model="formdata.mobile"
+        v-model="registerData.mobile"
         placeholder="请输入手机号"
         class="input-with-select"
       >
+        <template #prepend>+86</template>
       </el-input>
     </el-form-item>
-    <el-form-item class="mb-2" prop="password">
+
+    <el-form-item prop="code">
       <el-input
-        v-model="formdata.password"
+        v-model="registerData.code"
+        placeholder="请输入验证码"
+        class="input-with-select"
+      >
+        <template #append>
+          <span class="link hand" @click="onGetCode">{{ codeValue }}</span>
+        </template>
+      </el-input>
+    </el-form-item>
+
+    <el-form-item prop="password">
+      <el-input
+        v-model="registerData.password"
         type="password"
         placeholder="请输入密码"
         class="input-with-select"
       >
       </el-input>
     </el-form-item>
-    <el-form-item class="mb-0 py-0.5">
-      <el-checkbox v-model="formdata.checked">
-        <span class="font-normal">自动登录</span>
-      </el-checkbox>
+    <el-form-item class="mb-2">
+      <el-input
+        v-model="registerData.visitNum"
+        placeholder="请输入邀请码"
+        class="input-with-select"
+      >
+      </el-input>
+    </el-form-item>
+    <el-form-item>
+      <span>注册前请阅读</span>
+      <a
+        class="link"
+        target="_blank"
+        href="https://ikingdata.com/privacy_policy/"
+      >用户隐私协议</a>
+      <span class="defaultText">及</span>
+      <a
+        class="link"
+        target="_blank"
+        href="https://ikingdata.com/agreement/"
+      >服务条款</a>
     </el-form-item>
     <el-form-item class="mb-0">
       <ElButton class="w-full" type="primary" native-type="submit">
         <span class="font-bold font-17 font-kdFang">{{
-          I18n.common.login
+          I18n.common.register
         }}</span>
       </ElButton>
     </el-form-item>
-    <div class="pt-4.5 pb-2.5">
-      <div class="flex items-center justify-between">
-        <a class="inline-block">
-          <a
-            href="https://kingdata.com/vip"
-            target="_blank"
-            class="font-normal link"
-          >注册账号</a>
-        </a>
-        <!--        <a class="inline-block">-->
-        <!--          <span class="font-normal link">忘记密码</span>-->
-        <!--        </a>-->
-      </div>
-    </div>
+    <slot></slot>
   </el-form>
 </template>
 

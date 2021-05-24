@@ -59,6 +59,16 @@ export const formdata = reactive<FormData>({
   checked: false,
 })
 
+// 注册
+export const registerData = reactive({
+  code: '', // 验证码
+  password: '',
+  mobile: '',
+  visitNum: '', // 邀请码
+  platform: 'growthpad',
+})
+
+export const registerForm = ref<any>(null)
 export const logoForm = ref<any>(null)
 
 const update = function(result: UserData): void {
@@ -111,9 +121,27 @@ export const syncUser = async function(): Promise<void> {
   }
   isLogin.value = false
 }
+
+// 注册
+export const onRegisterSubmit = async function(): Promise<any> {
+  const form = toRaw(registerForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(registerData)
+    // 注册
+    await user.register(data)
+  } catch (e) {
+    console.log(e)
+    // todo
+    return Promise.reject(e)
+  }
+}
+
 // 登录
 export const onSubmit = async function(): Promise<any> {
-  const form = toRaw(logoForm).value
+  const form = toRaw(formdata).value
   try {
     if (form) {
       await form.validate()

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import * as rules from './rules'
+import rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { hideVisible } from '~/store/header/login'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
@@ -57,20 +57,7 @@ const submit = async function() {
         }}</span>
       </ElButton>
     </el-form-item>
-    <div class="pt-4.5 pb-2.5">
-      <div class="flex items-center justify-between">
-        <a class="inline-block">
-          <a
-            href="https://kingdata.com/vip"
-            target="_blank"
-            class="font-normal link"
-          >注册账号</a>
-        </a>
-        <!--        <a class="inline-block">-->
-        <!--          <span class="font-normal link">忘记密码</span>-->
-        <!--        </a>-->
-      </div>
-    </div>
+    <slot></slot>
   </el-form>
 </template>
 

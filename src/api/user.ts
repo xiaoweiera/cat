@@ -50,26 +50,20 @@ export const logo = async function(query: LogoData): Promise<LogoResult> {
   } catch (e) {
     // todo
     return Promise.reject(e)
-    // return {
-    //   code: 0,
-    //   data: {
-    //     username: 'Dk0nx0WrfhwLvnq4',
-    //     token:
-    //       'eyJpdiI6IkN2OTlmRUJnVFdmUURpR0ZucGh1Q0E9PSIsInZhbHVlIjoicEpHUGZyaHJzajBXOVhrOHRDbitYeGVxUlQ4MTQraWpZV3RmR0J4c0xcLzhmTDBcL1RubzBJdkw1YkpwaW1DQjZJIiwibWFjIjoiNjRlZDM0YjVkMWViZTFhMmM5MzFmMmVhMmE4ZmRkOTIxNDMyODJiYjk5MjZjMmY2MDRmOTVlYmMyYTdhMzhmNCJ9',
-    //     mobile: '18712932583',
-    //     area_code: 86,
-    //     nickname: '苑絮威',
-    //     avatar_url: '',
-    //     follow_posts_count: 0,
-    //     follow_topics_count: 0,
-    //     follow_charts_count: 179,
-    //     follow_push_enabled: true,
-    //     recommend_push_enabled: true,
-    //     my_invitation_code: 'xcvv',
-    //     registration_rank: 168,
-    //     is_vip: true,
-    //     invited_count: 3,
-    //   },
-    // }
   }
+}
+
+// 验证码
+export const getCaptcha = async function(mobile: string): Promise<void> {
+  const url = '/api/v1/users/captcha'
+  // 电话区号默认为 +86
+  const data = { area_code: 86, mobile }
+  return request.post(url, data)
+}
+
+// 注册
+export const register = async function(data: any): Promise<any> {
+  const url = '/api/v1/users/signup'
+  const value = Object.assign({ area_code: 86 }, data)
+  return request.post(url, value)
 }

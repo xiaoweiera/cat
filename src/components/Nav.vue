@@ -156,7 +156,7 @@ onMounted(() => {
         alt=""
       />
     </a>
-    <HeaderLogin></HeaderLogin>
+    <!--    <HeaderLogin></HeaderLogin>-->
   </div>
 </template>
 <style lang="scss" scoped>

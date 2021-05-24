@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import {
+  visible,
+  visibleRegister,
+  showVisible,
+  showRegisterVisible,
+  hideVisible,
+} from '~/store/header/login'
+import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
+
+// 刷新用户信息
+syncUser()
+const outLogin = ref(false)
+const mouseover = () => {
+  outLogin.value = true
+}
+const mouseLeave = () => {
+  outLogin.value = false
+}
+// 弹窗关闭前
+const handleClose = function(next) {
+  hideVisible()
+  return next()
+}
+</script>
+
 <template>
   <div v-if="!isLogin">
     <div
@@ -11,15 +38,14 @@
         flex
         items-center
       "
-      @click="showVisible()"
     >
-      <span type="text" @click="showVisible">登录</span>
+      <span type="text" @click.stop="showVisible">登录</span>
       <img
         class="w-0.5 h-0.5 ml-1 mr-1 Z"
         src="https://res.ikingdata.com/nav/dian.png"
         alt=""
       />
-      <span type="text" @click="showVisible">注册</span>
+      <span type="text" @click.stop="showRegisterVisible">注册</span>
     </div>
     <ElDialog
       v-model="visible"
@@ -28,7 +54,26 @@
       :append-to-body="true"
       :before-close="handleClose"
     >
-      <UserLogin></UserLogin>
+      <!-- 显示注册 -->
+      <UserRegister v-if="visibleRegister">
+        <div class="pt-4.5 pb-2.5">
+          <div class="flex items-center justify-center">
+            <a class="inline-block font-normal link hand" @click="showVisible">
+              <span>返回登录</span>
+            </a>
+          </div>
+        </div>
+      </UserRegister>
+      <!-- 显示登录 -->
+      <UserLogin v-else>
+        <div class="pt-4.5 pb-2.5">
+          <div @click="showRegisterVisible">
+            <a class="inline-block font-normal link hand">
+              <span>注册账号</span>
+            </a>
+          </div>
+        </div>
+      </UserLogin>
     </ElDialog>
   </div>
 
@@ -81,26 +126,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { visible, showVisible } from '~/store/header/login'
-import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
-
-// 刷新用户信息
-syncUser()
-const outLogin = ref(false)
-const mouseover = () => {
-  outLogin.value = true
-}
-const mouseLeave = () => {
-  outLogin.value = false
-}
-// 弹窗关闭前
-const handleClose = function(next) {
-  return next()
-}
-</script>
-
 <style lang="scss">
 .loginOut {
   background: white;
@@ -112,5 +137,8 @@ const handleClose = function(next) {
   .el-dialog__body {
     padding-top: 0;
   }
+}
+.link {
+  color: #2b8cff;
 }
 </style>
