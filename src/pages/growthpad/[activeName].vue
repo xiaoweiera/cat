@@ -13,7 +13,6 @@ const getTimeType = () => {
   const now = dayjs().valueOf()
   const time = dayjs(store.dashboard.begin, format)
   const duration = time.valueOf() - now
-  console.log(duration, '---')
   if (duration > 0) {
     timeType.value = 'begin'
   } else {
