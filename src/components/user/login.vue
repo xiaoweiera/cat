@@ -9,7 +9,7 @@ const submit = async function() {
   try {
     await onSubmit()
     hideVisible()
-    // window.location.reload()
+    window.location.reload()
   } catch (e) {
     const message = e?.message
     ElMessage({ type: 'error', message })

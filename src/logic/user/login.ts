@@ -24,7 +24,6 @@ interface UserData {
   recommend_push_enabled: boolean
   registration_rank: any
   username: string
-  token?: string
 }
 
 export const userData = reactive<UserData>({
@@ -63,14 +62,22 @@ export const formdata = reactive<FormData>({
 export const logoForm = ref<any>(null)
 
 const update = function(result: UserData): void {
-  // @ts-ignore
-  // eslint-disable-next-line no-restricted-syntax
-  for (const key in result) {
-    // @ts-ignore
-    userData[key] = result[key]
-  }
+  userData.area_code = result.area_code
+  userData.avatar_url = result.avatar_url
+  userData.expired_at = result.expired_at
+  userData.follow_charts_count = result.follow_charts_count
+  userData.follow_posts_count = result.follow_posts_count
+  userData.follow_push_enabled = result.follow_push_enabled
+  userData.follow_topics_count = result.follow_topics_count
+  userData.invited_count = result.invited_count
+  userData.is_vip = result.is_vip
+  userData.mobile = result.mobile
+  userData.my_invitation_code = result.my_invitation_code
+  userData.nickname = result.nickname
+  userData.recommend_push_enabled = result.recommend_push_enabled
+  userData.registration_rank = result.registration_rank
+  userData.username = result.username
   isLogin.value = true
-  jsCookie.set('token', result.token || '', {})
 }
 
 // 更新用户信息
@@ -96,8 +103,15 @@ export const onSubmit = async function(): Promise<any> {
     // @ts-ignore
     const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
     const result = await user.logo(data)
-    console.log(JSON.stringify(result))
     if (result?.data) {
+      jsCookie.set('token', result?.data?.token || '', {
+        path: '/',
+        domain: 'ikingdata.com',
+      })
+      jsCookie.set('token', result?.data?.token || '', {
+        path: '/',
+        domain: 'kingdata.com',
+      })
       update(result.data as UserData)
     }
     const number = parseInt(result?.code as any, 10)
