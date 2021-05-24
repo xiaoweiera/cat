@@ -135,6 +135,16 @@ a {
   user-select: none;
 }
 
+.message-tips {
+  min-width: inherit !important;
+  .el-message__icon {
+    display: none;
+  }
+  .el-message__content {
+    color: #033666 !important;
+  }
+}
+
 /* 指令消息框 */
 .el-message-box {
   &.directive-message {

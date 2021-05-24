@@ -27,7 +27,11 @@ const link = computed<string>((): string => {
         <i>{{ store.user.invited_count || 0 }}</i>
         <span class="ml-6">我的邀请码：</span>
         <i>{{ userData.my_invitation_code }}</i>
-        <b class="ml-2 el-icon-document-copy hand" @click="copyTxt(link)"></b>
+        <IconFont
+          class="ml-2 hand"
+          type="copy"
+          @click="copyTxt(link)"
+        ></IconFont>
       </span>
     </template>
     <template #right>

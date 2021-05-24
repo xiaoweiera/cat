@@ -1,6 +1,6 @@
 // @ts-ignore
 import dayjs from 'dayjs'
-import Message from '~/utils/message'
+import { ElMessage } from 'element-plus'
 
 export const numberFormat = (value: any) => {
   if (!value && value !== 0 && value !== '0') {
@@ -109,5 +109,11 @@ export const copyTxt = (txt: string) => {
   dom.select()
   document.execCommand('copy')
   document.body.removeChild(dom)
-  Message.alert('已复制邀请链接')
+  ElMessage({
+    message: '已复制邀请链接 ˉ',
+    type: 'success',
+    duration: 1000 * 100,
+    showClose: false,
+    customClass: 'message-tips',
+  })
 }
