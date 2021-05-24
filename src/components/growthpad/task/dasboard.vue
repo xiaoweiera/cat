@@ -61,7 +61,7 @@ const beginTime = computed<string>((): string => {
             }}</span>
           </p>
         </li>
-        <li class="ml-3 md:12">
+        <li class="ml-3 md:ml-12">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
             {{ I18n.growthpad.examples.dashboard.value }}
           </h4>
@@ -69,7 +69,7 @@ const beginTime = computed<string>((): string => {
             <span class="text-2xl md:text-4xl">${{ 0 }}</span>
           </p>
         </li>
-        <li class="ml-3 md:12">
+        <li class="ml-3 md:ml-12">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
             {{ I18n.growthpad.examples.dashboard.perPerson }}
           </h4>
