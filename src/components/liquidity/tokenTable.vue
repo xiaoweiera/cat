@@ -1,9 +1,15 @@
 <script setup lang="ts">
 // @ts-ignore
 import { ElTable, ElTableColumn } from 'element-plus'
-import { pairStore } from '~/store/liquidity/state'
-import { defineProps, onBeforeMount, watch } from 'vue'
+import { defineProps, onBeforeMount, reactive, watch } from 'vue'
 import { testData } from '/mock/liquidity'
+import { useRoute, useRouter } from 'vue-router'
+import * as R from 'ramda'
+import { changeRoute } from '~/lib/tool'
+import { pairStore, selectCoin } from '~/store/liquidity/state'
+const route = useRoute()
+const router = useRouter()
+const routeQuery = reactive(route.query)
 const props = defineProps({
   selectTag: String,
 })
@@ -11,13 +17,19 @@ watch(
   () => pairStore.value,
   () => {},
 )
+
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 const changePair = (pair: string) => {
   pairStore.value = pair
+  changeRoute(route, router, 'pair', pair)
 }
+onBeforeMount(() => {
+  pairStore.value = routeQuery.pair ? routeQuery.pair : pairStore.value
+})
 </script>
 <template>
   <div class="w-full h-full">
+    {{ selectCoin }}
     <div class="w-full h-full">
       <ul
         class="

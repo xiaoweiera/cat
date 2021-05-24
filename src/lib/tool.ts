@@ -1,6 +1,5 @@
 // @ts-ignore
 import dayjs from 'dayjs'
-
 export const numberFormat = (value: any) => {
   if (!value && value !== 0 && value !== '0') {
     return null
@@ -57,9 +56,7 @@ export const tooptipsModel = (
     unescape(encodeURIComponent(origin)),
   )}`
   const info
-    = unit === '$'
-      ? `${item} ${unit}${value}`
-      : `${item}  ${value}${unit}`
+    = unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
 
   return `<span style="display:flex;
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
@@ -101,4 +98,19 @@ export const min_max = (min: any, max: any, v: any) => {
     max = v
   }
   return [min, max]
+}
+// 更改路由参数
+export const changeRoute = (
+  route: any,
+  router: any,
+  paramName: string,
+  paramValue: string,
+) => {
+  console.log(route)
+  const query = { ...route.query }
+  query[paramName] = paramValue
+  router.replace({
+    ...route,
+    query: { ...query },
+  })
 }

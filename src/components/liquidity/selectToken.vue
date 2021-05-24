@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 import { ElSelect, ElInput, ElIcon } from 'element-plus'
 import { ref, reactive, onBeforeMount } from 'vue'
-import { selectCoin, coinList, tradingList } from '/mock/liquidity'
-
+import { coinList, tradingList } from '/mock/liquidity'
+import { selectCoin } from '~/store/liquidity/state'
 const selectTxt = ref('')
-// const selectCoin=reactive({})
 const coinShow = ref(false)
 const changeSelect = (state) => {
   coinShow.value = state
+}
+const changeToken = (name: string, origin: string) => {
+  selectCoin.name = name
+  selectCoin.origin = origin
 }
 onBeforeMount(() => {})
 </script>
@@ -39,7 +42,17 @@ onBeforeMount(() => {})
     <!--    弹窗-->
     <div
       v-show="coinShow"
-      class="absolute top-15.5 right-0 w-51.25 py-1.5 z-2 tipContainer"
+      class="
+        absolute
+        top-14.5
+        right-0
+        w-51.25
+        py-1.5
+        z-2
+        tipContainer
+        h-82.5
+        overflow-hidden overflow-y-auto
+      "
     >
       <!--      币-->
       <ul>
@@ -52,12 +65,13 @@ onBeforeMount(() => {})
             :class="{
               selectBg:
                 selectCoin.name === item.name &&
-                selectCoin.orgin === item.orgin,
+                selectCoin.origin === item.origin,
             }"
+            @click="changeToken(item.name, item.origin)"
           >
             <div class="coinName">{{ item.name }}</div>
             <div class="coinTip">
-              <span class="coinTipTxt">{{ item.orgin }}</span>
+              <span class="coinTipTxt">{{ item.origin }}</span>
             </div>
           </li>
         </template>
@@ -83,12 +97,13 @@ onBeforeMount(() => {})
             :class="{
               selectBg:
                 selectCoin.name === item.name &&
-                selectCoin.orgin === item.orgin,
+                selectCoin.origin === item.origin,
             }"
+            @click="changeToken(item.name, item.origin)"
           >
             <div class="coinName">{{ item.name }}</div>
             <div class="coinTip">
-              <span class="coinTipTxt">{{ item.orgin }}</span>
+              <span class="coinTipTxt">{{ item.origin }}</span>
             </div>
           </li>
         </template>
@@ -114,6 +129,9 @@ onBeforeMount(() => {})
     border-radius: 2px;
     @apply px-1 py-0.5 text-kd12px16px flex items-center justify-center text-global-primary font-bold;
   }
+  &:hover {
+    background: rgba(43, 141, 254, 0.08);
+  }
 }
 
 .selectBg {
@@ -124,8 +142,14 @@ onBeforeMount(() => {})
   background: #ffffff;
   box-shadow: 0px 4px 12px rgba(43, 140, 255, 0.16);
   border-radius: 4px;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb:vertical {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
-
 ::v-deep(.el-input__inner) {
   height: 20px;
   background: none;

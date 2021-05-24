@@ -1,13 +1,13 @@
-export const selectCoin={ name: "BITCOIN,ETH", orgin: "MDEX" }
+export const selectCoin={ name: "BITCOIN,ETH", origin: "MDEX" }
 export const coinList=[
-    { name: "BITCOIN,BTC", orgin: "MDEX" },
-    { name: "BITCOIN,ETH", orgin: "MDEX" },
-    { name: "BITCOIN,SAT", orgin: "UNI" }
+    { name: "BITCOIN,BTC", origin: "MDEX" },
+    { name: "BITCOIN,ETH", origin: "MDEX" },
+    { name: "BITCOIN,SAT", origin: "UNI" }
 ]
 export const tradingList=[
-    { name: "BITCOIN/USDT", orgin: "MDEX" },
-    { name: "BITCOIN/HT", orgin: "SUSHI" },
-    { name: "BITCOIN/BTC", orgin: "SUSHI" }
+    { name: "BITCOIN/USDT", origin: "MDEX" },
+    { name: "BITCOIN/HT", origin: "SUSHI" },
+    { name: "BITCOIN/BTC", origin: "SUSHI" }
 ]
 export const testData = [
     {
