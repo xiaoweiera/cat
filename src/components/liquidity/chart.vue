@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { defineProps, onMounted } from 'vue'
+import { defineProps, onMounted, watch, toRefs } from 'vue'
 import * as echarts from 'echarts'
+import { paramChart } from '~/store/liquidity/state'
 import {
   getXData,
   getSeries,
@@ -18,9 +19,17 @@ interface yModel {
 }
 // 颗粒度天 时
 const interval = '1h'
+const pp = toRefs(paramChart)
 const props = defineProps({
   chartData: Object,
 })
+watch(
+  () => paramChart,
+  (n, o) => {
+    console.log(n)
+  },
+  { deep: true },
+)
 const draw = (
   xData: Array<string>,
   series: any,
@@ -53,7 +62,7 @@ const draw = (
 }
 onMounted(() => {
   const xData = getXData(props?.chartData.xaxis, interval)
-  const legend = getLegendList(props?.chartData.yaxis, props.chartData.kaxis)
+  const legend = getLegendList(props?.chartData.yaxis, props.chartData.kyaxis)
   const [minM, maxM, kminM, kmaxM, series] = getSeries(
     props?.chartData.yaxis,
     props?.chartData.kyaxis,

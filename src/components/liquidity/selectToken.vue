@@ -9,9 +9,7 @@ const coinShow = ref(false)
 const changeSelect = (state) => {
   coinShow.value = state
 }
-onBeforeMount(() => {
-  console.log(selectCoin)
-})
+onBeforeMount(() => {})
 </script>
 <template>
   <div

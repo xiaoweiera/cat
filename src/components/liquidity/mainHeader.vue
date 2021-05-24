@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import { toRefs, defineProps } from 'vue'
+const props = defineProps({
+  chartType: String,
+})
+const typeList = [
+  { type: 'flow', name: '流动性分析' },
+  { type: 'pay', name: '交易数据分析' },
+]
+const selectedType = toRefs(props.chartType)
+// 改变类型标签  （流动性分析/交易数据分析）
+const changeType = (typeName: string) => {
+  selectedType.type.value = typeName
+}
+</script>
 <template>
   <div
     class="
@@ -13,9 +28,17 @@
     "
   >
     <!--    类型切换-->
-    <div class="flex">
-      <div class="tagSelect">流动性分析</div>
-      <div class="ml-6 tagDefault">交易数据分析</div>
+    <div class="flex h-full items-center">
+      <template v-for="item in typeList">
+        <div
+          :class="
+            selectedType.type.value === item.type ? 'tagSelect' : 'tagDefault'
+          "
+          @click="changeType(item.type)"
+        >
+          {{ item.name }}
+        </div>
+      </template>
     </div>
     <!--    时间筛选-->
     <div class="flex">
@@ -25,10 +48,12 @@
 </template>
 <style scoped lang="postcss">
 .tagDefault {
-  @apply kd-16px24px text-global-default opacity-65;
+  border-bottom: 2px solid white;
+  @apply kd-16px24px text-global-default opacity-65 mr-6 cursor-pointer;
 }
 .tagSelect {
-  @apply text-kd16px24px text-global-primary;
+  border-bottom: 2px solid rgba(43, 141, 254, 1);
+  @apply text-kd16px24px text-global-primary mr-6 cursor-pointer  h-full flex items-center;
 }
 .bottomBorder {
   border-bottom: 1px solid rgba(37, 62, 111, 0.04);
