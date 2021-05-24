@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, toRaw } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 const store = Task()
@@ -8,13 +8,14 @@ const store = Task()
 const cols = 3
 // @ts-ignore
 const list = computed(() => {
+  const list = toRaw(store.about.minutias)
   const array: Array<any[]> = []
-  // for (let i = 0; i < cols; i++) {
-  //   const value = store.about.minutias.filter((item, index: number) => {
-  //     return index % cols === i
-  //   })
-  //   array.push(value)
-  // }
+  for (let i = 0; i < cols; i++) {
+    const value = list.filter((item, index: number) => {
+      return index % cols === i
+    })
+    array.push(value)
+  }
   return array
 })
 </script>
