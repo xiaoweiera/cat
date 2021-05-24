@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
+import { userData } from '~/logic/user/login'
 
 const store = Task()
 
@@ -16,7 +17,7 @@ const data = {
         <span>我邀请参与活动的人数：</span>
         <i>{{ store.user.invited_count || 0 }}</i>
         <span class="ml-6">我的邀请码：</span>
-        <i>HC432R</i>
+        <i>{{ userData.my_invitation_code }}</i>
         <b class="ml-2 el-icon-document-copy"></b>
       </span>
     </template>

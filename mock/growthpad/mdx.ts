@@ -20,8 +20,9 @@ const telegram = function() {
     tooltip: {
       icon: 'telegram',
       value: 'Mdex 电报群',
-      href: 'https://t.me/Can',
+      href: 'https://t.me/MixDex',
     },
+    reward: [10],
     description: '活动结束前取消关注视为未完成任务',
   }
 }
@@ -34,8 +35,9 @@ const twitter = function() {
     tooltip: {
       icon: 'twitter',
       value: 'Mdex Twitter',
-      href: 'https://www.twitter.com/Mdextech',
+      href: 'https://twitter.com/Mdextech',
     },
+    reward: [3],
     description: '活动结束前取消关注视为未完成任务',
   }
 }
@@ -48,8 +50,9 @@ const retwitter = function() {
     tooltip: {
       icon: 'twitter',
       value: '本条活动 Twitter',
-      href: 'https://www.twitter.com/Mdextech',
+      href: 'https://twitter.com/Mdextech/status/1395323254974214150',
     },
+    reward: [3],
     description: '活动结束前取消关注视为未完成任务',
   }
 }
@@ -58,7 +61,7 @@ const data = {
   title: 'MDEX', // 名称
   icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
   dasboard: {
-    begin: '2021-05-22 12:00:00', // 开始时间
+    begin: '2021-05-24 12:00:00', // 开始时间
     end: '2021-05-30 12:00:00', // 结束时间
     description: I18n.growthpad.examples.dashoard.desc, // 描述
     reward: {

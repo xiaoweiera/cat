@@ -101,6 +101,54 @@ export const setTwitter = function(
   })
 }
 
+// 设置 pancake
+export const setPancake = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { pancake_token: value, bsc_token: token },
+  })
+}
+
+// 设置 Uniswap
+export const setUniswap = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { uniswap_token: value, bsc_token: token },
+  })
+}
+
+// 设置 sushiswap
+export const setSushiswap = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { sushiswap_token: value, bsc_token: token },
+  })
+}
+
 export const setWeiboContent = function(
   project: string,
   data: FormData,

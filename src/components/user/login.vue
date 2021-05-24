@@ -2,11 +2,14 @@
 import { ElMessage } from 'element-plus'
 import * as rules from './rules'
 import I18n from '~/utils/i18n/index'
+import { hideVisible } from '~/store/header/login'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 
 const submit = async function() {
   try {
     await onSubmit()
+    hideVisible()
+    window.location.reload()
   } catch (e) {
     const message = e?.message
     ElMessage({ type: 'error', message })

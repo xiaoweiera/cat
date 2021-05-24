@@ -59,12 +59,18 @@ const className = computed(() => {
 .sm {
   width: 24px;
   height: 24px;
+  min-width: 24px;
+  min-height: 24px;
 }
 .xl {
   width: 32px;
   height: 32px;
+  min-width: 32px;
+  min-height: 32px;
 }
 .lg {
+  min-width: 42px;
+  min-height: 42px;
   width: 42px;
   height: 42px;
   font-size: 28px;

@@ -84,11 +84,11 @@ const validityValue = computed<string>((): string => {
     <template v-else-if="data.type === TaskType.retwitter">
       <!-- 判断是否转发 twitter -->
       <IconFont v-if="store.mission.retweet" type="success"></IconFont>
-      <GrowthpadTaskSubTwitter v-else :data="data">
+      <GrowthpadTaskSubRetwitter v-else :data="data">
         <span v-login v-validity.begin.end="validityValue" class="button">{{
           buttonValue
         }}</span>
-      </GrowthpadTaskSubTwitter>
+      </GrowthpadTaskSubRetwitter>
     </template>
     <template v-else-if="data.type === TaskType.pancake">
       <!-- 判断pancake验资是否通过 -->

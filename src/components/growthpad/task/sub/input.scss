@@ -16,4 +16,7 @@
     top: 50%;
     transform: translate(0, -50%);
   }
+  :deep(.el-form-item) {
+    margin-bottom: 0;
+  }
 }

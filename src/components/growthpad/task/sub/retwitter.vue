@@ -1,30 +1,60 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { defineProps, reactive, ref, toRaw } from 'vue'
+import rules from './rule'
 import Task from '~/logic/growthpad/task'
-
+import activity from '~/logic/growthpad/activity'
 const store = Task()
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
   },
 })
-const input = ref<string>('')
+
+const formRef = ref<any>(null)
+const formdata = reactive({
+  input: '',
+})
 
 const onSubmit = async function() {
+  const form = toRaw(formRef).value
   try {
-    await store.setReTwitter(input.value)
+    await form.validate()
+    // 判断活动时间
+    const status = activity(store)
+    if (status) {
+      await store.setReTwitter(formdata.input.value)
+    }
   } catch (e) {
+    console.log(e)
     // todo
   }
 }
 </script>
 
 <template>
-  <div class="flex items-center">
-    <el-input v-model="input" placeholder="输入您的TwitterID" size="small" />
-    <div @click="onSubmit">
+  <el-form
+    ref="formRef"
+    class="check-box"
+    label-width="0px"
+    :show-message="false"
+    :model="formdata"
+    :rules="rules"
+    @submit.stop.prevent="onSubmit"
+  >
+    <el-form-item prop="input">
+      <el-input
+        v-model="formdata.input"
+        placeholder="输入您的TwitterID"
+        size="small"
+      />
+    </el-form-item>
+    <div class="suffix" @click="onSubmit">
       <slot></slot>
     </div>
-  </div>
+  </el-form>
 </template>
+
+<style scoped lang="scss">
+@import './input.scss';
+</style>

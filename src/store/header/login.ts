@@ -10,3 +10,7 @@ export const visible = ref(false) // 弹窗状态
 export const showVisible = function(): void {
   visible.value = true
 }
+
+export const hideVisible = function(): void {
+  visible.value = false
+}
