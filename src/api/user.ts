@@ -26,6 +26,16 @@ export const getInfo = async function() {
     return Promise.reject(e)
   }
 }
+export const logout = async function() {
+  const method = 'post'
+  const url = '/api/v1/users/logout'
+  try {
+    const reuslt = await request({ url, method })
+    return safeGet(reuslt, 'data.data')
+  } catch (e) {
+    return Promise.reject(e)
+  }
+}
 
 // 登录
 export const logo = async function(query: LogoData): Promise<LogoResult> {

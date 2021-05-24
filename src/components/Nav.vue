@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
+
 // import { currentLang } from '~/lib/lang'
 import * as lang from '~/utils/lang'
 const route = useRoute()
@@ -88,8 +89,8 @@ onMounted(() => {
     <a href="https://www.kingdata.com" target="_blank">
       <img src="/assets/logo.svg" alt="KingData" class="flex-none" />
     </a>
-    <div class="flex-grow mt-2 ml-12">
-      <div class="flex font-normal text-base text-navItem-default">
+    <div class="flex-grow mt-2 ml-12 items-center">
+      <div class="flex font-normal text-base items-center text-navItem-default">
         <router-link
           :to="'/growthpad?lang=' + locale"
           :class="navIsSelect('growthpad')"
@@ -155,21 +156,7 @@ onMounted(() => {
         alt=""
       />
     </a>
-    <div class="flex items-center hand" @click="toggleLocales()">
-      <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter">
-        <span>{{ t('lang') }}</span>
-      </div>
-      <img
-        class="w-6 h-6"
-        src="https://res.ikingdata.com/nav/growLang.png"
-        alt=""
-      />
-      <a
-        href="https://www.ikingdata.com/download"
-        target="_blank"
-        class="text-global-default opacity-85 ml-3 i8n-font-inter"
-      >{{ t('nav.download') }}</a>
-    </div>
+    <HeaderLogin></HeaderLogin>
   </div>
 </template>
 <style lang="scss" scoped>

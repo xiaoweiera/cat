@@ -79,7 +79,25 @@ const update = function(result: UserData): void {
   userData.username = result.username
   isLogin.value = true
 }
-
+export const logout = async function(): Promise<void> {
+  try {
+    // 退出
+    await user.logout()
+    jsCookie.remove('token', {
+      path: '/',
+      domain: 'ikingdata.com',
+    })
+    jsCookie.remove('token', {
+      path: '/',
+      domain: 'kingdata.com',
+    })
+    update({} as UserData)
+    isLogin.value = false
+    window.location.reload()
+  } catch (e) {
+    // todo
+  }
+}
 // 更新用户信息
 export const syncUser = async function(): Promise<void> {
   console.log('sync user')
