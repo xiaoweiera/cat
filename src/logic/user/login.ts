@@ -96,6 +96,7 @@ export const onSubmit = async function(): Promise<any> {
     // @ts-ignore
     const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
     const result = await user.logo(data)
+    console.log(JSON.stringify(result))
     if (result?.data) {
       update(result.data as UserData)
     }
