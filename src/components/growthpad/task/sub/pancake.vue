@@ -13,6 +13,8 @@ defineProps({
   },
 })
 
+const loadingStatus = ref<boolean>(false)
+
 const formRef = ref<any>(null)
 const formdata = reactive({
   input: '',
@@ -37,6 +39,7 @@ const onSubmit = async function() {
       })
     }
     if (status) {
+      loadingStatus.value = true
       await store.setPancake(formdata.input.value)
     }
   } catch (e) {
@@ -46,7 +49,9 @@ const onSubmit = async function() {
 </script>
 
 <template>
+  <Loading v-if="loadingStatus"></Loading>
   <el-form
+    v-else
     ref="formRef"
     class="check-box"
     label-width="0px"
