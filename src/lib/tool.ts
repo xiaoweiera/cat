@@ -106,7 +106,6 @@ export const changeRoute = (
   paramName: string,
   paramValue: string,
 ) => {
-  console.log(route)
   const query = { ...route.query }
   query[paramName] = paramValue
   router.replace({

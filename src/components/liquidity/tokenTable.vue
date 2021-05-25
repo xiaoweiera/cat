@@ -23,6 +23,9 @@ const changePair = (pair: string) => {
   pairStore.value = pair
   changeRoute(route, router, 'pair', pair)
 }
+const likeStart = (item: any) => {
+  console.log(item)
+}
 onBeforeMount(() => {
   pairStore.value = routeQuery.pair ? routeQuery.pair : pairStore.value
 })
@@ -68,6 +71,7 @@ onBeforeMount(() => {
                 class="w-3 h-3"
                 src="https://res.ikingdata.com/nav/noStart.png"
                 alt=""
+                @click="likeStart(item)"
               />
               <el-tooltip
                 hide-after="10"
