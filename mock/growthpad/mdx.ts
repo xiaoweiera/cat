@@ -78,7 +78,7 @@ const data = {
       { label: I18n.growthpad.examples.about.count, value: '10亿' }, // 发行总量
       { label: I18n.growthpad.examples.about.marketValue, value: '3亿' }, // 市值
       { label: I18n.growthpad.examples.about.circulation, value: '3亿' }, // 当前流通量
-      { label: I18n.growthpad.examples.about.price, value: '$3.5' }, // 当前价格
+      { label: I18n.growthpad.examples.about.price, value: 'price' }, // 当前价格
       { label: I18n.growthpad.examples.about.luanched, value: 'HECO/BSC' }, // 所在公链
       // 上线交易所
       {

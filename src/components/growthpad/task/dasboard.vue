@@ -21,6 +21,11 @@ const maxReward = function(array: number[]): number {
 const timeStatus = computed<string>((): string => {
   return getTimeStatus(store)
 })
+
+const getPrice = function(number: string | number): string {
+  const price = parseFloat(store.price.value, 10)
+  return price * parseFloat(number)
+}
 </script>
 
 <template>
@@ -82,7 +87,10 @@ const timeStatus = computed<string>((): string => {
             {{ I18n.growthpad.examples.dashboard.value }}
           </h4>
           <p class="font-color-theme font-kdFang font-bold font-kdExp">
-            <span class="text-2xl md:text-4xl">${{ 0 }}</span>
+            <span class="ml-1.5 text-xs md:text-base">约</span>
+            <span
+              class="text-2xl md:text-4xl"
+            >${{ getPrice(store.dashboard.rewardCount) }}</span>
           </p>
         </li>
         <li class="ml-3 md:ml-12">

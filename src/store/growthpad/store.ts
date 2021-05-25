@@ -81,6 +81,8 @@ interface Mission {
 }
 
 export default class Store {
+  // 当前币价
+  protected price = ref<string | number>(0)
   // @ts-ignore
   protected projectName: Project // 项目名称
   protected title = ref<string>('') // title
@@ -168,6 +170,9 @@ export default class Store {
   private updateData(result?: any) {
     const user: User = safeGet<User>(result, 'info')
     const mission: Mission = safeGet<Mission>(result, 'mission')
+    if (result?.price) {
+      this.price.value = result.price
+    }
     // 更新 info 信息
     if (user) {
       this.user.invited_count = user.invited_count as number

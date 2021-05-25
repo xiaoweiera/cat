@@ -97,7 +97,7 @@ export const setTwitter = function(
     url,
     method: 'POST',
     params: { project: type },
-    data: { telegram: id, bsc_token: token },
+    data: { twitter: id, bsc_token: token },
   })
 }
 

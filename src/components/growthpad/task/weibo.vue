@@ -59,7 +59,7 @@ const submit = async function() {
     <el-form
       class="mt-3"
       :model="formdata"
-      label-width="82px"
+      label-width="95px"
       @submit.stop.prevent="submit"
     >
       <el-form-item label="文章链接：">
@@ -68,23 +68,34 @@ const submit = async function() {
           placeholder="输入文章链接"
         ></el-input>
       </el-form-item>
-      <el-form-item label="上传图片：">
-        <el-upload
-          class="avatar-uploader"
-          action=""
-          accept="image/*"
-          :show-file-list="false"
-          :multiple="false"
-          name="article_image"
-          :drag="true"
-          :on-change="onUpload"
-          :auto-upload="false"
-        >
-          <template v-if="previewSrc">
-            <img class="preview" :src="previewSrc" />
-          </template>
-          <IconFont v-else class="preview" type="plus" suffix="png"></IconFont>
-        </el-upload>
+      <el-form-item label="上传图片：" required>
+        <div class="flex items-center">
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            accept="image/*"
+            :show-file-list="false"
+            :multiple="false"
+            name="article_image"
+            :drag="true"
+            :on-change="onUpload"
+            :auto-upload="false"
+          >
+            <template v-if="previewSrc">
+              <img class="preview" :src="previewSrc" />
+            </template>
+            <IconFont
+              v-else
+              class="preview"
+              type="plus"
+              suffix="png"
+            ></IconFont>
+          </el-upload>
+          <div class="upload-tips pl-3">
+            <span>* 截图内容请包含主流媒体主页</span>
+            <span>* 图片格式为JPG/PNG/GIF,上传大小不超过5M</span>
+          </div>
+        </div>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" round size="small" native-type="submit">
@@ -95,6 +106,14 @@ const submit = async function() {
   </div>
 </template>
 <style scoped lang="scss">
+.upload-tips {
+  line-height: 24px;
+  color: rgba(37, 62, 111, 0.65);
+  span {
+    display: block;
+  }
+}
+
 .avatar-uploader {
   width: 120px;
   height: 120px;

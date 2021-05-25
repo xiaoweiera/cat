@@ -82,7 +82,12 @@ const list = computed(() => {
           :class="{ 'mt-1': index > 0 }"
         >
           <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
-          <span class="inline-block minutia-value">{{ item.value }}</span>
+          <span class="inline-block minutia-value">
+            <template v-if="item.value === 'price'">{{
+              store.price.value
+            }}</template>
+            <template v-else>{{ item.value }}</template>
+          </span>
         </p>
       </div>
     </div>
