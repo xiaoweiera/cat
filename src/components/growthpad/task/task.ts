@@ -37,11 +37,17 @@ export const uuid = function(): string {
 
 export const getMax = function(array: number[]): number {
   const value = [].concat(array as any)
-  return Math.max.apply(null, value)
+  if (value.length > 0) {
+    return Math.max.apply(null, value)
+  }
+  return 0
 }
 export const getMin = function(array: number[]): number {
   const value = [].concat(array as any)
-  return Math.min.apply(null, value)
+  if (value.length > 0) {
+    return Math.min.apply(null, value)
+  }
+  return 0
 }
 
 export const makeDescription = function(data: any): string {

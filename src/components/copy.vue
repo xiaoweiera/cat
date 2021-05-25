@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
-defineProps({
+import { copyTxt } from '~/lib/tool'
+const props = defineProps({
   message: {
     type: Boolean,
     default() {
@@ -16,7 +17,12 @@ defineProps({
 })
 
 const copy = function() {
-  console.log('copy')
+  if (typeof props.link === 'function') {
+    const value = props.link()
+    copyTxt(props.value, props.message)
+  } else {
+    copyTxt(props.link, props.message)
+  }
 }
 </script>
 
