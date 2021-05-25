@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, toRaw } from 'vue'
+import { ElMessage } from 'element-plus'
 import Task from '~/logic/growthpad/task'
 
 const store = Task()
@@ -25,7 +26,6 @@ const preview = function(file: File) {
     // 获取 base64 编码
     const base64 = e.target.result
     previewSrc.value = base64
-    console.log(base64)
   }
   filereader.readAsDataURL(file)
 }
@@ -37,16 +37,36 @@ const onUpload = async function(file: File): Promise<boolean> {
   return false
 }
 
+const formRef = ref<any>(null)
+
 const submit = async function() {
+  const form = toRaw(formRef).value
   const data = new FormData()
   data.append('article_url', formdata.article_url)
   data.append('article_image', formdata.article_image)
-
   try {
+    await form.validate()
     await store.setWeiboContent(data)
+
+    ElMessage({
+      message: '图片上传成功',
+      type: 'success',
+      showClose: false,
+      customClass: 'message-tips',
+    })
   } catch (e) {
     // todo
   }
+}
+
+const rules: any = {
+  article_image: [
+    {
+      required: true,
+      trigger: ['change'],
+      message: '请上传图片',
+    },
+  ],
 }
 </script>
 <template>
@@ -57,9 +77,11 @@ const submit = async function() {
       </template>
     </GrowthpadTaskTitle>
     <el-form
+      ref="formRef"
       class="mt-3"
       :model="formdata"
       label-width="95px"
+      :rules="rules"
       @submit.stop.prevent="submit"
     >
       <el-form-item label="文章链接：">
@@ -68,7 +90,7 @@ const submit = async function() {
           placeholder="输入文章链接"
         ></el-input>
       </el-form-item>
-      <el-form-item label="上传图片：" required>
+      <el-form-item label="上传图片：" required prop="article_image">
         <div class="flex items-center">
           <el-upload
             class="avatar-uploader"

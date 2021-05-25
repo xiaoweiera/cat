@@ -22,20 +22,15 @@ const install = function(vue: any) {
     el.addEventListener(
       'click',
       (e: Event) => {
-        if (Array.isArray(binding.value)) {
-          binding.value = binding.value.join(',')
-        }
         if (typeof binding.value === 'function') {
           const fun = binding.value
           // @ts-ignore
           binding.value = fun()
         }
-        const [value, message]: Array<string> = binding.value
-          ? binding.value.split(',')
-          : []
+        const value: string = binding.value ? binding.value : ''
 
         if (modifiers.message) {
-          copyTxt(value, message)
+          copyTxt(value, true)
         } else {
           copyTxt(value)
         }

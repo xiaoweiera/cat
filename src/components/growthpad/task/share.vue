@@ -17,7 +17,7 @@ const link = (): string => {
   }
   const $title = document.querySelector('title')
   const value = $title.innerText
-  return `${url},邀请您参与「${value}」，赢取百万美元奖励，「${url}」`
+  return `邀请您参与「${value}」，赢取百万美元奖励，「${url}」`
 }
 </script>
 <template>
