@@ -22,6 +22,8 @@ const install = function(vue: any) {
     el.addEventListener(
       'click',
       (e: Event) => {
+        e.stopPropagation()
+        e.preventDefault()
         if (typeof binding.value === 'function') {
           const fun = binding.value
           // @ts-ignore
@@ -34,8 +36,7 @@ const install = function(vue: any) {
         } else {
           copyTxt(value)
         }
-        e.stopPropagation()
-        e.preventDefault()
+        return false
       },
       true,
     )
