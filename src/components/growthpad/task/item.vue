@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
 // @ts-ignore
-import { ElIcon } from 'element-plus'
-// @ts-ignore
 import { uuid, getMin, getMax, makeDescription } from './task'
 import TaskType from '~/logic/growthpad/tasktype'
 const props = defineProps({
@@ -57,17 +55,7 @@ const isWeibo = computed((): boolean => {
         >
           <template v-if="!isAllIn" #right>
             <span class="inline-block pl-3 md:pl-0">
-              <span class="reward font-bold font-kdExp inline-block">
-                <template v-if="isWeibo">
-                  <span
-                    class="count"
-                  >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
-                </template>
-                <template v-else>
-                  <span class="count">+{{ getMax(data.reward) }}</span>
-                </template>
-                <span class="ml-1">MDX</span>
-              </span>
+              <GrowthpadTaskReward :data="data"></GrowthpadTaskReward>
               <span class="inline-block ml-1.5">
                 <span class="hand inline-block">
                   <IconFont
@@ -117,13 +105,6 @@ const isWeibo = computed((): boolean => {
 </template>
 
 <style scoped lang="scss">
-.reward {
-  user-select: none;
-  color: #2b8dfe;
-  .count {
-    font-size: 26px;
-  }
-}
 .icon-arrow-down {
   transform: rotate(180deg);
 }

@@ -29,7 +29,7 @@ const install = function(vue: any) {
           // @ts-ignore
           binding.value = fun()
         }
-        const value: string = binding.value ? binding.value : ''
+        const value: string = binding.value || ''
 
         if (modifiers.message) {
           copyTxt(value, true)
@@ -43,4 +43,5 @@ const install = function(vue: any) {
   })
 }
 
+// @ts-ignore
 export default install

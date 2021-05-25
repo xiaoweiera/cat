@@ -21,7 +21,7 @@ const link = (): string => {
 </script>
 
 <template>
-  <div v-copy.message="link" class="inline-block">
+  <Copy :link="link">
     <slot></slot>
-  </div>
+  </Copy>
 </template>

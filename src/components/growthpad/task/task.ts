@@ -36,16 +36,12 @@ export const uuid = function(): string {
 }
 
 export const getMax = function(array: number[]): number {
-  if (Array.isArray(array) && array.length > 0) {
-    return Math.max.apply(null, array)
-  }
-  return 0
+  const value = [].concat(array as any)
+  return Math.max.apply(null, value)
 }
 export const getMin = function(array: number[]): number {
-  if (Array.isArray(array) && array.length > 0) {
-    return Math.min.apply(null, array)
-  }
-  return 0
+  const value = [].concat(array as any)
+  return Math.min.apply(null, value)
 }
 
 export const makeDescription = function(data: any): string {

@@ -19,9 +19,9 @@ const link = computed<string>((): string => {
 
 <template>
   <div v-login class="title">
-    <div v-copy.message="link">
+    <Copy :link="link">
       <slot></slot>
-    </div>
+    </Copy>
   </div>
 </template>
 

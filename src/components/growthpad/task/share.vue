@@ -32,12 +32,13 @@ const link = (): string => {
           <span class="">我的邀请码：</span>
           <i>{{ userData.my_invitation_code }}</i>
           <span v-login>
-            <IconFont
-              v-copy.message="link"
-              class="ml-2 hand flex"
-              type="copy"
-              size="base"
-            ></IconFont>
+            <Copy :link="link">
+              <IconFont
+                class="ml-2 hand flex"
+                type="copy"
+                size="base"
+              ></IconFont>
+            </Copy>
           </span>
         </span>
       </span>
