@@ -70,7 +70,6 @@ const fetchChartByChain = (chain: String) => {
     })
   })
 }
-
 const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)

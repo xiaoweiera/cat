@@ -224,7 +224,7 @@ export const tableConfig = [
         {
           key: 'apy_detail',
           name: '产出',
-          status: true,
+          status: false,
         },
         {
           key: 'quota_remain',
@@ -235,13 +235,13 @@ export const tableConfig = [
         {
           key: 'tvl',
           name: '总锁仓',
-          status: true,
+          status: false,
           format_func: numberFormat,
         },
         {
           key: 'quota_remain_percent',
           name: '剩余额度',
-          status: true,
+          status: false,
           unit: '%',
           format_func: numberFormat,
         },
@@ -264,7 +264,7 @@ export const tableConfig = [
         {
           key: 'apy_detail',
           name: '产出',
-          status: true,
+          status: false,
         },
         {
           key: 'tvl',
@@ -275,7 +275,7 @@ export const tableConfig = [
         {
           key: 'quota_used',
           name: '借款总量',
-          status: true,
+          status: false,
           format_func: numberFormat,
         },
       ],
@@ -297,7 +297,7 @@ export const tableConfig = [
         {
           key: 'apy_detail',
           name: '计息',
-          status: true,
+          status: false,
         },
         {
           key: 'quota_remain',
@@ -308,13 +308,13 @@ export const tableConfig = [
         {
           key: 'quota_remain*quota_remain_percent',
           name: '借出',
-          status: true,
+          status: false,
           format_cb: (v: any) => numberFormat(v.quota_used, false),
         },
         {
           key: 'quota_remain_percent',
           name: '剩余额度',
-          status: true,
+          status: false,
           unit: '%',
           format_func: numberFormat,
         },

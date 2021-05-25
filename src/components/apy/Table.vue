@@ -6,10 +6,13 @@ import {
   ElTable,
   ElTableColumn,
   ElLoading,
+  ElPopover,
 } from 'element-plus'
 import { ref, defineProps, watch, toRefs, reactive } from 'vue'
+import * as R from 'ramda'
 import { filterByOptions } from '~/logic/apy/tableDetail'
-
+import { unitConfig } from '~/logic/apy/config'
+const isTipArrow = false // 提示框是否显示小尖头
 const props = defineProps({
   chains: { type: String },
   project: { type: String },
@@ -19,6 +22,13 @@ const props = defineProps({
   timer: { type: Number },
   isFirstShow: { type: Boolean },
 })
+const isShowTip = ref({})
+const getTipShow = () => {
+  isShowTip.value = R.find(
+    (item) => item.status === false,
+    props.tableData.options.data,
+  )
+}
 
 // @ts-ignore
 const { rows, headers, options, loading } = toRefs(props.tableData)
@@ -82,16 +92,41 @@ const addClass = ({ row, columnIndex }) => {
     && row.data[columnIndex - 1]
     && row.data[columnIndex - 1]?.high_light
   ) {
-    return 'background:rgba(9, 217, 142, 0.2)'
+    return 'background:rgba(9, 217, 142, 0.2);padding-top:0px;margin-top:0px;'
   }
   return 'background:#F6FAFD'
 }
+// 是否为空  / 是否显示图片
+const isNullFun = (data: any) => {
+  let isNull = false
+  if (data) {
+    data.forEach((item) => {
+      if (item.value) {
+        isNull = true
+      }
+    })
+  }
+  return isNull
+}
 const headerCellStyle = () => 'background-color: #EAF3FD;border:none;'
-// const headerCellStyle = () => 'background-color: rgba(43, 141, 254, 0.06);'
 watch(
   () => options.value.data,
-  (a, _) => (renderCells.value = filterByOptions(headers.value, rows.value, a)),
+  (a, _) => {
+    getTipShow()
+    renderCells.value = filterByOptions(headers.value, rows.value, a)
+  },
 )
+const getValue = (data: any, i) => {
+  if (data) {
+    if (!data.value && data.value !== 0) return '-'
+    if (unitConfig[data.name]) {
+      if (unitConfig[data.name].unit === '$')
+        return unitConfig[data.name]?.unit + data.value
+      else return data.value + unitConfig[data.name]?.unit
+    }
+    return data.value
+  }
+}
 </script>
 <template>
   <div v-if="props.tableData.rows" class="tableHeaderTop">
@@ -120,18 +155,23 @@ watch(
           <el-table-column fixed width="140">
             <template #header="scope">
               <div
-                class="text-kd12px16px text-global-default opacity-65 mb-2.5"
+                class="
+                  text-kd12px16px text-global-default
+                  opacity-65
+                  mb-2.5
+                  ml-3
+                "
               >
                 项目/币种
               </div>
-              <div class="text-kd12px16px text-global-default opacity-65">
+              <div class="text-kd12px16px text-global-default opacity-65 ml-3">
                 价格/涨跌幅
               </div>
             </template>
             <template #default="scope">
               <div class="justify-center flex flex-col">
                 <a
-                  class="flex flex-col md:px-0 ml-3 hand"
+                  class="flex flex-col md:px-0 ml-3 py-3 hand"
                   :href="scope.row.url + '?utm_source=https://apy.kingdata.com'"
                   target="_blank"
                 >
@@ -183,10 +223,42 @@ watch(
               />
             </template>
             <template #default="scope">
-              <ApyTableItem
-                :index="index"
-                :item-data="scope.row.data[i]?.data"
-              />
+              <el-popover
+                class="mt-10 py-10"
+                offset="-5"
+                width="300"
+                :show-arrow="isTipArrow"
+                :disabled="
+                  !isShowTip ||
+                    !isNullFun(scope.row.data[scope.column.no - 1]?.data)
+                "
+                effect="light"
+                trigger="hover"
+                placement="bottom"
+              >
+                <template #default>
+                  <template v-for="(item, i) in scope.row.data[i]?.data">
+                    <div
+                      v-if="getValue(item, i) !== '-'"
+                      class="flex mb-0.5 items-center flex-wrap TipTxt"
+                    >
+                      <span class="mr-1">{{ item.name }}</span>
+                      <div>
+                        <span>{{ getValue(item, i) }}</span>
+                      </div>
+                    </div>
+                  </template>
+                </template>
+                <template #reference>
+                  <div>
+                    <ApyTableItem
+                      :scope-data="scope"
+                      :index="index"
+                      :item-data="scope.row.data[i]?.data"
+                    />
+                  </div>
+                </template>
+              </el-popover>
             </template>
           </el-table-column>
         </el-table>
@@ -291,6 +363,9 @@ watch(
 </template>
 
 <style scoped lang="postcss">
+.TipTxt {
+  @apply text-kdFang text-kd13px20px text-global-default opacity-85;
+}
 ::v-deep(.el-table td) {
   padding: 8px 0;
 }
@@ -303,7 +378,12 @@ watch(
 ::v-deep(.el-table th.gutter) {
   display: table-cell !important;
 }
-
+::v-deep(.cell) {
+  padding: 0px !important;
+}
+::v-deep(td) {
+  padding: 0px !important;
+}
 ::v-deep(.el-table colgroup.gutter) {
   display: table-cell !important;
 }
