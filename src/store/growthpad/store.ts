@@ -78,6 +78,7 @@ interface Mission {
   sushiswap: boolean // sushiswap验资是否通过
   retweet: boolean // 是否转发推特
   follow_twitter: boolean // 是否关注推特
+  telegram_group: boolean // 电报群
 }
 
 export default class Store {
@@ -116,6 +117,7 @@ export default class Store {
     sushiswap: false, // sushiswap验资是否通过
     retweet: false, // 是否转发推特
     follow_twitter: false, // 是否关注推特
+    telegram_group: false, // 电报群
   })
 
   public article_url = ref<string>('article_url') // 用户上传的文章链接
@@ -190,6 +192,7 @@ export default class Store {
       this.mission.pancake = !!mission.pancake
       this.mission.uniswap = !!mission.uniswap
       this.mission.sushiswap = !!mission.sushiswap
+      this.mission.telegram_group = !!mission.telegram_group
     }
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')

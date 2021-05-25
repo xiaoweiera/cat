@@ -14,10 +14,14 @@ defineProps({
     },
   },
 })
+
+const copy = function() {
+  console.log('copy')
+}
 </script>
 
 <template>
-  <span v-copy.message="link" class="inline-block" @click.stop.prevent>
+  <span class="inline-block" @click.stop.prevent="copy">
     <slot></slot>
   </span>
 </template>

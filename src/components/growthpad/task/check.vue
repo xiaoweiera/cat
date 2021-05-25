@@ -65,7 +65,7 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.telegram">
       <!-- 判断是否填写了 telegram id -->
-      <IconFont v-if="store.user.telegram" type="success"></IconFont>
+      <IconFont v-if="store.mission.telegram_group" type="success"></IconFont>
       <GrowthpadTaskSubTelegram v-else :data="data">
         <span v-login>
           <span v-validity.begin.end="validityValue" class="button">{{
@@ -120,7 +120,7 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.sushiswap">
       <!-- 判断sushiswap验资是否通过 -->
-      <IconFont v-if="store.mission.uniswap" type="success"></IconFont>
+      <IconFont v-if="store.mission.sushiswap" type="success"></IconFont>
       <GrowthpadTaskSubSushiswap v-else :data="data">
         <span v-login>
           <span v-validity.begin.end="validityValue" class="button">{{
