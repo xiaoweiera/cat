@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // @ts-ignore
-import { ElTable, ElTableColumn } from 'element-plus'
+import { ElTable, ElTableColumn, ElTooltip } from 'element-plus'
 import { defineProps, onBeforeMount, reactive, watch } from 'vue'
 import { testData } from '/mock/liquidity'
 import { useRoute, useRouter } from 'vue-router'
@@ -29,7 +29,6 @@ onBeforeMount(() => {
 </script>
 <template>
   <div class="w-full h-full">
-    {{ selectCoin }}
     <div class="w-full h-full">
       <ul
         class="
@@ -70,16 +69,23 @@ onBeforeMount(() => {
                 src="https://res.ikingdata.com/nav/noStart.png"
                 alt=""
               />
-              <span
-                class="
-                  txtSmall
-                  ml-1.5
-                  text-kd12px16px text-global-default
-                  opacity-85
-                "
+              <el-tooltip
+                hide-after="10"
+                :content="item.token0_symbol + '/' + item.token1_symbol"
+                placement="bottom"
+                effect="light"
               >
-                {{ item.token0_symbol + '/' + item.token1_symbol }}
-              </span>
+                <span
+                  class="
+                    txtSmall
+                    ml-1.5
+                    text-kd12px16px text-global-default
+                    opacity-85
+                  "
+                >
+                  {{ item.token0_symbol + '/' + item.token1_symbol }}
+                </span>
+              </el-tooltip>
             </div>
             <div class="tokenRow text-kd12px16px text-global-default">100</div>
             <div class="tokenRow text-kd12px16px text-global-default">300</div>

@@ -11,6 +11,13 @@ const changeSelect = (state) => {
 const changeToken = (name: string, origin: string) => {
   selectCoin.name = name
   selectCoin.origin = origin
+  changeSelect(false)
+}
+// 加延迟不然会先执行blur，不执行click
+const inputBlur = () => {
+  setTimeout(() => {
+    changeSelect(false)
+  }, 100)
 }
 onBeforeMount(() => {})
 </script>
@@ -32,7 +39,7 @@ onBeforeMount(() => {})
       class="selectClass"
       placeholder="搜索"
       @focus="changeSelect(true)"
-      @blur="changeSelect(false)"
+      @blur="inputBlur()"
     ></el-input>
     <img
       class="w-3.5 h-3.5"
