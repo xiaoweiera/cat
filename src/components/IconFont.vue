@@ -46,25 +46,31 @@ const src = computed(() => {
   }
 }
 
+@mixin size($number) {
+  width: $number;
+  height: $number;
+  max-width: $number;
+  max-height: $number;
+  min-width: $number;
+  min-height: $number;
+}
+
 .size-xl {
-  width: 20px;
-  height: 20px;
-  max-width: 20px;
-  max-height: 20px;
-  min-width: 20px;
-  min-height: 20px;
+  @include size(20px);
+}
+.size-base {
+  @include size(16px);
 }
 .size-xs {
-  width: 12px;
-  height: 11px;
-  max-width: 12px;
-  max-height: 11px;
-  min-width: 12px;
-  min-height: 11px;
+  @include size(12px);
 }
 
 .icon-loading {
   transform-origin: 50% 50%;
   animation: rotating 0.7s linear infinite;
+}
+
+.icon-plus {
+  @include size(42px);
 }
 </style>

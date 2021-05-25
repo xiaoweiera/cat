@@ -56,21 +56,31 @@ const isWeibo = computed((): boolean => {
           class="flex justify-between items-center"
         >
           <template v-if="!isAllIn" #right>
-            <span class="reward font-bold font-kdExp inline-block">
-              <template v-if="isWeibo">
-                <span
-                  class="count"
-                >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
-              </template>
-              <template v-else>
-                <span class="count">+{{ getMax(data.reward) }}</span>
-              </template>
-              <span class="ml-1">MDX</span>
-            </span>
-            <span class="inline-block ml-1.5">
-              <span class="hand inline-block">
-                <IconFont type="down" class="icon-arrow-up"></IconFont>
-                <IconFont type="down" class="icon-arrow-down"></IconFont>
+            <span class="inline-block pl-3 md:pl-0">
+              <span class="reward font-bold font-kdExp inline-block">
+                <template v-if="isWeibo">
+                  <span
+                    class="count"
+                  >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
+                </template>
+                <template v-else>
+                  <span class="count">+{{ getMax(data.reward) }}</span>
+                </template>
+                <span class="ml-1">MDX</span>
+              </span>
+              <span class="inline-block ml-1.5">
+                <span class="hand inline-block">
+                  <IconFont
+                    type="arrow"
+                    suffix="png"
+                    class="icon-arrow-up"
+                  ></IconFont>
+                  <IconFont
+                    type="arrow"
+                    suffix="png"
+                    class="icon-arrow-down"
+                  ></IconFont>
+                </span>
               </span>
             </span>
           </template>

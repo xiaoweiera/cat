@@ -1,6 +1,35 @@
+import dayjs from 'dayjs'
 import I18n from '~/utils/i18n/index'
 import Store from '~/store/growthpad/store'
 import Message from '~/utils/message'
+
+export const TimeStatus = {
+  wait: 'wait',
+  ing: 'ing',
+  closure: 'closure',
+}
+
+export const getTimeStatus = function(store: Store): string {
+  const format = 'YYYY-MM-DD HH:mm:ss'
+  const today = dayjs().valueOf()
+  // @ts-ignore
+  if (store.dashboard?.begin) {
+    // @ts-ignore
+    const time = dayjs(store.dashboard.begin, format).valueOf()
+    if (time > today) {
+      return TimeStatus.wait
+    }
+  }
+  // @ts-ignore
+  if (store.dashboard?.end) {
+    // @ts-ignore
+    const time = dayjs(store.dashboard.end, format).valueOf()
+    if (time > today) {
+      return TimeStatus.ing
+    }
+  }
+  return TimeStatus.closure
+}
 
 export const uuid = function(): string {
   return String(Math.random())

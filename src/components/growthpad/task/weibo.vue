@@ -71,7 +71,8 @@ const submit = async function() {
       <el-form-item label="上传图片：">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action=""
+          accept="image/*"
           :show-file-list="false"
           :multiple="false"
           name="article_image"
@@ -82,7 +83,7 @@ const submit = async function() {
           <template v-if="previewSrc">
             <img class="preview" :src="previewSrc" />
           </template>
-          <i v-else class="preview el-icon-plus avatar-uploader-icon"></i>
+          <IconFont v-else class="preview" type="plus" suffix="png"></IconFont>
         </el-upload>
       </el-form-item>
       <el-form-item>

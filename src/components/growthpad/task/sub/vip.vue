@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
-import { copyTxt } from '~/lib/tool'
 import { userData } from '~/logic/user/login'
 const props = defineProps({
   data: {
@@ -8,18 +7,21 @@ const props = defineProps({
   },
 })
 const link = computed<string>((): string => {
-  const url = 'http://kingdata.com/vip/'
+  const { origin, pathname } = window.location
+  let url = `${origin}${pathname}`
   const code = userData.my_invitation_code
   if (code) {
-    return `${url}?code=${code}`
+    url = `${url}?code=${code}`
   }
-  return url
+  return `${url},邀请你注册Kingdata，「${url}」`
 })
 </script>
 
 <template>
-  <div @click="copyTxt(link)">
-    <slot></slot>
+  <div v-login class="title">
+    <div v-copy.message="link">
+      <slot></slot>
+    </div>
   </div>
 </template>
 

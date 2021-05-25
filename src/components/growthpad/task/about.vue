@@ -22,40 +22,57 @@ const list = computed(() => {
 
 <template>
   <div class="pb-4 text-base font-semibold">项目介绍</div>
-  <div class="flex items-center">
+  <div class="flex items-center font-kdFang">
     <DotChar :img="store.icon.value" size="xl" />
     <span class="ml-3 label">{{ store.title.value }} 去中心化交易所</span>
   </div>
-  <div class="mt-6">
-    <p class="flex items-center">
-      <b class="text-base font-medium h2">{{
-        I18n.growthpad.examples.about.website
-      }}</b>
-      <a
-        class="mx-4 text-sm font-color-theme"
-        :href="`https://${store.about.website}`"
-        target="_blank"
-      >{{ store.about.website }}</a>
-      <b class="text-base font-medium mr-4 h2">{{
-        I18n.growthpad.examples.about.community
-      }}</b>
-      <a
-        v-for="(item, index) in store.about.share"
-        :key="index"
-        class="inline-block"
-        target="_blank"
-        :href="item.href"
-      >
-        <IconFont class="mr-4" :type="item.icon" size="xl" />
-      </a>
+  <div class="mt-6 font-kdFang">
+    <p class="md:flex md:items-center">
+      <span class="flex items-center">
+        <b class="text-base font-medium h2">{{
+          I18n.growthpad.examples.about.website
+        }}</b>
+        <a
+          class="mx-4 text-sm font-color-theme"
+          :href="`https://${store.about.website}`"
+          target="_blank"
+        >{{ store.about.website }}</a>
+      </span>
+      <span class="flex items-center pt-3 md:pt-0">
+        <b class="text-base font-medium mr-4 h2">{{
+          I18n.growthpad.examples.about.community
+        }}</b>
+        <a
+          v-for="(item, index) in store.about.share"
+          :key="index"
+          class="inline-block"
+          target="_blank"
+          :href="item.href"
+        >
+          <IconFont class="mr-4 flex" :type="item.icon" size="xl" />
+        </a>
+      </span>
     </p>
   </div>
-  <div class="mt-6">
+  <!-- 手机版本 -->
+  <div class="mt-6 font-kdFang md:hidden">
+    <h2 class="text-base">奖励代币信息</h2>
+    <div class="mt-3 pt-2">
+      <div v-for="(item, i) in store.about.minutias" :key="i">
+        <p class="text-sm pb-1.5">
+          <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
+          <span class="inline-block minutia-value">{{ item.value }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6 font-kdFang">
     <h2 class="pb-2">{{ I18n.growthpad.examples.about.projectDetail }}</h2>
     <p class="detail text-sm">{{ store.about.detail }}</p>
   </div>
-  <div class="mt-6">
+  <div class="mt-6 font-kdFang hidden md:block">
     <h2 class="text-base">奖励代币信息</h2>
+    <!-- 大屏 -->
     <div class="flex justify-between pt-2">
       <div v-for="(data, i) in list" :key="i">
         <p

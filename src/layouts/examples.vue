@@ -2,9 +2,8 @@
   <div class="circleContainer"></div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">
     <Nav class="relative"></Nav>
-    <main class="w-full flex justify-center examples pb-15">
+    <main class="examples">
       <router-view />
-      <Footer />
     </main>
   </div>
 </template>
@@ -18,5 +17,7 @@
       rgba(43, 141, 254, 0.1) 0%,
       rgba(43, 141, 254, 0) 100%
     );
+  max-width: 1000px;
+  margin: 0 auto;
 }
 </style>

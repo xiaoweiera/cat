@@ -102,17 +102,19 @@ export const min_max = (min: any, max: any, v: any) => {
   return [min, max]
 }
 // copy
-export const copyTxt = (txt: string) => {
+export const copyTxt = (txt: string, message?: string) => {
   const dom = document.createElement('input')
   dom.setAttribute('value', txt)
   document.body.appendChild(dom)
   dom.select()
   document.execCommand('copy')
   document.body.removeChild(dom)
-  ElMessage({
-    message: '已复制邀请链接',
-    type: 'success',
-    showClose: false,
-    customClass: 'message-tips',
-  })
+  if (message) {
+    ElMessage({
+      message,
+      type: 'success',
+      showClose: false,
+      customClass: 'message-tips',
+    })
+  }
 }

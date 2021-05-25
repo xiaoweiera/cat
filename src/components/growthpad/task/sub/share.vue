@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
 import { userData } from '~/logic/user/login'
-import { copyTxt } from '~/lib/tool'
 defineProps({
   data: {
     type: Object,
   },
 })
 // @ts-ignore
-const link = computed<string>((): string => {
-  const url = 'http://kingdata.com/vip/'
+const link = (): string => {
+  const { origin, pathname } = window.location
+  let url = `${origin}${pathname}`
   const code = userData.my_invitation_code
   if (code) {
-    return `${url}?code=${code}`
+    url = `${url}?code=${code}`
   }
-  return url
-})
+  const $title = document.querySelector('title')
+  const value = $title.innerText
+  return `${url},邀请您参与「${value}」，赢取百万美元奖励，「${url}」`
+}
 </script>
 
 <template>
-  <div class="inline-block" @click="copyTxt(link)">
+  <div v-copy.message="link" class="inline-block">
     <slot></slot>
   </div>
 </template>

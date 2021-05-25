@@ -101,7 +101,7 @@ const bindAddress = async function(): Promise<void> {
 </script>
 
 <template>
-  <div class="pb-15">
+  <div class="pb-15 font-kdFang">
     <div v-if="tokenIsNull" class="flex-1">
       <h2 class="pb-4 text-base font-semibold address">
         <span>预计活动奖励：</span>

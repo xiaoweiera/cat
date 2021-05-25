@@ -16,13 +16,17 @@ const href = computed(() => {
 </script>
 <template>
   <div>
-    <div>
+    <div class="font-kdFang">
       <div class="flex items-center pb-1">
         <span class="text-sm title" v-html="data.title"></span>
         <template v-if="data.tooltip">
-          <a class="tooltip rounded ml-1.5" target="_blank" :href="href">
+          <a
+            class="tooltip rounded ml-1.5 flex items-center"
+            target="_blank"
+            :href="href"
+          >
             <template v-if="data.tooltip.icon">
-              <IconFont class="mr-1" :type="data.tooltip.icon" size="xs" />
+              <IconFont class="mr-1 flex" :type="data.tooltip.icon" size="xs" />
             </template>
             <span class="text-xs inline-block">{{ data.tooltip.value }}</span>
           </a>
@@ -39,7 +43,7 @@ const href = computed(() => {
         </slot>
       </div>
     </div>
-    <div class="whitespace-nowrap">
+    <div class="whitespace-nowrap md:ml-3">
       <slot name="right"></slot>
     </div>
   </div>

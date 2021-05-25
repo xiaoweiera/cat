@@ -25,35 +25,29 @@ onMounted(async() => {
 })
 </script>
 <template>
-  <div class="container flex px-4 md:px-0">
+  <div class="container flex px-4 pb-20 md:px-0">
     <div class="flex-1">
       <growthpadTaskDasboard />
-      <div class="pb-15 tips md:hidden">
-        <div class="w-full pt-15">
-          <div>
-            <p class="text-kd14px18px font-kdFang text-global-default">
-              {{
-                timeType === 'begin'
-                  ? I18n.growthpad.examples.countdown.title
-                  : I18n.growthpad.examples.countdown.endTitle
-              }}
-            </p>
-            <TimeCountdown
-              v-if="timeType === 'begin'"
-              :value="store.dashboard.begin"
-            />
-            <TimeCountdown
-              v-if="timeType === 'end'"
-              :value="store.dashboard.end"
-            />
-          </div>
+
+      <div class="w-full pt-5 pb-15 md:hidden">
+        <div v-if="timeType === 'begin'">
+          <p class="text-kd14px18px font-kdFang text-global-default">
+            {{ I18n.growthpad.examples.countdown.title }}
+          </p>
+          <TimeCountdown :value="store.dashboard.begin" />
+        </div>
+        <div v-else>
+          <p class="text-kd14px18px font-kdFang text-global-default">
+            {{ I18n.growthpad.examples.countdown.endTitle }}
+          </p>
+          <TimeCountdown :value="store.dashboard.end" />
         </div>
       </div>
 
       <growthpadTaskAdress class="md:pt-15" />
 
       <div>
-        <h2>奖励任务</h2>
+        <h2 class="font-kdFang">奖励任务</h2>
         <div class="pb-15">
           <DotCountGroup class="pt-4">
             <ul>
@@ -73,22 +67,17 @@ onMounted(async() => {
     </div>
     <div class="ml-15 tips hidden md:block">
       <div class="w-full pt-15">
-        <div>
+        <div v-if="timeType === 'begin'">
           <p class="text-kd14px18px font-kdFang text-global-default">
-            {{
-              timeType === 'begin'
-                ? I18n.growthpad.examples.countdown.title
-                : I18n.growthpad.examples.countdown.endTitle
-            }}
+            {{ I18n.growthpad.examples.countdown.title }}
           </p>
-          <TimeCountdown
-            v-if="timeType === 'begin'"
-            :value="store.dashboard.begin"
-          />
-          <TimeCountdown
-            v-if="timeType === 'end'"
-            :value="store.dashboard.end"
-          />
+          <TimeCountdown :value="store.dashboard.begin" />
+        </div>
+        <div v-else>
+          <p class="text-kd14px18px font-kdFang text-global-default">
+            {{ I18n.growthpad.examples.countdown.endTitle }}
+          </p>
+          <TimeCountdown :value="store.dashboard.end" />
         </div>
       </div>
     </div>

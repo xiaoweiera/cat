@@ -58,11 +58,9 @@ const validityValue = computed<string>((): string => {
   <div>
     <template v-if="data.type === TaskType.vip">
       <GrowthpadTaskSubVip :data="data">
-        <span v-login>
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
-        </span>
+        <span v-validity.begin.end="validityValue" class="button">{{
+          buttonValue
+        }}</span>
       </GrowthpadTaskSubVip>
     </template>
     <template v-else-if="data.type === TaskType.telegram">
@@ -147,8 +145,8 @@ const validityValue = computed<string>((): string => {
 .button {
   display: inline-block;
   background: #2b8dfe;
-  border-radius: 12px;
-  padding: 4px 12px;
+  border-radius: 14px;
+  padding: 6px 12px;
   font-weight: 500;
   font-size: 12px;
   color: #fff;

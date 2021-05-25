@@ -74,7 +74,6 @@ const data = {
     website: 'mdex.com', // 项目官网
     minutias: [
       { label: I18n.growthpad.examples.about.name, value: 'MDX' }, // 代币名称
-      { label: I18n.growthpad.examples.about.symbol, value: 'MDX' }, // 代币名称
       { label: I18n.growthpad.examples.about.online, value: '2021年1月19日' }, // 上线时间
       { label: I18n.growthpad.examples.about.count, value: '10亿' }, // 发行总量
       { label: I18n.growthpad.examples.about.marketValue, value: '3亿' }, // 市值
@@ -84,7 +83,7 @@ const data = {
       // 上线交易所
       {
         label: I18n.growthpad.examples.about.exchanges,
-        value: '火币/币安',
+        value: '火币、币安等23家',
       },
     ],
     detail: I18n.growthpad.examples.about.detail, // 项目介绍
@@ -108,7 +107,7 @@ const data = {
         {
           type: TaskType.vip,
           title: '成为 Kingdata VIP 用户',
-          help: '邀请三个用户注册即可成为 VIP 用户', // 帮助信息
+          description: '邀请三个用户注册即可成为 VIP 用户', // 帮助信息
         },
         telegram('活动结束前退出电报群视为未完成任务'),
         twitter('活动结束前取消关注视为未完成任务'),
@@ -129,9 +128,9 @@ const data = {
           title: '任务资格：Pancake swap 持仓价值超过1万U',
           description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
         },
-        telegram('活动结束前退出电报群视为未完成任务', [10]),
-        twitter('活动结束前取消关注视为未完成任务',[3]),
-        retwitter('活动结束前删除推文视为未完成任务',[3]),
+        telegram('活动结束前退出电报群视为未完成任务', [5]),
+        twitter('活动结束前取消关注视为未完成任务',[5]),
+        retwitter('活动结束前删除推文视为未完成任务',[5]),
       ],
     },
     // 任务 3
@@ -148,9 +147,9 @@ const data = {
           title: '任务资格 Uniswap 持仓价值超过1万U',
           description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
         },
-        telegram('活动结束前退出电报群视为未完成任务', [10]),
-        twitter('活动结束前取消关注视为未完成任务',[3]),
-        retwitter('活动结束前删除推文视为未完成任务',[3]),
+        telegram('活动结束前退出电报群视为未完成任务', [5]),
+        twitter('活动结束前取消关注视为未完成任务',[5]),
+        retwitter('活动结束前删除推文视为未完成任务',[5]),
       ],
     },
     // 任务 4
@@ -167,9 +166,9 @@ const data = {
           title: '任务资格：Sushiswap 持仓价值超过1万U',
           description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
         },
-        telegram('活动结束前退出电报群视为未完成任务', [10]),
-        twitter('活动结束前取消关注视为未完成任务', [3]),
-        retwitter('活动结束前删除推文视为未完成任务', [3]),
+        telegram('活动结束前退出电报群视为未完成任务', [5]),
+        twitter('活动结束前取消关注视为未完成任务', [5]),
+        retwitter('活动结束前删除推文视为未完成任务', [5]),
       ],
     },
     // 任务 5

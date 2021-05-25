@@ -56,7 +56,6 @@ const timeout = () => {
   minute.value = getMinute(duration)
   // 计算倒计时剩余秒
   const seconds = parseInt(((duration / 1000) % 60) as any, 10)
-  console.log(seconds, day.value, hour.value, minute.value)
   if (seconds < 60) {
     intemout = setTimeout(timeout, 1000 * (60 - seconds))
   } else {
@@ -67,33 +66,47 @@ timeout()
 </script>
 
 <template>
-  <div class="flex text-center justify-between items-center">
+  <div
+    class="flex text-center md:justify-between items-baseline md:items-center"
+  >
     <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp mt-1">{{ day }}</span>
-      <span class="text-sm font-kdFang">Days</span>
+      <span class="font-bold text-2xl md:text-4xl font-kdExp mt-1">{{
+        day
+      }}</span>
+      <span class="text-sm font-kdFang hidden md:inline-block">Days</span>
     </p>
     <p>
-      <span class="font-bold text-2xl">:</span>
+      <span class="font-bold text-2xl hidden md:inline-block">:</span>
+      <span class="font-semibold text-xs md:hidden">天</span>
     </p>
-    <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp mt-1">{{ hour }}</span>
-      <span class="text-sm font-kdFang">Hours</span>
+    <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
+      <span class="font-bold text-2xl md:text-4xl font-kdExp mt-1">{{
+        hour
+      }}</span>
+      <span class="text-sm font-kdFang hidden md:inline-block">Hours</span>
     </p>
     <p>
-      <span class="font-bold text-2xl">:</span>
+      <span class="font-bold text-2xl hidden md:inline-block">:</span>
+      <span class="font-semibold text-xs md:hidden">小时</span>
     </p>
-    <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp mt-1">{{ minute }}</span>
-      <span class="text-sm font-kdFang">Minutes</span>
+    <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
+      <span class="font-bold text-2xl md:text-4xl font-kdExp mt-1">{{
+        minute
+      }}</span>
+      <span class="text-sm font-kdFang hidden md:inline-block">Minutes</span>
+    </p>
+    <p>
+      <span class="font-semibold text-xs md:hidden">分钟</span>
     </p>
   </div>
 </template>
 
 <style scoped>
-.time-value {
+.md\:text-4xl {
   font-size: 42px;
 }
-.font-bold {
+.font-bold,
+.font-semibold {
   color: #2b8dfe;
 }
 .text-sm {

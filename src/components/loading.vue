@@ -4,7 +4,7 @@ defineProps({
   value: {
     type: String,
     default() {
-      return '验证中，预计 1～2 分钟'
+      return '验证中，审核结束后自动更新结果'
     },
   },
 })

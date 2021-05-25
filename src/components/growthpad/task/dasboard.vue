@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
 import { computed } from 'vue'
+import { TimeStatus, getTimeStatus } from './task'
 import I18n from '~/utils/i18n/index'
 
 import Task from '~/logic/growthpad/task'
@@ -18,41 +18,57 @@ const maxReward = function(array: number[]): number {
   return Math.max.apply(null, array)
 }
 
-const beginTime = computed<string>((): string => {
-  if (store.dashboard?.begin) {
-    const time = dayjs(store.dashboard.begin, 'YYYY-MM-DD HH:mm:ss').format(
-      'YYYY年MM月DD日HH:mm',
-    )
-    return `活动开启时间：${time}（UTC+8）`
-  }
-  return ''
+const timeStatus = computed<string>((): string => {
+  return getTimeStatus(store)
 })
 </script>
 
 <template>
   <div class="pt-15 total">
-    <div class="lg:flex md:items-center pb-5">
-      <div class="flex items-center">
-        <DotChar :img="store.icon.value" size="xl" />
-        <span class="text-2xl ml-2">{{ title }}</span>
-      </div>
-      <div class="md:ml-4 pt-2 md:pt-0">
-        <div class="hot py-1.5 px-3 rounded text-sm">
-          <b class="font-medium">⏱ </b>
-          <b class="font-medium ml-3">{{ beginTime }}</b>
-        </div>
-      </div>
+    <div class="flex items-center pb-5 font-kdFang">
+      <DotChar :img="store.icon.value" size="xl" />
+      <span class="text-2xl mx-2">{{ title }}</span>
+      <span
+        v-if="timeStatus === TimeStatus.wait"
+        class="wait py-1.5 px-3 rounded text-sm"
+      >
+        <b class="font-medium">⏱</b>
+        <b class="font-medium ml-3">即将开始</b>
+      </span>
+      <span
+        v-else-if="timeStatus === TimeStatus.ing"
+        class="ing py-1.5 px-3 rounded text-sm"
+      >
+        <b class="font-medium">🔥</b>
+        <b class="font-medium ml-3">进行中</b>
+      </span>
+      <span
+        v-else-if="timeStatus === TimeStatus.closure"
+        class="closure py-1.5 px-3 rounded text-sm"
+      >
+        <b class="font-medium">🚫</b>
+        <b class="font-medium ml-3">已结束</b>
+      </span>
     </div>
     <div>
-      <p class="description text-sm">{{ store.dashboard.description }}</p>
+      <p class="description text-sm font-kdFang">
+        {{ store.dashboard.description }}
+      </p>
     </div>
     <div class="pt-5">
       <ul class="flex">
         <li>
-          <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.examples.dashboard.rewards }}
           </h4>
-          <p class="font-color-theme font-kdFang font-bold flex items-end">
+          <p
+            class="
+              font-color-theme font-kdFang font-bold
+              flex
+              items-end
+              font-kdExp
+            "
+          >
             <span class="text-2xl md:text-4xl">{{
               store.dashboard.rewardCount
             }}</span>
@@ -62,18 +78,25 @@ const beginTime = computed<string>((): string => {
           </p>
         </li>
         <li class="ml-3 md:ml-12">
-          <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.examples.dashboard.value }}
           </h4>
-          <p class="font-color-theme font-kdFang font-bold">
+          <p class="font-color-theme font-kdFang font-bold font-kdExp">
             <span class="text-2xl md:text-4xl">${{ 0 }}</span>
           </p>
         </li>
         <li class="ml-3 md:ml-12">
-          <h4 class="font-normal text-xs mb-1 whitespace-nowrap">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.examples.dashboard.perPerson }}
           </h4>
-          <p class="font-color-theme font-kdFang font-bold flex items-end">
+          <p
+            class="
+              font-color-theme font-kdFang font-bold
+              flex
+              items-end
+              font-kdExp
+            "
+          >
             <span class="text-2xl md:text-4xl whitespace-nowrap">
               <span>{{ minReward(store.dashboard.rewardLimit) }}</span>
               <span>-</span>
@@ -88,12 +111,17 @@ const beginTime = computed<string>((): string => {
 </template>
 
 <style scoped lang="postcss">
-.total {
-  min-height: 310px;
-}
-.hot {
+.wait {
   color: #2083f4;
   background: rgba(43, 141, 254, 0.1);
+}
+.ing {
+  background: rgba(248, 137, 35, 0.14);
+  color: #e9592d;
+}
+.closure {
+  background: rgba(37, 62, 111, 0.1);
+  color: rgba(37, 62, 111, 0.65);
 }
 h4 {
   color: rgba(37, 62, 111, 0.65);
