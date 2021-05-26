@@ -79,6 +79,7 @@ const onGetCode = function() {
     class="formLogo"
     :rules="rules"
     :model="registerData"
+    autocomplete="off"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
@@ -86,6 +87,7 @@ const onGetCode = function() {
         v-model="registerData.mobile"
         placeholder="请输入手机号"
         class="input-with-select"
+        autocomplete="off"
       >
         <template #prepend>+86</template>
       </el-input>
@@ -96,6 +98,7 @@ const onGetCode = function() {
         v-model="registerData.code"
         placeholder="请输入验证码"
         class="input-with-select"
+        autocomplete="off"
       >
         <template #append>
           <span class="link hand" @click="onGetCode">{{ codeValue }}</span>
@@ -109,6 +112,7 @@ const onGetCode = function() {
         type="password"
         placeholder="请输入密码"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>
@@ -117,6 +121,7 @@ const onGetCode = function() {
         v-model="registerData.visitNum"
         placeholder="请输入邀请码"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>

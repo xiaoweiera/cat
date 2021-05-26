@@ -66,10 +66,10 @@ const rewardValue = computed<number>((): number => {
       <template v-if="isWeibo">
         <span
           class="count"
-        >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
+        >{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
       </template>
       <template v-else>
-        <span class="count">+{{ getMax(data.reward) }}</span>
+        <span class="count">{{ getMax(data.reward) }}</span>
       </template>
       <span class="ml-1">{{ store.getNickName() }}</span>
     </span>

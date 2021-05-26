@@ -31,6 +31,7 @@ const submit = async function() {
     class="formLogo"
     :rules="rules"
     :model="formdata"
+    autocomplete="off"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
@@ -38,6 +39,7 @@ const submit = async function() {
         v-model="formdata.mobile"
         placeholder="请输入手机号"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>
@@ -47,6 +49,7 @@ const submit = async function() {
         type="password"
         placeholder="请输入密码"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>
