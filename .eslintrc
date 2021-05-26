@@ -1,6 +1,7 @@
 {
   "extends": "@antfu",
   "rules": {
+    "node/no-deprecated-api": "off",
     "arrow-parens": ["error", "always"],
     // 缩紧风格
     "brace-style": ["error", "1tbs"],

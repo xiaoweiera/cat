@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import I18n from '~/utils/i18n/index'
 import {
   visible,
   visibleRegister,
@@ -39,13 +40,17 @@ const handleClose = function(next) {
         items-center
       "
     >
-      <span type="text" @click.stop="showVisible">登录</span>
+      <span class="whitespace-nowrap" @click.stop="showVisible">{{
+        I18n.common.login
+      }}</span>
       <img
         class="w-0.5 h-0.5 ml-1 mr-1 Z"
         src="https://res.ikingdata.com/nav/dian.png"
         alt=""
       />
-      <span type="text" @click.stop="showRegisterVisible">注册</span>
+      <span class="whitespace-nowrap" @click.stop="showRegisterVisible">{{
+        I18n.common.register
+      }}</span>
     </div>
     <ElDialog
       v-model="visible"
@@ -59,7 +64,7 @@ const handleClose = function(next) {
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
             <a class="inline-block font-normal link hand" @click="showVisible">
-              <span>返回登录</span>
+              <span>{{ I18n.common.switchLogin }}</span>
             </a>
           </div>
         </div>
@@ -69,7 +74,7 @@ const handleClose = function(next) {
         <div class="pt-4.5 pb-2.5">
           <div @click="showRegisterVisible">
             <a class="inline-block font-normal link hand">
-              <span>注册账号</span>
+              <span>{{ I18n.common.switchRegister }}</span>
             </a>
           </div>
         </div>

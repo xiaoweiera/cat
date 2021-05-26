@@ -1,5 +1,5 @@
 {
   "kiwiDir": "./langs",
   "srcLang": "cn",
-  "distLangs": ["en", "cht"]
+  "distLangs": ["en"]
 }

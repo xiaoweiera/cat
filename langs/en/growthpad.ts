@@ -1,4 +1,7 @@
 export default {
+  title: 'GrowthPad',
+  case: 'Examples',
+  growth: '增长',
   "examples": {
     "whiteList": "White list Prequalification",
     "growthTasks": "Growth tasks (customized according to project requirements)",
@@ -44,5 +47,4 @@ export default {
       "perPerson": "Per person"
     }
   },
-  "growth": "increase"
 }

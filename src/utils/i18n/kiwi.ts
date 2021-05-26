@@ -10,8 +10,6 @@ import * as lang from '../lang'
 import cnLangs from '../../../langs/cn/index'
 // 英文
 import enLangs from '../../../langs/en/index'
-// 繁体
-// import zhTWLangs from '../../../langs/cht/index'
 
 interface Args {
   [key: string]: any
@@ -81,9 +79,7 @@ format.part = function(text: string, mode?: number, args?: Args) {
     }
     if (typeof mode === 'number' || typeof mode === 'string') {
       const index = parseInt(mode as any, 10)
-      return part(text, isNaN(index)
-        ? 0
-        : index, args || {})
+      return part(text, isNaN(index) ? 0 : index, args || {})
     }
   }
   return format.template(text, {})
