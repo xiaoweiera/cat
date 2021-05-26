@@ -33,7 +33,17 @@ const onSwitchLang = function() {
 </script>
 <template>
   <nav
-    class="flex items-center justify-between relative z-2 px-6 h-18 font-kdFang"
+    class="
+      headerBg
+      flex
+      items-center
+      justify-between
+      relative
+      z-2
+      px-6
+      h-18
+      font-kdFang
+    "
   >
     <div class="flex items-center">
       <a class="block" href="https://www.kingdata.com" target="_blank">
@@ -79,3 +89,8 @@ const onSwitchLang = function() {
     </div>
   </nav>
 </template>
+<style>
+.headerBg {
+  box-shadow: 0 0.5px 0 rgb(43 140 255 / 4%), 0 2px 12px rgb(0 50 108 / 4%);
+}
+</style>
