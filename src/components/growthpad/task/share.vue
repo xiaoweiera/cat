@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
 const store = Task()
 
-const data = {
-  type: TaskType.share,
-  title: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
-}
+const data = computed(() => {
+  return {
+    type: TaskType.share,
+    title: I18n.growthpad.mdx.share.lable,
+  }
+})
 const link = (): string => {
   const { origin, pathname } = window.location
   let url = `${origin}${pathname}`
@@ -17,7 +21,7 @@ const link = (): string => {
   }
   const $title = document.querySelector('title')
   const value = $title.innerText
-  return `邀请您参与${value}，赢取百万美元奖励，${url}`
+  return I18n.template(I18n.growthpad.mdx.copy, { title: value, url })
 }
 </script>
 <template>
@@ -25,11 +29,11 @@ const link = (): string => {
     <template #desc>
       <span class="md:flex items-center pt-1.5">
         <span class="flex items-center">
-          <span>我邀请参与活动的人数：</span>
+          <span>{{ I18n.growthpad.invited.count }}</span>
           <i>{{ store.user.invited_count || 0 }}</i>
         </span>
         <span class="mt-1.5 md:mt-0 md:ml-6 flex items-center">
-          <span class="">我的邀请码：</span>
+          <span class="">{{ I18n.growthpad.invited.code }}</span>
           <i>{{ userData.my_invitation_code }}</i>
           <span v-login>
             <Copy :link="link">

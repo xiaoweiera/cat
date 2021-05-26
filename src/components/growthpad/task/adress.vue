@@ -49,7 +49,7 @@ const rules: any = {
   address: [
     {
       required: true,
-      message: I18n.growthpad.examples.address,
+      message: I18n.growthpad.address.placeholder,
       trigger: ['blur', 'change'],
     },
     {
@@ -85,9 +85,9 @@ const bindAddress = async function(): Promise<void> {
     // 在活动时间范围内
     if (status) {
       // 提示地址确认
-      status = await Message('确认地址', {
+      status = await Message(I18n.growthpad.address.confirm, {
         value: formdata.address,
-        warn: '地址一旦确认不可修改',
+        warn: I18n.growthpad.address.tips,
       })
     }
     // 地址无误情况下提交地址
@@ -104,24 +104,23 @@ const bindAddress = async function(): Promise<void> {
   <div class="pb-15 font-kdFang">
     <div v-if="tokenIsNull" class="flex-1">
       <h2 class="pb-4 text-base font-semibold address">
-        <span>预计活动奖励：</span>
+        <span>{{ I18n.growthpad.address.reward }}</span>
         <span
           class="reward"
         >{{ store.user.reward }}{{ store.getNickName() }}</span>
       </h2>
       <div>
-        <p class="text-sm address">您登记的奖励领取地址为：{{ getToken() }}</p>
+        <p class="text-sm address">
+          {{ I18n.growthpad.address.iCard }}{{ getToken() }}
+        </p>
       </div>
       <div class="pt-1.5 text-xs">
-        <p class="tips">
-          * 奖励将于活动结束后统一发放到您的奖励接收地址
-          ，持仓量相关任务奖励直接发放至验证地址。
-        </p>
+        <p class="tips">{{ I18n.growthpad.address.notify2 }}</p>
       </div>
     </div>
     <div v-else>
       <h2 class="pb-4 text-base font-semibold">
-        <span>{{ I18n.growthpad.examples.register }}</span>
+        <span>{{ I18n.growthpad.register }}</span>
       </h2>
       <div class="w-full">
         <el-form
@@ -141,27 +140,26 @@ const bindAddress = async function(): Promise<void> {
               >
                 <ElInput
                   v-model="formdata.address"
-                  :placeholder="I18n.growthpad.examples.address"
+                  :placeholder="I18n.growthpad.address.placeholder"
                 >
                   <template v-if="isNull(formdata.address)" #suffix>
-                    <span class="pr-3 text-sm tips">地址无效</span>
+                    <span class="pr-3 text-sm tips">{{
+                      I18n.growthpad.address.invalid
+                    }}</span>
                   </template>
                 </ElInput>
               </el-form-item>
             </div>
             <div v-validity.end="validityValue" class="ml-4">
               <ElButton v-login type="primary" native-type="submit">
-                <span>{{ I18n.growthpad.examples.submit }}</span>
+                <span>{{ I18n.growthpad.submit }}</span>
               </ElButton>
             </div>
           </div>
         </el-form>
       </div>
       <div class="pt-1.5 text-xs">
-        <p class="tips">
-          *
-          请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。
-        </p>
+        <p class="tips">{{ I18n.growthpad.address.notify1 }}</p>
       </div>
     </div>
   </div>

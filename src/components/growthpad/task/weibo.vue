@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { reactive, ref, toRaw } from 'vue'
+import { reactive, ref, toRaw, computed } from 'vue'
+import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { messageSuccess } from '~/lib/tool'
 
 const store = Task()
 
-const data = {
-  title:
-    '根据粉丝数获得奖励：<br/>0-49999粉丝奖励 15MDX；49999-99999粉丝奖励100MDX；大于99999粉丝奖励200MDX.',
-  description:
-    '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
-}
+const data = computed(() => {
+  return {
+    title: I18n.growthpad.weibo.label,
+    description: I18n.growthpad.weibo.description,
+  }
+})
 
 interface FormData {
   article_url?: string
@@ -47,7 +48,7 @@ const submit = async function() {
   try {
     await form.validate()
     await store.setWeiboContent(data)
-    messageSuccess('图片上传成功')
+    messageSuccess(I18n.growthpad.weibo.success)
     // 清空表单
     form.resetField()
     // 清除验证结果
@@ -62,7 +63,7 @@ const rules: any = {
     {
       required: true,
       trigger: ['change'],
-      message: '请上传图片',
+      message: I18n.growthpad.weibo.placeholder,
     },
   ],
 }
@@ -83,14 +84,18 @@ const rules: any = {
       autocomplete="off"
       @submit.stop.prevent="submit"
     >
-      <el-form-item label="文章链接：">
+      <el-form-item :label="I18n.growthpad.weibo.article">
         <el-input
           v-model="formdata.article_url"
-          placeholder="输入文章链接"
+          :placeholder="I18n.growthpad.weibo.articlePlaceholder"
           autocomplete="off"
         ></el-input>
       </el-form-item>
-      <el-form-item label="上传图片：" required prop="article_image">
+      <el-form-item
+        :label="I18n.growthpad.weibo.articleImg"
+        required
+        prop="article_image"
+      >
         <div class="flex items-center">
           <el-upload
             class="avatar-uploader"
@@ -114,14 +119,14 @@ const rules: any = {
             ></IconFont>
           </el-upload>
           <div class="upload-tips pl-3">
-            <span>* 截图内容请包含主流媒体主页</span>
-            <span>* 图片格式为JPG/PNG/GIF,上传大小不超过5M</span>
+            <span>{{ I18n.growthpad.weibo.notify1 }}</span>
+            <span>{{ I18n.growthpad.weibo.notify2 }}</span>
           </div>
         </div>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" round size="small" native-type="submit">
-          提交
+          <span>{{ I18n.common.button.submit }}</span>
         </el-button>
       </el-form-item>
     </el-form>

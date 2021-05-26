@@ -2,6 +2,7 @@
 import { defineProps, reactive, ref, toRaw } from 'vue'
 import { checkAddress } from '../task'
 import rules from './rule'
+import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 const store = Task()
@@ -52,7 +53,7 @@ const onSubmit = async function() {
     <el-form-item prop="input">
       <el-input
         v-model="formdata.input"
-        placeholder="输入您的TwitterID"
+        :placeholder="I18n.growthpad.form.retwitter"
         size="small"
       />
     </el-form-item>

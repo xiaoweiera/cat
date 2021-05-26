@@ -2,6 +2,7 @@
 // 倒计时
 import dayjs from 'dayjs'
 import { ref, defineProps, watch } from 'vue'
+import I18n from '~/utils/i18n/index'
 const format = 'YYYY-MM-DD HH:mm:ss'
 const props = defineProps({
   value: [String, Number],
@@ -77,7 +78,9 @@ timeout()
     </p>
     <p>
       <span class="font-bold text-2xl hidden md:inline-block">:</span>
-      <span class="font-semibold text-xs md:hidden">天</span>
+      <span class="font-semibold text-xs md:hidden">{{
+        I18n.common.time.dd
+      }}</span>
     </p>
     <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
       <span class="font-bold text-2xl md:text-4xl font-kdExp mt-1">{{
@@ -87,7 +90,9 @@ timeout()
     </p>
     <p>
       <span class="font-bold text-2xl hidden md:inline-block">:</span>
-      <span class="font-semibold text-xs md:hidden">小时</span>
+      <span class="font-semibold text-xs md:hidden">{{
+        I18n.common.time.hh
+      }}</span>
     </p>
     <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
       <span class="font-bold text-2xl md:text-4xl font-kdExp mt-1">{{
@@ -96,7 +101,9 @@ timeout()
       <span class="text-sm font-kdFang hidden md:inline-block">Minutes</span>
     </p>
     <p>
-      <span class="font-semibold text-xs md:hidden">分钟</span>
+      <span class="font-semibold text-xs md:hidden">{{
+        I18n.common.time.mm
+      }}</span>
     </p>
   </div>
 </template>

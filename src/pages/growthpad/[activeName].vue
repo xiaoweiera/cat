@@ -32,13 +32,13 @@ onMounted(async() => {
       <div class="w-full pt-5 pb-15 md:hidden">
         <div v-if="timeType === 'begin'">
           <p class="text-kd14px18px font-kdFang text-global-default">
-            {{ I18n.growthpad.examples.countdown.title }}
+            {{ I18n.growthpad.countdown.title }}
           </p>
           <TimeCountdown :value="store.dashboard.begin" />
         </div>
         <div v-else>
           <p class="text-kd14px18px font-kdFang text-global-default">
-            {{ I18n.growthpad.examples.countdown.endTitle }}
+            {{ I18n.growthpad.countdown.endTitle }}
           </p>
           <TimeCountdown :value="store.dashboard.end" />
         </div>
@@ -47,7 +47,7 @@ onMounted(async() => {
       <growthpadTaskAdress class="md:pt-15" />
 
       <div>
-        <h2 class="font-kdFang">奖励任务</h2>
+        <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
         <div class="pb-15">
           <DotCountGroup class="pt-4">
             <ul>
@@ -65,17 +65,18 @@ onMounted(async() => {
 
       <growthpadTaskAbout></growthpadTaskAbout>
     </div>
+    <!--  右侧时间  -->
     <div class="ml-15 tips hidden md:block">
       <div class="w-full pt-15">
         <div v-if="timeType === 'begin'">
           <p class="text-kd14px18px font-kdFang text-global-default">
-            {{ I18n.growthpad.examples.countdown.title }}
+            {{ I18n.growthpad.countdown.title }}
           </p>
           <TimeCountdown :value="store.dashboard.begin" />
         </div>
         <div v-else>
           <p class="text-kd14px18px font-kdFang text-global-default">
-            {{ I18n.growthpad.examples.countdown.endTitle }}
+            {{ I18n.growthpad.countdown.endTitle }}
           </p>
           <TimeCountdown :value="store.dashboard.end" />
         </div>

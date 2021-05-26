@@ -54,8 +54,8 @@ export const makeDescription = function(data: any): string {
   const max = getMax(data.reward)
   const min = getMin(data.reward)
   // 奖励模版
-  const minValue = I18n.template('奖励 {count} MDX', { count: min })
-  const maxValue = I18n.template('最多可得 {count} MDX', { count: max })
+  const minValue = I18n.template(I18n.growthpad.reward.total, { count: min })
+  const maxValue = I18n.template(I18n.growthpad.reward.maxTotal, { count: max })
   if (max === min) {
     return I18n.template(data.description, { reward: `<i>${minValue}</i>` })
   }
@@ -69,6 +69,6 @@ export const checkAddress = function(store: Store): boolean {
   if (value) {
     return true
   }
-  Message.alert('请先完成信息登记')
+  Message.alert(I18n.growthpad.address.warning)
   return false
 }
