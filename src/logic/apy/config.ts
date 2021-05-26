@@ -72,10 +72,10 @@ export const tableIndex = {
 }
 export const chainConfig = [
   {
-    select: false,
+    select: true,
     key: 'all',
     name: '全部',
-    img: 'https://res.ikingdata.com/nav/apyAllTip.png',
+    img: 'https://res.ikingdata.com/nav/allTable.png',
   },
   {
     select: false,
@@ -84,7 +84,7 @@ export const chainConfig = [
     img: 'https://res.ikingdata.com/nav/apyEth.png',
   },
   {
-    select: true,
+    select: false,
     key: 'heco',
     name: 'Heco',
     img: 'https://res.ikingdata.com/nav/apyHeco.png',

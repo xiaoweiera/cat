@@ -113,7 +113,6 @@ onMounted(() => {
     'DeFi挖矿收益APY大全',
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',
   )
-  // intervalFetchTableByChain('heco')
 })
 onUnmounted(() => clearInterval(timerInterval))
 </script>
@@ -155,7 +154,7 @@ onUnmounted(() => clearInterval(timerInterval))
       </div>
       <div class="text-center flex justify-center md:mb-5">
         <!-- active 默认选中项 -->
-        <ApyChains :chains="chains" active="heco" />
+        <ApyChains :chains="chains" active="all" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
