@@ -1012,7 +1012,7 @@
         "affectsGlobalScope": false
       },
       "./src/logic/apy/config.ts": {
-        "version": "fc883f41ffac6eeabebf9284f37d97145a658e98c6811ce42a66ba6c2e2ed253",
+        "version": "21ac7c810235faea790e9d466f8b42f942f5039bc77b0b02788c4d1c70d16f34",
         "signature": "9894755e6747e9a53824a6ff4dfe28e73e070eefc8c476d1fe4398f6182d4dc2",
         "affectsGlobalScope": false
       },
