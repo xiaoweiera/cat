@@ -107,7 +107,7 @@ watch(
 )
 </script>
 <template>
-  <div class="md:mt-5 relative mt-6 md:mb-20">
+  <div class="md:mt-5 relative mt-6 md:mb-5">
     <ApyDes
       :title="props.chartData.title"
       :table-index="props.tableIndex"
