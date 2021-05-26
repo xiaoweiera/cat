@@ -45,7 +45,7 @@ const param = {
   from_ts: '',
   to_ts: '',
 }
-// 画图
+// 画图表
 const draw = () => {
   myChart.setOption(
     chartOption(
@@ -65,7 +65,6 @@ const changeTime = (beginTimeStr: string, endTimeStr: string) => {
   beginTime.value = beginTimeStr
   endTime.value = endTimeStr
 }
-
 onMounted(() => {
   // @ts-ignore
   myChart = echarts.init(document.getElementById(`${props.id}big`), 'light', {
@@ -73,7 +72,7 @@ onMounted(() => {
   })
   window.addEventListener('resize', myChart.resize)
 })
-// @ts-ignore
+// @ts-ignore 关闭弹框
 const closeModel = () => {
   props.changeState(false)
 }

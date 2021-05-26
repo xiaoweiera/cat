@@ -21,9 +21,7 @@ const { t, locale } = useI18n()
 const lang = ref(currentLang(route))
 
 const toggleLocales = () => {
-  lang.value = lang.value === 'en'
-    ? 'cn'
-    : 'en'
+  lang.value = lang.value === 'en' ? 'cn' : 'en'
   router.replace({
     ...route,
     query: {
@@ -193,20 +191,14 @@ const showDialog = () => (show.value = !show.value)
       src="https://res.ikingdata.com/nav/topicLogo.png"
       alt=""
     /></a>
-    <div class="flex items-center hand" @click="toggleLocales()">
-      <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter">
-        中文
-      </div>
-      <img
-        class="w-6 h-6"
-        src="https://res.ikingdata.com/nav/growLang.png"
-        alt=""
-      />
+    <div class="flex items-center hand">
+      <!--      <div class="mr-1 text-global-default opacity-85 ml-kd32px i8n-font-inter"> 中文</div>-->
+      <!--      <img class="w-6 h-6" src="https://res.ikingdata.com/nav/growLang.png" alt="">-->
       <a
         href="https://www.ikingdata.com/download"
         target="_blank"
         class="text-global-default opacity-85 ml-3 i8n-font-inter"
-      >下载</a>
+      >APP下载</a>
     </div>
   </div>
 </template>

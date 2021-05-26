@@ -13,6 +13,9 @@ const props = defineProps({
   index: {
     type: Number,
   },
+  scopeData: {
+    type: Object,
+  },
 })
 const isShow = ref(false)
 const isNullFun = (data: any) => {
@@ -51,10 +54,16 @@ watch(
     isNullFun(props.itemData)
   },
 )
+const tipState = ref(false)
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
+  <div
+    v-if="isShow"
+    class="w-full h-full flex flex-col justify-center py-4 px-2.5"
+    @mousemove="openDown"
+    @mouseleave="closeDown"
+  >
     <template v-for="(item, i) in itemData">
       <div
         v-if="item.status && getValue(item, i) !== '-'"
@@ -84,7 +93,6 @@ onMounted(() => isNullFun(props.itemData))
     />
   </div>
 </template>
-
 <style scoped lang="postcss">
 .tableLogo {
   width: 112.39px;
