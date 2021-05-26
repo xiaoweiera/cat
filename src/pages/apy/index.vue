@@ -113,7 +113,6 @@ onMounted(() => {
     'DeFi挖矿收益APY大全',
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',
   )
-  // intervalFetchTableByChain('heco')
 })
 onUnmounted(() => clearInterval(timerInterval))
 </script>
@@ -155,19 +154,33 @@ onUnmounted(() => clearInterval(timerInterval))
       </div>
       <div class="text-center flex justify-center md:mb-5">
         <!-- active 默认选中项 -->
-        <ApyChains :chains="chains" active="heco" />
+        <ApyChains :chains="chains" active="all" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
     </div>
+
     <!-- table表格-->
-    <div
-      v-for="(item, index) in tables"
-      :key="index"
-      :class="index % 2 !== 0 ? ' tableDefault' : 'tableDefault'"
-    >
+    <div v-for="(item, index) in tables" :key="index" class="tableDefault">
+      <ApyTableTitle :title="item.title" :timer="timer" />
+      <div class="grid md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+        <template
+          v-for="(itemChart, i) in charts[index].chartAll"
+          :key="`${index}-${i}`"
+        >
+          <ApyChart
+            v-show="itemChart.option"
+            :id="index + '' + i"
+            :chain-id="chainParam"
+            :table-index="index"
+            :chart-index="i"
+            :chart-data="itemChart"
+          />
+        </template>
+      </div>
+
       <!-- chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
       <template v-if="chainParam === 'hsc' && index === 0">
         <div></div>
@@ -189,21 +202,6 @@ onUnmounted(() => clearInterval(timerInterval))
           :title="item.title"
           :table-data="item"
         />
-        <div class="grid md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-          <template
-            v-for="(itemChart, i) in charts[index].chartAll"
-            :key="`${index}-${i}`"
-          >
-            <ApyChart
-              v-show="itemChart.option"
-              :id="index + '' + i"
-              :chain-id="chainParam"
-              :table-index="index"
-              :chart-index="i"
-              :chart-data="itemChart"
-            />
-          </template>
-        </div>
       </div>
     </div>
     <ApyFooter />
@@ -243,7 +241,7 @@ onUnmounted(() => clearInterval(timerInterval))
 </template>
 <style scoped lang="postcss">
 .tableDefault {
-  @apply px-4 md:px-30;
+  @apply px-4 md:px-30 md:mb-15 mb-5;
 }
 
 @media screen and (max-width: 768px) {

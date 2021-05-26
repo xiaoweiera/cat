@@ -5,7 +5,7 @@
 
 import { toUpper } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
-import request from '~/lib/request'
+import request from '~/lib/devRequest'
 
 export enum Project {
   mdx = 'MDX',

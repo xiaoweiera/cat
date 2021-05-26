@@ -56,17 +56,6 @@ const closeDown = () => {
       md:mb-8 md:mb-3
     "
   >
-    <div class="xshidden flex items-center justify-center w-full">
-      <div
-        style="font-size: 24px"
-        class="text-global-highTitle font-medium mr-1.5"
-      >
-        {{ title }}
-      </div>
-      <div class="text-kd14px20px font-normal text-global-default opacity-65">
-        ({{ timer }} 秒后更新)
-      </div>
-    </div>
     <!-- pc-->
     <div class="xshidden w-full">
       <div
