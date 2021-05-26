@@ -350,7 +350,6 @@ onMounted(async() => {
   //height: 42px !important; //background-image: url("/assets/growthpad/join-button.svg");
   @apply w-auto  md:ml-0;
 }
-
 .project-status-title {
   color: #033666;
   font-family: 'PingFang SC';
@@ -359,26 +358,19 @@ onMounted(async() => {
   font-size: 18px;
   line-height: 28px;
 }
-
 .project-container {
   overflow: hidden;
   @apply text-left mt-15;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-content {
   height: 240px;
-
-  //margin-top: -16px;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
   //background: #fff; padding: 16px;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-bar {
   //border-color: #fff;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
   border-color: transparent;
   background: transparent;
