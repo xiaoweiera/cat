@@ -17,7 +17,7 @@ const isWeibo = computed((): boolean => {
 })
 
 const getBase = function(): boolean {
-  if (store.mission.telegram) {
+  if (store.mission.telegram_group) {
     if (store.mission.retweet) {
       if (store.mission.follow_twitter) {
         return true
