@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
+import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 
@@ -12,7 +12,12 @@ const submit = async function() {
     window.location.reload()
   } catch (e) {
     const message = e?.message
-    ElMessage({ type: 'error', message })
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
   }
 }
 </script>
@@ -26,6 +31,7 @@ const submit = async function() {
     class="formLogo"
     :rules="rules"
     :model="formdata"
+    autocomplete="off"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
@@ -33,6 +39,7 @@ const submit = async function() {
         v-model="formdata.mobile"
         placeholder="请输入手机号"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>
@@ -42,6 +49,7 @@ const submit = async function() {
         type="password"
         placeholder="请输入密码"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>

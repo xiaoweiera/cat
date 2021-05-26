@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { toRaw, onMounted, ref } from 'vue'
 import rules from './rules'
+import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { showVisible } from '~/store/header/login'
 import {
@@ -26,11 +26,20 @@ onMounted(() => {
 
 const submit = async function() {
   try {
-    await onRegisterSubmit()
-    showVisible()
+    const result = await onRegisterSubmit()
+    if (result.code === 1) {
+      messageError(result.message)
+    } else {
+      showVisible()
+    }
   } catch (e) {
     const message = e?.message
-    ElMessage({ type: 'error', message })
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
   }
 }
 
@@ -70,6 +79,7 @@ const onGetCode = function() {
     class="formLogo"
     :rules="rules"
     :model="registerData"
+    autocomplete="off"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
@@ -77,6 +87,7 @@ const onGetCode = function() {
         v-model="registerData.mobile"
         placeholder="请输入手机号"
         class="input-with-select"
+        autocomplete="off"
       >
         <template #prepend>+86</template>
       </el-input>
@@ -87,6 +98,7 @@ const onGetCode = function() {
         v-model="registerData.code"
         placeholder="请输入验证码"
         class="input-with-select"
+        autocomplete="off"
       >
         <template #append>
           <span class="link hand" @click="onGetCode">{{ codeValue }}</span>
@@ -100,6 +112,7 @@ const onGetCode = function() {
         type="password"
         placeholder="请输入密码"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>
@@ -108,6 +121,7 @@ const onGetCode = function() {
         v-model="registerData.visitNum"
         placeholder="请输入邀请码"
         class="input-with-select"
+        autocomplete="off"
       >
       </el-input>
     </el-form-item>

@@ -5,6 +5,7 @@
 
 import { reactive, ref } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
+import safeSet from '@fengqiaogang/safe-set'
 import mockMdx from '../../../mock/growthpad/mdx'
 import {
   getProjectInfo,
@@ -54,6 +55,7 @@ interface TaskItem {
   id?: string // 任务ID
   type: TaskType // 任务类型
   title: string
+  titleAfter?: string
   description?: string
   reward: number[] // 奖励
   help?: string // 帮助信息
@@ -221,6 +223,8 @@ export default class Store {
     this.clearTimeout()
     try {
       const result = await setAdress(this.projectName, address)
+      // 默认设置地址返回值
+      safeSet(result, 'info.bsc_token', address)
       this.updateData(result)
       return result
     } catch (e) {

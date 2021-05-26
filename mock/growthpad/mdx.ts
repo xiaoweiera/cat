@@ -16,6 +16,7 @@ const telegram = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
     title: '加入',
+    titleAfter: '并完成任意发言。',
     type: TaskType.telegram,
     tooltip: {
       icon: 'telegram',

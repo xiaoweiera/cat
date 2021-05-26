@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, toRaw } from 'vue'
-import { ElMessage } from 'element-plus'
 import Task from '~/logic/growthpad/task'
+import { messageSuccess } from '~/lib/tool'
 
 const store = Task()
 
@@ -47,13 +47,11 @@ const submit = async function() {
   try {
     await form.validate()
     await store.setWeiboContent(data)
-
-    ElMessage({
-      message: '图片上传成功',
-      type: 'success',
-      showClose: false,
-      customClass: 'message-tips',
-    })
+    messageSuccess('图片上传成功')
+    // 清空表单
+    form.resetField()
+    // 清除验证结果
+    form.clearValidate()
   } catch (e) {
     // todo
   }
@@ -82,12 +80,14 @@ const rules: any = {
       :model="formdata"
       label-width="95px"
       :rules="rules"
+      autocomplete="off"
       @submit.stop.prevent="submit"
     >
       <el-form-item label="文章链接：">
         <el-input
           v-model="formdata.article_url"
           placeholder="输入文章链接"
+          autocomplete="off"
         ></el-input>
       </el-form-item>
       <el-form-item label="上传图片：" required prop="article_image">

@@ -3,8 +3,9 @@
  * @author svon.me@gmail.com
  */
 
+import Url from 'url'
 import { ref } from 'vue'
-import * as R from 'ramda'
+import safeSet from '@fengqiaogang/safe-set'
 
 export enum Language {
   auto = 'auto', // 自动检测
@@ -38,16 +39,23 @@ export enum Language {
   vie = 'vie', // 越南语
 }
 
-function getSearch(): string {
+function getSearch(): Language {
   try {
     if (window) {
-      const search = window.location?.search
-      return search ? search.slice(1) : ''
+      // @ts-ignore
+      const data = Url.parse(window.location.href, true)
+      const { lang } = data.query || {}
+      if (lang) {
+        // @ts-ignore
+        const array: string[] = [].concat(lang)
+        const value = array[array.length - 1]
+        return value as Language
+      }
     }
   } catch (e) {
     // todo
   }
-  return ''
+  return Language.cn
 }
 
 // 获取 url 中的 lang 数据
@@ -62,19 +70,7 @@ const getQueryLang = function(): Language {
     const value: Language = Language[name]
     map.set(key, value)
   }
-  let type: Language = Language.cn
-  const search = getSearch()
-  if (search) {
-    const array = R.split('&', search)
-    for (let i = 0, len = R.length(array); i < len; i++) {
-      const list = R.split('=', array[i])
-      const value = list[1]
-      if (value && map.has(value)) {
-        type = map.get(value) || Language.cn
-        break
-      }
-    }
-  }
+  const type: Language = getSearch()
   return type
 }
 
@@ -82,4 +78,36 @@ export const current = ref<Language>(getQueryLang())
 
 export const setCurrent = function(lang: Language): void {
   current.value = lang
+}
+
+export const nextLang = function(): Language {
+  if (current.value === Language.cn) {
+    return Language.en
+  }
+  return Language.cn
+}
+
+const switchLang = function(value?: Language): Language {
+  return value || current.value
+}
+
+const splitJoin = function(href: string, value?: Language): string {
+  // @ts-ignore
+  const data = Url.parse(href, true)
+  data.search = ''
+  data.query.lang = switchLang(value)
+  return Url.format(data)
+}
+
+interface Params {
+  [key: string]: object
+}
+
+type Query = string | Params
+
+export const href = function <T>(data: Query, lang?: Language): T {
+  if (typeof data === 'string') {
+    return splitJoin(data, lang) as any
+  }
+  return safeSet<T>(data, 'query.lang', switchLang(lang))
 }

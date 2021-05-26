@@ -4,6 +4,7 @@ import { computed, defineProps } from 'vue'
 import { getMin, getMax } from './task'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
+import { userData } from '~/logic/user/login'
 const store = Task()
 const props = defineProps({
   data: {
@@ -16,7 +17,7 @@ const isWeibo = computed((): boolean => {
 })
 
 const getBase = function(): boolean {
-  if (store.mission.telegram) {
+  if (store.mission.telegram_group) {
     if (store.mission.retweet) {
       if (store.mission.follow_twitter) {
         return true
@@ -29,7 +30,7 @@ const getBase = function(): boolean {
 const rewardValue = computed<number>((): number => {
   // 第一个任务
   if (props.data.type === TaskType.vip) {
-    if (store.user.invited_count >= 3 && getBase()) {
+    if (userData.is_vip && getBase()) {
       return getMin(props.data.reward)
     }
   }
@@ -65,10 +66,10 @@ const rewardValue = computed<number>((): number => {
       <template v-if="isWeibo">
         <span
           class="count"
-        >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
+        >{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
       </template>
       <template v-else>
-        <span class="count">+{{ getMax(data.reward) }}</span>
+        <span class="count">{{ getMax(data.reward) }}</span>
       </template>
       <span class="ml-1">{{ store.getNickName() }}</span>
     </span>

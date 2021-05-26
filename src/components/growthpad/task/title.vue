@@ -31,6 +31,9 @@ const href = computed(() => {
             <span class="text-xs inline-block">{{ data.tooltip.value }}</span>
           </a>
         </template>
+        <template v-if="data.titleAfter">
+          <span class="ml-1.5 text-sm title">{{ data.titleAfter }}</span>
+        </template>
         <template v-if="data.help">
           <span class="ml-1.5" :help="data.help">
             <IconFont type="help" />

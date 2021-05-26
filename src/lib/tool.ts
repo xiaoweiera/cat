@@ -1,5 +1,6 @@
 // @ts-ignore
 import dayjs from 'dayjs'
+import * as R from 'ramda'
 import { ElMessage } from 'element-plus'
 
 export const numberFormat = (value: any) => {
@@ -101,6 +102,22 @@ export const min_max = (min: any, max: any, v: any) => {
   }
   return [min, max]
 }
+
+export const messageError = function(message: any): void {
+  const values = R.values(message)
+  const [text]: Array<string> = R.flatten(values)
+  ElMessage.warning(text)
+}
+
+export const messageSuccess = function(text: string): void {
+  ElMessage({
+    message: text,
+    type: 'success',
+    showClose: false,
+    customClass: 'message-tips',
+  })
+}
+
 // copy
 export const copyTxt = (txt: string, message?: boolean) => {
   const dom = document.createElement('input')
@@ -110,11 +127,6 @@ export const copyTxt = (txt: string, message?: boolean) => {
   document.execCommand('copy')
   document.body.removeChild(dom)
   if (message) {
-    ElMessage({
-      message: '已复制邀请链接',
-      type: 'success',
-      showClose: false,
-      customClass: 'message-tips',
-    })
+    messageSuccess('已复制邀请链接')
   }
 }

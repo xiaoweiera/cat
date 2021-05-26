@@ -1,4 +1,6 @@
 export default {
+  title: 'GrowthPad',
+  case: '案例',
   growth: '增长',
   examples: {
     whiteList: '白名单资格预审',

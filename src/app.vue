@@ -135,6 +135,10 @@ a {
   user-select: none;
 }
 
+.el-message {
+  z-index: 9999;
+}
+
 .message-tips {
   min-width: inherit !important;
   background: #ffffff !important;
