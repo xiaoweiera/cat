@@ -2122,18 +2122,18 @@
         "affectsGlobalScope": false
       },
       "./src/logic/apy/config.ts": {
-        "version": "b2111542f099a2486bbf1b66e4185ae98c698da02f621acc79ef5be5329aac70",
-        "signature": "9d1cfdc3b72f779a19fe3905668a85da92392ffc73a28af6be3de02a3412d0bd",
+        "version": "bcf0b44b3d428fb31f7b8433b2eb957e1d2d62c6908dcfb24db0916de711ea22",
+        "signature": "61c6f7fd453c403c2fe91e732705d8b04992e17e921d3f37b68005d928da23d3",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/chartoption.ts": {
         "version": "e44df3525b77b7cc62074821b4a346d20b78d6023ab2f91f3496bd066daeec91",
-        "signature": "5bf6d4c4be3f1a130b9aa9ef1ec92abd44ff6cefbc41fd2f87490191c5b21844",
+        "signature": "faa4fcdca0520c9c870680c3db44929790134dd3a56ebc251914150bca0cb486",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/formatchart.ts": {
         "version": "95a050e4d4ba33f88780f015c8a9db4346b573be945365e93ef10ff176ba9ccb",
-        "signature": "b202edf5f48c61f8d262d61b4cf3c69128257807bb1a0ad3d720d28e7f8d81f6",
+        "signature": "68f29de70c94b7a2375e3e3279b1101c053ac837121b1dc52492c858912fa305",
         "affectsGlobalScope": false
       },
       "./src/logic/apy/index.ts": {
