@@ -4,6 +4,7 @@ import { computed, defineProps } from 'vue'
 import { getMin, getMax } from './task'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
+import { userData } from '~/logic/user/login'
 const store = Task()
 const props = defineProps({
   data: {
@@ -29,7 +30,7 @@ const getBase = function(): boolean {
 const rewardValue = computed<number>((): number => {
   // 第一个任务
   if (props.data.type === TaskType.vip) {
-    if (store.user.invited_count >= 3 && getBase()) {
+    if (userData.is_vip && getBase()) {
       return getMin(props.data.reward)
     }
   }
