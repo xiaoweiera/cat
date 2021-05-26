@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { toRaw, onMounted, ref } from 'vue'
 import rules from './rules'
+import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { showVisible } from '~/store/header/login'
 import {
@@ -26,11 +26,20 @@ onMounted(() => {
 
 const submit = async function() {
   try {
-    await onRegisterSubmit()
-    showVisible()
+    const result = await onRegisterSubmit()
+    if (result.code === 1) {
+      messageError(result.message)
+    } else {
+      showVisible()
+    }
   } catch (e) {
     const message = e?.message
-    ElMessage({ type: 'error', message })
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
   }
 }
 

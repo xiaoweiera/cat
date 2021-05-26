@@ -22,11 +22,31 @@ export const mobile = [
 // 密码校验
 const password = [
   { required: true, message: '请输入密码！', trigger: ['blur', 'change'] },
+  {
+    trigger: ['blur', 'change'],
+    validator(rule: any, value: string, callback: (message?: string) => void) {
+      if (value.length >= 6 && value.length <= 24) {
+        callback()
+      } else {
+        callback('请输入6至24位的密码！')
+      }
+    },
+  },
 ]
 
 // 密码校验
 const code = [
   { required: true, message: '请输入验证码！', trigger: ['blur', 'change'] },
+  {
+    trigger: ['blur', 'change'],
+    validator(rule: any, value: string, callback: (message?: string) => void) {
+      if (value.length === 6) {
+        callback()
+      } else {
+        callback('请输入6位验证码！')
+      }
+    },
+  },
 ]
 
 export default { mobile, password, code }

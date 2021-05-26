@@ -131,9 +131,9 @@ export const onRegisterSubmit = async function(): Promise<any> {
     }
     const data = toRaw(registerData)
     // 注册
-    await user.register(data)
+    const result = await user.register(data)
+    return result?.data || {}
   } catch (e) {
-    console.log(e)
     // todo
     return Promise.reject(e)
   }

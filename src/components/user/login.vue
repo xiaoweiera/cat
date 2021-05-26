@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
+import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 
@@ -12,7 +12,12 @@ const submit = async function() {
     window.location.reload()
   } catch (e) {
     const message = e?.message
-    ElMessage({ type: 'error', message })
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
   }
 }
 </script>
