@@ -19,7 +19,7 @@ export default {
   address: {
     warning: '请先完成信息登记',
     iCard: '您登记的奖励领取地址为：',
-    reward: '预计活动奖励：',
+    reward: '预计获得奖励：',
     confirm: '地址确认',
     invalid: '地址无效',
     tips: '地址一旦确认不可修改',

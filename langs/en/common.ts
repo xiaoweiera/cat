@@ -8,5 +8,13 @@ export default {
     apply: 'Project Application',
     about: 'About',
     download: 'Download'
+  },
+  time: {
+    dd: 'Days',
+    hh: 'Hours',
+    mm: 'Minutes'
+  },
+  button: {
+    submit: 'submit'
   }
 }
