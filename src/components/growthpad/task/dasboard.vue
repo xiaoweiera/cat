@@ -38,21 +38,21 @@ const getPrice = function(number: string | number): string {
         class="wait py-1.5 px-3 rounded text-sm"
       >
         <b class="font-medium">⏱</b>
-        <b class="font-medium ml-3">即将开始</b>
+        <b class="font-medium ml-3">{{ I18n.growthpad.status.wait }}</b>
       </span>
       <span
         v-else-if="timeStatus === TimeStatus.ing"
         class="ing py-1.5 px-3 rounded text-sm"
       >
         <b class="font-medium">🔥</b>
-        <b class="font-medium ml-3">进行中</b>
+        <b class="font-medium ml-3">{{ I18n.growthpad.status.ing }}</b>
       </span>
       <span
         v-else-if="timeStatus === TimeStatus.closure"
         class="closure py-1.5 px-3 rounded text-sm"
       >
         <b class="font-medium">🚫</b>
-        <b class="font-medium ml-3">已结束</b>
+        <b class="font-medium ml-3">{{ I18n.growthpad.status.closure }}</b>
       </span>
     </div>
     <div>
@@ -64,7 +64,7 @@ const getPrice = function(number: string | number): string {
       <ul class="flex">
         <li>
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-            {{ I18n.growthpad.examples.dashboard.rewards }}
+            {{ I18n.growthpad.reward.count }}
           </h4>
           <p
             class="
@@ -84,7 +84,7 @@ const getPrice = function(number: string | number): string {
         </li>
         <li class="ml-3 md:ml-12">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-            {{ I18n.growthpad.examples.dashboard.value }}
+            {{ I18n.growthpad.reward.value }}
           </h4>
           <p class="font-color-theme font-kdFang font-bold font-kdExp">
             <span class="ml-1.5 text-xs md:text-base">约</span>
@@ -95,7 +95,7 @@ const getPrice = function(number: string | number): string {
         </li>
         <li class="ml-3 md:ml-12">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-            {{ I18n.growthpad.examples.dashboard.perPerson }}
+            {{ I18n.growthpad.reward.perPerson }}
           </h4>
           <p
             class="

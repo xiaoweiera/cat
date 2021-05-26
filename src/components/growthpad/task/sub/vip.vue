@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
+import I18n from '~/utils/i18n/index'
 import { userData } from '~/logic/user/login'
 const props = defineProps({
   data: {
@@ -13,7 +14,7 @@ const link = computed<string>((): string => {
   if (code) {
     url = `${url}?code=${code}`
   }
-  return `邀请你注册Kingdata，${url}`
+  return I18n.template(I18n.growthpad.copy, { url })
 })
 </script>
 

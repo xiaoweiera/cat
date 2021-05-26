@@ -21,7 +21,9 @@ const list = computed(() => {
 </script>
 
 <template>
-  <div class="pb-4 text-base font-semibold">项目介绍</div>
+  <div class="pb-4 text-base font-semibold">
+    {{ I18n.growthpad.about.projectDetail }}
+  </div>
   <div class="flex items-center font-kdFang">
     <DotChar :img="store.icon.value" size="xl" />
     <span class="ml-3 label">{{ store.title.value }} 去中心化交易所</span>
@@ -30,7 +32,7 @@ const list = computed(() => {
     <p class="md:flex md:items-center">
       <span class="flex items-center">
         <b class="text-base font-medium h2">{{
-          I18n.growthpad.examples.about.website
+          I18n.growthpad.about.website
         }}</b>
         <a
           class="mx-4 text-sm font-color-theme"
@@ -40,7 +42,7 @@ const list = computed(() => {
       </span>
       <span class="flex items-center pt-3 md:pt-0">
         <b class="text-base font-medium mr-4 h2">{{
-          I18n.growthpad.examples.about.community
+          I18n.growthpad.about.community
         }}</b>
         <a
           v-for="(item, index) in store.about.share"
@@ -56,7 +58,7 @@ const list = computed(() => {
   </div>
   <!-- 手机版本 -->
   <div class="mt-6 font-kdFang md:hidden">
-    <h2 class="text-base">奖励代币信息</h2>
+    <h2 class="text-base">{{ I18n.growthpad.about.reward }}</h2>
     <div class="mt-3 pt-2">
       <div v-for="(item, i) in store.about.minutias" :key="i">
         <p class="text-sm pb-1.5">
@@ -67,12 +69,12 @@ const list = computed(() => {
     </div>
   </div>
   <div class="mt-6 font-kdFang">
-    <h2 class="pb-2">{{ I18n.growthpad.examples.about.projectDetail }}</h2>
+    <h2 class="pb-2">{{ I18n.growthpad.about.projectDetail }}</h2>
     <p class="detail text-sm">{{ store.about.detail }}</p>
   </div>
+  <!-- 大屏 -->
   <div class="mt-6 font-kdFang hidden md:block">
-    <h2 class="text-base">奖励代币信息</h2>
-    <!-- 大屏 -->
+    <h2 class="text-base">{{ I18n.growthpad.about.reward }}</h2>
     <div class="flex justify-between pt-2">
       <div v-for="(data, i) in list" :key="i">
         <p

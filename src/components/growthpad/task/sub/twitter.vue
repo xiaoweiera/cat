@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps, reactive, ref, toRaw } from 'vue'
 import rules from './rule'
+import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
@@ -53,7 +54,7 @@ const onSubmit = async function() {
     <el-form-item prop="input">
       <el-input
         v-model="formdata.input"
-        placeholder="输入您的TwitterID"
+        :placeholder="I18n.growthpad.form.twitter"
         size="small"
       />
     </el-form-item>

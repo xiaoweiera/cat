@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import * as R from 'ramda'
 import { defineProps, computed } from 'vue'
+import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
@@ -17,18 +18,16 @@ const buttonValue = computed((): string => {
   let text: string
   switch (props.data?.type) {
   case TaskType.share:
-    text = '去邀请'
-    break
   case TaskType.vip:
-    text = '去邀请'
+    text = I18n.growthpad.button.invite // 去邀请
     break
   case TaskType.sushiswap:
   case TaskType.uniswap:
   case TaskType.pancake:
-    text = '资质验证'
+    text = I18n.growthpad.button.checking // 资质检测
     break
   default:
-    text = '去检测'
+    text = I18n.growthpad.button.testing // 去检测
     break
   }
   return text

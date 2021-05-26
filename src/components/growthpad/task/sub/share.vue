@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { defineProps, computed } from 'vue'
+import { defineProps } from 'vue'
 import { userData } from '~/logic/user/login'
+import I18n from '~/utils/i18n/index'
 defineProps({
   data: {
     type: Object,
@@ -16,7 +17,7 @@ const link = (): string => {
   }
   const $title = document.querySelector('title')
   const value = $title.innerText
-  return `邀请您参与${value}，赢取百万美元奖励，${url}`
+  return I18n.template(I18n.growthpad.mdx.copy, { title: value, url })
 }
 </script>
 

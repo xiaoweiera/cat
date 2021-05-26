@@ -1,7 +1,7 @@
 /**
  * @file growthpad mdx
  * @author svon.me@gmail.com
- * @description examples
+ * @description mdx
  */
 
 import I18n from '~/utils/i18n/index'
@@ -64,7 +64,7 @@ const data = {
   dasboard: {
     begin: '2021-05-25 12:00:00', // 开始时间
     end: '2021-05-30 12:00:00', // 结束时间
-    description: I18n.growthpad.examples.dashoard.desc, // 描述
+    description: I18n.growthpad.mdx.dashoard.desc, // 描述
     reward: {
       count: 100000, // 奖励数量
       cost: 1000000, // 价值
@@ -74,20 +74,21 @@ const data = {
   about: {
     website: 'mdex.com', // 项目官网
     minutias: [
-      { label: I18n.growthpad.examples.about.name, value: 'MDX' }, // 代币名称
-      { label: I18n.growthpad.examples.about.online, value: '2021年1月19日' }, // 上线时间
-      { label: I18n.growthpad.examples.about.count, value: '10亿' }, // 发行总量
-      { label: I18n.growthpad.examples.about.marketValue, value: '3亿' }, // 市值
-      { label: I18n.growthpad.examples.about.circulation, value: '3亿' }, // 当前流通量
-      { label: I18n.growthpad.examples.about.price, value: 'price' }, // 当前价格
-      { label: I18n.growthpad.examples.about.luanched, value: 'HECO/BSC' }, // 所在公链
+      { label: I18n.growthpad.about.name, value: 'MDX' }, // 代币名称
+      { label: I18n.growthpad.about.online, value: '2021年1月19日' }, // 上线时间
+      { label: I18n.growthpad.about.count, value: '10亿' }, // 发行总量
+      { label: I18n.growthpad.about.marketValue, value: '3亿' }, // 市值
+      { label: I18n.growthpad.about.circulation, value: '3亿' }, // 当前流通量
+      { label: I18n.growthpad.about.price, value: 'price' }, // 当前价格
+      { label: I18n.growthpad.about.luanched, value: 'HECO/BSC' }, // 所在公链
       // 上线交易所
       {
-        label: I18n.growthpad.examples.about.exchanges,
+        label: I18n.growthpad.about.exchanges,
         value: '火币、币安等23家',
       },
     ],
-    detail: I18n.growthpad.examples.about.detail, // 项目介绍
+    detail: I18n.growthpad.mdx.about.detail, // 项目介绍
+
     share: [
       { icon: 'github', href: 'https://github.com/mdexSwap' },
       { icon: 'telegram', href: 'https://t.me/MixDex' },
