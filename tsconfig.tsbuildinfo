@@ -317,7 +317,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/devrequest.ts": {
-        "version": "2fc64e71c3757908d3b6d1926d43c321d578716fd80a0b1ad698b95a497a2e68",
+        "version": "afab8bcd18d0ce6e7d4c153aa786f16733fa66560713f9759939e27fdb8ffefb",
         "signature": "983c9000c4ba543a132b1e10e4c1896e8db1099dab2e8107830d701b8d30f801",
         "affectsGlobalScope": false
       },
