@@ -2,7 +2,7 @@
 import { toRefs, ref, defineProps } from 'vue'
 // @ts-ignore
 import { ElSwitch } from 'element-plus'
-
+import I18n from '~/utils/i18n/index'
 const props = defineProps({
   time: { type: Number },
   project: { type: String },
@@ -81,7 +81,7 @@ const closeDown = () => {
               font-normal
             "
           >
-            池子指标 :
+            {{ I18n.apy.poolsMarks }} :
           </div>
           <div class="flex items-center flex-wrap">
             <div v-for="(item, i) in realOptions">
@@ -122,7 +122,7 @@ const closeDown = () => {
             @mousemove="openDown"
             @mouseleave="closeDown"
           >
-            扫码下载 App，获取 APY 第一名变化提醒
+            {{ I18n.apy.downTip }}
           </div>
           <img
             v-if="showDownLoad"

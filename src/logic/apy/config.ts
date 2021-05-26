@@ -1,4 +1,5 @@
 import { numberFormat, percent2Precision } from '~/lib/tool'
+import I18n from '~/utils/i18n/index'
 import {
   lendDataFormat,
   loanDataFormat,
@@ -28,25 +29,25 @@ export const unitConfig = {
 }
 export const headerConfig = [
   {
-    name: '数据图表',
+    name: I18n.apy.header.chart,
     url: 'https://ikingdata.com',
   },
   {
-    name: '7x24小时监控',
+    name: I18n.apy.header.watch,
     url: 'https://ikingdata.com/news',
   },
   {
-    name: '研究报告',
+    name: I18n.apy.header.report,
     url: 'https://ikingdata.com/reports/',
     type: 'public',
   },
   {
-    name: 'GrowthPad',
+    name: I18n.apy.header.growthPad,
     url: 'https://ikingdata.com/growthpad',
     type: 'public',
   },
   {
-    name: 'DeFi挖矿收益APY大全',
+    name: I18n.apy.header.apy,
     url: '',
     type: 'public',
   },
@@ -74,7 +75,7 @@ export const chainConfig = [
   {
     select: true,
     key: 'all',
-    name: '全部',
+    name: I18n.apy.tagAll,
     img: 'https://res.ikingdata.com/nav/allTable.png',
   },
   {
@@ -105,7 +106,7 @@ export const chainConfig = [
 export const chartsConfig = {
   lend: [
     {
-      title: '各币种存款APY趋势对比',
+      title: I18n.apy.ckTable.oneChartTitle,
       requestData: requestLendData,
       chartData: getChartProjectData,
       xyData: getxyData,
@@ -117,7 +118,7 @@ export const chartsConfig = {
       unit: '%',
     },
     {
-      title: '在不同平台存款的 APY 趋势对比',
+      title: I18n.apy.ckTable.twoChartTitle,
       requestData: requestLoanData,
       chartData: getChartTokenData,
       xyData: getCoinData,
@@ -129,7 +130,7 @@ export const chartsConfig = {
       unit: '%',
     },
     {
-      title: '各平台存款总额',
+      title: I18n.apy.ckTable.streeChartTitle,
       requestData: requestGunData,
       chartData: lendDataFormat,
       xyData: getInfoData,
@@ -140,7 +141,7 @@ export const chartsConfig = {
   ],
   loan: [
     {
-      title: '各币种借款APY趋势对比',
+      title: I18n.apy.jkTable.oneChartTitle,
       requestData: requestLendData,
       chartData: getChartProjectData,
       xyData: getxyData,
@@ -152,7 +153,7 @@ export const chartsConfig = {
       unit: '%',
     },
     {
-      title: '在不同平台借款的 APY 趋势对比',
+      title: I18n.apy.jkTable.twoChartTitle,
       requestData: requestLoanData,
       chartData: getChartTokenData,
       xyData: getCoinData,
@@ -164,7 +165,7 @@ export const chartsConfig = {
       unit: '%',
     },
     {
-      title: '各平台借款总额',
+      title: I18n.apy.jkTable.streeChartTitle,
       requestData: requestGunData,
       chartData: loanDataFormat,
       xyData: getInfoData,
@@ -175,7 +176,7 @@ export const chartsConfig = {
   ],
   machine_gun_pool: [
     {
-      title: '各币种机枪池APY趋势对比',
+      title: I18n.apy.jqcTable.oneChartTitle,
       requestData: requestLendData,
       chartData: getChartProjectData,
       xyData: getxyData,
@@ -187,7 +188,7 @@ export const chartsConfig = {
       unit: '%',
     },
     {
-      title: '在不同机枪池 APY 趋势对比',
+      title: I18n.apy.jqcTable.twoChartTitle,
       requestData: requestLoanData,
       chartData: getChartTokenData,
       xyData: getCoinData,
@@ -212,7 +213,7 @@ export const chartsConfig = {
 export const tableConfig = [
   {
     name: 'machine_gun_pool_single',
-    title: 'DeFi 单币种机枪池 APY 对比',
+    title: I18n.apy.jqcTable.title,
     options: {
       data: [
         {
@@ -223,24 +224,24 @@ export const tableConfig = [
         },
         {
           key: 'apy_detail',
-          name: '产出',
+          name: I18n.apy.jqcTable.option.yield,
           status: false,
         },
         {
           key: 'quota_remain',
-          name: '可投额度',
+          name: I18n.apy.jqcTable.option.remain,
           status: true,
           format_func: numberFormat,
         },
         {
           key: 'tvl',
-          name: '总锁仓',
+          name: I18n.apy.jqcTable.option.tvl,
           status: false,
           format_func: numberFormat,
         },
         {
           key: 'quota_remain_percent',
-          name: '剩余额度',
+          name: I18n.apy.jqcTable.option.remainRatio,
           status: false,
           unit: '%',
           format_func: numberFormat,
@@ -252,7 +253,7 @@ export const tableConfig = [
   },
   {
     name: 'lend_single',
-    title: 'DeFi 借贷平台存款 APY 对比',
+    title: I18n.apy.ckTable.title,
     options: {
       data: [
         {
@@ -263,18 +264,18 @@ export const tableConfig = [
         },
         {
           key: 'apy_detail',
-          name: '产出',
+          name: I18n.apy.ckTable.option.yield,
           status: false,
         },
         {
           key: 'tvl',
-          name: '存款总额',
+          name: I18n.apy.ckTable.option.totalSum,
           status: true,
           format_func: numberFormat,
         },
         {
           key: 'quota_used',
-          name: '借款总量',
+          name: I18n.apy.ckTable.option.outSum,
           status: false,
           format_func: numberFormat,
         },
@@ -285,35 +286,35 @@ export const tableConfig = [
   },
   {
     name: 'loan_single',
-    title: 'DeFi 借贷平台借款利息对比',
+    title: I18n.apy.jkTable.title,
     options: {
       data: [
         {
           key: 'apy',
-          name: '利息',
+          name: I18n.apy.jkTable.option.interest,
           status: true,
           format_func: percent2Precision,
         },
         {
           key: 'apy_detail',
-          name: '计息',
+          name: I18n.apy.jkTable.option.InterestBear,
           status: false,
         },
         {
-          key: 'quota_remain',
+          key: I18n.apy.jkTable.option.available,
           name: '可借',
           status: true,
           format_func: numberFormat,
         },
         {
           key: 'quota_remain*quota_remain_percent',
-          name: '借出',
+          name: I18n.apy.jkTable.option.borrowed,
           status: true,
           format_cb: (v: any) => numberFormat(v.quota_used),
         },
         {
           key: 'quota_remain_percent',
-          name: '剩余额度',
+          name: I18n.apy.jkTable.option.remainRatio,
           status: false,
           unit: '%',
           format_func: numberFormat,
@@ -327,18 +328,18 @@ export const tableConfig = [
 export const anchorConfig = [
   {
     key: 'machine_gun_pool_single',
-    name: '机枪池APY',
+    name: I18n.apy.rightFlaot.jqc,
   },
   {
     key: 'lend_single',
-    name: '存款APY',
+    name: I18n.apy.rightFlaot.ck,
   },
   {
     key: 'loan_single',
-    name: '借款APY',
+    name: I18n.apy.rightFlaot.jk,
   },
   {
     key: 'back',
-    name: '回到顶部',
+    name: I18n.apy.rightFlaot.back,
   },
 ]

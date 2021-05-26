@@ -4,7 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
 import { ElDrawer } from 'element-plus'
-import { currentLang } from '~/lib/lang'
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 import { headerConfig, tools } from '~/logic/apy/config'
 
 const route = useRoute()
@@ -18,28 +19,30 @@ const navIsSelect = (path: String): String => {
   return ' text-global-default opacity-85 ml-kd32px '
 }
 const { t, locale } = useI18n()
-const lang = ref(currentLang(route))
 
 const toggleLocales = () => {
-  lang.value = lang.value === 'en' ? 'cn' : 'en'
+  if (lang.current.value === lang.Language.en) {
+    lang.setCurrent(lang.Language.cn)
+  } else {
+    lang.setCurrent(lang.Language.en)
+  }
+
   router.replace({
     ...route,
     query: {
       ...route.query,
-      lang: lang.value,
+      lang: lang.current.value,
     },
   })
 }
 const title = ref('')
 // locale.value = lang.value
 watch(
-  () => lang.value,
+  () => lang.current.value,
   (newValue) => {
     locale.value = newValue
-    title.value = t('hero.subtitle')
   },
 )
-
 watch(
   () => route.path,
   (newValue) => {
@@ -68,8 +71,7 @@ useHead({
 })
 const show = ref(true)
 onMounted(() => {
-  lang.value = currentLang(route)
-  locale.value = lang.value
+  locale.value = lang.current.value
   title.value = t('hero.subtitle')
 })
 const showDialog = () => (show.value = !show.value)
@@ -125,6 +127,18 @@ const showDialog = () => (show.value = !show.value)
         </template>
       </div>
     </div>
+    <ul class="text-golbal-default flex mr-5">
+      <div class="flex items-center hand" @click="toggleLocales()">
+        <div class="mr-1 text-global-default opacity-85 ml-kd32px">
+          {{ I18n.apy.langType }}
+        </div>
+        <img
+          class="w-6 h-6"
+          src="https://res.ikingdata.com/nav/growLang.png"
+          alt=""
+        />
+      </div>
+    </ul>
     <ul
       class="text-golbal-default flex items-center hand"
       @mouseleave="closeMore()"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, ref, toRefs, onMounted } from 'vue'
+import I18n from '~/utils/i18n/index'
 const props = defineProps({
   tags: { type: Object },
   chartIndex: { type: Number },
@@ -64,7 +65,7 @@ onMounted(() => {
       <div
         :class="!isMore ? 'selectTagDefault selectTag tag' : 'selectTagDefault'"
       >
-        {{ !isMore ? selectedTag : '更多' }}
+        {{ !isMore ? selectedTag : I18n.apy.more }}
         <img
           class="w-2 h-1 ml-3"
           src="https://res.ikingdata.com/nav/apyDown.png"

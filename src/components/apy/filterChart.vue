@@ -2,7 +2,7 @@
 import { toRefs, watch, defineProps, onMounted } from 'vue'
 import { getInfo } from '~/logic/apy/chartOption'
 import { tableConfig, tableIndex } from '~/logic/apy/config'
-
+import I18n from '~/utils/i18n/index'
 const props = defineProps({
   chainId: String,
   chartDataFilter: Object,
@@ -46,9 +46,7 @@ const {
 
 // 重新绘制
 const newDraw = async(filterName) => {
-  filterName = filterName === '全部'
-    ? ''
-    : filterName
+  filterName = filterName === I18n.apy.tagAll ? '' : filterName
   if (props.beginTime) {
     param = {
       ...param,
@@ -61,9 +59,7 @@ const newDraw = async(filterName) => {
     filterName,
     props.chartIndex,
   )
-  const unitSelect = isChartIndex === 2
-    ? plats.select
-    : marks.select
+  const unitSelect = isChartIndex === 2 ? plats.select : marks.select
   props.optionData(
     xData,
     yData,
@@ -133,13 +129,13 @@ watch(
 watch(
   () => coins.data,
   () => {
-    if (plats.select === '全部') {
-      if (coins.data.includes('全部')) {
+    if (plats.select === I18n.apy.tagAll) {
+      if (coins.data.includes(I18n.apy.tagAll)) {
         coins.data.shift()
       }
     } else {
-      if (!coins.data.includes('全部')) {
-        coins.data.unshift('全部')
+      if (!coins.data.includes(I18n.apy.tagAll)) {
+        coins.data.unshift(I18n.apy.tagAll)
       }
     }
   },
@@ -147,13 +143,13 @@ watch(
 watch(
   () => plats.data,
   () => {
-    if (coins.select === '全部') {
-      if (plats.data.includes('全部')) {
+    if (coins.select === I18n.apy.tagAll) {
+      if (plats.data.includes(I18n.apy.tagAll)) {
         plats.data.shift()
       }
     } else {
-      if (!plats.data.includes('全部')) {
-        plats.data.unshift('全部')
+      if (!plats.data.includes(I18n.apy.tagAll)) {
+        plats.data.unshift(I18n.apy.tagAll)
       }
     }
   },
@@ -166,13 +162,13 @@ watch(
     newDraw(coins.select)
     setDes()
     // 如果平台是全部，币种就不要全部
-    if (n === '全部') {
+    if (n === I18n.apy.tagAll) {
       if (coins.data.includes(n)) {
         coins.data.shift()
       }
     } else {
-      if (!coins.data.includes('全部')) {
-        coins.data.unshift('全部')
+      if (!coins.data.includes(I18n.apy.tagAll)) {
+        coins.data.unshift(I18n.apy.tagAll)
       }
     }
   },
@@ -184,13 +180,13 @@ watch(
     if (props.chartIndex !== 2) {
       newDraw(n)
       setDes()
-      if (coins.select === '全部') {
-        if (plats.data.includes('全部')) {
+      if (coins.select === I18n.apy.tagAll) {
+        if (plats.data.includes(I18n.apy.tagAll)) {
           plats.data.shift()
         }
       } else {
-        if (!plats.data.includes('全部')) {
-          plats.data.unshift('全部')
+        if (!plats.data.includes(I18n.apy.tagAll)) {
+          plats.data.unshift(I18n.apy.tagAll)
         }
       }
     }

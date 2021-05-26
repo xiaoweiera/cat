@@ -2,6 +2,7 @@
 import { defineProps, toRefs, onMounted } from 'vue'
 import { ElSelect, ElOption, ElIcon } from 'element-plus'
 import { getTypeNameByKey } from '~/logic/apy/chartOption'
+import I18n from '~/utils/i18n/index'
 interface dropModel {
   name: string
   select: string
@@ -31,7 +32,7 @@ const optionModel: dropModel = toRefs(props.dataList)
             typeName === 'type'
               ? getTypeNameByKey(item)
               : item === 'ALL'
-                ? '全部'
+                ? I18n.apy.tagAll
                 : item
           "
           :value="item"
