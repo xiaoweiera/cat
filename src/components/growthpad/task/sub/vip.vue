@@ -13,7 +13,7 @@ const link = computed<string>((): string => {
   if (code) {
     url = `${url}?code=${code}`
   }
-  return `邀请你注册Kingdata，「${url}」`
+  return `邀请你注册Kingdata，${url}`
 })
 </script>
 

@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import { defineProps, computed } from 'vue'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
+import { userData } from '~/logic/user/login'
 
 const store = Task()
 
@@ -57,7 +58,10 @@ const validityValue = computed<string>((): string => {
 <template>
   <div>
     <template v-if="data.type === TaskType.vip">
-      <GrowthpadTaskSubVip :data="data">
+      <template v-if="userData.is_vip">
+        <IconFont type="success"></IconFont>
+      </template>
+      <GrowthpadTaskSubVip v-else :data="data">
         <span v-validity.begin.end="validityValue" class="button">{{
           buttonValue
         }}</span>

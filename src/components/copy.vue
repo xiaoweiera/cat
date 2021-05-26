@@ -19,7 +19,7 @@ const props = defineProps({
 const copy = function() {
   if (typeof props.link === 'function') {
     const value = props.link()
-    copyTxt(props.value, props.message)
+    copyTxt(value, props.message)
   } else {
     copyTxt(props.link, props.message)
   }

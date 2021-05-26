@@ -54,6 +54,7 @@ interface TaskItem {
   id?: string // 任务ID
   type: TaskType // 任务类型
   title: string
+  titleAfter?: string
   description?: string
   reward: number[] // 奖励
   help?: string // 帮助信息
