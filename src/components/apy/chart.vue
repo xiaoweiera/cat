@@ -93,9 +93,7 @@ watch(
     // @ts-ignore
     tags.platforms = getPlat(newOptions, props.tableIndex, props.chartIndex)
     if (!oldOptions?.data || isChangeChain.value) {
-      tags.selected = tags.platforms.length > 0
-        ? tags.platforms[0]
-        : ''
+      tags.selected = tags.platforms.length > 0 ? tags.platforms[0] : ''
     }
     isChangeChain.value = false
     reRenderChart(tags.selected)
@@ -107,7 +105,7 @@ watch(
 )
 </script>
 <template>
-  <div class="md:mt-5 relative mt-6 md:mb-20">
+  <div class="md:mt-5 relative mt-6 md:mb-5">
     <ApyDes
       :title="props.chartData.title"
       :table-index="props.tableIndex"

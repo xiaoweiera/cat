@@ -4,7 +4,7 @@
  */
 
 import safeGet from '@fengqiaogang/safe-get'
-import request from '~/lib/request'
+import request from '~/lib/devRequest'
 
 export interface LogoData {
   mobile: string
