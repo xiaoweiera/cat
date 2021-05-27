@@ -155,14 +155,13 @@ onUnmounted(() => clearInterval(timerInterval))
       </div>
       <div class="text-center flex justify-center md:mb-5">
         <!-- active 默认选中项 -->
-        <ApyChains :chains="chains" active="heco" />
+        <ApyChains :chains="chains" active="all" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
     </div>
-
     <!-- table表格-->
     <div v-for="(item, index) in tables" :key="index" class="tableDefault">
       <ApyTableTitle :title="item.title" :timer="timer" />
