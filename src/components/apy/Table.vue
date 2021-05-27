@@ -10,6 +10,7 @@ import {
 } from 'element-plus'
 import { ref, defineProps, watch, toRefs, reactive } from 'vue'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
 import { filterByOptions } from '~/logic/apy/tableDetail'
 import { unitConfig } from '~/logic/apy/config'
 const isTipArrow = false // 提示框是否显示小尖头
@@ -185,8 +186,8 @@ const getValue = (data: any, i) => {
                   </div>
                   <div class="flex mt-2 items-center">
                     <div class="tableItemType">
-                      <span v-if="props.index == 0">机枪池</span>
-                      <span v-else>借贷平台</span>
+                      <span v-if="props.index == 0">{{ I18n.apy.vaults }}</span>
+                      <span v-else>{{ I18n.apy.lendPlat }}</span>
                     </div>
                     <div
                       v-if="props.chains === 'all'"

@@ -2,10 +2,12 @@
 // @ts-ignore
 import * as echarts from 'echarts'
 import { defineProps, watch, ref } from 'vue'
-// @ts-ignore
-// @ts-ignore
 import { ElDatePicker } from 'element-plus'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
+// @ts-ignore
+// @ts-ignore
 import { chartsConfig } from '~/logic/apy/config'
 import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 interface timeModel {
@@ -22,7 +24,11 @@ const props = defineProps({
 })
 const getTitle = () => {
   if (props.chartIndex === 2) {
-    return `${props.title + props.selected}对比`
+    if (lang.current.value === 'cn') {
+      return `${props.title + props.selected}对比`
+    } else {
+      return `Comparison of ${props.selected} on different platforms`
+    }
   } else {
     return `${props.selected} ${props.title}`
   }
@@ -35,14 +41,14 @@ const editTime = ref(false) // 控制是否显示自定义时间
 // @ts-ignore
 const closeShow = ref(false)
 const filterOption = ref([
-  { name: '近7天', value: 7, selected: true },
+  { name: I18n.apy.times.week, value: 7, selected: true },
   {
-    name: '近1月',
+    name: I18n.apy.times.month,
     value: 30,
     selected: false,
   },
-  { name: '近3月', value: 90, selected: false },
-  { name: '自定义', value: 0, selected: false },
+  { name: I18n.apy.times.more, value: 90, selected: false },
+  { name: I18n.apy.times.custom, value: 0, selected: false },
 ])
 
 const updateChart = (begin: number, end: number) => {
@@ -64,7 +70,7 @@ watch(
 )
 
 const selectTag = (timeM: timeModel) => {
-  if (timeM.name === '自定义') {
+  if (timeM.name === I18n.apy.times.custom) {
     document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
   } else {
@@ -94,7 +100,8 @@ const selectTag = (timeM: timeModel) => {
         <template v-for="(item, index) in filterOption">
           <div
             v-if="
-              item.name !== '自定义' || (item.name === '自定义' && !editTime)
+              item.name !== I18n.apy.times.custom ||
+                (item.name === I18n.apy.times.custom && !editTime)
             "
             :class="item.selected ? 'timeTagSelected' : 'timeTag'"
             @click="selectTag(item)"
@@ -110,8 +117,8 @@ const selectTag = (timeM: timeModel) => {
             size="mini"
             type="daterange"
             range-separator="–"
-            start-placeholder="开始"
-            end-placeholder="结束"
+            :start-placeholder="I18n.apy.times.begin"
+            :end-placeholder="I18n.apy.times.end"
           >
           </el-date-picker>
         </div>
