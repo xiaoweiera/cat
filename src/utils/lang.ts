@@ -44,12 +44,16 @@ function getSearch(): Language {
     if (window) {
       // @ts-ignore
       const data = Url.parse(window.location.href, true)
+      console.log(data)
       const { lang } = data.query || {}
+      console.log(lang)
       if (lang) {
         // @ts-ignore
         const array: string[] = [].concat(lang)
         const value = array[array.length - 1]
-        return value as Language
+        if (value) {
+          return value as Language
+        }
       }
     }
   } catch (e) {
@@ -61,17 +65,9 @@ function getSearch(): Language {
 // 获取 url 中的 lang 数据
 // @ts-ignore
 const getQueryLang = function(): Language {
-  const map = new Map<string, Language>()
-  // @ts-ignore
-  // eslint-disable-next-line no-restricted-syntax
-  for (const name in Language) {
-    const key = name as string
-    // @ts-ignore
-    const value: Language = Language[name]
-    map.set(key, value)
-  }
-  const type: Language = getSearch()
-  return type
+  const value = getSearch()
+  console.log('value = %s', value)
+  return value
 }
 
 export const current = ref<Language>(getQueryLang())
