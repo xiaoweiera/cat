@@ -27,23 +27,32 @@ export const unitConfig = {
   可借: { unit: '$' },
   借出: { unit: '$' },
 }
+export const unitConfigen = {
+  remain: { unit: '$' },
+  tvl: { unit: '$' },
+  remainRatio: { unit: '%' },
+  totalSum: { unit: '$' },
+  outSum: { unit: '$' },
+  available: { unit: '$' },
+  borrowed: { unit: '$' },
+}
 export const headerConfig = [
   {
     name: I18n.apy.header.chart,
-    url: 'https://ikingdata.com',
+    url: 'https://kingdata.com',
   },
   {
     name: I18n.apy.header.watch,
-    url: 'https://ikingdata.com/news',
+    url: 'https://kingdata.com/news',
   },
   {
     name: I18n.apy.header.report,
-    url: 'https://ikingdata.com/reports/',
+    url: 'https://kingdata.com/reports/',
     type: 'public',
   },
   {
     name: I18n.apy.header.growthPad,
-    url: 'https://ikingdata.com/growthpad',
+    url: 'https://kingdata.com/growthpad',
     type: 'public',
   },
   {
@@ -55,15 +64,15 @@ export const headerConfig = [
 export const tools = [
   {
     name: '区块链数据分析资源网站',
-    url: 'https://nav.ikingdata.com/nav',
+    url: 'https://nav.kingdata.com/nav',
   },
   {
     name: '历史的今天',
-    url: 'https://ikingdata.com/tih',
+    url: 'https://kingdata.com/tih',
   },
   {
     name: '板块龙头',
-    url: 'https://ikingdata.com/bull',
+    url: 'https://kingdata.com/bull',
   },
 ]
 export const tableIndex = {

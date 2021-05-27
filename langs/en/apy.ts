@@ -95,5 +95,9 @@ export default {
 
     tagAll: 'All',
     backTop:'Top',
-    remainRatio:'Remaining ratio'
+    remainRatio:'Remaining ratio',
+    apyName:{
+        apy:'APY',
+        avgApy:'Average APY'
+    }
 };
