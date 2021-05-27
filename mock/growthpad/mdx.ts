@@ -7,6 +7,8 @@
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 
+const Project = 'MDEX'
+
 const uuid = function(): string {
   const value = String(Math.random()).slice(2)
   return `task-${value}`
@@ -15,7 +17,7 @@ const uuid = function(): string {
 const telegram = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
-    title: '加入',
+    title: I18n.common.join,
     titleAfter: '并完成任意发言。',
     type: TaskType.telegram,
     tooltip: {
@@ -31,7 +33,7 @@ const telegram = function(description?: string, reward: Array<number> = []) {
 const twitter = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
-    title: '关注',
+    title: I18n.common.follow,
     type: TaskType.twitter,
     tooltip: {
       icon: 'twitter',
@@ -46,11 +48,11 @@ const twitter = function(description?: string, reward: Array<number> = []) {
 const retwitter = function(description?: string, reward: Array<number> = []) {
   return {
     id: uuid(),
-    title: '转发',
+    title: I18n.common.repost,
     type: TaskType.retwitter,
     tooltip: {
       icon: 'twitter',
-      value: '本条活动 Twitter',
+      value: I18n.growthpad.activity.twitter,
       href: 'https://twitter.com/Mdextech/status/1395323254974214150',
     },
     reward,
@@ -59,7 +61,7 @@ const retwitter = function(description?: string, reward: Array<number> = []) {
 }
 
 const data = {
-  title: 'MDEX', // 名称
+  title: Project, // 名称
   icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
   dasboard: {
     begin: '2021-05-25 12:00:00', // 开始时间
@@ -74,17 +76,17 @@ const data = {
   about: {
     website: 'mdex.com', // 项目官网
     minutias: [
-      { label: I18n.growthpad.about.name, value: 'MDX' }, // 代币名称
-      { label: I18n.growthpad.about.online, value: '2021年1月19日' }, // 上线时间
-      { label: I18n.growthpad.about.count, value: '10亿' }, // 发行总量
-      { label: I18n.growthpad.about.marketValue, value: '3亿' }, // 市值
-      { label: I18n.growthpad.about.circulation, value: '3亿' }, // 当前流通量
+      { label: I18n.growthpad.about.name, value: I18n.growthpad.mdx.about.name }, // 代币名称
+      { label: I18n.growthpad.about.online, value: I18n.growthpad.mdx.about.online }, // 上线时间
+      { label: I18n.growthpad.about.count, value: I18n.growthpad.mdx.about.count }, // 发行总量
+      { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.mdx.about.marketValue }, // 市值
+      { label: I18n.growthpad.about.circulation, value: I18n.growthpad.mdx.about.circulation }, // 当前流通量
       { label: I18n.growthpad.about.price, value: 'price' }, // 当前价格
-      { label: I18n.growthpad.about.luanched, value: 'HECO/BSC' }, // 所在公链
+      { label: I18n.growthpad.about.luanched, value: I18n.growthpad.mdx.about.luanched }, // 所在公链
       // 上线交易所
       {
         label: I18n.growthpad.about.exchanges,
-        value: '火币、币安等23家',
+        value: I18n.growthpad.mdx.about.exchanges,
       },
     ],
     detail: I18n.growthpad.mdx.about.detail, // 项目介绍
@@ -102,82 +104,80 @@ const data = {
     {
       id: uuid(), // 任务ID
       type: TaskType.vip, // 任务类型
-      title: 'Kingdata VIP 用户；加入 MDEX 电报群；关注 MDEX Twitter 并转发本条活动 Twitter。',
-      description: '完成全部任务：{reward}（前1000名用户）',
+      title: I18n.growthpad.vip.activity,
+      description: I18n.growthpad.reward.finished,
       reward: [3], // 奖励
       children: [
         {
           type: TaskType.vip,
-          title: '成为 Kingdata VIP 用户',
-          description: '邀请三个用户注册即可成为 VIP 用户', // 帮助信息
+          // title: '成为 Kingdata VIP 用户',
+          title: I18n.template(I18n.growthpad.vip.invite, { group: 'Kingdata' }),
+          description: I18n.growthpad.vip.description, // 帮助信息
         },
-        telegram('活动结束前退出电报群视为未完成任务'),
-        twitter('活动结束前取消关注视为未完成任务'),
-        retwitter('活动结束前删除推文视为未完成任务'),
+        telegram(I18n.growthpad.warning.telegram),
+        twitter(I18n.growthpad.warning.follow),
+        retwitter(I18n.growthpad.warning.article),
       ],
     },
     // 任务 2
     {
       id: uuid(),
       type: TaskType.pancake,
-      title:
-        'PanCake Swap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      description: '完成任意任务：{reward}（前1000名用户）',
+      title: I18n.growthpad.mdx.activity.pancake,
+      description: I18n.growthpad.reward.anytask,
       reward: [5, 15],
       children: [
         {
           type: TaskType.pancake,
-          title: '任务资格：Pancake swap 持仓价值超过1万U',
-          description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
+          title: I18n.growthpad.mdx.activity.pancakeCondition,
+          description: I18n.growthpad.mdx.activity.warning,
         },
-        telegram('活动结束前退出电报群视为未完成任务', [5]),
-        twitter('活动结束前取消关注视为未完成任务',[5]),
-        retwitter('活动结束前删除推文视为未完成任务',[5]),
+        telegram(I18n.growthpad.warning.telegram, [5]),
+        twitter(I18n.growthpad.warning.follow,[5]),
+        retwitter(I18n.growthpad.warning.article,[5]),
       ],
     },
     // 任务 3
     {
       id: uuid(),
       type: TaskType.uniswap,
-      title:
-        'Uniswap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      description: '完成任意任务：{reward}（前1000名用户）',
+      title: I18n.growthpad.mdx.activity.uniswap,
+      description: I18n.growthpad.reward.anytask,
       reward: [5, 15],
       children: [
         {
           type: TaskType.uniswap,
-          title: '任务资格 Uniswap 持仓价值超过1万U',
-          description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
+          title: I18n.growthpad.mdx.activity.uniswapCondition,
+          description: I18n.growthpad.mdx.activity.warning,
         },
-        telegram('活动结束前退出电报群视为未完成任务', [5]),
-        twitter('活动结束前取消关注视为未完成任务',[5]),
-        retwitter('活动结束前删除推文视为未完成任务',[5]),
+        telegram(I18n.growthpad.warning.telegram, [5]),
+        twitter(I18n.growthpad.warning.follow,[5]),
+        retwitter(I18n.growthpad.warning.article,[5]),
       ],
     },
     // 任务 4
     {
       id: uuid(),
       type: TaskType.sushiswap,
-      title:
-        'Sushiswap 持仓价值超过 1万 U，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
-      description: '完成任意任务：{reward}（前1000名用户）',
+      title: I18n.growthpad.mdx.activity.sushiswap,
+      description: I18n.growthpad.reward.anytask,
       reward: [5, 15],
       children: [
         {
           type: TaskType.sushiswap,
-          title: '任务资格：Sushiswap 持仓价值超过1万U',
-          description: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
+          title: I18n.growthpad.mdx.activity.sushiswapCondition,
+          description: I18n.growthpad.mdx.activity.warning,
         },
-        telegram('活动结束前退出电报群视为未完成任务', [5]),
-        twitter('活动结束前取消关注视为未完成任务', [5]),
-        retwitter('活动结束前删除推文视为未完成任务', [5]),
+        telegram(I18n.growthpad.warning.telegram, [5]),
+        twitter(I18n.growthpad.warning.follow, [5]),
+        retwitter(I18n.growthpad.warning.article, [5]),
       ],
     },
     // 任务 5
     {
       id: uuid(),
       type: TaskType.weibo,
-      title: '撰写 500 字以上原创 MDEX 体验文章，并发布在主流媒体。',
+      title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
       reward: [15, 200],
       children: [],
     },
@@ -185,10 +185,10 @@ const data = {
     {
       id: uuid(),
       type: TaskType.allin,
-      title: '阳光普照奖',
+      title: I18n.growthpad.invited.partake,
       children: [
         {
-          title: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
+          title: I18n.growthpad.mdx.share.lable,
         },
       ],
     },

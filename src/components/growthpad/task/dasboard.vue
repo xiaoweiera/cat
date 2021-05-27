@@ -8,7 +8,12 @@ const store = Task()
 
 // @ts-ignore
 const title = computed((): string => {
-  return `${store.title.value} ${I18n.growthpad.growth}`
+  // return `${store.title.value} ${I18n.growthpad.growth}`
+  const data = { project: store.title.value }
+  console.log(data)
+  const text = I18n.template(I18n.growthpad.growth, data)
+  console.log(text)
+  return text
 })
 
 const minReward = function(array: number[]): number {
@@ -87,7 +92,9 @@ const getPrice = function(number: string | number): string {
             {{ I18n.growthpad.reward.value }}
           </h4>
           <p class="font-color-theme font-kdFang font-bold font-kdExp">
-            <span class="ml-1.5 text-xs md:text-base">约</span>
+            <span class="ml-1.5 text-xs md:text-base">{{
+              I18n.growthpad.reward.about
+            }}</span>
             <span
               class="text-2xl md:text-4xl"
             >${{ getPrice(store.dashboard.rewardCount) }}</span>

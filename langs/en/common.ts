@@ -16,5 +16,9 @@ export default {
   },
   button: {
     submit: 'submit'
-  }
+  },
+  join: 'join',
+  follow: 'follow',
+  repost: 'repost',
+  activity: 'activity'
 }

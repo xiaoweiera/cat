@@ -26,7 +26,9 @@ const list = computed(() => {
   </div>
   <div class="flex items-center font-kdFang">
     <DotChar :img="store.icon.value" size="xl" />
-    <span class="ml-3 label">{{ store.title.value }} 去中心化交易所</span>
+    <span class="ml-3 label">{{
+      I18n.template(I18n.growthpad.about.title, { project: store.title.value })
+    }}</span>
   </div>
   <div class="mt-6 font-kdFang">
     <p class="md:flex md:items-center">

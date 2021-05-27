@@ -16,5 +16,9 @@ export default {
   },
   button: {
     submit: '提交'
-  }
+  },
+  join: '加入',
+  follow: '关注',
+  repost: '转发',
+  activity: '活动'
 }

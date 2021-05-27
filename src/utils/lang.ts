@@ -44,9 +44,7 @@ function getSearch(): Language {
     if (window) {
       // @ts-ignore
       const data = Url.parse(window.location.href, true)
-      console.log(data)
       const { lang } = data.query || {}
-      console.log(lang)
       if (lang) {
         // @ts-ignore
         const array: string[] = [].concat(lang)
@@ -63,11 +61,8 @@ function getSearch(): Language {
 }
 
 // 获取 url 中的 lang 数据
-// @ts-ignore
 const getQueryLang = function(): Language {
-  const value = getSearch()
-  console.log('value = %s', value)
-  return value
+  return getSearch()
 }
 
 export const current = ref<Language>(getQueryLang())
