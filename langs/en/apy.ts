@@ -85,7 +85,7 @@ export default {
 
             available: 'Available for loan',
             borrowed: 'Borrowed',
-            remainRatio: ''
+            remainRatio: 'Remaining ratio'
         },
         oneChartTitle: 'Comparison of loan APY changes of different coins',
         twoChartTitle: 'Comparison of loan APY changes on different platforms',
