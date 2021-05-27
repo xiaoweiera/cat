@@ -90,8 +90,21 @@ export default {
         twoChartTitle: '在不同平台借款的 APY 趋势对比',
         streeChartTitle: '各平台借款总额对比'
     },
+    unitConfig:{
+        remain:'可投额度',
+        tvl:'总锁仓',
+        remainRatio:'剩余额度',
+        totalSum:'存款总额',
+        outSum:'借款总量',
+        available:'可借',
+        borrowed:'借出'
+    },
+
     tagAll: '全部',
     backTop:'回到顶部',
-    remainRatio:'剩余额度'
-
+    remainRatio:'剩余额度',
+    apyName:{
+        apy:'APY',
+        avgApy:'平均APY'
+    }
 };

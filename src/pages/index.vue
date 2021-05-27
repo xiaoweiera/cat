@@ -77,18 +77,18 @@ const newTable = ref([])
 const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
-  // fetchChartByChain(chainId)
-  // timerInterval = setInterval(() => {
-  //   if (timer.value !== 0) {
-  //     timer.value -= 1
-  //     return
-  //   }
-  //   isFirstShow.value = false
-  //   timer.value = timeout
-  //   isFirstShow.value = false
-  //   fetchTableByChain(chainId)
-  //   fetchChartByChain(chainId)
-  // }, 1000)
+  fetchChartByChain(chainId)
+  timerInterval = setInterval(() => {
+    if (timer.value !== 0) {
+      timer.value -= 1
+      return
+    }
+    isFirstShow.value = false
+    timer.value = timeout
+    isFirstShow.value = false
+    fetchTableByChain(chainId)
+    fetchChartByChain(chainId)
+  }, 1000)
 }
 watch(
   () => chains.data,
@@ -233,7 +233,7 @@ onUnmounted(() => clearInterval(timerInterval))
         </template>
       </div>
       <img
-        class="mdhidden bottom-10 right-5 w-11 h-11 hand"
+        class="mdhidden fixed right-5 bottom-10 w-11 h-11 hand"
         src="https://res.ikingdata.com/nav/apyBack.png"
         @click="clickAnchor(I18n.apy.backTop)"
       />
