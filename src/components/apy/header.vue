@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw } from 'vue'
+import { onBeforeMount, toRaw } from 'vue'
+import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
 import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
@@ -16,6 +17,23 @@ const navIsSelect = (path: string): string => {
   }
   return 'text-global-default opacity-85'
 }
+onBeforeMount(() => {
+  useHead({
+    title: I18n.apy.webTitle,
+    meta: [
+      {
+        name: 'keywords',
+        content:
+          'Heco生态币,BSC生态币,ETH生态币,挖矿收益,生态币年化收益,DeFi挖矿,Heco挖矿,BSC挖矿,ETH挖矿,挖矿收益APY大全',
+      },
+      {
+        name: 'description',
+        content:
+          '本站收集整理了Heco、ETH、BSC三条公链各借贷平台和机枪池的挖矿收益APY数据，根据类型将其分类方便您的查看',
+      },
+    ],
+  })
+})
 </script>
 <template>
   <HeaderNav>
@@ -67,7 +85,6 @@ const navIsSelect = (path: string): string => {
 .toolItem:hover {
   @apply text-global-primary;
 }
-
 .headerItem {
   @apply text-global-default opacity-85 mb-2 ml-8 flex items-center;
 }

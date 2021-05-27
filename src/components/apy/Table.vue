@@ -159,10 +159,10 @@ const getValue = (data: any, i) => {
                   ml-3
                 "
               >
-                项目/币种
+                {{ I18n.apy.tableHeader.type }}
               </div>
               <div class="text-kd12px16px text-global-default opacity-65 ml-3">
-                价格/涨跌幅
+                {{ I18n.apy.tableHeader.dataType }}
               </div>
             </template>
             <template #default="scope">
@@ -274,10 +274,10 @@ const getValue = (data: any, i) => {
               <div
                 class="text-kd12px16px text-global-default opacity-65 mb-2.5"
               >
-                项目/币种
+                {{ I18n.apy.tableHeader.type }}
               </div>
               <div class="text-kd12px16px text-global-default opacity-65">
-                价格/涨跌幅
+                {{ I18n.apy.tableHeader.dataType }}
               </div>
             </template>
             <template #default="scope">
@@ -315,11 +315,12 @@ const getValue = (data: any, i) => {
                       {{ scope.row.project_name }}
                     </div>
                     <div class="text-center">
-                      <span
-                        v-if="props.index == 0"
-                        class="tableItemType"
-                      >机枪池</span>
-                      <span v-else class="tableItemType">借贷平台</span>
+                      <span v-if="props.index == 0" class="tableItemType">{{
+                        I18n.apy.vaults
+                      }}</span>
+                      <span v-else class="tableItemType">{{
+                        I18n.apy.lendPlat
+                      }}</span>
                     </div>
                     <div
                       v-if="props.chains === 'all'"
@@ -375,12 +376,7 @@ const getValue = (data: any, i) => {
 ::v-deep(.el-table th.gutter) {
   display: table-cell !important;
 }
-::v-deep(.cell) {
-  padding: 0px !important;
-}
-::v-deep(td) {
-  padding: 0px !important;
-}
+
 ::v-deep(.el-table colgroup.gutter) {
   display: table-cell !important;
 }

@@ -58,12 +58,7 @@ const tipState = ref(false)
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div
-    v-if="isShow"
-    class="w-full h-full flex flex-col justify-center py-4 px-2.5"
-    @mousemove="openDown"
-    @mouseleave="closeDown"
-  >
+  <div v-if="isShow" class="w-full h-full flex flex-col justify-center px-2.5">
     <template v-for="(item, i) in itemData">
       <div
         v-if="item.status && getValue(item, i) !== '-'"

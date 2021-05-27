@@ -1,4 +1,5 @@
 export default {
+    webTitle:'Defi挖矿收益APY大全',
     langType:'中文',
     header: {
         chart: '数据图表',
@@ -16,6 +17,10 @@ export default {
         ck: '存款APY',
         jk: '借款APY',
         back: '回到顶部'
+    },
+    tableHeader:{
+        type:'项目/币种',
+        dataType:'价格/涨跌幅'
     },
     vaults: '机枪池',
     lend: '存款',
@@ -85,6 +90,8 @@ export default {
         twoChartTitle: '在不同平台借款的 APY 趋势对比',
         streeChartTitle: '各平台借款总额对比'
     },
-    tagAll: '全部'
+    tagAll: '全部',
+    backTop:'回到顶部',
+    remainRatio:'剩余额度'
 
 };
