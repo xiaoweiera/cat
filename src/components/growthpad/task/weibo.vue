@@ -3,13 +3,28 @@ import { reactive, ref, toRaw, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { messageSuccess } from '~/lib/tool'
+import { Project } from '~/api/growtask'
 
 const store = Task()
 
 const data = computed(() => {
+  // @ts-ignore
+  if (store.projectName === Project.mdx) {
+    return {
+      title: I18n.growthpad.mdx.weibo.label,
+      description: I18n.growthpad.mdx.weibo.description,
+    }
+  }
+  // @ts-ignore
+  if (store.projectName === Project.channels) {
+    return {
+      title: I18n.growthpad.channels.weibo.label,
+      description: I18n.growthpad.channels.weibo.description,
+    }
+  }
   return {
-    title: I18n.growthpad.weibo.label,
-    description: I18n.growthpad.weibo.description,
+    title: '',
+    description: '',
   }
 })
 

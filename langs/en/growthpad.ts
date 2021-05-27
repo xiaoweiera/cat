@@ -1,7 +1,7 @@
 export default {
   title: 'GrowthPad',
   case: 'Examples',
-  growth: '{project} grow',
+  growth: '{project} growth',
   status: {
     wait: '即将开始',
     ing: '进行中',
@@ -21,8 +21,7 @@ export default {
   submit: 'register',
   address: {
     warning: '请先完成信息登记',
-    iCard: 'Your address                            ' +
-      ': ',
+    iCard: 'Your address: ',
     reward: 'Your expected reward:',
     confirm: '地址确认',
     invalid: 'invalid',
@@ -66,8 +65,6 @@ export default {
     articlePlaceholder: 'Enter article url',
     notify1: '* Please include individual homepage of mainstream media.',
     notify2: '* The format should be jpg,png and etc. Not more than 5M.',
-    label: 'Based on the number of followers:<br/>0-49999 reward 15MDX；49999-99999 reward 100MDX；＞99999 reward 200MDX.',
-    description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.'
   },
   invited: {
@@ -82,7 +79,8 @@ export default {
     placeholderETH: 'Please enter your ETH address',
     placeholderTelegram: 'Enter your ID to join the telegraph group',
     twitter: 'Please enter your Twitter ID',
-    retwitter: 'Please enter your Twitter ID'
+    retwitter: 'Please enter your Twitter ID',
+    sina: 'Please enter your Sina NickName'
   },
   copy: '邀请你注册Kingdata，{url}',
   warning: {
@@ -117,8 +115,12 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
     share: {
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%.'
     },
-    dashoard: {
+    dashboard: {
       desc: 'KingData 将联合 MDEX 开启价值超 200,000 美金的空投活动，并设立了超 10 种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励。',
+    },
+    weibo: {
+      label: 'Based on the number of followers:<br/>0-49999 reward 15MDX；49999-99999 reward 100MDX；＞99999 reward 200MDX.',
+      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     },
     activity: {
       warning: 'The reward will be air-drop into the address verified,which can not be changed.',
@@ -131,6 +133,46 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
 
       sushiswap: 'Sushiswap 持仓价值超过 1万 U，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
       sushiswapCondition: '任务资格：Sushiswap 持仓价值超过1万U',
+    },
+  },
+  channels: {
+    dashboard: {
+      desc: 'KingData 将联合 Channels 开启丰厚空投活动，并设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的USDT奖励。'
+    },
+    weibo: {
+      label: '根据粉丝数获得奖励：小于 5 万粉丝奖励 20U，大于 5 万粉丝奖励 300U（前30名用户）',
+      description: '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
+    },
+    share: {
+      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
+    },
+    about: {
+      name: 'USDT',
+      exchanges: '火币、币安等23家',
+      online: '2014年11月26日',
+      count: '602.71亿',
+      marketValue: '602.71亿',
+      circulation: '3亿',
+      luanched: 'HTH/Omni',
+      detail: 'Channels是Heco上首个完全去中心化的借贷平台。Channels在资产安全、用户体验和挖矿收益上，均在Heco上的加代产品里首屈一指。Channels专注于主流借贷币种HUSD、USDT、ETH、HBTC和HT等，始终坚持以产品体验为基础，以用户利益为核心。'
+    },
+    task1: {
+      title: 'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
+    },
+    task2: {
+      title: 'Holding value more than 10K USDT in Creams，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
+    },
+    task3: {
+      title: 'Holding value more than 10K USDT in Compounds，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
+    },
+    activity: {
+      warning: 'The reward will be air-drop into the address verified,which can not be changed.',
+
+      label: 'Holding value more than 10K USDT in {group}s',
+
+      telegramDesc: 'join Channels telegram group and post the screenshot of more than 1K USDT Channels\' loan/deposit  in the group',
+      twitterDesc: 'repost the top twitter and @ 3 friends',
+      sinaDesc: 'repost the top weibo and @ 3 friends'
     },
   }
 };

@@ -15,6 +15,12 @@ enum TaskType {
   telegram = 'telegram',
   twitter = 'twitter',
   retwitter = 'retwitter',
+
+  // channels
+  venus = 'venus',
+  cream = 'cream',
+  compound = 'compound',
+  sina = 'sina',
 }
 
 export default TaskType

@@ -25,9 +25,9 @@ onMounted(async() => {
 })
 </script>
 <template>
-  <div class="container flex px-4 pb-20 md:px-0">
+  <div class="container flex px-4 pb-20 lg:px-0">
     <div class="flex-1">
-      <growthpadTaskDasboard />
+      <growthpadTaskDashboard />
 
       <div class="w-full pt-5 pb-15 md:hidden">
         <div v-if="timeType === 'begin'">

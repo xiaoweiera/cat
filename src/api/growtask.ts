@@ -9,11 +9,19 @@ import request from '~/lib/devRequest'
 
 export enum Project {
   mdx = 'MDX',
+  channels = 'CHANNELS',
+  coinwind = 'COINWIND',
 }
 
 export function getProjectType(project: string): Project {
   if (project && toUpper(project) === Project.mdx) {
     return Project.mdx
+  }
+  if (project && toUpper(project) === Project.channels) {
+    return Project.channels
+  }
+  if (project && toUpper(project) === Project.coinwind) {
+    return Project.channels
   }
   // @ts-ignore
   return '' as Project

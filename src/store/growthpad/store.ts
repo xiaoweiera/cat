@@ -7,6 +7,8 @@ import { reactive, ref } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
 import mockMdx from '../../../mock/growthpad/mdx'
+import mockChannels from '../../../mock/growthpad/channels'
+import mockCoinWind from '../../../mock/growthpad/coinwind'
 import {
   getProjectInfo,
   getProjectType,
@@ -134,6 +136,14 @@ export default class Store {
       this.projectName = Project.mdx
       this.setInitData(mockMdx)
     }
+    if (type && getProjectType(type) === Project.channels) {
+      this.projectName = Project.channels
+      this.setInitData(mockChannels)
+    }
+    if (type && getProjectType(type) === Project.coinwind) {
+      this.projectName = Project.coinwind
+      this.setInitData(mockCoinWind)
+    }
   }
 
   private clearTimeout(): void {
@@ -145,11 +155,11 @@ export default class Store {
     this.title.value = data.title
     this.icon.value = data.icon
     // dashboard 数据
-    this.dashboard.begin = data.dasboard.begin
-    this.dashboard.end = data.dasboard.end
-    this.dashboard.description = data.dasboard.description
-    this.dashboard.rewardCount = data.dasboard.reward.count
-    this.dashboard.rewardLimit = data.dasboard.reward.limits
+    this.dashboard.begin = data.dashboard.begin
+    this.dashboard.end = data.dashboard.end
+    this.dashboard.description = data.dashboard.description
+    this.dashboard.rewardCount = data.dashboard.reward.count
+    this.dashboard.rewardLimit = data.dashboard.reward.limits
     // about 数据
     this.about.website = data.about.website
     this.about.detail = data.about.detail

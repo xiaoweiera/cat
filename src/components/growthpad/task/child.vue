@@ -43,11 +43,17 @@ const showReward = computed<boolean>((): boolean => {
             <span class="font-kdExp">{{ getMax(data.reward) }}</span>
             <span class="ml-1 font-kdExp">{{ store.getNickName() }}</span>
           </span>
-          <GrowthpadTaskCheck class="flex-1" :data="data"></GrowthpadTaskCheck>
+          <GrowthpadTaskCheck
+            class="flex-1 right-box text-right"
+            :data="data"
+          ></GrowthpadTaskCheck>
         </div>
       </template>
       <template v-else>
-        <GrowthpadTaskCheck :data="data"></GrowthpadTaskCheck>
+        <GrowthpadTaskCheck
+          class="right-box text-right"
+          :data="data"
+        ></GrowthpadTaskCheck>
       </template>
     </template>
   </GrowthpadTaskTitle>
@@ -57,5 +63,8 @@ const showReward = computed<boolean>((): boolean => {
 .reward {
   user-select: none;
   color: #2b8dfe;
+}
+.right-box {
+  min-width: 230px;
 }
 </style>

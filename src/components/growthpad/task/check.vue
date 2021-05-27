@@ -141,6 +141,45 @@ const validityValue = computed<string>((): string => {
         </span>
       </GrowthpadTaskSubShare>
     </template>
+    <template v-else-if="data.type === TaskType.sina">
+      <GrowthpadTaskSubSina :data="data">
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
+      </GrowthpadTaskSubSina>
+    </template>
+
+    <template v-else-if="data.type === TaskType.venus">
+      <GrowthpadTaskSubVenus :data="data">
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
+      </GrowthpadTaskSubVenus>
+    </template>
+
+    <template v-else-if="data.type === TaskType.cream">
+      <GrowthpadTaskSubCream :data="data">
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
+      </GrowthpadTaskSubCream>
+    </template>
+
+    <template v-else-if="data.type === TaskType.compound">
+      <GrowthpadTaskSubCompound :data="data">
+        <span v-login>
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
+      </GrowthpadTaskSubCompound>
+    </template>
   </div>
 </template>
 
