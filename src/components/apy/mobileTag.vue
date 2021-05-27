@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, toRefs } from 'vue'
 import { anchorConfig } from '~/logic/apy/config'
-
+import I18n from '~/utils/i18n/index'
 const props = defineProps({
   tableIndex: { type: Number },
   selectedMobileAnchor: { type: String },
@@ -17,7 +17,7 @@ const getAnchor = (names: string) => {
   <div class="flex w-full justify-around relative items-center">
     <template v-for="(item, index) in anchorConfig">
       <a
-        v-if="item.name !== '回到顶部'"
+        v-if="item.name !== I18n.apy.backTop"
         :href="'#m' + item.key"
         style="height: 28px"
         :class="tableIndex === index ? 'selected tag' : 'tag'"

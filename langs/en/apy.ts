@@ -1,4 +1,5 @@
 export default {
+    webTitle:'DeFi Mining APY List',
     langType:'En',
     header:{
         chart:'Chart',
@@ -16,6 +17,10 @@ export default {
         ck: 'Deposit APY',
         jk: 'Loan APY',
         back: 'Top'
+    },
+    tableHeader:{
+        type:'Project/Coin',
+        dataType:'Price/Change'
     },
     vaults: 'Vaults',
     lend: 'Deposit',
@@ -88,5 +93,7 @@ export default {
     },
 
 
-    tagAll: 'All'
+    tagAll: 'All',
+    backTop:'Top',
+    remainRatio:'Remaining ratio'
 };
