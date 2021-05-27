@@ -11,8 +11,9 @@ import {
 import { ref, defineProps, watch, toRefs, reactive } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 import { filterByOptions } from '~/logic/apy/tableDetail'
-import { unitConfig } from '~/logic/apy/config'
+import { unitConfig, unitConfigen } from '~/logic/apy/config'
 const isTipArrow = false // 提示框是否显示小尖头
 const props = defineProps({
   chains: { type: String },
@@ -114,12 +115,13 @@ watch(
   },
 )
 const getValue = (data: any, i) => {
+  const unitList = lang.current.value === 'cn' ? unitConfig : unitConfigen
   if (data) {
     if (!data.value && data.value !== 0) return '-'
-    if (unitConfig[data.name]) {
-      if (unitConfig[data.name].unit === '$')
-        return unitConfig[data.name]?.unit + data.value
-      else return data.value + unitConfig[data.name]?.unit
+    if (unitList[data.name]) {
+      if (unitList[data.name].unit === '$')
+        return unitList[data.name]?.unit + data.value
+      else return data.value + unitList[data.name]?.unit
     }
     return data.value
   }
