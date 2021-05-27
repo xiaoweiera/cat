@@ -37,7 +37,7 @@ const submit = async function() {
     <el-form-item prop="mobile">
       <el-input
         v-model="formdata.mobile"
-        placeholder="请输入手机号"
+        :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"
       >
@@ -47,7 +47,7 @@ const submit = async function() {
       <el-input
         v-model="formdata.password"
         type="password"
-        placeholder="请输入密码"
+        :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
         autocomplete="off"
       >
@@ -55,7 +55,7 @@ const submit = async function() {
     </el-form-item>
     <el-form-item class="mb-0 py-0.5">
       <el-checkbox v-model="formdata.checked">
-        <span class="font-normal">自动登录</span>
+        <span class="font-normal">{{ I18n.common.placeholder.login }}</span>
       </el-checkbox>
     </el-form-item>
     <el-form-item class="mb-0">

@@ -16,10 +16,29 @@ export default {
     ss: '秒'
   },
   button: {
-    submit: '提交'
+    submit: '提交',
   },
+  message: {
+    verification: '获取验证码',
+    verificationError: '请输入6位验证码！',
+    passwordError: '请输入6至24位的密码！',
+    telError: '请输入正确的手机号',
+  },
+  placeholder: {
+    login: '自动登录',
+    tel: '请输入手机号',
+    verification: '请输入验证码',
+    password: '请输入密码',
+  },
+  and: '及',
   join: '加入',
   follow: '关注',
   repost: '转发',
-  activity: '活动'
+  activity: '活动',
+  user: {
+    invite: '请输入邀请码',
+    read: '注册前请阅读',
+    agreement: '用户隐私协议',
+    terms: '服务条款'
+  }
 }

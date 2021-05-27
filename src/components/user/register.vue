@@ -16,6 +16,7 @@ import { getCaptcha } from '~/api/user'
 const getVisitNum = function(): string {
   const router = toRaw(useRoute())
   const query = router.query.value
+  // @ts-ignore
   return query?.code || ''
 }
 
@@ -46,8 +47,9 @@ const submit = async function() {
 let codeNumber = 120
 let interval: any = 0
 let codeFlag = false
-const codeValue = ref<string>('获取验证码')
+const codeValue = ref<string>(I18n.common.message.verification)
 
+// @ts-ignore
 const onGetCode = function() {
   if (codeFlag) {
     return false
@@ -60,9 +62,10 @@ const onGetCode = function() {
     if (codeNumber <= 0) {
       codeNumber = 120
       clearInterval(interval)
-      codeValue.value = '获取验证码'
+      codeValue.value = I18n.common.message.verification
       codeFlag = false
     } else {
+      // @ts-ignore
       codeValue.value = codeNumber
       codeNumber--
     }
@@ -85,7 +88,7 @@ const onGetCode = function() {
     <el-form-item prop="mobile">
       <el-input
         v-model="registerData.mobile"
-        placeholder="请输入手机号"
+        :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"
       >
@@ -96,7 +99,7 @@ const onGetCode = function() {
     <el-form-item prop="code">
       <el-input
         v-model="registerData.code"
-        placeholder="请输入验证码"
+        :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
       >
@@ -110,7 +113,7 @@ const onGetCode = function() {
       <el-input
         v-model="registerData.password"
         type="password"
-        placeholder="请输入密码"
+        :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
         autocomplete="off"
       >
@@ -119,25 +122,23 @@ const onGetCode = function() {
     <el-form-item class="mb-2">
       <el-input
         v-model="registerData.invitation_code"
-        placeholder="请输入邀请码"
+        :placeholder="I18n.common.user.invite"
         class="input-with-select"
         autocomplete="off"
       >
       </el-input>
     </el-form-item>
     <el-form-item>
-      <span>注册前请阅读</span>
+      <span>{{ I18n.common.user.read }}</span>
       <a
         class="link"
         target="_blank"
         href="https://ikingdata.com/privacy_policy/"
-      >用户隐私协议</a>
-      <span class="defaultText">及</span>
-      <a
-        class="link"
-        target="_blank"
-        href="https://ikingdata.com/agreement/"
-      >服务条款</a>
+      >{{ I18n.common.user.agreement }}</a>
+      <span class="defaultText">{{ I18n.common.and }}</span>
+      <a class="link" target="_blank" href="https://ikingdata.com/agreement/">{{
+        I18n.common.user.terms
+      }}</a>
     </el-form-item>
     <el-form-item class="mb-0">
       <ElButton class="w-full" type="primary" native-type="submit">
