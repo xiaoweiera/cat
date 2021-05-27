@@ -75,7 +75,7 @@ export const chainConfig = [
     select: true,
     key: 'all',
     name: '全部',
-    img: 'https://res.ikingdata.com/nav/apyAllTip.png',
+    img: 'https://res.ikingdata.com/nav/allTable.png',
   },
   {
     select: false,
