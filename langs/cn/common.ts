@@ -12,7 +12,8 @@ export default {
   time: {
     dd: '天',
     hh: '小时',
-    mm: '分钟'
+    mm: '分钟',
+    ss: '秒'
   },
   button: {
     submit: '提交'

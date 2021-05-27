@@ -21,7 +21,7 @@ const getVisitNum = function(): string {
 
 onMounted(() => {
   const code = getVisitNum()
-  registerData.visitNum = code
+  registerData.invitation_code = code
 })
 
 const submit = async function() {
@@ -118,7 +118,7 @@ const onGetCode = function() {
     </el-form-item>
     <el-form-item class="mb-2">
       <el-input
-        v-model="registerData.visitNum"
+        v-model="registerData.invitation_code"
         placeholder="请输入邀请码"
         class="input-with-select"
         autocomplete="off"

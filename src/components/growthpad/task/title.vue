@@ -17,25 +17,32 @@ const href = computed(() => {
 <template>
   <div>
     <div class="font-kdFang">
-      <div class="flex items-center pb-1">
-        <span class="text-sm title" v-html="data.title"></span>
+      <div class="pb-1">
+        <span
+          class="text-sm title inline-block align-middle"
+          v-html="data.title"
+        ></span>
         <template v-if="data.tooltip">
           <a
-            class="tooltip rounded ml-1.5 flex items-center"
+            class="tooltip rounded mx-1.5 inline-flex items-center align-middle"
             target="_blank"
             :href="href"
           >
             <template v-if="data.tooltip.icon">
               <IconFont class="mr-1 flex" :type="data.tooltip.icon" size="xs" />
             </template>
-            <span class="text-xs inline-block">{{ data.tooltip.value }}</span>
+            <span class="text-xs inline-block whitespace-nowrap">{{
+              data.tooltip.value
+            }}</span>
           </a>
         </template>
         <template v-if="data.titleAfter">
-          <span class="ml-1.5 text-sm title">{{ data.titleAfter }}</span>
+          <span class="text-sm title inline-block align-middle">{{
+            data.titleAfter
+          }}</span>
         </template>
         <template v-if="data.help">
-          <span class="ml-1.5" :help="data.help">
+          <span class="ml-1.5 inline-block align-middle" :help="data.help">
             <IconFont type="help" />
           </span>
         </template>

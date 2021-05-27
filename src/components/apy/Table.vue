@@ -234,9 +234,13 @@ const getValue = (data: any, i) => {
                 placement="bottom"
               >
                 <template #default>
-                  <template v-for="(item, i) in scope.row.data[i]?.data">
+                  <template
+                    v-for="(item, i) in scope.row.data[i]?.data"
+                    :key="i"
+                  >
                     <div
                       v-if="getValue(item, j) !== '-'"
+                      :key="j"
                       class="flex mb-0.5 items-center flex-wrap TipTxt"
                     >
                       <span class="mr-1">{{ item.name }}</span>

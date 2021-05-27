@@ -10,9 +10,7 @@ const store = Task()
 const title = computed((): string => {
   // return `${store.title.value} ${I18n.growthpad.growth}`
   const data = { project: store.title.value }
-  console.log(data)
   const text = I18n.template(I18n.growthpad.growth, data)
-  console.log(text)
   return text
 })
 
@@ -27,9 +25,34 @@ const timeStatus = computed<string>((): string => {
   return getTimeStatus(store)
 })
 
-const getPrice = function(number: string | number): string {
-  const price = parseFloat(store.price.value, 10)
-  return price * parseFloat(number)
+// @ts-ignore
+const countComputed = function(number: number): string | number {
+  let value: number = parseFloat(number as any)
+  if (isNaN(value)) {
+    value = 0
+  }
+  if (value > 1000) {
+    value = value / 1000
+    return `${value}K`
+  }
+  return value
+}
+
+// @ts-ignore
+const getPrice = function(number: string | number): string | number {
+  // @ts-ignore
+  const price = parseFloat(store.price.value as any)
+  let value = price * parseFloat(number as any)
+  if (isNaN(value)) {
+    value = 0
+  }
+  const none = '<span class="text-2xl md:text-4xl font-kdFang">$0</span>'
+  const count
+    = '<span class="ml-1.5 text-xs md:text-base font-kdFang">{about}</span><span class="text-2xl md:text-4xl font-kdFang">${value}</span>'
+  return I18n.part(`${none} | ${count}`, value, {
+    value: countComputed(value),
+    about: I18n.growthpad.reward.about,
+  })
 }
 </script>
 
@@ -71,16 +94,9 @@ const getPrice = function(number: string | number): string {
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.reward.count }}
           </h4>
-          <p
-            class="
-              font-color-theme font-kdFang font-bold
-              flex
-              items-end
-              font-kdExp
-            "
-          >
+          <p class="font-color-theme font-bold font-kdExp">
             <span class="text-2xl md:text-4xl">{{
-              store.dashboard.rewardCount
+              countComputed(store.dashboard.rewardCount)
             }}</span>
             <span class="ml-1.5 text-xs md:text-base">{{
               store.getNickName()
@@ -91,31 +107,24 @@ const getPrice = function(number: string | number): string {
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.reward.value }}
           </h4>
-          <p class="font-color-theme font-kdFang font-bold font-kdExp">
-            <span class="ml-1.5 text-xs md:text-base">{{
-              I18n.growthpad.reward.about
-            }}</span>
-            <span
-              class="text-2xl md:text-4xl"
-            >${{ getPrice(store.dashboard.rewardCount) }}</span>
-          </p>
+          <p
+            class="font-color-theme font-bold font-kdExp"
+            v-html="getPrice(store.dashboard.rewardCount)"
+          ></p>
         </li>
         <li class="ml-3 md:ml-12">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.reward.perPerson }}
           </h4>
-          <p
-            class="
-              font-color-theme font-kdFang font-bold
-              flex
-              items-end
-              font-kdExp
-            "
-          >
+          <p class="font-color-theme font-bold font-kdExp">
             <span class="text-2xl md:text-4xl whitespace-nowrap">
-              <span>{{ minReward(store.dashboard.rewardLimit) }}</span>
+              <span>{{
+                countComputed(minReward(store.dashboard.rewardLimit))
+              }}</span>
               <span>-</span>
-              <span>{{ maxReward(store.dashboard.rewardLimit) }}</span>
+              <span>{{
+                countComputed(maxReward(store.dashboard.rewardLimit))
+              }}</span>
             </span>
             <span class="ml-1.5">{{ store.getNickName() }}</span>
           </p>

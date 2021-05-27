@@ -57,23 +57,36 @@ const rewardValue = computed<number>((): number => {
 })
 </script>
 <template>
-  <span class="font-bold font-kdExp inline-block">
-    <span v-if="rewardValue" class="reward bonus">
-      <span class="count">+{{ rewardValue }}</span>
-      <span class="ml-1">{{ store.getNickName() }}</span>
+  <template v-if="rewardValue">
+    <span class="font-bold font-kdExp inline-block">
+      <span class="reward bonus block md:inline-block">
+        <span class="text-xs">已得</span>
+        <span class="count">{{ rewardValue }}</span>
+        <span class="ml-1">{{ store.getNickName() }}</span>
+      </span>
+      <span class="block md:inline-block text-right md:text-left">
+        <slot></slot>
+      </span>
     </span>
-    <span v-else class="reward">
-      <template v-if="isWeibo">
-        <span
-          class="count"
-        >{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
-      </template>
-      <template v-else>
-        <span class="count">{{ getMax(data.reward) }}</span>
-      </template>
-      <span class="ml-1">{{ store.getNickName() }}</span>
+  </template>
+  <template v-else>
+    <span class="font-bold font-kdExp inline-block">
+      <span class="reward block md:inline-block">
+        <template v-if="isWeibo">
+          <span
+            class="count"
+          >{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
+        </template>
+        <template v-else>
+          <span class="count">+{{ getMax(data.reward) }}</span>
+        </template>
+        <span class="ml-1">{{ store.getNickName() }}</span>
+      </span>
+      <span class="block md:inline-block text-right md:text-left">
+        <slot></slot>
+      </span>
     </span>
-  </span>
+  </template>
 </template>
 
 <style scoped lang="scss">

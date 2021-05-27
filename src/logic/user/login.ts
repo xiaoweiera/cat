@@ -64,8 +64,8 @@ export const registerData = reactive({
   code: '', // 验证码
   password: '',
   mobile: '',
-  visitNum: '', // 邀请码
-  platform: 'growthpad',
+  invitation_code: '', // 邀请码
+  platform: 'web',
 })
 
 export const registerForm = ref<any>(null)

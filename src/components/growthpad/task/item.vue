@@ -54,22 +54,23 @@ const isWeibo = computed((): boolean => {
           class="flex justify-between items-center"
         >
           <template v-if="!isAllIn" #right>
-            <span class="inline-block pl-3 md:pl-0">
-              <GrowthpadTaskReward :data="data"></GrowthpadTaskReward>
-              <span class="inline-block ml-1.5">
-                <span class="hand inline-block">
-                  <IconFont
-                    type="arrow"
-                    suffix="png"
-                    class="icon-arrow-up"
-                  ></IconFont>
-                  <IconFont
-                    type="arrow"
-                    suffix="png"
-                    class="icon-arrow-down"
-                  ></IconFont>
+            <span class="inline-block hand pl-3 md:pl-0">
+              <GrowthpadTaskReward :data="data">
+                <span class="inline-block ml-1.5">
+                  <span class="inline-block">
+                    <IconFont
+                      type="arrow"
+                      suffix="png"
+                      class="icon-arrow-up"
+                    ></IconFont>
+                    <IconFont
+                      type="arrow"
+                      suffix="png"
+                      class="icon-arrow-down"
+                    ></IconFont>
+                  </span>
                 </span>
-              </span>
+              </GrowthpadTaskReward>
             </span>
           </template>
         </GrowthpadTaskTitle>

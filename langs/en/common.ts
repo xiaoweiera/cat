@@ -12,7 +12,8 @@ export default {
   time: {
     dd: 'Days',
     hh: 'Hours',
-    mm: 'Minutes'
+    mm: 'Minutes',
+    ss: 'Seconds'
   },
   button: {
     submit: 'submit'

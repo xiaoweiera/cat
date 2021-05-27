@@ -7,9 +7,10 @@ const format = 'YYYY-MM-DD HH:mm:ss'
 const props = defineProps({
   value: [String, Number],
 })
-const day = ref('0')
-const hour = ref('0')
-const minute = ref('0')
+const day = ref<string>('00')
+const hour = ref<string>('00')
+const minute = ref<string>('00')
+const second = ref<string>('00')
 const end = ref(0)
 // 监听传入进来的时间值
 watch(
@@ -35,6 +36,11 @@ const getMinute = function(duration: number): string {
   const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
   return number < 10 ? `0${number}` : String(number)
 }
+// 计算倒计时 - 秒
+const getSecond = function(duration: number): string {
+  const number = parseInt(((duration / 1000) % 60) as any, 10)
+  return number < 10 ? `0${number}` : String(number)
+}
 // 倒计时
 let intemout: any
 const timeout = () => {
@@ -47,6 +53,7 @@ const timeout = () => {
     day.value = '00'
     hour.value = '00'
     minute.value = '00'
+    second.value = '00'
     return
   }
   // 计算倒计时剩余天
@@ -56,12 +63,8 @@ const timeout = () => {
   // 计算倒计时剩余分
   minute.value = getMinute(duration)
   // 计算倒计时剩余秒
-  const seconds = parseInt(((duration / 1000) % 60) as any, 10)
-  if (seconds < 60) {
-    intemout = setTimeout(timeout, 1000 * (60 - seconds))
-  } else {
-    intemout = setTimeout(timeout, 1000 * 60)
-  }
+  second.value = getSecond(duration)
+  intemout = setTimeout(timeout, 1000)
 }
 timeout()
 </script>
@@ -101,8 +104,20 @@ timeout()
       <span class="text-sm font-kdFang hidden md:inline-block">Minutes</span>
     </p>
     <p>
+      <span class="font-bold text-2xl hidden md:inline-block">:</span>
       <span class="font-semibold text-xs md:hidden">{{
         I18n.common.time.mm
+      }}</span>
+    </p>
+    <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
+      <span class="font-bold text-2xl md:text-4xl font-kdExp mt-1">{{
+        second
+      }}</span>
+      <span class="text-sm font-kdFang hidden md:inline-block">Seconds</span>
+    </p>
+    <p>
+      <span class="font-semibold text-xs md:hidden">{{
+        I18n.common.time.ss
       }}</span>
     </p>
   </div>
