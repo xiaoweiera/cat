@@ -204,8 +204,8 @@ export default class Store {
     if (result?.price) {
       this.price.value = result.price
     }
-    this.reward = result?.reward || 0
-    this.invited_count = result?.invited_count || 0
+    this.reward.value = result?.reward || 0
+    this.invited_count.value = result?.invited_count || 0
     // 更新 info 信息
     if (user) {
       this.user.bsc_token = user.bsc_token as string

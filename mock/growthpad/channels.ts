@@ -138,7 +138,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
-          type: TaskType.cream,
+          type: TaskType.compound,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Compound' }),
           description: ''
         },
