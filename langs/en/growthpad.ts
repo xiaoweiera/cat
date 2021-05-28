@@ -148,7 +148,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
     weibo: {
       label: '根据粉丝数获得奖励：小于 5 万粉丝奖励 20U，大于 5 万粉丝奖励 300U（前30名用户）',
-      description: '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
+      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     },
     share: {
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
@@ -184,35 +184,43 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   },
   coinwind: {
     about: {
-      detail: `CoinWind是一个DeFi智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP挖矿无常损失大等风险问题。
+      detail: `CoinWind is a Heco and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
-CoinWind旨在打造一个DeFi数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind产品会通过组合策略有效降低流动性挖矿中的无常损失。
+CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
 
-CoinWind首发Heco生态链，之后将跨多条主链如ETH、BSC等运行。`,
+CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future`,
     },
     copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
     share: {
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
     },
     dashboard: {
-      desc: 'KingData 将联合 CoinWind 开启价值超 100,000 美金的空投活动以及CoinWind专属活动增长奖。设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励。',
+      desc: 'KingData opens a 100,000$ airdrop and Coinwind Luck bonus cooperating with MDEX, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get MDX reward.',
+    },
+    task1: {
+      // title: 'KingData注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
+      title: 'Become Kingdata VIP; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.'
     },
     task2: {
-      title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
-      description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
-      condition1: '任务资格：Pancake Bunny 持仓价值超过1万U',
+      // title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Holding value more than 10K USDT in PanCake Bunny; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
+      // description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
+      description: 'finished one of tasks: <i>reward 1MDX</i> (top 500 users)',
+      condition1: 'Qualification:Holding value more than 10K USDT in PanCake Bunny',
     },
     task3: {
-      title: 'autofarm持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
-      condition1: '任务资格：autofarm 持仓价值超过1万U',
+      // title: 'autofarm持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Holding value more than 10K USDT in autofarm; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
+      condition1: 'Qualification:Holding value more than 10K USDT in autofarm',
     },
     task4: {
-      title: 'Belt.fit持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
-      condition1: '任务资格：Belt.fit 持仓价值超过1万U',
+      // title: 'Belt.fit持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Holding value more than 10K USDT in Belt.fit; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
+      condition1: 'Qualification:Holding value more than 10K USDT in Belt.fit',
     },
     weibo: {
-      label: '根据粉丝数获得奖励：<br/>0-49999粉丝奖励 3MDX(前500名用户)；49999-99999粉丝奖励30MDX；大于99999粉丝奖励100MDX.',
-      description: '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
+      label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
+      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     },
   }
 };

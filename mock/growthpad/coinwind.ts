@@ -10,10 +10,10 @@ import * as chat from './chat'
 
 const token = 'MDX'
 const Project = 'CoinWind'
-const website = 'mdex.com'
+const website = 'www.coinwind.com'
 const telegramHref = 'https://t.me/CoinWind'
-const twitterHref = 'https://twitter.com/Mdextech'
-const retwitterHref = 'https://twitter.com/Mdextech/status/1395323254974214150'
+const twitterHref = 'https://twitter.com/coinwind_com'
+const retwitterHref = 'https://twitter.com/coinwind_com'
 
 
 const data = {
@@ -58,7 +58,7 @@ const data = {
     {
       id: chat.uuid(), // 任务ID
       type: TaskType.vip, // 任务类型
-      title: 'KingData注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: I18n.growthpad.coinwind.task1.title,
       description: I18n.template(I18n.growthpad.reward.finished, { count: 500, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
@@ -178,6 +178,17 @@ const data = {
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
       reward: [3, 100],
       children: [],
+    },
+    // 任务 5
+    {
+      id: chat.uuid(),
+      type: TaskType.allin,
+      title: I18n.growthpad.invited.partake,
+      children: [
+        {
+          title: I18n.growthpad.mdx.share.lable,
+        },
+      ],
     },
   ],
 }

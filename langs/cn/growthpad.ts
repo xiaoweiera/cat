@@ -198,6 +198,9 @@ CoinWind首发Heco生态链，之后将跨多条主链如ETH、BSC等运行。`,
     dashboard: {
       desc: 'KingData 将联合 CoinWind 开启价值超 100,000 美金的空投活动以及CoinWind专属活动增长奖。设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励。',
     },
+    task1: {
+      title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
+    },
     task2: {
       title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
       description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
