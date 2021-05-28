@@ -23,7 +23,7 @@ export default {
     warning: 'finish Information Registration first',
     iCard: 'Your address: ',
     reward: 'Your expected reward:',
-    confirm: '地址确认',
+    confirm: 'Confirm',
     invalid: 'invalid',
     tips: 'Once confirmed, the address can\'t be modified',
     placeholder: 'enter your  BSC address receiving',
@@ -101,8 +101,8 @@ export default {
     twitter: 'the activity Twitter'
   },
   front: {
-    '500': '{value}（前500名用户）',
-    '2000': '{value}（前2000名用户）'
+    '500': '{value}（top 500 users）',
+    '2000': '{value}（top 2,000 users）'
   },
 
   mdx: {
@@ -144,24 +144,24 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   },
   channels: {
     dashboard: {
-      desc: 'KingData 将联合 Channels 开启丰厚空投活动，并设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的USDT奖励。'
+      desc: 'KingData opens a lot of rewards airdrop cooperating with USDT, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get USDT reward.'
     },
     weibo: {
-      label: '根据粉丝数获得奖励：小于 5 万粉丝奖励 20U，大于 5 万粉丝奖励 300U（前30名用户）',
+      label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
       description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     },
     share: {
-      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
+      lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
     },
     about: {
       name: 'USDT',
-      exchanges: '火币、币安等23家',
+      exchanges: 'huobi,Binance and etc',
       online: '2014年11月26日',
       count: '602.71亿',
       marketValue: '602.71亿',
       circulation: '3亿',
       luanched: 'HTH/Omni',
-      detail: 'Channels是Heco上首个完全去中心化的借贷平台。Channels在资产安全、用户体验和挖矿收益上，均在Heco上的加代产品里首屈一指。Channels专注于主流借贷币种HUSD、USDT、ETH、HBTC和HT等，始终坚持以产品体验为基础，以用户利益为核心。'
+      detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
     task1: {
       title: 'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
@@ -190,9 +190,13 @@ CoinWind aims to build a DeFi digital asset bank, launching a product with high 
 
 CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future`,
     },
-    copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
+    copy: 'inviting you to participate in {title}, Win 1 million dollars award, {url}',
     share: {
-      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
+      lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%',
+      title: 'CoinWind Lucky bonus',
+      users: 'number of users i invite(CoinWind):',
+      invite: 'The user invites the  most number of users participate CoinWind growth can get 1% of bonus pool',
+      desc: '* invitee needs to complete one of tasks in CoinWind, whcih can be counted. ',
     },
     dashboard: {
       desc: 'KingData opens a 100,000$ airdrop and Coinwind Luck bonus cooperating with MDEX, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get MDX reward.',
@@ -222,5 +226,6 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
       description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     },
+
   }
 };

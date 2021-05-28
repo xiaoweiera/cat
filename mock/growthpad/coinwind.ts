@@ -19,7 +19,7 @@ const retwitterHref = 'https://twitter.com/coinwind_com'
 const data = {
   token,
   title: Project, // 名称
-  icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
+  icon: 'https://www.coinwind.com/favicon.ico', // icon
   dashboard: {
     begin: '2021-05-25 12:00:00', // 开始时间
     end: '2021-05-30 12:00:00', // 结束时间

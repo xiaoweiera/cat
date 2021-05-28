@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { onMounted, computed, watch, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
+import { Project } from '~/api/growtask'
 import Task from '~/logic/growthpad/task'
 const format = 'YYYY-MM-DD HH:mm:ss'
 const store = Task()
@@ -46,6 +47,10 @@ onMounted(async() => {
 
       <growthpadTaskAdress class="md:pt-15" />
 
+      <template v-if="store.projectName === Project.coinwind">
+        <growthpadTaskCoinwind></growthpadTaskCoinwind>
+      </template>
+
       <div>
         <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
         <div class="pb-15">
@@ -85,7 +90,7 @@ onMounted(async() => {
   </div>
 </template>
 
-<style scoped lang="postcss">
+<style scoped lang="scss">
 h2 {
   color: #033666;
   font-size: 18px;

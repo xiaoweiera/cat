@@ -54,4 +54,3 @@ const link = (): string => {
     </template>
   </GrowthpadTaskTitle>
 </template>
-<style scoped></style>
