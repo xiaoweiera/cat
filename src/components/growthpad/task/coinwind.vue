@@ -14,7 +14,7 @@ const store = Task()
       }}</span>
       <span class="block share pt-2">
         <span class="text-xs">{{ I18n.growthpad.coinwind.share.users }}</span>
-        <i class="text-xs ml-1.5">{{ store.invited_count }}</i>
+        <i class="text-xs ml-1.5">{{ store.invited_count.value }}</i>
       </span>
     </div>
   </div>

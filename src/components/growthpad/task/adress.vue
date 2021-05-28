@@ -4,6 +4,7 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
 import activity from '~/logic/growthpad/activity'
+import { Project } from '~/api/growtask'
 
 const store = Task()
 
@@ -23,6 +24,22 @@ const tokenIsNull = computed<boolean>((): boolean => {
   }
   return false
 })
+// @ts-ignore
+const placeholder = (): string => {
+  // @ts-ignore
+  if (store.projectName === Project.mdx) {
+    return I18n.growthpad.mdx.address.placeholder
+  }
+  // @ts-ignore
+  if (store.projectName === Project.channels) {
+    return I18n.growthpad.channels.address.placeholder
+  }
+  // @ts-ignore
+  if (store.projectName === Project.coinwind) {
+    return I18n.growthpad.coinwind.address.placeholder
+  }
+  return I18n.growthpad.mdx.address.placeholder
+}
 
 const validityValue = computed<string>((): string => {
   const begin = store?.dashboard?.begin
@@ -60,7 +77,7 @@ const rules: any = {
         callback: (message?: string) => void,
       ) {
         if (isNull(value)) {
-          callback(I18n.growthpad.examples.address)
+          callback(placeholder())
         } else {
           callback()
         }
@@ -105,7 +122,9 @@ const bindAddress = async function(): Promise<void> {
     <div v-if="tokenIsNull" class="flex-1">
       <h2 class="pb-4 text-base font-semibold address">
         <span>{{ I18n.growthpad.address.reward }}</span>
-        <span class="reward">{{ store.reward }}{{ store.getNickName() }}</span>
+        <span
+          class="reward"
+        >{{ store.reward.value }}{{ store.getNickName() }}</span>
       </h2>
       <div>
         <p class="text-sm address">
@@ -138,7 +157,7 @@ const bindAddress = async function(): Promise<void> {
               >
                 <ElInput
                   v-model="formdata.address"
-                  :placeholder="I18n.growthpad.address.placeholder"
+                  :placeholder="placeholder()"
                 >
                   <template v-if="isNull(formdata.address)" #suffix>
                     <span class="pr-3 text-sm tips">{{

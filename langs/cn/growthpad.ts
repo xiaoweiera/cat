@@ -26,7 +26,6 @@ export default {
     confirm: '地址确认',
     invalid: '地址无效',
     tips: '地址一旦确认不可修改',
-    placeholder: '输入参与领取奖励的 BSC 地址',
     notify1: '* 请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。',
     notify2: '* 奖励将于活动结束后统一发放到您的奖励接收地址，持仓量相关任务奖励直接发放至验证地址。'
   },
@@ -106,6 +105,9 @@ export default {
   },
 
   mdx: {
+    address: {
+      placeholder: '输入参与领取奖励的 BSC 地址',
+    },
     about: {
       name: 'MDX',
       exchanges: '火币、币安等23家',
@@ -144,6 +146,10 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
     },
   },
   channels: {
+    address: {
+      placeholder: '输入参与领取奖励的 HECO 地址',
+
+    },
     dashboard: {
       desc: 'KingData 将联合 Channels 开启丰厚空投活动，并设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的USDT奖励。'
     },
@@ -184,6 +190,9 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
     },
   },
   coinwind: {
+    address: {
+      placeholder: '输入参与领取奖励的 BSC 地址',
+    },
     about: {
       detail: `CoinWind是一个DeFi智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP挖矿无常损失大等风险问题。
 

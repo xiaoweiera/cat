@@ -20,15 +20,7 @@ export default {
   register: 'Information Registration',
   submit: 'register',
   address: {
-    warning: 'finish Information Registration first',
-    iCard: 'Your address: ',
-    reward: 'Your expected reward:',
-    confirm: 'Confirm',
-    invalid: 'invalid',
-    tips: 'Once confirmed, the address can\'t be modified',
     placeholder: 'enter your  BSC address receiving',
-    notify1: '* Please register your address receiving rewards(the reward of tasks about holding quantity will be air-drop into the address verified). ',
-    notify2: '* The reward will be air-drop into your registered address and the reward of tasks about holding quantity will be air-drop into the address verified. '
   },
   about: {
     title: '{project} Exchange',
@@ -106,6 +98,9 @@ export default {
   },
 
   mdx: {
+    address: {
+      placeholder: 'enter your  BSC address receiving',
+    },
     about: {
       name: 'MDX',
       exchanges: 'huobi,Binance and etc',
@@ -143,6 +138,10 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
   },
   channels: {
+    address: {
+      placeholder: 'enter your HECO address receiving',
+
+    },
     dashboard: {
       desc: 'KingData opens a lot of rewards airdrop cooperating with USDT, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get USDT reward.'
     },
@@ -183,6 +182,9 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
   },
   coinwind: {
+    address: {
+      placeholder: 'enter your HECO address receiving',
+    },
     about: {
       detail: `CoinWind is a Heco and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
