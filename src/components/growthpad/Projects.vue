@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { defineProps, ref } from 'vue'
-
-const props = defineProps({
-  status: {
-    type: String,
-    required: true,
-  },
+import { defineProps, ref, onMounted, reactive } from 'vue'
+import {
+  mdxInfo,
+  coinwindInfo,
+  channelsInfo,
+} from '/mock/growthpad/projectInfo'
+import { getTimeStatus } from '~/components/growthpad/task/task'
+const mdxStatus = ref('')
+const coinwindStatus = ref('')
+const channelsStatus = ref('')
+onMounted(() => {
+  mdxStatus.value = getTimeStatus(mdxInfo)
+  coinwindStatus.value = getTimeStatus(coinwindInfo)
+  channelsStatus.value = getTimeStatus(channelsInfo)
 })
-const { t } = useI18n()
-const projects = ref([{}, {}, {}])
-const title = {
-  progress: t('project.status.coming'),
-}
 </script>
 <template>
   <div
@@ -27,17 +29,38 @@ const title = {
       xl:grid-cols-3
     "
   >
-    <div
-      v-for="project in projects"
-      :key="props.status + project.symbol"
-      class="w-full projectContainer"
-    >
+    <div class="w-full projectContainer">
       <GrowthpadProject
-        :project="project"
-        :status="props.status"
-        :title="title[props.status]"
+        :value="
+          mdxStatus.value === 'wait'
+            ? mdxInfo.dashboard.end
+            : mdxInfo.dashboard.begin
+        "
+        :status="mdxStatus"
+        :project="mdxInfo"
+      />
+    </div>
+    <div class="w-full projectContainer">
+      <GrowthpadProject
+        :value="
+          coinwindStatus.value === 'wait'
+            ? coinwindInfo.dashboard.end
+            : coinwindInfo.dashboard.begin
+        "
+        :status="coinwindStatus"
+        :project="coinwindInfo"
+      />
+    </div>
+    <div class="w-full projectContainer">
+      <GrowthpadProject
+        :value="
+          channelsStatus.value === 'wait'
+            ? channelsInfo.dashboard.end
+            : channelsInfo.dashboard.begin
+        "
+        :status="channelsStatus"
+        :project="channelsInfo"
       />
     </div>
   </div>
 </template>
-<style></style>
