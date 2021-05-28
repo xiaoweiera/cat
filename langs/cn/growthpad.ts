@@ -71,6 +71,9 @@ export default {
     code: '我的邀请码：',
     partake: '阳光普照奖',
   },
+  chat: {
+    speak: '并完成任意发言。'
+  },
   form: {
     address: '确认地址',
     warning: '地址一旦确认不可修改，任务奖励将发放到该地址中',

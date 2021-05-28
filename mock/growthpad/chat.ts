@@ -11,7 +11,7 @@ export const telegram = function(project: string, description?: string, href?: s
   return {
     id: uuid(),
     title: I18n.common.join,
-    titleAfter: '并完成任意发言。',
+    titleAfter: I18n.growthpad.chat.speak,
     type: TaskType.telegram,
     tooltip: {
       icon: 'telegram',
