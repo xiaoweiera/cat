@@ -21,7 +21,7 @@ export function getProjectType(project: string): Project {
     return Project.channels
   }
   if (project && toUpper(project) === Project.coinwind) {
-    return Project.channels
+    return Project.coinwind
   }
   // @ts-ignore
   return '' as Project

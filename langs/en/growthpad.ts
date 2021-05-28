@@ -92,7 +92,7 @@ export default {
   vip: {
     invite: 'Become {group} VIP',
     description: 'By Inviting 3 users and finishing register.',
-    activity: 'Become Kingdata VIP;join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
+    activity: 'Become Kingdata VIP;join {project} telegram; follow {project} Twitter and repost the twitter about the activity.',
   },
   activity: {
     twitter: 'the activity Twitter'

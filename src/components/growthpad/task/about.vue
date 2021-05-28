@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { computed, toRaw } from 'vue'
+// @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
+
 const store = Task()
 
 // 多少列
 const cols = 3
 // @ts-ignore
 const list = computed(() => {
+  // @ts-ignore
   const list = toRaw(store.about.minutias)
   const array: Array<any[]> = []
   for (let i = 0; i < cols; i++) {
@@ -58,24 +61,38 @@ const list = computed(() => {
       </span>
     </p>
   </div>
+
   <!-- 手机版本 -->
-  <div class="mt-6 font-kdFang md:hidden">
+  <div
+    v-if="store.about.minutias && store.about.minutias.length > 0"
+    class="mt-6 font-kdFang md:hidden"
+  >
     <h2 class="text-base">{{ I18n.growthpad.about.reward }}</h2>
     <div class="mt-3 pt-2">
       <div v-for="(item, i) in store.about.minutias" :key="i">
         <p class="text-sm pb-1.5">
           <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
-          <span class="inline-block minutia-value">{{ item.value }}</span>
+          <span class="inline-block minutia-value">
+            <template v-if="item.value === 'price'">{{
+              store.price.value
+            }}</template>
+            <template v-else>{{ item.value }}</template>
+          </span>
         </p>
       </div>
     </div>
   </div>
+
   <div class="mt-6 font-kdFang">
     <h2 class="pb-2">{{ I18n.growthpad.about.projectDetail }}</h2>
     <p class="detail text-sm">{{ store.about.detail }}</p>
   </div>
+
   <!-- 大屏 -->
-  <div class="mt-6 font-kdFang hidden md:block">
+  <div
+    v-if="store.about.minutias && store.about.minutias.length > 0"
+    class="mt-6 font-kdFang hidden md:block"
+  >
     <h2 class="text-base">{{ I18n.growthpad.about.reward }}</h2>
     <div class="flex justify-between pt-2">
       <div v-for="(data, i) in list" :key="i">

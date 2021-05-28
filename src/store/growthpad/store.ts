@@ -9,6 +9,7 @@ import safeSet from '@fengqiaogang/safe-set'
 import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
+import { isLogin } from '~/logic/user/login'
 import {
   getProjectInfo,
   getProjectType,
@@ -86,6 +87,8 @@ interface Mission {
 }
 
 export default class Store {
+  protected token = ''
+  private intervalTime = 10000
   // 当前币价
   protected price = ref<string | number>(0)
   // @ts-ignore
@@ -152,6 +155,7 @@ export default class Store {
 
   // 设置基础数据
   private setInitData(data: any) {
+    this.token = data.token as string
     this.title.value = data.title
     this.icon.value = data.icon
     // dashboard 数据
@@ -211,8 +215,16 @@ export default class Store {
     this.article_url.value = safeGet<string>(result, 'article_url')
     // 定时刷新
     this.timeout = setTimeout(() => {
-      this.init()
-    }, 1000 * 10)
+      return this.init()
+    }, this.intervalTime)
+  }
+
+  setIntervalTime(time: number): void {
+    this.intervalTime = time
+  }
+
+  getIntervalTime(): number {
+    return this.intervalTime
   }
 
   /**
@@ -221,11 +233,14 @@ export default class Store {
   async init(): Promise<void> {
     this.clearTimeout()
     try {
-      const result = await getProjectInfo(this.projectName)
-      this.updateData(result)
+      if (isLogin.value) {
+        const result = await getProjectInfo(this.projectName)
+        this.updateData(result)
+      }
     } catch (e) {
-      this.updateData()
+      // todo
     }
+    this.updateData()
   }
 
   // 设置合约地址

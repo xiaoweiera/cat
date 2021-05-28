@@ -21,6 +21,10 @@ enum TaskType {
   cream = 'cream',
   compound = 'compound',
   sina = 'sina',
+
+  // coinwind
+  autofarm = 'autofarm',
+  beltfit = 'belt.fit',
 }
 
 export default TaskType

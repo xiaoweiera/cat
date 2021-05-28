@@ -50,12 +50,18 @@ export const getMin = function(array: number[]): number {
   return 0
 }
 
-export const makeDescription = function(data: any): string {
+export const makeDescription = function(data: any, token: string): string {
   const max = getMax(data.reward)
   const min = getMin(data.reward)
   // 奖励模版
-  const minValue = I18n.template(I18n.growthpad.reward.total, { count: min })
-  const maxValue = I18n.template(I18n.growthpad.reward.maxTotal, { count: max })
+  const minValue = I18n.template(I18n.growthpad.reward.total, {
+    count: min,
+    token,
+  })
+  const maxValue = I18n.template(I18n.growthpad.reward.maxTotal, {
+    count: max,
+    token,
+  })
   if (max === min) {
     return I18n.template(data.description, { reward: `<i>${minValue}</i>` })
   }

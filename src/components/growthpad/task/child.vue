@@ -27,6 +27,18 @@ const showReward = computed<boolean>((): boolean => {
     if (props.data.type === TaskType.retwitter) {
       return true
     }
+    if (props.data.type === TaskType.sina) {
+      return true
+    }
+    if (props.data.type === TaskType.venus) {
+      return true
+    }
+    if (props.data.type === TaskType.cream) {
+      return true
+    }
+    if (props.data.type === TaskType.compound) {
+      return true
+    }
   }
   return false
 })
@@ -41,17 +53,17 @@ const showReward = computed<boolean>((): boolean => {
         <div class="flex items-center">
           <span class="reward inline-block mr-1.5 text-sm font-bold">
             <span class="font-kdExp">{{ getMax(data.reward) }}</span>
-            <span class="ml-1 font-kdExp">{{ store.getNickName() }}</span>
+            <span class="ml-1 font-kdExp">{{ store.token }}</span>
           </span>
           <GrowthpadTaskCheck
-            class="flex-1 right-box text-right"
+            class="flex-1 md:w-56 text-right"
             :data="data"
           ></GrowthpadTaskCheck>
         </div>
       </template>
       <template v-else>
         <GrowthpadTaskCheck
-          class="right-box text-right"
+          class="md:w-56 text-right"
           :data="data"
         ></GrowthpadTaskCheck>
       </template>
@@ -63,8 +75,5 @@ const showReward = computed<boolean>((): boolean => {
 .reward {
   user-select: none;
   color: #2b8dfe;
-}
-.right-box {
-  min-width: 230px;
 }
 </style>

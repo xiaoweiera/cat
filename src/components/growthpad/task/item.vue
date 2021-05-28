@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
 // @ts-ignore
-import { uuid, getMin, getMax, makeDescription } from './task'
+import { uuid, getMin, getMax } from './task'
 import TaskType from '~/logic/growthpad/tasktype'
 const props = defineProps({
   expant: {

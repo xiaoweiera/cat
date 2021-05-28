@@ -40,5 +40,11 @@ export default {
     read: 'Please read before registration',
     agreement: 'service agreement',
     terms: 'terms of service'
+  },
+  chat: {
+    telegram: 'telegram',
+    telegramGroup: 'telegram Group',
+    twitter: 'Twitter',
+    sina: 'weibo'
   }
 }

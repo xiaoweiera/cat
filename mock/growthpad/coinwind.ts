@@ -6,67 +6,24 @@
 
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
+import * as chat from './chat'
 
-const Project = 'MDEX'
+const token = 'MDX'
+const Project = 'CoinWind'
+const website = 'mdex.com'
+const telegramHref = 'https://t.me/CoinWind'
+const twitterHref = 'https://twitter.com/Mdextech'
+const retwitterHref = 'https://twitter.com/Mdextech/status/1395323254974214150'
 
-const uuid = function(): string {
-  const value = String(Math.random()).slice(2)
-  return `task-${value}`
-}
-// 加入 telegram
-const telegram = function(description?: string, reward: Array<number> = []) {
-  return {
-    id: uuid(),
-    title: I18n.common.join,
-    titleAfter: '并完成任意发言。',
-    type: TaskType.telegram,
-    tooltip: {
-      icon: 'telegram',
-      value: 'Mdex 电报群',
-      href: 'https://t.me/MixDex',
-    },
-    reward,
-    description,
-  }
-}
-// 关注 twitter
-const twitter = function(description?: string, reward: Array<number> = []) {
-  return {
-    id: uuid(),
-    title: I18n.common.follow,
-    type: TaskType.twitter,
-    tooltip: {
-      icon: 'twitter',
-      value: 'Mdex Twitter',
-      href: 'https://twitter.com/Mdextech',
-    },
-    reward,
-    description,
-  }
-}
-// 转发 twitter
-const retwitter = function(description?: string, reward: Array<number> = []) {
-  return {
-    id: uuid(),
-    title: I18n.common.repost,
-    type: TaskType.retwitter,
-    tooltip: {
-      icon: 'twitter',
-      value: I18n.growthpad.activity.twitter,
-      href: 'https://twitter.com/Mdextech/status/1395323254974214150',
-    },
-    reward,
-    description,
-  }
-}
 
 const data = {
+  token,
   title: Project, // 名称
   icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
   dashboard: {
     begin: '2021-05-25 12:00:00', // 开始时间
     end: '2021-05-30 12:00:00', // 结束时间
-    description: I18n.growthpad.mdx.dashboard.desc, // 描述
+    description: I18n.growthpad.coinwind.dashboard.desc, // 描述
     reward: {
       count: 100000, // 奖励数量
       cost: 1000000, // 价值
@@ -74,7 +31,7 @@ const data = {
     },
   },
   about: {
-    website: 'mdex.com', // 项目官网
+    website, // 项目官网
     minutias: [
       { label: I18n.growthpad.about.name, value: I18n.growthpad.mdx.about.name }, // 代币名称
       { label: I18n.growthpad.about.online, value: I18n.growthpad.mdx.about.online }, // 上线时间
@@ -89,108 +46,138 @@ const data = {
         value: I18n.growthpad.mdx.about.exchanges,
       },
     ],
-    detail: I18n.growthpad.mdx.about.detail, // 项目介绍
+    detail: I18n.growthpad.coinwind.about.detail, // 项目介绍
 
     share: [
-      { icon: 'github', href: 'https://github.com/mdexSwap' },
-      { icon: 'telegram', href: 'https://t.me/MixDex' },
-      { icon: 'twitter', href: 'https://twitter.com/Mdextech' },
-      { icon: 'vector', href: 'https://mdex.medium.com/' },
-      { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
+      { icon: 'telegram', href: telegramHref },
+      { icon: 'twitter', href: twitterHref },
+      { icon: 'vector', href: 'https://medium.com/coinwind' },
     ],
   },
   taskList: [
-    // 任务 1
     {
-      id: uuid(), // 任务ID
+      id: chat.uuid(), // 任务ID
       type: TaskType.vip, // 任务类型
-      title: I18n.growthpad.vip.activity,
-      description: I18n.growthpad.reward.finished,
+      title: 'KingData注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      description: I18n.template(I18n.growthpad.reward.finished, { count: 500, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {
           type: TaskType.vip,
-          // title: '成为 Kingdata VIP 用户',
-          title: I18n.template(I18n.growthpad.vip.invite, { group: 'Kingdata' }),
-          description: I18n.growthpad.vip.description, // 帮助信息
+          title: I18n.template(I18n.growthpad.vip.invite, { group: 'KingData' }),
+          description: ''
         },
-        telegram(I18n.growthpad.warning.telegram),
-        twitter(I18n.growthpad.warning.follow),
-        retwitter(I18n.growthpad.warning.article),
+        chat.telegram(
+          Project,
+          I18n.growthpad.warning.telegram,
+          telegramHref
+        ),
+        chat.twitter(
+          Project,
+          I18n.growthpad.warning.follow,
+          twitterHref
+        ),
+        chat.retwitter(
+          Project,
+          I18n.growthpad.warning.article,
+          retwitterHref
+        ),
       ],
     },
-    // 任务 2
     {
-      id: uuid(),
-      type: TaskType.pancake,
-      title: I18n.growthpad.mdx.activity.pancake,
-      description: I18n.growthpad.reward.anytask,
-      reward: [5, 15],
+      id: chat.uuid(), // 任务ID
+      type: TaskType.pancake, // 任务类型
+      title: I18n.growthpad.coinwind.task2.title,
+      description: I18n.growthpad.coinwind.task2.description,
+      reward: [3], // 奖励
       children: [
         {
           type: TaskType.pancake,
-          title: I18n.growthpad.mdx.activity.pancakeCondition,
+          title: I18n.growthpad.coinwind.task2.condition1,
           description: I18n.growthpad.mdx.activity.warning,
         },
-        telegram(I18n.growthpad.warning.telegram, [5]),
-        twitter(I18n.growthpad.warning.follow,[5]),
-        retwitter(I18n.growthpad.warning.article,[5]),
+        chat.telegram(
+          Project,
+          I18n.growthpad.warning.telegram,
+          telegramHref
+        ),
+        chat.twitter(
+          Project,
+          I18n.growthpad.warning.follow,
+          twitterHref
+        ),
+        chat.retwitter(
+          Project,
+          I18n.growthpad.warning.article,
+          retwitterHref
+        ),
       ],
     },
-    // 任务 3
     {
-      id: uuid(),
-      type: TaskType.uniswap,
-      title: I18n.growthpad.mdx.activity.uniswap,
-      description: I18n.growthpad.reward.anytask,
-      reward: [5, 15],
+      id: chat.uuid(), // 任务ID
+      type: TaskType.autofarm, // 任务类型
+      title: I18n.growthpad.coinwind.task3.title,
+      description: I18n.growthpad.coinwind.task2.description,
+      reward: [3], // 奖励
       children: [
         {
-          type: TaskType.uniswap,
-          title: I18n.growthpad.mdx.activity.uniswapCondition,
+          type: TaskType.autofarm,
+          title: I18n.growthpad.coinwind.task3.condition1,
           description: I18n.growthpad.mdx.activity.warning,
         },
-        telegram(I18n.growthpad.warning.telegram, [5]),
-        twitter(I18n.growthpad.warning.follow,[5]),
-        retwitter(I18n.growthpad.warning.article,[5]),
+        chat.telegram(
+          Project,
+          I18n.growthpad.warning.telegram,
+          telegramHref
+        ),
+        chat.twitter(
+          Project,
+          I18n.growthpad.warning.follow,
+          twitterHref
+        ),
+        chat.retwitter(
+          Project,
+          I18n.growthpad.warning.article,
+          retwitterHref
+        ),
       ],
     },
-    // 任务 4
     {
-      id: uuid(),
-      type: TaskType.sushiswap,
-      title: I18n.growthpad.mdx.activity.sushiswap,
-      description: I18n.growthpad.reward.anytask,
-      reward: [5, 15],
+      id: chat.uuid(), // 任务ID
+      type: TaskType.beltfit, // 任务类型
+      title: I18n.growthpad.coinwind.task4.title,
+      description: I18n.growthpad.coinwind.task2.description,
+      reward: [3], // 奖励
       children: [
         {
-          type: TaskType.sushiswap,
-          title: I18n.growthpad.mdx.activity.sushiswapCondition,
+          type: TaskType.beltfit,
+          title: I18n.growthpad.coinwind.task4.condition1,
           description: I18n.growthpad.mdx.activity.warning,
         },
-        telegram(I18n.growthpad.warning.telegram, [5]),
-        twitter(I18n.growthpad.warning.follow, [5]),
-        retwitter(I18n.growthpad.warning.article, [5]),
+        chat.telegram(
+          Project,
+          I18n.growthpad.warning.telegram,
+          telegramHref
+        ),
+        chat.twitter(
+          Project,
+          I18n.growthpad.warning.follow,
+          twitterHref
+        ),
+        chat.retwitter(
+          Project,
+          I18n.growthpad.warning.article,
+          retwitterHref
+        ),
       ],
     },
     // 任务 5
     {
-      id: uuid(),
+      id: chat.uuid(),
       type: TaskType.weibo,
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
-      reward: [15, 200],
+      reward: [3, 100],
       children: [],
-    },
-    // 任务 5
-    {
-      id: uuid(),
-      type: TaskType.allin,
-      title: I18n.growthpad.invited.partake,
-      children: [
-        {
-          title: I18n.growthpad.mdx.share.lable,
-        },
-      ],
     },
   ],
 }
