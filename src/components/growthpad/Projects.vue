@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { defineProps, ref, onMounted, reactive } from 'vue'
-import { mdxInfo, kingInfo, chanelInfo } from '/mock/growthpad/projectInfo'
+import {
+  mdxInfo,
+  coinwindInfo,
+  channelsInfo,
+} from '/mock/growthpad/projectInfo'
 import { getTimeStatus } from '~/components/growthpad/task/task'
 const mdxStatus = ref('')
-const kingStatus = ref('')
-const chanelStatus = ref('')
+const coinwindStatus = ref('')
+const channelsStatus = ref('')
 onMounted(() => {
   mdxStatus.value = getTimeStatus(mdxInfo)
-  kingStatus.value = getTimeStatus(kingInfo)
-  chanelStatus.value = getTimeStatus(chanelInfo)
+  coinwindStatus.value = getTimeStatus(coinwindInfo)
+  channelsStatus.value = getTimeStatus(channelsInfo)
 })
 </script>
 <template>
@@ -39,25 +43,24 @@ onMounted(() => {
     <div class="w-full projectContainer">
       <GrowthpadProject
         :value="
-          kingStatus.value === 'wait'
-            ? kingInfo.dashboard.end
-            : kingInfo.dashboard.begin
+          coinwindStatus.value === 'wait'
+            ? coinwindInfo.dashboard.end
+            : coinwindInfo.dashboard.begin
         "
-        :status="kingStatus"
-        :project="kingInfo"
+        :status="coinwindStatus"
+        :project="coinwindInfo"
       />
     </div>
     <div class="w-full projectContainer">
       <GrowthpadProject
         :value="
-          chanelStatus.value === 'wait'
-            ? chanelInfo.dashboard.end
-            : chanelInfo.dashboard.begin
+          channelsStatus.value === 'wait'
+            ? channelsInfo.dashboard.end
+            : channelsInfo.dashboard.begin
         "
-        :status="chanelStatus"
-        :project="chanelInfo"
+        :status="channelsStatus"
+        :project="channelsInfo"
       />
     </div>
   </div>
 </template>
-<style></style>

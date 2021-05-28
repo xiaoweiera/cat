@@ -1,7 +1,7 @@
 export default {
     title:'Earn crypt while supporting favorite projects',
     des:'GrowthPad collaborating with valuable projects can precisely reward community tokens. Users complete tasks, which not only helps your fancy project accomplishing its target, but also gets reward.',
-    coming:'coming soon',
+    coming:'coming',
     ongoing: 'ongoing',
     end: 'end',
     waitButton: 'Participate warm-up',
@@ -27,6 +27,12 @@ export default {
     mobileBanner:'https://res.ikingdata.com/nav/growthPadMobileen.png',
     mdxProject: {
         des: 'KingData opens a 200,000$ airdrop activity cooperating with MDEX, which set more than 10 tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get reward.'
+    },
+    coinwindProject:{
+        des:'KingData opens a 100,000$ airdrop and Coinwind Luck bonus cooperating with MDEX, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get MDX reward.'
+    },
+    channelsProject:{
+        des:'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
     },
     footProject: {
         title: 'How to participate in the project',

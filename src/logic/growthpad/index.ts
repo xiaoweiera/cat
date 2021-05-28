@@ -7,7 +7,6 @@ export const platList = [
   'https://res.ikingdata.com/nav/platEth.png',
   'https://res.ikingdata.com/nav/apyOkChain.png',
 ]
-console.log(I18n.growthpadShow)
 export const footList = [
   {
     title: I18n.growthpadShow.footProject.feature1.title,

@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue'
 import I18n from '~/utils/i18n/index'
 import { Project } from '~/api/growtask'
 import Task from '~/logic/growthpad/task'
+import { wxShare } from '~/lib/wxShare'
 const format = 'YYYY-MM-DD HH:mm:ss'
 const store = Task()
 const timeType = ref('')

@@ -28,6 +28,12 @@ export default {
     mdxProject: {
         des: 'KingData 将联合 MDEX 开启价值超 200,000 美金的空投活动，并设立了超 10 种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励'
     },
+    coinwindProject:{
+      des:'KingData 将联合 CoinWind 开启价值超 100,000 美金的空投活动以及CoinWind专属活动增长奖。设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励'
+    },
+    channelsProject:{
+        des:'Venus 持仓价值超过1万U，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博'
+    },
     footProject: {
         title: '如何参与项目',
         feature1: {
