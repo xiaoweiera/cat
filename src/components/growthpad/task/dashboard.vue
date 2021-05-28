@@ -98,9 +98,7 @@ const getPrice = function(number: string | number): string | number {
             <span class="text-2xl md:text-4xl">{{
               countComputed(store.dashboard.rewardCount)
             }}</span>
-            <span class="ml-1.5 text-xs md:text-base">{{
-              store.getNickName()
-            }}</span>
+            <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
           </p>
         </li>
         <li class="ml-3 md:ml-12">
@@ -126,7 +124,7 @@ const getPrice = function(number: string | number): string | number {
                 countComputed(maxReward(store.dashboard.rewardLimit))
               }}</span>
             </span>
-            <span class="ml-1.5">{{ store.getNickName() }}</span>
+            <span class="ml-1.5">{{ store.token }}</span>
           </p>
         </li>
       </ul>

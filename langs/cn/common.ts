@@ -40,5 +40,11 @@ export default {
     read: '注册前请阅读',
     agreement: '用户隐私协议',
     terms: '服务条款'
+  },
+  chat: {
+    telegram: '电报',
+    telegramGroup: '电报群',
+    twitter: 'Twitter',
+    sina: '微博'
   }
 }

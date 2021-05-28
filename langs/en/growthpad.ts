@@ -3,12 +3,12 @@ export default {
   case: 'Examples',
   growth: '{project} growth',
   status: {
-    wait: '即将开始',
-    ing: '进行中',
-    closure: '已结束'
+    wait: 'coming soon',
+    ing: 'ongoing',
+    closure: 'end'
   },
   reward: {
-    about: '~',
+    about: '≈',
     count: 'reward',
     value: 'reward value',
     perPerson: 'Acquire for each',
@@ -20,13 +20,13 @@ export default {
   register: 'Information Registration',
   submit: 'register',
   address: {
-    warning: '请先完成信息登记',
+    warning: 'finish Information Registration first',
     iCard: 'Your address: ',
     reward: 'Your expected reward:',
-    confirm: '地址确认',
+    confirm: 'Confirm',
     invalid: 'invalid',
-    tips: '地址一旦确认不可修改',
-    placeholder: '输入参与领取奖励的 BSC 地址',
+    tips: 'Once confirmed, the address can\'t be modified',
+    placeholder: 'enter your  BSC address receiving',
     notify1: '* Please register your address receiving rewards(the reward of tasks about holding quantity will be air-drop into the address verified). ',
     notify2: '* The reward will be air-drop into your registered address and the reward of tasks about holding quantity will be air-drop into the address verified. '
   },
@@ -45,7 +45,7 @@ export default {
     price: 'Price',
     luanched: 'Public chain',
     exchanges: 'Exchange',
-    exchangeValues: '火币、币安等23家'
+    exchangeValues: 'huobi,Binance and etc'
   },
   countdown: {
     title: 'Opening countdown',
@@ -58,8 +58,8 @@ export default {
     testing: 'verify'
   },
   weibo: {
-    success: '图片上传成功',
-    placeholder: '请上传图片！',
+    success: 'upload succesfully',
+    placeholder: 'please upload image!',
     article: 'Article URL:',
     articleImg: 'screenshot: ',
     articlePlaceholder: 'Enter article url',
@@ -72,9 +72,12 @@ export default {
     code: 'My invitation code: ',
     partake: 'Sunshine award',
   },
+  chat: {
+    speak: 'and send message.'
+  },
   form: {
-    address: '确认地址',
-    warning: '地址一旦确认不可修改，任务奖励将发放到该地址中',
+    address: 'confirm',
+    warning: 'Once confirmed, the address can\'t be modified and the reward will be airdrop.',
     placeholderBsc: 'Please enter your BSC address',
     placeholderETH: 'Please enter your ETH address',
     placeholderTelegram: 'Enter your ID to join the telegraph group',
@@ -82,7 +85,7 @@ export default {
     retwitter: 'Please enter your Twitter ID',
     sina: 'Please enter your Sina NickName'
   },
-  copy: '邀请你注册Kingdata，{url}',
+  copy: 'Inviting you to register in Kingdata，{url}',
   warning: {
     telegram: 'Unfollowing the twitter will be regard as unfinished before the activity ends ',
     follow: 'Unfollowing the twitter will be regard as unfinished before the activity ends ',
@@ -92,31 +95,35 @@ export default {
   vip: {
     invite: 'Become {group} VIP',
     description: 'By Inviting 3 users and finishing register.',
-    activity: 'Become Kingdata VIP;join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
+    activity: 'Become Kingdata VIP;join {project} telegram; follow {project} Twitter and repost the twitter about the activity.',
   },
   activity: {
     twitter: 'the activity Twitter'
+  },
+  front: {
+    '500': '{value}（top 500 users）',
+    '2000': '{value}（top 2,000 users）'
   },
 
   mdx: {
     about: {
       name: 'MDX',
-      exchanges: '火币、币安等23家',
+      exchanges: 'huobi,Binance and etc',
       online: '2021年1月19日',
       count: '10亿',
       marketValue: '3亿',
       circulation: '3亿',
       luanched: 'HECO/BSC',
-      detail: `Mdex 是基于资金池理念的 AMM 去中心化交易所，提出并实现了基于火币生态 Heco 链和以太坊的双链 DEX模型，同时MDEX还将支持流动性和交易双重挖矿机制。Mdex 上线12天以来，总质押量超过 2000 万美元，日交易额破 4500 万美元，24 小时手续费超 12 万美元，单日交易笔数突破 15 万笔，超 SushiSwap 6倍。
+      detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
 
-Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP迁移前支持以太坊上 Uniswap LP、Sushiswap LP及单币种抵押挖矿，其中，抵押 Sushiswap LP 可同时获得 sushi 和 mdex 代币，实现一键双挖，同时还指：迁移后将在 Heco 上开放交易和流动性双挖矿。`,
+It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
     },
-    copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
+    copy: 'inviting you to participate{title}, Win 1 million dollars award, {url}',
     share: {
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%.'
     },
     dashboard: {
-      desc: 'KingData 将联合 MDEX 开启价值超 200,000 美金的空投活动，并设立了超 10 种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励。',
+      desc: 'KingData opens a 200,000$ airdrop activity cooperating with MDEX, which set more than 10 tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get reward.',
     },
     weibo: {
       label: 'Based on the number of followers:<br/>0-49999 reward 15MDX；49999-99999 reward 100MDX；＞99999 reward 200MDX.',
@@ -128,33 +135,33 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
       pancake: 'Holding value more than 10K USDT in PanCake Swap; join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
       pancakeCondition: 'Qualification:Holding value more than 10K USDT in PanCake',
 
-      uniswap: 'Uniswap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      uniswapCondition: '任务资格 Uniswap 持仓价值超过1万U',
+      uniswap: 'Holding value more than 10K USDT in Uniswap; join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
+      uniswapCondition: 'Qualification:Holding value more than 10K USDT in Uniswap',
 
-      sushiswap: 'Sushiswap 持仓价值超过 1万 U，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
-      sushiswapCondition: '任务资格：Sushiswap 持仓价值超过1万U',
+      sushiswap: 'Holding value more than 10K USDT in Sushiswap; join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
+      sushiswapCondition: 'Qualification:Holding value more than 10K USDT in Sushiswap',
     },
   },
   channels: {
     dashboard: {
-      desc: 'KingData 将联合 Channels 开启丰厚空投活动，并设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的USDT奖励。'
+      desc: 'KingData opens a lot of rewards airdrop cooperating with USDT, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get USDT reward.'
     },
     weibo: {
-      label: '根据粉丝数获得奖励：小于 5 万粉丝奖励 20U，大于 5 万粉丝奖励 300U（前30名用户）',
-      description: '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
+      label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
+      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
     },
     share: {
-      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
+      lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
     },
     about: {
       name: 'USDT',
-      exchanges: '火币、币安等23家',
+      exchanges: 'huobi,Binance and etc',
       online: '2014年11月26日',
       count: '602.71亿',
       marketValue: '602.71亿',
       circulation: '3亿',
       luanched: 'HTH/Omni',
-      detail: 'Channels是Heco上首个完全去中心化的借贷平台。Channels在资产安全、用户体验和挖矿收益上，均在Heco上的加代产品里首屈一指。Channels专注于主流借贷币种HUSD、USDT、ETH、HBTC和HT等，始终坚持以产品体验为基础，以用户利益为核心。'
+      detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
     task1: {
       title: 'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
@@ -174,5 +181,51 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
       twitterDesc: 'repost the top twitter and @ 3 friends',
       sinaDesc: 'repost the top weibo and @ 3 friends'
     },
+  },
+  coinwind: {
+    about: {
+      detail: `CoinWind is a Heco and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
+
+CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
+
+CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future`,
+    },
+    copy: 'inviting you to participate in {title}, Win 1 million dollars award, {url}',
+    share: {
+      lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%',
+      title: 'CoinWind Lucky bonus',
+      users: 'number of users i invite(CoinWind):',
+      invite: 'The user invites the  most number of users participate CoinWind growth can get 1% of bonus pool',
+      desc: '* invitee needs to complete one of tasks in CoinWind, whcih can be counted. ',
+    },
+    dashboard: {
+      desc: 'KingData opens a 100,000$ airdrop and Coinwind Luck bonus cooperating with MDEX, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get MDX reward.',
+    },
+    task1: {
+      // title: 'KingData注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
+      title: 'Become Kingdata VIP; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.'
+    },
+    task2: {
+      // title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Holding value more than 10K USDT in PanCake Bunny; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
+      // description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
+      description: 'finished one of tasks: <i>reward 1MDX</i> (top 500 users)',
+      condition1: 'Qualification:Holding value more than 10K USDT in PanCake Bunny',
+    },
+    task3: {
+      // title: 'autofarm持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Holding value more than 10K USDT in autofarm; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
+      condition1: 'Qualification:Holding value more than 10K USDT in autofarm',
+    },
+    task4: {
+      // title: 'Belt.fit持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Holding value more than 10K USDT in Belt.fit; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
+      condition1: 'Qualification:Holding value more than 10K USDT in Belt.fit',
+    },
+    weibo: {
+      label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
+      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+    },
+
   }
 };

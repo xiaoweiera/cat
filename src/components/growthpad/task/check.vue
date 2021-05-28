@@ -142,6 +142,8 @@ const validityValue = computed<string>((): string => {
       </GrowthpadTaskSubShare>
     </template>
     <template v-else-if="data.type === TaskType.sina">
+      <!-- 判断 sina 验资是否通过 -->
+      <IconFont v-if="store.mission.sina" type="success"></IconFont>
       <GrowthpadTaskSubSina :data="data">
         <span v-login>
           <span v-validity.begin.end="validityValue" class="button">{{
@@ -152,6 +154,8 @@ const validityValue = computed<string>((): string => {
     </template>
 
     <template v-else-if="data.type === TaskType.venus">
+      <!-- 判断 venus 验资是否通过 -->
+      <IconFont v-if="store.mission.venus" type="success"></IconFont>
       <GrowthpadTaskSubVenus :data="data">
         <span v-login>
           <span v-validity.begin.end="validityValue" class="button">{{
@@ -162,6 +166,8 @@ const validityValue = computed<string>((): string => {
     </template>
 
     <template v-else-if="data.type === TaskType.cream">
+      <!-- 判断 cream 验资是否通过 -->
+      <IconFont v-if="store.mission.cream" type="success"></IconFont>
       <GrowthpadTaskSubCream :data="data">
         <span v-login>
           <span v-validity.begin.end="validityValue" class="button">{{
@@ -172,6 +178,8 @@ const validityValue = computed<string>((): string => {
     </template>
 
     <template v-else-if="data.type === TaskType.compound">
+      <!-- 判断 compound 验资是否通过 -->
+      <IconFont v-if="store.mission.compound" type="success"></IconFont>
       <GrowthpadTaskSubCompound :data="data">
         <span v-login>
           <span v-validity.begin.end="validityValue" class="button">{{

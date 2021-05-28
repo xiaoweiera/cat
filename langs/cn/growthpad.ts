@@ -12,10 +12,10 @@ export default {
     count: '奖励数量',
     value: '奖励价值',
     perPerson: '每人可领取',
-    total: '奖励 {count} MDX',
-    maxTotal: '最多可得 {count} MDX',
-    finished: '完成全部任务：{reward}（前1000名用户）',
-    anytask: '完成任意任务：{reward}（前1000名用户）',
+    total: '奖励 {count} {token}',
+    maxTotal: '最多可得 {count} {token}',
+    finished: '完成全部任务：{reward}（前{count}名用户）',
+    anytask: '完成任意任务：{reward}（前{count}名用户）',
   },
   register: '信息登记',
   submit: '登记',
@@ -71,6 +71,9 @@ export default {
     code: '我的邀请码：',
     partake: '阳光普照奖',
   },
+  chat: {
+    speak: '并完成任意发言。'
+  },
   form: {
     address: '确认地址',
     warning: '地址一旦确认不可修改，任务奖励将发放到该地址中',
@@ -86,14 +89,20 @@ export default {
     telegram: '活动结束前退出电报群视为未完成任务',
     follow: '活动结束前取消关注视为未完成任务',
     article: '活动结束前删除推文视为未完成任务',
+    twitter: '活动结束前取消关注/删除推文视为未完成任务',
+    sina: '活动结束前取消关注/删除微博视为未完成任务'
   },
   vip: {
     invite: '成为 {group} VIP 用户',
     description: '邀请三个用户注册即可成为 VIP 用户',
-    activity: 'Kingdata VIP 用户；加入 MDEX 电报群；关注 MDEX Twitter 并转发本条活动 Twitter。',
+    activity: 'Kingdata VIP 用户；加入 {project} 电报群；关注 {project} Twitter 并转发本条活动 Twitter。',
   },
   activity: {
     twitter: '本条活动 Twitter',
+  },
+  front: {
+    '500': '{value}（前500名用户）',
+    '2000': '{value}（前2000名用户）'
   },
 
   mdx: {
@@ -143,7 +152,7 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
       description: '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
     },
     share: {
-      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
+      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
     },
     about: {
       name: 'USDT',
@@ -167,11 +176,51 @@ Mdex 创新性地采用了双挖机制，这里的“双挖”，第一指：LP�
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
-      label: '{group} 持仓价值超过1万U',
+      label: '任务资格：{group} 持仓价值超过1万U',
 
-      telegramDesc: '加入Channels电报群并在群里晒出Channels存借款总额超过1000U的截图',
+      telegramDesc: '并在群里晒出Channels存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
       sinaDesc: '并转发置顶微博并 @3个好友'
+    },
+  },
+  coinwind: {
+    about: {
+      detail: `CoinWind是一个DeFi智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP挖矿无常损失大等风险问题。
+
+CoinWind旨在打造一个DeFi数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind产品会通过组合策略有效降低流动性挖矿中的无常损失。
+
+CoinWind首发Heco生态链，之后将跨多条主链如ETH、BSC等运行。`,
+    },
+    copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
+    share: {
+      lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
+      title: 'CoinWind 专属活动增长大使（lucky bonus）奖励',
+      users: '我的邀请人数(CoindWind专场)：',
+      invite: '邀请人数最多的用户与完成CoinWind任务获得奖励最多的用户将共同瓜分专场奖金池的 1%',
+      desc: '* 被邀请人需完成 1 个 CoinWind 专场任务才视为 1 个有效邀请人数。'
+    },
+    dashboard: {
+      desc: 'KingData 将联合 CoinWind 开启价值超 100,000 美金的空投活动以及CoinWind专属活动增长奖。设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励。',
+    },
+    task1: {
+      title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
+    },
+    task2: {
+      title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
+      condition1: '任务资格：Pancake Bunny 持仓价值超过1万U',
+    },
+    task3: {
+      title: 'autofarm持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      condition1: '任务资格：autofarm 持仓价值超过1万U',
+    },
+    task4: {
+      title: 'Belt.fit持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      condition1: '任务资格：Belt.fit 持仓价值超过1万U',
+    },
+    weibo: {
+      label: '根据粉丝数获得奖励：<br/>0-49999粉丝奖励 3MDX(前500名用户)；49999-99999粉丝奖励30MDX；大于99999粉丝奖励100MDX.',
+      description: '主流媒体包括不限于：微博、知乎、头条等。文章发表后只会获得最高奖励。具体奖励数量根据人工审核情况而定',
     },
   }
 };

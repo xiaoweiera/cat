@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
-// @ts-ignore
-import { ElIcon } from 'element-plus'
-// @ts-ignore
 import { makeDescription } from './task'
+import Task from '~/logic/growthpad/task'
+// @ts-ignore
+
+const store = Task()
+
 const props = defineProps({
   data: Object,
 })
@@ -37,7 +39,7 @@ const href = computed(() => {
           </a>
         </template>
         <template v-if="data.titleAfter">
-          <span class="text-sm title inline-block align-middle">{{
+          <span class="text-sm title inline align-middle">{{
             data.titleAfter
           }}</span>
         </template>
@@ -49,7 +51,7 @@ const href = computed(() => {
       </div>
       <div class="description text-xs">
         <slot name="desc">
-          <p v-html="makeDescription(data)"></p>
+          <p v-html="makeDescription(data, store.token)"></p>
         </slot>
       </div>
     </div>

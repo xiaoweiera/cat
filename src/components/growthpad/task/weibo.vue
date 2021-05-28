@@ -22,6 +22,13 @@ const data = computed(() => {
       description: I18n.growthpad.channels.weibo.description,
     }
   }
+  // @ts-ignore
+  if (store.projectName === Project.coinwind) {
+    return {
+      title: I18n.growthpad.coinwind.weibo.label,
+      description: I18n.growthpad.coinwind.weibo.description,
+    }
+  }
   return {
     title: '',
     description: '',
@@ -86,7 +93,7 @@ const rules: any = {
 <template>
   <div>
     <GrowthpadTaskTitle :data="data">
-      <template #desc>
+      <template v-if="data.description" #desc>
         <span class="block pt-3">{{ data.description }}</span>
       </template>
     </GrowthpadTaskTitle>

@@ -62,7 +62,7 @@ const rewardValue = computed<number>((): number => {
       <span class="reward bonus block md:inline-block">
         <span class="text-xs">已得</span>
         <span class="count">{{ rewardValue }}</span>
-        <span class="ml-1">{{ store.getNickName() }}</span>
+        <span class="ml-1">{{ store.token }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
         <slot></slot>
@@ -80,7 +80,7 @@ const rewardValue = computed<number>((): number => {
         <template v-else>
           <span class="count">+{{ getMax(data.reward) }}</span>
         </template>
-        <span class="ml-1">{{ store.getNickName() }}</span>
+        <span class="ml-1">{{ store.token }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
         <slot></slot>
