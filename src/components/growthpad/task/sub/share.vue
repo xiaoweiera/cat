@@ -22,7 +22,9 @@ const link = (): string => {
 </script>
 
 <template>
-  <Copy :link="link">
-    <slot></slot>
-  </Copy>
+  <div v-login>
+    <Copy :link="link">
+      <slot></slot>
+    </Copy>
+  </div>
 </template>

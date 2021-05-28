@@ -8,7 +8,21 @@ import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
 const store = Task()
 
-defineProps({
+const addressEnum = {
+  pancake: 'setPancake',
+  uniswap: 'setUniswap',
+  sushiswap: 'setSushiswap',
+}
+
+const props = defineProps({
+  // 判断地址名称
+  name: {
+    type: String,
+  },
+  // 输入框提示信息
+  placeholder: {
+    type: String,
+  },
   data: {
     type: Object,
   },
@@ -41,7 +55,10 @@ const onSubmit = async function() {
     }
     if (status) {
       loadingStatus.value = true
-      await store.setPancake(formdata.input)
+      const name = addressEnum[props.name]
+      if (name && store[name]) {
+        await store[name](formdata.input)
+      }
     }
   } catch (e) {
     // todo
@@ -64,7 +81,7 @@ const onSubmit = async function() {
     <el-form-item prop="input">
       <el-input
         v-model="formdata.input"
-        :placeholder="I18n.growthpad.form.placeholderBsc"
+        :placeholder="placeholder"
         size="small"
       />
     </el-form-item>

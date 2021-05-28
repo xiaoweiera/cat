@@ -10,18 +10,7 @@ import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
 import { isLogin } from '~/logic/user/login'
-import {
-  getProjectInfo,
-  getProjectType,
-  Project,
-  setAdress,
-  setPancake,
-  setSushiswap,
-  setTelegram,
-  setTwitter,
-  setUniswap,
-  setWeiboContent,
-} from '~/api/growtask'
+import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
 
 interface DashboardData {
@@ -67,14 +56,20 @@ interface TaskItem {
 }
 
 interface User {
-  reward: number // 用户当前获得的奖金
-  invited_count: number // 用户邀请参与活动的数量
   bsc_token: string // 领取奖励的地址
   pancake_token: string // pancake  token地址
   uniswap_token: string // uniswap  token地址
   sushiswap_token: string // sushiswap  token地址
   twitter: string // twitter id
   telegram: string // telegram id
+
+  autofarm_token: string // autofarm token 地址
+  belt_token: string // belt.fit token 地址
+
+  weibo: string // 微博昵称
+  venus_token: string // venus token 地址
+  cream_token: string // cream token 地址
+  compound_token: string // compound token 地址
 }
 
 interface Mission {
@@ -84,6 +79,11 @@ interface Mission {
   retweet: boolean // 是否转发推特
   follow_twitter: boolean // 是否关注推特
   telegram_group: boolean // 电报群
+
+  autofarm: boolean // autofarm
+  belt: boolean // belt.fit
+
+  follow_weibo: boolean // 是否关注微博
 }
 
 export default class Store {
@@ -91,8 +91,14 @@ export default class Store {
   private intervalTime = 10000
   // 当前币价
   protected price = ref<string | number>(0)
+  // 用户活动的奖励
+  protected reward = ref<string | number>(0)
+  // 用户要求参与活动的数量
+  protected invited_count = ref<number>(0)
+  // 当前项目用户要求参与活动的数量
+  protected project_invited_count = ref<number>(0)
   // @ts-ignore
-  protected projectName: Project // 项目名称
+  protected projectName: API.Project // 项目名称
   protected title = ref<string>('') // title
   protected icon = ref<string>('') // icon
   // 首屏数据
@@ -107,14 +113,18 @@ export default class Store {
   protected taskList = ref<TaskItem[]>([])
   // 个人信息, 用户数据
   public user = reactive<User>({
-    invited_count: 0,
-    reward: 0,
     bsc_token: '',
     pancake_token: '', // pancake  token地址
     uniswap_token: '', // uniswap  token地址
     sushiswap_token: '', // sushiswap  token地址
     twitter: '', // twitter id
     telegram: '', // telegram id
+    autofarm_token: '', // autofarm token 地址
+    belt_token: '', // belt.fit token 地址
+    weibo: '', // 微博昵称
+    venus_token: '', // venus token 地址
+    cream_token: '', // cream token 地址
+    compound_token: '', // compound token 地址
   })
 
   // 完成状态
@@ -125,6 +135,9 @@ export default class Store {
     retweet: false, // 是否转发推特
     follow_twitter: false, // 是否关注推特
     telegram_group: false, // 电报群
+    autofarm: false, // autofarm
+    belt: false, // belt.fit
+    follow_weibo: false, // 是否关注微博
   })
 
   public article_url = ref<string>('article_url') // 用户上传的文章链接
@@ -135,16 +148,16 @@ export default class Store {
 
   // 构造方法
   constructor(type: string) {
-    if (type && getProjectType(type) === Project.mdx) {
-      this.projectName = Project.mdx
+    if (type && API.getProjectType(type) === API.Project.mdx) {
+      this.projectName = API.Project.mdx
       this.setInitData(mockMdx)
     }
-    if (type && getProjectType(type) === Project.channels) {
-      this.projectName = Project.channels
+    if (type && API.getProjectType(type) === API.Project.channels) {
+      this.projectName = API.Project.channels
       this.setInitData(mockChannels)
     }
-    if (type && getProjectType(type) === Project.coinwind) {
-      this.projectName = Project.coinwind
+    if (type && API.getProjectType(type) === API.Project.coinwind) {
+      this.projectName = API.Project.coinwind
       this.setInitData(mockCoinWind)
     }
   }
@@ -180,7 +193,7 @@ export default class Store {
     this.taskList.value = data.taskList
   }
 
-  protected getNickName(): Project {
+  protected getNickName(): API.Project {
     // return this.projectName ? R.toUpper(this.projectName) : ''
     return this.projectName
   }
@@ -191,16 +204,22 @@ export default class Store {
     if (result?.price) {
       this.price.value = result.price
     }
+    this.reward = result?.reward || 0
+    this.invited_count = result?.invited_count || 0
     // 更新 info 信息
     if (user) {
-      this.user.invited_count = user.invited_count as number
-      this.user.reward = user.reward as number
       this.user.bsc_token = user.bsc_token as string
       this.user.pancake_token = user.pancake_token
       this.user.sushiswap_token = user.sushiswap_token
       this.user.uniswap_token = user.uniswap_token
       this.user.twitter = user.twitter
       this.user.telegram = user.telegram
+      this.user.autofarm_token = user.autofarm_token
+      this.user.belt_token = user.belt_token
+      this.user.weibo = user.weibo
+      this.user.venus_token = user.venus_token
+      this.user.cream_token = user.cream_token
+      this.user.compound_token = user.compound_token
     }
     if (mission) {
       this.mission.follow_twitter = !!mission.follow_twitter
@@ -209,6 +228,9 @@ export default class Store {
       this.mission.uniswap = !!mission.uniswap
       this.mission.sushiswap = !!mission.sushiswap
       this.mission.telegram_group = !!mission.telegram_group
+      this.mission.autofarm = !!mission.autofarm
+      this.mission.belt = !!mission.belt
+      this.mission.follow_weibo = !!mission.follow_weibo
     }
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')
@@ -234,7 +256,7 @@ export default class Store {
     this.clearTimeout()
     try {
       if (isLogin.value) {
-        const result = await getProjectInfo(this.projectName)
+        const result = await API.getProjectInfo(this.projectName)
         this.updateData(result)
       }
     } catch (e) {
@@ -247,7 +269,7 @@ export default class Store {
   async setAdress(address: string): Promise<any> {
     this.clearTimeout()
     try {
-      const result = await setAdress(this.projectName, address)
+      const result = await API.setAdress(this.projectName, address)
       // 默认设置地址返回值
       safeSet(result, 'info.bsc_token', address)
       this.updateData(result)
@@ -263,7 +285,7 @@ export default class Store {
     this.clearTimeout()
     try {
       const token = this.user.bsc_token
-      const result = await setTelegram(this.projectName, token, id)
+      const result = await API.setTelegram(this.projectName, token, id)
       this.updateData(result)
       return result
     } catch (e) {
@@ -277,7 +299,7 @@ export default class Store {
     this.clearTimeout()
     try {
       const token = this.user.bsc_token
-      const result = await setTwitter(this.projectName, token, id)
+      const result = await API.setTwitter(this.projectName, token, id)
       this.updateData(result)
       return result
     } catch (e) {
@@ -295,7 +317,7 @@ export default class Store {
   async setWeiboContent(form: FormData): Promise<void> {
     this.clearTimeout()
     try {
-      const result = await setWeiboContent(this.projectName, form)
+      const result = await API.setWeiboContent(this.projectName, form)
       this.updateData(result)
       return result
     } catch (e) {
@@ -309,7 +331,7 @@ export default class Store {
     this.clearTimeout()
     try {
       const token = this.user.bsc_token
-      const result = await setPancake(this.projectName, token, value)
+      const result = await API.setPancake(this.projectName, token, value)
       this.updateData(result)
       return result
     } catch (e) {
@@ -323,7 +345,7 @@ export default class Store {
     this.clearTimeout()
     try {
       const token = this.user.bsc_token
-      const result = await setUniswap(this.projectName, token, value)
+      const result = await API.setUniswap(this.projectName, token, value)
       this.updateData(result)
       return result
     } catch (e) {
@@ -337,7 +359,91 @@ export default class Store {
     this.clearTimeout()
     try {
       const token = this.user.bsc_token
-      const result = await setSushiswap(this.projectName, token, value)
+      const result = await API.setSushiswap(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置微博名称
+  async setSinaNickname(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setSinaNickname(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 venus
+  async setVenus(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setVenus(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 compound
+  async setCompound(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setCompound(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 cream
+  async setCream(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setCream(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 autofarm
+  async setAutofarm(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setAutofarm(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 beltfit
+  async setBeltfit(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setBeltfit(this.projectName, token, value)
       this.updateData(result)
       return result
     } catch (e) {

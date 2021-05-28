@@ -170,3 +170,98 @@ export const setWeiboContent = function(
     data,
   })
 }
+
+export const setSinaNickname = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { weibo: value, bsc_token: token },
+  })
+}
+
+// 设置 venus
+export const setVenus = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { venus_token: value, bsc_token: token },
+  })
+}
+
+// 设置 compound
+export const setCompound = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { compound_token: value, bsc_token: token },
+  })
+}
+
+// 设置 cream
+export const setCream = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { cream_token: value, bsc_token: token },
+  })
+}
+
+// 设置 cream
+export const setAutofarm = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { autofarm_token: value, bsc_token: token },
+  })
+}
+
+// 设置 cream
+export const setBeltfit = function(
+  project: string,
+  token: string,
+  value: string,
+): Promise<any> {
+  const url = '/api/growthpad/validate_user_info/'
+  const type = getProjectType(project)
+  return request({
+    url,
+    method: 'POST',
+    params: { project: type },
+    data: { belt_token: value, bsc_token: token },
+  })
+}

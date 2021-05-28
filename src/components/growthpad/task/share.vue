@@ -30,7 +30,7 @@ const link = (): string => {
       <span class="md:flex items-center pt-1.5">
         <span class="flex items-center">
           <span>{{ I18n.growthpad.invited.count }}</span>
-          <i>{{ store.user.invited_count || 0 }}</i>
+          <i>{{ store.invited_count || 0 }}</i>
         </span>
         <span class="mt-1.5 md:mt-0 md:ml-6 flex items-center">
           <span class="">{{ I18n.growthpad.invited.code }}</span>

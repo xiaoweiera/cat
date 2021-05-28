@@ -152,6 +152,9 @@ export const onSubmit = async function(): Promise<any> {
     if (result?.data) {
       jsCookie.set('token', result?.data?.token || '', {
         path: '/',
+      })
+      jsCookie.set('token', result?.data?.token || '', {
+        path: '/',
         domain: 'ikingdata.com',
       })
       jsCookie.set('token', result?.data?.token || '', {
