@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { defineProps, ref } from 'vue'
-
-const props = defineProps({
-  status: {
-    type: String,
-    required: true,
-  },
+import { defineProps, ref, onMounted, reactive } from 'vue'
+import { mdxInfo, kingInfo, chanelInfo } from '/mock/growthpad/projectInfo'
+import { getTimeStatus } from '~/components/growthpad/task/task'
+const mdxStatus = ref('')
+const kingStatus = ref('')
+const chanelStatus = ref('')
+onMounted(() => {
+  mdxStatus.value = getTimeStatus(mdxInfo)
+  kingStatus.value = getTimeStatus(kingInfo)
+  chanelStatus.value = getTimeStatus(chanelInfo)
 })
-const { t } = useI18n()
-const projects = ref([{}, {}, {}])
-const title = {
-  progress: t('project.status.coming'),
-}
 </script>
 <template>
   <div
@@ -27,15 +25,37 @@ const title = {
       xl:grid-cols-3
     "
   >
-    <div
-      v-for="project in projects"
-      :key="props.status + project.symbol"
-      class="w-full projectContainer"
-    >
+    <div class="w-full projectContainer">
       <GrowthpadProject
-        :project="project"
-        :status="props.status"
-        :title="title[props.status]"
+        :value="
+          mdxStatus.value === 'wait'
+            ? mdxInfo.dashboard.end
+            : mdxInfo.dashboard.begin
+        "
+        :status="mdxStatus"
+        :project="mdxInfo"
+      />
+    </div>
+    <div class="w-full projectContainer">
+      <GrowthpadProject
+        :value="
+          kingStatus.value === 'wait'
+            ? kingInfo.dashboard.end
+            : kingInfo.dashboard.begin
+        "
+        :status="kingStatus"
+        :project="kingInfo"
+      />
+    </div>
+    <div class="w-full projectContainer">
+      <GrowthpadProject
+        :value="
+          chanelStatus.value === 'wait'
+            ? chanelInfo.dashboard.end
+            : chanelInfo.dashboard.begin
+        "
+        :status="chanelStatus"
+        :project="chanelInfo"
       />
     </div>
   </div>

@@ -1,240 +1,216 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
-import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
+// 倒计时
+import dayjs from 'dayjs'
+import { ref, defineProps, watch } from 'vue'
 // @ts-ignore
-const { t } = useI18n()
-
+import I18n from '~/utils/i18n/index'
+// @ts-ignore
 const props = defineProps({
-  project: Object,
-  title: String,
   status: String,
+  project: Object,
+  value: [String, Number],
 })
 
-const router = useRouter()
-// @ts-ignore
-const formatRemainder = (ts: number | undefined): String => {
-  if (ts === 0 || ts === undefined) {
-    return '00 天 00小时 00分钟'
-  }
-  return '00 天 00小时 00分钟'
-}
-// @ts-ignore
-const go = (value: string) => {
-  router.push(`/growthpad/${encodeURIComponent(value)}`)
-}
+const format = 'YYYY-MM-DD HH:mm:ss'
 
-/**
- * 右侧背景图片
- **/
-const rightTopImageStyle = () => {
-  const style = {}
-  if (props.project.status === 'done') {
-    style.backgroundImage = 'url("/assets/growthpad/join-button.svg")'
-  } else if (props.project.chain === 'Heco') {
-    style.backgroundImage = 'url("/assets/growthpad/feature1.svg")'
-  }
-  return style
-}
+const day = ref<string>('00')
+const hour = ref<string>('00')
+const minute = ref<string>('00')
+const second = ref<string>('00')
+const end = ref(0)
+// 监听传入进来的时间值
+watch(
+  props.value as any,
+  () => {
+    const time = dayjs(props.value, format)
 
-const tipImg = () => {
-  let src = ''
-  if (props.project.status === 'doing' || props.project.status === 'done') {
-    src = 'https://res.ikingdata.com/nav/doing.png'
-  } else {
-    src = 'https://res.ikingdata.com/nav/over.png'
-  }
-  return src
+    end.value = time.valueOf()
+  },
+  { immediate: true },
+)
+// 计算倒计时 - 天
+const getDay = function(duration: number): string {
+  const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
+  return number < 10 ? `0${number}` : String(number)
 }
-
-/**
- * 按钮颜色样式
- **/
-const projectBtnStyle = () => {
-  const style = {}
-  if (props.project.status === 'done') {
-    style.backgroundColor = '#0EC674'
-    return style
-  } else if (props.project.status === 'doing') {
-    style.backgroundColor = '#2B8DFE'
-    return style
-  } else if (props.project.status === 'over') {
-    style.backgroundColor = '#ffffff'
-    style.opacity = 0.3
-    return style
-  }
-  if (props.project.status === 'progress') {
-    if (props.project.active === true) {
-      style.backgroundColor = '#368'
-      return style
-    }
-    style.backgroundColor = 'red'
-    return style
-  }
-  style.backgroundColor = 'green'
-  return style
+// 计算倒计时 - 时
+const getHour = function(duration: number): string {
+  const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10)
+  return number < 10 ? `0${number}` : String(number)
 }
+// 计算倒计时 - 分
+const getMinute = function(duration: number): string {
+  const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
+  return number < 10 ? `0${number}` : String(number)
+}
+// 计算倒计时 - 秒
+const getSecond = function(duration: number): string {
+  const number = parseInt(((duration / 1000) % 60) as any, 10)
+  return number < 10 ? `0${number}` : String(number)
+}
+// 倒计时
+let intemout: any
+const timeout = () => {
+  clearTimeout(intemout)
+  // 当前时间
+  const now = dayjs().valueOf()
+  const duration = Math.abs(end.value - now)
+  // 结束倒计时
+  if (duration < 0) {
+    day.value = '00'
+    hour.value = '00'
+    minute.value = '00'
+    second.value = '00'
+    return
+  }
+  // 计算倒计时剩余天
+  day.value = getDay(duration)
+  // 计算倒计时剩余时
+  hour.value = getHour(duration)
+  // 计算倒计时剩余分
+  minute.value = getMinute(duration)
+  // 计算倒计时剩余秒
+  second.value = getSecond(duration)
+  intemout = setTimeout(timeout, 1000)
+}
+timeout()
 </script>
 <template>
-  <div class="project font-kdFang relative">
-    <!--    <img style="border-radius: 13px" class="absolute  w-full  h-full left-0 top-0 z-1 " src="https://res.ikingdata.com/nav/cardBgnoBroder.png" alt="">-->
-    <!--    <div class="absolute right-0 top-0 h-32 w-32 bg-no-repeat bg-center" :style=" rightTopImageStyle() "/>-->
+  <div class="project reative font-kdFang relative">
     <div class="relative z-2">
-      <p
-        v-if="status === 'progress'"
-        class="
-          text-center
-          flex flex-col
-          text-global-highTitle text-kd24px150
-          i8n-font-Barlow
-          font-medium
-        "
-      >
-        {{ t('project.status.coming') }}
-      </p>
-      <img
-        v-if="status === 'doing' || status === 'done'"
-        class="absolute opacity-6 right-3.5 top-2.5 w-43 h-43"
-        :src="tipImg()"
-        alt=""
-      />
-      <div v-if="status !== 'progress'" class="flex">
-        <div>
-          <div class="flex items-center">
-            <img
-              class="w-10.5 h-10.5"
-              src="https://res.ikingdata.com/nav/payLogo.png"
-              alt=""
-            />
-            <div class="ml-2 text-kd24px150 font-medium text-global-highTitle">
-              MDEX
-            </div>
-            <div
-              v-if="status === 'doing'"
-              class="
-                font-medium
-                bg-global-primary bg-opacity-12
-                time
-                px-3
-                ml-4
-                py-1.5
-                text-global-primary text-kd14px18px
-              "
-            >
-              ⏱ {{ t('project.status.coming') }}
-            </div>
-          </div>
-          <div
-            class="
-              text-kd14px20px
-              mt-2
-              text-global-default
-              opacity-65
-              font-normal
-            "
-          >
-            HECO上最大的DEX交易所HECO上最大的DEX交易所HECO上最大的DEX...
-          </div>
+      <div class="flex items-center">
+        <img :src="props.project.icon" class="w-10.5" alt="" />
+        <div class="text-kd24px36px ml-2">{{ props.project.title }}</div>
+        <div
+          v-if="props.status !== 'closure'"
+          :class="props.status === 'wait' ? 'statusTxtWait' : 'statusTxtIng'"
+        >
+          <span
+            v-if="props.status === 'wait'"
+          >⏱ <span class="ml-1">{{ I18n.growthpadShow.coming }}</span>
+          </span>
+          <span v-else>🔥 {{ I18n.growthpadShow.ongoing }}</span>
+        </div>
+      </div>
+      <div class="overDes">
+        <div :class="props.status === 'closure' ? 'max-w-43' : ''">
+          {{ props.project.dashboard.description }}
         </div>
         <img
-          v-if="status === 'over'"
-          class="opacity-80 relative left-1 -top-0.5 shadows w-30 h-30.5"
-          :src="tipImg()"
+          v-if="props.status === 'closure'"
+          class="w-30 absolute top-4 right-0"
+          src="https://res.ikingdata.com/nav/grothpadOver.png"
           alt=""
         />
       </div>
       <div class="flex mt-6 items-center font-normal">
-        <p class="desc">{{ t('project.award_number') }}</p>
-        <p class="ml-8 text-kd14px18px">
-          {{ props.project?.reward_total || '-' }}
+        <p class="desc">{{ I18n.growthpadShow.reward }}</p>
+        <p class="projectNum">
+          {{ props.project.dashboard.reward.count }} {{ props.project.coin }}
         </p>
       </div>
       <div class="flex blockItem">
-        <p class="desc">{{ t('project.reward_value') }}</p>
-        <p class="ml-8 text-kd14px18px">
-          {{ props.project?.reward_value || '-' }}
-        </p>
+        <p class="desc">{{ I18n.growthpadShow.values }}</p>
+        <p class="projectNum">${{ props.project.dashboard.reward.cost }}</p>
       </div>
       <div class="flex blockItem">
-        <p class="desc">{{ t('project.per_person') }}</p>
-        <p class="ml-8 text-kd14px18px">
-          {{ props.project?.reward_1_person || '-' }}
+        <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
+        <p class="projectNum">
+          {{ props.project.dashboard.reward.limits[0] }} -
+          {{ props.project.dashboard.reward.limits[1] }}
+          {{ props.project.coin }}
         </p>
       </div>
-      <div v-if="status !== 'over'" class="flex mt-3 items-end font-normal">
-        <p class="desc">{{ t('project.remaing_time') }}</p>
-        <div
-          class="
-            ml-8
-            flex
-            text-left
-            items-center
-            justify-center
-            text-global-primary
-          "
-        >
+      <div class="flex mt-3 items-end font-normal">
+        <div class="desc">
+          <span v-show="props.status !== 'closure'">{{
+            I18n.growthpadShow.timeLeft
+          }}</span>
+        </div>
+        <div v-if="props.status !== 'closure'" class="itemTxt">
           <div class="flex items-end">
-            <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div
-              class="ml-1 text-kd12px18px i8n-font-inter font-normal"
-              style="font-size: 12px"
-            >
-              {{ t('project.day') }}
+            <div class="tiemNum">{{ day }}</div>
+            <div class="times">
+              {{ I18n.growthpadShow.day }}
             </div>
           </div>
           <div class="flex ml-2 items-end">
-            <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal">
-              {{ t('project.hour') }}
+            <div class="tiemNum">{{ hour }}</div>
+            <div class="times">
+              {{ I18n.growthpadShow.hour }}
             </div>
           </div>
           <div class="flex ml-2 items-end">
-            <div class="text-kd24px110 font-bold font-kdExp">00</div>
-            <div class="ml-1 text-kd12px18px i8n-font-inter font-normal">
-              {{ t('project.minute') }}
+            <div class="tiemNum">{{ minute }}</div>
+            <div class="times">
+              {{ I18n.growthpadShow.minute }}
             </div>
           </div>
         </div>
+        <!--        保持格式-->
+        <div v-else class="mt-6.3"></div>
       </div>
-      <div
-        v-if="status !== 'progress'"
-        :style="projectBtnStyle()"
-        class="
-          flex
-          items-center
-          justify-center
-          text-
-          mt-6
-          bg-global-primary
-          py-2.5
-          px-3
-          goButton
-        "
-        @click="go(props.project.slug)"
-      >
-        <div
-          :class="
-            status === 'over'
-              ? 'text-global-primary text-kd14px18px font-medium'
-              : 'text-white text-kd14px18px font-medium'
-          "
-        >
-          参与预热任务
-        </div>
-        <img
-          class="ml-1.5"
-          src="https://res.ikingdata.com/nav/goTip.svg"
-          alt=""
-        />
-      </div>
-      <!--    <div class="project-default-btn"  @click="go(props.project.slug)">-->
-      <!--      立即参与 ->-->
-      <!--    </div>-->
+      <GrowthpadIndexProjectButton
+        :url="props.project.url"
+        :status="props.status"
+      />
     </div>
+    <img
+      v-if="props.status !== 'closure'"
+      class="w-46 absolute top-4 right-0"
+      src="https://res.ikingdata.com/nav/growthpaNoOverTip.png"
+      alt=""
+    />
   </div>
 </template>
 
 <style scoped>
+.itemTxt {
+  @apply ml-8 flex text-left items-center justify-center text-global-primary;
+}
+.projectNum {
+  @apply ml-8 text-kd14px18px font-kdExp text-global-default;
+}
+.overDes {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  @apply m-2 text-kd14px20px text-global-default opacity-65;
+}
+.noOverDes {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  @apply m-2 text-kd14px20px text-global-default opacity-65;
+}
+.statusTxtWait {
+  padding: 6px 12px;
+  background: rgba(43, 141, 254, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-sizing: border-box;
+  border-radius: 50px;
+  @apply text-kd14px18px text-global-primary font-kdFang font-medium  ml-4;
+}
+.statusTxtIng {
+  padding: 6px 12px;
+  background: rgba(30, 209, 130, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-sizing: border-box;
+  color: rgba(0, 180, 100, 1);
+  border-radius: 50px;
+  @apply text-kd14px18px  font-kdFang font-medium  ml-4;
+}
+.tiemNum {
+  @apply text-kd24px110 font-bold font-kdExp;
+}
+.times {
+  @apply ml-1 text-kd12px18px i8n-font-inter font-normal;
+}
 .project {
   background: linear-gradient(180deg, #f6f7ff 0%, #ddeafd 100%);
   box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26),

@@ -62,7 +62,7 @@ const retwitter = function(description?: string, reward: Array<number> = []) {
 
 const data = {
   title: Project, // 名称
-  icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
+  icon: 'https://res.ikingdata.com/icon/mdx.png', // icondashboard
   dashboard: {
     begin: '2021-05-25 12:00:00', // 开始时间
     end: '2021-05-30 12:00:00', // 结束时间

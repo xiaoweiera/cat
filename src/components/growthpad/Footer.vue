@@ -12,9 +12,7 @@ const props = defineProps({
 <template>
   <div v-if="!small">
     <div class="text-center mt-15 md:mt-20">
-      <div class="why-us i8n-font-Barlow font-semibold">
-        {{ t('feature.title') }}
-      </div>
+      <div class="why-us i8n-font-Barlow font-semibold">如何参与项目</div>
       <div
         class="
           grid
