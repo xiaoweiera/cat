@@ -115,14 +115,39 @@ onMounted(async() => {
               font-semibold
             "
           >
-            {{ t('heroProjects.subtitle') }}
+            {{ t('hero.subtitle') }}
           </div>
         </div>
-        <!--        heroProjects-->
-        <div class="flex mt-4 md:mt-8.25 relative z-30 items-center">
+        <div
+          class="
+            text-kd12px22px
+            md:text-kd14px22px
+            text-global-default
+            opacity-65
+            mt-4
+            md:mt-6
+            i8n-font-inter i8n-font-inter200
+          "
+        >
+          <div>{{ t('hero.desc1') }}</div>
+          <div class="mt-3">{{ t('hero.desc2') }}</div>
+        </div>
+        <div
+          class="
+            flex
+            mt-4
+            md:mt-7.25
+            relative
+            z-30
+            items-center
+            md:flex-nowrap
+            flex-wrap
+          "
+        >
           <div
             class="
               text-global-default
+              mt-1
               opacity-65
               mr-3
               md:mr-4
@@ -133,18 +158,23 @@ onMounted(async() => {
             {{ t('plat.des') }}
           </div>
           <img
-            class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5 md:h-5"
+            class="mr-3 md:mr-4 w-12.5 h-4 md:w-15.5 md:h-5 mt-1"
             src="https://res.ikingdata.com/nav/platHeco.png"
             alt=""
           />
           <img
-            class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5"
+            class="mr-3 md:mr-4 w-16.5 h-4 md:w-20.6 md:h-5 mt-1"
             src="https://res.ikingdata.com/nav/platBinance.png"
             alt=""
           />
           <img
-            class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5"
+            class="mr-3 md:mr-4 w-22 h-4 md:w-27.5 md:h-5 mt-1"
             src="https://res.ikingdata.com/nav/platEth.png"
+            alt=""
+          />
+          <img
+            class="mr-3 md:mr-4 w-22 h-4 md:w-28.5 md:h-4.5 mt-1"
+            src="https://res.ikingdata.com/nav/apyOkChain.png"
             alt=""
           />
         </div>
@@ -185,6 +215,7 @@ onMounted(async() => {
                 src="https://res.ikingdata.com/nav/Kweibo.png"
                 alt=""
               /></a>
+            <!--          <img class="platImg" src="https://res.ikingdata.com/nav/Kmedium.png" alt="">-->
             <img
               class="platImg"
               src="https://res.ikingdata.com/nav/Kwechat.png"
@@ -222,7 +253,24 @@ onMounted(async() => {
       </div>
       <GrowthpadProjects :status="'progress'" />
     </div>
-    <GrowthpadExamplefooter />
+    <!--  正在进行-->
+    <!--    <div class="progress text-left mt-15 md:mt-20 ">-->
+    <!--      <p class="project-status-title   text-center md:text-left">⛳️ 正在进行</p>-->
+    <!--      <GrowthpadProjects :status="'doing'"/>-->
+    <!--    </div>-->
+    <!--      我参与的 / 已结束-->
+    <!--    <div class="project-container">-->
+    <!--      <a-tabs tabBarGutter="48px" default-active-key="1" v-model:activyKey="activeKey" size="small" type="line">-->
+    <!--        <a-tab-pane key="1" class="text-kd18px28px" tab="🎰 我参与的">-->
+    <!--          <GrowthpadProjects :status="'done'"/>-->
+    <!--        </a-tab-pane>-->
+    <!--        <a-tab-pane key="2" class="text-kd18px28px"  tab="🎯 已结束">-->
+    <!--          <GrowthpadProjects :status="'over'"/>-->
+    <!--        </a-tab-pane>-->
+    <!--      </a-tabs>-->
+    <!--    </div>-->
+
+    <GrowthpadFooter />
   </div>
 </template>
 
@@ -302,7 +350,6 @@ onMounted(async() => {
   //height: 42px !important; //background-image: url("/assets/growthpad/join-button.svg");
   @apply w-auto  md:ml-0;
 }
-
 .project-status-title {
   color: #033666;
   font-family: 'PingFang SC';
@@ -311,37 +358,28 @@ onMounted(async() => {
   font-size: 18px;
   line-height: 28px;
 }
-
 .project-container {
   overflow: hidden;
   @apply text-left mt-15;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-content {
   height: 240px;
-
-  //margin-top: -16px;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
   //background: #fff; padding: 16px;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-bar {
   //border-color: #fff;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
   border-color: transparent;
   background: transparent;
 }
-
 .project-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
   border-color: #fff;
   background: #fff;
 }
 </style>
-
 // @formatter:off
 <route lang="yaml">
 meta:

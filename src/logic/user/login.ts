@@ -24,6 +24,7 @@ interface UserData {
   recommend_push_enabled: boolean
   registration_rank: any
   username: string
+  growthpad_invited_count: number
 }
 
 export const userData = reactive<UserData>({
@@ -42,6 +43,7 @@ export const userData = reactive<UserData>({
   recommend_push_enabled: false,
   registration_rank: null,
   username: '',
+  growthpad_invited_count: 0, // 邀请的总人数
 })
 
 // 是否已登录
@@ -87,6 +89,7 @@ const update = function(result: UserData): void {
   userData.recommend_push_enabled = result.recommend_push_enabled
   userData.registration_rank = result.registration_rank
   userData.username = result.username
+  userData.growthpad_invited_count = result.growthpad_invited_count
   isLogin.value = true
 }
 export const logout = async function(): Promise<void> {
@@ -150,6 +153,11 @@ export const onSubmit = async function(): Promise<any> {
     const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
     const result = await user.logo(data)
     if (result?.data) {
+      if (window.location.hostname !== 'kingdata.com') {
+        jsCookie.set('token', result?.data?.token || '', {
+          path: '/',
+        })
+      }
       jsCookie.set('token', result?.data?.token || '', {
         path: '/',
       })

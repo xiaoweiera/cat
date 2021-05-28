@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
+import I18n from '~/utils/i18n'
 </script>
 <template>
   <div class="mt-15 md:mt-20 flex flex-col items-center">
@@ -13,7 +11,7 @@ const { t } = useI18n()
         font-semibold
       "
     >
-      {{ t('Partners') }}
+      {{ I18n.growthpadShow.partners }}
     </div>
     <img
       class="mdhidden w-full mt-8"
