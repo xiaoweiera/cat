@@ -23,16 +23,9 @@ const getTimeType = () => {
 }
 // 获取分享地址
 const getShare = () => {
-  console.log(
-    'begin',
-    window.location.href.toLowerCase(),
-    window.location.href.toLowerCase().includes('coinwind'),
-  )
   if (window.location.href.toLowerCase().includes('mdx')) {
-    console.log('111')
     wxShare('Mdex增长-GrowthPad', '做任务支持MDEX，领百万token奖励')
   } else if (window.location.href.toLowerCase().includes('coinwind')) {
-    console.log('222')
     wxShare('CoinWind增长-GrowthPad', '做任务支持CoinWind，领百万token奖励')
   } else if (window.location.href.toLowerCase().includes('channels')) {
     wxShare('Channels增长-GrowthPad', '做任务支持Channels，领百万token奖励')
