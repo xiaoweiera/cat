@@ -120,7 +120,7 @@ const bindAddress = async function(): Promise<void> {
 <template>
   <div class="pb-15 font-kdFang">
     <div v-if="tokenIsNull" class="flex-1">
-      <h2 class="pb-4 text-base font-semibold address">
+      <h2 class="pb-4 text-base font-medium address">
         <span>{{ I18n.growthpad.address.reward }}</span>
         <span class="reward">{{ store.reward.value }} {{ store.token }}</span>
       </h2>
@@ -134,7 +134,7 @@ const bindAddress = async function(): Promise<void> {
       </div>
     </div>
     <div v-else>
-      <h2 class="pb-4 text-base font-semibold">
+      <h2 class="pb-4 text-base font-medium address">
         <span>{{ I18n.growthpad.register }}</span>
       </h2>
       <div class="w-full">

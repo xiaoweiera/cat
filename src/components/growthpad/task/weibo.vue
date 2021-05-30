@@ -140,7 +140,7 @@ const rules: any = {
               suffix="png"
             ></IconFont>
           </el-upload>
-          <div class="upload-tips pl-3">
+          <div class="upload-tips pl-3 text-xs">
             <span>{{ I18n.growthpad.weibo.notify1 }}</span>
             <span>{{ I18n.growthpad.weibo.notify2 }}</span>
           </div>

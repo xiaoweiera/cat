@@ -90,7 +90,7 @@ const getPrice = function(number: string | number): string | number {
     </div>
     <div class="pt-5">
       <ul class="flex">
-        <li>
+        <li class="align-text-bottom">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.reward.count }}
           </h4>
@@ -101,16 +101,16 @@ const getPrice = function(number: string | number): string | number {
             <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
           </p>
         </li>
-        <li class="ml-3 md:ml-12">
+        <li class="ml-3 md:ml-12 align-text-bottom">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.reward.value }}
           </h4>
           <p
-            class="font-color-theme font-bold font-kdExp"
+            class="font-color-theme font-bold font-kdExp whitespace-nowrap"
             v-html="getPrice(store.dashboard.rewardCount)"
           ></p>
         </li>
-        <li class="ml-3 md:ml-12">
+        <li class="ml-3 md:ml-12 align-text-bottom">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.reward.perPerson }}
           </h4>

@@ -24,29 +24,33 @@ const list = computed(() => {
 </script>
 
 <template>
-  <div class="pb-4 text-base font-semibold">
-    {{ I18n.growthpad.about.projectDetail }}
+  <div class="pb-6">
+    <h2 class="text-base font-medium">
+      {{ I18n.growthpad.about.projectDetail }}
+    </h2>
   </div>
-  <div class="flex items-center font-kdFang">
+
+  <div class="flex items-center font-kdFang pb-6">
     <DotChar :img="store.icon.value" size="xl" />
     <span class="ml-3 label">{{
       I18n.template(I18n.growthpad.about.title, { project: store.title.value })
     }}</span>
   </div>
-  <div class="mt-6 font-kdFang">
+
+  <div class="font-kdFang">
     <p class="md:flex md:items-center">
       <span class="flex items-center">
         <b class="text-base font-medium h2">{{
           I18n.growthpad.about.website
         }}</b>
         <a
-          class="mx-4 text-sm font-color-theme"
+          class="ml-4 text-sm font-color-theme"
           :href="`https://${store.about.website}`"
           target="_blank"
         >{{ store.about.website }}</a>
       </span>
-      <span class="flex items-center pt-3 md:pt-0">
-        <b class="text-base font-medium mr-4 h2">{{
+      <span class="flex items-center pt-6 md:pt-0 md:ml-8">
+        <b class="text-base font-medium h2 pr-4">{{
           I18n.growthpad.about.community
         }}</b>
         <a
@@ -56,7 +60,12 @@ const list = computed(() => {
           target="_blank"
           :href="item.href"
         >
-          <IconFont class="mr-4 flex" :type="item.icon" size="xl" />
+          <IconFont
+            class="flex"
+            :class="{ 'ml-4': index > 0 }"
+            :type="item.icon"
+            size="xl"
+          />
         </a>
       </span>
     </p>
@@ -65,12 +74,12 @@ const list = computed(() => {
   <!-- 手机版本 -->
   <div
     v-if="store.about.minutias && store.about.minutias.length > 0"
-    class="mt-6 font-kdFang md:hidden"
+    class="pt-6 font-kdFang md:hidden"
   >
     <h2 class="text-base">{{ I18n.growthpad.about.reward }}</h2>
-    <div class="mt-3 pt-2">
+    <div class="pt-3">
       <div v-for="(item, i) in store.about.minutias" :key="i">
-        <p class="text-sm pb-1.5">
+        <p class="text-sm pb-1.5 whitespace-nowrap">
           <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
           <span class="inline-block minutia-value">
             <template v-if="item.value === 'price'">{{
@@ -83,8 +92,8 @@ const list = computed(() => {
     </div>
   </div>
 
-  <div class="mt-6 font-kdFang">
-    <h2 class="pb-2">{{ I18n.growthpad.about.projectDetail }}</h2>
+  <div class="pt-6 font-kdFang">
+    <h2 class="pb-3">{{ I18n.growthpad.about.projectDetail }}</h2>
     <p class="detail text-sm whitespace-pre-line w-full">
       {{ store.about.detail }}
     </p>
@@ -93,16 +102,16 @@ const list = computed(() => {
   <!-- 大屏 -->
   <div
     v-if="store.about.minutias && store.about.minutias.length > 0"
-    class="mt-6 font-kdFang hidden md:block"
+    class="pt-6 font-kdFang hidden md:block"
   >
     <h2 class="text-base">{{ I18n.growthpad.about.reward }}</h2>
-    <div class="flex justify-between pt-2">
+    <div class="flex justify-between pt-3">
       <div v-for="(data, i) in list" :key="i">
         <p
           v-for="(item, index) in data"
           :key="`${i}-${index}`"
-          class="text-sm"
-          :class="{ 'mt-1': index > 0 }"
+          class="text-sm whitespace-nowrap"
+          :class="{ 'pt-1.5': index > 0 }"
         >
           <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
           <span class="inline-block minutia-value">
@@ -119,7 +128,8 @@ const list = computed(() => {
 
 <style scoped>
 h2,
-.h2 {
+.h2,
+.label {
   color: #033666;
 }
 .label {
