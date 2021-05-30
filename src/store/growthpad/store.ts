@@ -236,9 +236,18 @@ export default class Store {
     this.article_image.value = safeGet<string>(result, 'article_image')
     this.article_url.value = safeGet<string>(result, 'article_url')
     // 定时刷新
+    let time = this.intervalTime
+    if (isLogin.value) {
+      time = parseInt(this.intervalTime as any)
+    } else {
+      time = parseInt((this.intervalTime / 2) as any)
+    }
+    if (time < 3000 || isNaN(time)) {
+      time = 3000
+    }
     this.timeout = setTimeout(() => {
       return this.init()
-    }, this.intervalTime)
+    }, time)
   }
 
   setIntervalTime(time: number): void {
