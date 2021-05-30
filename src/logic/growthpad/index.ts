@@ -31,12 +31,12 @@ export const footList = [
 ]
 
 export const company = [
-  'https://res.ikingdata.com/nav/apyking.png',
-  'https://res.ikingdata.com/nav/apyjs.png',
-  'https://res.ikingdata.com/nav/apyheco.png',
-  'https://res.ikingdata.com/nav/apybian.png',
-  'https://res.ikingdata.com/nav/apyok.png',
-  'https://res.ikingdata.com/nav/apysola.png',
+  'https://res.ikingdata.com/nav/indexKing.png',
+  'https://res.ikingdata.com/nav/indexJs.png',
+  'https://res.ikingdata.com/nav/indexHe.png',
+  'https://res.ikingdata.com/nav/indexBa.png',
+  'https://res.ikingdata.com/nav/indexOk.png',
+  'https://res.ikingdata.com/nav/indexSo.png',
 ]
 export const telPlats = [
   {
@@ -44,7 +44,7 @@ export const telPlats = [
     img: 'https://res.ikingdata.com/nav/KTwitter.png',
   },
   {
-    aUrl: 'https://weibo.com/jinseshuju?topnav=1&wvr=6&topsug=1',
+    aUrl: 'https://weibo.com/u/5553600723',
     img: 'https://res.ikingdata.com/nav/Kweibo.png',
   },
 ]

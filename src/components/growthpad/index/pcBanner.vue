@@ -21,7 +21,7 @@ const link = (): string => {
         <template v-for="(item, i) in company">
           <a href="https://ikingdata.com" class="hand" target="_blank">
             <img
-              :class="i === 0 ? 'h-5 mr-6 mb-1' : 'h-3 mr-6'"
+              :class="i === 0 ? 'h-5 mr-6 mb-1' : 'h-5 mr-6'"
               :src="item"
               alt=""
             />

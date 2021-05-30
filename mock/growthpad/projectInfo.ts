@@ -36,7 +36,7 @@ export const channelsInfo = {
   title: 'Channels', // 名称
   icon: 'https://res.ikingdata.com/icon/channels.svg', // icon
   url: 'https://ikingdata.com/growthpad/CHANNELS',
-  coin: '个',
+  coin: 'U',
   dashboard: {
     begin: '2021-05-29 12:00:00', // 开始时间
     end: '2021-06-30 12:00:00', // 结束时间

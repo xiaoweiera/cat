@@ -20,7 +20,6 @@ onMounted(() => {
   <div
     class="
       grid grid-cols-1
-      mt-4
       md:mt-6
       gap-4
       md:gap-6

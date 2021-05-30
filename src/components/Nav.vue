@@ -41,13 +41,6 @@ onBeforeMount(() => {
         <router-link :to="href('/growthpad')" :class="navIsSelect('growthpad')">
           <span>{{ I18n.growthpad.title }}</span>
         </router-link>
-        <router-link
-          class="ml-8"
-          :to="href('/growthpad/examples')"
-          :class="navIsSelect('growthpad/examples')"
-        >
-          <span>{{ I18n.growthpad.case }}</span>
-        </router-link>
         <a
           class="ml-8 opacity-85"
           target="_blank"

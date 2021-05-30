@@ -7,10 +7,7 @@ const props = defineProps({
 })
 // 得到背景颜色
 const getBg = () => {
-  return (
-    `w-full mt-6 text-white hand text-center flex justify-center items-center ${
-      props.status}`
-  )
+  return `w-full mt-6 text-white hand text-center flex justify-center items-center ${props.status}`
 }
 const txts = {
   ing: I18n.growthpadShow.ingButton,
@@ -25,7 +22,7 @@ const txts = {
     :href="props.url"
     target="_blank"
   >
-    <span class="text-kd14px18px">{{ txts[props.status] }}</span>
+    <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>
     <img
       class="w-3 h-3 ml-1"
       src="https://res.ikingdata.com/nav/statusRight.png"
@@ -33,7 +30,7 @@ const txts = {
     />
   </a>
   <div v-else :class="getBg()">
-    <span class="text-kd14px18px">{{ txts[props.status] }}</span>
+    <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>
     <img
       class="w-3 h-3 ml-1"
       src="https://res.ikingdata.com/nav/statusRight.png"

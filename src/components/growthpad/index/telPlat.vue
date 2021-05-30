@@ -16,6 +16,7 @@ const closeQr = () => {
   <div class="telContainer mt-10 md:mt-0">
     <div class="xshidden join-in md:mt-kd32px mt-kd35px w-40">
       <a
+        class="mr-8"
         href="http://ikingdata.mikecrm.com/kbZDdCb"
         target="_blank"
       ><img
@@ -29,7 +30,7 @@ const closeQr = () => {
     </div>
     <div class="flex mt-2.7 md:mt-8 ml-8 relative">
       <template v-for="item in telPlats">
-        <a :href="item.aUrl" target="_blank">
+        <a class="mr-8" :href="item.aUrl" target="_blank">
           <img
             class="platImg"
             :src="item.img"
@@ -37,7 +38,7 @@ const closeQr = () => {
           /></a>
       </template>
       <img
-        class="platImg"
+        class="platImg mr-8"
         src="https://res.ikingdata.com/nav/Kwechat.png"
         alt=""
         @mouseenter="showQr()"
@@ -61,6 +62,6 @@ const closeQr = () => {
   border-radius: 32px;
 }
 .platImg {
-  @apply w-6 h-6 mr-8;
+  @apply w-6 h-6;
 }
 </style>

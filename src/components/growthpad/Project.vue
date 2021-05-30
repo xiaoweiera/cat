@@ -80,7 +80,9 @@ timeout()
     <div class="relative z-2">
       <div class="flex items-center">
         <img :src="props.project.icon" class="w-10.5" alt="" />
-        <div class="text-kd24px36px ml-2">{{ props.project.title }}</div>
+        <div class="text-kd24px36px ml-2 font-medium">
+          {{ props.project.title }}
+        </div>
         <div
           v-if="props.status !== 'closure'"
           :class="props.status === 'wait' ? 'statusTxtWait' : 'statusTxtIng'"
@@ -178,7 +180,7 @@ timeout()
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 
-  @apply m-2 text-kd14px20px text-global-default opacity-65;
+  @apply mt-2 text-kd14px20px text-global-default opacity-65;
 }
 .noOverDes {
   overflow: hidden;
@@ -231,8 +233,9 @@ timeout()
 
 .desc {
   width: 70px;
+  color: rgba(37, 62, 111, 0.65);
   font-family: i8n-font-inter !important;
-  @apply text-global-defalut opacity-65 text-kd14px18px;
+  @apply text-kd14px18px;
 }
 
 .goButton {

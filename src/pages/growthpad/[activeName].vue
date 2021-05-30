@@ -21,7 +21,18 @@ const getTimeType = () => {
     timeType.value = 'end'
   }
 }
+// 获取分享地址
+const getShare = () => {
+  if (window.location.href.toLowerCase().includes('mdx')) {
+    wxShare('Mdex增长-GrowthPad', '做任务支持MDEX，领百万token奖励')
+  } else if (window.location.href.toLowerCase().includes('CoinWind')) {
+    wxShare('CoinWind增长-GrowthPad', '做任务支持CoinWind，领百万token奖励')
+  } else if (window.location.href.toLowerCase().includes('Channels')) {
+    wxShare('Channels增长-GrowthPad', '做任务支持Channels，领百万token奖励')
+  }
+}
 onMounted(async() => {
+  getShare()
   getTimeType()
   await store.init()
 })

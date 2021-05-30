@@ -6,7 +6,7 @@ export default {
   end: '已结束',
   waitButton: '参与预热任务',
   ingButton: '查看详情',
-  overButton: '结束',
+  overButton: '已结束',
   supproted: '支持',
   iInvite: '我邀请参与活动的人数',
   code: '我的邀请码',
