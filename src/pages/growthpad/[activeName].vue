@@ -21,7 +21,7 @@ const getTimeType = () => {
     timeType.value = 'end'
   }
 }
-// 获取分享地址
+// 获取分享地址呀
 const getShare = () => {
   if (window.location.href.toLowerCase().includes('mdx')) {
     wxShare('Mdex增长-GrowthPad', '做任务支持MDEX，领百万token奖励')
