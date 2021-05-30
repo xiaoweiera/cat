@@ -15,7 +15,7 @@ const data = computed(() => {
 const link = (): string => {
   const { origin, pathname } = window.location
   let url = `${origin}${pathname}`
-  const code = userData.my_invitation_code
+  const code = `${userData.my_invitation_code}${store.shareCode.value}`
   if (code) {
     url = `${url}?code=${code}`
   }
@@ -34,7 +34,7 @@ const link = (): string => {
         </span>
         <span class="mt-1.5 md:mt-0 md:ml-6 flex items-center">
           <span class="">{{ I18n.growthpad.invited.code }}</span>
-          <i>{{ userData.my_invitation_code }}</i>
+          <i>{{ userData.my_invitation_code }}{{ store.shareCode.value }}</i>
           <span v-login>
             <Copy :link="link">
               <IconFont

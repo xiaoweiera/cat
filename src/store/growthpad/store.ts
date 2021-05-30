@@ -88,6 +88,7 @@ interface Mission {
 
 export default class Store {
   protected token = ''
+  protected shareCode = ref<string>('')
   private intervalTime = 10000
   // 当前币价
   protected price = ref<string | number>(0)
@@ -150,14 +151,17 @@ export default class Store {
   constructor(type: string) {
     if (type && API.getProjectType(type) === API.Project.mdx) {
       this.projectName = API.Project.mdx
+      this.shareCode.value = '-G1'
       this.setInitData(mockMdx)
     }
     if (type && API.getProjectType(type) === API.Project.channels) {
       this.projectName = API.Project.channels
+      this.shareCode.value = '-G3'
       this.setInitData(mockChannels)
     }
     if (type && API.getProjectType(type) === API.Project.coinwind) {
       this.projectName = API.Project.coinwind
+      this.shareCode.value = '-G2'
       this.setInitData(mockCoinWind)
     }
   }

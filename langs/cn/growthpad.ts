@@ -127,7 +127,7 @@ MDEX致力于打造集DEX、IMO、DAO为一体的DeFi平台，为更多优质资
 
 MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊、波卡生态，不断拓展MDEX生态与社区，让更多DeFi用户享受到MDEX生态的红利。`,
     },
-    copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
+    copy: '邀请您参与{title}，赢取百万美元奖励，{url}',
     share: {
       // lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%'
       lable: `邀请1名好友参与Growthpad活动，即可瓜分总奖池1%的奖励。
