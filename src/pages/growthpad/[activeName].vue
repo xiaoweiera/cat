@@ -23,6 +23,11 @@ const getTimeType = () => {
 }
 // 获取分享地址
 const getShare = () => {
+  console.log(
+    window.location.href.toLowerCase(),
+    'begin',
+    window.location.href.toLowerCase().includes('CoinWind'),
+  )
   if (window.location.href.toLowerCase().includes('mdx')) {
     console.log(
       window.location.href.toLowerCase(),
@@ -47,6 +52,11 @@ const getShare = () => {
   }
 }
 onMounted(async() => {
+  console.log(
+    window.location.href.toLowerCase(),
+    '111',
+    window.location.href.toLowerCase().includes('CoinWind'),
+  )
   getShare()
   getTimeType()
   await store.init()
