@@ -24,10 +24,25 @@ const getTimeType = () => {
 // 获取分享地址
 const getShare = () => {
   if (window.location.href.toLowerCase().includes('mdx')) {
+    console.log(
+      window.location.href.toLowerCase(),
+      'mdx',
+      window.location.href.toLowerCase().includes('mdx'),
+    )
     wxShare('Mdex增长-GrowthPad', '做任务支持MDEX，领百万token奖励')
   } else if (window.location.href.toLowerCase().includes('CoinWind')) {
+    console.log(
+      window.location.href.toLowerCase(),
+      'CoinWind',
+      window.location.href.toLowerCase().includes('CoinWind'),
+    )
     wxShare('CoinWind增长-GrowthPad', '做任务支持CoinWind，领百万token奖励')
   } else if (window.location.href.toLowerCase().includes('Channels')) {
+    console.log(
+      window.location.href.toLowerCase(),
+      'Channels',
+      window.location.href.toLowerCase().includes('Channels'),
+    )
     wxShare('Channels增长-GrowthPad', '做任务支持Channels，领百万token奖励')
   }
 }
