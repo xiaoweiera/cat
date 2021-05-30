@@ -21,7 +21,7 @@ const href = computed(() => {
     <div class="font-kdFang">
       <div class="pb-1">
         <span
-          class="text-sm title inline-block align-middle"
+          class="text-sm title inline-block align-middle whitespace-pre-line"
           v-html="data.title"
         ></span>
         <template v-if="data.tooltip">

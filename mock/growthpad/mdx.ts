@@ -5,9 +5,10 @@
  */
 
 import I18n from '~/utils/i18n/index'
+import { mdxInfo } from './projectInfo'
 import TaskType from '~/logic/growthpad/tasktype'
 import * as chat from './chat'
-const Project = 'MDEX'
+const Project = mdxInfo.title
 
 const token = 'MDX'
 const website = 'mdex.com'
@@ -18,17 +19,10 @@ const retwitterHref = 'https://twitter.com/Mdextech/status/1395323254974214150'
 const data = {
   token,
   title: Project, // 名称
-  icon: 'https://res.ikingdata.com/icon/mdx.png', // icondashboard
-  dashboard: {
-    begin: '2021-05-25 12:00:00', // 开始时间
-    end: '2021-05-30 12:00:00', // 结束时间
-    description: I18n.growthpad.mdx.dashboard.desc, // 描述
-    reward: {
-      count: 100000, // 奖励数量
-      cost: 1000000, // 价值
-      limits: [100, 500], // 每人可领取范围
-    },
-  },
+  icon: mdxInfo.icon, // icondashboard
+  dashboard: Object.assign({}, mdxInfo.dashboard, {
+    description: I18n.growthpad.mdx.dashboard.desc
+  }),
   about: {
     website, // 项目官网
     minutias: [

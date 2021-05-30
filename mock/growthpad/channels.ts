@@ -5,31 +5,25 @@
  */
 
 import I18n from '~/utils/i18n/index'
+import { channelsInfo } from './projectInfo'
 import TaskType from '~/logic/growthpad/tasktype'
 import * as chat from './chat'
 
 const token = 'U'
-const Project = 'Channels'
+const Project = channelsInfo.title
 const website = 'channels.finance'
 const telegramHref = 'https://t.me/channels_finance'
 const twitterHref = 'https://twitter.com/ChannelsFinance'
-const sinaHref = 'https://twitter.com/Mdextech'
+const sinaHref = 'https://weibo.com/'
 
 
 const data = {
   token,
   title: Project, // 名称
-  icon: 'https://res.ikingdata.com/icon/channels.svg', // icon
-  dashboard: {
-    begin: '2021-05-25 12:00:00', // 开始时间
-    end: '2021-05-30 12:00:00', // 结束时间
+  icon: channelsInfo.icon, // icon
+  dashboard: Object.assign({}, channelsInfo.dashboard, {
     description: I18n.growthpad.channels.dashboard.desc, // 描述
-    reward: {
-      count: 100000, // 奖励数量
-      cost: 1000000, // 价值
-      limits: [100, 500], // 每人可领取范围
-    },
-  },
+  }),
   about: {
     website, // 项目官网
     minutias: [
@@ -94,7 +88,7 @@ const data = {
     {
       id: chat.uuid(), // 任务ID
       type: TaskType.cream, // 任务类型
-      title: I18n.growthpad.channels.task1.title,
+      title: I18n.growthpad.channels.task2.title,
       description: '',
       reward: [16], // 奖励
       children: [
@@ -133,7 +127,7 @@ const data = {
     {
       id: chat.uuid(), // 任务ID
       type: TaskType.compound, // 任务类型
-      title: I18n.growthpad.channels.task1.title,
+      title: I18n.growthpad.channels.task3.title,
       description: '',
       reward: [16], // 奖励
       children: [

@@ -85,7 +85,9 @@ const list = computed(() => {
 
   <div class="mt-6 font-kdFang">
     <h2 class="pb-2">{{ I18n.growthpad.about.projectDetail }}</h2>
-    <p class="detail text-sm">{{ store.about.detail }}</p>
+    <p class="detail text-sm whitespace-pre-line w-full">
+      {{ store.about.detail }}
+    </p>
   </div>
 
   <!-- 大屏 -->
@@ -130,10 +132,6 @@ h2,
   color: #033666;
 }
 .detail {
-  width: 100%;
-  word-break: break-all;
-  overflow: auto;
-  white-space: pre-wrap;
   color: rgba(37, 62, 111, 0.85);
 }
 </style>

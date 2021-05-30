@@ -7,9 +7,10 @@
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import * as chat from './chat'
+import { coinwindInfo } from './projectInfo'
 
 const token = 'MDX'
-const Project = 'CoinWind'
+const Project = coinwindInfo.title
 const website = 'www.coinwind.com'
 const telegramHref = 'https://t.me/CoinWind'
 const twitterHref = 'https://twitter.com/coinwind_com'
@@ -19,17 +20,10 @@ const retwitterHref = 'https://twitter.com/coinwind_com'
 const data = {
   token,
   title: Project, // 名称
-  icon: 'https://www.coinwind.com/favicon.ico', // icon
-  dashboard: {
-    begin: '2021-05-25 12:00:00', // 开始时间
-    end: '2021-05-30 12:00:00', // 结束时间
+  icon: coinwindInfo.icon,
+  dashboard: Object.assign({}, coinwindInfo.dashboard, {
     description: I18n.growthpad.coinwind.dashboard.desc, // 描述
-    reward: {
-      count: 100000, // 奖励数量
-      cost: 1000000, // 价值
-      limits: [100, 500], // 每人可领取范围
-    },
-  },
+  }),
   about: {
     website, // 项目官网
     minutias: [

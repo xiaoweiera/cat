@@ -70,12 +70,12 @@ export default {
   form: {
     address: 'confirm',
     warning: 'Once confirmed, the address can\'t be modified and the reward will be airdrop.',
-    placeholderBsc: 'Please enter your BSC address',
-    placeholderETH: 'Please enter your ETH address',
-    placeholderTelegram: 'Enter your ID to join the telegraph group',
-    twitter: 'Please enter your Twitter ID',
-    retwitter: 'Please enter your Twitter ID',
-    sina: 'Please enter your Sina NickName'
+    placeholderBsc: 'Please enter BSC',
+    placeholderETH: 'Please enter ETH',
+    placeholderTelegram: 'Please enter telegraph ID',
+    twitter: 'Please enter Twitter ID',
+    retwitter: 'Please enter Twitter ID',
+    sina: 'Please enter Weibo name'
   },
   copy: 'Inviting you to register in Kingdata，{url}',
   warning: {
@@ -101,6 +101,11 @@ export default {
     address: {
       placeholder: 'enter your  BSC address receiving',
     },
+    dashboard: {
+      desc: `MDEX 为回馈社区用户，联合 KingData 在 GrowthPad 上开启价值超三十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+
+        活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的BSC钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给与对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
+    },
     about: {
       name: 'MDX',
       exchanges: 'huobi,Binance and etc',
@@ -109,20 +114,26 @@ export default {
       marketValue: '3亿',
       circulation: '3亿',
       luanched: 'HECO/BSC',
-      detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
+//       detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
+//
+// It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
+      detail: `MDEX是基于自动化做市机制的去中心化交易产品，旨在融合多种基础公链的差异化优势，打造高性能复合型DEX生态，以流动性挖矿与交易挖矿的“双重挖矿激励”给予参与者最大化回馈，并通过手续费回购销毁机制实现了自驱式价值捕获生态闭环。
 
-It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
+MDEX致力于打造集DEX、IMO、DAO为一体的DeFi平台，为更多优质资产提供一站式流动性服务，为用户提供更加安全可信、资产多样、高性价比的交易体验。
+
+MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊、波卡生态，不断拓展MDEX生态与社区，让更多DeFi用户享受到MDEX生态的红利。`,
     },
     copy: 'inviting you to participate{title}, Win 1 million dollars award, {url}',
     share: {
-      lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%.'
-    },
-    dashboard: {
-      desc: 'KingData opens a 200,000$ airdrop activity cooperating with MDEX, which set more than 10 tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get reward.',
+      // lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%.'
+      lable: `邀请1名好友参与Growthpad活动，即可瓜分总奖池1%的奖励。
+邀请好友越多，获得奖励越多。
+用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%`
     },
     weibo: {
       label: 'Based on the number of followers:<br/>0-49999 reward 15MDX；49999-99999 reward 100MDX；＞99999 reward 200MDX.',
-      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+      // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
     activity: {
       warning: 'The reward will be air-drop into the address verified,which can not be changed.',
@@ -147,7 +158,8 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
     weibo: {
       label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
-      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+      // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
     share: {
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
@@ -226,7 +238,8 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
     },
     weibo: {
       label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
-      description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+      // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
+      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
 
   }

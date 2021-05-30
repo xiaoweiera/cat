@@ -84,7 +84,7 @@ const getPrice = function(number: string | number): string | number {
       </span>
     </div>
     <div>
-      <p class="description text-sm font-kdFang">
+      <p class="description text-sm font-kdFang whitespace-pre-line">
         {{ store.dashboard.description }}
       </p>
     </div>
