@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { TimeStatus, getTimeStatus } from './task'
+import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
 import I18n from '~/utils/i18n/index'
 
 import Task from '~/logic/growthpad/task'
@@ -15,10 +15,10 @@ const title = computed((): string => {
 })
 
 const minReward = function(array: number[]): number {
-  return Math.min.apply(null, array)
+  return getMin(array)
 }
 const maxReward = function(array: number[]): number {
-  return Math.max.apply(null, array)
+  return getMax(array)
 }
 
 const timeStatus = computed<string>((): string => {
@@ -116,13 +116,25 @@ const getPrice = function(number: string | number): string | number {
           </h4>
           <p class="font-color-theme font-bold font-kdExp">
             <span class="text-2xl md:text-4xl whitespace-nowrap">
-              <span>{{
-                countComputed(minReward(store.dashboard.rewardLimit))
-              }}</span>
-              <span>-</span>
-              <span>{{
-                countComputed(maxReward(store.dashboard.rewardLimit))
-              }}</span>
+              <template
+                v-if="
+                  minReward(store.dashboard.rewardLimit) ===
+                    maxReward(store.dashboard.rewardLimit)
+                "
+              >
+                <span>{{
+                  countComputed(maxReward(store.dashboard.rewardLimit))
+                }}</span>
+              </template>
+              <template v-else>
+                <span>{{
+                  countComputed(minReward(store.dashboard.rewardLimit))
+                }}</span>
+                <span>~</span>
+                <span>{{
+                  countComputed(maxReward(store.dashboard.rewardLimit))
+                }}</span>
+              </template>
             </span>
             <span class="ml-1.5">{{ store.token }}</span>
           </p>

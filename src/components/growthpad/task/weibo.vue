@@ -94,7 +94,7 @@ const rules: any = {
   <div>
     <GrowthpadTaskTitle :data="data">
       <template v-if="data.description" #desc>
-        <span class="block pt-3">{{ data.description }}</span>
+        <span class="block pt-2">{{ data.description }}</span>
       </template>
     </GrowthpadTaskTitle>
     <el-form

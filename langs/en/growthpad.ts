@@ -11,7 +11,8 @@ export default {
     about: '≈',
     count: 'reward',
     value: 'reward value',
-    perPerson: 'Acquire for each',
+    // perPerson: 'Acquire for each',
+    perPerson: '每人最高可领取',
     total: 'Reward {count} MDX',
     maxTotal: '{count} MDX at maximum',
     finished: 'finished all tasks: {reward}（TOP 1000 users）',
@@ -19,8 +20,18 @@ export default {
   },
   register: 'Information Registration',
   submit: 'register',
+  // address: {
+  //   placeholder: 'enter your  BSC address receiving',
+  // },
   address: {
-    placeholder: 'enter your  BSC address receiving',
+    warning: '请先完成信息登记',
+    iCard: '您登记的奖励领取地址为：',
+    reward: '预计获得奖励：',
+    confirm: '地址确认',
+    invalid: '地址无效',
+    tips: '地址一旦确认不可修改',
+    notify1: '* 请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。',
+    notify2: '* 奖励将于活动结束后统一发放到您的奖励接收地址，持仓量相关任务奖励直接发放至验证地址。'
   },
   about: {
     title: '{project} Exchange',
@@ -102,38 +113,35 @@ export default {
       placeholder: 'enter your  BSC address receiving',
     },
     dashboard: {
-      desc: `MDEX 为回馈社区用户，联合 KingData 在 GrowthPad 上开启价值超三十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `In order to thank communities for the support, on GrowthPad MDEX carries out a $300,000 motivating activity cooperating with KingData.
 
-        活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的BSC钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给与对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
+      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their BSC address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.
+`,
     },
     about: {
       name: 'MDX',
       exchanges: 'huobi,Binance and etc',
-      online: '2021年1月19日',
-      count: '10亿',
-      marketValue: '3亿',
-      circulation: '3亿',
+      online: '1/19/2021',
+      count: '100 millions',
+      marketValue: '30 millions',
+      circulation: '30 millions',
       luanched: 'HECO/BSC',
 //       detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
 //
 // It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
-      detail: `MDEX是基于自动化做市机制的去中心化交易产品，旨在融合多种基础公链的差异化优势，打造高性能复合型DEX生态，以流动性挖矿与交易挖矿的“双重挖矿激励”给予参与者最大化回馈，并通过手续费回购销毁机制实现了自驱式价值捕获生态闭环。
+      detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
 
-MDEX致力于打造集DEX、IMO、DAO为一体的DeFi平台，为更多优质资产提供一站式流动性服务，为用户提供更加安全可信、资产多样、高性价比的交易体验。
-
-MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊、波卡生态，不断拓展MDEX生态与社区，让更多DeFi用户享受到MDEX生态的红利。`,
+It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
     },
     copy: 'inviting you to participate{title}, Win 1 million dollars award, {url}',
     share: {
-      // lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%.'
-      lable: `邀请1名好友参与Growthpad活动，即可瓜分总奖池1%的奖励。
-邀请好友越多，获得奖励越多。
-用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%`
+      title: 'Invite one and divide up 1% of bonus pool.',
+      lable: `Invite more and reward more.
+      The amount of reward = the number that you invite/total numbers*1%total bonus. `
     },
     weibo: {
       label: 'Based on the number of followers:<br/>0-49999 reward 15MDX；49999-99999 reward 100MDX；＞99999 reward 200MDX.',
-      // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
-      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+      description: 'mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.',
     },
     activity: {
       warning: 'The reward will be air-drop into the address verified,which can not be changed.',
@@ -154,12 +162,13 @@ MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊�
 
     },
     dashboard: {
-      desc: 'KingData opens a lot of rewards airdrop cooperating with USDT, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get USDT reward.'
+      desc: 'Channels 为回馈社区用户，联合 KingData 在 GrowthPad 上开启价值超十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。        \n' +
+        '活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的Heco钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给与对应USDT奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的USDT奖励会发放到您验证持仓的地址中。'
     },
     weibo: {
       label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
       // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
-      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+      description: 'mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
     },
     share: {
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
@@ -167,10 +176,10 @@ MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊�
     about: {
       name: 'USDT',
       exchanges: 'huobi,Binance and etc',
-      online: '2014年11月26日',
-      count: '602.71亿',
-      marketValue: '602.71亿',
-      circulation: '3亿',
+      online: '11/26/2014',
+      count: '602,71 millions',
+      marketValue: '602,71 millions',
+      circulation: '30 millions',
       luanched: 'HTH/Omni',
       detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
@@ -239,7 +248,7 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
     weibo: {
       label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
       // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
-      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+      description: 'mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
     },
 
   }

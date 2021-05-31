@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+// @ts-ignore
 import { makeDescription } from './task'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
@@ -21,7 +22,14 @@ const href = computed(() => {
     <div class="font-kdFang">
       <div class="pb-1">
         <span
-          class="text-sm title inline-block align-middle whitespace-pre-line"
+          class="
+            text-sm
+            title
+            label
+            inline-block
+            align-middle
+            whitespace-pre-line
+          "
           v-html="data.title"
         ></span>
         <template v-if="data.tooltip">
@@ -73,6 +81,12 @@ span {
 }
 .title {
   color: #033666;
+}
+.label {
+  :deep(i) {
+    font-style: normal;
+    color: rgba(37, 62, 111, 0.35);
+  }
 }
 .description {
   color: rgba(37, 62, 111, 0.35);

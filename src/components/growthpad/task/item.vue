@@ -48,7 +48,7 @@ const isWeibo = computed((): boolean => {
           :name="data.id"
         />
       </template>
-      <label class="task-content block" :for="data.id">
+      <label class="task-content block" :for="!isAllIn ? data.id : ''">
         <GrowthpadTaskTitle
           :data="data"
           class="flex justify-between items-center"

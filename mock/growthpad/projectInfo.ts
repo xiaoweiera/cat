@@ -12,7 +12,7 @@ export const mdxInfo = {
     reward: {
       count: 100000, // 奖励数量
       cost: 1000000, // 价值
-      limits: [100, 500], // 每人可领取范围
+      limits: [348], // 每人可领取范围
     },
   },
 }

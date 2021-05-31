@@ -249,6 +249,7 @@ export default class Store {
     if (time < 3000 || isNaN(time)) {
       time = 3000
     }
+    console.log(this.reward)
     this.timeout = setTimeout(() => {
       return this.init()
     }, time)
@@ -268,10 +269,9 @@ export default class Store {
   async init(): Promise<void> {
     this.clearTimeout()
     try {
-      if (isLogin.value) {
-        const result = await API.getProjectInfo(this.projectName)
-        this.updateData(result)
-      }
+      const result = await API.getProjectInfo(this.projectName)
+      this.updateData(result)
+      return
     } catch (e) {
       // todo
     }

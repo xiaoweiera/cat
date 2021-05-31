@@ -55,7 +55,7 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.vip, // 任务类型
       title: I18n.template(I18n.growthpad.vip.activity, { project: Project }),
-      description: I18n.growthpad.reward.finished,
+      description: I18n.template(I18n.growthpad.reward.finished, { count: 1000, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {
@@ -74,7 +74,7 @@ const data = {
       id: chat.uuid(),
       type: TaskType.pancake,
       title: I18n.growthpad.mdx.activity.pancake,
-      description: I18n.growthpad.reward.anytask,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 1000, reward: '{reward}' }),
       reward: [5, 15],
       children: [
         {
@@ -92,7 +92,7 @@ const data = {
       id: chat.uuid(),
       type: TaskType.uniswap,
       title: I18n.growthpad.mdx.activity.uniswap,
-      description: I18n.growthpad.reward.anytask,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 1000, reward: '{reward}' }),
       reward: [5, 15],
       children: [
         {
@@ -110,7 +110,7 @@ const data = {
       id: chat.uuid(),
       type: TaskType.sushiswap,
       title: I18n.growthpad.mdx.activity.sushiswap,
-      description: I18n.growthpad.reward.anytask,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 1000, reward: '{reward}' }),
       reward: [5, 15],
       children: [
         {
@@ -128,14 +128,15 @@ const data = {
       id: chat.uuid(),
       type: TaskType.weibo,
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
-      reward: [15, 200],
+      reward: [100, 200],
       children: [],
     },
     // 任务 5
     {
       id: chat.uuid(),
       type: TaskType.allin,
-      title: I18n.growthpad.invited.partake,
+      // title: I18n.growthpad.invited.partake,
+      title: I18n.growthpad.mdx.share.title,
       children: [
         {
           title: I18n.growthpad.mdx.share.lable,

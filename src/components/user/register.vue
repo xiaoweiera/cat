@@ -129,16 +129,20 @@ const onGetCode = function() {
       </el-input>
     </el-form-item>
     <el-form-item>
-      <span>{{ I18n.common.user.read }}</span>
-      <a
-        class="link"
-        target="_blank"
-        href="https://ikingdata.com/privacy_policy/"
-      >{{ I18n.common.user.agreement }}</a>
-      <span class="defaultText">{{ I18n.common.and }}</span>
-      <a class="link" target="_blank" href="https://ikingdata.com/agreement/">{{
-        I18n.common.user.terms
-      }}</a>
+      <div class="register-box">
+        <span class="inline-block">{{ I18n.common.user.read }}</span>
+        <a
+          class="link inline-block"
+          target="_blank"
+          href="https://ikingdata.com/privacy_policy/"
+        >{{ I18n.common.user.agreement }}</a>
+        <span class="defaultText inline-block">{{ I18n.common.and }}</span>
+        <a
+          class="link inline-block"
+          target="_blank"
+          href="https://ikingdata.com/agreement/"
+        >{{ I18n.common.user.terms }}</a>
+      </div>
     </el-form-item>
     <el-form-item class="mb-0">
       <ElButton class="w-full" type="primary" native-type="submit">
@@ -170,9 +174,12 @@ const onGetCode = function() {
   color: #2b8cff;
 }
 .line-auto {
-  line-height: inherit;
+  line-height: initial;
 }
 .font-17 {
   font-size: 17px;
+}
+.register-box {
+  line-height: initial;
 }
 </style>
