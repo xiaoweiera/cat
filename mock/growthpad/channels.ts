@@ -162,6 +162,16 @@ const data = {
         )
       ],
     },
+    {
+      id: chat.uuid(),
+      type: TaskType.allin,
+      title: I18n.growthpad.invited.partake,
+      children: [
+        {
+          title: I18n.growthpad.mdx.share.lable,
+        },
+      ],
+    }
   ],
 }
 
