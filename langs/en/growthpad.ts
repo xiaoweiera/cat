@@ -121,13 +121,10 @@ export default {
       name: 'MDX',
       exchanges: 'Huobi,Binance and etc',
       online: '1/19/2021',
-      count: '100 millions',
-      marketValue: '30 millions',
-      circulation: '30 millions',
+      count: '1 billion',
+      marketValue: '300 millions',
+      circulation: '300 millions',
       luanched: 'HECO/BSC',
-//       detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
-//
-// It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
       detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
 
 It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
@@ -162,13 +159,12 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
 
     },
     dashboard: {
-      desc: `In order to reward long-term support of communities, on GrowthPad Channels carries out a $100,000 motivating activity cooperating with KingData.
+      desc: `In order to reward long-term support of communities, on GrowthPad Channels carries out a $100,000 motivating activity cooperating with KingData.For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward.
 
-      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their Heco address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
+      The rules: before the start, participant needs to login in Kingdata and input their Heco address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     weibo: {
       label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
-      // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
       description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
     },
     share: {
@@ -178,9 +174,9 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       name: 'USDT',
       exchanges: 'Huobi,Binance and etc',
       online: '11/26/2014',
-      count: '602,71 millions',
-      marketValue: '602,71 millions',
-      circulation: '30 millions',
+      count: '60,271 millions',
+      marketValue: '60,271 millions',
+      circulation: '300 millions',
       luanched: 'HTH/Omni',
       detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
@@ -228,30 +224,23 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their BSC address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     task1: {
-      // title: 'KingData注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
       title: 'Become Kingdata VIP; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.'
     },
     task2: {
-      // title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
       title: 'Holding value more than 10K USDT in PanCake Bunny; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
-      // description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
       description: 'Finished one of tasks: <i>reward 1MDX</i> (top 500 users)',
       condition1: 'Qualification:Holding value more than 10K USDT in PanCake Bunny',
     },
     task3: {
-      // title: 'autofarm持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
       title: 'Holding value more than 10K USDT in autofarm; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
       condition1: 'Qualification:Holding value more than 10K USDT in autofarm',
     },
     task4: {
-      // title: 'Belt.fit持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
       title: 'Holding value more than 10K USDT in Belt.fit; join CoinWind telegram; follow CoinWind Twitter and repost the twitter about the activity.',
       condition1: 'Qualification:Holding value more than 10K USDT in Belt.fit',
     },
     weibo: {
-      // label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
       label: 'Based on the number of followers: Smaller than 50K reward 3MDX(top 500 users), 50K-100K reward 30MDX, greater than 100K reward 100MDX',
-      // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
       description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
     },
 

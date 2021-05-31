@@ -70,9 +70,11 @@ const href = computed(() => {
 </template>
 
 <style scoped lang="scss">
+/*
 span {
   user-select: none;
 }
+*/
 .tooltip {
   border: 1px solid rgba(43, 141, 254, 0.32);
   box-sizing: border-box;
@@ -90,7 +92,7 @@ span {
 }
 .description {
   color: rgba(37, 62, 111, 0.35);
-  user-select: none;
+  /*user-select: none;*/
   :deep(i) {
     font-style: normal;
     font-weight: normal;
