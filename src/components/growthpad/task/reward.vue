@@ -16,41 +16,133 @@ const isWeibo = computed((): boolean => {
   return props.data?.type === TaskType.weibo
 })
 
-const getBase = function(): boolean {
-  if (store.mission.telegram_group) {
-    if (store.mission.retweet) {
-      if (store.mission.follow_twitter) {
-        return true
+interface ItemTask {
+  type: TaskType
+  reward: number[]
+  [key: string]: any
+}
+
+const clacRewardCount = function(list: Array<ItemTask>): number {
+  let count = 0
+  for (let i = 0, len = list.length; i < len; i++) {
+    const item: ItemTask = list[i]
+    if (item.reward) {
+      count += getMin(item.reward)
+    }
+  }
+  return count
+}
+
+// 计算奖励
+// @ts-ignore
+const rewardValue = computed<number>((): number => {
+  // @ts-ignore
+  const children = props.data.children
+  // Vip 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.vip) {
+    // 验证是否为 Vip
+    if (userData.is_vip) {
+      // 验证是否完成任务
+      if (
+        store.mission.telegram_group
+        && store.mission.retweet
+        && store.mission.follow_twitter
+      ) {
+        // 返回奖励
+        // @ts-ignore
+        return getMin(props.data.reward)
       }
     }
   }
-  return false
-}
-
-const rewardValue = computed<number>((): number => {
-  // 第一个任务
-  if (props.data.type === TaskType.vip) {
-    if (userData.is_vip && getBase()) {
-      return getMin(props.data.reward)
-    }
-  }
-  // 第二个任务
+  // PanCake Swap 任务
+  // @ts-ignore
   if (props.data.type === TaskType.pancake) {
-    if (store.user.pancake_token && getBase()) {
-      return getMin(props.data.reward)
+    // 验证 pancake token 地址是否已填写
+    if (store.user.pancake_token) {
+      return clacRewardCount(children)
     }
   }
-  // 第三个任务
+  // Uniswap 任务
+  // @ts-ignore
   if (props.data.type === TaskType.uniswap) {
-    if (store.user.uniswap_token && getBase()) {
-      return getMin(props.data.reward)
+    if (store.mission.uniswap) {
+      return clacRewardCount(children)
     }
   }
 
-  // 第四个任务
+  // Sushiswap 任务
+  // @ts-ignore
   if (props.data.type === TaskType.sushiswap) {
-    if (store.user.sushiswap_token && getBase()) {
-      return getMin(props.data.reward)
+    if (store.mission.sushiswap) {
+      return clacRewardCount(children)
+    }
+  }
+
+  // autofarm 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.autofarm) {
+    if (store.mission.autofarm) {
+      return clacRewardCount(children)
+    }
+  }
+
+  // autofarm 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.beltfit) {
+    if (store.mission.belt) {
+      return clacRewardCount(children)
+    }
+  }
+
+  // venus 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.venus) {
+    if (store.user.venus_token) {
+      // 验证是否完成任务
+      if (
+        store.mission.telegram_group
+        && store.user.weibo
+        && store.mission.follow_twitter
+      ) {
+        // 返回奖励
+        // @ts-ignore
+        return getMin(props.data.reward)
+      }
+    }
+  }
+
+  // Cream 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.cream) {
+    if (store.user.cream_token) {
+      // 验证是否完成任务
+      if (
+        store.mission.telegram_group
+        && store.user.weibo
+        && store.mission.follow_twitter
+      ) {
+        // 返回奖励
+        // @ts-ignore
+        return getMin(props.data.reward)
+      }
+    }
+  }
+
+  // Cream 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.compound) {
+    if (store.user.compound_token) {
+      // 验证是否完成任务
+      if (
+        store.mission.telegram_group
+        && store.user.weibo
+        && store.mission.follow_twitter
+      ) {
+        // 返回奖励
+        // @ts-ignore
+        return getMin(props.data.reward)
+      }
     }
   }
   return 0

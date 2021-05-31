@@ -12,6 +12,7 @@ const props = defineProps({
   },
 })
 
+// 是否展示奖励
 const showReward = computed<boolean>((): boolean => {
   if (props?.data?.reward) {
     const value = getMax([].concat(props.data.reward))
