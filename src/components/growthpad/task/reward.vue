@@ -5,6 +5,7 @@ import { getMin, getMax } from './task'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
+import { Project } from '~/api/growtask'
 const store = Task()
 const props = defineProps({
   data: {
@@ -27,7 +28,18 @@ const clacRewardCount = function(list: Array<ItemTask>): number {
   for (let i = 0, len = list.length; i < len; i++) {
     const item: ItemTask = list[i]
     if (item.reward) {
-      count += getMin(item.reward)
+      if (item.type === TaskType.telegram && store.mission.telegram_group) {
+        count += getMin(item.reward)
+      }
+      if (item.type === TaskType.retwitter && store.mission.retweet) {
+        count += getMin(item.reward)
+      }
+      if (item.type === TaskType.twitter && store.mission.telegram_group) {
+        count += getMin(item.reward)
+      }
+      if (item.type === TaskType.sina && store.mission.follow_weibo) {
+        count += getMin(item.reward)
+      }
     }
   }
   return count

@@ -24,6 +24,8 @@ const addressEnum = {
 
   autofarm: 'setAutofarm',
   beltfit: 'setBeltfit',
+
+  bunny: 'setBunny',
 }
 
 const props = defineProps({

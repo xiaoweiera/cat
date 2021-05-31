@@ -25,6 +25,8 @@ enum TaskType {
   // coinwind
   autofarm = 'autofarm',
   beltfit = 'belt.fit',
+
+  bunny = 'bunny',
 }
 
 export default TaskType

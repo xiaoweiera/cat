@@ -80,13 +80,13 @@ const data = {
     },
     {
       id: chat.uuid(), // 任务ID
-      type: TaskType.pancake, // 任务类型
+      type: TaskType.bunny, // 任务类型
       title: I18n.growthpad.coinwind.task2.title,
       description: I18n.growthpad.coinwind.task2.description,
       reward: [3], // 奖励
       children: [
         {
-          type: TaskType.pancake,
+          type: TaskType.bunny,
           title: I18n.growthpad.coinwind.task2.condition1,
           description: I18n.growthpad.mdx.activity.warning,
         },

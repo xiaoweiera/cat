@@ -229,7 +229,7 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.compound">
       <!-- 判断 compound 验资是否通过 -->
-      <IconFont v-if="store.user.compound_token" type="success"></IconFont>
+      <IconFont v-if="store.mission.compound" type="success"></IconFont>
       <GrowthpadTaskSubText
         v-else
         :data="data"
@@ -270,6 +270,24 @@ const validityValue = computed<string>((): string => {
         v-else
         :data="data"
         name="beltfit"
+        :placeholder="I18n.growthpad.form.placeholderBsc"
+        :confirm="true"
+      >
+        <span v-login class="inline-flex">
+          <span v-validity.begin.end="validityValue" class="button">{{
+            buttonValue
+          }}</span>
+        </span>
+      </GrowthpadTaskSubText>
+    </template>
+
+    <template v-else-if="data.type === TaskType.bunny">
+      <!-- 判断 compound 验资是否通过 -->
+      <IconFont v-if="store.mission.bunny" type="success"></IconFont>
+      <GrowthpadTaskSubText
+        v-else
+        :data="data"
+        name="bunny"
         :placeholder="I18n.growthpad.form.placeholderBsc"
         :confirm="true"
       >

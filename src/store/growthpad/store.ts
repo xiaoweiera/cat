@@ -70,6 +70,7 @@ interface User {
   venus_token: string // venus token 地址
   cream_token: string // cream token 地址
   compound_token: string // compound token 地址
+  bunny_token: string // bunny token 地址
 }
 
 interface Mission {
@@ -84,6 +85,12 @@ interface Mission {
   belt: boolean // belt.fit
 
   follow_weibo: boolean // 是否关注微博
+
+  venus: boolean // venus 验资
+  compound: boolean // compound 验资
+  cream: boolean // cream 验资
+
+  bunny: boolean
 }
 
 export default class Store {
@@ -126,6 +133,7 @@ export default class Store {
     venus_token: '', // venus token 地址
     cream_token: '', // cream token 地址
     compound_token: '', // compound token 地址
+    bunny_token: '', // bunny token 地址
   })
 
   // 完成状态
@@ -139,6 +147,10 @@ export default class Store {
     autofarm: false, // autofarm
     belt: false, // belt.fit
     follow_weibo: false, // 是否关注微博
+    venus: false, // venus 验资
+    compound: false, // compound 验资
+    cream: false, // cream 验资
+    bunny: false, // bunny 验资料
   })
 
   public article_url = ref<string>('article_url') // 用户上传的文章链接
@@ -224,6 +236,7 @@ export default class Store {
       this.user.venus_token = user.venus_token
       this.user.cream_token = user.cream_token
       this.user.compound_token = user.compound_token
+      this.user.bunny_token = user.bunny_token
     }
     if (mission) {
       this.mission.follow_twitter = !!mission.follow_twitter
@@ -235,6 +248,10 @@ export default class Store {
       this.mission.autofarm = !!mission.autofarm
       this.mission.belt = !!mission.belt
       this.mission.follow_weibo = !!mission.follow_weibo
+      this.mission.venus = !!mission.venus // venus 验资
+      this.mission.compound = !!mission.compound // compound 验资
+      this.mission.cream = !!mission.cream // cream 验资
+      this.mission.bunny = !!mission.bunny
     }
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')
@@ -249,7 +266,6 @@ export default class Store {
     if (time < 3000 || isNaN(time)) {
       time = 3000
     }
-    console.log(this.reward)
     this.timeout = setTimeout(() => {
       return this.init()
     }, time)
@@ -457,6 +473,20 @@ export default class Store {
     try {
       const token = this.user.bsc_token
       const result = await API.setBeltfit(this.projectName, token, value)
+      this.updateData(result)
+      return result
+    } catch (e) {
+      this.updateData()
+      return Promise.reject(e)
+    }
+  }
+
+  // 设置 bunny
+  async setBunny(value: string): Promise<void> {
+    this.clearTimeout()
+    try {
+      const token = this.user.bsc_token
+      const result = await API.setBunny(this.projectName, token, value)
       this.updateData(result)
       return result
     } catch (e) {
