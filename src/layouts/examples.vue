@@ -9,14 +9,16 @@
 </template>
 
 <style scoped lang="scss">
-.examples {
-  $image: '/assets/growthpad/examples/background.png';
-  background: url($image) top center / 100% auto no-repeat,
+.containerbgs {
+  $image: 'https://res.ikingdata.com/static/growthpad_bg.png';
+  background: url($image) top right / contain no-repeat,
     radial-gradient(
       49.91% 49.91% at 50.09% 50.09%,
       rgba(43, 141, 254, 0.1) 0%,
       rgba(43, 141, 254, 0) 100%
     );
+}
+.examples {
   max-width: 1000px;
   margin: 0 auto;
 }
