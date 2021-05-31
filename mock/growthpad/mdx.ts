@@ -128,7 +128,7 @@ const data = {
       id: chat.uuid(),
       type: TaskType.weibo,
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
-      reward: [100, 200],
+      reward: [15, 200],
       children: [],
     },
     // 任务 5

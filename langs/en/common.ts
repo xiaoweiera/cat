@@ -30,21 +30,21 @@ export default {
     verification: 'Please enter the verification code',
     password: 'Please input a password',
   },
-  and: 'and',
-  join: 'join',
-  follow: 'follow',
-  repost: 'repost',
-  activity: 'activity',
+  and: 'And',
+  join: 'Join',
+  follow: 'Follow',
+  repost: 'Repost',
+  activity: 'Activity',
   user: {
     invite: 'Please enter the invitation code',
     read: 'Please read before registration',
-    agreement: 'service agreement',
-    terms: 'terms of service'
+    agreement: 'Service agreement',
+    terms: 'Terms of service'
   },
   chat: {
-    telegram: 'telegram',
-    telegramGroup: 'telegram Group',
+    telegram: 'Telegram',
+    telegramGroup: 'Telegram Group',
     twitter: 'Twitter',
-    sina: 'weibo'
+    sina: 'Weibo'
   }
 }

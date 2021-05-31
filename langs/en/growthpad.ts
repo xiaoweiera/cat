@@ -113,10 +113,9 @@ export default {
       placeholder: 'Enter your  BSC address receiving',
     },
     dashboard: {
-      desc: `In order to thank communities for the support, on GrowthPad MDEX carries out a $300,000 motivating activity cooperating with KingData.
+      desc: `In order to reward long-term support of communities, on GrowthPad MDEX carries out a $300,000 motivating activity cooperating with KingData.
 
-      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their BSC address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.
-`,
+      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their BSC address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     about: {
       name: 'MDX',
@@ -140,7 +139,8 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       The amount of reward = the number that you invite/total numbers*1%total bonus. `
     },
     weibo: {
-      label: 'Based on the number of followers:<br/>0-49999 reward 15MDX；49999-99999 reward 100MDX；＞99999 reward 200MDX.',
+      label: `Based on the number of followers:
+      Smaller than 50K reward 15MDX；50K-10K reward 100MDX；bigger than 10K reward 200MDX.`,
       description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.',
     },
     activity: {
@@ -162,8 +162,9 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
 
     },
     dashboard: {
-      desc: 'Channels 为回馈社区用户，联合 KingData 在 GrowthPad 上开启价值超十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。        \n' +
-        '活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的Heco钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给与对应USDT奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的USDT奖励会发放到您验证持仓的地址中。'
+      desc: `In order to reward long-term support of communities, on GrowthPad Channels carries out a $100,000 motivating activity cooperating with KingData.
+
+      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their Heco address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     weibo: {
       label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
@@ -216,13 +217,15 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
     copy: 'Inviting you to participate in {title}, Win 1 million dollars award, {url}',
     share: {
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%',
-      title: 'CoinWind Lucky bonus',
+      title: 'CoinWind Lucky Bonus',
       users: 'Number of users i invite(CoinWind):',
       invite: 'The user invites the  most number of users participate CoinWind growth can get 1% of bonus pool',
       desc: '* Invitee needs to complete one of tasks in CoinWind, whcih can be counted. ',
     },
     dashboard: {
-      desc: 'KingData opens a 100,000$ airdrop and Coinwind Luck bonus cooperating with MDEX, which set many tasks and let everyone have opportunity to participate. After the activity ends, the users completing tasks will get MDX reward.',
+      desc: `In order to reward long-term support of communities, on GrowthPad Coinwind carries out a $200,000 motivating activity cooperating with KingData.
+
+      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their BSC address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     task1: {
       // title: 'KingData注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
@@ -246,7 +249,8 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       condition1: 'Qualification:Holding value more than 10K USDT in Belt.fit',
     },
     weibo: {
-      label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
+      // label: 'Based on the number of followers <br/>0-49999 reward 3MDX(top 500 users)；49999-99999 reward 30MDX；＞99999 reward 100MDX.',
+      label: 'Based on the number of followers: Smaller than 50K reward 3MDX(top 500 users), 50K-100K reward 30MDX, greater than 100K reward 100MDX',
       // description: 'Publishing to mainstream media can be regard as completing.Depending on the manual check, you can only get one reward above.',
       description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
     },

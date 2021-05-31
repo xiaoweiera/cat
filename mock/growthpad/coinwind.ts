@@ -59,7 +59,7 @@ const data = {
         {
           type: TaskType.vip,
           title: I18n.template(I18n.growthpad.vip.invite, { group: 'KingData' }),
-          description: ''
+          description: I18n.growthpad.vip.description, // 帮助信息
         },
         chat.telegram(
           Project,
