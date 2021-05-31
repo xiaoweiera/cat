@@ -83,7 +83,7 @@ export default {
     retwitter: '请输入 Twitter ID',
     sina: '请输入您的微博昵称'
   },
-  copy: '邀请你注册Kingdata，{url}',
+  copy: '邀请你注册 Kingdata，{url}',
   warning: {
     telegram: '活动结束前退出电报群视为未完成任务',
     follow: '活动结束前取消关注视为未完成任务',
@@ -109,9 +109,9 @@ export default {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
     dashboard: {
-      desc: `MDEX 为奖励长期支持MDEX的用户，联合 KingData 在 GrowthPad 上开启价值超三十万美元的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超三十万美元的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-        活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的BSC钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
+        活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
     about: {
       name: 'MDX',
@@ -121,15 +121,15 @@ export default {
       marketValue: '3亿',
       circulation: '3亿',
       luanched: 'HECO/BSC',
-      detail: `MDEX是基于自动化做市机制的去中心化交易产品，旨在融合多种基础公链的差异化优势，打造高性能复合型DEX生态，以流动性挖矿与交易挖矿的“双重挖矿激励”给予参与者最大化回馈，并通过手续费回购销毁机制实现了自驱式价值捕获生态闭环。
+      detail: `MDEX 是基于自动化做市机制的去中心化交易产品，旨在融合多种基础公链的差异化优势，打造高性能复合型DEX生态，以流动性挖矿与交易挖矿的“双重挖矿激励”给予参与者最大化回馈，并通过手续费回购销毁机制实现了自驱式价值捕获生态闭环。
 
-MDEX致力于打造集DEX、IMO、DAO为一体的DeFi平台，为更多优质资产提供一站式流动性服务，为用户提供更加安全可信、资产多样、高性价比的交易体验。
+MDEX 致力于打造集DEX、IMO、DAO为一体的DeFi平台，为更多优质资产提供一站式流动性服务，为用户提供更加安全可信、资产多样、高性价比的交易体验。
 
-MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊、波卡生态，不断拓展MDEX生态与社区，让更多DeFi用户享受到MDEX生态的红利。`,
+MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太坊、波卡生态，不断拓展 MDEX 生态与社区，让更多 DeFi 用户享受到 MDEX 生态的红利。`,
     },
     copy: '邀请您参与{title}，赢取百万美元奖励，{url}',
     share: {
-      title: '邀请1名好友参与Growthpad活动，即可瓜分总奖池1%的奖励。',
+      title: '邀请1名好友参与 Growthpad 活动，即可瓜分总奖池1%的奖励。',
       lable: `邀请好友越多，获得奖励越多。
 <i>用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%</i>`
     },
@@ -142,15 +142,15 @@ MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊�
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
-      pancake: 'PanCake Swap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      pancakeCondition: '任务资格：Pancake swap 持仓价值超过1万U',
+      pancake: 'PanCake Swap 提供流动性（TVL）超过1万U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      pancakeCondition: '任务资格：Pancake swap 提供流动性（TVL）超过1万U',
 
 
-      uniswap: 'Uniswap 持仓价值超过 1万 U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      uniswapCondition: '任务资格 Uniswap 持仓价值超过1万U',
+      uniswap: 'Uniswap 提供流动性（TVL）超过1万U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      uniswapCondition: '任务资格 Uniswap 提供流动性（TVL）超过1万U',
 
-      sushiswap: 'Sushiswap 持仓价值超过 1万 U，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
-      sushiswapCondition: '任务资格：Sushiswap 持仓价值超过1万U',
+      sushiswap: 'Sushiswap 提供流动性（TVL）超过1万U，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
+      sushiswapCondition: '任务资格：Sushiswap 提供流动性（TVL）超过1万U',
     },
   },
   channels: {
@@ -161,7 +161,7 @@ MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊�
     dashboard: {
       desc: `Channels 为奖励长期支持Channels的用户，联合 KingData 在 GrowthPad 上开启价值超十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-        活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的Heco钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应USDT奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的USDT奖励会发放到您验证持仓的地址中。`
+        活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 Heco 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应USDT奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的USDT奖励会发放到您验证持仓的地址中。`
     },
     weibo: {
       label: `根据粉丝数获得奖励：
@@ -206,40 +206,40 @@ MDEX以HECO生态链为起点，MDEX会将成功经验不断复制到以太坊�
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
     about: {
-      detail: `CoinWind是一个DeFi智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP挖矿无常损失大等风险问题。
+      detail: `CoinWind 是一个DeFi智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP挖矿无常损失大等风险问题。
 
-CoinWind旨在打造一个DeFi数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind产品会通过组合策略有效降低流动性挖矿中的无常损失。
+CoinWind 旨在打造一个DeFi数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind 产品会通过组合策略有效降低流动性挖矿中的无常损失。
 
-CoinWind首发Heco生态链，之后将跨多条主链如ETH、BSC等运行。`,
+CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行。`,
     },
     copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
     share: {
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
       title: 'CoinWind 专属活动增长大使（lucky bonus）奖励',
       users: '我的邀请人数(CoindWind专场)：',
-      invite: '邀请人数最多的用户与完成CoinWind任务获得奖励最多的用户将共同瓜分专场奖金池的 1%',
+      invite: '邀请人数最多的用户与完成 CoinWind 任务获得奖励最多的用户将共同瓜分专场奖金池的 1%',
       desc: '* 被邀请人需完成 1 个 CoinWind 专场任务才视为 1 个有效邀请人数。'
     },
     dashboard: {
-      desc: `CoinWind 为奖励长期支持Channels的用户，联合 KingData 在 GrowthPad 上开启价值超二十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超二十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-活动规则：开始任务前需要先登录KingData账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX  奖励会发放到您验证持仓的地址中。`,
+活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX  奖励会发放到您验证持仓的地址中。`,
     },
     task1: {
       title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。'
     },
     task2: {
-      title: 'Pancake Bunny持仓价值超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      title: 'Pancake Bunny 提供流动性（TVL）超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
       description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
-      condition1: '任务资格：Pancake Bunny 持仓价值超过1万U',
+      condition1: '任务资格：Pancake Bunny 提供流动性（TVL）超过1万U',
     },
     task3: {
-      title: 'autofarm持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
-      condition1: '任务资格：autofarm 持仓价值超过1万U',
+      title: 'autofarm 提供流动性（TVL）超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      condition1: '任务资格：autofarm 提供流动性（TVL）超过1万U',
     },
     task4: {
-      title: 'Belt.fit持仓价值超过 1万 U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
-      condition1: '任务资格：Belt.fit 持仓价值超过1万U',
+      title: 'Belt.fit 提供流动性（TVL）超过1万U; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的Twitter。',
+      condition1: '任务资格：Belt.fit 提供流动性（TVL）超过1万U',
     },
     weibo: {
       label: `根据粉丝数获得奖励：

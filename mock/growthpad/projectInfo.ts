@@ -18,7 +18,7 @@ export const mdxInfo = {
 }
 export const coinwindInfo = {
   title: 'CoinWind', // 名称
-  icon: 'https://www.coinwind.com/favicon.ico', // icon
+  icon: 'https://res.ikingdata.com/icon/coinwind.png', // icon
   url: 'https://ikingdata.com/growthpad/COINWIND',
   coin: 'MDX',
   dashboard: {
