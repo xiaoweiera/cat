@@ -10,10 +10,19 @@ import TaskType from '~/logic/growthpad/tasktype'
 import * as chat from './chat'
 const Project = mdxInfo.title
 
+/*
+MDEX链接
+项目官网：https://mdex.com/
+telegram链接：t.me/Can
+twitter链接：https://www.twitter.com/Mdextech
+media链接：https://mdex.medium.com/
+discord链接：https://discord.com/invite/3TYDPktjqC
+ */
+
 const token = 'MDX'
 const website = 'mdex.com'
-const telegramHref = 'https://t.me/MixDex'
-const twitterHref = 'https://twitter.com/Mdextech'
+const telegramHref = 'https://t.me/Can'
+const twitterHref = 'https://www.twitter.com/Mdextech'
 const retwitterHref = 'https://twitter.com/Mdextech/status/1395323254974214150'
 
 const data = {
@@ -45,7 +54,9 @@ const data = {
       { icon: 'github', href: 'https://github.com/mdexSwap' },
       { icon: 'telegram', href: telegramHref },
       { icon: 'twitter', href: twitterHref },
+      // media链接
       { icon: 'vector', href: 'https://mdex.medium.com/' },
+      // discord链接
       { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
     ],
   },

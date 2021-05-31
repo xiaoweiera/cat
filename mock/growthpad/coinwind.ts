@@ -9,10 +9,22 @@ import TaskType from '~/logic/growthpad/tasktype'
 import * as chat from './chat'
 import { coinwindInfo } from './projectInfo'
 
+/**
+ CoinWind链接
+ 项目官网：https://www.coinwind.com/
+ telegram中文链接：https://t.me/coinwind_cn
+ telegram英文链接：https://t.me/CoinWind
+
+ twitter链接：https://twitter.com/coinwind_com
+ media链接：https://medium.com/coinwind
+ discord链接：无
+ */
+
 const token = 'MDX'
 const Project = coinwindInfo.title
 const website = 'www.coinwind.com'
-const telegramHref = 'https://t.me/CoinWind'
+// 根据环境展示中/英文链接
+const telegramHref = I18n.growthpad.coinwind.share.telegram
 const twitterHref = 'https://twitter.com/coinwind_com'
 const retwitterHref = 'https://twitter.com/coinwind_com'
 
@@ -45,6 +57,7 @@ const data = {
     share: [
       { icon: 'telegram', href: telegramHref },
       { icon: 'twitter', href: twitterHref },
+      // media链接
       { icon: 'vector', href: 'https://medium.com/coinwind' },
     ],
   },

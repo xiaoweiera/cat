@@ -9,12 +9,23 @@ import { channelsInfo } from './projectInfo'
 import TaskType from '~/logic/growthpad/tasktype'
 import * as chat from './chat'
 
+/**
+ Channels链接
+ 项目官网：https://channels.finance/
+
+ 微博链接：https://weibo.com/u/7542695920?is_all=1
+ telegram中文链接：https://t.me/channels_finance
+ twitter链接：https://twitter.com/ChannelsFinance
+ media链接：无
+ discord链接：https://discord.gg/VMNGuDzxnq
+ */
+
 const token = 'U'
 const Project = channelsInfo.title
 const website = 'channels.finance'
 const telegramHref = 'https://t.me/channels_finance'
 const twitterHref = 'https://twitter.com/ChannelsFinance'
-const sinaHref = 'https://weibo.com/'
+const sinaHref = 'https://weibo.com/u/7542695920?is_all=1'
 
 
 const data = {
@@ -44,6 +55,7 @@ const data = {
     share: [
       { icon: 'telegram', href: telegramHref },
       { icon: 'twitter', href: twitterHref },
+      // discord链接
       { icon: 'union', href: 'https://discord.gg/VMNGuDzxnq' },
     ],
   },

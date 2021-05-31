@@ -218,7 +218,8 @@ CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行
       title: 'CoinWind 专属活动增长大使（lucky bonus）奖励',
       users: '我的邀请人数(CoindWind专场)：',
       invite: '邀请人数最多的用户与完成 CoinWind 任务获得奖励最多的用户将共同瓜分专场奖金池的 1%',
-      desc: '* 被邀请人需完成 1 个 CoinWind 专场任务才视为 1 个有效邀请人数。'
+      desc: '* 被邀请人需完成 1 个 CoinWind 专场任务才视为 1 个有效邀请人数。',
+      telegram: 'https://t.me/coinwind_cn'
     },
     dashboard: {
       desc: `CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超二十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。

@@ -217,6 +217,7 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       users: 'Number of users i invite(CoinWind):',
       invite: 'The user invites the  most number of users participate CoinWind growth can get 1% of bonus pool',
       desc: '* Invitee needs to complete one of tasks in CoinWind, whcih can be counted. ',
+      telegram: 'https://t.me/CoinWind'
     },
     dashboard: {
       desc: `In order to reward long-term support of communities, on GrowthPad Coinwind carries out a $200,000 motivating activity cooperating with KingData.
