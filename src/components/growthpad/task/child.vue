@@ -57,14 +57,14 @@ const showReward = computed<boolean>((): boolean => {
             <span class="ml-1 font-kdExp">{{ store.token }}</span>
           </span>
           <GrowthpadTaskCheck
-            class="flex-1 md:w-56 text-right"
+            class="flex-1 text-right"
             :data="data"
           ></GrowthpadTaskCheck>
         </div>
       </template>
       <template v-else>
         <GrowthpadTaskCheck
-          class="md:w-56 text-right"
+          class="text-right"
           :data="data"
         ></GrowthpadTaskCheck>
       </template>

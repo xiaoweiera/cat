@@ -92,7 +92,7 @@ const onSubmit = async function() {
   <el-form
     v-else
     ref="formRef"
-    class="check-box"
+    class="check-box md:w-56"
     label-width="0px"
     :show-message="false"
     :model="formdata"
