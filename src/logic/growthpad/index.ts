@@ -40,6 +40,10 @@ export const company = [
 ]
 export const telPlats = [
   {
+    aUrl: 'https://t.me/enkingdata',
+    img: 'https://res.ikingdata.com/nav/feiji.png',
+  },
+  {
     aUrl: 'https://twitter.com/KingData_com',
     img: 'https://res.ikingdata.com/nav/KTwitter.png',
   },

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { defineProps, ref, onMounted, reactive } from 'vue'
+import { defineProps, ref, onMounted } from 'vue'
+import I18n from '~/utils/i18n/index'
 import {
   mdxInfo,
   coinwindInfo,
   channelsInfo,
 } from '/mock/growthpad/projectInfo'
 import { getTimeStatus } from '~/components/growthpad/task/task'
+const props = defineProps({
+  title: String,
+})
 const mdxStatus = ref('')
 const coinwindStatus = ref('')
 const channelsStatus = ref('')
@@ -17,6 +20,7 @@ onMounted(() => {
 })
 </script>
 <template>
+  <div class="md:block hidden beginTxt">{{ props.title }}</div>
   <div
     class="
       grid grid-cols-1

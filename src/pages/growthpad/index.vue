@@ -71,8 +71,7 @@ onMounted(async() => {
       <GrowthpadIndexPcBanner />
       <!--  即将开始-->
       <div class="progress text-left mt-4 md:mt-15 md:mt-20">
-        <div class="xshidden beginTxt">⏱ {{ I18n.growthpadShow.coming }}</div>
-        <GrowthpadProjects />
+        <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
       </div>
 
       <GrowthpadIndexTelPlat class="mdhidden" />

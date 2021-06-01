@@ -4,6 +4,7 @@ export default {
   coming: '即将开始',
   ongoing: '进行中',
   end: '已结束',
+  projectState:'⏱ 正在进行',
   waitButton: '参与预热任务',
   ingButton: '查看详情',
   overButton: '已结束',
