@@ -4,7 +4,7 @@ import { toRaw, onMounted, ref } from 'vue'
 import rules from './rules'
 import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible } from '~/store/header/login'
+import { showVisible, loginType } from '~/store/header/login'
 import {
   registerData,
   registerForm,
@@ -87,14 +87,13 @@ const onGetCode = function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item prop="mail">
       <el-input
-        v-model="registerData.mobile"
-        :placeholder="I18n.common.placeholder.tel"
+        v-model="registerData.mail"
+        :placeholder="I18n.common.placeholder.mail"
         class="input-with-select"
         autocomplete="off"
       >
-        <template #prepend>+86</template>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">

@@ -3,6 +3,7 @@ export default {
   register: 'Register',
   switchLogin: 'Sign in',
   switchRegister: 'Register',
+  switchRorget: 'Forgot password',
   lang: 'En',
   nav: {
     apply: 'Project Application',

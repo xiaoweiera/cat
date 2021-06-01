@@ -9,6 +9,7 @@ const props = defineProps({
   areaCode: Object,
 })
 const area_code = ref('+86')
+
 const submit = async function() {
   try {
     await onSubmit()
@@ -39,23 +40,10 @@ const submit = async function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
-      <el-select v-model="area_code" placeholder="+86">
-        <el-option
-          v-for="item in areaCode"
-          :key="item.phone_code"
-          :label="item.phone_code"
-          :value="item.phone_code"
-        >
-          <span style="float: left">{{ item.phone_code }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{
-            item.cn
-          }}</span>
-        </el-option>
-      </el-select>
+    <el-form-item prop="mail">
       <el-input
-        v-model="formdata.mobile"
-        :placeholder="I18n.common.placeholder.tel"
+        v-model="formdata.mail"
+        :placeholder="I18n.common.placeholder.mail"
         class="input-with-select"
         autocomplete="off"
       >

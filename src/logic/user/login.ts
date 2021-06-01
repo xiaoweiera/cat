@@ -53,14 +53,12 @@ interface FormData {
   mobile: string
   password: string
   checked: boolean
-  mail: string
 }
 
 export const formdata = reactive<FormData>({
   mobile: '',
   password: '',
   checked: false,
-  mail: '',
 })
 
 // 注册
@@ -70,7 +68,6 @@ export const registerData = reactive({
   mobile: '',
   invitation_code: '', // 邀请码
   platform: 'web',
-  mail: '',
 })
 
 export const registerForm = ref<any>(null)
@@ -120,7 +117,22 @@ export const syncUser = async function(): Promise<void> {
   }
   isLogin.value = false
 }
-
+// 找回密码
+export const onFindPwd = async function(): Promise<any> {
+  const form = toRaw(registerForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(registerData)
+    // 注册
+    const result = await user.findPwd(data)
+    return result?.data || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
 // 注册
 export const onRegisterSubmit = async function(): Promise<any> {
   const form = toRaw(registerForm).value

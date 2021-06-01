@@ -87,10 +87,10 @@ const onGetCode = function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item prop="mail">
       <el-input
         v-model="registerData.mobile"
-        :placeholder="I18n.common.placeholder.tel"
+        :placeholder="I18n.common.placeholder.mail"
         class="input-with-select"
         autocomplete="off"
       >

@@ -67,6 +67,12 @@ export const register = async function(data: any): Promise<any> {
   const value = Object.assign({ area_code: 86 }, data)
   return request.post(url, value)
 }
+// 忘记密码
+export const findPwd = async function(data: any): Promise<any> {
+  const url = '/api/v1/users/forget_pass_captcha'
+  const value = Object.assign({ area_code: 86 }, data)
+  return request.post(url, value)
+}
 
 // 获取区域号码
 export const areaCode = async function(): Promise<void> {

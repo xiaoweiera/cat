@@ -10,7 +10,7 @@ import {
   registerForm,
   onRegisterSubmit,
 } from '~/logic/user/login'
-import { getCaptcha } from '~/api/user'
+import { getCaptcha, findPwd } from '~/api/user'
 
 // 活动名称
 const getVisitNum = function(): string {

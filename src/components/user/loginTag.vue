@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, defineProps } from 'vue'
+import { onMounted, ref } from 'vue'
 import I18n from '~/utils/i18n/index'
-import { loginType } from '~/store/header/login'
-const props = defineProps({
-  dialogType: String,
-})
+import { loginTypeStatus } from '~/store/header/login'
+
 const tags = ref([])
 const changeLoginType = (typeName: string) => {
-  loginType.value = typeName
+  loginTypeStatus.type = typeName
 }
 const getLoginText = () => {
-  if (props.dialogType === 'login') {
+  if (loginTypeStatus.name === 'login') {
     tags.value = [
       {
         key: 'tel',
@@ -21,7 +19,7 @@ const getLoginText = () => {
         name: '邮箱登录',
       },
     ]
-  } else if (props.dialogType === 'register') {
+  } else if (loginTypeStatus.name === 'register') {
     tags.value = [
       {
         key: 'tel',
@@ -30,6 +28,17 @@ const getLoginText = () => {
       {
         key: 'mail',
         name: '邮箱注册',
+      },
+    ]
+  } else {
+    tags.value = [
+      {
+        key: 'tel',
+        name: '手机号找回',
+      },
+      {
+        key: 'mail',
+        name: '邮箱找回',
       },
     ]
   }
@@ -42,7 +51,7 @@ onMounted(() => getLoginText())
   >
     <template v-for="item in tags">
       <span
-        :class="loginType === item.key ? 'selectStatus' : 'status'"
+        :class="loginTypeStatus.type === item.key ? 'selectStatus' : 'status'"
         @click="changeLoginType(item.key)"
       >{{ item.name }}</span>
     </template>

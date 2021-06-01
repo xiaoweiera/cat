@@ -5,7 +5,12 @@ import {
   visible,
   visibleRegister,
   showVisible,
+  loginTypeStatus,
   showRegisterVisible,
+  goLogin,
+  goRegister,
+  goDialogforGet,
+  goDialogLogin,
   hideVisible,
 } from '~/store/header/login'
 import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
@@ -33,6 +38,7 @@ onMounted(async() => {
 </script>
 
 <template>
+  {{ loginTypeStatus }}
   <div v-if="!isLogin">
     <div
       class="
@@ -46,7 +52,7 @@ onMounted(async() => {
         items-center
       "
     >
-      <span class="whitespace-nowrap" @click.stop="showVisible">{{
+      <span class="whitespace-nowrap" @click.stop="goLogin">{{
         I18n.common.login
       }}</span>
       <img
@@ -54,7 +60,7 @@ onMounted(async() => {
         src="https://res.ikingdata.com/nav/dian.png"
         alt=""
       />
-      <span class="whitespace-nowrap" @click.stop="showRegisterVisible">{{
+      <span class="whitespace-nowrap" @click.stop="goRegister">{{
         I18n.common.register
       }}</span>
     </div>
@@ -66,25 +72,114 @@ onMounted(async() => {
       :before-close="handleClose"
     >
       <!-- 显示注册 -->
-      <UserRegister v-if="visibleRegister" :area-code="areaCodes">
+      <UserRegister
+        v-if="
+          loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'register'
+        "
+        :area-code="areaCodes"
+      >
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
-            <a class="inline-block font-normal link hand" @click="showVisible">
+            <a
+              class="inline-block font-normal link hand"
+              @click="goDialogLogin"
+            >
               <span>{{ I18n.common.switchLogin }}</span>
             </a>
           </div>
         </div>
       </UserRegister>
-      <!-- 显示登录 -->
-      <UserLogin v-else :area-code="areaCodes">
+      <!-- 显示注册 -->
+      <UserMailRegister
+        v-if="
+          loginTypeStatus.type === 'mail' && loginTypeStatus.name === 'register'
+        "
+        :area-code="areaCodes"
+      >
         <div class="pt-4.5 pb-2.5">
-          <div @click="showRegisterVisible">
+          <div class="flex items-center justify-center">
+            <a
+              class="inline-block font-normal link hand"
+              @click="goDialogLogin"
+            >
+              <span>{{ I18n.common.switchLogin }}</span>
+            </a>
+          </div>
+        </div>
+      </UserMailRegister>
+      <!-- 显示登录 -->
+      <UserLogin
+        v-if="
+          loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'login'
+        "
+        :area-code="areaCodes"
+      >
+        <div class="pt-4.5 pb-2.5 flex justify-between items-center">
+          <div @click="goDialogLogin">
             <a class="inline-block font-normal link hand">
               <span>{{ I18n.common.switchRegister }}</span>
             </a>
           </div>
+          <div @click="goDialogforGet">
+            <a class="inline-block font-normal link hand">
+              <span>{{ I18n.common.switchRorget }}</span>
+            </a>
+          </div>
         </div>
       </UserLogin>
+      <UserMailLogin
+        v-if="
+          loginTypeStatus.type === 'mail' && loginTypeStatus.name === 'login'
+        "
+        :area-code="areaCodes"
+      >
+        <div class="pt-4.5 pb-2.5 flex justify-between items-center">
+          <div @click="goDialogLogin">
+            <a class="inline-block font-normal link hand">
+              <span>{{ I18n.common.switchRegister }}</span>
+            </a>
+          </div>
+          <div @click="goDialogforGet">
+            <a class="inline-block font-normal link hand">
+              <span>{{ I18n.common.switchRorget }}</span>
+            </a>
+          </div>
+        </div>
+      </UserMailLogin>
+      <UserForgetPwd
+        v-if="
+          loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'forget'
+        "
+        :area-code="areaCodes"
+      >
+        <div class="pt-4.5 pb-2.5">
+          <div class="flex items-center justify-center">
+            <a
+              class="inline-block font-normal link hand"
+              @click="goDialogLogin"
+            >
+              <span>{{ I18n.common.switchLogin }}</span>
+            </a>
+          </div>
+        </div>
+      </UserForgetPwd>
+      <UserMailForgetPwd
+        v-if="
+          loginTypeStatus.type === 'mail' && loginTypeStatus.name === 'forget'
+        "
+        :area-code="areaCodes"
+      >
+        <div class="pt-4.5 pb-2.5">
+          <div class="flex items-center justify-center">
+            <a
+              class="inline-block font-normal link hand"
+              @click="goDialogLogin"
+            >
+              <span>{{ I18n.common.switchLogin }}</span>
+            </a>
+          </div>
+        </div>
+      </UserMailForgetPwd>
     </ElDialog>
   </div>
 
