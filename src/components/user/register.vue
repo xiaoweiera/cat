@@ -28,7 +28,7 @@ onMounted(() => {
 const submit = async function() {
   try {
     const result = await onRegisterSubmit()
-    if (result.code === 1) {
+    if (result.code !== 0) {
       messageError(result.message)
     } else {
       showVisible()
