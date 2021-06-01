@@ -106,17 +106,20 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [1]
         ),
         chat.twitter(
           Project,
           I18n.growthpad.warning.follow,
-          twitterHref
+          twitterHref,
+          [1]
         ),
         chat.retwitter(
           Project,
           I18n.growthpad.warning.article,
-          retwitterHref
+          retwitterHref,
+          [1]
         ),
       ],
     },
@@ -135,17 +138,20 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [1]
         ),
         chat.twitter(
           Project,
           I18n.growthpad.warning.follow,
-          twitterHref
+          twitterHref,
+          [1]
         ),
         chat.retwitter(
           Project,
           I18n.growthpad.warning.article,
-          retwitterHref
+          retwitterHref,
+          [1]
         ),
       ],
     },
@@ -164,17 +170,20 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [1]
         ),
         chat.twitter(
           Project,
           I18n.growthpad.warning.follow,
-          twitterHref
+          twitterHref,
+          [1]
         ),
         chat.retwitter(
           Project,
           I18n.growthpad.warning.article,
-          retwitterHref
+          retwitterHref,
+          [1]
         ),
       ],
     },
@@ -183,14 +192,15 @@ const data = {
       id: chat.uuid(),
       type: TaskType.weibo,
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
-      reward: [3, 100],
+      reward: [100, 300],
       children: [],
     },
     // 任务 5
     {
       id: chat.uuid(),
       type: TaskType.allin,
-      title: I18n.growthpad.invited.partake,
+      // title: I18n.growthpad.invited.partake,
+      title: I18n.growthpad.mdx.share.title,
       children: [
         {
           title: I18n.growthpad.mdx.share.lable,

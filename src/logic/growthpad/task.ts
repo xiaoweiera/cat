@@ -11,7 +11,7 @@ import { Project, getProjectType } from '~/api/growtask'
 // 活动名称
 const getActiveName = function() {
   const router = toRaw(useRoute())
-  const params = router.params.value
+  const params = router?.params?.value
   const value = safeGet<string>(params, 'activeName')
   const name = value.toLocaleLowerCase()
   return getProjectType(name)

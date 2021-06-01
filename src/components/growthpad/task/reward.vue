@@ -71,7 +71,7 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.pancake) {
     // 验证 pancake token 地址是否已填写
-    if (store.user.pancake_token) {
+    if (store.mission.pancake) {
       return clacRewardCount(children)
     }
   }
@@ -110,11 +110,11 @@ const rewardValue = computed<number>((): number => {
   // venus 任务
   // @ts-ignore
   if (props.data.type === TaskType.venus) {
-    if (store.user.venus_token) {
+    if (store.mission.venus) {
       // 验证是否完成任务
       if (
         store.mission.telegram_group
-        && store.user.weibo
+        && store.mission.follow_weibo
         && store.mission.follow_twitter
       ) {
         // 返回奖励
@@ -127,11 +127,11 @@ const rewardValue = computed<number>((): number => {
   // Cream 任务
   // @ts-ignore
   if (props.data.type === TaskType.cream) {
-    if (store.user.cream_token) {
+    if (store.mission.cream) {
       // 验证是否完成任务
       if (
         store.mission.telegram_group
-        && store.user.weibo
+        && store.mission.follow_weibo
         && store.mission.follow_twitter
       ) {
         // 返回奖励
@@ -144,11 +144,11 @@ const rewardValue = computed<number>((): number => {
   // Cream 任务
   // @ts-ignore
   if (props.data.type === TaskType.compound) {
-    if (store.user.compound_token) {
+    if (store.mission.compound) {
       // 验证是否完成任务
       if (
         store.mission.telegram_group
-        && store.user.weibo
+        && store.mission.follow_weibo
         && store.mission.follow_twitter
       ) {
         // 返回奖励
@@ -179,7 +179,7 @@ const rewardValue = computed<number>((): number => {
         <template v-if="isWeibo">
           <span
             class="count"
-          >{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
+          >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
         </template>
         <template v-else>
           <span class="count">+{{ getMax(data.reward) }}</span>

@@ -68,9 +68,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.telegram">
       <!-- 判断是否填写了 telegram id -->
-      <IconFont v-if="store.mission.telegram_group" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.telegram_group" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="telegram"
         :placeholder="I18n.growthpad.form.placeholderTelegram"
@@ -84,9 +83,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.twitter">
       <!-- 判断是否关注 twitter -->
-      <IconFont v-if="store.mission.follow_twitter" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.follow_twitter" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="twitter"
         :placeholder="I18n.growthpad.form.twitter"
@@ -100,9 +98,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.retwitter">
       <!-- 判断是否转发 twitter -->
-      <IconFont v-if="store.mission.retweet" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.retweet" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="retwitter"
         :placeholder="I18n.growthpad.form.retwitter"
@@ -116,9 +113,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.pancake">
       <!-- 判断pancake验资是否通过 -->
-      <IconFont v-if="store.mission.pancake" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.pancake" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="pancake"
         :placeholder="I18n.growthpad.form.placeholderBsc"
@@ -133,9 +129,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.uniswap">
       <!-- 判断uniswap验资是否通过 -->
-      <IconFont v-if="store.mission.uniswap" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.uniswap" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="uniswap"
         :placeholder="I18n.growthpad.form.placeholderETH"
@@ -150,9 +145,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.sushiswap">
       <!-- 判断sushiswap验资是否通过 -->
-      <IconFont v-if="store.mission.sushiswap" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.sushiswap" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="sushiswap"
         :placeholder="I18n.growthpad.form.placeholderETH"
@@ -176,9 +170,8 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.sina">
       <!-- 判断 sina 验资是否通过 -->
-      <IconFont v-if="store.mission.follow_weibo" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.follow_weibo" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="sina"
         :placeholder="I18n.growthpad.form.sina"
@@ -193,9 +186,8 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.venus">
       <!-- 判断 venus 验资是否通过 -->
-      <IconFont v-if="store.mission.venus" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.venus" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="venus"
         :placeholder="I18n.growthpad.form.placeholderBsc"
@@ -211,9 +203,8 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.cream">
       <!-- 判断 cream 验资是否通过 -->
-      <IconFont v-if="store.user.cream_token" type="success"></IconFont>
+      <!--      <IconFont v-if="store.user.cream_token" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="cream"
         :placeholder="I18n.growthpad.form.placeholderBsc"
@@ -229,9 +220,8 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.compound">
       <!-- 判断 compound 验资是否通过 -->
-      <IconFont v-if="store.mission.compound" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.compound" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="compound"
         :placeholder="I18n.growthpad.form.placeholderBsc"
@@ -247,9 +237,8 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.autofarm">
       <!-- 判断 compound 验资是否通过 -->
-      <IconFont v-if="store.mission.autofarm" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.autofarm" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="autofarm"
         :placeholder="I18n.growthpad.form.placeholderBsc"
@@ -265,9 +254,8 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.beltfit">
       <!-- 判断 compound 验资是否通过 -->
-      <IconFont v-if="store.mission.belt" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.belt" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="beltfit"
         :placeholder="I18n.growthpad.form.placeholderBsc"
@@ -283,9 +271,8 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.bunny">
       <!-- 判断 compound 验资是否通过 -->
-      <IconFont v-if="store.mission.bunny" type="success"></IconFont>
+      <!--      <IconFont v-if="store.mission.bunny" type="success"></IconFont>-->
       <GrowthpadTaskSubText
-        v-else
         :data="data"
         name="bunny"
         :placeholder="I18n.growthpad.form.placeholderBsc"
