@@ -53,12 +53,14 @@ interface FormData {
   mobile: string
   password: string
   checked: boolean
+  mail: string
 }
 
 export const formdata = reactive<FormData>({
   mobile: '',
   password: '',
   checked: false,
+  mail: '',
 })
 
 // 注册
@@ -68,6 +70,7 @@ export const registerData = reactive({
   mobile: '',
   invitation_code: '', // 邀请码
   platform: 'web',
+  mail: '',
 })
 
 export const registerForm = ref<any>(null)
@@ -96,14 +99,7 @@ export const logout = async function(): Promise<void> {
   try {
     // 退出
     await user.logout()
-    jsCookie.remove('token', {
-      path: '/',
-      domain: 'ikingdata.com',
-    })
-    jsCookie.remove('token', {
-      path: '/',
-      domain: 'kingdata.com',
-    })
+    jsCookie.remove('token')
     update({} as UserData)
     isLogin.value = false
     window.location.reload()

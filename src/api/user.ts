@@ -67,3 +67,13 @@ export const register = async function(data: any): Promise<any> {
   const value = Object.assign({ area_code: 86 }, data)
   return request.post(url, value)
 }
+
+// 获取区域号码
+export const areaCode = async function(): Promise<void> {
+  try {
+    const reuslt = await request.get('/api/v1/area_codes')
+    return safeGet(reuslt, 'data.data')
+  } catch (e) {
+    return Promise.reject(e)
+  }
+}

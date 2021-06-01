@@ -27,6 +27,7 @@ export default {
   placeholder: {
     login: 'automatic login',
     tel: 'Please input mobile phone number',
+    mail:'Please enter your email address',
     verification: 'Please enter the verification code',
     password: 'Please input a password',
   },

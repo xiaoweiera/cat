@@ -4,7 +4,7 @@ import { toRaw, onMounted, ref } from 'vue'
 import rules from './rules'
 import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible } from '~/store/header/login'
+import { showVisible, loginType } from '~/store/header/login'
 import {
   registerData,
   registerForm,
@@ -77,6 +77,8 @@ const onGetCode = function() {
   <div class="logo text-center mb-3.5">
     <img class="inline-block" src="https://res.ikingdata.com/nav/logoJpg.png" />
   </div>
+  <!--  手机号 邮箱类型-->
+  <UserLoginTag dialog-type="register" />
   <el-form
     ref="registerForm"
     class="formLogo"
@@ -85,7 +87,7 @@ const onGetCode = function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item v-if="loginType === 'tel'" prop="mobile">
       <el-input
         v-model="registerData.mobile"
         :placeholder="I18n.common.placeholder.tel"
@@ -95,7 +97,15 @@ const onGetCode = function() {
         <template #prepend>+86</template>
       </el-input>
     </el-form-item>
-
+    <el-form-item v-else prop="mail">
+      <el-input
+        v-model="registerData.mail"
+        :placeholder="I18n.common.placeholder.mail"
+        class="input-with-select"
+        autocomplete="off"
+      >
+      </el-input>
+    </el-form-item>
     <el-form-item prop="code">
       <el-input
         v-model="registerData.code"

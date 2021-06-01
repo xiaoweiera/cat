@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { defineProps, ref } from 'vue'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { messageError } from '~/lib/tool'
-import { hideVisible } from '~/store/header/login'
+import { hideVisible, loginType } from '~/store/header/login'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
-
+const props = defineProps({
+  areaCode: Object,
+})
+const area_code = ref('+86')
+const changeLoginType = (typeName: string) => {
+  loginType.value = typeName
+}
 const submit = async function() {
   try {
     await onSubmit()
@@ -21,11 +28,12 @@ const submit = async function() {
   }
 }
 </script>
-
 <template>
-  <div class="logo text-center mb-3.5">
+  <div class="logo text-center mb-6">
     <img class="inline-block" src="https://res.ikingdata.com/nav/logoJpg.png" />
   </div>
+  <!--  手机号 邮箱类型-->
+  <UserLoginTag dialog-type="login" />
   <el-form
     ref="logoForm"
     class="formLogo"
@@ -34,10 +42,32 @@ const submit = async function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item v-if="loginType === 'tel'" prop="mobile">
+      <el-select v-model="area_code" placeholder="+86">
+        <el-option
+          v-for="item in areaCode"
+          :key="item.phone_code"
+          :label="item.phone_code"
+          :value="item.phone_code"
+        >
+          <span style="float: left">{{ item.phone_code }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px">{{
+            item.cn
+          }}</span>
+        </el-option>
+      </el-select>
       <el-input
         v-model="formdata.mobile"
         :placeholder="I18n.common.placeholder.tel"
+        class="input-with-select"
+        autocomplete="off"
+      >
+      </el-input>
+    </el-form-item>
+    <el-form-item v-else prop="mail">
+      <el-input
+        v-model="formdata.mail"
+        :placeholder="I18n.common.placeholder.mail"
         class="input-with-select"
         autocomplete="off"
       >

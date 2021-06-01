@@ -27,6 +27,7 @@ export default {
   placeholder: {
     login: '自动登录',
     tel: '请输入手机号',
+    mail:'请输入邮箱',
     verification: '请输入验证码',
     password: '请输入密码',
   },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import I18n from '~/utils/i18n/index'
 import {
   visible,
@@ -9,21 +9,27 @@ import {
   hideVisible,
 } from '~/store/header/login'
 import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
+import { areaCode } from '~/api/user'
 
 // 刷新用户信息
 syncUser()
 const outLogin = ref(false)
+const areaCodes = ref([])
 const mouseover = () => {
   outLogin.value = true
 }
 const mouseLeave = () => {
   outLogin.value = false
 }
+
 // 弹窗关闭前
 const handleClose = function(next) {
   hideVisible()
   return next()
 }
+onMounted(async() => {
+  areaCodes.value = await areaCode()
+})
 </script>
 
 <template>
@@ -60,7 +66,7 @@ const handleClose = function(next) {
       :before-close="handleClose"
     >
       <!-- 显示注册 -->
-      <UserRegister v-if="visibleRegister">
+      <UserRegister v-if="visibleRegister" :area-code="areaCodes">
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
             <a class="inline-block font-normal link hand" @click="showVisible">
@@ -70,7 +76,7 @@ const handleClose = function(next) {
         </div>
       </UserRegister>
       <!-- 显示登录 -->
-      <UserLogin v-else>
+      <UserLogin v-else :area-code="areaCodes">
         <div class="pt-4.5 pb-2.5">
           <div @click="showRegisterVisible">
             <a class="inline-block font-normal link hand">

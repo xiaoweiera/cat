@@ -79,7 +79,8 @@ export default defineConfig({
                     mobileBody:'#D8E8FF',
                     numGreen:'#00B464',
                     numRed:'#E9592D',
-                    time:'#A2A4A8'
+                    time:'#A2A4A8',
+                    noSelect:'#A8A8A8'
 
                 },
             },
