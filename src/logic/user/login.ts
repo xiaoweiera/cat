@@ -69,9 +69,18 @@ export const registerData = reactive({
   invitation_code: '', // 邀请码
   platform: 'web',
 })
+// 找回密码
+export const forgetData = reactive({
+  code: '', // 验证码
+  password: '',
 
+  mobile: '',
+  invitation_code: '', // 邀请码
+  platform: 'web',
+})
 export const registerForm = ref<any>(null)
 export const logoForm = ref<any>(null)
+export const forgetForm = ref<any>(null)
 
 const update = function(result: UserData): void {
   userData.area_code = result.area_code

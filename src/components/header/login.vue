@@ -101,9 +101,7 @@ onMounted(async() => {
             <a
               class="inline-block font-normal link hand"
               @click="goDialogLogin"
-            >
-              <span>{{ I18n.common.switchLogin }}</span>
-            </a>
+            ><span>{{ I18n.common.switchLogin }}</span></a>
           </div>
         </div>
       </UserMailRegister>
