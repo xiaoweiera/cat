@@ -35,13 +35,13 @@ const editStatus = ref<boolean>(false)
 
 // @ts-ignore
 const loadingStatus = computed<ValueStatus>((): ValueStatus => {
-  if (editStatus.value) {
-    return ValueStatus.check
-  }
   const status: ValueStatus = getValueStatus(props.name, store)
   // 只处理验证通过状态
   if (status === ValueStatus.success) {
     return status
+  }
+  if (editStatus.value) {
+    return ValueStatus.check
   }
   // 默认为空
   return ValueStatus.empty
