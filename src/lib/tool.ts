@@ -106,7 +106,11 @@ export const min_max = (min: any, max: any, v: any) => {
 export const messageError = function(message: any): void {
   const values = R.values(message)
   const [text]: Array<string> = R.flatten(values)
-  ElMessage.warning(text)
+  if (text) {
+    ElMessage.warning(text)
+  } else {
+    ElMessage.warning(message)
+  }
 }
 
 export const messageSuccess = function(text: string): void {
