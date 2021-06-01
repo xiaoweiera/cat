@@ -178,7 +178,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       count: '60,271 millions',
       marketValue: '60,271 millions',
       circulation: '300 millions',
-      luanched: 'HTH/Omni',
+      luanched: 'ETH/Omni',
       detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
     task1: {

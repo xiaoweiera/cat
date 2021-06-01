@@ -67,6 +67,7 @@ const data = {
       type: TaskType.vip, // 任务类型
       title: I18n.growthpad.coinwind.task1.title,
       description: I18n.template(I18n.growthpad.reward.finished, { count: 500, reward: '{reward}' }),
+      // description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {
@@ -95,8 +96,9 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.bunny, // 任务类型
       title: I18n.growthpad.coinwind.task2.title,
-      description: I18n.growthpad.coinwind.task2.description,
-      reward: [3], // 奖励
+      // description: I18n.growthpad.coinwind.task2.description,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
+      reward: [1, 3], // 奖励
       children: [
         {
           type: TaskType.bunny,
@@ -127,8 +129,9 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.autofarm, // 任务类型
       title: I18n.growthpad.coinwind.task3.title,
-      description: I18n.growthpad.coinwind.task2.description,
-      reward: [3], // 奖励
+      // description: I18n.growthpad.coinwind.task2.description,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
+      reward: [1, 3], // 奖励
       children: [
         {
           type: TaskType.autofarm,
@@ -159,8 +162,9 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.beltfit, // 任务类型
       title: I18n.growthpad.coinwind.task4.title,
-      description: I18n.growthpad.coinwind.task2.description,
-      reward: [3], // 奖励
+      // description: I18n.growthpad.coinwind.task2.description,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
+      reward: [1, 3], // 奖励
       children: [
         {
           type: TaskType.beltfit,

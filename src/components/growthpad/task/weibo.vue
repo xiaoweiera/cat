@@ -81,6 +81,13 @@ const submit = async function() {
 }
 
 const rules: any = {
+  article_url: [
+    {
+      required: true,
+      trigger: ['change', 'blur'],
+      message: I18n.growthpad.weibo.articlePlaceholder,
+    },
+  ],
   article_image: [
     {
       required: true,
@@ -106,7 +113,11 @@ const rules: any = {
       autocomplete="off"
       @submit.stop.prevent="submit"
     >
-      <el-form-item :label="I18n.growthpad.weibo.article">
+      <el-form-item
+        :label="I18n.growthpad.weibo.article"
+        required
+        prop="article_url"
+      >
         <el-input
           v-model="formdata.article_url"
           :placeholder="I18n.growthpad.weibo.articlePlaceholder"
