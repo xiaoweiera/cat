@@ -58,11 +58,12 @@ const link = (): string => {
 </template>
 <style lang="postcss" scoped>
 .containerRadius {
+  border: 1px solid rgba(43, 141, 254, 0.06);
+  box-shadow: 0px 12px 72px -12px rgba(43, 141, 254, 0.13);
   border-radius: 12px;
 }
 .visited {
   color: #ffffff;
-
   background: linear-gradient(180deg, #7cb9ff 0%, #3090ff 100%);
   border-radius: 42px;
   padding: 4px 12px;

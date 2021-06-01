@@ -82,7 +82,9 @@ const link = (): string => {
   @apply text-kd24px24px text-global-primary font-kdExp ml-1.5;
 }
 .containerRadius {
-  border-radius: 25px;
+  border: 1px solid rgba(43, 141, 254, 0.06);
+  box-shadow: 0px 12px 72px -12px rgba(43, 141, 254, 0.13);
+  border-radius: 24px;
 }
 .visited {
   color: #ffffff;
