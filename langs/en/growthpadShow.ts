@@ -4,6 +4,7 @@ export default {
     coming:'coming',
     ongoing: 'ongoing',
     end: 'end',
+    projectState:'⏱ ongoing',
     waitButton: 'Participate warm-up',
     ingButton: 'View more',
     overButton: 'End',
