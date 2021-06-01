@@ -26,7 +26,7 @@ export default {
     confirm: 'Confirmation',
     invalid: 'Invalid Address',
     tips: `Once confirmed, the address can't be modified`,
-    notify1: '* Please register your address receiving rewards(Rewards for tasks related to holdings will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
+    notify1: '* Please register your address receiving rewards(Rewards for tasks related to TVL will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
     notify2: '* 奖励将于活动结束后统一发放到您的奖励接收地址，持仓量相关任务奖励直接发放至验证地址。'
   },
   about: {
@@ -90,7 +90,10 @@ export default {
   warning: {
     telegram: 'Leaving the telegram group will be regarded as unfinished before the activity ends.',
     follow: 'Removing follow the twitter will be regarded as unfinished before the activity ends.',
-    article: 'Deleting the tweet will be regarded as unfinished before the activity ends.'
+    article: 'Deleting the tweet will be regarded as unfinished before the activity ends.',
+
+    twitter: 'Removing follow/Deleting the tweet all will be regarded as unfinished before the activity ends.',
+    sina: 'Removing follow/Deleting the repost all will be regarded as unfinished before the activity ends.'
   },
 
   vip: {
@@ -102,8 +105,8 @@ export default {
     twitter: 'This activity'
   },
   front: {
-    '500': '{value}（top 500 users）',
-    '2000': '{value}（top 2,000 users）'
+    '500': '{value}（TOP 500 users）',
+    '2000': '{value}（TOP 2,000 users）'
   },
 
   mdx: {
@@ -152,17 +155,16 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   },
   channels: {
     address: {
-      placeholder: 'Enter your HECO address receiving',
-
+      placeholder: 'Enter HECO address',
     },
     dashboard: {
-      desc: `In order to reward long-term support of communities, on GrowthPad Channels carries out a $100,000 motivating activity cooperating with KingData.For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward.
+      desc: `In order to give back to community users, Channels cooperated with KingData to launch an incentive activity worth over 💲100,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      The rules: before the start, participant needs to login in Kingdata and input their Heco address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
+      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
     },
     weibo: {
-      label: 'Based on the number of followers: 0-49999 reward 20U，> 50K reward 300U（top 30 users）',
-      description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
+      label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 30~100 USDT. (The number of followers is not less than 2000, and the reading volume is not less than 1000).',
+      description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
     },
     share: {
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
@@ -178,19 +180,19 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
     task1: {
-      title: 'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.',
+      title: 'TVL in Venus is more than 10KU, and the total amount of deposits and loans in Channels exceeds 1,000U. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
       description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
     },
     task2: {
-      title: 'Holding value more than 10K USDT in Creams，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
+      title: 'TVL in Creams is more than 10KU, and the total amount of deposits and loans in Channels exceeds 1,000U. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
     },
     task3: {
-      title: 'Holding value more than 10K USDT in Compounds，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
+      title: 'TVL in Compounds is more than 10KU, and the total amount of deposits and loans in Channels exceeds 1,000U. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
     },
     activity: {
       warning: 'The reward will be air-drop into the address verified,which can not be changed.',
 
-      label: 'Holding value more than 10K USDT in {group}s',
+      label: 'Qualification: TVL in {group} is more than 10K USDT.',
 
       telegramDesc: 'Join Channels telegram group and post the screenshot of more than 1K USDT Channels\' loan/deposit  in the group',
       twitterDesc: 'Repost the top twitter and @ 3 friends',
@@ -239,8 +241,8 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       condition1: 'Qualification:Holding value more than 10K USDT in Belt.fit',
     },
     weibo: {
-      label: 'Based on the number of followers: Smaller than 50K reward 3MDX(top 500 users), 50K-100K reward 30MDX, greater than 100K reward 100MDX',
-      description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.'
+      label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 30~100 USDT. (The number of followers is not less than 2000, and the reading volume is not less than 1000).',
+      description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
     },
 
   }
