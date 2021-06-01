@@ -110,7 +110,7 @@ export default {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
     dashboard: {
-      desc: `MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超三十万美元的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超 $300000 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
         活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
@@ -141,15 +141,15 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
-      pancake: 'Pancake Swap 提供流动性(TVL)超过1万U，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      pancakeCondition: '任务资格：Pancake swap 提供流动性(TVL)超过1万U',
+      pancake: 'Pancake Swap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      pancakeCondition: '任务资格：Pancake swap 提供流动性(TVL)超过 10000 USDT',
 
 
-      uniswap: 'Uniswap 提供流动性(TVL)超过10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      uniswapCondition: '任务资格 Uniswap 提供流动性(TVL)超过10000 USDT',
+      uniswap: 'Uniswap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      uniswapCondition: '任务资格 Uniswap 提供流动性(TVL)超过 10000 USDT',
 
-      sushiswap: 'SushiSwap 提供流动性(TVL)超过10000 USDT，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
-      sushiswapCondition: '任务资格：SushiSwap 提供流动性(TVL)超过10000 USDT',
+      sushiswap: 'SushiSwap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
+      sushiswapCondition: '任务资格：SushiSwap 提供流动性(TVL)超过 10000 USDT',
     },
   },
   channels: {
@@ -158,7 +158,7 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
 
     },
     dashboard: {
-      desc: `Channels 为奖励长期支持 Channels 的用户，联合 KingData 在 GrowthPad 上开启价值超十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `Channels 为奖励长期支持 Channels 的用户，联合 KingData 在 GrowthPad 上开启价值超 $100000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
         活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 Heco 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 USDT 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 USDT 奖励会发放到您验证持仓的地址中。`
     },
@@ -180,19 +180,19 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
       detail: 'Channels 是 Heco 上首个完全去中心化的借贷平台。Channels 在资产安全、用户体验和挖矿收益上，均在 Heco 上的加代产品里首屈一指。Channels 专注于主流借贷币种 HUSD、USDT、ETH、HBTC 和 HT 等，始终坚持以产品体验为基础，以用户利益为核心。'
     },
     task1: {
-      title: 'Venus 提供流动性(TVL)超过10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',
+      title: 'Venus 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',
       description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
     },
     task2: {
-      title: 'Cream 提供流动性(TVL)超过10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
+      title: 'Cream 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
     },
     task3: {
-      title: 'Compound 提供流动性(TVL)超过10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
+      title: 'Compound 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
     },
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
-      label: '任务资格：{group} 持仓价值超过10000 USDT',
+      label: '任务资格：{group} 持仓价值超过 10000 USDT',
 
       telegramDesc: '并在群里晒出 Channels 存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
@@ -220,7 +220,7 @@ CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行
       telegram: 'https://t.me/coinwind_cn'
     },
     dashboard: {
-      desc: `CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超二十万美元的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超 $200000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
 活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX  奖励会发放到您验证持仓的地址中。`,
     },
@@ -228,17 +228,17 @@ CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行
       title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。'
     },
     task2: {
-      title: 'Pancake Bunny 提供流动性(TVL)超过10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      title: 'Pancake Bunny 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
       description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
-      condition1: '任务资格：Pancake Bunny 提供流动性(TVL)超过10000 USDT',
+      condition1: '任务资格：Pancake Bunny 提供流动性(TVL)超过 10000 USDT',
     },
     task3: {
-      title: 'autofarm 提供流动性(TVL)超过10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
-      condition1: '任务资格：autofarm 提供流动性(TVL)超过10000 USDT',
+      title: 'autofarm 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      condition1: '任务资格：autofarm 提供流动性(TVL)超过 10000 USDT',
     },
     task4: {
-      title: 'Belt.fit 提供流动性(TVL)超过10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
-      condition1: '任务资格：Belt.fit 提供流动性(TVL)超过10000 USDT',
+      title: 'Belt.fit 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      condition1: '任务资格：Belt.fit 提供流动性(TVL)超过 10000 USDT',
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~300 MDX。（粉丝数不低于2000人，阅读量不低于1000）。`,

@@ -27,39 +27,50 @@ export function getProjectType(project: string): Project {
   return '' as Project
 }
 
-export const getProjectInfo = async function(project: string): Promise<any> {
-  const url = '/api/growthpad/user_info/'
-  const type = getProjectType(project)
+const _projectInfoData: any = {}
+// 项目信息
+const projectDetail = async function(project: string): Promise<any> {
   try {
-    const result = await request.get(url, {
-      params: { project: type },
+    if (_projectInfoData && _projectInfoData[project]) {
+      return Promise.resolve(_projectInfoData[project])
+    }
+    const result = await request.get('/api/growthpad/project_info/', {
+      params: { project },
+    })
+    const data = safeGet(result, 'data.data')
+    _projectInfoData[project] = data
+    return data
+  } catch (e) {
+    return {}
+  }
+}
+// 用户完成任务的信息
+const projectInfo = async function(project: string): Promise<any> {
+  try {
+    const result = await request.get('/api/growthpad/user_info/', {
+      params: { project },
     })
     return safeGet(result, 'data.data')
   } catch (e) {
+    return {}
+  }
+}
+
+export const getProjectInfo = async function(project: string): Promise<any> {
+  const type = getProjectType(project)
+  try {
+    const [result, detail]: Array<any> = await Promise.all([
+      projectInfo(type),
+      projectDetail(type),
+    ])
+    const value = Object.assign({}, result, {
+      price: safeGet(detail, 'price') || 0,
+    })
+    return value
+  } catch (e) {
+    console.log(e)
     return Promise.reject(e)
   }
-  // return {
-  //   mission: {
-  //     pancake: true,
-  //     uniswap: true,
-  //     sushiswap: true,
-  //     retweet: true,
-  //     follow_twitter: true,
-  //   },
-  //   info: {
-  //     bsc_token: '0x3280892383292_new',
-  //     pancake_token: 'ox83928930289_new',
-  //     uniswap_token: '0xjiodsuodu_new',
-  //     sushiswap_token: '0xjiodsuodu_new',
-  //     telegram: 'sed_newsd',
-  //     twitter: 'david_8_bot_new',
-  //     invited_count: 0,
-  //     reward: 0,
-  //   },
-  //   article_url: 'https://www.baidu.com',
-  //   article_image: '/media/%E6%B4%BB%E8%88%B9.jpg',
-  //   article_audit: 'New',
-  // }
 }
 
 // 信息登记
