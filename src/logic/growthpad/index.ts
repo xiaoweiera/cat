@@ -31,12 +31,12 @@ export const footList = [
 ]
 
 export const company = [
-  'https://res.ikingdata.com/nav/indexKing.png',
-  'https://res.ikingdata.com/nav/indexJs.png',
+  'https://res.ikingdata.com/nav/indexPlatKi.png',
+  'https://res.ikingdata.com/nav/indexPlatJs.png',
   'https://res.ikingdata.com/nav/indexHe.png',
   'https://res.ikingdata.com/nav/indexBa.png',
-  'https://res.ikingdata.com/nav/indexOk.png',
-  'https://res.ikingdata.com/nav/indexSo.png',
+  'https://res.ikingdata.com/nav/indexPlatOk.png',
+  'https://res.ikingdata.com/nav/indexPlatSo.png',
 ]
 export const telPlats = [
   {
