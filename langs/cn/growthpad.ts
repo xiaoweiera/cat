@@ -142,7 +142,7 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
       pancake: 'Pancake Swap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      pancakeCondition: '任务资格：Pancake swap 提供流动性(TVL)超过 10000 USDT',
+      pancakeCondition: '任务资格：Pancake Swap 提供流动性(TVL)超过 10000 USDT',
 
 
       uniswap: 'Uniswap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
@@ -192,7 +192,7 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
-      label: '任务资格：{group} 持仓价值超过 10000 USDT',
+      label: '任务资格：{group} 提供流动性(TVL)超过 10000 USDT',
 
       telegramDesc: '并在群里晒出 Channels 存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
