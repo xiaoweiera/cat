@@ -2,8 +2,8 @@
  * @file 判断登录
  * @author svon.me@gmail.com
  */
-
 import { ElMessageBox } from 'element-plus'
+import I18n from '~/utils/i18n/index'
 
 enum Status {
   Cancel = 'cancel',
@@ -29,7 +29,7 @@ const getContent = function(content?: Content | string): string {
     text += `<p class="text-base font-normal" style="color: rgba(37, 62, 111, 0.85);">${content.value}</p>`
   }
   if (content.warn) {
-    text += `<p class="text-xs font-normal" style="color: #E9592D;">*${content.warn}</p>`
+    text += `<p class="text-xs font-normal" style="color: #E9592D;">* ${content.warn}</p>`
   }
   return `<div>${text}</div>`
 }
@@ -44,9 +44,9 @@ const app = function(
     dangerouslyUseHTMLString: true,
     closeOnClickModal: true,
     showConfirmButton: true,
-    confirmButtonText: '确认',
+    confirmButtonText: I18n.common.button.confirm,
     showCancelButton: false,
-    cancelButtonText: '取消',
+    cancelButtonText: I18n.common.button.close,
     closeOnPressEscape: true,
   }
   if (type === 'confirm') {

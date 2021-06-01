@@ -9,44 +9,40 @@ export default {
   },
   reward: {
     about: '≈',
-    count: 'Reward',
+    count: 'Reward Amount',
     value: 'Reward value',
-    // perPerson: 'Acquire for each',
-    perPerson: '每人最高可领取',
+    perPerson: 'The Max Amount Per Person',
     total: 'Reward {count} MDX',
     maxTotal: '{count} MDX at maximum',
-    finished: 'Finished all tasks: {reward}（TOP 1000 users）',
-    anytask: 'Finished one of tasks: {reward}（TOP 1000 users）',
+    finished: 'Finish all tasks: {reward}（TOP 1000 users）',
+    anytask: 'Finish one of tasks: {reward}（TOP 1000 users）',
   },
   register: 'Information Registration',
   submit: 'Register',
-  // address: {
-  //   placeholder: 'enter your  BSC address receiving',
-  // },
   address: {
     warning: '请先完成信息登记',
     iCard: '您登记的奖励领取地址为：',
     reward: '预计获得奖励：',
-    confirm: '地址确认',
-    invalid: '地址无效',
-    tips: '地址一旦确认不可修改',
-    notify1: '* 请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。',
+    confirm: 'Confirmation',
+    invalid: 'Invalid Address',
+    tips: `Once confirmed, the address can't be modified`,
+    notify1: '* Please register your address receiving rewards(Rewards for tasks related to holdings will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
     notify2: '* 奖励将于活动结束后统一发放到您的奖励接收地址，持仓量相关任务奖励直接发放至验证地址。'
   },
   about: {
     title: '{project} Exchange',
-    reward: 'Coin rewarded info.',
+    reward: 'Token info',
     website: 'Official website',
     community: 'Community',
     projectDetail: 'Project introduction',
     name: 'Coin',
     symbol: 'Coin',
-    online: 'Uptime',
-    count: 'Total amount',
-    marketValue: 'Market value',
+    online: 'Online Time',
+    count: 'Total',
+    marketValue: 'Market Value',
     circulation: 'Circulation',
     price: 'Price',
-    luanched: 'Public chain',
+    luanched: 'Public Chain',
     exchanges: 'Exchange',
     exchangeValues: 'Huobi,Binance and etc'
   },
@@ -56,9 +52,9 @@ export default {
   },
   growthTasks: 'Tasks',
   button: {
-    invite: 'Invite',
-    checking: 'Check',
-    testing: 'Verify'
+    invite: 'Invite',   // 要求
+    checking: 'Verify', // 资质验证
+    testing: 'Verify'   // 去检测
   },
   weibo: {
     success: 'Upload succesfully',
@@ -68,16 +64,17 @@ export default {
     articlePlaceholder: 'Enter article url',
     notify1: '* Please include individual homepage of mainstream media.',
     notify2: '* The format should be jpg,png and etc. Not more than 5M.',
-    title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.',
+    // title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.',
+    title: 'Write a {count}-word original {project} experience article and publish it in mainstream media.',
     tips: '* 已提交等待审核，重新提交会替换之前的内容。'
   },
   invited: {
-    count: 'I invite: ',
+    count: 'My invitation: ',
     code: 'My invitation code: ',
     partake: 'Sunshine award',
   },
   chat: {
-    speak: 'And send message.'
+    speak: 'And send message in the community.'
   },
   form: {
     address: 'Confirm',
@@ -91,18 +88,18 @@ export default {
   },
   copy: 'Inviting you to register in Kingdata，{url}',
   warning: {
-    telegram: 'Unfollowing the twitter will be regard as unfinished before the activity ends ',
-    follow: 'Unfollowing the twitter will be regard as unfinished before the activity ends ',
-    article: 'Deleting the tweet will be regard as unfinished before the activity ends '
+    telegram: 'Leaving the telegram group will be regarded as unfinished before the activity ends.',
+    follow: 'Removing follow the twitter will be regarded as unfinished before the activity ends.',
+    article: 'Deleting the tweet will be regarded as unfinished before the activity ends.'
   },
 
   vip: {
     invite: 'Become {group} VIP',
-    description: 'By Inviting 3 users and finishing register.',
-    activity: 'Become Kingdata VIP;join {project} telegram; follow {project} Twitter and repost the twitter about the activity.',
+    description: 'By inviting 3 users to register Kingdata.',
+    activity: 'Become Kingdata VIP; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
   },
   activity: {
-    twitter: 'The activity Twitter'
+    twitter: 'This activity'
   },
   front: {
     '500': '{value}（top 500 users）',
@@ -111,12 +108,12 @@ export default {
 
   mdx: {
     address: {
-      placeholder: 'Enter your  BSC address receiving',
+      placeholder: 'Enter BSC address',
     },
     dashboard: {
-      desc: `In order to reward long-term support of communities, on GrowthPad MDEX carries out a $300,000 motivating activity cooperating with KingData.
+      desc: `In order to give back to community users, MDEX cooperated with KingData to launch an incentive activity worth over $300,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      For covering more supporters, tasks of activity have different levels. Completing the task can get corresponding reward. The rules: before the start, participant needs to login in Kingdata and input their BSC address which is used to receive reward. After that,  participant can choose tasks and finish according to tasks. Then the information verified needs to be filled in. When conditions are met, the reward will be accounted. After activity ends, all the reward will be sent to the address registered;the reward of tasks about holding quantity will be air-drop into the address verified.`
+      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
     },
     about: {
       name: 'MDX',
@@ -137,21 +134,20 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       The amount of reward = the number that you invite/total numbers*1%total bonus. `
     },
     weibo: {
-      label: `Based on the number of followers:
-      Smaller than 50K reward 15MDX；50K-10K reward 100MDX；bigger than 10K reward 200MDX.`,
-      description: 'Mainstream media include but not limited to：coin column in media、Weibo、Reddit、weixin Official Accounts、zhihu、bihu、toutiao and other famous platforms.',
+      label: `The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 MDX. (The number of followers is not less than 2000, and the reading volume is not less than 1000).`,
+      description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
     },
     activity: {
-      warning: 'The reward will be air-drop into the address verified,which can not be changed.',
+      warning: 'The reward will be airdropped into the verification address, which can not be changed.',
 
-      pancake: 'Holding value more than 10K USDT in PanCake Swap; join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
-      pancakeCondition: 'Qualification:Holding value more than 10K USDT in PanCake',
+      pancake: 'TVL in PanCake Swap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      pancakeCondition: 'Qualification: TVL in Pancake Swap is more than 10K USDT.',
 
-      uniswap: 'Holding value more than 10K USDT in Uniswap; join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
-      uniswapCondition: 'Qualification:Holding value more than 10K USDT in Uniswap',
+      uniswap: 'TVL in Uniswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      uniswapCondition: 'Qualification: TVL in Uniswap is more than 10K USDT.',
 
-      sushiswap: 'Holding value more than 10K USDT in Sushiswap; join MDEX telegram; follow MDEX Twitter and repost the twitter about the activity.',
-      sushiswapCondition: 'Qualification:Holding value more than 10K USDT in Sushiswap',
+      sushiswap: 'TVL in Sushiswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      sushiswapCondition: 'Qualification: TVL in Sushiswap is more than 10K USDT.',
     },
   },
   channels: {

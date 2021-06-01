@@ -1,8 +1,8 @@
 export default {
-  login: 'Sign in',
-  register: 'Register',
-  switchLogin: 'Sign in',
-  switchRegister: 'Register',
+  login: 'Log in',
+  register: 'Sign up',
+  switchLogin: 'Log in',
+  switchRegister: 'Sign up',
   lang: 'En',
   nav: {
     apply: 'Project Application',
@@ -16,13 +16,16 @@ export default {
     ss: 'Seconds'
   },
   button: {
-    submit: 'submit'
+    submit: 'Submit',
+    confirm: 'Confirm',
+    close: 'Close'
   },
   message: {
     verification: 'Get code',
     verificationError: '请输入6位验证码！',
     passwordError: 'Please input 6-24 digits of password!',
     telError: 'Please input the correct mobile phone number',
+    testing: 'Verifying' // 验证中，审核结束后自动更新结果
   },
   placeholder: {
     login: 'automatic login',
@@ -33,7 +36,7 @@ export default {
   and: 'And',
   join: 'Join',
   follow: 'Follow',
-  repost: 'Repost',
+  repost: 'Retweet',
   activity: 'Activity',
   user: {
     invite: 'Please enter the invitation code',
