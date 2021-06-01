@@ -120,13 +120,14 @@ const handleClose = function(next) {
         text-center
         px-3
       "
+      @click="logout()"
     >
       <img
         class="w-5 h-5"
         src="https://res.ikingdata.com/nav/outLogin.png"
         alt=""
       />
-      <div class="text-kd14px16px ml-2 w-10 flex" @click="logout()">退出</div>
+      <div class="text-kd14px16px ml-2 w-10 flex">退出</div>
     </div>
   </div>
 </template>
