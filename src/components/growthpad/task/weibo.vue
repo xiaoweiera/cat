@@ -154,7 +154,7 @@ const rules: any = {
           <!--有上传文章后显示-->
           <template v-if="store.article_image.value">
             <p class="ml-3 text-xs submit-tips">
-              * 已提交等待审核，重新提交会替换之前的内容。
+              {{ I18n.growthpad.weibo.tips }}
             </p>
           </template>
         </div>

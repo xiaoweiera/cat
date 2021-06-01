@@ -63,7 +63,8 @@ export default {
     articlePlaceholder: '输入文章链接',
     notify1: '* 截图内容请包含主流媒体主页',
     notify2: '* 请上传 .JPG .PNG .JPEG等文件格式，大小控制在5M以内',
-    title: '撰写 {count} 字以上原创 {project} 体验文章，并发布在主流媒体。'
+    title: '撰写 {count} 字以上原创 {project} 体验文章，并发布在主流媒体。',
+    tips: '* 已提交等待审核，重新提交会替换之前的内容。'
   },
   invited: {
     count: '我邀请参与活动的人数：',
