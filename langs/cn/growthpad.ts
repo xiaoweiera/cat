@@ -184,10 +184,10 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
       description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
     },
     task2: {
-      title: 'Cream 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
+      title: 'Cream 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
     },
     task3: {
-      title: 'Compound 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000U；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
+      title: 'Compound 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
     },
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
@@ -213,7 +213,7 @@ CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行
     copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
     share: {
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
-      title: 'CoinWind 专属活动增长大使（lucky bonus）奖励',
+      title: 'CoinWind 专属活动增长大使（Lucky Bonus）奖励',
       users: '我的邀请人数(CoinWind 专场)：',
       invite: '邀请人数最多的用户与完成 CoinWind 任务获得奖励最多的用户将共同瓜分专场奖金池的 1%',
       desc: '* 被邀请人需完成 1 个 CoinWind 专场任务才视为 1 个有效邀请人数。',

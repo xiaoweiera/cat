@@ -83,6 +83,14 @@ const rewardValue = computed<number>((): number => {
     }
   }
 
+  // Bunny 任务
+  // @ts-ignore
+  if (props.data.type === TaskType.bunny) {
+    if (store.mission.bunny) {
+      return clacRewardCount(children)
+    }
+  }
+
   // Sushiswap 任务
   // @ts-ignore
   if (props.data.type === TaskType.sushiswap) {
