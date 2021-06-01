@@ -28,7 +28,7 @@ const closeQr = () => {
     <div class="mdhidden text-global-default opacity-65 text-kd14px22px">
       {{ I18n.growthpadShow.contact }}
     </div>
-    <div class="flex mt-2.7 md:mt-8 ml-8 relative">
+    <div class="flex mt-2.7 ml-8 relative">
       <template v-for="item in telPlats">
         <a class="mr-8" :href="item.aUrl" target="_blank">
           <img
