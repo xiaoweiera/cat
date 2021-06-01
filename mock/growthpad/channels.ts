@@ -20,7 +20,7 @@ import * as chat from './chat'
  discord链接：https://discord.gg/VMNGuDzxnq
  */
 
-const token = 'U'
+const token = 'USDT'
 const Project = channelsInfo.title
 const website = 'channels.finance'
 const telegramHref = 'https://t.me/channels_finance'
@@ -41,7 +41,7 @@ const data = {
       { label: I18n.growthpad.about.name, value: I18n.growthpad.channels.about.name }, // 代币名称
       { label: I18n.growthpad.about.online, value: I18n.growthpad.channels.about.online }, // 上线时间
       { label: I18n.growthpad.about.count, value: I18n.growthpad.channels.about.count }, // 发行总量
-      { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.channels.about.marketValue }, // 市值
+      // { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.channels.about.marketValue }, // 市值
       { label: I18n.growthpad.about.circulation, value: I18n.growthpad.channels.about.circulation }, // 当前流通量
       { label: I18n.growthpad.about.luanched, value: I18n.growthpad.channels.about.luanched }, // 所在公链
       // 上线交易所
@@ -65,8 +65,8 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.venus, // 任务类型
       title: I18n.growthpad.channels.task1.title,
-      description: '',
-      reward: [3], // 奖励
+      description: I18n.template(I18n.growthpad.channels.task1.description, { count: 10, unit: token }),
+      reward: [16], // 奖励
       children: [
         {
           type: TaskType.venus,
@@ -79,20 +79,23 @@ const data = {
             value: I18n.growthpad.warning.telegram
           }),
           telegramHref,
+          [10]
         ),
         chat.twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter
           }),
-          twitterHref
+          twitterHref,
+          [3]
         ),
         chat.sina(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.sina
           }),
-          sinaHref
+          sinaHref,
+          [3]
         )
       ],
     },
@@ -101,7 +104,7 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.cream, // 任务类型
       title: I18n.growthpad.channels.task2.title,
-      description: '',
+      description: I18n.template(I18n.growthpad.channels.task1.description, { count: 10, unit: token }),
       reward: [16], // 奖励
       children: [
         {
@@ -140,7 +143,7 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.compound, // 任务类型
       title: I18n.growthpad.channels.task3.title,
-      description: '',
+      description: I18n.template(I18n.growthpad.channels.task1.description, { count: 10, unit: token }),
       reward: [16], // 奖励
       children: [
         {
@@ -174,10 +177,19 @@ const data = {
         )
       ],
     },
+    // 任务 5
+    {
+      id: chat.uuid(),
+      type: TaskType.weibo,
+      title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
+      reward: [30, 100],
+      children: [],
+    },
     {
       id: chat.uuid(),
       type: TaskType.allin,
-      title: I18n.growthpad.invited.partake,
+      // title: I18n.growthpad.invited.partake,
+      title: I18n.growthpad.mdx.share.title,
       children: [
         {
           title: I18n.growthpad.mdx.share.lable,

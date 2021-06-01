@@ -298,6 +298,7 @@ export default class Store {
   async setAdress(address: string): Promise<any> {
     this.clearTimeout()
     try {
+      this.user.bsc_token = address
       const result = await API.setAdress(this.projectName, address)
       // 默认设置地址返回值
       safeSet(result, 'info.bsc_token', address)
@@ -313,6 +314,7 @@ export default class Store {
   async setTelegram(id: string): Promise<any> {
     this.clearTimeout()
     try {
+      this.user.telegram = id
       const token = this.user.bsc_token
       const result = await API.setTelegram(this.projectName, token, id)
       this.updateData(result)
@@ -327,6 +329,7 @@ export default class Store {
   async setTwitter(id: string): Promise<any> {
     this.clearTimeout()
     try {
+      this.user.twitter = id
       const token = this.user.bsc_token
       const result = await API.setTwitter(this.projectName, token, id)
       this.updateData(result)
@@ -359,6 +362,7 @@ export default class Store {
   async setPancake(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.pancake_token = value
       const token = this.user.bsc_token
       const result = await API.setPancake(this.projectName, token, value)
       this.updateData(result)
@@ -373,6 +377,7 @@ export default class Store {
   async setUniswap(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.uniswap_token = value
       const token = this.user.bsc_token
       const result = await API.setUniswap(this.projectName, token, value)
       this.updateData(result)
@@ -387,6 +392,7 @@ export default class Store {
   async setSushiswap(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.sushiswap_token = value
       const token = this.user.bsc_token
       const result = await API.setSushiswap(this.projectName, token, value)
       this.updateData(result)
@@ -401,6 +407,7 @@ export default class Store {
   async setSinaNickname(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.weibo = value
       const token = this.user.bsc_token
       const result = await API.setSinaNickname(this.projectName, token, value)
       this.updateData(result)
@@ -415,6 +422,7 @@ export default class Store {
   async setVenus(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.venus_token = value
       const token = this.user.bsc_token
       const result = await API.setVenus(this.projectName, token, value)
       this.updateData(result)
@@ -429,6 +437,7 @@ export default class Store {
   async setCompound(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.compound_token = value
       const token = this.user.bsc_token
       const result = await API.setCompound(this.projectName, token, value)
       this.updateData(result)
@@ -443,6 +452,7 @@ export default class Store {
   async setCream(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.cream_token = value
       const token = this.user.bsc_token
       const result = await API.setCream(this.projectName, token, value)
       this.updateData(result)
@@ -457,6 +467,7 @@ export default class Store {
   async setAutofarm(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.autofarm_token = value
       const token = this.user.bsc_token
       const result = await API.setAutofarm(this.projectName, token, value)
       this.updateData(result)
@@ -471,6 +482,7 @@ export default class Store {
   async setBeltfit(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.belt_token = value
       const token = this.user.bsc_token
       const result = await API.setBeltfit(this.projectName, token, value)
       this.updateData(result)
@@ -485,6 +497,7 @@ export default class Store {
   async setBunny(value: string): Promise<void> {
     this.clearTimeout()
     try {
+      this.user.bunny_token = value
       const token = this.user.bsc_token
       const result = await API.setBunny(this.projectName, token, value)
       this.updateData(result)

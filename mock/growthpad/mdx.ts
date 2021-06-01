@@ -38,7 +38,7 @@ const data = {
       { label: I18n.growthpad.about.name, value: I18n.growthpad.mdx.about.name }, // 代币名称
       { label: I18n.growthpad.about.online, value: I18n.growthpad.mdx.about.online }, // 上线时间
       { label: I18n.growthpad.about.count, value: I18n.growthpad.mdx.about.count }, // 发行总量
-      { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.mdx.about.marketValue }, // 市值
+      // { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.mdx.about.marketValue }, // 市值
       { label: I18n.growthpad.about.circulation, value: I18n.growthpad.mdx.about.circulation }, // 当前流通量
       { label: I18n.growthpad.about.price, value: 'price' }, // 当前价格
       { label: I18n.growthpad.about.luanched, value: I18n.growthpad.mdx.about.luanched }, // 所在公链
@@ -139,10 +139,10 @@ const data = {
       id: chat.uuid(),
       type: TaskType.weibo,
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
-      reward: [15, 200],
+      reward: [100, 300],
       children: [],
     },
-    // 任务 5
+    // 任务 6
     {
       id: chat.uuid(),
       type: TaskType.allin,

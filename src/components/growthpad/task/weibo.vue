@@ -81,6 +81,13 @@ const submit = async function() {
 }
 
 const rules: any = {
+  article_url: [
+    {
+      required: true,
+      trigger: ['change', 'blur'],
+      message: I18n.growthpad.weibo.articlePlaceholder,
+    },
+  ],
   article_image: [
     {
       required: true,
@@ -106,7 +113,11 @@ const rules: any = {
       autocomplete="off"
       @submit.stop.prevent="submit"
     >
-      <el-form-item :label="I18n.growthpad.weibo.article">
+      <el-form-item
+        :label="I18n.growthpad.weibo.article"
+        required
+        prop="article_url"
+      >
         <el-input
           v-model="formdata.article_url"
           :placeholder="I18n.growthpad.weibo.articlePlaceholder"
@@ -147,9 +158,17 @@ const rules: any = {
         </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" round size="small" native-type="submit">
-          <span>{{ I18n.common.button.submit }}</span>
-        </el-button>
+        <div class="flex items-center">
+          <el-button type="primary" round size="small" native-type="submit">
+            <span>{{ I18n.common.button.submit }}</span>
+          </el-button>
+          <!--有上传文章后显示-->
+          <template v-if="store.article_image.value">
+            <p class="ml-3 text-xs submit-tips">
+              {{ I18n.growthpad.weibo.tips }}
+            </p>
+          </template>
+        </div>
       </el-form-item>
     </el-form>
   </div>
@@ -180,5 +199,9 @@ const rules: any = {
     transform: translate(-50%, -50%);
     max-width: 120px;
   }
+}
+
+.submit-tips {
+  color: #e9592d;
 }
 </style>

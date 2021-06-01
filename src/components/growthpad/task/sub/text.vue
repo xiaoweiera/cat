@@ -1,32 +1,13 @@
 <script setup lang="ts">
-import { defineProps, reactive, ref, toRaw } from 'vue'
+import { computed, defineProps, reactive, ref, toRaw } from 'vue'
 import { checkAddress } from '../task'
+import { addressEnum, getValueStatus, ValueStatus } from './value'
+// @ts-ignore
 import rules from './rule'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
-const store = Task()
-
-const addressEnum = {
-  telegram: 'setTelegram',
-  twitter: 'setTwitter',
-  retwitter: 'setReTwitter',
-
-  pancake: 'setPancake',
-  uniswap: 'setUniswap',
-  sushiswap: 'setSushiswap',
-
-  sina: 'setSinaNickname',
-  venus: 'setVenus',
-  compound: 'setCompound',
-  cream: 'setCream',
-
-  autofarm: 'setAutofarm',
-  beltfit: 'setBeltfit',
-
-  bunny: 'setBunny',
-}
 
 const props = defineProps({
   // 判断地址名称
@@ -48,13 +29,30 @@ const props = defineProps({
   },
 })
 
-const loadingStatus = ref<boolean>(false)
+const store = Task()
+
+const editStatus = ref<boolean>(false)
+
+// @ts-ignore
+const loadingStatus = computed<ValueStatus>((): ValueStatus => {
+  if (editStatus.value) {
+    return ValueStatus.check
+  }
+  const status: ValueStatus = getValueStatus(props.name, store)
+  // 只处理验证通过状态
+  if (status === ValueStatus.success) {
+    return status
+  }
+  // 默认为空
+  return ValueStatus.empty
+})
 
 const formRef = ref<any>(null)
 const formdata = reactive({
   input: '',
 })
 
+// @ts-ignore
 const onSubmit = async function() {
   const form = toRaw(formRef).value
   try {
@@ -75,20 +73,28 @@ const onSubmit = async function() {
       })
     }
     if (status) {
-      loadingStatus.value = true
+      editStatus.value = true
+      // @ts-ignore
       const name = addressEnum[props.name]
+      // @ts-ignore
       if (name && store[name]) {
+        // @ts-ignore
         await store[name](formdata.input)
       }
     }
   } catch (e) {
+    console.log(e)
     // todo
   }
 }
 </script>
 
 <template>
-  <Loading v-if="loadingStatus"></Loading>
+  <Loading v-if="loadingStatus === ValueStatus.check"></Loading>
+  <IconFont
+    v-else-if="loadingStatus === ValueStatus.success"
+    type="success"
+  ></IconFont>
   <el-form
     v-else
     ref="formRef"

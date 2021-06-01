@@ -68,7 +68,8 @@ export default {
     articlePlaceholder: 'Enter article url',
     notify1: '* Please include individual homepage of mainstream media.',
     notify2: '* The format should be jpg,png and etc. Not more than 5M.',
-    title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.'
+    title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.',
+    tips: '* 已提交等待审核，重新提交会替换之前的内容。'
   },
   invited: {
     count: 'I invite: ',
@@ -177,11 +178,12 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       count: '60,271 millions',
       marketValue: '60,271 millions',
       circulation: '300 millions',
-      luanched: 'HTH/Omni',
+      luanched: 'ETH/Omni',
       detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
     task1: {
-      title: 'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'
+      title: 'Holding value more than 10K USDT in Venus，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.',
+      description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
     },
     task2: {
       title: 'Holding value more than 10K USDT in Creams，more than 1K USDT loan/deposit in Channels; join Channels telegram group;follow Channels Twitter and repost the twitter；follow Channels Weibo and repost the weibo.'

@@ -67,6 +67,7 @@ const data = {
       type: TaskType.vip, // 任务类型
       title: I18n.growthpad.coinwind.task1.title,
       description: I18n.template(I18n.growthpad.reward.finished, { count: 500, reward: '{reward}' }),
+      // description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {
@@ -95,8 +96,9 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.bunny, // 任务类型
       title: I18n.growthpad.coinwind.task2.title,
-      description: I18n.growthpad.coinwind.task2.description,
-      reward: [3], // 奖励
+      // description: I18n.growthpad.coinwind.task2.description,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
+      reward: [1, 3], // 奖励
       children: [
         {
           type: TaskType.bunny,
@@ -106,17 +108,20 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [1]
         ),
         chat.twitter(
           Project,
           I18n.growthpad.warning.follow,
-          twitterHref
+          twitterHref,
+          [1]
         ),
         chat.retwitter(
           Project,
           I18n.growthpad.warning.article,
-          retwitterHref
+          retwitterHref,
+          [1]
         ),
       ],
     },
@@ -124,8 +129,9 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.autofarm, // 任务类型
       title: I18n.growthpad.coinwind.task3.title,
-      description: I18n.growthpad.coinwind.task2.description,
-      reward: [3], // 奖励
+      // description: I18n.growthpad.coinwind.task2.description,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
+      reward: [1, 3], // 奖励
       children: [
         {
           type: TaskType.autofarm,
@@ -135,17 +141,20 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [1]
         ),
         chat.twitter(
           Project,
           I18n.growthpad.warning.follow,
-          twitterHref
+          twitterHref,
+          [1]
         ),
         chat.retwitter(
           Project,
           I18n.growthpad.warning.article,
-          retwitterHref
+          retwitterHref,
+          [1]
         ),
       ],
     },
@@ -153,8 +162,9 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.beltfit, // 任务类型
       title: I18n.growthpad.coinwind.task4.title,
-      description: I18n.growthpad.coinwind.task2.description,
-      reward: [3], // 奖励
+      // description: I18n.growthpad.coinwind.task2.description,
+      description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
+      reward: [1, 3], // 奖励
       children: [
         {
           type: TaskType.beltfit,
@@ -164,17 +174,20 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [1]
         ),
         chat.twitter(
           Project,
           I18n.growthpad.warning.follow,
-          twitterHref
+          twitterHref,
+          [1]
         ),
         chat.retwitter(
           Project,
           I18n.growthpad.warning.article,
-          retwitterHref
+          retwitterHref,
+          [1]
         ),
       ],
     },
@@ -183,14 +196,15 @@ const data = {
       id: chat.uuid(),
       type: TaskType.weibo,
       title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: Project }),
-      reward: [3, 100],
+      reward: [100, 300],
       children: [],
     },
     // 任务 5
     {
       id: chat.uuid(),
       type: TaskType.allin,
-      title: I18n.growthpad.invited.partake,
+      // title: I18n.growthpad.invited.partake,
+      title: I18n.growthpad.mdx.share.title,
       children: [
         {
           title: I18n.growthpad.mdx.share.lable,
