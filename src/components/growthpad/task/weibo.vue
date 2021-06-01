@@ -35,6 +35,14 @@ const data = computed(() => {
   }
 })
 
+const rewardValue = computed<number>((): number => {
+  const number = parseInt(store.article_reward.value)
+  if (isNaN(number)) {
+    return 0
+  }
+  return number
+})
+
 interface FormData {
   article_url?: string
   article_image?: File
@@ -113,67 +121,92 @@ const rules: any = {
       autocomplete="off"
       @submit.stop.prevent="submit"
     >
-      <el-form-item
-        :label="I18n.growthpad.weibo.article"
-        required
-        prop="article_url"
-      >
-        <el-input
-          v-model="formdata.article_url"
-          :placeholder="I18n.growthpad.weibo.articlePlaceholder"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item
-        :label="I18n.growthpad.weibo.articleImg"
-        required
-        prop="article_image"
-      >
-        <div class="flex items-center">
-          <el-upload
-            class="avatar-uploader"
-            action=""
-            accept="image/*"
-            :show-file-list="false"
-            :multiple="false"
-            name="article_image"
-            :drag="true"
-            :on-change="onUpload"
-            :auto-upload="false"
-          >
-            <template v-if="previewSrc">
-              <img class="preview" :src="previewSrc" />
-            </template>
-            <IconFont
-              v-else
-              class="preview"
-              type="plus"
-              suffix="png"
-            ></IconFont>
-          </el-upload>
-          <div class="upload-tips pl-3 text-xs">
-            <span>{{ I18n.growthpad.weibo.notify1 }}</span>
-            <span>{{ I18n.growthpad.weibo.notify2 }}</span>
-          </div>
-        </div>
-      </el-form-item>
-      <el-form-item>
-        <div class="flex items-center">
-          <el-button type="primary" round size="small" native-type="submit">
-            <span>{{ I18n.common.button.submit }}</span>
-          </el-button>
-          <!--有上传文章后显示-->
-          <template v-if="store.article_image.value">
-            <p class="ml-3 text-xs submit-tips">
-              {{ I18n.growthpad.weibo.tips }}
-            </p>
+      <template v-if="rewardValue">
+        <el-form-item :label="I18n.growthpad.weibo.article">
+          <template v-if="store.article_url.value === 'undefined'">
+            <span>-</span>
           </template>
-        </div>
-      </el-form-item>
+          <template v-else-if="store.article_url.value">
+            <a :href="store.article_url.value" target="_blank">{{
+              store.article_url.value
+            }}</a>
+          </template>
+          <template v-else>
+            <span>-</span>
+          </template>
+        </el-form-item>
+        <el-form-item :label="I18n.growthpad.weibo.articleImg">
+          <div class="avatar-uploader relative">
+            <img class="preview" :src="store.article_image.value" />
+          </div>
+        </el-form-item>
+      </template>
+      <template v-else>
+        <el-form-item
+          :label="I18n.growthpad.weibo.article"
+          required
+          prop="article_url"
+        >
+          <el-input
+            v-model="formdata.article_url"
+            :placeholder="I18n.growthpad.weibo.articlePlaceholder"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          :label="I18n.growthpad.weibo.articleImg"
+          required
+          prop="article_image"
+        >
+          <div class="flex items-center">
+            <el-upload
+              class="avatar-uploader"
+              action=""
+              accept="image/*"
+              :show-file-list="false"
+              :multiple="false"
+              name="article_image"
+              :drag="true"
+              :on-change="onUpload"
+              :auto-upload="false"
+            >
+              <template v-if="previewSrc">
+                <img class="preview" :src="previewSrc" />
+              </template>
+              <IconFont
+                v-else
+                class="preview"
+                type="plus"
+                suffix="png"
+              ></IconFont>
+            </el-upload>
+            <div class="upload-tips pl-3 text-xs">
+              <span>{{ I18n.growthpad.weibo.notify1 }}</span>
+              <span>{{ I18n.growthpad.weibo.notify2 }}</span>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <div class="flex items-center">
+            <el-button type="primary" round size="small" native-type="submit">
+              <span>{{ I18n.common.button.submit }}</span>
+            </el-button>
+            <!--有上传文章后显示-->
+            <template v-if="store.article_image.value">
+              <p class="ml-3 text-xs submit-tips">
+                {{ I18n.growthpad.weibo.tips }}
+              </p>
+            </template>
+          </div>
+        </el-form-item>
+      </template>
     </el-form>
   </div>
 </template>
 <style scoped lang="scss">
+a {
+  color: #2b8dfe;
+}
 .upload-tips {
   line-height: 24px;
   color: rgba(37, 62, 111, 0.65);
