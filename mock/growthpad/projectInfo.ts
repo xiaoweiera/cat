@@ -44,7 +44,7 @@ export const channelsInfo = {
     reward: {
       count: 200000, // 奖励数量
       cost: 2000000, // 价值
-      limits: [100, 148], // 每人可领取范围
+      limits: [148], // 每人可领取范围
     },
     status: '',
   },
