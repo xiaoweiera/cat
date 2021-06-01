@@ -33,17 +33,22 @@ const className = computed(() => {
     return data
   }
   data.dot = true
+  data.bg = true
   data['inline-flex'] = true
   data['justify-center'] = true
   data['items-center'] = true
   return data
+})
+
+const bgStyle = computed<string>((): string => {
+  return `background-image: url(${props.img})`
 })
 </script>
 
 <template>
   <span class="dot" :class="className">
     <template v-if="img">
-      <img class="w-full w-max inline-block" :src="img" />
+      <span class="dot-image" :style="bgStyle" />
     </template>
     <template v-else-if="char">{{ char }}</template>
   </span>
@@ -51,28 +56,47 @@ const className = computed(() => {
 
 <style scoped lang="scss">
 .dot {
-  background: #2749fc;
   border-radius: 50%;
   color: #fff;
   overflow: hidden;
+  .bg {
+    background: #2749fc;
+  }
+  .dot-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
 }
+
+@mixin size($number) {
+  width: $number;
+  height: $number;
+  max-width: $number;
+  max-height: $number;
+  min-width: $number;
+  min-height: $number;
+}
+
 .sm {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  min-height: 24px;
+  @include size(24px);
 }
 .xl {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
+  @include size(32px);
 }
 .lg {
-  min-width: 42px;
-  min-height: 42px;
-  width: 42px;
-  height: 42px;
+  @include size(42px);
   font-size: 28px;
+}
+.xl-8 {
+  @include size(100px);
+}
+.xl-10 {
+  @include size(140px);
 }
 </style>

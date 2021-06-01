@@ -1,10 +1,25 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import dayjs from 'dayjs'
 import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
 import I18n from '~/utils/i18n/index'
-
 import Task from '~/logic/growthpad/task'
 const store = Task()
+
+const format = 'YYYY-MM-DD HH:mm:ss'
+const timeType = ref('')
+// 获取倒计时类型
+const getTimeType = () => {
+  // 当前时间
+  const now = dayjs().valueOf()
+  const time = dayjs(store.dashboard.begin, format)
+  const duration = time.valueOf() - now
+  if (duration > 0) {
+    timeType.value = 'begin'
+  } else {
+    timeType.value = 'end'
+  }
+}
 
 // @ts-ignore
 const title = computed((): string => {
@@ -38,6 +53,10 @@ const countComputed = function(number: number): string | number {
   return value
 }
 
+const bannerStyle = computed<string>((): string => {
+  return `background-image: url(${store.dashboard.banner})`
+})
+
 // @ts-ignore
 const getPrice = function(number: string | number): string | number {
   // @ts-ignore
@@ -54,97 +73,147 @@ const getPrice = function(number: string | number): string | number {
     about: I18n.growthpad.reward.about,
   })
 }
+
+onMounted(() => getTimeType())
 </script>
 
 <template>
-  <div class="pt-15 total">
-    <div class="flex items-center pb-5 font-kdFang">
-      <DotChar :img="store.icon.value" size="xl" />
-      <span class="text-2xl mx-2">{{ title }}</span>
-      <span
-        v-if="timeStatus === TimeStatus.wait"
-        class="wait py-1.5 px-3 rounded text-sm"
-      >
-        <b class="font-medium">⏱</b>
-        <b class="font-medium ml-3">{{ I18n.growthpad.status.wait }}</b>
-      </span>
-      <span
-        v-else-if="timeStatus === TimeStatus.ing"
-        class="ing py-1.5 px-3 rounded text-sm"
-      >
-        <b class="font-medium">🔥</b>
-        <b class="font-medium ml-3">{{ I18n.growthpad.status.ing }}</b>
-      </span>
-      <span
-        v-else-if="timeStatus === TimeStatus.closure"
-        class="closure py-1.5 px-3 rounded text-sm"
-      >
-        <b class="font-medium">🚫</b>
-        <b class="font-medium ml-3">{{ I18n.growthpad.status.closure }}</b>
-      </span>
+  <div class="relative pt-5">
+    <div class="equal-width-height banner-box mb-4.5 md:mb-11">
+      <div class="equal-content">
+        <div class="w-full h-full banner-item" :style="bannerStyle"></div>
+        <DotChar
+          class="logo left-6 absolute hidden md:block"
+          :img="store.icon.value"
+          size="xl-10"
+        />
+        <DotChar
+          class="logo left-4 absolute block md:hidden"
+          :img="store.icon.value"
+          size="xl-8"
+        />
+      </div>
     </div>
-    <div>
-      <p class="description text-sm font-kdFang whitespace-pre-line">
-        {{ store.dashboard.description }}
-      </p>
-    </div>
-    <div class="pt-5">
-      <ul class="flex">
-        <li class="align-text-bottom">
-          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-            {{ I18n.growthpad.reward.count }}
-          </h4>
-          <p class="font-color-theme font-bold font-kdExp">
-            <span class="text-2xl md:text-4xl">{{
-              countComputed(store.dashboard.rewardCount)
-            }}</span>
-            <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
-          </p>
-        </li>
-        <li class="ml-3 md:ml-12 align-text-bottom">
-          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-            {{ I18n.growthpad.reward.value }}
-          </h4>
-          <p
-            class="font-color-theme font-bold font-kdExp whitespace-nowrap"
-            v-html="getPrice(store.dashboard.rewardCount)"
-          ></p>
-        </li>
-        <li class="ml-3 md:ml-12 align-text-bottom">
-          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-            {{ I18n.growthpad.reward.perPerson }}
-          </h4>
-          <p class="font-color-theme font-bold font-kdExp">
-            <span class="text-2xl md:text-4xl whitespace-nowrap">
-              <template
-                v-if="
-                  minReward(store.dashboard.rewardLimit) ===
-                    maxReward(store.dashboard.rewardLimit)
-                "
-              >
-                <span>{{
-                  countComputed(maxReward(store.dashboard.rewardLimit))
-                }}</span>
-              </template>
-              <template v-else>
-                <span>{{
-                  countComputed(minReward(store.dashboard.rewardLimit))
-                }}</span>
-                <span>~</span>
-                <span>{{
-                  countComputed(maxReward(store.dashboard.rewardLimit))
-                }}</span>
-              </template>
-            </span>
-            <span class="ml-1.5">{{ store.token }}</span>
-          </p>
-        </li>
-      </ul>
+
+    <div class="px-4 md:px-6">
+      <div class="pb-5 md:flex md:justify-between md:items-end">
+        <!-- 定时器 -->
+        <div class="text-right md:order-2">
+          <div class="inline-block">
+            <div v-if="timeType === 'begin'">
+              <TimeCountdown :value="store.dashboard.begin" />
+            </div>
+            <div v-else>
+              <TimeCountdown :value="store.dashboard.end" />
+            </div>
+          </div>
+        </div>
+        <!-- 项目名称与状态 -->
+        <div class="flex items-center font-kdFang mt-2 md:mt-0 md:order-1">
+          <span class="text-2xl mx-2">{{ title }}</span>
+          <span
+            v-if="timeStatus === TimeStatus.wait"
+            class="wait py-1.5 px-3 rounded text-sm"
+          >
+            <b class="font-medium">⏱</b>
+            <b class="font-medium ml-3">{{ I18n.growthpad.status.wait }}</b>
+          </span>
+          <span
+            v-else-if="timeStatus === TimeStatus.ing"
+            class="ing py-1.5 px-3 rounded text-sm"
+          >
+            <b class="font-medium">🔥</b>
+            <b class="font-medium ml-3">{{ I18n.growthpad.status.ing }}</b>
+          </span>
+          <span
+            v-else-if="timeStatus === TimeStatus.closure"
+            class="closure py-1.5 px-3 rounded text-sm"
+          >
+            <b class="font-medium">🚫</b>
+            <b class="font-medium ml-3">{{ I18n.growthpad.status.closure }}</b>
+          </span>
+        </div>
+      </div>
+      <div>
+        <p class="description text-sm font-kdFang whitespace-pre-line">
+          {{ store.dashboard.description }}
+        </p>
+      </div>
+      <div class="pt-5">
+        <ul class="flex">
+          <li class="align-text-bottom">
+            <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+              {{ I18n.growthpad.reward.count }}
+            </h4>
+            <p class="font-color-theme font-bold font-kdExp">
+              <span class="text-2xl md:text-4xl">{{
+                countComputed(store.dashboard.rewardCount)
+              }}</span>
+              <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
+            </p>
+          </li>
+          <li class="ml-3 md:ml-12 align-text-bottom">
+            <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+              {{ I18n.growthpad.reward.value }}
+            </h4>
+            <p
+              class="font-color-theme font-bold font-kdExp whitespace-nowrap"
+              v-html="getPrice(store.dashboard.rewardCount)"
+            ></p>
+          </li>
+          <li class="ml-3 md:ml-12 align-text-bottom">
+            <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+              {{ I18n.growthpad.reward.perPerson }}
+            </h4>
+            <p class="font-color-theme font-bold font-kdExp">
+              <span class="text-2xl md:text-4xl whitespace-nowrap">
+                <template
+                  v-if="
+                    minReward(store.dashboard.rewardLimit) ===
+                      maxReward(store.dashboard.rewardLimit)
+                  "
+                >
+                  <span>{{
+                    countComputed(maxReward(store.dashboard.rewardLimit))
+                  }}</span>
+                </template>
+                <template v-else>
+                  <span>{{
+                    countComputed(minReward(store.dashboard.rewardLimit))
+                  }}</span>
+                  <span>~</span>
+                  <span>{{
+                    countComputed(maxReward(store.dashboard.rewardLimit))
+                  }}</span>
+                </template>
+              </span>
+              <span class="ml-1.5">{{ store.token }}</span>
+            </p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="postcss">
+<style scoped lang="scss">
+.banner-box {
+  &:before {
+    margin-top: 31%;
+  }
+  .banner-item {
+    border-radius: 2px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+.logo {
+  bottom: 0;
+  transform: translate(0, 50%);
+  border: 4px solid #fff;
+}
 .wait {
   color: #2083f4;
   background: rgba(43, 141, 254, 0.1);

@@ -199,4 +199,22 @@ a {
     }
   }
 }
+
+/* 等宽等高 */
+.equal-width-height {
+  width: 100%;
+  position: relative;
+  border: 1px solid transparent;
+}
+.equal-width-height::before {
+  content: '';
+  display: block;
+}
+.equal-width-height > .equal-content {
+  left: -1px;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  position: absolute;
+}
 </style>

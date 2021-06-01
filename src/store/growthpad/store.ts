@@ -14,6 +14,7 @@ import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
 
 interface DashboardData {
+  banner: string // banner
   begin?: string // 开始时间
   end?: string // 结束时间
   description?: string // 说明
@@ -110,7 +111,10 @@ export default class Store {
   protected title = ref<string>('') // title
   protected icon = ref<string>('') // icon
   // 首屏数据
-  protected dashboard = reactive<DashboardData>({})
+  protected dashboard = reactive<DashboardData>({
+    banner: '',
+  })
+
   // 项目介绍
   protected about = reactive<AboutData>({
     minutias: [],
@@ -156,6 +160,7 @@ export default class Store {
   public article_url = ref<string>('article_url') // 用户上传的文章链接
   public article_image = ref<string>('') // 用户上传的图片
   public article_audit = ref<boolean>(false) // 用户文章审核状态
+  public article_reward = ref<number>(0) // 用户文章的奖励
 
   private timeout: any = 0
 
@@ -188,6 +193,7 @@ export default class Store {
     this.title.value = data.title
     this.icon.value = data.icon
     // dashboard 数据
+    this.dashboard.banner = data.dashboard.banner
     this.dashboard.begin = data.dashboard.begin
     this.dashboard.end = data.dashboard.end
     this.dashboard.description = data.dashboard.description
@@ -222,6 +228,7 @@ export default class Store {
     }
     this.reward.value = result?.reward || 0
     this.invited_count.value = result?.invited_count || 0
+    this.project_invited_count.value = result?.project_invited_count || 0
     // 更新 info 信息
     if (user) {
       this.user.bsc_token = user.bsc_token as string
@@ -256,6 +263,8 @@ export default class Store {
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')
     this.article_url.value = safeGet<string>(result, 'article_url')
+    this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
+
     // 定时刷新
     let time = this.intervalTime
     if (isLogin.value) {

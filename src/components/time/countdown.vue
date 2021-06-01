@@ -74,9 +74,7 @@ timeout()
     class="flex text-center md:justify-between items-baseline md:items-center"
   >
     <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp mt-1">{{
-        day
-      }}</span>
+      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{ day }}</span>
       <span class="text-sm font-kdFang hidden md:inline-block">Days</span>
     </p>
     <p>
@@ -86,9 +84,7 @@ timeout()
       }}</span>
     </p>
     <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp mt-1">{{
-        hour
-      }}</span>
+      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{ hour }}</span>
       <span class="text-sm font-kdFang hidden md:inline-block">Hours</span>
     </p>
     <p>
@@ -98,7 +94,7 @@ timeout()
       }}</span>
     </p>
     <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp mt-1">{{
+      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{
         minute
       }}</span>
       <span class="text-sm font-kdFang hidden md:inline-block">Minutes</span>
@@ -110,7 +106,7 @@ timeout()
       }}</span>
     </p>
     <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp mt-1">{{
+      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{
         second
       }}</span>
       <span class="text-sm font-kdFang hidden md:inline-block">Seconds</span>

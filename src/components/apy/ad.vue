@@ -24,24 +24,11 @@ const style = computed((): string => {
   </div>
 </template>
 
-<style scoped lang="postcss">
-/* 等宽等高 */
+<style scoped lang="scss">
 .equal-width-height {
-  width: 100%;
-  position: relative;
-  border: 1px solid transparent;
-}
-.equal-width-height::before {
-  content: '';
-  display: block;
-  margin-top: 45%;
-}
-.equal-width-height > .equal-content {
-  left: -1px;
-  top: -1px;
-  right: -1px;
-  bottom: -1px;
-  position: absolute;
+  &:before {
+    margin-top: 45%;
+  }
 }
 
 .ad-picture {

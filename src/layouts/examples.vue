@@ -19,7 +19,7 @@
     );
 }
 .examples {
-  max-width: 1000px;
+  max-width: 848px;
   margin: 0 auto;
 }
 </style>

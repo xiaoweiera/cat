@@ -48,6 +48,13 @@ const clacRewardCount = function(list: Array<ItemTask>): number {
 // 计算奖励
 // @ts-ignore
 const rewardValue = computed<number>((): number => {
+  if (props.data.type === TaskType.weibo) {
+    const number = parseInt(store.article_reward.value)
+    if (isNaN(number)) {
+      return 0
+    }
+    return number
+  }
   // @ts-ignore
   const children = props.data.children
   // Vip 任务
@@ -107,7 +114,7 @@ const rewardValue = computed<number>((): number => {
     }
   }
 
-  // autofarm 任务
+  // beltfit 任务
   // @ts-ignore
   if (props.data.type === TaskType.beltfit) {
     if (store.mission.belt) {
@@ -149,7 +156,7 @@ const rewardValue = computed<number>((): number => {
     }
   }
 
-  // Cream 任务
+  // compound 任务
   // @ts-ignore
   if (props.data.type === TaskType.compound) {
     if (store.mission.compound) {
