@@ -31,10 +31,20 @@ const props = defineProps({
 
 const store = Task()
 
+const editStatus = ref<boolean>(false)
+
 // @ts-ignore
 const loadingStatus = computed<ValueStatus>((): ValueStatus => {
+  if (editStatus.value) {
+    return ValueStatus.check
+  }
   const status: ValueStatus = getValueStatus(props.name, store)
-  return status
+  // 只处理验证通过状态
+  if (status === ValueStatus.success) {
+    return status
+  }
+  // 默认为空
+  return ValueStatus.empty
 })
 
 const formRef = ref<any>(null)
@@ -63,11 +73,11 @@ const onSubmit = async function() {
       })
     }
     if (status) {
+      editStatus.value = true
       // @ts-ignore
       const name = addressEnum[props.name]
       // @ts-ignore
       if (name && store[name]) {
-        console.log(name, formdata.input)
         // @ts-ignore
         await store[name](formdata.input)
       }
