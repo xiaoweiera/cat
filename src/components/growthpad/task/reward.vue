@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
-// @ts-ignore
 import { getMin, getMax } from './task'
+import I18n from '~/utils/i18n/index'
+// @ts-ignore
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
@@ -179,7 +180,7 @@ const rewardValue = computed<number>((): number => {
   <template v-if="rewardValue">
     <span class="font-bold font-kdExp inline-block">
       <span class="reward bonus block md:inline-block">
-        <span class="text-xs">已得</span>
+        <span class="text-xs">{{ I18n.common.message.get }}</span>
         <span class="count">{{ rewardValue }}</span>
         <span class="ml-1">{{ store.token }}</span>
       </span>

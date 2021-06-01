@@ -25,7 +25,8 @@ export default {
     verificationError: '请输入6位验证码！',
     passwordError: '请输入6至24位的密码！',
     telError: '请输入正确的手机号',
-    testing: '验证中，审核结束后自动更新结果'
+    testing: '验证中，审核结束后自动更新结果',
+    get: '已得'
   },
   placeholder: {
     login: '自动登录',

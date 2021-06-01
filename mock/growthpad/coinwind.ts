@@ -96,7 +96,6 @@ const data = {
       id: chat.uuid(), // 任务ID
       type: TaskType.bunny, // 任务类型
       title: I18n.growthpad.coinwind.task2.title,
-      // description: I18n.growthpad.coinwind.task2.description,
       description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
       reward: [1, 3], // 奖励
       children: [
