@@ -96,14 +96,7 @@ export const logout = async function(): Promise<void> {
   try {
     // 退出
     await user.logout()
-    jsCookie.remove('token', {
-      path: '/',
-      domain: 'ikingdata.com',
-    })
-    jsCookie.remove('token', {
-      path: '/',
-      domain: 'kingdata.com',
-    })
+    jsCookie.remove('token')
     update({} as UserData)
     isLogin.value = false
     window.location.reload()
