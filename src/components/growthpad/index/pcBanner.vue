@@ -58,9 +58,9 @@ const link = (): string => {
         </div>
         <div v-if="isLogin" class="flex items-end">
           <span class="">{{ I18n.growthpadShow.code }}</span>
-          <span class="text-kd17px17px text-global-primary ml-1.5 numText">{{
-            userData.my_invitation_code
-          }}</span>
+          <span
+            class="text-kd17px17px text-global-primary ml-1.5 numText"
+          >{{ userData.my_invitation_code }}-G0</span>
           <Copy :link="link">
             <IconFont
               class="ml-2 hand flex mb-1"

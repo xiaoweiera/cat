@@ -118,8 +118,7 @@ timeout()
       <div class="flex blockItem">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
         <p class="projectNum">
-          {{ props.project.dashboard.reward.limits[0] }} -
-          {{ props.project.dashboard.reward.limits[1] }}
+          {{ props.project.dashboard.reward.limits[0] }}
           {{ props.project.coin }}
         </p>
       </div>
