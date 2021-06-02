@@ -102,7 +102,7 @@ const timeCountdownValue = computed<string>((): string => {
       <div class="pb-5 md:flex md:justify-between md:items-end">
         <!-- 定时器 -->
         <div class="text-right md:order-2">
-          <div class="inline-block pb-7">
+          <div class="inline-block pb-3">
             <div
               v-if="timeStatus !== TimeStatus.closure"
               class="hidden md:inline-block"

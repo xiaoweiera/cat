@@ -72,7 +72,14 @@ timeout()
 
 <template>
   <slot :day="day" :hour="hour" :minute="minute" :second="second">
-    <span class="font-color-theme font-bold font-kdFang whitespace-nowrap">
+    <span
+      class="
+        font-color-theme font-bold font-kdFang
+        whitespace-nowrap
+        inline-block
+        pb-4
+      "
+    >
       <span class="relative">
         <span class="text-2xl md:text-4xl">{{ day }}</span>
         <span

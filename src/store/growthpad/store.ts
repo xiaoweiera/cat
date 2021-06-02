@@ -170,13 +170,11 @@ export default class Store {
       this.projectName = API.Project.mdx
       this.shareCode.value = '-G1'
       this.setInitData(mockMdx)
-    }
-    if (type && API.getProjectType(type) === API.Project.channels) {
+    } else if (type && API.getProjectType(type) === API.Project.channels) {
       this.projectName = API.Project.channels
       this.shareCode.value = '-G3'
       this.setInitData(mockChannels)
-    }
-    if (type && API.getProjectType(type) === API.Project.coinwind) {
+    } else if (type && API.getProjectType(type) === API.Project.coinwind) {
       this.projectName = API.Project.coinwind
       this.shareCode.value = '-G2'
       this.setInitData(mockCoinWind)
