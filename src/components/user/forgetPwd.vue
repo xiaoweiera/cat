@@ -1,33 +1,16 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw, onMounted, ref } from 'vue'
+import { toRaw, ref } from 'vue'
 import rules from './rules'
 import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { showVisible } from '~/store/header/login'
-import {
-  registerData,
-  registerForm,
-  onRegisterSubmit,
-} from '~/logic/user/login'
+import { forgetData, forgetForm, onFindPwd } from '~/logic/user/login'
 import { getCaptcha, findPwd } from '~/api/user'
-
-// 活动名称
-const getVisitNum = function(): string {
-  const router = toRaw(useRoute())
-  const query = router.query.value
-  // @ts-ignore
-  return query?.code || ''
-}
-
-onMounted(() => {
-  const code = getVisitNum()
-  registerData.invitation_code = code
-})
 
 const submit = async function() {
   try {
-    const result = await onRegisterSubmit()
+    const result = await onFindPwd()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
@@ -55,7 +38,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getCaptcha(registerData.mobile).catch(() => {
+  getCaptcha(forgetData.mobile).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -80,16 +63,16 @@ const onGetCode = function() {
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
-    ref="registerForm"
+    ref="forgetForm"
     class="formLogo"
     :rules="rules"
-    :model="registerData"
+    :model="forgetData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
       <el-input
-        v-model="registerData.mobile"
+        v-model="forgetData.mobile"
         :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"
@@ -99,7 +82,7 @@ const onGetCode = function() {
     </el-form-item>
     <el-form-item prop="code">
       <el-input
-        v-model="registerData.code"
+        v-model="forgetData.code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -112,7 +95,7 @@ const onGetCode = function() {
 
     <el-form-item prop="password">
       <el-input
-        v-model="registerData.password"
+        v-model="forgetData.password"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -120,10 +103,11 @@ const onGetCode = function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item class="mb-2">
+    <el-form-item prop="confirmPassword">
       <el-input
-        v-model="registerData.invitation_code"
-        :placeholder="I18n.common.user.invite"
+        v-model="forgetData.confirmPassword"
+        type="password"
+        :placeholder="I18n.common.placeholder.confirmPassword"
         class="input-with-select"
         autocomplete="off"
       >

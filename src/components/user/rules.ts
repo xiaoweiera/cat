@@ -43,7 +43,24 @@ const password = [
     },
   },
 ]
-
+// 密码校验
+const confirmPassword = [
+  {
+    required: true,
+    message: I18n.common.placeholder.confirmPassword,
+    trigger: ['blur', 'change'],
+  },
+  {
+    trigger: ['blur', 'change'],
+    validator(rule: any, value: string, callback: (message?: string) => void) {
+      if (value.length >= 6 && value.length <= 24) {
+        callback()
+      } else {
+        callback(I18n.common.message.passwordError)
+      }
+    },
+  },
+]
 // 密码校验
 const code = [
   {
@@ -63,4 +80,4 @@ const code = [
   },
 ]
 
-export default { mobile, password, code }
+export default { mobile, password, confirmPassword, code }

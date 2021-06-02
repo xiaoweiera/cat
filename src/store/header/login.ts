@@ -22,7 +22,7 @@ export const goLogin = function(): void {
   visible.value = true
 }
 export const goRegister = function(): void {
-  loginTypeStatus.type = 'mail'
+  loginTypeStatus.type = 'tel'
   loginTypeStatus.name = 'register'
   visible.value = true
 }
