@@ -45,7 +45,7 @@ export const channelsInfo = {
     end: '2021-06-30 12:00:00', // 结束时间
     description: I18n.growthpadShow.channelsProject.des, // 描述
     reward: {
-      count: 200000, // 奖励数量
+      count: 100000, // 奖励数量
       cost: 2000000, // 价值
       limits: [148], // 每人可领取范围
     },
