@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw, onMounted, ref } from 'vue'
+import { toRaw, onMounted, ref, defineProps } from 'vue'
 import rules from './rules'
-import { messageError } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible } from '~/store/header/login'
+import { goDialogLogin } from '~/store/header/login'
 import {
   registerData,
   registerForm,
   onRegisterSubmit,
 } from '~/logic/user/login'
 import { getCaptcha } from '~/api/user'
-
+const props = defineProps({
+  areaCode: Object,
+})
 // 活动名称
 const getVisitNum = function(): string {
   const router = toRaw(useRoute())
@@ -24,14 +26,14 @@ onMounted(() => {
   const code = getVisitNum()
   registerData.invitation_code = code
 })
-
 const submit = async function() {
   try {
     const result = await onRegisterSubmit()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
-      showVisible()
+      messageSuccess('注册成功')
+      goDialogLogin()
     }
   } catch (e) {
     const message = e?.message
@@ -43,7 +45,6 @@ const submit = async function() {
     }
   }
 }
-
 let codeNumber = 120
 let interval: any = 0
 let codeFlag = false
@@ -94,7 +95,21 @@ const onGetCode = function() {
         class="input-with-select"
         autocomplete="off"
       >
-        <template #prepend>+86</template>
+        <template #prepend>
+          <el-select v-model="registerData.area_code" placeholder="+86">
+            <el-option
+              v-for="item in areaCode"
+              :key="item.phone_code"
+              :label="item.phone_code"
+              :value="item.phone_code"
+            >
+              <span style="float: left">{{ item.phone_code }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{
+                item.cn
+              }}</span>
+            </el-option>
+          </el-select>
+        </template>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
@@ -129,20 +144,24 @@ const onGetCode = function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item>
-      <div class="register-box">
-        <span class="inline-block">{{ I18n.common.user.read }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/privacy_policy/"
-        >{{ I18n.common.user.agreement }}</a>
-        <span class="defaultText inline-block">{{ I18n.common.and }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/agreement/"
-        >{{ I18n.common.user.terms }}</a>
+    <el-form-item class="checkedText" prop="checked">
+      <div class="text-center">
+        <el-checkbox v-model="registerData.checked">
+          <div class="register-box">
+            <span class="inline-block">{{ I18n.common.user.read }}</span>
+            <a
+              class="link inline-block"
+              target="_blank"
+              href="https://ikingdata.com/privacy_policy/"
+            >{{ I18n.common.user.agreement }}</a>
+            <span class="defaultText inline-block">{{ I18n.common.and }}</span>
+            <a
+              class="link inline-block"
+              target="_blank"
+              href="https://ikingdata.com/agreement/"
+            >{{ I18n.common.user.terms }}</a>
+          </div>
+        </el-checkbox>
       </div>
     </el-form-item>
     <el-form-item class="mb-0">
@@ -157,6 +176,25 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.checkedText .el-form-item__content) {
+  line-height: 10px;
+}
+.checkedText {
+  width: fit-content;
+  margin: 20px auto;
+}
+::v-deep(.el-select .el-input__inner) {
+  width: 72px;
+  padding-left: 0px !important;
+  margin-right: 6px !important;
+  padding-right: 0px !important;
+  text-align: center;
+}
+::v-deep(.el-input__suffix) {
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+}
 .mb-2 {
   margin-bottom: 8px !important;
 }

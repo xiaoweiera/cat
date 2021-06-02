@@ -8,7 +8,6 @@ import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 const props = defineProps({
   areaCode: Object,
 })
-const area_code = ref('+86')
 const submit = async function() {
   try {
     await onSubmit()
@@ -40,26 +39,30 @@ const submit = async function() {
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mobile">
-      <el-select v-model="area_code" placeholder="+86">
-        <el-option
-          v-for="item in areaCode"
-          :key="item.phone_code"
-          :label="item.phone_code"
-          :value="item.phone_code"
+      <div class="flex items-center">
+        <el-input
+          v-model="formdata.mobile"
+          :placeholder="I18n.common.placeholder.tel"
+          class="input-with-select"
+          autocomplete="off"
         >
-          <span style="float: left">{{ item.phone_code }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{
-            item.cn
-          }}</span>
-        </el-option>
-      </el-select>
-      <el-input
-        v-model="formdata.mobile"
-        :placeholder="I18n.common.placeholder.tel"
-        class="input-with-select"
-        autocomplete="off"
-      >
-      </el-input>
+          <template #prepend>
+            <el-select v-model="formdata.area_code" placeholder="+86">
+              <el-option
+                v-for="item in areaCode"
+                :key="item.phone_code"
+                :label="item.phone_code"
+                :value="item.phone_code"
+              >
+                <span style="float: left">{{ item.phone_code }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{
+                  item.cn
+                }}</span>
+              </el-option>
+            </el-select>
+          </template>
+        </el-input>
+      </div>
     </el-form-item>
     <el-form-item class="mb-2" prop="password">
       <el-input
@@ -88,6 +91,18 @@ const submit = async function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-select .el-input__inner) {
+  width: 72px;
+  padding-left: 0px !important;
+  margin-right: 6px !important;
+  padding-right: 0px !important;
+  text-align: center;
+}
+::v-deep(.el-input__suffix) {
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+}
 .mb-2 {
   margin-bottom: 8px !important;
 }

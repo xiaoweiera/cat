@@ -1,37 +1,23 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw, onMounted, ref } from 'vue'
+import { toRaw, ref, defineProps } from 'vue'
 import rules from './rules'
-import { messageError } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible } from '~/store/header/login'
-import {
-  registerData,
-  registerForm,
-  onRegisterSubmit,
-} from '~/logic/user/login'
-import { getCaptcha } from '~/api/user'
-
-// 活动名称
-const getVisitNum = function(): string {
-  const router = toRaw(useRoute())
-  const query = router.query.value
-  // @ts-ignore
-  return query?.code || ''
-}
-
-onMounted(() => {
-  const code = getVisitNum()
-  registerData.invitation_code = code
+import { goDialogLogin } from '~/store/header/login'
+import { forgetData, forgetForm, onFindPwd } from '~/logic/user/login'
+import { getForgetCaptcha } from '~/api/user'
+const props = defineProps({
+  areaCode: Object,
 })
-
 const submit = async function() {
   try {
-    const result = await onRegisterSubmit()
+    const result = await onFindPwd()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
-      showVisible()
+      messageSuccess('重置密码成功')
+      goDialogLogin()
     }
   } catch (e) {
     const message = e?.message
@@ -55,7 +41,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getCaptcha(registerData.mobile).catch(() => {
+  getForgetCaptcha(forgetData.mobile).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -74,32 +60,28 @@ const onGetCode = function() {
 </script>
 
 <template>
-  <div class="logo text-center mb-3.5">
-    <img class="inline-block" src="https://res.ikingdata.com/nav/logoJpg.png" />
-  </div>
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
-    ref="registerForm"
+    ref="forgetForm"
     class="formLogo"
     :rules="rules"
-    :model="registerData"
+    :model="forgetData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mail">
+    <el-form-item prop="mobile">
       <el-input
-        v-model="registerData.mobile"
-        :placeholder="I18n.common.placeholder.mail"
+        v-model="forgetData.mobile"
+        :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"
       >
-        <template #prepend>+86</template>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
       <el-input
-        v-model="registerData.code"
+        v-model="forgetData.code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -112,7 +94,7 @@ const onGetCode = function() {
 
     <el-form-item prop="password">
       <el-input
-        v-model="registerData.password"
+        v-model="forgetData.password"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -120,35 +102,20 @@ const onGetCode = function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item class="mb-2">
+    <el-form-item prop="new_password">
       <el-input
-        v-model="registerData.invitation_code"
-        :placeholder="I18n.common.user.invite"
+        v-model="forgetData.new_password"
+        type="password"
+        :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"
         autocomplete="off"
       >
       </el-input>
     </el-form-item>
-    <el-form-item>
-      <div class="register-box">
-        <span class="inline-block">{{ I18n.common.user.read }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/privacy_policy/"
-        >{{ I18n.common.user.agreement }}</a>
-        <span class="defaultText inline-block">{{ I18n.common.and }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/agreement/"
-        >{{ I18n.common.user.terms }}</a>
-      </div>
-    </el-form-item>
     <el-form-item class="mb-0">
       <ElButton class="w-full" type="primary" native-type="submit">
         <span class="font-bold font-17 font-kdFang">{{
-          I18n.common.register
+          I18n.common.resetPassword
         }}</span>
       </ElButton>
     </el-form-item>

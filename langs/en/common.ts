@@ -1,6 +1,7 @@
 export default {
   login: 'Sign in',
   register: 'Register',
+  resetPassword: 'Reset password',
   switchLogin: 'Sign in',
   switchRegister: 'Register',
   switchRorget: 'Forgot password',
@@ -23,7 +24,9 @@ export default {
     verification: 'Get code',
     verificationError: '请输入6位验证码！',
     passwordError: 'Please input 6-24 digits of password!',
+    confirmPassword: 'The password entered twice does not match',
     telError: 'Please input the correct mobile phone number',
+    checked:'Please read the User Privacy Agreement and Terms of Service'
   },
   placeholder: {
     login: 'automatic login',
@@ -31,7 +34,7 @@ export default {
     mail:'Please enter your email address',
     verification: 'Please enter the verification code',
     password: 'Please input  new password',
-    confirmPassword: 'Please confirm  new password',
+    confirmPassword: 'Please confirm  new password'
   },
   and: 'And',
   join: 'Join',
@@ -41,8 +44,8 @@ export default {
   user: {
     invite: 'Please enter the invitation code',
     read: 'Please read before registration',
-    agreement: 'Service agreement',
-    terms: 'Terms of service'
+    agreement: '《Service agreement》',
+    terms: '《Terms of service》'
   },
   chat: {
     telegram: 'Telegram',

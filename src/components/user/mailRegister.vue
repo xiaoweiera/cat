@@ -128,20 +128,24 @@ const onGetCode = function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item>
-      <div class="register-box">
-        <span class="inline-block">{{ I18n.common.user.read }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/privacy_policy/"
-        >{{ I18n.common.user.agreement }}</a>
-        <span class="defaultText inline-block">{{ I18n.common.and }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/agreement/"
-        >{{ I18n.common.user.terms }}</a>
+    <el-form-item class="checkedText" prop="checked">
+      <div class="text-center">
+        <el-checkbox v-model="registerData.checked">
+          <div class="register-box">
+            <span class="inline-block">{{ I18n.common.user.read }}</span>
+            <a
+              class="link inline-block"
+              target="_blank"
+              href="https://ikingdata.com/privacy_policy/"
+            >{{ I18n.common.user.agreement }}</a>
+            <span class="defaultText inline-block">{{ I18n.common.and }}</span>
+            <a
+              class="link inline-block"
+              target="_blank"
+              href="https://ikingdata.com/agreement/"
+            >{{ I18n.common.user.terms }}</a>
+          </div>
+        </el-checkbox>
       </div>
     </el-form-item>
     <el-form-item class="mb-0">
@@ -156,6 +160,13 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.checkedText .el-form-item__content) {
+  line-height: 10px;
+}
+.checkedText {
+  width: fit-content;
+  margin: 20px auto;
+}
 .mb-2 {
   margin-bottom: 8px !important;
 }

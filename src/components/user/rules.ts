@@ -4,6 +4,7 @@
  */
 
 import I18n from '~/utils/i18n/index'
+import { forgetData } from '~/logic/user/login'
 
 // 手机号校验
 export const mobile = [
@@ -44,23 +45,44 @@ const password = [
   },
 ]
 // 密码校验
-const confirmPassword = [
+const new_password = [
   {
     required: true,
-    message: I18n.common.placeholder.confirmPassword,
+    message: I18n.common.placeholder.new_password,
     trigger: ['blur', 'change'],
   },
   {
     trigger: ['blur', 'change'],
     validator(rule: any, value: string, callback: (message?: string) => void) {
-      if (value.length >= 6 && value.length <= 24) {
-        callback()
-      } else {
+      if (value.length < 6 || value.length > 24) {
         callback(I18n.common.message.passwordError)
+      } else if (forgetData.password !== forgetData.new_password) {
+        callback(I18n.common.message.new_password)
+      } else {
+        callback()
       }
     },
   },
 ]
+// 协议
+const checked = [
+  {
+    required: true,
+    message: I18n.common.message.checked,
+    trigger: ['blur', 'change'],
+  },
+  {
+    trigger: ['blur', 'change'],
+    validator(rule: any, value: string, callback: (message?: string) => void) {
+      if (value) {
+        callback()
+      } else {
+        callback(I18n.common.message.checked)
+      }
+    },
+  },
+]
+
 // 密码校验
 const code = [
   {
@@ -80,4 +102,4 @@ const code = [
   },
 ]
 
-export default { mobile, password, confirmPassword, code }
+export default { mobile, password, new_password, checked, code }

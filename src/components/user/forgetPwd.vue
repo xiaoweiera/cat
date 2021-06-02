@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw, ref } from 'vue'
+import { toRaw, ref, defineProps } from 'vue'
 import rules from './rules'
-import { messageError } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible } from '~/store/header/login'
+import { goDialogLogin } from '~/store/header/login'
 import { forgetData, forgetForm, onFindPwd } from '~/logic/user/login'
-import { getCaptcha, findPwd } from '~/api/user'
-
+import { getForgetCaptcha } from '~/api/user'
+const props = defineProps({
+  areaCode: Object,
+})
 const submit = async function() {
   try {
     const result = await onFindPwd()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
-      showVisible()
+      messageSuccess('重置密码成功')
+      goDialogLogin()
     }
   } catch (e) {
     const message = e?.message
@@ -38,7 +41,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getCaptcha(forgetData.mobile).catch(() => {
+  getForgetCaptcha(forgetData.mobile).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -57,9 +60,6 @@ const onGetCode = function() {
 </script>
 
 <template>
-  <div class="logo text-center mb-3.5">
-    <img class="inline-block" src="https://res.ikingdata.com/nav/logoJpg.png" />
-  </div>
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
@@ -77,7 +77,21 @@ const onGetCode = function() {
         class="input-with-select"
         autocomplete="off"
       >
-        <template #prepend>+86</template>
+        <template #prepend>
+          <el-select v-model="forgetData.area_code" placeholder="+86">
+            <el-option
+              v-for="item in areaCode"
+              :key="item.phone_code"
+              :label="item.phone_code"
+              :value="item.phone_code"
+            >
+              <span style="float: left">{{ item.phone_code }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{
+                item.cn
+              }}</span>
+            </el-option>
+          </el-select>
+        </template>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
@@ -103,36 +117,20 @@ const onGetCode = function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item prop="confirmPassword">
+    <el-form-item prop="new_password">
       <el-input
-        v-model="forgetData.confirmPassword"
+        v-model="forgetData.new_password"
         type="password"
-        :placeholder="I18n.common.placeholder.confirmPassword"
+        :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"
         autocomplete="off"
       >
       </el-input>
     </el-form-item>
-    <el-form-item>
-      <div class="register-box">
-        <span class="inline-block">{{ I18n.common.user.read }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/privacy_policy/"
-        >{{ I18n.common.user.agreement }}</a>
-        <span class="defaultText inline-block">{{ I18n.common.and }}</span>
-        <a
-          class="link inline-block"
-          target="_blank"
-          href="https://ikingdata.com/agreement/"
-        >{{ I18n.common.user.terms }}</a>
-      </div>
-    </el-form-item>
     <el-form-item class="mb-0">
       <ElButton class="w-full" type="primary" native-type="submit">
         <span class="font-bold font-17 font-kdFang">{{
-          I18n.common.register
+          I18n.common.resetPassword
         }}</span>
       </ElButton>
     </el-form-item>
@@ -141,6 +139,18 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-select .el-input__inner) {
+  width: 72px;
+  padding-left: 0px !important;
+  margin-right: 6px !important;
+  padding-right: 0px !important;
+  text-align: center;
+}
+::v-deep(.el-input__suffix) {
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+}
 .mb-2 {
   margin-bottom: 8px !important;
 }

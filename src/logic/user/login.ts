@@ -52,26 +52,40 @@ export const isLogin = ref<boolean>(false)
 interface FormData {
   mobile: string
   password: string
+  area_code: string
   checked: boolean
 }
 export const formdata = reactive<FormData>({
   mobile: '',
   password: '',
-  checked: false,
+  area_code: '+86',
+  checked: true,
 })
 // 注册
 export const registerData = reactive({
   code: '', // 验证码
   password: '',
   mobile: '',
+  area_code: '+86',
   invitation_code: '', // 邀请码
   platform: 'web',
+  checked: false,
+})
+// 注册
+export const registerMailData = reactive({
+  code: '', // 验证码
+  password: '',
+  mail: '',
+  invitation_code: '', // 邀请码
+  platform: 'web',
+  checked: false,
 })
 // 找回密码
 export const forgetData = reactive({
   code: '', // 验证码
   password: '',
-  confirmPassword: '',
+  new_password: '',
+  area_code: '+86',
   mobile: '',
 })
 export const registerForm = ref<any>(null)
@@ -141,6 +155,7 @@ export const onFindPwd = async function(): Promise<any> {
 // 注册
 export const onRegisterSubmit = async function(): Promise<any> {
   const form = toRaw(registerForm).value
+  console.log(toRaw(registerData))
   try {
     if (form) {
       await form.validate()
@@ -163,7 +178,10 @@ export const onSubmit = async function(): Promise<any> {
       await form.validate()
     }
     // @ts-ignore
-    const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
+    const data = R.pick<user.LogoData>(
+      ['mobile', 'password', 'area_code'],
+      formdata,
+    )
     const result = await user.logo(data)
     if (result?.data) {
       if (window.location.hostname !== 'kingdata.com') {
