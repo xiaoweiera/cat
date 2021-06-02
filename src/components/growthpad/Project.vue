@@ -76,7 +76,7 @@ const timeout = () => {
 timeout()
 </script>
 <template>
-  <div class="project reative font-kdFang relative">
+  <div class="project reative font-kdFang relative i8n-font-en-inter">
     <div class="relative z-2">
       <div class="flex items-center">
         <img :src="props.project.icon" class="w-10.5" alt="" />
@@ -118,8 +118,7 @@ timeout()
       <div class="flex blockItem">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
         <p class="projectNum">
-          {{ props.project.dashboard.reward.limits[0] }} -
-          {{ props.project.dashboard.reward.limits[1] }}
+          {{ props.project.dashboard.reward.limits[0] }}
           {{ props.project.coin }}
         </p>
       </div>

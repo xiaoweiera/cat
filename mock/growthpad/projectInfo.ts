@@ -3,7 +3,7 @@ import I18n from '../../src/utils/i18n/kiwi'
 export const mdxInfo = {
   title: 'MDEX', // 名称
   icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
-  url: 'https://ikingdata.com/growthpad/mdx',
+  url: '/growthpad/mdx',
   coin: 'MDX',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/mdx.png',
@@ -19,8 +19,8 @@ export const mdxInfo = {
 }
 export const coinwindInfo = {
   title: 'CoinWind', // 名称
-  icon: 'https://res.ikingdata.com/icon/coinwind.jpg', // icon
-  url: 'https://ikingdata.com/growthpad/COINWIND',
+  icon: 'https://res.ikingdata.com/nav/coinwind.png', // icon
+  url: '/growthpad/COINWIND',
   coin: 'MDX',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/coinwind.png',
@@ -37,7 +37,7 @@ export const coinwindInfo = {
 export const channelsInfo = {
   title: 'Channels', // 名称
   icon: 'https://res.ikingdata.com/icon/channels.svg', // icon
-  url: 'https://ikingdata.com/growthpad/CHANNELS',
+  url: '/growthpad/CHANNELS',
   coin: 'USDT',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/channels.png',

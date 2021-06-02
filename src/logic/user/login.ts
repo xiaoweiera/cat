@@ -96,14 +96,18 @@ export const logout = async function(): Promise<void> {
   try {
     // 退出
     await user.logout()
-    jsCookie.remove('token', {
-      path: '/',
-      domain: 'ikingdata.com',
-    })
-    jsCookie.remove('token', {
-      path: '/',
-      domain: 'kingdata.com',
-    })
+    if (window.location.hostname !== 'kingdata.com') {
+      jsCookie.remove('token')
+    } else {
+      jsCookie.remove('token', {
+        path: '/',
+        domain: 'ikingdata.com',
+      })
+      jsCookie.remove('token', {
+        path: '/',
+        domain: 'kingdata.com',
+      })
+    }
     update({} as UserData)
     isLogin.value = false
     window.location.reload()
@@ -153,22 +157,21 @@ export const onSubmit = async function(): Promise<any> {
     const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
     const result = await user.logo(data)
     if (result?.data) {
+      jsCookie.set('token', result?.data?.token || '')
       if (window.location.hostname !== 'kingdata.com') {
         jsCookie.set('token', result?.data?.token || '', {
           path: '/',
         })
+      } else {
+        jsCookie.set('token', result?.data?.token || '', {
+          path: '/',
+          domain: 'ikingdata.com',
+        })
+        jsCookie.set('token', result?.data?.token || '', {
+          path: '/',
+          domain: 'kingdata.com',
+        })
       }
-      jsCookie.set('token', result?.data?.token || '', {
-        path: '/',
-      })
-      jsCookie.set('token', result?.data?.token || '', {
-        path: '/',
-        domain: 'ikingdata.com',
-      })
-      jsCookie.set('token', result?.data?.token || '', {
-        path: '/',
-        domain: 'kingdata.com',
-      })
       update(result.data as UserData)
     }
     const number = parseInt(result?.code as any, 10)
