@@ -12,6 +12,7 @@ export default {
   iInvite: '我邀请参与活动的人数',
   code: '我的邀请码',
   invite: '去邀请',
+  login:'请登录',
   partners: '合作伙伴',
   reward: '奖励数量',
   values: '奖励价值',
@@ -26,14 +27,19 @@ export default {
   mobileFooter: 'https://res.ikingdata.com/nav/mobileFootImg.png',
   pcBanner: 'https://res.ikingdata.com/nav/growthPadIndexPCcn.png',
   mobileBanner: 'https://res.ikingdata.com/nav/growthPadMobilecn.png',
+  summary:{
+    rewarded:'奖励总价值',
+    projects:'服务项目',
+    users:'参与总人数',
+  },
   mdxProject: {
-    des: 'KingData 将联合 MDEX 开启价值超 200,000 美金的空投活动，并设立了超 10 种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的MDX奖励',
+    des: 'MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超 $300000 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。 活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。'
   },
   coinwindProject: {
-    des: 'KingData 将联合 CoinWind 开启价值超 100,000 美金的空投活动以及 CoinWind 专属活动增长奖。设立了超多种活动任务，让所有用户都有资格进行参与。完成任务的用户在活动结束后，将空投相应的 MDX 奖励',
+    des: 'CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超 $200000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。 活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX 奖励会发放到您验证持仓的地址中。'
   },
   channelsProject: {
-    des: 'Venus 持仓价值超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博',
+    des: 'Channels 为奖励长期支持 Channels 的用户，联合 KingData 在 GrowthPad 上开启价值超 $100000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。 活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 Heco 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 USDT 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 USDT 奖励会发放到您验证持仓的地址中。'
   },
   footProject: {
     title: '如何参与项目',

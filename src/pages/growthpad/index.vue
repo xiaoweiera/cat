@@ -37,7 +37,7 @@ onMounted(async() => {
     <div class="mainContainer">
       <div class="xshidden hero w-full flex-wrap flex justify-between">
         <div class="titleDes mdhidden"></div>
-        <div class="mxWidth font-kdFang">
+        <div class="mxWidth font-kdFang i8n-font-en-inter">
           <div class="titleTxt">GrowthPad</div>
           <div class="titleTxt">{{ I18n.growthpadShow.title }}</div>
           <div
@@ -48,13 +48,16 @@ onMounted(async() => {
               opacity-65
               mt-4
               md:mt-6
-              i8n-font-inter i8n-font-inter200
+              i8n-font-en-inter
             "
           >
             <div>{{ I18n.growthpadShow.des }}</div>
           </div>
+          <GrowthpadSummary />
           <div class="flex flex-wrap md:mt-8.25 relative z-30 items-center">
-            <div class="suport">{{ I18n.growthpadShow.supproted }}</div>
+            <div class="suport i8n-font-en-inter">
+              {{ I18n.growthpadShow.supproted }}
+            </div>
             <template v-for="item in platList">
               <img class="mr-3 md:mr-4 h-4 md:h-5 mt-4" :src="item" alt="" />
             </template>
@@ -82,7 +85,7 @@ onMounted(async() => {
 
 <style scoped>
 .suport {
-  @apply mt-4 min-w-7.5 text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px i8n-font-inter i8n-font-inter200;
+  @apply mt-4 min-w-7.5 text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px;
 }
 .titleDes {
   @apply flex h-52 items-center justify-center w-full pt-1.25 px-8;
@@ -96,9 +99,6 @@ onMounted(async() => {
 
 .mainContainer {
   @apply max-w-mx1440 containerbg md:mt-20 relative z-2 px-4 md:px-30 flex flex-col;
-}
-.en .i8n-font-inter200 {
-  @apply font-extralight;
 }
 
 .mixed {

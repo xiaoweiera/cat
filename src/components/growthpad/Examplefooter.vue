@@ -6,7 +6,7 @@ import I18n from '~/utils/i18n'
 <template>
   <div>
     <div class="text-center mt-10 md:mt-20">
-      <div class="why-us i8n-font-Barlow font-semibold">
+      <div class="why-us i8n-font-en-Barlow font-semibold">
         {{ I18n.growthpadShow.footProject.title }}
       </div>
       <div

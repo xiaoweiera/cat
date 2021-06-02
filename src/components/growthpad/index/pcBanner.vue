@@ -74,7 +74,9 @@ const link = (): string => {
             </div>
           </Copy>
         </div>
-        <div v-else v-login class="visitedButton">请登录</div>
+        <div v-else v-login class="visitedButton">
+          {{ I18n.growthpadShow.login }}
+        </div>
       </div>
     </div>
   </div>
