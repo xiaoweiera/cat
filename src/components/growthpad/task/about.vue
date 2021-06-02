@@ -115,9 +115,9 @@ const list = computed(() => {
         >
           <span class="inline-block w-26 minutia-name">{{ item.label }}</span>
           <span class="inline-block minutia-value">
-            <template v-if="item.value === 'price'">{{
-              store.price.value
-            }}</template>
+            <template
+              v-if="item.value === 'price'"
+            >${{ store.price.value }}</template>
             <template v-else>{{ item.value }}</template>
           </span>
         </p>
