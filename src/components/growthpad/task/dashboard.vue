@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, defineProps } from 'vue'
 import dayjs from 'dayjs'
 // @ts-ignore
 import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
+import { Project } from '~/api/growtask'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
+
+defineProps({
+  rewardValueTitle: {
+    type: String,
+    default() {
+      return I18n.growthpad.reward.value
+    },
+  },
+})
+
 const store = Task()
 
 const format = 'YYYY-MM-DD HH:mm:ss'
@@ -13,8 +24,10 @@ const format = 'YYYY-MM-DD HH:mm:ss'
 const title = computed((): string => {
   // return `${store.title.value} ${I18n.growthpad.growth}`
   const data = { project: store.title.value }
-  const text = I18n.template(I18n.growthpad.growth, data)
-  return text
+  if (store.getNickName() === Project.growth) {
+    return data.project
+  }
+  return I18n.template(I18n.growthpad.growth, data)
 })
 
 const minReward = function(array: number[]): number {
@@ -157,7 +170,7 @@ const timeCountdownValue = computed<string>((): string => {
           </li>
           <li class="ml-3 md:ml-12 align-text-bottom">
             <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-              {{ I18n.growthpad.reward.value }}
+              {{ rewardValueTitle }}
             </h4>
             <p
               class="font-color-theme font-bold font-kdExp whitespace-nowrap"

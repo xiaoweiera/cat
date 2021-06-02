@@ -13,14 +13,10 @@ onBeforeMount(() => ready(store))
 </script>
 <template>
   <div v-show="!loading" class="pb-20">
-    <growthpadTaskDashboard />
+    <growthpadTaskDashboard reward-value-title="单人最高可获得" />
 
     <div class="pt-15 px-4 md:px-6">
       <growthpadTaskAdress />
-
-      <template v-if="store.projectName === Project.coinwind">
-        <growthpadTaskCoinwind></growthpadTaskCoinwind>
-      </template>
 
       <div>
         <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
@@ -38,7 +34,6 @@ onBeforeMount(() => ready(store))
           </DotCountGroup>
         </div>
       </div>
-
       <growthpadTaskAbout></growthpadTaskAbout>
     </div>
   </div>

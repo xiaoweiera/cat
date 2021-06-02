@@ -110,6 +110,11 @@ export default {
     '2000': '{value}（TOP 2,000 users）'
   },
 
+  wechat: {
+    title: '{project}-GrowthPad',
+    desc: '做任务支持{project}，领百万token奖励'
+  },
+
   mdx: {
     address: {
       placeholder: 'Enter BSC address',

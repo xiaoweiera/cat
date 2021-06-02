@@ -27,6 +27,11 @@ enum TaskType {
   beltfit = 'belt.fit',
 
   bunny = 'bunny',
+
+  // 朋友圈
+  friends = 'friends',
+  // 聊天群
+  groups = 'group',
 }
 
 export default TaskType

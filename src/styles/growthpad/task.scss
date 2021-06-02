@@ -1,0 +1,33 @@
+h2 {
+  color: #033666;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tips {
+  width: 220px;
+}
+
+.sub {
+  color: rgba(37, 62, 111, 0.65);
+}
+.task-list {
+  li {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '';
+      width: 1px;
+      background: rgba(37, 62, 111, 0.1);
+      top: 30px;
+      bottom: 6px;
+      left: 12px;
+    }
+    &:last-child {
+      padding-bottom: 0 !important;
+      &:after {
+        content: none;
+      }
+    }
+  }
+}

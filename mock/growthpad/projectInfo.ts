@@ -12,7 +12,6 @@ export const mdxInfo = {
     description: I18n.growthpadShow.mdxProject.des, // 描述
     reward: {
       count: 100000, // 奖励数量
-      cost: 1000000, // 价值
       limits: [348], // 每人可领取范围
     },
   },
@@ -29,7 +28,6 @@ export const coinwindInfo = {
     description: I18n.growthpadShow.coinwindProject.des, // 描述
     reward: {
       count: 100000, // 奖励数量
-      cost: 1000000, // 价值
       limits: [312], // 每人可领取范围
     },
   },
@@ -45,9 +43,26 @@ export const channelsInfo = {
     end: '2021-06-30 12:00:00', // 结束时间
     description: I18n.growthpadShow.channelsProject.des, // 描述
     reward: {
-      count: 200000, // 奖励数量
-      cost: 2000000, // 价值
+      count: 100000, // 奖励数量
       limits: [148], // 每人可领取范围
+    },
+    status: '',
+  },
+}
+
+export const growthInfo = {
+  title: 'GrowthPad', // 名称
+  icon: 'https://res.ikingdata.com/icon/kingdata.png', // icon
+  url: '/growthpad/growth',
+  coin: 'USDT',
+  dashboard: {
+    banner: 'https://res.ikingdata.com/static/growthpad/growthpad.png',
+    begin: '2021-05-29 12:00:00', // 开始时间
+    end: '2021-06-30 12:00:00', // 结束时间
+    description: I18n.growthpadShow.channelsProject.des, // 描述
+    reward: {
+      count: 500000, // 奖励数量
+      limits: [12000], // 每人可领取范围
     },
     status: '',
   },

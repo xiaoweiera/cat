@@ -9,6 +9,7 @@ import safeSet from '@fengqiaogang/safe-set'
 import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
+import mockGrowth from '../../../mock/growthpad/growth'
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
@@ -178,6 +179,10 @@ class Store {
       this.projectName = API.Project.coinwind
       this.shareCode.value = '-G2'
       this.setInitData(mockCoinWind)
+    } else if (type && API.getProjectType(type) === API.Project.growth) {
+      this.projectName = API.Project.growth
+      this.shareCode.value = '-G4'
+      this.setInitData(mockGrowth)
     }
   }
 
