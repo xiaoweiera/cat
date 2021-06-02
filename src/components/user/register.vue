@@ -11,7 +11,7 @@ import {
   onRegisterSubmit,
 } from '~/logic/user/login'
 import { getCaptcha } from '~/api/user'
-const isHasCode = ref(true)
+const isHasCode = ref('')
 // 活动名称
 const getVisitNum = function(): string {
   const router = toRaw(useRoute())
