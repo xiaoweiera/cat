@@ -13,6 +13,11 @@ import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
 
+interface Minutia {
+  label: string
+  value: string | number
+}
+
 interface DashboardData {
   banner: string // banner
   begin?: string // 开始时间
@@ -20,11 +25,6 @@ interface DashboardData {
   description?: string // 说明
   rewardCount?: number // 总奖励数量
   rewardLimit?: number[] // 个人奖励范围
-}
-
-interface Minutia {
-  label: string
-  value: string | number
 }
 interface ShareItem {
   icon: string
@@ -94,7 +94,7 @@ interface Mission {
   bunny: boolean
 }
 
-export default class Store {
+class Store {
   protected token = ''
   protected shareCode = ref<string>('')
   private intervalTime = 10000
@@ -214,7 +214,6 @@ export default class Store {
   }
 
   protected getNickName(): API.Project {
-    // return this.projectName ? R.toUpper(this.projectName) : ''
     return this.projectName
   }
 
@@ -263,19 +262,23 @@ export default class Store {
     this.article_url.value = safeGet<string>(result, 'article_url')
     this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
 
-    // 定时刷新
-    let time = this.intervalTime
-    if (isLogin.value) {
-      time = parseInt(this.intervalTime as any)
-    } else {
-      time = parseInt((this.intervalTime / 2) as any)
+    // 自动刷新逻辑
+    const keys: string[] = Object.keys(result)
+    if (keys.length > 1) {
+      // 定时刷新
+      let time: number
+      if (isLogin.value) {
+        time = parseInt(this.getIntervalTime() as any)
+      } else {
+        time = parseInt((this.getIntervalTime() / 2) as any)
+      }
+      if (time < 3000 || isNaN(time)) {
+        time = 3000
+      }
+      this.timeout = setTimeout(() => {
+        return this.init()
+      }, time)
     }
-    if (time < 3000 || isNaN(time)) {
-      time = 3000
-    }
-    this.timeout = setTimeout(() => {
-      return this.init()
-    }, time)
   }
 
   setIntervalTime(time: number): void {
@@ -291,14 +294,8 @@ export default class Store {
    */
   async init(): Promise<void> {
     this.clearTimeout()
-    try {
-      const result = await API.getProjectInfo(this.projectName)
-      this.updateData(result)
-      return
-    } catch (e) {
-      // todo
-    }
-    this.updateData()
+    const result = await API.getProjectInfo(this.projectName)
+    this.updateData(result)
   }
 
   // 设置合约地址
@@ -515,3 +512,5 @@ export default class Store {
     }
   }
 }
+
+export default Store

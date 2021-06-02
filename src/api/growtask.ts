@@ -41,6 +41,7 @@ const projectDetail = async function(project: string): Promise<any> {
     _projectInfoData[project] = data
     return data
   } catch (e) {
+    console.log(e)
     return {}
   }
 }
@@ -52,25 +53,21 @@ const projectInfo = async function(project: string): Promise<any> {
     })
     return safeGet(result, 'data.data')
   } catch (e) {
+    console.log(e)
     return {}
   }
 }
 
 export const getProjectInfo = async function(project: string): Promise<any> {
   const type = getProjectType(project)
-  try {
-    const [result, detail]: Array<any> = await Promise.all([
-      projectInfo(type),
-      projectDetail(type),
-    ])
-    const value = Object.assign({}, result, {
-      price: safeGet(detail, 'price') || 0,
-    })
-    return value
-  } catch (e) {
-    console.log(e)
-    return Promise.reject(e)
-  }
+  const [result, detail]: Array<any> = await Promise.all([
+    projectInfo(type),
+    projectDetail(type),
+  ])
+  const value = Object.assign({}, result, {
+    price: safeGet(detail, 'price') || 0,
+  })
+  return value
 }
 
 // 信息登记
