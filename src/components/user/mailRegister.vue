@@ -11,7 +11,7 @@ import {
   onRegisterSubmit,
 } from '~/logic/user/login'
 import { getCaptcha } from '~/api/user'
-
+const isHasCode = ref('')
 // 活动名称
 const getVisitNum = function(): string {
   const router = toRaw(useRoute())
@@ -23,6 +23,7 @@ const getVisitNum = function(): string {
 onMounted(() => {
   const code = getVisitNum()
   registerData.invitation_code = code
+  isHasCode.value = code
 })
 
 const submit = async function() {
@@ -122,6 +123,7 @@ const onGetCode = function() {
     <el-form-item class="mb-2">
       <el-input
         v-model="registerData.invitation_code"
+        :disabled="isHasCode !== ''"
         :placeholder="I18n.common.user.invite"
         class="input-with-select"
         autocomplete="off"
