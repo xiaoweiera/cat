@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // 倒计时
 import dayjs from 'dayjs'
+// @ts-ignore
 import { ref, defineProps, watch } from 'vue'
 import I18n from '~/utils/i18n/index'
 const format = 'YYYY-MM-DD HH:mm:ss'
@@ -70,64 +71,73 @@ timeout()
 </script>
 
 <template>
-  <div
-    class="flex text-center md:justify-between items-baseline md:items-center"
-  >
-    <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{ day }}</span>
-      <span class="text-sm font-kdFang hidden md:inline-block">Days</span>
-    </p>
-    <p>
-      <span class="font-bold text-2xl hidden md:inline-block">:</span>
-      <span class="font-semibold text-xs md:hidden">{{
-        I18n.common.time.dd
-      }}</span>
-    </p>
-    <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{ hour }}</span>
-      <span class="text-sm font-kdFang hidden md:inline-block">Hours</span>
-    </p>
-    <p>
-      <span class="font-bold text-2xl hidden md:inline-block">:</span>
-      <span class="font-semibold text-xs md:hidden">{{
-        I18n.common.time.hh
-      }}</span>
-    </p>
-    <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{
-        minute
-      }}</span>
-      <span class="text-sm font-kdFang hidden md:inline-block">Minutes</span>
-    </p>
-    <p>
-      <span class="font-bold text-2xl hidden md:inline-block">:</span>
-      <span class="font-semibold text-xs md:hidden">{{
-        I18n.common.time.mm
-      }}</span>
-    </p>
-    <p class="flex flex-col flex-wrap text-center ml-3 md:ml-0">
-      <span class="font-bold text-2xl sm:text-4xl font-kdExp">{{
-        second
-      }}</span>
-      <span class="text-sm font-kdFang hidden md:inline-block">Seconds</span>
-    </p>
-    <p>
-      <span class="font-semibold text-xs md:hidden">{{
-        I18n.common.time.ss
-      }}</span>
-    </p>
-  </div>
+  <slot :day="day" :hour="hour" :minute="minute" :second="second">
+    <span class="font-color-theme font-bold font-kdFang whitespace-nowrap">
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ day }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.dd }}</span>
+      </span>
+      <span class="text-lg px-4">:</span>
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ hour }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.hh }}</span>
+      </span>
+      <span class="text-lg px-4 relative">:</span>
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ minute }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.mm }}</span>
+      </span>
+      <span class="text-lg px-4 relative">:</span>
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ second }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.ss }}</span>
+      </span>
+    </span>
+  </slot>
 </template>
 
-<style scoped>
-.md\:text-4xl {
-  font-size: 42px;
-}
-.font-bold,
-.font-semibold {
-  color: #2b8dfe;
-}
-.text-sm {
+<style scoped lang="scss">
+.time-unit {
   color: rgba(37, 62, 111, 0.65);
 }
 </style>

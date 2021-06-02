@@ -28,7 +28,7 @@ onMounted(async() => {
       <growthpadTaskDashboard />
 
       <div class="px-4 md:px-6">
-        <growthpadTaskAdress class="md:pt-15" />
+        <growthpadTaskAdress class="pt-15" />
 
         <template v-if="store.projectName === Project.coinwind">
           <growthpadTaskCoinwind></growthpadTaskCoinwind>

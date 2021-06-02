@@ -1,25 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import dayjs from 'dayjs'
+// @ts-ignore
 import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 const store = Task()
 
 const format = 'YYYY-MM-DD HH:mm:ss'
-const timeType = ref('')
-// 获取倒计时类型
-const getTimeType = () => {
-  // 当前时间
-  const now = dayjs().valueOf()
-  const time = dayjs(store.dashboard.begin, format)
-  const duration = time.valueOf() - now
-  if (duration > 0) {
-    timeType.value = 'begin'
-  } else {
-    timeType.value = 'end'
-  }
-}
 
 // @ts-ignore
 const title = computed((): string => {
@@ -52,8 +40,9 @@ const countComputed = function(number: number): string | number {
   }
   return value
 }
-
+// @ts-ignore
 const bannerStyle = computed<string>((): string => {
+  // @ts-ignore
   return `background-image: url(${store.dashboard.banner})`
 })
 
@@ -74,7 +63,21 @@ const getPrice = function(number: string | number): string | number {
   })
 }
 
-onMounted(() => getTimeType())
+// @ts-ignore
+const timeCountdownValue = computed<string>((): string => {
+  // 当前时间
+  const now = dayjs().valueOf()
+  // @ts-ignore
+  const time = dayjs(store.dashboard.begin, format)
+  const duration = time.valueOf() - now
+  if (duration > 0) {
+    // @ts-ignore
+    return store.dashboard.begin
+  } else {
+    // @ts-ignore
+    return store.dashboard.end
+  }
+})
 </script>
 
 <template>
@@ -99,12 +102,12 @@ onMounted(() => getTimeType())
       <div class="pb-5 md:flex md:justify-between md:items-end">
         <!-- 定时器 -->
         <div class="text-right md:order-2">
-          <div class="inline-block">
-            <div v-if="timeType === 'begin'">
-              <TimeCountdown :value="store.dashboard.begin" />
-            </div>
-            <div v-else>
-              <TimeCountdown :value="store.dashboard.end" />
+          <div class="inline-block pb-7">
+            <div
+              v-if="timeStatus !== TimeStatus.closure"
+              class="hidden md:inline-block"
+            >
+              <TimeCountdown :value="timeCountdownValue"></TimeCountdown>
             </div>
           </div>
         </div>
@@ -140,7 +143,7 @@ onMounted(() => getTimeType())
         </p>
       </div>
       <div class="pt-5">
-        <ul class="flex">
+        <ul class="flex font-kdFang">
           <li class="align-text-bottom">
             <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
               {{ I18n.growthpad.reward.count }}
@@ -192,6 +195,22 @@ onMounted(() => getTimeType())
           </li>
         </ul>
       </div>
+      <div
+        v-if="timeStatus !== TimeStatus.closure"
+        class="pt-5 block md:hidden"
+      >
+        <template v-if="timeStatus === TimeStatus.wait">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+            {{ I18n.growthpad.countdown.title }}
+          </h4>
+        </template>
+        <template v-else-if="timeStatus === TimeStatus.ing">
+          <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+            {{ I18n.growthpad.countdown.endTitle }}
+          </h4>
+        </template>
+        <TimeCountdown :value="timeCountdownValue"></TimeCountdown>
+      </div>
     </div>
   </div>
 </template>
@@ -199,7 +218,7 @@ onMounted(() => getTimeType())
 <style scoped lang="scss">
 .banner-box {
   &:before {
-    margin-top: 31%;
+    margin-top: 23.58%;
   }
   .banner-item {
     border-radius: 2px;

@@ -30,22 +30,25 @@ const link = (): string => {
       <span class="md:flex items-center pt-1.5">
         <span class="flex items-center">
           <span>{{ I18n.growthpad.invited.count }}</span>
-          <i>{{ store.invited_count.value || 0 }}</i>
+          <i class="ml-1">{{ store.invited_count.value || 0 }}</i>
         </span>
-        <span class="mt-1.5 md:mt-0 md:ml-6 flex items-center">
-          <span class="">{{ I18n.growthpad.invited.code }}</span>
-          <template v-if="userData.my_invitation_code">
-            <i>{{ userData.my_invitation_code }}{{ store.shareCode.value }}</i>
-            <span v-login>
-              <Copy :link="link">
-                <IconFont
-                  class="ml-2 hand flex"
-                  type="copy"
-                  size="base"
-                ></IconFont>
-              </Copy>
-            </span>
-          </template>
+        <span
+          v-if="userData.my_invitation_code"
+          class="mt-1.5 md:mt-0 md:ml-6 flex items-center"
+        >
+          <span>{{ I18n.growthpad.invited.code }}</span>
+          <i
+            class="ml-1"
+          >{{ userData.my_invitation_code }}{{ store.shareCode.value }}</i>
+          <span v-login>
+            <Copy :link="link">
+              <IconFont
+                class="ml-2 hand flex"
+                type="copy"
+                size="base"
+              ></IconFont>
+            </Copy>
+          </span>
         </span>
       </span>
     </template>

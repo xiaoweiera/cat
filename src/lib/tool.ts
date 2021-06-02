@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 import * as R from 'ramda'
 import { ElMessage } from 'element-plus'
+import I18n from '~/utils/i18n/index'
 
 export const numberFormat = (value: any) => {
   if (!value && value !== 0 && value !== '0') {
@@ -131,6 +132,6 @@ export const copyTxt = (txt: string, message?: boolean) => {
   document.execCommand('copy')
   document.body.removeChild(dom)
   if (message) {
-    messageSuccess('已复制邀请链接')
+    messageSuccess(I18n.common.message.copy)
   }
 }

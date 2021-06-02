@@ -114,7 +114,7 @@ const rules: any = {
     </GrowthpadTaskTitle>
     <el-form
       ref="formRef"
-      class="mt-3"
+      class="mt-3 pb-5"
       :model="formdata"
       label-width="100px"
       :rules="rules"
@@ -158,7 +158,7 @@ const rules: any = {
           required
           prop="article_image"
         >
-          <div class="flex items-center">
+          <div class="md:flex md:items-center">
             <el-upload
               class="avatar-uploader"
               action=""
@@ -180,20 +180,22 @@ const rules: any = {
                 suffix="png"
               ></IconFont>
             </el-upload>
-            <div class="upload-tips pl-3 text-xs">
+            <div class="upload-tips md:pl-3 text-xs mt-3 md:mt-0">
               <span>{{ I18n.growthpad.weibo.notify1 }}</span>
               <span>{{ I18n.growthpad.weibo.notify2 }}</span>
             </div>
           </div>
         </el-form-item>
-        <el-form-item>
-          <div class="flex items-center">
-            <el-button type="primary" round size="small" native-type="submit">
-              <span>{{ I18n.common.button.submit }}</span>
-            </el-button>
+        <el-form-item style="margin-bottom: 0">
+          <div class="md:flex md:items-center">
+            <div v-login>
+              <el-button type="primary" round size="small" native-type="submit">
+                <span>{{ I18n.common.button.submit }}</span>
+              </el-button>
+            </div>
             <!--有上传文章后显示-->
             <template v-if="store.article_image.value">
-              <p class="ml-3 text-xs submit-tips">
+              <p class="md:ml-3 text-xs submit-tips mt-3 md:mt-0">
                 {{ I18n.growthpad.weibo.tips }}
               </p>
             </template>
@@ -216,6 +218,7 @@ a {
 }
 
 .avatar-uploader {
+  min-width: 120px;
   width: 120px;
   height: 120px;
   border: 1px solid rgba(0, 0, 0, 0.04);

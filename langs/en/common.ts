@@ -26,7 +26,8 @@ export default {
     passwordError: 'Please input 6-24 digits of password!',
     telError: 'Please input the correct mobile phone number',
     testing: 'Verifying', // 验证中，审核结束后自动更新结果
-    get: 'get'
+    get: 'get',
+    copy: 'The link has copied'
   },
   placeholder: {
     login: 'automatic login',

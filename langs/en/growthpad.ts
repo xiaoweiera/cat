@@ -10,7 +10,7 @@ export default {
   reward: {
     about: '≈',
     count: 'Reward Amount',
-    value: 'Reward value',
+    value: 'Reward Value',
     perPerson: 'The Max Amount Per Person',
     total: 'Reward {count} MDX',
     maxTotal: '{count} MDX at maximum',
@@ -22,7 +22,7 @@ export default {
   address: {
     warning: 'Finish Information Registration first',
     iCard: 'Your address: ',
-    reward: 'Your expected reward:',
+    reward: 'Your expected reward: ',
     confirm: 'Confirmation',
     invalid: 'Invalid Address',
     tips: `Once confirmed, the address can't be modified`,
@@ -80,14 +80,14 @@ export default {
   form: {
     address: 'Confirm',
     warning: 'Once confirmed, the address can\'t be modified and the reward will be airdrop.',
-    placeholderBsc: 'Please enter BSC',
-    placeholderETH: 'Please enter ETH',
-    placeholderTelegram: 'Please enter telegraph ID',
-    twitter: 'Please enter Twitter ID',
-    retwitter: 'Please enter Twitter ID',
-    sina: 'Please enter Weibo name'
+    placeholderBsc: 'Enter BSC address',
+    placeholderETH: 'Enter ETH address',
+    placeholderTelegram: 'Enter telegraph ID',
+    twitter: 'Enter Twitter ID',
+    retwitter: 'Enter Twitter ID',
+    sina: 'Enter Weibo name'
   },
-  copy: 'Inviting you to register in Kingdata，{url}',
+  copy: 'Inviting you to register in KingData，{url}',
   warning: {
     telegram: 'Leaving the telegram group will be regarded as unfinished before the activity ends.',
     follow: 'Removing follow the twitter will be regarded as unfinished before the activity ends.',
@@ -99,8 +99,8 @@ export default {
 
   vip: {
     invite: 'Become {group} VIP',
-    description: 'By inviting 3 users to register Kingdata.',
-    activity: 'Become Kingdata VIP; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
+    description: 'By inviting 3 users to register KingData.',
+    activity: 'Become KingData VIP; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
   },
   activity: {
     twitter: 'This activity'
@@ -131,7 +131,7 @@ export default {
 
 It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
     },
-    copy: 'Inviting you to participate{title}, Win 1 million dollars award, {url}',
+    copy: 'Inviting you to participate {title}, Win 1 million dollars award, {url}',
     share: {
       title: 'Invite one and divide up 1% of bonus pool.',
       lable: `Invite more and reward more.

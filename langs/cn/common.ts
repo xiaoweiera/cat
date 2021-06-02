@@ -26,7 +26,8 @@ export default {
     passwordError: '请输入6至24位的密码！',
     telError: '请输入正确的手机号',
     testing: '验证中，审核结束后自动更新结果',
-    get: '已得'
+    get: '已得',
+    copy: '已复制邀请链接'
   },
   placeholder: {
     login: '自动登录',
