@@ -88,8 +88,7 @@ export default {
     retwitter: 'Enter Twitter ID',
     sina: 'Enter Weibo ID'
   },
-  copy: 'Share the GrowthPad 💲500000 reward with simple finger swipes~ Link:{url}',
-  copyIndex: 'Share the GrowthPad 💲500000 reward with simple finger swipes~ Link，{url}',
+  copy: 'Inviting you to register in KingData，{url}',
   warning: {
     telegram: 'Leaving the telegram group will be regarded as unfinished before the activity ends.',
     follow: 'Removing follow the twitter will be regarded as unfinished before the activity ends.',
@@ -140,6 +139,7 @@ export default {
 It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
     },
     copy: 'Inviting you to participate {title}, Win 1 million dollars award, {url}',
+    copyIndex: 'Share the GrowthPad 💲500000 reward with simple finger swipes~ Link：{url}',
     share: {
       title: 'Invite 1 friend to participate in the GrowthPad to share 1% of the total prize pool.',
       lable: `Invite more and reward more.
