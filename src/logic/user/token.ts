@@ -16,12 +16,17 @@ export const getDomain = function(): string {
   if (/^[0-9]+$/.test(value)) {
     return hostname
   }
-  const pattern = new UrlPattern(
-    '(http(s)\\://)(:subdomain.):domain.:tld(\\::port)(/*)',
-  )
-  // @ts-ignore
-  const data = pattern(hostname)
-  return `${data.domain}.${data.tld}`
+  try {
+    const pattern = new UrlPattern(
+      '(http(s)\\://)(:subdomain.):domain.:tld(\\::port)(/*)',
+    )
+    // @ts-ignore
+    const data = pattern(hostname)
+    return `${data.domain}.${data.tld}`
+  } catch (e) {
+    console.log('UrlPattern', e)
+  }
+  return hostname
 }
 // 删除 token
 export const removeUserToken = function() {

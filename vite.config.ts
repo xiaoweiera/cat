@@ -8,13 +8,13 @@ import ViteComponents, { ElementPlusResolver } from 'vite-plugin-components'
 // import ViteComponents from 'vite-plugin-components'
 import Markdown from 'vite-plugin-md'
 import WindiCSS from 'vite-plugin-windicss'
+// @ts-ignore
 import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Prism from 'markdown-it-prism'
 import { viteMockServe } from 'vite-plugin-mock'
 import styleImport from 'vite-plugin-style-import'
 
-// @ts-ignore
 // @ts-ignore
 export default defineConfig({
   server: {
