@@ -70,6 +70,7 @@ export interface Info {
 }
 
 export interface Mission {
+  invited: MissionStatus // 判断是否完成邀请任务
   pancake: MissionStatus // pancake验资是否通过
   uniswap: MissionStatus // uniswap验资是否通过
   sushiswap: MissionStatus // sushiswap验资是否通过

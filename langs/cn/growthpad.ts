@@ -112,6 +112,7 @@ export default {
   },
 
   mdx: {
+    title: '助力 MDEX 增长，领取20万美元 MDX 奖励-GrowthPad',
     address: {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
@@ -158,6 +159,7 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
     },
   },
   channels: {
+    title: '助力 Channels 增长，领取10万美元 USDT 奖励-GrowthPad',
     address: {
       placeholder: '输入参与领取奖励的 Heco 地址',
 
@@ -205,6 +207,7 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
     },
   },
   coinwind: {
+    title: '助力 CoinWind 增长，领取20万美元 MDX 奖励-GrowthPad',
     address: {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },

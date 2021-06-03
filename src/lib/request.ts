@@ -1,5 +1,6 @@
 import axios from 'axios'
 import jsCookie from 'js-cookie'
+import { setUserToken } from '~/logic/user/login'
 
 const service = axios.create({
   timeout: 20000, // request timeout
@@ -8,14 +9,35 @@ const service = axios.create({
   // baseURL: 'https://dev.ikingdata.com',
   withCredentials: false,
 })
+
+const getUserAuth = function(): string {
+  const value = jsCookie.get('token')
+  if (value) {
+    return value
+  }
+  const funName = 'getUserToken'
+  // @ts-ignore
+  if (window[funName]) {
+    try {
+      // @ts-ignore
+      const token = window[funName]()
+      if (token) {
+        setUserToken(token)
+        return token
+      }
+    } catch (e) {
+      // todo
+    }
+  }
+  return ''
+}
+
 service.interceptors.request.use(
   (config) => {
-    const token = jsCookie.get('token')
+    const token = getUserAuth()
     if (token) {
       config.headers.Authorization = `Token ${token}`
     }
-    // config.headers.Authorization
-    //   = 'Token eyJpdiI6IkQ2V3NvUWRoM2ROZGNEQlBhbzBLcGc9PSIsInZhbHVlIjoid05QUHNKdjhmWVRCVk1kcTNMdEF5bkxaaTJqZjg4QUVrbFRYRHY3b21ma05nVXFyM3NCTndGWlllb3FualhyNiIsIm1hYyI6IjkwN2ZjZmNjOTM0OWE4ZTUxYzYzOWU1YzYwNWZiZjJmMGFiZDU0ODhmZTZlZWZiNmIyZWJjODZlNjlmZjgwODEifQ=='
     return config
   },
   (error) => {
