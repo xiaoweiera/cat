@@ -1,6 +1,6 @@
 import axios from 'axios'
 import jsCookie from 'js-cookie'
-import { setUserToken } from '~/logic/user/login'
+import { addUserToken } from '~/logic/user/token'
 
 const service = axios.create({
   timeout: 20000, // request timeout
@@ -22,7 +22,7 @@ const getUserAuth = function(): string {
       // @ts-ignore
       const token = window[funName]()
       if (token) {
-        setUserToken(token)
+        addUserToken(token)
         return token
       }
     } catch (e) {

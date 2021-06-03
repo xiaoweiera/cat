@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 import { onBeforeMount, toRaw } from 'vue'
 import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
-import { href } from '~/utils/lang'
+import href from '~/utils/router'
 
 // 获取当前路由对象
 const router = useRoute()
@@ -16,6 +16,7 @@ const navIsSelect = (path: string): string => {
   }
   return 'text-global-default opacity-85'
 }
+
 onBeforeMount(() => {
   useHead({
     title: I18n.growthpad.title,

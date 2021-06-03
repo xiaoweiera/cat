@@ -18,8 +18,8 @@ const txts = {
 <template>
   <a
     v-if="props.status !== 'closure'"
+    v-router="props.url"
     :class="getBg()"
-    :href="props.url"
     target="_blank"
   >
     <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>

@@ -5,6 +5,7 @@
 
 import safeGet from '@fengqiaogang/safe-get'
 import request from '~/lib/devRequest'
+import { addUserToken, removeUserToken } from '~/logic/user/token'
 
 export interface LogoData {
   mobile: string
@@ -31,6 +32,8 @@ export const logout = async function() {
   const url = '/api/v1/users/logout'
   try {
     const reuslt = await request({ url, method })
+    // 清理 cookie
+    removeUserToken()
     return safeGet(reuslt, 'data.data')
   } catch (e) {
     return Promise.reject(e)
@@ -44,8 +47,15 @@ export const logo = async function(query: LogoData): Promise<LogoResult> {
   // 电话区号默认为 +86
   const data = Object.assign({ area_code: 86 }, query)
   try {
+    // 登录前清理 cookie, 保证账户信息干净
+    removeUserToken()
     const result = await request({ url, method, data })
     const value = safeGet<LogoResult>(result, 'data')
+    // 获取 token
+    const token = safeGet<string>(value, 'data.token')
+    if (token) {
+      addUserToken(token)
+    }
     return value
   } catch (e) {
     // todo

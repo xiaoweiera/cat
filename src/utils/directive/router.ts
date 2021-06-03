@@ -43,11 +43,4 @@ export const install = function(vue: any) {
     const value = router(binding.value)
     el.setAttribute('href', value)
   })
-  vue.mixin({
-    methods: {
-      router(data: any) {
-        return router(data)
-      },
-    },
-  })
 }

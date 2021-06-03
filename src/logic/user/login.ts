@@ -5,7 +5,6 @@
 
 import * as R from 'ramda'
 import { reactive, ref, toRaw } from 'vue'
-import jsCookie from 'js-cookie'
 import * as user from '~/api/user'
 
 interface UserData {
@@ -93,37 +92,10 @@ const update = function(result: UserData): void {
   isLogin.value = true
 }
 
-export const setUserToken = function(value?: string) {
-  if (value) {
-    jsCookie.set('token', value, {
-      path: '/',
-    })
-    // if (window.location.hostname !== 'kingdata.com') {
-    //   jsCookie.set('token', value, {
-    //     path: '/',
-    //   })
-    // } else {
-    //   jsCookie.set('token', value, {
-    //     path: '/',
-    //     domain: 'ikingdata.com',
-    //   })
-    //   jsCookie.set('token', value, {
-    //     path: '/',
-    //     domain: 'kingdata.com',
-    //   })
-    // }
-  } else {
-    jsCookie.remove('token', {
-      path: '/',
-    })
-  }
-}
-
 export const logout = async function(): Promise<void> {
   try {
     // 退出
     await user.logout()
-    setUserToken() // 删除 token 信息
     update({} as UserData)
     isLogin.value = false
     // 刷新页面
@@ -134,7 +106,6 @@ export const logout = async function(): Promise<void> {
 }
 // 更新用户信息
 export const syncUser = async function(): Promise<void> {
-  console.log('sync user')
   try {
     // 临时使用一个接口来判断用户是否已登录
     const result = await user.getInfo()
@@ -174,7 +145,6 @@ export const onSubmit = async function(): Promise<any> {
     const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
     const result = await user.logo(data)
     if (result?.data) {
-      setUserToken(result?.data?.token)
       update(result.data as UserData)
     }
     const number = parseInt(result?.code as any, 10)
