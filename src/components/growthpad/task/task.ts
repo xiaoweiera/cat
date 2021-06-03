@@ -71,7 +71,7 @@ export const makeDescription = function(data: any, token: string): string {
 }
 
 export const checkAddress = function(store: Store): boolean {
-  const value = store?.user?.bsc_token
+  const value = store?.info?.bsc
   if (value) {
     return true
   }

@@ -4,6 +4,7 @@ import { getMin, getMax } from './task'
 import I18n from '~/utils/i18n/index'
 // @ts-ignore
 import TaskType from '~/logic/growthpad/tasktype'
+import { MissionStatus } from '~/store/growthpad/props'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
 import { Project } from '~/api/growtask'
@@ -24,21 +25,40 @@ interface ItemTask {
   [key: string]: any
 }
 
+const isSuccess = function(value: MissionStatus): boolean {
+  if (value === MissionStatus.success) {
+    return true
+  }
+  return false
+}
+
 const clacRewardCount = function(list: Array<ItemTask>): number {
   let count = 0
   for (let i = 0, len = list.length; i < len; i++) {
     const item: ItemTask = list[i]
     if (item.reward) {
-      if (item.type === TaskType.telegram && store.mission.telegram_group) {
+      if (
+        item.type === TaskType.telegram
+        && isSuccess(store.mission.telegram_group)
+      ) {
         count += getMin(item.reward)
       }
-      if (item.type === TaskType.retwitter && store.mission.retweet) {
+      if (
+        item.type === TaskType.retwitter
+        && isSuccess(store.mission.retweet)
+      ) {
         count += getMin(item.reward)
       }
-      if (item.type === TaskType.twitter && store.mission.follow_twitter) {
+      if (
+        item.type === TaskType.twitter
+        && isSuccess(store.mission.follow_twitter)
+      ) {
         count += getMin(item.reward)
       }
-      if (item.type === TaskType.sina && store.mission.follow_weibo) {
+      if (
+        item.type === TaskType.sina
+        && isSuccess(store.mission.follow_weibo)
+      ) {
         count += getMin(item.reward)
       }
     }
@@ -65,9 +85,9 @@ const rewardValue = computed<number>((): number => {
     if (userData.is_vip) {
       // 验证是否完成任务
       if (
-        store.mission.telegram_group
-        && store.mission.retweet
-        && store.mission.follow_twitter
+        isSuccess(store.mission.telegram_group)
+        && isSuccess(store.mission.retweet)
+        && isSuccess(store.mission.follow_twitter)
       ) {
         // 返回奖励
         // @ts-ignore
@@ -79,14 +99,14 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.pancake) {
     // 验证 pancake token 地址是否已填写
-    if (store.mission.pancake) {
+    if (isSuccess(store.mission.pancake)) {
       return clacRewardCount(children)
     }
   }
   // Uniswap 任务
   // @ts-ignore
   if (props.data.type === TaskType.uniswap) {
-    if (store.mission.uniswap) {
+    if (isSuccess(store.mission.uniswap)) {
       return clacRewardCount(children)
     }
   }
@@ -94,7 +114,7 @@ const rewardValue = computed<number>((): number => {
   // Bunny 任务
   // @ts-ignore
   if (props.data.type === TaskType.bunny) {
-    if (store.mission.bunny) {
+    if (isSuccess(store.mission.bunny)) {
       return clacRewardCount(children)
     }
   }
@@ -102,7 +122,7 @@ const rewardValue = computed<number>((): number => {
   // Sushiswap 任务
   // @ts-ignore
   if (props.data.type === TaskType.sushiswap) {
-    if (store.mission.sushiswap) {
+    if (isSuccess(store.mission.sushiswap)) {
       return clacRewardCount(children)
     }
   }
@@ -110,7 +130,7 @@ const rewardValue = computed<number>((): number => {
   // autofarm 任务
   // @ts-ignore
   if (props.data.type === TaskType.autofarm) {
-    if (store.mission.autofarm) {
+    if (isSuccess(store.mission.autofarm)) {
       return clacRewardCount(children)
     }
   }
@@ -118,7 +138,7 @@ const rewardValue = computed<number>((): number => {
   // beltfit 任务
   // @ts-ignore
   if (props.data.type === TaskType.beltfit) {
-    if (store.mission.belt) {
+    if (isSuccess(store.mission.belt)) {
       return clacRewardCount(children)
     }
   }
@@ -126,12 +146,12 @@ const rewardValue = computed<number>((): number => {
   // venus 任务
   // @ts-ignore
   if (props.data.type === TaskType.venus) {
-    if (store.mission.venus) {
+    if (isSuccess(store.mission.venus)) {
       // 验证是否完成任务
       if (
-        store.mission.telegram_group
-        && store.mission.follow_weibo
-        && store.mission.follow_twitter
+        isSuccess(store.mission.telegram_group)
+        && isSuccess(store.mission.follow_weibo)
+        && isSuccess(store.mission.follow_twitter)
       ) {
         // 返回奖励
         // @ts-ignore
@@ -143,12 +163,12 @@ const rewardValue = computed<number>((): number => {
   // Cream 任务
   // @ts-ignore
   if (props.data.type === TaskType.cream) {
-    if (store.mission.cream) {
+    if (isSuccess(store.mission.cream)) {
       // 验证是否完成任务
       if (
-        store.mission.telegram_group
-        && store.mission.follow_weibo
-        && store.mission.follow_twitter
+        isSuccess(store.mission.telegram_group)
+        && isSuccess(store.mission.follow_weibo)
+        && isSuccess(store.mission.follow_twitter)
       ) {
         // 返回奖励
         // @ts-ignore
@@ -160,12 +180,12 @@ const rewardValue = computed<number>((): number => {
   // compound 任务
   // @ts-ignore
   if (props.data.type === TaskType.compound) {
-    if (store.mission.compound) {
+    if (isSuccess(store.mission.compound)) {
       // 验证是否完成任务
       if (
-        store.mission.telegram_group
-        && store.mission.follow_weibo
-        && store.mission.follow_twitter
+        isSuccess(store.mission.telegram_group)
+        && isSuccess(store.mission.follow_weibo)
+        && isSuccess(store.mission.follow_twitter)
       ) {
         // 返回奖励
         // @ts-ignore

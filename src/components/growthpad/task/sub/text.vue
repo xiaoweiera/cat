@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, defineProps, reactive, ref, toRaw } from 'vue'
 import { checkAddress } from '../task'
-import { addressEnum, getValueStatus, ValueStatus } from './value'
+import { addressEnum, getValueStatus } from './value'
 // @ts-ignore
 import rules from './rule'
+import { MissionStatus } from '~/store/growthpad/props'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
@@ -34,17 +35,13 @@ const store = Task()
 const editStatus = ref<boolean>(false)
 
 // @ts-ignore
-const loadingStatus = computed<ValueStatus>((): ValueStatus => {
-  const status: ValueStatus = getValueStatus(props.name, store)
-  // 只处理验证通过状态
-  if (status === ValueStatus.success) {
+const loadingStatus = computed<MissionStatus>((): MissionStatus => {
+  const status: MissionStatus = getValueStatus(props.name, store)
+  if (status) {
     return status
   }
-  if (editStatus.value) {
-    return ValueStatus.check
-  }
   // 默认为空
-  return ValueStatus.empty
+  return MissionStatus.init
 })
 
 const formRef = ref<any>(null)
@@ -78,6 +75,11 @@ const onSubmit = async function() {
       const name = addressEnum[props.name]
       // @ts-ignore
       if (name && store[name]) {
+        // 清空表单
+        form.resetFields()
+        // 清除验证结果
+        form.clearValidate()
+
         // @ts-ignore
         await store[name](formdata.input)
       }
@@ -90,9 +92,9 @@ const onSubmit = async function() {
 </script>
 
 <template>
-  <Loading v-if="loadingStatus === ValueStatus.check"></Loading>
+  <Loading v-if="loadingStatus === MissionStatus.loading"></Loading>
   <IconFont
-    v-else-if="loadingStatus === ValueStatus.success"
+    v-else-if="loadingStatus === MissionStatus.success"
     type="success"
   ></IconFont>
   <el-form
@@ -108,8 +110,14 @@ const onSubmit = async function() {
     <el-form-item prop="input">
       <el-input
         v-model="formdata.input"
-        :placeholder="placeholder"
+        :placeholder="
+          loadingStatus === MissionStatus.fail
+            ? I18n.common.message.fail
+            : placeholder
+        "
+        autocomplete="off"
         size="small"
+        :class="{ fail: loadingStatus === MissionStatus.fail }"
       />
     </el-form-item>
     <div class="suffix" @click="onSubmit">

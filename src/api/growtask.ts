@@ -70,10 +70,9 @@ export const getProjectInfo = async function(project: string): Promise<any> {
   return value
 }
 
-// 信息登记
-export const setAdress = function(
+export const setProjectUserInfo = function(
   project: string,
-  address: string,
+  data: any,
 ): Promise<any> {
   const url = '/api/growthpad/validate_user_info/'
   const type = getProjectType(project)
@@ -81,87 +80,7 @@ export const setAdress = function(
     url,
     method: 'POST',
     params: { project: type },
-    data: { bsc_token: address },
-  })
-}
-
-// 设置 telegram id
-export const setTelegram = function(
-  project: string,
-  token: string,
-  id: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { telegram: id, bsc_token: token },
-  })
-}
-
-// 设置 twitter
-export const setTwitter = function(
-  project: string,
-  token: string,
-  id: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { twitter: id, bsc_token: token },
-  })
-}
-
-// 设置 pancake
-export const setPancake = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { pancake_token: value, bsc_token: token },
-  })
-}
-
-// 设置 Uniswap
-export const setUniswap = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { uniswap_token: value, bsc_token: token },
-  })
-}
-
-// 设置 sushiswap
-export const setSushiswap = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { sushiswap_token: value, bsc_token: token },
+    data,
   })
 }
 
@@ -176,116 +95,5 @@ export const setWeiboContent = function(
     method: 'POST',
     params: { project: type },
     data,
-  })
-}
-
-export const setSinaNickname = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { weibo: value, bsc_token: token },
-  })
-}
-
-// 设置 venus
-export const setVenus = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { venus_token: value, bsc_token: token },
-  })
-}
-
-// 设置 compound
-export const setCompound = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { compound_token: value, bsc_token: token },
-  })
-}
-
-// 设置 cream
-export const setCream = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { cream_token: value, bsc_token: token },
-  })
-}
-
-// 设置 cream
-export const setAutofarm = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { autofarm_token: value, bsc_token: token },
-  })
-}
-
-// 设置 cream
-export const setBeltfit = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { belt_token: value, bsc_token: token },
-  })
-}
-
-// 设置 bunny
-export const setBunny = function(
-  project: string,
-  token: string,
-  value: string,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data: { bunny_token: value, bsc_token: token },
   })
 }

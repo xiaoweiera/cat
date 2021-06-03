@@ -2,6 +2,12 @@
  * @file 校验样式
  */
 
+%fail {
+  &::-webkit-input-placeholder{
+    color: #e9592d;
+  }
+}
+
 .check-box {
   position: relative;
   .el-input {
@@ -10,6 +16,12 @@
       border-radius: 36px;
       line-height: 26px;
       height: 26px;
+    }
+    &.fail {
+      @extend %fail;
+      :deep(input) {
+        @extend %fail;
+      }
     }
   }
   .suffix {

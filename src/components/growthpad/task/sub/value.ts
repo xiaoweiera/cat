@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import { MissionStatus } from '~/store/growthpad/props'
 import Store from '~/store/growthpad/store'
 
 export const addressEnum = {
@@ -25,169 +26,73 @@ export const addressEnum = {
   bunny: 'setBunny',
 }
 
-export enum ValueStatus {
-  empty = 'empty', // 未填写
-  check = 'check', // 验证中
-  success = 'success', // 成功
-}
-
 const check: any = {
-  telegram(store: Store): ValueStatus {
-    // 如果已加入电报群
-    if (store.mission.telegram_group) {
-      return ValueStatus.success
-    }
-    // 如果已填写电报 ID
-    if (store.user.telegram) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+  // 电报群
+  telegram(store: Store): MissionStatus {
+    return store.mission.telegram_group
   },
-  twitter(store: Store): ValueStatus {
-    // 如果已关注 twitter
-    if (store.mission.follow_twitter) {
-      return ValueStatus.success
-    }
-    // 判断是否填写来 twiiter
-    if (store.user.twitter) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+  // 是否关注推特
+  twitter(store: Store): MissionStatus {
+    return store.mission.follow_twitter
   },
-  retwitter(store: Store): ValueStatus {
-    // 判断是否转发来 twitter 内容
-    if (store.mission.retweet) {
-      return ValueStatus.success
-    }
-    // 判断是否填写来 twiiter
-    if (store.user.twitter) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+  // 判断是否转发推文
+  retwitter(store: Store): MissionStatus {
+    return store.mission.retweet
   },
-  pancake(store: Store): ValueStatus {
+  // token 验证状态
+  pancake(store: Store): MissionStatus {
+    return store.mission.pancake
+  },
+  // uniswap 验证状态
+  uniswap(store: Store): MissionStatus {
+    return store.mission.uniswap
+  },
+  // sushiswap 验证状态
+  sushiswap(store: Store): MissionStatus {
+    return store.mission.sushiswap
+  },
+  // 判断是否已关注微博
+  sina(store: Store): MissionStatus {
+    return store.mission.follow_weibo
+  },
+  // 判断 venus 验证状态
+  venus(store: Store): MissionStatus {
     // 判断 token 地址验证状态
-    if (store.mission.pancake) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.pancake_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+    return store.mission.venus
   },
-  uniswap(store: Store): ValueStatus {
+  // compound 验证状态
+  compound(store: Store): MissionStatus {
+    return store.mission.compound
+  },
+  // cream 验证状态
+  cream(store: Store): MissionStatus {
+    return store.mission.cream
+  },
+  autofarm(store: Store): MissionStatus {
     // 判断 token 地址验证状态
-    if (store.mission.uniswap) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.uniswap_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+    return store.mission.autofarm
   },
-  sushiswap(store: Store): ValueStatus {
+  beltfit(store: Store): MissionStatus {
     // 判断 token 地址验证状态
-    if (store.mission.sushiswap) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.sushiswap_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+    return store.mission.belt
   },
-  sina(store: Store): ValueStatus {
-    // 判断是否已关注微博
-    if (store.mission.follow_weibo) {
-      return ValueStatus.success
-    }
-    // 判断是否填写来微博昵称
-    if (store.user.weibo) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
-  },
-  venus(store: Store): ValueStatus {
+  bunny(store: Store): MissionStatus {
     // 判断 token 地址验证状态
-    if (store.mission.venus) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.venus_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
-  },
-  compound(store: Store): ValueStatus {
-    // 判断 token 地址验证状态
-    if (store.mission.compound) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.compound_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
-  },
-  cream(store: Store): ValueStatus {
-    // 判断 token 地址验证状态
-    if (store.mission.cream) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.cream_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
-  },
-  autofarm(store: Store): ValueStatus {
-    // 判断 token 地址验证状态
-    if (store.mission.autofarm) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.autofarm_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
-  },
-  beltfit(store: Store): ValueStatus {
-    // 判断 token 地址验证状态
-    if (store.mission.belt) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.belt_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
-  },
-  bunny(store: Store): ValueStatus {
-    // 判断 token 地址验证状态
-    if (store.mission.bunny) {
-      return ValueStatus.success
-    }
-    // 判断是否填写 token 地址
-    if (store.user.bunny_token) {
-      return ValueStatus.check
-    }
-    return ValueStatus.empty
+    return store.mission.bunny
   },
 }
 
 export const getValueStatus = function(
   name: string,
   store: Store,
-): ValueStatus {
+): MissionStatus {
   if (name) {
-    const status: ValueStatus = check[name]
+    const status: MissionStatus = check[name]
       ? check[name](store)
-      : ValueStatus.empty
+      : MissionStatus.init
     if (status) {
       return status
     }
   }
-  return ValueStatus.empty
+  return MissionStatus.init
 }

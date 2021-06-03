@@ -27,7 +27,8 @@ export default {
     telError: 'Please input the correct mobile phone number',
     testing: 'Verifying', // 验证中，审核结束后自动更新结果
     get: 'get',
-    copy: 'The link has copied'
+    copy: 'The link has copied',
+    fail: 'Validation failed'
   },
   placeholder: {
     login: 'automatic login',

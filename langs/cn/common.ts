@@ -27,7 +27,8 @@ export default {
     telError: '请输入正确的手机号',
     testing: '验证中，审核结束后自动更新结果',
     get: '已得',
-    copy: '已复制邀请链接'
+    copy: '已复制邀请链接',
+    fail: '验证失败'
   },
   placeholder: {
     login: '自动登录',

@@ -5,10 +5,11 @@
 
 import { reactive, ref } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
-import safeSet from '@fengqiaogang/safe-set'
 import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
+import { MissionStatus, Info, Mission, transformStatus } from './props'
+import { postInfo, postInfoBasis } from './directive'
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
@@ -56,44 +57,6 @@ interface TaskItem {
   children?: Array<TaskItem>
 }
 
-interface User {
-  bsc_token: string // 领取奖励的地址
-  pancake_token: string // pancake  token地址
-  uniswap_token: string // uniswap  token地址
-  sushiswap_token: string // sushiswap  token地址
-  twitter: string // twitter id
-  telegram: string // telegram id
-
-  autofarm_token: string // autofarm token 地址
-  belt_token: string // belt.fit token 地址
-
-  weibo: string // 微博昵称
-  venus_token: string // venus token 地址
-  cream_token: string // cream token 地址
-  compound_token: string // compound token 地址
-  bunny_token: string // bunny token 地址
-}
-
-interface Mission {
-  pancake: boolean // pancake验资是否通过
-  uniswap: boolean // uniswap验资是否通过
-  sushiswap: boolean // sushiswap验资是否通过
-  retweet: boolean // 是否转发推特
-  follow_twitter: boolean // 是否关注推特
-  telegram_group: boolean // 电报群
-
-  autofarm: boolean // autofarm
-  belt: boolean // belt.fit
-
-  follow_weibo: boolean // 是否关注微博
-
-  venus: boolean // venus 验资
-  compound: boolean // compound 验资
-  cream: boolean // cream 验资
-
-  bunny: boolean
-}
-
 class Store {
   protected token = ''
   protected shareCode = ref<string>('')
@@ -124,37 +87,38 @@ class Store {
   // 任务列表
   protected taskList = ref<TaskItem[]>([])
   // 个人信息, 用户数据
-  public user = reactive<User>({
-    bsc_token: '',
-    pancake_token: '', // pancake  token地址
-    uniswap_token: '', // uniswap  token地址
-    sushiswap_token: '', // sushiswap  token地址
-    twitter: '', // twitter id
-    telegram: '', // telegram id
-    autofarm_token: '', // autofarm token 地址
-    belt_token: '', // belt.fit token 地址
-    weibo: '', // 微博昵称
-    venus_token: '', // venus token 地址
-    cream_token: '', // cream token 地址
-    compound_token: '', // compound token 地址
-    bunny_token: '', // bunny token 地址
+  public info = reactive<Info>({
+    bsc: '', // 领取奖励的地址
+    pancake: '', // pancake  token地址
+    uniswap: '', // uniswap  token地址
+    sushiswap: '', // sushiswap  token地址
+    follow_twitter: '', // twitter id
+    retweet: '', // 转发 twitter id
+    telegram_group: '', // telegram id
+    autofarm: '', // autofarm token 地址
+    belt: '', // belt.fit token 地址
+    follow_weibo: '', // 微博昵称
+    venus: '', // venus token 地址
+    cream: '', // cream token 地址
+    compound: '', // compound token 地址
+    bunny: '', // bunny token 地址
   })
 
   // 完成状态
   public mission = reactive<Mission>({
-    pancake: false, // pancake验资是否通过
-    uniswap: false, // uniswap验资是否通过
-    sushiswap: false, // sushiswap验资是否通过
-    retweet: false, // 是否转发推特
-    follow_twitter: false, // 是否关注推特
-    telegram_group: false, // 电报群
-    autofarm: false, // autofarm
-    belt: false, // belt.fit
-    follow_weibo: false, // 是否关注微博
-    venus: false, // venus 验资
-    compound: false, // compound 验资
-    cream: false, // cream 验资
-    bunny: false, // bunny 验资料
+    pancake: MissionStatus.init, // pancake验资是否通过
+    uniswap: MissionStatus.init, // uniswap验资是否通过
+    sushiswap: MissionStatus.init, // sushiswap验资是否通过
+    retweet: MissionStatus.init, // 是否转发推特
+    follow_twitter: MissionStatus.init, // 是否关注推特
+    telegram_group: MissionStatus.init, // 电报群
+    autofarm: MissionStatus.init, // autofarm
+    belt: MissionStatus.init, // belt.fit
+    follow_weibo: MissionStatus.init, // 是否关注微博
+    venus: MissionStatus.init, // venus 验资
+    compound: MissionStatus.init, // compound 验资
+    cream: MissionStatus.init, // cream 验资
+    bunny: MissionStatus.init,
   })
 
   public article_url = ref<string>('article_url') // 用户上传的文章链接
@@ -218,7 +182,7 @@ class Store {
   }
 
   private updateData(result?: any) {
-    const user: User = safeGet<User>(result, 'info')
+    const info: Info = safeGet<Info>(result, 'info')
     const mission: Mission = safeGet<Mission>(result, 'mission')
     if (result?.price) {
       this.price.value = result.price
@@ -227,35 +191,36 @@ class Store {
     this.invited_count.value = result?.invited_count || 0
     this.project_invited_count.value = result?.project_invited_count || 0
     // 更新 info 信息
-    if (user) {
-      this.user.bsc_token = user.bsc_token as string
-      this.user.pancake_token = user.pancake_token
-      this.user.sushiswap_token = user.sushiswap_token
-      this.user.uniswap_token = user.uniswap_token
-      this.user.twitter = user.twitter
-      this.user.telegram = user.telegram
-      this.user.autofarm_token = user.autofarm_token
-      this.user.belt_token = user.belt_token
-      this.user.weibo = user.weibo
-      this.user.venus_token = user.venus_token
-      this.user.cream_token = user.cream_token
-      this.user.compound_token = user.compound_token
-      this.user.bunny_token = user.bunny_token
+    if (info) {
+      this.info.bsc = info.bsc
+      this.info.pancake = info.pancake
+      this.info.uniswap = info.uniswap
+      this.info.sushiswap = info.sushiswap
+      this.info.follow_twitter = info.follow_twitter
+      this.info.retweet = info.retweet
+      this.info.telegram_group = info.telegram_group
+      this.info.autofarm = info.autofarm
+      this.info.belt = info.belt
+      this.info.follow_twitter = info.follow_twitter
+      this.info.venus = info.venus
+      this.info.cream = info.cream
+      this.info.compound = info.compound
+      this.info.bunny = info.bunny
     }
     if (mission) {
-      this.mission.follow_twitter = !!mission.follow_twitter
-      this.mission.retweet = !!mission.retweet
-      this.mission.pancake = !!mission.pancake
-      this.mission.uniswap = !!mission.uniswap
-      this.mission.sushiswap = !!mission.sushiswap
-      this.mission.telegram_group = !!mission.telegram_group
-      this.mission.autofarm = !!mission.autofarm
-      this.mission.belt = !!mission.belt
-      this.mission.follow_weibo = !!mission.follow_weibo
-      this.mission.venus = !!mission.venus // venus 验资
-      this.mission.compound = !!mission.compound // compound 验资
-      this.mission.cream = !!mission.cream // cream 验资
-      this.mission.bunny = !!mission.bunny
+      this.mission.pancake = transformStatus(mission.pancake)
+      this.mission.uniswap = transformStatus(mission.uniswap)
+      this.mission.sushiswap = transformStatus(mission.sushiswap)
+      this.mission.retweet = transformStatus(mission.retweet)
+      this.mission.follow_twitter = transformStatus(mission.follow_twitter)
+      this.mission.telegram_group = transformStatus(mission.telegram_group)
+      this.mission.autofarm = transformStatus(mission.autofarm)
+      this.mission.belt = transformStatus(mission.belt)
+      this.mission.follow_weibo = transformStatus(mission.follow_weibo)
+      this.mission.venus = transformStatus(mission.venus)
+      this.mission.compound = transformStatus(mission.compound)
+      this.mission.cream = transformStatus(mission.cream)
+      this.mission.bunny = transformStatus(mission.bunny)
     }
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')
@@ -299,61 +264,41 @@ class Store {
   }
 
   // 设置合约地址
-  async setAdress(address: string): Promise<any> {
-    this.clearTimeout()
-    try {
-      this.user.bsc_token = address
-      const result = await API.setAdress(this.projectName, address)
-      // 默认设置地址返回值
-      safeSet(result, 'info.bsc_token', address)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('bsc')
+  setAdress(value: string) {
+    // 设置地址
+    this.info.bsc = value
   }
 
   // 设置 telegram id
-  async setTelegram(id: string): Promise<any> {
-    this.clearTimeout()
-    try {
-      this.user.telegram = id
-      const token = this.user.bsc_token
-      const result = await API.setTelegram(this.projectName, token, id)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('telegram_group')
+  // post 时携带基础数据
+  @postInfoBasis()
+  setTelegram(id: string) {
+    this.info.telegram_group = id
   }
 
   // 设置 twitter id
-  async setTwitter(id: string): Promise<any> {
-    this.clearTimeout()
-    try {
-      this.user.twitter = id
-      const token = this.user.bsc_token
-      const result = await API.setTwitter(this.projectName, token, id)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('follow_twitter')
+  // post 时携带基础数据
+  @postInfoBasis()
+  setTwitter(id: string) {
+    this.info.follow_twitter = id
   }
 
   // 转发 twitter
-  async setReTwitter(id: string): Promise<any> {
-    return this.setTwitter(id)
+  @postInfo('retweet')
+  // post 时携带基础数据
+  @postInfoBasis()
+  setReTwitter(id: string) {
+    this.info.retweet = id
   }
 
-  // 发布微博
-  async setWeiboContent(form: FormData): Promise<void> {
+  // 发布微博, 微博文章
+  async setWeiboContent(form: FormData): Promise<any> {
     this.clearTimeout()
     try {
-      const result = await API.setWeiboContent(this.projectName, form)
+      const result = await API.setWeiboContent(this.getNickName(), form)
       this.updateData(result)
       return result
     } catch (e) {
@@ -363,153 +308,73 @@ class Store {
   }
 
   // 设置 pancake
-  async setPancake(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.pancake_token = value
-      const token = this.user.bsc_token
-      const result = await API.setPancake(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('pancake')
+  @postInfoBasis()
+  setPancake(value: string) {
+    this.info.pancake = value
   }
 
   // 设置 uniswap
-  async setUniswap(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.uniswap_token = value
-      const token = this.user.bsc_token
-      const result = await API.setUniswap(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('uniswap')
+  @postInfoBasis()
+  setUniswap(value: string) {
+    this.info.uniswap = value
   }
 
   // 设置 sushiswap
-  async setSushiswap(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.sushiswap_token = value
-      const token = this.user.bsc_token
-      const result = await API.setSushiswap(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('sushiswap')
+  @postInfoBasis()
+  setSushiswap(value: string) {
+    this.info.sushiswap = value
   }
 
   // 设置微博名称
-  async setSinaNickname(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.weibo = value
-      const token = this.user.bsc_token
-      const result = await API.setSinaNickname(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('follow_weibo')
+  @postInfoBasis()
+  setSinaNickname(value: string) {
+    this.info.follow_weibo = value
   }
 
   // 设置 venus
-  async setVenus(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.venus_token = value
-      const token = this.user.bsc_token
-      const result = await API.setVenus(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('venus')
+  @postInfoBasis()
+  setVenus(value: string) {
+    this.info.venus = value
   }
 
   // 设置 compound
-  async setCompound(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.compound_token = value
-      const token = this.user.bsc_token
-      const result = await API.setCompound(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('compound')
+  @postInfoBasis()
+  setCompound(value: string) {
+    this.info.compound = value
   }
 
   // 设置 cream
-  async setCream(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.cream_token = value
-      const token = this.user.bsc_token
-      const result = await API.setCream(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('cream')
+  @postInfoBasis()
+  setCream(value: string) {
+    this.info.cream = value
   }
 
   // 设置 autofarm
-  async setAutofarm(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.autofarm_token = value
-      const token = this.user.bsc_token
-      const result = await API.setAutofarm(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('autofarm')
+  @postInfoBasis()
+  setAutofarm(value: string) {
+    this.info.autofarm = value
   }
 
   // 设置 beltfit
-  async setBeltfit(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.belt_token = value
-      const token = this.user.bsc_token
-      const result = await API.setBeltfit(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('belt')
+  @postInfoBasis()
+  setBeltfit(value: string) {
+    this.info.belt = value
   }
 
   // 设置 bunny
-  async setBunny(value: string): Promise<void> {
-    this.clearTimeout()
-    try {
-      this.user.bunny_token = value
-      const token = this.user.bsc_token
-      const result = await API.setBunny(this.projectName, token, value)
-      this.updateData(result)
-      return result
-    } catch (e) {
-      this.updateData()
-      return Promise.reject(e)
-    }
+  @postInfo('bunny')
+  @postInfoBasis()
+  setBunny(value: string) {
+    this.info.bunny = value
   }
 }
 

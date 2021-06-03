@@ -1,6 +1,7 @@
 {
   "extends": "@antfu",
   "rules": {
+    "@typescript-eslint/no-this-alias": "off",
     "vue/no-template-shadow": "off",
     "no-template-curly-in-string": "off",
     "node/no-deprecated-api": "off",

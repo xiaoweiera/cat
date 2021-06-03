@@ -4,6 +4,7 @@ import { defineProps, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
+// @ts-ignore
 import { userData } from '~/logic/user/login'
 
 const store = Task()
@@ -68,7 +69,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.telegram">
       <!-- 判断是否填写了 telegram id -->
-      <!--      <IconFont v-if="store.mission.telegram_group" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="telegram"
@@ -83,7 +83,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.twitter">
       <!-- 判断是否关注 twitter -->
-      <!--      <IconFont v-if="store.mission.follow_twitter" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="twitter"
@@ -98,7 +97,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.retwitter">
       <!-- 判断是否转发 twitter -->
-      <!--      <IconFont v-if="store.mission.retweet" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="retwitter"
@@ -113,7 +111,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.pancake">
       <!-- 判断pancake验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.pancake" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="pancake"
@@ -129,7 +126,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.uniswap">
       <!-- 判断uniswap验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.uniswap" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="uniswap"
@@ -145,7 +141,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.sushiswap">
       <!-- 判断sushiswap验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.sushiswap" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="sushiswap"
@@ -170,7 +165,6 @@ const validityValue = computed<string>((): string => {
     </template>
     <template v-else-if="data.type === TaskType.sina">
       <!-- 判断 sina 验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.follow_weibo" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="sina"
@@ -186,7 +180,6 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.venus">
       <!-- 判断 venus 验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.venus" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="venus"
@@ -203,7 +196,6 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.cream">
       <!-- 判断 cream 验资是否通过 -->
-      <!--      <IconFont v-if="store.user.cream_token" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="cream"
@@ -220,7 +212,6 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.compound">
       <!-- 判断 compound 验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.compound" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="compound"
@@ -237,7 +228,6 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.autofarm">
       <!-- 判断 compound 验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.autofarm" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="autofarm"
@@ -254,7 +244,6 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.beltfit">
       <!-- 判断 compound 验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.belt" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="beltfit"
@@ -271,7 +260,6 @@ const validityValue = computed<string>((): string => {
 
     <template v-else-if="data.type === TaskType.bunny">
       <!-- 判断 compound 验资是否通过 -->
-      <!--      <IconFont v-if="store.mission.bunny" type="success"></IconFont>-->
       <GrowthpadTaskSubText
         :data="data"
         name="bunny"

@@ -12,14 +12,14 @@ const addressRef = ref<any>(null)
 
 // @ts-ignore
 const getToken = function(): string {
-  if (store?.user.bsc_token) {
-    return store.user.bsc_token
+  if (store?.info.bsc) {
+    return store.info.bsc
   }
   return ''
 }
 // @ts-ignore
 const tokenIsNull = computed<boolean>((): boolean => {
-  if (store?.user.bsc_token) {
+  if (store?.info.bsc) {
     return true
   }
   return false

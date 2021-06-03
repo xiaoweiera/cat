@@ -80,7 +80,7 @@ const submit = async function() {
     await store.setWeiboContent(data)
     messageSuccess(I18n.growthpad.weibo.success)
     // 清空表单
-    form.resetField()
+    form.resetFields()
     // 清除验证结果
     form.clearValidate()
   } catch (e) {
