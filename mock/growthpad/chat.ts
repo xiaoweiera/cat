@@ -7,11 +7,11 @@ export const uuid = function(): string {
   return `task-${value}`
 }
 
-export const telegram = function(project: string, description?: string, href?: string, reward: Array<number> = []) {
+export const telegram = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter?: string) {
   return {
     id: uuid(),
     title: I18n.common.join,
-    titleAfter: I18n.growthpad.chat.speak,
+    titleAfter: titleAfter || I18n.growthpad.chat.speak,
     type: TaskType.telegram,
     tooltip: {
       icon: 'telegram',
@@ -23,11 +23,12 @@ export const telegram = function(project: string, description?: string, href?: s
   }
 }
 // 关注 twitter
-export const twitter = function(project: string, description?: string, href?: string, reward: Array<number> = []) {
+export const twitter = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter?: string) {
   return {
     id: uuid(),
     title: I18n.common.follow,
     type: TaskType.twitter,
+    titleAfter,
     tooltip: {
       icon: 'twitter',
       value: `${project} ${I18n.common.chat.twitter}`,
@@ -38,11 +39,12 @@ export const twitter = function(project: string, description?: string, href?: st
   }
 }
 // 转发 twitter
-export const retwitter = function(project: string, description?: string, href?: string, reward: Array<number> = []) {
+export const retwitter = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter?: string) {
   return {
     id: uuid(),
     title: I18n.common.repost,
     type: TaskType.retwitter,
+    titleAfter,
     tooltip: {
       icon: 'twitter',
       value: I18n.growthpad.activity.twitter,

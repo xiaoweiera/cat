@@ -3,7 +3,16 @@
  */
 
 %fail {
+  /* chrome / webkit */
   &::-webkit-input-placeholder{
+    color: #e9592d;
+  }
+  /* 火狐 */
+  &::-moz-placeholder{
+    color: #e9592d;
+  }
+  /* ie */
+  &::-ms-input-placeholder{
     color: #e9592d;
   }
 }

@@ -67,7 +67,8 @@ export default {
     // title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.',
     title: 'Write a {count}-word original {project} experience article and publish it in mainstream media.',
     // tips: '* 已提交等待审核，重新提交会替换之前的内容。'
-    tips: '* Verifying,when resubmitting the previous information will be covered. '
+    tips: '* Verifying,when resubmitting the previous information will be covered. ',
+    retwitter: 'And retweet the twitter.'
   },
   invited: {
     count: 'My invitation: ',

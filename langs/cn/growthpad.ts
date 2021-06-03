@@ -64,7 +64,8 @@ export default {
     notify1: '* 截图内容请包含主流媒体个人主页',
     notify2: '* 请上传 .JPG .PNG .JPEG 等文件格式，大小控制在 5 M 以内',
     title: '撰写 {count} 字以上原创 {project} 体验文章，并发布在主流媒体。',
-    tips: '* 已提交等待审核，重新提交会替换之前的内容。'
+    tips: '* 已提交等待审核，重新提交会替换之前的内容。',
+    retwitter: '并转发推特。'
   },
   invited: {
     count: '我邀请参与活动的人数：',
