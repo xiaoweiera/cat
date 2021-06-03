@@ -62,13 +62,13 @@ export const formdata = reactive<FormData>({
   checked: true,
 })
 interface FormMailData {
-  mail: string
+  email: string
   password: string
   area_code: string
   checked: boolean
 }
 export const formMailData = reactive<FormMailData>({
-  mail: '',
+  email: '',
   password: '',
   area_code: '+86',
   checked: true,
@@ -87,7 +87,7 @@ export const registerData = reactive({
 export const registerMailData = reactive({
   code: '', // 验证码
   password: '',
-  mail: '',
+  email: '',
   invitation_code: '', // 邀请码
   platform: 'web',
   checked: false,
@@ -106,7 +106,7 @@ export const forgetMailData = reactive({
   password: '',
   new_password: '',
   area_code: '+86',
-  mail: '',
+  email: '',
 })
 
 export const registerForm = ref<any>(null)
@@ -224,6 +224,36 @@ export const onRegisterMailSubmit = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
+const test = function() {
+  const form = toRaw(forgetMailForm).value
+  return new Promise((resolve, reject) => {
+    form.validateField(['email'], (error: any) => {
+      if (error) {
+        reject(error)
+      } else {
+        // @ts-ignore
+        resolve()
+      }
+    })
+  })
+}
+// 忘记密码邮箱验证码
+export const onMailCaptcha = async function(): Promise<any> {
+  const form = toRaw(forgetMailForm).value
+  try {
+    if (form) {
+      await test()
+    }
+    const data = toRaw(forgetMailData)
+    // 注册
+    const result = await user.getMailCaptcha(data.email)
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
 
 // 登录
 export const onSubmit = async function(): Promise<any> {
@@ -279,7 +309,7 @@ export const onSubmitMail = async function(): Promise<any> {
     }
     // @ts-ignore
     const data = R.pick<user.LogoData>(
-      ['mail', 'password', 'area_code'],
+      ['email', 'password', 'area_code'],
       formMailData,
     )
     const result = await user.logoMail(data)

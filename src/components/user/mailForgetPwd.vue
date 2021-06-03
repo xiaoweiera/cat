@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
 // @ts-ignore
-import rules from './rules'
+import emailRules from './emailRules'
 import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { goDialogLogin } from '~/store/header/login'
@@ -10,6 +10,7 @@ import {
   forgetMailData,
   forgetMailForm,
   onFindPwdMail,
+  onMailCaptcha,
 } from '~/logic/user/login'
 import { getMailCaptcha } from '~/api/user'
 // @ts-ignore
@@ -43,26 +44,38 @@ let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
 
 // @ts-ignore
-const onGetCode = function() {
+const onGetCode = async function() {
   if (codeFlag) {
     return false
   }
-  codeFlag = true
-  getMailCaptcha(forgetMailData.mail).catch(() => {
-    // todo
-  })
-  interval = setInterval(() => {
-    if (codeNumber <= 0) {
-      codeNumber = 120
-      clearInterval(interval)
-      codeValue.value = I18n.common.message.verification
-      codeFlag = false
+  try {
+    const result = await onMailCaptcha()
+    if (result.code !== 0) {
+      messageError(result.message)
     } else {
-      // @ts-ignore
-      codeValue.value = codeNumber
-      codeNumber--
+      codeFlag = true
+      interval = setInterval(() => {
+        if (codeNumber <= 0) {
+          codeNumber = 120
+          clearInterval(interval)
+          codeValue.value = I18n.common.message.verification
+          codeFlag = false
+        } else {
+          // @ts-ignore
+          codeValue.value = codeNumber
+          codeNumber--
+        }
+      }, 1000)
     }
-  }, 1000)
+  } catch (e) {
+    const message = e?.message
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
+  }
 }
 </script>
 
@@ -72,15 +85,15 @@ const onGetCode = function() {
   <el-form
     ref="forgetMailForm"
     class="formLogo"
-    :rules="rules"
+    :rules="emailRules"
     :model="forgetMailData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mail">
+    <el-form-item prop="email">
       <el-input
-        v-model="forgetMailData.mail"
-        :placeholder="I18n.common.placeholder.tel"
+        v-model="forgetMailData.email"
+        :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"
       >

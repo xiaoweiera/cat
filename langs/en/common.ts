@@ -5,6 +5,12 @@ export default {
   switchLogin: 'Sign in',
   switchRegister: 'Register',
   switchRorget: 'Forgot password',
+  phone:'Phone',
+  email:'Email',
+  phoneCreate:'Phone',
+  emailCreate:'Email',
+  phoneForget:'Phone',
+  emailForget:'Email',
   lang: 'En',
   nav: {
     apply: 'Project Application',
@@ -32,7 +38,7 @@ export default {
   placeholder: {
     login: 'automatic login',
     tel: 'Please input mobile phone number',
-    mail:'Please enter your email address',
+    email:'Please enter your email address',
     verification: 'Please enter the verification code',
     password: 'Please input  new password',
     confirmPassword: 'Please confirm  new password'

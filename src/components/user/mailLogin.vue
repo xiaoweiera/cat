@@ -38,10 +38,10 @@ const submit = async function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mail">
+    <el-form-item prop="email">
       <el-input
-        v-model="formMailData.mail"
-        :placeholder="I18n.common.placeholder.mail"
+        v-model="formMailData.email"
+        :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"
       >

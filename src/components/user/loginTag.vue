@@ -12,33 +12,33 @@ const getLoginText = () => {
     tags.value = [
       {
         key: 'tel',
-        name: '手机号登录',
+        name: I18n.common.phone,
       },
       {
-        key: 'mail',
-        name: '邮箱登录',
+        key: 'email',
+        name: I18n.common.email,
       },
     ]
   } else if (loginTypeStatus.name === 'register') {
     tags.value = [
       {
         key: 'tel',
-        name: '手机号注册',
+        name: I18n.common.phoneCreate,
       },
       {
-        key: 'mail',
-        name: '邮箱注册',
+        key: 'email',
+        name: I18n.common.emailCreate,
       },
     ]
   } else {
     tags.value = [
       {
         key: 'tel',
-        name: '手机号找回',
+        name: I18n.common.phoneForget,
       },
       {
-        key: 'mail',
-        name: '邮箱找回',
+        key: 'email',
+        name: I18n.common.emailForget,
       },
     ]
   }

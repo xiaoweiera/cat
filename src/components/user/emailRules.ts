@@ -4,7 +4,7 @@
  */
 
 import I18n from '~/utils/i18n/index'
-import { forgetData } from '~/logic/user/login'
+import { forgetMailData } from '~/logic/user/login'
 
 // 手机号校验
 export const mobile = [
@@ -73,10 +73,9 @@ const new_password = [
   {
     trigger: ['blur', 'change'],
     validator(rule: any, value: string, callback: (message?: string) => void) {
-      console.log('rules')
       if (value.length < 6 || value.length > 24) {
         callback(I18n.common.message.passwordError)
-      } else if (forgetData.password !== forgetData.new_password) {
+      } else if (forgetMailData.password !== forgetMailData.new_password) {
         callback(I18n.common.message.new_password)
       } else {
         callback()

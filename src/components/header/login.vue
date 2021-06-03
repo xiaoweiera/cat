@@ -91,7 +91,8 @@ onMounted(async() => {
       <!-- 显示注册 -->
       <UserMailRegister
         v-if="
-          loginTypeStatus.type === 'mail' && loginTypeStatus.name === 'register'
+          loginTypeStatus.type === 'email' &&
+            loginTypeStatus.name === 'register'
         "
         :area-code="areaCodes"
       >
@@ -126,7 +127,7 @@ onMounted(async() => {
       </UserLogin>
       <UserMailLogin
         v-if="
-          loginTypeStatus.type === 'mail' && loginTypeStatus.name === 'login'
+          loginTypeStatus.type === 'email' && loginTypeStatus.name === 'login'
         "
         :area-code="areaCodes"
       >
@@ -162,7 +163,7 @@ onMounted(async() => {
       </UserForgetPwd>
       <UserMailForgetPwd
         v-if="
-          loginTypeStatus.type === 'mail' && loginTypeStatus.name === 'forget'
+          loginTypeStatus.type === 'email' && loginTypeStatus.name === 'forget'
         "
         :area-code="areaCodes"
       >

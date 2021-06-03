@@ -77,10 +77,10 @@ export const getCaptcha = async function(mobile: string): Promise<void> {
   return request.post(url, data)
 }
 // 邮箱验证码
-export const getMailCaptcha = async function(mobile: string): Promise<void> {
-  const url = '/api/v1/users/captcha'
+export const getMailCaptcha = async function(email: string): Promise<void> {
+  const url = '/api/v1/users/email_send_code'
   // 电话区号默认为 +86
-  const data = { area_code: 86, mobile }
+  const data = { email }
   return request.post(url, data)
 }
 // 重置密码 验证码
@@ -98,8 +98,8 @@ export const register = async function(data: any): Promise<any> {
 }
 // 邮箱注册
 export const registerMail = async function(data: any): Promise<any> {
-  const url = '/api/v1/users/signup'
-  const value = Object.assign({ area_code: 86 }, data)
+  const url = '/api/v1/users/email_signup'
+  const value = Object.assign(data)
   return request.post(url, value)
 }
 // 重置密码

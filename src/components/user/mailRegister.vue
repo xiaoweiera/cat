@@ -56,7 +56,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getMailCaptcha(registerMailData.mail).catch(() => {
+  getMailCaptcha(registerMailData.email).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -88,10 +88,10 @@ const onGetCode = function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mail">
+    <el-form-item prop="email">
       <el-input
-        v-model="registerMailData.mail"
-        :placeholder="I18n.common.placeholder.mail"
+        v-model="registerMailData.email"
+        :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"
       >
