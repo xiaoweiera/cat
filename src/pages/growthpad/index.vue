@@ -38,8 +38,10 @@ onMounted(async() => {
       <div class="xshidden hero w-full flex-wrap flex justify-between">
         <div class="titleDes mdhidden"></div>
         <div class="mxWidth font-kdFang i8n-font-en-inter">
-          <div class="titleTxt">GrowthPad</div>
-          <div class="titleTxt">{{ I18n.growthpadShow.title }}</div>
+          <div class="titleTxt i8n-font-en-Barlow">GrowthPad</div>
+          <div class="titleTxt i8n-font-en-Barlow">
+            {{ I18n.growthpadShow.title }}
+          </div>
           <div
             class="
               text-kd12px22px

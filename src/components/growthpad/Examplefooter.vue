@@ -78,7 +78,7 @@ import I18n from '~/utils/i18n'
 }
 
 .feature-detail {
-  @apply text-global-default text-kd12px16px md:text-kd14px18px flex  justify-center  opacity-85 font-kdFang  mt-1.5;
+  @apply text-global-default text-kd12px16px md:text-kd14px18px flex  justify-center  opacity-65 font-kdFang  mt-1.5;
 }
 
 .shadowImg {
