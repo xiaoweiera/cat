@@ -56,12 +56,12 @@ export const company = [
     url: 'https://solana.com?utm_source=https://nav.ikingdata.com/',
   },
   {
-    logo: 'https://res.ikingdata.com/nav/indexPlatBs.png',
-    url: 'https://www.bishijie.com?utm_source=https://nav.ikingdata.com/',
-  },
-  {
     logo: 'https://res.ikingdata.com/nav/indexPlatSl.png',
     url: 'https://www.shenliancaijing.com?utm_source=https://nav.ikingdata.com/',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatBs.png',
+    url: 'https://www.bishijie.com?utm_source=https://nav.ikingdata.com/',
   },
 ]
 export const telPlats = [
