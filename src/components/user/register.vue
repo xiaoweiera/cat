@@ -90,7 +90,7 @@ const onGetCode = function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item class="mobileItem" prop="mobile">
       <el-input
         v-model="registerData.mobile"
         :placeholder="I18n.common.placeholder.tel"
@@ -114,7 +114,7 @@ const onGetCode = function() {
         </template>
       </el-input>
     </el-form-item>
-    <el-form-item prop="code">
+    <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="registerData.code"
         :placeholder="I18n.common.placeholder.verification"
@@ -179,8 +179,11 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
-::v-deep(.checkedText .el-form-item__content) {
-  line-height: 10px;
+::v-deep(.mobileItem .el-input-group__prepend) {
+  background: white;
+}
+::v-deep(.codeItem .el-input-group__append) {
+  background: white;
 }
 .checkedText {
   width: fit-content;

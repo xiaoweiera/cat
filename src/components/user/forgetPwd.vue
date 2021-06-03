@@ -70,7 +70,7 @@ const onGetCode = function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item class="mobileItem" prop="mobile">
       <el-input
         v-model="forgetData.mobile"
         :placeholder="I18n.common.placeholder.tel"
@@ -94,7 +94,7 @@ const onGetCode = function() {
         </template>
       </el-input>
     </el-form-item>
-    <el-form-item prop="code">
+    <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="forgetData.code"
         :placeholder="I18n.common.placeholder.verification"
@@ -139,6 +139,12 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.mobileItem .el-input-group__prepend) {
+  background: white;
+}
+::v-deep(.codeItem .el-input-group__append) {
+  background: white;
+}
 ::v-deep(.el-select .el-input__inner) {
   width: 72px;
   padding-left: 0px !important;

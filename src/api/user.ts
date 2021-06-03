@@ -53,9 +53,31 @@ export const logo = async function(query: LogoData): Promise<LogoResult> {
     return Promise.reject(e)
   }
 }
-
+// 邮箱登录
+export const logoMail = async function(query: LogoData): Promise<LogoResult> {
+  const method = 'post'
+  const url = '/api/v1/users/login'
+  // 电话区号默认为 +86
+  console.log(query, 'canshu')
+  const data = Object.assign({ area_code: 86 }, query)
+  try {
+    const result = await request({ url, method, data })
+    const value = safeGet<LogoResult>(result, 'data')
+    return value
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
 // 验证码
 export const getCaptcha = async function(mobile: string): Promise<void> {
+  const url = '/api/v1/users/captcha'
+  // 电话区号默认为 +86
+  const data = { area_code: 86, mobile }
+  return request.post(url, data)
+}
+// 邮箱验证码
+export const getMailCaptcha = async function(mobile: string): Promise<void> {
   const url = '/api/v1/users/captcha'
   // 电话区号默认为 +86
   const data = { area_code: 86, mobile }
@@ -86,7 +108,12 @@ export const findPwd = async function(data: any): Promise<any> {
   const value = Object.assign({ area_code: '+86' }, data)
   return request.post(url, value)
 }
-
+// 邮箱重置密码
+export const findPwdMail = async function(data: any): Promise<any> {
+  const url = '/api/v1/users/change_password'
+  const value = Object.assign({ area_code: '+86' }, data)
+  return request.post(url, value)
+}
 // 获取区域号码
 export const areaCode = async function(): Promise<void> {
   try {

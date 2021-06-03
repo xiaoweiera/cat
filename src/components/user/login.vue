@@ -38,7 +38,7 @@ const submit = async function() {
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item class="mobileItem" prop="mobile">
       <div class="flex items-center">
         <el-input
           v-model="formdata.mobile"
@@ -91,6 +91,15 @@ const submit = async function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.mobileItem .el-input-group__prepend) {
+  background: white;
+}
+::v-deep(.codeItem .el-input-group__append) {
+  background: white;
+}
+::v-deep(.checkedText .el-form-item__content) {
+  line-height: 10px;
+}
 ::v-deep(.el-select .el-input__inner) {
   width: 72px;
   padding-left: 0px !important;

@@ -4,13 +4,13 @@ import { toRaw, onMounted, ref } from 'vue'
 import rules from './rules'
 import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible, loginType } from '~/store/header/login'
+import { showVisible } from '~/store/header/login'
 import {
   registerMailData,
   registerMailForm,
   onRegisterMailSubmit,
 } from '~/logic/user/login'
-import { getCaptcha } from '~/api/user'
+import { getMailCaptcha } from '~/api/user'
 const isHasCode = ref('')
 // 活动名称
 const getVisitNum = function(): string {
@@ -56,7 +56,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getCaptcha(registerMailData.mail).catch(() => {
+  getMailCaptcha(registerMailData.mail).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -97,7 +97,7 @@ const onGetCode = function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item prop="code">
+    <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="registerMailData.code"
         :placeholder="I18n.common.placeholder.verification"
@@ -162,6 +162,12 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.mobileItem .el-input-group__prepend) {
+  background: white;
+}
+::v-deep(.codeItem .el-input-group__append) {
+  background: white;
+}
 ::v-deep(.checkedText .el-form-item__content) {
   line-height: 10px;
 }

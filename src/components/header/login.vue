@@ -38,7 +38,6 @@ onMounted(async() => {
 </script>
 
 <template>
-  {{ loginTypeStatus }}
   <div v-if="!isLogin">
     <div
       class="
@@ -230,7 +229,22 @@ onMounted(async() => {
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
+::v-deep(.mobileItem .el-input__inner) {
+  border-left: 0px;
+}
+::v-deep(.mobileItem .el-input-group__prepend) {
+  background: white;
+}
+::v-deep(.codeItem .el-input__inner) {
+  border-right: 0px;
+}
+::v-deep(.codeItem .el-input-group__append) {
+  background: white;
+}
+::v-deep(.checkedText .el-form-item__content) {
+  line-height: 10px;
+}
 .loginOut {
   background: white;
   border-radius: 4px;

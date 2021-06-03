@@ -61,6 +61,18 @@ export const formdata = reactive<FormData>({
   area_code: '+86',
   checked: true,
 })
+interface FormMailData {
+  mail: string
+  password: string
+  area_code: string
+  checked: boolean
+}
+export const formMailData = reactive<FormMailData>({
+  mail: '',
+  password: '',
+  area_code: '+86',
+  checked: true,
+})
 // 注册
 export const registerData = reactive({
   code: '', // 验证码
@@ -88,11 +100,22 @@ export const forgetData = reactive({
   area_code: '+86',
   mobile: '',
 })
+// 邮箱找回密码
+export const forgetMailData = reactive({
+  code: '', // 验证码
+  password: '',
+  new_password: '',
+  area_code: '+86',
+  mail: '',
+})
+
 export const registerForm = ref<any>(null)
 export const registerMailForm = ref<any>(null)
 export const logoForm = ref<any>(null)
-export const forgetForm = ref<any>(null)
+export const logoMailForm = ref<any>(null)
 
+export const forgetForm = ref<any>(null)
+export const forgetMailForm = ref<any>(null)
 const update = function(result: UserData): void {
   userData.area_code = result.area_code
   userData.avatar_url = result.avatar_url
@@ -152,6 +175,23 @@ export const onFindPwd = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
+// 邮箱找回密码
+export const onFindPwdMail = async function(): Promise<any> {
+  const form = toRaw(forgetMailForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(forgetMailData)
+    // 注册
+    const result = await user.findPwdMail(data)
+    return result?.data || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+
 // 注册
 export const onRegisterSubmit = async function(): Promise<any> {
   const form = toRaw(registerForm).value
@@ -198,6 +238,51 @@ export const onSubmit = async function(): Promise<any> {
       formdata,
     )
     const result = await user.logo(data)
+    if (result?.data) {
+      if (window.location.hostname !== 'kingdata.com') {
+        jsCookie.set('token', result?.data?.token || '', {
+          path: '/',
+        })
+      }
+      jsCookie.set('token', result?.data?.token || '', {
+        path: '/',
+      })
+      jsCookie.set('token', result?.data?.token || '', {
+        path: '/',
+        domain: 'ikingdata.com',
+      })
+      jsCookie.set('token', result?.data?.token || '', {
+        path: '/',
+        domain: 'kingdata.com',
+      })
+      update(result.data as UserData)
+    }
+    const number = parseInt(result?.code as any, 10)
+    if (number === 0) {
+      return true
+    }
+    // eslint-disable-next-line prefer-promise-reject-errors
+    return Promise.reject({
+      message: result?.message || '账号或者密码输入有误！',
+    })
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 邮箱登录
+export const onSubmitMail = async function(): Promise<any> {
+  const form = toRaw(logoMailForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    // @ts-ignore
+    const data = R.pick<user.LogoData>(
+      ['mail', 'password', 'area_code'],
+      formMailData,
+    )
+    const result = await user.logoMail(data)
     if (result?.data) {
       if (window.location.hostname !== 'kingdata.com') {
         jsCookie.set('token', result?.data?.token || '', {

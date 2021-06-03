@@ -1,18 +1,25 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { toRaw, ref, defineProps } from 'vue'
+import { ref, defineProps } from 'vue'
+// @ts-ignore
 import rules from './rules'
 import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { goDialogLogin } from '~/store/header/login'
-import { forgetData, forgetForm, onFindPwd } from '~/logic/user/login'
-import { getForgetCaptcha } from '~/api/user'
+// @ts-ignore
+import {
+  forgetMailData,
+  forgetMailForm,
+  onFindPwdMail,
+} from '~/logic/user/login'
+import { getMailCaptcha } from '~/api/user'
+// @ts-ignore
 const props = defineProps({
   areaCode: Object,
 })
+// @ts-ignore
 const submit = async function() {
   try {
-    const result = await onFindPwd()
+    const result = await onFindPwdMail()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
@@ -41,7 +48,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getForgetCaptcha(forgetData.mobile).catch(() => {
+  getMailCaptcha(forgetMailData.mail).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -63,25 +70,25 @@ const onGetCode = function() {
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
-    ref="forgetForm"
+    ref="forgetMailForm"
     class="formLogo"
     :rules="rules"
-    :model="forgetData"
+    :model="forgetMailData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item prop="mobile">
+    <el-form-item prop="mail">
       <el-input
-        v-model="forgetData.mobile"
+        v-model="forgetMailData.mail"
         :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"
       >
       </el-input>
     </el-form-item>
-    <el-form-item prop="code">
+    <el-form-item class="codeItem" prop="code">
       <el-input
-        v-model="forgetData.code"
+        v-model="forgetMailData.code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -94,7 +101,7 @@ const onGetCode = function() {
 
     <el-form-item prop="password">
       <el-input
-        v-model="forgetData.password"
+        v-model="forgetMailData.password"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -104,7 +111,7 @@ const onGetCode = function() {
     </el-form-item>
     <el-form-item prop="new_password">
       <el-input
-        v-model="forgetData.new_password"
+        v-model="forgetMailData.new_password"
         type="password"
         :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"
@@ -124,6 +131,12 @@ const onGetCode = function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.mobileItem .el-input-group__prepend) {
+  background: white;
+}
+::v-deep(.codeItem .el-input-group__append) {
+  background: white;
+}
 .mb-2 {
   margin-bottom: 8px !important;
 }
