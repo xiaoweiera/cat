@@ -11,7 +11,7 @@ export default {
     about: '≈',
     count: 'Reward Amount',
     value: 'Reward Value',
-    perPerson: 'The Max Amount Per Person',
+    perPerson: 'The Max Reward Per Person',
     total: 'Reward {count} MDX',
     maxTotal: '{count} MDX at maximum',
     finished: 'Finish all tasks: {reward}（TOP {count} users）',
@@ -82,10 +82,10 @@ export default {
     warning: 'Once confirmed, the address can\'t be modified and the reward will be airdrop.',
     placeholderBsc: 'Enter BSC address',
     placeholderETH: 'Enter ETH address',
-    placeholderTelegram: 'Enter telegraph ID',
+    placeholderTelegram: 'Enter your username',
     twitter: 'Enter Twitter ID',
     retwitter: 'Enter Twitter ID',
-    sina: 'Enter Weibo name'
+    sina: 'Enter Weibo ID'
   },
   copy: 'Inviting you to register in KingData，{url}',
   warning: {
@@ -133,7 +133,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
     copy: 'Inviting you to participate {title}, Win 1 million dollars award, {url}',
     share: {
-      title: 'Invite one and divide up 1% of bonus pool.',
+      title: 'Invite 1 friend to participate in the GrowthPad to share 1% of the total prize pool.',
       lable: `Invite more and reward more.
       The amount of reward = the number that you invite/total numbers * 1% total bonus. `
     },
@@ -203,7 +203,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   },
   coinwind: {
     address: {
-      placeholder: 'Enter your HECO address receiving',
+      placeholder: 'Enter HECO address',
     },
     about: {
       detail: `CoinWind is a Heco and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.

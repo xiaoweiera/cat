@@ -23,7 +23,7 @@ export const coinwindInfo = {
   url: '/growthpad/COINWIND',
   coin: 'MDX',
   dashboard: {
-    banner: 'https://res.ikingdata.com/static/growthpad/coinwind.png',
+    banner: 'https://res.ikingdata.com/static/growthpad/coinwind2.png',
     begin: '2021-05-22 12:00:00', // 开始时间
     end: '2021-06-07 12:00:00', // 结束时间
     description: I18n.growthpadShow.coinwindProject.des, // 描述
@@ -45,7 +45,7 @@ export const channelsInfo = {
     end: '2021-06-30 12:00:00', // 结束时间
     description: I18n.growthpadShow.channelsProject.des, // 描述
     reward: {
-      count: 200000, // 奖励数量
+      count: 100000, // 奖励数量
       cost: 2000000, // 价值
       limits: [148], // 每人可领取范围
     },
