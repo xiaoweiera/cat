@@ -21,7 +21,7 @@ export const getDomain = function(): string {
       '(http(s)\\://)(:subdomain.):domain.:tld(\\::port)(/*)',
     )
     // @ts-ignore
-    const data = pattern(hostname)
+    const data = pattern.match(hostname)
     return `${data.domain}.${data.tld}`
   } catch (e) {
     console.log('UrlPattern', e)
