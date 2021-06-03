@@ -168,7 +168,6 @@ const timeCountdownValue = computed<string>((): string => {
               <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
             </p>
           </li>
-          <!--
           <li class="ml-3 md:ml-12 align-text-bottom">
             <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
               {{ rewardValueTitle }}
@@ -178,7 +177,6 @@ const timeCountdownValue = computed<string>((): string => {
               v-html="getPrice(store.dashboard.rewardCount)"
             ></p>
           </li>
-          -->
           <li class="ml-3 md:ml-12 align-text-bottom">
             <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
               {{ I18n.growthpad.reward.perPerson }}

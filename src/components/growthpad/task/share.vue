@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
+import { Project } from '~/api/growtask'
+import { wxShare } from '~/lib/wxShare'
 const store = Task()
 
 const data = computed(() => {
@@ -19,8 +22,22 @@ const link = (): string => {
   if (code) {
     url = `${url}?code=${code}`
   }
-  const $title = document.querySelector('title')
-  const value = $title.innerText
+  let value = ''
+
+  // @ts-ignore
+  const name: Project = store.projectName
+  if (name === Project.coinwind) {
+    value = I18n.growthpad.coinwind.title
+  } else if (name === Project.mdx) {
+    value = I18n.growthpad.mdx.title
+  } else if (name === Project.channels) {
+    value = I18n.growthpad.channels.title
+  } else if (name === Project.growth) {
+    value = I18n.growthpad.growth.title
+  } else {
+    const $title = document.querySelector('title')
+    value = $title.innerText
+  }
   return I18n.template(I18n.growthpad.mdx.copy, { title: value, url })
 }
 </script>

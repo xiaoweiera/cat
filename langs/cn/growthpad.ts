@@ -94,9 +94,9 @@ export default {
     sina: '活动结束前取消关注/删除微博视为未完成任务'
   },
   vip: {
-    invite: '成为 {group} VIP 用户',
+    invite: '成为 {group} VIP 用户或邀请三名好友。',
     description: '邀请三个用户注册即可成为 VIP 用户',
-    activity: 'KingData VIP 用户；加入 {project} 电报群；关注 {project} Twitter 并转发本条活动 Twitter。',
+    activity: 'KingData VIP 用户或邀请三名好友；加入 {project} 电报群；关注 {project} Twitter 并转发本条活动 Twitter。',
   },
   activity: {
     twitter: '本条活动 Twitter',
@@ -112,7 +112,7 @@ export default {
   },
 
   mdx: {
-    title: '助力 MDEX 增长，领取20万美元 MDX 奖励-GrowthPad',
+    title: '助力 MDEX 增长，领取20万美元 MDX 奖励',
     address: {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
@@ -135,7 +135,7 @@ MDEX 致力于打造集 DEX、IMO、DAO 为一体的 DeFi 平台，为更多优�
 
 MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太坊、波卡生态，不断拓展 MDEX 生态与社区，让更多 DeFi 用户享受到 MDEX 生态的红利。`,
     },
-    copy: '邀请您参与{title}，赢取百万美元奖励，{url}',
+    copy: '邀请{title}，{url}',
     share: {
       title: '邀请1名好友参与 GrowthPad 活动，即可瓜分总奖池1%的奖励。',
       lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%</i>`
@@ -159,7 +159,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     },
   },
   channels: {
-    title: '助力 Channels 增长，领取10万美元 USDT 奖励-GrowthPad',
+    title: '助力 Channels 增长，领取10万美元 USDT 奖励',
     address: {
       placeholder: '输入参与领取奖励的 HECO 地址',
 
@@ -203,11 +203,11 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
 
       telegramDesc: '并在群里晒出 Channels 存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
-      sinaDesc: '置顶微博并 @3个好友'
+      sinaDesc: '微博并 @3个好友'
     },
   },
   coinwind: {
-    title: '助力 CoinWind 增长，领取20万美元 MDX 奖励-GrowthPad',
+    title: '助力 CoinWind 增长，领取20万美元 MDX 奖励',
     address: {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },

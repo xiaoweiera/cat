@@ -21,7 +21,7 @@ export const ready = async function(store: Store): Promise<void> {
   const name: Project = store.projectName
   if (name === Project.coinwind) {
     useHead({
-      title: I18n.growthpad.coinwind.title,
+      title: `${I18n.growthpad.coinwind.title}-GrowthPad`,
     })
     // @ts-ignore
     const project = store.title.value || 'CoinWind'
@@ -29,7 +29,7 @@ export const ready = async function(store: Store): Promise<void> {
     desc = I18n.template(I18n.growthpad.wechat.desc, { project })
   } else if (name === Project.mdx) {
     useHead({
-      title: I18n.growthpad.mdx.title,
+      title: `${I18n.growthpad.mdx.title}-GrowthPad`,
     })
     // @ts-ignore
     const project = store.title.value || 'MDEX'
@@ -39,7 +39,7 @@ export const ready = async function(store: Store): Promise<void> {
     await store.init()
   } else if (name === Project.channels) {
     useHead({
-      title: I18n.growthpad.channels.title,
+      title: `${I18n.growthpad.channels.title}-GrowthPad`,
     })
     // @ts-ignore
     const project = store.title.value || 'Channels'

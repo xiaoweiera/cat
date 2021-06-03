@@ -99,9 +99,10 @@ export default {
   },
 
   vip: {
-    invite: 'Become {group} VIP',
+    // invite: '成为 {group} VIP 用户或邀请三名好友。',
+    invite: 'Become {group} VIP or inviting 3 users',
     description: 'By inviting 3 users to register KingData.',
-    activity: 'Become KingData VIP; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
+    activity: 'Become {group} VIP or inviting 3 users; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
   },
   activity: {
     twitter: 'This activity'
@@ -117,7 +118,7 @@ export default {
   },
 
   mdx: {
-    title: 'Help MDEX grow and receive MDX rewards worth $200,000-GrowthPad',
+    title: 'Help MDEX grow and receive MDX rewards worth $200,000',
     address: {
       placeholder: 'Enter BSC address',
     },
@@ -138,7 +139,7 @@ export default {
 
 It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
     },
-    copy: 'Inviting you to participate {title}, Win 1 million dollars award, {url}',
+    copy: 'Inviting {title}, {url}',
     share: {
       title: 'Invite 1 friend to participate in the GrowthPad to share 1% of the total prize pool.',
       lable: `Invite more and reward more.
@@ -162,7 +163,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
   },
   channels: {
-    title: 'Help CoinWind grow and receive MDX rewards worth $200,000-GrowthPad',
+    title: 'Help CoinWind grow and receive MDX rewards worth $200,000',
     address: {
       placeholder: 'Enter HECO address',
     },
@@ -206,11 +207,11 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
 
       telegramDesc: 'Join Channels telegram group and post the screenshot of more than 1K USDT Channels\' loan / deposit  in the group',
       twitterDesc: 'Repost the top twitter and @ 3 friends',
-      sinaDesc: 'top weibo and @ 3 friends'
+      sinaDesc: 'Weibo and @3 friends'
     },
   },
   coinwind: {
-    title: 'Help Channels grow and receive USDT rewards worth $100,000-GrowthPad',
+    title: 'Help Channels grow and receive USDT rewards worth $100,000',
     address: {
       placeholder: 'Enter HECO address',
     },

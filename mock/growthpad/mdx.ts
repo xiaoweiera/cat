@@ -65,14 +65,14 @@ const data = {
     {
       id: chat.uuid(), // 任务ID
       type: TaskType.vip, // 任务类型
-      title: I18n.template(I18n.growthpad.vip.activity, { project: Project }),
+      title: I18n.template(I18n.growthpad.vip.activity, { project: Project, group: 'KingData' }),
       description: I18n.template(I18n.growthpad.reward.finished, { count: 1000, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {
           type: TaskType.vip,
           title: I18n.template(I18n.growthpad.vip.invite, { group: 'KingData' }),
-          description: I18n.growthpad.vip.description, // 帮助信息
+          // description: I18n.growthpad.vip.description, // 帮助信息
         },
         chat.telegram(Project, I18n.growthpad.warning.telegram, telegramHref),
         chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref),
