@@ -28,6 +28,19 @@ const twitterHref = 'https://twitter.com/ChannelsFinance'
 const sinaHref = 'https://weibo.com/u/7542695920?is_all=1'
 
 
+// 关注 twitter
+export const twitter = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter?: string) {
+  const data = chat.twitter(project, description, href, reward, titleAfter);
+  // @ts-ignore
+  data['tooltipAfter'] = {
+    icon: 'twitter',
+    value: I18n.growthpad.activity.twitter,
+    href,
+  }
+  return data
+}
+
+
 const data = {
   token,
   title: Project, // 名称
@@ -81,14 +94,14 @@ const data = {
           telegramHref,
           [10]
         ),
-        chat.twitter(
+        twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter
           }),
           twitterHref,
           [3],
-          I18n.growthpad.weibo.retwitter
+          I18n.common.andRepost
         ),
         chat.sina(
           Project,
@@ -121,7 +134,7 @@ const data = {
           telegramHref,
           [10]
         ),
-        chat.twitter(
+        twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter
@@ -161,7 +174,7 @@ const data = {
           telegramHref,
           [10]
         ),
-        chat.twitter(
+        twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter

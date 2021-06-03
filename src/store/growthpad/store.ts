@@ -55,6 +55,7 @@ interface TaskItem {
   reward: number[] // 奖励
   help?: string // 帮助信息
   tooltip?: Tooltip
+  tooltipAfter?: Tooltip
   children?: Array<TaskItem>
 }
 

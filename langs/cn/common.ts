@@ -25,7 +25,7 @@ export default {
     verificationError: '请输入6位验证码！',
     passwordError: '请输入6至24位的密码！',
     telError: '请输入正确的手机号',
-    testing: '验证中，审核结束后自动更新结果',
+    testing: '验证中 预计15分钟更新结果',
     get: '已得',
     copy: '已复制邀请链接',
     fail: '失败, 请重新验证'
@@ -40,6 +40,7 @@ export default {
   join: '加入',
   follow: '关注',
   repost: '转发',
+  andRepost: '并转发',
   activity: '活动',
   user: {
     invite: '请输入邀请码',
