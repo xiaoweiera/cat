@@ -26,7 +26,8 @@ export default {
     passwordError: '请输入6至24位的密码！',
     new_password: '两次输入密码不一致',
     telError: '请输入正确的手机号',
-    checked:'请阅读用户隐私协议和服务条款'
+    checked:'请阅读用户隐私协议和服务条款',
+    mailError:'邮箱格式不正确'
   },
   placeholder: {
     login: '自动登录',

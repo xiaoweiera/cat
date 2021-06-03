@@ -25,6 +25,25 @@ export const mobile = [
     },
   },
 ]
+// 邮箱校验
+export const mail = [
+  {
+    required: true,
+    message: I18n.common.placeholder.mail,
+    trigger: ['blur', 'change'],
+  },
+  {
+    trigger: 'blur',
+    validator(rule: any, value: string, callback: (message?: string) => void) {
+      const reg = /^[_a-z0-9]+@([_a-z0-9]+\.)+[a-z0-9]{2,3}$/
+      if (reg.test(value)) {
+        callback()
+      } else {
+        callback(I18n.common.message.mailError)
+      }
+    },
+  },
+]
 
 // 密码校验
 const password = [
@@ -102,4 +121,4 @@ const code = [
   },
 ]
 
-export default { mobile, password, new_password, checked, code }
+export default { mobile, password, new_password, checked, mail, code }

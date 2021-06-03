@@ -71,6 +71,13 @@ export const getForgetCaptcha = async function(data: any): Promise<any> {
 export const register = async function(data: any): Promise<any> {
   const url = '/api/v1/users/signup'
   const value = Object.assign({ area_code: 86 }, data)
+  console.log(value, data, 'zhuce')
+  return request.post(url, value)
+}
+// 邮箱注册
+export const registerMail = async function(data: any): Promise<any> {
+  const url = '/api/v1/users/signup'
+  const value = Object.assign({ area_code: 86 }, data)
   return request.post(url, value)
 }
 // 重置密码

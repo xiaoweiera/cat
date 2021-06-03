@@ -26,7 +26,8 @@ export default {
     passwordError: 'Please input 6-24 digits of password!',
     confirmPassword: 'The password entered twice does not match',
     telError: 'Please input the correct mobile phone number',
-    checked:'Please read the User Privacy Agreement and Terms of Service'
+    checked:'Please read the User Privacy Agreement and Terms of Service',
+    mailError:'Incorrect email format'
   },
   placeholder: {
     login: 'automatic login',

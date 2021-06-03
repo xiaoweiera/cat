@@ -6,9 +6,9 @@ import { messageError } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { showVisible, loginType } from '~/store/header/login'
 import {
-  registerData,
-  registerForm,
-  onRegisterSubmit,
+  registerMailData,
+  registerMailForm,
+  onRegisterMailSubmit,
 } from '~/logic/user/login'
 import { getCaptcha } from '~/api/user'
 const isHasCode = ref('')
@@ -22,13 +22,13 @@ const getVisitNum = function(): string {
 
 onMounted(() => {
   const code = getVisitNum()
-  registerData.invitation_code = code
+  registerMailData.invitation_code = code
   isHasCode.value = code
 })
 
 const submit = async function() {
   try {
-    const result = await onRegisterSubmit()
+    const result = await onRegisterMailSubmit()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
@@ -56,7 +56,7 @@ const onGetCode = function() {
     return false
   }
   codeFlag = true
-  getCaptcha(registerData.mobile).catch(() => {
+  getCaptcha(registerMailData.mail).catch(() => {
     // todo
   })
   interval = setInterval(() => {
@@ -81,16 +81,16 @@ const onGetCode = function() {
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
-    ref="registerForm"
+    ref="registerMailForm"
     class="formLogo"
     :rules="rules"
-    :model="registerData"
+    :model="registerMailData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
     <el-form-item prop="mail">
       <el-input
-        v-model="registerData.mail"
+        v-model="registerMailData.mail"
         :placeholder="I18n.common.placeholder.mail"
         class="input-with-select"
         autocomplete="off"
@@ -99,7 +99,7 @@ const onGetCode = function() {
     </el-form-item>
     <el-form-item prop="code">
       <el-input
-        v-model="registerData.code"
+        v-model="registerMailData.code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -112,7 +112,7 @@ const onGetCode = function() {
 
     <el-form-item prop="password">
       <el-input
-        v-model="registerData.password"
+        v-model="registerMailData.password"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -122,7 +122,7 @@ const onGetCode = function() {
     </el-form-item>
     <el-form-item class="mb-2">
       <el-input
-        v-model="registerData.invitation_code"
+        v-model="registerMailData.invitation_code"
         :disabled="isHasCode !== ''"
         :placeholder="I18n.common.user.invite"
         class="input-with-select"
@@ -132,7 +132,7 @@ const onGetCode = function() {
     </el-form-item>
     <el-form-item class="checkedText" prop="checked">
       <div class="text-center">
-        <el-checkbox v-model="registerData.checked">
+        <el-checkbox v-model="registerMailData.checked">
           <div class="register-box">
             <span class="inline-block">{{ I18n.common.user.read }}</span>
             <a

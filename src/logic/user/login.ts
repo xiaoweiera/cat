@@ -89,6 +89,7 @@ export const forgetData = reactive({
   mobile: '',
 })
 export const registerForm = ref<any>(null)
+export const registerMailForm = ref<any>(null)
 export const logoForm = ref<any>(null)
 export const forgetForm = ref<any>(null)
 
@@ -125,7 +126,6 @@ export const logout = async function(): Promise<void> {
 }
 // 更新用户信息
 export const syncUser = async function(): Promise<void> {
-  console.log('sync user')
   try {
     // 临时使用一个接口来判断用户是否已登录
     const result = await user.getInfo()
@@ -155,7 +155,6 @@ export const onFindPwd = async function(): Promise<any> {
 // 注册
 export const onRegisterSubmit = async function(): Promise<any> {
   const form = toRaw(registerForm).value
-  console.log(toRaw(registerData))
   try {
     if (form) {
       await form.validate()
@@ -163,6 +162,22 @@ export const onRegisterSubmit = async function(): Promise<any> {
     const data = toRaw(registerData)
     // 注册
     const result = await user.register(data)
+    return result?.data || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 邮箱注册
+export const onRegisterMailSubmit = async function(): Promise<any> {
+  const form = toRaw(registerMailForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(registerMailData)
+    // 注册
+    const result = await user.registerMail(data)
     return result?.data || {}
   } catch (e) {
     // todo
