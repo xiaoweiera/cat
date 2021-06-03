@@ -58,6 +58,7 @@ export const logo = async function(query: LogoData): Promise<LogoResult> {
     }
     return value
   } catch (e) {
+    console.log(e)
     // todo
     return Promise.reject(e)
   }

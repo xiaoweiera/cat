@@ -3,14 +3,17 @@ import rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
+// @ts-ignore
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 
+// @ts-ignore
 const submit = async function() {
   try {
     await onSubmit()
     hideVisible()
     window.location.reload()
   } catch (e) {
+    console.log(e)
     const message = e?.message
     if (message) {
       const data = {
