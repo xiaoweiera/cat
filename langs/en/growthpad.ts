@@ -88,7 +88,8 @@ export default {
     retwitter: 'Enter Twitter ID',
     sina: 'Enter Weibo ID'
   },
-  copy: 'Inviting you to register in KingData，{url}',
+  copy: 'Share the GrowthPad 💲500000 reward with simple finger swipes~ Link:{url}',
+  copyIndex: 'Share the GrowthPad 💲500000 reward with simple finger swipes~ Link，{url}',
   warning: {
     telegram: 'Leaving the telegram group will be regarded as unfinished before the activity ends.',
     follow: 'Removing follow the twitter will be regarded as unfinished before the activity ends.',

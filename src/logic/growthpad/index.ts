@@ -36,17 +36,14 @@ export const company = [
     url: 'https://ikingdata.com?utm_source=https://nav.ikingdata.com/',
   },
   {
-    logo: 'https://res.ikingdata.com/nav/indexPlatJs.png',
-    url: 'www.jinse.com?utm_source=https://nav.ikingdata.com/',
-  },
-  {
     logo: 'https://res.ikingdata.com/nav/indexHe.png',
-    url: 'www.hecochain.com/zh-cn?utm_source=https://nav.ikingdata.com/',
+    url: 'https://www.hecochain.com/zh-cn?utm_source=https://nav.ikingdata.com/',
   },
   {
     logo: 'https://res.ikingdata.com/nav/indexBa.png',
     url: 'https://www.binance.org/cn/smartChain?utm_source=https://nav.ikingdata.com/',
   },
+
   {
     logo: 'https://res.ikingdata.com/nav/indexPlatOk.png',
     url: 'https://www.okex.com/cn/okexchain?utm_source=https://nav.ikingdata.com/',
@@ -56,12 +53,16 @@ export const company = [
     url: 'https://solana.com?utm_source=https://nav.ikingdata.com/',
   },
   {
-    logo: 'https://res.ikingdata.com/nav/indexPlatSl.png',
-    url: 'https://www.shenliancaijing.com?utm_source=https://nav.ikingdata.com/',
-  },
-  {
     logo: 'https://res.ikingdata.com/nav/indexPlatBs.png',
     url: 'https://www.bishijie.com?utm_source=https://nav.ikingdata.com/',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatJs.png',
+    url: 'https://www.jinse.com?utm_source=https://nav.ikingdata.com/',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatSl.png',
+    url: 'https://www.shenliancaijing.com?utm_source=https://nav.ikingdata.com/',
   },
 ]
 export const telPlats = [
