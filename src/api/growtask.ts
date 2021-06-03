@@ -33,7 +33,7 @@ export function getProjectType(project: string): Project {
 
 const _projectInfoData: any = {}
 // 项目信息
-const projectDetail = async function(project: string): Promise<any> {
+export const projectDetail = async function(project: string): Promise<any> {
   try {
     if (_projectInfoData && _projectInfoData[project]) {
       return Promise.resolve(_projectInfoData[project])

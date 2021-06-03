@@ -31,12 +31,38 @@ export const footList = [
 ]
 
 export const company = [
-  'https://res.ikingdata.com/nav/indexPlatKi.png',
-  'https://res.ikingdata.com/nav/indexPlatJs.png',
-  'https://res.ikingdata.com/nav/indexHe.png',
-  'https://res.ikingdata.com/nav/indexBa.png',
-  'https://res.ikingdata.com/nav/indexPlatOk.png',
-  'https://res.ikingdata.com/nav/indexPlatSo.png',
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatKi.png',
+    url: 'https://ikingdata.com',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatJs.png',
+    url: 'www.jinse.com',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexHe.png',
+    url: 'www.hecochain.com/zh-cn/',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexBa.png',
+    url: 'https://www.binance.org/cn/smartChain',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatOk.png',
+    url: 'https://www.okex.com/cn/okexchain',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatSo.png',
+    url: 'https://solana.com/',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatBs.png',
+    url: 'https://www.bishijie.com/',
+  },
+  {
+    logo: 'https://res.ikingdata.com/nav/indexPlatSl.png',
+    url: 'https://www.shenliancaijing.com/',
+  },
 ]
 export const telPlats = [
   {

@@ -5,6 +5,7 @@ export const mdxInfo = {
   icon: 'https://res.ikingdata.com/icon/mdx.png', // icon
   url: '/growthpad/mdx',
   coin: 'MDX',
+  projectName:'MDX',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/mdx.png',
     begin: '2021-05-25 12:00:00', // 开始时间
@@ -21,6 +22,7 @@ export const coinwindInfo = {
   icon: 'https://res.ikingdata.com/nav/coinwind.png', // icon
   url: '/growthpad/COINWIND',
   coin: 'MDX',
+  projectName:'COINWIND',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/coinwind2.png',
     begin: '2021-05-22 12:00:00', // 开始时间
@@ -37,6 +39,7 @@ export const channelsInfo = {
   icon: 'https://res.ikingdata.com/icon/channels.svg', // icon
   url: '/growthpad/CHANNELS',
   coin: 'USDT',
+  projectName:'CHANNELS',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/channels.png',
     begin: '2021-05-29 12:00:00', // 开始时间
