@@ -224,8 +224,8 @@ export const onRegisterMailSubmit = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
-const test = function() {
-  const form = toRaw(forgetMailForm).value
+const test = function(formData: any) {
+  const form = toRaw(formData).value
   return new Promise((resolve, reject) => {
     form.validateField(['email'], (error: any) => {
       if (error) {
@@ -238,13 +238,30 @@ const test = function() {
   })
 }
 // 忘记密码邮箱验证码
-export const onMailCaptcha = async function(): Promise<any> {
+export const onMailCaptchaForget = async function(): Promise<any> {
   const form = toRaw(forgetMailForm).value
   try {
     if (form) {
-      await test()
+      await test(forgetMailForm)
     }
     const data = toRaw(forgetMailData)
+    // 注册
+    const result = await user.getMailCaptcha(data.email)
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 注册邮箱验证码
+export const onMailCaptchaResgister = async function(): Promise<any> {
+  const form = toRaw(registerMailForm).value
+  try {
+    if (form) {
+      await test(registerMailForm)
+    }
+    const data = toRaw(registerMailData)
     // 注册
     const result = await user.getMailCaptcha(data.email)
     // @ts-ignore
@@ -262,11 +279,9 @@ export const onSubmit = async function(): Promise<any> {
     if (form) {
       await form.validate()
     }
+    const param = ['mobile', 'password', 'area_code']
     // @ts-ignore
-    const data = R.pick<user.LogoData>(
-      ['mobile', 'password', 'area_code'],
-      formdata,
-    )
+    const data = R.pick<user.LogoData>(param, formdata)
     const result = await user.logo(data)
     if (result?.data) {
       if (window.location.hostname !== 'kingdata.com') {
@@ -307,11 +322,9 @@ export const onSubmitMail = async function(): Promise<any> {
     if (form) {
       await form.validate()
     }
+    const param = ['email', 'password', 'area_code']
     // @ts-ignore
-    const data = R.pick<user.LogoData>(
-      ['email', 'password', 'area_code'],
-      formMailData,
-    )
+    const data = R.pick<user.LogoData>(param, formMailData)
     const result = await user.logoMail(data)
     if (result?.data) {
       if (window.location.hostname !== 'kingdata.com') {

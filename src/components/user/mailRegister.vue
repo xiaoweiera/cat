@@ -9,6 +9,7 @@ import {
   registerMailData,
   registerMailForm,
   onRegisterMailSubmit,
+  onMailCaptchaResgister,
 } from '~/logic/user/login'
 import { getMailCaptcha } from '~/api/user'
 const isHasCode = ref('')
@@ -51,26 +52,38 @@ let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
 
 // @ts-ignore
-const onGetCode = function() {
+const onGetCode = async function() {
   if (codeFlag) {
     return false
   }
-  codeFlag = true
-  getMailCaptcha(registerMailData.email).catch(() => {
-    // todo
-  })
-  interval = setInterval(() => {
-    if (codeNumber <= 0) {
-      codeNumber = 120
-      clearInterval(interval)
-      codeValue.value = I18n.common.message.verification
-      codeFlag = false
+  try {
+    const result = await onMailCaptchaResgister()
+    if (result.data.code !== 0) {
+      messageError(result)
     } else {
-      // @ts-ignore
-      codeValue.value = codeNumber
-      codeNumber--
+      codeFlag = true
+      interval = setInterval(() => {
+        if (codeNumber <= 0) {
+          codeNumber = 120
+          clearInterval(interval)
+          codeValue.value = I18n.common.message.verification
+          codeFlag = false
+        } else {
+          // @ts-ignore
+          codeValue.value = codeNumber
+          codeNumber--
+        }
+      }, 1000)
     }
-  }, 1000)
+  } catch (e) {
+    const message = e?.message
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
+  }
 }
 </script>
 

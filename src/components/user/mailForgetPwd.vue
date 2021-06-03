@@ -10,7 +10,7 @@ import {
   forgetMailData,
   forgetMailForm,
   onFindPwdMail,
-  onMailCaptcha,
+  onMailCaptchaForget,
 } from '~/logic/user/login'
 import { getMailCaptcha } from '~/api/user'
 // @ts-ignore
@@ -49,9 +49,9 @@ const onGetCode = async function() {
     return false
   }
   try {
-    const result = await onMailCaptcha()
-    if (result.code !== 0) {
-      messageError(result.message)
+    const result = await onMailCaptchaForget()
+    if (result.data.code !== 0) {
+      messageError(result)
     } else {
       codeFlag = true
       interval = setInterval(() => {

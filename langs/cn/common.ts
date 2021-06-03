@@ -40,7 +40,7 @@ export default {
     tel: '请输入手机号',
     email:'请输入邮箱',
     verification: '请输入验证码',
-    password: '请输入新密码',
+    password: '请输入密码',
     new_password: '请确认新密码'
   },
   and: '及',
