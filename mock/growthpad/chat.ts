@@ -57,6 +57,7 @@ export const retwitter = function(project: string, description?: string, href?: 
 
 // 新浪微博
 export const sina = function(project: string, description?: string, href?: string, reward: Array<number> = []) {
+  //
   return {
     id: uuid(),
     title: I18n.common.follow,
@@ -66,7 +67,12 @@ export const sina = function(project: string, description?: string, href?: strin
       value:  `${project} ${I18n.common.chat.sina}`,
       href,
     },
-    titleAfter: I18n.growthpad.channels.activity.sinaDesc,
+    tooltipAfter: {
+      icon: 'sina',
+      value: I18n.growthpad.channels.activity.sinaDesc,
+      href,
+    },
+    titleAfter: I18n.common.andRepost,
     reward,
     description,
   }

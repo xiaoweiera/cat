@@ -33,12 +33,13 @@ const hrefAfter = computed(() => {
             inline-block
             align-middle
             whitespace-pre-line
+            mr-1.5
           "
           v-html="data.title"
         ></span>
         <template v-if="data.tooltip">
           <a
-            class="tooltip rounded mx-1.5 inline-flex items-center align-middle"
+            class="tooltip rounded mr-1.5 inline-flex items-center align-middle"
             target="_blank"
             :href="href"
           >
@@ -51,13 +52,13 @@ const hrefAfter = computed(() => {
           </a>
         </template>
         <template v-if="data.titleAfter">
-          <span class="text-sm title inline align-middle">{{
+          <span class="text-sm title inline align-middle mr-1.5">{{
             data.titleAfter
           }}</span>
         </template>
         <template v-if="data.tooltipAfter">
           <a
-            class="tooltip rounded mx-1.5 inline-flex items-center align-middle"
+            class="tooltip rounded mr-1.5 inline-flex items-center align-middle"
             target="_blank"
             :href="hrefAfter"
           >

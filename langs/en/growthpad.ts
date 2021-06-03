@@ -124,7 +124,7 @@ export default {
     dashboard: {
       desc: `In order to give back to community users, MDEX cooperated with KingData to launch an incentive activity worth over $300,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
+      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     about: {
       name: 'MDX',
@@ -169,7 +169,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     dashboard: {
       desc: `In order to give back to community users, Channels cooperated with KingData to launch an incentive activity worth over $100,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
+      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     weibo: {
       label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 30~100 USDT. (The number of followers is not less than 2000, and the reading volume is not less than 1000).',
@@ -191,7 +191,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     task1: {
       title: 'TVL in Venus is more than 10K USDT, and the total amount of deposits and loans in Channels exceeds 1,000 USDT. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
       // description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
-      description: 'Finish one of tasks：<i>get up to {count} {unit}</i>',
+      description: 'The following task rewards are settled independently, and the accumulated reward can be <i>up to {count} {unit}</i>.',
     },
     task2: {
       title: 'TVL in Creams is more than 10K USDT, and the total amount of deposits and loans in Channels exceeds 1,000 USDT. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
@@ -206,7 +206,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
 
       telegramDesc: 'Join Channels telegram group and post the screenshot of more than 1K USDT Channels\' loan / deposit  in the group',
       twitterDesc: 'Repost the top twitter and @ 3 friends',
-      sinaDesc: 'Repost the top weibo and @ 3 friends'
+      sinaDesc: 'top weibo and @ 3 friends'
     },
   },
   coinwind: {
@@ -233,7 +233,7 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
     dashboard: {
       desc: `In order to give back to community users, CoinWind cooperated with KingData to launch an incentive activity worth over $200,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
+      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     task1: {
       title: 'Become KingData VIP; Join CoinWind telegram; Follow CoinWind Twitter and repost the twitter about the activity.'

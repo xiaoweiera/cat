@@ -51,6 +51,7 @@ const data = {
   about: {
     website, // 项目官网
     minutias: [
+      /*
       { label: I18n.growthpad.about.name, value: I18n.growthpad.channels.about.name }, // 代币名称
       { label: I18n.growthpad.about.online, value: I18n.growthpad.channels.about.online }, // 上线时间
       { label: I18n.growthpad.about.count, value: I18n.growthpad.channels.about.count }, // 发行总量
@@ -62,6 +63,7 @@ const data = {
         label: I18n.growthpad.about.exchanges,
         value: I18n.growthpad.mdx.about.exchanges,
       },
+      */
     ],
     detail: I18n.growthpad.channels.about.detail, // 项目介绍
 
