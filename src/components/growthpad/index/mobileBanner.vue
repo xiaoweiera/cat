@@ -5,11 +5,13 @@ import { userData } from '~/logic/user/login'
 const link = (): string => {
   const { origin, pathname } = window.location
   let url = `${origin}${pathname}`
-  const code = userData.my_invitation_code
+  const code = `${userData.my_invitation_code}-G0`
   if (code) {
     url = `${url}?code=${code}`
   }
-  return url
+  // const $title = document.querySelector('title')
+  // const value = $title.innerText
+  return I18n.template(I18n.growthpad.mdx.copyIndex, { url })
 }
 </script>
 <template>
@@ -26,9 +28,9 @@ const link = (): string => {
           </div>
           <div class="flex items-center mt-1.5">
             <span>{{ I18n.growthpadShow.code }}</span>
-            <span class="text-kd17px17px text-global-primary ml-1.5">{{
-              userData.my_invitation_code
-            }}</span>
+            <span
+              class="text-kd17px17px text-global-primary ml-1.5"
+            >{{ userData.my_invitation_code }}-G0</span>
             <Copy :link="link">
               <IconFont
                 class="ml-2 hand flex mb-1"

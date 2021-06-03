@@ -11,9 +11,9 @@ const link = (): string => {
   if (code) {
     url = `${url}?code=${code}`
   }
-  const $title = document.querySelector('title')
-  const value = $title.innerText
-  return I18n.template(I18n.growthpad.mdx.copy, { title: value, url })
+  // const $title = document.querySelector('title')
+  // const value = $title.innerText
+  return I18n.template(I18n.growthpad.mdx.copyIndex, { url })
 }
 </script>
 <template>
