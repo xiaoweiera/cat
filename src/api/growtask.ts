@@ -11,6 +11,7 @@ export enum Project {
   mdx = 'MDX',
   channels = 'CHANNELS',
   coinwind = 'COINWIND',
+  growth = 'GROWTH',
 }
 
 export function getProjectType(project: string): Project {
@@ -22,6 +23,9 @@ export function getProjectType(project: string): Project {
   }
   if (project && toUpper(project) === Project.coinwind) {
     return Project.coinwind
+  }
+  if (project && toUpper(project) === Project.growth) {
+    return Project.growth
   }
   // @ts-ignore
   return '' as Project

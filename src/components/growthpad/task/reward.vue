@@ -19,6 +19,25 @@ const isWeibo = computed((): boolean => {
   return props.data?.type === TaskType.weibo
 })
 
+const symbolValue = computed<string>((): string => {
+  // 项目名称
+  // @ts-ignore
+  const name: Project = store.projectName
+  if (name === Project.growth) {
+    return I18n.common.symbol.divide
+  }
+  return I18n.common.symbol.plus
+})
+const tokenValue = computed<string>((): string => {
+  // 项目名称
+  // @ts-ignore
+  const name: Project = store.projectName
+  if (name === Project.growth) {
+    return 'u'
+  }
+  return store.token
+})
+
 interface ItemTask {
   type: TaskType
   reward: number[]
@@ -202,7 +221,7 @@ const rewardValue = computed<number>((): number => {
       <span class="reward bonus block md:inline-block">
         <span class="text-xs">{{ I18n.common.message.get }}</span>
         <span class="count">{{ rewardValue }}</span>
-        <span class="ml-1">{{ store.token }}</span>
+        <span class="ml-1">{{ tokenValue }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
         <slot></slot>
@@ -215,12 +234,14 @@ const rewardValue = computed<number>((): number => {
         <template v-if="isWeibo">
           <span
             class="count"
-          >+{{ getMin(data.reward) }}~{{ getMax(data.reward) }}</span>
+          >{{ symbolValue }}{{ getMin(data.reward) }}~{{
+            getMax(data.reward)
+          }}</span>
         </template>
         <template v-else>
-          <span class="count">+{{ getMax(data.reward) }}</span>
+          <span class="count">{{ symbolValue }}{{ getMax(data.reward) }}</span>
         </template>
-        <span class="ml-1">{{ store.token }}</span>
+        <span class="ml-1">{{ tokenValue }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
         <slot></slot>

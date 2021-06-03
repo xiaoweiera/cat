@@ -52,5 +52,9 @@ export default {
     telegramGroup: '电报群',
     twitter: 'Twitter',
     sina: '微博'
+  },
+  symbol: {
+    plus: '+',
+    divide: '瓜分'
   }
 }

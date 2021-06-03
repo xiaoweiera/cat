@@ -38,6 +38,10 @@ const placeholder = (): string => {
   if (store.projectName === Project.coinwind) {
     return I18n.growthpad.coinwind.address.placeholder
   }
+  // @ts-ignore
+  if (store.projectName === Project.growth) {
+    return I18n.growthpad.growthpad.address.placeholder
+  }
   return I18n.growthpad.mdx.address.placeholder
 }
 

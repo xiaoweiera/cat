@@ -52,6 +52,7 @@ const formdata = reactive({
 // @ts-ignore
 const onSubmit = async function() {
   const form = toRaw(formRef).value
+  const value = formdata.input
   try {
     // 表单校验
     await form.validate()
@@ -65,7 +66,7 @@ const onSubmit = async function() {
     if (status && props.confirm) {
       // 输入内容确认
       status = await Message(I18n.growthpad.form.address, {
-        value: formdata.input,
+        value,
         warn: I18n.growthpad.form.warning,
       })
     }
@@ -81,7 +82,7 @@ const onSubmit = async function() {
         form.clearValidate()
 
         // @ts-ignore
-        await store[name](formdata.input)
+        await store[name](value)
       }
     }
   } catch (e) {

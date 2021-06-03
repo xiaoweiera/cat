@@ -161,6 +161,11 @@ a {
   }
 }
 
+.el-button--small {
+  min-height: 24px !important;
+  padding: 5px 11px !important;
+}
+
 /* 指令消息框 */
 .el-message-box {
   &.directive-message {

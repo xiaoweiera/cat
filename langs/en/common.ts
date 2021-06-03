@@ -52,5 +52,9 @@ export default {
     telegramGroup: 'Telegram Group',
     twitter: 'Twitter',
     sina: 'Weibo'
+  },
+  symbol: {
+    plus: '+',
+    divide: '瓜分'
   }
 }

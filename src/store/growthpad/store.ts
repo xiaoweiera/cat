@@ -8,6 +8,7 @@ import safeGet from '@fengqiaogang/safe-get'
 import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
+import mockGrowth from '../../../mock/growthpad/growth'
 import { MissionStatus, Info, Mission, transformStatus } from './props'
 import { postInfo, postInfoBasis } from './directive'
 import { isLogin } from '~/logic/user/login'
@@ -142,6 +143,10 @@ class Store {
       this.projectName = API.Project.coinwind
       this.shareCode.value = '-G2'
       this.setInitData(mockCoinWind)
+    } else if (type && API.getProjectType(type) === API.Project.growth) {
+      this.projectName = API.Project.growth
+      this.shareCode.value = '-G4'
+      this.setInitData(mockGrowth)
     }
   }
 
