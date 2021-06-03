@@ -127,7 +127,8 @@ const data = {
             value: I18n.growthpad.warning.twitter
           }),
           twitterHref,
-          [3]
+          [3],
+          I18n.growthpad.weibo.retwitter
         ),
         chat.sina(
           Project,
@@ -166,7 +167,8 @@ const data = {
             value: I18n.growthpad.warning.twitter
           }),
           twitterHref,
-          [3]
+          [3],
+          I18n.growthpad.weibo.retwitter
         ),
         chat.sina(
           Project,

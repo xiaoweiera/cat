@@ -28,7 +28,7 @@ export default {
     testing: '验证中，审核结束后自动更新结果',
     get: '已得',
     copy: '已复制邀请链接',
-    fail: '验证失败, 请重试'
+    fail: '失败, 请重新验证'
   },
   placeholder: {
     login: '自动登录',
