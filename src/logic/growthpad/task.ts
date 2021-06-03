@@ -2,18 +2,18 @@
  * @file growthpad 任务
  * @author svon.md@gmail.com
  */
-import { toRaw } from 'vue'
+// import { toRaw } from 'vue'
 import UrlPattern from 'url-pattern'
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 import safeGet from '@fengqiaogang/safe-get'
 import Store from '~/store/growthpad/store'
 import { Project, getProjectType } from '~/api/growtask'
 
 // 活动名称
 const getActiveName = function() {
-  const router = toRaw(useRoute())
+  // const router = toRaw(useRoute())
   // @ts-ignore
-  const pathname = router?.fullPath?.value
+  const pathname = window.location.pathname
   if (pathname) {
     // 解析 url
     const pattern = new UrlPattern('/growthpad/:activeName')

@@ -252,5 +252,14 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
     },
 
+  },
+  growthpad: {
+    address: {
+      placeholder: '输入参与领取奖励的 BSC / Heco 地址',
+    },
+    about: {
+      detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
+GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
+    }
   }
 };
