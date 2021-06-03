@@ -4,9 +4,7 @@ import { defineProps, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
-// @ts-ignore
-import { userData } from '~/logic/user/login'
-
+import { MissionStatus } from '~/store/growthpad/props'
 const store = Task()
 
 const props = defineProps({
@@ -58,7 +56,7 @@ const validityValue = computed<string>((): string => {
 <template>
   <div>
     <template v-if="data.type === TaskType.vip">
-      <template v-if="userData.is_vip">
+      <template v-if="store.mission.invited === MissionStatus.success">
         <IconFont type="success"></IconFont>
       </template>
       <GrowthpadTaskSubShare v-else :data="data">

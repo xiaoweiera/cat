@@ -40,7 +40,7 @@ const data = {
       { label: I18n.growthpad.about.count, value: I18n.growthpad.mdx.about.count }, // 发行总量
       // { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.mdx.about.marketValue }, // 市值
       // { label: I18n.growthpad.about.circulation, value: I18n.growthpad.mdx.about.circulation }, // 当前流通量
-      { label: I18n.growthpad.about.price, value: 'price' }, // 当前价格
+      // { label: I18n.growthpad.about.price, value: 'price' }, // 当前价格
       { label: I18n.growthpad.about.luanched, value: I18n.growthpad.mdx.about.luanched }, // 所在公链
       // 上线交易所
       {
@@ -71,8 +71,7 @@ const data = {
       children: [
         {
           type: TaskType.vip,
-          // title: '成为 Kingdata VIP 用户',
-          title: I18n.template(I18n.growthpad.vip.invite, { group: 'Kingdata' }),
+          title: I18n.template(I18n.growthpad.vip.invite, { group: 'KingData' }),
           description: I18n.growthpad.vip.description, // 帮助信息
         },
         chat.telegram(Project, I18n.growthpad.warning.telegram, telegramHref),

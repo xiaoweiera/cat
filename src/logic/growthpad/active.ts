@@ -4,6 +4,7 @@
  */
 
 import { ref } from 'vue'
+import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
 import Store from '~/store/growthpad/store'
 import { wxShare } from '~/lib/wxShare'
@@ -19,11 +20,17 @@ export const ready = async function(store: Store): Promise<void> {
   // @ts-ignore
   const name: Project = store.projectName
   if (name === Project.coinwind) {
+    useHead({
+      title: I18n.growthpad.coinwind.title,
+    })
     // @ts-ignore
     const project = store.title.value || 'CoinWind'
     title = I18n.template(I18n.growthpad.wechat.title, { project })
     desc = I18n.template(I18n.growthpad.wechat.desc, { project })
   } else if (name === Project.mdx) {
+    useHead({
+      title: I18n.growthpad.mdx.title,
+    })
     // @ts-ignore
     const project = store.title.value || 'MDEX'
     title = I18n.template(I18n.growthpad.wechat.title, { project })
@@ -31,6 +38,9 @@ export const ready = async function(store: Store): Promise<void> {
     wxShare(title, desc)
     await store.init()
   } else if (name === Project.channels) {
+    useHead({
+      title: I18n.growthpad.channels.title,
+    })
     // @ts-ignore
     const project = store.title.value || 'Channels'
     title = I18n.template(I18n.growthpad.wechat.title, { project })

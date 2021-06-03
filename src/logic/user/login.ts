@@ -92,24 +92,41 @@ const update = function(result: UserData): void {
   userData.growthpad_invited_count = result.growthpad_invited_count
   isLogin.value = true
 }
+
+export const setUserToken = function(value?: string) {
+  if (value) {
+    jsCookie.set('token', value, {
+      path: '/',
+    })
+    // if (window.location.hostname !== 'kingdata.com') {
+    //   jsCookie.set('token', value, {
+    //     path: '/',
+    //   })
+    // } else {
+    //   jsCookie.set('token', value, {
+    //     path: '/',
+    //     domain: 'ikingdata.com',
+    //   })
+    //   jsCookie.set('token', value, {
+    //     path: '/',
+    //     domain: 'kingdata.com',
+    //   })
+    // }
+  } else {
+    jsCookie.remove('token', {
+      path: '/',
+    })
+  }
+}
+
 export const logout = async function(): Promise<void> {
   try {
     // 退出
     await user.logout()
-    if (window.location.hostname !== 'kingdata.com') {
-      jsCookie.remove('token')
-    } else {
-      jsCookie.remove('token', {
-        path: '/',
-        domain: 'ikingdata.com',
-      })
-      jsCookie.remove('token', {
-        path: '/',
-        domain: 'kingdata.com',
-      })
-    }
+    setUserToken() // 删除 token 信息
     update({} as UserData)
     isLogin.value = false
+    // 刷新页面
     window.location.reload()
   } catch (e) {
     // todo
@@ -157,21 +174,7 @@ export const onSubmit = async function(): Promise<any> {
     const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
     const result = await user.logo(data)
     if (result?.data) {
-      jsCookie.set('token', result?.data?.token || '')
-      if (window.location.hostname !== 'kingdata.com') {
-        jsCookie.set('token', result?.data?.token || '', {
-          path: '/',
-        })
-      } else {
-        jsCookie.set('token', result?.data?.token || '', {
-          path: '/',
-          domain: 'ikingdata.com',
-        })
-        jsCookie.set('token', result?.data?.token || '', {
-          path: '/',
-          domain: 'kingdata.com',
-        })
-      }
+      setUserToken(result?.data?.token)
       update(result.data as UserData)
     }
     const number = parseInt(result?.code as any, 10)

@@ -16,6 +16,10 @@ const href = computed(() => {
   const href = props.data?.tooltip?.href || 'http://kingdata.com'
   return href
 })
+const hrefAfter = computed(() => {
+  const href = props.data?.tooltipAfter?.href || 'http://kingdata.com'
+  return href
+})
 </script>
 <template>
   <div>
@@ -29,12 +33,13 @@ const href = computed(() => {
             inline-block
             align-middle
             whitespace-pre-line
+            mr-1.5
           "
           v-html="data.title"
         ></span>
         <template v-if="data.tooltip">
           <a
-            class="tooltip rounded mx-1.5 inline-flex items-center align-middle"
+            class="tooltip rounded mr-1.5 inline-flex items-center align-middle"
             target="_blank"
             :href="href"
           >
@@ -47,14 +52,27 @@ const href = computed(() => {
           </a>
         </template>
         <template v-if="data.titleAfter">
-          <span class="text-sm title inline align-middle">{{
+          <span class="text-sm title inline align-middle mr-1.5">{{
             data.titleAfter
           }}</span>
         </template>
-        <template v-if="data.help">
-          <span class="ml-1.5 inline-block align-middle" :help="data.help">
-            <IconFont type="help" />
-          </span>
+        <template v-if="data.tooltipAfter">
+          <a
+            class="tooltip rounded mr-1.5 inline-flex items-center align-middle"
+            target="_blank"
+            :href="hrefAfter"
+          >
+            <template v-if="data.tooltipAfter.icon">
+              <IconFont
+                class="mr-1 flex"
+                :type="data.tooltipAfter.icon"
+                size="xs"
+              />
+            </template>
+            <span class="text-xs inline-block whitespace-nowrap">{{
+              data.tooltipAfter.value
+            }}</span>
+          </a>
         </template>
       </div>
       <div class="description text-xs">

@@ -9,7 +9,7 @@ import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
 import mockGrowth from '../../../mock/growthpad/growth'
-import { MissionStatus, Info, Mission, transformStatus } from './props'
+import { Info, Mission, MissionStatus, transformStatus } from './props'
 import { postInfo, postInfoBasis } from './directive'
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
@@ -55,6 +55,7 @@ interface TaskItem {
   reward: number[] // 奖励
   help?: string // 帮助信息
   tooltip?: Tooltip
+  tooltipAfter?: Tooltip
   children?: Array<TaskItem>
 }
 
@@ -107,6 +108,7 @@ class Store {
 
   // 完成状态
   public mission = reactive<Mission>({
+    invited: MissionStatus.init, // 邀请任务状态
     pancake: MissionStatus.init, // pancake验资是否通过
     uniswap: MissionStatus.init, // uniswap验资是否通过
     sushiswap: MissionStatus.init, // sushiswap验资是否通过
@@ -213,6 +215,7 @@ class Store {
       this.info.bunny = info.bunny
     }
     if (mission) {
+      this.mission.invited = transformStatus(mission.invited)
       this.mission.pancake = transformStatus(mission.pancake)
       this.mission.uniswap = transformStatus(mission.uniswap)
       this.mission.sushiswap = transformStatus(mission.sushiswap)

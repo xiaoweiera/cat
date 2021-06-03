@@ -44,7 +44,7 @@ export default {
     price: 'Price',
     luanched: 'Public Chain',
     exchanges: 'Exchange',
-    exchangeValues: 'Huobi,Binance and etc'
+    exchangeValues: 'Huobi, Binance and etc'
   },
   countdown: {
     title: 'Opening countdown',
@@ -118,23 +118,24 @@ export default {
   },
 
   mdx: {
+    title: 'Help MDEX grow and receive MDX rewards worth $200,000-GrowthPad',
     address: {
       placeholder: 'Enter BSC address',
     },
     dashboard: {
       desc: `In order to give back to community users, MDEX cooperated with KingData to launch an incentive activity worth over $300,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
+      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     about: {
       name: 'MDX',
-      exchanges: 'Huobi,Binance and etc',
+      exchanges: 'Huobi, Binance and etc',
       online: '1/19/2021',
       count: '1 billion',
       marketValue: '300 millions',
       circulation: '300 millions',
       luanched: 'HECO/BSC',
-      detail: `Mdex is the decentralized exchange (DEX) platform built on Heco, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
+      detail: `Mdex is the decentralized exchange (DEX) platform built on HECO, the Huobi exchange blockchain. It is strategically positioned as the optimal choice for Eco-token transactions and the largest DeFi ecosystem with DEX, IMO, and DAO integration.
 
 It is a decentralized exchange based on Automated Market Maker (AMM) technology on the HECO and Binance Smart Chain (BSC) with a tune of over $5 billion in total value locked. They aim to create cross-chain compatibility between leading chains to create a composite DEX ecosystem.`,
     },
@@ -142,7 +143,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     share: {
       title: 'Invite 1 friend to participate in the GrowthPad to share 1% of the total prize pool.',
       lable: `Invite more and reward more.
-      The amount of reward = the number that you invite/total numbers * 1% total bonus. `
+      The amount of reward = the number that you invite / total numbers * 1% total bonus. `
     },
     weibo: {
       label: `The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 MDX. (The number of followers is not less than 2000, and the reading volume is not less than 1000).`,
@@ -162,13 +163,14 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
   },
   channels: {
+    title: 'Help CoinWind grow and receive MDX rewards worth $200,000-GrowthPad',
     address: {
       placeholder: 'Enter HECO address',
     },
     dashboard: {
       desc: `In order to give back to community users, Channels cooperated with KingData to launch an incentive activity worth over $100,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
+      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     weibo: {
       label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 30~100 USDT. (The number of followers is not less than 2000, and the reading volume is not less than 1000).',
@@ -179,18 +181,18 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
     about: {
       name: 'USDT',
-      exchanges: 'Huobi,Binance and etc',
+      exchanges: 'Huobi, Binance and etc',
       online: '11/26/2014',
       count: '60,271 millions',
       marketValue: '60,271 millions',
       circulation: '300 millions',
-      luanched: 'ETH/Omni',
-      detail: 'Channels is the first decentralized lending protocol on Heco. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
+      luanched: 'ETH / Omni',
+      detail: 'Channels is the first decentralized lending protocol on HECO. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
     },
     task1: {
       title: 'TVL in Venus is more than 10K USDT, and the total amount of deposits and loans in Channels exceeds 1,000 USDT. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
       // description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
-      description: 'Finish one of tasks：<i>get up to {count} {unit}</i>',
+      description: 'The following task rewards are settled independently, and the accumulated reward can be <i>up to {count} {unit}</i>.',
     },
     task2: {
       title: 'TVL in Creams is more than 10K USDT, and the total amount of deposits and loans in Channels exceeds 1,000 USDT. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
@@ -203,17 +205,18 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
 
       label: 'Qualification: TVL in {group} is more than 10K USDT.',
 
-      telegramDesc: 'Join Channels telegram group and post the screenshot of more than 1K USDT Channels\' loan/deposit  in the group',
+      telegramDesc: 'Join Channels telegram group and post the screenshot of more than 1K USDT Channels\' loan / deposit  in the group',
       twitterDesc: 'Repost the top twitter and @ 3 friends',
-      sinaDesc: 'Repost the top weibo and @ 3 friends'
+      sinaDesc: 'top weibo and @ 3 friends'
     },
   },
   coinwind: {
+    title: 'Help Channels grow and receive USDT rewards worth $100,000-GrowthPad',
     address: {
       placeholder: 'Enter HECO address',
     },
     about: {
-      detail: `CoinWind is a Heco and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
+      detail: `CoinWind is a HECO and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
 CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
 
@@ -231,7 +234,7 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
     dashboard: {
       desc: `In order to give back to community users, CoinWind cooperated with KingData to launch an incentive activity worth over $200,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards for the task of verifying the value of positions will be distributed to the address where you verify your holdings.`
+      Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     task1: {
       title: 'Become KingData VIP; Join CoinWind telegram; Follow CoinWind Twitter and repost the twitter about the activity.'
@@ -257,7 +260,7 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
   },
   growthpad: {
     address: {
-      placeholder: '输入参与领取奖励的 BSC / Heco 地址',
+      placeholder: 'Enter BSC / HECO address',
     },
     about: {
       detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。

@@ -57,7 +57,7 @@ function getSearch(): Language {
   } catch (e) {
     // todo
   }
-  return Language.cn
+  return Language.en // 默认英文
 }
 
 // 获取 url 中的 lang 数据

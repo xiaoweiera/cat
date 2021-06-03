@@ -25,7 +25,8 @@ export default {
     verificationError: '请输入6位验证码！',
     passwordError: 'Please input 6-24 digits of password!',
     telError: 'Please input the correct mobile phone number',
-    testing: 'Verifying', // 验证中，审核结束后自动更新结果
+    // testing: '验证中 预计15分钟更新结果',
+    testing: 'Verifying. About 15 minutes.', // 验证中，审核结束后自动更新结果
     get: 'get',
     copy: 'The link has copied',
     fail: 'Validation failed'
@@ -40,6 +41,7 @@ export default {
   join: 'Join',
   follow: 'Follow',
   repost: 'Retweet',
+  andRepost: 'And Retweet',
   activity: 'Activity',
   user: {
     invite: 'Please enter the invitation code',

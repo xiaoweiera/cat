@@ -112,13 +112,14 @@ export default {
   },
 
   mdx: {
+    title: '助力 MDEX 增长，领取20万美元 MDX 奖励-GrowthPad',
     address: {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
     dashboard: {
       desc: `MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超 $300000 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-        活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
+      活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后 10个工作日后，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
     about: {
       name: 'MDX',
@@ -127,12 +128,12 @@ export default {
       count: '10亿',
       marketValue: '3亿',
       circulation: '3亿',
-      luanched: 'Heco/BSC',
+      luanched: 'HECO/BSC',
       detail: `MDEX 是基于自动化做市机制的去中心化交易产品，旨在融合多种基础公链的差异化优势，打造高性能复合型 DEX 生态，以流动性挖矿与交易挖矿的“双重挖矿激励”给予参与者最大化回馈，并通过手续费回购销毁机制实现了自驱式价值捕获生态闭环。
 
 MDEX 致力于打造集 DEX、IMO、DAO 为一体的 DeFi 平台，为更多优质资产提供一站式流动性服务，为用户提供更加安全可信、资产多样、高性价比的交易体验。
 
-MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太坊、波卡生态，不断拓展 MDEX 生态与社区，让更多 DeFi 用户享受到 MDEX 生态的红利。`,
+MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太坊、波卡生态，不断拓展 MDEX 生态与社区，让更多 DeFi 用户享受到 MDEX 生态的红利。`,
     },
     copy: '邀请您参与{title}，赢取百万美元奖励，{url}',
     copyIndex: '动动手指，瓜分 GrowthPad 50万美元奖励~ 链接：{url}',
@@ -159,14 +160,15 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
     },
   },
   channels: {
+    title: '助力 Channels 增长，领取10万美元 USDT 奖励-GrowthPad',
     address: {
-      placeholder: '输入参与领取奖励的 Heco 地址',
+      placeholder: '输入参与领取奖励的 HECO 地址',
 
     },
     dashboard: {
       desc: `Channels 为奖励长期支持 Channels 的用户，联合 KingData 在 GrowthPad 上开启价值超 $100000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-        活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 Heco 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 USDT 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 USDT 奖励会发放到您验证持仓的地址中。`
+        活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 HECO 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 USDT 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 USDT 奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10个工作日后，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 30~100 USDT。（粉丝数不低于2000人，阅读量不低于1000）。`,
@@ -183,11 +185,11 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
       marketValue: '602.71亿',
       circulation: '3亿',
       luanched: 'ETH/Omni',
-      detail: 'Channels 是 Heco 上首个完全去中心化的借贷平台。Channels 在资产安全、用户体验和挖矿收益上，均在 Heco 上的加代产品里首屈一指。Channels 专注于主流借贷币种 HUSD、USDT、ETH、HBTC 和 HT 等，始终坚持以产品体验为基础，以用户利益为核心。'
+      detail: 'Channels 是 HECO 上首个完全去中心化的借贷平台。Channels 在资产安全、用户体验和挖矿收益上，均在 HECO 上的加代产品里首屈一指。Channels 专注于主流借贷币种 HUSD、USDT、ETH、HBTC 和 HT 等，始终坚持以产品体验为基础，以用户利益为核心。'
     },
     task1: {
       title: 'Venus 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',
-      description: '完成任意任务：<i>最多奖励 {count} {unit}</i>',
+      description: '以下任务奖励独立结算，<i>累计可得最多奖励 {count} {unit}</i>。',
     },
     task2: {
       title: 'Cream 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
@@ -202,10 +204,11 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
 
       telegramDesc: '并在群里晒出 Channels 存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
-      sinaDesc: '并转发置顶微博并 @3个好友'
+      sinaDesc: '置顶微博并 @3个好友'
     },
   },
   coinwind: {
+    title: '助力 CoinWind 增长，领取20万美元 MDX 奖励-GrowthPad',
     address: {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
@@ -214,12 +217,12 @@ MDEX 以 Heco 生态链为起点，MDEX 会将成功经验不断复制到以太�
 
 CoinWind 旨在打造一个 DeFi 数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind 产品会通过组合策略有效降低流动性挖矿中的无常损失。
 
-CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行。`,
+CoinWind 首发 HECO 生态链，之后将跨多条主链如 ETH、BSC 等运行。`,
     },
     copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
     share: {
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
-      title: 'CoinWind 专属活动增长大使（Lucky Bonus）奖励',
+      title: 'CoinWind 专属活动增长大使奖励',
       users: '我的邀请人数(CoinWind 专场)：',
       invite: '邀请人数最多的用户与完成 CoinWind 任务获得奖励最多的用户将共同瓜分专场奖金池的 1%',
       desc: '* 被邀请人需完成 1 个 CoinWind 专场任务才视为 1 个有效邀请人数。',
@@ -228,7 +231,7 @@ CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行
     dashboard: {
       desc: `CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超 $200000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX  奖励会发放到您验证持仓的地址中。`,
+活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX  奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10个工作日后，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
     task1: {
       title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。'
@@ -253,7 +256,7 @@ CoinWind 首发 Heco 生态链，之后将跨多条主链如 ETH、BSC 等运行
   },
   growthpad: {
     address: {
-      placeholder: '输入参与领取奖励的 BSC / Heco 地址',
+      placeholder: '输入参与领取奖励的 BSC / HECO 地址',
     },
     about: {
       detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。

@@ -28,6 +28,19 @@ const twitterHref = 'https://twitter.com/ChannelsFinance'
 const sinaHref = 'https://weibo.com/u/7542695920?is_all=1'
 
 
+// 关注 twitter
+export const twitter = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter?: string) {
+  const data = chat.twitter(project, description, href, reward, titleAfter);
+  // @ts-ignore
+  data['tooltipAfter'] = {
+    icon: 'twitter',
+    value: I18n.growthpad.activity.twitter,
+    href,
+  }
+  return data
+}
+
+
 const data = {
   token,
   title: Project, // 名称
@@ -38,6 +51,7 @@ const data = {
   about: {
     website, // 项目官网
     minutias: [
+      /*
       { label: I18n.growthpad.about.name, value: I18n.growthpad.channels.about.name }, // 代币名称
       { label: I18n.growthpad.about.online, value: I18n.growthpad.channels.about.online }, // 上线时间
       { label: I18n.growthpad.about.count, value: I18n.growthpad.channels.about.count }, // 发行总量
@@ -49,6 +63,7 @@ const data = {
         label: I18n.growthpad.about.exchanges,
         value: I18n.growthpad.mdx.about.exchanges,
       },
+      */
     ],
     detail: I18n.growthpad.channels.about.detail, // 项目介绍
 
@@ -81,14 +96,14 @@ const data = {
           telegramHref,
           [10]
         ),
-        chat.twitter(
+        twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter
           }),
           twitterHref,
           [3],
-          I18n.growthpad.weibo.retwitter
+          I18n.common.andRepost
         ),
         chat.sina(
           Project,
@@ -121,13 +136,14 @@ const data = {
           telegramHref,
           [10]
         ),
-        chat.twitter(
+        twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter
           }),
           twitterHref,
-          [3]
+          [3],
+          I18n.growthpad.weibo.retwitter
         ),
         chat.sina(
           Project,
@@ -160,13 +176,14 @@ const data = {
           telegramHref,
           [10]
         ),
-        chat.twitter(
+        twitter(
           Project,
           I18n.template(I18n.growthpad.front['500'], {
             value: I18n.growthpad.warning.twitter
           }),
           twitterHref,
-          [3]
+          [3],
+          I18n.growthpad.weibo.retwitter
         ),
         chat.sina(
           Project,
