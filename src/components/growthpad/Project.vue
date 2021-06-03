@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // 倒计时
 import dayjs from 'dayjs'
-import { ref, defineProps, watch } from 'vue'
+import { ref, defineProps, watch, onMounted } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
+import { projectDetail } from '~/api/growtask'
 // @ts-ignore
 const props = defineProps({
   status: String,
@@ -28,6 +29,14 @@ watch(
   },
   { immediate: true },
 )
+const cost = ref()
+const getValue = async() => {
+  const costValue = await projectDetail(props.project.projectName)
+  cost.value = costValue.price * props.project.dashboard.reward.count
+}
+onMounted(() => {
+  getValue()
+})
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
   const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
@@ -113,7 +122,7 @@ timeout()
       </div>
       <div class="flex blockItem">
         <p class="desc">{{ I18n.growthpadShow.values }}</p>
-        <p class="projectNum">${{ props.project.dashboard.reward.cost }}</p>
+        <p class="projectNum">${{ cost }}</p>
       </div>
       <div class="flex blockItem">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>

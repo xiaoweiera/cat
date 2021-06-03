@@ -3,15 +3,6 @@ import { company } from '~/logic/growthpad/index'
 import { userData, isLogin } from '~/logic/user/login'
 import { copyTxt } from '~/lib/tool'
 import I18n from '~/utils/i18n'
-// const link = (): string => {
-//   const { origin, pathname } = window.location
-//   let url = `${origin}${pathname}`
-//   const code = userData.my_invitation_code
-//   if (code) {
-//     url = `${url}?code=${code}`
-//   }
-//   return url
-// }
 // @ts-ignore
 const link = (): string => {
   const { origin, pathname } = window.location
@@ -31,10 +22,10 @@ const link = (): string => {
       <img :src="I18n.growthpadShow.pcBanner" alt="" />
       <div class="absolute flex items-center ml-10 bottom-21">
         <template v-for="(item, i) in company">
-          <a href="https://ikingdata.com" class="hand" target="_blank">
+          <a :href="item.url" class="hand" target="_blank">
             <img
               :class="i === 0 ? 'h-5 mr-6 mb-1' : 'h-5 mr-6'"
-              :src="item"
+              :src="item.logo"
               alt=""
             />
           </a>
