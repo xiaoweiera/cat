@@ -41,6 +41,7 @@ onMounted(async() => {
   <div v-if="!isLogin">
     <div
       class="
+        ml-7.5
         hand
         text-global-default
         opacity-85
@@ -50,8 +51,6 @@ onMounted(async() => {
         items-center
       "
     >
-      <IconFont type="user" size="3xl"></IconFont>
-      <!--
       <span class="whitespace-nowrap" @click.stop="goLogin">{{
         I18n.common.login
       }}</span>
@@ -63,7 +62,6 @@ onMounted(async() => {
       <span class="whitespace-nowrap" @click.stop="goRegister">{{
         I18n.common.register
       }}</span>
-      -->
     </div>
     <ElDialog
       v-model="visible"
