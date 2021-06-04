@@ -9,7 +9,8 @@ export const user = {
   login: '/api/v1/users/login', // 登录
   signup: '/api/v1/users/signup', // 注册
   verify: '/api/v1/users/captcha', // 验证码
+  logoMail: '/api/v1/users/email_login', // 邮箱登录
 }
 
 // 忽略的接口地址，不传用户登录信息
-export const ignore = [user.login, user.signup, user.verify]
+export const ignore = [user.login, user.signup, user.verify, user.logoMail]

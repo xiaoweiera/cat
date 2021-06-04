@@ -42,7 +42,6 @@ export const logout = async function() {
 // 登录
 export const logo = async function(query: LogoData): Promise<LogoResult> {
   // 电话区号默认为 +86
-  console.log(query, 'canshu')
   const data = Object.assign({ area_code: 86 }, query)
   try {
     // 登录前清理 cookie, 保证账户信息干净
@@ -68,8 +67,14 @@ export const logoMail = async function(query: LogoData): Promise<LogoResult> {
   // 电话区号默认为 +86
   const data = Object.assign(query)
   try {
+    removeUserToken()
     const result = await request({ url, method, data })
     const value = safeGet<LogoResult>(result, 'data')
+    // 获取 token
+    const token = safeGet<string>(value, 'data.token')
+    if (token) {
+      addUserToken(token)
+    }
     return value
   } catch (e) {
     // todo
