@@ -3,12 +3,8 @@
  */
 
 import Dao from '~/lib/dao'
+import { env } from '~/lib/process'
 
-// const api = 'https://dev.ikingdata.com'
-// const api = 'https://kingdata.com'
-
-const api = import.meta.env.BACKEND_API || 'https://dev.ikingdata.com'
-// @ts-ignore
-const service = Dao({ baseURL: api })
+const service = Dao({ baseURL: env.api })
 
 export default service
