@@ -337,7 +337,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/devrequest.ts": {
-        "version": "2ece8625d4f53d3c0e31a5267f5b008daf3a238d9f5f3a4fefa9278b84d5c008",
+        "version": "8c18d6d828e7db68f47760e4b9883e986170797932772264f1dcccf9753f40af",
         "signature": "ec26211d0b2c995cf445165410d1aeaee4f344843b03f8b949e9ec9d96be120f",
         "affectsGlobalScope": false
       },
@@ -352,7 +352,7 @@
         "affectsGlobalScope": false
       },
       "./src/api/user.ts": {
-        "version": "b7a1200e81448d070d9cf51c7edf050a9ec10fdde9c141002f53ae88af06a6d5",
+        "version": "069d15bd39d8b788c5dc859b6bfe19924cea0676040072cf4e929b6d5883712a",
         "signature": "fd8d43a2551bf3ab7cb4154a390c7f8e61de68549542ce38a6a6faa4409ecdfb",
         "affectsGlobalScope": false
       },
@@ -362,7 +362,7 @@
         "affectsGlobalScope": false
       },
       "./src/store/header/login.ts": {
-        "version": "bba24b6297e1fd75fb793fadee10140baa3b229ca13e23d3920e69d6ccfd469f",
+        "version": "efee6d04a4a372e3a79853f965ad34c7d4c149351a311e6c0cdbb2baae4d09be",
         "signature": "bd37bf3e5389e87938fce080d8d77ff201120fa364029a63dc8bc8ecd9c9d11a",
         "affectsGlobalScope": false
       },
@@ -1942,8 +1942,8 @@
         "affectsGlobalScope": false
       },
       "./langs/cn/growthpad.ts": {
-        "version": "e767b61fecdb50b934f9830f3e9eab017076cc5a005b1f89b75a0f6b7157493b",
-        "signature": "3ab2369332ca2752dc83529b68bbf4af14a0571f397e9d96f0442f223f746f29",
+        "version": "e9fcb77fe9b3aa1e7482afd729b8ab9bbc4d144f308050e999c6ffd641f918f5",
+        "signature": "8cce391a42517a6a146e72139f386df43fd4e1278831083f638d783a22dd0637",
         "affectsGlobalScope": false
       },
       "./langs/cn/growthpadshow.ts": {
@@ -1953,7 +1953,7 @@
       },
       "./langs/cn/index.ts": {
         "version": "876b5594cfa8c180a707f8f83ecad090c3384f9ed0a0f4a01da89ad29d34434b",
-        "signature": "3cb734a8e904b6cc92efe115ca3137e54dd4a03809195d46a5b448427e18c32b",
+        "signature": "119bfa11df46e0e8701e6db2d608b14dc9bb0180db1c3aeff84093e82027118e",
         "affectsGlobalScope": false
       },
       "./langs/en/apy.ts": {
@@ -1967,8 +1967,8 @@
         "affectsGlobalScope": false
       },
       "./langs/en/growthpad.ts": {
-        "version": "28107fbddbfa50edf84f8b93467d34a9743be3ed45c0541d88fe078a28df1cd5",
-        "signature": "69f8915eeae563d97a127663b2141197375257647df7062c3af9a473c68e48fb",
+        "version": "fe5fa68cffe97ee2363c9bcd77212d3b72c60c9ad23f43585c2b35fdf61a1e0d",
+        "signature": "a9551880c1c28787d8027eb653a5c4dce437147885372bbe21c1944971a89cdf",
         "affectsGlobalScope": false
       },
       "./langs/en/growthpadshow.ts": {
@@ -1978,7 +1978,7 @@
       },
       "./langs/en/index.ts": {
         "version": "876b5594cfa8c180a707f8f83ecad090c3384f9ed0a0f4a01da89ad29d34434b",
-        "signature": "a93bd722b63a7f2c20a2274dbbb84abd2ec8a2a0ff2f251b1a4391707b5a3404",
+        "signature": "1258ea4e63bce3760730c7a07e484f18f3235b65a26f91c20aba95a00ee2dfb5",
         "affectsGlobalScope": false
       },
       "./src/utils/i18n/kiwi.ts": {
@@ -2007,8 +2007,8 @@
         "affectsGlobalScope": false
       },
       "./mock/growthpad/chat.ts": {
-        "version": "2ef92e43429d870a9c44a8dba80014c6992e394dc6f8d9a8614c9701c9e72022",
-        "signature": "46f2fa7db608f28363e721e86c7ef94b713fbeaff87a8305fea0b3eecc4bd822",
+        "version": "c104e04eb424db00325ce1002ce302a83eaa356cd5a68cea242ace141a503957",
+        "signature": "2892684ac00ad0455302a855d8538ce347c60a287efe93fd78b11ddc93ac7d4c",
         "affectsGlobalScope": false
       },
       "./mock/growthpad/mdx.ts": {
@@ -2017,12 +2017,12 @@
         "affectsGlobalScope": false
       },
       "./mock/growthpad/channels.ts": {
-        "version": "1767ba2309c54fd05999d68661fac5bea80b82b0a3b1ab9e6a511679cb640a1a",
+        "version": "646305a4c181ad61ddef4019a0652d67187e3bb46d1ec00d20cfc7177d912bff",
         "signature": "7532a3d75f5d6775675bbcac54c1fab850cf6b7b522116e814dc63475ccbb19e",
         "affectsGlobalScope": false
       },
       "./mock/growthpad/coinwind.ts": {
-        "version": "1af038b331a7e7a71827adc9b0da93aae62a76ba324c322ce7aa9db43c71cfe5",
+        "version": "dad3328b9a631a842ff1a62a140d336e76a4cbdb43ea86638ae1688cb5683015",
         "signature": "af282a7babda303d8a1c54470a4534955bcf96862fc09db77346d67b35901f59",
         "affectsGlobalScope": false
       },
