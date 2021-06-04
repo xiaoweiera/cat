@@ -4,19 +4,16 @@ import rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
-// @ts-ignore
-import { formdata, logoForm, onSubmit } from '~/logic/user/login'
-
+import { formMailData, logoMailForm, onSubmitMail } from '~/logic/user/login'
 const props = defineProps({
   areaCode: Object,
 })
 const submit = async function() {
   try {
-    await onSubmit()
+    await onSubmitMail()
     hideVisible()
     window.location.reload()
   } catch (e) {
-    console.log(e)
     const message = e?.message
     if (message) {
       const data = {
@@ -34,42 +31,25 @@ const submit = async function() {
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
-    ref="logoForm"
+    ref="logoMailForm"
     class="formLogo"
     :rules="rules"
-    :model="formdata"
+    :model="formMailData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item class="mobileItem" prop="mobile">
-      <div class="flex items-center">
-        <el-input
-          v-model="formdata.mobile"
-          :placeholder="I18n.common.placeholder.tel"
-          class="input-with-select"
-          autocomplete="off"
-        >
-          <template #prepend>
-            <el-select v-model="formdata.area_code" placeholder="+86">
-              <el-option
-                v-for="item in areaCode"
-                :key="item.phone_code"
-                :label="item.phone_code"
-                :value="item.phone_code"
-              >
-                <span style="float: left">{{ item.phone_code }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{
-                  item.cn
-                }}</span>
-              </el-option>
-            </el-select>
-          </template>
-        </el-input>
-      </div>
+    <el-form-item prop="email">
+      <el-input
+        v-model="formMailData.email"
+        :placeholder="I18n.common.placeholder.email"
+        class="input-with-select"
+        autocomplete="off"
+      >
+      </el-input>
     </el-form-item>
     <el-form-item class="mb-2" prop="password">
       <el-input
-        v-model="formdata.password"
+        v-model="formMailData.password"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -78,7 +58,7 @@ const submit = async function() {
       </el-input>
     </el-form-item>
     <el-form-item class="mb-0 py-0.5">
-      <el-checkbox v-model="formdata.checked">
+      <el-checkbox v-model="formMailData.checked">
         <span class="font-normal">{{ I18n.common.placeholder.login }}</span>
       </el-checkbox>
     </el-form-item>
@@ -99,21 +79,6 @@ const submit = async function() {
 }
 ::v-deep(.codeItem .el-input-group__append) {
   background: white;
-}
-::v-deep(.checkedText .el-form-item__content) {
-  line-height: 10px;
-}
-::v-deep(.el-select .el-input__inner) {
-  width: 52px;
-  padding-left: 0px !important;
-  margin-right: 10px !important;
-  padding-right: 0px !important;
-  text-align: center;
-}
-::v-deep(.el-input__suffix) {
-  right: 0px;
-  padding: 0px;
-  margin: 0px;
 }
 .mb-2 {
   margin-bottom: 8px !important;

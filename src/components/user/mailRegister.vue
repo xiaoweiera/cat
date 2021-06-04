@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw, onMounted, ref, defineProps } from 'vue'
+import { toRaw, onMounted, ref } from 'vue'
+// @ts-ignore
 import rules from './rules'
 import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { goDialogLogin } from '~/store/header/login'
+import { goDialogLogin, showVisible } from '~/store/header/login'
 import {
-  registerData,
-  registerForm,
-  onRegisterSubmit,
-  onCaptchaResgister,
+  registerMailData,
+  registerMailForm,
+  onRegisterMailSubmit,
+  onMailCaptchaResgister,
 } from '~/logic/user/login'
-const props = defineProps({
-  areaCode: Object,
-})
+// @ts-ignore
+import { getMailCaptcha } from '~/api/user'
 const isHasCode = ref('')
 // 活动名称
 const getVisitNum = function(): string {
@@ -25,12 +25,13 @@ const getVisitNum = function(): string {
 
 onMounted(() => {
   const code = getVisitNum()
-  registerData.invitation_code = code
+  registerMailData.invitation_code = code
   isHasCode.value = code
 })
+
 const submit = async function() {
   try {
-    const result = await onRegisterSubmit()
+    const result = await onRegisterMailSubmit()
     if (result.code !== 0) {
       messageError(result.message)
     } else {
@@ -47,6 +48,7 @@ const submit = async function() {
     }
   }
 }
+
 let codeNumber = 120
 let interval: any = 0
 let codeFlag = false
@@ -58,7 +60,7 @@ const onGetCode = async function() {
     return false
   }
   try {
-    const result = await onCaptchaResgister()
+    const result = await onMailCaptchaResgister()
     if (result.data.code !== 0) {
       messageError(result)
     } else {
@@ -95,40 +97,25 @@ const onGetCode = async function() {
   <!--  手机号 邮箱类型-->
   <UserLoginTag />
   <el-form
-    ref="registerForm"
+    ref="registerMailForm"
     class="formLogo"
     :rules="rules"
-    :model="registerData"
+    :model="registerMailData"
     autocomplete="off"
     @submit.stop.prevent="submit"
   >
-    <el-form-item class="mobileItem" prop="mobile">
+    <el-form-item prop="email">
       <el-input
-        v-model="registerData.mobile"
-        :placeholder="I18n.common.placeholder.tel"
+        v-model="registerMailData.email"
+        :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"
       >
-        <template #prepend>
-          <el-select v-model="registerData.area_code" placeholder="+86">
-            <el-option
-              v-for="item in areaCode"
-              :key="item.phone_code"
-              :label="item.phone_code"
-              :value="item.phone_code"
-            >
-              <span style="float: left">{{ item.phone_code }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{
-                item.cn
-              }}</span>
-            </el-option>
-          </el-select>
-        </template>
       </el-input>
     </el-form-item>
     <el-form-item class="codeItem" prop="code">
       <el-input
-        v-model="registerData.code"
+        v-model="registerMailData.code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -141,7 +128,7 @@ const onGetCode = async function() {
 
     <el-form-item prop="password">
       <el-input
-        v-model="registerData.password"
+        v-model="registerMailData.password"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -151,7 +138,7 @@ const onGetCode = async function() {
     </el-form-item>
     <el-form-item class="mb-2">
       <el-input
-        v-model="registerData.invitation_code"
+        v-model="registerMailData.invitation_code"
         :disabled="isHasCode !== ''"
         :placeholder="I18n.common.user.invite"
         class="input-with-select"
@@ -161,7 +148,7 @@ const onGetCode = async function() {
     </el-form-item>
     <el-form-item class="checkedText" prop="checked">
       <div class="text-center">
-        <el-checkbox v-model="registerData.checked">
+        <el-checkbox v-model="registerMailData.checked">
           <div class="register-box flex flex-wrap">
             <span class="inline-block">{{ I18n.common.user.read }}</span>
             <a
@@ -191,27 +178,21 @@ const onGetCode = async function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-dialog__body) {
+  padding: 50px 40px;
+}
 ::v-deep(.mobileItem .el-input-group__prepend) {
   background: white;
 }
 ::v-deep(.codeItem .el-input-group__append) {
   background: white;
 }
+::v-deep(.checkedText .el-form-item__content) {
+  line-height: 10px;
+}
 .checkedText {
   width: fit-content;
   margin: 20px auto;
-}
-::v-deep(.el-select .el-input__inner) {
-  width: 52px;
-  padding-left: 0px !important;
-  margin-right: 10px !important;
-  padding-right: 0px !important;
-  text-align: center;
-}
-::v-deep(.el-input__suffix) {
-  right: 0px;
-  padding: 0px;
-  margin: 0px;
 }
 .mb-2 {
   margin-bottom: 8px !important;

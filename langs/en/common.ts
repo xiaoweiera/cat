@@ -1,8 +1,16 @@
 export default {
-  login: 'Log in',
-  register: 'Sign up',
-  switchLogin: 'Log in',
-  switchRegister: 'Sign up',
+  login: 'Sign in',
+  register: 'Sign Up',
+  resetPassword: 'Reset Password',
+  switchLogin: 'Log In',
+  switchRegister: 'Create Account',
+  switchRorget: 'Forgot Password',
+  phone:'Phone',
+  email:'Email',
+  phoneCreate:'Phone',
+  emailCreate:'Email',
+  phoneForget:'Phone',
+  emailForget:'Email',
   lang: 'En',
   nav: {
     apply: 'Project Application',
@@ -21,21 +29,25 @@ export default {
     close: 'Close'
   },
   message: {
-    verification: 'Get code',
-    verificationError: '请输入6位验证码！',
-    passwordError: 'Please input 6-24 digits of password!',
-    telError: 'Please input the correct mobile phone number',
-    // testing: '验证中 预计15分钟更新结果',
+    verification: 'code',
+    verificationError: 'Please enter the 6-digit verification code',
+    passwordError: 'Please enter the 6-24 digit of password!',
+    new_password: 'The password must be consistent',
+    telError: 'Please enter valid phone number',
+    checked:'Please read and agree before registering',
+    mailError:'Email format is incorrect',
     testing: 'Verifying. About 15 minutes.', // 验证中，审核结束后自动更新结果
     get: 'get',
     copy: 'The link has copied',
     fail: 'Validation failed'
   },
   placeholder: {
-    login: 'automatic login',
-    tel: 'Please input mobile phone number',
-    verification: 'Please enter the verification code',
-    password: 'Please input a password',
+    login: 'Automatic log-in',
+    tel: 'Please enter your phone number',
+    email:'Please enter your email',
+    verification: 'Please enter verification code',
+    password: 'Please enter the password',
+    new_password: 'Please enter the password'
   },
   and: 'And',
   join: 'Join',
@@ -44,10 +56,10 @@ export default {
   andRepost: 'And Retweet',
   activity: 'Activity',
   user: {
-    invite: 'Please enter the invitation code',
-    read: 'Please read before registration',
-    agreement: 'Service agreement',
-    terms: 'Terms of service'
+    invite: 'Please enter the invitation code (optional)',
+    read: 'I have read and agree to the ',
+    agreement: '《Service agreement》',
+    terms: '《Terms of service》'
   },
   chat: {
     telegram: 'Telegram',

@@ -6,7 +6,6 @@
 import * as R from 'ramda'
 import { reactive, ref, toRaw } from 'vue'
 import * as user from '~/api/user'
-
 interface UserData {
   area_code: number
   avatar_url: string
@@ -51,27 +50,68 @@ export const isLogin = ref<boolean>(false)
 interface FormData {
   mobile: string
   password: string
+  area_code: string
   checked: boolean
 }
-
 export const formdata = reactive<FormData>({
   mobile: '',
   password: '',
-  checked: false,
+  area_code: '+86',
+  checked: true,
 })
-
+interface FormMailData {
+  email: string
+  password: string
+  checked: boolean
+}
+export const formMailData = reactive<FormMailData>({
+  email: '',
+  password: '',
+  checked: true,
+})
 // 注册
 export const registerData = reactive({
   code: '', // 验证码
   password: '',
   mobile: '',
+  area_code: '+86',
   invitation_code: '', // 邀请码
   platform: 'web',
+  checked: false,
+})
+// 注册
+export const registerMailData = reactive({
+  code: '', // 验证码
+  password: '',
+  email: '',
+  invitation_code: '', // 邀请码
+  platform: 'web',
+  checked: false,
+})
+// 找回密码
+export const forgetData = reactive({
+  code: '', // 验证码
+  password: '',
+  new_password: '',
+  area_code: '+86',
+  mobile: '',
+})
+// 邮箱找回密码
+export const forgetMailData = reactive({
+  code: '', // 验证码
+  password: '',
+  new_password: '',
+  area_code: '+86',
+  email: '',
 })
 
 export const registerForm = ref<any>(null)
+export const registerMailForm = ref<any>(null)
 export const logoForm = ref<any>(null)
+export const logoMailForm = ref<any>(null)
 
+export const forgetForm = ref<any>(null)
+export const forgetMailForm = ref<any>(null)
 const update = function(result: UserData): void {
   userData.area_code = result.area_code
   userData.avatar_url = result.avatar_url
@@ -116,6 +156,38 @@ export const syncUser = async function(): Promise<void> {
   }
   isLogin.value = false
 }
+// 找回密码
+export const onFindPwd = async function(): Promise<any> {
+  const form = toRaw(forgetForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(forgetData)
+    // 注册
+    const result = await user.findPwd(data)
+    return result?.data || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 邮箱找回密码
+export const onFindPwdMail = async function(): Promise<any> {
+  const form = toRaw(forgetMailForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(forgetMailData)
+    // 注册
+    const result = await user.findPwdMail(data)
+    return result?.data || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
 
 // 注册
 export const onRegisterSubmit = async function(): Promise<any> {
@@ -133,6 +205,122 @@ export const onRegisterSubmit = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
+// 邮箱注册
+export const onRegisterMailSubmit = async function(): Promise<any> {
+  const form = toRaw(registerMailForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const data = toRaw(registerMailData)
+    // 注册
+    const result = await user.registerMail(data)
+    return result?.data || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+const emailField = function(formData: any) {
+  const form = toRaw(formData).value
+  return new Promise((resolve, reject) => {
+    form.validateField(['email'], (error: any) => {
+      if (error) {
+        reject(error)
+      } else {
+        // @ts-ignore
+        resolve()
+      }
+    })
+  })
+}
+const phoneField = function(formData: any) {
+  const form = toRaw(formData).value
+  return new Promise((resolve, reject) => {
+    form.validateField(['mobile'], (error: any) => {
+      if (error) {
+        reject(error)
+      } else {
+        // @ts-ignore
+        resolve()
+      }
+    })
+  })
+}
+// 忘记密码邮箱验证码
+export const onMailCaptchaForget = async function(): Promise<any> {
+  const form = toRaw(forgetMailForm).value
+  try {
+    if (form) {
+      await emailField(forgetMailForm)
+    }
+    const data = toRaw(forgetMailData)
+    // 注册
+    const result = await user.getMailCaptcha(data.email)
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 注册邮箱验证码
+export const onMailCaptchaResgister = async function(): Promise<any> {
+  const form = toRaw(registerMailForm).value
+  try {
+    if (form) {
+      await emailField(registerMailForm)
+    }
+    const data = toRaw(registerMailData)
+    // 注册
+    const result = await user.getMailCaptcha(data.email)
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 注册手机号验证码
+export const onCaptchaResgister = async function(): Promise<any> {
+  const form = toRaw(registerForm).value
+  try {
+    if (form) {
+      await phoneField(registerForm)
+    }
+    const data = toRaw(registerData)
+    // 注册
+    const result = await user.getCaptcha({
+      area_code: data.area_code,
+      mobile: data.mobile,
+    })
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 忘记密码手机号验证码
+export const onCaptchaForget = async function(): Promise<any> {
+  const form = toRaw(forgetForm).value
+  try {
+    if (form) {
+      await phoneField(forgetForm)
+    }
+    const data = toRaw(forgetData)
+    // 注册
+    const result = await user.getForgetCaptcha({
+      area_code: data.area_code,
+      mobile: data.mobile,
+    })
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
 
 // 登录
 export const onSubmit = async function(): Promise<any> {
@@ -141,9 +329,37 @@ export const onSubmit = async function(): Promise<any> {
     if (form) {
       await form.validate()
     }
+    const param = ['mobile', 'password', 'area_code']
     // @ts-ignore
-    const data = R.pick<user.LogoData>(['mobile', 'password'], formdata)
+    const data = R.pick<user.LogoData>(param, formdata)
     const result = await user.logo(data)
+    if (result?.data) {
+      update(result.data as UserData)
+    }
+    const number = parseInt(result?.code as any, 10)
+    if (number === 0) {
+      return true
+    }
+    // eslint-disable-next-line prefer-promise-reject-errors
+    return Promise.reject({
+      message: result?.message || '账号或者密码输入有误！',
+    })
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 邮箱登录
+export const onSubmitMail = async function(): Promise<any> {
+  const form = toRaw(logoMailForm).value
+  try {
+    if (form) {
+      await form.validate()
+    }
+    const param = ['email', 'password']
+    // @ts-ignore
+    const data = R.pick<user.LogoData>(param, formMailData)
+    const result = await user.logoMail(data)
     if (result?.data) {
       update(result.data as UserData)
     }
