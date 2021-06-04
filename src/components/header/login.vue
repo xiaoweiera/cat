@@ -50,7 +50,7 @@ onMounted(async() => {
         items-center
       "
     >
-      <IconFont type="user" size="3xl"></IconFont>
+      <IconFont type="user" size="3xl" @click.stop="goLogin"></IconFont>
       <!--
       <span class="whitespace-nowrap" @click.stop="goLogin">{{
         I18n.common.login
