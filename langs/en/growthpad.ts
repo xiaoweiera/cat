@@ -181,6 +181,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
     },
     share: {
+      telegram: 'https://t.me/ChannelsGlobal',
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
     },
     about: {

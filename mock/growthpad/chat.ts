@@ -7,11 +7,11 @@ export const uuid = function(): string {
   return `task-${value}`
 }
 
-export const telegram = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter?: string) {
+export const telegram = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter: string = '') {
   return {
     id: uuid(),
     title: I18n.common.join,
-    titleAfter: titleAfter || I18n.growthpad.chat.speak,
+    titleAfter,
     type: TaskType.telegram,
     tooltip: {
       icon: 'telegram',
