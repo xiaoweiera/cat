@@ -109,7 +109,7 @@ export default {
 
   wechat: {
     title: '{project}增长-GrowthPad',
-    desc: '做任务支持{project}，领百万token奖励'
+    desc: '做任务支持{project}，领百万Token奖励'
   },
 
   mdx: {
