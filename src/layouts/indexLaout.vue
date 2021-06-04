@@ -1,7 +1,7 @@
 <template>
   <div class="circleContainer"></div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">
-    <NewNav class="relative"></NewNav>
+    <Nav class="relative"></Nav>
     <main class="w-full flex justify-center">
       <router-view />
       <Footer />

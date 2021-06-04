@@ -101,9 +101,9 @@ const submit = async function() {
   line-height: 10px;
 }
 ::v-deep(.el-select .el-input__inner) {
-  width: 72px;
+  width: 52px;
   padding-left: 0px !important;
-  margin-right: 6px !important;
+  margin-right: 10px !important;
   padding-right: 0px !important;
   text-align: center;
 }

@@ -66,7 +66,6 @@ onMounted(async() => {
     <ElDialog
       v-model="visible"
       custom-class="dialog-login"
-      width="400px"
       :append-to-body="true"
       :before-close="handleClose"
     >
@@ -230,7 +229,21 @@ onMounted(async() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+@media screen and (max-width: 768px) {
+  .el-dialog {
+    width: 350px !important;
+    margin-top: 7vh;
+  }
+}
+@media screen and (min-width: 768px) {
+  .el-dialog {
+    width: 400px !important;
+  }
+}
+.el-dialog .el-dialog__body {
+  padding: 0px 40px 20px 40px !important;
+}
 ::v-deep(.mobileItem .el-input__inner) {
   border-left: 0px;
 }

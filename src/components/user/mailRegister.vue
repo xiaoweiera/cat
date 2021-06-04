@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { toRaw, onMounted, ref } from 'vue'
+// @ts-ignore
 import rules from './rules'
-import { messageError } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import { showVisible } from '~/store/header/login'
+import { goDialogLogin, showVisible } from '~/store/header/login'
 import {
   registerMailData,
   registerMailForm,
   onRegisterMailSubmit,
   onMailCaptchaResgister,
 } from '~/logic/user/login'
+// @ts-ignore
 import { getMailCaptcha } from '~/api/user'
 const isHasCode = ref('')
 // 活动名称
@@ -33,7 +35,8 @@ const submit = async function() {
     if (result.code !== 0) {
       messageError(result.message)
     } else {
-      showVisible()
+      messageSuccess('注册成功')
+      goDialogLogin()
     }
   } catch (e) {
     const message = e?.message
@@ -146,7 +149,7 @@ const onGetCode = async function() {
     <el-form-item class="checkedText" prop="checked">
       <div class="text-center">
         <el-checkbox v-model="registerMailData.checked">
-          <div class="register-box">
+          <div class="register-box flex flex-wrap">
             <span class="inline-block">{{ I18n.common.user.read }}</span>
             <a
               class="link inline-block"
@@ -175,6 +178,9 @@ const onGetCode = async function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-dialog__body) {
+  padding: 50px 40px;
+}
 ::v-deep(.mobileItem .el-input-group__prepend) {
   background: white;
 }

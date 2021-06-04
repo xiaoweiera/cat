@@ -9,6 +9,7 @@ import {
   registerData,
   registerForm,
   onRegisterSubmit,
+  onCaptchaResgister,
 } from '~/logic/user/login'
 import { getCaptcha } from '~/api/user'
 const props = defineProps({
@@ -53,26 +54,38 @@ let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
 
 // @ts-ignore
-const onGetCode = function() {
+const onGetCode = async function() {
   if (codeFlag) {
     return false
   }
-  codeFlag = true
-  getCaptcha(registerData.mobile).catch(() => {
-    // todo
-  })
-  interval = setInterval(() => {
-    if (codeNumber <= 0) {
-      codeNumber = 120
-      clearInterval(interval)
-      codeValue.value = I18n.common.message.verification
-      codeFlag = false
+  try {
+    const result = await onCaptchaResgister()
+    if (result.data.code !== 0) {
+      messageError(result)
     } else {
-      // @ts-ignore
-      codeValue.value = codeNumber
-      codeNumber--
+      codeFlag = true
+      interval = setInterval(() => {
+        if (codeNumber <= 0) {
+          codeNumber = 120
+          clearInterval(interval)
+          codeValue.value = I18n.common.message.verification
+          codeFlag = false
+        } else {
+          // @ts-ignore
+          codeValue.value = codeNumber
+          codeNumber--
+        }
+      }, 1000)
     }
-  }, 1000)
+  } catch (e) {
+    const message = e?.message
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
+  }
 }
 </script>
 
@@ -150,7 +163,7 @@ const onGetCode = function() {
     <el-form-item class="checkedText" prop="checked">
       <div class="text-center">
         <el-checkbox v-model="registerData.checked">
-          <div class="register-box">
+          <div class="register-box flex flex-wrap">
             <span class="inline-block">{{ I18n.common.user.read }}</span>
             <a
               class="link inline-block"
@@ -190,9 +203,9 @@ const onGetCode = function() {
   margin: 20px auto;
 }
 ::v-deep(.el-select .el-input__inner) {
-  width: 72px;
+  width: 52px;
   padding-left: 0px !important;
-  margin-right: 6px !important;
+  margin-right: 10px !important;
   padding-right: 0px !important;
   text-align: center;
 }

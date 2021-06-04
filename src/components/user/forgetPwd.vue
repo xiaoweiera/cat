@@ -5,8 +5,12 @@ import rules from './rules'
 import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { goDialogLogin } from '~/store/header/login'
-import { forgetData, forgetForm, onFindPwd } from '~/logic/user/login'
-import { getForgetCaptcha } from '~/api/user'
+import {
+  forgetData,
+  forgetForm,
+  onFindPwd,
+  onCaptchaForget,
+} from '~/logic/user/login'
 const props = defineProps({
   areaCode: Object,
 })
@@ -36,26 +40,38 @@ let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
 
 // @ts-ignore
-const onGetCode = function() {
+const onGetCode = async function() {
   if (codeFlag) {
     return false
   }
-  codeFlag = true
-  getForgetCaptcha(forgetData.mobile).catch(() => {
-    // todo
-  })
-  interval = setInterval(() => {
-    if (codeNumber <= 0) {
-      codeNumber = 120
-      clearInterval(interval)
-      codeValue.value = I18n.common.message.verification
-      codeFlag = false
+  try {
+    const result = await onCaptchaForget()
+    if (result.data.code !== 0) {
+      messageError(result)
     } else {
-      // @ts-ignore
-      codeValue.value = codeNumber
-      codeNumber--
+      codeFlag = true
+      interval = setInterval(() => {
+        if (codeNumber <= 0) {
+          codeNumber = 120
+          clearInterval(interval)
+          codeValue.value = I18n.common.message.verification
+          codeFlag = false
+        } else {
+          // @ts-ignore
+          codeValue.value = codeNumber
+          codeNumber--
+        }
+      }, 1000)
     }
-  }, 1000)
+  } catch (e) {
+    const message = e?.message
+    if (message) {
+      const data = {
+        err: [message],
+      }
+      messageError(data)
+    }
+  }
 }
 </script>
 
@@ -146,9 +162,9 @@ const onGetCode = function() {
   background: white;
 }
 ::v-deep(.el-select .el-input__inner) {
-  width: 72px;
+  width: 52px;
   padding-left: 0px !important;
-  margin-right: 6px !important;
+  margin-right: 10px !important;
   padding-right: 0px !important;
   text-align: center;
 }

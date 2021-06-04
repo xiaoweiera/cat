@@ -30,9 +30,9 @@ export default {
     verification: '获取验证码',
     verificationError: '请输入6位验证码！',
     passwordError: '请输入6至24位的密码！',
-    new_password: '两次输入密码不一致',
+    new_password: '两次密码不一致',
     telError: '请输入正确的手机号',
-    checked:'请阅读用户隐私协议和服务条款',
+    checked:'注册前请阅读',
     mailError:'邮箱格式不正确'
   },
   placeholder: {
@@ -41,7 +41,7 @@ export default {
     email:'请输入邮箱',
     verification: '请输入验证码',
     password: '请输入密码',
-    new_password: '请确认新密码'
+    new_password: '请输入密码'
   },
   and: '及',
   join: '加入',
@@ -49,9 +49,9 @@ export default {
   repost: '转发',
   activity: '活动',
   user: {
-    invite: '请输入邀请码',
-    read: '注册前请阅读',
-    agreement: '《用户隐私协议》',
+    invite: '请输入邀请码（非必填）',
+    read: '注册前请阅读《用户协议》和《隐私协议》',
+    agreement: '《用户协议》',
     terms: '《服务条款》'
   },
   chat: {

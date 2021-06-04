@@ -7,7 +7,6 @@ import * as R from 'ramda'
 import { reactive, ref, toRaw } from 'vue'
 import jsCookie from 'js-cookie'
 import * as user from '~/api/user'
-
 interface UserData {
   area_code: number
   avatar_url: string
@@ -64,13 +63,11 @@ export const formdata = reactive<FormData>({
 interface FormMailData {
   email: string
   password: string
-  area_code: string
   checked: boolean
 }
 export const formMailData = reactive<FormMailData>({
   email: '',
   password: '',
-  area_code: '+86',
   checked: true,
 })
 // 注册
@@ -224,10 +221,23 @@ export const onRegisterMailSubmit = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
-const test = function(formData: any) {
+const emailField = function(formData: any) {
   const form = toRaw(formData).value
   return new Promise((resolve, reject) => {
     form.validateField(['email'], (error: any) => {
+      if (error) {
+        reject(error)
+      } else {
+        // @ts-ignore
+        resolve()
+      }
+    })
+  })
+}
+const phoneField = function(formData: any) {
+  const form = toRaw(formData).value
+  return new Promise((resolve, reject) => {
+    form.validateField(['mobile'], (error: any) => {
       if (error) {
         reject(error)
       } else {
@@ -242,7 +252,7 @@ export const onMailCaptchaForget = async function(): Promise<any> {
   const form = toRaw(forgetMailForm).value
   try {
     if (form) {
-      await test(forgetMailForm)
+      await emailField(forgetMailForm)
     }
     const data = toRaw(forgetMailData)
     // 注册
@@ -259,11 +269,51 @@ export const onMailCaptchaResgister = async function(): Promise<any> {
   const form = toRaw(registerMailForm).value
   try {
     if (form) {
-      await test(registerMailForm)
+      await emailField(registerMailForm)
     }
     const data = toRaw(registerMailData)
     // 注册
     const result = await user.getMailCaptcha(data.email)
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 注册手机号验证码
+export const onCaptchaResgister = async function(): Promise<any> {
+  const form = toRaw(registerForm).value
+  try {
+    if (form) {
+      await phoneField(registerForm)
+    }
+    const data = toRaw(registerData)
+    // 注册
+    const result = await user.getCaptcha({
+      area_code: data.area_code,
+      mobile: data.mobile,
+    })
+    // @ts-ignore
+    return result || {}
+  } catch (e) {
+    // todo
+    return Promise.reject(e)
+  }
+}
+// 忘记密码手机号验证码
+export const onCaptchaForget = async function(): Promise<any> {
+  const form = toRaw(forgetForm).value
+  try {
+    if (form) {
+      await phoneField(forgetForm)
+    }
+    const data = toRaw(forgetData)
+    // 注册
+    const result = await user.getForgetCaptcha({
+      area_code: data.area_code,
+      mobile: data.mobile,
+    })
     // @ts-ignore
     return result || {}
   } catch (e) {
@@ -322,7 +372,7 @@ export const onSubmitMail = async function(): Promise<any> {
     if (form) {
       await form.validate()
     }
-    const param = ['email', 'password', 'area_code']
+    const param = ['email', 'password']
     // @ts-ignore
     const data = R.pick<user.LogoData>(param, formMailData)
     const result = await user.logoMail(data)

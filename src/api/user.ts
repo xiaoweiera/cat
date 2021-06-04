@@ -5,7 +5,7 @@
 
 import safeGet from '@fengqiaogang/safe-get'
 import request from '~/lib/devRequest'
-
+import * as lang from '~/utils/lang'
 export interface LogoData {
   mobile: string
   password: string
@@ -56,10 +56,9 @@ export const logo = async function(query: LogoData): Promise<LogoResult> {
 // 邮箱登录
 export const logoMail = async function(query: LogoData): Promise<LogoResult> {
   const method = 'post'
-  const url = '/api/v1/users/login'
+  const url = '/api/v1/users/email_login'
   // 电话区号默认为 +86
-  console.log(query, 'canshu')
-  const data = Object.assign({ area_code: 86 }, query)
+  const data = Object.assign(query)
   try {
     const result = await request({ url, method, data })
     const value = safeGet<LogoResult>(result, 'data')
@@ -70,17 +69,17 @@ export const logoMail = async function(query: LogoData): Promise<LogoResult> {
   }
 }
 // 验证码
-export const getCaptcha = async function(mobile: string): Promise<void> {
+export const getCaptcha = async function(data: any): Promise<void> {
   const url = '/api/v1/users/captcha'
   // 电话区号默认为 +86
-  const data = { area_code: 86, mobile }
-  return request.post(url, data)
+  const value = Object.assign({ area_code: '+86' }, data)
+  return request.post(url, value)
 }
 // 邮箱验证码
 export const getMailCaptcha = async function(email: string): Promise<void> {
   const url = '/api/v1/users/email_send_code'
   // 电话区号默认为 +86
-  const data = { email }
+  const data = { email, lang: lang.current.value }
   return request.post(url, data)
 }
 // 重置密码 验证码
@@ -93,7 +92,6 @@ export const getForgetCaptcha = async function(data: any): Promise<any> {
 export const register = async function(data: any): Promise<any> {
   const url = '/api/v1/users/signup'
   const value = Object.assign({ area_code: 86 }, data)
-  console.log(value, data, 'zhuce')
   return request.post(url, value)
 }
 // 邮箱注册
@@ -110,7 +108,7 @@ export const findPwd = async function(data: any): Promise<any> {
 }
 // 邮箱重置密码
 export const findPwdMail = async function(data: any): Promise<any> {
-  const url = '/api/v1/users/change_password'
+  const url = '/api/v1/users/email_change_password'
   const value = Object.assign({ area_code: '+86' }, data)
   return request.post(url, value)
 }
