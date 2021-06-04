@@ -73,6 +73,7 @@ const submit = async function() {
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
+        show-password
         autocomplete="off"
       >
       </el-input>

@@ -82,7 +82,6 @@ export default {
         option: {
             interest: 'interest',
             InterestBear: 'Interest-bearing',
-
             available: 'Available for loan',
             borrowed: 'Borrowed',
             remainRatio: 'Remaining ratio'

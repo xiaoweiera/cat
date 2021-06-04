@@ -146,7 +146,8 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     share: {
       title: 'Invite 1 friend to participate in the GrowthPad to share 1% of the total prize pool.',
       lable: `Invite more and reward more.
-      The amount of reward = the number that you invite / total numbers * 1% total bonus. `
+      The amount of reward = the number that you invite / total numbers * 1% total bonus. `,
+      telegram: 'https://t.me/MdexEN'
     },
     weibo: {
       label: `The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 MDX. (The number of followers is not less than 2000, and the reading volume is not less than 1000).`,

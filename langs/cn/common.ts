@@ -1,5 +1,5 @@
 export default {
-  login: '登录',
+  login: '登陆',
   register: '注册',
   resetPassword: '重置密码',
   switchLogin: '返回登录',
@@ -12,6 +12,7 @@ export default {
   phoneForget:'手机号找回',
   emailForget:'邮箱找回',
   lang: '中文',
+  loginOut:'退出',
   nav: {
     apply: '项目申请',
     about: '产品介绍',
@@ -48,7 +49,7 @@ export default {
     email:'请输入邮箱',
     verification: '请输入验证码',
     password: '请输入密码',
-    new_password: '请输入密码'
+    new_password: '请再次输入密码'
   },
   and: '及',
   join: '加入',

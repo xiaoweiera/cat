@@ -311,7 +311,7 @@ export const tableConfig = [
         },
         {
           key: I18n.apy.jkTable.option.available,
-          name: '可借',
+          name: I18n.apy.jkTable.option.available,
           status: true,
           format_func: numberFormat,
         },

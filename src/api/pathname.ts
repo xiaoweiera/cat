@@ -13,4 +13,11 @@ export const user = {
 }
 
 // 忽略的接口地址，不传用户登录信息
-export const ignore = [user.login, user.signup, user.verify, user.logoMail]
+export const ignore = [
+  user.login,
+  user.signup,
+  user.verify,
+  user.logoMail,
+  '/apy/',
+  '/api/v2/commercial',
+]

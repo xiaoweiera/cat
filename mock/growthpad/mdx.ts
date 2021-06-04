@@ -21,8 +21,8 @@ discord链接：https://discord.com/invite/3TYDPktjqC
 
 const token = 'MDX'
 const website = 'mdex.com'
-const telegramHref = 'https://t.me/MdexEN'
-const twitterHref = 'https://www.twitter.com/Mdextech'
+const telegramHref = I18n.growthpad.mdx.share.telegram
+const twitterHref = 'https://twitter.com/Mdextech'
 const retwitterHref = 'https://twitter.com/Mdextech/status/1395323254974214150'
 
 const data = {

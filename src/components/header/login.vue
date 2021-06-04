@@ -225,7 +225,9 @@ onMounted(async() => {
         src="https://res.ikingdata.com/nav/outLogin.png"
         alt=""
       />
-      <div class="text-kd14px16px ml-2 w-10 flex">退出</div>
+      <div class="text-kd14px16px ml-2 w-10 flex">
+        {{ I18n.common.loginOut }}
+      </div>
     </div>
   </div>
 </template>

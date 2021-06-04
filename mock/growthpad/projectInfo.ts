@@ -21,7 +21,7 @@ export const coinwindInfo = {
   title: 'CoinWind', // 名称
   icon: 'https://res.ikingdata.com/nav/coinwind.png', // icon
   url: '/growthpad/COINWIND',
-  coin: 'MDX',
+  coin: 'COW',
   projectName:'COINWIND',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/coinwind.jpg',
@@ -52,7 +52,6 @@ export const channelsInfo = {
     status: '',
   },
 }
-
 export const growthInfo = {
   title: 'GrowthPad', // 名称
   icon: 'https://res.ikingdata.com/icon/kingdata.png', // icon
