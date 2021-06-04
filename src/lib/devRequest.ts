@@ -4,7 +4,10 @@
 
 import Dao from '~/lib/dao'
 
-const api = process.env.BACKEND_API || 'https://dev.ikingdata.com'
+// const api = 'https://dev.ikingdata.com'
+const api = 'https://kingdata.com'
+
+// const api = process.env.BACKEND_API || 'https://dev.ikingdata.com'
 
 const service = Dao({ baseURL: api })
 
