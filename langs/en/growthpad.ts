@@ -165,7 +165,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
   },
   channels: {
-    title: 'Help CoinWind grow and receive MDX rewards worth $200,000',
+    title: 'Help Channels grow and receive USDT rewards worth $100,000',
     address: {
       placeholder: 'Enter HECO address',
     },
@@ -213,7 +213,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     },
   },
   coinwind: {
-    title: 'Help Channels grow and receive USDT rewards worth $100,000',
+    title: 'Help CoinWind grow and receive MDX rewards worth $200,000',
     address: {
       placeholder: 'Enter HECO address',
     },

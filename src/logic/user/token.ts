@@ -5,7 +5,7 @@
 import jsCookie from 'js-cookie'
 import UrlPattern from 'url-pattern'
 
-export const tokenName = 'token'
+export const tokenName = 'auth_token'
 
 export const getDomain = function(): string {
   const hostname = window.location.hostname
