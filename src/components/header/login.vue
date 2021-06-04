@@ -46,11 +46,12 @@ onMounted(async() => {
         opacity-85
         text-kd16px24px
         font-normal
-        ml-7.5
         flex
         items-center
       "
     >
+      <IconFont type="user" size="3xl"></IconFont>
+      <!--
       <span class="whitespace-nowrap" @click.stop="goLogin">{{
         I18n.common.login
       }}</span>
@@ -62,6 +63,7 @@ onMounted(async() => {
       <span class="whitespace-nowrap" @click.stop="goRegister">{{
         I18n.common.register
       }}</span>
+      -->
     </div>
     <ElDialog
       v-model="visible"
