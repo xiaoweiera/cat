@@ -177,6 +177,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
     share: {
+      telegram: 'https://t.me/channels_finance',
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
     },
     about: {
