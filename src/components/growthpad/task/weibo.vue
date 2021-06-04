@@ -104,10 +104,11 @@ const submit = async function() {
       const res = await store.setWeiboContent(data)
       console.log(res)
       messageSuccess(I18n.growthpad.weibo.success)
-      // 清空表单
-      form.resetFields()
       // 清除验证结果
       form.clearValidate()
+      // 清空表单
+      form.resetFields()
+      previewSrc.value = ''
     }
   } catch (e) {
     const err = omit(['code'], e)
@@ -170,6 +171,11 @@ const rules: any = {
           >
             <img class="preview" :src="store.article_image.value" />
           </a>
+        </el-form-item>
+        <el-form-item style="margin-bottom: 0">
+          <el-button type="info" round plain size="small" disabled>
+            <span>{{ I18n.common.button.review }}</span>
+          </el-button>
         </el-form-item>
       </template>
       <template v-else>
