@@ -45,7 +45,7 @@ export const logo = async function(query: LogoData): Promise<LogoResult> {
   const data = Object.assign({ area_code: 86 }, query)
   // 去掉非数字的字符
   // @ts-ignore
-  data.area_code = data.area_code.replace(/[^0-9]/g, '')
+  data.area_code = parseInt(data.area_code.replace(/[^0-9]/g, ''), 10)
   try {
     // 登录前清理 cookie, 保证账户信息干净
     removeUserToken()
@@ -94,7 +94,7 @@ export const getCaptcha = async function(data: any): Promise<void> {
   const url = '/api/v1/users/captcha'
   // 电话区号默认为 +86
   const value = Object.assign({ area_code: '+86' }, data)
-  value.area_code = data.area_code.replace(/[^0-9]/g, '')
+  value.area_code = parseInt(value.area_code.replace(/[^0-9]/g, ''), 10)
   return request.post(url, value)
 }
 // 邮箱验证码
@@ -113,7 +113,7 @@ export const getForgetCaptcha = async function(data: any): Promise<any> {
 // 注册
 export const register = async function(data: any): Promise<any> {
   const value = Object.assign({ area_code: 86 }, data)
-  value.area_code = data.area_code.replace(/[^0-9]/g, '')
+  value.area_code = parseInt(value.area_code.replace(/[^0-9]/g, ''), 10)
   return request.post(pathname.user.signup, value)
 }
 // 邮箱注册
@@ -126,7 +126,7 @@ export const registerMail = async function(data: any): Promise<any> {
 export const findPwd = async function(data: any): Promise<any> {
   const url = '/api/v1/users/change_password'
   const value = Object.assign({ area_code: '+86' }, data)
-  value.area_code = data.area_code.replace(/[^0-9]/g, '')
+  value.area_code = parseInt(value.area_code.replace(/[^0-9]/g, ''), 10)
   return request.post(url, value)
 }
 // 邮箱重置密码
