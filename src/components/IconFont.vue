@@ -55,6 +55,10 @@ const src = computed(() => {
   min-height: $number;
 }
 
+.size-3xl {
+  @include size(32px);
+}
+
 .size-2xl {
   @include size(24px);
 }
