@@ -7,8 +7,8 @@ import { reactive, ref } from 'vue'
 
 export const visible = ref<boolean>(false) // 弹窗状态(默认为登录状态)
 export const visibleRegister = ref<boolean>(false) // 登录弹窗状态
-export const loginType = ref<string>('tel') // 手机号 还是邮箱
-export const loginTypeStatus = reactive({ type: 'tel', name: 'login' })
+export const loginType = ref<string>('email') // 手机号 还是邮箱
+export const loginTypeStatus = reactive({ type: 'email', name: 'login' })
 
 export const goDialogLogin = function(): void {
   loginTypeStatus.name = loginTypeStatus.name === 'login' ? 'register' : 'login'
@@ -17,12 +17,12 @@ export const goDialogforGet = function(): void {
   loginTypeStatus.name = 'forget'
 }
 export const goLogin = function(): void {
-  loginTypeStatus.type = 'tel'
+  loginTypeStatus.type = 'email'
   loginTypeStatus.name = 'login'
   visible.value = true
 }
 export const goRegister = function(): void {
-  loginTypeStatus.type = 'tel'
+  loginTypeStatus.type = 'email'
   loginTypeStatus.name = 'register'
   visible.value = true
 }

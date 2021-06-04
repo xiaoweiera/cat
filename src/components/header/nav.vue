@@ -22,26 +22,19 @@ const onSwitchLang = function() {
       justify-between
       relative
       z-2
-      px-4
-      md:px-6
+      px-6
       h-18
       font-kdFang
     "
   >
-    <div class="md:hidden">
-      <!-- 移动端导航条 -->
-      <HeaderMobile></HeaderMobile>
-    </div>
     <div class="flex items-center">
       <a class="block" href="https://www.kingdata.com" target="_blank">
         <img src="/assets/logo.svg" alt="KingData" class="flex-none" />
       </a>
-      <div class="ml-12 hidden md:flex md:items-center">
-        <!--PC端导航-->
-        <HeaderPc></HeaderPc>
-        <div class="ml-20 flex-grow items-center text-global-default">
-          <slot name="nav" :lang="current"></slot>
-        </div>
+      <div
+        class="ml-20 flex-grow items-center text-global-default hidden md:flex"
+      >
+        <slot name="nav" :lang="current"></slot>
       </div>
     </div>
     <div>
