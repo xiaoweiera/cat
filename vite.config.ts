@@ -4,15 +4,18 @@ import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import ViteIcons, { ViteIconsResolver } from 'vite-plugin-icons'
-import ViteComponents from 'vite-plugin-components'
+import ViteComponents, { ElementPlusResolver } from 'vite-plugin-components'
+// import ViteComponents from 'vite-plugin-components'
 import Markdown from 'vite-plugin-md'
 import WindiCSS from 'vite-plugin-windicss'
+// @ts-ignore
 import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Prism from 'markdown-it-prism'
 import { viteMockServe } from 'vite-plugin-mock'
 import styleImport from 'vite-plugin-style-import'
 
+// @ts-ignore
 export default defineConfig({
   server: {
     host: '0.0.0.0',
@@ -73,10 +76,11 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       directoryAsNamespace: true,
       // allow auto import and register components used in markdown
-      customLoaderMatcher: id => id.endsWith('.md'),
+      customLoaderMatcher: (id: string) => id.endsWith('.md'),
 
       // auto import icons
       customComponentResolvers: [
+        ElementPlusResolver(),
         // https://github.com/antfu/vite-plugin-icons
         ViteIconsResolver({
           componentPrefix: '',
@@ -94,32 +98,32 @@ export default defineConfig({
     }),
 
     // https://github.com/antfu/vite-plugin-pwa
-    VitePWA({
-      registerType: 'autoUpdate',
-      manifest: {
-        name: 'Vitesse',
-        short_name: 'Vitesse',
-        theme_color: '#ffffff',
-        icons: [
-          {
-            src: '/pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-        ],
-      },
-    }),
+    // VitePWA({
+    //   registerType: 'autoUpdate',
+    //   manifest: {
+    //     name: 'Vitesse',
+    //     short_name: 'Vitesse',
+    //     theme_color: '#ffffff',
+    //     icons: [
+    //       {
+    //         src: '/pwa-192x192.png',
+    //         sizes: '192x192',
+    //         type: 'image/png',
+    //       },
+    //       {
+    //         src: '/pwa-512x512.png',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //       },
+    //       {
+    //         src: '/pwa-512x512.png',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //         purpose: 'any maskable',
+    //       },
+    //     ],
+    //   },
+    // }),
 
     // https://github.com/intlify/vite-plugin-vue-i18n
     VueI18n({
@@ -127,10 +131,11 @@ export default defineConfig({
     }),
   ],
   // https://github.com/antfu/vite-ssg
+  // @ts-ignore
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
-    onFinished: () => {
+    onFinished() {
       // fixme, 这里不应该保留，
       process.exit(0)
     },

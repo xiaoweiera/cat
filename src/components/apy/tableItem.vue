@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { defineProps, onMounted, ref, watch } from 'vue'
 // @ts-ignore
-import { unitConfig } from '~/logic/apy/config'
+import { unitConfig, unitConfigen } from '~/logic/apy/config'
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 
 const props = defineProps({
   itemData: {
@@ -37,13 +39,16 @@ const getColor = (index: number, data: string) => {
   }
 }
 const getValue = (data: any, i) => {
+  const unitList = lang.current.value === 'cn' ? unitConfig : unitConfigen
+
   if (data) {
     if (!data.value && data.value !== 0) return '-'
-    if (unitConfig[data.name]) {
-      if (unitConfig[data.name].unit === '$')
-        return unitConfig[data.name]?.unit + data.value
-      else return data.value + unitConfig[data.name]?.unit
+    if (unitList[data.name]) {
+      if (unitList[data.name].unit === '$`')
+        return unitList[data.name]?.unit + data.value
+      else return data.value + unitList[data.name]?.unit
     }
+    if (data.name === 'Remaining ratio') return `${data.value}%`
     return data.value
   }
 }
@@ -58,12 +63,7 @@ const tipState = ref(false)
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div
-    v-if="isShow"
-    class="w-full h-full flex flex-col justify-center py-4 px-2.5"
-    @mousemove="openDown"
-    @mouseleave="closeDown"
-  >
+  <div v-if="isShow" class="w-full h-full flex flex-col justify-center px-2.5">
     <template v-for="(item, i) in itemData">
       <div
         v-if="item.status && getValue(item, i) !== '-'"

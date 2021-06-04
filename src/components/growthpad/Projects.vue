@@ -1,24 +1,29 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { defineProps, ref } from 'vue'
-
+import { defineProps, ref, onMounted } from 'vue'
+import I18n from '~/utils/i18n/index'
+import {
+  mdxInfo,
+  coinwindInfo,
+  channelsInfo,
+} from '/mock/growthpad/projectInfo'
+import { getTimeStatus } from '~/components/growthpad/task/task'
 const props = defineProps({
-  status: {
-    type: String,
-    required: true,
-  },
+  title: String,
 })
-const { t } = useI18n()
-const projects = ref([{}, {}, {}])
-const title = {
-  progress: t('project.status.coming'),
-}
+const mdxStatus = ref('')
+const coinwindStatus = ref('')
+const channelsStatus = ref('')
+onMounted(() => {
+  mdxStatus.value = getTimeStatus(mdxInfo)
+  coinwindStatus.value = getTimeStatus(coinwindInfo)
+  channelsStatus.value = getTimeStatus(channelsInfo)
+})
 </script>
 <template>
+  <div class="md:block hidden beginTxt">{{ props.title }}</div>
   <div
     class="
       grid grid-cols-1
-      mt-4
       md:mt-6
       gap-4
       md:gap-6
@@ -27,17 +32,38 @@ const title = {
       xl:grid-cols-3
     "
   >
-    <div
-      v-for="project in projects"
-      :key="props.status + project.symbol"
-      class="w-full projectContainer"
-    >
+    <div class="w-full projectContainer">
       <GrowthpadProject
-        :project="project"
-        :status="props.status"
-        :title="title[props.status]"
+        :value="
+          mdxStatus.value === 'wait'
+            ? mdxInfo.dashboard.end
+            : mdxInfo.dashboard.begin
+        "
+        :status="mdxStatus"
+        :project="mdxInfo"
+      />
+    </div>
+    <div class="w-full projectContainer">
+      <GrowthpadProject
+        :value="
+          coinwindStatus.value === 'wait'
+            ? coinwindInfo.dashboard.end
+            : coinwindInfo.dashboard.begin
+        "
+        :status="coinwindStatus"
+        :project="coinwindInfo"
+      />
+    </div>
+    <div class="w-full projectContainer">
+      <GrowthpadProject
+        :value="
+          channelsStatus.value === 'wait'
+            ? channelsInfo.dashboard.end
+            : channelsInfo.dashboard.begin
+        "
+        :status="channelsStatus"
+        :project="channelsInfo"
       />
     </div>
   </div>
 </template>
-<style></style>

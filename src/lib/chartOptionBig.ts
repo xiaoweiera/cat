@@ -35,7 +35,6 @@ const graphic = () => {
           type: 'text',
           left: 'center',
           top: 'center',
-          z: 100,
           style: {
             fill: 'rgba(43, 140, 255, 0.08)',
             text: 'KingData.com',
@@ -94,9 +93,7 @@ const yAxisKline = (yFormat: any, min: number, max: number, unit: string) => {
       type: 'value',
       min,
       max,
-      interval: min === max
-        ? max / 4
-        : (max - min) / 4,
+      interval: min === max ? max / 4 : (max - min) / 4,
       axisLabel: {
         fontSize: 12,
         textStyle: {

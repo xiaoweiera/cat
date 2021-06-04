@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { defineProps } from 'vue'
-const { t } = useI18n()
+import { footList } from '~/logic/growthpad/index'
+import I18n from '~/utils/i18n'
 </script>
 <template>
   <div>
-    <!--    heroProjects:-->
-    <!--    title: GrowthPad-->
-    <!--    subtitle: 支持喜欢的项目并领取 Token-->
-    <div class="text-center mt-15 md:mt-20">
-      <div class="why-us i8n-font-Barlow font-semibold">
-        {{ t('projects.title') }}
+    <div class="text-center mt-10 md:mt-20">
+      <div class="why-us i8n-font-en-Barlow font-semibold">
+        {{ I18n.growthpadShow.footProject.title }}
       </div>
       <div
         class="
@@ -23,60 +20,17 @@ const { t } = useI18n()
           xl:grid-cols-4
         "
       >
-        <div class="flex-1 min-w-min288px">
-          <img
-            src="/assets/growthpad/project_feat1.svg"
-            alt=""
-            class="w-35 md:w-43.75 mx-auto"
-          />
-          <div class="feature-title i8n-font-Barlow font-medium">
-            {{ t('projects.feature1.title') }}
+        <template v-for="item in footList">
+          <div class="flex-1 min-w-min288px">
+            <img :src="item.img" alt="" class="w-35 md:w-43.75 mx-auto" />
+            <div class="feature-title i8n-font-Barlow font-medium">
+              {{ item.title }}
+            </div>
+            <div class="feature-detail">
+              <p class="i8n-font-inter max-w-66">{{ item.des }}</p>
+            </div>
           </div>
-          <div class="feature-detail">
-            <p class="i8n-font-inter">{{ t('projects.feature1.desc1') }}</p>
-          </div>
-        </div>
-
-        <div class="flex-1 min-w-min288px">
-          <img
-            src="/assets/growthpad/project_feat2.svg"
-            alt=""
-            class="w-35 md:w-43.75 mx-auto"
-          />
-          <div class="feature-title i8n-font-Barlow font-medium">
-            {{ t('projects.feature2.title') }}
-          </div>
-          <div class="feature-detail">
-            <p class="i8n-font-inter">{{ t('projects.feature2.desc1') }}</p>
-          </div>
-        </div>
-
-        <div class="flex-1 min-w-min288px">
-          <img
-            src="/assets/growthpad/project_feat3.svg"
-            alt=""
-            class="w-35 md:w-43.75 mx-auto"
-          />
-          <div class="feature-title i8n-font-Barlow font-medium">
-            {{ t('projects.feature3.title') }}
-          </div>
-          <div class="feature-detail">
-            <p class="i8n-font-inter">{{ t('projects.feature3.desc1') }}</p>
-          </div>
-        </div>
-        <div class="flex-1 min-w-min288px">
-          <img
-            src="/assets/growthpad/project_feat4.svg"
-            alt=""
-            class="w-35 md:w-43.75 mx-auto"
-          />
-          <div class="feature-title i8n-font-Barlow font-medium">
-            {{ t('projects.feature4.title') }}
-          </div>
-          <div class="feature-detail">
-            <p class="i8n-font-inter">{{ t('projects.feature4.desc1') }}</p>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
     <GrowthpadCompany />
@@ -87,7 +41,7 @@ const { t } = useI18n()
       href="http://ikingdata.mikecrm.com/kbZDdCb"
     ><img
       class="rounded w-full h-full shadowImg"
-      :src="t('imgList.mobileImg')"
+      :src="I18n.growthpadShow.mobileFooter"
       alt=""
     />
     </a>
@@ -98,7 +52,7 @@ const { t } = useI18n()
       href="http://ikingdata.mikecrm.com/kbZDdCb"
       target="_blank"
     >
-      <img class="w-full" :src="t('imgList.footImg')" alt="" />
+      <img class="w-full" :src="I18n.growthpadShow.pcFooter" alt="" />
     </a>
   </div>
 </template>
@@ -124,7 +78,7 @@ const { t } = useI18n()
 }
 
 .feature-detail {
-  @apply text-global-default text-kd12px16px md:text-kd14px18px  opacity-85 font-kdFang  mt-1.5;
+  @apply text-global-default text-kd12px16px md:text-kd14px18px flex  justify-center  opacity-65 font-kdFang  mt-1.5;
 }
 
 .shadowImg {

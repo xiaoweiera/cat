@@ -1,7 +1,10 @@
 // @ts-ignore
 import dayjs from 'dayjs'
+import * as R from 'ramda'
+import { ElMessage } from 'element-plus'
+import I18n from '~/utils/i18n/index'
 
-export const numberFormat = (value: any, noUnit: any) => {
+export const numberFormat = (value: any) => {
   if (!value && value !== 0 && value !== '0') {
     return null
   }
@@ -57,9 +60,7 @@ export const tooptipsModel = (
     unescape(encodeURIComponent(origin)),
   )}`
   const info
-    = unit === '$'
-      ? `${item} ${unit}${value}`
-      : `${item}  ${value}${unit}`
+    = unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
 
   return `<span style="display:flex;
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
@@ -70,15 +71,67 @@ export const tooptipsModel = (
 export function dataToTimestamp(time: string) {
   return dayjs(time).valueOf() / 1000
 }
-
-export const formatDefaultTime = (date: string) => {
+// 得到天颗粒度的时间
+export const formatDefaultTime = (date: number) => {
   if (date) {
     return dayjs(date).format('YYYY-MM-DD')
   } else {
     return dayjs().format('YYYY-MM-DD')
   }
 }
+// 得到小时颗粒度的时间
+export const formatHourTime = (date: number) => {
+  if (date) {
+    return dayjs(date).format('MM/DD HH:mm')
+  } else {
+    return dayjs().format('MM/DD HH:mm')
+  }
+}
 // 得到对应时间的时间戳  如 前7天 前30天
 export const getagoTimeStamp = (day: number) => {
   return dataToTimestamp(dayjs().subtract(day, 'days').format('YYYY-MM-DD'))
+}
+export const min_max = (min: any, max: any, v: any) => {
+  if (v === null) {
+    return [min, max]
+  }
+  if (min === null || min > v) {
+    min = v
+  }
+  if (max === null || max < v) {
+    max = v
+  }
+  return [min, max]
+}
+
+export const messageError = function(message: any): void {
+  const values = R.values(message)
+  const [text]: Array<string> = R.flatten(values)
+  if (text) {
+    ElMessage.warning(text)
+  } else {
+    ElMessage.warning(message)
+  }
+}
+
+export const messageSuccess = function(text: string): void {
+  ElMessage({
+    message: text,
+    type: 'success',
+    showClose: false,
+    customClass: 'message-tips',
+  })
+}
+
+// copy
+export const copyTxt = (txt: string, message?: boolean) => {
+  const dom = document.createElement('input')
+  dom.setAttribute('value', txt)
+  document.body.appendChild(dom)
+  dom.select()
+  document.execCommand('copy')
+  document.body.removeChild(dom)
+  if (message) {
+    messageSuccess(I18n.common.message.copy)
+  }
 }

@@ -1,29 +1,10 @@
-import axios from 'axios'
+/**
+ * @file 构造请求对象
+ */
+import Dao from '~/lib/dao'
 
-const service = axios.create({
-  timeout: 20000, // request timeout
-  baseURL: 'https://ikingdata.com',
-  withCredentials: false,
-})
-service.interceptors.request.use(
-  (config) => {
-    return config
-  },
-  (error) => {
-    Promise.reject(error)
-  },
-)
-service.interceptors.response.use(
-  (res) => {
-    if (res.status !== 200) {
-      // eslint-disable-next-line prefer-promise-reject-errors
-      return Promise.reject('error')
-    } else {
-      return res
-    }
-  },
-  (error) => {
-    return Promise.reject(error)
-  },
-)
+const api = 'https://kingdata.com'
+
+const service = Dao({ baseURL: api })
+
 export default service

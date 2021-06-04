@@ -10,8 +10,10 @@ import {
 } from 'element-plus'
 import { ref, defineProps, watch, toRefs, reactive } from 'vue'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 import { filterByOptions } from '~/logic/apy/tableDetail'
-import { unitConfig } from '~/logic/apy/config'
+import { unitConfig, unitConfigen } from '~/logic/apy/config'
 const isTipArrow = false // 提示框是否显示小尖头
 const props = defineProps({
   chains: { type: String },
@@ -41,12 +43,8 @@ const orderByApy = (
   typeValue: string,
   headerIndex: number,
 ) => {
-  key.value = typeValue !== 'no'
-    ? keyValue
-    : null
-  type.value = typeValue !== 'no'
-    ? typeValue
-    : null
+  key.value = typeValue !== 'no' ? keyValue : null
+  type.value = typeValue !== 'no' ? typeValue : null
   selectHeaderIndex.indexValue = headerIndex
   renderCells.value = filterByOptions(
     headers.value,
@@ -117,12 +115,13 @@ watch(
   },
 )
 const getValue = (data: any, i) => {
+  const unitList = lang.current.value === 'cn' ? unitConfig : unitConfigen
   if (data) {
     if (!data.value && data.value !== 0) return '-'
-    if (unitConfig[data.name]) {
-      if (unitConfig[data.name].unit === '$')
-        return unitConfig[data.name]?.unit + data.value
-      else return data.value + unitConfig[data.name]?.unit
+    if (unitList[data.name]) {
+      if (unitList[data.name].unit === '$')
+        return unitList[data.name]?.unit + data.value
+      else return data.value + unitList[data.name]?.unit
     }
     return data.value
   }
@@ -162,10 +161,10 @@ const getValue = (data: any, i) => {
                   ml-3
                 "
               >
-                项目/币种
+                {{ I18n.apy.tableHeader.type }}
               </div>
               <div class="text-kd12px16px text-global-default opacity-65 ml-3">
-                价格/涨跌幅
+                {{ I18n.apy.tableHeader.dataType }}
               </div>
             </template>
             <template #default="scope">
@@ -188,13 +187,13 @@ const getValue = (data: any, i) => {
                     </div>
                   </div>
                   <div class="flex mt-2 items-center">
-                    <div class="tableItemType">
-                      <span v-if="props.index == 0">机枪池</span>
-                      <span v-else>借贷平台</span>
-                    </div>
+                    <!--                    <div class="tableItemType">-->
+                    <!--                      <span v-if="props.index == 0">{{ I18n.apy.vaults }}</span>-->
+                    <!--                      <span v-else>{{ I18n.apy.lendPlat }}</span>-->
+                    <!--                    </div>-->
                     <div
                       v-if="props.chains === 'all'"
-                      class="tableItemTypePlat ml-2"
+                      class="tableItemTypePlat"
                       :style="{
                         background: getPlatInfo(scope.row.chain).bgcolor,
                         color: getPlatInfo(scope.row.chain).color,
@@ -237,14 +236,18 @@ const getValue = (data: any, i) => {
                 placement="bottom"
               >
                 <template #default>
-                  <template v-for="(item, i) in scope.row.data[i]?.data">
+                  <template
+                    v-for="(item, i) in scope.row.data[i]?.data"
+                    :key="i"
+                  >
                     <div
-                      v-if="getValue(item, i) !== '-'"
+                      v-if="getValue(item, j) !== '-'"
+                      :key="j"
                       class="flex mb-0.5 items-center flex-wrap TipTxt"
                     >
                       <span class="mr-1">{{ item.name }}</span>
                       <div>
-                        <span>{{ getValue(item, i) }}</span>
+                        <span>{{ getValue(item, j) }}</span>
                       </div>
                     </div>
                   </template>
@@ -277,10 +280,10 @@ const getValue = (data: any, i) => {
               <div
                 class="text-kd12px16px text-global-default opacity-65 mb-2.5"
               >
-                项目/币种
+                {{ I18n.apy.tableHeader.type }}
               </div>
               <div class="text-kd12px16px text-global-default opacity-65">
-                价格/涨跌幅
+                {{ I18n.apy.tableHeader.dataType }}
               </div>
             </template>
             <template #default="scope">
@@ -318,11 +321,12 @@ const getValue = (data: any, i) => {
                       {{ scope.row.project_name }}
                     </div>
                     <div class="text-center">
-                      <span
-                        v-if="props.index == 0"
-                        class="tableItemType"
-                      >机枪池</span>
-                      <span v-else class="tableItemType">借贷平台</span>
+                      <span v-if="props.index == 0" class="tableItemType">{{
+                        I18n.apy.vaults
+                      }}</span>
+                      <span v-else class="tableItemType">{{
+                        I18n.apy.lendPlat
+                      }}</span>
                     </div>
                     <div
                       v-if="props.chains === 'all'"
@@ -370,20 +374,15 @@ const getValue = (data: any, i) => {
   padding: 8px 0;
 }
 .tableItemType {
-  @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary;
+  @apply font-normal rounded  w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary;
 }
 .tableItemTypePlat {
-  @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px;
+  @apply font-normal rounded  w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px;
 }
 ::v-deep(.el-table th.gutter) {
   display: table-cell !important;
 }
-::v-deep(.cell) {
-  padding: 0px !important;
-}
-::v-deep(td) {
-  padding: 0px !important;
-}
+
 ::v-deep(.el-table colgroup.gutter) {
   display: table-cell !important;
 }

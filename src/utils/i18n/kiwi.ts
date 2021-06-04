@@ -4,13 +4,12 @@
 
 import * as R from 'ramda'
 import IntlFormat from 'intl-format'
-import zhCNLangs from '../../../langs/zh_CN/index'
-
-// const LangEnum = {
-//   zh_CN: 'zh_CN',
-//   en_US: 'en_US',
-//   zh_TW: 'zh_TW',
-// }
+import { watch } from 'vue'
+import * as lang from '../lang'
+// 中文
+import cnLangs from '../../../langs/cn/index'
+// 英文
+import enLangs from '../../../langs/en/index'
 
 interface Args {
   [key: string]: any
@@ -49,13 +48,17 @@ interface API {
   get(name: string, args?: Args): string
 }
 
-type Langs = typeof zhCNLangs & API
+type Langs = typeof cnLangs & API
 
 const langs = {
-  zh_CN: zhCNLangs,
+  // 中文
+  [lang.Language.cn]: cnLangs,
+  // 英文
+  [lang.Language.en]: enLangs,
+  // cht: zhTWLangs,
 }
 
-const format: Langs = IntlFormat.init('zh_CN', langs) as any
+const format: Langs = IntlFormat.init(lang.current.value, langs) as any
 
 const part = function(text: string, mode: number, args: Args): string {
   const array = R.map(R.trim, R.split('|', text))
@@ -67,21 +70,29 @@ const part = function(text: string, mode: number, args: Args): string {
   }
   return format.template(value, args)
 }
-
 // @ts-ignore
 format.part = function(text: string, mode?: number, args?: Args) {
   if (mode || mode === 0) {
     if (mode && typeof mode === 'object') {
+      // @ts-ignore
       return format.template(text, mode as Args)
     }
     if (typeof mode === 'number' || typeof mode === 'string') {
       const index = parseInt(mode as any, 10)
-      return part(text, isNaN(index)
-        ? 0
-        : index, args || {})
+      return part(text, isNaN(index) ? 0 : index, args || {})
     }
   }
   return format.template(text, {})
 }
+
+const app = function() {
+  format.setLang(lang.current.value)
+}
+
+watch(lang.current, () => {
+  app()
+})
+
+app()
 
 export default format

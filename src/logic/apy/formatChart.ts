@@ -2,6 +2,8 @@
 import { numberFormat, tooptipsModel } from '~/lib/tool'
 // @ts-ignore
 import { tableConfig } from '~/logic/apy/config'
+import I18n from '~/utils/i18n/index'
+
 export interface chartModel {
   code: number
   data: object
@@ -49,7 +51,7 @@ export const getUnit = (
   chartIndex: number,
   selected: string,
 ) => {
-  if (selected === '平均APY' || selected === 'APY') {
+  if (selected === I18n.apy.apyName.avgApy || selected === 'APY') {
     return '%'
   }
   return tableConfig[tableIndex].charts[chartIndex].unit

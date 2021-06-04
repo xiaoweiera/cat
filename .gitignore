@@ -5,7 +5,8 @@
 dist
 dist-ssr
 node_modules
+tsconfig.tsbuildinfo
+/tsconfig.tsbuildinfo
 # intellij stuff
 .idea/
 .vscode
-tsconfig.tsbuildinfo

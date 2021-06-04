@@ -1,0 +1,46 @@
+/**
+ * @file 校验样式
+ */
+
+%fail {
+  /* chrome / webkit */
+  &::-webkit-input-placeholder{
+    color: #e9592d;
+  }
+  /* 火狐 */
+  &::-moz-placeholder{
+    color: #e9592d;
+  }
+  /* ie */
+  &::-ms-input-placeholder{
+    color: #e9592d;
+  }
+}
+
+.check-box {
+  position: relative;
+  .el-input {
+    :deep(input) {
+      padding-right: 70px;
+      border-radius: 36px;
+      line-height: 26px;
+      height: 26px;
+    }
+    &.fail {
+      @extend %fail;
+      :deep(input) {
+        @extend %fail;
+      }
+    }
+  }
+  .suffix {
+    display: flex;
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  :deep(.el-form-item) {
+    margin-bottom: 0;
+  }
+}

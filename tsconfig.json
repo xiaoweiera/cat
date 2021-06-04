@@ -16,6 +16,11 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "noEmitOnError": true,
+    "skipDefaultLibCheck": true,
+    "preserveConstEnums": true,
     "types": [
       "vite/client",
       "vite-plugin-vue-layouts/client"
@@ -24,5 +29,6 @@
       "~/*": ["src/*"]
     }
   },
-  "exclude": ["dist", "node_modules"]
+  "include": ["./src", "./types"],
+  "exclude": ["dist", "./scripts", "node_modules"]
 }

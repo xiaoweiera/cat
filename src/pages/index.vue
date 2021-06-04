@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import I18n from '~/utils/i18n/index'
 import { requestTables, defaultChains, requestChart } from '~/logic/apy'
 // @ts-ignore
 import {
@@ -17,11 +17,6 @@ const { tables, requestData: fetchTableData } = requestTables()
 // @ts-ignore
 const { charts, requestChartData: fetchChartData } = requestChart()
 const selectedAnchor = ref('机枪池APY')
-// const chainQuery=ref('')
-// const router=useRouter()
-// console.log(router.params)
-// @ts-ignore
-
 // 计算元素距离 body 的位置
 const offsetY = function(dom: HTMLElement, number = 0): number {
   const body = document.body || document.querySelector('body')
@@ -37,7 +32,7 @@ const offsetY = function(dom: HTMLElement, number = 0): number {
 }
 
 const clickAnchor = (name: string, key?: string) => {
-  if (name === '回到顶部') {
+  if (name === I18n.apy.backTop) {
     // @ts-ignore
     document.scrollingElement.scrollTop = 0
   }
@@ -56,8 +51,8 @@ const fetchTableByChain = (chain: String) => {
   })
 }
 const fetchChartByChain = (chain: String) => {
-  tableConfig.map((chartItem, tableIndex) => {
-    chartItem.charts.map((chart: any, chartIndex: number) => {
+  tableConfig.forEach((chartItem, tableIndex) => {
+    chartItem.charts.forEach((chart: any, chartIndex: number) => {
       return fetchChartData(
         tableIndex,
         chartIndex,
@@ -75,7 +70,6 @@ const fetchChartByChain = (chain: String) => {
     })
   })
 }
-
 const timer = ref(60)
 let timerInterval: any = null
 const isFirstShow = ref(true)
@@ -115,22 +109,11 @@ watch(
 )
 const selectedMobileAnchor = reactive({ name: '机枪池APY' })
 onMounted(() => {
-  const router = useRouter()
-  const loc = window.location
-  // 二级域名 growthpad.xxx.com/ 跳转到 growthpad.xxx.com/growthpad
-  // console.log(loc.host.startsWith('growthpad'), loc.host, loc.pathname)
-  if (location.host.startsWith('growthpad') && location.pathname === '/') {
-    router.push('/growthpad')
-  } else if (loc.host.startsWith('apy') && loc.pathname === '/') {
-    router.push('/apy')
-  }
   wxShare(
     'DeFi挖矿收益APY大全',
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',
   )
-  // intervalFetchTableByChain('heco')
 })
-
 onUnmounted(() => clearInterval(timerInterval))
 </script>
 <template>
@@ -153,37 +136,52 @@ onUnmounted(() => clearInterval(timerInterval))
             md:text-kd36px36px
           "
         >
-          DeFi挖矿收益APY大全
+          {{ I18n.apy.projectName }}
         </div>
         <a
           href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com"
           target="_blank"
           class="goForm text-kd12px20px font-normal"
-        >申请收录</a>
+        >
+          {{ I18n.apy.projectApply }}</a>
       </div>
       <div class="mt-4 text-global-default opacity-65 font-normal">
         <div class="text-kd14px22px md:text-center">
-          本站收集整理了多条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看。
+          {{ I18n.apy.des }}
         </div>
         <div style="color: #e9592d" class="text-kd12px18px md:text-center mt-1">
-          风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。
+          {{ I18n.apy.warn }}
         </div>
       </div>
       <div class="text-center flex justify-center md:mb-5">
         <!-- active 默认选中项 -->
-        <ApyChains :chains="chains" active="heco" />
+        <ApyChains :chains="chains" active="all" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
     </div>
+
     <!-- table表格-->
-    <div
-      v-for="(item, index) in tables"
-      :key="index"
-      :class="index % 2 !== 0 ? ' tableDefault' : 'tableDefault'"
-    >
+    <div v-for="(item, index) in tables" :key="index" class="tableDefault">
+      <ApyTableTitle :title="item.title" :timer="timer" />
+      <div class="grid md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+        <template
+          v-for="(itemChart, i) in charts[index].chartAll"
+          :key="`${index}-${i}`"
+        >
+          <ApyChart
+            v-show="itemChart.option"
+            :id="index + '' + i"
+            :chain-id="chainParam"
+            :table-index="index"
+            :chart-index="i"
+            :chart-data="itemChart"
+          />
+        </template>
+      </div>
+
       <!-- chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
       <template v-if="chainParam === 'hsc' && index === 0">
         <div></div>
@@ -205,21 +203,6 @@ onUnmounted(() => clearInterval(timerInterval))
           :title="item.title"
           :table-data="item"
         />
-        <div class="grid md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-          <template
-            v-for="(itemChart, i) in charts[index].chartAll"
-            :key="`${index}-${i}`"
-          >
-            <ApyChart
-              v-show="itemChart.option"
-              :id="index + '' + i"
-              :chain-id="chainParam"
-              :table-index="index"
-              :chart-index="i"
-              :chart-data="itemChart"
-            />
-          </template>
-        </div>
       </div>
     </div>
     <ApyFooter />
@@ -250,16 +233,16 @@ onUnmounted(() => clearInterval(timerInterval))
         </template>
       </div>
       <img
-        class="mdhidden bottom-10 right-5 w-11 h-11 hand"
+        class="mdhidden fixed right-5 bottom-10 w-11 h-11 hand"
         src="https://res.ikingdata.com/nav/apyBack.png"
-        @click="clickAnchor('回到顶部')"
+        @click="clickAnchor(I18n.apy.backTop)"
       />
     </div>
   </div>
 </template>
 <style scoped lang="postcss">
 .tableDefault {
-  @apply px-4 md:px-30;
+  @apply px-4 md:px-30 md:mb-15 mb-5;
 }
 
 @media screen and (max-width: 768px) {
@@ -302,26 +285,21 @@ onUnmounted(() => clearInterval(timerInterval))
 
 .selected {
 }
-
 .tagContainer {
   border-left: 1px solid rgba(37, 62, 111, 0.1);
 }
-
 @media screen and (max-width: 880px) {
   .tagContainer {
     display: none;
   }
 }
-
 .rightTag {
   box-shadow: inset 1px 0px 0px rgba(37, 62, 111, 0.1);
 }
-
 .leftBorder {
   border-left: 2px solid #2b8dfe;
 }
 </style>
-
 // @formatter:off
 <route lang="yaml">
 meta:

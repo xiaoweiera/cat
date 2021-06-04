@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { defineProps } from 'vue'
-
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 const props = defineProps({
   title: { type: String },
   timer: { type: Number },
@@ -14,8 +15,17 @@ const props = defineProps({
     >
       {{ title }}
     </div>
-    <div class="text-kd14px20px font-normal text-global-default opacity-65">
+    <div
+      v-if="lang.current.value === 'cn'"
+      class="text-kd14px20px font-normal text-global-default opacity-65"
+    >
       ({{ timer }} 秒后更新)
+    </div>
+    <div
+      v-else
+      class="text-kd14px20px font-normal text-global-default opacity-65"
+    >
+      (Update in {{ timer }} s)
     </div>
   </div>
 </template>

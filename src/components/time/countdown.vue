@@ -1,14 +1,17 @@
 <script setup lang="ts">
 // 倒计时
 import dayjs from 'dayjs'
+// @ts-ignore
 import { ref, defineProps, watch } from 'vue'
-const format = 'YYYY MM DD HH:mm:ss'
+import I18n from '~/utils/i18n/index'
+const format = 'YYYY-MM-DD HH:mm:ss'
 const props = defineProps({
   value: [String, Number],
 })
-const day = ref('0')
-const hour = ref('0')
-const minute = ref('0')
+const day = ref<string>('00')
+const hour = ref<string>('00')
+const minute = ref<string>('00')
+const second = ref<string>('00')
 const end = ref(0)
 // 监听传入进来的时间值
 watch(
@@ -16,30 +19,28 @@ watch(
   () => {
     const time = dayjs(props.value, format)
     end.value = time.valueOf()
-    console.log(end.value)
   },
   { immediate: true },
 )
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
   const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
-  return number < 10
-    ? `0${number}`
-    : String(number)
+  return number < 10 ? `0${number}` : String(number)
 }
 // 计算倒计时 - 时
 const getHour = function(duration: number): string {
   const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10)
-  return number < 10
-    ? `0${number}`
-    : String(number)
+  return number < 10 ? `0${number}` : String(number)
 }
 // 计算倒计时 - 分
 const getMinute = function(duration: number): string {
   const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
-  return number < 10
-    ? `0${number}`
-    : String(number)
+  return number < 10 ? `0${number}` : String(number)
+}
+// 计算倒计时 - 秒
+const getSecond = function(duration: number): string {
+  const number = parseInt(((duration / 1000) % 60) as any, 10)
+  return number < 10 ? `0${number}` : String(number)
 }
 // 倒计时
 let intemout: any
@@ -53,6 +54,7 @@ const timeout = () => {
     day.value = '00'
     hour.value = '00'
     minute.value = '00'
+    second.value = '00'
     return
   }
   // 计算倒计时剩余天
@@ -62,47 +64,87 @@ const timeout = () => {
   // 计算倒计时剩余分
   minute.value = getMinute(duration)
   // 计算倒计时剩余秒
-  const seconds = parseInt(((duration / 1000) % 60) as any, 10)
-  if (seconds < 60) {
-    intemout = setTimeout(timeout, 1000 * (60 - seconds))
-  } else {
-    intemout = setTimeout(timeout, 1000 * 60)
-  }
+  second.value = getSecond(duration)
+  intemout = setTimeout(timeout, 1000)
 }
 timeout()
 </script>
 
 <template>
-  <div class="flex text-center justify-between items-center">
-    <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp">{{ day }}</span>
-      <span class="text-sm font-kdFang">Days</span>
-    </p>
-    <p>
-      <span class="font-bold text-2xl">:</span>
-    </p>
-    <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp">{{ hour }}</span>
-      <span class="text-sm font-kdFang">Hours</span>
-    </p>
-    <p>
-      <span class="font-bold text-2xl">:</span>
-    </p>
-    <p class="flex flex-col flex-wrap text-center">
-      <span class="font-bold time-value font-kdExp">{{ minute }}</span>
-      <span class="text-sm font-kdFang">Minutes</span>
-    </p>
-  </div>
+  <slot :day="day" :hour="hour" :minute="minute" :second="second">
+    <span
+      class="
+        font-color-theme font-bold font-kdFang
+        whitespace-nowrap
+        inline-block
+        pb-4
+      "
+    >
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ day }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.dd }}</span>
+      </span>
+      <span class="text-lg px-4">:</span>
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ hour }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.hh }}</span>
+      </span>
+      <span class="text-lg px-4 relative">:</span>
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ minute }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.mm }}</span>
+      </span>
+      <span class="text-lg px-4 relative">:</span>
+      <span class="relative">
+        <span class="text-2xl md:text-4xl">{{ second }}</span>
+        <span
+          class="
+            time-unit
+            absolute
+            top-full
+            left-1/2
+            text-xs
+            transform
+            -translate-x-1/2
+          "
+        >{{ I18n.common.time.ss }}</span>
+      </span>
+    </span>
+  </slot>
 </template>
 
-<style scoped>
-.time-value {
-  font-size: 42px;
-}
-.font-bold {
-  color: #2b8dfe;
-}
-.text-sm {
+<style scoped lang="scss">
+.time-unit {
   color: rgba(37, 62, 111, 0.65);
 }
 </style>

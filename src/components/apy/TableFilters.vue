@@ -2,7 +2,8 @@
 import { toRefs, ref, defineProps } from 'vue'
 // @ts-ignore
 import { ElSwitch } from 'element-plus'
-
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 const props = defineProps({
   time: { type: Number },
   project: { type: String },
@@ -81,7 +82,7 @@ const closeDown = () => {
               font-normal
             "
           >
-            池子指标 :
+            {{ I18n.apy.poolsMarks }} :
           </div>
           <div class="flex items-center flex-wrap">
             <div v-for="(item, i) in realOptions">
@@ -122,7 +123,7 @@ const closeDown = () => {
             @mousemove="openDown"
             @mouseleave="closeDown"
           >
-            扫码下载 App，获取 APY 第一名变化提醒
+            {{ I18n.apy.downTip }}
           </div>
           <img
             v-if="showDownLoad"
@@ -151,7 +152,7 @@ const closeDown = () => {
                 font-normal
               "
             >
-              池子指标
+              {{ I18n.apy.poolsMarks }}
             </div>
             <img
               class="w-4.5 h-4.5"
@@ -162,7 +163,10 @@ const closeDown = () => {
           <div
             class="text-kd14px20px font-normal text-global-default opacity-65"
           >
-            ({{ timer }} 秒后更新)
+            <span
+              v-if="lang.current.value === 'cn'"
+            >({{ timer }} 秒后更新)</span>
+            <span v-else> (Update in {{ timer }} s)</span>
           </div>
         </div>
         <div v-show="show" class="optionModel" @mousemove="optionShow">
@@ -180,7 +184,11 @@ const closeDown = () => {
                   text-global-highTitle
                 "
               >
-                {{ item.name !== '剩余额度' ? item.name : item.name + '(%)' }}
+                {{
+                  item.name !== I18n.apy.remainRatio
+                    ? item.name
+                    : item.name + '(%)'
+                }}
               </div>
               <div>
                 <el-switch

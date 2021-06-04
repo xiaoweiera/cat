@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-// import { useRouter } from 'vue-router'
+import I18n from '~/utils/i18n/index'
 import { requestTables, defaultChains, requestChart } from '~/logic/apy'
 // @ts-ignore
 import {
@@ -32,7 +32,7 @@ const offsetY = function(dom: HTMLElement, number = 0): number {
 }
 
 const clickAnchor = (name: string, key?: string) => {
-  if (name === '回到顶部') {
+  if (name === I18n.apy.backTop) {
     // @ts-ignore
     document.scrollingElement.scrollTop = 0
   }
@@ -113,7 +113,6 @@ onMounted(() => {
     'DeFi挖矿收益APY大全',
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',
   )
-  // intervalFetchTableByChain('heco')
 })
 onUnmounted(() => clearInterval(timerInterval))
 </script>
@@ -137,20 +136,21 @@ onUnmounted(() => clearInterval(timerInterval))
             md:text-kd36px36px
           "
         >
-          DeFi挖矿收益APY大全
+          {{ I18n.apy.projectName }}
         </div>
         <a
           href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com"
           target="_blank"
           class="goForm text-kd12px20px font-normal"
-        >申请收录</a>
+        >
+          {{ I18n.apy.projectApply }}</a>
       </div>
       <div class="mt-4 text-global-default opacity-65 font-normal">
         <div class="text-kd14px22px md:text-center">
-          本站收集整理了多条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看。
+          {{ I18n.apy.des }}
         </div>
         <div style="color: #e9592d" class="text-kd12px18px md:text-center mt-1">
-          风险提示：本站数据来源于各平台的公开数据，本站并未对收录内容做安全审计，内容不构成投资建议，请注意风险。
+          {{ I18n.apy.warn }}
         </div>
       </div>
       <div class="text-center flex justify-center md:mb-5">
@@ -232,9 +232,9 @@ onUnmounted(() => clearInterval(timerInterval))
         </template>
       </div>
       <img
-        class="mdhidden bottom-10 right-5 w-11 h-11 hand"
+        class="mdhidden fixed right-5 bottom-10 w-11 h-11 hand"
         src="https://res.ikingdata.com/nav/apyBack.png"
-        @click="clickAnchor('回到顶部')"
+        @click="clickAnchor(I18n.apy.backTop)"
       />
     </div>
   </div>
@@ -284,26 +284,21 @@ onUnmounted(() => clearInterval(timerInterval))
 
 .selected {
 }
-
 .tagContainer {
   border-left: 1px solid rgba(37, 62, 111, 0.1);
 }
-
 @media screen and (max-width: 880px) {
   .tagContainer {
     display: none;
   }
 }
-
 .rightTag {
   box-shadow: inset 1px 0px 0px rgba(37, 62, 111, 0.1);
 }
-
 .leftBorder {
   border-left: 2px solid #2b8dfe;
 }
 </style>
-
 // @formatter:off
 <route lang="yaml">
 meta:

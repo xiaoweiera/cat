@@ -1,6 +1,10 @@
 {
   "extends": "@antfu",
   "rules": {
+    "@typescript-eslint/no-this-alias": "off",
+    "vue/no-template-shadow": "off",
+    "no-template-curly-in-string": "off",
+    "node/no-deprecated-api": "off",
     "arrow-parens": ["error", "always"],
     // 缩紧风格
     "brace-style": ["error", "1tbs"],
@@ -48,7 +52,7 @@
     // 小括号内不允许有空格
     "space-in-parens": ["error", "never"],
     // 三元表达式不允许换行
-    "multiline-ternary": ["error", "always"],
+    "multiline-ternary": "off",
     // 禁止连续赋值
     "no-multi-assign": ["error"],
     // 运算符前后有空格
@@ -62,6 +66,7 @@
     "@typescript-eslint/indent": "off",
     "vue/singleline-html-element-content-newline": "off",
     "vue/require-v-for-key": "off",
-    "vue/no-unused-vars": "off"
+    "vue/no-unused-vars": "off",
+    "prefer-promise-reject-errors": "off"
   }
 }

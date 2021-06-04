@@ -22,7 +22,7 @@ useHead({
     <router-view />
   </div>
 </template>
-<style>
+<style lang="scss">
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;
@@ -90,5 +90,136 @@ a {
 }
 .hand {
   cursor: pointer;
+}
+[help] {
+  cursor: help;
+  position: relative;
+  display: inline-block;
+  i:last-child {
+    &:after {
+      position: absolute;
+      width: 16px;
+      height: 8px;
+      display: block;
+      left: 50%;
+      top: 0;
+      $icon: 'https://res.ikingdata.com/icon/arrow.png';
+      background: #fff url($icon) no-repeat center bottom;
+    }
+  }
+  &:after {
+    display: none;
+    white-space: nowrap;
+    word-break: keep-all;
+    content: attr(help);
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    border-radius: 6px;
+    filter: drop-shadow(0px 6px 18px rgba(0, 0, 0, 0.12));
+    transform: translate(-50%, -8px);
+    padding: 8px 16px;
+    font-size: 14px;
+    color: rgba(37, 62, 111, 0.85);
+    background: #fff;
+  }
+  &:hover,
+  &:active {
+    &:after {
+      display: block;
+    }
+  }
+}
+
+.none-select {
+  user-select: none;
+}
+
+.el-message {
+  z-index: 9999;
+}
+
+.message-tips {
+  min-width: inherit !important;
+  background: #ffffff !important;
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.08),
+    0px 6px 16px rgba(0, 0, 0, 0.06), 0px 9px 28px 8px rgba(0, 0, 0, 0.03) !important;
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  .el-message__icon {
+    &:before {
+      content: none;
+    }
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url('https://res.ikingdata.com/icon/success.svg');
+  }
+  .el-message__content {
+    font-size: 14px !important;
+    color: #00b464 !important;
+  }
+}
+
+.el-button--small {
+  min-height: 24px !important;
+  padding: 5px 11px !important;
+}
+
+/* 指令消息框 */
+.el-message-box {
+  &.directive-message {
+    padding: 16px;
+    width: 340px;
+    .el-message-box__header {
+      padding: 0 0 16px 0;
+      .el-message-box__headerbtn {
+        display: none;
+      }
+    }
+    .el-message-box__content {
+      padding: 0;
+      p {
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+      }
+    }
+    .el-message-box__title {
+      text-align: center;
+      color: #033666;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .el-message-box__btns {
+      padding: 16px 0 0 0;
+      display: flex;
+      .el-button {
+        flex: 1;
+        width: 0;
+        & + .el-button {
+          margin-left: 12px !important;
+        }
+      }
+    }
+  }
+}
+
+/* 等宽等高 */
+.equal-width-height {
+  width: 100%;
+  position: relative;
+  border: 1px solid transparent;
+}
+.equal-width-height::before {
+  content: '';
+  display: block;
+}
+.equal-width-height > .equal-content {
+  left: -1px;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  position: absolute;
 }
 </style>

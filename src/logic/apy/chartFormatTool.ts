@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import { formatTimeHour, toFixedNumber, numberFormat } from '~/lib/tool'
 import { getChart, getChartByMoney } from '~/api/apy'
-
+import I18n from '~/utils/i18n/index'
 interface projectItem {
   project_name: string
   x_axis: object
@@ -62,7 +62,7 @@ export const gunDataFormat = (data: gunModel, selected: string) => {
   if (selected === 'TVL') {
     return data.tvl
   }
-  if (selected === '用户总收益') {
+  if (selected === I18n.apy.marks.user) {
     return data.reward_cap
   }
   return data.machine_gun_pool_single_avg_apy
@@ -80,12 +80,8 @@ interface chartItem {
   data: projectItem[]
 }
 
-const getMin = (min: number, yValue: any) => (min < yValue
-  ? min
-  : yValue)
-const getMax = (max: number, yValue: any) => (max > yValue
-  ? max
-  : yValue)
+const getMin = (min: number, yValue: any) => (min < yValue ? min : yValue)
+const getMax = (max: number, yValue: any) => (max > yValue ? max : yValue)
 
 const getDataByTime = (data: any, field: string) => {
   const xItems = R.sort(
@@ -133,16 +129,12 @@ const getxyDataWithField = (
       // @ts-ignore
       yData: item.y_axis.map((yValue: any) => {
         if (yValue) {
-          min = min === 0
-            ? yValue
-            : getMin(min, yValue)
-          max = max === 0
-            ? yValue
-            : getMax(max, yValue)
+          min = min === 0 ? yValue : getMin(min, yValue)
+          max = max === 0 ? yValue : getMax(max, yValue)
         }
         return {
           value: toFixedNumber(yValue, 2),
-          formatValue: numberFormat(yValue, true),
+          formatValue: numberFormat(yValue),
         }
       }),
     }
@@ -151,35 +143,29 @@ const getxyDataWithField = (
 }
 // 得到xy轴 第一个表 filterPlat big弹框筛选的币或平台
 export const getxyData = (data: chartItem, filterName: String) => {
-  return data
-    ? getxyDataWithField(data.data, 'token_name', filterName)
-    : []
+  return data ? getxyDataWithField(data.data, 'token_name', filterName) : []
 }
 // 得到xy轴 第二个表
 export const getCoinData = (data: chartItem, filterName: String) => {
-  return data
-    ? getxyDataWithField(data.data, 'project_name', filterName)
-    : []
+  return data ? getxyDataWithField(data.data, 'project_name', filterName) : []
 }
 // 得到xy轴 第三个表
 export const getInfoData = (data: any, filterName: String) => {
-  return data
-    ? getxyDataWithField(data, 'project_name', filterName)
-    : []
+  return data ? getxyDataWithField(data, 'project_name', filterName) : []
 }
 // 获取平台列表--筛选
 export const getProjectPlat = (data: requsetProjectModel) => {
-  return data
-    ? data.data.map((item: projectItem) => item.project_name)
-    : []
+  return data ? data.data.map((item: projectItem) => item.project_name) : []
 }
 export const getTokenPlat = (data: requsetTokenModel) => {
-  return data
-    ? data.data.map((item: tokenItem) => item.token_name)
-    : []
+  return data ? data.data.map((item: tokenItem) => item.token_name) : []
 }
 export const getInfoPlat = () => []
-export const getInfoHasPlat = () => ['TVL', '用户总收益', '平均APY']
+export const getInfoHasPlat = () => [
+  'TVL',
+  I18n.apy.marks.user,
+  I18n.apy.marks.apy,
+]
 
 interface requestItem {
   chain: string

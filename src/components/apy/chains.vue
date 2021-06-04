@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { defineProps, toRefs, toRaw, onBeforeMount, watch } from 'vue'
+import * as lang from '~/utils/lang'
 // 定义属性
 const props = defineProps({
   chains: Object,
@@ -47,7 +48,7 @@ onBeforeMount(getTabs)
 const getHref = function(data: Item): string {
   const key = data.key
   const utm_source = 'https://apy.kingdata.com'
-  return `?key=${key}&utm_source=${utm_source}`
+  return `?key=${key}&lang=${lang.current.value}&utm_source=${utm_source}`
 }
 </script>
 <template>
