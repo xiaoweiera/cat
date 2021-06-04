@@ -20,7 +20,7 @@ import { coinwindInfo } from './projectInfo'
  discord链接：无
  */
 
-const token = 'MDX'
+const token = 'COW'
 const Project = coinwindInfo.title
 const website = 'www.coinwind.com'
 // 根据环境展示中/英文链接
@@ -39,20 +39,10 @@ const data = {
   about: {
     website, // 项目官网
     minutias: [
-      /*
-      { label: I18n.growthpad.about.name, value: I18n.growthpad.mdx.about.name }, // 代币名称
-      { label: I18n.growthpad.about.online, value: I18n.growthpad.mdx.about.online }, // 上线时间
-      { label: I18n.growthpad.about.count, value: I18n.growthpad.mdx.about.count }, // 发行总量
-      // { label: I18n.growthpad.about.marketValue, value: I18n.growthpad.mdx.about.marketValue }, // 市值
-      // { label: I18n.growthpad.about.circulation, value: I18n.growthpad.mdx.about.circulation }, // 当前流通量
-      { label: I18n.growthpad.about.price, value: 'price' }, // 当前价格
-      { label: I18n.growthpad.about.luanched, value: I18n.growthpad.mdx.about.luanched }, // 所在公链
-      // 上线交易所
-      {
-        label: I18n.growthpad.about.exchanges,
-        value: I18n.growthpad.mdx.about.exchanges,
-      },
-       */
+      { label: I18n.growthpad.about.name, value: token }, // 代币名称
+      { label: I18n.growthpad.about.online, value: I18n.growthpad.coinwind.about.online }, // 上线时间
+      { label: I18n.growthpad.about.count, value: I18n.growthpad.coinwind.about.count }, // 发行总量
+      { label: I18n.growthpad.about.luanched, value: I18n.growthpad.coinwind.about.luanched }, // 所在公链
     ],
     detail: I18n.growthpad.coinwind.about.detail, // 项目介绍
 
@@ -75,7 +65,7 @@ const data = {
         {
           type: TaskType.vip,
           title: I18n.template(I18n.growthpad.vip.invite, { group: 'KingData' }),
-          description: I18n.growthpad.vip.description, // 帮助信息
+          // description: I18n.growthpad.vip.description, // 帮助信息
         },
         chat.telegram(
           Project,

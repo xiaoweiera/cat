@@ -26,12 +26,12 @@ const getContent = function(content?: Content | string): string {
     }
   }
   if (content.value) {
-    text += `<p class="text-base font-normal" style="color: rgba(37, 62, 111, 0.85);">${content.value}</p>`
+    text += `<p class="text-base font-normal" style="color: rgba(37, 62, 111, 0.85); word-break: break-word; overflow-wrap: break-word;">${content.value}</p>`
   }
   if (content.warn) {
-    text += `<p class="text-xs font-normal" style="color: #E9592D;">* ${content.warn}</p>`
+    text += `<p class="text-xs font-normal" style="color: #E9592D; word-break: break-word; overflow-wrap: break-word;">* ${content.warn}</p>`
   }
-  return `<div>${text}</div>`
+  return `<div class="text-center">${text}</div>`
 }
 
 const app = function(

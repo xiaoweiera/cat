@@ -65,7 +65,8 @@ export default {
     notify2: '* 请上传 .JPG .PNG .JPEG 等文件格式，大小控制在 5 M 以内',
     title: '撰写 {count} 字以上原创 {project} 体验文章，并发布在主流媒体。',
     tips: '* 已提交等待审核，重新提交会替换之前的内容。',
-    retwitter: '并转发推特。'
+    retwitter: '并转发推特。',
+    warn: '提交审核后不可修改，请仔细检查您提交的内容。'
   },
   invited: {
     count: '我邀请参与活动的人数：',
@@ -94,7 +95,7 @@ export default {
     sina: '活动结束前取消关注/删除微博视为未完成任务'
   },
   vip: {
-    invite: '成为 {group} VIP 用户或邀请三名好友。',
+    invite: '成为 {group} VIP 用户或邀请三名好友注册。',
     description: '邀请三个用户注册即可成为 VIP 用户',
     activity: 'KingData VIP 用户或邀请三名好友；加入 {project} 电报群；关注 {project} Twitter 并转发本条活动 Twitter。',
   },
@@ -213,6 +214,10 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
     about: {
+      exchanges: '火币、币安等23家',
+      online: '2021年5月25日',
+      count: '1亿',
+      luanched: 'HECO',
       detail: `CoinWind 是一个 DeFi 智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP 挖矿无常损失大等风险问题。
 
 CoinWind 旨在打造一个 DeFi 数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind 产品会通过组合策略有效降低流动性挖矿中的无常损失。

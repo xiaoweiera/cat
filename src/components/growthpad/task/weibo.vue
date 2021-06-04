@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { omit } from 'ramda'
 import { reactive, ref, toRaw, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { messageSuccess } from '~/lib/tool'
+import { messageSuccess, messageError } from '~/lib/tool'
 import { Project } from '~/api/growtask'
+import Message from '~/utils/message'
+import { checkAddress } from '~/components/growthpad/task/task'
+import activity from '~/logic/growthpad/activity'
 
 const store = Task()
 
@@ -43,6 +47,13 @@ const rewardValue = computed<number>((): number => {
   return number
 })
 
+const isRegistered = computed<boolean>((): boolean => {
+  if (store.article_image.value && store.article_url.value) {
+    return true
+  }
+  return false
+})
+
 interface FormData {
   article_url?: string
   article_image?: File
@@ -77,14 +88,31 @@ const submit = async function() {
   data.append('article_image', formdata.article_image)
   try {
     await form.validate()
-    await store.setWeiboContent(data)
-    messageSuccess(I18n.growthpad.weibo.success)
-    // 清空表单
-    form.resetFields()
-    // 清除验证结果
-    form.clearValidate()
+    // 判断信息登记
+    let status = checkAddress(store)
+    // 判断活动时间
+    if (status) {
+      status = activity(store)
+    }
+    if (status) {
+      // 输入内容确认
+      status = await Message('', {
+        value: I18n.growthpad.weibo.warn,
+      })
+    }
+    if (status) {
+      const res = await store.setWeiboContent(data)
+      console.log(res)
+      messageSuccess(I18n.growthpad.weibo.success)
+      // 清除验证结果
+      form.clearValidate()
+      // 清空表单
+      form.resetFields()
+      previewSrc.value = ''
+    }
   } catch (e) {
-    // todo
+    const err = omit(['code'], e)
+    messageError(err)
   }
 }
 
@@ -121,7 +149,7 @@ const rules: any = {
       autocomplete="off"
       @submit.stop.prevent="submit"
     >
-      <template v-if="rewardValue">
+      <template v-if="isRegistered">
         <el-form-item :label="I18n.growthpad.weibo.article">
           <template v-if="store.article_url.value === 'undefined'">
             <span>-</span>
@@ -136,9 +164,18 @@ const rules: any = {
           </template>
         </el-form-item>
         <el-form-item :label="I18n.growthpad.weibo.articleImg">
-          <div class="avatar-uploader relative">
+          <a
+            class="avatar-uploader relative block"
+            :href="store.article_image.value"
+            target="_blank"
+          >
             <img class="preview" :src="store.article_image.value" />
-          </div>
+          </a>
+        </el-form-item>
+        <el-form-item style="margin-bottom: 0">
+          <el-button type="info" round plain size="small" disabled>
+            <span>{{ I18n.common.button.review }}</span>
+          </el-button>
         </el-form-item>
       </template>
       <template v-else>
@@ -194,11 +231,11 @@ const rules: any = {
               </el-button>
             </div>
             <!--有上传文章后显示-->
-            <template v-if="store.article_image.value">
-              <p class="md:ml-3 text-xs submit-tips mt-3 md:mt-0">
-                {{ I18n.growthpad.weibo.tips }}
-              </p>
-            </template>
+            <!--            <template v-if="store.article_image.value">-->
+            <!--              <p class="md:ml-3 text-xs submit-tips mt-3 md:mt-0">-->
+            <!--                {{ I18n.growthpad.weibo.tips }}-->
+            <!--              </p>-->
+            <!--            </template>-->
           </div>
         </el-form-item>
       </template>

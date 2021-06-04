@@ -26,7 +26,8 @@ export default {
   button: {
     submit: '提交',
     confirm: '确认',
-    close: '取消'
+    close: '取消',
+    review: '审核中'
   },
   message: {
     verification: '获取验证码',

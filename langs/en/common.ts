@@ -26,7 +26,8 @@ export default {
   button: {
     submit: 'Submit',
     confirm: 'Confirm',
-    close: 'Close'
+    close: 'Close',
+    review: 'In Review'
   },
   message: {
     verification: 'code',

@@ -88,16 +88,24 @@ export const setProjectUserInfo = function(
   })
 }
 
-export const setWeiboContent = function(
+export const setWeiboContent = async function(
   project: string,
   data: FormData,
 ): Promise<any> {
-  const url = '/api/growthpad/article_image/'
   const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data,
-  })
+  try {
+    const result = await request({
+      url: '/api/growthpad/article_image/',
+      method: 'POST',
+      params: { project: type },
+      data,
+    })
+    const code = safeGet<number>(result, 'data.code')
+    if (parseInt(code as any) !== 0) {
+      return Promise.reject(result)
+    }
+    return result.data
+  } catch (e) {
+    return Promise.reject(e)
+  }
 }
