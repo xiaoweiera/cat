@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, defineProps, reactive, ref, toRaw } from 'vue'
-import { checkAddress } from '../task'
 import { addressEnum, getValueStatus } from './value'
 // @ts-ignore
 import rules from './rule'
+import { checkAddress } from '~/components/growthpad/task/task'
 import { MissionStatus } from '~/store/growthpad/props'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'

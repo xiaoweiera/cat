@@ -310,7 +310,7 @@ class Store {
       this.updateData(result)
       return result
     } catch (e) {
-      this.updateData()
+      this.updateData({})
       return Promise.reject(e)
     }
   }

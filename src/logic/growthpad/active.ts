@@ -58,6 +58,6 @@ export const ready = async function(store: Store): Promise<void> {
     await store.init()
     loading.value = false
   } else {
-    // window.location.href = `/growthpad${window.location.search}`
+    window.location.href = `/growthpad${window.location.search}`
   }
 }

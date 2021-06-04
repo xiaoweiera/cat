@@ -68,7 +68,8 @@ export default {
     title: 'Write a {count}-word original {project} experience article and publish it in mainstream media.',
     // tips: '* 已提交等待审核，重新提交会替换之前的内容。'
     tips: '* Verifying,when resubmitting the previous information will be covered. ',
-    retwitter: 'And retweet the twitter.'
+    retwitter: 'And retweet the twitter.',
+    warn: 'After submitting for review, you cannot modify it. Please check your submission carefully.'
   },
   invited: {
     count: 'My invitation: ',
@@ -100,7 +101,7 @@ export default {
 
   vip: {
     // invite: '成为 {group} VIP 用户或邀请三名好友。',
-    invite: 'Become {group} VIP or inviting 3 users',
+    invite: 'Become {group} VIP or inviting 3 users to register.',
     description: 'By inviting 3 users to register KingData.',
     activity: 'Become {group} VIP or inviting 3 users; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
   },
@@ -218,6 +219,9 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       placeholder: 'Enter HECO address',
     },
     about: {
+      online: '25/5/2021',
+      count: '100M',
+      luanched: 'HECO',
       detail: `CoinWind is a HECO and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
 CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
