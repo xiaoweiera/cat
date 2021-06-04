@@ -16,6 +16,9 @@ const onSwitchLang = function() {
 <template>
   <nav
     class="
+      sticky
+      md:static
+      top-0
       headerBg
       flex
       items-center
@@ -78,8 +81,18 @@ const onSwitchLang = function() {
     </div>
   </nav>
 </template>
-<style>
+<style scoped lang="scss">
+$height: 72px;
 .headerBg {
-  box-shadow: 0 0.5px 0 rgb(43 140 255 / 4%), 0 2px 12px rgb(0 50 108 / 4%);
+  height: $height;
+  z-index: 999;
+  //box-shadow: 0 0.5px 0 rgb(43 140 255 / 4%), 0 2px 12px rgb(0 50 108 / 4%);
+  background: #eaf3fe;
+  box-shadow: 0px 1px 0px rgba(43, 140, 255, 0.02),
+    0px 4px 12px rgba(0, 0, 0, 0.06);
+
+  :deep(.nav-menu-box) {
+    top: $height;
+  }
 }
 </style>

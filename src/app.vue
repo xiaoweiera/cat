@@ -23,6 +23,10 @@ useHead({
   </div>
 </template>
 <style lang="scss">
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;
