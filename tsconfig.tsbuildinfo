@@ -337,7 +337,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/devrequest.ts": {
-        "version": "ba2609f3b6919db4491f5216b3106a1aa9e8f49ead21cb8e83a029702818b97f",
+        "version": "3ea891b18dcb9c5b55d5929a97995d961c76b2a93985801995ed21e1e6b1e1c1",
         "signature": "ec26211d0b2c995cf445165410d1aeaee4f344843b03f8b949e9ec9d96be120f",
         "affectsGlobalScope": false
       },
@@ -2107,7 +2107,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/request.ts": {
-        "version": "690b31874d905a2166895bc798a069553cd2c44f3b9f21e27fdccbf077e62976",
+        "version": "79e05bd696c503cac796c405c0885f95497a12d325deb49f25c0cf59a493e6b9",
         "signature": "983c9000c4ba543a132b1e10e4c1896e8db1099dab2e8107830d701b8d30f801",
         "affectsGlobalScope": false
       },
