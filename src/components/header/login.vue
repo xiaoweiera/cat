@@ -41,12 +41,12 @@ onMounted(async() => {
   <div v-if="!isLogin">
     <div
       class="
+        ml-7.5
         hand
         text-global-default
         opacity-85
         text-kd16px24px
         font-normal
-        ml-7.5
         flex
         items-center
       "

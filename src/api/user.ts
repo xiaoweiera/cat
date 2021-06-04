@@ -43,6 +43,9 @@ export const logout = async function() {
 export const logo = async function(query: LogoData): Promise<LogoResult> {
   // 电话区号默认为 +86
   const data = Object.assign({ area_code: 86 }, query)
+  // 去掉非数字的字符
+  // @ts-ignore
+  data.area_code = data.area_code.replace(/[^0-9]/g, '')
   try {
     // 登录前清理 cookie, 保证账户信息干净
     removeUserToken()
@@ -91,12 +94,12 @@ export const getCaptcha = async function(data: any): Promise<void> {
   const url = '/api/v1/users/captcha'
   // 电话区号默认为 +86
   const value = Object.assign({ area_code: '+86' }, data)
+  value.area_code = data.area_code.replace(/[^0-9]/g, '')
   return request.post(url, value)
 }
 // 邮箱验证码
 export const getMailCaptcha = async function(email: string): Promise<void> {
   const url = '/api/v1/users/email_send_code'
-  // 电话区号默认为 +86
   const data = { email, lang: lang.current.value }
   return request.post(url, data)
 }
@@ -104,11 +107,13 @@ export const getMailCaptcha = async function(email: string): Promise<void> {
 export const getForgetCaptcha = async function(data: any): Promise<any> {
   const url = '/api/v1/users/forget_pass_captcha'
   const value = Object.assign({ area_code: '+86' }, data)
+  // value.area_code = data.area_code.replace(/[^0-9]/g, '')
   return request.post(url, value)
 }
 // 注册
 export const register = async function(data: any): Promise<any> {
   const value = Object.assign({ area_code: 86 }, data)
+  value.area_code = data.area_code.replace(/[^0-9]/g, '')
   return request.post(pathname.user.signup, value)
 }
 // 邮箱注册
@@ -121,13 +126,14 @@ export const registerMail = async function(data: any): Promise<any> {
 export const findPwd = async function(data: any): Promise<any> {
   const url = '/api/v1/users/change_password'
   const value = Object.assign({ area_code: '+86' }, data)
+  value.area_code = data.area_code.replace(/[^0-9]/g, '')
   return request.post(url, value)
 }
 // 邮箱重置密码
 export const findPwdMail = async function(data: any): Promise<any> {
   const url = '/api/v1/users/email_change_password'
-  const value = Object.assign({ area_code: '+86' }, data)
-  return request.post(url, value)
+  // const value = Object.assign({ area_code: '+86' }, data)
+  return request.post(url, data)
 }
 // 获取区域号码
 export const areaCode = async function(): Promise<void> {

@@ -4,8 +4,6 @@
 import Dao from '~/lib/dao'
 import { env } from '~/lib/process'
 
-// const api = 'https://kingdata.com'
-
 const service = Dao({ baseURL: env.api })
 
 export default service
