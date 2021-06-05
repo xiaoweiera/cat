@@ -131,6 +131,11 @@ class Store {
 
   private timeout: any = 0
 
+  // 微信群图片
+  public chatPicture = ref<string[]>([])
+  // 朋友圈图片
+  public friendPicture = ref<string[]>([])
+
   // 构造方法
   constructor(type: string) {
     if (type && API.getProjectType(type) === API.Project.mdx) {
@@ -235,22 +240,30 @@ class Store {
     this.article_url.value = safeGet<string>(result, 'article_url')
     this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
 
-    // 自动刷新逻辑
-    const keys: string[] = Object.keys(result)
-    if (keys.length > 1) {
-      // 定时刷新
-      let time: number
-      if (isLogin.value) {
-        time = parseInt(this.getIntervalTime() as any)
-      } else {
-        time = parseInt((this.getIntervalTime() / 2) as any)
+    // 朋友圈图片
+    this.friendPicture.value = safeGet<string[]>(result, 'wechat_friend_circle') || []
+    // 微信群图片
+    this.chatPicture.value = safeGet<string[]>(result, 'wechat_group') || []
+
+    // growth pad 任务不启动自动刷新
+    if (this.getNickName() !== API.Project.growth) {
+      // 自动刷新逻辑
+      const keys: string[] = Object.keys(result)
+      if (keys.length > 1) {
+        // 定时刷新
+        let time: number
+        if (isLogin.value) {
+          time = parseInt(this.getIntervalTime() as any)
+        } else {
+          time = parseInt((this.getIntervalTime() / 2) as any)
+        }
+        if (time < 3000 || isNaN(time)) {
+          time = 3000
+        }
+        this.timeout = setTimeout(() => {
+          return this.init()
+        }, time)
       }
-      if (time < 3000 || isNaN(time)) {
-        time = 3000
-      }
-      this.timeout = setTimeout(() => {
-        return this.init()
-      }, time)
     }
   }
 
@@ -267,8 +280,18 @@ class Store {
    */
   async init(): Promise<void> {
     this.clearTimeout()
-    const result = await API.getProjectInfo(this.projectName)
-    this.updateData(result)
+    const name: API.Project = this.getNickName()
+    if (name !== API.Project.growth) {
+      const result = await API.getProjectInfo(name)
+      this.updateData(result)
+    } else {
+      const result: any = await API.getGrowthPicture(name)
+      const code = safeGet<number>(result, 'data.code')
+      if (code === 0) {
+        const data = safeGet<object>(result, 'data.data')
+        this.updateData(data)
+      }
+    }
   }
 
   // 设置合约地址
@@ -384,6 +407,40 @@ class Store {
   @postInfoBasis()
   setBunny(value: string) {
     this.info.bunny = value
+  }
+
+  // 上传朋友圈图片
+  async setFriendPicture(picture: string[]): Promise<string[] | void> {
+    this.clearTimeout()
+    try {
+      const query = { wechat_friend_circle: picture }
+      const result: any = await API.setFriendPicture(this.getNickName(), query)
+      const code = safeGet<number>(result, 'data.code')
+      if (code === 0) {
+        const list = safeGet<string[]>(result, 'data.data.wechat_friend_circle')
+        this.friendPicture.value = list
+        return list
+      }
+    } catch (e) {
+      // todo
+    }
+  }
+
+  // 上传朋友圈图片
+  async setChatPicture(picture: string[]): Promise<string[] | void> {
+    this.clearTimeout()
+    try {
+      const query = { wechat_group: picture }
+      const result: any = await API.setChatPicture(this.getNickName(), query)
+      const code = safeGet<number>(result, 'data.code')
+      if (code === 0) {
+        const list: string[] = safeGet<string[]>(result, 'data.data.wechat_group')
+        this.chatPicture.value = list
+        return list
+      }
+    } catch (e) {
+      // todo
+    }
   }
 }
 

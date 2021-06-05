@@ -76,37 +76,53 @@ export const getProjectInfo = async function(project: string): Promise<any> {
   return value
 }
 
-export const setProjectUserInfo = LoginStatus(
-  growthpad.setUserInfo,
-  (project: string, data: any): Promise<any> => {
+type Next = <T>(...args: Array<any>) => Promise<T>
+
+const setData = function(url: string): Next {
+  return LoginStatus(url, (project: string, data: any = {}): Promise<any> => {
     const type = getProjectType(project)
     return request({
-      url: growthpad.setUserInfo,
-      method: 'POST',
-      params: { project: type },
+      url,
       data,
+      params: { project: type },
+      method: url === growthpad.getGrowthPicture ? 'GET' : 'POST',
     })
-  },
-)
+  })
+}
 
-export const setWeiboContent = LoginStatus(
-  growthpad.postArticle,
-  async(project: string, data: FormData): Promise<any> => {
-    const type = getProjectType(project)
-    try {
-      const result = await request({
-        url: growthpad.postArticle,
-        method: 'POST',
-        params: { project: type },
-        data,
-      })
-      const code = safeGet<number>(result, 'data.code')
-      if (parseInt(code as any) !== 0) {
-        return Promise.reject(result)
-      }
-      return result.data
-    } catch (e) {
-      return Promise.reject(e)
-    }
-  },
-)
+// 提交任务信息
+export const setProjectUserInfo = setData(growthpad.setUserInfo)
+
+// 设置微博文章
+export const setWeiboContent = setData(growthpad.postArticle)
+
+// 上传朋友圈数据
+export const setFriendPicture = setData(growthpad.postFriendPicture)
+// 上传微信群数据
+export const setChatPicture = setData(growthpad.postChatPicture)
+// 获取朋友圈与微信群数据
+export const getGrowthPicture = setData(growthpad.getGrowthPicture)
+
+// export const setWeiboContent = LoginStatus(
+//   growthpad.postArticle,
+//   async(project: string, data: FormData): Promise<any> => {
+//     const type = getProjectType(project)
+//     try {
+//       const result = await request({
+//         url: growthpad.postArticle,
+//         method: 'POST',
+//         params: { project: type },
+//         data,
+//       })
+//       const code = safeGet<number>(result, 'data.code')
+//       if (parseInt(code as any) !== 0) {
+//         return Promise.reject(result)
+//       }
+//       return result.data
+//     } catch (e) {
+//       return Promise.reject(e)
+//     }
+//   },
+// )
+
+//

@@ -38,6 +38,7 @@ const data = {
     ],
   },
   taskList: [
+
     // 任务 1
     {
       id: chat.uuid(), // 任务ID
@@ -47,6 +48,7 @@ const data = {
       reward: [4000], // 奖励
       children: [],
     },
+
     // 任务 2
     {
       id: chat.uuid(), // 任务ID
@@ -56,6 +58,9 @@ const data = {
       reward: [8000], // 奖励
       children: [],
     },
+
+
+
     // 任务 3
     {
       id: chat.uuid(),

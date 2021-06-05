@@ -33,7 +33,7 @@ const link = (): string => {
   } else if (name === Project.channels) {
     value = I18n.growthpad.channels.title
   } else if (name === Project.growth) {
-    value = I18n.growthpad.growth.title
+    value = I18n.growthpad.growthpad.title
   } else {
     const $title = document.querySelector('title')
     value = $title.innerText

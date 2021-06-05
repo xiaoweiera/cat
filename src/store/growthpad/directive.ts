@@ -3,8 +3,10 @@
  * @param keywordName 返回数据时搜索框中值对应的键名
  */
 
+import safeGet from '@fengqiaogang/safe-get'
 import { Info, Mission, MissionStatus } from './props'
 import { setProjectUserInfo } from '~/api/growtask'
+import { messageError } from '~/lib/tool'
 interface Query {
   [key: string]: any
 }
@@ -40,10 +42,17 @@ export const postInfo = function(key: string) {
           // @ts-ignore
           mission[key] = MissionStatus.loading // 设置对应任务为检测中状态
         }
-        const result = await setProjectUserInfo(project, data)
-        // 更新数据
-        // @ts-ignore
-        this.updateData(result)
+        const result: any = await setProjectUserInfo(project, data)
+        const code = safeGet<number>(result, 'data.code')
+        if (code === 0) {
+          // @ts-ignore
+          this.updateData(result) // 更新数据
+        } else {
+          const message = safeGet<string[]>(result, 'data.message')
+          messageError(message)
+          // @ts-ignore
+          this.init() // 刷新一次数据
+        }
         return result as any
       } catch (e) {
         console.log(e)

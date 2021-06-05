@@ -267,6 +267,7 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
 
   },
   growthpad: {
+    title: 'Help CoinWind',
     address: {
       placeholder: 'Enter BSC / HECO address',
     },
@@ -300,7 +301,8 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
       active: 'Click Save Picture in wechat to open the big picture and save it manually.'
     },
     share: {
-      link: 'Share the GrowthPad extra 12,000 USDT airdrop reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>'
+      link: 'Share the GrowthPad extra 12,000 USDT airdrop reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>',
+      copy: 'Share the GrowthPad extra 12,000 USDT airdrop reward with simple finger swipes~ Link: {url}'
     }
   }
 };

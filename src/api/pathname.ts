@@ -17,6 +17,10 @@ export const growthpad = {
   getUserInfo: '/api/growthpad/user_info/', // 用户表单信息
   postArticle: '/api/growthpad/article_image/', // 设置微博文章
   setUserInfo: '/api/growthpad/validate_user_info/', // 设置表单信息
+
+  postFriendPicture: '/api/growthpad/growth_friend_circle/', // 朋友圈图片上传
+  postChatPicture: '/api/growthpad/growth_group/', // 微信圈图片上传
+  getGrowthPicture: '/api/growthpad/growth/', // 朋友圈与微信群图片获取
 }
 
 export const res = {
@@ -40,4 +44,7 @@ export const LoginStatus: string[] = [
   growthpad.getUserInfo,
   growthpad.postArticle,
   growthpad.setUserInfo,
+  growthpad.postChatPicture,
+  growthpad.postFriendPicture,
+  growthpad.getGrowthPicture,
 ]

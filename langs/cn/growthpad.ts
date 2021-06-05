@@ -262,6 +262,7 @@ CoinWind 产品会通过组合策略有效降低流动性质押中的无常损�
     },
   },
   growthpad: {
+    title: '助力 CoinWind',
     address: {
       placeholder: '输入参与领取奖励的 BSC / HECO 地址',
     },
@@ -295,7 +296,8 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       active: '在微信中点击保存图片打开大图后手动保存'
     },
     share: {
-      link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 空投奖励~ 链接：<a href="{url}" target="_blank">{url}</a>'
+      link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 空投奖励~ 链接：<a href="{url}" target="_blank">{url}</a>',
+      copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 空投奖励~ 链接：{url}'
     }
   }
 };

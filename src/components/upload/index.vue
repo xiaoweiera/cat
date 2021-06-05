@@ -21,32 +21,39 @@ defineProps({
       return true
     },
   },
+  preview: {
+    type: Boolean,
+    default() {
+      return false
+    },
+  },
 })
 
 const emitEvent = defineEmit(['change', 'remove'])
 
-const previewSrc = ref<string>('')
-
-const preview = function(value: File): Promise<string> {
-  return new Promise((resolve) => {
-    // 读取文件的 base64 值
-    const file = new FileReader()
-    file.onload = function(e) {
-      // 获取 base64 编码
-      const base64: string = e.target.result
-      resolve(base64)
-    }
-    file.readAsDataURL(value)
-  })
-}
+// const previewSrc = ref<string>('')
+//
+// const preview = function(value: File): Promise<string> {
+//   return new Promise((resolve) => {
+//     // 读取文件的 base64 值
+//     const file = new FileReader()
+//     file.onload = function(e) {
+//       // 获取 base64 编码
+//       const base64: string = e.target.result
+//       resolve(base64)
+//     }
+//     file.readAsDataURL(value)
+//   })
+// }
 
 const onUpload = async(file: File): Promise<boolean> => {
   const value = file.raw
   // const src = await preview(value)
   const url = await uploadImage(value)
+  console.log('url : ', url)
   if (url) {
     emitEvent('change', url)
-    previewSrc.value = url
+    // previewSrc.value = url
   }
   return false
 }
@@ -61,7 +68,16 @@ const onRemove = function() {
 </script>
 
 <template>
-  <div class="upload-box relative" :class="size">
+  <div v-if="preview" class="upload-box relative" :class="size">
+    <a v-router="src" class="avatar-uploader cursor-pointer" target="_blank">
+      <span
+        class="preview picture inline-block"
+        :class="size"
+        :style="getStyle(src)"
+      />
+    </a>
+  </div>
+  <div v-else class="upload-box relative" :class="size">
     <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
       <IconFont type="remove"></IconFont>
     </div>

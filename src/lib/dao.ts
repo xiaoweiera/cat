@@ -4,8 +4,10 @@
  */
 
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import safeSet from '@fengqiaogang/safe-set'
 import { ignore } from '~/api/pathname'
 import { getUserTooken } from '~/logic/user/token'
+import { current } from '~/utils/lang'
 
 import urlSome from '~/lib/urlsome'
 
@@ -39,6 +41,8 @@ const Dao = function(option: AxiosRequestConfig | undefined): AxiosInstance {
       if (token) {
         config.headers.Authorization = `Token ${token}`
       }
+      // 设置当前系统语言环境
+      safeSet(config, 'params.lang', current.value)
       return config
     },
     (error) => {
