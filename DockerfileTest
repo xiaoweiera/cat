@@ -1,0 +1,20 @@
+FROM node:lts-alpine as base
+
+FROM base as build-stage
+WORKDIR /build
+RUN npm i -g pnpm
+COPY package*.json pnpm-lock.yaml ./
+RUN npm i
+COPY . .
+RUN npm run test
+
+# production stage
+FROM base as production-stage
+WORKDIR /app
+# 这里指定版本， 用于忽略host的问题
+RUN npm i vite@2.2.3
+COPY package.json ./
+COPY --from=build-stage /build/dist /app/dist
+EXPOSE 5000
+
+CMD ["npm", "run", "preview"]

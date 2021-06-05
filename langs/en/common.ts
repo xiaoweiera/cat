@@ -1,5 +1,5 @@
 export default {
-  login: 'Sign in',
+  login: 'Log In',
   register: 'Sign Up',
   resetPassword: 'Reset Password',
   switchLogin: 'Log In',
@@ -12,6 +12,7 @@ export default {
   phoneForget:'Phone',
   emailForget:'Email',
   lang: 'En',
+  loginOut:'Log Out',
   nav: {
     apply: 'Project Application',
     about: 'About',
@@ -24,6 +25,7 @@ export default {
     ss: 'Seconds'
   },
   button: {
+    copy: 'Copy',
     submit: 'Submit',
     confirm: 'Confirm',
     close: 'Close',
@@ -48,7 +50,7 @@ export default {
     email:'Please enter your email',
     verification: 'Please enter verification code',
     password: 'Please enter the password',
-    new_password: 'Please enter the password'
+    new_password: 'Please enter your password again'
   },
   and: 'And',
   join: 'Join',
@@ -70,6 +72,6 @@ export default {
   },
   symbol: {
     plus: '+',
-    divide: '瓜分'
+    divide: 'Divide '
   }
 }

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
-import { Project } from '~/api/growtask'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
 import { loading, ready } from '~/logic/growthpad/active'
@@ -13,7 +12,8 @@ onBeforeMount(() => ready(store))
 </script>
 <template>
   <div v-show="!loading" class="pb-20">
-    <growthpadTaskDashboard reward-value-title="单人最高可获得" />
+    <growthpadTaskDashboard />
+    <!-- reward-value-title="单人最高可获得"  -->
 
     <div class="pt-15 px-4 md:px-6">
       <growthpadTaskAdress />

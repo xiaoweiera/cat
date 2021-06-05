@@ -134,7 +134,13 @@ const onGetCode = async function() {
         autocomplete="off"
       >
         <template #append>
-          <span class="link hand" @click="onGetCode">{{ codeValue }}</span>
+          <span
+            class="link hand"
+            @click="onGetCode"
+          >{{ codeValue
+          }}<span
+            v-if="codeValue !== I18n.common.message.verification"
+          >s</span></span>
         </template>
       </el-input>
     </el-form-item>
@@ -145,6 +151,7 @@ const onGetCode = async function() {
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
+        show-password
         autocomplete="off"
       >
       </el-input>

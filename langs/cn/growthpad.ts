@@ -109,7 +109,7 @@ export default {
 
   wechat: {
     title: '{project}增长-GrowthPad',
-    desc: '做任务支持{project}，领百万token奖励'
+    desc: '做任务支持{project}，领百万Token奖励'
   },
 
   mdx: {
@@ -140,7 +140,8 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     copyIndex: '动动手指，瓜分 GrowthPad 50万美元奖励~ 链接：{url}',
     share: {
       title: '邀请1名好友参与 GrowthPad 活动，即可瓜分总奖池1%的奖励。',
-      lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%</i>`
+      lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%</i>`,
+      telegram: 'https://t.me/MixDex'
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~300 MDX。（粉丝数不低于2000人，阅读量不低于1000）。`,
@@ -176,6 +177,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
     share: {
+      telegram: 'https://t.me/channels_finance',
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
     },
     about: {
@@ -265,7 +267,35 @@ CoinWind 首发 HECO 生态链，之后将跨多条主链如 ETH、BSC 等运行
     },
     about: {
       detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
+
 GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
+    },
+    dashboard: {
+      desc: '本期 GrowthPad 项目增长活动已入驻 3 家，分别是 MDEX、CoinWind 和 Channels。本期活动总奖池金额为价值 $50 万的 MDX ，其中 MDEX 增长活动奖金 $20万，CoinWind 增长活动奖金 $20万，Channels 增长活动奖金 $10 万。参与本页面 GrowthPad 活动，一起瓜分 12000 USDT 额外奖励。',
+    },
+    task1: {
+      title: '转发下方活动海报+指定文案至微信朋友圈，截图并上传。'
+    },
+    task2: {
+      title: '转发下方指定文案至 200 人以上的币圈微信群，截图并上传，转发群越多，奖励越多。',
+      desc: '您的奖励金额 = 您转发的群数 / 总转发群个数 * 8000 USDT'
+    },
+    button: {
+      save: '保存图片'
+    },
+    label: {
+      upload: '上传图片:',
+      picture: '海报图片:',
+      content: '活动文案:',
+      friends: '上传朋友圈截图:'
+    },
+    tips: {
+      uploadMax: '上传大小不超过2M',
+      portrait: '截图包含您的微信头像，完整的活动海报+文案及发布时间间隔。',
+      active: '在微信中点击保存图片打开大图后手动保存'
+    },
+    share: {
+      link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 空投奖励~ 链接：<a href="{url}" target="_blank">{url}</a>'
     }
   }
 };

@@ -53,3 +53,25 @@ export const setUserToken = function(value?: string) {
     return removeUserToken()
   }
 }
+
+export const getUserTooken = function(): string {
+  const value = jsCookie.get(tokenName)
+  if (value) {
+    return value
+  }
+  const funName = 'getUserToken'
+  // @ts-ignore
+  if (window[funName]) {
+    try {
+      // @ts-ignore
+      const token = window[funName]()
+      if (token) {
+        addUserToken(token)
+        return token
+      }
+    } catch (e) {
+      // todo
+    }
+  }
+  return ''
+}
