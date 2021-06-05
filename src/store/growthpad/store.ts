@@ -307,7 +307,8 @@ class Store {
     this.clearTimeout()
     try {
       const result = await API.setWeiboContent(this.getNickName(), form)
-      this.updateData(result)
+      // 刷新接口
+      this.init().then()
       return result
     } catch (e) {
       this.updateData({})

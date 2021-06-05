@@ -12,17 +12,18 @@ type Next = <T>(...args: Array<any>) => Promise<T>
 
 export const LoginStatus = function(url: string, next: Next): Next {
   const app: Next = function <T>(...args: Array<any>): Promise<T> {
-    const value = getUserTooken()
-    if (value) {
-      const config = { url } as any
-      const status = urlSome(config, urls)
-      if (status) {
-        args.push(url)
+    const config = { url } as any
+    args.push(url)
+    // 当前接口地址是否需要判断登录状态
+    if (urlSome(config, urls)) {
+      // 判断是否登录
+      if (getUserTooken()) {
         return next(...args)
       }
+      // 未登录直接返回空
+      return {} as any
     }
-    const result = {} as any
-    return result
+    return next(...args)
   }
   return app
 }

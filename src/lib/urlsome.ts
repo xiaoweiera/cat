@@ -9,12 +9,12 @@ const urlSome = function(config: AxiosRequestConfig, urls: string[]): boolean {
   // @ts-ignore
   const pathname: string = safeGet<string>(data, 'pathname') || config.url
   const value = pathname.split('?')[0]
-  let flag = true
+  let flag = false
   // 判断当前接口是否为忽略对象
   for (let i = 0, len = urls.length; i < len; i++) {
     const url = urls[i]
     if (url === value || pathname.includes(url)) {
-      flag = false
+      flag = true
       break
     }
   }

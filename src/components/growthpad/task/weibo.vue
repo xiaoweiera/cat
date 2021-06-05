@@ -98,8 +98,7 @@ const submit = async function() {
       })
     }
     if (status) {
-      const res = await store.setWeiboContent(data)
-      console.log(res)
+      await store.setWeiboContent(data)
       messageSuccess(I18n.growthpad.weibo.success)
       // 清除验证结果
       form.clearValidate()
