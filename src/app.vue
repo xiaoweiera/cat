@@ -2,6 +2,7 @@
 import { useHead } from '@vueuse/head'
 import '~/styles/font.css'
 import { useI18n } from 'vue-i18n'
+// @ts-ignore
 const { t } = useI18n()
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,

@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+// @ts-ignore
+import menuData from '~/logic/menu'
+// @ts-ignore
+const inputMenu = ref<boolean>(false)
+</script>
 
 <template>
   <input
     id="nav-mobile-menu"
+    v-model="inputMenu"
     class="nav-menu-status"
     name="nav-mobile-menu"
     type="checkbox"
@@ -14,8 +21,10 @@
     <IconFont class="more-button" type="more" size="2xl"></IconFont>
     <IconFont class="close-button" type="close" size="2xl"></IconFont>
   </label>
-  <div class="nav-menu-box" @scroll.stop.prevent>
-    <div class="nav-menu-main"></div>
+  <div class="nav-menu-box">
+    <div class="nav-menu-main pt-4 px-4" @scroll.stop.prevent="scroll">
+      <HeaderNavitem :list="menuData" index="0"></HeaderNavitem>
+    </div>
   </div>
 </template>
 
@@ -47,7 +56,7 @@
       visibility: visible;
       opacity: 1;
       transform: translate(0, 0);
-      background: #e5e5e5;
+      background: #fff;
     }
   }
 }
