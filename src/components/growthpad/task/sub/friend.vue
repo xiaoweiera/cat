@@ -30,9 +30,7 @@ const onRemove = function(index) {
       </p>
       <div class="mt-3">
         <el-button type="primary" round size="small">
-          {{
-            I18n.growthpad.growthpad.button.save
-          }}
+          {{ I18n.growthpad.growthpad.button.save }}
         </el-button>
       </div>
     </div>
@@ -53,9 +51,7 @@ const onRemove = function(index) {
     </div>
     <div class="ml-3">
       <el-button type="primary" round size="small">
-        {{
-          I18n.common.button.copy
-        }}
+        {{ I18n.common.button.copy }}
       </el-button>
     </div>
   </div>
@@ -88,9 +84,7 @@ const onRemove = function(index) {
       ></Upload>
       <div class="inline-block ml-3">
         <el-button type="primary" round size="small">
-          {{
-            I18n.common.button.submit
-          }}
+          {{ I18n.common.button.submit }}
         </el-button>
       </div>
     </div>

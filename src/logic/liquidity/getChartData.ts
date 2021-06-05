@@ -25,9 +25,9 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
   const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.35216 5.53165L5.03262 8.17072C4.77853 8.6789 4.25914 8.9999 3.69098 8.9999H1.33333C0.781043 8.9999 0.333328 8.55219 0.333328 7.9999C0.333328 7.44762 0.781043 6.9999 1.33333 6.9999H3.38196L5.53045 2.70293C6.02868 1.70646 7.49773 1.86772 7.76793 2.94854L9.64783 10.4682L10.9674 7.82908C11.2215 7.32091 11.7409 6.9999 12.309 6.9999H14.6667C15.2189 6.9999 15.6667 7.44762 15.6667 7.9999C15.6667 8.55219 15.2189 8.9999 14.6667 8.9999H12.618L10.4695 13.2969C9.9713 14.2934 8.50226 14.1321 8.23206 13.0513L6.35216 5.53165Z" fill="${color}"/>
       </svg>`
-  const svg
-    = `data:image/svg+xml;base64,${
-      window.btoa(unescape(encodeURIComponent(origin)))}`
+  const svg = `data:image/svg+xml;base64,${window.btoa(
+    unescape(encodeURIComponent(origin)),
+  )}`
 
   return `<p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;" class='flex items-center'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><span class="ml-1">${item}</span> </p>`
 }
@@ -78,18 +78,12 @@ const formatYData = (item: any, isKline: boolean) => {
   return [
     {
       name: item.name,
-      type: item.type === 'bar'
-        ? 'bar'
-        : 'line',
+      type: item.type === 'bar' ? 'bar' : 'line',
       symbol: 'none',
       barGap: '0%',
       barCategoryGap: '35%',
-      areaStyle: item.type === 'area'
-        ? area
-        : null,
-      yAxisIndex: isKline
-        ? 1
-        : 0,
+      areaStyle: item.type === 'area' ? area : null,
+      yAxisIndex: isKline ? 1 : 0,
       connectNulls: true,
       smooth: true,
       itemStyle: {

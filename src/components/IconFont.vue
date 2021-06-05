@@ -22,6 +22,9 @@ const props = defineProps({
 })
 // @ts-ignore
 const src = computed(() => {
+  if (/\//.test(props.type) && /\./.test(props.type)) {
+    return props.type
+  }
   return `${picture}/${props.type}.${props.suffix}`
 })
 </script>

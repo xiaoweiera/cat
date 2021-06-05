@@ -5,6 +5,7 @@
 
 import urlSome from '~/lib/urlsome'
 import { getUserTooken } from '~/logic/user/token'
+// @ts-ignore
 import { LoginStatus as urls } from '~/api/pathname'
 
 type Next = <T>(...args: Array<any>) => Promise<T>

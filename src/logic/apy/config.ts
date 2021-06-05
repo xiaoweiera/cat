@@ -105,12 +105,18 @@ export const chainConfig = [
     name: 'BSC',
     img: 'https://res.ikingdata.com/nav/apyBsc.png',
   },
-  {
-    select: false,
-    key: 'hsc',
-    name: 'HSC',
-    img: 'https://res.ikingdata.com/nav/apyHsc.png',
-  },
+  // {
+  //   select: false,
+  //   key: 'oec',
+  //   name: 'OEC',
+  //   img: 'https://res.ikingdata.com/nav/apyOec.png',
+  // },
+  // {
+  //   select: false,
+  //   key: 'hsc',
+  //   name: 'HSC',
+  //   img: 'https://res.ikingdata.com/nav/apyHsc.png',
+  // },
 ]
 export const chartsConfig = {
   lend: [

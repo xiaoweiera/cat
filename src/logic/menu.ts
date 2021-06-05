@@ -1,4 +1,4 @@
-interface Menu {
+export interface Menu {
   name: string
   key?: string
   icon?: string
@@ -9,7 +9,7 @@ interface Menu {
   children?: Menu[]
 }
 
-const menu: Menu[] = [
+export const menu: Menu[] = [
   {
     name: 'DeFi 数据分析',
     children: [
@@ -227,3 +227,5 @@ const menu: Menu[] = [
     ],
   },
 ]
+
+export default menu

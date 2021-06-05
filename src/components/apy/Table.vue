@@ -187,13 +187,13 @@ const getValue = (data: any, i) => {
                     </div>
                   </div>
                   <div class="flex mt-2 items-center">
-                    <div class="tableItemType">
-                      <span v-if="props.index == 0">{{ I18n.apy.vaults }}</span>
-                      <span v-else>{{ I18n.apy.lendPlat }}</span>
-                    </div>
+                    <!--                    <div class="tableItemType">-->
+                    <!--                      <span v-if="props.index == 0">{{ I18n.apy.vaults }}</span>-->
+                    <!--                      <span v-else>{{ I18n.apy.lendPlat }}</span>-->
+                    <!--                    </div>-->
                     <div
                       v-if="props.chains === 'all'"
-                      class="tableItemTypePlat ml-2"
+                      class="tableItemTypePlat"
                       :style="{
                         background: getPlatInfo(scope.row.chain).bgcolor,
                         color: getPlatInfo(scope.row.chain).color,
@@ -374,10 +374,10 @@ const getValue = (data: any, i) => {
   padding: 8px 0;
 }
 .tableItemType {
-  @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary;
+  @apply font-normal rounded  w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px text-global-primary;
 }
 .tableItemTypePlat {
-  @apply font-normal rounded h-4.5 w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px;
+  @apply font-normal rounded  w-max   px-1 py-0.4  bg-global-primary bg-opacity-10 text-kd10px14px;
 }
 ::v-deep(.el-table th.gutter) {
   display: table-cell !important;
