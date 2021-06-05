@@ -4,6 +4,7 @@ import I18n from '~/utils/i18n/index'
 import { wxShare } from '~/lib/wxShare'
 import { userData } from '~/logic/user/login'
 import { platList } from '~/logic/growthpad/index'
+import { headerTag } from '~/store/header/login'
 const positionContainer = ref(null)
 const video = ref(null)
 const videoMap = () => {
@@ -14,6 +15,7 @@ const videoMap = () => {
   video.value.style.display = 'block'
 }
 onMounted(async() => {
+  headerTag.value = 'GrowthPad'
   videoMap()
   window.onresize = () => {
     videoMap()

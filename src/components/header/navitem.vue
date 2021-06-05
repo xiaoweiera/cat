@@ -60,7 +60,7 @@ const isChildren = (data: any): boolean => {
           :class="className"
           :for="inputName(key)"
         >
-          <a v-router="item.href" class="flex">
+          <a :v-router="item.children ? '' : item.href" class="block">
             <IconFont
               v-if="item.icon"
               :type="item.icon"

@@ -10,6 +10,7 @@ import {
   chartsConfig,
 } from '~/logic/apy/config'
 import { wxShare } from '~/lib/wxShare'
+import { headerTag } from '~/store/header/login'
 const { chains } = defaultChains(chainConfig)
 const chainParam = ref('')
 // @ts-ignore
@@ -109,6 +110,7 @@ watch(
 )
 const selectedMobileAnchor = reactive({ name: '机枪池APY' })
 onMounted(() => {
+  headerTag.value = I18n.nav.defi.apy.name
   wxShare(
     'DeFi挖矿收益APY大全',
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',

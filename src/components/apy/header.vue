@@ -6,6 +6,7 @@ import I18n from '~/utils/i18n/index'
 import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
+import { headerTag } from '~/store/header/login'
 // 获取当前路由对象
 const router = useRoute()
 
@@ -67,7 +68,11 @@ onBeforeMount(() => {
                 >
                   <div class="flex flex-col">
                     <template v-for="child in item.children">
-                      <div class="mtNthOne flex items-center relative">
+                      <a
+                        :href="child.href ? child.href : 'javascript:void(0)'"
+                        :target="child.href ? '_blank' : '_self'"
+                        class="mtNthOne flex items-center relative hoverHover"
+                      >
                         <img :src="child.icon" alt="" />
                         <div class="flex flex-col ml-2.5">
                           <img
@@ -76,10 +81,28 @@ onBeforeMount(() => {
                             src="https://res.ikingdata.com/nav/navOnLineTip.jpg"
                             alt=""
                           />
-                          <span class="childName">{{ child.name }}</span>
+                          <div class="flex items-center">
+                            <span
+                              :class="
+                                child.name === headerTag
+                                  ? 'selectName'
+                                  : 'childName'
+                              "
+                            >{{ child.name }}</span>
+                            <img
+                              :class="
+                                child.name === headerTag
+                                  ? 'selectName'
+                                  : 'imgShow'
+                              "
+                              class="w-3 ml-1"
+                              src="https://res.ikingdata.com/nav/navRight.jpg"
+                              alt=""
+                            />
+                          </div>
                           <span class="desc">{{ child.desc }}</span>
                         </div>
-                      </div>
+                      </a>
                     </template>
                   </div>
                 </div>
@@ -92,6 +115,12 @@ onBeforeMount(() => {
   </HeaderNav>
 </template>
 <style lang="postcss" scoped>
+.hoverShow {
+  display: block;
+}
+.imgShow {
+  display: none;
+}
 ::v-deep(.el-popover) {
   padding: 100px !important;
 }
@@ -99,7 +128,7 @@ onBeforeMount(() => {
   @apply mt-5.25;
 }
 .desc {
-  @apply text-global-default opacity-65 text-kd12px16px;
+  @apply text-global-default opacity-65 text-kd12px16px font-normal;
 }
 .selectName {
   @apply text-global-primary  font-medium text-kd15px150;
@@ -123,7 +152,15 @@ onBeforeMount(() => {
 .oneHeaderItem {
   @apply text-global-default opacity-85 mb-2 flex items-center;
 }
-
+.hoverHover:hover {
+  .imgShow {
+    display: block;
+  }
+  .childName {
+    @apply text-global-primary  font-medium text-kd15px150;
+  }
+  @apply text-global-primary  font-medium text-kd15px150;
+}
 .tool {
   padding: 6px 0px;
 }

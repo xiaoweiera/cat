@@ -42,23 +42,20 @@ onMounted(async() => {
         items-center
       "
     >
-      <!-- 新版登录 -->
-
-      <IconFont type="user" size="3xl" @click.stop="goLogin"></IconFont>
-      <!-- 旧版登录 -->
-      <!--
-      <span class="whitespace-nowrap" @click.stop="goLogin">{{
-        I18n.common.login
-      }}</span>
-      <img
-        class="w-0.5 h-0.5 ml-1 mr-1 Z"
-        src="https://res.ikingdata.com/nav/dian.png"
-        alt=""
-      />
-      <span class="whitespace-nowrap" @click.stop="goRegister">{{
-        I18n.common.register
-      }}</span>
-      -->
+      <!-- 没有登录 -->
+      <div class="flex items-center">
+        <span class="whitespace-nowrap" @click.stop="goLogin">{{
+          I18n.common.login
+        }}</span>
+        <img
+          class="w-0.5 h-0.5 ml-1 mr-1 Z"
+          src="https://res.ikingdata.com/nav/dian.png"
+          alt=""
+        />
+        <span class="whitespace-nowrap" @click.stop="goRegister">{{
+          I18n.common.register
+        }}</span>
+      </div>
     </div>
     <ElDialog
       v-model="visible"
