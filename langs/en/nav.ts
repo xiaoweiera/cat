@@ -49,7 +49,7 @@ export default {
             href:'https://kingdata.com?utm_source=https://kingdata.com',
             children:{
                 chart:{name:'我的图表',href:'https://kingdata.com/topic?tagID=item&topicID=my&utm_source=https://kingdata.com'},
-                recommad:{name:'精选推荐',href:'https://kingdata.com/topic?tagID=item&topicID=my&utm_source=https://kingdata.com'},
+                recommad:{name:'精选推荐',href:'https://kingdata.com/topic?tagID=item&topicID=0&utm_source=https://kingdata.com'},
                 special:{
                     name:'特色数据',
                     children:{
@@ -133,7 +133,7 @@ export default {
         nav: {
             name:'Data Website Navigation',
             desc:'Blockchain data analysis resource website',
-            href:'https://nav.kingdata.com/nav?utm_source=https://kingdata.com'
+            href:'https://nav.ikingdata.com/nav?utm_source=https://kingdata.com'
         }
     }
 
