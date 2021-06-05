@@ -5,7 +5,7 @@
     "precommit": "sh scripts/precommit.sh",
     "dev": "vite --port 3333",
     "build": "cross-env NODE_ENV=production vite build",
-    "test": "cross-env NODE_ENV=development vite build",
+    "test": "vite build --mode development",
     "preview": "vite preview",
     "preview-https": "serve dist",
     "serve": "vite serve --host 0.0.0.0",

@@ -19,9 +19,13 @@ export const production: Env = {
 let mode = 'production'
 
 try {
-  mode = import.meta.env.MODE
+  // mode = import.meta.env.MODE
+  // @ts-ignore
+  mode = process.env.NODE_ENV
 } catch (e) {
   mode = 'production'
 }
+
+console.log('mode = %s', mode)
 
 export const env: Env = mode === 'production' ? production : development
