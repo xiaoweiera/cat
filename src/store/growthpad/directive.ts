@@ -44,7 +44,7 @@ export const postInfo = function(key: string) {
         // 更新数据
         // @ts-ignore
         this.updateData(result)
-        return result
+        return result as any
       } catch (e) {
         console.log(e)
         return Promise.reject(e)

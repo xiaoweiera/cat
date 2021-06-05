@@ -5,8 +5,9 @@
 
 import { toUpper } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
-import request from '~/lib/devRequest'
-
+import request from '~/lib/service'
+import { growthpad } from '~/api/pathname'
+import { LoginStatus } from '~/logic/user/check'
 export enum Project {
   mdx = 'MDX',
   channels = 'CHANNELS',
@@ -38,29 +39,30 @@ export const projectDetail = async function(project: string): Promise<any> {
     if (_projectInfoData && _projectInfoData[project]) {
       return Promise.resolve(_projectInfoData[project])
     }
-    const result = await request.get('/api/growthpad/project_info/', {
+    const result = await request.get(growthpad.getProject, {
       params: { project },
     })
     const data = safeGet(result, 'data.data')
     _projectInfoData[project] = data
     return data
   } catch (e) {
-    console.log(e)
     return {}
   }
 }
 // 用户完成任务的信息
-const projectInfo = async function(project: string): Promise<any> {
-  try {
-    const result = await request.get('/api/growthpad/user_info/', {
-      params: { project },
-    })
-    return safeGet(result, 'data.data')
-  } catch (e) {
-    console.log(e)
-    return {}
-  }
-}
+const projectInfo = LoginStatus(
+  growthpad.getUserInfo,
+  async(project: string): Promise<any> => {
+    try {
+      const result = await request.get(growthpad.getUserInfo, {
+        params: { project },
+      })
+      return safeGet(result, 'data.data')
+    } catch (e) {
+      return {}
+    }
+  },
+)
 
 export const getProjectInfo = async function(project: string): Promise<any> {
   const type = getProjectType(project)
@@ -74,38 +76,37 @@ export const getProjectInfo = async function(project: string): Promise<any> {
   return value
 }
 
-export const setProjectUserInfo = function(
-  project: string,
-  data: any,
-): Promise<any> {
-  const url = '/api/growthpad/validate_user_info/'
-  const type = getProjectType(project)
-  return request({
-    url,
-    method: 'POST',
-    params: { project: type },
-    data,
-  })
-}
-
-export const setWeiboContent = async function(
-  project: string,
-  data: FormData,
-): Promise<any> {
-  const type = getProjectType(project)
-  try {
-    const result = await request({
-      url: '/api/growthpad/article_image/',
+export const setProjectUserInfo = LoginStatus(
+  growthpad.setUserInfo,
+  (project: string, data: any): Promise<any> => {
+    const type = getProjectType(project)
+    return request({
+      url: growthpad.setUserInfo,
       method: 'POST',
       params: { project: type },
       data,
     })
-    const code = safeGet<number>(result, 'data.code')
-    if (parseInt(code as any) !== 0) {
-      return Promise.reject(result)
+  },
+)
+
+export const setWeiboContent = LoginStatus(
+  growthpad.postArticle,
+  async(project: string, data: FormData): Promise<any> => {
+    const type = getProjectType(project)
+    try {
+      const result = await request({
+        url: growthpad.postArticle,
+        method: 'POST',
+        params: { project: type },
+        data,
+      })
+      const code = safeGet<number>(result, 'data.code')
+      if (parseInt(code as any) !== 0) {
+        return Promise.reject(result)
+      }
+      return result.data
+    } catch (e) {
+      return Promise.reject(e)
     }
-    return result.data
-  } catch (e) {
-    return Promise.reject(e)
-  }
-}
+  },
+)

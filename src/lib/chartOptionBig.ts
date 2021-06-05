@@ -93,9 +93,7 @@ const yAxisKline = (yFormat: any, min: number, max: number, unit: string) => {
       type: 'value',
       min,
       max,
-      interval: min === max
-        ? max / 4
-        : (max - min) / 4,
+      interval: min === max ? max / 4 : (max - min) / 4,
       axisLabel: {
         fontSize: 12,
         textStyle: {

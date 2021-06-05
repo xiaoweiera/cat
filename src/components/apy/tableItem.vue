@@ -48,6 +48,7 @@ const getValue = (data: any, i) => {
         return unitList[data.name]?.unit + data.value
       else return data.value + unitList[data.name]?.unit
     }
+    if (data.name === 'Remaining ratio') return `${data.value}%`
     return data.value
   }
 }

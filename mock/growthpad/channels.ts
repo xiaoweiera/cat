@@ -23,7 +23,7 @@ import * as chat from './chat'
 const token = 'USDT'
 const Project = channelsInfo.title
 const website = 'channels.finance'
-const telegramHref = 'https://t.me/channels_finance'
+const telegramHref = I18n.growthpad.channels.share.telegram
 const twitterHref = 'https://twitter.com/ChannelsFinance'
 const sinaHref = 'https://weibo.com/u/7542695920?is_all=1'
 
@@ -94,7 +94,8 @@ const data = {
             value: I18n.growthpad.warning.telegram
           }),
           telegramHref,
-          [10]
+          [10],
+          I18n.growthpad.chat.speak
         ),
         twitter(
           Project,
@@ -134,7 +135,8 @@ const data = {
             value: I18n.growthpad.warning.telegram
           }),
           telegramHref,
-          [10]
+          [10],
+          I18n.growthpad.chat.speak
         ),
         twitter(
           Project,
@@ -174,7 +176,8 @@ const data = {
             value: I18n.growthpad.warning.telegram
           }),
           telegramHref,
-          [10]
+          [10],
+          I18n.growthpad.chat.speak
         ),
         twitter(
           Project,

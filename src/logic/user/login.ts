@@ -5,7 +5,9 @@
 
 import * as R from 'ramda'
 import { reactive, ref, toRaw } from 'vue'
+import safeGet from '@fengqiaogang/safe-get'
 import * as user from '~/api/user'
+
 interface UserData {
   area_code: number
   avatar_url: string
@@ -112,24 +114,28 @@ export const logoMailForm = ref<any>(null)
 
 export const forgetForm = ref<any>(null)
 export const forgetMailForm = ref<any>(null)
+// 更新用户信息
 const update = function(result: UserData): void {
-  userData.area_code = result.area_code
-  userData.avatar_url = result.avatar_url
-  userData.expired_at = result.expired_at
-  userData.follow_charts_count = result.follow_charts_count
-  userData.follow_posts_count = result.follow_posts_count
-  userData.follow_push_enabled = result.follow_push_enabled
-  userData.follow_topics_count = result.follow_topics_count
-  userData.invited_count = result.invited_count
-  userData.is_vip = result.is_vip
-  userData.mobile = result.mobile
-  userData.my_invitation_code = result.my_invitation_code
-  userData.nickname = result.nickname
-  userData.recommend_push_enabled = result.recommend_push_enabled
-  userData.registration_rank = result.registration_rank
-  userData.username = result.username
-  userData.growthpad_invited_count = result.growthpad_invited_count
-  isLogin.value = true
+  userData.area_code = safeGet<number>(result, 'area_code')
+  userData.avatar_url = safeGet<string>(result, 'avatar_url')
+  userData.expired_at = safeGet<number>(result, 'expired_at')
+  userData.follow_charts_count = safeGet<number>(result, 'follow_charts_count')
+  userData.follow_posts_count = safeGet<number>(result, 'follow_posts_count')
+  userData.follow_push_enabled = safeGet<boolean>(result, 'follow_push_enabled')
+  userData.follow_topics_count = safeGet<number>(result, 'follow_topics_count')
+  userData.invited_count = safeGet<number>(result, 'invited_count')
+  userData.is_vip = !!safeGet<boolean>(result, 'is_vip')
+  userData.mobile = safeGet<string>(result, 'mobile')
+  userData.my_invitation_code = safeGet<string>(result, 'my_invitation_code')
+  userData.nickname = safeGet<string>(result, 'nickname')
+  userData.recommend_push_enabled = safeGet(result, 'recommend_push_enabled')
+  userData.registration_rank = safeGet(result, 'registration_rank')
+  userData.username = safeGet<string>(result, 'username')
+  userData.growthpad_invited_count = safeGet<number>(
+    result,
+    'growthpad_invited_count',
+  )
+  isLogin.value = !!safeGet<boolean>(result, 'nickname')
 }
 
 export const logout = async function(): Promise<void> {
@@ -152,6 +158,7 @@ export const syncUser = async function(): Promise<void> {
     update(result as UserData)
     return
   } catch (e) {
+    console.log(e)
     // todo
   }
   isLogin.value = false

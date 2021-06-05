@@ -57,6 +57,11 @@ const getSecond = function(duration: number): string {
   const number = parseInt(((duration / 1000) % 60) as any, 10)
   return number < 10 ? `0${number}` : String(number)
 }
+const imgs = {
+  MDEX: 'https://res.ikingdata.com/nav/mdexStatus.png',
+  CoinWind: 'https://res.ikingdata.com/nav/coinwindStatus.png',
+  Channels: 'https://res.ikingdata.com/nav/channelsStatus.png',
+}
 // 倒计时
 let intemout: any
 const timeout = () => {
@@ -137,7 +142,11 @@ timeout()
             I18n.growthpadShow.timeLeft
           }}</span>
         </div>
-        <div v-if="props.status !== 'closure'" class="itemTxt">
+        <div
+          v-if="props.status !== 'closure'"
+          class="itemTxt"
+          :class="props.status + 'Color'"
+        >
           <div class="flex items-end">
             <div class="tiemNum">{{ day }}</div>
             <div class="times">
@@ -167,16 +176,25 @@ timeout()
     </div>
     <img
       v-if="props.status !== 'closure'"
-      class="w-46 absolute top-4 right-0"
-      src="https://res.ikingdata.com/nav/growthpaNoOverTip.png"
+      class="w-40 absolute top-4 right-5"
+      :src="imgs[props.project.title]"
       alt=""
     />
   </div>
 </template>
 
 <style scoped>
+.ingColor {
+  color: #0ec674;
+}
+.waitColor {
+  color: #2b8dfe;
+}
+.closureColor {
+  color: #2b8dfe !important;
+}
 .itemTxt {
-  @apply ml-8 flex text-left items-center justify-center text-global-primary;
+  @apply ml-8 flex text-left items-center justify-center;
 }
 .projectNum {
   @apply ml-8 text-kd14px18px font-kdExp text-global-default;

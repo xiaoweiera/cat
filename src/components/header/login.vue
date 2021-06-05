@@ -16,8 +16,6 @@ import {
 import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
 import { areaCode } from '~/api/user'
 
-// 刷新用户信息
-syncUser()
 const outLogin = ref(false)
 const areaCodes = ref([])
 const mouseover = () => {
@@ -33,6 +31,8 @@ const handleClose = function(next) {
   return next()
 }
 onMounted(async() => {
+  // 刷新用户信息
+  syncUser()
   areaCodes.value = await areaCode()
 })
 </script>
@@ -41,6 +41,7 @@ onMounted(async() => {
   <div v-if="!isLogin">
     <div
       class="
+        ml-7.5
         hand
         text-global-default
         opacity-85
@@ -50,7 +51,9 @@ onMounted(async() => {
         items-center
       "
     >
+      <!-- 新版登录 -->
       <IconFont type="user" size="3xl" @click.stop="goLogin"></IconFont>
+      <!-- 旧版登录 -->
       <!--
       <span class="whitespace-nowrap" @click.stop="goLogin">{{
         I18n.common.login
@@ -227,7 +230,9 @@ onMounted(async() => {
         src="https://res.ikingdata.com/nav/outLogin.png"
         alt=""
       />
-      <div class="text-kd14px16px ml-2 w-10 flex">退出</div>
+      <div class="text-kd14px16px ml-2 w-10 flex">
+        {{ I18n.common.loginOut }}
+      </div>
     </div>
   </div>
 </template>

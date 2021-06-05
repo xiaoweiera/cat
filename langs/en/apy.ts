@@ -43,10 +43,10 @@ export default {
     times: {
         week: 'Week',
         month: 'Month',
-        more: '3 months',
-        custom: 'custom',
-        begin: 'start',
-        end: 'end'
+        more: '3 Months',
+        custom: 'Custom',
+        begin: 'Start',
+        end: 'End'
     },
     marks: {
         tvl: 'TVL',
@@ -78,11 +78,10 @@ export default {
         streeChartTitle: 'Comparison of total deposits on different platforms'
     },
     jkTable: {
-        title: 'Loan interest Comparison  on different lending platforms',
+        title: 'Loan interest Comparison on DeFi lending platforms',
         option: {
-            interest: 'interest',
+            interest: 'Interest',
             InterestBear: 'Interest-bearing',
-
             available: 'Available for loan',
             borrowed: 'Borrowed',
             remainRatio: 'Remaining ratio'

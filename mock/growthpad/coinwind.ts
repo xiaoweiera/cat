@@ -70,7 +70,9 @@ const data = {
         chat.telegram(
           Project,
           I18n.growthpad.warning.telegram,
-          telegramHref
+          telegramHref,
+          [],
+          I18n.growthpad.chat.speak
         ),
         chat.twitter(
           Project,
@@ -100,7 +102,8 @@ const data = {
           Project,
           I18n.growthpad.warning.telegram,
           telegramHref,
-          [1]
+          [1],
+          I18n.growthpad.chat.speak
         ),
         chat.twitter(
           Project,
@@ -133,7 +136,8 @@ const data = {
           Project,
           I18n.growthpad.warning.telegram,
           telegramHref,
-          [1]
+          [1],
+          I18n.growthpad.chat.speak
         ),
         chat.twitter(
           Project,
@@ -166,7 +170,8 @@ const data = {
           Project,
           I18n.growthpad.warning.telegram,
           telegramHref,
-          [1]
+          [1],
+          I18n.growthpad.chat.speak
         ),
         chat.twitter(
           Project,

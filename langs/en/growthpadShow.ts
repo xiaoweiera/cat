@@ -16,7 +16,7 @@ export default {
     partners: 'Partners',
     reward: 'Rewards',
     values: 'Values',
-    perPersion: 'The Max Amount Per Person',
+    perPersion: 'Max Reward',
     timeLeft: 'TimeLeft',
     day:'Days',
     hour: 'Hours',

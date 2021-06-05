@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue'
-import { useHead } from '@vueuse/head'
+import { ref } from 'vue'
+// @ts-ignore
 import { current, nextLang, href } from '~/utils/lang'
+// @ts-ignore
 import I18n from '~/utils/i18n/index'
-
+// @ts-ignore
 const download = ref<string>('https://www.ikingdata.com/download')
-
+// @ts-ignore
 const onSwitchLang = function() {
   const url = href(window.location.href, nextLang())
   if (url) {
+    // @ts-ignore
     window.location.href = url
   }
 }
@@ -32,19 +34,24 @@ const onSwitchLang = function() {
     "
   >
     <div class="md:hidden">
-      <!-- 移动端导航条 -->
       <HeaderMobile></HeaderMobile>
     </div>
     <div class="flex items-center">
       <a class="block" href="https://www.kingdata.com" target="_blank">
-        <img src="/assets/logo.svg" alt="KingData" class="flex-none" />
+        <img src="/assets/logo.svg" alt="KingData" class="nav-logo" />
       </a>
-      <div class="ml-12 hidden md:flex md:items-center">
-        <!--PC端导航-->
-        <HeaderPc></HeaderPc>
-        <div class="ml-20 flex-grow items-center text-global-default">
-          <slot name="nav" :lang="current"></slot>
-        </div>
+      <div
+        class="
+          ml-20
+          flex-grow
+          items-center
+          text-global-default
+          hidden
+          md:flex
+          pr-8
+        "
+      >
+        <slot name="nav" :lang="current"></slot>
       </div>
     </div>
     <div>
@@ -82,6 +89,10 @@ const onSwitchLang = function() {
   </nav>
 </template>
 <style scoped lang="scss">
+.nav-logo {
+  width: 113px;
+  min-width: 113px;
+}
 $height: 72px;
 .headerBg {
   height: $height;
