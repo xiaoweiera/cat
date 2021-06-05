@@ -25,14 +25,14 @@ const list = computed(() => {
 // @ts-ignore
 const title = computed<string>((): string => {
   // @ts-ignore
-  if (store.projectName === Project.coinwind) {
+  if (store.projectName === Project.mdx) {
     // @ts-ignore
-    return store.title.value
+    return I18n.template(I18n.growthpad.about.title, {
+      project: store.title.value,
+    })
   }
   // @ts-ignore
-  return I18n.template(I18n.growthpad.about.title, {
-    project: store.title.value,
-  })
+  return store.title.value
 })
 </script>
 

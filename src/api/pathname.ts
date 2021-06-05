@@ -19,6 +19,10 @@ export const growthpad = {
   setUserInfo: '/api/growthpad/validate_user_info/', // 设置表单信息
 }
 
+export const res = {
+  image: '/api/image-storage/',
+}
+
 // 忽略的接口地址，不传用户登录信息
 export const ignore: string[] = [
   user.login,
@@ -31,6 +35,7 @@ export const ignore: string[] = [
 
 // 判断登陆状态，已登陆状态下才发起请求
 export const LoginStatus: string[] = [
+  res.image,
   user.info,
   growthpad.getUserInfo,
   growthpad.postArticle,

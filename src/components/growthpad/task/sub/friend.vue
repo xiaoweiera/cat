@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 import I18n from '~/utils/i18n/index'
 
-const uploadImages = ref<string[]>([])
+const uploadImages = ref<string[]>([
+  'https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/927eee1e50c5f7a4fccf060ba87a62c6.jpg',
+])
 
 const onChange = function(value, index): void {
   console.log(index, value)

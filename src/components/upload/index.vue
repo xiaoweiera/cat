@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmit } from 'vue'
+import { uploadImage } from '~/api/res'
 
 defineProps({
   size: {
@@ -41,9 +42,12 @@ const preview = function(value: File): Promise<string> {
 
 const onUpload = async(file: File): Promise<boolean> => {
   const value = file.raw
-  const src = await preview(value)
-  emitEvent('change', src)
-  previewSrc.value = src
+  // const src = await preview(value)
+  const url = await uploadImage(value)
+  if (url) {
+    emitEvent('change', url)
+    previewSrc.value = url
+  }
   return false
 }
 
