@@ -8,52 +8,63 @@ export default {
         name:'DeFi Data Analysis',
         apy: {
             name:'APY List',
-            desc:'Quickly find high-yield mining pools'
+            desc:'Quickly find high-yield mining pools',
+            href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
         },
         liquidity: {
             name:'DeFi Liquidity Analysis',
-            desc:'DEX Liquidity Analysis'
+            desc:'DEX Liquidity Analysis',
+            href:''
         },
         quotes: {
             name:'DeFi Quotes and Trading',
-            desc:'Professional K-line chart and aggregate trading'
+            desc:'Professional K-line chart and aggregate trading',
+            href:''
         },
     },
     service:{
         name:'Project Data Service',
         growthPad: {
             name:'GrowthPad',
-            desc:'Do tasks to receive rewards'
+            desc:'Do tasks to receive rewards',
+            href:'https://kingdata.com/growthpad'
         }
     },
     analysis:{
         name:'Project Data Monitoring and Analysis',
         hData: {
             name:'24H Data Monitoring and Forewarning',
-            desc:'Receive notifications of changes at all times and discover market opportunities'
+            desc:'Receive notifications of changes at all times and discover market opportunities',
+            href:'https://kingdata.com/news'
+
         },
         chart: {
             name:'Project Data Chart',
-            desc:'Data-driven trading, discover wealth one step ahead'
+            desc:'Data-driven trading, discover wealth one step ahead',
+            href:'https://ikingdata.com/'
         },
         report: {
             name:'Research Report',
-            desc:'In-depth Analysis'
+            desc:'In-depth Analysis',
+            href:'https://ikingdata.com/reports/'
         }
     },
     dataTools:{
         name:'Data Tools',
         top: {
             name:'Top of Plate',
-            desc:'Choose the track, buy the top'
+            desc:'Choose the track, buy the top',
+            href:'https://ikingdata.com/bull/'
         },
         history: {
             name:'Today in History',
-            desc:'History is always surprisingly similar'
+            desc:'History is always surprisingly similar',
+            href:'https://ikingdata.com/tih/'
         },
         nav: {
             name:'Data Website Navigation',
-            desc:'Blockchain data analysis resource website'
+            desc:'Blockchain data analysis resource website',
+            href:'https://nav.ikingdata.com/nav/'
         }
     }
 

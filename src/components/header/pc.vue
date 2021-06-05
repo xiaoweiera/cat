@@ -22,7 +22,11 @@ import I18n from '~/utils/i18n/index'
         <div class="twoMl">
           <div class="mb-0.25">{{ item.name }}</div>
           <template v-for="child in item.children">
-            <div class="mt-5 flex items-center relative">
+            <a
+              v-router="child.href"
+              target="_blank"
+              class="mt-5 flex items-center relative"
+            >
               <img :src="child.icon" alt="" />
               <div class="flex flex-col ml-2.5">
                 <img
@@ -34,7 +38,7 @@ import I18n from '~/utils/i18n/index'
                 <span class="childName">{{ child.name }}</span>
                 <span class="desc">{{ child.desc }}</span>
               </div>
-            </div>
+            </a>
           </template>
         </div>
       </template>

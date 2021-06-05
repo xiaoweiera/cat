@@ -8,52 +8,62 @@ export default {
         name:'DeFi 数据分析',
         apy: {
             name:'APY大全',
-            desc:'快速发现高收益矿池'
+            desc:'快速发现高收益矿池',
+            href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
         },
         liquidity: {
             name:'DeFi流动性分析',
-            desc:'DEX流动性分析'
+            desc:'DEX流动性分析',
+            href:''
         },
         quotes: {
             name:'DeFi行情与交易',
-            desc:'专业的K线图和聚合交易'
+            desc:'专业的K线图和聚合交易',
+            href:''
         },
     },
     service:{
         name:'企业数据服务',
         growthPad: {
             name:'GrowthPad',
-            desc:'做任务赢奖励'
+            desc:'做任务赢奖励',
+            href:'https://kingdata.com/growthpad'
         }
     },
     analysis:{
         name:'项目数据监控与分析',
         hData: {
             name:'24H数据监控预警',
-            desc:'时刻接受异动，发现市场机会'
+            desc:'时刻接受异动，发现市场机会',
+            href:'https://kingdata.com/news'
         },
         chart: {
             name:'项目数据图表',
-            desc:'数据驱动交易，财富快人一步'
+            desc:'数据驱动交易，财富快人一步',
+            href:'https://ikingdata.com/'
         },
         report: {
             name:'行业研究报告',
-            desc:'行业深度分析'
+            desc:'行业深度分析',
+            href:'https://ikingdata.com/reports/'
         }
     },
     dataTools:{
         name:'数据工具',
         top: {
             name:'板块龙头',
-            desc:'选赛道，买龙头'
+            desc:'选赛道，买龙头',
+            href:'https://ikingdata.com/bull/'
         },
         history: {
             name:'历史的今天',
-            desc:'历史总是惊人的相似'
+            desc:'历史总是惊人的相似',
+            href:'https://ikingdata.com/tih/'
         },
         nav: {
             name:'数据网站导航',
-            desc:'区块链数据分析资源网站'
+            desc:'区块链数据分析资源网站',
+            href:'https://nav.ikingdata.com/nav/'
         }
     }
 
