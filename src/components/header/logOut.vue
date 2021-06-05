@@ -27,11 +27,11 @@ import { logout, userData } from '~/logic/user/login'
           style="color: rgba(68, 90, 132, 1)"
           class="text-kd14px16px ml-2 text-kd14px18px flex"
         >
-          用户名
+          {{ I18n.nav.user }}
         </div>
         <img
           class="w-7.75 ml-2"
-          src="https:res.ikingdata.com/nav/navVip.jpg"
+          src="https://res.ikingdata.com/nav/navVip.jpg"
           alt=""
         />
       </div>
@@ -46,7 +46,7 @@ import { logout, userData } from '~/logic/user/login'
           style="color: rgba(68, 90, 132, 1)"
           class="text-kd14px16px ml-2 text-kd14px18px flex"
         >
-          我的图表
+          {{ I18n.nav.chart }}
         </div>
       </div>
       <div class="flex items-center itemMt cursor-pointer" @click="logout()">
@@ -59,7 +59,7 @@ import { logout, userData } from '~/logic/user/login'
           style="color: rgba(68, 90, 132, 1)"
           class="text-kd14px16px ml-2 text-kd14px18px flex"
         >
-          退出登录
+          {{ I18n.nav.outLogin }}
         </div>
       </div>
     </el-popover>
