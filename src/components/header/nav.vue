@@ -29,10 +29,18 @@ const onSwitchLang = function() {
   >
     <div class="flex items-center">
       <a class="block" href="https://www.kingdata.com" target="_blank">
-        <img src="/assets/logo.svg" alt="KingData" class="flex-none" />
+        <img src="/assets/logo.svg" alt="KingData" class="nav-logo" />
       </a>
       <div
-        class="ml-20 flex-grow items-center text-global-default hidden md:flex"
+        class="
+          ml-20
+          flex-grow
+          items-center
+          text-global-default
+          hidden
+          md:flex
+          pr-8
+        "
       >
         <slot name="nav" :lang="current"></slot>
       </div>
@@ -71,7 +79,11 @@ const onSwitchLang = function() {
     </div>
   </nav>
 </template>
-<style>
+<style scoped lang="scss">
+.nav-logo {
+  width: 113px;
+  min-width: 113px;
+}
 .headerBg {
   box-shadow: 0 0.5px 0 rgb(43 140 255 / 4%), 0 2px 12px rgb(0 50 108 / 4%);
 }

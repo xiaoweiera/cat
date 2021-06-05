@@ -25,6 +25,7 @@ export default {
     ss: '秒'
   },
   button: {
+    copy: '复制',
     submit: '提交',
     confirm: '确认',
     close: '取消',
@@ -41,7 +42,8 @@ export default {
     copy: '已复制邀请链接',
     fail: '失败, 请重新验证',
     checked:'注册前请阅读',
-    mailError:'邮箱格式不正确'
+    mailError:'邮箱格式不正确',
+    copyAlert: '你已成功复制文案'
   },
   placeholder: {
     login: '自动登录',

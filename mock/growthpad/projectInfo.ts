@@ -61,7 +61,7 @@ export const growthInfo = {
     banner: 'https://res.ikingdata.com/static/growthpad/growth.jpg',
     begin: '2021-05-29 12:00:00', // 开始时间
     end: '2021-06-30 12:00:00', // 结束时间
-    description: I18n.growthpadShow.channelsProject.des, // 描述
+    description: I18n.growthpad.growthpad.dashboard.desc, // 描述
     reward: {
       count: 500000, // 奖励数量
       limits: [12000], // 每人可领取范围

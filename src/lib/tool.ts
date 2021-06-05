@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 import * as R from 'ramda'
 import { ElMessage } from 'element-plus'
+import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 
 export const numberFormat = (value: any) => {
@@ -124,14 +125,18 @@ export const messageSuccess = function(text: string): void {
 }
 
 // copy
-export const copyTxt = (txt: string, message?: boolean) => {
+export const copyTxt = (text: string, alert?: boolean) => {
   const dom = document.createElement('input')
-  dom.setAttribute('value', txt)
+  dom.setAttribute('value', text)
   document.body.appendChild(dom)
   dom.select()
   document.execCommand('copy')
   document.body.removeChild(dom)
-  if (message) {
-    messageSuccess(I18n.common.message.copy)
+  if (alert) {
+    // messageSuccess(I18n.common.message.copy)
+    message.copy({
+      value: I18n.common.message.copyAlert,
+      desc: text,
+    })
   }
 }

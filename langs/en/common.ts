@@ -25,6 +25,7 @@ export default {
     ss: 'Seconds'
   },
   button: {
+    copy: 'Copy',
     submit: 'Submit',
     confirm: 'Confirm',
     close: 'Close',
@@ -71,6 +72,6 @@ export default {
   },
   symbol: {
     plus: '+',
-    divide: '瓜分'
+    divide: 'Divide '
   }
 }

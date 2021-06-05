@@ -5,8 +5,12 @@
 
 import safeGet from '@fengqiaogang/safe-get'
 import * as pathname from './pathname'
-import request from '~/lib/devRequest'
-import { addUserToken, removeUserToken } from '~/logic/user/token'
+import request from '~/lib/service'
+import {
+  addUserToken,
+  removeUserToken,
+  getUserTooken,
+} from '~/logic/user/token'
 import * as lang from '~/utils/lang'
 export interface LogoData {
   mobile: string
@@ -22,8 +26,13 @@ export interface LogoResult {
 
 export const getInfo = async function() {
   try {
-    const reuslt = await request.get(pathname.user.info)
-    return safeGet(reuslt, 'data.data')
+    // 判断用户是否为已登陆状态
+    const token = getUserTooken()
+    if (token) {
+      const reuslt = await request.get(pathname.user.info)
+      return safeGet(reuslt, 'data.data')
+    }
+    return {}
   } catch (e) {
     return Promise.reject(e)
   }

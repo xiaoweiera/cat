@@ -218,7 +218,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   coinwind: {
     title: 'Help CoinWind grow and receive MDX rewards worth $200,000',
     address: {
-      placeholder: 'Enter HECO address',
+      placeholder: 'Enter BSC address',
     },
     about: {
       online: '25/5/2021',
@@ -271,8 +271,36 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       placeholder: 'Enter BSC / HECO address',
     },
     about: {
-      detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
-GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
+      detail: `GrowthPad is aimed to help the project accurately screen and locate users through accurate user behavior portraits, sophisticated modeling, and efficient task mode. At the same time, GrowthPad helps the project distribute generous rewards to target users and avoid invalid users in order to achieve rapid project growth.
+
+GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain.`
+    },
+    dashboard: {
+      desc: 'There are already three projects settled in the growth events of this Growth Pad project, namely MDEX, CoinWind and Channels. The total prize pool of this event is MDX worth $500,000, of which MDEX growth event bonus is $200,000, CoinWind growth event bonus is $200,000, and Channels growth event bonus is $100,000. Participate in the GrowthPad on this page and share 12,000 USDT extra rewards together.',
+    },
+    task1: {
+      title: 'Post the poster and the content on Twitter, take a screenshot and upload it.'
+    },
+    task2: {
+      title: 'Forward the specified content below to the telegram group, take a screenshot and upload it. The more the forwarding group, the more rewards.',
+      desc: 'Your reward = the number of groups you forwarded / total number of forwarding groups * 8,000 USDT.'
+    },
+    button: {
+      save: 'Save image'
+    },
+    label: {
+      upload: 'Upload image:',
+      picture: 'Poster picture:',
+      content: 'Content:',
+      friends: 'Upload the screenshot of the posted Twitter:'
+    },
+    tips: {
+      uploadMax: 'The size does not exceed 2M.',
+      portrait: 'The screenshot contains your Twitter profile photo, complete poster + content and publishing time interval.',
+      active: 'Click Save Picture in wechat to open the big picture and save it manually.'
+    },
+    share: {
+      link: 'Share the GrowthPad extra 12,000 USDT airdrop reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>'
     }
   }
 };
