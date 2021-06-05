@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { menu } from '~/logic/menu'
+import I18n from '~/utils/i18n/index'
 </script>
 <template>
-  <el-popover placement="bottom-start" width="auto" trigger="click">
+  <el-popover placement="bottom-start" width="auto" trigger="hover">
     <template #reference>
       <div class="ml-12 flex items-center">
-        <IconFont type="nav-more" size="xl"></IconFont>
+        <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
         <span
-          class="ml-1.5 mt-1 text-kd16px24px text-global-default opacity-85"
+          class="ml-1.5 text-kd16px24px text-global-default opacity-85"
         >产品</span>
         <img
-          class="w-3 ml-1.5 mt-2"
+          class="w-3 ml-1.5"
           src="https://res.ikingdata.com/nav/navDown.png"
           alt=""
         />
       </div>
     </template>
-    <div class="flex p-3 font-kdFang">
+    <div class="flex p-3 font-kdFang hand">
       <template v-for="item in menu">
         <div class="twoMl">
           <div class="mb-0.25">{{ item.name }}</div>

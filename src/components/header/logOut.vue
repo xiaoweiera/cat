@@ -5,10 +5,10 @@ import { logout, userData } from '~/logic/user/login'
 </script>
 
 <template>
-  <div @click="logout()">
-    <el-popover placement="bottom-start" width="auto" trigger="click">
+  <div>
+    <el-popover placement="bottom-start" width="100px" trigger="hover">
       <template #reference>
-        <div class="flex items-center">
+        <div class="flex items-center hand">
           <div>{{ userData.nickname }}</div>
           <img
             class="w-3 ml-2"
@@ -17,62 +17,57 @@ import { logout, userData } from '~/logic/user/login'
           />
         </div>
       </template>
-      <div>
+      <div class="flex items-center itemMt cursor-pointer">
         <img
-          class="w-5 h-5"
-          src="https://res.ikingdata.com/nav/outLogin.png"
+          class="w-5 h-5 ml-2"
+          src="https://res.ikingdata.com/nav/navUser.jpg"
           alt=""
         />
-        <div class="text-kd14px16px ml-2 w-10 flex">
-          {{ I18n.common.loginOut }}
+        <div
+          style="color: rgba(68, 90, 132, 1)"
+          class="text-kd14px16px ml-2 text-kd14px18px flex"
+        >
+          用户名
+        </div>
+        <img
+          class="w-7.75 ml-2"
+          src="https:res.ikingdata.com/nav/navVip.jpg"
+          alt=""
+        />
+      </div>
+
+      <div class="flex items-center itemMt cursor-pointer">
+        <img
+          class="w-5 h-5 ml-2"
+          src="https://res.ikingdata.com/nav/navChart.jpg"
+          alt=""
+        />
+        <div
+          style="color: rgba(68, 90, 132, 1)"
+          class="text-kd14px16px ml-2 text-kd14px18px flex"
+        >
+          我的图表
+        </div>
+      </div>
+      <div class="flex items-center itemMt cursor-pointer" @click="logout()">
+        <img
+          class="w-5 h-5 ml-2"
+          src="https://res.ikingdata.com/nav/navOut.jpg"
+          alt=""
+        />
+        <div
+          style="color: rgba(68, 90, 132, 1)"
+          class="text-kd14px16px ml-2 text-kd14px18px flex"
+        >
+          退出登录
         </div>
       </div>
     </el-popover>
   </div>
 </template>
-
-<style lang="scss">
-@media screen and (max-width: 768px) {
-  .el-dialog {
-    width: 350px !important;
-    margin-top: 7vh;
-  }
-}
-@media screen and (min-width: 768px) {
-  .el-dialog {
-    width: 400px !important;
-  }
-}
-.el-dialog .el-dialog__body {
-  padding: 0px 40px 20px 40px !important;
-}
-::v-deep(.mobileItem .el-input__inner) {
-  border-left: 0px;
-}
-::v-deep(.mobileItem .el-input-group__prepend) {
-  background: white;
-}
-::v-deep(.codeItem .el-input__inner) {
-  border-right: 0px;
-}
-::v-deep(.codeItem .el-input-group__append) {
-  background: white;
-}
-::v-deep(.checkedText .el-form-item__content) {
-  line-height: 10px;
-}
-.loginOut {
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
-}
-.dialog-login {
-  max-width: 100% !important;
-  .el-dialog__body {
-    padding-top: 0;
-  }
-}
-.link {
-  color: #2b8cff;
+<style scoped>
+.itemMt:nth-child(n + 2) {
+  color: blue;
+  margin-top: 17px;
 }
 </style>

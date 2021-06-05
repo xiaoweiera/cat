@@ -207,6 +207,6 @@ onMounted(async() => {
 // @formatter:off layout: indexLaout
 <route lang="yaml">
 meta:
-  layout: home
+  layout: indexLaout
 </route>
 // @formatter:off

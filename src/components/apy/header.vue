@@ -39,19 +39,19 @@ onBeforeMount(() => {
   <HeaderNav>
     <template #nav>
       <nav class="itemContainer">
-        <div class="flex-grow mt-2 h-full">
+        <div class="h-full">
           <div class="flex font-normal h-full items-center">
             <template v-for="(item, i) in menu" :key="i">
-              <el-popover placement="bottom-start" width="auto" trigger="click">
+              <el-popover placement="bottom-start" width="auto" trigger="hover">
                 <template #reference>
                   <div
                     class="
-                      ml-8
                       flex
                       items-center
                       text-kd16px24px text-global-default
                       opacity-85
                     "
+                    :class="i === 0 ? '' : ' ml-8'"
                   >
                     <span>{{ item.name }}</span>
                     <img
@@ -62,7 +62,7 @@ onBeforeMount(() => {
                   </div>
                 </template>
                 <div
-                  class="flex py-3.25 font-kdFang"
+                  class="flex py-3.25 font-kdFang hand"
                   :class="i === 0 ? 'pl-3 pr-8' : 'px-3'"
                 >
                   <div class="flex flex-col">
