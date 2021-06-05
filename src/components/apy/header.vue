@@ -67,7 +67,11 @@ onBeforeMount(() => {
                 >
                   <div class="flex flex-col">
                     <template v-for="child in item.children">
-                      <div class="mtNthOne flex items-center relative">
+                      <a
+                        :href="child.href + '?utm_source=https://kingdata.com'"
+                        target="_blank"
+                        class="mtNthOne flex items-center relative"
+                      >
                         <img :src="child.icon" alt="" />
                         <div class="flex flex-col ml-2.5">
                           <img
@@ -79,7 +83,7 @@ onBeforeMount(() => {
                           <span class="childName">{{ child.name }}</span>
                           <span class="desc">{{ child.desc }}</span>
                         </div>
-                      </div>
+                      </a>
                     </template>
                   </div>
                 </div>

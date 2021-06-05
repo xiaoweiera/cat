@@ -1,5 +1,5 @@
 export default {
-  login: '登陆',
+  login: '登录',
   register: '注册',
   resetPassword: '重置密码',
   switchLogin: '返回登录',

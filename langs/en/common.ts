@@ -39,6 +39,7 @@ export default {
     telError: 'Please enter valid phone number',
     checked:'Please read and agree before registering',
     mailError:'Email format is incorrect',
+    copyAlert: 'Copy successfully',
     testing: 'Verifying. About 15 minutes.', // 验证中，审核结束后自动更新结果
     get: 'get',
     copy: 'The link has copied',
