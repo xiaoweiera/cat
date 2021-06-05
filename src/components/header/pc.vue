@@ -7,9 +7,9 @@ import I18n from '~/utils/i18n/index'
     <template #reference>
       <div class="ml-12 flex items-center">
         <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
-        <span
-          class="ml-1.5 text-kd16px24px text-global-default opacity-85"
-        >产品</span>
+        <span class="ml-1.5 text-kd16px24px text-global-default opacity-85">{{
+          I18n.nav.product
+        }}</span>
         <img
           class="w-3 ml-1.5"
           src="https://res.ikingdata.com/nav/navDown.png"

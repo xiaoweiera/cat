@@ -1,3 +1,4 @@
+import I18n from '~/utils/i18n/index'
 export interface Menu {
   name: string
   key?: string
@@ -11,33 +12,33 @@ export interface Menu {
 
 export const menu: Menu[] = [
   {
-    name: 'DeFi 数据分析',
+    name: I18n.nav.defi.name,
     children: [
       {
-        name: 'APY大全',
-        desc: '快速发现高收益矿池',
+        name: I18n.nav.defi.apy.name,
+        desc: I18n.nav.defi.apy.desc,
         icon: 'https://res.ikingdata.com/icon/apy.svg',
       },
       {
-        name: 'DeFi 流动性分析',
-        desc: 'DEX 流动性分析',
+        name: I18n.nav.defi.liquidity.name,
+        desc: I18n.nav.defi.liquidity.desc,
         badge: '即将上线',
         icon: 'https://res.ikingdata.com/icon/defi_flow.svg',
       },
       {
-        name: 'DeFi 行情与交易',
-        desc: '专业的K线图和聚合交易',
+        name: I18n.nav.defi.quotes.name,
+        desc: I18n.nav.defi.quotes.desc,
         badge: '即将上线',
         icon: 'https://res.ikingdata.com/icon/defi.svg',
       },
     ],
   },
   {
-    name: '企业数据服务',
+    name: I18n.nav.service.name,
     children: [
       {
         name: 'GrowthPad',
-        desc: '做任务赢奖励',
+        desc: I18n.nav.service.growthPad.desc,
         icon: 'https://res.ikingdata.com/icon/growthPad.svg',
         children: [
           { name: 'GrowthPad' },
@@ -49,16 +50,16 @@ export const menu: Menu[] = [
     ],
   },
   {
-    name: '项目数据监控与分析',
+    name: I18n.nav.analysis.name,
     children: [
       {
-        name: '24H 数据监控预警',
-        desc: '时刻接收异动，发现市场机会',
+        name: I18n.nav.analysis.hData.name,
+        desc: I18n.nav.analysis.hData.desc,
         icon: 'https://res.ikingdata.com/icon/24.svg',
       },
       {
-        name: '项目数据图表',
-        desc: '数据驱动交易，财富快人一步',
+        name: I18n.nav.analysis.chart.name,
+        desc: I18n.nav.analysis.chart.desc,
         icon: 'https://res.ikingdata.com/icon/table.svg',
         children: [
           {
@@ -200,28 +201,28 @@ export const menu: Menu[] = [
         ],
       },
       {
-        name: '行业研究报告',
-        desc: '行业深度分析',
+        name: I18n.nav.analysis.report.name,
+        desc: I18n.nav.analysis.report.desc,
         icon: 'https://res.ikingdata.com/icon/report.svg',
       },
     ],
   },
   {
-    name: '实用工具',
+    name: I18n.nav.dataTools.name,
     children: [
       {
-        name: '板块龙头',
-        desc: '选赛道，买龙头',
+        name: I18n.nav.dataTools.top.name,
+        desc: I18n.nav.dataTools.top.desc,
         icon: 'https://res.ikingdata.com/icon/top1.svg',
       },
       {
-        name: '历史的今天',
-        desc: '历史总是惊人的相似',
+        name: I18n.nav.dataTools.history.name,
+        desc: I18n.nav.dataTools.history.desc,
         icon: 'https://res.ikingdata.com/icon/24.svg',
       },
       {
-        name: '数据网站导航',
-        desc: '区块链数据分析资源网站',
+        name: I18n.nav.dataTools.nav.name,
+        desc: I18n.nav.dataTools.nav.desc,
         icon: 'https://res.ikingdata.com/icon/navigation.svg',
       },
     ],
