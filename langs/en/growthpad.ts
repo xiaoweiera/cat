@@ -224,11 +224,11 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       online: '25/5/2021',
       count: '100M',
       luanched: 'HECO',
-      detail: `CoinWind is a HECO and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
+      detail: `CoinWind is a HECO and BSC Ecological Single Token pledge Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
-CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
+CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity pledge according to the strategy, so as to achieve higher returns for users.
 
-CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future`,
+CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future.`,
     },
     copy: 'Inviting you to participate in {title}, Win 1 million dollars award, {url}',
     share: {
