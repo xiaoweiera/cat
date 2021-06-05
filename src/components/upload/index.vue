@@ -63,7 +63,7 @@ const onRemove = function() {
 <template>
   <div class="upload-box relative" :class="size">
     <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
-      删除
+      <IconFont type="remove"></IconFont>
     </div>
     <div class="upload-main w-full h-full">
       <el-upload

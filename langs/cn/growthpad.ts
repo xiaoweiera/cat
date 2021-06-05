@@ -188,7 +188,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       marketValue: '602.71亿',
       circulation: '3亿',
       luanched: 'ETH/Omni',
-      detail: 'Channels.finance是Heco上首个完全去中心化的借贷平台，主打用户资产安全性，首发支持LP抵押借贷+LP机枪池，目前已支持17个主流币种和12个(Mdex)LP资产抵押借贷。CAN是平台代币，总流通量5,000,000, 已上线火币等交易所。'
+      detail: 'Channels.finance 是 HECO 上首个完全去中心化的借贷平台，主打用户资产安全性，首发支持LP抵押借贷 + LP 机枪池，目前已支持 17 个主流币种和 12 个 (Mdex) LP 资产抵押借贷。CAN 是平台代币，总流通量 5000000, 已上线火币等交易所。'
     },
     task1: {
       title: 'Venus 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',

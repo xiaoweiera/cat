@@ -192,7 +192,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       marketValue: '60,271 millions',
       circulation: '300 millions',
       luanched: 'ETH / Omni',
-      detail: 'Channels is the safest and most useful decentralized lending platform on Heco. Channels.finance is the first fully decentralized lending platform on Heco, focusing on users’ asset security. The first platform launched LP mortgage lending + LP Asset Mining Aggregator.CAN is the token of Channels platform; the whole circulation is 5,000,000 tokens.'
+      detail: 'Channels is the safest and most useful decentralized lending platform on HECO. Channels.finance is the first fully decentralized lending platform on HECO, focusing on users’ asset security. The first platform launched LP mortgage lending + LP Asset Mining Aggregator. CAN is the token of Channels platform; The whole circulation is 5,000,000 tokens.'
     },
     task1: {
       title: 'TVL in Venus is more than 10K USDT, and the total amount of deposits and loans in Channels exceeds 1,000 USDT. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
