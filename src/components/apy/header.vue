@@ -6,6 +6,7 @@ import I18n from '~/utils/i18n/index'
 import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
+import { headerTag } from '~/store/header/login'
 // 获取当前路由对象
 const router = useRoute()
 
@@ -68,8 +69,8 @@ onBeforeMount(() => {
                   <div class="flex flex-col">
                     <template v-for="child in item.children">
                       <a
-                        :href="child.href + '?utm_source=https://kingdata.com'"
-                        target="_blank"
+                        :href="child.href ? child.href : 'javascript:void(0)'"
+                        :target="child.href ? '_blank' : '_self'"
                         class="mtNthOne flex items-center relative"
                       >
                         <img :src="child.icon" alt="" />
@@ -80,7 +81,21 @@ onBeforeMount(() => {
                             src="https://res.ikingdata.com/nav/navOnLineTip.jpg"
                             alt=""
                           />
-                          <span class="childName">{{ child.name }}</span>
+                          <div class="flex items-center">
+                            <span
+                              :class="
+                                child.name === headerTag
+                                  ? 'selectName'
+                                  : 'childName'
+                              "
+                            >{{ child.name }}</span>
+                            <img
+                              v-if="child.name === headerTag"
+                              class="w-3 ml-1"
+                              src="https://res.ikingdata.com/nav/navRight.jpg"
+                              alt=""
+                            />
+                          </div>
                           <span class="desc">{{ child.desc }}</span>
                         </div>
                       </a>

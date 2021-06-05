@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { menu } from '~/logic/menu'
 import I18n from '~/utils/i18n/index'
+import { headerTag } from '~/store/header/login'
 </script>
 <template>
   <el-popover placement="bottom-start" width="auto" trigger="hover">
@@ -23,7 +24,7 @@ import I18n from '~/utils/i18n/index'
           <div class="mb-0.25">{{ item.name }}</div>
           <template v-for="child in item.children">
             <a
-              v-router="child.href + '?utm_source=https://kingdata.com'"
+              v-router="child.href"
               target="_blank"
               class="mt-5 flex items-center relative"
             >
@@ -35,7 +36,20 @@ import I18n from '~/utils/i18n/index'
                   src="https://res.ikingdata.com/nav/navOnLineTip.jpg"
                   alt=""
                 />
-                <span class="childName">{{ child.name }}</span>
+                <div class="flex items-center">
+                  <span
+                    :class="
+                      child.name === headerTag ? 'selectName' : 'childName'
+                    "
+                  >{{ child.name }}</span>
+                  <img
+                    v-if="child.name === headerTag"
+                    class="w-3 ml-1"
+                    src="https://res.ikingdata.com/nav/navRight.jpg"
+                    alt=""
+                  />
+                </div>
+
                 <span class="desc">{{ child.desc }}</span>
               </div>
             </a>
