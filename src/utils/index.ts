@@ -23,3 +23,12 @@ export const debounce = function <T>(callback: Callback, time?: number): T {
     }, time)
   }
 }
+
+export const toNumber = function(value: string | number, fixed = 2): number {
+  const number = parseFloat(value as any)
+  if (isNaN(number)) {
+    return 0
+  }
+  const temp = number.toFixed(fixed)
+  return parseFloat(temp)
+}

@@ -16,8 +16,6 @@ import {
 import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
 import { areaCode } from '~/api/user'
 
-// 刷新用户信息
-syncUser()
 const outLogin = ref(false)
 const areaCodes = ref([])
 const mouseover = () => {
@@ -33,6 +31,8 @@ const handleClose = function(next) {
   return next()
 }
 onMounted(async() => {
+  // 刷新用户信息
+  syncUser()
   areaCodes.value = await areaCode()
 })
 </script>

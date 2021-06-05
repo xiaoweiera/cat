@@ -6,6 +6,7 @@ import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
 import { Project } from '~/api/growtask'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
+import { toNumber } from '~/utils/index'
 
 defineProps({
   rewardValueTitle: {
@@ -43,12 +44,9 @@ const timeStatus = computed<string>((): string => {
 
 // @ts-ignore
 const countComputed = function(number: number): string | number {
-  let value: number = parseFloat(number as any)
-  if (isNaN(value)) {
-    value = 0
-  }
+  let value: number = toNumber(number)
   if (value > 1000) {
-    value = value / 1000
+    value = toNumber(value / 1000)
     return `${value}K`
   }
   return value

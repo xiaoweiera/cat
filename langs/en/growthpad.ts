@@ -218,7 +218,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   coinwind: {
     title: 'Help CoinWind grow and receive MDX rewards worth $200,000',
     address: {
-      placeholder: 'Enter HECO address',
+      placeholder: 'Enter BSC address',
     },
     about: {
       online: '25/5/2021',
