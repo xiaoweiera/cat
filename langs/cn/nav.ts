@@ -27,7 +27,12 @@ export default {
         growthPad: {
             name:'GrowthPad',
             desc:'做任务赢奖励',
-            href:'https://kingdata.com/growthpad'
+            href:'https://kingdata.com/growthpad',
+            children:{
+                growthPad:{name:'GrowthPad',href:'https://kingdata.com/growthpad'},
+                project:{name:'项目申请',href:'http://ikingdata.mikecrm.com/kbZDdCb'},
+                about:{name:'产品介绍',href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'}
+            }
         }
     },
     analysis:{

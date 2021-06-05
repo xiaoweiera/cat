@@ -45,10 +45,19 @@ export const menu: Menu[] = [
         icon: 'https://res.ikingdata.com/icon/growthPad.svg',
         href: I18n.nav.service.growthPad.href,
         children: [
-          { name: 'GrowthPad' },
+          {
+            name: 'GrowthPad',
+            href: I18n.nav.service.growthPad.children.growthPad.href,
+          },
           // { name: '案例' },
-          { name: '项目申请' },
-          { name: '产品介绍' },
+          {
+            name: I18n.nav.service.growthPad.children.project.name,
+            href: I18n.nav.service.growthPad.children.project.href,
+          },
+          {
+            name: I18n.nav.service.growthPad.children.about.name,
+            href: I18n.nav.service.growthPad.children.about.href,
+          },
         ],
       },
     ],

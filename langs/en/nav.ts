@@ -27,7 +27,12 @@ export default {
         growthPad: {
             name:'GrowthPad',
             desc:'Do tasks to receive rewards',
-            href:'https://kingdata.com/growthpad'
+            href:'https://kingdata.com/growthpad',
+            children:{
+                growthPad:{name:'GrowthPad',href:'https://kingdata.com/growthpad'},
+                project:{name:'Project Application',href:'http://ikingdata.mikecrm.com/kbZDdCb'},
+                about:{name:'About',href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'}
+            }
         }
     },
     analysis:{
