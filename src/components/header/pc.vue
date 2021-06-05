@@ -20,13 +20,13 @@ import { headerTag } from '~/store/header/login'
     </template>
     <div class="flex p-3 font-kdFang hand">
       <template v-for="item in menu">
-        <div class="twoMl">
+        <div class="twoMl min-w-37">
           <div class="mb-0.25">{{ item.name }}</div>
           <template v-for="child in item.children">
             <a
               v-router="child.href"
               target="_blank"
-              class="mt-5 flex items-center relative"
+              class="mt-5 flex items-center relative hoverHover"
             >
               <img :src="child.icon" alt="" />
               <div class="flex flex-col ml-2.5">
@@ -39,11 +39,11 @@ import { headerTag } from '~/store/header/login'
                 <div class="flex items-center">
                   <span
                     :class="
-                      child.name === headerTag ? 'selectName' : 'childName'
+                      child.name === headerTag ? 'selectName ' : 'childName '
                     "
                   >{{ child.name }}</span>
                   <img
-                    v-if="child.name === headerTag"
+                    :class="child.name === headerTag ? 'selectName' : 'imgShow'"
                     class="w-3 ml-1"
                     src="https://res.ikingdata.com/nav/navRight.jpg"
                     alt=""
@@ -61,11 +61,18 @@ import { headerTag } from '~/store/header/login'
 </template>
 
 <style scoped lang="scss">
+.hoverShow {
+  display: block;
+}
+.imgShow {
+  display: none;
+}
+
 .twoMl:nth-child(n + 2) {
   @apply ml-12;
 }
 .desc {
-  @apply text-global-default opacity-65 text-kd12px16px;
+  @apply text-global-default opacity-65 text-kd12px16px font-normal;
 }
 .selectName {
   @apply text-global-primary  font-medium text-kd15px150;
@@ -75,5 +82,14 @@ import { headerTag } from '~/store/header/login'
 }
 .childName {
   @apply text-global-default opacity-85 text-kd15px150;
+}
+.hoverHover:hover {
+  .imgShow {
+    display: block;
+  }
+  .childName {
+    @apply text-global-primary  font-medium text-kd15px150;
+  }
+  @apply text-global-primary  font-medium text-kd15px150;
 }
 </style>
