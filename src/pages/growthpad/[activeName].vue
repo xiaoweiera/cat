@@ -12,7 +12,7 @@ const store = Task()
 onBeforeMount(() => ready(store))
 </script>
 <template>
-  <div v-show="!loading" class="pb-20">
+  <div v-show="!loading" class="examples pb-20">
     <growthpadTaskDashboard />
 
     <div class="pt-15 px-4 md:px-6">
@@ -46,6 +46,11 @@ onBeforeMount(() => ready(store))
 
 <style scoped lang="scss">
 @import '~/styles/growthpad/task.scss';
+
+.examples {
+  max-width: 848px;
+  margin: 0 auto;
+}
 </style>
 
 // @formatter:off
