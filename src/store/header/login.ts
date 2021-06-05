@@ -9,7 +9,7 @@ export const visible = ref<boolean>(false) // 弹窗状态(默认为登录状态
 export const visibleRegister = ref<boolean>(false) // 登录弹窗状态
 export const loginType = ref<string>('email') // 手机号 还是邮箱
 export const loginTypeStatus = reactive({ type: 'email', name: 'login' })
-
+export const headerTag = ref('')
 export const goDialogLogin = function(): void {
   loginTypeStatus.name = loginTypeStatus.name === 'login' ? 'register' : 'login'
 }
