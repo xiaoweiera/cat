@@ -103,7 +103,7 @@ const title = computed<string>((): string => {
     </div>
   </div>
 
-  <div class="pt-6 font-kdFang">
+  <div v-if="store.about.detail" class="pt-6 font-kdFang">
     <h2 class="pb-3">{{ I18n.growthpad.about.projectDetail }}</h2>
     <p class="detail text-sm whitespace-pre-line w-full">
       {{ store.about.detail }}
