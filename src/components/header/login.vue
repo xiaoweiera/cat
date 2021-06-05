@@ -43,7 +43,7 @@ onMounted(async() => {
       "
     >
       <!-- 没有登录 -->
-      <div>
+      <div class="flex items-center">
         <span class="whitespace-nowrap" @click.stop="goLogin">{{
           I18n.common.login
         }}</span>
