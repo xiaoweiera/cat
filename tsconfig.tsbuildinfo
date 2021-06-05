@@ -336,8 +336,13 @@
         "signature": "1db28999ad126a0866c28f7b0a133915e6f7deba1a278d9e8c55b010aaa6d751",
         "affectsGlobalScope": false
       },
+      "./src/lib/process.ts": {
+        "version": "131bedfe16e85558d0c859bf16f61c48ac72ca79de17147c092177f26b29771d",
+        "signature": "4ea1e9042cecb8bd8fb9877811429ca218038726ccf7c4aec877a10eb09ad533",
+        "affectsGlobalScope": false
+      },
       "./src/lib/devrequest.ts": {
-        "version": "f7100713d3364b5873d19161e3be12c8d37c23f7adc9dff3d870884d7878b61f",
+        "version": "7e2962edb0e0b21c877ccf3f354c135706a61c851f7f7d4d25bc2370b724c9e9",
         "signature": "ec26211d0b2c995cf445165410d1aeaee4f344843b03f8b949e9ec9d96be120f",
         "affectsGlobalScope": false
       },
@@ -2107,7 +2112,7 @@
         "affectsGlobalScope": false
       },
       "./src/lib/request.ts": {
-        "version": "d9bd770b9234975d3ff52c6a4f4922cd2f6777e70d61ff01b158c4b2bec4239d",
+        "version": "05ba6d8a6b18a870f40c45e277c460d24b540939e18704c2826232a93d9009e8",
         "signature": "983c9000c4ba543a132b1e10e4c1896e8db1099dab2e8107830d701b8d30f801",
         "affectsGlobalScope": false
       },
@@ -5059,6 +5064,7 @@
         "./node_modules/.pnpm/tslib@2.0.3/node_modules/tslib/tslib.d.ts",
         "./node_modules/.pnpm/vite@2.3.3/node_modules/vite/client.d.ts",
         "./src/lib/dao.ts",
+        "./src/lib/process.ts",
         "./types/define.d.ts"
       ],
       "./src/lib/lang.ts": [
@@ -5067,10 +5073,16 @@
         "./node_modules/.pnpm/vue-router@4.0.8_vue@3.0.11/node_modules/vue-router/dist/vue-router.d.ts",
         "./types/define.d.ts"
       ],
+      "./src/lib/process.ts": [
+        "./node_modules/.pnpm/tslib@2.0.3/node_modules/tslib/tslib.d.ts",
+        "./node_modules/.pnpm/vite@2.3.3/node_modules/vite/client.d.ts",
+        "./types/define.d.ts"
+      ],
       "./src/lib/request.ts": [
         "./node_modules/.pnpm/tslib@2.0.3/node_modules/tslib/tslib.d.ts",
         "./node_modules/.pnpm/vite@2.3.3/node_modules/vite/client.d.ts",
         "./src/lib/dao.ts",
+        "./src/lib/process.ts",
         "./types/define.d.ts"
       ],
       "./src/lib/tool.ts": [
@@ -8003,6 +8015,7 @@
       "./src/lib/dao.ts",
       "./src/lib/devrequest.ts",
       "./src/lib/lang.ts",
+      "./src/lib/process.ts",
       "./src/lib/request.ts",
       "./src/lib/tool.ts",
       "./src/lib/wxshare.ts",
@@ -10122,6 +10135,10 @@
       ],
       [
         "./src/lib/lang.ts",
+        1
+      ],
+      [
+        "./src/lib/process.ts",
         1
       ],
       [
