@@ -31,7 +31,7 @@ import { logout, userData } from '~/logic/user/login'
         </div>
         <img
           class="w-7.75 ml-2"
-          src="https:res.ikingdata.com/nav/navVip.jpg"
+          src="https://res.ikingdata.com/nav/navVip.jpg"
           alt=""
         />
       </div>
