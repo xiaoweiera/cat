@@ -1,9 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import I18n from '~/utils/i18n/index'
+import { nextLang, href } from '~/utils/lang'
 // @ts-ignore
 import menuData from '~/logic/menu'
 // @ts-ignore
-const inputMenu = ref<boolean>(false)
+const inputMenu = ref<boolean>(true)
+
+const download = ref<string>('https://www.ikingdata.com/download')
+
+// @ts-ignore
+const onSwitchLang = function() {
+  const url = href(window.location.href, nextLang())
+  if (url) {
+    // @ts-ignore
+    window.location.href = url
+  }
+}
 </script>
 
 <template>
@@ -24,6 +37,23 @@ const inputMenu = ref<boolean>(false)
   <div class="nav-menu-box">
     <div class="nav-menu-main pt-4 px-4" @scroll.stop.prevent="scroll">
       <HeaderNavitem :list="menuData" index="0"></HeaderNavitem>
+    </div>
+    <div class="operation flex font-kdFang">
+      <a
+        class="flex-1 h-full flex items-center justify-center"
+        @click="onSwitchLang"
+      >
+        <IconFont type="inter" size="2xl"></IconFont>
+        <span class="text-base ml-2">{{ I18n.common.lang }}</span>
+      </a>
+      <a
+        class="flex-1 h-full flex items-center justify-center"
+        :href="download"
+        target="_blank"
+      >
+        <IconFont type="mobile" size="2xl"></IconFont>
+        <span class="text-base ml-2">{{ I18n.common.nav.download }}</span>
+      </a>
     </div>
   </div>
 </template>
@@ -79,5 +109,25 @@ const inputMenu = ref<boolean>(false)
   visibility: hidden;
   transition: all 0.4s;
   transform: translate(-100%, 0);
+  $operationHeight: 64px;
+  padding-bottom: $operationHeight;
+  .operation {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: $operationHeight;
+    color: rgba(37, 62, 111, 0.85);
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: $operationHeight / 2;
+    width: 1px;
+    height: 16px;
+    background: rgba(37, 62, 111, 0.16);
+    transform: translate(-50%, 50%);
+  }
 }
 </style>

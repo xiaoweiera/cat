@@ -31,7 +31,6 @@ import { logout, userData } from '~/logic/user/login'
           alt=""
         />
       </div>
-
       <a
         href="https://www.kingdata.com/topic?utm_source=https://kingdata.com"
         target="_blank"

@@ -68,6 +68,7 @@ const isChildren = (data: any): boolean => {
               class="mr-2 align-middle"
             ></IconFont>
             <span class="align-middle inline-block">{{ item.name }}</span>
+            <i v-if="item.badge" class="badge" />
           </a>
           <span>
             <IconFont class="icon-down" type="down" size="2xl"></IconFont>
@@ -87,7 +88,10 @@ const isChildren = (data: any): boolean => {
               size="2xl"
               class="mr-2 align-middle"
             ></IconFont>
-            <span class="align-middle inline-block">{{ item.name }}</span>
+            <span class="align-middle inline-block">
+              <span>{{ item.name }}</span>
+              <i v-if="item.badge" class="badge" />
+            </span>
           </a>
         </div>
         <HeaderNavitem :list="item.children" :index="zIndex"></HeaderNavitem>
@@ -133,6 +137,25 @@ const isChildren = (data: any): boolean => {
       bottom: 16px;
       width: 1px;
       background: rgba(69, 91, 133, 0.1);
+    }
+  }
+
+  .badge {
+    display: inline-block;
+    position: relative;
+    height: 1px;
+    width: 1px;
+    &:after {
+      content: '';
+      $icon: 'https://res.ikingdata.com/static/menu/badge.png';
+      background: url($icon) center / cover no-repeat;
+      width: 54px;
+      height: 24px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      transform: translate(-13px, -34px);
     }
   }
 }

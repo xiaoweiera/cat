@@ -16,6 +16,7 @@ const href = computed(() => {
   const href = props.data?.tooltip?.href || 'http://kingdata.com'
   return href
 })
+// @ts-ignore
 const hrefAfter = computed(() => {
   const href = props.data?.tooltipAfter?.href || 'http://kingdata.com'
   return href

@@ -3,6 +3,7 @@ import { computed, toRaw } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
+import { Project } from '~/api/growtask'
 
 const store = Task()
 
@@ -21,6 +22,18 @@ const list = computed(() => {
   }
   return array
 })
+// @ts-ignore
+const title = computed<string>((): string => {
+  // @ts-ignore
+  if (store.projectName === Project.coinwind) {
+    // @ts-ignore
+    return store.title.value
+  }
+  // @ts-ignore
+  return I18n.template(I18n.growthpad.about.title, {
+    project: store.title.value,
+  })
+})
 </script>
 
 <template>
@@ -32,9 +45,7 @@ const list = computed(() => {
 
   <div class="flex items-center font-kdFang pb-6">
     <DotChar :img="store.icon.value" size="xl" />
-    <span class="ml-3 label">{{
-      I18n.template(I18n.growthpad.about.title, { project: store.title.value })
-    }}</span>
+    <span class="ml-3 label">{{ title }}</span>
   </div>
 
   <div class="font-kdFang">
@@ -92,7 +103,7 @@ const list = computed(() => {
     </div>
   </div>
 
-  <div class="pt-6 font-kdFang">
+  <div v-if="store.about.detail" class="pt-6 font-kdFang">
     <h2 class="pb-3">{{ I18n.growthpad.about.projectDetail }}</h2>
     <p class="detail text-sm whitespace-pre-line w-full">
       {{ store.about.detail }}

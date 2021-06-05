@@ -12,8 +12,8 @@ export default {
     count: 'Reward Amount',
     value: 'Reward Value',
     perPerson: 'The Max Reward Per Person',
-    total: 'Reward {count} MDX',
-    maxTotal: '{count} MDX at maximum',
+    total: 'Reward {count} {token}',
+    maxTotal: '{count} {token} at maximum',
     finished: 'Finish all tasks: {reward}（TOP {count} users）',
     anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
   },
@@ -172,9 +172,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       placeholder: 'Enter HECO address',
     },
     dashboard: {
-      desc: `In order to give back to community users, Channels cooperated with KingData to launch an incentive activity worth over $100,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
-
-      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
+      desc: `Channels is the safest and most useful decentralized lending platform on Heco. Channels.finance is the first fully decentralized lending platform on Heco, focusing on users’ asset security. The first platform launched LP mortgage lending + LP Asset Mining Aggregator.CAN is the token of Channels platform; the whole circulation is 5,000,000 tokens.`
     },
     weibo: {
       label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 30~100 USDT. (The number of followers is not less than 2000, and the reading volume is not less than 1000).',
@@ -224,11 +222,11 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       online: '25/5/2021',
       count: '100M',
       luanched: 'HECO',
-      detail: `CoinWind is a HECO and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
+      detail: `CoinWind is a HECO and BSC Ecological Single Token pledge Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
-CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
+CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity pledge according to the strategy, so as to achieve higher returns for users.
 
-CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future`,
+CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future.`,
     },
     copy: 'Inviting you to participate in {title}, Win 1 million dollars award, {url}',
     share: {
@@ -257,8 +255,8 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       condition1: 'Qualification: TVL in autofarm is more than 10K USDT.',
     },
     task4: {
-      title: 'TVL in Belt.fit is more than 10K USDT; Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
-      condition1: 'Qualification: TVL in Belt.fit is more than 10K USDT.',
+      title: 'TVL in Belt.fi is more than 10K USDT; Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
+      condition1: 'Qualification: TVL in Belt.fi is more than 10K USDT.',
     },
     weibo: {
       label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 MDX. (The number of followers is not less than 2000, and the reading volume is not less than 1000)',

@@ -65,7 +65,7 @@ const data = {
       },
       */
     ],
-    detail: I18n.growthpad.channels.about.detail, // 项目介绍
+    // detail: I18n.growthpad.channels.about.detail, // 项目介绍
 
     share: [
       { icon: 'telegram', href: telegramHref },

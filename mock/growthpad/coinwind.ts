@@ -59,7 +59,6 @@ const data = {
       type: TaskType.vip, // 任务类型
       title: I18n.growthpad.coinwind.task1.title,
       description: I18n.template(I18n.growthpad.reward.finished, { count: 500, reward: '{reward}' }),
-      // description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {

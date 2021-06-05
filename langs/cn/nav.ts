@@ -45,7 +45,71 @@ export default {
         chart: {
             name:'项目数据图表',
             desc:'数据驱动交易，财富快人一步',
-            href:'https://ikingdata.com/'
+            href:'https://ikingdata.com/',
+            children:{
+                chart:{name:'我的图表',href:'https://ikingdata.com/topic?tagID=item&topicID=my'},
+                recommad:{name:'精选推荐',href:'https://ikingdata.com/topic?tagID=item&topicID=my'},
+                special:{
+                    name:'特色数据',
+                    children:{
+                        usdt:{name:'USDT基金数据专题',href:'https://ikingdata.com/topic?tagID=1&topicID=22'},
+                        shichang:{name:'市场情绪数据专题',href:'https://ikingdata.com/topic?tagID=1&topicID=23'},
+                        quanqiu:{name:'全球主要金融指数',href:'https://ikingdata.com/topic?tagID=1&topicID=27'},
+                        huidu:{name:'灰度基金',href:'https://ikingdata.com/topic?tagID=1&topicID=25'}
+                    }
+                },
+                project:{
+                    name:'项目对比数据',
+                    children:{
+                        dex:{name:'DEX数据对比',href:'https://ikingdata.com/topic?tagID=11&topicID=24'},
+                        defi:{name:'DeFi总体数据专题',href:'https://ikingdata.com/topic?tagID=11&topicID=10'},
+                        gonglian:{name:'公链数据对比',href:'https://ikingdata.com/topic?tagID=11&topicID=34'},
+                    }
+                },
+                bsc:{
+                    name:'BSC及生态项目数据',
+                    children:{
+                        bsc:{name:'币安BSC数据专题',href:'https://ikingdata.com/topic?tagID=12&topicID=33'},
+                    }
+                },
+                heco:{
+                    name:'Heco及生态项目数据',
+                    children:{
+                        mdex:{name:'MDEX 项目数据',href:'https://ikingdata.com/topic?tagID=10&topicID=15'},
+                        heco:{name:'Heco 公链数据',href:'https://ikingdata.com/topic?tagID=10&topicID=17'},
+                        mdx:{name:'MDX Token 数据',href:'https://ikingdata.com/topic?tagID=10&topicID=30'},
+                        coin:{name:'CoinWind 整体数据',href:'https://ikingdata.com/topic?tagID=10&topicID=32'},
+                    }
+                },
+                eth:{
+                    name:'ETH及生态项目数据',
+                    children:{
+                        sushi:{name:'SUSHI 项目数据',href:'https://ikingdata.com/topic?tagID=9&topicID=13'},
+                        uni:{name:'UNI 项目数据',href:'https://ikingdata.com/topic?tagID=9&topicID=12'},
+                        ampl:{name:'AMPL 项目数据',href:'https://ikingdata.com/topic?tagID=9&topicID=5'},
+                        eth:{name:'ETH 链上数据',href:'https://ikingdata.com/topic?tagID=9&topicID=35'},
+                    }
+                },
+                dot:{
+                    name:'DOT及生态项目数据',
+                    children:{
+                        dot:{name:'DOT 平台数据',href:'https://ikingdata.com/topic?tagID=8&topicID=3'},
+                    }
+                },
+                fil:{
+                    name:'FIL及生态项目数据',
+                    children:{
+                        fil:{name:'FIL 平台数据',href:'https://ikingdata.com/topic?tagID=7&topicID=14'},
+                    }
+                },
+                exchange:{
+                    name:'交易所相关数据',
+                    children:{
+                        zhuliu:{name:'主流交易所钱包余额专题',href:'https://ikingdata.com/topic?tagID=6&topicID=26'},
+                        jiaoyi:{name:'交易所BTC流向监控',href:'https://ikingdata.com/topic?tagID=6&topicID=29'},
+                    }
+                }
+            }
         },
         report: {
             name:'行业研究报告',

@@ -12,12 +12,14 @@ import urlSome from '~/lib/urlsome'
 const getUserAuth = function(config: AxiosRequestConfig): string {
   const cookie = getUserTooken()
   if (cookie) {
+    // 判断当前接口地址是否需要携带 cookie
+    // 此处接口为 true 时为不携带
     const status = urlSome(config, ignore)
     if (status) {
-      return cookie
+      return ''
     }
   }
-  return ''
+  return cookie
 }
 
 const Dao = function(option: AxiosRequestConfig | undefined): AxiosInstance {

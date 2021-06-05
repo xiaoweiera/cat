@@ -80,10 +80,12 @@ export const menu: Menu[] = [
           {
             name: '我的图表',
             icon: 'https://res.ikingdata.com/nav/topicMy.png',
+            href: I18n.nav.analysis.chart.children.chart.href,
           },
           {
             name: '精选推荐',
             icon: 'https://res.ikingdata.com/nav/topicRecom.png',
+            href: I18n.nav.analysis.chart.children.recommad.href,
           },
           {
             name: '特色数据',
@@ -92,18 +94,26 @@ export const menu: Menu[] = [
               {
                 name: 'USDT基金数据专题',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/6741d2f11f5e09e769e84f9a9e37631b.png',
+                href: I18n.nav.analysis.chart.children.special.children.usdt
+                  .href,
               },
               {
                 name: '市场情绪数据专题',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/d56e9e72f9c14ef716f5ef39f8482953.png',
+                href: I18n.nav.analysis.chart.children.special.children.shichang
+                  .href,
               },
               {
                 name: '全球主要金融指数',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/0596f3a540a41fef28fa468ea98cd661_i3YCk8Z.png',
+                href: I18n.nav.analysis.chart.children.special.children.quanqiu
+                  .href,
               },
               {
                 name: '灰度基金',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/bc78c1c3bee94757423614573c0678ed.png',
+                href: I18n.nav.analysis.chart.children.special.children.huidu
+                  .href,
               },
             ],
           },
@@ -114,14 +124,20 @@ export const menu: Menu[] = [
               {
                 name: 'DEX 数据对比',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/81c296c01cabc0a11f2fa3e80a9f2326_8vLv1In.png',
+                href: I18n.nav.analysis.chart.children.project.children.dex
+                  .href,
               },
               {
                 name: 'DeFi 总体数据专题',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/81c296c01cabc0a11f2fa3e80a9f2326_8vLv1In.png',
+                href: I18n.nav.analysis.chart.children.project.children.defi
+                  .href,
               },
               {
                 name: '公链数据对比',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/9995bc0520fe7d295273eda00052f946.png',
+                href: I18n.nav.analysis.chart.children.project.children.gonglian
+                  .href,
               },
             ],
           },
@@ -132,6 +148,7 @@ export const menu: Menu[] = [
               {
                 name: '币安BSC数据专题',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/4/8f8d5382bf57cd82ca4d5613d4855b17.png',
+                href: I18n.nav.analysis.chart.children.bsc.children.bsc.href,
               },
             ],
           },
@@ -142,18 +159,22 @@ export const menu: Menu[] = [
               {
                 name: 'MDEX 项目数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/137d890d34c3de8950b979978883ddd0_dPawxjK.png',
+                href: I18n.nav.analysis.chart.children.heco.children.mdex.href,
               },
               {
                 name: 'HECO 公链数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/72b5c6bbccf71693824fee65b04c0120.png',
+                href: I18n.nav.analysis.chart.children.heco.children.heco.href,
               },
               {
                 name: 'MDX Token 数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/cd49eecab209402f3a3c7610471f5c1c.png',
+                href: I18n.nav.analysis.chart.children.heco.children.mdx.href,
               },
               {
                 name: 'CoinWind 整体数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/3cefd016c462976d4c2b4af75ab62219.png',
+                href: I18n.nav.analysis.chart.children.heco.children.coin.href,
               },
             ],
           },
@@ -164,18 +185,22 @@ export const menu: Menu[] = [
               {
                 name: 'SUSHI 项目数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/aea6de9cbaee9d2704dcf81f4a194991.png',
+                href: I18n.nav.analysis.chart.children.eth.children.sushi.href,
               },
               {
                 name: 'UNI 项目数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/94030d57154f1133d934df07c99dc09b.png',
+                href: I18n.nav.analysis.chart.children.eth.children.uni.href,
               },
               {
                 name: 'AMPL 项目数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/2402967b54df5edc222e0439625556db.png',
+                href: I18n.nav.analysis.chart.children.eth.children.ampl.href,
               },
               {
                 name: 'ETH 链上数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/5/118c1d5d04b10f6cffb153bbba139664.png',
+                href: I18n.nav.analysis.chart.children.eth.children.eth.href,
               },
             ],
           },
@@ -186,6 +211,7 @@ export const menu: Menu[] = [
               {
                 name: 'DOT 平台数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/40679521b5da0954b705341a2859f782.png',
+                href: I18n.nav.analysis.chart.children.dot.children.dot.href,
               },
             ],
           },
@@ -196,6 +222,7 @@ export const menu: Menu[] = [
               {
                 name: 'FIL 平台数据',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/5a231538f89d689c65723f0575a9d732.png',
+                href: I18n.nav.analysis.chart.children.fil.children.fil.href,
               },
             ],
           },
@@ -206,10 +233,14 @@ export const menu: Menu[] = [
               {
                 name: '主流交易所钱包余额专题',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/2f47473cb17617a869c03ca539e490cc.png',
+                href: I18n.nav.analysis.chart.children.exchange.children.zhuliu
+                  .href,
               },
               {
                 name: '交易所BTC流向监控',
                 icon: 'https://jsdata-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/3/d60b79e15b748930698461b4c10d20dc.png',
+                href: I18n.nav.analysis.chart.children.exchange.children.jiaoyi
+                  .href,
               },
             ],
           },
