@@ -4,8 +4,16 @@ import { menu } from '~/logic/menu'
 <template>
   <el-popover placement="bottom-start" width="auto" trigger="click">
     <template #reference>
-      <div>
+      <div class="ml-12 flex items-center">
         <IconFont type="nav-more" size="xl"></IconFont>
+        <span
+          class="ml-1.5 mt-1 text-kd16px24px text-global-default opacity-85"
+        >产品</span>
+        <img
+          class="w-3 ml-1.5 mt-2"
+          src="https://res.ikingdata.com/nav/navDown.png"
+          alt=""
+        />
       </div>
     </template>
     <div class="flex p-3 font-kdFang">

@@ -16,7 +16,7 @@ export default {
   nav: {
     apply: '项目申请',
     about: '产品介绍',
-    download: 'App 下载'
+    download: 'APP下载'
   },
   time: {
     dd: '天',

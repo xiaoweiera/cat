@@ -40,9 +40,12 @@ const onSwitchLang = function() {
       <a class="block" href="https://www.kingdata.com" target="_blank">
         <img src="/assets/logo.svg" alt="KingData" class="nav-logo" />
       </a>
+      <div class="hidden md:inline-block">
+        <HeaderPc></HeaderPc>
+      </div>
       <div
         class="
-          ml-20
+          ml-12.5
           flex-grow
           items-center
           text-global-default
@@ -61,19 +64,19 @@ const onSwitchLang = function() {
             class="hidden md:flex items-center hand text-global-default"
             @click.stop.prevent="onSwitchLang"
           >
-            <span class="mr-1 opacity-85 inline-block whitespace-nowrap">
+            <img
+              class="w-5 h-5"
+              src="https://res.ikingdata.com/nav/navLang.png"
+              alt=""
+            />
+            <span class="ml-1.5 opacity-85 inline-block whitespace-nowrap">
               {{ I18n.common.lang }}
             </span>
-            <IconFont
-              class="w-6 h-6"
-              type="lang"
-              suffix="png"
-              size="2xl"
-            ></IconFont>
           </span>
           <!-- 下载 -->
+          <div class="betweenIcon hidden md:block">|</div>
           <a
-            class="hidden md:inline-block opacity-85 m-4 text-global-default"
+            class="hidden md:inline-block opacity-85 text-global-default"
             :href="download"
             target="_blank"
           >
@@ -81,6 +84,7 @@ const onSwitchLang = function() {
               I18n.common.nav.download
             }}</span>
           </a>
+          <div class="betweenIcon hidden md:block">|</div>
           <!-- 登录/注册 -->
           <HeaderLogin></HeaderLogin>
         </ul>
@@ -89,6 +93,10 @@ const onSwitchLang = function() {
   </nav>
 </template>
 <style scoped lang="scss">
+.betweenIcon {
+  color: rgba(37, 62, 111, 0.16);
+  @apply mx-4;
+}
 .nav-logo {
   width: 113px;
   min-width: 113px;
