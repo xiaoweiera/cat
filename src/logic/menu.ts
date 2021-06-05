@@ -1,4 +1,4 @@
-interface Menu {
+export interface Menu {
   name: string
   key?: string
   icon?: string
@@ -227,3 +227,5 @@ const menu: Menu[] = [
     ],
   },
 ]
+
+export default menu
