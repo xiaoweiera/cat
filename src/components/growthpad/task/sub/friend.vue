@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
+import { messageSuccess } from '~/lib/tool'
 const store = Task()
 
 const pictures = ref<string[]>([])
@@ -33,6 +34,7 @@ const onSubmit = async function(): Promise<void> {
   const list: string[] = [].concat(pictures.value)
   try {
     await store.setFriendPicture<string[]>(list)
+    messageSuccess(I18n.growthpad.weibo.success)
   } catch (e) {
     console.log(e)
     // todo
