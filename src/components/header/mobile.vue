@@ -5,7 +5,7 @@ import { nextLang, href } from '~/utils/lang'
 // @ts-ignore
 import menuData from '~/logic/menu'
 // @ts-ignore
-const inputMenu = ref<boolean>(true)
+const inputMenu = ref<boolean>(false)
 
 const download = ref<string>('https://www.ikingdata.com/download')
 
