@@ -9,7 +9,7 @@ interface Menu {
   children?: Menu[]
 }
 
-const menu: Menu[] = [
+export const menu: Menu[] = [
   {
     name: 'DeFi 数据分析',
     children: [

@@ -49,7 +49,7 @@ const onSwitchLang = function() {
     </div>
     <div>
       <slot name="about" :lang="current">
-        <ul class="flex">
+        <ul class="flex items-center">
           <span
             class="hidden md:flex items-center hand text-global-default"
             @click.stop.prevent="onSwitchLang"
@@ -66,7 +66,7 @@ const onSwitchLang = function() {
           </span>
           <!-- 下载 -->
           <a
-            class="hidden md:inline-block opacity-85 ml-8 text-global-default"
+            class="hidden md:inline-block opacity-85 m-4 text-global-default"
             :href="download"
             target="_blank"
           >
