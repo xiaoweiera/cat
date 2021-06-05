@@ -124,7 +124,7 @@ const timeCountdownValue = computed<string>((): string => {
         </div>
         <!-- 项目名称与状态 -->
         <div class="flex items-center font-kdFang mt-2 md:mt-0 md:order-1">
-          <span class="text-2xl mx-2">{{ title }}</span>
+          <span class="text-2xl mr-2">{{ title }}</span>
           <span
             v-if="timeStatus === TimeStatus.wait"
             class="wait py-1.5 px-3 rounded text-sm"

@@ -2,6 +2,12 @@
 import { ref, defineProps, defineEmit } from 'vue'
 
 defineProps({
+  size: {
+    type: String,
+    default() {
+      return ''
+    },
+  },
   src: {
     type: String,
     default() {
@@ -16,7 +22,7 @@ defineProps({
   },
 })
 
-const $emit = defineEmit(['change', 'remove'])
+const emitEvent = defineEmit(['change', 'remove'])
 
 const previewSrc = ref<string>('')
 
@@ -36,7 +42,7 @@ const preview = function(value: File): Promise<string> {
 const onUpload = async(file: File): Promise<boolean> => {
   const value = file.raw
   const src = await preview(value)
-  $emit('change', src)
+  emitEvent('change', src)
   previewSrc.value = src
   return false
 }
@@ -46,12 +52,12 @@ const getStyle = function(value: string): string {
 }
 
 const onRemove = function() {
-  $emit('remove')
+  emitEvent('remove')
 }
 </script>
 
 <template>
-  <div class="upload-box relative">
+  <div class="upload-box relative" :class="size">
     <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
       删除
     </div>
@@ -70,14 +76,15 @@ const onRemove = function() {
         <template v-if="src">
           <span
             class="preview picture inline-block"
+            :class="size"
             :style="getStyle(src)"
-          ></span>
+          />
         </template>
         <template v-else-if="previewSrc">
           <span
             class="preview picture inline-block"
             :style="getStyle(previewSrc)"
-          ></span>
+          />
         </template>
         <IconFont v-else class="preview" type="plus" suffix="png"></IconFont>
       </el-upload>
@@ -86,11 +93,18 @@ const onRemove = function() {
 </template>
 
 <style scoped lang="scss">
+@mixin size($number) {
+  min-width: $number;
+  width: $number;
+  height: $number;
+}
+
 .upload-box,
 .picture {
-  min-width: 120px;
-  width: 120px;
-  height: 120px;
+  @include size(120px);
+  &.xs {
+    @include size(72px);
+  }
 }
 .delete {
   position: absolute;
