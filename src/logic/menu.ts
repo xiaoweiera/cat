@@ -43,6 +43,7 @@ export const menu: Menu[] = [
         name: 'GrowthPad',
         desc: I18n.nav.service.growthPad.desc,
         icon: 'https://res.ikingdata.com/icon/growthPad.svg',
+        href: I18n.nav.service.growthPad.href,
         children: [
           { name: 'GrowthPad' },
           // { name: '案例' },

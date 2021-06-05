@@ -9,7 +9,7 @@ export default {
         apy: {
             name:'APY List',
             desc:'Quickly find high-yield mining pools',
-            href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
+            href:'https://kingdata.com/apy'
         },
         liquidity: {
             name:'DeFi Liquidity Analysis',

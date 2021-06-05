@@ -9,7 +9,7 @@ export default {
         apy: {
             name:'APY大全',
             desc:'快速发现高收益矿池',
-            href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
+            href:'https://kingdata.com/apy'
         },
         liquidity: {
             name:'DeFi流动性分析',

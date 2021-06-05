@@ -23,7 +23,7 @@ import I18n from '~/utils/i18n/index'
           <div class="mb-0.25">{{ item.name }}</div>
           <template v-for="child in item.children">
             <a
-              v-router="child.href"
+              v-router="child.href + '?utm_source=https://kingdata.com'"
               target="_blank"
               class="mt-5 flex items-center relative"
             >
