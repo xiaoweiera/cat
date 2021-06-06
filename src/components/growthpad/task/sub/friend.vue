@@ -56,17 +56,25 @@ const shareImg = ref<string>(
 </script>
 
 <template>
-  <div class="flex font-kdFang">
-    <h2 class="whitespace-nowrap text-sm leading-6 pr-1">
-      1. {{ I18n.growthpad.growthpad.label.picture }}
-    </h2>
+  <div class="font-kdFang md:flex">
+    <div class="inline-block">
+      <h2 class="whitespace-nowrap text-sm leading-6 pr-1 inline">
+        1. {{ I18n.growthpad.growthpad.label.picture }}
+      </h2>
+      <p class="text-xs desc leading-6 inline md:hidden">
+        {{ I18n.growthpad.growthpad.tips.active }}
+      </p>
+    </div>
     <div>
-      <p class="text-xs desc leading-6">
+      <p class="text-xs desc leading-7 hidden md:block">
         {{ I18n.growthpad.growthpad.tips.active }}
       </p>
       <div class="mt-3">
-        <a v-router="shareImg" class="inline-block" target="_blank">
-          <img class="inline-block" :src="shareImg" />
+        <a v-router="shareImg" class="hidden md:inline-block" target="_blank">
+          <img class="share-img inline-block" :src="shareImg" />
+        </a>
+        <a v-router="shareImg" class="block md:hidden w-full" target="_blank">
+          <img class="inline-block w-full" :src="shareImg" />
         </a>
       </div>
       <div class="mt-3">
@@ -168,6 +176,10 @@ h2 {
 }
 .desc {
   color: rgba(37, 62, 111, 0.65);
+}
+.share-img {
+  width: 210px;
+  max-width: 210px;
 }
 .link-box {
   :deep(a) {
