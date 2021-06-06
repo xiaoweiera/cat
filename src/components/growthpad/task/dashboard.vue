@@ -149,9 +149,10 @@ const timeCountdownValue = computed<string>((): string => {
         </div>
       </div>
       <div>
-        <p class="description text-sm font-kdFang whitespace-pre-line">
-          {{ store.dashboard.description }}
-        </p>
+        <p
+          class="description text-sm font-kdFang whitespace-pre-line"
+          v-html="store.dashboard.description"
+        ></p>
       </div>
       <div class="pt-5">
         <ul class="flex font-kdFang">

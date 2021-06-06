@@ -64,6 +64,7 @@ const isNull = function(address?: string): boolean {
   }
   return true
 }
+
 // 校验规则
 // @ts-ignore
 const rules: any = {
@@ -126,7 +127,13 @@ const bindAddress = async function(): Promise<void> {
     <div v-if="tokenIsNull" class="flex-1">
       <h2 class="pb-4 text-base font-medium address">
         <span>{{ I18n.growthpad.address.reward }}</span>
-        <span class="reward">{{ store.reward.value }} {{ store.token }}</span>
+        <span class="reward">{{ store.reward.value }}</span>
+        <template v-if="store.projectName === Project.channels">
+          <span class="ml-1">{{ I18n.growthpad.channels.address.tips }}</span>
+        </template>
+        <template v-else>
+          <span class="reward ml-1">{{ store.token }}</span>
+        </template>
       </h2>
       <div>
         <p class="text-sm address">

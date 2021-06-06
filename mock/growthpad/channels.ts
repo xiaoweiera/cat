@@ -96,7 +96,7 @@ const data = {
           }),
           telegramHref,
           [10],
-          I18n.growthpad.chat.speak
+          I18n.growthpad.channels.chat.speak
         ),
         twitter(
           Project,
@@ -138,7 +138,7 @@ const data = {
           }),
           telegramHref,
           [10],
-          I18n.growthpad.chat.speak
+          I18n.growthpad.channels.chat.speak
         ),
         twitter(
           Project,
@@ -180,7 +180,7 @@ const data = {
           }),
           telegramHref,
           [10],
-          I18n.growthpad.chat.speak
+          I18n.growthpad.channels.chat.speak
         ),
         twitter(
           Project,
