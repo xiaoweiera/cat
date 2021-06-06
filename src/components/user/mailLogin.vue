@@ -2,8 +2,8 @@
 import { defineProps, ref } from 'vue'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
-import { messageError } from '~/lib/tool'
-import { hideVisible } from '~/store/header/login'
+import { messageError, messageSuccess } from '~/lib/tool'
+import { goDialogLogin, hideVisible } from '~/store/header/login'
 import { formMailData, logoMailForm, onSubmitMail } from '~/logic/user/login'
 const props = defineProps({
   areaCode: Object,
@@ -16,10 +16,7 @@ const submit = async function() {
   } catch (e) {
     const message = e?.message
     if (message) {
-      const data = {
-        err: [message],
-      }
-      messageError(data)
+      messageError(message)
     }
   }
 }
