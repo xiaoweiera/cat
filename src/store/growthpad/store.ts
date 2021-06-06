@@ -241,7 +241,8 @@ class Store {
     this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
 
     // 朋友圈图片
-    this.friendPicture.value = safeGet<string[]>(result, 'wechat_friend_circle') || []
+    this.friendPicture.value
+      = safeGet<string[]>(result, 'wechat_friend_circle') || []
     // 微信群图片
     this.chatPicture.value = safeGet<string[]>(result, 'wechat_group') || []
 
@@ -285,11 +286,18 @@ class Store {
       const result = await API.getProjectInfo(name)
       this.updateData(result)
     } else {
-      const result: any = await API.getGrowthPicture(name)
-      const code = safeGet<number>(result, 'data.code')
+      const [result1, result2]: any = await Promise.all([
+        API.getGrowthPicture(name),
+        API.getProjectInfo(name),
+      ])
+      const code = safeGet<number>(result1, 'data.code')
       if (code === 0) {
-        const data = safeGet<object>(result, 'data.data')
-        this.updateData(data)
+        const data = safeGet<object>(result1, 'data.data')
+        const value = Object.assign({}, result2, data)
+        console.log(value)
+        this.updateData(value)
+      } else {
+        this.updateData(result2)
       }
     }
   }
@@ -434,7 +442,10 @@ class Store {
       const result: any = await API.setChatPicture(this.getNickName(), query)
       const code = safeGet<number>(result, 'data.code')
       if (code === 0) {
-        const list: string[] = safeGet<string[]>(result, 'data.data.wechat_group')
+        const list: string[] = safeGet<string[]>(
+          result,
+          'data.data.wechat_group',
+        )
         this.chatPicture.value = list
         return list
       }
