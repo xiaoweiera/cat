@@ -294,7 +294,6 @@ class Store {
       if (code === 0) {
         const data = safeGet<object>(result1, 'data.data')
         const value = Object.assign({}, result2, data)
-        console.log(value)
         this.updateData(value)
       } else {
         this.updateData(result2)

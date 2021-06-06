@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { messageSuccess } from '~/lib/tool'
+import { checkAddress } from '~/components/growthpad/task/task'
+import activity from '~/logic/growthpad/activity'
 const store = Task()
 
 const pictures = ref<string[]>([])
@@ -31,13 +33,20 @@ const onRemove = function(index) {
 }
 
 const onSubmit = async function(): Promise<void> {
-  const list: string[] = [].concat(pictures.value)
-  try {
-    await store.setFriendPicture<string[]>(list)
-    messageSuccess(I18n.growthpad.weibo.success)
-  } catch (e) {
-    console.log(e)
-    // todo
+  let status = checkAddress(store)
+  // 判断活动时间
+  if (status) {
+    status = activity(store)
+  }
+  if (status) {
+    const list: string[] = [].concat(pictures.value)
+    try {
+      await store.setFriendPicture<string[]>(list)
+      messageSuccess(I18n.growthpad.weibo.success)
+    } catch (e) {
+      console.log(e)
+      // todo
+    }
   }
 }
 
@@ -138,8 +147,14 @@ const shareImg = ref<string>(
         :remove="false"
         @change="onUpload"
       ></Upload>
-      <div class="inline-block ml-3">
-        <el-button type="primary" round size="small" @click="onSubmit">
+      <div v-login class="inline-block ml-3">
+        <el-button
+          type="primary"
+          round
+          size="small"
+          :disabled="picSize === 0"
+          @click="onSubmit"
+        >
           {{ I18n.common.button.submit }}
         </el-button>
       </div>

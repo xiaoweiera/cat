@@ -50,7 +50,6 @@ const onUpload = async(file: File): Promise<boolean> => {
   const value = file.raw
   // const src = await preview(value)
   const url = await uploadImage(value)
-  console.log('url : ', url)
   if (url) {
     emitEvent('change', url)
     // previewSrc.value = url
@@ -77,7 +76,7 @@ const onRemove = function() {
       />
     </a>
   </div>
-  <div v-else class="upload-box relative" :class="size">
+  <div v-else v-login class="upload-box relative" :class="size">
     <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
       <IconFont type="remove"></IconFont>
     </div>
