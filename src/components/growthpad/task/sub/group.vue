@@ -107,7 +107,8 @@ const onSubmit = async function() {
       {{ I18n.growthpad.growthpad.label.upload }}
     </h2>
     <p class="text-xs desc leading-6 inline-block">
-      {{ I18n.growthpad.growthpad.tips.uploadMax }}
+      <span>1.{{ I18n.growthpad.growthpad.tips.uploadMax }}</span>
+      <span class="ml-2">2.{{ I18n.growthpad.growthpad.tips.portrait }}</span>
     </p>
   </div>
   <!-- 已上传 -->

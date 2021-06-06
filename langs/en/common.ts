@@ -11,7 +11,7 @@ export default {
   emailCreate:'Email',
   phoneForget:'Phone',
   emailForget:'Email',
-  lang: 'En',
+  lang: '中文',
   loginOut:'Log Out',
   nav: {
     apply: 'Project Application',

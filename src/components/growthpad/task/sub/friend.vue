@@ -50,9 +50,7 @@ const onSubmit = async function(): Promise<void> {
   }
 }
 
-const shareImg = ref<string>(
-  'https://res.ikingdata.com/static/share/growth.jpg',
-)
+const shareImg = ref<string>(I18n.growthpad.growthpad.share.image)
 </script>
 
 <template>

@@ -277,7 +277,7 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
 GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain.`
     },
     dashboard: {
-      desc: 'There are already three projects settled in the growth events of this Growth Pad project, namely MDEX, CoinWind and Channels. The total prize pool of this event is MDX worth $500,000, of which MDEX growth event bonus is $200,000, CoinWind growth event bonus is $200,000, and Channels growth event bonus is $100,000. Participate in the GrowthPad on this page and share 12,000 USDT extra rewards together.',
+      desc: 'There are already three projects settled in the growth events of this Growth Pad project, namely MDEX, CoinWind and Channels. The total prize pool of this event is Token worth $500,000, of which MDEX growth event bonus is $200,000, CoinWind growth event bonus is $200,000, and Channels growth event bonus is $100,000. Participate in the GrowthPad on this page and share 12,000 USDT extra rewards together.',
     },
     task1: {
       title: 'Post the poster and the content on Twitter, take a screenshot and upload it.'
@@ -301,8 +301,9 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
       active: 'Click Save Picture in wechat to open the big picture and save it manually.'
     },
     share: {
-      link: 'Share the GrowthPad extra 12,000 USDT airdrop reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>',
-      copy: 'Share the GrowthPad extra 12,000 USDT airdrop reward with simple finger swipes~ Link: {url}'
+      image: 'https://res.ikingdata.com/static/share/growth_en.jpg',
+      link: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>',
+      copy: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: {url}'
     }
   }
 };

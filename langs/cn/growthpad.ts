@@ -272,7 +272,7 @@ CoinWind 产品会通过组合策略有效降低流动性质押中的无常损�
 GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
     },
     dashboard: {
-      desc: '本期 GrowthPad 项目增长活动已入驻 3 家，分别是 MDEX、CoinWind 和 Channels。本期活动总奖池金额为价值 $50 万的 MDX ，其中 MDEX 增长活动奖金 $20万，CoinWind 增长活动奖金 $20万，Channels 增长活动奖金 $10 万。参与本页面 GrowthPad 活动，一起瓜分 12000 USDT 额外奖励。',
+      desc: '本期 GrowthPad 项目增长活动已入驻 3 家，分别是 MDEX、CoinWind 和 Channels。本期活动总奖池金额为价值 $50 万的 Token ，其中 MDEX 增长活动奖金 $20万，CoinWind 增长活动奖金 $20万，Channels 增长活动奖金 $10 万。参与本页面 GrowthPad 活动，一起瓜分 12000 USDT 额外奖励。',
     },
     task1: {
       title: '转发下方活动海报+指定文案至微信朋友圈，截图并上传。'
@@ -291,13 +291,14 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       friends: '上传朋友圈截图:'
     },
     tips: {
-      uploadMax: '上传大小不超过2M',
-      portrait: '截图包含您的微信头像，完整的活动海报+文案及发布时间间隔。',
+      uploadMax: '上传大小不超过 2M',
+      portrait: '截图包含您的微信头像，完整的活动海报 + 文案及发布时间间隔。',
       active: '在微信中点击保存图片打开大图后手动保存'
     },
     share: {
-      link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 空投奖励~ 链接：<a href="{url}" target="_blank">{url}</a>',
-      copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 空投奖励~ 链接：{url}'
+      image: 'https://res.ikingdata.com/static/share/growth_cn.jpg',
+      link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：<a href="{url}" target="_blank">{url}</a>',
+      copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：{url}'
     }
   }
 };

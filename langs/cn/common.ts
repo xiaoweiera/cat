@@ -11,7 +11,7 @@ export default {
   emailCreate:'邮箱注册',
   phoneForget:'手机号找回',
   emailForget:'邮箱找回',
-  lang: '中文',
+  lang: 'En',
   loginOut:'退出',
   nav: {
     apply: '项目申请',
