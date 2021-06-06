@@ -12,7 +12,7 @@ onBeforeMount(() => ready(store))
 </script>
 <template>
   <div v-show="!loading">
-    <div class="examples pb-20">
+    <div class="examples">
       <growthpadTaskDashboard />
       <!-- reward-value-title="单人最高可获得"  -->
 
@@ -38,12 +38,14 @@ onBeforeMount(() => ready(store))
       </div>
     </div>
     <!--  即将开始-->
-    <div class="progress text-left mt-4 md:mt-15 md:mt-20">
-      <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
-    </div>
+    <div class="progress px-4 pb-20">
+      <div class="text-left mt-4 md:mt-15 md:mt-20">
+        <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
+      </div>
 
-    <div class="progress pt-15 pb-15">
-      <growthpadTaskAbout></growthpadTaskAbout>
+      <div class="pt-15">
+        <growthpadTaskAbout></growthpadTaskAbout>
+      </div>
     </div>
   </div>
 </template>
