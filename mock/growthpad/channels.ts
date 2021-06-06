@@ -84,6 +84,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.venus,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Venus' }),
           description: ''
@@ -125,6 +126,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.cream,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Cream' }),
           description: ''
@@ -166,6 +168,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.compound,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Compound' }),
           description: ''
@@ -213,6 +216,7 @@ const data = {
       title: I18n.growthpad.mdx.share.title,
       children: [
         {
+          id: chat.uuid(), // 任务ID
           title: I18n.growthpad.mdx.share.lable,
         },
       ],

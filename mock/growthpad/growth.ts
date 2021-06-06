@@ -68,6 +68,7 @@ const data = {
       title: I18n.growthpad.mdx.share.title,
       children: [
         {
+          id: chat.uuid(), // 任务ID
           title: I18n.growthpad.mdx.share.lable,
         },
       ],
