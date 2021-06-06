@@ -77,9 +77,11 @@ const onRemove = function() {
     </a>
   </div>
   <div v-else v-login class="upload-box relative" :class="size">
-    <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
-      <IconFont type="remove"></IconFont>
-    </div>
+    <template v-if="src">
+      <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
+        <IconFont type="remove"></IconFont>
+      </div>
+    </template>
     <div class="upload-main w-full h-full">
       <el-upload
         class="avatar-uploader"

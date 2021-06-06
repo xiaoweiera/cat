@@ -436,6 +436,7 @@ class Store {
   async setFriendPicture(picture: string[]): Promise<string[] | void> {
     this.clearTimeout()
     try {
+      this.friendPicture.value = picture
       const query = { wechat_friend_circle: picture }
       const result: any = await API.setFriendPicture(this.getNickName(), query)
       const code = safeGet<number>(result, 'data.code')
@@ -446,6 +447,7 @@ class Store {
       }
     } catch (e) {
       // todo
+      return Promise.reject(e)
     }
   }
 
@@ -453,6 +455,7 @@ class Store {
   async setChatPicture(picture: string[]): Promise<string[] | void> {
     this.clearTimeout()
     try {
+      this.chatPicture.value = picture
       const query = { wechat_group: picture }
       const result: any = await API.setChatPicture(this.getNickName(), query)
       const code = safeGet<number>(result, 'data.code')
@@ -466,6 +469,7 @@ class Store {
       }
     } catch (e) {
       // todo
+      return Promise.reject(e)
     }
   }
 }

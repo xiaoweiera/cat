@@ -2,34 +2,15 @@
 import { ref, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { messageSuccess } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
 const store = Task()
 
-const pictures = ref<string[]>([])
-
-const picSize = computed<number>((): number => {
-  const list = pictures.value
-  return list.length || 0
-})
-
-// 替换图片
-const onChange = function(src: string, index: number): void {
-  const list = [].concat(pictures.value)
-  list[index] = src
-  pictures.value = list
-}
+const picture = ref<string>('')
 
 const onUpload = function(value) {
-  const list = [].concat(pictures.value)
-  pictures.value = [].concat(list, value)
-}
-
-const onRemove = function(index) {
-  const list = [].concat(pictures.value)
-  list.splice(index, 1)
-  pictures.value = list
+  picture.value = value
 }
 
 const onSubmit = async function(): Promise<void> {
@@ -39,17 +20,20 @@ const onSubmit = async function(): Promise<void> {
     status = activity(store)
   }
   if (status) {
-    const list: string[] = [].concat(pictures.value)
+    const list: string[] = [picture.value]
     try {
-      await store.setFriendPicture<string[]>(list)
+      await store.setFriendPicture(list)
       messageSuccess(I18n.growthpad.weibo.success)
     } catch (e) {
-      console.log(e)
       // todo
+      const { message = '' } = e || {}
+      if (message) {
+        messageError(message)
+      }
     }
   }
 }
-
+// @ts-ignore
 const shareImg = ref<string>(I18n.growthpad.growthpad.share.image)
 </script>
 
@@ -136,21 +120,11 @@ const shareImg = ref<string>(I18n.growthpad.growthpad.share.image)
   </div>
   <!-- 未上传 -->
   <div v-else class="mt-3 flex flex-wrap">
-    <template v-for="(src, index) in pictures" :key="index">
+    <div class="flex items-center">
       <Upload
-        class="mr-6 mb-6"
-        :src="src"
+        :src="picture"
         size="xs"
-        @change="onChange($event, index)"
-        @remove="onRemove(index)"
-      ></Upload>
-    </template>
-    <div class="flex items-center mb-6">
-      <Upload
-        v-show="picSize < 10"
-        :key="`up-${picSize}`"
-        size="xs"
-        :remove="false"
+        :remove="true"
         @change="onUpload"
       ></Upload>
       <div v-login class="inline-block ml-3">

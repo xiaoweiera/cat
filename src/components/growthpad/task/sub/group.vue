@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { messageSuccess } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
 const store = Task()
@@ -66,8 +66,11 @@ const onSubmit = async function() {
       await store.setChatPicture<string[]>(list)
       messageSuccess(I18n.growthpad.weibo.success)
     } catch (e) {
-      console.log(e)
       // todo
+      const { message = '' } = e || {}
+      if (message) {
+        messageError(message)
+      }
     }
   }
 }
