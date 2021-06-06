@@ -55,7 +55,7 @@ export default {
                         usdt:{name:'USDT基金数据专题',href:'https://kingdata.com/topic?tagID=1&topicID=22&utm_source=https://kingdata.com'},
                         shichang:{name:'市场情绪数据专题',href:'https://kingdata.com/topic?tagID=1&topicID=23&utm_source=https://kingdata.com'},
                         quanqiu:{name:'全球主要金融指数',href:'https://kingdata.com/topic?tagID=1&topicID=27&utm_source=https://kingdata.com'},
-                        huidu:{name:'灰度基金',href:'https://kingdata.com/topic?tagID=1&topicID=25&utm_source=https://kingdata.com'}
+                        huidu:{name:'灰度基金数据',href:'https://kingdata.com/topic?tagID=1&topicID=25&utm_source=https://kingdata.com'}
                     }
                 },
                 project:{

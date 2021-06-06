@@ -48,73 +48,73 @@ export default {
             desc:'Data-driven trading, discover wealth one step ahead',
             href:'https://kingdata.com?utm_source=https://kingdata.com',
             children:{
-                chart:{name:'我的图表',href:'https://kingdata.com/topic?tagID=item&topicID=my&utm_source=https://kingdata.com'},
-                recommad:{name:'精选推荐',href:'https://kingdata.com/topic?tagID=item&topicID=0&utm_source=https://kingdata.com'},
+                chart:{name:'My Chart',href:'https://kingdata.com/topic?tagID=item&topicID=my&utm_source=https://kingdata.com'},
+                recommad:{name:'Featured Content',href:'https://kingdata.com/topic?tagID=item&topicID=0&utm_source=https://kingdata.com'},
                 special:{
-                    name:'特色数据',
+                    name:'Featured Data',
                     children:{
-                        usdt:{name:'USDT基金数据专题',href:'https://kingdata.com/topic?tagID=1&topicID=22&utm_source=https://kingdata.com'},
-                        shichang:{name:'市场情绪数据专题',href:'https://kingdata.com/topic?tagID=1&topicID=23&utm_source=https://kingdata.com'},
-                        quanqiu:{name:'全球主要金融指数',href:'https://kingdata.com/topic?tagID=1&topicID=27&utm_source=https://kingdata.com'},
-                        huidu:{name:'灰度基金',href:'https://kingdata.com/topic?tagID=1&topicID=25&utm_source=https://kingdata.com'}
+                        usdt:{name:'USDT Issuance and Premium',href:'https://kingdata.com/topic?tagID=1&topicID=22&utm_source=https://kingdata.com'},
+                        shichang:{name:'User and Sentiment',href:'https://kingdata.com/topic?tagID=1&topicID=23&utm_source=https://kingdata.com'},
+                        quanqiu:{name:'Major Financial Index',href:'https://kingdata.com/topic?tagID=1&topicID=27&utm_source=https://kingdata.com'},
+                        huidu:{name:'Grayscale Fund',href:'https://kingdata.com/topic?tagID=1&topicID=25&utm_source=https://kingdata.com'}
                     }
                 },
                 project:{
-                    name:'项目对比数据',
+                    name:'Project Comparison',
                     children:{
-                        dex:{name:'DEX数据对比',href:'https://kingdata.com/topic?tagID=11&topicID=24&utm_source=https://kingdata.com'},
-                        defi:{name:'DeFi总体数据专题',href:'https://kingdata.com/topic?tagID=11&topicID=10&utm_source=https://kingdata.com'},
-                        gonglian:{name:'公链数据对比',href:'https://kingdata.com/topic?tagID=11&topicID=34&utm_source=https://kingdata.com'},
+                        dex:{name:'DEX Comparison',href:'https://kingdata.com/topic?tagID=11&topicID=24&utm_source=https://kingdata.com'},
+                        defi:{name:'DeFi Overall',href:'https://kingdata.com/topic?tagID=11&topicID=10&utm_source=https://kingdata.com'},
+                        gonglian:{name:'Public Chain Comparison',href:'https://kingdata.com/topic?tagID=11&topicID=34&utm_source=https://kingdata.com'},
                     }
                 },
                 bsc:{
-                    name:'BSC及生态项目数据',
+                    name:'BSC and Ecological Project',
                     children:{
-                        bsc:{name:'币安BSC数据专题',href:'https://kingdata.com/topic?tagID=12&topicID=33&utm_source=https://kingdata.com'},
+                        bsc:{name:'Binance BSC Topic',href:'https://kingdata.com/topic?tagID=12&topicID=33&utm_source=https://kingdata.com'},
                     }
                 },
                 heco:{
-                    name:'Heco及生态项目数据',
+                    name:'HECO and Ecological Project',
                     children:{
-                        mdex:{name:'MDEX 项目数据',href:'https://kingdata.com/topic?tagID=10&topicID=15&utm_source=https://kingdata.com'},
-                        heco:{name:'Heco 公链数据',href:'https://kingdata.com/topic?tagID=10&topicID=17&utm_source=https://kingdata.com'},
-                        mdx:{name:'MDX Token 数据',href:'https://kingdata.com/topic?tagID=10&topicID=30&utm_source=https://kingdata.com'},
-                        coin:{name:'CoinWind 整体数据',href:'https://kingdata.com/topic?tagID=10&topicID=32&utm_source=https://kingdata.com'},
+                        mdex:{name:'MDEX Project',href:'https://kingdata.com/topic?tagID=10&topicID=15&utm_source=https://kingdata.com'},
+                        heco:{name:'HECO Public Chain',href:'https://kingdata.com/topic?tagID=10&topicID=17&utm_source=https://kingdata.com'},
+                        mdx:{name:'MDX Token',href:'https://kingdata.com/topic?tagID=10&topicID=30&utm_source=https://kingdata.com'},
+                        coin:{name:'CoinWind Overall',href:'https://kingdata.com/topic?tagID=10&topicID=32&utm_source=https://kingdata.com'},
                     }
                 },
                 eth:{
-                    name:'ETH及生态项目数据',
+                    name:'ETH and Ecological Project',
                     children:{
-                        sushi:{name:'SUSHI 项目数据',href:'https://kingdata.com/topic?tagID=9&topicID=13&utm_source=https://kingdata.com'},
-                        uni:{name:'UNI 项目数据',href:'https://kingdata.com/topic?tagID=9&topicID=12&utm_source=https://kingdata.com'},
-                        ampl:{name:'AMPL 项目数据',href:'https://kingdata.com/topic?tagID=9&topicID=5&utm_source=https://kingdata.com'},
-                        eth:{name:'ETH 链上数据',href:'https://kingdata.com/topic?tagID=9&topicID=35&utm_source=https://kingdata.com'},
+                        sushi:{name:'SUSHI Project',href:'https://kingdata.com/topic?tagID=9&topicID=13&utm_source=https://kingdata.com'},
+                        uni:{name:'UNI Project',href:'https://kingdata.com/topic?tagID=9&topicID=12&utm_source=https://kingdata.com'},
+                        ampl:{name:'AMPL Project',href:'https://kingdata.com/topic?tagID=9&topicID=5&utm_source=https://kingdata.com'},
+                        eth:{name:'ETH Chain Data',href:'https://kingdata.com/topic?tagID=9&topicID=35&utm_source=https://kingdata.com'},
                     }
                 },
                 dot:{
-                    name:'DOT及生态项目数据',
+                    name:'DOT and Ecological Project ',
                     children:{
-                        dot:{name:'DOT 平台数据',href:'https://kingdata.com/topic?tagID=8&topicID=3&utm_source=https://kingdata.com'},
+                        dot:{name:'DOT Platform Data',href:'https://kingdata.com/topic?tagID=8&topicID=3&utm_source=https://kingdata.com'},
                     }
                 },
                 fil:{
-                    name:'FIL及生态项目数据',
+                    name:'FIL and Ecological Project ',
                     children:{
-                        fil:{name:'FIL 平台数据',href:'https://kingdata.com/topic?tagID=7&topicID=14&utm_source=https://kingdata.com'},
+                        fil:{name:'FIL Platform Data',href:'https://kingdata.com/topic?tagID=7&topicID=14&utm_source=https://kingdata.com'},
                     }
                 },
                 exchange:{
-                    name:'交易所相关数据',
+                    name:'Exchange Data',
                     children:{
-                        zhuliu:{name:'主流交易所钱包余额专题',href:'https://kingdata.com/topic?tagID=6&topicID=26&utm_source=https://kingdata.com'},
-                        jiaoyi:{name:'交易所BTC流向监控',href:'https://kingdata.com/topic?tagID=6&topicID=29&utm_source=https://kingdata.com'},
+                        zhuliu:{name:'Mainstream Exchange Balance',href:'https://kingdata.com/topic?tagID=6&topicID=26&utm_source=https://kingdata.com'},
+                        jiaoyi:{name:'Exchange BTC Flow',href:'https://kingdata.com/topic?tagID=6&topicID=29&utm_source=https://kingdata.com'},
                     }
                 }
             }
         },
         report: {
             name:'Research Report',
-            desc:'In-depth Analysis',
+            desc:'In-depth analysis',
             href:'https://kingdata.com/reports?utm_source=https://kingdata.com'
         }
     },
