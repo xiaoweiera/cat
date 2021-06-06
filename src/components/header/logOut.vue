@@ -2,15 +2,16 @@
 import { ref, onMounted } from 'vue'
 import I18n from '~/utils/i18n/index'
 import { logout, userData } from '~/logic/user/login'
+const type = ref(window.screen.width > 768 ? 'hover' : 'click')
 </script>
 
 <template>
   <div>
-    <el-popover placement="bottom-start" width="auto" trigger="hover">
+    <el-popover placement="bottom-start" width="auto" :trigger="type">
       <template #reference>
         <div class="flex items-center hand">
           <!-- 已经登录 -->
-          <IconFont type="user" size="3xl" @click.stop="goLogin"></IconFont>
+          <IconFont type="user" size="3xl"></IconFont>
         </div>
       </template>
       <div class="flex items-center itemMt cursor-pointer">

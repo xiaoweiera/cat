@@ -7,7 +7,7 @@ import menuData from '~/logic/menu'
 // @ts-ignore
 const inputMenu = ref<boolean>(false)
 
-const download = ref<string>('https://www.ikingdata.com/download')
+const download = ref<string>('https://www.kingdata.com/download')
 
 // @ts-ignore
 const onSwitchLang = function() {

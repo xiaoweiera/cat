@@ -15,7 +15,7 @@ const videoMap = () => {
   video.value.style.display = 'block'
 }
 onMounted(async() => {
-  headerTag.value = 'GrowthPad'
+  headerTag.name = 'GrowthPad'
   videoMap()
   window.onresize = () => {
     videoMap()

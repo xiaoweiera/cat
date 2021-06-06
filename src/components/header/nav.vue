@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { headerTag } from '~/store/header/login'
 // @ts-ignore
 import { current, nextLang, href } from '~/utils/lang'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 // @ts-ignore
 const download = ref<string>('https://www.ikingdata.com/download')
+const growthPad = ref('https://kingdata.com/growthpad')
 // @ts-ignore
 const onSwitchLang = function() {
   const url = href(window.location.href, nextLang())
@@ -37,8 +39,20 @@ const onSwitchLang = function() {
       <HeaderMobile></HeaderMobile>
     </div>
     <div class="flex items-center">
-      <a class="block" href="https://www.kingdata.com" target="_blank">
-        <img src="/assets/logo.svg" alt="KingData" class="nav-logo" />
+      <a
+        v-if="headerTag.name === 'GrowthPad'"
+        v-router="growthPad"
+        class="block"
+        target="_blank"
+      >
+        <img
+          class="w-28 h-9.5"
+          src="https://res.ikingdata.com/nav/navLogoAll.png"
+          alt=""
+        />
+      </a>
+      <a v-else href="https://www.kingdata.com" class="block" target="_blank">
+        <img class="w-28 h-9.5" src="/assets/logo.svg" alt="" />
       </a>
       <div class="hidden md:inline-block">
         <HeaderPc></HeaderPc>

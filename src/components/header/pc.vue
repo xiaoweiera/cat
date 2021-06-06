@@ -37,14 +37,9 @@ import { headerTag } from '~/store/header/login'
                   alt=""
                 />
                 <div class="flex items-center">
-                  <span
-                    :class="
-                      child.name === headerTag ? 'selectName ' : 'childName '
-                    "
-                  >{{ child.name }}</span>
+                  <span class="childName">{{ child.name }}</span>
                   <img
-                    :class="child.name === headerTag ? 'selectName' : 'imgShow'"
-                    class="w-3 ml-1"
+                    class="w-3 ml-1 imgShow"
                     src="https://res.ikingdata.com/nav/navRight.jpg"
                     alt=""
                   />

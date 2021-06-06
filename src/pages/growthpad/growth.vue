@@ -36,15 +36,15 @@ onBeforeMount(() => ready(store))
           </div>
         </div>
       </div>
-    </div>
-    <!--  即将开始-->
-    <div class="progress px-4 pb-20">
-      <div class="text-left mt-4 md:mt-15 md:mt-20">
-        <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
-      </div>
+      <!--  即将开始-->
+      <div class="progress px-4 pb-20">
+        <div class="text-left mt-4 md:mt-15 md:mt-20">
+          <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
+        </div>
 
-      <div class="pt-15">
-        <growthpadTaskAbout></growthpadTaskAbout>
+        <div class="pt-15">
+          <growthpadTaskAbout></growthpadTaskAbout>
+        </div>
       </div>
     </div>
   </div>
