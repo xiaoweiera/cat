@@ -77,7 +77,8 @@ export default {
     partake: 'Sunshine award',
   },
   chat: {
-    speak: 'And send message in the community.'
+    speak: 'And send message in the community.',
+    qrcode: 'Scan code to join {name} official wechat community'
   },
   form: {
     address: 'Confirm',

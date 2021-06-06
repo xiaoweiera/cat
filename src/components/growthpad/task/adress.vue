@@ -129,7 +129,9 @@ const bindAddress = async function(): Promise<void> {
         <span>{{ I18n.growthpad.address.reward }}</span>
         <span class="reward">{{ store.reward.value }}</span>
         <template v-if="store.projectName === Project.channels">
-          <span class="ml-1">{{ I18n.growthpad.channels.address.tips }}</span>
+          <span class="ml-1" style="color: #e9592d">{{
+            I18n.growthpad.channels.address.tips
+          }}</span>
         </template>
         <template v-else>
           <span class="reward ml-1">{{ store.token }}</span>

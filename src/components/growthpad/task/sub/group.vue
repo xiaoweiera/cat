@@ -77,7 +77,7 @@ const onSubmit = async function() {
   <div class="flex font-kdFang">
     <div class="flex-1">
       <h2 class="inline whitespace-nowrap text-sm leading-6 pr-1">
-        {{ I18n.growthpad.growthpad.label.picture }}
+        {{ I18n.growthpad.growthpad.label.content }}
       </h2>
       <p
         class="inline text-xs desc leading-6 link-box"

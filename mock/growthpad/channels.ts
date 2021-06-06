@@ -50,6 +50,7 @@ const data = {
   }),
   about: {
     website, // 项目官网
+    qrcode: 'https://res.ikingdata.com/static/share/channels.jpg',
     minutias: [
       /*
       { label: I18n.growthpad.about.name, value: I18n.growthpad.channels.about.name }, // 代币名称

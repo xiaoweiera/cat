@@ -24,6 +24,7 @@ const data = {
   dashboard: growthInfo.dashboard,
   about: {
     website, // 项目官网
+    qrcode: 'https://res.ikingdata.com/static/share/channels.jpg',
     minutias: [],
     detail: I18n.growthpad.growthpad.about.detail, // 项目介绍
 

@@ -36,6 +36,7 @@ interface ShareItem {
 interface AboutData {
   website?: string
   detail?: string
+  qrcode?: string
   minutias: Array<Minutia>
   share: Array<ShareItem>
 }
@@ -84,6 +85,7 @@ class Store {
   protected about = reactive<AboutData>({
     minutias: [],
     share: [],
+    qrcode: '',
   })
 
   // 任务列表
@@ -177,6 +179,7 @@ class Store {
     this.about.website = data.about.website
     this.about.detail = data.about.detail
     this.about.share = data.about.share
+    this.about.qrcode = data.about.qrcode
     for (const item of data.about.minutias) {
       const minutia: Minutia = {
         label: item.label,
@@ -191,6 +194,19 @@ class Store {
 
   protected getNickName(): API.Project {
     return this.projectName
+  }
+
+  protected getName(): string {
+    if (this.getNickName() === API.Project.channels) {
+      return 'Channels'
+    }
+    if (this.getNickName() === API.Project.coinwind) {
+      return 'CoinWind'
+    }
+    if (this.getNickName() === API.Project.growth) {
+      return 'GrowthPad'
+    }
+    return this.getNickName()
   }
 
   private updateData(result?: any) {

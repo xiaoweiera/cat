@@ -43,43 +43,94 @@ const title = computed<string>((): string => {
     </h2>
   </div>
 
-  <div class="flex items-center font-kdFang pb-6">
-    <DotChar :img="store.icon.value" size="xl" />
-    <span class="ml-3 label">{{ title }}</span>
-  </div>
+  <div class="md:flex md:justify-between">
+    <div>
+      <div class="flex items-center font-kdFang pb-6">
+        <DotChar :img="store.icon.value" size="xl" />
+        <span class="ml-3 label">{{ title }}</span>
+      </div>
 
-  <div class="font-kdFang">
-    <p class="md:flex md:items-center">
-      <span class="flex items-center">
-        <b class="text-base font-medium h2">{{
-          I18n.growthpad.about.website
-        }}</b>
-        <a
-          class="ml-4 text-sm font-color-theme"
-          :href="`https://${store.about.website}`"
-          target="_blank"
-        >{{ store.about.website }}</a>
-      </span>
-      <span class="flex items-center pt-6 md:pt-0 md:ml-8">
-        <b class="text-base font-medium h2 pr-4">{{
-          I18n.growthpad.about.community
-        }}</b>
-        <a
-          v-for="(item, index) in store.about.share"
-          :key="index"
-          class="inline-block"
-          target="_blank"
-          :href="item.href"
-        >
-          <IconFont
-            class="flex"
-            :class="{ 'ml-4': index > 0 }"
-            :type="item.icon"
-            size="xl"
-          />
-        </a>
-      </span>
-    </p>
+      <div class="font-kdFang">
+        <!-- 带二维码展示方式 -->
+        <p v-if="store.about.qrcode">
+          <span class="flex items-center">
+            <b class="text-base font-medium h2">{{
+              I18n.growthpad.about.website
+            }}</b>
+            <a
+              class="ml-4 text-sm font-color-theme"
+              :href="`https://${store.about.website}`"
+              target="_blank"
+            >{{ store.about.website }}</a>
+          </span>
+          <span class="flex items-center pt-6">
+            <b class="text-base font-medium h2 pr-4">{{
+              I18n.growthpad.about.community
+            }}</b>
+            <a
+              v-for="(item, index) in store.about.share"
+              :key="index"
+              class="inline-block"
+              target="_blank"
+              :href="item.href"
+            >
+              <IconFont
+                class="flex"
+                :class="{ 'ml-4': index > 0 }"
+                :type="item.icon"
+                size="xl"
+              />
+            </a>
+          </span>
+        </p>
+        <p v-else class="md:flex md:items-center">
+          <span class="flex items-center">
+            <b class="text-base font-medium h2">{{
+              I18n.growthpad.about.website
+            }}</b>
+            <a
+              class="ml-4 text-sm font-color-theme"
+              :href="`https://${store.about.website}`"
+              target="_blank"
+            >{{ store.about.website }}</a>
+          </span>
+          <span class="flex items-center pt-6 md:pt-0 md:ml-8">
+            <b class="text-base font-medium h2 pr-4">{{
+              I18n.growthpad.about.community
+            }}</b>
+            <a
+              v-for="(item, index) in store.about.share"
+              :key="index"
+              class="inline-block"
+              target="_blank"
+              :href="item.href"
+            >
+              <IconFont
+                class="flex"
+                :class="{ 'ml-4': index > 0 }"
+                :type="item.icon"
+                size="xl"
+              />
+            </a>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div>
+      <a
+        v-if="store.about.qrcode"
+        v-router="store.about.qrcode"
+        class="qr-code block md:w-32 md:text-center mt-3 md:mt-0"
+        target="_blank"
+      >
+        <img class="inline-block" :src="store.about.qrcode" />
+        <p class="block text-sm font-kdExp mt-1">
+          {{
+            I18n.template(I18n.growthpad.chat.qrcode, { name: store.getName() })
+          }}
+        </p>
+      </a>
+    </div>
   </div>
 
   <!-- 手机版本 -->
@@ -137,7 +188,7 @@ const title = computed<string>((): string => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 h2,
 .h2,
 .label {
@@ -154,5 +205,12 @@ h2,
 }
 .detail {
   color: rgba(37, 62, 111, 0.85);
+}
+.qr-code {
+  color: rgba(37, 62, 111, 0.85);
+  img {
+    width: 70px;
+    height: 70px;
+  }
 }
 </style>
