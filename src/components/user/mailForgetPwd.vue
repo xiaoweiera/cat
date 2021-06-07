@@ -50,7 +50,7 @@ const onGetCode = async function() {
   try {
     const result = await onMailCaptchaForget()
     if (result.data.code !== 0) {
-      messageError(result)
+      messageError(result.data.message)
     } else {
       codeFlag = true
       interval = setInterval(() => {
