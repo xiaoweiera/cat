@@ -49,7 +49,7 @@ export const channelsInfo = {
     description: I18n.growthpadShow.channelsProject.des, // 描述
     reward: {
       count: 100000, // 奖励数量
-      countStr:'价值 100,000 USDT 的 CAN',
+      countStr:I18n.growthpadShow.channelsProject.channelsCount,
       limits: [148], // 每人可领取范围
     },
     status: '',
