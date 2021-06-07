@@ -45,6 +45,8 @@ const submit = async function() {
       <div class="flex items-center">
         <el-input
           v-model="formdata.mobile"
+          name="mobile"
+          type="text"
           :placeholder="I18n.common.placeholder.tel"
           class="input-with-select"
           autocomplete="off"
@@ -70,6 +72,7 @@ const submit = async function() {
     <el-form-item class="mb-2" prop="password">
       <el-input
         v-model="formdata.password"
+        name="pwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"

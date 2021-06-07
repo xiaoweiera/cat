@@ -31,6 +31,8 @@ onMounted(() => {
 const submit = async function() {
   try {
     const result = await onRegisterSubmit()
+    console.log(result)
+
     if (result.code !== 0) {
       messageError(result.message)
     } else {
@@ -60,7 +62,7 @@ const onGetCode = async function() {
   try {
     const result = await onCaptchaResgister()
     if (result.data.code !== 0) {
-      messageError(result)
+      messageError(result.data.message)
     } else {
       codeFlag = true
       interval = setInterval(() => {
@@ -105,6 +107,8 @@ const onGetCode = async function() {
     <el-form-item class="mobileItem" prop="mobile">
       <el-input
         v-model="registerData.mobile"
+        name="mobile"
+        type="text"
         :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"
@@ -129,6 +133,7 @@ const onGetCode = async function() {
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="registerData.code"
+        name="code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -148,6 +153,7 @@ const onGetCode = async function() {
     <el-form-item prop="password">
       <el-input
         v-model="registerData.password"
+        name="pwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"

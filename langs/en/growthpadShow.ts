@@ -6,7 +6,7 @@ export default {
     end: 'end',
     projectState:'⏱ Ongoing',
     timeBegin:'Start countdown',
-    waitButton: 'coming',
+    waitButton: 'Coming',
     ingButton: 'View more',
     overButton: 'End',
     supproted:'Supproted',

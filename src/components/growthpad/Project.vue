@@ -122,14 +122,14 @@ timeout()
       <div class="flex mt-6 items-center font-normal">
         <p class="desc">{{ I18n.growthpadShow.reward }}</p>
         <p class="projectNum">
-          {{ props.project.dashboard.reward.count }} {{ props.project.coin }}
+          {{ props.project.dashboard.reward.countStr }}
         </p>
       </div>
       <!--      <div class="flex blockItem">-->
       <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
       <!--        <p class="projectNum">${{ cost }}</p>-->
       <!--      </div>-->
-      <div class="flex blockItem">
+      <div v-if="props.project.projectName !== 'Growth'" class="flex blockItem">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
         <p class="projectNum">
           {{ props.project.dashboard.reward.limits[0] }}

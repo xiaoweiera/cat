@@ -77,11 +77,11 @@ export const menu: Menu[] = [
         icon: 'https://res.ikingdata.com/icon/table.svg',
         href: I18n.nav.analysis.chart.href,
         children: [
-          {
-            name: I18n.nav.analysis.chart.children.chart.name,
-            icon: 'https://res.ikingdata.com/nav/topicMy.png',
-            href: I18n.nav.analysis.chart.children.chart.href,
-          },
+          // {
+          //   name: I18n.nav.analysis.chart.children.chart.name,
+          //   icon: 'https://res.ikingdata.com/nav/topicMy.png',
+          //   href: I18n.nav.analysis.chart.children.chart.href,
+          // },
           {
             name: I18n.nav.analysis.chart.children.recommad.name,
             icon: 'https://res.ikingdata.com/nav/topicRecom.png',

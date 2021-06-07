@@ -27,28 +27,29 @@ const type = ref(window.screen.width > 768 ? 'hover' : 'click')
           {{ userData.nickname }}
         </div>
         <img
+          v-if="userData.is_vip"
           class="w-7.75 ml-2"
           src="https://res.ikingdata.com/nav/navVip.jpg"
           alt=""
         />
       </div>
-      <a
-        href="https://www.kingdata.com/topic?utm_source=https://kingdata.com"
-        target="_blank"
-        class="flex items-center itemMt cursor-pointer"
-      >
-        <img
-          class="w-5 h-5 ml-2"
-          src="https://res.ikingdata.com/nav/navChart.jpg"
-          alt=""
-        />
-        <div
-          style="color: rgba(68, 90, 132, 1)"
-          class="text-kd14px16px ml-2 text-kd14px18px flex"
-        >
-          {{ I18n.nav.chart }}
-        </div>
-      </a>
+      <!--      <a-->
+      <!--        href="https://www.kingdata.com/topic?tagID=item&topicID=my?utm_source=https://kingdata.com"-->
+      <!--        target="_blank"-->
+      <!--        class="flex items-center itemMt cursor-pointer"-->
+      <!--      >-->
+      <!--        <img-->
+      <!--          class="w-5 h-5 ml-2"-->
+      <!--          src="https://res.ikingdata.com/nav/navChart.jpg"-->
+      <!--          alt=""-->
+      <!--        />-->
+      <!--        <div-->
+      <!--          style="color: rgba(68, 90, 132, 1)"-->
+      <!--          class="text-kd14px16px ml-2 text-kd14px18px flex"-->
+      <!--        >-->
+      <!--          {{ I18n.nav.chart }}-->
+      <!--        </div>-->
+      <!--      </a>-->
       <div class="flex items-center itemMt cursor-pointer" @click="logout()">
         <img
           class="w-5 h-5 ml-2"
