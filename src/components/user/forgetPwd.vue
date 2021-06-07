@@ -89,6 +89,7 @@ const onGetCode = async function() {
     <el-form-item class="mobileItem" prop="mobile">
       <el-input
         v-model="forgetData.mobile"
+        type="text"
         :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"

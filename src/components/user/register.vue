@@ -105,6 +105,7 @@ const onGetCode = async function() {
     <el-form-item class="mobileItem" prop="mobile">
       <el-input
         v-model="registerData.mobile"
+        type="text"
         :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
         autocomplete="off"

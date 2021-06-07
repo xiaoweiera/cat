@@ -27,6 +27,7 @@ const type = ref(window.screen.width > 768 ? 'hover' : 'click')
           {{ userData.nickname }}
         </div>
         <img
+          v-if="userData.is_vip"
           class="w-7.75 ml-2"
           src="https://res.ikingdata.com/nav/navVip.jpg"
           alt=""

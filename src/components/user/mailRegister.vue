@@ -107,6 +107,7 @@ const onGetCode = async function() {
     <el-form-item prop="email">
       <el-input
         v-model="registerMailData.email"
+        type="email"
         :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"

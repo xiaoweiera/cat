@@ -38,6 +38,7 @@ const submit = async function() {
     <el-form-item prop="email">
       <el-input
         v-model="formMailData.email"
+        type="email"
         :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"

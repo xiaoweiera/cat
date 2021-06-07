@@ -13,6 +13,7 @@ export const mdxInfo = {
     description: I18n.growthpadShow.mdxProject.des, // 描述
     reward: {
       count: 100000, // 奖励数量
+      countStr:'100,000 MDX',
       limits: [348], // 每人可领取范围
     },
   },
@@ -30,6 +31,7 @@ export const coinwindInfo = {
     description: I18n.growthpadShow.coinwindProject.des, // 描述
     reward: {
       count: 100000, // 奖励数量
+      countStr:'100,000 COW',
       limits: [312], // 每人可领取范围
     },
   },
@@ -47,6 +49,7 @@ export const channelsInfo = {
     description: I18n.growthpadShow.channelsProject.des, // 描述
     reward: {
       count: 100000, // 奖励数量
+      countStr:'价值 100,000 USDT 的 CAN',
       limits: [148], // 每人可领取范围
     },
     status: '',
@@ -65,6 +68,7 @@ export const growthInfo = {
     description: I18n.growthpad.growthpad.dashboard.desc, // 描述
     reward: {
       count: 500000, // 奖励数量
+      countStr:'12,000 USDT',
       limits: [1328], // 每人可领取范围
     },
     status: '',

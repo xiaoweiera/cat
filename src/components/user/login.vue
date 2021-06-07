@@ -45,6 +45,7 @@ const submit = async function() {
       <div class="flex items-center">
         <el-input
           v-model="formdata.mobile"
+          type="text"
           :placeholder="I18n.common.placeholder.tel"
           class="input-with-select"
           autocomplete="off"
