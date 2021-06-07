@@ -5,10 +5,13 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
 import { loading, ready } from '~/logic/growthpad/active'
-
+import { headerTag } from '~/store/header/login'
 const store = Task()
 
-onBeforeMount(() => ready(store))
+onBeforeMount(() => {
+  headerTag.name = 'GrowthPad'
+  ready(store)
+})
 </script>
 <template>
   <div v-show="!loading">
