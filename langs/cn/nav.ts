@@ -3,7 +3,7 @@ export default {
     user:'用户名',
     chart:'我的图表',
     outLogin:'退出',
-    soonLine:'https:xxxxxxx',
+    soonLine:'https://res.ikingdata.com/nav/navOnLineTip.jpg',
     defi:{
         name:'DeFi 数据分析',
         apy: {

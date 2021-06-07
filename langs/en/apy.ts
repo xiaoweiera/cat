@@ -8,6 +8,8 @@ export default {
         growthPad:'GrowthPad',
         apy:'DeFi Mining APY List'
     },
+    footMobileBanner:'https://res.ikingdata.com/nav/apyMobileFooterEn.png',
+    footPcBanner:'https://res.ikingdata.com/nav/apyFooterEn.png',
     projectName: 'DeFi Mining APY List',
     projectApply: 'Apply',
     des: 'The website collects and sorts out the data of valuts and various lending platform on multiple public chains, and classifies them according to types for users\' convenience.',

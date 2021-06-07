@@ -125,10 +125,10 @@ timeout()
           {{ props.project.dashboard.reward.count }} {{ props.project.coin }}
         </p>
       </div>
-      <div class="flex blockItem">
-        <p class="desc">{{ I18n.growthpadShow.values }}</p>
-        <p class="projectNum">${{ cost }}</p>
-      </div>
+      <!--      <div class="flex blockItem">-->
+      <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
+      <!--        <p class="projectNum">${{ cost }}</p>-->
+      <!--      </div>-->
       <div class="flex blockItem">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
         <p class="projectNum">
@@ -139,9 +139,12 @@ timeout()
       <div class="flex mt-3 items-end font-normal">
         <div class="desc">
           <span v-show="props.status !== 'closure'">{{
-            I18n.growthpadShow.timeLeft
+            props.status === 'wait'
+              ? I18n.growthpadShow.timeBegin
+              : I18n.growthpadShow.timeLeft
           }}</span>
         </div>
+
         <div
           v-if="props.status !== 'closure'"
           class="itemTxt"

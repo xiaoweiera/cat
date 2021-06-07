@@ -1,3 +1,6 @@
+<script setup lang="ts">
+import I18n from '~/utils/i18n'
+</script>
 <template>
   <div
     class="join-mobile-us mb-12 px-4 md:px-0 mt-4 md:mt-15 md:mb-15 mdhidden"
@@ -9,7 +12,7 @@
     >
       <img
         class="w-full h-full shadowImg"
-        src="https://res.ikingdata.com/nav/apyMobileFooter.png"
+        :src="I18n.apy.footMobileBanner"
         alt=""
       />
     </a>
@@ -19,11 +22,7 @@
     target="_blank"
     class="hand join-us xshidden mx-auto md:mt-5 relative flex items-center"
   >
-    <img
-      class="w-full shadowImg"
-      src="https://res.ikingdata.com/nav/apyFooter.png"
-      alt=""
-    />
+    <img class="w-full shadowImg" :src="I18n.apy.footPcBanner" alt="" />
   </a>
 </template>
 <style scoped lang="postcss">

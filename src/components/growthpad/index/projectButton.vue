@@ -19,6 +19,7 @@ const txts = {
   <div v-if="props.status !== 'closure'" :class="getBg()">
     <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>
     <img
+      v-if="props.status !== 'wait'"
       class="w-3 h-3 ml-1"
       src="https://res.ikingdata.com/nav/statusRight.png"
       alt=""
@@ -27,6 +28,7 @@ const txts = {
   <div v-else :class="getBg()">
     <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>
     <img
+      v-if="props.status !== 'wait'"
       class="w-3 h-3 ml-1"
       src="https://res.ikingdata.com/nav/statusRight.png"
       alt=""
