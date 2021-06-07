@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { copyTxt } from '~/lib/tool'
+import { isLogin, userData } from '~/logic/user/login'
 import I18n from '~/utils/i18n'
-import { userData } from '~/logic/user/login'
+
 const link = (): string => {
   const { origin, pathname } = window.location
   let url = `${origin}${pathname}`
@@ -26,7 +27,7 @@ const link = (): string => {
               userData.growthpad_invited_count
             }}</span>
           </div>
-          <div class="flex items-center mt-1.5">
+          <div v-if="isLogin" class="flex items-center mt-1.5">
             <span>{{ I18n.growthpadShow.code }}</span>
             <span
               class="text-kd17px17px text-global-primary ml-1.5"
@@ -42,6 +43,7 @@ const link = (): string => {
         </div>
         <Copy :link="link">
           <div
+            v-if="isLogin"
             class="
               visited
               flex
@@ -53,12 +55,22 @@ const link = (): string => {
           >
             {{ I18n.growthpadShow.invite }}
           </div>
+          <div v-else v-login class="visitedButton">
+            {{ I18n.growthpadShow.login }}
+          </div>
         </Copy>
       </div>
     </div>
   </div>
 </template>
 <style lang="postcss" scoped>
+.visitedButton {
+  color: #ffffff;
+  background: linear-gradient(180deg, #7cb9ff 0%, #3090ff 100%);
+  border-radius: 42px;
+  padding: 4px 12px;
+  @apply visited ml-6 flex justify-center items-center text-kd16px24px font-kdFang cursor-pointer;
+}
 .containerRadius {
   border: 1px solid rgba(43, 141, 254, 0.06);
   box-shadow: 0px 12px 72px -12px rgba(43, 141, 254, 0.13);

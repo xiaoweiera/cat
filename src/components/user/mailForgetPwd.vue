@@ -48,7 +48,7 @@ const onGetCode = async function() {
     return false
   }
   try {
-    const result = await onMailCaptchaForget()
+    const result = await onMailCaptchaForget('forget')
     if (result.data.code !== 0) {
       messageError(result.data.message)
     } else {

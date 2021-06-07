@@ -255,15 +255,14 @@ const phoneField = function(formData: any) {
   })
 }
 // 忘记密码邮箱验证码
-export const onMailCaptchaForget = async function(): Promise<any> {
+export const onMailCaptchaForget = async function(type: string): Promise<any> {
   const form = toRaw(forgetMailForm).value
   try {
     if (form) {
       await emailField(forgetMailForm)
     }
     const data = toRaw(forgetMailData)
-    // 注册
-    const result = await user.getMailCaptcha(data.email)
+    const result = await user.getMailCaptcha(data.email, type)
     // @ts-ignore
     return result || {}
   } catch (e) {
@@ -272,7 +271,9 @@ export const onMailCaptchaForget = async function(): Promise<any> {
   }
 }
 // 注册邮箱验证码
-export const onMailCaptchaResgister = async function(): Promise<any> {
+export const onMailCaptchaResgister = async function(
+  type: string,
+): Promise<any> {
   const form = toRaw(registerMailForm).value
   try {
     if (form) {
@@ -280,7 +281,7 @@ export const onMailCaptchaResgister = async function(): Promise<any> {
     }
     const data = toRaw(registerMailData)
     // 注册
-    const result = await user.getMailCaptcha(data.email)
+    const result = await user.getMailCaptcha(data.email, type)
     // @ts-ignore
     return result || {}
   } catch (e) {
