@@ -12,12 +12,19 @@ onBeforeMount(() => {
   headerTag.name = 'GrowthPad'
   ready(store)
 })
+
+const countLable = I18n.growthpad.growthpad.dashboard.reward.count
+const valueLabel = I18n.growthpad.growthpad.dashboard.reward.value
+const personLabel = I18n.growthpad.growthpad.dashboard.reward.person
 </script>
 <template>
   <div v-show="!loading">
     <div class="examples">
-      <growthpadTaskDashboard />
-      <!-- reward-value-title="单人最高可获得"  -->
+      <growthpadTaskDashboard
+        :reward-count-title="countLable"
+        :reward-value-title="valueLabel"
+        :reward-person-title="personLabel"
+      />
 
       <div class="pt-15 px-4 md:px-6">
         <growthpadTaskAdress />

@@ -282,6 +282,11 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
 GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain.`
     },
     dashboard: {
+      reward: {
+        count: 'Total Reward',
+        value: 'The Max Reward Per Person',
+        person: 'Amount of This Reward'
+      },
       desc: 'There are already three projects settled in the growth events of this Growth Pad project, namely MDEX, CoinWind and Channels. The total prize pool of this event is Token worth $500,000, of which MDEX growth event bonus is $200,000, CoinWind growth event bonus is $200,000, and Channels growth event bonus is $100,000. Participate in the GrowthPad on this page and share 12,000 USDT extra rewards together.',
     },
     task1: {
