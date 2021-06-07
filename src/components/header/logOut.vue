@@ -34,7 +34,7 @@ const type = ref(window.screen.width > 768 ? 'hover' : 'click')
         />
       </div>
       <a
-        href="https://www.kingdata.com/topic?utm_source=https://kingdata.com"
+        href="https://www.kingdata.com/topic?tagID=item&topicID=my?utm_source=https://kingdata.com"
         target="_blank"
         class="flex items-center itemMt cursor-pointer"
       >
