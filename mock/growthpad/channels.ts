@@ -50,6 +50,7 @@ const data = {
   }),
   about: {
     website, // 项目官网
+    qrcode: 'https://res.ikingdata.com/static/share/channels_qrcode.jpg?r=2',
     minutias: [
       /*
       { label: I18n.growthpad.about.name, value: I18n.growthpad.channels.about.name }, // 代币名称
@@ -84,6 +85,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.venus,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Venus' }),
           description: ''
@@ -95,7 +97,7 @@ const data = {
           }),
           telegramHref,
           [10],
-          I18n.growthpad.chat.speak
+          I18n.growthpad.channels.chat.speak
         ),
         twitter(
           Project,
@@ -125,6 +127,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.cream,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Cream' }),
           description: ''
@@ -136,7 +139,7 @@ const data = {
           }),
           telegramHref,
           [10],
-          I18n.growthpad.chat.speak
+          I18n.growthpad.channels.chat.speak
         ),
         twitter(
           Project,
@@ -166,6 +169,7 @@ const data = {
       reward: [16], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.compound,
           title: I18n.template(I18n.growthpad.channels.activity.label, { group: 'Compound' }),
           description: ''
@@ -177,7 +181,7 @@ const data = {
           }),
           telegramHref,
           [10],
-          I18n.growthpad.chat.speak
+          I18n.growthpad.channels.chat.speak
         ),
         twitter(
           Project,
@@ -213,6 +217,7 @@ const data = {
       title: I18n.growthpad.mdx.share.title,
       children: [
         {
+          id: chat.uuid(), // 任务ID
           title: I18n.growthpad.mdx.share.lable,
         },
       ],

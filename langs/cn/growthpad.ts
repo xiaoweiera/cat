@@ -74,7 +74,8 @@ export default {
     partake: '阳光普照奖',
   },
   chat: {
-    speak: '并完成任意发言。'
+    speak: '并完成任意发言。',
+    qrcode: '扫码加入 {name} 官方微信社群'
   },
   form: {
     address: '确认地址',
@@ -165,16 +166,19 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     title: '助力 Channels 增长，领取10万美元 USDT 奖励',
     address: {
       placeholder: '输入参与领取奖励的 HECO 地址',
-
+      tips: '(奖励将发放等价值的代币 Can)'
     },
     dashboard: {
       desc: `Channels 为奖励长期支持 Channels 的用户，联合 KingData 在 GrowthPad 上开启价值超 $100000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-        活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 HECO 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 USDT 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 USDT 奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`
+      活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 HECO 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。<span style="color: #e9592d;">（所有奖励将以等价值的代币 Can 进行发放）</span>`
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 30~100 USDT。（粉丝数不低于2000人，阅读量不低于1000）。`,
       description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+    },
+    chat: {
+      speak: '并在群里发布 Channels 存 / 借款截图'
     },
     share: {
       telegram: 'https://t.me/channels_finance',
@@ -188,7 +192,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       marketValue: '602.71亿',
       circulation: '3亿',
       luanched: 'ETH/Omni',
-      detail: 'Channels 是 HECO 上首个完全去中心化的借贷平台。Channels 在资产安全、用户体验和挖矿收益上，均在 HECO 上的加代产品里首屈一指。Channels 专注于主流借贷币种 HUSD、USDT、ETH、HBTC 和 HT 等，始终坚持以产品体验为基础，以用户利益为核心。'
+      detail: 'Channels.finance 是 HECO 上首个完全去中心化的借贷平台，主打用户资产安全性，首发支持LP抵押借贷 + LP 机枪池，目前已支持 17 个主流币种和 12 个 (Mdex) LP 资产抵押借贷。CAN 是平台代币，总流通量 5000000, 已上线火币等交易所。'
     },
     task1: {
       title: 'Venus 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',
@@ -220,11 +224,11 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       online: '2021年5月25日',
       count: '1亿',
       luanched: 'HECO',
-      detail: `CoinWind 是一个 DeFi 智能挖矿金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种挖矿收益低、LP 挖矿无常损失大等风险问题。
+      detail: `CoinWind 是一个 DeFi 智能质押金融平台，通过合约自动将质押的币种进行撮合配对，配合对冲无常损失策略，将用户收益最大化，有效解决了用户单币种质押收益低、LP 质押无常损失大等风险问题。
 
-CoinWind 旨在打造一个 DeFi 数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性挖矿，从而为用户实现更高的收益。CoinWind 产品会通过组合策略有效降低流动性挖矿中的无常损失。
+CoinWind 旨在打造一个 DeFi 数字资产银行，推出高收益与安全可靠并存的产品，将用户存入的不同代币汇集到不同的池中，然后根据策略调动某代币池的资金参与不同的流动性质押，从而为用户实现更高的收益。
 
-CoinWind 首发 HECO 生态链，之后将跨多条主链如 ETH、BSC 等运行。`,
+CoinWind 产品会通过组合策略有效降低流动性质押中的无常损失。 CoinWind 首发 HECO 生态链，现已垮链到 BSC 上运行。`,
     },
     copy: '邀请您参与${title}，赢取百万美元奖励，{url}',
     share: {
@@ -238,7 +242,7 @@ CoinWind 首发 HECO 生态链，之后将跨多条主链如 ETH、BSC 等运行
     dashboard: {
       desc: `CoinWind 为奖励长期支持 CoinWind 的用户，联合 KingData 在 GrowthPad 上开启价值超 $200000 的激励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
-活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 MDX 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 MDX  奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
+活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 COW 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 COW 奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
     task1: {
       title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。'
@@ -253,8 +257,8 @@ CoinWind 首发 HECO 生态链，之后将跨多条主链如 ETH、BSC 等运行
       condition1: '任务资格：autofarm 提供流动性(TVL)超过 10000 USDT',
     },
     task4: {
-      title: 'Belt.fit 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
-      condition1: '任务资格：Belt.fit 提供流动性(TVL)超过 10000 USDT',
+      title: 'Belt.fi 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      condition1: '任务资格：Belt.fi 提供流动性(TVL)超过 10000 USDT',
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~300 MDX。（粉丝数不低于2000人，阅读量不低于1000）。`,
@@ -262,12 +266,48 @@ CoinWind 首发 HECO 生态链，之后将跨多条主链如 ETH、BSC 等运行
     },
   },
   growthpad: {
+    title: '助力 CoinWind',
     address: {
       placeholder: '输入参与领取奖励的 BSC / HECO 地址',
     },
     about: {
       detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
+
 GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
+    },
+    dashboard: {
+      reward: {
+        count: '总奖池金额',
+        value: '单人最高可获得',
+        person: '该项奖励金额'
+      },
+      desc: '本期 GrowthPad 项目增长活动已入驻 3 家，分别是 MDEX、CoinWind 和 Channels。本期活动总奖池金额为价值 $50 万的 Token ，其中 MDEX 增长活动奖金 $20万，CoinWind 增长活动奖金 $20万，Channels 增长活动奖金 $10 万。参与本页面 GrowthPad 活动，一起瓜分 12000 USDT 额外奖励。',
+    },
+    task1: {
+      title: '转发下方活动海报+指定文案至微信朋友圈，截图并上传。'
+    },
+    task2: {
+      title: '转发下方指定文案至 200 人以上的币圈微信群，截图并上传，转发群越多，奖励越多。',
+      desc: '您的奖励金额 = 您转发的群数 / 总转发群个数 * 8000 USDT'
+    },
+    button: {
+      save: '保存图片'
+    },
+    label: {
+      upload: '上传图片:',
+      picture: '海报图片:',
+      content: '活动文案:',
+      friends: '上传朋友圈截图:'
+    },
+    tips: {
+      uploadMax: '上传大小不超过 2M',
+      portrait: '截图包含您的微信头像，完整的活动海报 + 文案及发布时间间隔。',
+      active: '在微信中点击保存图片打开大图后手动保存'
+    },
+    share: {
+      image: 'https://res.ikingdata.com/static/share/growth_cn.jpg',
+      link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：<a href="{url}" target="_blank">{url}</a>',
+      copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：{url}'
     }
   }
 };

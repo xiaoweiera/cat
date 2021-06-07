@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmit } from 'vue'
+import { uploadImage } from '~/api/res'
 
 defineProps({
+  size: {
+    type: String,
+    default() {
+      return ''
+    },
+  },
   src: {
     type: String,
     default() {
@@ -14,30 +21,39 @@ defineProps({
       return true
     },
   },
+  preview: {
+    type: Boolean,
+    default() {
+      return false
+    },
+  },
 })
 
-const $emit = defineEmit(['change', 'remove'])
+const emitEvent = defineEmit(['change', 'remove'])
 
-const previewSrc = ref<string>('')
-
-const preview = function(value: File): Promise<string> {
-  return new Promise((resolve) => {
-    // 读取文件的 base64 值
-    const file = new FileReader()
-    file.onload = function(e) {
-      // 获取 base64 编码
-      const base64: string = e.target.result
-      resolve(base64)
-    }
-    file.readAsDataURL(value)
-  })
-}
+// const previewSrc = ref<string>('')
+//
+// const preview = function(value: File): Promise<string> {
+//   return new Promise((resolve) => {
+//     // 读取文件的 base64 值
+//     const file = new FileReader()
+//     file.onload = function(e) {
+//       // 获取 base64 编码
+//       const base64: string = e.target.result
+//       resolve(base64)
+//     }
+//     file.readAsDataURL(value)
+//   })
+// }
 
 const onUpload = async(file: File): Promise<boolean> => {
   const value = file.raw
-  const src = await preview(value)
-  $emit('change', src)
-  previewSrc.value = src
+  // const src = await preview(value)
+  const url = await uploadImage(value)
+  if (url) {
+    emitEvent('change', url)
+    // previewSrc.value = url
+  }
   return false
 }
 
@@ -46,15 +62,26 @@ const getStyle = function(value: string): string {
 }
 
 const onRemove = function() {
-  $emit('remove')
+  emitEvent('remove')
 }
 </script>
 
 <template>
-  <div class="upload-box relative">
-    <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
-      删除
-    </div>
+  <div v-if="preview" class="upload-box relative" :class="size">
+    <a v-router="src" class="avatar-uploader cursor-pointer" target="_blank">
+      <span
+        class="preview picture inline-block"
+        :class="size"
+        :style="getStyle(src)"
+      />
+    </a>
+  </div>
+  <div v-else v-login class="upload-box relative" :class="size">
+    <template v-if="src">
+      <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
+        <IconFont type="remove"></IconFont>
+      </div>
+    </template>
     <div class="upload-main w-full h-full">
       <el-upload
         class="avatar-uploader"
@@ -70,14 +97,15 @@ const onRemove = function() {
         <template v-if="src">
           <span
             class="preview picture inline-block"
+            :class="size"
             :style="getStyle(src)"
-          ></span>
+          />
         </template>
         <template v-else-if="previewSrc">
           <span
             class="preview picture inline-block"
             :style="getStyle(previewSrc)"
-          ></span>
+          />
         </template>
         <IconFont v-else class="preview" type="plus" suffix="png"></IconFont>
       </el-upload>
@@ -86,11 +114,18 @@ const onRemove = function() {
 </template>
 
 <style scoped lang="scss">
+@mixin size($number) {
+  min-width: $number;
+  width: $number;
+  height: $number;
+}
+
 .upload-box,
 .picture {
-  min-width: 120px;
-  width: 120px;
-  height: 120px;
+  @include size(120px);
+  &.xs {
+    @include size(72px);
+  }
 }
 .delete {
   position: absolute;

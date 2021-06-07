@@ -34,13 +34,18 @@ export const router = function(data: string | To): any {
     const path = `${to.path}?${query.join('&')}`
     return path
   }
-  return data
+  if (data) {
+    return data
+  }
+  return ''
 }
 
 export const install = function(vue: any) {
   // 添加指令
   vue.directive('router', (el: HTMLElement, binding: Binding) => {
     const value = router(binding.value)
-    el.setAttribute('href', value)
+    if (value) {
+      el.setAttribute('href', value)
+    }
   })
 }

@@ -13,6 +13,7 @@ enum Status {
 interface Content {
   value: string
   warn?: string
+  desc?: string
 }
 
 const getContent = function(content?: Content | string): string {
@@ -30,6 +31,9 @@ const getContent = function(content?: Content | string): string {
   }
   if (content.warn) {
     text += `<p class="text-xs font-normal" style="color: #E9592D; word-break: break-word; overflow-wrap: break-word;">* ${content.warn}</p>`
+  }
+  if (content.desc) {
+    text += `<p class="text-xs font-normal pt-2" style="color: rgba(37, 62, 111, 0.85); word-break: break-word; overflow-wrap: break-word;">${content.desc}</p>`
   }
   return `<div class="text-center">${text}</div>`
 }
@@ -88,6 +92,10 @@ message.alert = function(title: string, content?: Content | string) {
     return app(title, '', 'alert')
   }
   return app(title, getContent(content), 'alert')
+}
+
+message.copy = function(content?: Content | string) {
+  return app('', getContent(content), 'alert')
 }
 
 export default message

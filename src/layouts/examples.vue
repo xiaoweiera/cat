@@ -2,7 +2,7 @@
   <div class="circleContainer"></div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">
     <Nav class="relative"></Nav>
-    <main class="examples">
+    <main>
       <router-view />
     </main>
   </div>
@@ -17,9 +17,5 @@
       rgba(43, 141, 254, 0.1) 0%,
       rgba(43, 141, 254, 0) 100%
     );
-}
-.examples {
-  max-width: 848px;
-  margin: 0 auto;
 }
 </style>

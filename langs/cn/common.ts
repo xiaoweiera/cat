@@ -1,5 +1,5 @@
 export default {
-  login: '登陆',
+  login: '登录',
   register: '注册',
   resetPassword: '重置密码',
   switchLogin: '返回登录',
@@ -11,12 +11,12 @@ export default {
   emailCreate:'邮箱注册',
   phoneForget:'手机号找回',
   emailForget:'邮箱找回',
-  lang: '中文',
+  lang: 'En',
   loginOut:'退出',
   nav: {
     apply: '项目申请',
-    about: '产品介绍',
-    download: 'App 下载'
+    about: {name:'产品介绍',href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'},
+    download: 'APP下载'
   },
   time: {
     dd: '天',
@@ -25,6 +25,7 @@ export default {
     ss: '秒'
   },
   button: {
+    copy: '复制',
     submit: '提交',
     confirm: '确认',
     close: '取消',
@@ -41,7 +42,8 @@ export default {
     copy: '已复制邀请链接',
     fail: '失败, 请重新验证',
     checked:'注册前请阅读',
-    mailError:'邮箱格式不正确'
+    mailError:'邮箱格式不正确',
+    copyAlert: '你已成功复制文案'
   },
   placeholder: {
     login: '自动登录',

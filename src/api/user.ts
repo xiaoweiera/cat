@@ -5,8 +5,12 @@
 
 import safeGet from '@fengqiaogang/safe-get'
 import * as pathname from './pathname'
-import request from '~/lib/devRequest'
-import { addUserToken, removeUserToken } from '~/logic/user/token'
+import request from '~/lib/service'
+import {
+  addUserToken,
+  removeUserToken,
+  getUserTooken,
+} from '~/logic/user/token'
 import * as lang from '~/utils/lang'
 export interface LogoData {
   mobile: string
@@ -22,8 +26,13 @@ export interface LogoResult {
 
 export const getInfo = async function() {
   try {
-    const reuslt = await request.get(pathname.user.info)
-    return safeGet(reuslt, 'data.data')
+    // 判断用户是否为已登陆状态
+    const token = getUserTooken()
+    if (token) {
+      const reuslt = await request.get(pathname.user.info)
+      return safeGet(reuslt, 'data.data')
+    }
+    return {}
   } catch (e) {
     return Promise.reject(e)
   }
@@ -68,7 +77,8 @@ export const logoMail = async function(query: LogoData): Promise<LogoResult> {
   const method = 'post'
   const url = '/api/v1/users/email_login'
   // 电话区号默认为 +86
-  const data = Object.assign(query)
+  // const data = Object.assign(query)
+  const data = { ...query, lang: lang.current.value }
   try {
     removeUserToken()
     const result = await request({ url, method, data })
@@ -119,13 +129,14 @@ export const register = async function(data: any): Promise<any> {
 // 邮箱注册
 export const registerMail = async function(data: any): Promise<any> {
   const url = '/api/v1/users/email_signup'
-  const value = Object.assign(data)
+  const value = { ...data, lang: lang.current.value }
   return request.post(url, value)
 }
 // 重置密码
 export const findPwd = async function(data: any): Promise<any> {
   const url = '/api/v1/users/change_password'
-  const value = Object.assign({ area_code: '+86' }, data)
+  // const value = Object.assign({ area_code: '+86' }, data)
+  const value = { ...data, lang: lang.current.value }
   value.area_code = parseInt(value.area_code.replace(/[^0-9]/g, ''), 10)
   return request.post(url, value)
 }
@@ -133,7 +144,8 @@ export const findPwd = async function(data: any): Promise<any> {
 export const findPwdMail = async function(data: any): Promise<any> {
   const url = '/api/v1/users/email_change_password'
   // const value = Object.assign({ area_code: '+86' }, data)
-  return request.post(url, data)
+  const value = { ...data, lang: lang.current.value }
+  return request.post(url, value)
 }
 // 获取区域号码
 export const areaCode = async function(): Promise<void> {

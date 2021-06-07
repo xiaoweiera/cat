@@ -36,6 +36,7 @@ interface ShareItem {
 interface AboutData {
   website?: string
   detail?: string
+  qrcode?: string
   minutias: Array<Minutia>
   share: Array<ShareItem>
 }
@@ -84,6 +85,7 @@ class Store {
   protected about = reactive<AboutData>({
     minutias: [],
     share: [],
+    qrcode: '',
   })
 
   // 任务列表
@@ -131,6 +133,11 @@ class Store {
 
   private timeout: any = 0
 
+  // 微信群图片
+  public chatPicture = ref<string[]>([])
+  // 朋友圈图片
+  public friendPicture = ref<string[]>([])
+
   // 构造方法
   constructor(type: string) {
     if (type && API.getProjectType(type) === API.Project.mdx) {
@@ -172,6 +179,7 @@ class Store {
     this.about.website = data.about.website
     this.about.detail = data.about.detail
     this.about.share = data.about.share
+    this.about.qrcode = data.about.qrcode
     for (const item of data.about.minutias) {
       const minutia: Minutia = {
         label: item.label,
@@ -186,6 +194,19 @@ class Store {
 
   protected getNickName(): API.Project {
     return this.projectName
+  }
+
+  protected getName(): string {
+    if (this.getNickName() === API.Project.channels) {
+      return 'Channels'
+    }
+    if (this.getNickName() === API.Project.coinwind) {
+      return 'CoinWind'
+    }
+    if (this.getNickName() === API.Project.growth) {
+      return 'GrowthPad'
+    }
+    return this.getNickName()
   }
 
   private updateData(result?: any) {
@@ -235,22 +256,31 @@ class Store {
     this.article_url.value = safeGet<string>(result, 'article_url')
     this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
 
-    // 自动刷新逻辑
-    const keys: string[] = Object.keys(result)
-    if (keys.length > 1) {
-      // 定时刷新
-      let time: number
-      if (isLogin.value) {
-        time = parseInt(this.getIntervalTime() as any)
-      } else {
-        time = parseInt((this.getIntervalTime() / 2) as any)
+    // 朋友圈图片
+    this.friendPicture.value
+      = safeGet<string[]>(result, 'wechat_friend_circle') || []
+    // 微信群图片
+    this.chatPicture.value = safeGet<string[]>(result, 'wechat_group') || []
+
+    // growth pad 任务不启动自动刷新
+    if (this.getNickName() !== API.Project.growth) {
+      // 自动刷新逻辑
+      const keys: string[] = Object.keys(result)
+      if (keys.length > 1) {
+        // 定时刷新
+        let time: number
+        if (isLogin.value) {
+          time = parseInt(this.getIntervalTime() as any)
+        } else {
+          time = parseInt((this.getIntervalTime() / 2) as any)
+        }
+        if (time < 3000 || isNaN(time)) {
+          time = 3000
+        }
+        this.timeout = setTimeout(() => {
+          return this.init()
+        }, time)
       }
-      if (time < 3000 || isNaN(time)) {
-        time = 3000
-      }
-      this.timeout = setTimeout(() => {
-        return this.init()
-      }, time)
     }
   }
 
@@ -267,8 +297,24 @@ class Store {
    */
   async init(): Promise<void> {
     this.clearTimeout()
-    const result = await API.getProjectInfo(this.projectName)
-    this.updateData(result)
+    const name: API.Project = this.getNickName()
+    if (name !== API.Project.growth) {
+      const result = await API.getProjectInfo(name)
+      this.updateData(result)
+    } else {
+      const [result1, result2]: any = await Promise.all([
+        API.getGrowthPicture(name),
+        API.getProjectInfo(name),
+      ])
+      const code = safeGet<number>(result1, 'data.code')
+      if (code === 0) {
+        const data = safeGet<object>(result1, 'data.data')
+        const value = Object.assign({}, result2, data)
+        this.updateData(value)
+      } else {
+        this.updateData(result2)
+      }
+    }
   }
 
   // 设置合约地址
@@ -307,7 +353,8 @@ class Store {
     this.clearTimeout()
     try {
       const result = await API.setWeiboContent(this.getNickName(), form)
-      this.updateData(result)
+      // 刷新接口
+      this.init().then()
       return result
     } catch (e) {
       this.updateData({})
@@ -383,6 +430,47 @@ class Store {
   @postInfoBasis()
   setBunny(value: string) {
     this.info.bunny = value
+  }
+
+  // 上传朋友圈图片
+  async setFriendPicture(picture: string[]): Promise<string[] | void> {
+    this.clearTimeout()
+    try {
+      this.friendPicture.value = picture
+      const query = { wechat_friend_circle: picture }
+      const result: any = await API.setFriendPicture(this.getNickName(), query)
+      const code = safeGet<number>(result, 'data.code')
+      if (code === 0) {
+        const list = safeGet<string[]>(result, 'data.data.wechat_friend_circle')
+        this.friendPicture.value = list
+        return list
+      }
+    } catch (e) {
+      // todo
+      return Promise.reject(e)
+    }
+  }
+
+  // 上传朋友圈图片
+  async setChatPicture(picture: string[]): Promise<string[] | void> {
+    this.clearTimeout()
+    try {
+      this.chatPicture.value = picture
+      const query = { wechat_group: picture }
+      const result: any = await API.setChatPicture(this.getNickName(), query)
+      const code = safeGet<number>(result, 'data.code')
+      if (code === 0) {
+        const list: string[] = safeGet<string[]>(
+          result,
+          'data.data.wechat_group',
+        )
+        this.chatPicture.value = list
+        return list
+      }
+    } catch (e) {
+      // todo
+      return Promise.reject(e)
+    }
   }
 }
 

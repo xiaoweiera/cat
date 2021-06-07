@@ -5,34 +5,28 @@ import {
   mdxInfo,
   coinwindInfo,
   channelsInfo,
+  growthInfo,
 } from '/mock/growthpad/projectInfo'
 import { getTimeStatus } from '~/components/growthpad/task/task'
 const props = defineProps({
   title: String,
+  projectName: String,
 })
 const mdxStatus = ref('')
 const coinwindStatus = ref('')
 const channelsStatus = ref('')
+const growthpadStatus = ref('')
 onMounted(() => {
   mdxStatus.value = getTimeStatus(mdxInfo)
   coinwindStatus.value = getTimeStatus(coinwindInfo)
   channelsStatus.value = getTimeStatus(channelsInfo)
+  growthpadStatus.value = getTimeStatus(growthInfo)
 })
 </script>
 <template>
   <div class="md:block hidden beginTxt">{{ props.title }}</div>
-  <div
-    class="
-      grid grid-cols-1
-      md:mt-6
-      gap-4
-      md:gap-6
-      md:mt-6
-      lg:grid-cols-2
-      xl:grid-cols-3
-    "
-  >
-    <div class="w-full projectContainer">
+  <div class="md:mt-6 flex justify-between flex-wrap">
+    <div class="w-full md:max-w-97 mt-4">
       <GrowthpadProject
         :value="
           mdxStatus.value === 'wait'
@@ -43,7 +37,7 @@ onMounted(() => {
         :project="mdxInfo"
       />
     </div>
-    <div class="w-full projectContainer">
+    <div class="w-full md:max-w-97 mt-4">
       <GrowthpadProject
         :value="
           coinwindStatus.value === 'wait'
@@ -54,7 +48,7 @@ onMounted(() => {
         :project="coinwindInfo"
       />
     </div>
-    <div class="w-full projectContainer">
+    <div class="w-full md:max-w-97 mt-4">
       <GrowthpadProject
         :value="
           channelsStatus.value === 'wait'
@@ -63,6 +57,17 @@ onMounted(() => {
         "
         :status="channelsStatus"
         :project="channelsInfo"
+      />
+    </div>
+    <div v-if="!projectName" class="w-full md:max-w-97 mt-4">
+      <GrowthpadProject
+        :value="
+          growthpadStatus.value === 'wait'
+            ? growthInfo.dashboard.end
+            : growthInfo.dashboard.begin
+        "
+        :status="growthpadStatus"
+        :project="growthInfo"
       />
     </div>
   </div>

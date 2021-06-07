@@ -16,23 +16,15 @@ import {
 import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
 import { areaCode } from '~/api/user'
 
-// 刷新用户信息
-syncUser()
-const outLogin = ref(false)
 const areaCodes = ref([])
-const mouseover = () => {
-  outLogin.value = true
-}
-const mouseLeave = () => {
-  outLogin.value = false
-}
-
 // 弹窗关闭前
 const handleClose = function(next) {
   hideVisible()
   return next()
 }
 onMounted(async() => {
+  // 刷新用户信息
+  syncUser()
   areaCodes.value = await areaCode()
 })
 </script>
@@ -41,7 +33,6 @@ onMounted(async() => {
   <div v-if="!isLogin">
     <div
       class="
-        ml-7.5
         hand
         text-global-default
         opacity-85
@@ -51,17 +42,20 @@ onMounted(async() => {
         items-center
       "
     >
-      <span class="whitespace-nowrap" @click.stop="goLogin">{{
-        I18n.common.login
-      }}</span>
-      <img
-        class="w-0.5 h-0.5 ml-1 mr-1 Z"
-        src="https://res.ikingdata.com/nav/dian.png"
-        alt=""
-      />
-      <span class="whitespace-nowrap" @click.stop="goRegister">{{
-        I18n.common.register
-      }}</span>
+      <!-- 没有登录 -->
+      <div class="flex items-center">
+        <span class="whitespace-nowrap" @click.stop="goLogin">{{
+          I18n.common.login
+        }}</span>
+        <img
+          class="w-0.5 h-0.5 ml-1 mr-1 Z"
+          src="https://res.ikingdata.com/nav/dian.png"
+          alt=""
+        />
+        <span class="whitespace-nowrap" @click.stop="goRegister">{{
+          I18n.common.register
+        }}</span>
+      </div>
     </div>
     <ElDialog
       v-model="visible"
@@ -179,57 +173,8 @@ onMounted(async() => {
       </UserMailForgetPwd>
     </ElDialog>
   </div>
-
-  <div
-    v-else
-    class="
-      relative
-      text-global-default
-      opacity-85
-      text-kd16px24px
-      font-normal
-      ml-7.5
-      flex
-      items-center
-    "
-    @mouseleave="mouseLeave()"
-    @mouseover="mouseover()"
-  >
-    <div>{{ userData.nickname }}</div>
-    <img
-      class="w-3 ml-2"
-      src="https://res.ikingdata.com/nav/downTip.png"
-      alt=""
-    />
-    <div
-      v-if="outLogin"
-      class="
-        absolute
-        top-6
-        hand
-        -right-2
-        w-20
-        h-8
-        bg-global-primary
-        loginOut
-        flex
-        items-center
-        justify-center
-        text-center
-        px-3
-      "
-      @click="logout()"
-    >
-      <img
-        class="w-5 h-5"
-        src="https://res.ikingdata.com/nav/outLogin.png"
-        alt=""
-      />
-      <div class="text-kd14px16px ml-2 w-10 flex">
-        {{ I18n.common.loginOut }}
-      </div>
-    </div>
-  </div>
+  <!--      退出-->
+  <headerLogOut v-else></headerLogOut>
 </template>
 
 <style lang="scss">

@@ -33,7 +33,7 @@ const tokenValue = computed<string>((): string => {
   // @ts-ignore
   const name: Project = store.projectName
   if (name === Project.growth) {
-    return 'u'
+    return 'U'
   }
   return store.token
 })

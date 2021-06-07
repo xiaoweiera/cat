@@ -2,9 +2,12 @@
 import I18n from '../../src/utils/i18n'
 import TaskType from '../../src/logic/growthpad/tasktype'
 
+let id: number = 100
+
 export const uuid = function(): string {
+  id += 1
   const value = String(Math.random()).slice(2)
-  return `task-${value}`
+  return `task-${value}-${id}`
 }
 
 export const telegram = function(project: string, description?: string, href?: string, reward: Array<number> = [], titleAfter: string = '') {

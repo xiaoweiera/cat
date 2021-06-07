@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 import * as R from 'ramda'
 import { ElMessage } from 'element-plus'
+import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 
 export const numberFormat = (value: any) => {
@@ -105,12 +106,16 @@ export const min_max = (min: any, max: any, v: any) => {
 }
 
 export const messageError = function(message: any): void {
-  const values = R.values(message)
-  const [text]: Array<string> = R.flatten(values)
-  if (text) {
-    ElMessage.warning(text)
-  } else {
+  if (typeof message === 'string') {
     ElMessage.warning(message)
+  } else {
+    const values = R.values(message)
+    const [text]: Array<string> = R.flatten(values)
+    if (text) {
+      ElMessage.warning(text)
+    } else {
+      ElMessage.warning(message)
+    }
   }
 }
 
@@ -124,14 +129,18 @@ export const messageSuccess = function(text: string): void {
 }
 
 // copy
-export const copyTxt = (txt: string, message?: boolean) => {
+export const copyTxt = (text: string, alert?: boolean) => {
   const dom = document.createElement('input')
-  dom.setAttribute('value', txt)
+  dom.setAttribute('value', text)
   document.body.appendChild(dom)
   dom.select()
   document.execCommand('copy')
   document.body.removeChild(dom)
-  if (message) {
-    messageSuccess(I18n.common.message.copy)
+  if (alert) {
+    // messageSuccess(I18n.common.message.copy)
+    message.copy({
+      value: I18n.common.message.copyAlert,
+      desc: text,
+    })
   }
 }

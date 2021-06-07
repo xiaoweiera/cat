@@ -8,6 +8,7 @@ import { Project } from '~/api/growtask'
 import Message from '~/utils/message'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
+import { toNumber } from '~/utils/index'
 
 const store = Task()
 
@@ -40,11 +41,7 @@ const data = computed(() => {
 })
 
 const rewardValue = computed<number>((): number => {
-  const number = parseInt(store.article_reward.value)
-  if (isNaN(number)) {
-    return 0
-  }
-  return number
+  return toNumber(store.article_reward.value)
 })
 
 const isRegistered = computed<boolean>((): boolean => {
@@ -101,8 +98,7 @@ const submit = async function() {
       })
     }
     if (status) {
-      const res = await store.setWeiboContent(data)
-      console.log(res)
+      await store.setWeiboContent(data)
       messageSuccess(I18n.growthpad.weibo.success)
       // 清除验证结果
       form.clearValidate()
@@ -163,20 +159,38 @@ const rules: any = {
             <span>-</span>
           </template>
         </el-form-item>
-        <el-form-item :label="I18n.growthpad.weibo.articleImg">
-          <a
-            class="avatar-uploader relative block"
-            :href="store.article_image.value"
-            target="_blank"
+        <!-- 已审核 -->
+        <template v-if="rewardValue">
+          <el-form-item
+            :label="I18n.growthpad.weibo.articleImg"
+            style="margin-bottom: 0"
           >
-            <img class="preview" :src="store.article_image.value" />
-          </a>
-        </el-form-item>
-        <el-form-item style="margin-bottom: 0">
-          <el-button type="info" round plain size="small" disabled>
-            <span>{{ I18n.common.button.review }}</span>
-          </el-button>
-        </el-form-item>
+            <a
+              class="avatar-uploader relative block"
+              :href="store.article_image.value"
+              target="_blank"
+            >
+              <img class="preview" :src="store.article_image.value" />
+            </a>
+          </el-form-item>
+        </template>
+        <!-- 审核中 -->
+        <template v-else>
+          <el-form-item :label="I18n.growthpad.weibo.articleImg">
+            <a
+              class="avatar-uploader relative block"
+              :href="store.article_image.value"
+              target="_blank"
+            >
+              <img class="preview" :src="store.article_image.value" />
+            </a>
+          </el-form-item>
+          <el-form-item style="margin-bottom: 0">
+            <el-button type="info" round plain size="small" disabled>
+              <span>{{ I18n.common.button.review }}</span>
+            </el-button>
+          </el-form-item>
+        </template>
       </template>
       <template v-else>
         <el-form-item

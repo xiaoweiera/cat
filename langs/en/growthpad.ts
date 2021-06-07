@@ -12,8 +12,8 @@ export default {
     count: 'Reward Amount',
     value: 'Reward Value',
     perPerson: 'The Max Reward Per Person',
-    total: 'Reward {count} MDX',
-    maxTotal: '{count} MDX at maximum',
+    total: 'Reward {count} {token}',
+    maxTotal: '{count} {token} at maximum',
     finished: 'Finish all tasks: {reward}（TOP {count} users）',
     anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
   },
@@ -77,7 +77,8 @@ export default {
     partake: 'Sunshine award',
   },
   chat: {
-    speak: 'And send message in the community.'
+    speak: 'And send message in the community.',
+    qrcode: 'Scan code to join {name} official wechat community'
   },
   form: {
     address: 'Confirm',
@@ -170,15 +171,19 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     title: 'Help Channels grow and receive USDT rewards worth $100,000',
     address: {
       placeholder: 'Enter HECO address',
+      tips: '(The reward will be issued with equal value of tokens Can)'
     },
     dashboard: {
       desc: `In order to give back to community users, Channels cooperated with KingData to launch an incentive activity worth over $100,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
-      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
+      Rule: Before starting the task, participants need to the KingData account and enter the HECO wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified. <span style="color: #e9592d;">(All rewards will be issued with equal value of token Can)</span>`
     },
     weibo: {
       label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 30~100 USDT. (The number of followers is not less than 2000, and the reading volume is not less than 1000).',
       description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
+    },
+    chat: {
+      speak: 'And send screenshots of Channels deposit / borrow in the group.'
     },
     share: {
       telegram: 'https://t.me/ChannelsGlobal',
@@ -192,7 +197,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       marketValue: '60,271 millions',
       circulation: '300 millions',
       luanched: 'ETH / Omni',
-      detail: 'Channels is the first decentralized lending protocol on HECO. Breaking the chain ERC-20 Token, steady token and mainstream produce documents due to the head trading, support the asset to flouting mining project to get profit more widely. CAN is the token of Channels platform; the whole circulation is 10,000,000 tokens.'
+      detail: 'Channels is the safest and most useful decentralized lending platform on HECO. Channels.finance is the first fully decentralized lending platform on HECO, focusing on users’ asset security. The first platform launched LP mortgage lending + LP Asset Mining Aggregator. CAN is the token of Channels platform; The whole circulation is 5,000,000 tokens.'
     },
     task1: {
       title: 'TVL in Venus is more than 10K USDT, and the total amount of deposits and loans in Channels exceeds 1,000 USDT. Join Channels telegram group; Follow Channels Twitter and retweet the twitter；Follow Channels Weibo and repost the weibo.',
@@ -218,17 +223,17 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
   coinwind: {
     title: 'Help CoinWind grow and receive MDX rewards worth $200,000',
     address: {
-      placeholder: 'Enter HECO address',
+      placeholder: 'Enter BSC address',
     },
     about: {
       online: '25/5/2021',
       count: '100M',
       luanched: 'HECO',
-      detail: `CoinWind is a HECO and BSC Ecological Single Token Mining Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
+      detail: `CoinWind is a HECO and BSC Ecological Single Token pledge Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
-CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity mining according to the strategy, so as to achieve higher returns for users.
+CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity pledge according to the strategy, so as to achieve higher returns for users.
 
-CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future`,
+CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will support more mainchain ecologies such as ETH in the future.`,
     },
     copy: 'Inviting you to participate in {title}, Win 1 million dollars award, {url}',
     share: {
@@ -257,8 +262,8 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
       condition1: 'Qualification: TVL in autofarm is more than 10K USDT.',
     },
     task4: {
-      title: 'TVL in Belt.fit is more than 10K USDT; Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
-      condition1: 'Qualification: TVL in Belt.fit is more than 10K USDT.',
+      title: 'TVL in Belt.fi is more than 10K USDT; Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
+      condition1: 'Qualification: TVL in Belt.fi is more than 10K USDT.',
     },
     weibo: {
       label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 MDX. (The number of followers is not less than 2000, and the reading volume is not less than 1000)',
@@ -267,12 +272,48 @@ CoinWind now supports the mining of HECO and BSC mainchain ecologies, and will s
 
   },
   growthpad: {
+    title: 'Help CoinWind',
     address: {
       placeholder: 'Enter BSC / HECO address',
     },
     about: {
-      detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
-GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
+      detail: `GrowthPad is aimed to help the project accurately screen and locate users through accurate user behavior portraits, sophisticated modeling, and efficient task mode. At the same time, GrowthPad helps the project distribute generous rewards to target users and avoid invalid users in order to achieve rapid project growth.
+
+GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain.`
+    },
+    dashboard: {
+      reward: {
+        count: 'Total Reward',
+        value: 'The Max Reward Per Person',
+        person: 'Amount of This Reward'
+      },
+      desc: 'There are already three projects settled in the growth events of this Growth Pad project, namely MDEX, CoinWind and Channels. The total prize pool of this event is Token worth $500,000, of which MDEX growth event bonus is $200,000, CoinWind growth event bonus is $200,000, and Channels growth event bonus is $100,000. Participate in the GrowthPad on this page and share 12,000 USDT extra rewards together.',
+    },
+    task1: {
+      title: 'Post the poster and the content on Twitter, take a screenshot and upload it.'
+    },
+    task2: {
+      title: 'Forward the specified content below to the telegram group, take a screenshot and upload it. The more the forwarding group, the more rewards.',
+      desc: 'Your reward = the number of groups you forwarded / total number of forwarding groups * 8,000 USDT.'
+    },
+    button: {
+      save: 'Save image'
+    },
+    label: {
+      upload: 'Upload image:',
+      picture: 'Poster picture:',
+      content: 'Content:',
+      friends: 'Upload the screenshot of the posted Twitter:'
+    },
+    tips: {
+      uploadMax: 'The size does not exceed 2M.',
+      portrait: 'The screenshot contains your Twitter profile photo, complete poster + content and publishing time interval.',
+      active: 'Click Save Picture in wechat to open the big picture and save it manually.'
+    },
+    share: {
+      image: 'https://res.ikingdata.com/static/share/growth_en.jpg',
+      link: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>',
+      copy: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: {url}'
     }
   }
 };

@@ -11,11 +11,11 @@ export default {
   emailCreate:'Email',
   phoneForget:'Phone',
   emailForget:'Email',
-  lang: 'En',
+  lang: '中文',
   loginOut:'Log Out',
   nav: {
     apply: 'Project Application',
-    about: 'About',
+    about: {name:'About',href:'https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c'},
     download: 'Download'
   },
   time: {
@@ -25,6 +25,7 @@ export default {
     ss: 'Seconds'
   },
   button: {
+    copy: 'Copy',
     submit: 'Submit',
     confirm: 'Confirm',
     close: 'Close',
@@ -38,6 +39,7 @@ export default {
     telError: 'Please enter valid phone number',
     checked:'Please read and agree before registering',
     mailError:'Email format is incorrect',
+    copyAlert: 'Copy successfully',
     testing: 'Verifying. About 15 minutes.', // 验证中，审核结束后自动更新结果
     get: 'get',
     copy: 'The link has copied',
@@ -71,6 +73,6 @@ export default {
   },
   symbol: {
     plus: '+',
-    divide: '瓜分'
+    divide: 'Divide '
   }
 }

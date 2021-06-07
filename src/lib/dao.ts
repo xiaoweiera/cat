@@ -3,57 +3,25 @@
  * @author svon.me@gmail.com
  */
 
-import Url from 'url'
-import jsCookie from 'js-cookie'
-import safeGet from '@fengqiaogang/safe-get'
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import safeSet from '@fengqiaogang/safe-set'
 import { ignore } from '~/api/pathname'
-import { addUserToken, tokenName } from '~/logic/user/token'
+import { getUserTooken } from '~/logic/user/token'
+import { current } from '~/utils/lang'
 
-const getUserCookie = function(): string {
-  const value = jsCookie.get(tokenName)
-  if (value) {
-    return value
-  }
-  const funName = 'getUserToken'
-  // @ts-ignore
-  if (window[funName]) {
-    try {
-      // @ts-ignore
-      const token = window[funName]()
-      if (token) {
-        addUserToken(token)
-        return token
-      }
-    } catch (e) {
-      // todo
-    }
-  }
-  return ''
-}
+import urlSome from '~/lib/urlsome'
 
 const getUserAuth = function(config: AxiosRequestConfig): string {
-  const cookie = getUserCookie()
+  const cookie = getUserTooken()
   if (cookie) {
-    // @ts-ignore
-    const data = Url.parse(config.url as string, true)
-    // @ts-ignore
-    const pathname: string = safeGet<string>(data, 'pathname') || config.url
-    const value = pathname.split('?')[0]
-    let flag = true
-    // 判断当前接口是否为忽略对象
-    for (let i = 0, len = ignore.length; i < len; i++) {
-      const url = ignore[i]
-      if (url === value || pathname.includes(url)) {
-        flag = false
-        break
-      }
-    }
-    if (flag) {
-      return cookie
+    // 判断当前接口地址是否需要携带 cookie
+    // 此处接口为 true 时为不携带
+    const status = urlSome(config, ignore)
+    if (status) {
+      return ''
     }
   }
-  return ''
+  return cookie
 }
 
 const Dao = function(option: AxiosRequestConfig | undefined): AxiosInstance {
@@ -73,6 +41,8 @@ const Dao = function(option: AxiosRequestConfig | undefined): AxiosInstance {
       if (token) {
         config.headers.Authorization = `Token ${token}`
       }
+      // 设置当前系统语言环境
+      safeSet(config, 'params.lang', current.value)
       return config
     },
     (error) => {

@@ -5,7 +5,8 @@ import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
 import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
-
+import { menu } from '~/logic/menu'
+import { headerTag } from '~/store/header/login'
 // 获取当前路由对象
 const router = useRoute()
 
@@ -38,42 +39,65 @@ onBeforeMount(() => {
 <template>
   <HeaderNav>
     <template #nav>
-      <nav
-        class="
-          xshidden
-          flex
-          items-center
-          relative
-          z-2
-          i8n-font-inter
-          h-18
-          font-kdFang
-        "
-      >
-        <div class="flex-grow mt-2 h-full">
-          <div
-            class="
-              flex
-              font-normal
-              h-full
-              items-center
-              text-base text-navItem-default
-            "
-          >
-            <template v-for="(item, i) in headerConfig">
-              <a
-                :class="
-                  i === 0
-                    ? 'oneHeaderItem'
-                    : headerConfig.length - 1 === i
-                      ? 'headerItem hfull'
-                      : 'headerItem'
-                "
-                target="_blank"
-                :href="item.url"
-              ><span :class="headerConfig.length - 1 === i ? 'mt-0.5' : ''">{{
-                item.name
-              }}</span></a>
+      <nav class="itemContainer">
+        <div class="h-full">
+          <div class="flex font-normal h-full items-center">
+            <template v-for="(item, i) in menu" :key="i">
+              <el-popover placement="bottom-start" width="auto" trigger="hover">
+                <template #reference>
+                  <div
+                    class="
+                      flex
+                      items-center
+                      text-kd16px24px text-global-default
+                      opacity-85
+                    "
+                    :class="i === 0 ? '' : ' ml-8'"
+                  >
+                    <span v-if="headerTag.name && headerTag.index === i">
+                      {{ headerTag.name }}</span>
+                    <span v-else>{{ item.name }}</span>
+                    <img
+                      class="w-3 ml-1.5"
+                      src="https://res.ikingdata.com/nav/navDown.png"
+                      alt=""
+                    />
+                  </div>
+                </template>
+                <div
+                  class="flex py-3.25 font-kdFang hand"
+                  :class="i === 0 ? 'pl-3 pr-8' : 'px-3'"
+                >
+                  <div class="flex flex-col">
+                    <template v-for="child in item.children">
+                      <a
+                        :href="child.href ? child.href : 'javascript:void(0)'"
+                        :target="child.href ? '_blank' : '_self'"
+                        class="mtNthOne flex items-center relative hoverHover"
+                      >
+                        <img :src="child.icon" alt="" />
+                        <div class="flex flex-col ml-2.5">
+                          <img
+                            v-if="child.badge"
+                            class="w-13 absolute -top-4 -right-6"
+                            src="https://res.ikingdata.com/nav/navOnLineTip.jpg"
+                            alt=""
+                          />
+                          <div class="flex items-center">
+                            <span class="childName">{{ child.name }}</span>
+                            <img
+                              class="w-3 ml-1 imgShow"
+                              src="https://res.ikingdata.com/nav/navRight.jpg"
+                              alt=""
+                            />
+                          </div>
+                          <span class="desc">{{ child.desc }}</span>
+                        </div>
+                      </a>
+                    </template>
+                  </div>
+                </div>
+              </el-popover>
             </template>
           </div>
         </div>
@@ -82,6 +106,33 @@ onBeforeMount(() => {
   </HeaderNav>
 </template>
 <style lang="postcss" scoped>
+.hoverShow {
+  display: block;
+}
+.imgShow {
+  display: none;
+}
+::v-deep(.el-popover) {
+  padding: 100px !important;
+}
+.mtNthOne:nth-child(n + 2) {
+  @apply mt-5.25;
+}
+.desc {
+  @apply text-global-default opacity-65 text-kd12px16px font-normal;
+}
+.selectName {
+  @apply text-global-primary  font-medium text-kd15px150;
+}
+.name {
+  @apply text-global-default opacity-65 text-kd14px18px;
+}
+.childName {
+  @apply text-global-default opacity-85 text-kd15px150;
+}
+.itemContainer {
+  @apply xshidden flex items-center relative z-2 i8n-font-inter h-18 font-kdFang;
+}
 .toolItem:hover {
   @apply text-global-primary;
 }
@@ -92,7 +143,15 @@ onBeforeMount(() => {
 .oneHeaderItem {
   @apply text-global-default opacity-85 mb-2 flex items-center;
 }
-
+.hoverHover:hover {
+  .imgShow {
+    display: block;
+  }
+  .childName {
+    @apply text-global-primary  font-medium text-kd15px150;
+  }
+  @apply text-global-primary  font-medium text-kd15px150;
+}
 .tool {
   padding: 6px 0px;
 }

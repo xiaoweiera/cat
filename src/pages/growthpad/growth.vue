@@ -1,46 +1,79 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
-import { Project } from '~/api/growtask'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
 import { loading, ready } from '~/logic/growthpad/active'
-
+import { headerTag } from '~/store/header/login'
 const store = Task()
 
-onBeforeMount(() => ready(store))
+onBeforeMount(() => {
+  headerTag.name = 'GrowthPad'
+  ready(store)
+})
+
+const countLable = I18n.growthpad.growthpad.dashboard.reward.count
+const valueLabel = I18n.growthpad.growthpad.dashboard.reward.value
+const personLabel = I18n.growthpad.growthpad.dashboard.reward.person
 </script>
 <template>
-  <div v-show="!loading" class="pb-20">
-    <growthpadTaskDashboard reward-value-title="单人最高可获得" />
+  <div v-show="!loading">
+    <div class="examples">
+      <growthpadTaskDashboard
+        :reward-count-title="countLable"
+        :reward-value-title="valueLabel"
+        :reward-person-title="personLabel"
+      />
 
-    <div class="pt-15 px-4 md:px-6">
-      <growthpadTaskAdress />
+      <div class="pt-15 px-4 md:px-6">
+        <growthpadTaskAdress />
 
-      <div>
-        <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
-        <div class="pb-15">
-          <DotCountGroup class="pt-4">
-            <ul class="task-list">
-              <li
-                v-for="(item, index) in store.taskList.value"
-                :key="index"
-                class="pb-7.5"
-              >
-                <growthpadTaskItem :expant="index < 1" :data="item" />
-              </li>
-            </ul>
-          </DotCountGroup>
+        <div>
+          <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
+          <div class="pb-15">
+            <DotCountGroup class="pt-4">
+              <ul class="task-list">
+                <li
+                  v-for="(item, index) in store.taskList.value"
+                  :key="index"
+                  class="pb-7.5"
+                >
+                  <growthpadTaskItem :expant="index < 1" :data="item" />
+                </li>
+              </ul>
+            </DotCountGroup>
+          </div>
         </div>
       </div>
-      <growthpadTaskAbout></growthpadTaskAbout>
+      <!--  即将开始-->
+      <div class="progress px-4 pb-20">
+        <div class="text-left mt-4 md:mt-15 md:mt-20">
+          <GrowthpadProjects
+            project-name="growth"
+            :title="I18n.growthpadShow.projectState"
+          />
+        </div>
+
+        <div class="pt-15">
+          <growthpadTaskAbout></growthpadTaskAbout>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import '~/styles/growthpad/task.scss';
+
+.examples {
+  max-width: 848px;
+  margin: 0 auto;
+}
+.progress {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 </style>
 
 // @formatter:off

@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { wxShare } from '~/lib/wxShare'
+import { headerTag } from '~/store/header/login'
 const { t } = useI18n()
 const qr = ref(false)
 const positionContainer = ref(null)
@@ -21,6 +22,7 @@ const videoMap = () => {
   video.value.style.display = 'block'
 }
 onMounted(async() => {
+  headerTag.name = 'GrowthPad'
   videoMap()
   window.onresize = () => {
     videoMap()
@@ -383,6 +385,6 @@ onMounted(async() => {
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: growthpadLayout
+  layout: indexLaout
 </route>
 // @formatter:off

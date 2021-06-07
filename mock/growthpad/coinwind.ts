@@ -59,10 +59,10 @@ const data = {
       type: TaskType.vip, // 任务类型
       title: I18n.growthpad.coinwind.task1.title,
       description: I18n.template(I18n.growthpad.reward.finished, { count: 500, reward: '{reward}' }),
-      // description: I18n.template(I18n.growthpad.reward.anytask, { count: 500, reward: '{reward}' }),
       reward: [3], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.vip,
           title: I18n.template(I18n.growthpad.vip.invite, { group: 'KingData' }),
           // description: I18n.growthpad.vip.description, // 帮助信息
@@ -94,6 +94,7 @@ const data = {
       reward: [1, 3], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.bunny,
           title: I18n.growthpad.coinwind.task2.condition1,
           description: I18n.growthpad.mdx.activity.warning,
@@ -128,6 +129,7 @@ const data = {
       reward: [1, 3], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.autofarm,
           title: I18n.growthpad.coinwind.task3.condition1,
           description: I18n.growthpad.mdx.activity.warning,
@@ -162,6 +164,7 @@ const data = {
       reward: [1, 3], // 奖励
       children: [
         {
+          id: chat.uuid(), // 任务ID
           type: TaskType.beltfit,
           title: I18n.growthpad.coinwind.task4.condition1,
           description: I18n.growthpad.mdx.activity.warning,
@@ -203,6 +206,7 @@ const data = {
       title: I18n.growthpad.mdx.share.title,
       children: [
         {
+          id: chat.uuid(), // 任务ID
           title: I18n.growthpad.mdx.share.lable,
         },
       ],
