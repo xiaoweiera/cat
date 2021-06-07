@@ -60,7 +60,7 @@ const onGetCode = async function() {
     return false
   }
   try {
-    const result = await onMailCaptchaResgister()
+    const result = await onMailCaptchaResgister('create')
     if (result.data.code !== 0) {
       messageError(result.data.message)
     } else {

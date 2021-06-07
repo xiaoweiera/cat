@@ -108,9 +108,12 @@ export const getCaptcha = async function(data: any): Promise<void> {
   return request.post(url, value)
 }
 // 邮箱验证码
-export const getMailCaptcha = async function(email: string): Promise<void> {
+export const getMailCaptcha = async function(
+  email: string,
+  type: string,
+): Promise<void> {
   const url = '/api/v1/users/email_send_code'
-  const data = { email, lang: lang.current.value }
+  const data = { email, lang: lang.current.value, forget_type: type }
   return request.post(url, data)
 }
 // 重置密码 验证码
