@@ -25,8 +25,8 @@ onMounted(() => {
 </script>
 <template>
   <div class="md:block hidden beginTxt">{{ props.title }}</div>
-  <div class="md:mt-6 flex justify-between flex-wrap">
-    <div class="w-full md:max-w-97 mt-4">
+  <div class="md:mt-6 md:flex md:justify-between md:flex-wrap">
+    <div class="w-full md:max-w-97 mt-4 min-w-96">
       <GrowthpadProject
         :value="
           mdxStatus.value === 'wait'
@@ -37,7 +37,7 @@ onMounted(() => {
         :project="mdxInfo"
       />
     </div>
-    <div class="w-full md:max-w-97 mt-4">
+    <div class="w-full md:max-w-97 mt-4 min-w-96">
       <GrowthpadProject
         :value="
           coinwindStatus.value === 'wait'
@@ -48,7 +48,7 @@ onMounted(() => {
         :project="coinwindInfo"
       />
     </div>
-    <div class="w-full md:max-w-97 mt-4">
+    <div class="w-full md:max-w-97 mt-4 min-w-96">
       <GrowthpadProject
         :value="
           channelsStatus.value === 'wait'
@@ -59,7 +59,7 @@ onMounted(() => {
         :project="channelsInfo"
       />
     </div>
-    <div v-if="!projectName" class="w-full md:max-w-97 mt-4">
+    <div v-if="!projectName" class="w-full md:max-w-97 mt-4 min-w-96">
       <GrowthpadProject
         :value="
           growthpadStatus.value === 'wait'
