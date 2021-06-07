@@ -67,7 +67,7 @@ const isChildren = (data: any): boolean => {
               size="2xl"
               class="mr-2 align-middle"
             ></IconFont>
-            <span class="align-middle inline-block">{{ item.name }}</span>
+            <span class="align-middle inline">{{ item.name }}</span>
             <i v-if="item.badge" class="badge" />
           </a>
           <span>
@@ -88,7 +88,7 @@ const isChildren = (data: any): boolean => {
               size="2xl"
               class="mr-2 align-middle"
             ></IconFont>
-            <span class="align-middle inline-block">
+            <span class="inline">
               <span>{{ item.name }}</span>
               <i v-if="item.badge" class="badge" />
             </span>
