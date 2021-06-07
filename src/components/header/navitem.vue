@@ -124,6 +124,10 @@ const isChildren = (data: any): boolean => {
   @extend %sub;
 }
 .nav-item {
+  a {
+    word-break: break-word;
+    word-wrap: break-word;
+  }
   line-height: 20px;
   & ~ .nav-list {
     margin-left: 32px;

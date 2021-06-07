@@ -7,7 +7,7 @@ import { current, nextLang, href } from '~/utils/lang'
 import I18n from '~/utils/i18n/index'
 // @ts-ignore
 
-const download = ref<string>('https://www.ikingdata.com/download')
+const download = ref<string>('https://www.kingdata.com/download')
 const growthPad = ref('https://kingdata.com/growthpad')
 // @ts-ignore
 const onSwitchLang = function() {

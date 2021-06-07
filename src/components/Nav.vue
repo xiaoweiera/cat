@@ -52,9 +52,9 @@ onBeforeMount(() => {
         <a
           class="ml-8 opacity-85"
           target="_blank"
-          href="https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c"
+          :href="I18n.common.nav.about.href"
         >
-          <span>{{ I18n.common.nav.about }}</span>
+          <span>{{ I18n.common.nav.about.name }}</span>
         </a>
       </div>
     </template>

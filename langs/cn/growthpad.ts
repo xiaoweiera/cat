@@ -206,9 +206,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     },
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
-
       label: '任务资格：{group} 提供流动性(TVL)超过 10000 USDT',
-
       telegramDesc: '并在群里晒出 Channels 存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
       sinaDesc: '微博并 @3个好友'
@@ -272,10 +270,10 @@ CoinWind 产品会通过组合策略有效降低流动性质押中的无常损�
     },
     about: {
       detail: `GrowthPad 通过精准的用户行为画像，精妙的建模、高效的任务模式，旨在让产品可以摆脱传统的冷启动方式，可以快速且精准找到目标用户。同时帮助项目把丰厚奖励分发给目标用户，避免无效用户，以实现项目的快速增长。
-
 GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
     },
     dashboard: {
+      banner:'https://res.ikingdata.com/nav/growthBannerCn.jpg',
       reward: {
         count: '总奖池金额',
         value: '单人最高可获得',

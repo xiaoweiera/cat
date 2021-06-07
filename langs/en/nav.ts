@@ -1,9 +1,9 @@
 export default {
-    product:'Product',
+    product:'Products',
     user:'Name',
     chart:'Charts',
     outLogin:'Log Out',
-    soonLine:'https:xxxxxxx',
+    soonLine:'https://res.ikingdata.com/nav/navOnLineTipEn.jpg',
     defi:{
         name:'DeFi Data Analysis',
         apy: {
@@ -39,7 +39,7 @@ export default {
         name:'Project Data Monitoring and Analysis',
         hData: {
             name:'24H Data Monitoring and Forewarning',
-            desc:'Receive notifications of changes at all times and discover market opportunities',
+            desc:'Changes at all times and discover market opportunities',
             href:'https://kingdata.com/news?utm_source=https://kingdata.com'
 
         },

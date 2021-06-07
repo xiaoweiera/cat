@@ -282,6 +282,7 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
 GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain.`
     },
     dashboard: {
+      banner:'https://res.ikingdata.com/nav/growthBannerEn.jpg',
       reward: {
         count: 'Total Reward',
         value: 'The Max Reward Per Person',

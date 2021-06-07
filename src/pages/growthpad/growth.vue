@@ -5,10 +5,13 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
 import { loading, ready } from '~/logic/growthpad/active'
-
+import { headerTag } from '~/store/header/login'
 const store = Task()
 
-onBeforeMount(() => ready(store))
+onBeforeMount(() => {
+  headerTag.name = 'GrowthPad'
+  ready(store)
+})
 
 const countLable = I18n.growthpad.growthpad.dashboard.reward.count
 const valueLabel = I18n.growthpad.growthpad.dashboard.reward.value
@@ -46,7 +49,10 @@ const personLabel = I18n.growthpad.growthpad.dashboard.reward.person
       <!--  即将开始-->
       <div class="progress px-4 pb-20">
         <div class="text-left mt-4 md:mt-15 md:mt-20">
-          <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
+          <GrowthpadProjects
+            project-name="growth"
+            :title="I18n.growthpadShow.projectState"
+          />
         </div>
 
         <div class="pt-15">

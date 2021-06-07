@@ -5,7 +5,8 @@ export default {
     ongoing: 'Ongoing',
     end: 'end',
     projectState:'⏱ Ongoing',
-    waitButton: 'Participate warm-up',
+    timeBegin:'Start countdown',
+    waitButton: 'coming',
     ingButton: 'View more',
     overButton: 'End',
     supproted:'Supproted',
@@ -44,15 +45,15 @@ export default {
     footProject: {
         title: 'How to participate in the project',
         feature1: {
-            title: 'WHITE LIST',
+            title: 'White list',
             desc: 'We will formulate a whitelist of different strategies according to the characteristics of the project. The whitelist is a loyal user in the industry filtered through data.'
         },
         feature2: {
-            title: 'GROWTH TASKS',
+            title: 'Growth tasks',
             desc: 'For the healthy development of the DeFi industry and let high-quality projects be known to many people, we need to do some simple growth tasks.'
         },
         feature3: {
-            title: 'GET REWARDS',
+            title: 'Get rewards',
             desc: 'When we complete the task, we will get the corresponding reward to our wallet.'
         },
         feature4: {
