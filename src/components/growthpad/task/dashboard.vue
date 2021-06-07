@@ -9,10 +9,22 @@ import Task from '~/logic/growthpad/task'
 import { toNumber } from '~/utils/index'
 
 defineProps({
+  rewardCountTitle: {
+    type: String,
+    default() {
+      return I18n.growthpad.reward.count
+    },
+  },
   rewardValueTitle: {
     type: String,
     default() {
       return I18n.growthpad.reward.value
+    },
+  },
+  rewardPersonTitle: {
+    type: String,
+    default() {
+      return I18n.growthpad.reward.perPerson
     },
   },
 })
@@ -158,7 +170,7 @@ const timeCountdownValue = computed<string>((): string => {
         <ul class="flex font-kdFang">
           <li class="align-text-bottom">
             <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-              {{ I18n.growthpad.reward.count }}
+              {{ rewardCountTitle }}
             </h4>
             <p class="font-color-theme font-bold font-kdExp">
               <span class="text-2xl md:text-4xl">{{
@@ -178,7 +190,7 @@ const timeCountdownValue = computed<string>((): string => {
           </li>
           <li class="ml-3 md:ml-12 align-text-bottom">
             <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-              {{ I18n.growthpad.reward.perPerson }}
+              {{ rewardPersonTitle }}
             </h4>
             <p class="font-color-theme font-bold font-kdExp">
               <span class="text-2xl md:text-4xl whitespace-nowrap">

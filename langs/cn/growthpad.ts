@@ -276,6 +276,11 @@ CoinWind 产品会通过组合策略有效降低流动性质押中的无常损�
 GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和分析，建立了丰富的用户行为特征数据库。 目前支持的公链包括：ETH、HECO、BSC、OKChain。`
     },
     dashboard: {
+      reward: {
+        count: '总奖池金额',
+        value: '单人最高可获得',
+        person: '该项奖励金额'
+      },
       desc: '本期 GrowthPad 项目增长活动已入驻 3 家，分别是 MDEX、CoinWind 和 Channels。本期活动总奖池金额为价值 $50 万的 Token ，其中 MDEX 增长活动奖金 $20万，CoinWind 增长活动奖金 $20万，Channels 增长活动奖金 $10 万。参与本页面 GrowthPad 活动，一起瓜分 12000 USDT 额外奖励。',
     },
     task1: {
