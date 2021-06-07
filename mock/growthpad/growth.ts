@@ -13,8 +13,8 @@ const Project = growthInfo.title
 
 const token = 'USDT'
 const website = 'kingdata.com'
-const telegramHref = 'https://t.me/MdexEN'
-const twitterHref = 'https://www.twitter.com/Mdextech'
+const telegramHref = 'https://t.me/KingDataEN'
+const twitterHref = 'https://twitter.com/KingData_com'
 
 const data = {
   token,
@@ -29,13 +29,13 @@ const data = {
     detail: I18n.growthpad.growthpad.about.detail, // 项目介绍
 
     share: [
-      { icon: 'github', href: 'https://github.com/mdexSwap' },
+      // { icon: 'github', href: 'https://github.com/mdexSwap' },
       { icon: 'telegram', href: telegramHref },
       { icon: 'twitter', href: twitterHref },
       // media链接
-      { icon: 'vector', href: 'https://mdex.medium.com/' },
+      // { icon: 'vector', href: 'https://mdex.medium.com/' },
       // discord链接
-      { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
+      // { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
     ],
   },
   taskList: [
