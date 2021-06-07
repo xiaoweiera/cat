@@ -8,7 +8,7 @@ export const mdxInfo = {
   projectName:'MDX',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/mdx.jpg',
-    begin: '2021-06-29 12:00:00', // 开始时间
+    begin: '2021-06-09 15:00:00', // 开始时间
     end: '2021-10-29 12:00:00', // 结束时间
     description: I18n.growthpadShow.mdxProject.des, // 描述
     reward: {
@@ -59,13 +59,13 @@ export const growthInfo = {
   coin: 'USDT',
   projectName:'Growth',
   dashboard: {
-    banner: 'https://res.ikingdata.com/static/growthpad/growth.jpg',
+    banner:I18n.growthpad.growthpad.dashboard.banner,
     begin: '2021-06-09 15:00:00', // 开始时间
     end: '2021-10-29 12:00:00', // 结束时间
     description: I18n.growthpad.growthpad.dashboard.desc, // 描述
     reward: {
       count: 500000, // 奖励数量
-      limits: [12000], // 每人可领取范围
+      limits: [1328], // 每人可领取范围
     },
     status: '',
   },

@@ -8,6 +8,8 @@ export default {
         growthPad: 'GrowthPad',
         apy: 'DeFi挖矿收益APY大全'
     },
+    footMobileBanner:'https://res.ikingdata.com/nav/apyMobileFooter.png',
+    footPcBanner:'https://res.ikingdata.com/nav/apyFooter.png',
     projectName: 'Defi挖矿收益APY大全',
     projectApply: '申请收录',
     des: '本站收集整理了多条公链各借贷平台和机枪池的数据,根据类型将其分类方便您的查看',

@@ -33,7 +33,7 @@ import { headerTag } from '~/store/header/login'
                 <img
                   v-if="child.badge"
                   class="w-13 absolute -top-4 -right-6"
-                  src="https://res.ikingdata.com/nav/navOnLineTip.jpg"
+                  :src="I18n.nav.soonLine"
                   alt=""
                 />
                 <div class="flex items-center">
