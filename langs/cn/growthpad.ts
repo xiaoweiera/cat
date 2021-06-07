@@ -137,8 +137,10 @@ MDEX 致力于打造集 DEX、IMO、DAO 为一体的 DeFi 平台，为更多优�
 
 MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太坊、波卡生态，不断拓展 MDEX 生态与社区，让更多 DeFi 用户享受到 MDEX 生态的红利。`,
     },
-    copy: '邀请您{title}，{url}',
-    copyIndex: '动动手指，瓜分 GrowthPad 50万美元奖励~ 链接：{url}',
+    // copy: '邀请您{title}，{url}',
+    copy: '我操，GrowthPad 这个项目真牛逼，拿了 50万U 对 DeFi 用户进行大规模的奖励。你们拿自己的地址去检测看看资格：{url}',
+    // copyIndex: '动动手指，瓜分 GrowthPad 50万美元奖励~ 链接：{url}',
+    copyIndex: '我操，GrowthPad 这个项目真牛逼，拿了 50万U 对 DeFi 用户进行大规模的奖励。你们拿自己的地址去检测看看资格：{url}',
     share: {
       title: '邀请1名好友参与 GrowthPad 活动，即可瓜分总奖池1%的奖励。',
       lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%</i>`,
