@@ -31,6 +31,8 @@ onMounted(() => {
 const submit = async function() {
   try {
     const result = await onRegisterSubmit()
+    console.log(result)
+
     if (result.code !== 0) {
       messageError(result.message)
     } else {
@@ -60,7 +62,7 @@ const onGetCode = async function() {
   try {
     const result = await onCaptchaResgister()
     if (result.data.code !== 0) {
-      messageError(result)
+      messageError(result.data.message)
     } else {
       codeFlag = true
       interval = setInterval(() => {
