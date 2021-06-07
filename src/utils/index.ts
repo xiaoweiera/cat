@@ -24,11 +24,23 @@ export const debounce = function <T>(callback: Callback, time?: number): T {
   }
 }
 
+export const toFixed = function(value: string | number, fixed = 2): number {
+  const text = String(value)
+  const [num1, num2 = ''] = text.split('.')
+  let temp = parseFloat(num1)
+  if (num2) {
+    temp = parseFloat(`${num1 || 0}.${num2.slice(0, fixed)}`)
+  }
+  if (isNaN(temp)) {
+    return 0
+  }
+  return temp
+}
+
 export const toNumber = function(value: string | number, fixed = 2): number {
   const number = parseFloat(value as any)
   if (isNaN(number)) {
     return 0
   }
-  const temp = number.toFixed(fixed)
-  return parseFloat(temp)
+  return toFixed(number, fixed)
 }

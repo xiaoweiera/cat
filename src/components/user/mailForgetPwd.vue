@@ -92,6 +92,8 @@ const onGetCode = async function() {
     <el-form-item prop="email">
       <el-input
         v-model="forgetMailData.email"
+        name="email"
+        type="email"
         :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"
@@ -101,6 +103,7 @@ const onGetCode = async function() {
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="forgetMailData.code"
+        name="emailCode"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -120,6 +123,7 @@ const onGetCode = async function() {
     <el-form-item prop="password">
       <el-input
         v-model="forgetMailData.password"
+        name="emailPwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -131,6 +135,7 @@ const onGetCode = async function() {
     <el-form-item prop="new_password">
       <el-input
         v-model="forgetMailData.new_password"
+        name="emailNewPwd"
         type="password"
         :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"

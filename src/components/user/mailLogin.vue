@@ -38,6 +38,8 @@ const submit = async function() {
     <el-form-item prop="email">
       <el-input
         v-model="formMailData.email"
+        name="email"
+        type="email"
         :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
         autocomplete="off"
@@ -47,6 +49,7 @@ const submit = async function() {
     <el-form-item class="mb-2" prop="password">
       <el-input
         v-model="formMailData.password"
+        name="emailPwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
