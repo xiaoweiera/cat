@@ -15,7 +15,7 @@ export default {
   loginOut:'Log Out',
   nav: {
     apply: 'Project Application',
-    about: 'About',
+    about: {name:'About',href:'https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c'},
     download: 'Download'
   },
   time: {

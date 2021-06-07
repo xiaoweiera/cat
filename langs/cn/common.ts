@@ -15,7 +15,7 @@ export default {
   loginOut:'退出',
   nav: {
     apply: '项目申请',
-    about: '产品介绍',
+    about: {name:'产品介绍',href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'},
     download: 'APP下载'
   },
   time: {

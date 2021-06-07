@@ -5,18 +5,22 @@ import {
   mdxInfo,
   coinwindInfo,
   channelsInfo,
+  growthInfo,
 } from '/mock/growthpad/projectInfo'
 import { getTimeStatus } from '~/components/growthpad/task/task'
 const props = defineProps({
   title: String,
+  projectName: String,
 })
 const mdxStatus = ref('')
 const coinwindStatus = ref('')
 const channelsStatus = ref('')
+const growthpadStatus = ref('')
 onMounted(() => {
   mdxStatus.value = getTimeStatus(mdxInfo)
   coinwindStatus.value = getTimeStatus(coinwindInfo)
   channelsStatus.value = getTimeStatus(channelsInfo)
+  growthpadStatus.value = getTimeStatus(growthInfo)
 })
 </script>
 <template>
@@ -53,6 +57,17 @@ onMounted(() => {
         "
         :status="channelsStatus"
         :project="channelsInfo"
+      />
+    </div>
+    <div v-if="!projectName" class="w-full md:max-w-97 mt-4">
+      <GrowthpadProject
+        :value="
+          growthpadStatus.value === 'wait'
+            ? growthInfo.dashboard.end
+            : growthInfo.dashboard.begin
+        "
+        :status="growthpadStatus"
+        :project="growthInfo"
       />
     </div>
   </div>
