@@ -46,7 +46,7 @@ const closeQr = () => {
       />
       <img
         v-if="qr"
-        class="w-29 h-35 z-99 absolute bottom-12 -right-3"
+        class="w-29 h-29 z-99 absolute bottom-12 -right-3"
         src="https://res.ikingdata.com/nav/growthQRcode.png"
         alt=""
       />
