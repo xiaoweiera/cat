@@ -228,7 +228,7 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     about: {
       online: '25/5/2021',
       count: '100M',
-      luanched: 'HECO',
+      luanched: 'ETH、HECO、BSC',
       detail: `CoinWind is a HECO and BSC Ecological Single Token pledge Income Optimal Platform. The contract automatically matches pledged tokens to maximize all users’ incomes with a minimum hedging free loss strategy.
 
 CoinWind aims to build a DeFi digital asset bank, launching a product with high yield and safety and reliability, pooling different tokens deposited by users into different pools, and then mobilizing funds from a certain token pool to participate in different liquidity pledge according to the strategy, so as to achieve higher returns for users.
