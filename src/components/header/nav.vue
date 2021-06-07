@@ -36,10 +36,10 @@ const onSwitchLang = function() {
       font-kdFang
     "
   >
-    <div class="md:hidden">
-      <HeaderMobile></HeaderMobile>
-    </div>
     <div class="flex items-center">
+      <div class="md:hidden mr-3">
+        <HeaderMobile></HeaderMobile>
+      </div>
       <a
         v-if="headerTag.name === 'GrowthPad'"
         v-router="growthPad"
@@ -76,11 +76,11 @@ const onSwitchLang = function() {
       <slot name="about" :lang="current">
         <ul class="flex items-center">
           <span
-            class="hidden md:flex items-center hand text-global-default"
+            class="flex items-center hand text-global-default"
             @click.stop.prevent="onSwitchLang"
           >
             <img
-              class="w-5 h-5"
+              class="w-5 h-5 hidden hidden md:inline-block"
               src="https://res.ikingdata.com/nav/navLang.png"
               alt=""
             />
@@ -89,7 +89,7 @@ const onSwitchLang = function() {
             </span>
           </span>
           <!-- 下载 -->
-          <div class="betweenIcon hidden md:block">|</div>
+          <div class="betweenIcon">|</div>
           <a
             class="hidden md:inline-block opacity-85 text-global-default"
             :href="download"

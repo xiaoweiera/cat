@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+import { current } from '~/utils/lang'
 import { toNumber } from '~/utils/index'
 
 const props = defineProps({
@@ -68,7 +69,7 @@ const isChildren = (data: any): boolean => {
               class="mr-2 align-middle"
             ></IconFont>
             <span class="align-middle inline">{{ item.name }}</span>
-            <i v-if="item.badge" class="badge" />
+            <i v-if="item.badge" class="badge" :class="current" />
           </a>
           <span>
             <IconFont class="icon-down" type="down" size="2xl"></IconFont>
@@ -90,7 +91,7 @@ const isChildren = (data: any): boolean => {
             ></IconFont>
             <span class="inline">
               <span>{{ item.name }}</span>
-              <i v-if="item.badge" class="badge" />
+              <i v-if="item.badge" class="badge" :class="current" />
             </span>
           </a>
         </div>
@@ -151,8 +152,9 @@ const isChildren = (data: any): boolean => {
     width: 1px;
     &:after {
       content: '';
-      $icon: 'https://res.ikingdata.com/static/menu/badge.png';
-      background: url($icon) center / cover no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       width: 54px;
       height: 24px;
       position: absolute;
@@ -160,6 +162,18 @@ const isChildren = (data: any): boolean => {
       top: 0;
       display: inline-block;
       transform: translate(-13px, -34px);
+    }
+    &.cn {
+      &:after {
+        $icon: 'https://res.ikingdata.com/static/menu/badge.png';
+        background-image: url($icon);
+      }
+    }
+    &.en {
+      &:after {
+        $icon: 'https://res.ikingdata.com/static/menu/badge_en.svg';
+        background-image: url($icon);
+      }
     }
   }
 }

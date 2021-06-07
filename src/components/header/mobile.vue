@@ -1,22 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import I18n from '~/utils/i18n/index'
-import { nextLang, href } from '~/utils/lang'
+
 // @ts-ignore
 import menuData from '~/logic/menu'
 // @ts-ignore
 const inputMenu = ref<boolean>(false)
 
 const download = ref<string>('https://www.kingdata.com/download')
-
-// @ts-ignore
-const onSwitchLang = function() {
-  const url = href(window.location.href, nextLang())
-  if (url) {
-    // @ts-ignore
-    window.location.href = url
-  }
-}
 </script>
 
 <template>
@@ -39,13 +30,6 @@ const onSwitchLang = function() {
       <HeaderNavitem :list="menuData" index="0"></HeaderNavitem>
     </div>
     <div class="operation flex font-kdFang">
-      <a
-        class="flex-1 h-full flex items-center justify-center"
-        @click="onSwitchLang"
-      >
-        <IconFont type="inter" size="2xl"></IconFont>
-        <span class="text-base ml-2">{{ I18n.common.lang }}</span>
-      </a>
       <a
         class="flex-1 h-full flex items-center justify-center"
         :href="download"
@@ -86,7 +70,7 @@ const onSwitchLang = function() {
       visibility: visible;
       opacity: 1;
       transform: translate(0, 0);
-      background: #fff;
+      background: #fafafa;
     }
   }
 }
@@ -118,9 +102,10 @@ const onSwitchLang = function() {
     right: 0;
     height: $operationHeight;
     color: rgba(37, 62, 111, 0.85);
+    background: #fff;
   }
   &:after {
-    content: '';
+    content: none;
     position: absolute;
     left: 50%;
     bottom: $operationHeight / 2;
