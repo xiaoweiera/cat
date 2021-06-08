@@ -30,6 +30,7 @@ const Dao = function(option: AxiosRequestConfig | undefined): AxiosInstance {
       timeout: 20000, // request timeout
       baseURL: 'https://ikingdata.com',
       withCredentials: false,
+      maxRedirects: 3, // 支持三次重定向
     },
     option || {},
   )
