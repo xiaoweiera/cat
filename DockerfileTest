@@ -6,7 +6,8 @@ RUN npm i -g pnpm
 COPY package*.json pnpm-lock.yaml ./
 RUN npm i
 COPY . .
-RUN npm run test
+#RUN npm run test
+RUN npm run build
 
 # production stage
 FROM base as production-stage
