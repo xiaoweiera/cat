@@ -10,6 +10,7 @@ import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 const props = defineProps({
   areaCode: Object,
 })
+console.log(props.areaCode)
 const submit = async function() {
   try {
     await onSubmit()
