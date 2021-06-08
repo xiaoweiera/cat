@@ -16,7 +16,7 @@ const videoMap = () => {
 }
 onMounted(async() => {
   headerTag.name = 'GrowthPad'
-  headerTag.index = 0
+
   videoMap()
   window.onresize = () => {
     videoMap()
