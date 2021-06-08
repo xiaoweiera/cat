@@ -164,6 +164,15 @@ const onGetCode = async function() {
 </template>
 
 <style scoped lang="scss">
+.codeContainer {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-right: 0px solid white;
+}
+::v-deep(.mobileItem .el-input__inner) {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
 ::v-deep(.mobileItem .el-input-group__prepend) {
   background: white;
 }

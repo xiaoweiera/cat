@@ -13,7 +13,7 @@ const Project = growthInfo.title
 
 const token = 'USDT'
 const website = 'kingdata.com'
-const telegramHref = 'https://t.me/KingDataEN'
+const telegramHref = I18n.growthpad.growthpad.about.telegram
 const twitterHref = 'https://twitter.com/KingData_com'
 
 const data = {

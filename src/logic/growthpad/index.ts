@@ -67,7 +67,7 @@ export const company = [
 ]
 export const telPlats = [
   {
-    aUrl: 'https://t.me/enkingdata',
+    aUrl: I18n.growthpad.growthpad.about.telegram,
     img: 'https://res.ikingdata.com/nav/feiji.png',
   },
   {

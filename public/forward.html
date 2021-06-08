@@ -32,6 +32,10 @@
       -moz-animation: rotating 2s linear infinite;
       animation: rotating 2s linear infinite;
     }
+    p {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
   </style>
 </head>
 <body>
@@ -45,26 +49,30 @@
     function getDomain() {
       var hostname = window.location.hostname;
       hostname = hostname.split('.');
-      if (hostname.length > 1) {
+      if (hostname.length > 2) {
         hostname = hostname.slice(1);
         return hostname.join('.');
       }
-      return hostname;
+      return window.location.hostname;
     }
-    window.forward = function (token, href) {
+    window.forward = function (token, href, debug) {
       if (token) {
         var domain = getDomain();
         var path = '/';
         var value = 'auth_token=' + token + '; path=' + path + '; domain=' + domain + ';'
         document.cookie = value;
-        var $user = document.querySelector("#userinfo")
-        $user.innerHTML = value;
+        if (debug) {
+          var $user = document.querySelector("#userinfo")
+          $user.innerHTML = 'token="'+ value +'"' + '<br/>' + 'href = "'+ href +'"';
+        }
       }
-      if (href) {
-        window.location.href = href;
-        return true;
+      if (!debug) {
+        if (href) {
+          window.location.href = href;
+          return true;
+        }
+        window.location.href = 'https://kingdata.com/';
       }
-      // window.location.href = 'https://kingdata.com/';
       return true;
     }
   </script>
