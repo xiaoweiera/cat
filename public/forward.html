@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Loading..</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="icon" href="https://res.ikingdata.com/static/favicon.ico" type="image/svg+xml">
   <style>
     *{margin:0;padding:0;border:0}
@@ -59,10 +59,10 @@
         document.cookie = value;
         var $user = document.querySelector("#userinfo")
         $user.innerHTML = value;
-        if (href) {
-          window.location.href = href;
-          return true;
-        }
+      }
+      if (href) {
+        window.location.href = href;
+        return true;
       }
       // window.location.href = 'https://kingdata.com/';
       return true;
