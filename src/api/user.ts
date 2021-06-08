@@ -151,11 +151,13 @@ export const findPwdMail = async function(data: any): Promise<any> {
   return request.post(url, value)
 }
 // 获取区域号码
-export const areaCode = async function(): Promise<void> {
+export const areaCode = async function(): Promise<any[]> {
   try {
     const reuslt = await request.get('/api/v1/area_codes/')
-    return safeGet(reuslt, 'data.data')
+    const list = safeGet<any[]>(reuslt, 'data.data') || []
+    return [].concat(list as any)
   } catch (e) {
-    return Promise.reject(e)
+    // return Promise.reject(e)
   }
+  return []
 }
