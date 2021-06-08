@@ -44,6 +44,9 @@ const submit = async function() {
   >
     <el-form-item class="mobileItem" prop="mobile">
       <div class="flex items-center">
+        <div class="codeContainer border-1 w-12 h-10 flex justify-center">
+          +86
+        </div>
         <el-input
           v-model="formdata.mobile"
           name="mobile"
@@ -52,21 +55,21 @@ const submit = async function() {
           class="input-with-select"
           autocomplete="off"
         >
-          <template #prepend>
-            <el-select v-model="formdata.area_code" placeholder="+86">
-              <el-option
-                v-for="item in areaCode"
-                :key="item.phone_code"
-                :label="item.phone_code"
-                :value="item.phone_code"
-              >
-                <span style="float: left">{{ item.phone_code }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{
-                  item.cn
-                }}</span>
-              </el-option>
-            </el-select>
-          </template>
+          <!--          <template #prepend>-->
+          <!--            <el-select v-model="formdata.area_code" placeholder="+86">-->
+          <!--              <el-option-->
+          <!--                v-for="item in areaCode"-->
+          <!--                :key="item.phone_code"-->
+          <!--                :label="item.phone_code"-->
+          <!--                :value="item.phone_code"-->
+          <!--              >-->
+          <!--                <span style="float: left">{{ item.phone_code }}</span>-->
+          <!--                <span style="float: right; color: #8492a6; font-size: 13px">{{-->
+          <!--                  item.cn-->
+          <!--                }}</span>-->
+          <!--              </el-option>-->
+          <!--            </el-select>-->
+          <!--          </template>-->
         </el-input>
       </div>
     </el-form-item>
@@ -99,6 +102,18 @@ const submit = async function() {
 </template>
 
 <style scoped lang="scss">
+.codeContainer {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-right: 0px solid white;
+}
+::v-deep(.mobileItem .el-input__inner) {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+::v-deep(mobileItem .el-input__inner) {
+  border-bottom-left-radius: 0px !important;
+}
 ::v-deep(.mobileItem .el-input-group__prepend) {
   background: white;
 }
@@ -110,6 +125,7 @@ const submit = async function() {
 }
 ::v-deep(.el-select .el-input__inner) {
   width: 52px;
+
   padding-left: 0px !important;
   margin-right: 10px !important;
   padding-right: 0px !important;
