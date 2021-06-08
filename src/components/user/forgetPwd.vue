@@ -100,7 +100,6 @@ const onGetCode = async function() {
     <el-form-item class="mobileItem" prop="mobile">
       <el-input
         v-model="forgetData.mobile"
-        name="mobile"
         type="text"
         :placeholder="I18n.common.placeholder.tel"
         class="input-with-select"
@@ -126,7 +125,6 @@ const onGetCode = async function() {
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="forgetData.code"
-        name="code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -146,7 +144,6 @@ const onGetCode = async function() {
     <el-form-item prop="password">
       <el-input
         v-model="forgetData.password"
-        name="pwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -158,7 +155,6 @@ const onGetCode = async function() {
     <el-form-item prop="new_password">
       <el-input
         v-model="forgetData.new_password"
-        name="newPwd"
         type="password"
         :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"

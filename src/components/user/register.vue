@@ -116,35 +116,33 @@ const onGetCode = async function() {
     @submit.stop.prevent="submit"
   >
     <el-form-item class="mobileItem" prop="mobile">
-      <el-input
-        v-model="registerData.mobile"
-        name="mobile"
-        type="text"
-        :placeholder="I18n.common.placeholder.tel"
-        class="input-with-select"
-        autocomplete="off"
-      >
-        <template #prepend>
-          <el-select v-model="registerData.area_code" placeholder="+86">
-            <el-option
-              v-for="item in areaCode"
-              :key="item.phone_code"
-              :label="item.phone_code"
-              :value="item.phone_code"
-            >
-              <span style="float: left">{{ item.phone_code }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{
-                item.cn
-              }}</span>
-            </el-option>
-          </el-select>
-        </template>
-      </el-input>
+      <!--      <el-input-->
+      <!--        v-model="registerData.mobile"-->
+      <!--        type="text"-->
+      <!--        :placeholder="I18n.common.placeholder.tel"-->
+      <!--        class="input-with-select"-->
+      <!--        autocomplete="off"-->
+      <!--      >-->
+      <!--        <template #prepend>-->
+      <!--          <el-select v-model="registerData.area_code" placeholder="+86">-->
+      <!--            <el-option-->
+      <!--              v-for="item in areaCode"-->
+      <!--              :key="item.phone_code"-->
+      <!--              :label="item.phone_code"-->
+      <!--              :value="item.phone_code"-->
+      <!--            >-->
+      <!--              <span style="float: left">{{ item.phone_code }}</span>-->
+      <!--              <span style="float: right; color: #8492a6; font-size: 13px">{{-->
+      <!--                item.cn-->
+      <!--              }}</span>-->
+      <!--            </el-option>-->
+      <!--          </el-select>-->
+      <!--        </template>-->
+      <!--      </el-input>-->
     </el-form-item>
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="registerData.code"
-        name="code"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -164,7 +162,6 @@ const onGetCode = async function() {
     <el-form-item prop="password">
       <el-input
         v-model="registerData.password"
-        name="pwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
