@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import {
+  ElIcon,
+  ElInput,
+  ElPopover,
+  ElPopper,
+  ElSelect,
+  ElOption,
+  ElCheckbox,
+} from 'element-plus'
 import { menu } from '~/logic/menu'
 import I18n from '~/utils/i18n/index'
 import { headerTag } from '~/store/header/login'
@@ -7,7 +16,7 @@ import { headerTag } from '~/store/header/login'
   <el-popover placement="bottom-start" width="auto" trigger="hover">
     <template #reference>
       <div class="ml-12 flex items-center">
-        <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
+        <!--        <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>-->
         <span class="ml-1.5 text-kd16px24px text-global-default opacity-85">{{
           I18n.nav.product
         }}</span>

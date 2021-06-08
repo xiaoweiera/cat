@@ -1,24 +1,15 @@
-<!--<script setup lang="ts">-->
-<!--import { ref } from 'vue'-->
-<!--import * as lang from '~/utils/lang'-->
-<!--const langType = ref(lang.current.value)-->
-<!--</script>-->
-<!--<template>-->
-<!--  <div class="circleContainer"></div>-->
-<!--  <div :id="langType" class="containerbgs bg-global-body md:bg-opacity-100">-->
-<!--    <Nav class="relative"></Nav>-->
-<!--    <main class="w-full flex justify-center">-->
-<!--      <router-view />-->
-<!--      <Footer />-->
-<!--    </main>-->
-<!--  </div>-->
-<!--</template>-->
+<script setup lang="ts">
+import { ref } from 'vue'
+import * as lang from '~/utils/lang'
+const langType = ref(lang.current.value)
+</script>
 <template>
   <div class="circleContainer"></div>
-  <div class="containerbgs bg-global-body md:bg-opacity-100">
-    <ApyHeader />
+  <div :id="langType" class="containerbgs bg-global-body md:bg-opacity-100">
+    <Nav class="relative"></Nav>
     <main class="w-full flex justify-center">
       <router-view />
+      <Footer />
     </main>
   </div>
 </template>
