@@ -25,7 +25,6 @@ const handleClose = function(next) {
 }
 onMounted(async() => {
   areaCodes.value = await areaCode()
-  console.log(areaCodes.value, 'login')
   // 刷新用户信息
   syncUser()
 })

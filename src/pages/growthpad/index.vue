@@ -16,7 +16,7 @@ const videoMap = () => {
 }
 onMounted(async() => {
   headerTag.name = 'GrowthPad'
-  headerTag.index = 0
+
   videoMap()
   window.onresize = () => {
     videoMap()
@@ -103,7 +103,7 @@ onMounted(async() => {
 }
 
 .mainContainer {
-  @apply max-w-mx1440 containerbg md:mt-20 relative z-2 px-4 md:px-30 flex flex-col;
+  @apply max-w-mx1440 containerbg md:mt-20 relative  px-4 md:px-30 flex flex-col;
 }
 
 .mixed {

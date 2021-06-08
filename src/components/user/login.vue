@@ -6,11 +6,11 @@ import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
 // @ts-ignore
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
-
+// 参数
 const props = defineProps({
   areaCode: Array,
 })
-console.log(props.areaCode)
+
 const submit = async function() {
   try {
     await onSubmit()
@@ -26,6 +26,11 @@ const submit = async function() {
       messageError(data)
     }
   }
+}
+const codeShow = ref(false)
+const setCode = (value: string) => {
+  formdata.area_code = value
+  codeShow.value = false
 }
 </script>
 <template>
@@ -44,8 +49,46 @@ const submit = async function() {
   >
     <el-form-item class="mobileItem" prop="mobile">
       <div class="flex items-center">
-        <div class="codeContainer border-1 w-12 h-10 flex justify-center">
-          +86
+        <div
+          class="codeContainer relative border-1 px-1 h-10"
+          @mouseleave="codeShow = false"
+        >
+          <div
+            class="hand flex items-center justify-center"
+            @click="codeShow = !codeShow"
+          >
+            <span class="ml-2.5">{{ formdata.area_code }}</span>
+            <img
+              class="w-4 h-4 ml-1 mr-2"
+              src="https://res.ikingdata.com/nav/codeDown.jpg"
+              alt=""
+            />
+          </div>
+          <div
+            v-if="codeShow"
+            class="absolute left-0 top-9.5 bg-global-white z-10 codeList hand"
+          >
+            <template v-for="(item, i) in areaCode" v-key="i">
+              <div
+                class="
+                  bg-global-white
+                  flex
+                  justify-between
+                  text-kd13px20px
+                  mt-2
+                  codeItem
+                "
+                @click="setCode(item.phone_code)"
+              >
+                <span class="inline-block white whitespace-nowrap">{{
+                  item.phone_code
+                }}</span>
+                <span class="inline-block whitespace-nowrap ml-1">{{
+                  item.cn
+                }}</span>
+              </div>
+            </template>
+          </div>
         </div>
         <el-input
           v-model="formdata.mobile"
@@ -54,21 +97,6 @@ const submit = async function() {
           class="input-with-select"
           autocomplete="off"
         >
-          <!--          <template #prepend>-->
-          <!--            <el-select v-model="formdata.area_code" placeholder="+86">-->
-          <!--              <el-option-->
-          <!--                v-for="item in areaCode"-->
-          <!--                :key="item.phone_code"-->
-          <!--                :label="item.phone_code"-->
-          <!--                :value="item.phone_code"-->
-          <!--              >-->
-          <!--                <span style="float: left">{{ item.phone_code }}</span>-->
-          <!--                <span style="float: right; color: #8492a6; font-size: 13px">{{-->
-          <!--                  item.cn-->
-          <!--                }}</span>-->
-          <!--              </el-option>-->
-          <!--            </el-select>-->
-          <!--          </template>-->
         </el-input>
       </div>
     </el-form-item>
@@ -100,7 +128,19 @@ const submit = async function() {
 </template>
 
 <style scoped lang="scss">
+.codeItem {
+  line-height: 24px;
+}
+
+.codeList {
+  overflow: hidden;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.08);
+  @apply h-50 px-3;
+}
 .codeContainer {
+  white-space: nowrap;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   border-right: 0px solid white;
