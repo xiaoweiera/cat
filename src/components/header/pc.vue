@@ -22,10 +22,20 @@ import { headerTag } from '~/store/header/login'
       />
     </div>
     <div class="pc-nav-box pt-3">
-      <div class="font-kdFang hand flex p-6">
+      <div class="font-kdFang hand flex p-6 tipContainer">
         <template v-for="item in menu">
-          <div class="twoMl flex-1">
-            <div class="mb-0.25 whitespace-pre-line">{{ item.name }}</div>
+          <div class="twoMl flex-1 min-w-50">
+            <div
+              class="
+                mb-0.25
+                whitespace-pre-line
+                text-global-default
+                opacity-65
+                text-kd14px18px
+              "
+            >
+              {{ item.name }}
+            </div>
             <template v-for="child in item.children">
               <a
                 v-router="child.href"
@@ -63,14 +73,18 @@ import { headerTag } from '~/store/header/login'
 </template>
 
 <style scoped lang="scss">
+img {
+  max-width: none !important;
+}
+.tipContainer {
+  border-radius: 6px;
+}
 .pc-nav-box {
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 0;
   min-width: 768px;
-  width: 912px;
-  max-width: 912px;
   visibility: hidden;
   transition: all 0.3s;
   opacity: 0;

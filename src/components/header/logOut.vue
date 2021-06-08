@@ -3,23 +3,35 @@ import { ref, onMounted } from 'vue'
 import I18n from '~/utils/i18n/index'
 import { logout, userData } from '~/logic/user/login'
 const type = ref(window.screen.width > 768 ? 'hover' : 'click')
+const showTip = ref(false)
+const optionShow = () => {
+  showTip.value = true
+}
+const optionClose = () => {
+  showTip.value = false
+}
 </script>
-
 <template>
   <div class="md:h-20 md:w-12">
-    <div class="userIcon h-full flex justify-center items-center hand relative">
+    <div
+      class="userIcon h-full flex justify-center items-center hand relative"
+      @mousemove="optionShow"
+      @mouseleave="optionClose"
+    >
       <!-- 已经登录 -->
       <IconFont type="user" size="3xl"></IconFont>
       <div
+        v-show="showTip"
         class="
-          hidden
           tipShow
           bg-global-white
           absolute
-          right-0
-          top-16
+          -right-2
+          md:right-0
+          top-10
+          md:top-16
           py-4.25
-          px-5
+          px-3
           loginOut
         "
       >
@@ -31,13 +43,13 @@ const type = ref(window.screen.width > 768 ? 'hover' : 'click')
           />
           <div
             style="color: rgba(68, 90, 132, 1)"
-            class="text-kd14px16px ml-2 text-kd14px18px flex mr-3"
+            class="text-kd14px16px ml-2 text-kd14px18px flex"
           >
             {{ userData.nickname }}
           </div>
           <img
             v-if="userData.is_vip"
-            class="w-7.75 mr-12"
+            class="w-7.75 ml-2"
             src="https://res.ikingdata.com/nav/navVip.jpg"
             alt=""
           />
@@ -57,7 +69,6 @@ const type = ref(window.screen.width > 768 ? 'hover' : 'click')
         </div>
       </div>
     </div>
-
     <!--      <a-->
     <!--        href="https://www.kingdata.com/topic?tagID=item&topicID=my?utm_source=https://kingdata.com"-->
     <!--        target="_blank"-->
@@ -78,10 +89,8 @@ const type = ref(window.screen.width > 768 ? 'hover' : 'click')
   </div>
 </template>
 <style scoped>
-.userIcon:hover {
-  .tipShow {
-    display: block;
-  }
+img {
+  max-width: none !important;
 }
 .loginOut {
   border-radius: 6px;

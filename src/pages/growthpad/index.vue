@@ -103,7 +103,7 @@ onMounted(async() => {
 }
 
 .mainContainer {
-  @apply max-w-mx1440 containerbg md:mt-20 relative z-2 px-4 md:px-30 flex flex-col;
+  @apply max-w-mx1440 containerbg md:mt-20 relative  px-4 md:px-30 flex flex-col;
 }
 
 .mixed {
@@ -210,6 +210,6 @@ onMounted(async() => {
 // @formatter:off layout: indexLaout
 <route lang="yaml">
 meta:
-  layout: indexLaout
+  layout: home
 </route>
 // @formatter:off
