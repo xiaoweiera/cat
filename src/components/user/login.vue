@@ -1,5 +1,16 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
+import {
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElInput,
+  ElPopover,
+  ElPopper,
+  ElSelect,
+  ElOption,
+  ElCheckbox,
+} from 'element-plus'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { messageError } from '~/lib/tool'
@@ -8,9 +19,8 @@ import { hideVisible } from '~/store/header/login'
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
 
 const props = defineProps({
-  areaCode: Object,
+  areaCode: Array,
 })
-console.log(props.areaCodes, 'login')
 const submit = async function() {
   try {
     await onSubmit()

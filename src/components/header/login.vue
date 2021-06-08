@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { ElDialog } from 'element-plus'
 import I18n from '~/utils/i18n/index'
 import {
   visible,

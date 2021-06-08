@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import {
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElInput,
+  ElPopover,
+  ElPopper,
+  ElSelect,
+  ElOption,
+  ElCheckbox,
+} from 'element-plus'
 import { ref, defineProps } from 'vue'
 // @ts-ignore
 import emailRules from './emailRules'

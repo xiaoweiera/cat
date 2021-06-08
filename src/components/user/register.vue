@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import {
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElInput,
+  ElPopover,
+  ElPopper,
+  ElSelect,
+  ElOption,
+  ElCheckbox,
+} from 'element-plus'
 import { useRoute } from 'vue-router'
 import { toRaw, onMounted, ref, defineProps } from 'vue'
 import rules from './rules'

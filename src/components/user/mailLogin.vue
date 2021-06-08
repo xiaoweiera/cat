@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import {
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElInput,
+  ElPopover,
+  ElPopper,
+  ElSelect,
+  ElOption,
+  ElCheckbox,
+} from 'element-plus'
 import { defineProps, ref } from 'vue'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
