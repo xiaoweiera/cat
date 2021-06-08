@@ -87,30 +87,35 @@ const onGetCode = async function() {
     @submit.stop.prevent="submit"
   >
     <el-form-item class="mobileItem" prop="mobile">
-      <el-input
-        v-model="forgetData.mobile"
-        name="mobile"
-        type="text"
-        :placeholder="I18n.common.placeholder.tel"
-        class="input-with-select"
-        autocomplete="off"
-      >
-        <template #prepend>
-          <el-select v-model="forgetData.area_code" placeholder="+86">
-            <el-option
-              v-for="item in areaCode"
-              :key="item.phone_code"
-              :label="item.phone_code"
-              :value="item.phone_code"
-            >
-              <span style="float: left">{{ item.phone_code }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{
-                item.cn
-              }}</span>
-            </el-option>
-          </el-select>
-        </template>
-      </el-input>
+      <div class="flex items-center">
+        <div class="codeContainer border-1 w-12 h-10 flex justify-center">
+          +86
+        </div>
+        <el-input
+          v-model="forgetData.mobile"
+          name="mobile"
+          type="text"
+          :placeholder="I18n.common.placeholder.tel"
+          class="input-with-select"
+          autocomplete="off"
+        >
+          <!--        <template #prepend>-->
+          <!--          <el-select v-model="forgetData.area_code" placeholder="+86">-->
+          <!--            <el-option-->
+          <!--              v-for="item in areaCode"-->
+          <!--              :key="item.phone_code"-->
+          <!--              :label="item.phone_code"-->
+          <!--              :value="item.phone_code"-->
+          <!--            >-->
+          <!--              <span style="float: left">{{ item.phone_code }}</span>-->
+          <!--              <span style="float: right; color: #8492a6; font-size: 13px">{{-->
+          <!--                item.cn-->
+          <!--              }}</span>-->
+          <!--            </el-option>-->
+          <!--          </el-select>-->
+          <!--        </template>-->
+        </el-input>
+      </div>
     </el-form-item>
     <el-form-item class="codeItem" prop="code">
       <el-input
@@ -168,6 +173,15 @@ const onGetCode = async function() {
 </template>
 
 <style scoped lang="scss">
+.codeContainer {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-right: 0px solid white;
+}
+::v-deep(.mobileItem .el-input__inner) {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
 ::v-deep(.mobileItem .el-input-group__prepend) {
   background: white;
 }
