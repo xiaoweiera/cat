@@ -6,7 +6,7 @@ import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
 // @ts-ignore
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
-
+// 参数
 const props = defineProps({
   areaCode: Array,
 })
