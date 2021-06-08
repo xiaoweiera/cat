@@ -53,7 +53,7 @@
         hostname = hostname.slice(1);
         return hostname.join('.');
       }
-      return hostname;
+      return window.location.hostname;
     }
     window.forward = function (token, href, debug) {
       if (token) {
