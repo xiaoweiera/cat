@@ -1,15 +1,24 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import * as lang from '~/utils/lang'
-const langType = ref(lang.current.value)
-</script>
+<!--<script setup lang="ts">-->
+<!--import { ref } from 'vue'-->
+<!--import * as lang from '~/utils/lang'-->
+<!--const langType = ref(lang.current.value)-->
+<!--</script>-->
+<!--<template>-->
+<!--  <div class="circleContainer"></div>-->
+<!--  <div :id="langType" class="containerbgs bg-global-body md:bg-opacity-100">-->
+<!--    <Nav class="relative"></Nav>-->
+<!--    <main class="w-full flex justify-center">-->
+<!--      <router-view />-->
+<!--      <Footer />-->
+<!--    </main>-->
+<!--  </div>-->
+<!--</template>-->
 <template>
   <div class="circleContainer"></div>
-  <div :id="langType" class="containerbgs bg-global-body md:bg-opacity-100">
-    <Nav class="relative"></Nav>
+  <div class="containerbgs bg-global-body md:bg-opacity-100">
+    <ApyHeader />
     <main class="w-full flex justify-center">
       <router-view />
-      <Footer />
     </main>
   </div>
 </template>
