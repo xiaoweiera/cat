@@ -54,29 +54,29 @@ const submit = async function() {
   >
     <el-form-item class="mobileItem" prop="mobile">
       <div class="flex items-center">
-        <!--        <el-input-->
-        <!--          v-model="formdata.mobile"-->
-        <!--          type="text"-->
-        <!--          :placeholder="I18n.common.placeholder.tel"-->
-        <!--          class="input-with-select"-->
-        <!--          autocomplete="off"-->
-        <!--        >-->
-        <!--          <template #prepend>-->
-        <!--            <el-select v-model="formdata.area_code" placeholder="+86">-->
-        <!--              <el-option-->
-        <!--                v-for="item in areaCode"-->
-        <!--                :key="item.phone_code"-->
-        <!--                :label="item.phone_code"-->
-        <!--                :value="item.phone_code"-->
-        <!--              >-->
-        <!--                <span style="float: left">{{ item.phone_code }}</span>-->
-        <!--                <span style="float: right; color: #8492a6; font-size: 13px">{{-->
-        <!--                  item.cn-->
-        <!--                }}</span>-->
-        <!--              </el-option>-->
-        <!--            </el-select>-->
-        <!--          </template>-->
-        <!--        </el-input>-->
+        <el-input
+          v-model="formdata.mobile"
+          type="text"
+          :placeholder="I18n.common.placeholder.tel"
+          class="input-with-select"
+          autocomplete="off"
+        >
+          <template #prepend>
+            <el-select v-model="formdata.area_code" placeholder="+86">
+              <el-option
+                v-for="item in areaCode"
+                :key="item.phone_code"
+                :label="item.phone_code"
+                :value="item.phone_code"
+              >
+                <span style="float: left">{{ item.phone_code }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{
+                  item.cn
+                }}</span>
+              </el-option>
+            </el-select>
+          </template>
+        </el-input>
       </div>
     </el-form-item>
     <el-form-item class="mb-2" prop="password">
