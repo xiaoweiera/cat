@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import {
-  ElIcon,
-  ElInput,
-  ElPopover,
-  ElPopper,
-  ElSelect,
-  ElOption,
-  ElCheckbox,
-} from 'element-plus'
 import { menu } from '~/logic/menu'
 import I18n from '~/utils/i18n/index'
 import { headerTag } from '~/store/header/login'
