@@ -4,58 +4,90 @@ import I18n from '~/utils/i18n/index'
 import { headerTag } from '~/store/header/login'
 </script>
 <template>
-  <el-popover placement="bottom-start" width="auto" trigger="hover">
-    <template #reference>
-      <div class="ml-12 flex items-center">
-        <!--        <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>-->
-        <span class="ml-1.5 text-kd16px24px text-global-default opacity-85">{{
-          I18n.nav.product
-        }}</span>
-        <img
-          class="w-3 ml-1.5"
-          src="https://res.ikingdata.com/nav/navDown.png"
-          alt=""
-        />
-      </div>
-    </template>
-    <div class="flex p-3 font-kdFang hand">
-      <template v-for="item in menu">
-        <div class="twoMl min-w-37">
-          <div class="mb-0.25">{{ item.name }}</div>
-          <template v-for="child in item.children">
-            <a
-              v-router="child.href"
-              target="_blank"
-              class="mt-5 flex items-center relative hoverHover"
-            >
-              <img :src="child.icon" alt="" />
-              <div class="flex flex-col ml-2.5">
-                <img
-                  v-if="child.badge"
-                  class="w-13 absolute -top-4 -right-6"
-                  :src="I18n.nav.soonLine"
-                  alt=""
-                />
-                <div class="flex items-center">
-                  <span class="childName">{{ child.name }}</span>
+  <div class="relative pc-nav-main">
+    <div class="ml-12 flex items-center">
+      <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
+      <span
+        class="
+          ml-1.5
+          inline-block
+          text-kd16px24px text-global-default
+          opacity-85
+        "
+      >{{ I18n.nav.product }}</span>
+      <img
+        class="inline-block w-3 ml-1.5"
+        src="https://res.ikingdata.com/nav/navDown.png"
+        alt=""
+      />
+    </div>
+    <div class="pc-nav-box pt-3">
+      <div class="font-kdFang hand flex p-6">
+        <template v-for="item in menu">
+          <div class="twoMl flex-1">
+            <div class="mb-0.25 whitespace-pre-line">{{ item.name }}</div>
+            <template v-for="child in item.children">
+              <a
+                v-router="child.href"
+                target="_blank"
+                class="mt-5 flex items-center relative hoverHover"
+              >
+                <img :src="child.icon" alt="" />
+                <div class="flex flex-col ml-2.5">
                   <img
-                    class="w-3 ml-1 imgShow"
-                    src="https://res.ikingdata.com/nav/navRight.jpg"
+                    v-if="child.badge"
+                    class="w-13 absolute -top-4 -right-6"
+                    :src="I18n.nav.soonLine"
                     alt=""
                   />
-                </div>
+                  <div class="flex items-center">
+                    <span class="childName inline-block whitespace-pre-line">{{
+                      child.name
+                    }}</span>
+                    <img
+                      class="w-3 ml-1 imgShow"
+                      src="https://res.ikingdata.com/nav/navRight.jpg"
+                      alt=""
+                    />
+                  </div>
 
-                <span class="desc">{{ child.desc }}</span>
-              </div>
-            </a>
-          </template>
-        </div>
-      </template>
+                  <span class="desc">{{ child.desc }}</span>
+                </div>
+              </a>
+            </template>
+          </div>
+        </template>
+      </div>
     </div>
-  </el-popover>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.pc-nav-box {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 0;
+  min-width: 768px;
+  width: 912px;
+  max-width: 912px;
+  visibility: hidden;
+  transition: all 0.3s;
+  opacity: 0;
+  & > .hand {
+    background: #fff;
+  }
+}
+.pc-nav-main {
+  &:hover {
+    .pc-nav-box {
+      visibility: visible;
+      opacity: 1;
+      z-index: 999;
+    }
+  }
+}
+
 .hoverShow {
   display: block;
 }
