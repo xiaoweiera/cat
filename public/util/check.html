@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>校验</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" href="https://res.ikingdata.com/static/favicon.ico" type="image/svg+xml">
+  <script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/ncpc/nc.js?t=2015052012"></script>
+  <style>
+    *{ margin:0;padding:0; border:0; }
+    body,html{position:absolute;left:0;top:0;right:0;bottom:0}
+    .check-box {
+      display: inline-block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .check-box .nc-container { width: 100%; }
+    .check-box .nc_wrapper { max-width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="check-box">
+    <div id="your-dom-id" class="nc-container"></div>
+  </div>
+  <script type="text/javascript">
+    function parseSearchParams(){
+      var searchParamsString = window.location.search;
+      if (searchParamsString) {
+        searchParamsString = searchParamsString.slice(1)
+      }
+      var data = searchParamsString.split('&').reduce((searchParams, curKV)=>{
+        var [k, v] = curKV.split('=').map(decodeURIComponent);
+        searchParams[k] = v;
+
+        return searchParams;
+      }, {});
+      return data
+    }
+
+    var getWords = function() {
+      var query = parseSearchParams()
+      var lang = query['lang'] ? query['lang'] : 'en';
+
+      const words = {
+        en: {
+          placeholder: 'Drag to the far right',
+          success: 'Verification passed',
+          error: 'Oh, there\'s a mistake. Click<a href="javascript:__nc.reset()">refresh</a>to do it again.',
+          network: 'The network is suck, please<a href="javascript:__nc.reset()">click refresh.</a>'
+        },
+        cn: {
+          placeholder: '请按住滑块，拖动到最右边',
+          success: '验证通过',
+          error: '哎呀，出错了，点击<a href="javascript:__nc.reset()">刷新</a>再来一次',
+          network: '网络不给力，请<a href="javascript:__nc.reset()">点击刷新</a>'
+        }
+      };
+      return words[lang] ? words[lang] : words['en'];
+    }
+
+
+    var getToken = function() {
+      var time = Date.now();
+      var random = Math.random();
+      return ["FFFF0N00000000009FFA", time, random].join(':');
+    }
+    window.ready = function(callback) {
+      var nc_token = getToken();
+      var NC_Opt = {
+        renderTo: "#your-dom-id",
+        appkey: "FFFF0N00000000009FFA",
+        scene: "nc_register",
+        token: nc_token,
+        customWidth: 300,
+        trans:{"key1":"code0"},
+        elementID: ["usernameID"],
+        is_Opt: 0,
+        language: "cn",
+        isEnabled: true,
+        timeout: 3000,
+        times:5,
+        apimap: {},
+        callback: function (data) {
+          if (callback) {
+            callback(data);
+          }
+        }
+      }
+      var nc = new noCaptcha(NC_Opt);
+
+      var words = getWords()
+
+      nc.upLang('cn', {
+        _startTEXT: words.placeholder,
+        _yesTEXT: words.success,
+        _error300: words.error,
+        _errorNetwork: words.network,
+      })
+    }
+
+    var checkCallback = function(data) {
+      // 执行注入到 window 下的回调函数
+      var query = parseSearchParams()
+      var callbackName = query['callback']
+      if (window[callbackName] && typeof window[callbackName] === 'function') {
+        // 返回验证结果
+        window[callbackName](data)
+        return true
+      }
+      // 执行注入到 js 内存中的回调函数
+      try {
+        var value = JSON.stringify(data);
+        var code = '(' + callbackName + '('+ value +')'+ ')'
+        eval(code); // 执行回调函数，返回检查结果
+        return true
+      } catch (e) {
+        // todo
+      }
+
+      var parent = window.parent;
+      if (parent.postMessage && parent.location.pathname !== window.location.pathname) {
+        var result = { event: 'register_check', callbackname: callbackName, data: data };
+        if (parent[callbackName]) {
+          parent[callbackName](result);
+        }
+        return true
+      }
+    }
+
+    setTimeout(function() {
+      ready(checkCallback)
+    })
+  </script>
+</body>
+</html>
