@@ -12,7 +12,7 @@ export const development: Env = {
 }
 
 export const production: Env = {
-  api: 'https://kingdata.com',
+  api: 'https://ikingdata.com',
 }
 
 // 默认线上环境
