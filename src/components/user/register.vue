@@ -111,7 +111,10 @@ const setCode = (value: string) => {
   >
     <el-form-item class="mobileItem" prop="mobile">
       <div class="flex items-center">
-        <div class="codeContainer relative border-1 px-1 h-10">
+        <div
+          class="codeContainer relative border-1 px-1 h-10"
+          @mouseleave="codeShow = false"
+        >
           <div
             class="hand flex items-center justify-center"
             @click="codeShow = !codeShow"

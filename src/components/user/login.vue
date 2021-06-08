@@ -49,7 +49,10 @@ const setCode = (value: string) => {
   >
     <el-form-item class="mobileItem" prop="mobile">
       <div class="flex items-center">
-        <div class="codeContainer relative border-1 px-1 h-10">
+        <div
+          class="codeContainer relative border-1 px-1 h-10"
+          @mouseleave="codeShow = false"
+        >
           <div
             class="hand flex items-center justify-center"
             @click="codeShow = !codeShow"
@@ -63,7 +66,7 @@ const setCode = (value: string) => {
           </div>
           <div
             v-if="codeShow"
-            class="absolute left-0 top-10 bg-global-white z-10 codeList hand"
+            class="absolute left-0 top-9.5 bg-global-white z-10 codeList hand"
           >
             <template v-for="(item, i) in areaCode" v-key="i">
               <div
