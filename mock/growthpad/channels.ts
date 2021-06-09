@@ -25,7 +25,7 @@ const Project = channelsInfo.title
 const website = 'channels.finance'
 const telegramHref = I18n.growthpad.channels.share.telegram
 const twitterHref = 'https://twitter.com/ChannelsFinance'
-const sinaHref = 'https://twitter.com/kingdata_com/status/1402483622959976448?s=21'
+const sinaHref = 'https://m.weibo.cn/5553600723/4646223929150088'
 
 
 // 关注 twitter
