@@ -63,10 +63,10 @@ const link = (): string => {
                 />
               </template>
               <template #content>
-                <pre
+                <p
                   class="leading-loose"
                   v-html="I18n.growthpad.invited.help"
-                ></pre>
+                ></p>
               </template>
             </UiPopover>
           </span>
