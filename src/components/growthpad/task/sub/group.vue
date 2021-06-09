@@ -7,21 +7,10 @@ import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
 const store = Task()
 
-const pictures = ref<string[]>([
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/1ec50f286ae33d9d4f1323402533daa3.jpg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/favicon.ico",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/21d85537d0b2f52d2fa85be5729437e4.jpg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/77ed36f4b18679ce54d4cebda306117e.jpeg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/1ec50f286ae33d9d4f1323402533daa3.jpg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/favicon.ico",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/21d85537d0b2f52d2fa85be5729437e4.jpg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/77ed36f4b18679ce54d4cebda306117e.jpeg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/1ec50f286ae33d9d4f1323402533daa3.jpg",
-  // "https://jsdata-dev-web.oss-cn-hangzhou.aliyuncs.com/media/uploads/2021/6/favicon.ico",
-])
+const pictures = ref<string[]>([])
 
 watch(store.chatPicture, (arr: string[]) => {
-  const list = [].concat(arr)
+  const list: string[] = [].concat(arr as any)
   pictures.value = list
 })
 
@@ -89,7 +78,7 @@ const shareUrl = `${window.location.origin}${window.location.pathname}`
         class="inline text-xs desc leading-6 link-box"
         v-html="
           I18n.template(I18n.growthpad.growthpad.share.link, {
-            url: 'https://jinshuju.net/f/vqZlj3',
+            url: shareUrl,
           })
         "
       ></p>

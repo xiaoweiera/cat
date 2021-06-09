@@ -88,7 +88,7 @@ const shareUrl = `${window.location.origin}${window.location.pathname}`
       <Copy
         :link="
           I18n.template(I18n.growthpad.growthpad.share.copy, {
-            url: 'https://jinshuju.net/f/vqZlj3',
+            url: shareUrl,
           })
         "
       >
