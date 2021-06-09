@@ -35,11 +35,13 @@ const className = computed(() => {
   content: counter(number);
 }
 .sm {
+  min-width: 24px;
   width: 24px;
   height: 24px;
   font-size: 16px;
 }
 .lg {
+  min-width: 42px;
   width: 42px;
   height: 42px;
   font-size: 28px;
