@@ -165,13 +165,15 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       warning: 'The reward will be airdropped into the verification address, which can not be changed.',
 
       // pancake: 'TVL in PanCakeSwap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
-      pancake: 'Users who provide liquidity (TVL) worth over 10,000 USDT in PancakeSwap；Join MDEX telegram;  Follow MDEX Twitter and retweet the twitter about the activity.',
+      pancake: 'Users who provide liquidity (TVL) worth over 10,000 USDT in PancakeSwap；Join MDEX telegram; Follow MDEX Twitter and retweet the twitter about the activity.',
       pancakeCondition: 'Qualification: TVL in PancakeSwap is more than 10K USDT.',
 
-      uniswap: 'TVL in Uniswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      // uniswap: 'TVL in Uniswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      uniswap: 'Users who provide liquidity (TVL) worth over 10,000 USDT in UniSwap；Join MDEX telegram; Follow MDEX Twitter and retweet the twitter about the activity.',
       uniswapCondition: 'Qualification: TVL in Uniswap is more than 10K USDT.',
 
-      sushiswap: 'TVL in Sushiswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      // sushiswap: 'TVL in Sushiswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      sushiswap: 'Users who provide liquidity (TVL) worth over 10,000 USDT in SushiSwap；Join MDEX telegram; Follow MDEX Twitter and retweet the twitter about the activity.',
       sushiswapCondition: 'Qualification: TVL in Sushiswap is more than 10K USDT.',
     },
   },

@@ -26,7 +26,7 @@ const website = 'www.coinwind.com'
 // 根据环境展示中/英文链接
 const telegramHref = I18n.growthpad.coinwind.share.telegram
 const twitterHref = 'https://twitter.com/coinwind_com'
-const retwitterHref = 'https://twitter.com/coinwind_com'
+const retwitterHref = 'https://twitter.com/kingdata_com/status/1402483317857939459?s=21'
 
 
 const data = {
