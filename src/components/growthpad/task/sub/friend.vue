@@ -35,6 +35,8 @@ const onSubmit = async function(): Promise<void> {
 }
 // @ts-ignore
 const shareImg = ref<string>(I18n.growthpad.growthpad.share.image)
+// @ts-ignore
+const shareUrl = `${window.location.origin}${window.location.pathname}`
 </script>
 
 <template>
@@ -77,7 +79,7 @@ const shareImg = ref<string>(I18n.growthpad.growthpad.share.image)
         class="inline flex-1 text-xs desc link-box"
         v-html="
           I18n.template(I18n.growthpad.growthpad.share.link, {
-            url: 'https://jinshuju.net/f/vqZlj3',
+            url: shareUrl,
           })
         "
       ></p>
