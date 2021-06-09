@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { shareUrl as getShareUrl } from './link'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { messageError, messageSuccess } from '~/lib/tool'
@@ -36,7 +37,9 @@ const onSubmit = async function(): Promise<void> {
 // @ts-ignore
 const shareImg = ref<string>(I18n.growthpad.growthpad.share.image)
 // @ts-ignore
-const shareUrl = `${window.location.origin}${window.location.pathname}`
+const shareUrl = getShareUrl(
+  `${window.location.origin}${window.location.pathname}`,
+)
 </script>
 
 <template>
