@@ -25,6 +25,7 @@ const Project = channelsInfo.title
 const website = 'channels.finance'
 const telegramHref = I18n.growthpad.channels.share.telegram
 const twitterHref = 'https://twitter.com/ChannelsFinance'
+const reTwitterHref = 'https://twitter.com/KingData_com/status/1402222896550797318'
 const sinaHref = 'https://m.weibo.cn/u/7542695920'
 const reSina = 'https://m.weibo.cn/5553600723/4646223929150088'
 
@@ -36,7 +37,7 @@ export const twitter = function(project: string, description?: string, href?: st
   data['tooltipAfter'] = {
     icon: 'twitter',
     value: I18n.growthpad.activity.twitter,
-    href,
+    href: reTwitterHref,
   }
   return data
 }
