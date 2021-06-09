@@ -143,7 +143,7 @@ const update = function(result: UserData): void {
     result,
     'growthpad_invited_count',
   )
-  isLogin.value = !!safeGet<boolean>(result, 'nickname')
+  isLogin.value = !!safeGet<boolean>(result, 'expired_at')
 }
 
 export const logout = async function(): Promise<void> {

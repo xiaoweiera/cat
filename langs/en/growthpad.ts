@@ -320,7 +320,7 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
     tips: {
       uploadMax: 'The size does not exceed 2M.',
       portrait: 'The screenshot contains your Twitter profile photo, complete poster + content and publishing time interval.',
-      active: 'Click Save Picture in wechat to open the big picture and save it manually.'
+      active: 'Long press on the phone to save the picture or open the link in the browser and click to save the picture.'
     },
     share: {
       image: 'https://res.ikingdata.com/static/share/26771623219339_.pic_hd.jpg',

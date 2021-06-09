@@ -312,7 +312,7 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
     tips: {
       uploadMax: '上传大小不超过 2M',
       portrait: '截图包含您的微信头像，完整的活动海报 + 文案及发布时间间隔。',
-      active: '在微信中点击保存图片打开大图后手动保存'
+      active: '手机长按保存图片或在浏览器中打开链接点击保存图片'
     },
     share: {
       image: 'https://res.ikingdata.com/static/share/26801623219557_.pic_hd.jpg',
