@@ -21,7 +21,7 @@ const second = ref<string>('00')
 const end = ref(0)
 // 监听传入进来的时间值
 watch(
-  props.value as any,
+  () => props.value as any,
   () => {
     const time = dayjs(props.value, format)
 

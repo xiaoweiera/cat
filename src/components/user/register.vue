@@ -11,8 +11,10 @@ import {
   onRegisterSubmit,
   onCaptchaResgister,
 } from '~/logic/user/login'
-const props = defineProps({
-  areaCode: Object,
+import { areaCode } from '~/api/user'
+const areaCodes = ref([])
+onMounted(async() => {
+  areaCodes.value = await areaCode()
 })
 const isHasCode = ref('')
 // 活动名称
@@ -130,7 +132,7 @@ const setCode = (value: string) => {
             v-if="codeShow"
             class="absolute left-0 top-10 bg-global-white z-10 codeList hand"
           >
-            <template v-for="(item, i) in areaCode" v-key="i">
+            <template v-for="(item, i) in areaCodes" v-key="i">
               <div
                 class="
                   bg-global-white

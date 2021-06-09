@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { defineProps, ref, onMounted } from 'vue'
 import rules from './rules'
 import I18n from '~/utils/i18n/index'
 import { messageError } from '~/lib/tool'
 import { hideVisible } from '~/store/header/login'
 // @ts-ignore
 import { formdata, logoForm, onSubmit } from '~/logic/user/login'
-// 参数
-const props = defineProps({
-  areaCode: Array,
+import { areaCode } from '~/api/user'
+const areaCodes = ref([])
+onMounted(async() => {
+  areaCodes.value = await areaCode()
 })
-
 const submit = async function() {
   try {
     await onSubmit()
@@ -68,7 +68,7 @@ const setCode = (value: string) => {
             v-if="codeShow"
             class="absolute left-0 top-9.5 bg-global-white z-10 codeList hand"
           >
-            <template v-for="(item, i) in areaCode" v-key="i">
+            <template v-for="(item, i) in areaCodes" v-key="i">
               <div
                 class="
                   bg-global-white

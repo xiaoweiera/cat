@@ -5,9 +5,6 @@ import I18n from '~/utils/i18n/index'
 import { messageError, messageSuccess } from '~/lib/tool'
 import { goDialogLogin, hideVisible } from '~/store/header/login'
 import { formMailData, logoMailForm, onSubmitMail } from '~/logic/user/login'
-const props = defineProps({
-  areaCode: Object,
-})
 const submit = async function() {
   try {
     await onSubmitMail()

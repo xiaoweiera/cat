@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { toRaw, ref, defineProps } from 'vue'
+import { toRaw, ref, defineProps, onMounted } from 'vue'
 import rules from './rules'
 import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
@@ -11,8 +11,10 @@ import {
   onFindPwd,
   onCaptchaForget,
 } from '~/logic/user/login'
-const props = defineProps({
-  areaCode: Object,
+import { areaCode } from '~/api/user'
+const areaCodes = ref([])
+onMounted(async() => {
+  areaCodes.value = await areaCode()
 })
 const submit = async function() {
   try {
@@ -112,7 +114,7 @@ const setCode = (value: string) => {
             v-if="codeShow"
             class="absolute left-0 top-10 bg-global-white z-10 codeList hand"
           >
-            <template v-for="(item, i) in areaCode" v-key="i">
+            <template v-for="(item, i) in areaCodes" v-key="i">
               <div
                 class="
                   bg-global-white

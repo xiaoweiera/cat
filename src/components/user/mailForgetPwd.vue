@@ -12,10 +12,6 @@ import {
   onFindPwdMail,
   onMailCaptchaForget,
 } from '~/logic/user/login'
-// @ts-ignore
-const props = defineProps({
-  areaCode: Object,
-})
 const onCheckChange = (data) => {
   forgetMailData.csessionid = data.csessionid
   forgetMailData.sig = data.sig

@@ -17,14 +17,12 @@ import {
 import { logout, syncUser, isLogin, userData } from '~/logic/user/login'
 import { areaCode } from '~/api/user'
 
-const areaCodes = ref([])
 // 弹窗关闭前
 const handleClose = function(next) {
   hideVisible()
   return next()
 }
 onMounted(async() => {
-  areaCodes.value = await areaCode()
   // 刷新用户信息
   syncUser()
 })
@@ -69,7 +67,6 @@ onMounted(async() => {
         v-if="
           loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'register'
         "
-        :area-code="areaCodes"
       >
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
@@ -88,7 +85,6 @@ onMounted(async() => {
           loginTypeStatus.type === 'email' &&
             loginTypeStatus.name === 'register'
         "
-        :area-code="areaCodes"
       >
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
@@ -104,7 +100,6 @@ onMounted(async() => {
         v-if="
           loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'login'
         "
-        :area-code="areaCodes"
       >
         <div class="pt-4.5 pb-2.5 flex justify-between items-center">
           <div @click="goDialogLogin">
@@ -123,7 +118,6 @@ onMounted(async() => {
         v-if="
           loginTypeStatus.type === 'email' && loginTypeStatus.name === 'login'
         "
-        :area-code="areaCodes"
       >
         <div class="pt-4.5 pb-2.5 flex justify-between items-center">
           <div @click="goDialogLogin">
@@ -142,7 +136,6 @@ onMounted(async() => {
         v-if="
           loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'forget'
         "
-        :area-code="areaCodes"
       >
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
@@ -159,7 +152,6 @@ onMounted(async() => {
         v-if="
           loginTypeStatus.type === 'email' && loginTypeStatus.name === 'forget'
         "
-        :area-code="areaCodes"
       >
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">

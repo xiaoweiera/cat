@@ -56,11 +56,7 @@ const link = (): string => {
             }}</i>
             <UiPopover>
               <template #reference>
-                <img
-                  class="w-4 h-4 ml-3"
-                  src="https://res.ikingdata.com/nav/growthIndexInfo.jpg"
-                  alt=""
-                />
+                <IconFont class="flex ml-3" type="help" size="base"></IconFont>
               </template>
               <template #content>
                 <p

@@ -30,8 +30,8 @@ onMounted(() => {
       <div class="mt-6 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96">
         <GrowthpadProject
           :value="
-            mdxStatus.value === 'wait'
-              ? mdxInfo.dashboard.end
+            mdxStatus === 'wait'
+              ? mdxInfo.dashboard.begin
               : mdxInfo.dashboard.end
           "
           :status="mdxStatus"
@@ -41,8 +41,8 @@ onMounted(() => {
       <div class="mt-6 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96">
         <GrowthpadProject
           :value="
-            coinwindStatus.value === 'wait'
-              ? coinwindInfo.dashboard.end
+            coinwindStatus === 'wait'
+              ? coinwindInfo.dashboard.begin
               : coinwindInfo.dashboard.end
           "
           :status="coinwindStatus"
@@ -52,8 +52,8 @@ onMounted(() => {
       <div class="mt-6 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96">
         <GrowthpadProject
           :value="
-            channelsStatus.value === 'wait'
-              ? channelsInfo.dashboard.end
+            channelsStatus === 'wait'
+              ? channelsInfo.dashboard.begin
               : channelsInfo.dashboard.end
           "
           :status="channelsStatus"
@@ -66,8 +66,8 @@ onMounted(() => {
       >
         <GrowthpadProject
           :value="
-            growthpadStatus.value === 'wait'
-              ? growthInfo.dashboard.end
+            growthpadStatus === 'wait'
+              ? growthInfo.dashboard.begin
               : growthInfo.dashboard.end
           "
           :status="growthpadStatus"

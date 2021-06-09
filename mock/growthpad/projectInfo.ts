@@ -8,7 +8,7 @@ export const mdxInfo = {
   projectName:'MDX',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/mdx.jpg',
-    begin: '2021-06-01 15:00:00', // 开始时间
+    begin: '2021-06-09 15:00:00', // 开始时间
     end: '2021-06-23 15:00:00', // 结束时间
     description: I18n.growthpadShow.mdxProject.des, // 描述
     reward: {
@@ -26,7 +26,7 @@ export const coinwindInfo = {
   projectName:'COINWIND',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/coinwind.jpg',
-    begin: '2021-06-01 15:00:00', // 开始时间
+    begin: '2021-06-09 15:00:00', // 开始时间
     end: '2021-06-23 15:00:00', // 结束时间
     description: I18n.growthpadShow.coinwindProject.des, // 描述
     reward: {
@@ -44,7 +44,7 @@ export const channelsInfo = {
   projectName:'CHANNELS',
   dashboard: {
     banner: 'https://res.ikingdata.com/static/growthpad/channels.jpg',
-    begin: '2021-06-01 15:00:00', // 开始时间
+    begin: '2021-06-09 15:00:00', // 开始时间
     end: '2021-06-23 15:00:00', // 结束时间
     description: I18n.growthpadShow.channelsProject.des, // 描述
     reward: {
@@ -63,7 +63,7 @@ export const growthInfo = {
   projectName:'Growth',
   dashboard: {
     banner:I18n.growthpad.growthpad.dashboard.banner,
-    begin: '2021-06-01 15:00:00', // 开始时间
+    begin: '2021-06-09 15:00:00', // 开始时间
     end: '2021-06-23 15:00:00', // 结束时间
     description: I18n.growthpad.growthpad.dashboard.desc, // 描述
     reward: {
