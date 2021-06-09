@@ -75,6 +75,10 @@ export default {
     count: 'My invitation: ',
     code: 'My invitation code: ',
     partake: 'Sunshine award',
+    userCount: 'My invitation (Register):',
+    activeCount: 'My invitation (Participate Growthpad):',
+    help: `1. Registering with your invitation code and completing more than one set of tasks in any event is considered successful participation in GrowthPad.
+2. Relevant rewards of Growthpad are distributed according to the number of statistics.`
   },
   chat: {
     speak: 'And send message in the community.',
@@ -102,9 +106,11 @@ export default {
 
   vip: {
     // invite: '成为 {group} VIP 用户或邀请三名好友。',
-    invite: 'Become {group} VIP or inviting 3 users to register.',
+    // invite: 'Become {group} VIP or inviting 3 users to register.',
+    invite: '{group} VIP (Non-VIP users invite 3 friends).',
     description: 'By inviting 3 users to register KingData.',
-    activity: 'Become {group} VIP or inviting 3 users; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
+    // activity: 'Become {group} VIP or inviting 3 users; Join {project} telegram; Follow {project} Twitter and Retweet the twitter about the activity.',
+    activity: '{group} VIP (Non-VIP users invite 3 friends);   Join {project} telegram;   Follow {project} Twitter and retweet the twitter about the activity.'
   },
   activity: {
     twitter: 'This activity'
@@ -125,7 +131,7 @@ export default {
       placeholder: 'Enter BSC address',
     },
     dashboard: {
-      desc: `In order to give back to community users, MDEX cooperated with KingData to launch an incentive activity worth over $300,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
+      desc: `In order to give back to community users, MDEX cooperated with KingData to launch an incentive activity worth over $200,000 on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
       Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },

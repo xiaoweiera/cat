@@ -16,6 +16,7 @@ interface UserData {
   follow_posts_count: number
   follow_push_enabled: boolean
   follow_topics_count: number
+  growthpad_invited_count: number
   invited_count: number
   is_vip: boolean
   mobile: string | number
@@ -24,7 +25,6 @@ interface UserData {
   recommend_push_enabled: boolean
   registration_rank: any
   username: string
-  growthpad_invited_count: number
 }
 
 export const userData = reactive<UserData>({
@@ -35,7 +35,8 @@ export const userData = reactive<UserData>({
   follow_posts_count: 0,
   follow_push_enabled: false,
   follow_topics_count: 0,
-  invited_count: 0,
+  growthpad_invited_count: 0, // 邀请参与growthpad活动的总人数
+  invited_count: 0, // 邀请的总人数
   is_vip: false,
   mobile: '',
   my_invitation_code: '',
@@ -43,7 +44,6 @@ export const userData = reactive<UserData>({
   recommend_push_enabled: false,
   registration_rank: null,
   username: '',
-  growthpad_invited_count: 0, // 邀请的总人数
 })
 
 // 是否已登录

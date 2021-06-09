@@ -72,6 +72,10 @@ export default {
     count: '我邀请参与活动的人数：',
     code: '我的邀请码：',
     partake: '阳光普照奖',
+    userCount: '我邀请注册的人数:',
+    activeCount: '注册人数中参与活动的人数:',
+    help: `1.使用您的邀请码注册并在任意活动中完成一组以上的任务即算成功参与活动。
+2.增长马拉松活动的相关奖励按照该人数进行统计发放。`
   },
   chat: {
     speak: '并完成任意发言。',
@@ -96,9 +100,11 @@ export default {
     sina: '活动结束前取消关注/删除微博视为未完成任务'
   },
   vip: {
-    invite: '成为 {group} VIP 用户或邀请三名好友注册。',
+    // invite: '成为 {group} VIP 用户或邀请三名好友注册。',
+    invite: '是 {group} VIP 用户（非VIP用户邀请3名好友）',
     description: '邀请三个用户注册即可成为 VIP 用户',
-    activity: 'KingData VIP 用户或邀请三名好友；加入 {project} 电报群；关注 {project} Twitter 并转发本条活动 Twitter。',
+    // activity: 'KingData VIP 用户或邀请三名好友；加入 {project} 电报群；关注 {project} Twitter 并转发本条活动 Twitter。',
+    activity: 'KingData VIP 用户（非VIP用户邀请3名好友），加入 {project} 电报群、关注 {project} Twitter、转发本条活动 Twitter。'
   },
   activity: {
     twitter: '本条活动 Twitter',
@@ -119,7 +125,7 @@ export default {
       placeholder: '输入参与领取奖励的 BSC 地址',
     },
     dashboard: {
-      desc: `MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超 $300000 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
+      desc: `MDEX 为奖励长期支持 MDEX 的用户，联合 KingData 在 GrowthPad 上开启价值超 $200000 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。
 
       活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
@@ -143,7 +149,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     copyIndex: '我操，GrowthPad 这个项目真牛逼，拿了 50万U 对 DeFi 用户进行大规模的奖励。你们拿自己的地址去检测看看资格：{url}',
     share: {
       title: '邀请1名好友参与 GrowthPad 活动，即可瓜分总奖池1%的奖励。',
-      lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额=该用户邀请人数/总邀请人数*总奖池金额*1%</i>`,
+      lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额 = 该用户邀请人数 / 总邀请人数 * 总奖池金额 * 1%</i>`,
       telegram: 'https://t.me/MixDex'
     },
     weibo: {
