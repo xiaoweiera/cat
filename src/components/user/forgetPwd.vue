@@ -167,6 +167,7 @@ const setCode = (value: string) => {
     <el-form-item prop="password">
       <el-input
         v-model="forgetData.password"
+        name="mobilePwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -178,6 +179,7 @@ const setCode = (value: string) => {
     <el-form-item prop="new_password">
       <el-input
         v-model="forgetData.new_password"
+        name="mobileNewPwd"
         type="password"
         :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"

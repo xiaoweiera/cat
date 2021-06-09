@@ -70,22 +70,35 @@
     }
     .nc_scale {
       border-radius: 4px;
-      height: 44px !important;
+      height: 40px !important;
     }
     .scale_text {
       color: #999 !important;
-      line-height: 44px !important;
+      line-height: 40px !important;
     }
     .nc-container .nc_scale .nc_bg {
       width: 0;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
     }
-
+    .nc-container .nc_scale .btn_ok{
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
     .nc-container .nc_scale span {
       border-radius: 4px;
-      height: 42px !important;
-      line-height: 42px !important;
+      height: 38px !important;
+      line-height: 38px !important;
+    }
+    @media screen and (max-width: 768px) {
+      .nc-container .nc_scale .btn_slide {
+       @apply margin-left:15px !important;
+      }
+    }
+    @media screen and (min-width: 768px) {
+      .nc-container .nc_scale .btn_slide {
+        margin-left:0px !important;
+      }
     }
 
 

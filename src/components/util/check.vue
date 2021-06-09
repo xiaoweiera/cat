@@ -23,7 +23,7 @@ window[callback] = function(result: any) {
   <div class="flex">
     <div class="inline-block">
       <iframe
-        class="check-main"
+        class="check-main w-67.5 md:w-80"
         :src="url"
         frameborder="0"
         scrolling="No"
@@ -36,7 +36,6 @@ window[callback] = function(result: any) {
 
 <style scoped lang="scss">
 .check-main {
-  height: 44px;
-  width: 360px;
+  height: 40px;
 }
 </style>

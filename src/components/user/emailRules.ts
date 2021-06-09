@@ -101,6 +101,24 @@ const checked = [
     },
   },
 ]
+// 人机验证滑块
+const checkValue = [
+  {
+    required: true,
+    message: I18n.common.message.checked,
+    trigger: ['blur', 'change'],
+  },
+  {
+    trigger: ['blur', 'change'],
+    validator(rule: any, value: string, callback: (message?: string) => void) {
+      if (value) {
+        callback()
+      } else {
+        callback(I18n.common.message.checkValue)
+      }
+    },
+  },
+]
 
 // 密码校验
 const code = [
@@ -121,4 +139,12 @@ const code = [
   },
 ]
 
-export default { mobile, password, new_password, checked, email, code }
+export default {
+  mobile,
+  password,
+  new_password,
+  checked,
+  email,
+  code,
+  checkValue,
+}

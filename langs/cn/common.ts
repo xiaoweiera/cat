@@ -43,7 +43,8 @@ export default {
     fail: '失败, 请重新验证',
     checked:'注册前请阅读',
     mailError:'邮箱格式不正确',
-    copyAlert: '你已成功复制文案'
+    copyAlert: '你已成功复制文案',
+    checkValue:'请按住滑块，拖动到最右边'
   },
   placeholder: {
     login: '自动登录',

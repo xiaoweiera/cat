@@ -89,6 +89,10 @@ export const registerMailData = reactive({
   invitation_code: '', // 邀请码
   platform: 'web',
   checked: false,
+  csessionid: '', // 会话ID
+  sig: '', // 签名串
+  token: '', // 唯一标识
+  checkValue: false, // 滑动状态
 })
 // 找回密码
 export const forgetData = reactive({
@@ -105,6 +109,10 @@ export const forgetMailData = reactive({
   new_password: '',
   area_code: '+86',
   email: '',
+  csessionid: '', // 会话ID
+  sig: '', // 签名串
+  token: '', // 唯一标识
+  checkValue: false, // 滑动状态
 })
 
 export const registerForm = ref<any>(null)

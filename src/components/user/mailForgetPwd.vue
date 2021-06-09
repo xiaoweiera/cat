@@ -1,16 +1,5 @@
 <script setup lang="ts">
-import {
-  ElForm,
-  ElFormItem,
-  ElIcon,
-  ElInput,
-  ElPopover,
-  ElPopper,
-  ElSelect,
-  ElOption,
-  ElCheckbox,
-} from 'element-plus'
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, onMounted } from 'vue'
 // @ts-ignore
 import emailRules from './emailRules'
 import { messageError, messageSuccess } from '~/lib/tool'
@@ -27,6 +16,19 @@ import {
 const props = defineProps({
   areaCode: Object,
 })
+const onCheckChange = (data) => {
+  forgetMailData.csessionid = data.csessionid
+  forgetMailData.sig = data.sig
+  forgetMailData.token = data.token
+  forgetMailData.checkValue = data.value
+}
+onMounted(() => {
+  forgetMailData.csessionid = ''
+  forgetMailData.sig = ''
+  forgetMailData.token = ''
+  forgetMailData.checkValue = false
+})
+
 // @ts-ignore
 const submit = async function() {
   try {
@@ -103,6 +105,7 @@ const onGetCode = async function() {
     <el-form-item prop="email">
       <el-input
         v-model="forgetMailData.email"
+        name="email"
         type="email"
         :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
@@ -113,6 +116,7 @@ const onGetCode = async function() {
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="forgetMailData.code"
+        name="emailCode"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -132,6 +136,7 @@ const onGetCode = async function() {
     <el-form-item prop="password">
       <el-input
         v-model="forgetMailData.password"
+        name="emailPwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -143,6 +148,7 @@ const onGetCode = async function() {
     <el-form-item prop="new_password">
       <el-input
         v-model="forgetMailData.new_password"
+        name="emailNewPwd"
         type="password"
         :placeholder="I18n.common.placeholder.new_password"
         class="input-with-select"
@@ -151,7 +157,10 @@ const onGetCode = async function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item class="mb-0">
+    <el-form-item class="" prop="checkValue">
+      <UtilCheck @change="onCheckChange"></UtilCheck>
+    </el-form-item>
+    <el-form-item>
       <ElButton class="w-full" type="primary" native-type="submit">
         <span class="font-bold font-17 font-kdFang">{{
           I18n.common.resetPassword
