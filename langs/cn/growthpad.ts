@@ -164,10 +164,12 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       pancakeCondition: '任务资格：PancakeSwap 提供流动性(TVL)超过 10000 USDT',
 
 
-      uniswap: 'Uniswap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      // uniswap: 'Uniswap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      uniswap: '在 UniSwap 提供流动性(TVL)价值超 10000 USDT 的用户，加入 MDEX 电报群，关注 MDEX Twitter，转发本条活动 Twitter。',
       uniswapCondition: '任务资格 Uniswap 提供流动性(TVL)超过 10000 USDT',
 
-      sushiswap: 'SushiSwap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
+      // sushiswap: 'SushiSwap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群；关注 MDEX Twitter；转发活动 Twitter。',
+      sushiswap: '在 SushiSwap 提供流动性(TVL)价值超 10000 USDT的用户，加入 MDEX 电报群，关注 MDEX Twitter，转发本条活动 Twitter。',
       sushiswapCondition: '任务资格：SushiSwap 提供流动性(TVL)超过 10000 USDT',
     },
   },
