@@ -23,7 +23,7 @@ const token = 'MDX'
 const website = 'mdex.com'
 const telegramHref = I18n.growthpad.mdx.share.telegram
 const twitterHref = 'https://twitter.com/Mdextech'
-const retwitterHref = 'https://twitter.com/Mdextech/status/1395323254974214150'
+const retwitterHref = 'https://twitter.com/kingdata_com/status/1402482679958806530?s=21'
 
 const data = {
   token,
