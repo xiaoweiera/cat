@@ -36,7 +36,7 @@ window[callback] = function(result: any) {
 
 <style scoped lang="scss">
 .check-main {
-  height: 34px;
-  width: 300px;
+  height: 44px;
+  width: 360px;
 }
 </style>
