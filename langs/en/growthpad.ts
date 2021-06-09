@@ -320,7 +320,7 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
       active: 'Click Save Picture in wechat to open the big picture and save it manually.'
     },
     share: {
-      image: 'https://res.ikingdata.com/static/share/growth_en.jpg',
+      image: 'https://res.ikingdata.com/static/share/26771623219339_.pic_hd.jpg',
       link: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>',
       copy: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: {url}'
     }

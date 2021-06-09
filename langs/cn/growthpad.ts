@@ -312,7 +312,7 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       active: '在微信中点击保存图片打开大图后手动保存'
     },
     share: {
-      image: 'https://res.ikingdata.com/static/share/growth_cn.jpg',
+      image: 'https://res.ikingdata.com/static/share/26801623219557_.pic_hd.jpg',
       link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：<a href="{url}" target="_blank">{url}</a>',
       copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：{url}'
     }
