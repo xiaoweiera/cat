@@ -16,7 +16,14 @@ defineProps({
       <slot name="reference"></slot>
     </div>
     <div
-      class="whitespace-pre-wrap placement-box p-2 text-xs"
+      class="
+        popoverContainer
+        text-global-default
+        whitespace-pre-wrap
+        placement-box
+        p-2
+        text-xs
+      "
       :class="`placement-${placement}`"
     >
       <slot name="content"></slot>
@@ -25,6 +32,9 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
+.popoverContainer {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+}
 .relative {
   &:hover {
     .placement-box {
@@ -37,7 +47,7 @@ defineProps({
   left: 50%;
   background: #fff;
   border-radius: 6px;
-  //display: none;
+  display: none;
   width: 435px;
 }
 .placement-top {

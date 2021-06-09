@@ -51,7 +51,7 @@ const link = (): string => {
         <span class="flex items-center md:ml-6 mt-1.5 md:mt-0">
           <span>{{ I18n.growthpad.invited.activeCount }}</span>
           <i class="ml-1">{{ userData.growthpad_invited_count || 0 }}</i>
-          <div class="inline-block ml-1.5">
+          <div class="ml-1.5 hidden md:inline-block">
             <UiPopover>
               <template #reference>
                 <IconFont class="flex" type="help" size="base"></IconFont>

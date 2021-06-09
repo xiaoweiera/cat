@@ -204,6 +204,9 @@ const onGetCode = async function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-button--primary) {
+  background: #2b8dfe !important;
+}
 ::v-deep(.el-dialog__body) {
   padding: 50px 40px;
 }
