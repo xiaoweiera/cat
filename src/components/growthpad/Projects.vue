@@ -54,7 +54,7 @@ onMounted(() => {
           :value="
             channelsStatus.value === 'wait'
               ? channelsInfo.dashboard.end
-              : channelsInfo.dashboard.begin
+              : channelsInfo.dashboard.end
           "
           :status="channelsStatus"
           :project="channelsInfo"
