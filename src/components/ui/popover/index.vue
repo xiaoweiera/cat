@@ -16,7 +16,13 @@ defineProps({
       <slot name="reference"></slot>
     </div>
     <div
-      class="whitespace-nowrap placement-box p-2"
+      class="
+        whitespace-nowrap
+        placement-box
+        p-2
+        popoverContainer
+        text-global-default
+      "
       :class="`placement-${placement}`"
     >
       <slot name="content"></slot>
@@ -25,6 +31,9 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
+.popoverContainer {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+}
 .relative {
   &:hover {
     .placement-box {

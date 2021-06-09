@@ -200,6 +200,9 @@ const setCode = (value: string) => {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-button--primary) {
+  background: #2b8dfe !important;
+}
 .codeItem {
   line-height: 24px;
 }

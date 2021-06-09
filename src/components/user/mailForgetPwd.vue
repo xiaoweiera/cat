@@ -172,6 +172,9 @@ const onGetCode = async function() {
 </template>
 
 <style scoped lang="scss">
+::v-deep(.el-button--primary) {
+  background: #2b8dfe !important;
+}
 ::v-deep(.mobileItem .el-input-group__prepend) {
   background: white;
 }

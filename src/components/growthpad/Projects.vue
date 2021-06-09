@@ -32,7 +32,7 @@ onMounted(() => {
           :value="
             mdxStatus.value === 'wait'
               ? mdxInfo.dashboard.end
-              : mdxInfo.dashboard.begin
+              : mdxInfo.dashboard.end
           "
           :status="mdxStatus"
           :project="mdxInfo"
@@ -43,7 +43,7 @@ onMounted(() => {
           :value="
             coinwindStatus.value === 'wait'
               ? coinwindInfo.dashboard.end
-              : coinwindInfo.dashboard.begin
+              : coinwindInfo.dashboard.end
           "
           :status="coinwindStatus"
           :project="coinwindInfo"
@@ -68,7 +68,7 @@ onMounted(() => {
           :value="
             growthpadStatus.value === 'wait'
               ? growthInfo.dashboard.end
-              : growthInfo.dashboard.begin
+              : growthInfo.dashboard.end
           "
           :status="growthpadStatus"
           :project="growthInfo"
