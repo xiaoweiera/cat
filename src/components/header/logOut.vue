@@ -43,7 +43,7 @@ const optionClose = () => {
           />
           <div
             style="color: rgba(68, 90, 132, 1)"
-            class="text-kd14px16px ml-2 text-kd14px18px flex"
+            class="text-kd14px16px ml-2 text-kd14px18px flex whitespace-nowrap"
           >
             {{ userData.nickname }}
           </div>
