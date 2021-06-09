@@ -52,13 +52,19 @@ const link = (): string => {
         <span class="flex items-center md:ml-6 mt-1.5 md:mt-0">
           <span>{{ I18n.growthpad.invited.activeCount }}</span>
           <i class="ml-1">{{ userData.growthpad_invited_count || 0 }}</i>
-          <!--          <div class="inline-block">-->
-          <!--            <el-popover placement="top-start" title="" :width="200" trigger="hover" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">-->
-          <!--              <template #reference>-->
-          <!--                <IconFont class="ml-1.5 flex" type="help" size="base"></IconFont>-->
-          <!--              </template>-->
-          <!--            </el-popover>-->
-          <!--          </div>-->
+          <div class="inline-block ml-1.5">
+            <UiPopover>
+              <template #reference>
+                <IconFont class="flex" type="help" size="base"></IconFont>
+              </template>
+              <template #content>
+                <pre
+                  class="leading-loose"
+                  v-html="I18n.growthpad.invited.help"
+                ></pre>
+              </template>
+            </UiPopover>
+          </div>
         </span>
         <span
           v-if="userData.my_invitation_code"
