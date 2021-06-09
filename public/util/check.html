@@ -92,12 +92,49 @@
     }
 
   </style>
-</head>
-<body>
-  <div class="check-box">
-    <div id="your-dom-id" class="nc-container"></div>
-  </div>
-  <script type="text/javascript">
+  <script>
+    /**
+     * @file 快速从对象中获取数据
+     * @author svon.me@gmail.com
+     */
+    function getLayer(path) {
+      var layer = path.split('.');
+      var array = [];
+      for(var i = 0, len = layer.length; i < len; i++) {
+        if (layer[i]) {
+          array.push(layer[i]);
+        }
+      }
+      return array;
+    }
+
+    function getArrayLayer(path) {
+      var string = path.replace(/\[/g, '.');
+      var text = string.replace(/\]/g, '');
+      return getLayer(text);
+    }
+
+    function safeGet(instance, path) {
+      if (instance && path) {
+        var layer = getArrayLayer(path);
+        var app = function(data, index) {
+          var key = layer[index];
+          // 如果有下一层
+          if (layer[index + 1]) {
+            return data[key] ? app(data[key], index + 1) : void 0;
+          }
+          return data[key];
+        };
+        return app(instance, 0);
+      }
+      return void 0;
+    }
+  </script>
+  <script>
+    /**
+     * @file 获取 URL 中查询数据
+     * @returns {{}}
+     */
     function parseSearchParams(){
       var searchParamsString = window.location.search;
       if (searchParamsString) {
@@ -109,9 +146,15 @@
 
         return searchParams;
       }, {});
-      return data
+      return data;
     }
-
+  </script>
+</head>
+<body>
+  <div class="check-box">
+    <div id="your-dom-id" class="nc-container"></div>
+  </div>
+  <script type="text/javascript">
     var getWords = function() {
       var query = parseSearchParams()
       var lang = query['lang'] ? query['lang'] : 'en';
@@ -163,29 +206,35 @@
       }
       var nc = new noCaptcha(NC_Opt);
 
-      var words = getWords()
+      var words = getWords();
 
       nc.upLang('cn', {
         _startTEXT: words.placeholder,
         _yesTEXT: words.success,
         _error300: words.error,
         _errorNetwork: words.network,
-      })
+      });
     }
 
     var checkCallback = function(data) {
       // 执行注入到 window 下的回调函数
-      var query = parseSearchParams()
-      var callbackName = query['callback']
-      if (window[callbackName] && typeof window[callbackName] === 'function') {
+      var query = parseSearchParams();
+      var callbackName = query['callback'];
+      // 无回调函数
+      if (!callbackName) {
+        return false;
+      }
+      var fun = safeGet(window, callbackName);
+      if (fun && typeof fun === 'function') {
+        var value = JSON.stringify(data);
         // 返回验证结果
-        window[callbackName](data)
+        fun(value)
         return true
       }
       // 执行注入到 js 内存中的回调函数
       try {
         var value = JSON.stringify(data);
-        var code = '(' + callbackName + '('+ value +')'+ ')'
+        var code = "(" + callbackName + "(\""+ value + "\")" + ")";
         eval(code); // 执行回调函数，返回检查结果
         return true
       } catch (e) {
@@ -195,16 +244,17 @@
       var parent = window.parent;
       if (parent.postMessage && parent.location.pathname !== window.location.pathname) {
         var result = { event: 'register_check', callbackname: callbackName, data: data };
-        if (parent[callbackName]) {
-          parent[callbackName](result);
+        var callFun = safeGet(parent, callbackName);
+        if (callFun) {
+          callFun(result);
         }
         return true
       }
     }
 
     setTimeout(function() {
-      ready(checkCallback)
-    })
+      ready(checkCallback);
+    });
   </script>
 </body>
 </html>
