@@ -92,6 +92,7 @@ const setCode = (value: string) => {
         </div>
         <el-input
           v-model="formdata.mobile"
+          name="mobile"
           type="text"
           :placeholder="I18n.common.placeholder.tel"
           class="input-with-select"
@@ -103,6 +104,7 @@ const setCode = (value: string) => {
     <el-form-item class="mb-2" prop="password">
       <el-input
         v-model="formdata.password"
+        name="mobilePwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"

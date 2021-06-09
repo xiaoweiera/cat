@@ -43,7 +43,8 @@ export default {
     testing: 'Verifying. About 15 minutes.', // 验证中，审核结束后自动更新结果
     get: 'get',
     copy: 'The link has copied',
-    fail: 'Validation failed'
+    fail: 'Validation failed',
+    checkValue:'Please slide to verify'
   },
   placeholder: {
     login: 'Automatic log-in',

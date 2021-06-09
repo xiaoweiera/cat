@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { toRaw, onMounted, ref } from 'vue'
 // @ts-ignore
-import rules from './rules'
+import rules from './emailRules'
 import { messageError, messageSuccess } from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import { goDialogLogin, showVisible } from '~/store/header/login'
@@ -24,10 +24,21 @@ const getVisitNum = function(): string {
 }
 
 onMounted(() => {
+  registerMailData.csessionid = ''
+  registerMailData.sig = ''
+  registerMailData.token = ''
+  registerMailData.checkValue = false
   const code = getVisitNum()
   registerMailData.invitation_code = code
   isHasCode.value = code
 })
+// 人机验证
+const onCheckChange = (data) => {
+  registerMailData.csessionid = data.csessionid
+  registerMailData.sig = data.sig
+  registerMailData.token = data.token
+  registerMailData.checkValue = data.value
+}
 
 const submit = async function() {
   try {
@@ -107,6 +118,7 @@ const onGetCode = async function() {
     <el-form-item prop="email">
       <el-input
         v-model="registerMailData.email"
+        name="email"
         type="email"
         :placeholder="I18n.common.placeholder.email"
         class="input-with-select"
@@ -117,6 +129,7 @@ const onGetCode = async function() {
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="registerMailData.code"
+        name="emailCreateCode"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -136,6 +149,7 @@ const onGetCode = async function() {
     <el-form-item prop="password">
       <el-input
         v-model="registerMailData.password"
+        name="emailCreatePwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -144,15 +158,19 @@ const onGetCode = async function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item class="mb-2">
+    <el-form-item>
       <el-input
         v-model="registerMailData.invitation_code"
+        name="emailInvit_code"
         :disabled="isHasCode !== ''"
         :placeholder="I18n.common.user.invite"
         class="input-with-select"
         autocomplete="off"
       >
       </el-input>
+    </el-form-item>
+    <el-form-item prop="checkValue">
+      <UtilCheck @change="onCheckChange"></UtilCheck>
     </el-form-item>
     <el-form-item class="checkedText" prop="checked">
       <div class="text-center">

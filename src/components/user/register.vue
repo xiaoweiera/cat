@@ -160,27 +160,13 @@ const setCode = (value: string) => {
           class="input-with-select"
           autocomplete="off"
         >
-          <!--        <template #prepend>-->
-          <!--          <el-select v-model="registerData.area_code" placeholder="+86">-->
-          <!--            <el-option-->
-          <!--              v-for="item in areaCode"-->
-          <!--              :key="item.phone_code"-->
-          <!--              :label="item.phone_code"-->
-          <!--              :value="item.phone_code"-->
-          <!--            >-->
-          <!--              <span style="float: left">{{ item.phone_code }}</span>-->
-          <!--              <span style="float: right; color: #8492a6; font-size: 13px">{{-->
-          <!--                item.cn-->
-          <!--              }}</span>-->
-          <!--            </el-option>-->
-          <!--          </el-select>-->
-          <!--        </template>-->
         </el-input>
       </div>
     </el-form-item>
     <el-form-item class="codeItem" prop="code">
       <el-input
         v-model="registerData.code"
+        name="mobileCode"
         :placeholder="I18n.common.placeholder.verification"
         class="input-with-select"
         autocomplete="off"
@@ -200,6 +186,7 @@ const setCode = (value: string) => {
     <el-form-item prop="password">
       <el-input
         v-model="registerData.password"
+        name="mobilePwd"
         type="password"
         :placeholder="I18n.common.placeholder.password"
         class="input-with-select"
@@ -211,6 +198,7 @@ const setCode = (value: string) => {
     <el-form-item class="mb-2">
       <el-input
         v-model="registerData.invitation_code"
+        name="mobileInvitCode"
         :disabled="isHasCode !== ''"
         :placeholder="I18n.common.user.invite"
         class="input-with-select"
