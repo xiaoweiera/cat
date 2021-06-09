@@ -153,8 +153,9 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     copyIndex: 'Oh my god，GrowthPad is so cool！GrowthPad took 500,000 U to reward DeFi users on a large scale！！！Salute！Quickly check your wallet address: {url}',
     share: {
       title: 'Invite 1 friend to participate in the GrowthPad to share 1% of the total prize pool.',
-      lable: `Invite more and reward more.
-      The amount of reward = the number that you invite / total numbers * 1% total bonus. `,
+      // lable: `Invite more and reward more.
+      // The amount of reward = the number that you invite / total numbers * 1% total bonus. `,
+      lable: `Invite more and reward more. <i>The amount of reward = The number that you invite to participate / total invitations * total bonus* 1%.</i>`,
       telegram: 'https://t.me/MdexEN'
     },
     weibo: {
@@ -200,12 +201,10 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
     },
     about: {
-      name: 'USDT',
+      name: 'CAN',
       exchanges: 'Huobi, Binance and etc',
-      online: '11/26/2014',
-      count: '60,271 millions',
-      marketValue: '60,271 millions',
-      circulation: '300 millions',
+      online: '19/1/2021',
+      count: '1,000 millions',
       luanched: 'ETH / Omni',
       detail: 'Channels is the safest and most useful decentralized lending platform on HECO. Channels.finance is the first fully decentralized lending platform on HECO, focusing on users’ asset security. The first platform launched LP mortgage lending + LP Asset Mining Aggregator. CAN is the token of Channels platform; The whole circulation is 5,000,000 tokens.'
     },
@@ -260,7 +259,8 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
       Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends ;the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     task1: {
-      title: 'Become KingData VIP; Join CoinWind telegram; Follow CoinWind Twitter and repost the twitter about the activity.'
+      title: 'KingData VIP (Non-VIP users invite 3 friends); Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
+      // title: 'Become KingData VIP; Join CoinWind telegram; Follow CoinWind Twitter and repost the twitter about the activity.'
     },
     task2: {
       title: 'TVL in Pancake Bunny is more than 10K USDT; Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
@@ -276,7 +276,7 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
       condition1: 'Qualification: TVL in Belt.fi is more than 10K USDT.',
     },
     weibo: {
-      label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 MDX. (The number of followers is not less than 2000, and the reading volume is not less than 1000)',
+      label: 'The reward is based on the number of followers or article reading volume on different platforms. The more followers and reading volume, the more rewards participants will get. The reward amount is 100~300 COW. (The number of followers is not less than 2000, and the reading volume is not less than 1000)',
       description: 'Mainstream media include, but are not limited to, well-known platforms at home and abroad, such as the currency circle media column, Weibo, Twitter, Reddit, WeChat, Zhihu, Bihu, Toutiao and so on.',
     },
 

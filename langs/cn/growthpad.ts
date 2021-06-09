@@ -149,12 +149,13 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     copyIndex: '我操，GrowthPad 这个项目真牛逼，拿了 50万U 对 DeFi 用户进行大规模的奖励。你们拿自己的地址去检测看看资格：{url}',
     share: {
       title: '邀请1名好友参与 GrowthPad 活动，即可瓜分总奖池1%的奖励。',
-      lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额 = 该用户邀请人数 / 总邀请人数 * 总奖池金额 * 1%</i>`,
+      // lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额 = 该用户邀请人数 / 总邀请人数 * 总奖池金额 * 1%</i>`,
+      lable: `邀请好友越多，获得奖励越多。<i>用户奖励金额 = 该用户邀请参与活动人数 / 邀请参与活动总人数 * 总奖励金额的 1%</i>`,
       telegram: 'https://t.me/MixDex'
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~300 MDX。（粉丝数不低于2000人，阅读量不低于1000）。`,
-      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+      description: '主流媒体包括不限于：币圈媒体专栏、微博、Twitter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
@@ -186,7 +187,7 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     },
     weibo: {
       label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 30~100 USDT。（粉丝数不低于2000人，阅读量不低于1000）。`,
-      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+      description: '主流媒体包括不限于：币圈媒体专栏、微博、Twitter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
     chat: {
       speak: '并在群里发布 Channels 存 / 借款截图'
@@ -196,28 +197,26 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
       lable: '根据邀请用户数占总参与人数的比例，瓜分总奖池的1%',
     },
     about: {
-      name: 'USDT',
+      name: 'CAN',
       exchanges: '火币、币安等23家',
-      online: '2014年11月26日',
-      count: '602.71亿',
-      marketValue: '602.71亿',
-      circulation: '3亿',
+      online: '2021年1月19日',
+      count: '10亿',
       luanched: 'ETH/Omni',
       detail: 'Channels.finance 是 HECO 上首个完全去中心化的借贷平台，主打用户资产安全性，首发支持LP抵押借贷 + LP 机枪池，目前已支持 17 个主流币种和 12 个 (Mdex) LP 资产抵押借贷。CAN 是平台代币，总流通量 5000000, 已上线火币等交易所。'
     },
     task1: {
-      title: 'Venus 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',
+      title: 'Venus 提供流动性(TVL)价值超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。',
       description: '以下任务奖励独立结算，<i>累计可得最多奖励 {count} {unit}</i>。',
     },
     task2: {
-      title: 'Cream 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
+      title: 'Cream 提供流动性(TVL)价值超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
     },
     task3: {
-      title: 'Compound 提供流动性(TVL)超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
+      title: 'Compound 提供流动性(TVL)价值超过 10000 USDT，Channels 的存借总额超过 1000 USDT；加入 Channels 电报群；关注 Channels Twitter 并转发推特；关注 Channels 微博并转发微博。'
     },
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
-      label: '任务资格：{group} 提供流动性(TVL)超过 10000 USDT',
+      label: '任务资格：{group} 提供流动性(TVL)价值超过 10000 USDT',
       telegramDesc: '并在群里晒出 Channels 存借款总额超过1000U的截图',
       twitterDesc: '并转发置顶推特并 @3个好友',
       sinaDesc: '微博并 @3个好友'
@@ -254,24 +253,25 @@ CoinWind 产品会通过组合策略有效降低流动性质押中的无常损�
 活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应 COW 奖励。奖励会在活动结束后统一发放到您登记的地址中；验证持仓价值任务的 COW 奖励会发放到您验证持仓的地址中。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。`,
     },
     task1: {
-      title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。'
+      title: 'KingData VIP 用户 (非VIP用户邀请3名好友)，加入 CoinWind 电报群、关注CoinWind Twitter、转发本条活动 Twitter.',
+      // title: 'KingData VIP 注册用户；加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。'
     },
     task2: {
-      title: 'Pancake Bunny 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      title: 'Pancake Bunny 提供流动性(TVL)价值超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
       description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
-      condition1: '任务资格：Pancake Bunny 提供流动性(TVL)超过 10000 USDT',
+      condition1: '任务资格：Pancake Bunny 提供流动性(TVL)价值超过 10000 USDT',
     },
     task3: {
-      title: 'autofarm 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
-      condition1: '任务资格：autofarm 提供流动性(TVL)超过 10000 USDT',
+      title: 'autofarm 提供流动性(TVL)价值超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      condition1: '任务资格：autofarm 提供流动性(TVL)价值超过 10000 USDT',
     },
     task4: {
-      title: 'Belt.fi 提供流动性(TVL)超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
-      condition1: '任务资格：Belt.fi 提供流动性(TVL)超过 10000 USDT',
+      title: 'Belt.fi 提供流动性(TVL)价值超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
+      condition1: '任务资格：Belt.fi 提供流动性(TVL)价值超过 10000 USDT',
     },
     weibo: {
-      label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~300 MDX。（粉丝数不低于2000人，阅读量不低于1000）。`,
-      description: '主流媒体包括不限于：币圈媒体专栏、微博、Tiwtter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
+      label: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~300 COW。（粉丝数不低于2000人，阅读量不低于1000）。`,
+      description: '主流媒体包括不限于：币圈媒体专栏、微博、Twitter、Reddit、微信公众号、知乎、币乎、头条等国内外知名平台。'
     },
   },
   growthpad: {
