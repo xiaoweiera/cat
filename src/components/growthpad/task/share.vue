@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
 import { Project } from '~/api/growtask'
-import { wxShare } from '~/lib/wxShare'
 const store = Task()
-
+// @ts-ignore
 const data = computed(() => {
   return {
     type: TaskType.share,
     title: I18n.growthpad.mdx.share.lable,
   }
 })
+// @ts-ignore
 const link = (): string => {
   const { origin, pathname } = window.location
   let url = `${origin}${pathname}`
@@ -58,10 +57,10 @@ const link = (): string => {
                 <IconFont class="flex" type="help" size="base"></IconFont>
               </template>
               <template #content>
-                <pre
+                <p
                   class="leading-loose"
                   v-html="I18n.growthpad.invited.help"
-                ></pre>
+                ></p>
               </template>
             </UiPopover>
           </div>
