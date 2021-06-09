@@ -112,7 +112,7 @@ export const getMailCaptcha = async function(
   email: string,
   type: string,
 ): Promise<void> {
-  const url = '/api/v1/users/email_send_code'
+  const url = '/api/v1/users/email_send_verification_code'
   const data = { email, lang: lang.current.value, forget_type: type }
   return request.post(url, data)
 }
