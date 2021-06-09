@@ -47,17 +47,17 @@ const link = (): string => {
             <span>{{ I18n.growthpad.invited.userCount }}</span>
             <i class="ml-1 numText">{{ userData.invited_count || 0 }}</i>
           </span>
-          <span class="flex items-center md:ml-6 mt-1.5 md:mt-0">
+          <div class="flex items-center md:ml-6 mt-1.5 md:mt-0">
             <span class="opacity-65">{{
               I18n.growthpad.invited.activeCount
             }}</span>
             <i class="ml-1 numText opacity-65">{{
               userData.growthpad_invited_count || 0
             }}</i>
-            <UiPopover>
+            <UiPopover class="ml-3 inline-block">
               <template #reference>
                 <img
-                  class="w-4 h-4 ml-3"
+                  class="w-4 h-4"
                   src="https://res.ikingdata.com/nav/growthIndexInfo.jpg"
                   alt=""
                 />
@@ -69,7 +69,7 @@ const link = (): string => {
                 ></p>
               </template>
             </UiPopover>
-          </span>
+          </div>
         </div>
         <div v-if="isLogin" class="flex items-end">
           <span class="opacity-65">{{ I18n.growthpadShow.code }}</span>
