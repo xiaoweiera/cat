@@ -164,8 +164,9 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
     activity: {
       warning: 'The reward will be airdropped into the verification address, which can not be changed.',
 
-      pancake: 'TVL in PanCake Swap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
-      pancakeCondition: 'Qualification: TVL in Pancake Swap is more than 10K USDT.',
+      // pancake: 'TVL in PanCakeSwap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
+      pancake: 'Users who provide liquidity (TVL) worth over 10,000 USDT in PancakeSwap；Join MDEX telegram;  Follow MDEX Twitter and retweet the twitter about the activity.',
+      pancakeCondition: 'Qualification: TVL in PancakeSwap is more than 10K USDT.',
 
       uniswap: 'TVL in Uniswap is more than 10K USDT; Join MDEX telegram; Follow MDEX Twitter; Retweet the twitter about the activity.',
       uniswapCondition: 'Qualification: TVL in Uniswap is more than 10K USDT.',

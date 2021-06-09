@@ -11,19 +11,12 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative ui-popover">
     <div class="cursor-pointer">
       <slot name="reference"></slot>
     </div>
     <div
-      class="
-        popoverContainer
-        text-global-default
-        whitespace-pre-wrap
-        placement-box
-        p-2
-        text-xs
-      "
+      class="text-global-default whitespace-pre-wrap placement-box p-2 text-xs"
       :class="`placement-${placement}`"
     >
       <slot name="content"></slot>
@@ -32,10 +25,7 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-.popoverContainer {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
-}
-.relative {
+.ui-popover {
   &:hover {
     .placement-box {
       display: block;
@@ -49,6 +39,7 @@ defineProps({
   border-radius: 6px;
   display: none;
   width: 435px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
 }
 .placement-top {
   bottom: 100%;

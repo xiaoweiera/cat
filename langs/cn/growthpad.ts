@@ -159,8 +159,9 @@ MDEX 以 HECO 生态链为起点，MDEX 会将成功经验不断复制到以太�
     activity: {
       warning: '该任务奖励会发放到验证的地址中，地址验证后不可修改',
 
-      pancake: 'Pancake Swap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
-      pancakeCondition: '任务资格：Pancake Swap 提供流动性(TVL)超过 10000 USDT',
+      // pancake: 'PancakeSwap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',
+      pancake: '在 PancakeSwap 提供流动性(TVL)价值超 10000 USDT的用户，加入 MDEX 电报群，关注 MDEX Twitter，转发本条活动 Twitter。',
+      pancakeCondition: '任务资格：PancakeSwap 提供流动性(TVL)超过 10000 USDT',
 
 
       uniswap: 'Uniswap 提供流动性(TVL)超过 10000 USDT，加入 MDEX 电报群，关注 MDEX Twitter 并转发活动 Twitter。',

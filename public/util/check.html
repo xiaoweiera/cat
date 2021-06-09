@@ -156,7 +156,7 @@
   </div>
   <script type="text/javascript">
     var getWords = function() {
-      var query = parseSearchParams()
+      var query = parseSearchParams();
       var lang = query['lang'] ? query['lang'] : 'en';
 
       const words = {
@@ -215,7 +215,7 @@
         _errorNetwork: words.network,
       });
     }
-
+    /*
     var checkCallback = function(data) {
       // 执行注入到 window 下的回调函数
       var query = parseSearchParams();
@@ -250,6 +250,39 @@
         }
         return true
       }
+    }*/
+
+    var checkCallback = function(data) {
+      var value = JSON.stringify(data);
+
+      // web 端交互
+      var parent = window.parent;
+      if (parent.postMessage && parent.location.pathname !== window.location.pathname) {
+        var result = { event: 'register_check', callbackname: callbackName, data: data };
+        var query = parseSearchParams();
+        var callbackName = query['callback'];
+        var callFun = safeGet(parent, callbackName);
+        if (callFun) {
+          callFun(result);
+        }
+        return true
+      }
+
+      // ios 交互
+      try {
+        window.webkit.messageHandlers.registerCheck.postMessage(value);
+        return true;
+      } catch (e) {
+        // todo
+      }
+      // android 交互
+      try {
+        window.kingdata.registerCheck(value);
+        return true;
+      } catch (e) {
+        // todo
+      }
+      return false;
     }
 
     setTimeout(function() {
