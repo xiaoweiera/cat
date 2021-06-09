@@ -25,7 +25,8 @@ const Project = channelsInfo.title
 const website = 'channels.finance'
 const telegramHref = I18n.growthpad.channels.share.telegram
 const twitterHref = 'https://twitter.com/ChannelsFinance'
-const sinaHref = 'https://m.weibo.cn/5553600723/4646223929150088'
+const sinaHref = 'https://m.weibo.cn/u/7542695920'
+const reSina = 'https://m.weibo.cn/5553600723/4646223929150088'
 
 
 // 关注 twitter
@@ -110,7 +111,8 @@ const data = {
             value: I18n.growthpad.warning.sina
           }),
           sinaHref,
-          [3]
+          [3],
+          reSina
         )
       ],
     },
@@ -152,7 +154,8 @@ const data = {
             value: I18n.growthpad.warning.sina
           }),
           sinaHref,
-          [3]
+          [3],
+          reSina
         )
       ],
     },
@@ -194,7 +197,8 @@ const data = {
             value: I18n.growthpad.warning.sina
           }),
           sinaHref,
-          [3]
+          [3],
+          reSina
         )
       ],
     },

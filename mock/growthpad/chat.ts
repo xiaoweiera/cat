@@ -59,7 +59,7 @@ export const retwitter = function(project: string, description?: string, href?: 
 }
 
 // 新浪微博
-export const sina = function(project: string, description?: string, href?: string, reward: Array<number> = []) {
+export const sina = function(project: string, description?: string, href?: string, reward: Array<number> = [], afterHref?: string) {
   //
   return {
     id: uuid(),
@@ -73,7 +73,7 @@ export const sina = function(project: string, description?: string, href?: strin
     tooltipAfter: {
       icon: 'sina',
       value: I18n.growthpad.channels.activity.sinaDesc,
-      href,
+      href: afterHref || href,
     },
     titleAfter: I18n.common.andRepost,
     reward,
