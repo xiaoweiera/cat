@@ -27,7 +27,7 @@ const getUserAuth = function (config: AxiosRequestConfig): string {
 const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
   const setting = Object.assign(
     {
-      timeout: 2000, // request timeout
+      timeout: 20000, // request timeout
       baseURL: 'https://ikingdata.com',
       withCredentials: false,
       maxRedirects: 3, // 支持三次重定向
