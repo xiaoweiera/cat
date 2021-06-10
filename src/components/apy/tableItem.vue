@@ -21,8 +21,8 @@ const props = defineProps({
 })
 const isShow = ref(false)
 const isNullFun = (data: any) => {
-  data
-    && data.forEach((item) => {
+  data &&
+    data.forEach((item) => {
       if (item.value) {
         isShow.value = true
       }
@@ -63,7 +63,7 @@ const tipState = ref(false)
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div v-if="isShow" class="w-full h-full flex flex-col justify-center px-2.5">
+  <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
     <template v-for="(item, i) in itemData">
       <div
         v-if="item.status && getValue(item, i) !== '-'"
@@ -74,7 +74,7 @@ onMounted(() => isNullFun(props.itemData))
           :class="
             i === 0
               ? 'desNum '
-              : 'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px '
+              : 'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px'
           "
         >
           <span :class="getColor(i, item.value)">{{ getValue(item, i) }}</span>
@@ -82,10 +82,7 @@ onMounted(() => isNullFun(props.itemData))
       </div>
     </template>
   </div>
-  <div
-    v-else
-    class="w-full h-full flex flex-col justify-center items-center px-3"
-  >
+  <div v-else class="w-full h-full flex flex-col justify-center items-center">
     <img
       style="width: 112px"
       src="https://res.ikingdata.com/nav/tableLogo.png"

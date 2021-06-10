@@ -19,7 +19,7 @@ const { tables, requestData: fetchTableData } = requestTables()
 const { charts, requestChartData: fetchChartData } = requestChart()
 const selectedAnchor = ref('机枪池APY')
 // 计算元素距离 body 的位置
-const offsetY = function(dom: HTMLElement, number = 0): number {
+const offsetY = function (dom: HTMLElement, number = 0): number {
   const body = document.body || document.querySelector('body')
   if (dom) {
     const value = number + dom.offsetTop
@@ -139,19 +139,18 @@ onUnmounted(() => clearInterval(timerInterval))
             md:text-kd36px36px
           "
         >
-          {{ I18n.apy.projectName }}
+          <span>{{ I18n.apy.projectName }}</span>
         </div>
         <a
           href="http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com"
           target="_blank"
           class="goForm text-kd12px20px font-normal"
         >
-          {{ I18n.apy.projectApply }}</a>
+          <span>{{ I18n.apy.projectApply }}</span>
+        </a>
       </div>
       <div class="mt-4 text-global-default opacity-65 font-normal">
-        <div class="text-kd14px22px md:text-center">
-          {{ I18n.apy.des }}
-        </div>
+        <div class="text-kd14px22px md:text-center">{{ I18n.apy.des }}</div>
         <div style="color: #e9592d" class="text-kd12px18px md:text-center mt-1">
           {{ I18n.apy.warn }}
         </div>
@@ -183,8 +182,7 @@ onUnmounted(() => clearInterval(timerInterval))
           />
         </template>
       </div>
-
-      <!-- chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
+      <!--  chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
       <template v-if="chainParam === 'hsc' && index === 0">
         <div></div>
       </template>
@@ -231,7 +229,9 @@ onUnmounted(() => clearInterval(timerInterval))
                 : 'floatRightTag  rightTag hand'
             "
             @click="clickAnchor(item.name, item.key)"
-          >{{ item.name }}</a>
+          >
+            <span>{{ item.name }}</span>
+          </a>
         </template>
       </div>
       <img
@@ -242,7 +242,7 @@ onUnmounted(() => clearInterval(timerInterval))
     </div>
   </div>
 </template>
-<style scoped lang="postcss">
+<style scoped lang="scss">
 .tableDefault {
   @apply px-4 md:px-30 md:mb-15 mb-5;
 }

@@ -1,6 +1,18 @@
 {
-  "extends": "@antfu",
+//  "extends": "@antfu",
   "rules": {
+    // html 换行校验
+    "vue/html-indent": ["error", 2, {
+      "attribute": 1,
+      "baseIndent": 1,
+      "closeBracket": 0,
+      "alignAttributesVertically": true,
+      "ignores": []
+    }],
+    "vue/html-closing-bracket-newline": ["error", {
+      "singleline": "never",
+      "multiline": "always"
+    }],
     "@typescript-eslint/no-this-alias": "off",
     "vue/no-template-shadow": "off",
     "no-template-curly-in-string": "off",
