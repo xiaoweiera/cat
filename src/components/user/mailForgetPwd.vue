@@ -12,6 +12,7 @@ import {
   forgetMailForm,
   onFindPwdMail,
   onMailCaptchaForget,
+  emailField,
 } from '~/logic/user/login'
 const codeDialog = ref(false)
 
@@ -24,7 +25,8 @@ const clearCodeInfo = () => {
 onMounted(() => {
   clearCodeInfo()
 })
-const showCodeDialog = () => {
+const showCodeDialog = async() => {
+  await emailField(forgetMailForm)
   clearCodeInfo()
   codeDialog.value = true
 }

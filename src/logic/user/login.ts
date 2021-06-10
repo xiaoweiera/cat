@@ -236,7 +236,7 @@ export const onRegisterMailSubmit = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
-const emailField = function(formData: any) {
+export const emailField = function(formData: any) {
   const form = toRaw(formData).value
   return new Promise((resolve, reject) => {
     form.validateField(['email'], (error: any) => {
