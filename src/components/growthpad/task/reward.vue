@@ -101,7 +101,7 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.vip) {
     // 验证是否为 Vip
-    if (userData.is_vip) {
+    if (isSuccess(store.mission.invited)) {
       // 验证是否完成任务
       if (
         isSuccess(store.mission.telegram_group)
