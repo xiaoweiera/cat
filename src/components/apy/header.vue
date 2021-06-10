@@ -45,6 +45,7 @@ onBeforeMount(() => {
             <template v-for="(item, i) in menu" :key="i">
               <div
                 class="
+                  cursor-pointer
                   flex
                   items-center
                   relative

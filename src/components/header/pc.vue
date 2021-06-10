@@ -5,7 +5,7 @@ import { headerTag } from '~/store/header/login'
 </script>
 <template>
   <div class="relative pc-nav-main">
-    <div class="ml-12 flex items-center">
+    <div class="ml-12 flex items-center cursor-pointer">
       <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
       <span
         class="
@@ -22,7 +22,7 @@ import { headerTag } from '~/store/header/login'
       />
     </div>
     <div class="pc-nav-box pt-3">
-      <div class="font-kdFang hand flex p-6 tipContainer">
+      <div class="font-kdFang flex p-6 tipContainer">
         <template v-for="item in menu">
           <div class="twoMl flex-1 min-w-50">
             <div
@@ -60,7 +60,6 @@ import { headerTag } from '~/store/header/login'
                       alt=""
                     />
                   </div>
-
                   <span class="desc">{{ child.desc }}</span>
                 </div>
               </a>
@@ -88,7 +87,7 @@ img {
   visibility: hidden;
   transition: all 0.3s;
   opacity: 0;
-  & > .hand {
+  & > .tipContainer {
     background: #fff;
   }
 }
