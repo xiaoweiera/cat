@@ -1,5 +1,5 @@
 // @ts-ignore
-import request from '~/lib/request'
+import request from '~/lib/service'
 // 交易所
 export function exchange_list() {
   return request({

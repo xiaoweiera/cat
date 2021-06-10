@@ -8,6 +8,10 @@ interface platModel {
 export const platStore: platModel = reactive({ logo: '', name: '' }) // 弹窗状态
 // 左侧列表table 选择的 交易对
 export const pairStore = ref('')
+export const selectCoin = reactive({
+  name: '',
+  origin: '',
+})
 export const paramChart = reactive({
   timeBegin: 0, // 开始时间
   timeEnd: 0, // 结束时间

@@ -1,13 +1,13 @@
-export const selectCoin={ name: "BITCOIN,ETH", orgin: "MDEX" }
+export const selectCoin={ name: "BITCOIN,ETH", origin: "MDEX" }
 export const coinList=[
-    { name: "BITCOIN,BTC", orgin: "MDEX" },
-    { name: "BITCOIN,ETH", orgin: "MDEX" },
-    { name: "BITCOIN,SAT", orgin: "UNI" }
+    { name: "BITCOIN,BTC", origin: "MDEX" },
+    { name: "BITCOIN,ETH", origin: "MDEX" },
+    { name: "BITCOIN,SAT", origin: "UNI" }
 ]
 export const tradingList=[
-    { name: "BITCOIN/USDT", orgin: "MDEX" },
-    { name: "BITCOIN/HT", orgin: "SUSHI" },
-    { name: "BITCOIN/BTC", orgin: "SUSHI" }
+    { name: "BITCOIN/USDT", origin: "MDEX" },
+    { name: "BITCOIN/HT", origin: "SUSHI" },
+    { name: "BITCOIN/BTC", origin: "SUSHI" }
 ]
 export const testData = [
     {
@@ -18,7 +18,6 @@ export const testData = [
         token1_name: "Heco-Peg USDT Token",
         volumeusd: 170.7553708619
     },
-
     {
         id: "0x245816b5d5ec0b1cc6e77b4ac81ff21d63b8f996",
         token0_symbol: "USDT",

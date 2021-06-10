@@ -144,3 +144,17 @@ export const copyTxt = (text: string, alert?: boolean) => {
     })
   }
 }
+// 更改路由参数
+export const changeRoute = (
+  route: any,
+  router: any,
+  paramName: string,
+  paramValue: string,
+) => {
+  const query = { ...route.query }
+  query[paramName] = paramValue
+  router.replace({
+    ...route,
+    query: { ...query },
+  })
+}

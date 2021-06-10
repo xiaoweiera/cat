@@ -1,9 +1,15 @@
 <script setup lang="ts">
 // @ts-ignore
-import { ElTable, ElTableColumn } from 'element-plus'
-import { pairStore } from '~/store/liquidity/state'
-import { defineProps, onBeforeMount, watch } from 'vue'
+import { ElTable, ElTableColumn, ElTooltip } from 'element-plus'
+import { defineProps, onBeforeMount, reactive, watch } from 'vue'
 import { testData } from '/mock/liquidity'
+import { useRoute, useRouter } from 'vue-router'
+import * as R from 'ramda'
+import { changeRoute } from '~/lib/tool'
+import { pairStore, selectCoin } from '~/store/liquidity/state'
+const route = useRoute()
+const router = useRouter()
+const routeQuery = reactive(route.query)
 const props = defineProps({
   selectTag: String,
 })
@@ -11,10 +17,18 @@ watch(
   () => pairStore.value,
   () => {},
 )
+
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 const changePair = (pair: string) => {
   pairStore.value = pair
+  changeRoute(route, router, 'pair', pair)
 }
+const likeStart = (item: any) => {
+  console.log(item)
+}
+onBeforeMount(() => {
+  pairStore.value = routeQuery.pair ? routeQuery.pair : pairStore.value
+})
 </script>
 <template>
   <div class="w-full h-full">
@@ -57,17 +71,25 @@ const changePair = (pair: string) => {
                 class="w-3 h-3"
                 src="https://res.ikingdata.com/nav/noStart.png"
                 alt=""
+                @click="likeStart(item)"
               />
-              <span
-                class="
-                  txtSmall
-                  ml-1.5
-                  text-kd12px16px text-global-default
-                  opacity-85
-                "
+              <el-tooltip
+                hide-after="10"
+                :content="item.token0_symbol + '/' + item.token1_symbol"
+                placement="bottom"
+                effect="light"
               >
-                {{ item.token0_symbol + '/' + item.token1_symbol }}
-              </span>
+                <span
+                  class="
+                    txtSmall
+                    ml-1.5
+                    text-kd12px16px text-global-default
+                    opacity-85
+                  "
+                >
+                  {{ item.token0_symbol + '/' + item.token1_symbol }}
+                </span>
+              </el-tooltip>
             </div>
             <div class="tokenRow text-kd12px16px text-global-default">100</div>
             <div class="tokenRow text-kd12px16px text-global-default">300</div>

@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import * as R from 'ramda'
 import { platStore, pairStore, updateData } from '~/store/liquidity/state'
 import { exchange_list } from '~/api/liquidity'
+import { changeRoute } from '~/lib/tool'
 const route = useRoute()
 const router = useRouter()
 const plats = reactive({ select: {}, data: {} })
@@ -30,20 +31,10 @@ const mouseLeave = () => {
   selectPlatChange(false)
 }
 const changePlat = (plat: any) => {
-  // const {name}=toRefs(platStore)
   updateData(platStore, plat)
   plats.select = plat
-  const utm_source = 'https://apy.kingdata.com'
-  const query = {
-    ...route.query,
-    plat: plat.name,
-    utm_source,
-  }
-  router.replace({
-    ...route,
-    query: { ...query },
-  })
-
+  // 更改路由
+  changeRoute(route, router, 'plat', plat.name)
   selectPlatChange(false)
 }
 onBeforeMount(() => {
