@@ -12,9 +12,10 @@ import {
   forgetMailForm,
   onFindPwdMail,
   onMailCaptchaForget,
+  emailField,
 } from '~/logic/user/login'
 const codeDialog = ref(false)
-
+let codeFlag = false
 const clearCodeInfo = () => {
   forgetMailData.csessionid = ''
   forgetMailData.sig = ''
@@ -24,9 +25,12 @@ const clearCodeInfo = () => {
 onMounted(() => {
   clearCodeInfo()
 })
-const showCodeDialog = () => {
-  clearCodeInfo()
-  codeDialog.value = true
+const showCodeDialog = async() => {
+  if (!codeFlag) {
+    await emailField(forgetMailForm)
+    clearCodeInfo()
+    codeDialog.value = true
+  }
 }
 // @ts-ignore
 const submit = async function() {
@@ -51,7 +55,7 @@ const submit = async function() {
 
 let codeNumber = 120
 let interval: any = 0
-let codeFlag = false
+
 const codeValue = ref<string>(I18n.common.message.verification)
 
 // @ts-ignore

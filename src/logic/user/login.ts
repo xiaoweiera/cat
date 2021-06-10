@@ -236,7 +236,7 @@ export const onRegisterMailSubmit = async function(): Promise<any> {
     return Promise.reject(e)
   }
 }
-const emailField = function(formData: any) {
+export const emailField = function(formData: any) {
   const form = toRaw(formData).value
   return new Promise((resolve, reject) => {
     form.validateField(['email'], (error: any) => {
@@ -270,7 +270,7 @@ export const onMailCaptchaForget = async function(type: string): Promise<any> {
       await emailField(forgetMailForm)
     }
     const data = toRaw(forgetMailData)
-    const result = await user.getMailCaptcha(data.email, type)
+    const result = await user.getMailCaptcha(data, type)
     // @ts-ignore
     return result || {}
   } catch (e) {
@@ -289,7 +289,7 @@ export const onMailCaptchaResgister = async function(
     }
     const data = toRaw(registerMailData)
     // 注册
-    const result = await user.getMailCaptcha(data.email, type)
+    const result = await user.getMailCaptcha(data, type)
     // @ts-ignore
     return result || {}
   } catch (e) {

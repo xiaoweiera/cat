@@ -4,25 +4,27 @@ import I18n from '~/utils/i18n/index'
 import { headerTag } from '~/store/header/login'
 </script>
 <template>
-  <div class="relative pc-nav-main">
-    <div class="ml-12 flex items-center cursor-pointer">
-      <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
-      <span
-        class="
-          ml-1.5
-          inline-block
-          text-kd16px24px text-global-default
-          opacity-85
-        "
-      >{{ I18n.nav.product }}</span>
-      <img
-        class="inline-block w-3 ml-1.5"
-        src="https://res.ikingdata.com/nav/navDown.png"
-        alt=""
-      />
-    </div>
-    <div class="pc-nav-box pt-3">
-      <div class="font-kdFang flex p-6 tipContainer">
+  <UiNav>
+    <template #reference>
+      <div class="flex items-center cursor-pointer">
+        <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
+        <span
+          class="
+            ml-1.5
+            inline-block
+            text-kd16px24px text-global-default
+            opacity-85
+          "
+        >{{ I18n.nav.product }}</span>
+        <img
+          class="inline-block w-3 ml-1.5"
+          src="https://res.ikingdata.com/nav/navDown.png"
+          alt=""
+        />
+      </div>
+    </template>
+    <template #content>
+      <div class="font-kdFang flex menu-list">
         <template v-for="item in menu">
           <div class="twoMl flex-1 min-w-50">
             <div
@@ -40,7 +42,14 @@ import { headerTag } from '~/store/header/login'
               <a
                 v-router="child.href"
                 target="_blank"
-                class="mt-5 flex items-center relative hoverHover"
+                class="
+                  mt-5
+                  flex
+                  items-center
+                  relative
+                  whitespace-pre-line
+                  hoverHover
+                "
               >
                 <img :src="child.icon" alt="" />
                 <div class="flex flex-col ml-2.5">
@@ -67,38 +76,17 @@ import { headerTag } from '~/store/header/login'
           </div>
         </template>
       </div>
-    </div>
-  </div>
+    </template>
+  </UiNav>
 </template>
 
 <style scoped lang="scss">
+.menu-list {
+  min-width: 768px;
+}
+
 img {
   max-width: none !important;
-}
-.tipContainer {
-  border-radius: 6px;
-}
-.pc-nav-box {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 0;
-  min-width: 768px;
-  visibility: hidden;
-  transition: all 0.3s;
-  opacity: 0;
-  & > .tipContainer {
-    background: #fff;
-  }
-}
-.pc-nav-main {
-  &:hover {
-    .pc-nav-box {
-      visibility: visible;
-      opacity: 1;
-      z-index: 999;
-    }
-  }
 }
 
 .hoverShow {

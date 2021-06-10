@@ -42,50 +42,41 @@ onBeforeMount(() => {
       <nav class="itemContainer">
         <div class="h-full">
           <div class="flex font-normal h-full items-center">
+            <!-- 循环菜单 -->
             <template v-for="(item, i) in menu" :key="i">
-              <div
-                class="
-                  cursor-pointer
-                  flex
-                  items-center
-                  relative
-                  text-kd16px24px text-global-default
-                  h-full
-                "
-                :class="i === 0 ? 'tip' + i : ' ml-8 tip' + i"
-              >
-                <span v-if="headerTag.name && headerTag.index === i">{{
-                  headerTag.name
-                }}</span>
-                <span v-else>{{ item.name }}</span>
-                <img
-                  class="w-3 ml-1.5"
-                  src="https://res.ikingdata.com/nav/navDown.png"
-                  alt=""
-                />
-                <div
-                  class="
-                    absolute
-                    bg-global-white
-                    top-15
-                    whitespace-nowrap
-                    hidden
-                    tipContainer
-                  "
-                >
-                  <div
-                    class="flex py-3.25 font-kdFang hand"
-                    :class="i === 0 ? 'pl-3 pr-8' : 'px-3'"
-                  >
+              <UiNav :class="i === 0 ? 'tip' + i : ' ml-8 tip' + i">
+                <template #reference>
+                  <div class="flex items-center cursor-pointer">
+                    <span
+                      v-if="headerTag.name && headerTag.index === i"
+                      class="text-global-primary"
+                    >{{ headerTag.name }}</span>
+                    <span v-else>{{ item.name }}</span>
+                    <img
+                      class="w-3 ml-1.5"
+                      src="https://res.ikingdata.com/nav/navDown.png"
+                      alt=""
+                    />
+                  </div>
+                </template>
+
+                <template #content>
+                  <div class="flex font-kdFang">
                     <div class="flex flex-col">
                       <template v-for="child in item.children">
                         <a
-                          :href="child.href ? child.href : 'javascript:void(0)'"
-                          :target="child.href ? '_blank' : '_self'"
-                          class="mtNthOne flex items-center relative hoverHover"
+                          v-router="child.href"
+                          target="_blank"
+                          class="
+                            cursor-pointer
+                            mtNthOne
+                            flex
+                            items-center
+                            hoverHover
+                          "
                         >
                           <img class="max-w-auto" :src="child.icon" alt="" />
-                          <div class="flex flex-col ml-2.5">
+                          <div class="relative ml-2.5">
                             <img
                               v-if="child.badge"
                               class="w-13 absolute -top-4 -right-6"
@@ -93,21 +84,32 @@ onBeforeMount(() => {
                               alt=""
                             />
                             <div class="flex items-center">
-                              <span class="childName">{{ child.name }}</span>
+                              <span class="childName whitespace-nowrap">{{
+                                child.name
+                              }}</span>
                               <img
                                 class="w-3 ml-1 imgShow"
                                 src="https://res.ikingdata.com/nav/navRight.jpg"
                                 alt=""
                               />
                             </div>
-                            <span class="desc">{{ child.desc }}</span>
+                            <span class="desc whitespace-nowrap">{{
+                              child.desc
+                            }}</span>
                           </div>
                         </a>
                       </template>
                     </div>
                   </div>
-                </div>
-              </div>
+                </template>
+              </UiNav>
+
+              <!--              <div class="cursor-pointer flex items-center relative text-kd16px24px text-global-default h-full" :class="i === 0 ? 'tip' + i : ' ml-8 tip' + i">-->
+              <!--                -->
+              <!--                <div class="absolute bg-global-white top-15 whitespace-nowrap hidden tipContainer">-->
+              <!--                  -->
+              <!--                </div>-->
+              <!--              </div>-->
             </template>
           </div>
         </div>
@@ -115,7 +117,7 @@ onBeforeMount(() => {
     </template>
   </HeaderNav>
 </template>
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .tipContainer {
   border-radius: 6px;
   box-shadow: inset 0px -1px 0px rgba(37, 62, 111, 0.06);
@@ -197,10 +199,10 @@ img {
   }
 
   .childName {
-    @apply text-global-primary  font-medium text-kd15px150;
+    @apply text-global-primary  font-medium;
   }
 
-  @apply text-global-primary  font-medium text-kd15px150;
+  @apply text-global-primary  font-medium;
 }
 
 .tool {
