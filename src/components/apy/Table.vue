@@ -86,9 +86,9 @@ const getPlatInfo = (name: string) => {
 // @ts-ignore
 const addClass = ({ row, columnIndex }) => {
   if (
-    columnIndex > 0
-    && row.data[columnIndex - 1]
-    && row.data[columnIndex - 1]?.high_light
+    columnIndex > 0 &&
+    row.data[columnIndex - 1] &&
+    row.data[columnIndex - 1]?.high_light
   ) {
     return 'background:rgba(9, 217, 142, 0.2); padding-top:0px; padding-bottom: 0;'
   }
@@ -170,7 +170,7 @@ const getValue = (data: any) => {
             <template #default="scope">
               <div class="justify-center flex flex-col">
                 <a
-                  class="flex flex-col hand"
+                  class="flex flex-col hand pl-3"
                   :href="scope.row.url + '?utm_source=https://apy.kingdata.com'"
                   target="_blank"
                 >
@@ -184,7 +184,7 @@ const getValue = (data: any) => {
                         font-normal
                       "
                     >
-                      <span class="pl-3">{{ scope.row.project_name }}</span>
+                      <span>{{ scope.row.project_name }}</span>
                     </div>
                     <IconFont
                       v-if="scope.row.new"
@@ -233,7 +233,7 @@ const getValue = (data: any) => {
                 :show-arrow="isTipArrow"
                 :disabled="
                   !isShowTip ||
-                    !isNullFun(scope.row.data[scope.column.no - 1]?.data)
+                  !isNullFun(scope.row.data[scope.column.no - 1]?.data)
                 "
                 effect="light"
                 trigger="hover"
@@ -320,24 +320,28 @@ const getValue = (data: any) => {
                       <span>{{ scope.row.project_name }}</span>
                     </div>
                     <div class="text-center">
-                      <span v-if="props.index == 0" class="tableItemType">{{
+                      <span v-if="props.index === 0" class="tableItemType">{{
                         I18n.apy.vaults
                       }}</span>
                       <span v-else class="tableItemType">{{
                         I18n.apy.lendPlat
                       }}</span>
                     </div>
-                    <div
-                      v-if="props.chains === 'all'"
-                      class="w-full text-center"
-                    >
+                    <div class="w-full flex justify-center items-center mt-1">
                       <span
+                        v-if="props.chains === 'all'"
                         class="tableItemTypePlat"
                         :style="{
                           background: getPlatInfo(scope.row.chain).bgcolor,
                           color: getPlatInfo(scope.row.chain).color,
                         }"
-                      >{{ scope.row.chain }}</span>
+                        >{{ scope.row.chain }}</span
+                      >
+                      <IconFont
+                        v-if="scope.row.new"
+                        class="flex ml-1"
+                        type="new"
+                      ></IconFont>
                     </div>
                   </div>
                 </a>

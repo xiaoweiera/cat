@@ -19,7 +19,7 @@ const { tables, requestData: fetchTableData } = requestTables()
 const { charts, requestChartData: fetchChartData } = requestChart()
 const selectedAnchor = ref('机枪池APY')
 // 计算元素距离 body 的位置
-const offsetY = function(dom: HTMLElement, number = 0): number {
+const offsetY = function (dom: HTMLElement, number = 0): number {
   const body = document.body || document.querySelector('body')
   if (dom) {
     const value = number + dom.offsetTop
@@ -79,17 +79,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  timerInterval = setInterval(() => {
-    if (timer.value !== 0) {
-      timer.value -= 1
-      return
-    }
-    isFirstShow.value = false
-    timer.value = timeout
-    isFirstShow.value = false
-    fetchTableByChain(chainId)
-    fetchChartByChain(chainId)
-  }, 1000)
+  // timerInterval = setInterval(() => {
+  //   if (timer.value !== 0) {
+  //     timer.value -= 1
+  //     return
+  //   }
+  //   isFirstShow.value = false
+  //   timer.value = timeout
+  //   isFirstShow.value = false
+  //   fetchTableByChain(chainId)
+  //   fetchChartByChain(chainId)
+  // }, 1000)
 }
 watch(
   () => chains.data,

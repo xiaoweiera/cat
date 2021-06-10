@@ -11,7 +11,7 @@ import { current } from '~/utils/lang'
 
 import urlSome from '~/lib/urlsome'
 
-const getUserAuth = function(config: AxiosRequestConfig): string {
+const getUserAuth = function (config: AxiosRequestConfig): string {
   const cookie = getUserTooken()
   if (cookie) {
     // 判断当前接口地址是否需要携带 cookie
@@ -24,10 +24,10 @@ const getUserAuth = function(config: AxiosRequestConfig): string {
   return cookie
 }
 
-const Dao = function(option: AxiosRequestConfig | undefined): AxiosInstance {
+const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
   const setting = Object.assign(
     {
-      timeout: 20000, // request timeout
+      timeout: 2000, // request timeout
       baseURL: 'https://ikingdata.com',
       withCredentials: false,
       maxRedirects: 3, // 支持三次重定向

@@ -1,5 +1,5 @@
 {
-  "extends": "@antfu",
+//  "extends": "@antfu",
   "rules": {
     // html 换行校验
     "vue/html-indent": ["error", 2, {

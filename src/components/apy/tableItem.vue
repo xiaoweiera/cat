@@ -21,8 +21,8 @@ const props = defineProps({
 })
 const isShow = ref(false)
 const isNullFun = (data: any) => {
-  data
-    && data.forEach((item) => {
+  data &&
+    data.forEach((item) => {
       if (item.value) {
         isShow.value = true
       }
@@ -63,7 +63,7 @@ const tipState = ref(false)
 onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
-  <div v-if="isShow" class="w-full h-full flex flex-col justify-center px-2.5">
+  <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
     <template v-for="(item, i) in itemData">
       <div
         v-if="item.status && getValue(item, i) !== '-'"
