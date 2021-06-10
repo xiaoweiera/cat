@@ -12,6 +12,7 @@ import {
   registerMailForm,
   onRegisterMailSubmit,
   onMailCaptchaResgister,
+  emailField,
 } from '~/logic/user/login'
 // @ts-ignore
 import { getMailCaptcha } from '~/api/user'
@@ -61,9 +62,12 @@ let codeNumber = 120
 let interval: any = 0
 let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
-const showCodeDialog = () => {
-  clearCodeInfo()
-  codeDialog.value = true
+const showCodeDialog = async() => {
+  if (!codeFlag) {
+    await emailField(registerMailForm)
+    clearCodeInfo()
+    codeDialog.value = true
+  }
 }
 // @ts-ignore
 const onGetCode = async function() {

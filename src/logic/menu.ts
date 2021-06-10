@@ -275,7 +275,7 @@ export const menu: Menu[] = [
       {
         name: I18n.nav.dataTools.history.name,
         desc: I18n.nav.dataTools.history.desc,
-        icon: 'https://res.ikingdata.com/icon/24.svg',
+        icon: 'https://res.ikingdata.com/icon/calendar.svg',
         href: I18n.nav.dataTools.history.href,
       },
       {
