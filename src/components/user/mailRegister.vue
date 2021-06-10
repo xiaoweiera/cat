@@ -63,9 +63,11 @@ let interval: any = 0
 let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
 const showCodeDialog = async() => {
-  await emailField(registerMailForm)
-  clearCodeInfo()
-  codeDialog.value = true
+  if (!codeFlag) {
+    await emailField(registerMailForm)
+    clearCodeInfo()
+    codeDialog.value = true
+  }
 }
 // @ts-ignore
 const onGetCode = async function() {
