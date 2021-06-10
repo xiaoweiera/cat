@@ -35,7 +35,9 @@ export const email = [
   {
     trigger: 'blur',
     validator(rule: any, value: string, callback: (message?: string) => void) {
-      const reg = /^[_a-z0-9]+@([_a-z0-9]+\.)+[a-z0-9]{2,3}$/
+      // const reg = /^[_a-z0-9]+@([_a-z0-9]+\.)+[a-z0-9]{2,3}$/
+      const reg
+        = /^([a-zA-Z0-9]+[_|_|\-|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
       if (reg.test(value)) {
         callback()
       } else {

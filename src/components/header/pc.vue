@@ -40,7 +40,14 @@ import { headerTag } from '~/store/header/login'
               <a
                 v-router="child.href"
                 target="_blank"
-                class="mt-5 flex items-center relative hoverHover"
+                class="
+                  mt-5
+                  flex
+                  items-center
+                  relative
+                  whitespace-pre-line
+                  hoverHover
+                "
               >
                 <img :src="child.icon" alt="" />
                 <div class="flex flex-col ml-2.5">
