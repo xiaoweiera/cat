@@ -15,3 +15,11 @@ export function analysis_tool(param: any) {
     method: 'get',
   })
 }
+// 获取侧边栏
+export function getToken_side(param: any) {
+  return request({
+    url: '/api/liquidity/1/analysis_tool',
+    params: param,
+    method: 'get',
+  })
+}
