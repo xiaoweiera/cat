@@ -30,7 +30,7 @@ const closePair = () => {
         @click="closePair"
       />
     </div>
-    <!--    筛选-->
+    <!--    筛选呀-->
     <div>
       <LiquidityFilterType tag-type="tokenType" :filter-data="filterType" />
     </div>
