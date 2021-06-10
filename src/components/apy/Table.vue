@@ -90,9 +90,9 @@ const addClass = ({ row, columnIndex }) => {
     && row.data[columnIndex - 1]
     && row.data[columnIndex - 1]?.high_light
   ) {
-    return 'background:rgba(9, 217, 142, 0.2);padding-top:0px;margin-top:0px;'
+    return 'background:rgba(9, 217, 142, 0.2); padding-top:0px; padding-bottom: 0;'
   }
-  return 'background:#F6FAFD'
+  return 'background: #F6FAFD;'
 }
 // 是否为空  / 是否显示图片
 const isNullFun = (data: any) => {
@@ -114,7 +114,7 @@ watch(
     renderCells.value = filterByOptions(headers.value, rows.value, a)
   },
 )
-const getValue = (data: any, i) => {
+const getValue = (data: any) => {
   const unitList = lang.current.value === 'cn' ? unitConfig : unitConfigen
   if (data) {
     if (!data.value && data.value !== 0) return '-'
@@ -143,7 +143,7 @@ const getValue = (data: any, i) => {
         alt=""
       />
       <div class="xshidden">
-        <!--      pc-->
+        <!-- pc -->
         <el-table
           v-if="!tableData.loading || (tableData.loading && !isFirstShow)"
           :data="renderCells"
@@ -161,21 +161,22 @@ const getValue = (data: any, i) => {
                   ml-3
                 "
               >
-                {{ I18n.apy.tableHeader.type }}
+                <span>{{ I18n.apy.tableHeader.type }}</span>
               </div>
               <div class="text-kd12px16px text-global-default opacity-65 ml-3">
-                {{ I18n.apy.tableHeader.dataType }}
+                <span>{{ I18n.apy.tableHeader.dataType }}</span>
               </div>
             </template>
             <template #default="scope">
               <div class="justify-center flex flex-col">
                 <a
-                  class="flex flex-col md:px-0 ml-3 py-3 hand"
+                  class="flex flex-col hand"
                   :href="scope.row.url + '?utm_source=https://apy.kingdata.com'"
                   target="_blank"
                 >
                   <div class="flex text-left items-center">
-                    <img class="w-8 h-8 mr-2" :src="scope.row.icon" alt="" />
+                    <!-- 隐藏 icon-->
+                    <!-- <img class="w-8 h-8 mr-2" :src="scope.row.icon" alt="" />-->
                     <div
                       class="
                         font-kdExp
@@ -183,8 +184,13 @@ const getValue = (data: any, i) => {
                         font-normal
                       "
                     >
-                      {{ scope.row.project_name }}
+                      <span class="pl-3">{{ scope.row.project_name }}</span>
                     </div>
+                    <IconFont
+                      v-if="scope.row.new"
+                      class="flex ml-1"
+                      type="new"
+                    ></IconFont>
                   </div>
                   <div class="flex mt-2 items-center">
                     <!--                    <div class="tableItemType">-->
@@ -199,9 +205,7 @@ const getValue = (data: any, i) => {
                         color: getPlatInfo(scope.row.chain).color,
                       }"
                     >
-                      <span>
-                        {{ getPlatInfo(scope.row.chain).name }}
-                      </span>
+                      <span>{{ getPlatInfo(scope.row.chain).name }}</span>
                     </div>
                   </div>
                 </a>
@@ -280,19 +284,17 @@ const getValue = (data: any, i) => {
               <div
                 class="text-kd12px16px text-global-default opacity-65 mb-2.5"
               >
-                {{ I18n.apy.tableHeader.type }}
+                <span>{{ I18n.apy.tableHeader.type }}</span>
               </div>
               <div class="text-kd12px16px text-global-default opacity-65">
-                {{ I18n.apy.tableHeader.dataType }}
+                <span>{{ I18n.apy.tableHeader.dataType }}</span>
               </div>
             </template>
             <template #default="scope">
               <div class="justify-center flex flex-col">
                 <a
                   class="
-                    flex flex-col
-                    md:px-3
-                    flex-wrap
+                    flex flex-col flex-wrap
                     justify-center
                     items-center
                     hand
@@ -300,11 +302,8 @@ const getValue = (data: any, i) => {
                   :href="scope.row.url + '?utm_source=https://apy.kingdata.com'"
                   target="_blank"
                 >
-                  <img
-                    class="md:w-8 mx-auto my-0 md:h-8 w-6 h-6 md:mr-1.5"
-                    :src="scope.row.icon"
-                    alt=""
-                  />
+                  <!-- 隐藏 icon -->
+                  <!-- <img class="md:w-8 mx-auto my-0 md:h-8 w-6 h-6 md:mr-1.5" :src="scope.row.icon" alt=""/> -->
                   <div class="flex flex-col">
                     <div
                       class="
@@ -318,7 +317,7 @@ const getValue = (data: any, i) => {
                         font-normal
                       "
                     >
-                      {{ scope.row.project_name }}
+                      <span>{{ scope.row.project_name }}</span>
                     </div>
                     <div class="text-center">
                       <span v-if="props.index == 0" class="tableItemType">{{
@@ -366,7 +365,7 @@ const getValue = (data: any, i) => {
   </div>
 </template>
 
-<style scoped lang="postcss">
+<style scoped lang="scss">
 .TipTxt {
   @apply text-kdFang text-kd13px20px text-global-default opacity-85;
 }

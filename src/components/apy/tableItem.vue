@@ -74,7 +74,7 @@ onMounted(() => isNullFun(props.itemData))
           :class="
             i === 0
               ? 'desNum '
-              : 'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px '
+              : 'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px'
           "
         >
           <span :class="getColor(i, item.value)">{{ getValue(item, i) }}</span>
@@ -82,10 +82,7 @@ onMounted(() => isNullFun(props.itemData))
       </div>
     </template>
   </div>
-  <div
-    v-else
-    class="w-full h-full flex flex-col justify-center items-center px-3"
-  >
+  <div v-else class="w-full h-full flex flex-col justify-center items-center">
     <img
       style="width: 112px"
       src="https://res.ikingdata.com/nav/tableLogo.png"

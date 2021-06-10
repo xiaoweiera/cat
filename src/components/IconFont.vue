@@ -67,7 +67,9 @@ const src = computed(() => {
 }
 
 .size-xl {
-  @include size(20px);
+  &:not(.icon-new) {
+    @include size(20px);
+  }
 }
 .size-base {
   @include size(16px);
@@ -79,6 +81,10 @@ const src = computed(() => {
 .icon-loading {
   transform-origin: 50% 50%;
   animation: rotating 0.7s linear infinite;
+}
+.icon-new {
+  width: 33px;
+  height: 15px;
 }
 
 .icon-plus {
