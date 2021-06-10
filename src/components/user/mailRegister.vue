@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { toRaw, onMounted, ref } from 'vue'
+import { ElDialog } from 'element-plus'
 // @ts-ignore
 import rules from './emailRules'
 import { messageError, messageSuccess } from '~/lib/tool'
@@ -15,6 +16,7 @@ import {
 // @ts-ignore
 import { getMailCaptcha } from '~/api/user'
 const isHasCode = ref('')
+const codeDialog = ref(false)
 // 活动名称
 const getVisitNum = function(): string {
   const router = toRaw(useRoute())
@@ -22,23 +24,18 @@ const getVisitNum = function(): string {
   // @ts-ignore
   return query?.code || ''
 }
-
-onMounted(() => {
+const clearCodeInfo = () => {
   registerMailData.csessionid = ''
   registerMailData.sig = ''
   registerMailData.token = ''
   registerMailData.checkValue = false
+}
+onMounted(() => {
+  clearCodeInfo()
   const code = getVisitNum()
   registerMailData.invitation_code = code
   isHasCode.value = code
 })
-// 人机验证
-const onCheckChange = (data) => {
-  registerMailData.csessionid = data.csessionid
-  registerMailData.sig = data.sig
-  registerMailData.token = data.token
-  registerMailData.checkValue = data.value
-}
 
 const submit = async function() {
   try {
@@ -64,7 +61,10 @@ let codeNumber = 120
 let interval: any = 0
 let codeFlag = false
 const codeValue = ref<string>(I18n.common.message.verification)
-
+const showCodeDialog = () => {
+  clearCodeInfo()
+  codeDialog.value = true
+}
 // @ts-ignore
 const onGetCode = async function() {
   if (codeFlag) {
@@ -99,9 +99,37 @@ const onGetCode = async function() {
     }
   }
 }
+
+// 人机验证
+const onCheckChange = (data) => {
+  codeDialog.value = false
+  registerMailData.csessionid = data.csessionid
+  registerMailData.sig = data.sig
+  registerMailData.token = data.token
+  registerMailData.checkValue = data.value
+  onGetCode()
+}
 </script>
 
 <template>
+  <ElDialog
+    v-if="codeDialog"
+    v-model="codeDialog"
+    custom-class="dialog-login  codeDialogContainer"
+    :append-to-body="true"
+  >
+    <div class="flex flex-col items-center justify-center">
+      <div class="text-kd16px24px mb-6.25 text-global-default">
+        {{ I18n.common.message.codeDialog }}
+      </div>
+      <img
+        class="w-18 mb-6.25"
+        src="https://res.ikingdata.com/nav/codeHand.jpg"
+        alt=""
+      />
+      <UtilCheck @change="onCheckChange"></UtilCheck>
+    </div>
+  </ElDialog>
   <div class="logo text-center mb-3.5">
     <img class="inline-block" src="https://res.ikingdata.com/nav/logoJpg.png" />
   </div>
@@ -137,7 +165,7 @@ const onGetCode = async function() {
         <template #append>
           <span
             class="link hand"
-            @click="onGetCode"
+            @click="showCodeDialog"
           >{{ codeValue
           }}<span
             v-if="codeValue !== I18n.common.message.verification"
@@ -169,9 +197,9 @@ const onGetCode = async function() {
       >
       </el-input>
     </el-form-item>
-    <el-form-item prop="checkValue">
-      <UtilCheck @change="onCheckChange"></UtilCheck>
-    </el-form-item>
+    <!--    <el-form-item prop="checkValue">-->
+    <!--      <UtilCheck @change="onCheckChange"></UtilCheck>-->
+    <!--    </el-form-item>-->
     <el-form-item class="checkedText" prop="checked">
       <div class="text-center">
         <el-checkbox v-model="registerMailData.checked">
@@ -203,7 +231,15 @@ const onGetCode = async function() {
   </el-form>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+.codeDialogContainer {
+  position: absolute !important;
+  height: fit-content !important;
+  left: 0px;
+  right: 0px;
+  top: 15%;
+  bottom: 0px;
+}
 ::v-deep(.el-button--primary) {
   background: #2b8dfe !important;
 }

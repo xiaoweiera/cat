@@ -44,7 +44,8 @@ export default {
     get: 'get',
     copy: 'The link has copied',
     fail: 'Validation failed',
-    checkValue:'Please slide to verify'
+    checkValue:'Please slide to verify',
+    codeDialog:'Slide to verify login'
   },
   placeholder: {
     login: 'Automatic log-in',
