@@ -158,3 +158,12 @@ export const changeRoute = (
     query: { ...query },
   })
 }
+// 省略token
+export const smallToken = (tokenId: string) => {
+  if (!tokenId) return
+  return (
+    `${tokenId.slice(0, 6)
+    }...${
+      tokenId.slice(tokenId.length - 4, tokenId.length)}`
+  )
+}

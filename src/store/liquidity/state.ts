@@ -8,7 +8,9 @@ interface platModel {
 export const platStore: platModel = reactive({ logo: '', name: '' }) // 弹窗状态
 // 左侧列表table 选择的 交易对
 export const pairStore = ref('')
+export const sidePair = reactive({ name: '', pair_id: '' })
 export const selectCoin = reactive({
+  tokenId: '',
   name: '',
   origin: '',
 })

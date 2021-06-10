@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { pairStore } from '~/store/liquidity/state'
+import { pairStore, sidePair } from '~/store/liquidity/state'
+import { smallToken } from '~/lib/tool'
 const filterType = ref([
   { name: 'Pair', value: 'pair', selected: true },
   { name: 'ETH', value: 'eth', selected: false },
@@ -16,11 +17,11 @@ const closePair = () => {
     <div class="flex items-center">
       <div class="bg-global-primary bg-opacity-8 rounded px-1.5 py-0.4">
         <span class="text-kd16px160 text-global-primary font-kdExp">{{
-          pairStore
+          sidePair.name
         }}</span>
-        <span
-          class="text-kd14px160 text-global-primary font-kdFang ml-2.5"
-        >(0xc02a...6cc2)</span>
+        <span class="text-kd14px160 text-global-primary font-kdFang ml-2.5">{{
+          smallToken(sidePair.pair_id)
+        }}</span>
       </div>
       <img
         class="w-4 h-4 ml-1.5 cursor-pointer"

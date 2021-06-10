@@ -1,32 +1,53 @@
 <script setup lang="ts">
 // @ts-ignore
-import { ElTable, ElTableColumn, ElTooltip } from 'element-plus'
-import { defineProps, onBeforeMount, reactive, watch } from 'vue'
+import { ElTooltip } from 'element-plus'
+import { defineProps, onBeforeMount, reactive, watch, ref } from 'vue'
 import { testData } from '/mock/liquidity'
 import { useRoute, useRouter } from 'vue-router'
 import * as R from 'ramda'
 import { changeRoute } from '~/lib/tool'
-import { pairStore, selectCoin } from '~/store/liquidity/state'
+import {
+  pairStore,
+  sidePair,
+  selectCoin,
+  updateData,
+} from '~/store/liquidity/state'
+import { getPair_side } from '~/api/liquidity'
 const route = useRoute()
 const router = useRouter()
 const routeQuery = reactive(route.query)
 const props = defineProps({
   selectTag: String,
 })
-watch(
-  () => pairStore.value,
-  () => {},
-)
+// watch(
+//   () => pairStore.value,
+//   () => {},
+// )
 
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
-const changePair = (pair: string) => {
-  pairStore.value = pair
-  changeRoute(route, router, 'pair', pair)
+const pairList = ref({})
+const changePair = (name: string, pair_id: string) => {
+  // pairStore.value = pair
+  updateData(sidePair, { name, pair_id })
+  // sidePair.symbol=symbol
+  // sidePair.symbol_id=symbol_id
+  changeRoute(route, router, 'pair', pair_id)
 }
 const likeStart = (item: any) => {
   console.log(item)
 }
+
+const getPair_list = async() => {
+  const result = await getPair_side({
+    platId: 1,
+    symbol_id: '0xe36ffd17b2661eb57144ceaef942d95295e637f0',
+  })
+  if (result?.data?.code === 0) {
+    pairList.value = result?.data?.data
+  }
+}
 onBeforeMount(() => {
+  getPair_list()
   pairStore.value = routeQuery.pair ? routeQuery.pair : pairStore.value
 })
 </script>
@@ -53,18 +74,14 @@ onBeforeMount(() => {
         <li class="w-15 pl-1">涨跌幅</li>
       </ul>
       <div class="w-full h-full showY">
-        <template v-for="(item, i) in testData" :key="i + item.id">
+        <template v-for="(item, i) in pairList" :key="i + item.id">
           <div
-            v-if="
-              (props.selectTag === 'my' && i > 10) ||
-                props.selectTag === 'token'
-            "
             :class="
-              pairStore === item.token0_symbol + '/' + item.token1_symbol
+              pairStore === item.symbol0 + '/' + item.symbol1
                 ? 'selectRow'
                 : 'defaultRow'
             "
-            @click="changePair(item.token0_symbol + '/' + item.token1_symbol)"
+            @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)"
           >
             <div class="flex-1 font-kdExp flex items-center overflow-hidden">
               <img
@@ -75,7 +92,7 @@ onBeforeMount(() => {
               />
               <el-tooltip
                 hide-after="10"
-                :content="item.token0_symbol + '/' + item.token1_symbol"
+                :content="item.symbol0 + '/' + item.symbol1"
                 placement="bottom"
                 effect="light"
               >
@@ -87,13 +104,17 @@ onBeforeMount(() => {
                     opacity-85
                   "
                 >
-                  {{ item.token0_symbol + '/' + item.token1_symbol }}
+                  {{ item.symbol0 + '/' + item.symbol1 }}
                 </span>
               </el-tooltip>
             </div>
-            <div class="tokenRow text-kd12px16px text-global-default">100</div>
-            <div class="tokenRow text-kd12px16px text-global-default">300</div>
-            <div class="percentGreen text-left">+8002%</div>
+            <div class="tokenRow text-kd12px16px text-global-default">
+              {{ item.TVL }}
+            </div>
+            <div class="tokenRow text-kd12px16px text-global-default">
+              {{ item.price }}
+            </div>
+            <div class="percentGreen text-left">+20%</div>
           </div>
         </template>
       </div>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // @ts-ignore
-import { ElTable, ElTableColumn } from 'element-plus'
 import { ref, reactive } from 'vue'
 const tokenInfo = reactive({ address: '0xjjje...3029' })
 const selectTag = ref('my')
@@ -18,7 +17,6 @@ const changeTag = (type: string) => (selectTag.value = type)
         <template v-for="(item, i) in tags">
           <span
             :class="selectTag === item.type ? 'selectedTag' : 'defaultTag'"
-            @click="changeTag(item.type)"
           >{{ item.name }}</span>
         </template>
       </div>
