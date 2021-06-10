@@ -54,9 +54,10 @@ onBeforeMount(() => {
                 "
                 :class="i === 0 ? 'tip' + i : ' ml-8 tip' + i"
               >
-                <span v-if="headerTag.name && headerTag.index === i">{{
-                  headerTag.name
-                }}</span>
+                <span
+                  v-if="headerTag.name && headerTag.index === i"
+                  class="text-global-primary"
+                >{{ headerTag.name }}</span>
                 <span v-else>{{ item.name }}</span>
                 <img
                   class="w-3 ml-1.5"
