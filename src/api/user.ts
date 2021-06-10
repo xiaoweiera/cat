@@ -109,11 +109,19 @@ export const getCaptcha = async function(data: any): Promise<void> {
 }
 // 邮箱验证码
 export const getMailCaptcha = async function(
-  email: string,
+  params: any,
   type: string,
 ): Promise<void> {
+  console.log(params)
   const url = '/api/v1/users/email_send_verification_code'
-  const data = { email, lang: lang.current.value, forget_type: type }
+  const data = {
+    email: params.email,
+    csessionid: params.csessionid,
+    sig: params.sig,
+    token: params.token,
+    lang: lang.current.value,
+    forget_type: type,
+  }
   return request.post(url, data)
 }
 // 重置密码 验证码
