@@ -79,17 +79,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  // timerInterval = setInterval(() => {
-  //   if (timer.value !== 0) {
-  //     timer.value -= 1
-  //     return
-  //   }
-  //   isFirstShow.value = false
-  //   timer.value = timeout
-  //   isFirstShow.value = false
-  //   fetchTableByChain(chainId)
-  //   fetchChartByChain(chainId)
-  // }, 1000)
+  timerInterval = setInterval(() => {
+    if (timer.value !== 0) {
+      timer.value -= 1
+      return
+    }
+    isFirstShow.value = false
+    timer.value = timeout
+    isFirstShow.value = false
+    fetchTableByChain(chainId)
+    fetchChartByChain(chainId)
+  }, 1000)
 }
 watch(
   () => chains.data,
@@ -158,13 +158,13 @@ onUnmounted(() => clearInterval(timerInterval))
       </div>
       <div class="text-center flex justify-center md:mb-5">
         <!-- active 默认选中项 -->
-        <ApyChains :chains="chains" active="heco" />
+        <ApyChains :chains="chains" active="all" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
-      <ApyHeco v-if="chainParam === 'heco'"></ApyHeco>
+      <ApyHeco class="my-4 md:mb-4 md:mt-0" v-if="chainParam === 'heco'"></ApyHeco>
     </div>
     <!-- table表格-->
     <div v-for="(item, index) in tables" :key="index" class="tableDefault">
