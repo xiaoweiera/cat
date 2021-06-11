@@ -17,7 +17,7 @@ export const header: TD[] = [
   { label: '得票数', key: 'vote_count' },
   { label: '得票占比', key: 'vote_percent' },
   { label: '收益分成比例', key: 'rate' },
-  { label: 'APY', key: 'apy' },
+  { label: 'APY', key: 'apy', className: 'apy-count' },
 ]
 export const mobileHeader: TD[] = [
   { label: '节点名称', key: 'node_name', fixed: true },
@@ -25,7 +25,7 @@ export const mobileHeader: TD[] = [
   { label: '所在地区', key: 'country_name_cn' },
   { label: '得票数', key: 'vote_count' },
   { label: '得票占比', key: 'vote_percent' },
-  { label: '收益分成比例', key: 'rate' },
+  { label: '收益分成比例', key: 'rate', className: 'apy-count' },
 ]
 
 export const transform = function (list: any[]) {
