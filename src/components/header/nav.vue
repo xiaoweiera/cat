@@ -56,7 +56,7 @@ const onSwitchLang = function() {
         <img class="w-28 h-9.5" src="/assets/logo.svg" alt="" />
       </a>
       <div class="hidden md:inline-block">
-        <HeaderPc></HeaderPc>
+        <HeaderPc class="ml-12"></HeaderPc>
       </div>
       <div
         class="
