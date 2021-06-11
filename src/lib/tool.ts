@@ -20,14 +20,14 @@ export const numberFormat = (value: any) => {
   return values + unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
-  if (!value) {
+  if (!value && value != 0) {
     return ''
   }
   const vil = Math.pow(10, rounded)
   return Math.round(value * vil) / vil
 }
 export const percent2Precision = (value: any): String => {
-  if (!value) {
+  if (!value && value !== 0) {
     return ''
   }
   return `${toFixedNumber(value)}%`
@@ -60,8 +60,8 @@ export const tooptipsModel = (
   const svg = `data:image/svg+xml;base64,${window.btoa(
     unescape(encodeURIComponent(origin)),
   )}`
-  const info
-    = unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
+  const info =
+    unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
 
   return `<span style="display:flex;
     align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
@@ -105,7 +105,7 @@ export const min_max = (min: any, max: any, v: any) => {
   return [min, max]
 }
 
-export const messageError = function(message: any): void {
+export const messageError = function (message: any): void {
   if (typeof message === 'string') {
     ElMessage.warning(message)
   } else {
@@ -119,7 +119,7 @@ export const messageError = function(message: any): void {
   }
 }
 
-export const messageSuccess = function(text: string): void {
+export const messageSuccess = function (text: string): void {
   ElMessage({
     message: text,
     type: 'success',
@@ -161,9 +161,8 @@ export const changeRoute = (
 // 省略token
 export const smallToken = (tokenId: string) => {
   if (!tokenId) return
-  return (
-    `${tokenId.slice(0, 6)
-    }...${
-      tokenId.slice(tokenId.length - 4, tokenId.length)}`
-  )
+  return `${tokenId.slice(0, 6)}...${tokenId.slice(
+    tokenId.length - 4,
+    tokenId.length,
+  )}`
 }

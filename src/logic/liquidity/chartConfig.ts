@@ -42,7 +42,7 @@ const graphic = () => {
           z: -1000,
           style: {
             fill: 'rgba(43, 140, 255, 0.08)',
-            text: 'iKingData.com',
+            text: 'KingData.com',
             font: 'bold 52px sans-serif',
           },
         },
