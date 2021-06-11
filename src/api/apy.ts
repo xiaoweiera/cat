@@ -51,7 +51,7 @@ export const getMediaList = async function <T>(): Promise<T[]> {
 }
 
 export const getHecoDetail = async function (): Promise<any> {
-  const api = 'https://heco-contracts.ikingdata.com/api/heco'
+  const api = 'api/v1/proxy/heco_node/'
   try {
     const result = await request.get(api)
     const code = safeGet(result, 'data.code')
