@@ -5,28 +5,28 @@ export default {
     outLogin:'Log Out',
     soonLine:'https://res.ikingdata.com/nav/navOnLineTipEn.jpg',
     defi:{
-        name:'DeFi Data Analysis',
+        name:'DeFi',
         apy: {
-            name:'APY List',
-            desc:'Quickly find high-yield mining pools',
+            name:'APY',
+            desc:'Quickly get high-yield mining pools',
             href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
         },
         liquidity: {
-            name:'DeFi Liquidity Analysis',
-            desc:'DEX Liquidity Analysis',
+            name:'TVL Analysis',
+            desc:'Easy to know ins and outs of liquid funds',
             href:''
         },
         quotes: {
-            name:'DeFi Quotes and Trading',
+            name:'Market and Trade',
             desc:'Professional K-line chart and aggregate trading',
             href:''
         },
     },
     service:{
-        name:'Project Data Service',
+        name:'Earn',
         growthPad: {
             name:'GrowthPad',
-            desc:'Do tasks to receive rewards',
+            desc:'Do tasks, earn crypto',
             href:'https://kingdata.com/growthpad?utm_source=https://kingdata.com',
             children:{
                 growthPad:{name:'GrowthPad',href:'https://kingdata.com/growthpad?utm_source=https://kingdata.com'},
@@ -36,16 +36,16 @@ export default {
         }
     },
     analysis:{
-        name:'Project Data Monitoring and Analysis',
+        name:'Analysis',
         hData: {
-            name:'24H Data Monitoring and Forewarning',
-            desc:'Changes at all times and discover market opportunities',
+            name:'Alerts',
+            desc:'Seize any trading opportunity',
             href:'https://kingdata.com/news?utm_source=https://kingdata.com'
 
         },
         chart: {
-            name:'Project Data Chart',
-            desc:'Data-driven trading, discover wealth one step ahead',
+            name:'Dashboard',
+            desc:'Easily view project core data',
             href:'https://kingdata.com?utm_source=https://kingdata.com',
             children:{
                 chart:{name:'My Chart',href:'https://kingdata.com/topic?tagID=item&topicID=my&utm_source=https://kingdata.com'},
@@ -113,26 +113,26 @@ export default {
             }
         },
         report: {
-            name:'Research Report',
-            desc:'In-depth analysis',
+            name:'Research',
+            desc:'Deeper and more comprehensive project research',
             href:'https://kingdata.com/reports?utm_source=https://kingdata.com'
         }
     },
     dataTools:{
-        name:'Data Tools',
+        name:'Tools',
         top: {
             name:'Top of Plate',
-            desc:'Choose the track, buy the top',
+            desc:'Trade by referring to the top',
             href:'https://kingdata.com/bull?utm_source=https://kingdata.com'
         },
         history: {
             name:'Today in History',
-            desc:'History is always surprisingly similar',
+            desc:'Predict risks through historical data',
             href:'https://kingdata.com/tih?utm_source=https://kingdata.com'
         },
         nav: {
-            name:'Data Website Navigation',
-            desc:'Blockchain data analysis resource website',
+            name:'Blockchain Explorer',
+            desc:'Comprehensive blockchain resource website',
             href:'https://nav.ikingdata.com/nav?utm_source=https://kingdata.com'
         }
     }

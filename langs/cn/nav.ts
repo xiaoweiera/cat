@@ -5,25 +5,25 @@ export default {
     outLogin:'退出',
     soonLine:'https://res.ikingdata.com/nav/navOnLineTip.jpg',
     defi:{
-        name:'DeFi 数据分析',
+        name:'DeFi',
         apy: {
-            name:'APY大全',
+            name:'APY',
             desc:'快速发现高收益矿池',
             href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
         },
         liquidity: {
-            name:'DeFi流动性分析',
-            desc:'DEX流动性分析',
+            name:'流动性分析',
+            desc:'流动性资金来龙去脉一目了然',
             href:''
         },
         quotes: {
-            name:'DeFi行情与交易',
+            name:'行情与交易',
             desc:'专业的K线图和聚合交易',
             href:''
         },
     },
     service:{
-        name:'企业数据服务',
+        name:'Earn',
         growthPad: {
             name:'GrowthPad',
             desc:'做任务赢奖励',
@@ -36,15 +36,15 @@ export default {
         }
     },
     analysis:{
-        name:'项目数据监控与分析',
+        name:'数据',
         hData: {
-            name:'24H数据监控预警',
-            desc:'时刻接受异动，发现市场机会',
+            name:'7x24数据预警',
+            desc:'不错过任何交易机会',
             href:'https://kingdata.com/news?utm_source=https://kingdata.com'
         },
         chart: {
-            name:'项目数据图表',
-            desc:'数据驱动交易，财富快人一步',
+            name:'数据看板',
+            desc:'轻松查看核心业务数据',
             href:'https://kingdata.com?utm_source=https://kingdata.com',
             children:{
                 chart:{name:'我的图表',href:'https://kingdata.com/topic?tagID=item&topicID=my&utm_source=https://kingdata.com'},
@@ -112,26 +112,26 @@ export default {
             }
         },
         report: {
-            name:'行业研究报告',
-            desc:'行业深度分析',
+            name:'研究报告',
+            desc:'更深、更全的项目研究',
             href:'https://kingdata.com/reports?utm_source=https://kingdata.com'
         }
     },
     dataTools:{
-        name:'数据工具',
+        name:'工具',
         top: {
             name:'板块龙头',
-            desc:'选赛道，买龙头',
+            desc:'依据龙头做买卖',
             href:'https://kingdata.com/bull?utm_source=https://kingdata.com'
         },
         history: {
             name:'历史的今天',
-            desc:'历史总是惊人的相似',
+            desc:'通过历史数据预知风险',
             href:'https://kingdata.com/tih?utm_source=https://kingdata.com'
         },
         nav: {
             name:'数据网站导航',
-            desc:'区块链数据分析资源网站',
+            desc:'所有行业数据网站汇总',
             href:'https://nav.ikingdata.com/nav?utm_source=https://kingdata.com'
         }
     }
