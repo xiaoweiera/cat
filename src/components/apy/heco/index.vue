@@ -66,7 +66,7 @@ const headerBg = () => {
                   class="mr-2"
                   size="2xl"
                 ></IconFont>
-                <p>{{ scope.row[item.key] }}</p>
+                <p class="whitespace-nowrap">{{ scope.row[item.key] }}</p>
               </div>
             </template>
           </el-table-column>
@@ -100,7 +100,7 @@ const headerBg = () => {
                   class="mr-2"
                   size="2xl"
                 ></IconFont>
-                <p>{{ scope.row[item.key] }}</p>
+                <p class="whitespace-nowrap">{{ scope.row[item.key] }}</p>
               </div>
             </template>
           </el-table-column>

@@ -21,7 +21,7 @@ export const header: TD[] = [
 ]
 export const mobileHeader: TD[] = [
   { label: '节点名称', key: 'node_name', fixed: true },
-  { label: 'APY', key: 'apy', fixed: true },
+  { label: 'APY', key: 'apy' },
   { label: '所在地区', key: 'country_name_cn' },
   { label: '得票数', key: 'vote_count' },
   { label: '得票占比', key: 'vote_percent' },
