@@ -13,7 +13,7 @@ onMounted(async () => {
 
 <template>
   <div class="flex-1" :class="{ max: false }">
-    <el-table :data="datalist" stripe style="w-full">
+    <el-table :data="datalist" stripe class="w-full">
       <template v-for="(item, index) in header" :key="index">
         <el-table-column :prop="item.key" :label="item.label"></el-table-column>
       </template>
