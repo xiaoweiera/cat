@@ -17,9 +17,9 @@ const headerBg = () => {
 </script>
 
 <template>
-  <div class="flex-1 px-4">
+  <div class="flex-1 px-4 font-kdFang">
     <div class="pt-4">
-      <div class="text-center font-kdFang">
+      <div class="text-center">
         <span class="text-2xl inline-block title">HECO 节点竞选</span>
         <div class="inline-block ml-1">
           <UiPopover>
@@ -28,16 +28,18 @@ const headerBg = () => {
             </template>
             <template #content>
               <p class="leading-loose">
-                投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
-                投票周期：节点排名根据用户投票数更新，奖励每6小时发放。
-                退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。
+                <span class="block">
+                  1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
+                </span>
+                <span class="block">2 投票周期：节点排名根据用户投票数更新，奖励每6小时发放。</span>
+                <span class="block">3 退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。</span>
               </p>
             </template>
           </UiPopover>
         </div>
       </div>
     </div>
-    <div class="pt-2 text-sm desc text-center font-kdFang">
+    <div class="pt-2 text-sm desc text-center ">
       <span>本轮投票总票数：</span>
       <span class="ml-1">3,642,110 HT</span>
     </div>
@@ -77,6 +79,16 @@ const headerBg = () => {
       <div class="text-global-primary text-kd16px24px j-more-btn flex items-center justify-center">
         <span class="cursor-pointer" @click="isMore = true">展开查看更多</span>
       </div>
+      <div class="pt-4 pb-4 rule-desc">
+        <h4 class="text-base">投票规则:</h4>
+        <p class="pt-1.5 text-xs">
+          <span class="block">
+            1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
+          </span>
+          <span class="block">2 投票周期：节点排名根据用户投票数更新，奖励每6小时发放。</span>
+          <span class="block">3 退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。</span>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -111,16 +123,22 @@ const headerBg = () => {
 }
 
 .heco-list {
+
   &.more {
     .j-more-btn {
       display: none;
     }
   }
   &:not(.more) {
-    max-height: 250px; /* 最多展示三行 */
+    max-height: 244px; /* 最多展示三行 */
     overflow: hidden;
+    .rule-desc {
+      display: none;
+    }
   }
+
 }
+
 
 .j-more-btn {
   height: 50px;
