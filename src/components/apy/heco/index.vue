@@ -17,8 +17,31 @@ const headerBg = () => {
 </script>
 
 <template>
-  <div class="flex-1">
-    <div class="relative heco-list" :class="{ more: isMore }">
+  <div class="flex-1 px-4">
+    <div class="pt-4">
+      <div class="text-center font-kdFang">
+        <span class="text-2xl inline-block title">HECO 节点竞选</span>
+        <div class="inline-block ml-1">
+          <UiPopover>
+            <template #reference>
+              <IconFont class="flex" type="help" size="base"></IconFont>
+            </template>
+            <template #content>
+              <p class="leading-loose">
+                投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
+                投票周期：节点排名根据用户投票数更新，奖励每6小时发放。
+                退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。
+              </p>
+            </template>
+          </UiPopover>
+        </div>
+      </div>
+    </div>
+    <div class="pt-2 text-sm desc text-center font-kdFang">
+      <span>本轮投票总票数：</span>
+      <span class="ml-1">3,642,110 HT</span>
+    </div>
+    <div class="relative heco-list mt-4" :class="{ more: isMore }">
       <el-table :data="datalist" stripe :header-cell-style="headerBg">
         <el-table-column
           type="index"
@@ -51,16 +74,8 @@ const headerBg = () => {
           ></el-table-column>
         </template>
       </el-table>
-      <div
-        @click="isMore = true"
-        class="
-          text-global-primary text-kd16px24px text-center
-          mt-4
-          hand
-          j-more-btn
-        "
-      >
-        展开查看更多
+      <div class="text-global-primary text-kd16px24px j-more-btn flex items-center justify-center">
+        <span class="cursor-pointer" @click="isMore = true">展开查看更多</span>
       </div>
     </div>
   </div>
@@ -87,6 +102,14 @@ const headerBg = () => {
   border: none;
 }
 
+.title {
+  color: #033666;
+}
+
+.desc {
+  color: rgba(37, 62, 111, 0.65);
+}
+
 .heco-list {
   &.more {
     .j-more-btn {
@@ -94,12 +117,14 @@ const headerBg = () => {
     }
   }
   &:not(.more) {
-    max-height: 100px;
+    max-height: 250px; /* 最多展示三行 */
     overflow: hidden;
   }
 }
 
 .j-more-btn {
+  height: 50px;
+  background: #fff;
   position: absolute;
   left: 0;
   right: 0;
