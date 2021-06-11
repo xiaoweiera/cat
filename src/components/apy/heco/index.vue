@@ -80,7 +80,7 @@ const headerBg = () => {
             :label="item.label"
           >
             <template #default="scope">
-              <span class="text-sm" :class="item.className">{{ scope.row[item.key] }}</span>
+              <span class="text-sm whitespace-nowrap"  :class="item.className">{{ scope.row[item.key] }}</span>
             </template>
           </el-table-column>
         </template>
