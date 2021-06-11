@@ -127,6 +127,7 @@ onUnmounted(() => clearInterval(timerInterval))
       <div class="mdhidden mt-6">
         <ApyBanner></ApyBanner>
       </div>
+
       <div class="flex justify-center items-center mt-4 md:mt-15">
         <div
           style="font-weight: bold"
@@ -163,6 +164,7 @@ onUnmounted(() => clearInterval(timerInterval))
       <div class="xshidden">
         <ApyAds></ApyAds>
       </div>
+      <ApyHeco class="my-4 md:mb-4 md:mt-0" v-if="chainParam === 'heco'"></ApyHeco>
     </div>
     <!-- table表格-->
     <div v-for="(item, index) in tables" :key="index" class="tableDefault">

@@ -15,7 +15,7 @@ export const debounce = function <T>(callback: Callback, time?: number): T {
   const self = this
   let timeout: any
   // @ts-ignore
-  return function(...args: any[]) {
+  return function (...args: any[]) {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       // @ts-ignore
@@ -24,7 +24,7 @@ export const debounce = function <T>(callback: Callback, time?: number): T {
   }
 }
 
-export const toFixed = function(value: string | number, fixed = 2): number {
+export const toFixed = function (value: string | number, fixed = 2): number {
   const text = String(value)
   const [num1, num2 = ''] = text.split('.')
   let temp = parseFloat(num1)
@@ -37,10 +37,16 @@ export const toFixed = function(value: string | number, fixed = 2): number {
   return temp
 }
 
-export const toNumber = function(value: string | number, fixed = 2): number {
+export const toNumber = function (value: string | number, fixed = 2): number {
   const number = parseFloat(value as any)
   if (isNaN(number)) {
     return 0
   }
   return toFixed(number, fixed)
+}
+
+export const formatCash = function (value: string | number): string {
+  const number = `${toNumber(value)}`
+  const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return text
 }

@@ -49,3 +49,24 @@ export const getMediaList = async function <T>(): Promise<T[]> {
   }
   return []
 }
+
+export const getHecoDetail = async function (): Promise<any> {
+  const api = 'api/v1/proxy/heco_node/'
+  try {
+    const result = await request.get(api)
+    const code = safeGet(result, 'data.code')
+    if (code) {
+      const list = safeGet(result, 'data.data.node_list')
+      const rows = safeGet(result, 'data.data.node_sum')
+      const total = safeGet(result, 'data.data.node_total_vote')
+      return { list, rows, total }
+    }
+  } catch (e) {
+    // e
+  }
+  return {
+    list: [],
+    rows: 0,
+    total: 0,
+  }
+}
