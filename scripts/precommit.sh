@@ -25,5 +25,5 @@ then
 fi
 
 # '3: 执行 lint-staged 中定义的其它检查'
-lint-staged
+#lint-staged
 
