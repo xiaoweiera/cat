@@ -78,7 +78,11 @@ const headerBg = () => {
             v-else
             :prop="item.key"
             :label="item.label"
-          ></el-table-column>
+          >
+            <template #default="scope">
+              <span class="text-sm" :class="item.className">{{ scope.row[item.key] }}</span>
+            </template>
+          </el-table-column>
         </template>
       </el-table>
       <!-- 移动 -->
@@ -108,7 +112,11 @@ const headerBg = () => {
             :prop="item.key"
             :label="item.label"
             :fixed="item.fixed"
-          ></el-table-column>
+          >
+            <template #default="scope">
+              <span class="text-sm" :class="item.className">{{ scope.row[item.key] }}</span>
+            </template>
+          </el-table-column>
         </template>
       </el-table>
       <div class="text-global-primary text-kd16px24px j-more-btn flex items-center justify-center">
@@ -158,7 +166,10 @@ const headerBg = () => {
 }
 
 .hec-main {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 16px rgba(43, 141, 254, 0.1);
+  border-radius: 8px;
 }
 
 .heco-list {
@@ -176,6 +187,11 @@ const headerBg = () => {
     }
   }
 
+  ::v-deep(.apy-count) {
+    color: #009955;
+    font-weight: bold;
+    font-size: 20px;
+  }
 }
 
 
@@ -188,4 +204,7 @@ const headerBg = () => {
   bottom: 0;
   z-index: 100;
 }
+
+
+
 </style>
