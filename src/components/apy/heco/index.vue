@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { formatCash } from '~/utils/index'
 import { getHecoDetail } from '~/api/apy'
 // @ts-ignore
 import { header, mobileHeader, transform } from '~/logic/apy/heco'
 const datalist = ref<anyp[]>([])
+const count = ref<string>('0')
+
 
 onMounted(async () => {
   const result = await getHecoDetail()
   const { list = [], total = 0 } = result
   datalist.value = transform(list)
+  count.value = formatCash(total)
 })
 const isMore = ref(false)
 const headerBg = () => {
@@ -21,7 +25,7 @@ const headerBg = () => {
     <div class="pt-4">
       <div class="text-center">
         <span class="text-2xl inline-block title">HECO 节点竞选</span>
-        <div class="inline-block ml-1 md:hidden">
+        <div class="ml-1 hidden md:inline-block">
           <UiPopover>
             <template #reference>
               <IconFont class="flex" type="help" size="base"></IconFont>
@@ -41,7 +45,7 @@ const headerBg = () => {
     </div>
     <div class="pt-2 text-sm desc text-center ">
       <span>本轮投票总票数：</span>
-      <span class="ml-1">3,642,110 HT</span>
+      <span class="ml-1">{{ count }} HT</span>
     </div>
     <div class="relative heco-list mt-4" :class="{ more: isMore }">
       <!-- pc -->
@@ -79,11 +83,6 @@ const headerBg = () => {
       </el-table>
       <!-- 移动 -->
       <el-table class="block md:hidden" :data="datalist" stripe :header-cell-style="headerBg">
-        <el-table-column
-          type="index"
-          width="50"
-          header-align="center"
-        ></el-table-column>
         <template v-for="(item, index) in mobileHeader" :key="index">
           <!-- 节点名称 -->
           <el-table-column
