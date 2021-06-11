@@ -8,6 +8,7 @@ import { formatCash, toNumber } from '~/utils/index'
 export interface TD {
   label: string
   key: string
+  [key: string]: any
 }
 
 export const header: TD[] = [
@@ -17,6 +18,14 @@ export const header: TD[] = [
   { label: '得票占比', key: 'vote_percent' },
   { label: '收益分成比例', key: 'rate' },
   { label: 'APY', key: 'apy' },
+]
+export const mobileHeader: TD[] = [
+  { label: '节点名称', key: 'node_name', fixed: true },
+  { label: 'APY', key: 'apy', fixed: true },
+  { label: '所在地区', key: 'country_name_cn' },
+  { label: '得票数', key: 'vote_count' },
+  { label: '得票占比', key: 'vote_percent' },
+  { label: '收益分成比例', key: 'rate' },
 ]
 
 export const transform = function (list: any[]) {
