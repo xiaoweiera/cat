@@ -20,14 +20,14 @@ export const numberFormat = (value: any) => {
   return values + unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
-  if (!value) {
+  if (!value && value !== 0) {
     return ''
   }
   const vil = Math.pow(10, rounded)
   return Math.round(value * vil) / vil
 }
 export const percent2Precision = (value: any): String => {
-  if (!value) {
+  if (!value && value !== 0) {
     return ''
   }
   return `${toFixedNumber(value)}%`
@@ -143,4 +143,26 @@ export const copyTxt = (text: string, alert?: boolean) => {
       desc: text,
     })
   }
+}
+// 更改路由参数
+export const changeRoute = (
+  route: any,
+  router: any,
+  paramName: string,
+  paramValue: string,
+) => {
+  const query = { ...route.query }
+  query[paramName] = paramValue
+  router.replace({
+    ...route,
+    query: { ...query },
+  })
+}
+// 省略token
+export const smallToken = (tokenId: string) => {
+  if (!tokenId) return
+  return `${tokenId.slice(0, 6)}...${tokenId.slice(
+    tokenId.length - 4,
+    tokenId.length,
+  )}`
 }
