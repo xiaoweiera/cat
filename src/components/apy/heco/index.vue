@@ -113,7 +113,7 @@ const headerBg = () => {
             :prop="item.key"
             :label="item.label"
             :fixed="item.fixed"
-            width="90"
+            width="105"
           >
             <template #default="scope">
               <span class="text-sm" :class="item.className">{{ scope.row[item.key] }}</span>
