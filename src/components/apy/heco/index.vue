@@ -94,9 +94,10 @@ const headerBg = () => {
             :prop="item.key"
             :label="item.label"
             :fixed="item.fixed"
+           width="143"
           >
             <template #default="scope">
-              <div class="flex items-center">
+              <div class="flex  items-center ">
                 <IconFont
                   v-if="scope.row.icon_url"
                   :type="scope.row.icon_url"
@@ -112,6 +113,7 @@ const headerBg = () => {
             :prop="item.key"
             :label="item.label"
             :fixed="item.fixed"
+            width="90"
           >
             <template #default="scope">
               <span class="text-sm" :class="item.className">{{ scope.row[item.key] }}</span>
