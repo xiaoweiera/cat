@@ -4,7 +4,6 @@ import { reactive, onBeforeMount } from 'vue'
 const logos = reactive({})
 
 onBeforeMount(() => {
-  console.log('111')
 })
 </script>
 <template>

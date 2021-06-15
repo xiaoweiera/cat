@@ -42,7 +42,7 @@ const selectTag = (timeM: timeModel) => {
   <div>
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
-        <template v-for="(item, index) in filterOption">
+        <template v-for="item in filterOption">
           <div
             v-if="
               item.name !== '自定义' || (item.name === '自定义' && !editTime)

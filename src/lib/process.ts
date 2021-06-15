@@ -8,7 +8,8 @@ interface Env {
 }
 
 export const development: Env = {
-  api: 'https://dev.ikingdata.com',
+  // api: 'https://dev.ikingdata.com',
+  api: 'https://kingdata.com',
 }
 
 export const production: Env = {

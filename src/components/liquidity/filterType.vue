@@ -21,7 +21,7 @@ const changeTag = (tag: any) => {
 <template>
   <div class="flex ml-3.5">
     <div class="flex h-7.8 items-center timeFilter">
-      <template v-for="(item, index) in filterData">
+      <template v-for="item in filterData">
         <div
           :class="item.selected ? 'timeTagSelected' : 'timeTag'"
           @click="changeTag(item)"

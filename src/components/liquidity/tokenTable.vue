@@ -19,13 +19,8 @@ const routeQuery = reactive(route.query)
 const props = defineProps({
   selectTag: String,
 })
-// watch(
-//   () => pairStore.value,
-//   () => {},
-// )
-
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
-const pairList = ref({})
+const pairList = ref([])
 const changePair = (name: string, pair_id: string) => {
   // pairStore.value = pair
   updateData(sidePair, { name, pair_id })
@@ -55,26 +50,14 @@ onBeforeMount(() => {
   <div class="w-full h-full">
     <div class="w-full h-full">
       <ul
-        class="
-          px-3
-          h-7
-          w-full
-          flex
-          items-center
-          text-global-default
-          opacity-65
-          text-kd12px16px
-          font-kdFang
-          tableHeader
-        "
-      >
+        class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader">
         <li class="flex-1">交易对</li>
         <li class="w-15 pl-1">TVL($)</li>
         <li class="w-15 pl-1">价格($)</li>
         <li class="w-15 pl-1">涨跌幅</li>
       </ul>
       <div class="w-full h-full showY">
-        <template v-for="(item, i) in pairList" :key="i + item.id">
+        <template v-for="item in pairList" >
           <div
             :class="
               pairStore === item.symbol0 + '/' + item.symbol1

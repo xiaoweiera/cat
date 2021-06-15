@@ -66,7 +66,7 @@ onBeforeMount(() => {})
         <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">
           币种
         </li>
-        <template v-for="(item, i) in coinList">
+        <template v-for="item in coinList">
           <li
             class="itemLi hand"
             :class="{
@@ -98,7 +98,7 @@ onBeforeMount(() => {})
         >
           交易对
         </li>
-        <template v-for="(item, i) in tradingList">
+        <template v-for="item in tradingList">
           <li
             class="itemLi hand"
             :class="{

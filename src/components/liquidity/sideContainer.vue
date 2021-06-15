@@ -14,7 +14,7 @@ const changeTag = (type: string) => (selectTag.value = type)
     <LiquiditySideTop :token-info="tokenInfo" />
     <div class="flex flex-col h-full overflow-hidden bg-white flex-1">
       <div class="p-3">
-        <template v-for="(item, i) in tags">
+        <template v-for="item in tags">
           <span
             :class="selectTag === item.type ? 'selectedTag' : 'defaultTag'"
           >{{ item.name }}</span>
