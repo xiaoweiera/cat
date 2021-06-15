@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router'
 import { onBeforeMount, toRaw } from 'vue'
 import { useHead } from '@vueuse/head'
 import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
@@ -65,7 +66,7 @@ onBeforeMount(() => {
                     <div class="flex flex-col">
                       <template v-for="child in item.children">
                         <a
-                          v-router="child.href"
+                          :href="child.href+'&lang='+lang.current.value"
                           target="_blank"
                           class="
                             cursor-pointer
