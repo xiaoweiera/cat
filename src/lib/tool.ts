@@ -20,7 +20,7 @@ export const numberFormat = (value: any) => {
   return values + unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
-  if (!value && value != 0) {
+  if (!value && value !== 0) {
     return ''
   }
   const vil = Math.pow(10, rounded)
