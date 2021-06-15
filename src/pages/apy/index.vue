@@ -158,7 +158,7 @@ onUnmounted(() => clearInterval(timerInterval))
       </div>
       <div class="text-center flex justify-center md:mb-5">
         <!-- active 默认选中项 -->
-        <ApyChains :chains="chains" active="all" />
+        <ApyChains :chains="chains" active="oec" />
       </div>
       <!-- 小屏时隐藏 -->
       <div class="xshidden">
@@ -168,14 +168,14 @@ onUnmounted(() => clearInterval(timerInterval))
     </div>
     <!-- table表格-->
     <div v-for="(item, index) in tables" :key="index" class="tableDefault">
-      <ApyTableTitle :title="item.title" :timer="timer" />
+      <ApyTableTitle   v-if="charts[index].chartAll[0].option" :title="item.title" :timer="timer" />
       <div class="grid md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <template
           v-for="(itemChart, i) in charts[index].chartAll"
           :key="`${index}-${i}`"
         >
           <ApyChart
-            v-show="itemChart.option"
+            v-if="itemChart.option"
             :id="index + '' + i"
             :chain-id="chainParam"
             :table-index="index"

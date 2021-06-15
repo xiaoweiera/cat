@@ -37,32 +37,6 @@ export const menu: Menu[] = [
     ],
   },
   {
-    name: I18n.nav.service.name,
-    children: [
-      {
-        name: 'GrowthPad',
-        desc: I18n.nav.service.growthPad.desc,
-        icon: 'https://res.ikingdata.com/icon/growthPad.svg',
-        href: I18n.nav.service.growthPad.href,
-        children: [
-          {
-            name: 'GrowthPad',
-            href: I18n.nav.service.growthPad.children.growthPad.href,
-          },
-          // { name: '案例' },
-          {
-            name: I18n.nav.service.growthPad.children.project.name,
-            href: I18n.nav.service.growthPad.children.project.href,
-          },
-          {
-            name: I18n.nav.service.growthPad.children.about.name,
-            href: I18n.nav.service.growthPad.children.about.href,
-          },
-        ],
-      },
-    ],
-  },
-  {
     name: I18n.nav.analysis.name,
     children: [
       {
@@ -283,6 +257,32 @@ export const menu: Menu[] = [
         desc: I18n.nav.dataTools.nav.desc,
         icon: 'https://res.ikingdata.com/icon/navigation.svg',
         href: I18n.nav.dataTools.nav.href,
+      },
+    ],
+  },
+  {
+    name: I18n.nav.service.name,
+    children: [
+      {
+        name: 'GrowthPad',
+        desc: I18n.nav.service.growthPad.desc,
+        icon: 'https://res.ikingdata.com/icon/growthPad.svg',
+        href: I18n.nav.service.growthPad.href,
+        children: [
+          {
+            name: 'GrowthPad',
+            href: I18n.nav.service.growthPad.children.growthPad.href,
+          },
+          // { name: '案例' },
+          {
+            name: I18n.nav.service.growthPad.children.project.name,
+            href: I18n.nav.service.growthPad.children.project.href,
+          },
+          {
+            name: I18n.nav.service.growthPad.children.about.name,
+            href: I18n.nav.service.growthPad.children.about.href,
+          },
+        ],
       },
     ],
   },
