@@ -184,6 +184,7 @@ onUnmounted(() => clearInterval(timerInterval))
           />
         </template>
       </div>
+
       <!--  chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
       <template v-if="(chainParam === 'hsc' || chainParam ==='oec') && index === 0">
         <div></div>
