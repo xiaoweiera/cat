@@ -78,6 +78,7 @@ const chainInfo = {
   heco: { name: 'HECO', color: '#12AD50', bgcolor: 'rgba(18, 173, 80, 0.1)' },
   bsc: { name: 'BSC', color: '#CEA100', bgcolor: 'rgba(206, 161, 0, 0.1)' },
   hsc: { name: 'ETH', color: '#00C19C', bgcolor: 'rgba(0, 193, 156, 0.1)' },
+  oec: { name: 'ETH', color: '#00C19C', bgcolor: 'rgba(0, 193, 156, 0.1)' },
 }
 const getPlatInfo = (name: string) => {
   return chainInfo[name]
