@@ -197,7 +197,8 @@ It is a decentralized exchange based on Automated Market Maker (AMM) technology 
       speak: 'And send screenshots of Channels deposit / borrow in the group.'
     },
     share: {
-      telegram: 'https://t.me/ChannelsGlobal',
+      // telegram: 'https://t.me/ChannelsGlobal',
+      telegram: 'https://t.me/ChannelsEN',
       lable: 'Based on the proportion of the number of users inviting,  Divide up the bonus pool of 1%'
     },
     about: {
