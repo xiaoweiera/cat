@@ -132,7 +132,7 @@ export default {
         },
         nav: {
             name:'Blockchain Explorer',
-            desc:'Comprehensive blockchain resource website',
+            desc:'Data Website Navigation',
             href:'https://nav.ikingdata.com/nav?utm_source=https://kingdata.com'
         }
     }

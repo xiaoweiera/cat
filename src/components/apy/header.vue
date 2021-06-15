@@ -66,8 +66,8 @@ onBeforeMount(() => {
                     <div class="flex flex-col">
                       <template v-for="child in item.children">
                         <a
-                          :href="child.href+'&lang='+lang.current.value"
-                          target="_blank"
+                          :href="child.href?child.href+'&lang='+lang.current.value:'javascript:void(0);'"
+                          :target="child.href?'_blank':'_self'"
                           class="
                             cursor-pointer
                             mtNthOne

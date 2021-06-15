@@ -8,19 +8,19 @@ import { headerTag } from '~/store/header/login'
     <template #reference>
       <div class="flex items-center cursor-pointer">
         <IconFont class="mb-1" type="nav-more" size="xl"></IconFont>
-        <span
-          class="
-            ml-1.5
-            inline-block
-            text-kd16px24px text-global-default
-            opacity-85
-          "
-        >{{ I18n.nav.product }}</span>
-        <img
-          class="inline-block w-3 ml-1.5"
-          src="https://res.ikingdata.com/nav/navDown.png"
-          alt=""
-        />
+<!--        <span-->
+<!--          class="-->
+<!--            ml-1.5-->
+<!--            inline-block-->
+<!--            text-kd16px24px text-global-default-->
+<!--            opacity-85-->
+<!--          "-->
+<!--        >{{ I18n.nav.product }}</span>-->
+<!--        <img-->
+<!--          class="inline-block w-3 ml-1.5"-->
+<!--          src="https://res.ikingdata.com/nav/navDown.png"-->
+<!--          alt=""-->
+<!--        />-->
       </div>
     </template>
     <template #content>
