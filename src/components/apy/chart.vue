@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 import * as echarts from 'echarts'
-import { defineProps, ref, onMounted, watch, reactive, onUnmounted } from 'vue'
+import { defineProps, ref, onMounted, watch, reactive } from 'vue'
 import {
   getXY_data,
   getSerise,
@@ -58,11 +58,12 @@ const draw = () => {
   )
 }
 onMounted(() => {
+  console.log(props.id,'idid')
   // @ts-ignore
   myChart = echarts.init(document.getElementById(props.id), 'light')
   window.addEventListener('resize', myChart.resize)
 })
-onUnmounted(() => window.removeEventListener('resize', myChart.resize))
+// onUnmounted(() => window.removeEventListener('resize', myChart.resize))
 const reRenderChart = (newVal: string) => {
   // @ts-ignore  props.chartData.option  接口返回过来的数据
   const { xData, yData, min, max } = getXY_data(

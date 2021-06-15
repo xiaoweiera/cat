@@ -79,17 +79,17 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
-  timerInterval = setInterval(() => {
-    if (timer.value !== 0) {
-      timer.value -= 1
-      return
-    }
-    isFirstShow.value = false
-    timer.value = timeout
-    isFirstShow.value = false
-    fetchTableByChain(chainId)
-    fetchChartByChain(chainId)
-  }, 1000)
+  // timerInterval = setInterval(() => {
+  //   if (timer.value !== 0) {
+  //     timer.value -= 1
+  //     return
+  //   }
+  //   isFirstShow.value = false
+  //   timer.value = timeout
+  //   isFirstShow.value = false
+  //   fetchTableByChain(chainId)
+  //   fetchChartByChain(chainId)
+  // }, 1000)
 }
 watch(
   () => chains.data,
@@ -185,27 +185,27 @@ onUnmounted(() => clearInterval(timerInterval))
         </template>
       </div>
       <!--  chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
-      <template v-if="chainParam === 'hsc' && index === 0">
-        <div></div>
-      </template>
-      <div v-else :id="`content-${item.slug}`">
-        <a class="mdhidden">
-          <ApyMobileTag
-            :title="item.slug"
-            :table-index="index"
-            :selected-mobile-anchor="selectedMobileAnchor"
-          />
-        </a>
-        <ApyTable
-          :chains="chainParam"
-          :is-first-show="isFirstShow"
-          :timer="timer"
-          :index="index"
-          :project="item.project"
-          :title="item.title"
-          :table-data="item"
-        />
-      </div>
+<!--      <template v-if="chainParam === 'hsc' && index === 0">-->
+<!--        <div></div>-->
+<!--      </template>-->
+<!--      <div v-else :id="`content-${item.slug}`">-->
+<!--        <a class="mdhidden">-->
+<!--          <ApyMobileTag-->
+<!--            :title="item.slug"-->
+<!--            :table-index="index"-->
+<!--            :selected-mobile-anchor="selectedMobileAnchor"-->
+<!--          />-->
+<!--        </a>-->
+<!--        <ApyTable-->
+<!--          :chains="chainParam"-->
+<!--          :is-first-show="isFirstShow"-->
+<!--          :timer="timer"-->
+<!--          :index="index"-->
+<!--          :project="item.project"-->
+<!--          :title="item.title"-->
+<!--          :table-data="item"-->
+<!--        />-->
+<!--      </div>-->
     </div>
     <ApyFooter />
     <!--浮动tag-->
