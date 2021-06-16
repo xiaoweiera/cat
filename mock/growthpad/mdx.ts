@@ -76,7 +76,7 @@ const data = {
           // description: I18n.growthpad.vip.description, // 帮助信息
         },
         chat.telegram(Project, I18n.growthpad.warning.telegram, telegramHref),
-        chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref), true),
+        // chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref), true),
         chat.retwitter(Project, I18n.growthpad.warning.article, retwitterHref),
       ],
     },
@@ -86,7 +86,7 @@ const data = {
       type: TaskType.pancake,
       title: I18n.growthpad.mdx.activity.pancake,
       description: I18n.template(I18n.growthpad.reward.anytask, { count: 1000, reward: '{reward}' }),
-      reward: [5, 15],
+      reward: [5, 10],
       children: [
         {
           id: chat.uuid(), // 任务ID
@@ -95,7 +95,7 @@ const data = {
           description: I18n.growthpad.mdx.activity.warning,
         },
         chat.telegram(Project, I18n.growthpad.warning.telegram, telegramHref, [5]),
-        chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref, [5]), true),
+        // chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref, [5]), true),
         chat.retwitter(Project, I18n.growthpad.warning.article, retwitterHref, [5]),
       ],
     },
@@ -105,7 +105,7 @@ const data = {
       type: TaskType.uniswap,
       title: I18n.growthpad.mdx.activity.uniswap,
       description: I18n.template(I18n.growthpad.reward.anytask, { count: 1000, reward: '{reward}' }),
-      reward: [5, 15],
+      reward: [5, 10],
       children: [
         {
           id: chat.uuid(), // 任务ID
@@ -114,7 +114,7 @@ const data = {
           description: I18n.growthpad.mdx.activity.warning,
         },
         chat.telegram(Project, I18n.growthpad.warning.telegram, telegramHref, [5]),
-        chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref, [5]),true),
+        // chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref, [5]),true),
         chat.retwitter(Project, I18n.growthpad.warning.article, retwitterHref, [5]),
       ],
     },
@@ -124,7 +124,7 @@ const data = {
       type: TaskType.sushiswap,
       title: I18n.growthpad.mdx.activity.sushiswap,
       description: I18n.template(I18n.growthpad.reward.anytask, { count: 1000, reward: '{reward}' }),
-      reward: [5, 15],
+      reward: [5, 10],
       children: [
         {
           id: chat.uuid(), // 任务ID
@@ -133,7 +133,7 @@ const data = {
           description: I18n.growthpad.mdx.activity.warning,
         },
         chat.telegram(Project, I18n.growthpad.warning.telegram, telegramHref, [5]),
-        chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref, [5]), true),
+        // chat.pack(chat.twitter(Project, I18n.growthpad.warning.follow, twitterHref, [5]), true),
         chat.retwitter(Project, I18n.growthpad.warning.article, retwitterHref, [5]),
       ],
     },
