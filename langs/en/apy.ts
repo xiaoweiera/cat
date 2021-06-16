@@ -1,5 +1,7 @@
 export default {
     webTitle:'DeFi Mining APY List',
+    single_detail:'Simple Interest',
+    compound_detail:'Compound Interest',
     langType:'En',
     header:{
         chart:'Chart',
@@ -60,8 +62,8 @@ export default {
     jqcTable: {
         title: 'APY Comparison of DeFi Single Token Valuts',
         option: {
-            single_detail:'Compound Interest',
-            compound_detail:'Simple Interest',
+            single_detail:'Simple Interest',
+            compound_detail:'Compound Interest',
             yield: 'Yield',
             remain: 'Remaining',
             tvl: 'TVL',
@@ -73,8 +75,8 @@ export default {
     ckTable: {
         title: 'Deposit-APY Comparison of DeFi lending platforms',
         option: {
-            single_detail:'Compound Interest',
-            compound_detail:'Simple Interest',
+            single_detail:'Simple Interest',
+            compound_detail:'Compound Interest',
             yield: 'Yield',
             totalSum: 'Total Deposited',
             outSum: 'Total Borrowed',
@@ -86,8 +88,8 @@ export default {
     jkTable: {
         title: 'Loan interest Comparison on DeFi lending platforms',
         option: {
-            single_detail:'Compound Interest',
-            compound_detail:'Simple Interest',
+            single_detail:'Simple Interest',
+            compound_detail:'Compound Interest',
             interest: 'Interest',
             InterestBear: 'Interest-bearing',
             available: 'Available for loan',

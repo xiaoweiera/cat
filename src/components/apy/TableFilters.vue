@@ -75,8 +75,8 @@ const changeSinge=(type:boolean,openKey:string,closeKey:string)=>{
           <div class="mr-3 mt-3 md:mt-1 text-kd14px18px text-global-highTitle opacity-65 font-normal">{{ I18n.apy.poolsMarks }} :</div>
           <div class="flex items-center flex-wrap">
             <div class="flex items-center singCom">
-              <div @click="changeSinge(true,'single_detail','compound_detail')" :class="isSingle?'selectTag':'defaultTag'">单利</div>
-              <div @click="changeSinge(false,'compound_detail','single_detail')" :class="isSingle?'defaultTag':'selectTag'">复利</div>
+              <div @click="changeSinge(true,'single_detail','compound_detail')" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
+              <div @click="changeSinge(false,'compound_detail','single_detail')" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
             </div>
             <div v-for="(item, i) in realOptions">
               <div v-if="i > 2" class="flex items-center mt-3 mr-3 md:mt-0">
