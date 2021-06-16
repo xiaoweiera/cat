@@ -83,13 +83,19 @@ const check: any = {
 }
 
 export const getValueStatus = function(
-  name: string,
+  name: string | undefined,
   store: Store,
+  data?: any
 ): MissionStatus {
   if (name) {
-    const status: MissionStatus = check[name]
-      ? check[name](store)
-      : MissionStatus.init
+    const status: MissionStatus = check[name] ? check[name](store) : MissionStatus.init
+    if (status && status === MissionStatus.success) {
+      return MissionStatus.success
+    }
+    // 判断是否为暂停
+    if (data.suspend) {
+      return MissionStatus.suspend
+    }
     if (status) {
       return status
     }
