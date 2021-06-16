@@ -3,6 +3,9 @@
  * @author svon.me@gmail.com
  */
 
+// @ts-ignore
+import * as _uuid from 'uuid'
+
 type Callback = () => void
 
 // 防抖节流
@@ -49,4 +52,21 @@ export const formatCash = function (value: string | number): string {
   const number = `${toNumber(value)}`
   const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   return text
+}
+
+// 生成唯一ID
+export const uuid = function(): string {
+  function create(): string {
+    if (Math.random() > 0.5) {
+      return _uuid.v4();
+    }
+    return _uuid.v1();
+  }
+
+  const app = function(): string {
+    const value = create();
+    const id = value.replace(/-/g, '');
+    return id;
+  };
+  return app()
 }

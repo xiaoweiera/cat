@@ -11,6 +11,7 @@ specifiers:
   '@types/js-cookie': ^2.2.6
   '@types/nprogress': ^0.2.0
   '@types/ramda': ^0.27.40
+  '@types/uuid': ^8.3.0
   '@typescript-eslint/eslint-plugin': ^4.21.0
   '@vitejs/plugin-vue': ^1.2.2
   '@vue/compiler-sfc': ^3.0.11
@@ -49,6 +50,7 @@ specifiers:
   typescript: ^4.2.4
   url: ^0.11.0
   url-pattern: ^1.0.3
+  uuid: ^8.3.2
   vite: ^2.3.3
   vite-plugin-components: ^0.9.1
   vite-plugin-icons: ^0.5.1
@@ -70,6 +72,7 @@ dependencies:
   '@fengqiaogang/config': 1.1.0
   '@fengqiaogang/safe-get': 0.1.1
   '@fengqiaogang/safe-set': 0.1.2
+  '@types/uuid': 8.3.0
   '@vueuse/core': 4.11.0_vue@3.0.11
   '@vueuse/head': 0.5.1_vue@3.0.11
   axios: 0.21.1
@@ -87,6 +90,7 @@ dependencies:
   swiper: 6.6.1
   url: 0.11.0
   url-pattern: 1.0.3
+  uuid: 8.3.2
   vue: 3.0.11
   vue-i18n: 9.1.6_vue@3.0.11
   vue-router: 4.0.8_vue@3.0.11
@@ -1640,6 +1644,10 @@ packages:
     dependencies:
       '@types/node': 15.0.3
     dev: true
+
+  /@types/uuid/8.3.0:
+    resolution: {integrity: sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==}
+    dev: false
 
   /@typescript-eslint/eslint-plugin/4.23.0_7cfaee78cda985ff9bc3d8b5cb92a136:
     resolution: {integrity: sha512-tGK1y3KIvdsQEEgq6xNn1DjiFJtl+wn8JJQiETtCbdQxw1vzjXyAaIkEmO2l6Nq24iy3uZBMFQjZ6ECf1QdgGw==}
@@ -8753,6 +8761,11 @@ packages:
     resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
     hasBin: true
     dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
