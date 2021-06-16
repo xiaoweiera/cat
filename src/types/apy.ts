@@ -50,6 +50,7 @@ export interface RowModel {
   project_name: string
   icon: string
   chain: string
+  online_time:string
   url: string
   data: Map<string, CoinModel>
 }

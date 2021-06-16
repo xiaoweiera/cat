@@ -44,7 +44,7 @@ const getValue = (data: any, i) => {
   if (data) {
     if (!data.value && data.value !== 0) return '-'
     if (unitList[data.name]) {
-      if (unitList[data.name].unit === '$`')
+      if (unitList[data.name].unit === '$')
         return unitList[data.name]?.unit + data.value
       else return data.value + unitList[data.name]?.unit
     }

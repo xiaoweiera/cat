@@ -237,10 +237,20 @@ export const tableConfig = [
           status: true,
           format_func: percent2Precision,
         },
+        // {
+        //   key: 'apy_detail',
+        //   name: I18n.apy.jqcTable.option.yield,
+        //   status: false,
+        // },
         {
-          key: 'apy_detail',
-          name: I18n.apy.jqcTable.option.yield,
-          status: false,
+          key: 'single_detail',
+          name: I18n.apy.jqcTable.option.single_detail,
+          status: true,
+        },
+        {
+          key: 'compound_detail',
+          name: I18n.apy.jqcTable.option.compound_detail,
+          status: true,
         },
         {
           key: 'quota_remain',
@@ -277,10 +287,20 @@ export const tableConfig = [
           status: true,
           format_func: percent2Precision,
         },
+        // {
+        //   key: 'apy_detail',
+        //   name: I18n.apy.ckTable.option.yield,
+        //   status: false,
+        // },
         {
-          key: 'apy_detail',
-          name: I18n.apy.ckTable.option.yield,
-          status: false,
+          key: 'single_detail',
+          name: I18n.apy.ckTable.option.single_detail,
+          status: true,
+        },
+        {
+          key: 'compound_detail',
+          name: I18n.apy.ckTable.option.compound_detail,
+          status: true,
         },
         {
           key: 'tvl',
@@ -310,13 +330,23 @@ export const tableConfig = [
           status: true,
           format_func: percent2Precision,
         },
+        // {
+        //   key: 'apy_detail',
+        //   name: I18n.apy.jkTable.option.InterestBear,
+        //   status: false,
+        // },
         {
-          key: 'apy_detail',
-          name: I18n.apy.jkTable.option.InterestBear,
-          status: false,
+          key: 'single_detail',
+          name: I18n.apy.jkTable.option.single_detail,
+          status: true,
         },
         {
-          key: I18n.apy.jkTable.option.available,
+          key: 'compound_detail',
+          name: I18n.apy.jkTable.option.compound_detail,
+          status: true,
+        },
+        {
+          key: 'quota_remain',
           name: I18n.apy.jkTable.option.available,
           status: true,
           format_func: numberFormat,

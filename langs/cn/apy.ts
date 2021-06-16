@@ -60,6 +60,8 @@ export default {
     jqcTable: {
         title: 'DeFi 单币种机枪池 APY 对比',
         option: {
+            single_detail:'单利',
+            compound_detail:'复利',
             yield: '产出',
             remain: '可投额度',
             tvl: '总锁仓',
@@ -71,6 +73,8 @@ export default {
     ckTable: {
         title: 'DeFi 借贷平台存款 APY 对比',
         option: {
+            single_detail:'单利',
+            compound_detail:'复利',
             yield: '产出',
             totalSum: '存款总额',
             outSum: '借款总量',
@@ -82,6 +86,8 @@ export default {
     jkTable: {
         title: 'DeFi 借贷平台借款利息对比',
         option: {
+            single_detail:'单利',
+            compound_detail:'复利',
             interest: '利息',
             InterestBear: '计息',
             available: '可借',

@@ -117,7 +117,8 @@ onMounted(() => {
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',
   )
 })
-onUnmounted(() => clearInterval(timerInterval))
+onUnmounted(() => {
+  clearInterval(timerInterval)})
 </script>
 <template>
   <div class="flex-col w-full max-w-360 md:mb-25">

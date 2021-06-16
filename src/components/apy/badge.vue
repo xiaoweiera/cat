@@ -60,6 +60,6 @@ const isShow = computed<boolean>((): boolean => {
 })
 </script>
 <template>
-  <IconFont v-if="isShow" type="new"></IconFont>
+  <IconFont v-if="isShow" class="min-w-8.25" type="new"></IconFont>
 </template>
 

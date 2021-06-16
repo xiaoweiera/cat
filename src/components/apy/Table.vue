@@ -226,8 +226,8 @@ const getValue = (data: any) => {
             <template #default="scope">
               <el-popover
                 class="mt-10 py-10"
-                offset="-5"
-                width="300"
+                :offset="-6"
+                :width="300"
                 :show-arrow="isTipArrow"
                 :disabled="
                   !isShowTip ||
@@ -243,13 +243,12 @@ const getValue = (data: any) => {
                     :key="i"
                   >
                     <div
-                      v-if="getValue(item, j) !== '-'"
-                      :key="j"
+                      v-if="getValue(item, i) !== '-'"
                       class="flex mb-0.5 items-center flex-wrap TipTxt"
                     >
                       <span class="mr-1">{{ item.name }}</span>
                       <div>
-                        <span>{{ getValue(item, j) }}</span>
+                        <span>{{ getValue(item, i) }}</span>
                       </div>
                     </div>
                   </template>
