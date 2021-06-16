@@ -57,7 +57,6 @@ const selectTag = (timeM: timeModel) => {
           <el-date-picker
             id="datePickerDom"
             v-model="time"
-            :clearable="closeShow"
             size="mini"
             type="daterange"
             range-separator="–"
