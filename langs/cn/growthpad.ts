@@ -5,7 +5,8 @@ export default {
   status: {
     wait: '即将开始',
     ing: '进行中',
-    closure: '已结束'
+    closure: '已结束',
+    suspend: '任务关闭'
   },
   reward: {
     about: '约',

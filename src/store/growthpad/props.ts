@@ -7,6 +7,7 @@ export enum MissionStatus {
   loading = 'loading',
   success = 'succeed',
   fail = 'fail',
+  suspend = 'suspend', // 任务暂停
 }
 
 export const transformStatus = function(
