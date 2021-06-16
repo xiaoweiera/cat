@@ -3,8 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-// @ts-ignore
-import * as _uuid from 'uuid'
+import { trim } from 'ramda'
+//@ts-ignore
+import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
 
 type Callback = () => void
 
@@ -48,6 +49,14 @@ export const toNumber = function (value: string | number, fixed = 2): number {
   return toFixed(number, fixed)
 }
 
+export const inputBeautify = function(value: string): string {
+  // 去掉前后空格
+  let text = trim(value) || ''
+  // 首字母如果是 @ 符合，则去掉
+  text = text.replace(/^@+/i, '')
+  return trim(text)
+}
+
 export const formatCash = function (value: string | number): string {
   const number = `${toNumber(value)}`
   const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -58,9 +67,9 @@ export const formatCash = function (value: string | number): string {
 export const uuid = function(): string {
   function create(): string {
     if (Math.random() > 0.5) {
-      return _uuid.v4();
+      return uuidV1();
     }
-    return _uuid.v1();
+    return uuidV4();
   }
 
   const app = function(): string {
