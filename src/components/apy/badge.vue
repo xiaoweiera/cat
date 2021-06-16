@@ -8,7 +8,7 @@ const props = defineProps({
   time: {
     type: [Number, String],
     default () {
-      return '2021-06-11'
+      return void 0
     }
   },
   // 日期范围，默认 7 天
