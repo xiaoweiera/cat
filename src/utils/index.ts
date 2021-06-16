@@ -3,6 +3,8 @@
  * @author svon.me@gmail.com
  */
 
+import { trim } from 'ramda'
+
 type Callback = () => void
 
 // 防抖节流
@@ -43,6 +45,14 @@ export const toNumber = function (value: string | number, fixed = 2): number {
     return 0
   }
   return toFixed(number, fixed)
+}
+
+export const inputBeautify = function(value: string): string {
+  // 去掉前后空格
+  let text = trim(value) || ''
+  // 首字母如果是 @ 符合，则去掉
+  text = text.replace(/^@+/i, '')
+  return trim(text)
 }
 
 export const formatCash = function (value: string | number): string {
