@@ -78,6 +78,7 @@ export const filterByOptions = (
         // @ts-ignore
         icon: row.icon,
         chain: row.chain,
+        online_time:row.online_time,
         // @ts-ignore
         url: row.url,
         data: headers?.map(({ token_name }: { token_name: String }) => {
