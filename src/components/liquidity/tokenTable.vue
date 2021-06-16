@@ -59,13 +59,7 @@ onBeforeMount(() => {
       <div class="w-full h-full showY">
         <template v-for="item in pairList" >
           <div
-            :class="
-              pairStore === item.symbol0 + '/' + item.symbol1
-                ? 'selectRow'
-                : 'defaultRow'
-            "
-            @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)"
-          >
+            :class="pairStore === item.symbol0 + '/' + item.symbol1? 'selectRow': 'defaultRow'"  @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
             <div class="flex-1 font-kdExp flex items-center overflow-hidden">
               <img
                 class="w-3 h-3"
