@@ -36,7 +36,7 @@ const editStatus = ref<boolean>(false)
 
 // @ts-ignore
 const loadingStatus = computed<MissionStatus>((): MissionStatus => {
-  const status: MissionStatus = getValueStatus(props.name, store)
+  const status: MissionStatus = getValueStatus(props.name, store, props.data)
   if (status) {
     return status
   }
@@ -93,11 +93,12 @@ const onSubmit = async function() {
 </script>
 
 <template>
-  <Loading v-if="loadingStatus === MissionStatus.loading"></Loading>
   <IconFont
-    v-else-if="loadingStatus === MissionStatus.success"
+    v-if="loadingStatus === MissionStatus.success"
     type="success"
   ></IconFont>
+  <span class="suspend inline-block" v-else-if="loadingStatus === MissionStatus.suspend">{{ I18n.growthpad.status.suspend }}</span>
+  <Loading v-else-if="loadingStatus === MissionStatus.loading"></Loading>
   <el-form
     v-else
     ref="formRef"
@@ -129,4 +130,15 @@ const onSubmit = async function() {
 
 <style scoped lang="scss">
 @import './input.scss';
+
+
+.suspend {
+  padding: 2px 12px;
+  background: rgba(37, 62, 111, 0.1);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(37, 62, 111, 0.35);
+}
+
 </style>
