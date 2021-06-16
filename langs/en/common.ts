@@ -76,5 +76,8 @@ export default {
   symbol: {
     plus: '+',
     divide: 'Divide '
+  },
+  api: {
+    wrong: 'System exception'
   }
 }
