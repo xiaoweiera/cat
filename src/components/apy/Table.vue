@@ -187,11 +187,8 @@ const getValue = (data: any) => {
                     >
                       <span>{{ scope.row.project_name }}</span>
                     </div>
-                    <IconFont
-                      v-if="scope.row.new"
-                      class="flex ml-1"
-                      type="new"
-                    ></IconFont>
+                    <!-- 展示项目是否为新项目 -->
+                    <ApyBadge class="flex ml-1" :time="scope.row.online_time"></ApyBadge>
                   </div>
                   <div class="flex mt-2 items-center">
                     <!--                    <div class="tableItemType">-->
@@ -338,11 +335,8 @@ const getValue = (data: any) => {
                         }"
                         >{{ scope.row.chain }}</span
                       >
-                      <IconFont
-                        v-if="scope.row.new"
-                        class="flex ml-1"
-                        type="new"
-                      ></IconFont>
+                      <!-- 展示项目是否为新项目 -->
+                      <ApyBadge class="flex ml-1" :time="scope.row.online_time"></ApyBadge>
                     </div>
                   </div>
                 </a>
