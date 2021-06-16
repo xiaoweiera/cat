@@ -40,15 +40,7 @@ const data = {
   },
   taskList: [
 
-    // 任务 1
-    {
-      id: chat.uuid(), // 任务ID
-      type: TaskType.friends, // 任务类型
-      title: I18n.growthpad.growthpad.task1.title,
-      description: '',
-      reward: [4000], // 奖励
-      children: [],
-    },
+
 
     // 任务 2
     {
@@ -60,6 +52,15 @@ const data = {
       children: [],
     },
 
+    // 任务 1
+    {
+      id: chat.uuid(), // 任务ID
+      type: TaskType.friends, // 任务类型
+      title: I18n.growthpad.growthpad.task1.title,
+      description: '',
+      reward: [4000], // 奖励
+      children: [],
+    },
 
 
     // 任务 3
