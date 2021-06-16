@@ -318,23 +318,11 @@ const getValue = (data: any) => {
                       <span>{{ scope.row.project_name }}</span>
                     </div>
                     <div class="text-center">
-                      <span v-if="props.index === 0" class="tableItemType">{{
-                        I18n.apy.vaults
-                      }}</span>
-                      <span v-else class="tableItemType">{{
-                        I18n.apy.lendPlat
-                      }}</span>
+                      <span v-if="props.index === 0" class="tableItemType">{{I18n.apy.vaults }}</span>
+                      <span v-else class="tableItemType">{{I18n.apy.lendPlat }}</span>
                     </div>
                     <div class="w-full flex justify-center items-center mt-1">
-                      <span
-                        v-if="props.chains === 'all'"
-                        class="tableItemTypePlat"
-                        :style="{
-                          background: getPlatInfo(scope.row.chain).bgcolor,
-                          color: getPlatInfo(scope.row.chain).color,
-                        }"
-                        >{{ scope.row.chain }}</span
-                      >
+                      <span v-if="props.chains === 'all'" class="tableItemTypePlat" :style="{background: getPlatInfo(scope.row.chain).bgcolor, color: getPlatInfo(scope.row.chain).color }">{{ scope.row.chain }}</span>
                       <!-- 展示项目是否为新项目 -->
                       <ApyBadge class="flex ml-1" :time="scope.row.online_time"></ApyBadge>
                     </div>

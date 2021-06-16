@@ -3,6 +3,10 @@
  * @author svon.me@gmail.com
  */
 
+import { trim } from 'ramda'
+//@ts-ignore
+import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
+
 type Callback = () => void
 
 // 防抖节流
@@ -45,8 +49,33 @@ export const toNumber = function (value: string | number, fixed = 2): number {
   return toFixed(number, fixed)
 }
 
+export const inputBeautify = function(value: string): string {
+  // 去掉前后空格
+  let text = trim(value) || ''
+  // 首字母如果是 @ 符合，则去掉
+  text = text.replace(/^@+/i, '')
+  return trim(text)
+}
+
 export const formatCash = function (value: string | number): string {
   const number = `${toNumber(value)}`
   const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   return text
+}
+
+// 生成唯一ID
+export const uuid = function(): string {
+  function create(): string {
+    if (Math.random() > 0.5) {
+      return uuidV1();
+    }
+    return uuidV4();
+  }
+
+  const app = function(): string {
+    const value = create();
+    const id = value.replace(/-/g, '');
+    return id;
+  };
+  return app()
 }

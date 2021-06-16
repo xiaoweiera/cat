@@ -15,8 +15,10 @@ export default {
     perPerson: '每人最高可领取',
     total: '奖励 {count} {token}',
     maxTotal: '最多可得 {count} {token}',
-    finished: '完成全部任务：{reward}（前{count}名用户）',
-    anytask: '完成任意任务：{reward}（前{count}名用户）',
+    // finished: '完成全部任务：{reward}（前{count}名用户）',
+    // anytask: '完成任意任务：{reward}（前{count}名用户）',
+    finished: '完成全部任务：{reward}',
+    anytask: '完成任意任务：{reward}',
   },
   register: '信息登记',
   submit: '登记',
@@ -111,8 +113,10 @@ export default {
     twitter: '本条活动 Twitter',
   },
   front: {
-    '500': '{value}（前500名用户）',
-    '2000': '{value}（前2000名用户）'
+    // '500': '{value}（前500名用户）',
+    // '2000': '{value}（前2000名用户）'
+    '500': '{value}',
+    '2000': '{value}'
   },
 
   wechat: {
@@ -259,7 +263,6 @@ CoinWind 产品会通过组合策略有效降低流动性质押中的无常损�
     },
     task2: {
       title: 'Pancake Bunny 提供流动性(TVL)价值超过 10000 USDT; 加入 CoinWind 中文或英文电报群；关注 CoinWind Twitter 且转发本条活动的 Twitter。',
-      description: '完成任意任务：<i>奖励1MDX</i>（前500名用户）',
       condition1: '任务资格：Pancake Bunny 提供流动性(TVL)价值超过 10000 USDT',
     },
     task3: {

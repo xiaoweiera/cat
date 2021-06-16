@@ -3,6 +3,8 @@
  * @author svon.me@gmail.com
  */
 
+import Url from 'url'
+import { production as env } from '~/lib/process'
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import safeSet from '@fengqiaogang/safe-set'
 import { ignore } from '~/api/pathname'
@@ -24,11 +26,24 @@ const getUserAuth = function (config: AxiosRequestConfig): string {
   return cookie
 }
 
+// 判断请求的地址是否和业务域名相同
+const isKinddataDomain = function(config: AxiosRequestConfig): boolean {
+  const data = Url.parse(config.url as string)
+  if (data.hostname) {
+    const temp = Url.parse(config.baseURL as string)
+    if (data.hostname.includes(temp.hostname as string)) {
+      return true
+    }
+    return false
+  }
+  return true
+}
+
 const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
   const setting = Object.assign(
     {
       timeout: 20000, // request timeout
-      baseURL: 'https://ikingdata.com',
+      baseURL: env.api,
       withCredentials: false,
       maxRedirects: 3, // 支持三次重定向
     },
@@ -38,12 +53,16 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
 
   service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-      const token = getUserAuth(config)
-      if (token) {
-        config.headers.Authorization = `Token ${token}`
+      const status = isKinddataDomain(config)
+      if (status) {
+        // 设置 token
+        const token = getUserAuth(config)
+        if (token) {
+          config.headers.Authorization = `Token ${token}`
+        }
+        // 设置当前系统语言环境
+        safeSet(config, 'params.lang', current.value)
       }
-      // 设置当前系统语言环境
-      safeSet(config, 'params.lang', current.value)
       return config
     },
     (error) => {
