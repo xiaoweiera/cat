@@ -227,46 +227,51 @@ const getValue = (data: any) => {
               />
             </template>
             <template #default="scope">
-              <el-popover
-                class="mt-10 py-10"
-                offset="-5"
-                width="300"
-                :show-arrow="isTipArrow"
-                :disabled="
-                  !isShowTip ||
-                  !isNullFun(scope.row.data[scope.column.no - 1]?.data)
-                "
-                effect="light"
-                trigger="hover"
-                placement="bottom"
-              >
-                <template #default>
-                  <template
-                    v-for="(item, i) in scope.row.data[i]?.data"
-                    :key="i"
-                  >
-                    <div
-                      v-if="getValue(item, j) !== '-'"
-                      :key="j"
-                      class="flex mb-0.5 items-center flex-wrap TipTxt"
-                    >
-                      <span class="mr-1">{{ item.name }}</span>
-                      <div>
-                        <span>{{ getValue(item, j) }}</span>
-                      </div>
-                    </div>
-                  </template>
-                </template>
-                <template #reference>
-                  <div>
-                    <ApyTableItem
-                      :scope-data="scope"
-                      :index="index"
-                      :item-data="scope.row.data[i]?.data"
-                    />
-                  </div>
-                </template>
-              </el-popover>
+              <ApyTableItem
+                  :scope-data="scope"
+                  :index="index"
+                  :item-data="scope.row.data[i]?.data"
+              />
+<!--              <el-popover-->
+<!--                class="mt-10 py-10"-->
+<!--                offset="-5"-->
+<!--                width="300"-->
+<!--                :show-arrow="isTipArrow"-->
+<!--                :disabled="-->
+<!--                  !isShowTip ||-->
+<!--                  !isNullFun(scope.row.data[scope.column.no - 1]?.data)-->
+<!--                "-->
+<!--                effect="light"-->
+<!--                trigger="hover"-->
+<!--                placement="bottom"-->
+<!--              >-->
+<!--                <template #default>-->
+<!--                  <template-->
+<!--                    v-for="(item, i) in scope.row.data[i]?.data"-->
+<!--                    :key="i"-->
+<!--                  >-->
+<!--                    <div-->
+<!--                      v-if="getValue(item, j) !== '-'"-->
+<!--                      :key="j"-->
+<!--                      class="flex mb-0.5 items-center flex-wrap TipTxt"-->
+<!--                    >-->
+<!--                      <span class="mr-1">{{ item.name }}</span>-->
+<!--                      <div>-->
+<!--                        <span>{{ getValue(item, j) }}</span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </template>-->
+<!--                </template>-->
+<!--                <template #reference>-->
+<!--                  <div>-->
+<!--                    <ApyTableItem-->
+<!--                      :scope-data="scope"-->
+<!--                      :index="index"-->
+<!--                      :item-data="scope.row.data[i]?.data"-->
+<!--                    />-->
+<!--                  </div>-->
+<!--                </template>-->
+<!--              </el-popover>-->
             </template>
           </el-table-column>
         </el-table>
