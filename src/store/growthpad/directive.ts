@@ -3,12 +3,20 @@
  * @param keywordName 返回数据时搜索框中值对应的键名
  */
 
+import { trim } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
 import { Info, Mission, MissionStatus } from './props'
 import { setProjectUserInfo } from '~/api/growtask'
 import { messageError } from '~/lib/tool'
 interface Query {
   [key: string]: any
+}
+
+const beautify = function(value: string): string {
+  // 去掉前后空格
+  let text = trim(value) || ''
+  // 首字母如果是 @ 符合，则去掉
+  return text.replace(/^@/i, '')
 }
 
 export const postInfo = function(key: string) {
@@ -28,7 +36,7 @@ export const postInfo = function(key: string) {
       const project = this.getNickName()
       // 需要提交的数据
       const data: Query = {}
-      data[key] = value
+      data[key] = beautify(value)
       // 将结果传递给原方法
       try {
         const temp = await Promise.resolve(fun.call(self, value, data))
@@ -75,7 +83,7 @@ export const postInfoBasis = function(key = 'bsc') {
     ): Promise<T> {
       // @ts-ignore
       const info: Info = this.info
-      const address = info.bsc
+      const address = beautify(info.bsc)
       data[key] = address
       try {
         const result = await Promise.resolve(fun.call(this, value, data))
