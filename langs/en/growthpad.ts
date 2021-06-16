@@ -15,8 +15,10 @@ export default {
     perPerson: 'The Max Reward Per Person',
     total: 'Reward {count} {token}',
     maxTotal: '{count} {token} at maximum',
-    finished: 'Finish all tasks: {reward}（TOP {count} users）',
-    anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
+    // finished: 'Finish all tasks: {reward}（TOP {count} users）',
+    // anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
+    finished: 'Finish all tasks: {reward}',
+    anytask: 'Finish one of tasks: {reward}',
   },
   register: 'Information Registration',
   submit: 'Register',
@@ -117,8 +119,10 @@ export default {
     twitter: 'This activity'
   },
   front: {
-    '500': '{value}（TOP 500 users）',
-    '2000': '{value}（TOP 2,000 users）'
+    // '500': '{value}（TOP 500 users）',
+    // '2000': '{value}（TOP 2,000 users）',
+    '500': '{value}',
+    '2000': '{value}'
   },
 
   wechat: {
@@ -266,7 +270,6 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
     },
     task2: {
       title: 'TVL in Pancake Bunny is more than 10K USDT; Join CoinWind telegram; Follow CoinWind Twitter and retweet the twitter about the activity.',
-      description: 'Finished one of tasks: <i>reward 1MDX</i> (top 500 users)',
       condition1: 'Qualification: TVL in PanCake Bunny is more than 10K USDT.',
     },
     task3: {
