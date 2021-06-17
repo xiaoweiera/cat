@@ -44,8 +44,12 @@ interface ItemTask {
   [key: string]: any
 }
 
-const isSuccess = function(value: MissionStatus): boolean {
+const isSuccess = function(value: MissionStatus, option?: any): boolean {
   if (value === MissionStatus.success) {
+    return true
+  }
+  // 如果配置项中该任务默认为暂停状态，则默认为完成状态
+  if (option && option.suspend) {
     return true
   }
   return false
@@ -58,25 +62,25 @@ const clacRewardCount = function(list: Array<ItemTask>): number {
     if (item.reward) {
       if (
         item.type === TaskType.telegram
-        && isSuccess(store.mission.telegram_group)
+        && isSuccess(store.mission.telegram_group, item)
       ) {
         count += getMin(item.reward)
       }
       if (
         item.type === TaskType.retwitter
-        && isSuccess(store.mission.retweet)
+        && isSuccess(store.mission.retweet, item)
       ) {
         count += getMin(item.reward)
       }
       if (
         item.type === TaskType.twitter
-        && isSuccess(store.mission.follow_twitter)
+        && isSuccess(store.mission.follow_twitter, item)
       ) {
         count += getMin(item.reward)
       }
       if (
         item.type === TaskType.sina
-        && isSuccess(store.mission.follow_weibo)
+        && isSuccess(store.mission.follow_weibo, item)
       ) {
         count += getMin(item.reward)
       }
@@ -84,6 +88,65 @@ const clacRewardCount = function(list: Array<ItemTask>): number {
   }
   return count
 }
+
+const childrenRewardStatus = function(data: any): number {
+  const children: any[] = [...data?.children || []]
+  let flag: boolean = true
+  for(let i = 0, len = children.length; i < len; i++) {
+    const item = children[i]
+    // 会员或者邀请一定人数
+    if (item.type === TaskType.vip) {
+      if (isSuccess(store.mission.invited, item)) {
+        continue
+      } else {
+        flag = false
+        break
+      }
+    }
+    // 电报群
+    if (item.type === TaskType.telegram) {
+      if (isSuccess(store.mission.telegram_group, item)) {
+        continue
+      } else {
+        flag = false
+        break
+      }
+    }
+    // 关注 twitter
+    if (item.type === TaskType.twitter) {
+      if (isSuccess(store.mission.follow_twitter, item)) {
+        continue
+      } else {
+        flag = false
+        break
+      }
+    }
+
+    // 转发 twitter
+    if (item.type === TaskType.retwitter) {
+      if (isSuccess(store.mission.retweet, item)) {
+        continue
+      } else {
+        flag = false
+        break
+      }
+    }
+    // 关注 sina 微博
+    if (item.type === TaskType.sina) {
+      if (isSuccess(store.mission.follow_weibo, item)) {
+        continue
+      } else {
+        flag = false
+        break
+      }
+    }
+  }
+  if (flag) {
+    return getMin(data.reward)
+  }
+  return 0
+}
+
 
 // 计算奖励
 // @ts-ignore
@@ -100,6 +163,7 @@ const rewardValue = computed<number>((): number => {
   // Vip 任务
   // @ts-ignore
   if (props.data.type === TaskType.vip) {
+    /*
     // 验证是否为 Vip
     if (isSuccess(store.mission.invited)) {
       // 验证是否完成任务
@@ -113,6 +177,9 @@ const rewardValue = computed<number>((): number => {
         return getMin(props.data.reward)
       }
     }
+    */
+    // 使用新的计算奖励规则
+    return childrenRewardStatus(props.data)
   }
   // PanCake Swap 任务
   // @ts-ignore
@@ -166,6 +233,7 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.venus) {
     if (isSuccess(store.mission.venus)) {
+      /*
       // 验证是否完成任务
       if (
         isSuccess(store.mission.telegram_group)
@@ -176,6 +244,9 @@ const rewardValue = computed<number>((): number => {
         // @ts-ignore
         return getMin(props.data.reward)
       }
+       */
+      // 使用新的计算奖励规则
+      return childrenRewardStatus(props.data)
     }
   }
 
@@ -183,6 +254,7 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.cream) {
     if (isSuccess(store.mission.cream)) {
+      /*
       // 验证是否完成任务
       if (
         isSuccess(store.mission.telegram_group)
@@ -193,6 +265,9 @@ const rewardValue = computed<number>((): number => {
         // @ts-ignore
         return getMin(props.data.reward)
       }
+      */
+      // 使用新的计算奖励规则
+      return childrenRewardStatus(props.data)
     }
   }
 
@@ -200,6 +275,7 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.compound) {
     if (isSuccess(store.mission.compound)) {
+      /*
       // 验证是否完成任务
       if (
         isSuccess(store.mission.telegram_group)
@@ -210,6 +286,9 @@ const rewardValue = computed<number>((): number => {
         // @ts-ignore
         return getMin(props.data.reward)
       }
+      */
+      // 使用新的计算奖励规则
+      return childrenRewardStatus(props.data)
     }
   }
   return 0
