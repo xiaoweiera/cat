@@ -71,7 +71,6 @@ onMounted(() => isNullFun(props.itemData))
             <span :class="getColor(item.key, item.value)">{{ getValue(item, i) }}</span>
           </div>
         </div>
-
       </template>
     <template v-for="(item, i) in itemData">
       <div v-if="(item.key!=='single_and_mine_award' && item.key!=='compound_and_mine_award') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
