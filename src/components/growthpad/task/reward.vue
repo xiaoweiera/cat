@@ -62,25 +62,25 @@ const clacRewardCount = function(list: Array<ItemTask>): number {
     if (item.reward) {
       if (
         item.type === TaskType.telegram
-        && isSuccess(store.mission.telegram_group, item)
+        && isSuccess(store.mission.telegram_group)
       ) {
         count += getMin(item.reward)
       }
       if (
         item.type === TaskType.retwitter
-        && isSuccess(store.mission.retweet, item)
+        && isSuccess(store.mission.retweet)
       ) {
         count += getMin(item.reward)
       }
       if (
         item.type === TaskType.twitter
-        && isSuccess(store.mission.follow_twitter, item)
+        && isSuccess(store.mission.follow_twitter)
       ) {
         count += getMin(item.reward)
       }
       if (
         item.type === TaskType.sina
-        && isSuccess(store.mission.follow_weibo, item)
+        && isSuccess(store.mission.follow_weibo)
       ) {
         count += getMin(item.reward)
       }
