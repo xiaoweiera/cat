@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, defineProps, defineEmit } from 'vue'
+import { defineProps, defineEmit } from 'vue'
 import { uploadImage } from '~/api/res'
+import { messageError } from '~/lib/tool'
 
 defineProps({
   size: {
@@ -46,21 +47,28 @@ const emitEvent = defineEmit(['change', 'remove'])
 //   })
 // }
 
-const onUpload = async(file: File): Promise<boolean> => {
+// @ts-ignore
+const onUpload = async(file: any): Promise<boolean> => {
   const value = file.raw
-  // const src = await preview(value)
-  const url = await uploadImage(value)
-  if (url) {
-    emitEvent('change', url)
-    // previewSrc.value = url
+  try {
+    const url = await uploadImage(value)
+    if (url) {
+      emitEvent('change', url)
+    }
+  } catch (e) {
+    if (e?.message) {
+      messageError(e.message)
+    }
   }
   return false
 }
 
+// @ts-ignore
 const getStyle = function(value: string): string {
   return `background-image: url(${value});`
 }
 
+// @ts-ignore
 const onRemove = function() {
   emitEvent('remove')
 }

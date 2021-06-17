@@ -117,7 +117,8 @@ onMounted(() => {
     '全网最全的挖矿收益APY大全，数百家项目数据多维度对比。',
   )
 })
-onUnmounted(() => clearInterval(timerInterval))
+onUnmounted(() => {
+  clearInterval(timerInterval)})
 </script>
 <template>
   <div class="flex-col w-full max-w-360 md:mb-25">
@@ -168,14 +169,14 @@ onUnmounted(() => clearInterval(timerInterval))
     </div>
     <!-- table表格-->
     <div v-for="(item, index) in tables" :key="index" class="tableDefault">
-      <ApyTableTitle :title="item.title" :timer="timer" />
+      <ApyTableTitle   v-if="charts[index]?.chartAll[0]?.option" :title="item.title" :timer="timer" />
       <div class="grid md:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
         <template
-          v-for="(itemChart, i) in charts[index].chartAll"
+          v-for="(itemChart, i) in charts[index]?.chartAll"
           :key="`${index}-${i}`"
         >
           <ApyChart
-            v-show="itemChart.option"
+            v-if="itemChart.option"
             :id="index + '' + i"
             :chain-id="chainParam"
             :table-index="index"
@@ -184,6 +185,7 @@ onUnmounted(() => clearInterval(timerInterval))
           />
         </template>
       </div>
+
       <!--  chain type 等于 hsc(hoo) 时，不展示 单币种机枪池 APY 对比 -->
       <template v-if="(chainParam === 'hsc' || chainParam ==='oec') && index === 0">
         <div></div>

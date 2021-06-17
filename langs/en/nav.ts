@@ -131,7 +131,7 @@ export default {
             href:'https://kingdata.com/tih?utm_source=https://kingdata.com'
         },
         nav: {
-            name:'Blockchain Explorer',
+            name:'Data Website Navigation',
             desc:'Comprehensive blockchain resource website',
             href:'https://nav.ikingdata.com/nav?utm_source=https://kingdata.com'
         }

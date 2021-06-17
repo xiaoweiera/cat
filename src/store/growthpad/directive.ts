@@ -7,9 +7,13 @@ import safeGet from '@fengqiaogang/safe-get'
 import { Info, Mission, MissionStatus } from './props'
 import { setProjectUserInfo } from '~/api/growtask'
 import { messageError } from '~/lib/tool'
+import { inputBeautify } from '~/utils/index'
+
 interface Query {
   [key: string]: any
 }
+
+
 
 export const postInfo = function(key: string) {
   return function(
@@ -28,7 +32,7 @@ export const postInfo = function(key: string) {
       const project = this.getNickName()
       // 需要提交的数据
       const data: Query = {}
-      data[key] = value
+      data[key] = inputBeautify(value)
       // 将结果传递给原方法
       try {
         const temp = await Promise.resolve(fun.call(self, value, data))
@@ -55,7 +59,6 @@ export const postInfo = function(key: string) {
         }
         return result as any
       } catch (e) {
-        console.log(e)
         return Promise.reject(e)
       }
     }
@@ -75,7 +78,7 @@ export const postInfoBasis = function(key = 'bsc') {
     ): Promise<T> {
       // @ts-ignore
       const info: Info = this.info
-      const address = info.bsc
+      const address = inputBeautify(info.bsc)
       data[key] = address
       try {
         const result = await Promise.resolve(fun.call(this, value, data))

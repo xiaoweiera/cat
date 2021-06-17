@@ -28,8 +28,8 @@ const isNullFun = (data: any) => {
       }
     })
 }
-const getColor = (index: number, data: string) => {
-  if (index !== 0 || !data) {
+const getColor = (key: string, data: string) => {
+  if ((key !== 'single_and_mine_award' && key!=='compound_and_mine_award') || !data) {
     return ''
   }
   if (!data.includes('-')) {
@@ -44,7 +44,7 @@ const getValue = (data: any, i) => {
   if (data) {
     if (!data.value && data.value !== 0) return '-'
     if (unitList[data.name]) {
-      if (unitList[data.name].unit === '$`')
+      if (unitList[data.name].unit === '$')
         return unitList[data.name]?.unit + data.value
       else return data.value + unitList[data.name]?.unit
     }
@@ -64,30 +64,25 @@ onMounted(() => isNullFun(props.itemData))
 </script>
 <template>
   <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
+      <template v-for="(item,i) in itemData">
+        <div v-if="(item.key==='single_and_mine_award' || item.key==='compound_and_mine_award') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
+          <span class="desName mr-1">{{ item.name }}</span>
+          <div class="desNum">
+            <span :class="getColor(item.key, item.value)">{{ getValue(item, i) }}</span>
+          </div>
+        </div>
+      </template>
     <template v-for="(item, i) in itemData">
-      <div
-        v-if="item.status && getValue(item, i) !== '-'"
-        class="flex mb-0.5 items-center flex-wrap"
-      >
+      <div v-if="(item.key!=='single_and_mine_award' && item.key!=='compound_and_mine_award') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
         <span class="desName mr-1">{{ item.name }}</span>
-        <div
-          :class="
-            i === 0
-              ? 'desNum '
-              : 'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px'
-          "
-        >
-          <span :class="getColor(i, item.value)">{{ getValue(item, i) }}</span>
+        <div  :class="i === 0? 'desNum ':'text-kd10px16px text-global-default opacity-60 md:text-kd12px16px'">
+          <span :class="getColor(item.key, item.value)">{{ getValue(item, i) }}</span>
         </div>
       </div>
     </template>
   </div>
   <div v-else class="w-full h-full flex flex-col justify-center items-center">
-    <img
-      style="width: 112px"
-      src="https://res.ikingdata.com/nav/tableLogo.png"
-      alt=""
-    />
+    <img style="width: 112px" src="https://res.ikingdata.com/nav/tableLogo.png" alt=""/>
   </div>
 </template>
 <style scoped lang="postcss">

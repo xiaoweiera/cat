@@ -25,6 +25,7 @@ export const growthpad = {
 
 export const res = {
   image: '/api/image-storage/',
+  policy: '/api/storage/oss_token', // 获取签名
 }
 
 // 忽略的接口地址，不传用户登录信息
@@ -39,6 +40,7 @@ export const ignore: string[] = [
 
 // 判断登陆状态，已登陆状态下才发起请求
 export const LoginStatus: string[] = [
+  res.policy,
   res.image,
   user.info,
   growthpad.getUserInfo,

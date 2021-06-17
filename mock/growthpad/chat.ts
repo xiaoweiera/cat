@@ -80,3 +80,8 @@ export const sina = function(project: string, description?: string, href?: strin
     description,
   }
 }
+
+// 包装任务数据
+export const pack = function(data: any, suspend: boolean) {
+ return Object.assign({}, data, { suspend })
+}
