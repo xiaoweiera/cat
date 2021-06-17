@@ -10,7 +10,7 @@ enum TaskType {
   sushiswap = 'sushiswap',
   follow_twitter = 'follow_twitter',
   telegram_group = 'telegram_group',
-  weibo = 'weibo',
+  weibo = 'weibo', // 发送微博长文
   allin = 'allin',
   telegram = 'telegram',
   twitter = 'twitter',
@@ -20,7 +20,7 @@ enum TaskType {
   venus = 'venus',
   cream = 'cream',
   compound = 'compound',
-  sina = 'sina',
+  sina = 'sina', // 关注项目方微博账号
 
   // coinwind
   autofarm = 'autofarm',
