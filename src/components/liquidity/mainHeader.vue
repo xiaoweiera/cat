@@ -26,7 +26,7 @@ const changeType = (typeName: string) => {
     </div>
     <!--    时间筛选-->
     <div class="flex">
-<!--      <LiquidityHeaderOption/>-->
+      <LiquidityHeaderOption/>
     </div>
   </div>
 </template>

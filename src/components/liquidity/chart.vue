@@ -23,22 +23,8 @@ const pp = toRefs(paramChart)
 const props = defineProps({
   chartData: Object,
 })
-watch(
-  () => paramChart,
-  (n, o) => {
-    console.log(n)
-  },
-  { deep: true },
-)
-const draw = (
-  xData: Array<string>,
-  series: any,
-  legend: Array<string>,
-  minM: number,
-  maxM: number,
-  kminM: number,
-  kmaxM: number,
-) => {
+watch(() => paramChart, (n, o) => {console.log(n)}, { deep: true })
+const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: number, maxM: number, kminM: number, kmaxM: number) => {
   const myChartDom = document.getElementById(props?.chartData.id)
   // if (this.myChart) {
   //   this.myChart.dispose();
@@ -61,6 +47,7 @@ const draw = (
   window.addEventListener('resize', myChart.resize)
 }
 onMounted(() => {
+  console.log('值',props.chartData)
   const xData = getXData(props?.chartData.xaxis, interval)
   const legend = getLegendList(props?.chartData.yaxis, props.chartData.kyaxis)
   const [minM, maxM, kminM, kmaxM, series] = getSeries(

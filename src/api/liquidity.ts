@@ -31,3 +31,11 @@ export function getPair_side(param: any) {
     method: 'get',
   })
 }
+//图表部分接口，demo
+export function getCharts(param: any) {
+  return request({
+    url: `/api/liquidity/${param.platId}/liquidity_token_usd_chart/`,
+    params: param,
+    method: 'get',
+  })
+}

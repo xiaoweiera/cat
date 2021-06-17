@@ -5,19 +5,7 @@ const props = defineProps({
 })
 </script>
 <template>
-  <div
-    class="
-      flex flex-col
-      p-4
-      w-full
-      h-106
-      min-h-106
-      mb-5
-      bg-white
-      font-kdFang
-      chartContainer
-    "
-  >
+  <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer">
     <!--    图表的信息-->
     <div class="text-kd18px28px text-global-default opacity-85">
       {{ chartData.title }}
