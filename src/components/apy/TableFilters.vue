@@ -74,7 +74,6 @@ const changeSinge=(type:boolean)=>{
         }
         return i
       })
-      show.value = !show.value
     }, 100)
   }
 }
@@ -114,25 +113,26 @@ const changeSinge=(type:boolean)=>{
       </div>
     </div>
     <!--    mobile-->
-    <div class="mdhidden mt-6 w-full">
+    <div class="mdhidden mt-4 w-full">
       <div class="flex md:flex-row flex-col relative w-full md:items-center">
-        <div class="flex items-center justify-between w-full">
-          <div class="flex items-center" @mousemove="optionShow" @mouseleave="optionClose">
-            <div class="mr-1.5 text-kd14px18px text-global-highTitle opacity-65 font-normal">
-              {{ I18n.apy.poolsMarks }}
+        <div class="flex items-center flex-wrap justify-between w-full">
+          <div class="flex items-center mt-2" @mousemove="optionShow" @mouseleave="optionClose">
+            <div class="flex mr-1.5 text-kd14px18px text-global-highTitle opacity-65 font-normal">
+              <div>{{ I18n.apy.poolsMarks }}</div>
+              <div class="text-kd14px20px font-normal ml-1">
+                <span v-if="lang.current.value === 'cn'">({{ timer }} 秒后更新)</span>
+                <span v-else> (Update in {{ timer }} s)</span>
+              </div>
             </div>
             <img class="w-4.5 h-4.5" src="https://res.ikingdata.com/nav/apySet.png" alt=""/>
           </div>
-          <div class="text-kd14px20px font-normal text-global-default opacity-65">
-            <span v-if="lang.current.value === 'cn'">({{ timer }} 秒后更新)</span>
-            <span v-else> (Update in {{ timer }} s)</span>
-          </div>
-        </div>
-        <div v-show="show" class="optionModel" @mousemove="optionShow">
-          <div class="flex items-center singCom w-20 mt-4">
+          <div class="flex items-center singCom mt-2">
             <div @click="changeSinge(true)" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
             <div @click="changeSinge(false)" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
           </div>
+        </div>
+        <div v-show="show" class="optionModel" @mousemove="optionShow">
+
           <div v-for="(item, i) in realOptions">
             <div v-if="i >3" class="flex items-center mr-1.5 mt-4 h-4.5 justify-between">
               <div class="mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
@@ -159,15 +159,15 @@ const changeSinge=(type:boolean)=>{
 .singCom{
   border-radius: 42px;
   border:1px solid rgba(43, 141, 254, 1);
-  @apply  w-22  flex  justify-between mr-3;
+  @apply  flex  justify-between mr-3;
 }
 .defaultTag{
   border-radius: 42px;
-  @apply text-kd14px18px text-global-highTitle  flex-1    text-center py-0.5   opacity-85 cursor-pointer;
+  @apply text-kd14px18px text-global-highTitle  flex-1 whitespace-nowrap px-2   text-center py-0.5   opacity-85 cursor-pointer;
 }
 .selectTag{
   border-radius: 42px;
-  @apply text-kd14px18px bg-global-primary flex-1 font-medium px-1 text-center   py-0.5 text-global-white  cursor-pointer;
+  @apply text-kd14px18px bg-global-primary flex-1 font-medium px-1 text-center whitespace-nowrap px-2   py-0.5 text-global-white  cursor-pointer;
 }
 .shadowQr {
   box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.12);
