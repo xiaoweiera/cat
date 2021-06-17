@@ -37,6 +37,8 @@ export interface CoinModel {
   chain: string
   category: string
   high_light: boolean
+  single_high_light: boolean
+  compound_high_light: boolean
 }
 
 export interface HeaderModel {
