@@ -47,17 +47,30 @@ const closeDown = () => {
   showDownLoad.value = false
 }
 //单利 复利
-const changeSinge=(type:boolean,openKey:string,closeKey:string)=>{
+const changeSinge=(type:boolean)=>{
   if(type!==isSingle.value){
-    isSingle.value=!isSingle.value
+    isSingle.value=type
+    // 'single_detail','compound_detail'
     setTimeout(() => {
       realOptions.value = realOptions.value.map((i) => {
-        if(i.key===closeKey){
-          i.status = false
-          return i
-        }else if (i.key === openKey) {
-          i.status = true
-          return i
+        if(type) {
+          if (i.key === 'compound_detail' || i.key === 'compound_and_mine_award') {
+            i.status = false
+            return i
+          }
+          if (i.key === 'single_detail' || i.key === 'single_and_mine_award') {
+            i.status = true
+            return i
+          }
+        }else{
+          if (i.key === 'compound_detail' || i.key === 'compound_and_mine_award') {
+            i.status = true
+            return i
+          }
+          if (i.key === 'single_detail' || i.key === 'single_and_mine_award') {
+            i.status = false
+            return i
+          }
         }
         return i
       })
@@ -75,11 +88,11 @@ const changeSinge=(type:boolean,openKey:string,closeKey:string)=>{
           <div class="mr-3 mt-3 md:mt-1 text-kd14px18px text-global-highTitle opacity-65 font-normal">{{ I18n.apy.poolsMarks }} :</div>
           <div class="flex items-center flex-wrap">
             <div class="flex items-center singCom">
-              <div @click="changeSinge(true,'single_detail','compound_detail')" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
-              <div @click="changeSinge(false,'compound_detail','single_detail')" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
+              <div @click="changeSinge(true)" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
+              <div @click="changeSinge(false)" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
             </div>
             <div v-for="(item, i) in realOptions">
-              <div v-if="i > 2" class="flex items-center mt-3 mr-3 md:mt-0">
+              <div v-if="i > 3" class="flex items-center mt-3 mr-3 md:mt-0">
                 <div class="mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
                   {{ item.name !== '剩余额度' ? item.name : item.name + '(%)' }}
                 </div>
@@ -116,8 +129,12 @@ const changeSinge=(type:boolean,openKey:string,closeKey:string)=>{
           </div>
         </div>
         <div v-show="show" class="optionModel" @mousemove="optionShow">
+          <div class="flex items-center singCom w-20 mt-4">
+            <div @click="changeSinge(true)" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
+            <div @click="changeSinge(false)" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
+          </div>
           <div v-for="(item, i) in realOptions">
-            <div v-if="i > 0" class="flex items-center mr-1.5 mt-4 h-4.5 justify-between">
+            <div v-if="i >3" class="flex items-center mr-1.5 mt-4 h-4.5 justify-between">
               <div class="mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
                 {{item.name !== I18n.apy.remainRatio ? item.name : item.name + '(%)' }}
               </div>
@@ -140,16 +157,17 @@ const changeSinge=(type:boolean,openKey:string,closeKey:string)=>{
 </template>
 <style lang="postcss" scoped>
 .singCom{
-  background: rgba(43,141,254,.08);
-  border-radius: 4px;
-  @apply  p-0.75  flex  justify-between mr-3;
+  border-radius: 42px;
+  border:1px solid rgba(43, 141, 254, 1);
+  @apply  w-22  flex  justify-between mr-3;
 }
 .defaultTag{
-  @apply text-kd14px18px px-1 py-0.5  text-global-default opacity-85 cursor-pointer;
+  border-radius: 42px;
+  @apply text-kd14px18px text-global-highTitle  flex-1    text-center py-0.5   opacity-85 cursor-pointer;
 }
 .selectTag{
-  border-radius: 4px;
-  @apply text-kd14px18px bg-global-white px-1 py-0.5 text-global-primary cursor-pointer;
+  border-radius: 42px;
+  @apply text-kd14px18px bg-global-primary flex-1 font-medium px-1 text-center   py-0.5 text-global-white  cursor-pointer;
 }
 .shadowQr {
   box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.12);

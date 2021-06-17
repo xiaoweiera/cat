@@ -89,7 +89,7 @@ const addClass = ({ row, columnIndex }) => {
   if (
     columnIndex > 0 &&
     row.data[columnIndex - 1] &&
-    row.data[columnIndex - 1]?.high_light
+    row.data[columnIndex - 1]?.single_high_light
   ) {
     return 'background:rgba(9, 217, 142, 0.2); padding-top:0px; padding-bottom: 0;'
   }

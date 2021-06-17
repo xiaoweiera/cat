@@ -2,6 +2,8 @@ export default {
     webTitle:'DeFi Mining APY List',
     single_detail:'Simple Interest',
     compound_detail:'Compound Interest',
+    single_APY:'Simple APY',
+    compound_APY:'Compound APY',
     langType:'En',
     header:{
         chart:'Chart',

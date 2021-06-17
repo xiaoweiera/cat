@@ -232,11 +232,23 @@ export const tableConfig = [
     options: {
       data: [
         {
-          key: 'apy',
-          name: 'APY',
+          key: 'single_and_mine_award',
+          name: I18n.apy.single_APY,
           status: true,
           format_func: percent2Precision,
         },
+        {
+          key: 'compound_and_mine_award',
+          name: I18n.apy.compound_APY,
+          status: false,
+          format_func: percent2Precision,
+        },
+        // {
+        //   key: 'apy',
+        //   name: 'APY',
+        //   status: true,
+        //   format_func: percent2Precision,
+        // },
         // {
         //   key: 'apy_detail',
         //   name: I18n.apy.jqcTable.option.yield,
@@ -282,11 +294,23 @@ export const tableConfig = [
     options: {
       data: [
         {
-          key: 'apy',
-          name: 'APY',
+          key: 'single_and_mine_award',
+          name: I18n.apy.single_APY,
           status: true,
           format_func: percent2Precision,
         },
+        {
+          key: 'compound_and_mine_award',
+          name: I18n.apy.compound_APY,
+          status: false,
+          format_func: percent2Precision,
+        },
+        // {
+        //   key: 'apy',
+        //   name: 'APY',
+        //   status: true,
+        //   format_func: percent2Precision,
+        // },
         // {
         //   key: 'apy_detail',
         //   name: I18n.apy.ckTable.option.yield,
@@ -325,11 +349,23 @@ export const tableConfig = [
     options: {
       data: [
         {
-          key: 'apy',
-          name: I18n.apy.jkTable.option.interest,
+          key: 'single_and_mine_award',
+          name: I18n.apy.single_APY,
           status: true,
           format_func: percent2Precision,
         },
+        {
+          key: 'compound_and_mine_award',
+          name: I18n.apy.compound_APY,
+          status: false,
+          format_func: percent2Precision,
+        },
+        // {
+        //   key: 'apy',
+        //   name: I18n.apy.jkTable.option.interest,
+        //   status: true,
+        //   format_func: percent2Precision,
+        // },
         // {
         //   key: 'apy_detail',
         //   name: I18n.apy.jkTable.option.InterestBear,
