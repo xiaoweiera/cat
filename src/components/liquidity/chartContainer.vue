@@ -11,7 +11,7 @@ const props = defineProps({
       {{ chartData.title }}
     </div>
     <div class="text-kd13px19px text-global-default opacity-45">
-      {{ chartData.des }}
+      {{ chartData.desc }}
     </div>
     <LiquidityChart :chart-data="chartData" />
   </div>

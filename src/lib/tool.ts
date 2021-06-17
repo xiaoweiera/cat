@@ -6,7 +6,7 @@ import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 
 export const numberFormat = (value: any) => {
-  if (!value && value !== 0 && value !== '0') {
+  if (value===null) {
     return null
   }
   const k = 10000
