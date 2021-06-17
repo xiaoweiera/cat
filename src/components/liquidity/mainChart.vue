@@ -33,7 +33,7 @@ onMounted(()=>{
       <LiquidityChartContainer :chart-data="item" />
     </template>
   </div>
-  <div>无数据</div>
+  <div v-else>无数据</div>
 </template>
 <style scoped lang="postcss">
 .chartContainer {
