@@ -21,6 +21,7 @@ export const selectCoin = reactive({
 export const paramChart = reactive({
   timeBegin: 0, // 开始时间
   timeEnd: 0, // 结束时间
+  time:'',//时间是否改变，改变值  判断是否改变
   interval: '1h', // 颗粒度
   coinType: 'usd', // USD或者币
   tokenType: 'pair', // pair ETH USDT

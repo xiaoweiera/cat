@@ -21,11 +21,14 @@ watch(()=>sidePair.pair_id,(n,o)=>{
   getChartsData(param)
 })
 watch(()=>paramChart.timeBegin,(n,o)=>{
-  param.from_ts=n
-  getChartsData(param)
+
 })
 watch(()=>paramChart.timeEnd,(n,o)=>{
-  param.to_ts=n
+
+})
+watch(()=>paramChart.time,(n,o)=>{
+  param.from_ts=paramChart.timeBegin
+  param.to_ts=paramChart.timeEnd
   getChartsData(param)
 })
 const getChartsData=async (param)=>{
@@ -37,7 +40,6 @@ onMounted(()=>{
 })
 </script>
 <template>
-<!--  {{paramChart.timeBegin}}-->
   <div v-if="chartsData && chartsData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsData">
       <LiquidityChartContainer :chart-data="item" />
