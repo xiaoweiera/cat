@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref,watch } from 'vue'
+import {paramChart} from '~/store/liquidity/state'
 import { ElDatePicker } from 'element-plus'
+import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import * as R from 'ramda'
 const filterOption = ref([
   { name: '近7天', value: 7, selected: true },
-  {
-    name: '近1月',
-    value: 30,
-    selected: false,
-  },
+  {name: '近1月', value: 30, selected: false},
   { name: '近3月', value: 90, selected: false },
   { name: '自定义', value: 0, selected: false },
 ])
@@ -21,11 +19,22 @@ const time = ref(null)
 const beginTime = ref(0)
 const endTime = ref(0)
 const editTime = ref(false) // 控制是否显示自定义时间
+watch(
+    () => time.value, (n, o) => {
+      if (time.value) {
+        paramChart.timeBegin=dataToTimestamp(formatDefaultTime(n[0]))
+        paramChart.timeEnd=dataToTimestamp(formatDefaultTime(n[1]))
+      }
+    },
+)
 const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
     document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
   } else {
+    paramChart.timeBegin=getagoTimeStamp(timeM.value)
+    paramChart.timeEnd=dataToTimestamp(formatDefaultTime())
+    console.log(getagoTimeStamp(timeM.value),dataToTimestamp(formatDefaultTime()))
     editTime.value = false // 关闭自定义
     time.value = null // 自定义清空
   }
@@ -40,29 +49,16 @@ const selectTag = (timeM: timeModel) => {
 </script>
 <template>
   <div>
+
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
         <template v-for="item in filterOption">
-          <div
-            v-if="
-              item.name !== '自定义' || (item.name === '自定义' && !editTime)
-            "
-            :class="item.selected ? 'timeTagSelected' : 'timeTag'"
-            @click="selectTag(item)"
-          >
+          <div v-if="item.name !== '自定义' || (item.name === '自定义' && !editTime)" :class="item.selected ? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
             {{ item.name }}
           </div>
         </template>
         <div v-show="editTime" class="timeContainer">
-          <el-date-picker
-            id="datePickerDom"
-            v-model="time"
-            size="mini"
-            type="daterange"
-            range-separator="–"
-            start-placeholder="开始"
-            end-placeholder="结束"
-          >
+          <el-date-picker id="datePickerDom" v-model="time" size="mini" type="daterange" range-separator="–" start-placeholder="开始" end-placeholder="结束">
           </el-date-picker>
         </div>
       </div>

@@ -18,15 +18,14 @@ const route = useRoute()
 const router = useRouter()
 const routeQuery = reactive(route.query)
 const props = defineProps({
+  symbol:String,
   selectTag: String,
 })
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 const pairList = ref([])
 const changePair = (name: string, pair_id: string) => {
-  // pairStore.value = pair
   updateData(sidePair, {name, pair_id})
-  // sidePair.symbol=symbol
-  // sidePair.symbol_id=symbol_id
+  console.log(pair_id)
   changeRoute(route, router, 'pair', pair_id)
 }
 const likeStart = (item: any) => {
@@ -36,7 +35,7 @@ const likeStart = (item: any) => {
 const getPair_list = async () => {
   const result = await getPair_side({
     platId: 1,
-    symbol_id: '0xe36ffd17b2661eb57144ceaef942d95295e637f0',
+    symbol_id: props.symbol,
   })
   if (result?.data?.code === 0) {
     pairList.value = result?.data?.data

@@ -2,32 +2,42 @@
 import { onMounted,ref,watch,reactive} from 'vue'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import { pairStore, sidePair } from '~/store/liquidity/state'
+import { pairStore, sidePair,paramChart } from '~/store/liquidity/state'
+
 import {getChartsFun} from '~/logic/liquidity/getChartData'
 const route = useRoute()
 const router = useRouter()
-const routeQuery = reactive(route.query)
 const chartsData=ref()
+const symbol=sidePair.pair_id?sidePair.pair_id:route.query.pair
+const param={
+  platId:1,
+  symbol_id: symbol,
+  from_ts:1581765635,
+  to_ts:1617235200,
+  interval:'1H'
+}
 watch(()=>sidePair.pair_id,(n,o)=>{
-  getChartsData(n)
+  param.symbol_id=n
+  getChartsData(param)
 })
-const getChartsData=async (pair_id:string)=>{
-  const param={
-    platId:1,
-    symbol_id: routeQuery.pair?routeQuery.pair:'0xe36ffd17b2661eb57144ceaef942d95295e637f0',
-    from_ts:1581765635,
-    to_ts:1617235200,
-    interval:'1H'
-  }
-  console.log(routeQuery.pair)
+watch(()=>paramChart.timeBegin,(n,o)=>{
+  param.from_ts=n
+  getChartsData(param)
+})
+watch(()=>paramChart.timeEnd,(n,o)=>{
+  param.to_ts=n
+  getChartsData(param)
+})
+const getChartsData=async (param)=>{
   const result= await getChartsFun(param)
   chartsData.value=result.data
 }
 onMounted(()=>{
-  getChartsData()
+  getChartsData(param)
 })
 </script>
 <template>
+  {{paramChart.timeBegin}}
   <div v-if="chartsData && chartsData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsData">
       <LiquidityChartContainer :chart-data="item" />

@@ -1,7 +1,11 @@
 <script setup lang="ts">
 // @ts-ignore
 import { ref, reactive } from 'vue'
-const tokenInfo = reactive({ address: '0xjjje...3029' })
+import {useRoute, useRouter} from 'vue-router'
+const route = useRoute()
+const router = useRouter()
+const routeQuery = reactive(route.query)
+const symbol = ref(routeQuery.symbol?routeQuery.symbol:'0xe36ffd17b2661eb57144ceaef942d95295e637f0' )
 const selectTag = ref('my')
 const tags = [
   { type: 'my', name: '自选' },
@@ -11,7 +15,7 @@ const changeTag = (type: string) => (selectTag.value = type)
 </script>
 <template>
   <div class="w-75 min-w-75 flex flex-col sideContainer">
-    <LiquiditySideTop :token-info="tokenInfo" />
+    <LiquiditySideTop :symbol="symbol" />
     <div class="flex flex-col h-full overflow-hidden bg-white flex-1">
       <div class="p-3">
         <template v-for="item in tags">
@@ -20,7 +24,7 @@ const changeTag = (type: string) => (selectTag.value = type)
           >{{ item.name }}</span>
         </template>
       </div>
-      <LiquidityTokenTable :select-tag="selectTag" />
+      <LiquidityTokenTable :symbol="symbol" :select-tag="selectTag" />
     </div>
   </div>
 </template>

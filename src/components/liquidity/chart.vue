@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, onMounted, watch, toRefs } from 'vue'
+import { defineProps, onMounted, watch, toRefs,ref } from 'vue'
 import * as echarts from 'echarts'
 import { paramChart } from '~/store/liquidity/state'
 import {
@@ -19,42 +19,40 @@ interface yModel {
 }
 // 颗粒度天 时
 const interval = '1h'
+const myChart=ref()
 const pp = toRefs(paramChart)
 const props = defineProps({
   chartData: Object,
 })
-watch(() => paramChart, (n, o) => {console.log(n)}, { deep: true })
 const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: number, maxM: number, kminM: number, kmaxM: number) => {
-  const myChartDom = document.getElementById(props?.chartData.id)
   // if (this.myChart) {
   //   this.myChart.dispose();
   // }
   // @ts-ignore
-  const myChart = echarts.init(myChartDom, 'light')
-  const chartOption = chartConfig(
-    xData,
-    series,
-    minM,
-    maxM,
-    kminM,
-    kmaxM,
-    legend,
-    yLabelFormat,
-    getModel,
-  )
-  myChart.setOption(chartOption)
+  const chartOption = chartConfig(xData, series, minM, maxM, kminM, kmaxM, legend, yLabelFormat, getModel)
+  myChart.value.setOption(chartOption)
   // @ts-ignore
-  window.addEventListener('resize', myChart.resize)
+  window.addEventListener('resize', myChart.value.resize)
 }
-onMounted(() => {
-  console.log('值',props.chartData)
+const getChartData=()=>{
   const xData = getXData(props?.chartData.xaxis, interval)
   const legend = getLegendList(props?.chartData.yaxis, props.chartData.kyaxis)
   const [minM, maxM, kminM, kmaxM, series] = getSeries(
-    props?.chartData.yaxis,
-    props?.chartData.kyaxis,
+      props?.chartData.yaxis,
+      props?.chartData.kyaxis,
   )
   draw(xData, series, legend, minM, maxM, kminM, kmaxM)
+}
+// watch(() => props.chartData, (n, o) => {
+//   console.log('kkkk',o)
+//   getChartData()
+// })
+onMounted(() => {
+  console.log('画画')
+  const myChartDom = document.getElementById(props?.chartData.id)
+   myChart.value = echarts.init(myChartDom, 'light')
+  console.log(props.chartData)
+  getChartData()
 })
 </script>
 <template>
