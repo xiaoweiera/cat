@@ -37,7 +37,7 @@ onMounted(()=>{
 })
 </script>
 <template>
-  {{paramChart.timeBegin}}
+<!--  {{paramChart.timeBegin}}-->
   <div v-if="chartsData && chartsData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsData">
       <LiquidityChartContainer :chart-data="item" />
