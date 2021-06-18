@@ -86,8 +86,16 @@ const getPlatInfo = (name: string) => {
 // 单元格背景色
 // @ts-ignore
 const addClass = ({ row, columnIndex }) => {
-  const single=options.value.data.find(item=>item.key==='single_and_mine_award')
-  const apyType=single.status?'single_high_light':'compound_high_light'
+  let apyType=''
+  options.value.data.find(item=>{
+    if(item.key==='single_and_mine_award' && item.status){
+      apyType='single_high_light'
+    }else if(item.key==='compound_and_mine_award' && item.status){
+      apyType='compound_high_light'
+    }else if(item.key==='apy' && item.status){
+      apyType='high_light'
+    }
+  })
   if (columnIndex > 0 && row.data[columnIndex - 1] && row.data[columnIndex - 1]?.[apyType]) {
     return 'background:rgba(9, 217, 142, 0.2); padding-top:0px; padding-bottom: 0;'
   }
@@ -123,6 +131,31 @@ const getValue = (data: any) => {
       else return data.value + unitList[data.name]?.unit
     }
     return data.value
+  }
+}
+const tipShowInfo=(key:string)=>{
+  let apyType=''
+  options.value.data.find(item=>{
+    if(item.key==='single_and_mine_award' && item.status){
+      apyType='single'
+    }else if(item.key==='compound_and_mine_award' && item.status){
+      apyType='compound'
+    }else if(item.key==='apy' && item.status){
+      apyType='apy'
+    }
+  })
+  const singleNoKey=['compound_and_mine_award','compound_detail','apy','comprehensive']
+  const compoundNoKey=['single_and_mine_award','single_detail','apy','comprehensive']
+  const apyKey=['single_and_mine_award','single_detail','compound_and_mine_award','compound_detail']
+  if(apyType==='single'){
+    if(singleNoKey.includes(key)) return false
+    return true
+  }else if(apyType==='compound'){
+    if(compoundNoKey.includes(key)) return false
+    return true
+  }else{
+    if(apyKey.includes(key)) return false
+    return true
   }
 }
 </script>
@@ -174,7 +207,7 @@ const getValue = (data: any) => {
               <el-popover class="mt-10 py-10" :offset="-6" :width="300" :show-arrow="isTipArrow" :disabled="!isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)" effect="light" trigger="hover" placement="bottom">
                 <template #default>
                   <template v-for="(item, i) in scope.row?.data[i]?.data" :key="i">
-                    <div v-if="getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap TipTxt">
+                    <div v-if="getValue(item, i) !== '-' && tipShowInfo(item.key) " class="flex mb-0.5 items-center flex-wrap TipTxt">
                       <span class="mr-1">{{ item.name }}</span>
                       <div>
                         <span>{{ getValue(item, i) }}</span>
@@ -183,7 +216,7 @@ const getValue = (data: any) => {
                   </template>
                 </template>
                 <template #reference>
-                  <div>
+                  <div class="h-full min-h-12">
                     <ApyTableItem :scope-data="scope" :index="index" :item-data="scope.row.data[i]?.data"/>
                   </div>
                 </template>

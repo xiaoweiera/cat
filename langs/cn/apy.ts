@@ -1,7 +1,9 @@
 export default {
     webTitle:'Defi挖矿收益APY大全',
+    comprehensive:'综合',
     single_detail:'单利',
     compound_detail:'复利',
+    yield: '产出',
     single_APY:'单利APY',
     compound_APY:'复利APY',
     langType:'中文',

@@ -15,7 +15,7 @@ const props = defineProps({
   timer: {type: Number},
 })
 //单利  复利 默认单利
-const isSingle=ref(true)
+const apyType=ref('apy')
 const {data: realOptions, select} = toRefs(props.options)
 
 const show = ref(false)
@@ -46,15 +46,18 @@ const openDown = () => {
 const closeDown = () => {
   showDownLoad.value = false
 }
-//单利 复利
-const changeSinge=(type:boolean)=>{
-  if(type!==isSingle.value){
-    isSingle.value=type
+const singleNoKey=['compound_and_mine_award','compound_detail','apy','comprehensive']
+const compoundNoKey=['single_and_mine_award','single_detail','apy','comprehensive']
+const apyKey=['single_and_mine_award','single_detail','compound_and_mine_award','compound_detail']
+//单利 复利 综合
+const changeApyType=(type:string)=>{
+  if(type!==apyType.value){
+    apyType.value=type
     // 'single_detail','compound_detail'
     setTimeout(() => {
       realOptions.value = realOptions.value.map((i) => {
-        if(type) {
-          if (i.key === 'compound_detail' || i.key === 'compound_and_mine_award') {
+        if(type==='single') {
+          if (singleNoKey.includes(i.key)) {
             i.status = false
             return i
           }
@@ -62,13 +65,22 @@ const changeSinge=(type:boolean)=>{
             i.status = true
             return i
           }
-        }else{
+        }else if(type==='compound'){
+          if (compoundNoKey.includes(i.key)) {
+            i.status = false
+            return i
+          }
           if (i.key === 'compound_detail' || i.key === 'compound_and_mine_award') {
             i.status = true
             return i
           }
-          if (i.key === 'single_detail' || i.key === 'single_and_mine_award') {
+        }else if(type==='apy'){
+          if (apyKey.includes(i.key)) {
             i.status = false
+            return i
+          }
+          if (i.key === 'comprehensive' || i.key === 'apy') {
+            i.status = true
             return i
           }
         }
@@ -87,11 +99,12 @@ const changeSinge=(type:boolean)=>{
           <div class="mr-3 mt-3 md:mt-1 text-kd14px18px text-global-highTitle opacity-65 font-normal">{{ I18n.apy.poolsMarks }} :</div>
           <div class="flex items-center flex-wrap">
             <div class="flex items-center singCom">
-              <div @click="changeSinge(true)" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
-              <div @click="changeSinge(false)" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
+              <div @click="changeApyType('apy')" :class="apyType==='apy'?'selectTag':'defaultTag'">{{I18n.apy.comprehensive}}</div>
+              <div @click="changeApyType('single')" :class="apyType==='single'?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
+              <div @click="changeApyType('compound')" :class="apyType==='compound'?'selectTag':'defaultTag'">{{I18n.apy.compound_detail}}</div>
             </div>
             <div v-for="(item, i) in realOptions">
-              <div v-if="i > 3" class="flex items-center mt-3 mr-3 md:mt-0">
+              <div v-if="i > 5" class="flex items-center mt-3 mr-3 md:mt-0">
                 <div class="mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
                   {{ item.name !== '剩余额度' ? item.name : item.name + '(%)' }}
                 </div>
@@ -127,14 +140,15 @@ const changeSinge=(type:boolean)=>{
             <img class="w-4.5 h-4.5" src="https://res.ikingdata.com/nav/apySet.png" alt=""/>
           </div>
           <div class="flex items-center singCom mt-2">
-            <div @click="changeSinge(true)" :class="isSingle?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
-            <div @click="changeSinge(false)" :class="isSingle?'defaultTag':'selectTag'">{{I18n.apy.compound_detail}}</div>
+            <div @click="changeApyType('apy')" :class="apyType==='apy'?'selectTag':'defaultTag'">{{I18n.apy.comprehensive}}</div>
+            <div @click="changeApyType('single')" :class="apyType==='single'?'selectTag':'defaultTag'">{{I18n.apy.single_detail}}</div>
+            <div @click="changeApyType('compound')" :class="apyType==='compound'?'selectTag':'defaultTag'">{{I18n.apy.compound_detail}}</div>
           </div>
         </div>
         <div v-show="show" class="optionModel" @mousemove="optionShow">
 
           <div v-for="(item, i) in realOptions">
-            <div v-if="i >3" class="flex items-center mr-1.5 mt-4 h-4.5 justify-between">
+            <div v-if="i >5" class="flex items-center mr-1.5 mt-4 h-4.5 justify-between">
               <div class="mt-1 mr-2 text-kd14px18px font-normal text-global-highTitle">
                 {{item.name !== I18n.apy.remainRatio ? item.name : item.name + '(%)' }}
               </div>

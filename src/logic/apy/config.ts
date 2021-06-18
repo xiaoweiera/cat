@@ -232,37 +232,45 @@ export const tableConfig = [
     options: {
       data: [
         {
-          key: 'single_and_mine_award',
-          name: I18n.apy.single_APY,
+          key: 'apy',
+          name: 'APY',
           status: true,
           format_func: percent2Precision,
         },
         {
-          key: 'compound_and_mine_award',
-          name: I18n.apy.compound_APY,
+          key: 'single_and_mine_award',
+          // name: I18n.apy.single_APY,
+          name: 'APY',
           status: false,
           format_func: percent2Precision,
         },
-        // {
-        //   key: 'apy',
-        //   name: 'APY',
-        //   status: true,
-        //   format_func: percent2Precision,
-        // },
+        {
+          key: 'compound_and_mine_award',
+          // name: I18n.apy.compound_APY,
+          name: 'APY',
+          status: false,
+          format_func: percent2Precision,
+        },
+
         // {
         //   key: 'apy_detail',
         //   name: I18n.apy.jqcTable.option.yield,
         //   status: false,
         // },
         {
-          key: 'single_detail',
-          name: I18n.apy.jqcTable.option.single_detail,
+          key: 'comprehensive',
+          name: I18n.apy.yield,
           status: true,
         },
         {
+          key: 'single_detail',
+          name: I18n.apy.yield,
+          status: false,
+        },
+        {
           key: 'compound_detail',
-          name: I18n.apy.jqcTable.option.compound_detail,
-          status: true,
+          name: I18n.apy.yield,
+          status: false,
         },
         {
           key: 'quota_remain',
@@ -294,9 +302,15 @@ export const tableConfig = [
     options: {
       data: [
         {
+          key: 'apy',
+          name: 'APY',
+          status: true,
+          format_func: percent2Precision,
+        },
+        {
           key: 'single_and_mine_award',
           name: I18n.apy.single_APY,
-          status: true,
+          status: false,
           format_func: percent2Precision,
         },
         {
@@ -306,25 +320,24 @@ export const tableConfig = [
           format_func: percent2Precision,
         },
         // {
-        //   key: 'apy',
-        //   name: 'APY',
-        //   status: true,
-        //   format_func: percent2Precision,
-        // },
-        // {
         //   key: 'apy_detail',
         //   name: I18n.apy.ckTable.option.yield,
         //   status: false,
         // },
         {
-          key: 'single_detail',
-          name: I18n.apy.ckTable.option.single_detail,
+          key: 'comprehensive',
+          name: I18n.apy.yield,
           status: true,
         },
         {
+          key: 'single_detail',
+          name: I18n.apy.yield,
+          status: false,
+        },
+        {
           key: 'compound_detail',
-          name: I18n.apy.ckTable.option.compound_detail,
-          status: true,
+          name: I18n.apy.yield,
+          status: false,
         },
         {
           key: 'tvl',
@@ -349,9 +362,15 @@ export const tableConfig = [
     options: {
       data: [
         {
+          key: 'apy',
+          name: 'APY',
+          status: true,
+          format_func: percent2Precision,
+        },
+        {
           key: 'single_and_mine_award',
           name: I18n.apy.single_APY,
-          status: true,
+          status: false,
           format_func: percent2Precision,
         },
         {
@@ -361,25 +380,24 @@ export const tableConfig = [
           format_func: percent2Precision,
         },
         // {
-        //   key: 'apy',
-        //   name: I18n.apy.jkTable.option.interest,
-        //   status: true,
-        //   format_func: percent2Precision,
-        // },
-        // {
         //   key: 'apy_detail',
         //   name: I18n.apy.jkTable.option.InterestBear,
         //   status: false,
         // },
         {
-          key: 'single_detail',
-          name: I18n.apy.jkTable.option.single_detail,
+          key: 'comprehensive',
+          name: I18n.apy.yield,
           status: true,
         },
         {
+          key: 'single_detail',
+          name: I18n.apy.yield,
+          status: false,
+        },
+        {
           key: 'compound_detail',
-          name: I18n.apy.jkTable.option.compound_detail,
-          status: true,
+          name: I18n.apy.yield,
+          status: false,
         },
         {
           key: 'quota_remain',
