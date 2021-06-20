@@ -8,6 +8,7 @@ import {getChartsFun} from '~/logic/liquidity/getChartData'
 const route = useRoute()
 const router = useRouter()
 const chartsData=ref()
+const chartKey=ref(0)
 const symbol=sidePair.pair_id?sidePair.pair_id:route.query.pair
 const param={
   platId:1,
@@ -20,12 +21,6 @@ watch(()=>sidePair.pair_id,(n,o)=>{
   param.symbol_id=n
   getChartsData(param)
 })
-watch(()=>paramChart.timeBegin,(n,o)=>{
-
-})
-watch(()=>paramChart.timeEnd,(n,o)=>{
-
-})
 watch(()=>paramChart.time,(n,o)=>{
   param.from_ts=paramChart.timeBegin
   param.to_ts=paramChart.timeEnd
@@ -34,6 +29,7 @@ watch(()=>paramChart.time,(n,o)=>{
 const getChartsData=async (param)=>{
   const result= await getChartsFun(param)
   chartsData.value=result.data
+  chartKey.value++
 }
 onMounted(()=>{
   getChartsData(param)
@@ -42,7 +38,9 @@ onMounted(()=>{
 <template>
   <div v-if="chartsData && chartsData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsData">
-      <LiquidityChartContainer :chart-data="item" />
+      <div class="w-full h-full">
+      <LiquidityChartContainer :key="chartKey"  :chart-data="item" />
+      </div>
     </template>
   </div>
   <div v-else>无数据</div>
