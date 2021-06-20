@@ -24,6 +24,7 @@ watch(
       if (time.value) {
         paramChart.timeBegin=dataToTimestamp(formatDefaultTime(n[0]))
         paramChart.timeEnd=dataToTimestamp(formatDefaultTime(n[1]))
+        paramChart.time=n
       }
     },
 )
@@ -34,6 +35,7 @@ const selectTag = (timeM: timeModel) => {
   } else {
     paramChart.timeBegin=getagoTimeStamp(timeM.value)
     paramChart.timeEnd=dataToTimestamp(formatDefaultTime())
+    paramChart.time=getagoTimeStamp(timeM.value)
     console.log(getagoTimeStamp(timeM.value),dataToTimestamp(formatDefaultTime()))
     editTime.value = false // 关闭自定义
     time.value = null // 自定义清空

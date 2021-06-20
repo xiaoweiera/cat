@@ -19,20 +19,19 @@ interface yModel {
 }
 // 颗粒度天 时
 const interval = '1h'
-const myChart=ref()
+let myChart: any = null
 const pp = toRefs(paramChart)
 const props = defineProps({
   chartData: Object,
 })
 const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: number, maxM: number, kminM: number, kmaxM: number) => {
-  // if (this.myChart) {
-  //   this.myChart.dispose();
-  // }
+
   // @ts-ignore
   const chartOption = chartConfig(xData, series, minM, maxM, kminM, kmaxM, legend, yLabelFormat, getModel)
-  myChart.value.setOption(chartOption)
+  console.log(chartOption)
+  myChart.setOption(chartOption)
   // @ts-ignore
-  window.addEventListener('resize', myChart.value.resize)
+  // window.addEventListener('resize', myChart.resize)
 }
 const getChartData=()=>{
   const xData = getXData(props?.chartData.xaxis, interval)
@@ -48,9 +47,11 @@ const getChartData=()=>{
 //   getChartData()
 // })
 onMounted(() => {
-  console.log('画画')
   const myChartDom = document.getElementById(props?.chartData.id)
-   myChart.value = echarts.init(myChartDom, 'light')
+  if (myChart) {
+    myChart.dispose();
+  }
+  myChart = echarts.init(myChartDom, 'light')
   console.log(props.chartData)
   getChartData()
 })
