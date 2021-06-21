@@ -3,16 +3,18 @@
  * @author svon.me@gmail.com
  */
 
+import * as config from './config'
+
 interface Env {
   api: string
 }
 
 export const development: Env = {
-  api: 'https://dev.ikingdata.com',
+  api: config.production.api,
 }
 
 export const production: Env = {
-  api: 'https://kingdata.com',
+  api: config.production.api,
 }
 
 // 默认线上环境
