@@ -1,11 +1,17 @@
 <script setup lang="ts">
-const onCheckChange = function(data) {
-  console.log(data)
-}
+
 </script>
 
 <template>
-  <UtilCheck @change="onCheckChange"></UtilCheck>
+  <div>
+    <IconFont type="24"></IconFont>
+  </div>
+  <div>
+    <IconFont type="icon-KingDataTelegram" class="text-2xl"></IconFont>
+  </div>
+  <div>
+    <IconFont type="icon-KingDatadrag" class="text-xl"></IconFont>
+  </div>
 </template>
 
 // @formatter:off

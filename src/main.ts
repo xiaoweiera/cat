@@ -12,8 +12,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './app.vue'
 import './styles/main.css'
 import directive from '~/utils/directive/index'
+import { iconFont } from '~/lib/config'
+import * as bootstrap from './bootstrap'
 
 const routes = setupLayouts(generatedRoutes)
+
+bootstrap.iconFont(iconFont)
 
 const app = createApp(App)
 app.use(createHead())
