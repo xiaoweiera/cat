@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { pairStore } from '~/store/liquidity/state'
-import { smallToken } from '~/lib/tool'
+import {useRoute, useRouter} from 'vue-router'
+import {changeRouteParam,smallToken} from '~/lib/tool'
 const filterType = ref([
   { name: 'Pair', value: 'pair', selected: true },
   { name: 'ETH', value: 'eth', selected: false },
   { name: 'USDT', value: 'usdt', selected: false },
 ])
+const route = useRoute()
+const router = useRouter()
 const closePair = () => {
   pairStore.id = null
+  changeRouteParam(route,router,{pair:undefined,pairName:undefined})
 }
 </script>
 <template>

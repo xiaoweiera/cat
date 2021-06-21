@@ -157,6 +157,19 @@ export const changeRoute = (
     query: { ...query },
   })
 }
+// 更改路由参数传对象
+export const changeRouteParam = (
+    route: any,
+    router: any,
+    param:any
+) => {
+  const query = { ...route.query }
+  R.map(key=>query[key]=param[key],R.keys(param))
+  router.replace({
+    ...route,
+    query: { ...query },
+  })
+}
 // 省略token
 export const smallToken = (tokenId: string) => {
   if (!tokenId) return

@@ -5,8 +5,8 @@ import { ElDatePicker } from 'element-plus'
 import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import * as R from 'ramda'
 const filterOption = ref([
-  { name: '近7天', value: 7, selected: true },
-  {name: '近1月', value: 30, selected: false},
+  { name: '近7天', value: 7, selected: false },
+  {name: '近1月', value: 30, selected: true},
   { name: '近3月', value: 90, selected: false },
   { name: '自定义', value: 0, selected: false },
 ])

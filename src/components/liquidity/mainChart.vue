@@ -17,14 +17,12 @@ const {chartsAllData, requestChart:getCharts}=getAllChart()
 const param={
   platId:1,
   symbol_id: symbol,
-  from_ts:1581765635,
-  to_ts:1617235200,
+  // from_ts:1581765635,
+  // to_ts:1617235200,
   interval:paramChart.interval,
 }
 watch(()=>pairStore.id,(n,o)=>{
- if(n){
    getChartsData(param)
- }
 })
 //监听时间改变
 watch(()=>paramChart.time,(n,o)=>{
@@ -45,7 +43,7 @@ const getChartsData=async (param)=>{
   let result=null
   //pair_id 有pair的话走pair接口数据
   if(pairStore.id){
-    result=[]
+    chartsAllData.value=[]
   }else{
     param.symbol_id=symbolStore.id
    await getCharts(param)

@@ -5,10 +5,9 @@ import {defineProps, onBeforeMount, reactive, watch, ref} from 'vue'
 import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
-import {changeRoute} from '~/lib/tool'
+import {changeRoute,changeRouteParam} from '~/lib/tool'
 import {
   pairStore,
-  selectCoin,
   updateData,
 } from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
@@ -17,18 +16,15 @@ const route = useRoute()
 const router = useRouter()
 const props = defineProps({
   symbol:String,
-  selectTag: String,
 })
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 const pairList = ref([])
 const changePair = (name: string, id: string) => {
   updateData(pairStore, {name, id})
-  changeRoute(route, router, 'pair', id)
-}
-const likeStart = (item: any) => {
-  console.log(item)
-}
+  changeRouteParam(route,router,{pair:id,pairName:name})
 
+}
+const likeStart = (item: any) => console.log(item)
 const getPair_list = async () => {
   const result = await getPair_side({
     platId: 1,
