@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 // @ts-ignore
 import { reactive, onBeforeMount } from 'vue'
-const logos = reactive({})
+import {useRoute} from 'vue-router'
+import {symbolStore,pairStore} from '~/store/liquidity/state'
+const route = useRoute()
+symbolStore.id=symbolStore.id?symbolStore.id:route.query.symbol
+pairStore.id=pairStore.id?pairStore.id:route.query.pair
 
 onBeforeMount(() => {
 })

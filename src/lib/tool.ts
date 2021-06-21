@@ -47,7 +47,6 @@ export const formatTimeMD = (date: string) =>
   dayjs(parseInt(`${date}000`)).format('MM/DD')
 export const formatTimeHour = (date: string) =>
   dayjs(parseInt(`${date}000`)).format('M/DD HH:mm')
-
 export const tooptipsModel = (
   item: any,
   color: any,
@@ -75,7 +74,7 @@ export function dataToTimestamp(time: string) {
 // 得到天颗粒度的时间
 export const formatDefaultTime = (date: number) => {
   if (date) {
-    return dayjs(date).format('YYYY-MM-DD')
+    return dayjs(parseInt(date+'000')).format('YYYY-MM-DD')
   } else {
     return dayjs().format('YYYY-MM-DD')
   }

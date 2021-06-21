@@ -129,12 +129,9 @@ export const getSeries = (yData: Array<yModel>, kyData: Array<number>) => {
 export const yLabelFormat = (v: any) => numberFormat(v)
 // 提示文字
 export const getModel = (params: any) => {
-  console.log('111')
-  console.log(params)
   // 水印 遮盖有问题   需要改改改
   if (!params[0]) return
   const title = params[0].axisValue
-  console.log('jjj')
   // @ts-ignore
   params = R.sortBy((item) => -item.data.value, params)
   const result = R.map(({ seriesName, data, seriesIndex: idx, color }) => {

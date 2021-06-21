@@ -40,3 +40,19 @@ export function getCharts(param: any) {
     method: 'get',
   })
 }
+//图表部分接口 USDT
+export function getChartsUsdtById(param: any) {
+  return request({
+    url: `/api/liquidity/${param.platId}/liquidity_token_usd_chart_single/`,
+    params: param,
+    method: 'get',
+  })
+}
+//图表部分接口 币
+export function getChartsCoinById(param: any) {
+  return request({
+    url: `/api/liquidity/${param.platId}/liquidity_token_currency_chart_single/`,
+    params: param,
+    method: 'get',
+  })
+}

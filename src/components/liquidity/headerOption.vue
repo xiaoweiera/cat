@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 const filterDay = ref([
-  { name: '1H', value: 'h', selected: true },
-  { name: '1D', value: 'D', selected: false },
+  { name: '1H', value: 'h', selected: false },
+  { name: '1D', value: 'D', selected: true },
 ])
 const filterCoin = ref([
   { name: 'USD', value: 'usd', selected: true },

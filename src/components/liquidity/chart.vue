@@ -1,14 +1,8 @@
 <script lang="ts" setup>
-import { defineProps, onMounted, watch, toRefs,ref } from 'vue'
+import { defineProps, onMounted, toRefs } from 'vue'
 import * as echarts from 'echarts'
 import { paramChart } from '~/store/liquidity/state'
-import {
-  getXData,
-  getSeries,
-  yLabelFormat,
-  getModel,
-  getLegendList,
-} from '~/logic/liquidity/getChartData'
+import {getXData, getSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
 interface yModel {
   color: string
@@ -18,20 +12,19 @@ interface yModel {
   unit: string
 }
 // 颗粒度天 时
-const interval = '1h'
+const interval = paramChart.interval
 let myChart: any = null
 const pp = toRefs(paramChart)
 const props = defineProps({
   chartData: Object,
+  chartId:Number
 })
 const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: number, maxM: number, kminM: number, kmaxM: number) => {
-
   // @ts-ignore
   const chartOption = chartConfig(xData, series, minM, maxM, kminM, kmaxM, legend, yLabelFormat, getModel)
-  console.log(chartOption)
   myChart.setOption(chartOption)
   // @ts-ignore
-  // window.addEventListener('resize', myChart.resize)
+  window.addEventListener('resize', myChart.resize)
 }
 const getChartData=()=>{
   const xData = getXData(props?.chartData.xaxis, interval)
@@ -42,17 +35,12 @@ const getChartData=()=>{
   )
   draw(xData, series, legend, minM, maxM, kminM, kmaxM)
 }
-// watch(() => props.chartData, (n, o) => {
-//   console.log('kkkk',o)
-//   getChartData()
-// })
 onMounted(() => {
   const myChartDom = document.getElementById(props?.chartData.id)
   if (myChart) {
     myChart.dispose();
   }
   myChart = echarts.init(myChartDom, 'light')
-  console.log(props.chartData)
   getChartData()
 })
 </script>

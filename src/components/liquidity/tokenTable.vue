@@ -8,7 +8,6 @@ import * as R from 'ramda'
 import {changeRoute} from '~/lib/tool'
 import {
   pairStore,
-  sidePair,
   selectCoin,
   updateData,
 } from '~/store/liquidity/state'
@@ -16,17 +15,15 @@ import {getPair_side} from '~/api/liquidity'
 
 const route = useRoute()
 const router = useRouter()
-const routeQuery = reactive(route.query)
 const props = defineProps({
   symbol:String,
   selectTag: String,
 })
 const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 const pairList = ref([])
-const changePair = (name: string, pair_id: string) => {
-  updateData(sidePair, {name, pair_id})
-  console.log(pair_id)
-  changeRoute(route, router, 'pair', pair_id)
+const changePair = (name: string, id: string) => {
+  updateData(pairStore, {name, id})
+  changeRoute(route, router, 'pair', id)
 }
 const likeStart = (item: any) => {
   console.log(item)
@@ -43,7 +40,6 @@ const getPair_list = async () => {
 }
 onBeforeMount(() => {
   getPair_list()
-  pairStore.value = routeQuery.pair ? routeQuery.pair : pairStore.value
 })
 </script>
 <template>
@@ -56,7 +52,7 @@ onBeforeMount(() => {
       </ul>
       <div class="w-full h-full showY">
         <template v-for="item in pairList">
-          <div :class="pairStore === item.symbol0 + '/' + item.symbol1? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
+          <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
             <div class="flex-1 font-kdExp flex items-center overflow-hidden">
               <img class="w-3 h-3" src="https://res.ikingdata.com/nav/noStart.png" alt="" @click="likeStart(item)"/>
               <el-tooltip :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">

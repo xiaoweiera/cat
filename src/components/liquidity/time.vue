@@ -36,7 +36,6 @@ const selectTag = (timeM: timeModel) => {
     paramChart.timeBegin=getagoTimeStamp(timeM.value)
     paramChart.timeEnd=dataToTimestamp(formatDefaultTime())
     paramChart.time=getagoTimeStamp(timeM.value)
-    console.log(getagoTimeStamp(timeM.value),dataToTimestamp(formatDefaultTime()))
     editTime.value = false // 关闭自定义
     time.value = null // 自定义清空
   }
