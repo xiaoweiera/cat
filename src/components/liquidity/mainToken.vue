@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { sidePair } from '~/store/liquidity/state'
+import { pairStore } from '~/store/liquidity/state'
 import { smallToken } from '~/lib/tool'
 const filterType = ref([
   { name: 'Pair', value: 'pair', selected: true },
@@ -8,7 +8,7 @@ const filterType = ref([
   { name: 'USDT', value: 'usdt', selected: false },
 ])
 const closePair = () => {
-  sidePair.value = null
+  pairStore.id = null
 }
 </script>
 <template>
@@ -16,8 +16,8 @@ const closePair = () => {
     <!--    选择的token标签-->
     <div class="flex items-center">
       <div class="bg-global-primary bg-opacity-8 rounded px-1.5 py-0.4">
-        <span class="text-kd16px160 text-global-primary font-kdExp">{{sidePair.name }}</span>
-        <span class="text-kd14px160 text-global-primary font-kdFang ml-2.5">{{smallToken(sidePair.pair_id) }}</span>
+        <span class="text-kd16px160 text-global-primary font-kdExp">{{pairStore.name }}</span>
+        <span class="text-kd14px160 text-global-primary font-kdFang ml-2.5">{{smallToken(pairStore.id) }}</span>
       </div>
       <img class="w-4 h-4 ml-1.5 cursor-pointer" src="https://res.ikingdata.com/nav/cardClose.png" alt="" @click="closePair"/>
     </div>

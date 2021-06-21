@@ -17,19 +17,14 @@ const getPlat = async() => {
     data: { data },
   } = await exchange_list()
   plats.data = data
-  plats.select
-    = R.find((item) => item.name === routeQuery.plat, plats.data) || plats.data[0]
+  plats.select = R.find((item) => item.name === routeQuery.plat, plats.data) || plats.data[0]
   updateData(platStore, plats.select)
 }
 const selectPlatChange = (status: boolean) => {
   platShow.value = status
 }
-const mouseover = () => {
-  selectPlatChange(true)
-}
-const mouseLeave = () => {
-  selectPlatChange(false)
-}
+const mouseover = () => selectPlatChange(true)
+const mouseLeave = () => selectPlatChange(false)
 const changePlat = (plat: any) => {
   updateData(platStore, plat)
   plats.select = plat
@@ -39,7 +34,6 @@ const changePlat = (plat: any) => {
 }
 onBeforeMount(() => {
   getPlat()
-  pairStore.value = 'USDT'
 })
 </script>
 

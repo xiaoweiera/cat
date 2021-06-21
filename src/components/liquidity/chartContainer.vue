@@ -2,6 +2,7 @@
 import { defineProps } from 'vue'
 const props = defineProps({
   chartData: Object,
+  chartId:Number
 })
 </script>
 <template>
@@ -13,7 +14,7 @@ const props = defineProps({
     <div class="text-kd13px19px text-global-default opacity-45">
       {{ chartData.desc }}
     </div>
-    <LiquidityChart :chart-data="chartData" />
+    <LiquidityChart :chartId="props.chartId" :chart-data="chartData" />
   </div>
 </template>
 <style scoped lang="postcss">
