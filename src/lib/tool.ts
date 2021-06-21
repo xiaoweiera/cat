@@ -72,8 +72,11 @@ export function dataToTimestamp(time: string) {
   return dayjs(time).valueOf() / 1000
 }
 // 得到天颗粒度的时间
-export const formatDefaultTime = (date: number) => {
+export const formatDefaultTime = (date: any) => {
   if (date) {
+    if(typeof date !=='number'){
+      return dayjs(date).format('YYYY-MM-DD')
+    }
     return dayjs(parseInt(date+'000')).format('YYYY-MM-DD')
   } else {
     return dayjs().format('YYYY-MM-DD')
