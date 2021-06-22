@@ -51,13 +51,6 @@ const getChartsData=async (param)=>{
   }
 }
 onMounted(async ()=>{
-  // ElLoading.service({
-  //   target:'loo',
-  //   lock: true,
-  //   text: '加载中……',
-  //   background: 'rgba(0, 0, 0, 0.6)'
-  // });
-
   await getChartsData(param)
 })
 const loading=false
@@ -66,9 +59,7 @@ const loading=false
 </script>
 <template>
   {{chartLoad}}
-  <div v-loading="loading"   class="h-100 w-100 border-1 loo">
-
-  </div>
+  
   <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsAllData">
       <div v-if="item && item.id" class="w-full h-full">
