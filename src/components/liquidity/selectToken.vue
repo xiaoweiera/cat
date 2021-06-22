@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { ElSelect, ElInput, ElIcon } from 'element-plus'
-import { ref, reactive, onBeforeMount } from 'vue'
+import { ref, reactive,onMounted,watch} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
 import { selectCoin } from '~/store/liquidity/state'
+import {getInfoByToken} from '~/api/liquidity'
 const selectTxt = ref('')
 const coinShow = ref(false)
+const param={
+  platId:1,
+  query:selectTxt.value
+}
 const changeSelect = (state) => {
   coinShow.value = state
 }
@@ -19,63 +23,25 @@ const inputBlur = () => {
     changeSelect(false)
   }, 100)
 }
-onBeforeMount(() => {})
+watch(()=>selectTxt.value,async (n,o)=>{
+  param.query=n
+  const result=await getInfoByToken(param)
+  console.log(result)
+})
 </script>
 <template>
   <div
-    class="
-      flex flex-1
-      relative
-      items-center
-      ml-1
-      pl-1.5
-      pr-3
-      font-kdFang
-      h-14.5
-    "
-  >
-    <el-input
-      v-model="selectTxt"
-      class="selectClass"
-      placeholder="搜索"
-      @focus="changeSelect(true)"
-      @blur="inputBlur()"
-    ></el-input>
-    <img
-      class="w-3.5 h-3.5"
-      src="https://res.ikingdata.com/nav/topicSearch.png"
-      alt=""
-    />
+    class="flex flex-1 relative items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
+    <el-input v-model="selectTxt" class="selectClass" placeholder="搜索" @focus="changeSelect(true)" @blur="inputBlur()"></el-input>
+    <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
     <!--    弹窗-->
-    <div
-      v-show="coinShow"
-      class="
-        absolute
-        top-14.5
-        right-0
-        w-51.25
-        py-1.5
-        z-2
-        tipContainer
-        h-82.5
-        overflow-hidden overflow-y-auto
-      "
-    >
+    <div v-show="coinShow" class="absolute top-14.5 right-0 w-51.25 py-1.5 z-2 tipContainer h-82.5 overflow-hidden overflow-y-auto">
       <!--      币-->
       <ul>
-        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">
-          币种
-        </li>
+        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
         <template v-for="item in coinList">
-          <li
-            class="itemLi hand"
-            :class="{
-              selectBg:
-                selectCoin.name === item.name &&
-                selectCoin.origin === item.origin,
-            }"
-            @click="changeToken(item.name, item.origin)"
-          >
+          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.name && selectCoin.origin === item.origin}"
+              @click="changeToken(item.name, item.origin)">
             <div class="coinName">{{ item.name }}</div>
             <div class="coinTip">
               <span class="coinTipTxt">{{ item.origin }}</span>
@@ -86,28 +52,10 @@ onBeforeMount(() => {})
       </ul>
       <!--      交易对-->
       <ul>
-        <li
-          class="
-            text-global-default
-            opacity-65
-            text-kd14px18px
-            py-1.5
-            px-3
-            mt-1.5
-          "
-        >
-          交易对
-        </li>
+        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3 mt-1.5">交易对</li>
         <template v-for="item in tradingList">
-          <li
-            class="itemLi hand"
-            :class="{
-              selectBg:
-                selectCoin.name === item.name &&
-                selectCoin.origin === item.origin,
-            }"
-            @click="changeToken(item.name, item.origin)"
-          >
+          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.name && selectCoin.origin === item.origin}"
+            @click="changeToken(item.name, item.origin)">
             <div class="coinName">{{ item.name }}</div>
             <div class="coinTip">
               <span class="coinTipTxt">{{ item.origin }}</span>
@@ -126,11 +74,9 @@ onBeforeMount(() => {})
 
 .itemLi {
   @apply flex items-center justify-between px-3;
-
   .coinName {
     @apply text-kd14px20px py-1.5 text-global-default opacity-85 font-normal;
   }
-
   .coinTip {
     border: 1px solid rgba(43, 141, 254, 0.4);
     border-radius: 2px;
