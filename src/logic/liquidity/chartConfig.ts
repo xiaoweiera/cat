@@ -69,10 +69,10 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       },
       type: 'category',
       data: xdata,
-
       axisLabel: {
+        margin:20,
         // showMinLabel: false,
-        // showMaxLabel: false,
+        showMaxLabel: false,
         // showMinLabel: isMobile ? null : null, //显示最小值
         // showMaxLabel: isMobile ? null : null, //显示最大值
         align: 'left',

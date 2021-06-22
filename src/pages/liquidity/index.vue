@@ -23,6 +23,6 @@ pairStore.name=pairStore.name?pairStore.name:route.query.pairName
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: home
+  layout: liquidityLayout
 </route>
 // @formatter:off
