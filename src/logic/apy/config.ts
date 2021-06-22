@@ -373,7 +373,7 @@ export const tableConfig = [
         },
         {
           key: 'single_and_mine_award',
-          name: I18n.apy.single_APY,
+          name: I18n.apy.interest,
           status: false,
           format_func: percent2Precision,
         },
