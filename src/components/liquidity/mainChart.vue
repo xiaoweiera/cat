@@ -58,7 +58,7 @@ const loading=false
 
 </script>
 <template>
-  <div class="w-50 absolute top-100  left-65  loadingGif">
+  <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>
   <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
