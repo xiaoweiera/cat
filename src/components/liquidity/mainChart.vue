@@ -51,11 +51,12 @@ const getChartsData=async (param)=>{
   }
 }
 onMounted(async ()=>{
-  ElLoading.service({
-    lock: true,
-    text: '加载中……',
-    background: 'rgba(0, 0, 0, 0.6)'
-  });
+  // ElLoading.service({
+  //   target:'loo',
+  //   lock: true,
+  //   text: '加载中……',
+  //   background: 'rgba(0, 0, 0, 0.6)'
+  // });
 
   await getChartsData(param)
 })
@@ -65,7 +66,7 @@ const loading=false
 </script>
 <template>
   {{chartLoad}}
-  <div   class="h-100 w-100 border-1 loo">
+  <div v-loading="loading"   class="h-100 w-100 border-1 loo">
 
   </div>
   <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
@@ -77,11 +78,8 @@ const loading=false
   </div>
   <div v-else>无数据</div>
 </template>
-<style  lang="postcss">
+<style  scoped lang="postcss">
 
-.el-loading-spinner .circular{
-  display: inline !important;
-}
 .loo{
   width: 100px;
   height: 100px;
