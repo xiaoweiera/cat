@@ -3,6 +3,8 @@ export default {
     comprehensive:'Total APY',
     single_detail:'simple',
     compound_detail:'compound',
+    InterestBear: 'Interest-bearing',
+    interest: 'Interest',
     yield: 'Yield',
     single_APY:'Simple APY',
     compound_APY:'Compound APY',

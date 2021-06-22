@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted,ref,watch,reactive,defineProps} from 'vue'
+import * as R from 'ramda'
 import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
@@ -13,13 +14,12 @@ const route = useRoute()
 const router = useRouter()
 const chartsData=ref()
 const chartKey=ref(0)
+const isHasData=ref(true)
 const symbol=pairStore.id?pairStore.id:route.query.pair
 const {chartsAllData,chartLoad, requestChart:getCharts}=getAllChart()
 const param={
   platId:1,
   symbol_id: symbol,
-  // from_ts:1581765635,
-  // to_ts:1617235200,
   interval:paramChart.interval,
 }
 watch(()=>pairStore.id,(n,o)=>{
@@ -35,6 +35,19 @@ watch(()=>paramChart.time,(n,o)=>{
 watch(()=>paramChart.coinType,(n,o)=>{
   getChartsData(param)
 })
+watch(()=>chartLoad.value,(n,o)=>{
+  if(chartsAllData.value.length===0) {
+    isHasData.value=false
+    return
+  }
+  let number=0
+  R.map(item=>{
+    if(item.code===1){
+      number++
+    }
+    isHasData.value=number===5?false:true
+  },chartsAllData.value)
+})
 //监听颗粒度
 watch(()=>paramChart.interval,(n,o)=>{
   param.interval=n
@@ -44,6 +57,7 @@ const getChartsData=async (param)=>{
   let result=null
   //pair_id 有pair的话走pair接口数据
   if(pairStore.id){
+    isHasData.value=false
     chartsAllData.value=[]
   }else{
     param.symbol_id=symbolStore.id
@@ -61,14 +75,17 @@ const loading=false
   <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>
-  <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
+  <div   v-if="chartsAllData && isHasData" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsAllData">
       <div v-if="item && item.id" class="w-full h-full">
       <LiquidityChartContainer v-loading="loading" class="border-1" :key="chartKey"  :chart-data="item" />
       </div>
     </template>
   </div>
-  <div v-else>无数据</div>
+  <div v-if="chartLoad && !isHasData" >
+    <img class="w-60 mx-auto mt-20" src="https://res.ikingdata.com/nav/noData.png" alt="">
+    <div class="text-kd14px18px text-global-primary text-center mt-5">暂无数据</div>
+  </div>
 </template>
 <style  scoped lang="postcss">
 

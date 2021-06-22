@@ -19,13 +19,26 @@ const apyType=ref('apy')
 const {data: realOptions, select} = toRefs(props.options)
 
 const show = ref(false)
-
+const yieldStatus=ref(true)
 const clickOption = (option) => {
   setTimeout(() => {
     realOptions.value = realOptions.value.map((i) => {
-      if (i.name !== option.name) {
+      if(option.key==='yield'){
+        if(apyType.value==='apy'){
+          if(i.key==='comprehensive') i.status=option.status
+        }else if(apyType.value==='single'){
+          if(i.key==='single_detail') i.status=option.status
+        }else if(apyType.value==='compound'){
+          if(i.key==='compound_detail') i.status=option.status
+        }
+        yieldStatus.value=i.status
         return i
+      }else{
+        if (i.name !== option.name) {
+          return i
+        }
       }
+
       i.status = option.status
       return i
     })
@@ -61,7 +74,11 @@ const changeApyType=(type:string)=>{
             i.status = false
             return i
           }
-          if (i.key === 'single_detail' || i.key === 'single_and_mine_award') {
+          if(i.key==='single_detail'){
+            i.status = yieldStatus.value
+            return i
+          }
+          if(i.key==='single_and_mine_award'){
             i.status = true
             return i
           }
@@ -70,7 +87,11 @@ const changeApyType=(type:string)=>{
             i.status = false
             return i
           }
-          if (i.key === 'compound_detail' || i.key === 'compound_and_mine_award') {
+          if(i.key==='compound_detail'){
+            i.status = yieldStatus.value
+            return i
+          }
+          if(i.key==='compound_and_mine_award'){
             i.status = true
             return i
           }
@@ -79,7 +100,11 @@ const changeApyType=(type:string)=>{
             i.status = false
             return i
           }
-          if (i.key === 'comprehensive' || i.key === 'apy') {
+          if(i.key==='comprehensive'){
+            i.status = yieldStatus.value
+            return i
+          }
+          if(i.key==='apy'){
             i.status = true
             return i
           }

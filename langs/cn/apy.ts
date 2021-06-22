@@ -3,6 +3,8 @@ export default {
     comprehensive:'综合',
     single_detail:'单利',
     compound_detail:'复利',
+    interest: '利息',
+    InterestBear: '计息',
     yield: '产出',
     single_APY:'单利APY',
     compound_APY:'复利APY',

@@ -251,12 +251,6 @@ export const tableConfig = [
           status: false,
           format_func: percent2Precision,
         },
-
-        // {
-        //   key: 'apy_detail',
-        //   name: I18n.apy.jqcTable.option.yield,
-        //   status: false,
-        // },
         {
           key: 'comprehensive',
           name: I18n.apy.yield,
@@ -290,6 +284,11 @@ export const tableConfig = [
           status: false,
           unit: '%',
           format_func: numberFormat,
+        },
+        {
+          key: 'yield',
+          name: I18n.apy.jqcTable.option.yield,
+          status: true,
         },
       ],
       select: 'apy',
@@ -351,6 +350,11 @@ export const tableConfig = [
           status: false,
           format_func: numberFormat,
         },
+        {
+          key: 'yield',
+          name: I18n.apy.jqcTable.option.yield,
+          status: true,
+        },
       ],
       select: 'apy',
     },
@@ -363,7 +367,7 @@ export const tableConfig = [
       data: [
         {
           key: 'apy',
-          name: 'APY',
+          name: I18n.apy.interest,
           status: true,
           format_func: percent2Precision,
         },
@@ -386,17 +390,17 @@ export const tableConfig = [
         // },
         {
           key: 'comprehensive',
-          name: I18n.apy.yield,
+          name: I18n.apy.InterestBear,
           status: true,
         },
         {
           key: 'single_detail',
-          name: I18n.apy.yield,
+          name: I18n.apy.InterestBear,
           status: false,
         },
         {
           key: 'compound_detail',
-          name: I18n.apy.yield,
+          name: I18n.apy.InterestBear,
           status: false,
         },
         {
@@ -417,6 +421,11 @@ export const tableConfig = [
           status: false,
           unit: '%',
           format_func: numberFormat,
+        },
+        {
+          key: 'yield',
+          name: I18n.apy.InterestBear,
+          status: true,
         },
       ],
       select: 'apy',
