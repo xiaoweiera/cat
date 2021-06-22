@@ -3,7 +3,7 @@
  */
 import safeGet from '@fengqiaogang/safe-get'
 // import request from '~/lib/request'
-import request from '~/lib/service'
+import request from '~/lib/request'
 // table header
 export function getColumns(query: any) {
   return request({
