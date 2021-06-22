@@ -59,7 +59,7 @@ const loading=false
 </script>
 <template>
   {{chartLoad}}
-  
+
   <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsAllData">
       <div v-if="item && item.id" class="w-full h-full">
