@@ -58,8 +58,9 @@ const loading=false
 
 </script>
 <template>
-  {{chartLoad}}
-
+  <div class="w-50 absolute top-100  left-65  loadingGif">
+    <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
+  </div>
   <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsAllData">
       <div v-if="item && item.id" class="w-full h-full">
@@ -71,9 +72,9 @@ const loading=false
 </template>
 <style  scoped lang="postcss">
 
-.loo{
-  width: 100px;
-  height: 100px;
+.loadingGif{
+  right: 0;
+  margin: 0 auto;
 }
 .chartContainer {
   overflow: hidden;
