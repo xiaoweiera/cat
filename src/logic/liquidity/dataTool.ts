@@ -25,19 +25,22 @@ export const initCharts=(chartsAllData:any)=>{
 //得到5个图表数据
 export const getAllChart= ()=>{
   const chartsAllData =ref<chartItem[]>([])
+  const chartLoad=ref(true)
   const chartIds=[1,2,3,4,5]
   const requestChart=async (param:any)=>{
+    chartLoad.value=false
     initCharts(chartsAllData)
    for (let i=0;i<chartIds.length;i++){
-     param.chart_id=i
+     param.chart_id=i+1
      let result=null
      if(paramChart.coinType==='usd'){
         result=  await getChartsUsdtById(param)
      }else{
         result=  await getChartsCoinById(param)
      }
-
      chartsAllData.value[i] =result.data
-   }}
-  return {chartsAllData,requestChart}
+   }
+    chartLoad.value=true
+  }
+  return {chartsAllData,chartLoad,requestChart}
 }

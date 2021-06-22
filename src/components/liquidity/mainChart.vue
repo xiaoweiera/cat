@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted,ref,watch,reactive,defineProps} from 'vue'
+import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import { pairStore,paramChart,symbolStore } from '~/store/liquidity/state'
@@ -13,7 +14,7 @@ const router = useRouter()
 const chartsData=ref()
 const chartKey=ref(0)
 const symbol=pairStore.id?pairStore.id:route.query.pair
-const {chartsAllData, requestChart:getCharts}=getAllChart()
+const {chartsAllData,chartLoad, requestChart:getCharts}=getAllChart()
 const param={
   platId:1,
   symbol_id: symbol,
@@ -50,20 +51,41 @@ const getChartsData=async (param)=>{
   }
 }
 onMounted(async ()=>{
+  ElLoading.service({
+    lock: true,
+    text: '加载中……',
+    background: 'rgba(0, 0, 0, 0.6)'
+  });
+
   await getChartsData(param)
 })
+const loading=false
+
+
 </script>
 <template>
-  <div v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
+  {{chartLoad}}
+  <div   class="h-100 w-100 border-1 loo">
+
+  </div>
+  <div   v-if="chartsAllData && chartsAllData?.length>0" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsAllData">
       <div v-if="item && item.id" class="w-full h-full">
-      <LiquidityChartContainer :key="chartKey"  :chart-data="item" />
+      <LiquidityChartContainer v-loading="loading" class="border-1" :key="chartKey"  :chart-data="item" />
       </div>
     </template>
   </div>
   <div v-else>无数据</div>
 </template>
-<style scoped lang="postcss">
+<style  lang="postcss">
+
+.el-loading-spinner .circular{
+  display: inline !important;
+}
+.loo{
+  width: 100px;
+  height: 100px;
+}
 .chartContainer {
   overflow: hidden;
   overflow-y: auto;
