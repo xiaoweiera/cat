@@ -56,3 +56,11 @@ export function getChartsCoinById(param: any) {
     method: 'get',
   })
 }
+//搜索 token
+export function getInfoByToken(param: any) {
+  return request({
+    url: `/api/liquidity/${param.platId}/token_search/`,
+    params: param,
+    method: 'get',
+  })
+}
