@@ -27,7 +27,9 @@ useHead({
 body {
   -webkit-overflow-scrolling: touch;
 }
-
+.el-loading-spinner .circular{
+  display: inline !important;
+}
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;

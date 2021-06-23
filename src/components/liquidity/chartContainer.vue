@@ -2,30 +2,19 @@
 import { defineProps } from 'vue'
 const props = defineProps({
   chartData: Object,
+  chartId:Number
 })
 </script>
 <template>
-  <div
-    class="
-      flex flex-col
-      p-4
-      w-full
-      h-106
-      min-h-106
-      mb-5
-      bg-white
-      font-kdFang
-      chartContainer
-    "
-  >
+  <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer">
     <!--    图表的信息-->
     <div class="text-kd18px28px text-global-default opacity-85">
       {{ chartData.title }}
     </div>
     <div class="text-kd13px19px text-global-default opacity-45">
-      {{ chartData.des }}
+      {{ chartData.desc }}
     </div>
-    <LiquidityChart :chart-data="chartData" />
+    <LiquidityChart :chartId="props.chartId" :chart-data="chartData" />
   </div>
 </template>
 <style scoped lang="postcss">

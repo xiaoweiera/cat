@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 // @ts-ignore
 import { reactive, onBeforeMount } from 'vue'
-const logos = reactive({})
-
-onBeforeMount(() => {
-  console.log('111')
-})
+import {useRoute} from 'vue-router'
+import {symbolStore,pairStore} from '~/store/liquidity/state'
+const route = useRoute()
+symbolStore.id=symbolStore.id?symbolStore.id:route.query.symbol
+pairStore.id=pairStore.id?pairStore.id:route.query.pair
+pairStore.name=pairStore.name?pairStore.name:route.query.pairName
 </script>
 <template>
   <div class="flex w-full contentContainer" style="overflow-x: hidden">
@@ -22,6 +23,6 @@ onBeforeMount(() => {
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: home
+  layout: liquidityLayout
 </route>
 // @formatter:off

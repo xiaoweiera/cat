@@ -1,117 +1,77 @@
 <script lang="ts" setup>
-import { ElSelect, ElInput, ElIcon } from 'element-plus'
-import { ref, reactive, onBeforeMount } from 'vue'
+import DBList from '@fengqiaogang/dblist'
+import { ref, reactive,onMounted,watch} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import { selectCoin } from '~/store/liquidity/state'
+import { symbolStore,pairStore } from '~/store/liquidity/state'
+import {getInfoByToken} from '~/api/liquidity'
+import {subStr} from '~/lib/tool'
 const selectTxt = ref('')
 const coinShow = ref(false)
+const tokenList=ref()
+const param={
+  platId:1,
+  query:selectTxt.value
+}
+const tokenDB=new DBList(coinList)
+tokenList.value=tokenDB.select({}, 2)
 const changeSelect = (state) => {
   coinShow.value = state
 }
-const changeToken = (name: string, origin: string) => {
-  selectCoin.name = name
-  selectCoin.origin = origin
+const changeToken = (name: string,id:string) => {
+  symbolStore.id=id
   changeSelect(false)
 }
+const changePair = (name: string,id:string) => {
+  pairStore.id=id
+  changeSelect(false)
+}
+
+
 // 加延迟不然会先执行blur，不执行click
 const inputBlur = () => {
   setTimeout(() => {
     changeSelect(false)
   }, 100)
 }
-onBeforeMount(() => {})
+watch(()=>selectTxt.value,async (n,o)=>{
+  param.query=n
+  const {data:{data:data}}=await getInfoByToken(param)
+  tokenList.value=data
+  console.log(data)
+})
 </script>
 <template>
-  <div
-    class="
-      flex flex-1
-      relative
-      items-center
-      ml-1
-      pl-1.5
-      pr-3
-      font-kdFang
-      h-14.5
-    "
-  >
-    <el-input
-      v-model="selectTxt"
-      class="selectClass"
-      placeholder="搜索"
-      @focus="changeSelect(true)"
-      @blur="inputBlur()"
-    ></el-input>
-    <img
-      class="w-3.5 h-3.5"
-      src="https://res.ikingdata.com/nav/topicSearch.png"
-      alt=""
-    />
+  <div class="flex flex-1 relative items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
+    <el-input v-model="selectTxt" class="selectClass" placeholder="搜索" @focus="changeSelect(true)" @blur="inputBlur()"></el-input>
+    <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
     <!--    弹窗-->
-    <div
-      v-show="coinShow"
-      class="
-        absolute
-        top-14.5
-        right-0
-        w-51.25
-        py-1.5
-        z-2
-        tipContainer
-        h-82.5
-        overflow-hidden overflow-y-auto
-      "
-    >
+    <div v-show="coinShow" class="absolute top-14.5 right-0 w-51.25 py-1.5 z-2 tipContainer h-82.5 overflow-hidden overflow-y-auto">
       <!--      币-->
       <ul>
-        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">
-          币种
-        </li>
-        <template v-for="(item, i) in coinList">
-          <li
-            class="itemLi hand"
-            :class="{
-              selectBg:
-                selectCoin.name === item.name &&
-                selectCoin.origin === item.origin,
-            }"
-            @click="changeToken(item.name, item.origin)"
-          >
-            <div class="coinName">{{ item.name }}</div>
-            <div class="coinTip">
-              <span class="coinTipTxt">{{ item.origin }}</span>
+        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
+        <template v-for="item in tokenList">
+          <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}"
+              @click="changeToken(item.symbol,item.symbol_id)">
+            <div class="coinName">
+              <span>{{ item.symbol }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
             </div>
+<!--            <div class="coinTip">-->
+<!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
+<!--            </div>-->
           </li>
         </template>
         <li class="more hand">查看更多</li>
       </ul>
       <!--      交易对-->
       <ul>
-        <li
-          class="
-            text-global-default
-            opacity-65
-            text-kd14px18px
-            py-1.5
-            px-3
-            mt-1.5
-          "
-        >
-          交易对
-        </li>
-        <template v-for="(item, i) in tradingList">
-          <li
-            class="itemLi hand"
-            :class="{
-              selectBg:
-                selectCoin.name === item.name &&
-                selectCoin.origin === item.origin,
-            }"
-            @click="changeToken(item.name, item.origin)"
-          >
-            <div class="coinName">{{ item.name }}</div>
-            <div class="coinTip">
-              <span class="coinTipTxt">{{ item.origin }}</span>
-            </div>
+        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3 mt-1.5">交易对</li>
+        <template v-for="item in tradingList">
+          <li class="itemLi hand" :class="{selectBg:pairStore.id === item.symbol_id}"
+            @click="changePair(item.symbol,item.symbol_id)">
+            <div class="coinName">{{ item.symbol_name }}</div>
+<!--            <div class="coinTip">-->
+<!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
+<!--            </div>-->
           </li>
         </template>
         <li class="more hand">查看更多</li>
@@ -126,11 +86,9 @@ onBeforeMount(() => {})
 
 .itemLi {
   @apply flex items-center justify-between px-3;
-
   .coinName {
     @apply text-kd14px20px py-1.5 text-global-default opacity-85 font-normal;
   }
-
   .coinTip {
     border: 1px solid rgba(43, 141, 254, 0.4);
     border-radius: 2px;

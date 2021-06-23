@@ -56,14 +56,19 @@ export const filterByOptions = (
   type: string,
 ) => {
   if (key) {
-    const getProp = R.curry((propName: string, obj: any) =>
-      obj && obj[propName]
-        ? obj[propName]
-        : type === 'asc'
-          ? 999999999
-          : null,
-    )
-    const getApy = R.compose(getProp('apy'), getProp(key), getProp('data'))
+    const getProp = R.curry((propName: string, obj: any) => obj && obj[propName] ? obj[propName] : type === 'asc' ? obj[propName]===0?1:999999 : null)
+    // const optionSingle=options.find(item=>item.key==='single_and_mine_award')
+    let orderKey=''
+     options.find(item=>{
+      if(item.key==='single_and_mine_award' && item.status){
+        orderKey= item.key
+      }else if(item.key==='compound_and_mine_award' && item.status){
+        orderKey= item.key
+      }else if(item.key==='apy' && item.status){
+        orderKey= item.key
+      }
+    })
+    const getApy = R.compose(getProp(orderKey), getProp(key), getProp('data'))
     const sortF = type === 'asc'
       ? R.ascend
       : R.descend
@@ -78,6 +83,7 @@ export const filterByOptions = (
         // @ts-ignore
         icon: row.icon,
         chain: row.chain,
+        online_time:row.online_time,
         // @ts-ignore
         url: row.url,
         data: headers?.map(({ token_name }: { token_name: String }) => {
@@ -86,6 +92,12 @@ export const filterByOptions = (
           return {
             high_light: cellOrigin
               ? cellOrigin.high_light
+              : false,
+            single_high_light: cellOrigin
+                ? cellOrigin.single_high_light
+                : false,
+          compound_high_light:  cellOrigin
+              ? cellOrigin.compound_high_light
               : false,
             data: options.map((opt) => cellContent(opt, cellOrigin)),
           }

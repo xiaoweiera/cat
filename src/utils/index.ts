@@ -79,3 +79,19 @@ export const uuid = function(): string {
   };
   return app()
 }
+
+export const isHttp = function(value: string): boolean {
+  if (value) {
+    if (/^http/.test(value)) {
+      return true
+    }
+    if (/^\//.test(value)) {
+      return true
+    }
+    const list = value.split('/')
+    if (list.length >= 2) {
+      return true
+    }
+  }
+  return false;
+}
