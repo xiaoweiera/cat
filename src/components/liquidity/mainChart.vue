@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import { pairStore,paramChart,symbolStore } from '~/store/liquidity/state'
+import { pairStore,paramChart,symbolStore,analysisType } from '~/store/liquidity/state'
 import {getAllChart} from '~/logic/liquidity/dataTool'
 const props=defineProps({
   chartId:Number
@@ -21,6 +21,11 @@ const param={
   symbol_id: symbol,
   interval:paramChart.interval,
 }
+//改变分析类型
+watch(()=>analysisType.value,(n,o)=>{
+  getChartsData(param)
+})
+//改变pair
 watch(()=>pairStore.id,(n,o)=>{
    getChartsData(param)
 })

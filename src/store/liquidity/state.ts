@@ -5,7 +5,7 @@ interface platModel {
   name: string
 }
 //分析种类tag
-export const analysisType=ref('flow')
+export const analysisType=ref('flow')   //flow  pay
 // 选择的平台
 export const platStore: platModel = reactive({ logo: '', name: '' }) // 弹窗状态
 // 左侧列表table 选择的 交易对

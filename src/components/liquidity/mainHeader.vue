@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import {toRefs, defineProps} from 'vue'
+import {analysisType} from '~/store/liquidity/state'
 
-
-const props = defineProps({
-  chartType: Object,
-})
 const typeList = [
   {type: 'flow', name: '流动性分析'},
   {type: 'pay', name: '交易数据分析'},
 ]
-const selectedType = toRefs(props.chartType)
 // 改变类型标签  （流动性分析/交易数据分析）
 const changeType = (typeName: string) => {
-  selectedType.type.value = typeName
+  analysisType.value=typeName
 }
 </script>
 <template>
@@ -20,7 +16,7 @@ const changeType = (typeName: string) => {
     <!--    类型切换-->
     <div class="flex h-full items-center">
       <template v-for="item in typeList">
-        <div :class="selectedType.type.value === item.type ? 'tagSelect' : 'tagDefault'"  @click="changeType(item.type)">
+        <div :class="analysisType === item.type ? 'tagSelect' : 'tagDefault'"  @click="changeType(item.type)">
           {{ item.name }}
         </div>
       </template>
