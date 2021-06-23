@@ -6,20 +6,17 @@ const props = defineProps({
   url: String,
 })
 // 得到背景颜色
-const getBg = () => {
-  return `w-full mt-6 text-white hand text-center flex justify-center items-center ${props.status}`
-}
 const txts = {
   ing: I18n.growthpadShow.ingButton,
   wait: I18n.growthpadShow.waitButton,
-  closure: I18n.growthpadShow.overButton,
+  closure: I18n.growthpadShow.lockreward,
 }
 </script>
 <template>
-  <a
-    v-if="props.status !== 'closure'"
-    v-router="props.url"
-    :class="getBg()"
+<!--  v-if="props.status"-->
+  <a v-router="props.url"
+    class="w-full mt-6 text-white hand text-center flex justify-center items-center"
+    :class="props.status"
     target="_blank"
   >
     <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>
@@ -29,16 +26,16 @@ const txts = {
       alt=""
     />
   </a>
-  <div v-else :class="getBg()">
-    <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>
-    <img
-      class="w-3 h-3 ml-1"
-      src="https://res.ikingdata.com/nav/statusRight.png"
-      alt=""
-    />
-  </div>
+<!--  <div v-else class="w-full mt-6 text-white hand text-center flex justify-center items-center" :class="props.status">-->
+<!--    <span class="text-kd14px18px font-medium">{{ txts[props.status] }}</span>-->
+<!--    <img-->
+<!--      class="w-3 h-3 ml-1"-->
+<!--      src="https://res.ikingdata.com/nav/statusRight.png"-->
+<!--      alt=""-->
+<!--    />-->
+<!--  </div>-->
 </template>
-<style scoped>
+<style scoped lang="scss">
 .ing {
   padding: 9px 12px;
   background: #0ec674;
@@ -48,12 +45,14 @@ const txts = {
   padding: 9px 12px;
   background: #2b8dfe;
   border-radius: 44px;
+  cursor: default;
+  img {
+    display: none;
+  }
 }
 .closure {
   padding: 9px 12px;
-  background: #ffffff;
-  color: #2b8dfe !important;
-  opacity: 0.3;
+  background: #2b8dfe;
   border-radius: 44px;
 }
 </style>

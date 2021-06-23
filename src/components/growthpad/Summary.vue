@@ -17,7 +17,7 @@ import I18n from '~/utils/i18n/index'
     "
   >
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px font-kdExp">$500,000</div>
+      <div class="text-global-primary text-kd24px30px font-kdExp">$600,000</div>
       <div
         class="
           text-global-default
@@ -32,7 +32,7 @@ import I18n from '~/utils/i18n/index'
     </div>
     <div class="w-0.25 bg-global-default opacity-10 h-6"></div>
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px font-kdExp">4</div>
+      <div class="text-global-primary text-kd24px30px font-kdExp">5</div>
       <div
         class="
           text-global-default

@@ -36,20 +36,23 @@ const format = 'YYYY-MM-DD HH:mm:ss'
 // @ts-ignore
 const title = computed((): string => {
   // return `${store.title.value} ${I18n.growthpad.growth}`
+  // @ts-ignore
   const data = { project: store.title.value }
+  // @ts-ignore
   if (store.getNickName() === Project.growth) {
     return data.project
   }
   return I18n.template(I18n.growthpad.growth, data)
 })
-
+// @ts-ignore
 const minReward = function(array: number[]): number {
   return getMin(array)
 }
+// @ts-ignore
 const maxReward = function(array: number[]): number {
   return getMax(array)
 }
-
+// @ts-ignore
 const timeStatus = computed<string>((): string => {
   return getTimeStatus(store)
 })
@@ -126,12 +129,10 @@ const timeCountdownValue = computed<string>((): string => {
         <!-- 定时器 -->
         <div class="text-right md:order-2">
           <div class="inline-block pb-3">
-            <div
-              v-if="timeStatus !== TimeStatus.closure"
-              class="hidden md:inline-block"
-            >
+            <div v-if="timeStatus !== TimeStatus.closure" class="hidden md:inline-block">
               <TimeCountdown :value="timeCountdownValue"></TimeCountdown>
             </div>
+            <div v-else class="h-14">&nbsp;</div>
           </div>
         </div>
         <!-- 项目名称与状态 -->

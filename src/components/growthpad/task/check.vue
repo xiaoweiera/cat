@@ -73,9 +73,8 @@ const validityValue = computed<string>((): string => {
         :placeholder="I18n.growthpad.form.placeholderTelegram"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -87,9 +86,8 @@ const validityValue = computed<string>((): string => {
         :placeholder="I18n.growthpad.form.twitter"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -101,9 +99,8 @@ const validityValue = computed<string>((): string => {
         :placeholder="I18n.growthpad.form.retwitter"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -116,9 +113,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -131,9 +127,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -146,18 +141,16 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
     <template v-else-if="data.type === TaskType.share">
       <GrowthpadTaskSubShare :data="data">
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubShare>
     </template>
@@ -169,9 +162,8 @@ const validityValue = computed<string>((): string => {
         :placeholder="I18n.growthpad.form.sina"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -185,9 +177,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -201,9 +192,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -217,9 +207,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -233,9 +222,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -249,9 +237,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
@@ -265,9 +252,8 @@ const validityValue = computed<string>((): string => {
         :confirm="true"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{
-            buttonValue
-          }}</span>
+          <!-- v-validity.begin.end="validityValue" -->
+          <span class="button">{{buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>
