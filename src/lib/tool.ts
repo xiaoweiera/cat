@@ -6,7 +6,7 @@ import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 
 export const numberFormat = (value: any) => {
-  if (!value && value !== 0 && value !== '0') {
+  if (value===null) {
     return null
   }
   const k = 10000
@@ -47,7 +47,6 @@ export const formatTimeMD = (date: string) =>
   dayjs(parseInt(`${date}000`)).format('MM/DD')
 export const formatTimeHour = (date: string) =>
   dayjs(parseInt(`${date}000`)).format('M/DD HH:mm')
-
 export const tooptipsModel = (
   item: any,
   color: any,
@@ -73,9 +72,12 @@ export function dataToTimestamp(time: string) {
   return dayjs(time).valueOf() / 1000
 }
 // 得到天颗粒度的时间
-export const formatDefaultTime = (date: number) => {
+export const formatDefaultTime = (date: any) => {
   if (date) {
-    return dayjs(date).format('YYYY-MM-DD')
+    if(typeof date !=='number'){
+      return dayjs(date).format('YYYY-MM-DD')
+    }
+    return dayjs(parseInt(date+'000')).format('YYYY-MM-DD')
   } else {
     return dayjs().format('YYYY-MM-DD')
   }
@@ -158,6 +160,19 @@ export const changeRoute = (
     query: { ...query },
   })
 }
+// 更改路由参数传对象
+export const changeRouteParam = (
+    route: any,
+    router: any,
+    param:any
+) => {
+  const query = { ...route.query }
+  R.map(key=>query[key]=param[key],R.keys(param))
+  router.replace({
+    ...route,
+    query: { ...query },
+  })
+}
 // 省略token
 export const smallToken = (tokenId: string) => {
   if (!tokenId) return
@@ -165,4 +180,8 @@ export const smallToken = (tokenId: string) => {
     tokenId.length - 4,
     tokenId.length,
   )}`
+}
+export const subStr=(str:string)=>{
+  if (!str) return
+  return str.slice(0, 6)
 }

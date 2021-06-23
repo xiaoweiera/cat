@@ -1,13 +1,17 @@
 export const selectCoin={ name: "BITCOIN,ETH", origin: "MDEX" }
 export const coinList=[
-    { name: "BITCOIN,BTC", origin: "MDEX" },
-    { name: "BITCOIN,ETH", origin: "MDEX" },
-    { name: "BITCOIN,SAT", origin: "UNI" }
+ {symbol: "ETH", symbol_id: "0x06785a11555d894b113aa2b8c07f937d187d81fc", symbol_name: "ETH"},
+ {symbol: "BTC", symbol_id: "0x0ee6ee75384debc4a30c8486346eacbeb3944791", symbol_name: "BTC"},
+ {symbol: "ABC", symbol_id: "0x64ff637fb478863b7468bc97d30a5bf3a428a1fd", symbol_name: "ABC"},
+ {symbol: "D", symbol_id: "0x6a06dc945260058f6c6d7abb34ae002b14cffc75", symbol_name: "D"},
+ {symbol: "E", symbol_id: "0x6d45be9fd3da59933b658b48d9ee94da63e1dc09", symbol_name: "E"},
+ {symbol: "T", symbol_id: "0x77820136e290f08eda703a027829b446863bf09d", symbol_name: "T"},
+ {symbol: "J", symbol_id: "0x82c8bba633a5de613ecbdc2b209aa3e30a6f3ab4", symbol_name: "J"},
 ]
 export const tradingList=[
-    { name: "BITCOIN/USDT", origin: "MDEX" },
-    { name: "BITCOIN/HT", origin: "SUSHI" },
-    { name: "BITCOIN/BTC", origin: "SUSHI" }
+    {symbol: "E", symbol_id: "0x6d45be9fd3da59933b658b48d9ee94da63e1dc09", symbol_name: "E"},
+    {symbol: "T", symbol_id: "0x77820136e290f08eda703a027829b446863bf09d", symbol_name: "T"},
+    {symbol: "J", symbol_id: "0x82c8bba633a5de613ecbdc2b209aa3e30a6f3ab4", symbol_name: "J"},
 ]
 export const testData = [
     {
@@ -263,7 +267,7 @@ export const echartData = [
         yaxis: [
             {
                 name: "累计流动性资金",
-                color: "#2B8DFF",
+                color: "2B8DFF",
                 type: "area",
                 unit: "元",
                 data: [
@@ -326,7 +330,7 @@ export const echartData = [
             },
             {
                 name: "流动性净流入",
-                color: "#2B8DFF",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "枚",
                 data: [
@@ -390,7 +394,7 @@ export const echartData = [
         ],
         kyaxis: {
             name: "价格线",
-            color: "rgba(240, 191, 18, 1)",
+            color: "2B8DFF",
             type: "line",
             unit: "$",
             data: [
@@ -516,7 +520,7 @@ export const echartData = [
         yaxis: [
             {
                 name: "单位时间内添加流动性人数",
-                color: "#2B8DFF",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "元",
                 data: [
@@ -579,7 +583,7 @@ export const echartData = [
             },
             {
                 name: "单位时间内撤出流动性人数",
-                color: "rgba(240, 191, 18, 1)",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "枚",
                 data: [
@@ -642,7 +646,7 @@ export const echartData = [
             },
             {
                 name: "单位时间内参与流动性总人数",
-                color: "rgba(9, 217, 142, 1)",
+                color: "2B8DFF",
                 type: "line",
                 unit: "$",
                 data: [
@@ -705,7 +709,7 @@ export const echartData = [
             },
             {
                 name: "累计参与人数",
-                color: "rgba(43, 141, 255, 1)",
+                color: "2B8DFF",
                 type: "area",
                 unit: "枚",
                 data: [
@@ -769,7 +773,7 @@ export const echartData = [
         ],
         kyaxis: {
             name: "价格",
-            color: "rgba(240, 191, 18, 1)",
+            color: "2B8DFF",
             type: "line",
             unit: "$",
             data: [
@@ -895,7 +899,7 @@ export const echartData = [
         yaxis: [
             {
                 name: "单位时间内添加流动性人数",
-                color: "#2B8DFF",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "元",
                 data: [
@@ -958,7 +962,7 @@ export const echartData = [
             },
             {
                 name: "单位时间内撤出流动性人数",
-                color: "rgba(240, 191, 18, 1)",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "枚",
                 data: [
@@ -1021,7 +1025,7 @@ export const echartData = [
             },
             {
                 name: "累计流动性资金",
-                color: "rgba(43, 141, 255, 1)",
+                color: "2B8DFF",
                 type: "area",
                 unit: "枚",
                 data: [
@@ -1085,7 +1089,7 @@ export const echartData = [
         ],
         kyaxis: {
             name: "价格",
-            color: "rgba(240, 191, 18, 1)",
+            color: "2B8DFF",
             type: "line",
             unit: "$",
             data: [
@@ -1211,7 +1215,7 @@ export const echartData = [
         yaxis: [
             {
                 name: "新增流动性参与人数",
-                color: "#2B8DFF",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "元",
                 data: [
@@ -1274,7 +1278,7 @@ export const echartData = [
             },
             {
                 name: "累计流动性参与人数",
-                color: "rgba(43, 141, 255, 1)",
+                color: "2B8DFF",
                 type: "area",
                 unit: "枚",
                 data: [
@@ -1338,7 +1342,7 @@ export const echartData = [
         ],
         kyaxis: {
             name: "价格",
-            color: "rgba(240, 191, 18, 1)",
+            color: "2B8DFF",
             type: "line",
             unit: "$",
             data: [
@@ -1464,7 +1468,7 @@ export const echartData = [
         yaxis: [
             {
                 name: "单位时间内添加流动性次数",
-                color: "#2B8DFF",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "元",
                 data: [
@@ -1527,7 +1531,7 @@ export const echartData = [
             },
             {
                 name: "单位时间内撤出流动性次数",
-                color: "rgba(240, 191, 18, 1)",
+                color: "2B8DFF",
                 type: "bar",
                 unit: "枚",
                 data: [
@@ -1590,7 +1594,7 @@ export const echartData = [
             },
             {
                 name: "单位时间内参与流动性总次数",
-                color: "rgba(43, 141, 255, 1)",
+                color: "2B8DFF",
                 type: "area",
                 unit: "枚",
                 data: [
@@ -1654,7 +1658,7 @@ export const echartData = [
         ],
         kyaxis: {
             name: "价格",
-            color: "rgba(240, 191, 18, 1)",
+            color: "2B8DFF",
             type: "line",
             unit: "$",
             data: [

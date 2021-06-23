@@ -238,8 +238,32 @@ export const tableConfig = [
           format_func: percent2Precision,
         },
         {
-          key: 'apy_detail',
-          name: I18n.apy.jqcTable.option.yield,
+          key: 'single_and_mine_award',
+          // name: I18n.apy.single_APY,
+          name: 'APY',
+          status: false,
+          format_func: percent2Precision,
+        },
+        {
+          key: 'compound_and_mine_award',
+          // name: I18n.apy.compound_APY,
+          name: 'APY',
+          status: false,
+          format_func: percent2Precision,
+        },
+        {
+          key: 'comprehensive',
+          name: I18n.apy.yield,
+          status: true,
+        },
+        {
+          key: 'single_detail',
+          name: I18n.apy.yield,
+          status: false,
+        },
+        {
+          key: 'compound_detail',
+          name: I18n.apy.yield,
           status: false,
         },
         {
@@ -261,6 +285,11 @@ export const tableConfig = [
           unit: '%',
           format_func: numberFormat,
         },
+        {
+          key: 'yield',
+          name: I18n.apy.jqcTable.option.yield,
+          status: true,
+        },
       ],
       select: 'apy',
     },
@@ -278,8 +307,35 @@ export const tableConfig = [
           format_func: percent2Precision,
         },
         {
-          key: 'apy_detail',
-          name: I18n.apy.ckTable.option.yield,
+          key: 'single_and_mine_award',
+          name: I18n.apy.single_APY,
+          status: false,
+          format_func: percent2Precision,
+        },
+        {
+          key: 'compound_and_mine_award',
+          name: I18n.apy.compound_APY,
+          status: false,
+          format_func: percent2Precision,
+        },
+        // {
+        //   key: 'apy_detail',
+        //   name: I18n.apy.ckTable.option.yield,
+        //   status: false,
+        // },
+        {
+          key: 'comprehensive',
+          name: I18n.apy.yield,
+          status: true,
+        },
+        {
+          key: 'single_detail',
+          name: I18n.apy.yield,
+          status: false,
+        },
+        {
+          key: 'compound_detail',
+          name: I18n.apy.yield,
           status: false,
         },
         {
@@ -294,6 +350,11 @@ export const tableConfig = [
           status: false,
           format_func: numberFormat,
         },
+        {
+          key: 'yield',
+          name: I18n.apy.jqcTable.option.yield,
+          status: true,
+        },
       ],
       select: 'apy',
     },
@@ -306,17 +367,44 @@ export const tableConfig = [
       data: [
         {
           key: 'apy',
-          name: I18n.apy.jkTable.option.interest,
+          name: I18n.apy.interest,
           status: true,
           format_func: percent2Precision,
         },
         {
-          key: 'apy_detail',
-          name: I18n.apy.jkTable.option.InterestBear,
+          key: 'single_and_mine_award',
+          name: I18n.apy.interest,
+          status: false,
+          format_func: percent2Precision,
+        },
+        {
+          key: 'compound_and_mine_award',
+          name: I18n.apy.compound_APY,
+          status: false,
+          format_func: percent2Precision,
+        },
+        // {
+        //   key: 'apy_detail',
+        //   name: I18n.apy.jkTable.option.InterestBear,
+        //   status: false,
+        // },
+        {
+          key: 'comprehensive',
+          name: I18n.apy.InterestBear,
+          status: true,
+        },
+        {
+          key: 'single_detail',
+          name: I18n.apy.InterestBear,
           status: false,
         },
         {
-          key: I18n.apy.jkTable.option.available,
+          key: 'compound_detail',
+          name: I18n.apy.InterestBear,
+          status: false,
+        },
+        {
+          key: 'quota_remain',
           name: I18n.apy.jkTable.option.available,
           status: true,
           format_func: numberFormat,
@@ -333,6 +421,11 @@ export const tableConfig = [
           status: false,
           unit: '%',
           format_func: numberFormat,
+        },
+        {
+          key: 'yield',
+          name: I18n.apy.InterestBear,
+          status: true,
         },
       ],
       select: 'apy',

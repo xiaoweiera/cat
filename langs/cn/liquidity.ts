@@ -1,4 +1,9 @@
 export default {
+    select:{
+        coinType:'币种',
+        TradingPairs:'交易对',
+        more:'查看更多'
+    },
     info: {
         tokenAddress: 'Token地址',
     },
@@ -13,11 +18,14 @@ export default {
     mainHeader: {
         liquidity: '流动性分析',
         payData: '交易数据分析',
+        follow:'关注',
+        analysis:'分析数据异常',
         week: '近7天',
         month: '近1月',
         streeMonth: '近3月',
         custom: '自定义',
-        coin: '币'
+        coin: '币',
+        bottom:'已到底部'
     },
     mainChart: {
         inflow: {
@@ -39,12 +47,36 @@ export default {
                 sumPeople:'累计参与人数'
             }
         },
-        inOutNumber: {name: '流动性添加与撤出量', des: '展示选定币种/交易对在单位时间内流动性添加量和撤出量的分布情况，流动性作为“交易深度”，在一定时间内发生异常变化，可能导致行情发生剧烈变化。'},
+        inOutNumber: {
+            name: '流动性添加与撤出量',
+            des: '展示选定币种/交易对在单位时间内流动性添加量和撤出量的分布情况，流动性作为“交易深度”，在一定时间内发生异常变化，可能导致行情发生剧烈变化。',
+            lengend:{
+                addCount:'单位时间内流动性添加总量',
+                outCount:'单位时间内流动性撤出总量',
+                money:'累计流动性资金',
+                price:'价格'
+            }
+        },
         joinNumber: {
             name: '新增流动性参与人数 (之前从未参与)',
-            des: '展示选定币种/交易对在单位时间内参与流动性添加或撤出的新增独立用户数量，该指标中的新增人数为之前从未参与过流动性变化的人数，该指标一定程度上表现了该项目的受关注程度。'
+            des: '展示选定币种/交易对在单位时间内参与流动性添加或撤出的新增独立用户数量，该指标中的新增人数为之前从未参与过流动性变化的人数，该指标一定程度上表现了该项目的受关注程度。',
+            lengend:{
+                addJoinPeople:'新增流动性参与人数',
+                sumJoinPeople:'累计流动性参与人数',
+                price:'价格'
+            }
         },
-        inOutOnce: {name: '流动性添加与撤出次数', des: '展示选定币种/交易对在单位时间内参与流动性添加和撤出的频率情况，该指标一定程度上表现了该币种的流动性强弱情况。'}
+        inOutOnce: {
+            name: '流动性添加与撤出次数',
+            des: '展示选定币种/交易对在单位时间内参与流动性添加和撤出的频率情况，该指标一定程度上表现了该币种的流动性强弱情况。',
+
+            lengend:{
+                addJoinPeople:'单位时间内添加流动性次数',
+                sumJoinPeople:'单位时间内撤出流动性次数',
+                sumCount:'单位时间内参与流动性总次数',
+                price:'价格'
+            }
+        }
     }
 
 }
