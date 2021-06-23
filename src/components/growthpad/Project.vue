@@ -58,10 +58,12 @@ const getSecond = function(duration: number): string {
   const number = parseInt(((duration / 1000) % 60) as any, 10)
   return number < 10 ? `0${number}` : String(number)
 }
+// @ts-ignore
 const imgs = {
   MDEX: 'https://res.ikingdata.com/nav/mdexStatus.png',
   CoinWind: 'https://res.ikingdata.com/nav/coinwindStatus.png',
   Channels: 'https://res.ikingdata.com/nav/channelsStatus.png',
+  ChainWallet: 'https://res.ikingdata.com/nav/chainwalletStatus.png'
 }
 // 倒计时
 let intemout: any
