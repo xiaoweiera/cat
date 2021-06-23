@@ -4,9 +4,9 @@ FROM base as build-stage
 WORKDIR /build
 RUN npm i -g pnpm
 COPY package*.json pnpm-lock.yaml ./
-RUN npm i
+RUN pnpm i
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
 # production stage
 FROM base as production-stage
