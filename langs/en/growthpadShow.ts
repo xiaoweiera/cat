@@ -9,6 +9,7 @@ export default {
     waitButton: 'Coming',
     ingButton: 'View more',
     overButton: 'End',
+    lockreward: 'View rewards',
     supproted:'Supproted',
     iInvite:'My invitation',
     code:'My invitation code',

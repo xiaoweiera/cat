@@ -9,6 +9,7 @@ export default {
   waitButton: '即将开始',
   ingButton: '查看详情',
   overButton: '已结束',
+  lockreward: '查看奖励',
   supproted: '支持',
   iInvite: '我邀请参与活动的人数',
   code: '我的邀请码',

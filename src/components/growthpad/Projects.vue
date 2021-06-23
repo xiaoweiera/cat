@@ -6,6 +6,7 @@ import {
   coinwindInfo,
   channelsInfo,
   growthInfo,
+  chainWallet
 } from '/mock/growthpad/projectInfo'
 import { getTimeStatus } from '~/components/growthpad/task/task'
 const props = defineProps({
@@ -16,11 +17,13 @@ const mdxStatus = ref('')
 const coinwindStatus = ref('')
 const channelsStatus = ref('')
 const growthpadStatus = ref('')
+const chainWalletStatus = ref('')
 onMounted(() => {
   mdxStatus.value = getTimeStatus(mdxInfo)
   coinwindStatus.value = getTimeStatus(coinwindInfo)
   channelsStatus.value = getTimeStatus(channelsInfo)
   growthpadStatus.value = getTimeStatus(growthInfo)
+  chainWalletStatus.value = getTimeStatus(chainWallet)
 })
 </script>
 <template>
@@ -72,6 +75,20 @@ onMounted(() => {
           "
           :status="growthpadStatus"
           :project="growthInfo"
+        />
+      </div>
+      <div
+          v-if="!projectName"
+          class="mt-6 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96"
+      >
+        <GrowthpadProject
+            :value="
+            chainWalletStatus === 'wait'
+              ? chainWallet.dashboard.begin
+              : chainWallet.dashboard.end
+          "
+            :status="chainWalletStatus"
+            :project="chainWallet"
         />
       </div>
     </div>

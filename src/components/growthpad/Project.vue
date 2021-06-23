@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { formatCash } from '~/utils/index'
 // 倒计时
 import dayjs from 'dayjs'
 import { ref, defineProps, watch, onMounted } from 'vue'
@@ -129,10 +130,11 @@ timeout()
       <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
       <!--        <p class="projectNum">${{ cost }}</p>-->
       <!--      </div>-->
-      <div v-if="props.project.projectName !== 'Growth'" class="flex blockItem">
+
+      <div class="flex blockItem" :class="{ 'v-hidden': props.project.projectName === 'Growth' }">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
         <p class="projectNum">
-          {{ props.project.dashboard.reward.limits[0] }}
+          {{ formatCash(props.project.dashboard.reward.limits[0]) }}
           {{ props.project.coin }}
         </p>
       </div>
@@ -186,7 +188,10 @@ timeout()
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.v-hidden {
+  visibility: hidden;
+}
 .ingColor {
   color: #0ec674;
 }
@@ -261,7 +266,8 @@ timeout()
 }
 
 .desc {
-  width: 70px;
+  width: 100px;
+  min-width: 70px;
   color: rgba(37, 62, 111, 0.65);
   font-family: i8n-font-inter !important;
   @apply text-kd14px18px;
