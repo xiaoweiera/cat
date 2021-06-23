@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { ref, reactive,onMounted,watch} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import { selectCoin } from '~/store/liquidity/state'
+import { selectCoin,symbolStore } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
 const selectTxt = ref('')
 const coinShow = ref(false)
+const tokenList=ref()
 const param={
   platId:1,
   query:selectTxt.value
@@ -12,9 +13,9 @@ const param={
 const changeSelect = (state) => {
   coinShow.value = state
 }
-const changeToken = (name: string, origin: string) => {
+const changeToken = (name: string,id:string) => {
   selectCoin.name = name
-  selectCoin.origin = origin
+  symbolStore.id=id
   changeSelect(false)
 }
 // 加延迟不然会先执行blur，不执行click
@@ -25,13 +26,13 @@ const inputBlur = () => {
 }
 watch(()=>selectTxt.value,async (n,o)=>{
   param.query=n
-  const result=await getInfoByToken(param)
-  console.log(result)
+  const {data:{data:data}}=await getInfoByToken(param)
+  tokenList.value=data
+  console.log(data)
 })
 </script>
 <template>
-  <div
-    class="flex flex-1 relative items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
+  <div class="flex flex-1 relative items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
     <el-input v-model="selectTxt" class="selectClass" placeholder="搜索" @focus="changeSelect(true)" @blur="inputBlur()"></el-input>
     <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
     <!--    弹窗-->
@@ -39,13 +40,15 @@ watch(()=>selectTxt.value,async (n,o)=>{
       <!--      币-->
       <ul>
         <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
-        <template v-for="item in coinList">
-          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.name && selectCoin.origin === item.origin}"
-              @click="changeToken(item.name, item.origin)">
-            <div class="coinName">{{ item.name }}</div>
-            <div class="coinTip">
-              <span class="coinTipTxt">{{ item.origin }}</span>
+        <template v-for="item in tokenList">
+          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.symbol}"
+              @click="changeToken(item.symbol,item.symbol_id)">
+            <div class="coinName">
+              <span>{{ item.symbol }}</span><span>{{ item.symbol_name }}</span>
             </div>
+<!--            <div class="coinTip">-->
+<!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
+<!--            </div>-->
           </li>
         </template>
         <li class="more hand">查看更多</li>
@@ -54,12 +57,12 @@ watch(()=>selectTxt.value,async (n,o)=>{
       <ul>
         <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3 mt-1.5">交易对</li>
         <template v-for="item in tradingList">
-          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.name && selectCoin.origin === item.origin}"
-            @click="changeToken(item.name, item.origin)">
+          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.name}"
+            @click="changeToken(item.name)">
             <div class="coinName">{{ item.name }}</div>
-            <div class="coinTip">
-              <span class="coinTipTxt">{{ item.origin }}</span>
-            </div>
+<!--            <div class="coinTip">-->
+<!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
+<!--            </div>-->
           </li>
         </template>
         <li class="more hand">查看更多</li>

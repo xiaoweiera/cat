@@ -5,8 +5,7 @@ import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import { pairStore,paramChart,symbolStore } from '~/store/liquidity/state'
-import {getChartsFun} from '~/logic/liquidity/getChartData'
-import {initCharts,getAllChart} from '~/logic/liquidity/dataTool'
+import {getAllChart} from '~/logic/liquidity/dataTool'
 const props=defineProps({
   chartId:Number
 })

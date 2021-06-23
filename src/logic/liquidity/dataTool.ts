@@ -4,7 +4,6 @@ import {getChartsUsdtById,getChartsCoinById} from '~/api/liquidity'
 import {paramChart } from '~/store/liquidity/state'
 interface chartItem {
   data: Object
-
 }
 // 复制方法
 export const copyToken = (tokenAddress: string) => {
@@ -38,7 +37,8 @@ export const getAllChart= ()=>{
      }else{
         result=  await getChartsCoinById(param)
      }
-     chartsAllData.value[i] =result.data
+
+     chartsAllData.value[i] =result.data.data
    }
     chartLoad.value=true
   }
