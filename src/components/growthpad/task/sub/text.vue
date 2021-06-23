@@ -51,17 +51,20 @@ const formdata = reactive({
 
 // @ts-ignore
 const onSubmit = async function() {
+  // 判断活动时间
+  let status = activity(store)
+  if (!status) {
+    return false
+  }
   const form = toRaw(formRef).value
   const value = formdata.input
   try {
     // 表单校验
     await form.validate()
     // 判断信息登记
-    let status = checkAddress(store)
-    // 判断活动时间
-    if (status) {
-      status = activity(store)
-    }
+    status = checkAddress(store)
+
+
     // 在活动时间范围内判断是否需要二次确认
     if (status && props.confirm) {
       // 输入内容确认

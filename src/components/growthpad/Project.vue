@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatCash, toNumber } from '~/utils/index'
+import safeGet from '@fengqiaogang/safe-get'
 // 倒计时
 import dayjs from 'dayjs'
 import { ref, defineProps, watch, onMounted } from 'vue'
@@ -31,8 +33,15 @@ watch(
 )
 const cost = ref()
 const getValue = async() => {
-  const costValue = await projectDetail(props.project.projectName)
-  cost.value = costValue.price * props.project.dashboard.reward.count
+  // @ts-ignore
+  const costValue = await projectDetail(props.project.projectName) // 获取项目详情
+  if (costValue && costValue.price) {
+    // @ts-ignore
+    const count = safeGet<number>(props.project, 'dashboard.reward.count')
+    cost.value = toNumber(costValue.price) * toNumber(count)
+  } else {
+    cost.value = 0
+  }
 }
 onMounted(() => {
   getValue()
@@ -57,10 +66,12 @@ const getSecond = function(duration: number): string {
   const number = parseInt(((duration / 1000) % 60) as any, 10)
   return number < 10 ? `0${number}` : String(number)
 }
+// @ts-ignore
 const imgs = {
   MDEX: 'https://res.ikingdata.com/nav/mdexStatus.png',
   CoinWind: 'https://res.ikingdata.com/nav/coinwindStatus.png',
   Channels: 'https://res.ikingdata.com/nav/channelsStatus.png',
+  ChainWallet: 'https://res.ikingdata.com/nav/chainwalletStatus.png'
 }
 // 倒计时
 let intemout: any
@@ -129,10 +140,11 @@ timeout()
       <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
       <!--        <p class="projectNum">${{ cost }}</p>-->
       <!--      </div>-->
-      <div v-if="props.project.projectName !== 'Growth'" class="flex blockItem">
+
+      <div class="flex blockItem" :class="{ 'v-hidden': props.project.projectName === 'Growth' }">
         <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
         <p class="projectNum">
-          {{ props.project.dashboard.reward.limits[0] }}
+          {{ formatCash(props.project.dashboard.reward.limits[0]) }}
           {{ props.project.coin }}
         </p>
       </div>
@@ -186,7 +198,10 @@ timeout()
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.v-hidden {
+  visibility: hidden;
+}
 .ingColor {
   color: #0ec674;
 }
@@ -261,7 +276,8 @@ timeout()
 }
 
 .desc {
-  width: 70px;
+  width: 100px;
+  min-width: 70px;
   color: rgba(37, 62, 111, 0.65);
   font-family: i8n-font-inter !important;
   @apply text-kd14px18px;

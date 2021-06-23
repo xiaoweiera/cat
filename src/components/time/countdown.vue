@@ -72,72 +72,25 @@ timeout()
 
 <template>
   <slot :day="day" :hour="hour" :minute="minute" :second="second">
-    <span
-      class="
-        font-color-theme font-bold font-kdFang
-        whitespace-nowrap
-        inline-block
-        pb-4
-      "
-    >
+    <span class="font-color-theme font-bold font-kdFang whitespace-nowrap inline-block pb-4">
       <span class="relative">
         <span class="text-2xl md:text-4xl">{{ day }}</span>
-        <span
-          class="
-            time-unit
-            absolute
-            top-full
-            left-1/2
-            text-xs
-            transform
-            -translate-x-1/2
-          "
-        >{{ I18n.common.time.dd }}</span>
+        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ I18n.common.time.dd }}</span>
       </span>
       <span class="text-lg px-4">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl">{{ hour }}</span>
-        <span
-          class="
-            time-unit
-            absolute
-            top-full
-            left-1/2
-            text-xs
-            transform
-            -translate-x-1/2
-          "
-        >{{ I18n.common.time.hh }}</span>
+        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ I18n.common.time.hh }}</span>
       </span>
       <span class="text-lg px-4 relative">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl">{{ minute }}</span>
-        <span
-          class="
-            time-unit
-            absolute
-            top-full
-            left-1/2
-            text-xs
-            transform
-            -translate-x-1/2
-          "
-        >{{ I18n.common.time.mm }}</span>
+        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ I18n.common.time.mm }}</span>
       </span>
       <span class="text-lg px-4 relative">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl">{{ second }}</span>
-        <span
-          class="
-            time-unit
-            absolute
-            top-full
-            left-1/2
-            text-xs
-            transform
-            -translate-x-1/2
-          "
-        >{{ I18n.common.time.ss }}</span>
+        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ I18n.common.time.ss }}</span>
       </span>
     </span>
   </slot>
