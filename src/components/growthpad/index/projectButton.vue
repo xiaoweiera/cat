@@ -45,6 +45,10 @@ const txts = {
   padding: 9px 12px;
   background: #2b8dfe;
   border-radius: 44px;
+  cursor: default;
+  img {
+    display: none;
+  }
 }
 .closure {
   padding: 9px 12px;
