@@ -19,6 +19,7 @@ export default {
     // anytask: '完成任意任务：{reward}（前{count}名用户）',
     finished: '完成全部任务：{reward}',
     anytask: '完成任意任务：{reward}',
+    send: '(奖励结算中，预计十个工作日内发放)',
   },
   register: '信息登记',
   submit: '登记',

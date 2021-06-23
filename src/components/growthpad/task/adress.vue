@@ -5,10 +5,21 @@ import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
 import activity from '~/logic/growthpad/activity'
 import { Project } from '~/api/growtask'
+import { TimeStatus, getTimeStatus } from '~/components/growthpad/task/task'
 
 const store = Task()
 
 const addressRef = ref<any>(null)
+
+// 判断项目是否结束
+// @ts-ignore
+const isClosure = computed<boolean>((): boolean => {
+  const status = getTimeStatus(store)
+  if (status === TimeStatus.closure) {
+    return true
+  }
+  return false
+})
 
 // @ts-ignore
 const getToken = function(): string {
@@ -136,6 +147,7 @@ const bindAddress = async function(): Promise<void> {
         <template v-else>
           <span class="reward ml-1">{{ store.token }}</span>
         </template>
+        <span v-if="isClosure" class="ml-1 reward" style="color: #e9592d">{{ I18n.growthpad.reward.send }}</span>
       </h2>
       <div>
         <p class="text-sm address">

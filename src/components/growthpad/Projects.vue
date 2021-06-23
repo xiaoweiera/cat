@@ -27,7 +27,7 @@ const tabs = [
   {
     list: ingList,
     name: TimeStatus.ing,
-    title: `<span class="mr-2">⛳</span>${I18n.growthpadShow.status.ing}`, // 进行中标题
+    title: `<span class="mr-2">⛳</span>${I18n.growthpadShow.waitButton}`, // 进行中标题
   }, {
     list: closureList,
     name: TimeStatus.closure,

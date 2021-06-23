@@ -19,6 +19,7 @@ export default {
     // anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
     finished: 'Finish all tasks: {reward}',
     anytask: 'Finish one of tasks: {reward}',
+    send: '(In the settlement, it is expected to be issued within 10 working days.)',
   },
   register: 'Information Registration',
   submit: 'Register',
