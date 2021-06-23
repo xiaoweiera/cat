@@ -5,7 +5,7 @@ export default {
   status: {
     wait: 'Coming soon',
     ing: 'Ongoing',
-    closure: 'End',
+    closure: 'Ended',
     suspend: 'suspend'
   },
   reward: {
