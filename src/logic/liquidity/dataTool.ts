@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import {ref,reactive} from 'vue'
 import {getChartsUsdtById,getChartsCoinById} from '~/api/liquidity'
-import {paramChart } from '~/store/liquidity/state'
+import {paramChart,analysisType } from '~/store/liquidity/state'
 interface chartItem {
   data: Object
 }
@@ -21,6 +21,15 @@ export const initCharts=(chartsAllData:any)=>{
     chartsAllData.value[id] = reactive<any>({})
   },chartIds)
 }
+export const flowGetCharts=async (param:any)=>{
+  let result=null
+  if(paramChart.coinType==='usd'){
+    result=  await getChartsUsdtById(param)
+  }else{
+    result=  await getChartsCoinById(param)
+  }
+  return result
+}
 //得到5个图表数据
 export const getAllChart= ()=>{
   const chartsAllData =ref<chartItem[]>([])
@@ -32,12 +41,13 @@ export const getAllChart= ()=>{
    for (let i=0;i<chartIds.length;i++){
      param.chart_id=i+1
      let result=null
-     if(paramChart.coinType==='usd'){
-        result=  await getChartsUsdtById(param)
+     if(analysisType.value==='flow'){
+       //流动性分析
+       result=await flowGetCharts(param)
      }else{
-        result=  await getChartsCoinById(param)
+       //交易数据分析
+       result=await flowGetCharts(param)
      }
-
      chartsAllData.value[i] =result.data.data
    }
     chartLoad.value=true
