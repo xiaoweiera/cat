@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {toRefs, defineProps} from 'vue'
 
+
 const props = defineProps({
   chartType: Object,
 })

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import DBList from '@fengqiaogang/dblist'
 import { ref, reactive,onMounted,watch} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import { selectCoin,symbolStore } from '~/store/liquidity/state'
+import { symbolStore,pairStore } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
+import {subStr} from '~/lib/tool'
 const selectTxt = ref('')
 const coinShow = ref(false)
 const tokenList=ref()
@@ -10,14 +12,21 @@ const param={
   platId:1,
   query:selectTxt.value
 }
+const tokenDB=new DBList(coinList)
+tokenList.value=tokenDB.select({}, 2)
 const changeSelect = (state) => {
   coinShow.value = state
 }
 const changeToken = (name: string,id:string) => {
-  selectCoin.name = name
   symbolStore.id=id
   changeSelect(false)
 }
+const changePair = (name: string,id:string) => {
+  pairStore.id=id
+  changeSelect(false)
+}
+
+
 // 加延迟不然会先执行blur，不执行click
 const inputBlur = () => {
   setTimeout(() => {
@@ -41,10 +50,10 @@ watch(()=>selectTxt.value,async (n,o)=>{
       <ul>
         <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
         <template v-for="item in tokenList">
-          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.symbol}"
+          <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}"
               @click="changeToken(item.symbol,item.symbol_id)">
             <div class="coinName">
-              <span>{{ item.symbol }}</span><span>{{ item.symbol_name }}</span>
+              <span>{{ item.symbol }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
             </div>
 <!--            <div class="coinTip">-->
 <!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
@@ -57,9 +66,9 @@ watch(()=>selectTxt.value,async (n,o)=>{
       <ul>
         <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3 mt-1.5">交易对</li>
         <template v-for="item in tradingList">
-          <li class="itemLi hand" :class="{selectBg:selectCoin.name === item.name}"
-            @click="changeToken(item.name)">
-            <div class="coinName">{{ item.name }}</div>
+          <li class="itemLi hand" :class="{selectBg:pairStore.id === item.symbol_id}"
+            @click="changePair(item.symbol,item.symbol_id)">
+            <div class="coinName">{{ item.symbol_name }}</div>
 <!--            <div class="coinTip">-->
 <!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
 <!--            </div>-->

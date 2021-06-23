@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@fengqiaogang/config": "^1.1.0",
+    "@fengqiaogang/dblist": "^0.3.98",
     "@fengqiaogang/safe-get": "^0.1.1",
     "@fengqiaogang/safe-set": "^0.1.2",
     "@vueuse/core": "^4.11.0",
@@ -59,7 +60,6 @@
     "wechat-jssdk": "^5.0.7"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.0",
     "@antfu/eslint-config": "^0.6.4",
     "@fengqiaogang/translate": "^1.1.1",
     "@iconify/json": "^1.1.344",
@@ -67,6 +67,7 @@
     "@types/js-cookie": "^2.2.6",
     "@types/nprogress": "^0.2.0",
     "@types/ramda": "^0.27.40",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.11",

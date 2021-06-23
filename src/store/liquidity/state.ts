@@ -1,9 +1,11 @@
-import {  reactive } from 'vue'
+import {  reactive,ref } from 'vue'
 import * as R from 'ramda'
 interface platModel {
   logo: string
   name: string
 }
+//分析种类tag
+export const analysisType=ref('flow')
 // 选择的平台
 export const platStore: platModel = reactive({ logo: '', name: '' }) // 弹窗状态
 // 左侧列表table 选择的 交易对
