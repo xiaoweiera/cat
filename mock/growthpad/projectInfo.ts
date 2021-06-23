@@ -90,8 +90,13 @@ export const chainWallet = {
     reward: {
       count: 200000, // 奖励数量
       countStr: '200,000 CHA',
-      limits: [7550], // 每人可领取范围
+      limits: [3030], // 每人可领取范围
     },
     status: '',
   },
 }
+
+// 所有任务
+export const taskList = [
+  mdxInfo, coinwindInfo, channelsInfo, growthInfo, chainWallet
+]
