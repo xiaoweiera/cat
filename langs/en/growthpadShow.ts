@@ -1,4 +1,8 @@
 export default {
+    status: {
+        ing: 'Ongoing', // ⛳️
+        end: 'End' // 🎯
+    },
     title:'Earn crypt while supporting favorite projects',
     des:'GrowthPad unites many valuable project parties to accurately reward community users with Tokens. Users only need to complete tasks. Users can not only help their favorite projects complete their goals, but also get reward Tokens.',
     coming:'coming',

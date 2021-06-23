@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { formatCash } from '~/utils/index'
+import { formatCash, toNumber } from '~/utils/index'
+import safeGet from '@fengqiaogang/safe-get'
 // 倒计时
 import dayjs from 'dayjs'
 import { ref, defineProps, watch, onMounted } from 'vue'
@@ -32,8 +33,15 @@ watch(
 )
 const cost = ref()
 const getValue = async() => {
-  const costValue = await projectDetail(props.project.projectName)
-  cost.value = costValue.price * props.project.dashboard.reward.count
+  // @ts-ignore
+  const costValue = await projectDetail(props.project.projectName) // 获取项目详情
+  if (costValue && costValue.price) {
+    // @ts-ignore
+    const count = safeGet<number>(props.project, 'dashboard.reward.count')
+    cost.value = toNumber(costValue.price) * toNumber(count)
+  } else {
+    cost.value = 0
+  }
 }
 onMounted(() => {
   getValue()
