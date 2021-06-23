@@ -13,7 +13,7 @@ const param={
   query:selectTxt.value
 }
 // const tokenDB=new DBList(coinList)
-tokenList.value=tokenDB.select({}, 2)
+// tokenList.value=tokenDB.select({}, 2)
 const changeSelect = (state) => {
   coinShow.value = state
 }
