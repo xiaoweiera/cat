@@ -181,7 +181,7 @@ export const smallToken = (tokenId: string) => {
     tokenId.length,
   )}`
 }
-export const subStr=(str:string)=>{
+export const subStr = (str:string)=>{
   if (!str) return
   return str.slice(0, 6)
 }

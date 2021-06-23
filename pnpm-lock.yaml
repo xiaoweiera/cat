@@ -3,7 +3,6 @@ lockfileVersion: 5.3
 specifiers:
   '@antfu/eslint-config': ^0.6.4
   '@fengqiaogang/config': ^1.1.0
-  '@fengqiaogang/dblist': ^0.3.98
   '@fengqiaogang/safe-get': ^0.1.1
   '@fengqiaogang/safe-set': ^0.1.2
   '@fengqiaogang/translate': ^1.1.1
@@ -71,7 +70,6 @@ specifiers:
 
 dependencies:
   '@fengqiaogang/config': 1.1.0
-  '@fengqiaogang/dblist': 0.3.98
   '@fengqiaogang/safe-get': 0.1.1
   '@fengqiaogang/safe-set': 0.1.2
   '@vueuse/core': 4.11.0_vue@3.1.2
@@ -1286,12 +1284,6 @@ packages:
     dependencies:
       '@fengqiaogang/argv': 1.0.0
       webpack-merge: 5.7.3
-    dev: false
-
-  /@fengqiaogang/dblist/0.3.98:
-    resolution: {integrity: sha512-yT87XanGSFRKTV86rtpH6CTkQENo5jo0pnzVfvloS8w9U8avzCBsMXBvT9Gxi/Pd8e8K2U+NtRW5K3E5ch2SRg==}
-    dependencies:
-      lodash: 4.17.21
     dev: false
 
   /@fengqiaogang/safe-get/0.1.1:
@@ -5581,6 +5573,7 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
 
   /log-symbols/2.2.0:
     resolution: {integrity: sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==}

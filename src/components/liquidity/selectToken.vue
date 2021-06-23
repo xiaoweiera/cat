@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DBList from '@fengqiaogang/dblist'
+// import DBList from '@fengqiaogang/dblist'
 import { ref, reactive,onMounted,watch} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
 import { symbolStore,pairStore } from '~/store/liquidity/state'
@@ -12,8 +12,8 @@ const param={
   platId:1,
   query:selectTxt.value
 }
-const tokenDB=new DBList(coinList)
-tokenList.value=tokenDB.select({}, 2)
+// const tokenDB=new DBList(coinList)
+// tokenList.value=tokenDB.select({}, 2)
 const changeSelect = (state) => {
   coinShow.value = state
 }
