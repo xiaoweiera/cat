@@ -14,7 +14,7 @@ import I18n from '~/utils/i18n/index'
 import * as lang from '~/utils/lang'
 import { filterByOptions } from '~/logic/apy/tableDetail'
 import { unitConfig, unitConfigen } from '~/logic/apy/config'
-const isTipArrow = false // 提示框是否显示小尖头
+const isTipArrow = false // 提示框是否显示小尖头呀
 const props = defineProps({
   chains: { type: String },
   project: { type: String },
