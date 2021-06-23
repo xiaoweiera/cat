@@ -28,6 +28,11 @@ export const res = {
   policy: '/api/storage/oss_token', // 获取签名
 }
 
+// 数据报表
+export const topic = {
+  getMenuList: '/api/v2/topics/web_topic'
+}
+
 // 忽略的接口地址，不传用户登录信息
 export const ignore: string[] = [
   user.login,

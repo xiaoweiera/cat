@@ -73,6 +73,14 @@ const src = computed<string>(() => {
   if (isHttp(props.type) || props.type.includes('.')) {
     return props.type
   }
+  // 特殊 icon
+  if (props.type === 'down' && props.suffix === 'png') {
+    return 'https://res.ikingdata.com/nav/down.png'
+  }
+  // 特殊 icon
+  if (props.type === 'up' && props.suffix === 'png') {
+    return 'https://res.ikingdata.com/nav/up.png'
+  }
   return `${picture}/${props.type}.${props.suffix}`
 })
 // @ts-ignore
@@ -156,6 +164,9 @@ const iconCode = function() {
 }
 .size-xs {
   @include size(12px);
+}
+.size-mini {
+  @include size(10px);
 }
 
 .icon-loading {
