@@ -8,7 +8,6 @@ const props = defineProps({
 })
 const changeTag = (tag: any) => {
   paramChart[props.tagType] = tag.name
-  console.log(props.tagType, tag)
   R.forEach((item) => {
     if (item.name === tag.name) {
       item.selected = true
@@ -21,11 +20,8 @@ const changeTag = (tag: any) => {
 <template>
   <div class="flex ml-3.5">
     <div class="flex h-7.8 items-center timeFilter">
-      <template v-for="(item, index) in filterData">
-        <div
-          :class="item.selected ? 'timeTagSelected' : 'timeTag'"
-          @click="changeTag(item)"
-        >
+      <template v-for="item in filterData">
+        <div :class="item.selected ? 'timeTagSelected' : 'timeTag'" @click="changeTag(item)">
           {{ item.name }}
         </div>
       </template>

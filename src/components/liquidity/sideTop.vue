@@ -3,15 +3,17 @@ import { ref, reactive, defineProps, onMounted } from 'vue'
 import { selectCoin } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
 import { toFixedNumber, smallToken } from '~/lib/tool'
+
 import { getToken_side } from '~/api/liquidity'
 const props = defineProps({
-  tokenInfo: Object,
+  symbol: Object,
 })
 const info = ref({})
+
 const getInfo = async() => {
   const param = {
     platId: 1,
-    symbol_id: '0xe36ffd17b2661eb57144ceaef942d95295e637f0',
+    symbol_id: props.symbol,
   }
   const result = await getToken_side(param)
   if (result?.data?.code === 0) {

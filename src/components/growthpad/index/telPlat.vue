@@ -53,7 +53,7 @@ const closeQr = () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .telContainer {
   @apply flex flex-col md:flex-row md:justify-start justify-center items-center;
 }

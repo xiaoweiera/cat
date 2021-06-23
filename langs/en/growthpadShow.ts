@@ -1,14 +1,19 @@
 export default {
+    status: {
+        ing: 'Ongoing', // ⛳️
+        end: 'Ended' // 🎯
+    },
     title:'Earn crypt while supporting favorite projects',
     des:'GrowthPad unites many valuable project parties to accurately reward community users with Tokens. Users only need to complete tasks. Users can not only help their favorite projects complete their goals, but also get reward Tokens.',
     coming:'coming',
     ongoing: 'Ongoing',
-    end: 'end',
+    end: 'Ended',
     projectState:'⏱ Ongoing',
     timeBegin:'Start countdown',
     waitButton: 'Coming',
     ingButton: 'View more',
-    overButton: 'End',
+    overButton: 'Ended',
+    lockreward: 'View rewards',
     supproted:'Supproted',
     iInvite:'My invitation',
     code:'My invitation code',

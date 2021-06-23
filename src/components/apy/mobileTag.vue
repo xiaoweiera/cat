@@ -4,7 +4,7 @@ import { anchorConfig } from '~/logic/apy/config'
 import I18n from '~/utils/i18n/index'
 const props = defineProps({
   tableIndex: { type: Number },
-  selectedMobileAnchor: { type: String },
+  selectedMobileAnchor: { type: Object },
   title: { type: String },
 })
 const { name: changeName } = toRefs(props.selectedMobileAnchor)

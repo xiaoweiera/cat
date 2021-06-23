@@ -96,7 +96,7 @@ const link = (): string => {
     </div>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .visitedButton {
   color: #ffffff;
   background: linear-gradient(180deg, #7cb9ff 0%, #3090ff 100%);

@@ -21,6 +21,7 @@ export const development: Config = {
 }
 export const production: Config = {
   domain: 'kingdata.com',
-  api: 'https://ikingdata.com',
+  api: 'https://kingdata.com',
+  // api: 'https://dev.ikingdata.com',
 }
 

@@ -19,6 +19,7 @@ export default {
     // anytask: '完成任意任务：{reward}（前{count}名用户）',
     finished: '完成全部任务：{reward}',
     anytask: '完成任意任务：{reward}',
+    send: '(奖励结算中，预计十个工作日内发放)',
   },
   register: '信息登记',
   submit: '登记',
@@ -322,6 +323,11 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       image: 'https://res.ikingdata.com/static/share/26801623219557_.pic_hd.jpg',
       link: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：<a href="{url}" target="_blank">{url}</a>',
       copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：{url}'
+    }
+  },
+  ChainWallet: {
+    dashboard: {
+      desc: 'ChainWallet 为奖励长期支持 ChainWallet 的用户，联合 KingData 在 GrowthPad 上开启20万枚 CHA 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。'
     }
   }
 };

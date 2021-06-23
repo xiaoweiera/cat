@@ -42,6 +42,7 @@ const install = function(vue: any) {
         if (status) {
           return true
         }
+        console.log('status : ', status);
         e.stopPropagation()
         e.preventDefault()
       },

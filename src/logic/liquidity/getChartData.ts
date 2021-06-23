@@ -1,10 +1,6 @@
 import * as R from 'ramda'
-import {
-  formatDefaultTime,
-  min_max,
-  numberFormat,
-  formatHourTime,
-} from '~/lib/tool'
+import {formatDefaultTime, min_max, numberFormat, formatHourTime} from '~/lib/tool'
+import {getCharts} from '~/api/liquidity'
 interface yModel {
   color: string
   data: Array<number>
@@ -45,15 +41,13 @@ const formatYData = (item: any, isKline: boolean) => {
   let min: any = null
   let max: any = null
   const ydata = item.data // [0:1,1:2,2:4]
-  let originV = null
   // const idxMap = R.addIndex(R.map);
   const seriesData = R.map((v) => {
-    originV = v
-    ;[min, max] = min_max(min, max, v)
+    [min, max] = min_max(min, max, v)
     return {
       value: v,
-      orginValue: numberFormat(originV),
-      formatValue: numberFormat(v) + item.unit,
+      orginValue: numberFormat(v),
+      formatValue: numberFormat(v) + (item.unit?item.unit:'无'),
       // color: item.color
     }
   }, ydata)
@@ -66,8 +60,8 @@ const formatYData = (item: any, isKline: boolean) => {
         x2: 0,
         y2: 1,
         colorStops: [
-          { offset: 0, color: item.color },
-          { offset: 1, color: item.color },
+          { offset: 0, color: '#'+item.color },
+          { offset: 1, color: '#'+item.color },
         ],
         globalCoord: false,
       },
@@ -90,7 +84,7 @@ const formatYData = (item: any, isKline: boolean) => {
         color(p: any) {
           return p.value < 0 && item.type === 'bar'
             ? 'rgba(255, 140, 128, 1)'
-            : item.color
+            : '#'+item.color
         },
         // emphasis: {
         //   shadowBlur: 10,
@@ -101,7 +95,7 @@ const formatYData = (item: any, isKline: boolean) => {
       lineStyle: {
         width: 1.5,
       },
-      color: item.color,
+      color: '#'+item.color,
       data: seriesData,
     },
     min,
@@ -145,4 +139,9 @@ export const getModel = (params: any) => {
     return tooptipsModelByLiquidity(`${seriesName} ${formatValue}`, idx, color)
   }, params)
   return `${tooltipsTitle(title)} ${R.join('', result)}`
+}
+//得到所有的charts
+export const getChartsFun=async (param:any)=>{
+  const result=await getCharts(param)
+  return result
 }

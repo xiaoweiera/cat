@@ -5,7 +5,7 @@ export default {
   status: {
     wait: 'Coming soon',
     ing: 'Ongoing',
-    closure: 'End',
+    closure: 'Ended',
     suspend: 'suspend'
   },
   reward: {
@@ -19,6 +19,7 @@ export default {
     // anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
     finished: 'Finish all tasks: {reward}',
     anytask: 'Finish one of tasks: {reward}',
+    send: '(In the settlement, it is expected to be issued within 10 working days.)',
   },
   register: 'Information Registration',
   submit: 'Register',
@@ -331,6 +332,13 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
       image: 'https://res.ikingdata.com/static/share/26771623219339_.pic_hd.jpg',
       link: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: <a href="{url}" target="_blank">{url}</a>',
       copy: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: {url}'
+    }
+  },
+  ChainWallet: {
+    dashboard: {
+      desc: `In order to give back to community users, ChainWallet cooperated with KingData to launch an incentive activity worth 200,000 CHA on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
+
+Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends; the reward of tasks about holding quantity will be air-drop into the address verified.`
     }
   }
 };

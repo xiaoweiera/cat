@@ -10,7 +10,7 @@ interface Env {
 }
 
 export const development: Env = {
-  api: config.production.api,
+  api: config.development.api,
 }
 
 export const production: Env = {
