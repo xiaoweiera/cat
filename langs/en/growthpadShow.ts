@@ -31,8 +31,12 @@ export default {
     applyImg: 'https://res.ikingdata.com/nav/applyEn.png',
     pcFooter: 'https://res.ikingdata.com/nav/pcFooterEn.png',
     mobileFooter: 'https://res.ikingdata.com/nav/mobileFooterEn.png',
-    pcBanner:'https://res.ikingdata.com/nav/growthPadIndexPCen.png',
+    // pcBanner:'https://res.ikingdata.com/nav/growthPadIndexPCen.png',
+    // mobileBanner:'https://res.ikingdata.com/nav/growthPadMobileen.png',
+
+    pcBanner: 'https://res.ikingdata.com/image/growthpad/02.png',
     mobileBanner:'https://res.ikingdata.com/nav/growthPadMobileen.png',
+
     summary:{
         rewarded:'Rewarded',
         projects:'Projects',
