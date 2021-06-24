@@ -35,7 +35,7 @@ export default {
     // mobileBanner:'https://res.ikingdata.com/nav/growthPadMobileen.png',
 
     pcBanner: 'https://res.ikingdata.com/image/growthpad/02.png',
-    mobileBanner:'https://res.ikingdata.com/nav/growthPadMobileen.png',
+    mobileBanner: 'https://res.ikingdata.com/image/growthpad/02-m.png',
 
     summary:{
         rewarded:'Rewarded',
