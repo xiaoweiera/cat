@@ -43,9 +43,10 @@ const txts = {
 }
 .wait {
   padding: 9px 12px;
-  background: #2b8dfe;
+  background: rgba(#FFFFFF, 0.3);
   border-radius: 44px;
   cursor: default;
+  color: rgba(#2B8DFE, 0.3);
   img {
     display: none;
   }
