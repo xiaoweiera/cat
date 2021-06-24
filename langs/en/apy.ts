@@ -1,4 +1,7 @@
 export default {
+    test: {
+        time: '(Update in {timer} s)'
+    },
     webTitle:'DeFi Mining APY List',
     comprehensive:'Total APY',
     single_detail:'simple',
