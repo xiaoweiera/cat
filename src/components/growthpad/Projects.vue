@@ -44,7 +44,7 @@ const tabs = [
         <span class="text-base font-kdFang" v-html="item.title"></span>
       </template>
       <div>
-        <div class="md:-m-3 md:flex md:flex-wrap">
+        <div class="md:-mx-3 md:flex md:flex-wrap">
           <template v-for="(data, index) in item.list" :key="index">
             <div class="mt-6 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96">
               <GrowthpadProject
