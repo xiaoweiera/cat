@@ -16,6 +16,16 @@ export const getXData = (xData: Array<number>, interval: string) => {
     return R.map((item: number) => formatHourTime(item), xData)
   }
 }
+const getNewyData=(xdata:Array<number>,ydata:Array<number>,allData:Array<number>)=>{
+  const newyData= R.map(t=>{
+    if(xdata.includes(t)){
+      return ydata[xdata.indexOf(t)]
+    }else{
+      return null
+    }
+  },allData)
+  return newyData
+}
 // 获取图标
 const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
   const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -31,17 +41,16 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
 export const tooltipsTitle = (title: string) =>
   `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
 // 得到lengend
-export const getLegendList = (yData: Array<yModel>, kyData: yModel) => {
+export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<number>,allData:Array<number>) => {
   const legend = R.map((item: yModel) => item.name, yData)
   if (!kyData) return legend
   legend.push(kyData.name)
   return legend
 }
-const formatYData = (item: any, isKline: boolean) => {
+const formatYData = (item: any, isKline: boolean,xData:Array<number>,allxData:Array<number>) => {
   let min: any = null
   let max: any = null
-  const ydata = item.data // [0:1,1:2,2:4]
-  // const idxMap = R.addIndex(R.map);
+  const ydata=getNewyData(xData,item.data,allxData)
   const seriesData = R.map((v) => {
     [min, max] = min_max(min, max, v)
     return {
@@ -103,14 +112,14 @@ const formatYData = (item: any, isKline: boolean) => {
   ]
 }
 // 得到series
-export const getSeries = (yData: Array<yModel>, kyData: Array<number>) => {
+export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
   const series = []
   let minM: any = null
   let maxM: any = null
   let kminM: any = null
   let kmaxM: any = null
   R.forEach((item: yModel) => {
-    const [obj, min, max] = formatYData(item, false)
+    const [obj, min, max] = formatYData(item, false,xData,allxData)
     series.push(obj)
     minM = R.min(min, minM)
     maxM = R.max(max, maxM)
@@ -118,7 +127,7 @@ export const getSeries = (yData: Array<yModel>, kyData: Array<number>) => {
   }, yData)
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData, true)
+    const [obj, kmin, kmax] = formatYData(kyData, true,kxData,allxData)
     series.push(obj)
     kminM = kmin
     kmaxM = kmax

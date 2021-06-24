@@ -4,8 +4,8 @@ import * as R from 'ramda'
 import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import { pairStore,paramChart,symbolStore,analysisType } from '~/store/liquidity/state'
-import {getAllChart} from '~/logic/liquidity/dataTool'
+import { pairStore,paramChart,symbolStore,analysisType,priceData } from '~/store/liquidity/state'
+import {getAllChart,getPriceData} from '~/logic/liquidity/dataTool'
 const props=defineProps({
   chartId:Number
 })
@@ -52,7 +52,6 @@ watch(()=>paramChart.coinType,(n,o)=>{
 })
 //监听token图表 的类型 pair eth usdt
 watch(()=>paramChart.tokenType,(n,o)=>{
-  console.log(n)
   getChartsData()
 })
 watch(()=>chartLoad.value,(n,o)=>{
@@ -60,8 +59,10 @@ watch(()=>chartLoad.value,(n,o)=>{
     isHasData.value=false
     return
   }
+  console.log(chartsAllData.value)
   let number=0
   R.map(item=>{
+    console.log(item)
     if(item.code===1){
       number++
     }
@@ -77,9 +78,11 @@ watch(()=>paramChart.interval,(n,o)=>{
 const getChartsData=async ()=>{
   if(pairStore.id){
     pairParam.pair_id=pairStore.id
+    await getPriceData({pair_id:pairStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'pair')
     await getTokenCharts(pairParam)
   }else{
     tokenParam.symbol_id=symbolStore.id
+    await getPriceData({symbol_id:symbolStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'token')
    await getTokenCharts(tokenParam)
   }
 }
@@ -94,6 +97,7 @@ const loading=false
 <!--  token {{symbolStore}}-->
 <!--  pair  {{pairStore}}-->
 <!--  {{paramChart}}-->
+  {{priceItem}}
   <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>
