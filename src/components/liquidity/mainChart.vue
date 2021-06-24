@@ -14,30 +14,46 @@ const router = useRouter()
 const chartsData=ref()
 const chartKey=ref(0)
 const isHasData=ref(true)
-const symbol=pairStore.id?pairStore.id:route.query.pair
-const {chartsAllData,chartLoad, requestChart:getCharts}=getAllChart()
-const param={
+const {chartsAllData,chartLoad, requestTokenChart:getTokenCharts}=getAllChart()
+const tokenParam={
   platId:1,
-  symbol_id: symbol,
+  symbol_id: '',
+  from_ts:'',
+  to_ts:'',
+  interval:paramChart.interval,
+}
+const pairParam={
+  platId:1,
+  pair_id:'',
+  from_ts:'',
+  to_ts:'',
   interval:paramChart.interval,
 }
 //改变分析类型
 watch(()=>analysisType.value,(n,o)=>{
-  getChartsData(param)
+  getChartsData()
 })
 //改变pair
 watch(()=>pairStore.id,(n,o)=>{
-   getChartsData(param)
+   getChartsData()
 })
 //监听时间改变
 watch(()=>paramChart.time,(n,o)=>{
-  param.from_ts=paramChart.timeBegin
-  param.to_ts=paramChart.timeEnd
-  getChartsData(param)
+  console.log(paramChart.timeBegin)
+  tokenParam.from_ts=paramChart.timeBegin
+  tokenParam.to_ts=paramChart.timeEnd
+  pairParam.from_ts=paramChart.timeBegin
+  pairParam.to_ts=paramChart.timeEnd
+  getChartsData()
 })
 //监听USD和币
 watch(()=>paramChart.coinType,(n,o)=>{
-  getChartsData(param)
+  getChartsData()
+})
+//监听token图表 的类型 pair eth usdt
+watch(()=>paramChart.tokenType,(n,o)=>{
+  console.log(n)
+  getChartsData()
 })
 watch(()=>chartLoad.value,(n,o)=>{
   if(chartsAllData.value.length===0) {
@@ -54,36 +70,36 @@ watch(()=>chartLoad.value,(n,o)=>{
 })
 //监听颗粒度
 watch(()=>paramChart.interval,(n,o)=>{
-  param.interval=n
-  getChartsData(param)
+  tokenParam.interval=n
+  pairParam.interval=n
+  getChartsData()
 })
-const getChartsData=async (param)=>{
-  let result=null
-  //pair_id 有pair的话走pair接口数据
+const getChartsData=async ()=>{
   if(pairStore.id){
-    isHasData.value=false
-    chartsAllData.value=[]
+    pairParam.pair_id=pairStore.id
+    await getTokenCharts(pairParam)
   }else{
-    param.symbol_id=symbolStore.id
-   await getCharts(param)
+    tokenParam.symbol_id=symbolStore.id
+   await getTokenCharts(tokenParam)
   }
 }
 onMounted(async ()=>{
-  await getChartsData(param)
+  await getChartsData()
 })
 const loading=false
 
 
 </script>
 <template>
-  token {{symbolStore}}
-  pair  {{pairStore}}
+<!--  token {{symbolStore}}-->
+<!--  pair  {{pairStore}}-->
+<!--  {{paramChart}}-->
   <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>
   <div   v-if="chartsAllData && isHasData" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
     <template v-for="item in chartsAllData">
-      <div v-if="item && item.id" class="w-full h-full">
+      <div v-if="item && item.id && item.xaxis.length>0" class="w-full">
       <LiquidityChartContainer v-loading="loading" class="border-1" :key="chartKey"  :chart-data="item" />
       </div>
     </template>

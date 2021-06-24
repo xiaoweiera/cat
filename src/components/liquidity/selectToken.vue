@@ -35,9 +35,9 @@ const inputBlur = () => {
 }
 watch(()=>selectTxt.value,async (n,o)=>{
   param.query=n
-  const {data:{data:data}}=await getInfoByToken(param)
-  tokenList.value=data
-  console.log(data)
+  // const {data:{data:data}}=await getInfoByToken(param)
+  // tokenList.value=data
+  // console.log(data)
 })
 </script>
 <template>

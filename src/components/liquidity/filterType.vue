@@ -7,7 +7,7 @@ const props = defineProps({
   tagType: String,
 })
 const changeTag = (tag: any) => {
-  paramChart[props.tagType] = tag.name
+  paramChart[props.tagType] = tag.value
   R.forEach((item) => {
     if (item.name === tag.name) {
       item.selected = true
