@@ -13,7 +13,7 @@ export const pairStore = reactive({ name: '', id: '' })
 export const symbolStore = reactive({ name: '', id: '0xe36ffd17b2661eb57144ceaef942d95295e637f0' })  //主币
 export const symbol0 = reactive({ name: '', id: '' })  // WHT/FILDA  WHT
 export const symbol1 = reactive({ name: '', id: '' })   // WHT/FILDA  FILDA
-
+export const priceData=ref()
 export const selectCoin = reactive({
   tokenId: '',
   name: '',
