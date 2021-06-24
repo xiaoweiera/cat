@@ -148,6 +148,14 @@ timeout()
           {{ props.project.coin }}
         </p>
       </div>
+
+      <div class="flex blockItem" v-if="props.project.website">
+        <p class="desc">{{ I18n.growthpad.about.website }}</p>
+        <p class="projectNum">
+          <a class="link" :href="`https://${props.project.website}`" target="_blank">{{ props.project.website }}</a>
+        </p>
+      </div>
+
       <div class="flex mt-3 items-end font-normal">
         <div class="desc">
           <span v-show="props.status !== 'closure'">{{

@@ -19,7 +19,7 @@ export default {
     // anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
     finished: 'Finish all tasks: {reward}',
     anytask: 'Finish one of tasks: {reward}',
-    send: '(In the settlement, it is expected to be issued within 10 working days.)',
+    send: '(In reward calculation, the final award amount is subject to the actual amount issued after calculation.)',
   },
   register: 'Information Registration',
   submit: 'Register',
@@ -31,7 +31,7 @@ export default {
     invalid: 'Invalid Address',
     tips: `Once confirmed, the address can't be modified`,
     notify1: '* Please register your address receiving rewards(Rewards for tasks related to TVL will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
-    notify2: '* The reward will be air-drop into your registered address and the reward of tasks about holding quantity will be air-drop into the address verified.'
+    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.'
   },
   about: {
     title: '{project} Exchange',

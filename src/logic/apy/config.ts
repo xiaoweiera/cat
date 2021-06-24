@@ -288,7 +288,7 @@ export const tableConfig = [
         {
           key: 'yield',
           name: I18n.apy.jqcTable.option.yield,
-          status: true,
+          status: false,
         },
       ],
       select: 'apy',
@@ -353,7 +353,7 @@ export const tableConfig = [
         {
           key: 'yield',
           name: I18n.apy.jqcTable.option.yield,
-          status: true,
+          status: false,
         },
       ],
       select: 'apy',
@@ -425,7 +425,7 @@ export const tableConfig = [
         {
           key: 'yield',
           name: I18n.apy.InterestBear,
-          status: true,
+          status: false,
         },
       ],
       select: 'apy',
