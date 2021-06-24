@@ -4,7 +4,7 @@
  */
 
 import { topic } from './pathname'
-import request from '~/lib/service'
+import request from '~/lib/request'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 import { MenuItem } from '~/logic/topic/props'

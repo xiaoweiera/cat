@@ -27,12 +27,12 @@ const makeQuery = function(item: MenuItem) {
   const list = db.flatten(menuList.value, 'children')
   db.insert(list)
   const parent = db.parent<MenuItem>(item)
+  const tagID = parent ? parent.id : 'item'
+  const topicID = item.id
+
   const value = router({
     path: '/topic',
-    query: {
-      tagID: parent ? parent.id : 'item',
-      topicID: item.id
-    }
+    query: { tagID, topicID }
   })
   return value
 }

@@ -64,16 +64,22 @@
     color: #2b8dff;
   }
   .menu-children {
-    display: none;
+    max-height: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    overflow: hidden;
   }
   .menu-radio {
+    visibility: hidden;
     display: none;
     width: 1px;
     height: 1px;
     transform: scale(0.1);
     &:checked {
       & ~ .menu-children {
-        display: block;
+        visibility: visible;
+        height: auto;
+        max-height: 300px;
       }
       & ~ .menu-label {
         @extend %active;
@@ -97,6 +103,18 @@
       @extend %active;
       background: rgba(43,141,255,.12941);
     }
+  }
+
+  .dot {
+    text-align: center;
+    line-height: 20px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    color: #2b8dff;
+    border-radius: 50%;
+    background: rgba(43,141,255,.1);
+    border: .5px solid rgba(43,141,255,.1);
   }
 </style>
 
