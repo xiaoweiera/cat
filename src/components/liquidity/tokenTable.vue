@@ -26,13 +26,13 @@ const changePair = (name: string, id: string) => {
 }
 const likeStart = (item: any) => console.log(item)
 const getPair_list = async () => {
-  const result = await getPair_side({
-    platId: 1,
-    symbol_id: props.symbol,
-  })
-  if (result?.data?.code === 0) {
-    pairList.value = result?.data?.data
-  }
+  // const result = await getPair_side({
+  //   platId: 1,
+  //   symbol_id: props.symbol,
+  // })
+  // if (result?.data?.code === 0) {
+  //   pairList.value = result?.data?.data
+  // }
 }
 onBeforeMount(() => {
   getPair_list()
@@ -47,7 +47,7 @@ onBeforeMount(() => {
         <li class="w-15 pl-1">涨跌幅</li>
       </ul>
       <div class="w-full h-full showY">
-        <template v-for="item in pairList">
+        <template v-for="item in testData">
           <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
             <div class="flex-1 font-kdExp flex items-center overflow-hidden">
               <img class="w-3 h-3" src="https://res.ikingdata.com/nav/noStart.png" alt="" @click="likeStart(item)"/>

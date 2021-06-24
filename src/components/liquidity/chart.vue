@@ -4,6 +4,7 @@ import * as echarts from 'echarts'
 import { paramChart } from '~/store/liquidity/state'
 import {getXData, getSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
+import {kData} from '/mock/liquidity'
 interface yModel {
   color: string
   data: Array<number>
@@ -28,10 +29,10 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: nu
 }
 const getChartData=()=>{
   const xData = getXData(props?.chartData.xaxis, interval)
-  const legend = getLegendList(props?.chartData.yaxis, props.chartData.kyaxis)
+  const legend = getLegendList(props?.chartData.yaxis,kData.yaxis[0])
   const [minM, maxM, kminM, kmaxM, series] = getSeries(
       props?.chartData.yaxis,
-      props?.chartData.kyaxis,
+      kData.yaxis[0],
   )
   draw(xData, series, legend, minM, maxM, kminM, kmaxM)
 }
