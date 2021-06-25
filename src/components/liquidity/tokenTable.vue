@@ -25,17 +25,16 @@ const changePair = (name: string, id: string) => {
   changeRouteParam(route,router,{pair:id,pairName:name})
 
 }
-watch(()=>props.symbol,async ()=>
+watch(()=>symbolStore.id,async ()=>
    await getPair_list()
 )
 const likeStart = (item: any) => console.log(item)
 const getPair_list = async () => {
   const result = await getPair_side({
     platId: 1,
-    symbol_id: props.symbol,
+    symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
-    console.log(pairList.value,'12121')
     pairList.value = result?.data?.data
   }
 }

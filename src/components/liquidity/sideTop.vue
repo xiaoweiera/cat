@@ -15,7 +15,7 @@ watch(()=>symbolStore.id,()=>{
 const getInfo = async() => {
   const param = {
     platId: 1,
-    symbol_id: props.symbol,
+    symbol_id: symbolStore.id,
   }
   const result = await getToken_side(param)
   if (result?.data?.code === 0) {

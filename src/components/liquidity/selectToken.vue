@@ -4,7 +4,9 @@ import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
 import { symbolStore,pairStore,selectTxt } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
-import {subStr} from '~/lib/tool'
+import {useRoute, useRouter} from 'vue-router'
+import {subStr,changeRouteParam} from '~/lib/tool'
+
 const props = defineProps({
   close:Function
 })
@@ -17,7 +19,8 @@ const param={
   platId:1,
   query:''
 }
-
+const route = useRoute()
+const router = useRouter()
 const changeSelect = (state) => {
   props.close(state)
 }
@@ -26,6 +29,7 @@ const changeToken = (name: string,id:string) => {
   symbolStore.id=id
   pairStore.id=''
   pairStore.name=''
+  changeRouteParam(route,router,{token:id})
   changeSelect(false)
 }
 const getData=(list:any)=>{
