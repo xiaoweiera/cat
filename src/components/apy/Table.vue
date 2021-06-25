@@ -10,6 +10,7 @@ import {
 } from 'element-plus'
 import { ref, defineProps, watch, toRefs, reactive } from 'vue'
 import * as R from 'ramda'
+import * as table from '~/logic/apy/table'
 import I18n from '~/utils/i18n/index'
 import * as lang from '~/utils/lang'
 import { filterByOptions } from '~/logic/apy/tableDetail'
@@ -204,7 +205,7 @@ const tipShowInfo=(key:string)=>{
               <ApyHeaderColumn :order-by-apy="orderByApy" :select-header-index="selectHeaderIndex" :header-index="i" :header-data="item"/>
             </template>
             <template #default="scope">
-              <el-popover class="mt-10 py-10" :offset="-6" :width="300" :show-arrow="isTipArrow" :disabled="!isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)" effect="light" trigger="hover" placement="bottom">
+              <el-popover class="mt-10 py-10" :offset="-6" :width="300" :show-arrow="isTipArrow" :disabled="!table.isShow(scope, options) ||  !isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)" effect="light" trigger="hover" placement="bottom">
                 <template #default>
                   <template v-for="(item, i) in scope.row?.data[i]?.data" :key="i">
                     <div v-if="getValue(item, i) !== '-' && tipShowInfo(item.key) " class="flex mb-0.5 items-center flex-wrap TipTxt">
@@ -217,7 +218,7 @@ const tipShowInfo=(key:string)=>{
                 </template>
                 <template #reference>
                   <div class="h-full min-h-12">
-                    <ApyTableItem :scope-data="scope" :index="index" :item-data="scope.row.data[i]?.data"/>
+                    <ApyTableItem :scope-data="scope" :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
                   </div>
                 </template>
               </el-popover>
@@ -264,7 +265,7 @@ const tipShowInfo=(key:string)=>{
               <ApyHeaderColumn :order-by-apy="orderByApy" :header-data="item" />
             </template>
             <template #default="scope">
-              <ApyTableItem :index="index" :item-data="scope.row.data[i]?.data"/>
+              <ApyTableItem :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
             </template>
           </el-table-column>
         </el-table>
