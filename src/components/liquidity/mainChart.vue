@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import { pairStore,paramChart,symbolStore,analysisType,priceData } from '~/store/liquidity/state'
+import { pairStore,paramChart,symbolStore,analysisType,priceData,selectTxt } from '~/store/liquidity/state'
 import {getAllChart,getPriceData} from '~/logic/liquidity/dataTool'
 const props=defineProps({
   chartId:Number
@@ -33,13 +33,16 @@ const pairParam={
 watch(()=>analysisType.value,(n,o)=>{
   getChartsData()
 })
+//改变symbol
+watch(()=>symbolStore.id,(n,o)=>{
+  getChartsData()
+})
 //改变pair
 watch(()=>pairStore.id,(n,o)=>{
    getChartsData()
 })
 //监听时间改变
 watch(()=>paramChart.time,(n,o)=>{
-  console.log(paramChart.timeBegin)
   tokenParam.from_ts=paramChart.timeBegin
   tokenParam.to_ts=paramChart.timeEnd
   pairParam.from_ts=paramChart.timeBegin
@@ -59,10 +62,8 @@ watch(()=>chartLoad.value,(n,o)=>{
     isHasData.value=false
     return
   }
-  console.log(chartsAllData.value)
   let number=0
   R.map(item=>{
-    console.log(item)
     if(item.code===1){
       number++
     }
@@ -96,8 +97,7 @@ const loading=false
 <template>
 <!--  token {{symbolStore}}-->
 <!--  pair  {{pairStore}}-->
-<!--  {{paramChart}}-->
-  {{priceItem}}
+<!--  {{selectTxt}}-->
   <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>

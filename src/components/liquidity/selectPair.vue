@@ -1,18 +1,19 @@
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
-import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
+import { ref, reactive,onMounted,watch,defineProps} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import { symbolStore,pairStore,selectTxt } from '~/store/liquidity/state'
-import {getInfoByToken} from '~/api/liquidity'
+import {symbolStore, pairStore,selectTxt } from '~/store/liquidity/state'
+import {getInfoByPair} from '~/api/liquidity'
 import {subStr} from '~/lib/tool'
 const props = defineProps({
   close:Function
 })
 const allData=ref([]) //请求数据的个数
-const tokenList=ref([])
+const pairList=ref([])
 const page=ref(1) //页数
 const size=10 //每页数量
 const initSize=5 //首次加载数量
+
 const param={
   platId:1,
   query:''
@@ -21,51 +22,53 @@ const param={
 const changeSelect = (state) => {
   props.close(state)
 }
-const changeToken = (name: string,id:string) => {
-  symbolStore.name=name
-  symbolStore.id=id
-  pairStore.id=''
-  pairStore.name=''
+const changePair = (symbol0:string,name: string,id:string,tokenId:string) => {
+  symbolStore.name=symbol0
+  symbolStore.id=tokenId
+  pairStore.name=name
+  pairStore.id=id
   changeSelect(false)
 }
+
 const getData=(list:any)=>{
-  const tokenDB=new DBList(list)
-  tokenList.value=tokenDB.select({}, initSize)
+  const pairDB=new DBList(list)
+  pairList.value=pairDB.select({}, initSize)
 }
 //更多
 const addMore=()=>{
-  const tokenDB=new DBList(allData.value)
-  tokenList.value=tokenDB.select({}, initSize+(size*page.value))
+  const pairDB=new DBList(allData.value)
+  pairList.value=pairDB.select({}, initSize+(size*page.value))
   page.value++
 }
-watch(()=>selectTxt.value,async (n,o)=>{
-  page.value=1
+watch(()=>selectTxt.value,async (n)=> {
+  page.value = 1
   //如果为空则制空
-  if(!n){
-    tokenList.value=[]
+  if (!n) {
+    pairList.value = []
     return
   }
-  param.query=n
-  const result=await getInfoByToken(param)
-  if(result?.data?.code===0){
-    allData.value=result?.data?.data
+  param.query = n
+  const result = await getInfoByPair(param)
+  if (result?.data?.code === 0) {
+    allData.value = result?.data?.data
+    console.log(allData, '---')
     getData(result?.data?.data)
-  }else{
-    tokenList.value=[]
+  } else {
+    pairList.value = []
   }
 })
 </script>
 <template>
-  <ul>
-    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
-    <template v-for="item in tokenList">
-      <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
+  <ul class="mt-3">
+    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">交易对</li>
+    <template v-for="item in pairList">
+      <li class="itemLi hand" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
         <div class="coinName">
-          <span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
+          <span>{{ subStr(item.pair) }}</span>
         </div>
       </li>
     </template>
-    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand">查看更多</li>
+    <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand">查看更多</li>
   </ul>
   <!--      交易对-->
 </template>

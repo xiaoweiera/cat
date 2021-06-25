@@ -104,7 +104,14 @@ export function getInfoByToken(param: any) {
     method: 'get',
   })
 }
-
+//搜索 pair
+export function getInfoByPair(param: any) {
+  return request({
+    url: `/api/liquidity/${param.platId}/pair_search/`,
+    params: param,
+    method: 'get',
+  })
+}
 // 交易数据分析-------------------------------
 //图表接口token USDT
 export function getPayChartsUsdtById(param: any) {

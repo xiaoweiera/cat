@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref, reactive, defineProps, onMounted } from 'vue'
-import { selectCoin } from '~/store/liquidity/state'
+import { ref, reactive, defineProps, onMounted,watch } from 'vue'
+import { selectCoin,symbolStore } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
 import { toFixedNumber, smallToken } from '~/lib/tool'
 
@@ -9,7 +9,9 @@ const props = defineProps({
   symbol: Object,
 })
 const info = ref({})
-
+watch(()=>symbolStore.id,()=>{
+  getInfo()
+})
 const getInfo = async() => {
   const param = {
     platId: 1,
@@ -17,7 +19,7 @@ const getInfo = async() => {
   }
   const result = await getToken_side(param)
   if (result?.data?.code === 0) {
-    info.value = result?.data?.data
+    info.value = result?.data?.data[0]
   }
 }
 onMounted(() => {
@@ -91,7 +93,7 @@ onMounted(() => {
           class="text-kd12px16px text-global-default opacity-35"
         >Token地址</span>
         <span class="ml-1.5 text-global-primary text-kd14px20px">{{
-          smallToken(info.symbol_id)
+            smallToken(info.symbol_id)
         }}</span>
         <img
           class="w-4 h-4 ml-2 hand"

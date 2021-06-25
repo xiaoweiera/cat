@@ -182,6 +182,6 @@ export const smallToken = (tokenId: string) => {
   )}`
 }
 export const subStr = (str:string)=>{
-  if (!str) return
-  return str.slice(0, 6)
+  if (!str || str.length<=10) return str
+  return str.slice(0, 10)+'...'
 }

@@ -25,7 +25,7 @@ export const initCharts=(chartsAllData:any)=>{
 export const getChartsPairUsdByPair=async (param:any)=>{
   if(paramChart.tokenType==='pair'){
     return await getChartsPairUsdById(param)
-  }else if(paramChart.tokenType==='eth'){
+  }else if(paramChart.tokenType==='symbol0'){
     return await getChartsPairUsdByEth(param)
   }else {
     return await getChartsPairUsdByEth(param)
@@ -35,7 +35,7 @@ export const getChartsPairUsdByPair=async (param:any)=>{
 export const getChartsPairCoinByPair=async (param:any)=>{
   if(paramChart.tokenType==='pair'){
     return await getChartsPairCoinById(param)
-  }else if(paramChart.tokenType==='eth'){
+  }else if(paramChart.tokenType==='symbol0'){
     return await getChartsPairCoinByEth(param)
   }else {
     return await getChartsPairCoinByUSDT(param)
@@ -43,7 +43,7 @@ export const getChartsPairCoinByPair=async (param:any)=>{
 }
 //pay 交易数据分析
 export const getPayChartsPairUsdByPair=async (param:any)=>{
-  if(paramChart.tokenType==='pair'){
+  if(paramChart.tokenType==='symbol0'){
     return await getPayChartsPairUsdBySymbol0(param)
   }else {
     return await getPayChartsPairUsdBySymbol1(param)
@@ -51,7 +51,7 @@ export const getPayChartsPairUsdByPair=async (param:any)=>{
 }
 //pay 交易数据分析
 export const getPayChartsPairCoinByPair=async (param:any)=>{
-  if(paramChart.tokenType==='pair'){
+  if(paramChart.tokenType==='symbol0'){
     return await getPayChartsPairCoinBySymbol0(param)
   }else {
     return await getPayChartsPairCoinBySymbol1(param)
@@ -105,7 +105,7 @@ export const payGetCharts=async (param:any)=>{
 export const getAllChart= ()=>{
   const chartsAllData =ref<chartItem[]>([])
   const chartLoad=ref(true)
-  const chartIds=[1,2,3,4]
+  const chartIds=[1,2,3,4,5]
   //token图表查询
   const requestTokenChart=async (param:any)=>{
     chartLoad.value=false
