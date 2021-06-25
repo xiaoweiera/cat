@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
 import activity from '~/logic/growthpad/activity'
-import { Project } from '~/api/growtask'
+import { ProjectKey as Project } from '~/logic/growthpad/config'
 import { TimeStatus, getTimeStatus } from '~/components/growthpad/task/task'
 
 const store = Task()

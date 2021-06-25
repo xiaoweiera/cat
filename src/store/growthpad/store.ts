@@ -14,6 +14,8 @@ import { postInfo, postInfoBasis } from './directive'
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
+import { ProjectKey, getProjectType, ProjectShareCode } from '~/logic/growthpad/config'
+
 
 interface Minutia {
   label: string
@@ -73,7 +75,7 @@ class Store {
   // 当前项目用户要求参与活动的数量
   protected project_invited_count = ref<number>(0)
   // @ts-ignore
-  protected projectName: API.Project // 项目名称
+  protected projectName: ProjectKey // 项目名称
   protected title = ref<string>('') // title
   protected icon = ref<string>('') // icon
   // 首屏数据
@@ -140,31 +142,31 @@ class Store {
 
   // 构造方法
   constructor(type: string) {
-    if (type && API.getProjectType(type) === API.Project.mdx) {
-      this.projectName = API.Project.mdx
-      this.shareCode.value = '-G1'
+    if (type && getProjectType(type) === ProjectKey.mdx) {
+      this.projectName = ProjectKey.mdx
+      this.shareCode.value = ProjectShareCode[ProjectKey.mdx]
       this.setInitData(mockMdx)
-    } else if (type && API.getProjectType(type) === API.Project.channels) {
-      this.projectName = API.Project.channels
-      this.shareCode.value = '-G3'
+    } else if (type && getProjectType(type) === ProjectKey.channels) {
+      this.projectName = ProjectKey.channels
+      this.shareCode.value = ProjectShareCode[ProjectKey.channels]
       this.setInitData(mockChannels)
-    } else if (type && API.getProjectType(type) === API.Project.coinwind) {
-      this.projectName = API.Project.coinwind
-      this.shareCode.value = '-G2'
+    } else if (type && getProjectType(type) === ProjectKey.coinwind) {
+      this.projectName = ProjectKey.coinwind
+      this.shareCode.value = ProjectShareCode[ProjectKey.coinwind]
       this.setInitData(mockCoinWind)
-    } else if (type && API.getProjectType(type) === API.Project.growth) {
-      this.projectName = API.Project.growth
-      this.shareCode.value = '-G4'
+    } else if (type && getProjectType(type) === ProjectKey.growth) {
+      this.projectName = ProjectKey.growth
+      this.shareCode.value = ProjectShareCode[ProjectKey.growth]
       this.setInitData(mockGrowth)
     }
   }
 
-  private clearTimeout(): void {
+  clearTimeout(): void {
     clearTimeout(this.timeout)
   }
 
   // 设置基础数据
-  private setInitData(data: any) {
+  protected setInitData(data: any) {
     this.token = data.token as string
     this.title.value = data.title
     this.icon.value = data.icon
@@ -192,18 +194,18 @@ class Store {
     this.taskList.value = data.taskList
   }
 
-  protected getNickName(): API.Project {
+  getNickName(): ProjectKey {
     return this.projectName
   }
 
-  protected getName(): string {
-    if (this.getNickName() === API.Project.channels) {
+  getName(): string {
+    if (this.getNickName() === ProjectKey.channels) {
       return 'Channels'
     }
-    if (this.getNickName() === API.Project.coinwind) {
+    if (this.getNickName() === ProjectKey.coinwind) {
       return 'CoinWind'
     }
-    if (this.getNickName() === API.Project.growth) {
+    if (this.getNickName() === ProjectKey.growth) {
       return 'GrowthPad'
     }
     return this.getNickName()
@@ -263,7 +265,7 @@ class Store {
     this.chatPicture.value = safeGet<string[]>(result, 'wechat_group') || []
 
     // growth pad 任务不启动自动刷新
-    if (this.getNickName() !== API.Project.growth) {
+    if (this.getNickName() !== ProjectKey.growth) {
       // 自动刷新逻辑
       const keys: string[] = Object.keys(result)
       if (keys.length > 1) {
@@ -297,8 +299,8 @@ class Store {
    */
   async init(): Promise<void> {
     this.clearTimeout()
-    const name: API.Project = this.getNickName()
-    if (name !== API.Project.growth) {
+    const name = this.getNickName()
+    if (name !== ProjectKey.growth) {
       const result = await API.getProjectInfo(name)
       this.updateData(result)
     } else {

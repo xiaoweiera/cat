@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
-import { Project } from '~/api/growtask'
+// @ts-ignore
+import { ProjectKey } from '~/logic/growthpad/config'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
 import { loading, ready } from '~/logic/growthpad/active'
@@ -21,7 +22,7 @@ onBeforeMount(() => {
     <div class="pt-15 px-4 md:px-6">
       <growthpadTaskAdress />
 
-      <template v-if="store.projectName === Project.coinwind">
+      <template v-if="store.projectName === ProjectKey.coinwind">
         <growthpadTaskCoinwind></growthpadTaskCoinwind>
       </template>
 

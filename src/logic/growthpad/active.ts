@@ -5,54 +5,28 @@
 
 import { ref } from 'vue'
 import { useHead } from '@vueuse/head'
-import I18n from '~/utils/i18n/index'
 import Store from '~/store/growthpad/store'
 import { wxShare } from '~/lib/wxShare'
-import { Project } from '~/api/growtask'
+
+import {
+  getProjectType,
+  ProjectPageTitle,
+  ProjectShareTitle,
+  ProjectShareDesc
+} from '~/logic/growthpad/config'
 
 export const loading = ref<boolean>(true)
 
 export const ready = async function(store: Store): Promise<void> {
-  // 判断 URL 地址是否正确
-  let title: string
-  let desc: string
+  const name = store.getNickName()
   // 项目名称
-  // @ts-ignore
-  const name: Project = store.projectName
-  if (name === Project.coinwind) {
-    useHead({
-      title: `${I18n.growthpad.coinwind.title}-GrowthPad`,
-    })
-    // @ts-ignore
-    const project = store.title.value || 'CoinWind'
-    title = I18n.template(I18n.growthpad.wechat.title, { project })
-    desc = I18n.template(I18n.growthpad.wechat.desc, { project })
-  } else if (name === Project.mdx) {
-    useHead({
-      title: `${I18n.growthpad.mdx.title}-GrowthPad`,
-    })
-    // @ts-ignore
-    const project = store.title.value || 'MDEX'
-    title = I18n.template(I18n.growthpad.wechat.title, { project })
-    desc = I18n.template(I18n.growthpad.wechat.desc, { project })
-    wxShare(title, desc)
-    await store.init()
-  } else if (name === Project.channels) {
-    useHead({
-      title: `${I18n.growthpad.channels.title}-GrowthPad`,
-    })
-    // @ts-ignore
-    const project = store.title.value || 'Channels'
-    title = I18n.template(I18n.growthpad.wechat.title, { project })
-    desc = I18n.template(I18n.growthpad.wechat.desc, { project })
-  } else if (name === Project.growth) {
-    // @ts-ignore
-    const project = store.title.value || 'GrowthPad'
-    title = I18n.template(I18n.growthpad.wechat.title, { project })
-    desc = I18n.template(I18n.growthpad.wechat.desc, { project })
-  }
-  // @ts-ignore
-  if (title && desc) {
+  const id = getProjectType(name)
+  if (id) {
+    if (ProjectPageTitle[id]) {
+      useHead({ title: ProjectPageTitle[id] })
+    }
+    const title: string = ProjectShareTitle[id]
+    const desc: string = ProjectShareDesc[id]
     // 设置分享地址
     wxShare(title, desc)
     await store.init()

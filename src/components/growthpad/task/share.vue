@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
-import { Project } from '~/api/growtask'
+import { ProjectKey as Project } from '~/logic/growthpad/config'
 const store = Task()
 // @ts-ignore
 const data = computed(() => {

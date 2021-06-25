@@ -3,7 +3,7 @@ import { computed, defineProps } from 'vue'
 import dayjs from 'dayjs'
 // @ts-ignore
 import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
-import { Project } from '~/api/growtask'
+import { ProjectKey as Project } from '~/logic/growthpad/config'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { toNumber } from '~/utils/index'

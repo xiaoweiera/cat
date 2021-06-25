@@ -7,7 +7,7 @@ import TaskType from '~/logic/growthpad/tasktype'
 import { MissionStatus } from '~/store/growthpad/props'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
-import { Project } from '~/api/growtask'
+import { ProjectKey as Project } from '~/logic/growthpad/config'
 const store = Task()
 const props = defineProps({
   data: {

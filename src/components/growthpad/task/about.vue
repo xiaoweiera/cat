@@ -3,7 +3,7 @@ import { computed, toRaw } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { Project } from '~/api/growtask'
+import { ProjectKey as Project } from '~/logic/growthpad/config'
 
 const store = Task()
 

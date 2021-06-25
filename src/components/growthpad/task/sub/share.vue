@@ -4,7 +4,7 @@ import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
 
 import I18n from '~/utils/i18n/index'
-import { Project } from '~/api/growtask'
+import { ProjectKey as Project } from '~/logic/growthpad/config'
 const store = Task()
 defineProps({
   data: {
