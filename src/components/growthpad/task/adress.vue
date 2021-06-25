@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
 import activity from '~/logic/growthpad/activity'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
+import { ProjectKey } from '~/logic/growthpad/config'
 import { TimeStatus, getTimeStatus } from '~/components/growthpad/task/task'
 
 const store = Task()
@@ -38,19 +38,19 @@ const tokenIsNull = computed<boolean>((): boolean => {
 // @ts-ignore
 const placeholder = (): string => {
   // @ts-ignore
-  if (store.projectName === Project.mdx) {
+  if (store.projectName === ProjectKey.mdx) {
     return I18n.growthpad.mdx.address.placeholder
   }
   // @ts-ignore
-  if (store.projectName === Project.channels) {
+  if (store.projectName === ProjectKey.channels) {
     return I18n.growthpad.channels.address.placeholder
   }
   // @ts-ignore
-  if (store.projectName === Project.coinwind) {
+  if (store.projectName === ProjectKey.coinwind) {
     return I18n.growthpad.coinwind.address.placeholder
   }
   // @ts-ignore
-  if (store.projectName === Project.growth) {
+  if (store.projectName === ProjectKey.growth) {
     return I18n.growthpad.growthpad.address.placeholder
   }
   return I18n.growthpad.mdx.address.placeholder
@@ -139,7 +139,7 @@ const bindAddress = async function(): Promise<void> {
       <h2 class="pb-4 text-base font-medium address">
         <span>{{ I18n.growthpad.address.reward }}</span>
         <span class="reward">{{ store.reward.value }}</span>
-        <template v-if="store.projectName === Project.channels">
+        <template v-if="store.projectName === ProjectKey.channels">
           <span class="ml-1" style="color: #e9592d">{{
             I18n.growthpad.channels.address.tips
           }}</span>

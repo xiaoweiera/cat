@@ -3,7 +3,7 @@ import { computed, defineProps } from 'vue'
 import dayjs from 'dayjs'
 // @ts-ignore
 import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
+import { ProjectKey } from '~/logic/growthpad/config'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { toNumber } from '~/utils/index'
@@ -39,7 +39,7 @@ const title = computed((): string => {
   // @ts-ignore
   const data = { project: store.title.value }
   // @ts-ignore
-  if (store.getNickName() === Project.growth) {
+  if (store.getNickName() === ProjectKey.growth) {
     return data.project
   }
   return I18n.template(I18n.growthpad.growth, data)

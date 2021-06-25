@@ -13,12 +13,11 @@ const props = defineProps({
 
 // @ts-ignore
 const href = computed(() => {
-  const href = props.data?.tooltip?.href || 'http://kingdata.com'
-  return href
+  return props.data?.tooltip?.href || 'https://kingdata.com'
 })
 // @ts-ignore
 const hrefAfter = computed(() => {
-  const href = props.data?.tooltipAfter?.href || 'http://kingdata.com'
+  const href = props.data?.tooltipAfter?.href || 'https://kingdata.com'
   return href
 })
 </script>

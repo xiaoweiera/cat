@@ -4,7 +4,7 @@ import { reactive, ref, toRaw, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { messageSuccess, messageError } from '~/lib/tool'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
+import { ProjectKey } from '~/logic/growthpad/config'
 import Message from '~/utils/message'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
@@ -14,21 +14,21 @@ const store = Task()
 
 const data = computed(() => {
   // @ts-ignore
-  if (store.projectName === Project.mdx) {
+  if (store.projectName === ProjectKey.mdx) {
     return {
       title: I18n.growthpad.mdx.weibo.label,
       description: I18n.growthpad.mdx.weibo.description,
     }
   }
   // @ts-ignore
-  if (store.projectName === Project.channels) {
+  if (store.projectName === ProjectKey.channels) {
     return {
       title: I18n.growthpad.channels.weibo.label,
       description: I18n.growthpad.channels.weibo.description,
     }
   }
   // @ts-ignore
-  if (store.projectName === Project.coinwind) {
+  if (store.projectName === ProjectKey.coinwind) {
     return {
       title: I18n.growthpad.coinwind.weibo.label,
       description: I18n.growthpad.coinwind.weibo.description,

@@ -3,7 +3,7 @@ import { computed, toRaw } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
+import { ProjectKey } from '~/logic/growthpad/config'
 
 const store = Task()
 
@@ -25,7 +25,7 @@ const list = computed(() => {
 // @ts-ignore
 const title = computed<string>((): string => {
   // @ts-ignore
-  if (store.projectName === Project.mdx) {
+  if (store.projectName === ProjectKey.mdx) {
     // @ts-ignore
     return I18n.template(I18n.growthpad.about.title, {
       project: store.title.value,

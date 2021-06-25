@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
+import { ProjectKey } from '~/logic/growthpad/config'
 const store = Task()
 // @ts-ignore
 const data = computed(() => {
@@ -24,14 +24,14 @@ const link = (): string => {
   let value = ''
 
   // @ts-ignore
-  const name: Project = store.projectName
-  if (name === Project.coinwind) {
+  const name = store.getNickName()
+  if (name === ProjectKey.coinwind) {
     value = I18n.growthpad.coinwind.title
-  } else if (name === Project.mdx) {
+  } else if (name === ProjectKey.mdx) {
     value = I18n.growthpad.mdx.title
-  } else if (name === Project.channels) {
+  } else if (name === ProjectKey.channels) {
     value = I18n.growthpad.channels.title
-  } else if (name === Project.growth) {
+  } else if (name === ProjectKey.growth) {
     value = I18n.growthpad.growthpad.title
   } else {
     const $title = document.querySelector('title')

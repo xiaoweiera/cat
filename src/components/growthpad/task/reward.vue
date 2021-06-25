@@ -6,8 +6,7 @@ import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import { MissionStatus } from '~/store/growthpad/props'
 import Task from '~/logic/growthpad/task'
-import { userData } from '~/logic/user/login'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
+import { ProjectKey } from '~/logic/growthpad/config'
 const store = Task()
 const props = defineProps({
   data: {
@@ -22,17 +21,16 @@ const isWeibo = computed((): boolean => {
 const symbolValue = computed<string>((): string => {
   // 项目名称
   // @ts-ignore
-  const name: Project = store.projectName
-  if (name === Project.growth) {
+  const name: ProjectKey = store.projectName
+  if (store.getNickName() === ProjectKey.growth) {
     return I18n.common.symbol.divide
   }
   return I18n.common.symbol.plus
 })
 const tokenValue = computed<string>((): string => {
   // 项目名称
-  // @ts-ignore
-  const name: Project = store.projectName
-  if (name === Project.growth) {
+  const name = store.getNickName()
+  if (name === ProjectKey.growth) {
     return 'U'
   }
   return store.token
