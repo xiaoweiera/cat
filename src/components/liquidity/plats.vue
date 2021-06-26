@@ -23,7 +23,7 @@ const getPlat = async() => {
 const selectPlatChange = (status: boolean) => {
   platShow.value = status
 }
-const mouseover = () => selectPlatChange(true)
+const mouseover = () => selectPlatChange(false)
 const mouseLeave = () => selectPlatChange(false)
 const changePlat = (plat: any) => {
   updateData(platStore, plat)
@@ -42,33 +42,14 @@ onBeforeMount(() => {
     <div class="flex items-center hand" @mouseover="mouseover()">
       <img class="w-5 h-5" :src="plats.select.logo" alt="" />
       <span class="ml-1.5">{{ plats.select.name }}</span>
-      <img
-        class="w-2 h-1 ml-2"
-        src="https://res.ikingdata.com/nav/logoList.png"
-        alt=""
-      />
-      <div
-        v-show="platShow"
-        class="w-27.25 absolute top-14 left-0 z-2 py-1.5 showContainer"
-      >
+<!--      <img class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/logoList.png" alt=""/>-->
+      <div v-show="platShow" class="w-27.25 absolute top-14 left-0 z-2 py-1.5 showContainer">
         <ul>
           <template v-for="item in plats.data">
-            <li
-              class="itemLi hand"
-              :class="{ selectBg: plats.select.name === item.name }"
-              @click="changePlat(item)"
-            >
+            <li class="itemLi " :class="{ selectBg: plats.select.name === item.name }" @click="changePlat(item)">
               <div class="flex items-center">
                 <img class="w-4 h-4" :src="item.logo" alt="" />
-                <div
-                  class="
-                    ml-1
-                    text-kd14px20px text-global-default
-                    opacity-65
-                    font-kdExp
-                    py-1.5
-                  "
-                >
+                <div class="ml-1text-kd14px20px text-global-default opacity-65 font-kdExp py-1.5">
                   {{ item.name }}
                 </div>
               </div>

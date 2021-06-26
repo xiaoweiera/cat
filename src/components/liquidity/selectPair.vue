@@ -2,7 +2,7 @@
 import DBList from '@fengqiaogang/dblist'
 import { ref, reactive,onMounted,watch,defineProps} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import {symbolStore, pairStore,selectTxt } from '~/store/liquidity/state'
+import {symbolStore, pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByPair} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {subStr,changeRouteParam} from '~/lib/tool'
@@ -30,6 +30,7 @@ const changePair = (symbol0:string,name: string,id:string,tokenId:string) => {
   pairStore.id=id
   changeRouteParam(route,router,{token:tokenId})
   changeRouteParam(route,router,{pair:id,pairName:name})
+  setHistory({name:name,pair_id:id,tokenName:symbol0,token_id:tokenId,type:'pair'})
   changeSelect(false)
 }
 const route = useRoute()
@@ -44,14 +45,14 @@ const addMore=()=>{
   pairList.value=pairDB.select({}, initSize+(size*page.value))
   page.value++
 }
-watch(()=>selectTxt.value,async (n)=> {
+const getList=async ()=>{
   page.value = 1
   //如果为空则制空
-  if (!n) {
+  if (!selectTxt.value) {
     pairList.value = []
     return
   }
-  param.query = n
+  param.query = selectTxt.value
   const result = await getInfoByPair(param)
   if (result?.data?.code === 0) {
     allData.value = result?.data?.data
@@ -60,6 +61,12 @@ watch(()=>selectTxt.value,async (n)=> {
   } else {
     pairList.value = []
   }
+}
+watch(()=>selectTxt.value,async (n)=> {
+  getList()
+})
+onMounted(()=>{
+  getList()
 })
 </script>
 <template>

@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import { pairStore,paramChart,symbolStore,analysisType,priceData,selectTxt } from '~/store/liquidity/state'
+import { pairStore,paramChart,symbolStore,analysisType,priceData,selectTxt,selectHistory } from '~/store/liquidity/state'
 import {getAllChart,getPriceData} from '~/logic/liquidity/dataTool'
 const props=defineProps({
   chartId:Number

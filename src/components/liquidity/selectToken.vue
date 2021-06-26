@@ -2,7 +2,7 @@
 import DBList from '@fengqiaogang/dblist'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import { symbolStore,pairStore,selectTxt } from '~/store/liquidity/state'
+import { symbolStore,pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {subStr,changeRouteParam} from '~/lib/tool'
@@ -30,6 +30,7 @@ const changeToken = (name: string,id:string) => {
   pairStore.id=''
   pairStore.name=''
   changeRouteParam(route,router,{token:id})
+  setHistory({token_id:id,name:name,type:'token'})
   changeSelect(false)
 }
 const getData=(list:any)=>{
@@ -42,14 +43,14 @@ const addMore=()=>{
   tokenList.value=tokenDB.select({}, initSize+(size*page.value))
   page.value++
 }
-watch(()=>selectTxt.value,async (n,o)=>{
+const getList=async ()=>{
   page.value=1
   //如果为空则制空
-  if(!n){
+  if(!selectTxt.value){
     tokenList.value=[]
     return
   }
-  param.query=n
+  param.query=selectTxt.value
   const result=await getInfoByToken(param)
   if(result?.data?.code===0){
     allData.value=result?.data?.data
@@ -57,6 +58,12 @@ watch(()=>selectTxt.value,async (n,o)=>{
   }else{
     tokenList.value=[]
   }
+}
+watch(()=>selectTxt.value,async (n,o)=>{
+  getList()
+})
+onMounted(()=>{
+  getList()
 })
 </script>
 <template>

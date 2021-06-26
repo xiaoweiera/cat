@@ -29,7 +29,7 @@ watch(()=>selectTxt.value,(n)=>{
         <LiquiditySelectPair :close="close" />
       </div>
       <div v-if="coinShow.valueData && !selectTxt" class="absolute top-14.5 right-0 w-51.25  z-2 tipContainer h-42.5 overflow-hidden overflow-y-auto">
-        <LiquiditySelectHistory />
+        <LiquiditySelectHistory  :close="close" />
       </div>
 
 

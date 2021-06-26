@@ -7,6 +7,7 @@ interface platModel {
 //分析种类tag
 export const analysisType=ref('flow')   //flow  pay
 export const selectTxt = ref<string>('')
+export const selectHistory=ref([{},{},{},{}])
 // 选择的平台
 export const platStore: platModel = reactive({ logo: '', name: '' }) // 弹窗状态
 // 左侧列表table 选择的 交易对
@@ -34,4 +35,21 @@ export const updateData = (origin: any, data: any) => {
   R.map((key) => {
       origin[key] = data[key]
   }, keys)
+}
+// 获取缓存的搜索记录
+export const getHistory=()=>{
+  if(localStorage.getItem('history')){
+    //@ts-ignore
+    const data=JSON.parse(localStorage?.getItem('history'))
+    selectHistory.value=data
+    return  data
+  }
+  return []
+}
+// 设置缓存的搜索记录 里面包含token和pair
+export const setHistory=(list:any)=>{
+  selectHistory.value.shift()
+  selectHistory.value.push(list)
+  //@ts-ignore
+  localStorage.setItem('history',JSON.stringify(selectHistory.value))
 }
