@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
+import { ProjectCopyTitle } from '~/logic/growthpad/config'
 
-import I18n from '~/utils/i18n/index'
-import { ProjectKey as Project } from '~/logic/growthpad/config'
 const store = Task()
 defineProps({
   data: {
@@ -19,18 +19,10 @@ const link = (): string => {
   if (code) {
     url = `${url}?code=${code}`
   }
-  let value = ''
-
-  // @ts-ignore
   const name = store.getNickName()
-  if (name === ProjectKey.coinwind) {
-    value = I18n.growthpad.coinwind.title
-  } else if (name === ProjectKey.mdx) {
-    value = I18n.growthpad.mdx.title
-  } else if (name === ProjectKey.channels) {
-    value = I18n.growthpad.channels.title
-  } else if (name === ProjectKey.growth) {
-    value = I18n.growthpad.growthpad.title
+  let value: string
+  if (ProjectCopyTitle[name]) {
+    value = ProjectCopyTitle[name]
   } else {
     const $title = document.querySelector('title')
     value = $title.innerText

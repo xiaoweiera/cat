@@ -49,6 +49,14 @@ export const ProjectPageTitle: any = {
   [ProjectKey.coinwind]: `${I18n.growthpad.coinwind.title}-GrowthPad`,
 }
 
+
+export const ProjectCopyTitle = {
+  [ProjectKey.coinwind]: I18n.growthpad.coinwind.title,
+  [ProjectKey.mdx]: I18n.growthpad.mdx.title,
+  [ProjectKey.channels]: I18n.growthpad.channels.title,
+  [ProjectKey.growth]: I18n.growthpad.growthpad.title
+}
+
 // 项目分享标题
 export const ProjectShareTitle: any = {
   [ProjectKey.mdx]: I18n.template(I18n.growthpad.wechat.title, {
