@@ -215,7 +215,7 @@ const timeCountdownValue = computed<string>((): string => {
         </ul>
       </div>
       <div
-        v-if="timeStatus !== TimeStatus.closure"
+        v-if="timeStatus !== TimeStatus.closure && timeCountdownValue"
         class="pt-5 block md:hidden"
       >
         <template v-if="timeStatus === TimeStatus.wait">

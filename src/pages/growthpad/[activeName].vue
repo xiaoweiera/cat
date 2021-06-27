@@ -36,7 +36,12 @@ onBeforeMount(() => {
                 :key="index"
                 class="pb-7.5"
               >
-                <growthpadTaskItem :expant="index < 1" :data="item" />
+                <template v-if="store.getNickName() === ProjectKey.chainwallet">
+                  <growthpadChainwalletItem :data="item"></growthpadChainwalletItem>
+                </template>
+                <template v-else>
+                  <growthpadTaskItem :expant="index < 1" :data="item" />
+                </template>
               </li>
             </ul>
           </DotCountGroup>

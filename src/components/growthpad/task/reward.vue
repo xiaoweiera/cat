@@ -161,21 +161,6 @@ const rewardValue = computed<number>((): number => {
   // Vip 任务
   // @ts-ignore
   if (props.data.type === TaskType.vip) {
-    /*
-    // 验证是否为 Vip
-    if (isSuccess(store.mission.invited)) {
-      // 验证是否完成任务
-      if (
-        isSuccess(store.mission.telegram_group)
-        && isSuccess(store.mission.retweet)
-        && isSuccess(store.mission.follow_twitter)
-      ) {
-        // 返回奖励
-        // @ts-ignore
-        return getMin(props.data.reward)
-      }
-    }
-    */
     // 使用新的计算奖励规则
     return childrenRewardStatus(props.data)
   }
@@ -231,18 +216,6 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.venus) {
     if (isSuccess(store.mission.venus)) {
-      /*
-      // 验证是否完成任务
-      if (
-        isSuccess(store.mission.telegram_group)
-        && isSuccess(store.mission.follow_weibo)
-        && isSuccess(store.mission.follow_twitter)
-      ) {
-        // 返回奖励
-        // @ts-ignore
-        return getMin(props.data.reward)
-      }
-       */
       // 使用新的计算奖励规则
       return childrenRewardStatus(props.data)
     }
@@ -252,18 +225,6 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.cream) {
     if (isSuccess(store.mission.cream)) {
-      /*
-      // 验证是否完成任务
-      if (
-        isSuccess(store.mission.telegram_group)
-        && isSuccess(store.mission.follow_weibo)
-        && isSuccess(store.mission.follow_twitter)
-      ) {
-        // 返回奖励
-        // @ts-ignore
-        return getMin(props.data.reward)
-      }
-      */
       // 使用新的计算奖励规则
       return childrenRewardStatus(props.data)
     }
@@ -273,18 +234,6 @@ const rewardValue = computed<number>((): number => {
   // @ts-ignore
   if (props.data.type === TaskType.compound) {
     if (isSuccess(store.mission.compound)) {
-      /*
-      // 验证是否完成任务
-      if (
-        isSuccess(store.mission.telegram_group)
-        && isSuccess(store.mission.follow_weibo)
-        && isSuccess(store.mission.follow_twitter)
-      ) {
-        // 返回奖励
-        // @ts-ignore
-        return getMin(props.data.reward)
-      }
-      */
       // 使用新的计算奖励规则
       return childrenRewardStatus(props.data)
     }
@@ -294,10 +243,10 @@ const rewardValue = computed<number>((): number => {
 </script>
 <template>
   <template v-if="rewardValue">
-    <span class="font-bold font-kdExp inline-block">
+    <span class="font-bold font-kdExp inline-block whitespace-nowrap">
       <span class="reward bonus block md:inline-block">
         <span class="text-xs">{{ I18n.common.message.get }}</span>
-        <span class="count">{{ rewardValue }}</span>
+        <span class="count inline-block min-w-14 text-right">{{ rewardValue }}</span>
         <span class="ml-1">{{ tokenValue }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
@@ -306,7 +255,7 @@ const rewardValue = computed<number>((): number => {
     </span>
   </template>
   <template v-else>
-    <span class="font-bold font-kdExp inline-block">
+    <span class="font-bold font-kdExp inline-block whitespace-nowrap">
       <span class="reward block md:inline-block">
         <template v-if="isWeibo">
           <span
@@ -316,7 +265,7 @@ const rewardValue = computed<number>((): number => {
           }}</span>
         </template>
         <template v-else>
-          <span class="count">{{ symbolValue }}{{ getMax(data.reward) }}</span>
+          <span class="count inline-block min-w-14 text-right">{{ symbolValue }}{{ getMax(data.reward) }}</span>
         </template>
         <span class="ml-1">{{ tokenValue }}</span>
       </span>

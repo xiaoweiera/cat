@@ -5,7 +5,8 @@
 
 import I18n from '../../src/utils/i18n'
 import { chainWallet } from './projectInfo'
-
+import * as chat from './chat'
+import TaskType from '~/logic/growthpad/tasktype'
 const token = chainWallet.coin // 代币名称
 
 const telegramHref = 'https://t.me/CHA_Wallet'
@@ -40,7 +41,48 @@ const data = {
       { icon: 'union', href: '/' },
     ],
   },
-  taskList: [],
+  taskList: [
+    // 任务1，转发 twitter
+    chat.retwitter(
+      chainWallet.title,
+      I18n.growthpad.warning.article,
+      twitterHref,
+      [10]
+    ),
+    // 任务2，关注 twitter
+    chat.twitter(
+      chainWallet.title,
+      I18n.growthpad.warning.article,
+      twitterHref,
+      [5]
+    ),
+    // 任务3，加入电报群
+    chat.telegram(
+      chainWallet.title,
+      I18n.growthpad.warning.article,
+      twitterHref,
+      [10]
+    ),
+    // 任务4, 微博文章分享推广
+    {
+      id: chat.uuid(),
+      type: TaskType.chainwallet,
+      title: '在  ChainWallet 提供一笔流动性，根据质押量获得奖励，最高可得 2500 CHA',
+      reward: [2500],
+      rule: [
+        '大于500U小于10000U，奖励250 CHA',
+        '大于10000U小于100000U，奖励1000 CHA',
+        '大于100000U，奖励2500 CHA',
+      ]
+    },
+    // 任务4, 微博文章分享推广
+    {
+      id: chat.uuid(),
+      type: TaskType.weibo,
+      title: '依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~500 CHA。（粉丝数不低于2000人，阅读量不低于1000）',
+      reward: [100, 500],
+    },
+  ],
 }
 
 export default data

@@ -24,58 +24,29 @@ const hrefAfter = computed(() => {
 <template>
   <div>
     <div class="font-kdFang">
-      <div class="pb-1">
-        <span
-          class="
-            text-sm
-            title
-            label
-            inline-block
-            align-middle
-            whitespace-pre-line
-            mr-1.5
-          "
-          v-html="data.title"
-        ></span>
+      <div v-if="data.title">
+        <span class="text-sm title label inline-block align-middle whitespace-pre-line mr-1.5" v-html="data.title"></span>
         <template v-if="data.tooltip">
-          <a
-            class="tooltip rounded mr-1.5 inline-flex items-center align-middle"
-            target="_blank"
-            :href="href"
-          >
+          <a class="tooltip rounded mr-1.5 inline-flex items-center align-middle" target="_blank" :href="href">
             <template v-if="data.tooltip.icon">
               <IconFont class="mr-1 flex" :type="data.tooltip.icon" size="xs" />
             </template>
-            <span class="text-xs inline-block whitespace-nowrap">{{
-              data.tooltip.value
-            }}</span>
+            <span class="text-xs inline-block whitespace-nowrap">{{data.tooltip.value }}</span>
           </a>
         </template>
         <template v-if="data.titleAfter">
-          <span class="text-sm title inline align-middle mr-1.5">{{
-            data.titleAfter
-          }}</span>
+          <span class="text-sm title inline align-middle mr-1.5">{{data.titleAfter }}</span>
         </template>
         <template v-if="data.tooltipAfter">
-          <a
-            class="tooltip rounded mr-1.5 inline-flex items-center align-middle"
-            target="_blank"
-            :href="hrefAfter"
-          >
+          <a class="tooltip rounded mr-1.5 inline-flex items-center align-middle" target="_blank" :href="hrefAfter">
             <template v-if="data.tooltipAfter.icon">
-              <IconFont
-                class="mr-1 flex"
-                :type="data.tooltipAfter.icon"
-                size="xs"
-              />
+              <IconFont class="mr-1 flex" :type="data.tooltipAfter.icon" size="xs"/>
             </template>
-            <span class="text-xs inline-block whitespace-nowrap">{{
-              data.tooltipAfter.value
-            }}</span>
+            <span class="text-xs inline-block whitespace-nowrap">{{ data.tooltipAfter.value }}</span>
           </a>
         </template>
       </div>
-      <div class="description text-xs">
+      <div class="description text-xs pt-1" v-if="makeDescription(data, store.token)">
         <slot name="desc">
           <p v-html="makeDescription(data, store.token)"></p>
         </slot>

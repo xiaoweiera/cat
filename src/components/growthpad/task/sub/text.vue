@@ -96,12 +96,9 @@ const onSubmit = async function() {
 </script>
 
 <template>
-  <IconFont
-    v-if="loadingStatus === MissionStatus.success"
-    type="success"
-  ></IconFont>
+  <IconFont v-if="loadingStatus === MissionStatus.success" type="success"/>
   <span class="suspend inline-block" v-else-if="loadingStatus === MissionStatus.suspend">{{ I18n.growthpad.status.suspend }}</span>
-  <Loading v-else-if="loadingStatus === MissionStatus.loading"></Loading>
+  <Loading v-else-if="loadingStatus === MissionStatus.loading"/>
   <el-form
     v-else
     ref="formRef"

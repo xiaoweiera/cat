@@ -57,7 +57,7 @@ const validityValue = computed<string>((): string => {
   <div>
     <template v-if="data.type === TaskType.vip">
       <template v-if="store.mission.invited === MissionStatus.success">
-        <IconFont type="success"></IconFont>
+        <IconFont type="success"/>
       </template>
       <GrowthpadTaskSubShare v-else :data="data">
         <span v-validity.begin.end="validityValue" class="button">{{ buttonValue }}</span>
@@ -235,6 +235,21 @@ const validityValue = computed<string>((): string => {
         name="bunny"
         :placeholder="I18n.growthpad.form.placeholderBsc"
         :confirm="true"
+      >
+        <span v-login class="inline-flex">
+          <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
+        </span>
+      </GrowthpadTaskSubText>
+    </template>
+
+
+    <template v-else-if="data.type === TaskType.chainwallet">
+      <!-- 判断 compound 验资是否通过 -->
+      <GrowthpadTaskSubText
+          :data="data"
+          name="bunny"
+          :placeholder="I18n.growthpad.form.placeholderBsc"
+          :confirm="true"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
