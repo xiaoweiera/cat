@@ -34,8 +34,7 @@ const store = Task()
 const format = 'YYYY-MM-DD HH:mm:ss'
 
 // @ts-ignore
-const title = computed((): string => {
-  // return `${store.title.value} ${I18n.growthpad.growth}`
+const title = computed<string>((): string => {
   // @ts-ignore
   const data = { project: store.title.value }
   // @ts-ignore
@@ -68,7 +67,6 @@ const countComputed = function(number: number): string | number {
 }
 // @ts-ignore
 const bannerStyle = computed<string>((): string => {
-  // @ts-ignore
   return `background-image: url(${store.dashboard.banner})`
 })
 
@@ -93,16 +91,12 @@ const getPrice = function(number: string | number): string | number {
 const timeCountdownValue = computed<string>((): string => {
   // 当前时间
   const now = dayjs().valueOf()
-  // @ts-ignore
   const time = dayjs(store.dashboard.begin, format)
   const duration = time.valueOf() - now
   if (duration > 0) {
-    // @ts-ignore
     return store.dashboard.begin
-  } else {
-    // @ts-ignore
-    return store.dashboard.end
   }
+  return store.dashboard.end
 })
 </script>
 
@@ -129,7 +123,7 @@ const timeCountdownValue = computed<string>((): string => {
         <!-- 定时器 -->
         <div class="text-right md:order-2">
           <div class="inline-block pb-3">
-            <div v-if="timeStatus !== TimeStatus.closure" class="hidden md:inline-block">
+            <div v-if="timeStatus !== TimeStatus.closure && timeCountdownValue" class="hidden md:inline-block">
               <TimeCountdown :value="timeCountdownValue"></TimeCountdown>
             </div>
             <div v-else class="h-14">&nbsp;</div>

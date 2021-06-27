@@ -161,6 +161,13 @@ const title = computed<string>((): string => {
     </p>
   </div>
 
+  <div v-if="store.about.tokenDetail" class="pt-6 font-kdFang">
+    <h2 class="pb-3">{{ I18n.growthpad.about.tokenDetail }}</h2>
+    <p class="detail text-sm whitespace-pre-line w-full">
+      {{ store.about.tokenDetail }}
+    </p>
+  </div>
+
   <!-- 大屏 -->
   <div
     v-if="store.about.minutias && store.about.minutias.length > 0"

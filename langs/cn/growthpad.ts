@@ -39,6 +39,7 @@ export default {
     website: '项目官网',
     community: '项目社群',
     projectDetail: '项目介绍',
+    tokenDetail: '代币介绍',
     name: '代币名称',
     symbol: '代币名称',
     online: '上线时间',
@@ -325,9 +326,27 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       copy: '动动手指，就可瓜分 GrowthPad 额外 12000 USDT 奖励~ 链接：{url}'
     }
   },
-  ChainWallet: {
+  chainwallet: {
+    // 分享标题
+    title: '助力 ChainWallet 增长，领取20万美元 MDX 奖励',
     dashboard: {
+      banner:'https://res.ikingdata.com/nav/growthBannerCn.jpg',
+      reward: {
+        count: '总奖池金额',
+        value: '单人最高可获得',
+        person: '该项奖励金额'
+      },
       desc: 'ChainWallet 为奖励长期支持 ChainWallet 的用户，联合 KingData 在 GrowthPad 上开启20万枚 CHA 的奖励活动，为尽可能回馈到更多的支持者，任务分别设定了不同难度的门槛，只需要完成任务就可获得对应奖励。活动规则：开始任务前需要先登录 KingData 账号并填写用户领取奖励的 BSC 钱包地址，填写完毕后即可根据任务说明选择自己要参加的活动，填写对应的信息进行验证，验证符合条件则给予对应奖励。奖励会在活动结束后 10 个工作日内，统一发放到您登记的地址中；验证持仓价值任务的奖励会发放到您验证持仓的地址中。'
-    }
+    },
+    address: {
+      placeholder: '输入参与领取奖励的 BSC / HECO 地址',
+    },
+    about: {
+      online: '2021年1月19日',
+      count: '10亿',
+      luanched: 'BSC',
+      detail: `Chain Wallet Team 一直深耕钱包、智能合约、NFT的开发，Chain Wallet 近期组建了商务、海外运营团队 Chain Wallet 将致力于降低行业门槛，让人人都拥有自己的数字资产，后续我们希望和各位合作伙伴一起建立友好的合作关系，一起推动区块链行业发展。`,
+      tokenDetail: `CHA 通过多种场景下的流通，作为支付手段与会员权益身份证明，打通Chain Wallet整个产品业务线。也可以参与Chain Wallet治理提交提案时需要抵押CHA，以防止恶意发起提议。当前CHA广告费用支付、上架DAPP、上架去中心化交易、代币官网收录等场景。`,
+    },
   }
 };

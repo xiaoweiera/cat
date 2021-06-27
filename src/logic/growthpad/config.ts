@@ -3,9 +3,14 @@
  * @author svon.me@gmail.com
  */
 
-
 import { toUpper } from 'ramda'
 import I18n from '~/utils/i18n/index'
+
+import mockMdx from '../../../mock/growthpad/mdx'
+import mockChannels from '../../../mock/growthpad/channels'
+import mockCoinWind from '../../../mock/growthpad/coinwind'
+import mockGrowth from '../../../mock/growthpad/growth'
+import mockChainWallet from '../../../mock/growthpad/chainwallet'
 
 // 项目 ID
 export enum ProjectKey {
@@ -14,6 +19,14 @@ export enum ProjectKey {
   coinwind = 'COINWIND',
   growth = 'GROWTH',
   chainwallet = 'CHAINWALLET'
+}
+
+export const ProjectMockData = {
+  [ProjectKey.mdx]: mockMdx,
+  [ProjectKey.channels]: mockChannels,
+  [ProjectKey.coinwind]: mockCoinWind,
+  [ProjectKey.growth]: mockGrowth,
+  [ProjectKey.chainwallet]: mockChainWallet
 }
 
 /**
@@ -47,6 +60,7 @@ export const ProjectPageTitle: any = {
   [ProjectKey.mdx]: `${I18n.growthpad.mdx.title}-GrowthPad`,
   [ProjectKey.channels]: `${I18n.growthpad.channels.title}-GrowthPad`,
   [ProjectKey.coinwind]: `${I18n.growthpad.coinwind.title}-GrowthPad`,
+  [ProjectKey.chainwallet]: `${I18n.growthpad.chainwallet.title as any}-GrowthPad`
 }
 
 
@@ -54,7 +68,8 @@ export const ProjectCopyTitle = {
   [ProjectKey.coinwind]: I18n.growthpad.coinwind.title,
   [ProjectKey.mdx]: I18n.growthpad.mdx.title,
   [ProjectKey.channels]: I18n.growthpad.channels.title,
-  [ProjectKey.growth]: I18n.growthpad.growthpad.title
+  [ProjectKey.growth]: I18n.growthpad.growthpad.title,
+  [ProjectKey.chainwallet]: I18n.growthpad.chainwallet.title as any
 }
 
 // 项目分享标题

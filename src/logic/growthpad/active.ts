@@ -5,8 +5,8 @@
 
 import { ref } from 'vue'
 import { useHead } from '@vueuse/head'
-import Store from '~/store/growthpad/store'
 import { wxShare } from '~/lib/wxShare'
+import Store from '~/store/growthpad/store'
 
 import {
   getProjectType,
@@ -32,6 +32,6 @@ export const ready = async function(store: Store): Promise<void> {
     await store.init()
     loading.value = false
   } else {
-    window.location.href = `/growthpad${window.location.search}`
+    // window.location.href = `/growthpad${window.location.search}`
   }
 }

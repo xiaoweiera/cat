@@ -32,6 +32,9 @@ const data = {
   dashboard: Object.assign({}, mdxInfo.dashboard, {
     description: I18n.growthpad.mdx.dashboard.desc
   }),
+  address: {
+    placeholder: I18n.growthpad.mdx.address.placeholder
+  },
   about: {
     website, // 项目官网
     minutias: [

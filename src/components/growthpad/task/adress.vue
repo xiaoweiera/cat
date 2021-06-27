@@ -36,25 +36,10 @@ const tokenIsNull = computed<boolean>((): boolean => {
   return false
 })
 // @ts-ignore
-const placeholder = (): string => {
-  // @ts-ignore
-  if (store.projectName === ProjectKey.mdx) {
-    return I18n.growthpad.mdx.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === ProjectKey.channels) {
-    return I18n.growthpad.channels.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === ProjectKey.coinwind) {
-    return I18n.growthpad.coinwind.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === ProjectKey.growth) {
-    return I18n.growthpad.growthpad.address.placeholder
-  }
-  return I18n.growthpad.mdx.address.placeholder
-}
+const placeholder = computed<string>((): string => {
+  const value = store.address.placeholder
+  return value || I18n.growthpad.mdx.address.placeholder
+})
 
 const validityValue = computed<string>((): string => {
   const begin = store?.dashboard?.begin
@@ -178,10 +163,7 @@ const bindAddress = async function(): Promise<void> {
                 class="address-content w-full block"
                 style="margin-bottom: 0"
               >
-                <ElInput
-                  v-model="formdata.address"
-                  :placeholder="placeholder()"
-                >
+                <ElInput v-model="formdata.address" :placeholder="placeholder">
                   <template v-if="isNull(formdata.address)" #suffix>
                     <span class="pr-3 text-sm tips">{{
                       I18n.growthpad.address.invalid
