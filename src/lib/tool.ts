@@ -85,7 +85,7 @@ export const formatDefaultTime = (date: any) => {
 // 得到小时颗粒度的时间
 export const formatHourTime = (date: number) => {
   if (date) {
-    return dayjs(date).format('MM/DD HH:mm')
+    return dayjs(parseInt(date+'000')).format('MM/DD HH:mm')
   } else {
     return dayjs().format('MM/DD HH:mm')
   }

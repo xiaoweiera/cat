@@ -3,6 +3,7 @@ import { onMounted,ref,watch,reactive,defineProps} from 'vue'
 import * as R from 'ramda'
 import {ElLoading} from 'element-plus'
 import { echartData } from '/mock/liquidity'
+import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import {useRoute, useRouter} from 'vue-router'
 import { pairStore,paramChart,symbolStore,analysisType,priceData,selectTxt,selectHistory } from '~/store/liquidity/state'
 import {getAllChart,getPriceData} from '~/logic/liquidity/dataTool'
@@ -74,6 +75,13 @@ watch(()=>chartLoad.value,(n,o)=>{
 watch(()=>paramChart.interval,(n,o)=>{
   tokenParam.interval=n
   pairParam.interval=n
+  if(paramChart.interval==='1H' && paramChart.timeType===90){
+    paramChart.timeType=30
+    paramChart.timeBegin=getagoTimeStamp(30)
+    paramChart.timeEnd=dataToTimestamp(formatDefaultTime())
+    paramChart.time=getagoTimeStamp(30)
+    return
+  }
   getChartsData()
 })
 const getChartsData=async ()=>{
@@ -96,9 +104,6 @@ const loading=false
 
 </script>
 <template>
-<!--  token {{symbolStore}}-->
-<!--  pair  {{pairStore}}-->
-<!--  {{selectTxt}}-->
   <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>
