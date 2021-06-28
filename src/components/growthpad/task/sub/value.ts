@@ -24,6 +24,8 @@ export const addressEnum = {
   beltfit: 'setBeltfit',
 
   bunny: 'setBunny',
+
+  chainwallet: 'setChainWallet'
 }
 
 const check: any = {
@@ -80,6 +82,10 @@ const check: any = {
     // 判断 token 地址验证状态
     return store.mission.bunny
   },
+  chainwallet (store: Store): MissionStatus {
+    // 判断 token 地址验证状态
+    return store.mission.chainwallet
+  }
 }
 
 export const getValueStatus = function(

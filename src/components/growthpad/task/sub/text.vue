@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, reactive, ref, toRaw } from 'vue'
+import { computed, defineProps, reactive, ref, toRaw, defineEmit } from 'vue'
 import { addressEnum, getValueStatus } from './value'
 // @ts-ignore
 import rules from './rule'
@@ -9,6 +9,8 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
+
+const emitEvent = defineEmit(['updated'])
 
 const props = defineProps({
   // 判断地址名称
@@ -51,6 +53,7 @@ const formdata = reactive({
 
 // @ts-ignore
 const onSubmit = async function() {
+  console.log(props)
   // 判断活动时间
   let status = activity(store)
   if (!status) {
@@ -83,9 +86,10 @@ const onSubmit = async function() {
         form.resetFields()
         // 清除验证结果
         form.clearValidate()
-
         // @ts-ignore
         await store[name](value)
+        // 数据更新成功后执行
+        emitEvent('updated', props.name)
       }
     }
   } catch (e) {
@@ -98,7 +102,7 @@ const onSubmit = async function() {
 <template>
   <IconFont v-if="loadingStatus === MissionStatus.success" type="success"/>
   <span class="suspend inline-block" v-else-if="loadingStatus === MissionStatus.suspend">{{ I18n.growthpad.status.suspend }}</span>
-  <Loading v-else-if="loadingStatus === MissionStatus.loading"/>
+  <Loading v-else-if="loadingStatus === MissionStatus.loading" :value="I18n.common.message.checking24h"/>
   <el-form
     v-else
     ref="formRef"

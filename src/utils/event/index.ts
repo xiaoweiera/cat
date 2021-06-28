@@ -17,7 +17,7 @@ type El = HTMLElement & string & vNode
 
 const isDom = function(value: any): boolean {
   // 判断该对象是否有某一个原生方法
-  if (value && 'getBoundingClientRect' in value && value.getBoundingClientRect) {
+  if (value && 'getElementById' in value && value.getElementById) {
     return true
   }
   return false

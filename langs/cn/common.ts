@@ -38,6 +38,7 @@ export default {
     new_password: '两次密码不一致',
     telError: '请输入正确的手机号',
     testing: '验证中 预计15分钟更新结果',
+    checking24h: '验证中，预计24小时更新结果',
     get: '已得',
     copy: '已复制邀请链接',
     fail: '失败, 请重新验证',
