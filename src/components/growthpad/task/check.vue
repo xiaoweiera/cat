@@ -4,7 +4,12 @@ import { defineProps, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
+// @ts-ignore
 import { MissionStatus } from '~/store/growthpad/props'
+import message from '~/utils/message'
+import { getMax } from './task'
+import { ProjectKey } from '~/logic/growthpad/config'
+
 const store = Task()
 
 const props = defineProps({
@@ -12,7 +17,7 @@ const props = defineProps({
     type: Object,
   },
 })
-
+// @ts-ignore
 const buttonValue = computed((): string => {
   let text: string
   switch (props.data?.type) {
@@ -32,14 +37,15 @@ const buttonValue = computed((): string => {
   return text
 })
 
+// @ts-ignore
 const compsName = computed((): string => {
   const name = props.data?.type
   const first = R.toUpper(name[0])
   const value = `GrowthpadTaskSub${first}${name.slice(1)}`
   return value
 })
-
-const validityValue = computed<string>((): string => {
+// @ts-ignore
+const validityValue = computed<string>((): string | string[] => {
   const begin = store?.dashboard?.begin
   const end = store?.dashboard?.end
   const value = []
@@ -51,6 +57,25 @@ const validityValue = computed<string>((): string => {
   }
   return value
 })
+
+
+// 信息填写正确后
+// @ts-ignore
+const onUpdated = function(): void {
+  if (store.getNickName() !== ProjectKey.chainwallet) {
+    return void 0;
+  }
+  // 当前任务等于 chainwallet 时执行
+  const reward = getMax(props.data?.reward || 0)
+  const token = R.toUpper(store.token)
+  const title = I18n.template(I18n.growthpad.address.checkMessage, { reward, token })
+  const html = `<div class="text-center font-kdFang">
+    <pre class="whitespace-pre-line text-green-600 text-base">${title}</pre>
+    <p class="pt-3 pb-2 text-sm text-global-default text-opacity-85">${ I18n.common.message.checking24h }</p>
+  </div>`
+  message.custom('', html)
+}
+
 </script>
 
 <template>
@@ -67,8 +92,8 @@ const validityValue = computed<string>((): string => {
       <!-- 判断是否填写了 telegram id -->
       <GrowthpadTaskSubText
         :data="data"
-        name="telegram"
-        :placeholder="I18n.growthpad.form.placeholderTelegram"
+        :name="TaskType.telegram"
+        :placeholder="I18n.growthpad.form.placeholderTelegram" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{ buttonValue }}</span>
@@ -79,8 +104,8 @@ const validityValue = computed<string>((): string => {
       <!-- 判断是否关注 twitter -->
       <GrowthpadTaskSubText
         :data="data"
-        name="twitter"
-        :placeholder="I18n.growthpad.form.twitter"
+        :name="TaskType.twitter"
+        :placeholder="I18n.growthpad.form.twitter" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -91,8 +116,8 @@ const validityValue = computed<string>((): string => {
       <!-- 判断是否转发 twitter -->
       <GrowthpadTaskSubText
         :data="data"
-        name="retwitter"
-        :placeholder="I18n.growthpad.form.retwitter"
+        :name="TaskType.retwitter"
+        :placeholder="I18n.growthpad.form.retwitter" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -103,9 +128,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断pancake验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="pancake"
+        :name="TaskType.pancake"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -116,9 +141,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断uniswap验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="uniswap"
+        :name="TaskType.uniswap"
         :placeholder="I18n.growthpad.form.placeholderETH"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -129,9 +154,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断sushiswap验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="sushiswap"
+        :name="TaskType.sushiswap"
         :placeholder="I18n.growthpad.form.placeholderETH"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -149,8 +174,8 @@ const validityValue = computed<string>((): string => {
       <!-- 判断 sina 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="sina"
-        :placeholder="I18n.growthpad.form.sina"
+        :name="TaskType.sina"
+        :placeholder="I18n.growthpad.form.sina" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -162,9 +187,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断 venus 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="venus"
+        :name="TaskType.venus"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -176,9 +201,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断 cream 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="cream"
+        :name="TaskType.cream"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -190,9 +215,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断 compound 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="compound"
+        :name="TaskType.compound"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -204,9 +229,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断 compound 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="autofarm"
+        :name="TaskType.autofarm"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -220,7 +245,7 @@ const validityValue = computed<string>((): string => {
         :data="data"
         name="beltfit"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -232,9 +257,9 @@ const validityValue = computed<string>((): string => {
       <!-- 判断 compound 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="bunny"
+        :name="TaskType.bunny"
         :placeholder="I18n.growthpad.form.placeholderBsc"
-        :confirm="true"
+        :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
           <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
@@ -244,15 +269,15 @@ const validityValue = computed<string>((): string => {
 
 
     <template v-else-if="data.type === TaskType.chainwallet">
-      <!-- 判断 compound 验资是否通过 -->
+      <!-- 判断 chainwallet 验资是否通过 -->
       <GrowthpadTaskSubText
           :data="data"
-          name="bunny"
+          :name="TaskType.chainwallet"
           :placeholder="I18n.growthpad.form.placeholderBsc"
-          :confirm="true"
+          :confirm="true" @updated="onUpdated"
       >
         <span v-login class="inline-flex">
-          <span v-validity.begin.end="validityValue" class="button">{{buttonValue }}</span>
+          <span v-validity.begin.end="validityValue" class="button">{{ buttonValue }}</span>
         </span>
       </GrowthpadTaskSubText>
     </template>

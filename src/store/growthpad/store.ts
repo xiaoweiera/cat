@@ -10,9 +10,8 @@ import { postInfo, postInfoBasis } from './directive'
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
-import { ProjectKey, getProjectType, ProjectMockData, ProjectShareCode } from '~/logic/growthpad/config'
+import { getProjectType, ProjectKey, ProjectMockData, ProjectShareCode } from '~/logic/growthpad/config'
 import I18n from '~/utils/i18n'
-
 
 interface Minutia {
   label: string
@@ -116,6 +115,7 @@ class Store {
     cream: '', // cream token 地址
     compound: '', // compound token 地址
     bunny: '', // bunny token 地址
+    chainwallet: '', // chainwallet token 地址
   })
 
   // 完成状态
@@ -134,6 +134,7 @@ class Store {
     compound: MissionStatus.init, // compound 验资
     cream: MissionStatus.init, // cream 验资
     bunny: MissionStatus.init,
+    chainwallet: MissionStatus.init, // chainwallet 验资
   })
 
   article_url = ref<string>('article_url') // 用户上传的文章链接
@@ -150,25 +151,6 @@ class Store {
 
   // 构造方法
   constructor(type: string) {
-    /*
-    if (type && getProjectType(type) === ProjectKey.mdx) {
-      this.projectName = ProjectKey.mdx
-      this.shareCode.value = ProjectShareCode[ProjectKey.mdx]
-      this.setInitData(mockMdx)
-    } else if (type && getProjectType(type) === ProjectKey.channels) {
-      this.projectName = ProjectKey.channels
-      this.shareCode.value = ProjectShareCode[ProjectKey.channels]
-      this.setInitData(mockChannels)
-    } else if (type && getProjectType(type) === ProjectKey.coinwind) {
-      this.projectName = ProjectKey.coinwind
-      this.shareCode.value = ProjectShareCode[ProjectKey.coinwind]
-      this.setInitData(mockCoinWind)
-    } else if (type && getProjectType(type) === ProjectKey.growth) {
-      this.projectName = ProjectKey.growth
-      this.shareCode.value = ProjectShareCode[ProjectKey.growth]
-      this.setInitData(mockGrowth)
-    }
-    */
     const key = getProjectType(type)
     if (type && key) {
       this.projectName = key
@@ -261,6 +243,7 @@ class Store {
       this.info.cream = info.cream
       this.info.compound = info.compound
       this.info.bunny = info.bunny
+      this.info.chainwallet = info.chainwallet
     }
     if (mission) {
       this.mission.invited = transformStatus(mission.invited)
@@ -277,6 +260,7 @@ class Store {
       this.mission.compound = transformStatus(mission.compound)
       this.mission.cream = transformStatus(mission.cream)
       this.mission.bunny = transformStatus(mission.bunny)
+      this.mission.chainwallet = transformStatus(mission.chainwallet)
     }
     this.article_audit.value = !!safeGet(result, 'article_audit')
     this.article_image.value = safeGet<string>(result, 'article_image')
@@ -457,6 +441,13 @@ class Store {
   @postInfoBasis()
   setBunny(value: string) {
     this.info.bunny = value
+  }
+
+  // 设置 chainWallet
+  @postInfo('chainWallet')
+  @postInfoBasis()
+  setChainWallet(value: string) {
+    this.info.chainwallet = value
   }
 
   // 上传朋友圈图片
