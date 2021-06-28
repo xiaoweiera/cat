@@ -5,11 +5,12 @@ import { ElDatePicker } from 'element-plus'
 import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import * as R from 'ramda'
 const filterOption = ref([
-  { name: '近7天', value: 7, selected: false },
-  {name: '近1月', value: 30, selected: true},
+  { name: '近7天', value: 7, selected: true },
+  {name: '近1月', value: 30, selected: false},
   { name: '近3月', value: 90, selected: false },
   { name: '自定义', value: 0, selected: false },
 ])
+
 interface timeModel {
   name: string
   value: number
@@ -21,6 +22,7 @@ const endTime = ref(0)
 const editTime = ref(false) // 控制是否显示自定义时间
 watch(
     () => time.value, (n, o) => {
+      console.log(formatDefaultTime(time.value[0]))
       if (time.value) {
         paramChart.timeBegin=dataToTimestamp(formatDefaultTime(n[0]))
         paramChart.timeEnd=dataToTimestamp(formatDefaultTime(n[1]))
@@ -30,9 +32,11 @@ watch(
 )
 const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
+    paramChart.timeType=0
     document.getElementsByClassName('el-range-input')[0].click()
     editTime.value = true
   } else {
+    paramChart.timeType=timeM.value
     paramChart.timeBegin=getagoTimeStamp(timeM.value)
     paramChart.timeEnd=dataToTimestamp(formatDefaultTime())
     paramChart.time=getagoTimeStamp(timeM.value)
@@ -47,19 +51,32 @@ const selectTag = (timeM: timeModel) => {
     }
   }, filterOption.value)
 }
+const selectTime=ref()
+const nowDate=new Date()
+  const pickerOptions=(time)=>{
+    if(time) {
+      if(paramChart.interval==='1D'){
+        return dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(90)))
+      }else{
+        return dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(30)))
+      }
+    }
+    return false
+  }
 </script>
 <template>
   <div>
-
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
         <template v-for="item in filterOption">
-          <div v-if="item.name !== '自定义' || (item.name === '自定义' && !editTime)" :class="item.selected ? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
+          <div v-if="paramChart.interval==='1D' || (paramChart.interval==='1H' && item.value!==90) ">
+          <div v-if="item.name !== '自定义' || (item.name === '自定义' && !editTime)" :class="item.value===paramChart.timeType? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
             {{ item.name }}
+          </div>
           </div>
         </template>
         <div v-show="editTime" class="timeContainer">
-          <el-date-picker id="datePickerDom" v-model="time" size="mini" type="daterange" range-separator="–" start-placeholder="开始" end-placeholder="结束">
+          <el-date-picker  :disabledDate="pickerOptions" id="datePickerDom" v-model="time" size="mini" type="daterange" range-separator="–" start-placeholder="开始" end-placeholder="结束">
           </el-date-picker>
         </div>
       </div>

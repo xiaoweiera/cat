@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import {ref,reactive} from 'vue'
+
 import {getChartsUsdtById,getChartsCoinById,getChartsPairUsdById,getChartsPairUsdByEth,getChartsPairCoinById,getChartsPairCoinByEth,getChartsPairCoinByUSDT,getTokenPrice,getPairPrice,getPayChartsUsdtById,getPayChartsCoinById,getPayChartsPairUsdBySymbol0,getPayChartsPairUsdBySymbol1,getPayChartsPairCoinBySymbol0,getPayChartsPairCoinBySymbol1} from '~/api/liquidity'
 import {paramChart,analysisType,pairStore,priceData} from '~/store/liquidity/state'
 interface chartItem {
@@ -7,6 +8,7 @@ interface chartItem {
 }
 // 复制方法
 export const copyToken = (tokenAddress: string) => {
+  tokenAddress='tokenAddress'
   const dom = document.createElement('input')
   dom.setAttribute('value', tokenAddress)
   document.body.appendChild(dom)
@@ -129,19 +131,15 @@ export const getAllChart= ()=>{
   return {chartsAllData,chartLoad,requestTokenChart}
 }
 export const getPriceData=async (param:any,type:string)=>{
-  // let result
+  let result
   if(type==='pair'){
-    // result=await getPairPrice(param)
-   getPairPrice(param)
+    result=await getPairPrice(param)
   }else{
-    // result=await getTokenPrice(param)
-    getTokenPrice(param)
+    result=await getTokenPrice(param)
   }
-  // if(result.data.code===0){
-  //   priceData.value=result.data.data
-  // }else{
-  //   priceData.value={}
-  // }
-  priceData.value={}
-  console.log(priceData.value)
+  if(result.data.code===0){
+    priceData.value=result.data.data
+  }else{
+    priceData.value={}
+  }
 }

@@ -5,7 +5,7 @@ import {symbolStore} from '~/store/liquidity/state'
 const selectTag = ref('my')
 const tags = [
   { type: 'my', name: '自选' },
-  { type: 'token', name: '相关交易对' },
+  // { type: 'token', name: '相关交易对' },
 ]
 const changeTag = (type: string) => (selectTag.value = type)
 </script>
