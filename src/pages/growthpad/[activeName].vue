@@ -50,12 +50,14 @@ onBeforeMount(() => {
 
       <growthpadTaskAbout></growthpadTaskAbout>
     </div>
+    <template v-if="store.projectName === ProjectKey.chainwallet">
+      <HelpFeedback></HelpFeedback>
+    </template>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import '~/styles/growthpad/task.scss';
-
 .examples {
   max-width: 848px;
   margin: 0 auto;
