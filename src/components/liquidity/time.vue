@@ -52,13 +52,13 @@ const selectTag = (timeM: timeModel) => {
   }, filterOption.value)
 }
 const selectTime=ref()
-const nowDate=new Date()
-  const pickerOptions=(time)=>{
+//给时间选择进行时间范围限制，1h的时候只能访问前1个月的，1d的时候只能访问前三个月的
+const pickerOptions=(time)=>{
     if(time) {
       if(paramChart.interval==='1D'){
-        return dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(90)))
+        if(dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(90))) || dataToTimestamp(time)>dataToTimestamp(new Date())) return true
       }else{
-        return dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(30)))
+        if(dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(30))) || dataToTimestamp(time)>dataToTimestamp(new Date())) return true
       }
     }
     return false

@@ -14,7 +14,6 @@ interface yModel {
   unit: string
 }
 // 颗粒度天 时
-const interval = paramChart.interval
 let myChart: any = null
 const pp = toRefs(paramChart)
 const props = defineProps({
@@ -30,7 +29,7 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: nu
 }
 const getChartData=()=>{
   const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData.xaxis,priceData.value.xaxis)))
-  const xData = getXData(allXaxis, interval)
+  const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
   const [minM, maxM, kminM, kmaxM, series] = getSeries(
       props?.chartData.xaxis,priceData.value.xaxis,
