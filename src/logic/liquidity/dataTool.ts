@@ -129,12 +129,19 @@ export const getAllChart= ()=>{
   return {chartsAllData,chartLoad,requestTokenChart}
 }
 export const getPriceData=async (param:any,type:string)=>{
+  // let result
   if(type==='pair'){
-    const {data:data}=await getPairPrice(param)
-    priceData.value=data?.data
+    // result=await getPairPrice(param)
+   getPairPrice(param)
   }else{
-    const {data:data}=await getTokenPrice(param)
-    priceData.value=data?.data
+    // result=await getTokenPrice(param)
+    getTokenPrice(param)
   }
+  // if(result.data.code===0){
+  //   priceData.value=result.data.data
+  // }else{
+  //   priceData.value={}
+  // }
+  priceData.value={}
   console.log(priceData.value)
 }
