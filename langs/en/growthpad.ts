@@ -32,8 +32,10 @@ export default {
     tips: `Once confirmed, the address can't be modified`,
     notify1: '* Please register your address receiving rewards(Rewards for tasks related to TVL will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
     notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.',
-    checkMessage: `内容已提交
-预计获得奖励 +{reward} {token}`
+    checkMessage: `Submitted
+Expected reward +{reward} {token}`,
+    week_reward: 'Expected reward (not issued)：<i>{reward} {token}</i>',
+    total_reward: 'Settled reward: <i>{reward} {token} (The reward will be issued within 10 working days after the weekly settlement date)</i>'
   },
   about: {
     title: '{project} Exchange',
@@ -339,7 +341,7 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
   },
   chainwallet: {
     // 分享标题
-    title: '助力 ChainWallet 增长，领取20万美元 MDX 奖励',
+    title: 'Help CoinWind',
     dashboard: {
       banner:'https://res.ikingdata.com/nav/growthBannerCn.jpg',
       reward: {
@@ -352,14 +354,28 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
 Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends; the reward of tasks about holding quantity will be air-drop into the address verified.`
     },
     address: {
-      placeholder: '输入参与领取奖励的 BSC / HECO 地址',
+      placeholder: 'Enter BSC / HECO address',
     },
     about: {
       online: '1/19/2021',
       count: '1 billion',
       luanched: 'BSC',
-      detail: `Chain Wallet Team 一直深耕钱包、智能合约、NFT的开发，Chain Wallet 近期组建了商务、海外运营团队 Chain Wallet 将致力于降低行业门槛，让人人都拥有自己的数字资产，后续我们希望和各位合作伙伴一起建立友好的合作关系，一起推动区块链行业发展。`,
-      tokenDetail: `CHA 通过多种场景下的流通，作为支付手段与会员权益身份证明，打通Chain Wallet整个产品业务线。也可以参与Chain Wallet治理提交提案时需要抵押CHA，以防止恶意发起提议。当前CHA广告费用支付、上架DAPP、上架去中心化交易、代币官网收录等场景。`,
+      detail: `Chain Wallet Team has been deeply involved in the development of wallets, smart contracts, and NFT. Chain Wallet recently formed a business and overseas operation team. Chain Wallet is committed to lowering the industry threshold so that everyone has their own digital assets. In the future, Chain Wallet will work with partners to promote the development of the blockchain industry.`,
+      tokenDetail: `Through circulation in various scenarios, CHA serves as a means of payment and proof of membership rights and interests, opening up the entire product business line of Chain Wallet. Users can also participate in Chain Wallet governance by mortgaging CHA when submitting proposals to prevent malicious initiation of proposals. Currently, CHA supports various scenarios such as advertising fee payment, DAPP listing, decentralized transaction listing, and token official website inclusion.`,
+      telegram: 'https://t.me/KingDataCN', // 客服电报群
     },
+    help: {
+      val1: 'Any problems?',
+      val2: 'Join the telegram group and contact customer service',
+    },
+    task4: {
+      title: 'Provide a liquidity in ChainWallet, and get rewards based on the amount of pledge, the maximum reward is 2500 CHA.',
+      rule1: 'More than 500 U and less than 10,000 U, reward 250 CHA',
+      rule2: 'More than 10,000 U and less than 100,000 U, reward 1,000 CHA',
+      rule3: 'More than 100,000 U, reward 2,500 CHA',
+    },
+    task5: {
+      title: 'The reward is based on the number of follwers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000)'
+    }
   }
 };

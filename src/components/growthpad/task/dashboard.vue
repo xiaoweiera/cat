@@ -132,92 +132,61 @@ const timeCountdownValue = computed<string>((): string => {
         <!-- 项目名称与状态 -->
         <div class="flex items-center font-kdFang mt-2 md:mt-0 md:order-1">
           <span class="text-2xl mr-2">{{ title }}</span>
-          <span
-            v-if="timeStatus === TimeStatus.wait"
-            class="wait py-1.5 px-3 rounded text-sm"
-          >
+          <span v-if="timeStatus === TimeStatus.wait" class="wait py-1.5 px-3 rounded text-sm">
             <b class="font-medium">⏱</b>
             <b class="font-medium ml-3">{{ I18n.growthpad.status.wait }}</b>
           </span>
-          <span
-            v-else-if="timeStatus === TimeStatus.ing"
-            class="ing py-1.5 px-3 rounded text-sm"
-          >
+          <span v-else-if="timeStatus === TimeStatus.ing" class="ing py-1.5 px-3 rounded text-sm">
             <b class="font-medium">🔥</b>
             <b class="font-medium ml-3">{{ I18n.growthpad.status.ing }}</b>
           </span>
-          <span
-            v-else-if="timeStatus === TimeStatus.closure"
-            class="closure py-1.5 px-3 rounded text-sm"
-          >
+          <span v-else-if="timeStatus === TimeStatus.closure" class="closure py-1.5 px-3 rounded text-sm">
             <b class="font-medium">🚫</b>
             <b class="font-medium ml-3">{{ I18n.growthpad.status.closure }}</b>
           </span>
         </div>
       </div>
       <div>
-        <p
-          class="description text-sm font-kdFang whitespace-pre-line"
-          v-html="store.dashboard.description"
-        ></p>
+        <p class="description text-sm font-kdFang whitespace-pre-line" v-html="store.dashboard.description"></p>
       </div>
       <div class="pt-5">
-        <ul class="flex font-kdFang">
-          <li class="align-text-bottom">
-            <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-              {{ rewardCountTitle }}
-            </h4>
-            <p class="font-color-theme font-bold font-kdExp">
-              <span class="text-2xl md:text-4xl">{{
-                countComputed(store.dashboard.rewardCount)
-              }}</span>
-              <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
-            </p>
-          </li>
-          <li class="ml-3 md:ml-12 align-text-bottom">
-            <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-              {{ rewardValueTitle }}
-            </h4>
-            <p
-              class="font-color-theme font-bold font-kdExp whitespace-nowrap"
-              v-html="getPrice(store.dashboard.rewardCount)"
-            ></p>
-          </li>
-          <li class="ml-3 md:ml-12 align-text-bottom">
-            <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
-              {{ rewardPersonTitle }}
-            </h4>
-            <p class="font-color-theme font-bold font-kdExp">
+        <slot :count-title="rewardCountTitle" :count-data="countComputed(store.dashboard.rewardCount)" :value-title="rewardValueTitle" :value-data="getPrice(store.dashboard.rewardCount)" :person-title="rewardPersonTitle" :person-data="[store.dashboard.rewardLimit, store.dashboard.rewardLimit]" :token="store.token">
+          <ul class="flex font-kdFang">
+            <li class="align-text-bottom">
+              <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+                {{ rewardCountTitle }}
+              </h4>
+              <p class="font-color-theme font-bold font-kdExp">
+                <span class="text-2xl md:text-4xl">{{ countComputed(store.dashboard.rewardCount) }}</span>
+                <span class="ml-1.5 text-xs md:text-base">{{ store.token }}</span>
+              </p>
+            </li>
+            <li class="ml-3 md:ml-12 align-text-bottom" v-if="store.getNickName() !== ProjectKey.chainwallet">
+              <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">{{ rewardValueTitle }}</h4>
+              <p class="font-color-theme font-bold font-kdExp whitespace-nowrap" v-html="getPrice(store.dashboard.rewardCount)"></p>
+            </li>
+            <li class="ml-3 md:ml-12 align-text-bottom">
+              <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
+                {{ rewardPersonTitle }}
+              </h4>
+              <p class="font-color-theme font-bold font-kdExp">
               <span class="text-2xl md:text-4xl whitespace-nowrap">
-                <template
-                  v-if="
-                    minReward(store.dashboard.rewardLimit) ===
-                      maxReward(store.dashboard.rewardLimit)
-                  "
-                >
-                  <span>{{
-                    countComputed(maxReward(store.dashboard.rewardLimit))
-                  }}</span>
+                <template v-if="minReward(store.dashboard.rewardLimit) === maxReward(store.dashboard.rewardLimit)">
+                  <span>{{ countComputed(maxReward(store.dashboard.rewardLimit)) }}</span>
                 </template>
                 <template v-else>
-                  <span>{{
-                    countComputed(minReward(store.dashboard.rewardLimit))
-                  }}</span>
+                  <span>{{ countComputed(minReward(store.dashboard.rewardLimit)) }}</span>
                   <span>~</span>
-                  <span>{{
-                    countComputed(maxReward(store.dashboard.rewardLimit))
-                  }}</span>
+                  <span>{{ countComputed(maxReward(store.dashboard.rewardLimit)) }}</span>
                 </template>
               </span>
-              <span class="ml-1.5">{{ store.token }}</span>
-            </p>
-          </li>
-        </ul>
+                <span class="ml-1.5">{{ store.token }}</span>
+              </p>
+            </li>
+          </ul>
+        </slot>
       </div>
-      <div
-        v-if="timeStatus !== TimeStatus.closure && timeCountdownValue"
-        class="pt-5 block md:hidden"
-      >
+      <div v-if="timeStatus !== TimeStatus.closure && timeCountdownValue" class="pt-5 block md:hidden">
         <template v-if="timeStatus === TimeStatus.wait">
           <h4 class="font-normal text-xs mb-1 whitespace-nowrap font-kdFang">
             {{ I18n.growthpad.countdown.title }}

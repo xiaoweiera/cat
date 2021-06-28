@@ -116,6 +116,7 @@ class Store {
     compound: '', // compound token 地址
     bunny: '', // bunny token 地址
     chainwallet: '', // chainwallet token 地址
+    chainwallte_reward: 0, // chainwallet 奖励
   })
 
   // 完成状态
@@ -146,6 +147,10 @@ class Store {
   chatPicture = ref<string[]>([])
   // 朋友圈图片
   friendPicture = ref<string[]>([])
+  // 累计获得奖励
+  grand_total_reward = ref<number>(0)
+  // 预计获得奖励
+  week_expected_reward = ref<number>(0)
 
   private timeout: any = 0
 
@@ -229,21 +234,22 @@ class Store {
     this.project_invited_count.value = result?.project_invited_count || 0
     // 更新 info 信息
     if (info) {
-      this.info.bsc = info.bsc
-      this.info.pancake = info.pancake
-      this.info.uniswap = info.uniswap
-      this.info.sushiswap = info.sushiswap
-      this.info.follow_twitter = info.follow_twitter
-      this.info.retweet = info.retweet
-      this.info.telegram_group = info.telegram_group
-      this.info.autofarm = info.autofarm
-      this.info.belt = info.belt
-      this.info.follow_twitter = info.follow_twitter
-      this.info.venus = info.venus
-      this.info.cream = info.cream
-      this.info.compound = info.compound
-      this.info.bunny = info.bunny
-      this.info.chainwallet = info.chainwallet
+      this.info.bsc = safeGet<string>(info, 'bsc')
+      this.info.pancake = safeGet<string>(info, 'pancake')
+      this.info.uniswap = safeGet<string>(info, 'uniswap')
+      this.info.sushiswap = safeGet<string>(info, 'sushiswap')
+      this.info.follow_twitter = safeGet<string>(info, 'follow_twitter')
+      this.info.retweet = safeGet<string>(info, 'retweet')
+      this.info.telegram_group = safeGet<string>(info, 'telegram_group')
+      this.info.autofarm = safeGet<string>(info, 'autofarm')
+      this.info.belt = safeGet<string>(info, 'belt')
+      this.info.follow_twitter = safeGet<string>(info, 'follow_twitter')
+      this.info.venus = safeGet<string>(info, 'venus')
+      this.info.cream = safeGet<string>(info, 'cream')
+      this.info.compound = safeGet<string>(info, 'compound')
+      this.info.bunny = safeGet<string>(info, 'bunny')
+      this.info.chainwallet = safeGet<string>(info, 'chainwallet')
+      this.info.chainwallte_reward = safeGet<number>(info, 'chainwallte_reward') || 0
     }
     if (mission) {
       this.mission.invited = transformStatus(mission.invited)

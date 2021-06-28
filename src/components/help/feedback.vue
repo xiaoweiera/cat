@@ -49,10 +49,12 @@ onUnmounted(() => {
 
 <template>
   <div class="hidden md:block fixed top-1/2 right-5 transform -translate-y-1/2">
-    <HelpFeedbackContent></HelpFeedbackContent>
+    <div class="w-40">
+      <slot></slot>
+    </div>
   </div>
   <div class="block md:hidden fixed bottom-5 left-1/2 transform -translate-x-1/2 help-main" :class="{'hide': hide}">
-    <HelpFeedbackContent class="whitespace-nowrap"></HelpFeedbackContent>
+    <slot></slot>
   </div>
 </template>
 

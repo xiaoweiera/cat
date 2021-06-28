@@ -34,7 +34,9 @@ export default {
     notify1: '* 请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。',
     notify2: '* 奖励将于活动结束后10个工作日内统一发放到您的奖励接收地址，持仓量相关任务奖励直接发放至验证地址。',
     checkMessage: `内容已提交
-预计获得奖励 +{reward} {token}`
+预计获得奖励 +{reward} {token}`,
+    week_reward: '预计获得奖励 (未发放)：<i>{reward} {token}</i>',
+    total_reward: '已结算奖励：<i>{reward} {token} (奖励会在每周结算日后10个工作日内发放)</i>'
   },
   about: {
     title: '{project} 去中心化交易所',
@@ -350,6 +352,20 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       luanched: 'BSC',
       detail: `Chain Wallet Team 一直深耕钱包、智能合约、NFT的开发，Chain Wallet 近期组建了商务、海外运营团队 Chain Wallet 将致力于降低行业门槛，让人人都拥有自己的数字资产，后续我们希望和各位合作伙伴一起建立友好的合作关系，一起推动区块链行业发展。`,
       tokenDetail: `CHA 通过多种场景下的流通，作为支付手段与会员权益身份证明，打通Chain Wallet整个产品业务线。也可以参与Chain Wallet治理提交提案时需要抵押CHA，以防止恶意发起提议。当前CHA广告费用支付、上架DAPP、上架去中心化交易、代币官网收录等场景。`,
+      telegram: 'https://t.me/KingDataCN', // 客服电报群
     },
+    help: {
+      val1: '参加活动遇到问题？',
+      val2: '加入电报群联系客服',
+    },
+    task4: {
+      title: '在 ChainWallet 提供一笔流动性，根据质押量获得奖励，最高可得 2500 CHA',
+      rule1: '大于500U小于 10000U，奖励 250 CHA',
+      rule2: '大于10000U小于 100000U，奖励 1000 CHA',
+      rule3: '大于100000U，奖励 2500 CHA',
+    },
+    task5: {
+      title: '依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~500 CHA。（粉丝数不低于2000人，阅读量不低于1000）',
+    }
   }
 };

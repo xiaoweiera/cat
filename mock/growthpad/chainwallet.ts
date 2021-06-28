@@ -67,19 +67,19 @@ const data = {
     {
       id: chat.uuid(),
       type: TaskType.chainwallet,
-      title: '在  ChainWallet 提供一笔流动性，根据质押量获得奖励，最高可得 2500 CHA',
+      title: I18n.growthpad.chainwallet.task4.title,
       reward: [2500],
       rule: [
-        '大于500U小于10000U，奖励250 CHA',
-        '大于10000U小于100000U，奖励1000 CHA',
-        '大于100000U，奖励2500 CHA',
+        I18n.growthpad.chainwallet.task4.rule1,
+        I18n.growthpad.chainwallet.task4.rule2,
+        I18n.growthpad.chainwallet.task4.rule3
       ]
     },
     // 任务4, 微博文章分享推广
     {
       id: chat.uuid(),
       type: TaskType.weibo,
-      title: '依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~500 CHA。（粉丝数不低于2000人，阅读量不低于1000）',
+      title: I18n.growthpad.chainwallet.task5.title,
       reward: [100, 500],
     },
   ],

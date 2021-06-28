@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
+// @ts-ignore
 import { getMin, getMax } from './task'
 import I18n from '~/utils/i18n/index'
 // @ts-ignore
@@ -7,6 +8,8 @@ import TaskType from '~/logic/growthpad/tasktype'
 import { MissionStatus } from '~/store/growthpad/props'
 import Task from '~/logic/growthpad/task'
 import { ProjectKey } from '~/logic/growthpad/config'
+import { toNumber } from '~/utils/index'
+
 const store = Task()
 const props = defineProps({
   data: {
@@ -27,6 +30,7 @@ const symbolValue = computed<string>((): string => {
   }
   return I18n.common.symbol.plus
 })
+// @ts-ignore
 const tokenValue = computed<string>((): string => {
   // 项目名称
   const name = store.getNickName()
@@ -53,33 +57,29 @@ const isSuccess = function(value: MissionStatus, option?: any): boolean {
   return false
 }
 
+const isEmpty = function(value: MissionStatus, option?: any): boolean {
+  const status = isSuccess(value, option)
+  if (status || value === MissionStatus.loading) {
+    return false
+  }
+  return true
+}
+
 const clacRewardCount = function(list: Array<ItemTask>): number {
   let count = 0
   for (let i = 0, len = list.length; i < len; i++) {
     const item: ItemTask = list[i]
     if (item.reward) {
-      if (
-        item.type === TaskType.telegram
-        && isSuccess(store.mission.telegram_group)
-      ) {
+      if (item.type === TaskType.telegram && isSuccess(store.mission.telegram_group)) {
         count += getMin(item.reward)
       }
-      if (
-        item.type === TaskType.retwitter
-        && isSuccess(store.mission.retweet)
-      ) {
+      if (item.type === TaskType.retwitter && isSuccess(store.mission.retweet)) {
         count += getMin(item.reward)
       }
-      if (
-        item.type === TaskType.twitter
-        && isSuccess(store.mission.follow_twitter)
-      ) {
+      if (item.type === TaskType.twitter && isSuccess(store.mission.follow_twitter)) {
         count += getMin(item.reward)
       }
-      if (
-        item.type === TaskType.sina
-        && isSuccess(store.mission.follow_weibo)
-      ) {
+      if (item.type === TaskType.sina && isSuccess(store.mission.follow_weibo)) {
         count += getMin(item.reward)
       }
     }
@@ -149,11 +149,9 @@ const childrenRewardStatus = function(data: any): number {
 // 计算奖励
 // @ts-ignore
 const rewardValue = computed<number>((): number => {
+  // 微博文章任务
   if (props.data.type === TaskType.weibo) {
-    const number = parseInt(store.article_reward.value)
-    if (isNaN(number)) {
-      return 0
-    }
+    const number = toNumber(store.article_reward.value, 0)
     return number
   }
   // @ts-ignore
@@ -238,15 +236,56 @@ const rewardValue = computed<number>((): number => {
       return childrenRewardStatus(props.data)
     }
   }
+  // chainwallet 任务
+  if (props.data.type === TaskType.chainwallet) {
+    const value = toNumber(store.info.chainwallte_reward, 0)
+    return value
+  }
+
+  // twiiter 任务
+  if (props.data.type === TaskType.twitter) {
+    // 任务完成
+    if (!isEmpty(store.mission.follow_twitter)) {
+      return getMin(props.data.reward)
+    }
+  }
+
+  // 转发 twiiter 任务
+  if (props.data.type === TaskType.retwitter) {
+    if (!isEmpty(store.mission.retweet)) {
+      return getMin(props.data.reward)
+    }
+  }
+
+  // 关注电报任务
+  if (props.data.type === TaskType.telegram) {
+    if (!isEmpty(store.mission.telegram_group)) {
+      return getMin(props.data.reward)
+    }
+  }
+
+  // 关注新浪微博任务
+  if (props.data.type === TaskType.sina) {
+    if (!isEmpty(store.mission.follow_weibo)) {
+      return getMin(props.data.reward)
+    }
+  }
+
   return 0
 })
+
+
+
+
 </script>
 <template>
   <template v-if="rewardValue">
     <span class="font-bold font-kdExp inline-block whitespace-nowrap">
       <span class="reward bonus block md:inline-block">
-        <span class="text-xs">{{ I18n.common.message.get }}</span>
-        <span class="count inline-block min-w-14 text-right">{{ rewardValue }}</span>
+        <span class="min-w-16 inline-block text-right">
+          <span class="text-xs">{{ I18n.common.message.get }}</span>
+          <span class="count">{{ rewardValue }}</span>
+        </span>
         <span class="ml-1">{{ tokenValue }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
@@ -258,14 +297,10 @@ const rewardValue = computed<number>((): number => {
     <span class="font-bold font-kdExp inline-block whitespace-nowrap">
       <span class="reward block md:inline-block">
         <template v-if="isWeibo">
-          <span
-            class="count"
-          >{{ symbolValue }}{{ getMin(data.reward) }}~{{
-            getMax(data.reward)
-          }}</span>
+          <span class="count">{{ symbolValue }}{{ getMin(data.reward) }}~{{getMax(data.reward) }}</span>
         </template>
         <template v-else>
-          <span class="count inline-block min-w-14 text-right">{{ symbolValue }}{{ getMax(data.reward) }}</span>
+          <span class="count inline-block min-w-16 text-right">{{ symbolValue }}{{ getMax(data.reward) }}</span>
         </template>
         <span class="ml-1">{{ tokenValue }}</span>
       </span>

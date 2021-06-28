@@ -14,13 +14,18 @@ onBeforeMount(() => {
   headerTag.name = 'GrowthPad'
   ready(store)
 })
+
 </script>
 <template>
   <div v-show="!loading" class="examples pb-20">
     <growthpadTaskDashboard />
 
     <div class="pt-15 px-4 md:px-6">
-      <growthpadTaskAdress />
+      <growthpadTaskAdress>
+        <template #default v-if="store.getNickName() === ProjectKey.chainwallet">
+          <GrowthpadChainwalletReward/>
+        </template>
+      </growthpadTaskAdress>
 
       <template v-if="store.projectName === ProjectKey.coinwind">
         <growthpadTaskCoinwind></growthpadTaskCoinwind>
@@ -51,7 +56,9 @@ onBeforeMount(() => {
       <growthpadTaskAbout></growthpadTaskAbout>
     </div>
     <template v-if="store.projectName === ProjectKey.chainwallet">
-      <HelpFeedback></HelpFeedback>
+      <HelpFeedback>
+        <GrowthpadChainwalletHelp/>
+      </HelpFeedback>
     </template>
   </div>
 </template>

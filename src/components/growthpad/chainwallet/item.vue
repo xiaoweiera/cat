@@ -27,12 +27,12 @@ const equal = function(type: TaskType): boolean {
           <GrowthpadTaskTitle :data="data" class="flex justify-between items-center"/>
           <p v-if="data.rule" class="pt-1">
             <template v-for="(text, index) in data.rule" :key="index">
-              <span class="block text-xs font-color leading-4">{{ text }}</span>
+              <span class="block text-xs font-color leading-4">{{ index + 1 }}. {{ text }}</span>
             </template>
           </p>
         </div>
         <div class="flex justify-between mt-3 md:mt-0 md:justify-end md:flex-1">
-          <GrowthpadTaskCheck class="text-right mr-7" :data="data"/>
+          <GrowthpadTaskCheck class="text-right mr-7 flex items-center" :data="data"/>
           <span class="inline-block cursor-pointer md:pl-0">
               <GrowthpadTaskReward :data="data"/>
             </span>

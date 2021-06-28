@@ -13,12 +13,14 @@
     "prepare": "husky install",
     "message": "node scripts/translate/index"
   },
-  "lint-staged": {
+  "lint-staged1": {
     "./src/**/*.{vue,ts}": [
       "prettier --write",
       "npm run eslint",
       "git add"
     ]
+  },
+  "lint-staged": {
   },
   "husky": {
     "hooks": {
