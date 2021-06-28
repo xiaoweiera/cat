@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { defineProps, onMounted, toRefs } from 'vue'
+import * as R from 'ramda'
 import * as echarts from 'echarts'
-import { paramChart } from '~/store/liquidity/state'
+import { paramChart,priceData} from '~/store/liquidity/state'
 import {getXData, getSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
 import {kData} from '/mock/liquidity'
@@ -28,11 +29,13 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: nu
   window.addEventListener('resize', myChart.resize)
 }
 const getChartData=()=>{
-  const xData = getXData(props?.chartData.xaxis, interval)
-  const legend = getLegendList(props?.chartData.yaxis,kData.yaxis[0])
+  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData.xaxis,priceData.value.xaxis)))
+  const xData = getXData(allXaxis, interval)
+  const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
   const [minM, maxM, kminM, kmaxM, series] = getSeries(
-      props?.chartData.yaxis,
-      kData.yaxis[0],
+      props?.chartData.xaxis,priceData.value.xaxis,
+      props?.chartData.yaxis, priceData.value.yaxis[0],
+      allXaxis
   )
   draw(xData, series, legend, minM, maxM, kminM, kmaxM)
 }

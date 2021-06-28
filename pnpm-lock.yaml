@@ -25,7 +25,7 @@ specifiers:
   d3-dsv: ^2.0.0
   dayjs: ^1.10.4
   echarts: ^5.1.1
-  element-plus: ^1.0.2-beta.41
+  element-plus: ^1.0.2-beta.52
   eslint: ^7.25.0
   https-localhost: ^4.6.4
   husky: ^6.0.0
@@ -80,6 +80,7 @@ dependencies:
   d3-dsv: 2.0.0
   dayjs: 1.10.4
   echarts: 5.1.1
+  element-plus: 1.0.2-beta.52_vue@3.1.2
   intl-format: 1.2.0
   js-cookie: 2.2.1
   lint-staged: 11.0.0
@@ -112,7 +113,6 @@ devDependencies:
   '@vue/server-renderer': 3.1.2_vue@3.1.2
   autoprefixer: 10.2.5_postcss@8.2.15
   cross-env: 7.0.3
-  element-plus: 1.0.2-beta.44_vue@3.1.2
   eslint: 7.26.0
   https-localhost: 4.6.5
   husky: 6.0.0
@@ -1483,7 +1483,7 @@ packages:
 
   /@popperjs/core/2.9.2:
     resolution: {integrity: sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==}
-    dev: true
+    dev: false
 
   /@rollup/plugin-babel/5.3.0_@babel+core@7.14.2+rollup@2.47.0:
     resolution: {integrity: sha512-9uIC8HZOnVLrLHxayq/PTzw+uS25E14KPUBh5ktF+18Mjo5yK0ToMMx6epY0uEgkjwJw0aBW4x2horYXh8juWw==}
@@ -1638,9 +1638,9 @@ packages:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: true
 
-  /@types/lodash/4.14.169:
-    resolution: {integrity: sha512-DvmZHoHTFJ8zhVYwCLWbQ7uAbYQEk52Ev2/ZiQ7Y7gQGeV9pjBqjnQpECMHfKS1rCYAhMI7LHVxwyZLZinJgdw==}
-    dev: true
+  /@types/lodash/4.14.170:
+    resolution: {integrity: sha512-bpcvu/MKHHeYX+qeEN8GE7DIravODWdACVA1ctevD8CN24RhPZIKMn9ntfAsrvLfSX3cR5RrBKAbYm9bGs0A+Q==}
+    dev: false
 
   /@types/mockjs/1.0.3:
     resolution: {integrity: sha512-OlwyyyoY81P8f7FU0zILUPxqQQ3/W+CwbqI6dWvOxaH8w948fAl1+hOG9C9ZgJcwzG+aloJcsastY4c4p91R1Q==}
@@ -2283,7 +2283,7 @@ packages:
 
   /async-validator/3.5.2:
     resolution: {integrity: sha512-8eLCg00W9pIRZSB781UUX/H6Oskmm8xloZfr09lz5bikRpBVDlJ3hRVuxxP1SxcwsEYfJ4IU8Q19Y8/893r3rQ==}
-    dev: true
+    dev: false
 
   /asynckit/0.4.0:
     resolution: {integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=}
@@ -3131,6 +3131,11 @@ packages:
 
   /dayjs/1.10.4:
     resolution: {integrity: sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==}
+    dev: false
+
+  /dayjs/1.10.5:
+    resolution: {integrity: sha512-BUFis41ikLz+65iH6LHQCDm4YPMj5r1YFLdupPIyM4SGcXMmtiLQ7U37i+hGS8urIuqe7I/ou3IS1jVc4nbN4g==}
+    dev: false
 
   /de-indent/1.0.2:
     resolution: {integrity: sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=}
@@ -3463,21 +3468,21 @@ packages:
   /electron-to-chromium/1.3.730:
     resolution: {integrity: sha512-1Tr3h09wXhmqXnvDyrRe6MFgTeU0ZXy3+rMJWTrOHh/HNesWwBBrKnMxRJWZ86dzs8qQdw2c7ZE1/qeGHygImA==}
 
-  /element-plus/1.0.2-beta.44_vue@3.1.2:
-    resolution: {integrity: sha512-PmGfOnV/66LPGSsSbaesiTnmrcQ5PnoZLr2eKRv2/lJ06xUc0AiSBiktGrds0mETgC1O/mRHswXk/Se6aJtpKQ==}
+  /element-plus/1.0.2-beta.52_vue@3.1.2:
+    resolution: {integrity: sha512-oAuJHwXyvM4dsuOz7HSDPIBVPqRJ1KEzFzGqYdqbBjQ/aw79uCJxvS9Q4q9/XrPMfPire09+bPTypiIaHkNBhA==}
     peerDependencies:
-      vue: ^3.0.9
+      vue: 3.1.1
     dependencies:
       '@popperjs/core': 2.9.2
-      '@types/lodash': 4.14.169
+      '@types/lodash': 4.14.170
       async-validator: 3.5.2
-      dayjs: 1.10.4
+      dayjs: 1.10.5
       lodash: 4.17.21
       mitt: 2.1.0
       normalize-wheel: 1.0.1
       resize-observer-polyfill: 1.5.1
       vue: 3.1.2
-    dev: true
+    dev: false
 
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -5878,7 +5883,7 @@ packages:
 
   /mitt/2.1.0:
     resolution: {integrity: sha512-ILj2TpLiysu2wkBbWjAmww7TkZb65aiQO+DkVdUTBpBXq+MHYiETENkKFMtsJZX1Lf4pe4QOrTSjIfUwN5lRdg==}
-    dev: true
+    dev: false
 
   /mkdirp/0.5.5:
     resolution: {integrity: sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==}
@@ -6070,7 +6075,7 @@ packages:
 
   /normalize-wheel/1.0.1:
     resolution: {integrity: sha1-rsiGr/2wRQcNhWRH32Ls+GFG7EU=}
-    dev: true
+    dev: false
 
   /npm-run-path/2.0.2:
     resolution: {integrity: sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8=}
@@ -7642,7 +7647,7 @@ packages:
 
   /resize-observer-polyfill/1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
-    dev: true
+    dev: false
 
   /resolve-cwd/2.0.0:
     resolution: {integrity: sha1-AKn3OHVW4nA46uIyyqNypqWbZlo=}

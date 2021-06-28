@@ -8,6 +8,7 @@ const typeList = [
 ]
 // 改变类型标签  （流动性分析/交易数据分析）
 const changeType = (typeName: string) => {
+  console.log(typeName)
   analysisType.value=typeName
 }
 </script>

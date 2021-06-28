@@ -2,10 +2,11 @@
 // @ts-ignore
 import {ElTooltip} from 'element-plus'
 import {defineProps, onBeforeMount, reactive, watch, ref} from 'vue'
+import { symbolStore } from '~/store/liquidity/state'
 import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
-import {changeRoute,changeRouteParam} from '~/lib/tool'
+import {changeRoute,changeRouteParam,toFixedNumber} from '~/lib/tool'
 import {
   pairStore,
   updateData,
@@ -24,15 +25,18 @@ const changePair = (name: string, id: string) => {
   changeRouteParam(route,router,{pair:id,pairName:name})
 
 }
+watch(()=>symbolStore.id,async ()=>
+   await getPair_list()
+)
 const likeStart = (item: any) => console.log(item)
 const getPair_list = async () => {
-  // const result = await getPair_side({
-  //   platId: 1,
-  //   symbol_id: props.symbol,
-  // })
-  // if (result?.data?.code === 0) {
-  //   pairList.value = result?.data?.data
-  // }
+  const result = await getPair_side({
+    platId: 1,
+    symbol_id: symbolStore.id,
+  })
+  if (result?.data?.code === 0) {
+    pairList.value = result?.data?.data
+  }
 }
 onBeforeMount(() => {
   getPair_list()
@@ -44,10 +48,10 @@ onBeforeMount(() => {
         <li class="flex-1">交易对</li>
         <li class="w-15 pl-1">TVL($)</li>
         <li class="w-15 pl-1">价格($)</li>
-        <li class="w-15 pl-1">涨跌幅</li>
+<!--        <li class="w-15 pl-1">涨跌幅</li>-->
       </ul>
       <div class="w-full h-full showY">
-        <template v-for="item in testData">
+        <template v-for="item in pairList">
           <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
             <div class="flex-1 font-kdExp flex items-center overflow-hidden">
               <img class="w-3 h-3" src="https://res.ikingdata.com/nav/noStart.png" alt="" @click="likeStart(item)"/>
@@ -58,8 +62,8 @@ onBeforeMount(() => {
               </el-tooltip>
             </div>
             <div class="tokenRow text-kd12px16px text-global-default">{{ item.TVL }}</div>
-            <div class="tokenRow text-kd12px16px text-global-default">{{ item.price }}</div>
-            <div class="percentGreen text-left">+20%</div>
+            <div class="tokenRow text-kd12px16px text-global-default">{{ toFixedNumber(item.price) }}</div>
+<!--            <div class="percentGreen text-left">+20%</div>-->
           </div>
         </template>
       </div>
