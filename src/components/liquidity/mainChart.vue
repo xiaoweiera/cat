@@ -104,10 +104,6 @@ const loading=false
 
 </script>
 <template>
-<!--  token {{symbolStore}}-->
-<!--  pair  {{pairStore}}-->
-<!--  {{selectTxt}}-->
-<!--  {{paramChart}}-->
   <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
     <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
   </div>
