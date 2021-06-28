@@ -3,47 +3,24 @@
  * @author svon.me@gmail.com
  */
 
-import { toUpper } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
 import request from '~/lib/service'
 import { growthpad } from '~/api/pathname'
 import { LoginStatus } from '~/logic/user/check'
-export enum Project {
-  mdx = 'MDX',
-  channels = 'CHANNELS',
-  coinwind = 'COINWIND',
-  growth = 'GROWTH',
-}
+import { getProjectType } from '~/logic/growthpad/config'
 
-export function getProjectType(project: string): Project {
-  if (project && toUpper(project) === Project.mdx) {
-    return Project.mdx
-  }
-  if (project && toUpper(project) === Project.channels) {
-    return Project.channels
-  }
-  if (project && toUpper(project) === Project.coinwind) {
-    return Project.coinwind
-  }
-  if (project && toUpper(project) === Project.growth) {
-    return Project.growth
-  }
-  // @ts-ignore
-  return '' as Project
-}
-
-const _projectInfoData: any = {}
+const _cacheData: any = {}
 // 项目信息
-export const projectDetail = async function(project: string): Promise<any> {
+export const projectDetail = async function(id: string): Promise<any> {
   try {
-    if (_projectInfoData && _projectInfoData[project]) {
-      return Promise.resolve(_projectInfoData[project])
+    if (_cacheData && _cacheData[id]) {
+      return Promise.resolve(_cacheData[id])
     }
     const result = await request.get(growthpad.getProject, {
-      params: { project },
+      params: { project: id },
     })
     const data = safeGet(result, 'data.data')
-    _projectInfoData[project] = data
+    _cacheData[id] = data
     return data
   } catch (e) {
     return {}
@@ -52,10 +29,10 @@ export const projectDetail = async function(project: string): Promise<any> {
 // 用户完成任务的信息
 const projectInfo = LoginStatus(
   growthpad.getUserInfo,
-  async(project: string): Promise<any> => {
+  async(id: string): Promise<any> => {
     try {
       const result = await request.get(growthpad.getUserInfo, {
-        params: { project },
+        params: { project: id },
       })
       return safeGet(result, 'data.data')
     } catch (e) {
@@ -64,27 +41,30 @@ const projectInfo = LoginStatus(
   },
 )
 
-export const getProjectInfo = async function(project: string): Promise<any> {
-  const type = getProjectType(project)
-  const [result, detail]: Array<any> = await Promise.all([
-    projectInfo(type),
-    projectDetail(type),
-  ])
-  const value = Object.assign({}, result, {
-    price: safeGet(detail, 'price') || 0,
-  })
-  return value
+export const getProjectInfo = async function(id: string): Promise<any> {
+  const type = getProjectType(id)
+  if (type) {
+    const [result, detail]: Array<any> = await Promise.all([
+      projectInfo(type),
+      projectDetail(type),
+    ])
+    const value = Object.assign({}, result, {
+      price: safeGet(detail, 'price') || 0,
+    })
+    return value
+  }
+  return {}
 }
 
 type Next = <T>(...args: Array<any>) => Promise<T>
 
 const setData = function(url: string): Next {
-  return LoginStatus(url, (project: string, data: any = {}): Promise<any> => {
-    const type = getProjectType(project)
+  return LoginStatus(url, (id: string, data: any = {}): Promise<any> => {
+    const name = getProjectType(id)
     return request({
       url,
       data,
-      params: { project: type },
+      params: { project: name },
       method: url === growthpad.getGrowthPicture ? 'GET' : 'POST',
     })
   })
@@ -102,27 +82,3 @@ export const setFriendPicture = setData(growthpad.postFriendPicture)
 export const setChatPicture = setData(growthpad.postChatPicture)
 // 获取朋友圈与微信群数据
 export const getGrowthPicture = setData(growthpad.getGrowthPicture)
-
-// export const setWeiboContent = LoginStatus(
-//   growthpad.postArticle,
-//   async(project: string, data: FormData): Promise<any> => {
-//     const type = getProjectType(project)
-//     try {
-//       const result = await request({
-//         url: growthpad.postArticle,
-//         method: 'POST',
-//         params: { project: type },
-//         data,
-//       })
-//       const code = safeGet<number>(result, 'data.code')
-//       if (parseInt(code as any) !== 0) {
-//         return Promise.reject(result)
-//       }
-//       return result.data
-//     } catch (e) {
-//       return Promise.reject(e)
-//     }
-//   },
-// )
-
-//

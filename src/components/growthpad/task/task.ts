@@ -24,11 +24,11 @@ export const getTimeStatus = function(store: Store): string {
   if (store.dashboard?.end) {
     // @ts-ignore
     const time = dayjs(store.dashboard.end, format).valueOf()
-    if (time > today) {
-      return TimeStatus.ing
+    if (today > time) {
+      return TimeStatus.closure
     }
   }
-  return TimeStatus.closure
+  return TimeStatus.ing
 }
 
 export const uuid = function(): string {

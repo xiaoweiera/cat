@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { shareUrl as getShareUrl } from './link'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'

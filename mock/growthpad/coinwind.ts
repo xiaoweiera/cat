@@ -1,7 +1,6 @@
 /**
- * @file growthpad mdx
+ * @file growthpad coinwind
  * @author svon.me@gmail.com
- * @description mdx
  */
 
 import I18n from '~/utils/i18n/index'
@@ -36,6 +35,9 @@ const data = {
   dashboard: Object.assign({}, coinwindInfo.dashboard, {
     description: I18n.growthpad.coinwind.dashboard.desc, // 描述
   }),
+  address: {
+    placeholder: I18n.growthpad.coinwind.address.placeholder
+  },
   about: {
     website, // 项目官网
     minutias: [

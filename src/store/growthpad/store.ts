@@ -5,15 +5,14 @@
 
 import { reactive, ref } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
-import mockMdx from '../../../mock/growthpad/mdx'
-import mockChannels from '../../../mock/growthpad/channels'
-import mockCoinWind from '../../../mock/growthpad/coinwind'
-import mockGrowth from '../../../mock/growthpad/growth'
 import { Info, Mission, MissionStatus, transformStatus } from './props'
 import { postInfo, postInfoBasis } from './directive'
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
+import { ProjectKey, getProjectType, ProjectMockData, ProjectShareCode } from '~/logic/growthpad/config'
+import I18n from '~/utils/i18n'
+
 
 interface Minutia {
   label: string
@@ -36,6 +35,7 @@ interface ShareItem {
 interface AboutData {
   website?: string
   detail?: string
+  tokenDetail?: string
   qrcode?: string
   minutias: Array<Minutia>
   share: Array<ShareItem>
@@ -60,38 +60,48 @@ interface TaskItem {
   children?: Array<TaskItem>
 }
 
+interface Address {
+  placeholder: string
+}
+
 class Store {
-  protected token = ''
-  protected shareCode = ref<string>('')
-  private intervalTime = 10000
+  token = ''
+  shareCode = ref<string>('')
+  intervalTime = 10000
   // 当前币价
-  protected price = ref<string | number>(0)
+  price = ref<string | number>(0)
   // 用户活动的奖励
-  protected reward = ref<string | number>(0)
+  reward = ref<string | number>(0)
   // 用户要求参与活动的数量
-  protected invited_count = ref<number>(0)
+  invited_count = ref<number>(0)
   // 当前项目用户要求参与活动的数量
-  protected project_invited_count = ref<number>(0)
+  project_invited_count = ref<number>(0)
   // @ts-ignore
-  protected projectName: API.Project // 项目名称
-  protected title = ref<string>('') // title
-  protected icon = ref<string>('') // icon
+  projectName: ProjectKey // 项目名称
+  title = ref<string>('') // title
+  icon = ref<string>('') // icon
   // 首屏数据
-  protected dashboard = reactive<DashboardData>({
+  dashboard = reactive<DashboardData>({
     banner: '',
   })
-
+  // 地址信息
+  address = reactive<Address>({
+    placeholder: I18n.growthpad.mdx.address.placeholder
+  })
   // 项目介绍
-  protected about = reactive<AboutData>({
+  about = reactive<AboutData>({
     minutias: [],
     share: [],
     qrcode: '',
+    website: '',
+    detail: '',
+    tokenDetail: '',
   })
 
   // 任务列表
-  protected taskList = ref<TaskItem[]>([])
+  taskList = ref<TaskItem[]>([])
   // 个人信息, 用户数据
-  public info = reactive<Info>({
+  info = reactive<Info>({
     bsc: '', // 领取奖励的地址
     pancake: '', // pancake  token地址
     uniswap: '', // uniswap  token地址
@@ -109,7 +119,7 @@ class Store {
   })
 
   // 完成状态
-  public mission = reactive<Mission>({
+  mission = reactive<Mission>({
     invited: MissionStatus.init, // 邀请任务状态
     pancake: MissionStatus.init, // pancake验资是否通过
     uniswap: MissionStatus.init, // uniswap验资是否通过
@@ -126,61 +136,78 @@ class Store {
     bunny: MissionStatus.init,
   })
 
-  public article_url = ref<string>('article_url') // 用户上传的文章链接
-  public article_image = ref<string>('') // 用户上传的图片
-  public article_audit = ref<boolean>(false) // 用户文章审核状态
-  public article_reward = ref<number>(0) // 用户文章的奖励
+  article_url = ref<string>('article_url') // 用户上传的文章链接
+  article_image = ref<string>('') // 用户上传的图片
+  article_audit = ref<boolean>(false) // 用户文章审核状态
+  article_reward = ref<number>(0) // 用户文章的奖励
+
+  // 微信群图片
+  chatPicture = ref<string[]>([])
+  // 朋友圈图片
+  friendPicture = ref<string[]>([])
 
   private timeout: any = 0
 
-  // 微信群图片
-  public chatPicture = ref<string[]>([])
-  // 朋友圈图片
-  public friendPicture = ref<string[]>([])
-
   // 构造方法
   constructor(type: string) {
-    if (type && API.getProjectType(type) === API.Project.mdx) {
-      this.projectName = API.Project.mdx
-      this.shareCode.value = '-G1'
+    /*
+    if (type && getProjectType(type) === ProjectKey.mdx) {
+      this.projectName = ProjectKey.mdx
+      this.shareCode.value = ProjectShareCode[ProjectKey.mdx]
       this.setInitData(mockMdx)
-    } else if (type && API.getProjectType(type) === API.Project.channels) {
-      this.projectName = API.Project.channels
-      this.shareCode.value = '-G3'
+    } else if (type && getProjectType(type) === ProjectKey.channels) {
+      this.projectName = ProjectKey.channels
+      this.shareCode.value = ProjectShareCode[ProjectKey.channels]
       this.setInitData(mockChannels)
-    } else if (type && API.getProjectType(type) === API.Project.coinwind) {
-      this.projectName = API.Project.coinwind
-      this.shareCode.value = '-G2'
+    } else if (type && getProjectType(type) === ProjectKey.coinwind) {
+      this.projectName = ProjectKey.coinwind
+      this.shareCode.value = ProjectShareCode[ProjectKey.coinwind]
       this.setInitData(mockCoinWind)
-    } else if (type && API.getProjectType(type) === API.Project.growth) {
-      this.projectName = API.Project.growth
-      this.shareCode.value = '-G4'
+    } else if (type && getProjectType(type) === ProjectKey.growth) {
+      this.projectName = ProjectKey.growth
+      this.shareCode.value = ProjectShareCode[ProjectKey.growth]
       this.setInitData(mockGrowth)
+    }
+    */
+    const key = getProjectType(type)
+    if (type && key) {
+      this.projectName = key
+      this.shareCode.value = ProjectShareCode[key]
+
+      // @ts-ignore
+      const mock = ProjectMockData[key]
+      if (mock) {
+        this.setInitData(mock)
+      }
     }
   }
 
-  private clearTimeout(): void {
+  clearTimeout(): void {
     clearTimeout(this.timeout)
   }
 
   // 设置基础数据
-  private setInitData(data: any) {
+  protected setInitData(data: any) {
     this.token = data.token as string
     this.title.value = data.title
     this.icon.value = data.icon
+    // 地址信息
+    this.address.placeholder = safeGet<string>(data, 'address.placeholder')
     // dashboard 数据
-    this.dashboard.banner = data.dashboard.banner
-    this.dashboard.begin = data.dashboard.begin
-    this.dashboard.end = data.dashboard.end
-    this.dashboard.description = data.dashboard.description
-    this.dashboard.rewardCount = data.dashboard.reward.count
-    this.dashboard.rewardLimit = data.dashboard.reward.limits
+    this.dashboard.banner = safeGet<string>(data, 'dashboard.banner')
+    this.dashboard.begin = safeGet<string>(data, 'dashboard.begin')
+    this.dashboard.end = safeGet<string>(data, 'dashboard.end')
+    this.dashboard.description = safeGet<string>(data, 'dashboard.description')
+    this.dashboard.rewardCount = safeGet<number>(data, 'dashboard.reward.count')
+    this.dashboard.rewardLimit = safeGet<number[]>(data, 'dashboard.reward.limits')
     // about 数据
-    this.about.website = data.about.website
-    this.about.detail = data.about.detail
-    this.about.share = data.about.share
-    this.about.qrcode = data.about.qrcode
-    for (const item of data.about.minutias) {
+    this.about.website = safeGet<string>(data, 'about.website')
+    this.about.detail = safeGet<string>(data, 'about.detail')
+    this.about.share = safeGet<ShareItem[]>(data, 'about.share')
+    this.about.qrcode = safeGet<string>(data, 'about.qrcode')
+    this.about.tokenDetail = safeGet<string>(data, 'about.tokenDetail')
+    const minutias = safeGet<Minutia[]>(data, 'about.minutias') || []
+    for (const item of minutias) {
       const minutia: Minutia = {
         label: item.label,
         value: item.value,
@@ -189,21 +216,21 @@ class Store {
     }
 
     // 任务列表
-    this.taskList.value = data.taskList
+    this.taskList.value = safeGet<TaskItem[]>(data, 'taskList')
   }
 
-  protected getNickName(): API.Project {
+  getNickName(): ProjectKey {
     return this.projectName
   }
 
-  protected getName(): string {
-    if (this.getNickName() === API.Project.channels) {
+  getName(): string {
+    if (this.getNickName() === ProjectKey.channels) {
       return 'Channels'
     }
-    if (this.getNickName() === API.Project.coinwind) {
+    if (this.getNickName() === ProjectKey.coinwind) {
       return 'CoinWind'
     }
-    if (this.getNickName() === API.Project.growth) {
+    if (this.getNickName() === ProjectKey.growth) {
       return 'GrowthPad'
     }
     return this.getNickName()
@@ -263,7 +290,7 @@ class Store {
     this.chatPicture.value = safeGet<string[]>(result, 'wechat_group') || []
 
     // growth pad 任务不启动自动刷新
-    if (this.getNickName() !== API.Project.growth) {
+    if (this.getNickName() !== ProjectKey.growth) {
       // 自动刷新逻辑
       const keys: string[] = Object.keys(result)
       if (keys.length > 1) {
@@ -297,8 +324,8 @@ class Store {
    */
   async init(): Promise<void> {
     this.clearTimeout()
-    const name: API.Project = this.getNickName()
-    if (name !== API.Project.growth) {
+    const name = this.getNickName()
+    if (name !== ProjectKey.growth) {
       const result = await API.getProjectInfo(name)
       this.updateData(result)
     } else {

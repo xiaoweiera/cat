@@ -5,6 +5,7 @@
 
 import { isLogin } from '~/logic/user/login'
 import { showVisible } from '~/store/header/login'
+import * as event from '~/utils/event/index'
 
 const login = function(e: Event) {
   // 已登录状态
@@ -19,13 +20,14 @@ const login = function(e: Event) {
 }
 
 const install = function(vue: any) {
+  const eventName = 'click'
   // 添加指令
   vue.directive('login', {
-    created(el: HTMLElement) {
-      el.addEventListener('click', login, true)
+    created(el: HTMLElement, _: any, vNode: any) {
+      event.bind(vNode, eventName, login, true)
     },
-    beforeUnmount(el: HTMLElement) {
-      el.removeEventListener('click', login)
+    beforeUnmount(el: HTMLElement, _: any, vNode: any) {
+      event.unbind(vNode, eventName, true)
     },
   })
 }
