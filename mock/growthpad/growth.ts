@@ -1,7 +1,6 @@
 /**
- * @file growthpad mdx
+ * @file growthpad growth
  * @author svon.me@gmail.com
- * @description mdx
  */
 
 import I18n from '~/utils/i18n/index'
@@ -22,6 +21,9 @@ const data = {
   title: Project, // 名称
   icon: growthInfo.icon, // icondashboard
   dashboard: growthInfo.dashboard,
+  address: {
+    placeholder: I18n.growthpad.growthpad.address.placeholder
+  },
   about: {
     website, // 项目官网
     qrcode: 'https://res.ikingdata.com/static/share/growth_qrcode.jpg?r=2',

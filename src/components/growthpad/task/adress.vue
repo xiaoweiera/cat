@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
 import activity from '~/logic/growthpad/activity'
-import { Project } from '~/api/growtask'
+import { ProjectKey } from '~/logic/growthpad/config'
 import { TimeStatus, getTimeStatus } from '~/components/growthpad/task/task'
 
 const store = Task()
@@ -36,25 +36,10 @@ const tokenIsNull = computed<boolean>((): boolean => {
   return false
 })
 // @ts-ignore
-const placeholder = (): string => {
-  // @ts-ignore
-  if (store.projectName === Project.mdx) {
-    return I18n.growthpad.mdx.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === Project.channels) {
-    return I18n.growthpad.channels.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === Project.coinwind) {
-    return I18n.growthpad.coinwind.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === Project.growth) {
-    return I18n.growthpad.growthpad.address.placeholder
-  }
-  return I18n.growthpad.mdx.address.placeholder
-}
+const placeholder = computed<string>((): string => {
+  const value = store.address.placeholder
+  return value || I18n.growthpad.mdx.address.placeholder
+})
 
 const validityValue = computed<string>((): string => {
   const begin = store?.dashboard?.begin
@@ -139,7 +124,7 @@ const bindAddress = async function(): Promise<void> {
       <h2 class="pb-4 text-base font-medium address">
         <span>{{ I18n.growthpad.address.reward }}</span>
         <span class="reward">{{ store.reward.value }}</span>
-        <template v-if="store.projectName === Project.channels">
+        <template v-if="store.projectName === ProjectKey.channels">
           <span class="ml-1" style="color: #e9592d">{{
             I18n.growthpad.channels.address.tips
           }}</span>
@@ -178,10 +163,7 @@ const bindAddress = async function(): Promise<void> {
                 class="address-content w-full block"
                 style="margin-bottom: 0"
               >
-                <ElInput
-                  v-model="formdata.address"
-                  :placeholder="placeholder()"
-                >
+                <ElInput v-model="formdata.address" :placeholder="placeholder">
                   <template v-if="isNull(formdata.address)" #suffix>
                     <span class="pr-3 text-sm tips">{{
                       I18n.growthpad.address.invalid

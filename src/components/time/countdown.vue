@@ -14,14 +14,10 @@ const minute = ref<string>('00')
 const second = ref<string>('00')
 const end = ref(0)
 // 监听传入进来的时间值
-watch(
-  props.value as any,
-  () => {
+watch(props.value, () => {
     const time = dayjs(props.value, format)
     end.value = time.valueOf()
-  },
-  { immediate: true },
-)
+}, { immediate: true })
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
   const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)

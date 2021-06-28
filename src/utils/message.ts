@@ -98,4 +98,13 @@ message.copy = function(content?: Content | string) {
   return app('', getContent(content), 'alert')
 }
 
+message.custom = function(title?: string, content?: string, type: 'alert' | 'confirm' = 'alert' ) {
+  if (title) {
+    return app(title, content || '', type)
+  }
+  if (content) {
+    return app('', content, type)
+  }
+}
+
 export default message

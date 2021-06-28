@@ -68,6 +68,9 @@ export interface Info {
 
   // bunny_token: string // bunny token 地址
   bunny: string
+
+  // chainwallet_token: string // chainwallet token 地址
+  chainwallet: string
 }
 
 export interface Mission {
@@ -89,4 +92,6 @@ export interface Mission {
   cream: MissionStatus // cream 验资
 
   bunny: MissionStatus
+
+  chainwallet: MissionStatus
 }

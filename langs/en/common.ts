@@ -41,6 +41,7 @@ export default {
     mailError:'Email format is incorrect',
     copyAlert: 'Copy successfully',
     testing: 'Verifying. About 15 minutes.', // 验证中，审核结束后自动更新结果
+    checking24h: 'Verifying. About 24 hours',
     get: 'get',
     copy: 'The link has copied',
     fail: 'Validation failed',

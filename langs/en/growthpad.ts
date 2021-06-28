@@ -31,7 +31,9 @@ export default {
     invalid: 'Invalid Address',
     tips: `Once confirmed, the address can't be modified`,
     notify1: '* Please register your address receiving rewards(Rewards for tasks related to TVL will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
-    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.'
+    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.',
+    checkMessage: `内容已提交
+预计获得奖励 +{reward} {token}`
   },
   about: {
     title: '{project} Exchange',
@@ -39,6 +41,7 @@ export default {
     website: 'Official website',
     community: 'Community',
     projectDetail: 'Project introduction',
+    tokenDetail: 'Token introduction',
     name: 'Coin',
     symbol: 'Coin',
     online: 'Online Time',
@@ -334,11 +337,29 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
       copy: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: {url}'
     }
   },
-  ChainWallet: {
+  chainwallet: {
+    // 分享标题
+    title: '助力 ChainWallet 增长，领取20万美元 MDX 奖励',
     dashboard: {
+      banner:'https://res.ikingdata.com/nav/growthBannerCn.jpg',
+      reward: {
+        count: '总奖池金额',
+        value: '单人最高可获得',
+        person: '该项奖励金额'
+      },
       desc: `In order to give back to community users, ChainWallet cooperated with KingData to launch an incentive activity worth 200,000 CHA on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
 Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends; the reward of tasks about holding quantity will be air-drop into the address verified.`
-    }
+    },
+    address: {
+      placeholder: '输入参与领取奖励的 BSC / HECO 地址',
+    },
+    about: {
+      online: '1/19/2021',
+      count: '1 billion',
+      luanched: 'BSC',
+      detail: `Chain Wallet Team 一直深耕钱包、智能合约、NFT的开发，Chain Wallet 近期组建了商务、海外运营团队 Chain Wallet 将致力于降低行业门槛，让人人都拥有自己的数字资产，后续我们希望和各位合作伙伴一起建立友好的合作关系，一起推动区块链行业发展。`,
+      tokenDetail: `CHA 通过多种场景下的流通，作为支付手段与会员权益身份证明，打通Chain Wallet整个产品业务线。也可以参与Chain Wallet治理提交提案时需要抵押CHA，以防止恶意发起提议。当前CHA广告费用支付、上架DAPP、上架去中心化交易、代币官网收录等场景。`,
+    },
   }
 };
