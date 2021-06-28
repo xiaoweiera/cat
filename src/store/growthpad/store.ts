@@ -444,7 +444,7 @@ class Store {
   }
 
   // 设置 chainWallet
-  @postInfo('chainWallet')
+  @postInfo('chainwallet')
   @postInfoBasis()
   setChainWallet(value: string) {
     this.info.chainwallet = value
