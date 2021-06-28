@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, reactive, defineProps, onMounted,watch } from 'vue'
+import I18n from '~/utils/i18n'
 import { selectCoin,symbolStore } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
 import { toFixedNumber, smallToken } from '~/lib/tool'
@@ -36,48 +37,17 @@ onMounted(() => {
       <!--        币信息-->
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center">
-          <div
-            class="text-global-default opacity-85 font-normal text-kd30px28px"
-          >
-            {{ info.symbol }}
-          </div>
-          <div class="ml-1.5 text-global-default opacity-85 text-kd14px20px">
-            {{ info.symbol_name }}
-          </div>
-          <div
-            class="
-              bg-global-primary
-              ml-1.5
-              px-1.5
-              py-0.5
-              rounded
-              bg-opacity-8
-              text-global-primary text-kd14px22px
-            "
-          >
-            {{ info.exchange }}
-          </div>
+          <div class="text-global-default opacity-85 font-normal text-kd30px28px">{{ info.symbol }}</div>
+          <div class="ml-1.5 text-global-default opacity-85 text-kd14px20px">{{ info.symbol_name }}</div>
+          <div class="bg-global-primary ml-1.5 px-1.5 py-0.5 rounded bg-opacity-8 text-global-primary text-kd14px22px">{{ info.exchange }}</div>
         </div>
-        <img
-          src="https://res.ikingdata.com/nav/liquStart.png"
-          class="w-5 h-5"
-          alt=""
-        />
+        <img src="https://res.ikingdata.com/nav/liquStart.png" class="w-5 h-5" alt=""/>
       </div>
       <!-- 涨幅-->
       <div class="flex items-center mt-1.5">
-        <span
-          class="text-global-default opacity-85 text-kd20px28px"
-        >${{ toFixedNumber(info.price) }}</span>
-        <div
-          class="flex items-center bg-global-numRed px-1 py-0.25 ml-1.5"
-          style="border-radius: 2px"
-        >
-          <img
-            src="https://res.ikingdata.com/nav/liquUp.png"
-            class="w-2 h-3"
-            alt=""
-          />
+        <span class="text-global-default opacity-85 text-kd20px28px">${{ toFixedNumber(info.price) }}</span>
+        <div class="flex items-center bg-global-numRed px-1 py-0.25 ml-1.5" style="border-radius: 2px">
+          <img src="https://res.ikingdata.com/nav/liquUp.png" class="w-2 h-3" alt=""/>
           <!--          <span class="text-kd12px18px text-white ml-0.5">130%</span>-->
         </div>
       </div>

@@ -79,7 +79,8 @@ watch(()=>paramChart.interval,(n,o)=>{
 const getChartsData=async ()=>{
   if(pairStore.id){
     pairParam.pair_id=pairStore.id
-    await getPriceData({pair_id:pairStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'pair')
+    // await getPriceData({pair_id:pairStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'pair')
+     getPriceData({pair_id:pairStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'pair')
     await getTokenCharts(pairParam)
   }else{
     tokenParam.symbol_id=symbolStore.id
