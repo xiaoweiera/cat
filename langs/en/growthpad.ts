@@ -366,7 +366,7 @@ Rule: Before starting the task, participants need to the KingData account and en
     },
     help: {
       val1: 'Any problems?',
-      val2: 'Join the telegram group and contact customer service',
+      val2: 'Contact us',
     },
     task4: {
       title: 'Provide a liquidity in ChainWallet, and get rewards based on the amount of pledge, the maximum reward is 2500 CHA.',

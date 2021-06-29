@@ -7,9 +7,9 @@
     <span class="text-center mb-2 hidden md:block">
       <img class="inline-block w-20" src="https://res.ikingdata.com/static/share/growth_qrcode.jpg?r=2&lang=en"/>
     </span>
-    <span class="inline-block md:block text-sm leading-5 md:whitespace-pre-line max-w-xs overflow-x-auto">
+    <span class="inline-block md:text-center md:block text-sm leading-5 md:whitespace-pre-line">
       <span class="md:block">{{ I18n.growthpad.chainwallet.help.val1 }}</span>
-      <span class="md:block">{{ I18n.growthpad.chainwallet.help.val2 }}</span>
+      <span class="ml-1 md:ml-0 md:block">{{ I18n.growthpad.chainwallet.help.val2 }}</span>
     </span>
     <a class="inline-block ml-5 md:ml-0 md:block md:mt-2 cursor-pointer" target="_blank" v-router="I18n.growthpad.chainwallet.about.telegram">
       <span class="md:w-full inline-block join-btn text-xs leading-4 py-1 px-3 text-center text-white">{{ I18n.common.chat.joinTelegram }}</span>
