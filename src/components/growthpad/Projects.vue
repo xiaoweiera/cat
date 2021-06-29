@@ -28,14 +28,15 @@ const activeValue = ref<string>(TimeStatus.ing)
 
 // @ts-ignore
 const tabs = [
+  // {
+  //   list: waitList,
+  //   name: TimeStatus.wait,
+  //   title: `<span class="mr-2"></span>${I18n.growthpadShow.status.wait}`, // 进行中标题
+  // },
   {
-    list: waitList,
-    name: TimeStatus.wait,
-    title: `<span class="mr-2">⛳</span>${I18n.growthpadShow.status.wait}`, // 进行中标题
-  }, {
-    list: ingList,
+    list: [...waitList, ...ingList],
     name: TimeStatus.ing,
-    title: `<span class="mr-2">🔥</span>${I18n.growthpadShow.status.ing}`, // 进行中标题
+    title: `<span class="mr-2">⛳</span>${I18n.growthpadShow.status.ing}`, // 进行中标题
   }, {
     list: closureList,
     name: TimeStatus.closure,

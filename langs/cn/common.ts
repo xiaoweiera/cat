@@ -71,6 +71,7 @@ export default {
   chat: {
     telegram: '电报',
     telegramGroup: '电报群',
+    joinTelegram: '加入电报群',
     twitter: 'Twitter',
     sina: '微博'
   },
@@ -80,5 +81,5 @@ export default {
   },
   api: {
     wrong: '系统异常，请稍后再试'
-  }
+  },
 }

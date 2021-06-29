@@ -71,6 +71,7 @@ export default {
   chat: {
     telegram: 'Telegram',
     telegramGroup: 'Telegram Group',
+    joinTelegram: 'Join the telegram group',
     twitter: 'Twitter',
     sina: 'Weibo'
   },

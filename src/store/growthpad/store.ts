@@ -63,6 +63,15 @@ interface Address {
   placeholder: string
 }
 
+interface Weibo {
+  label: string,
+  desc: string
+}
+
+interface Words {
+  weibo?: Weibo
+}
+
 class Store {
   token = ''
   shareCode = ref<string>('')
@@ -87,6 +96,9 @@ class Store {
   address = reactive<Address>({
     placeholder: I18n.growthpad.mdx.address.placeholder
   })
+
+  words = reactive<Words>({})
+
   // 项目介绍
   about = reactive<AboutData>({
     minutias: [],
@@ -180,6 +192,13 @@ class Store {
     this.icon.value = data.icon
     // 地址信息
     this.address.placeholder = safeGet<string>(data, 'address.placeholder')
+    const weibo: Weibo = {
+      label: safeGet(data, 'weibo.title'),
+      desc: safeGet(data, 'weibo.desc'),
+    }
+    // 文案信息
+    this.words.weibo = weibo
+
     // dashboard 数据
     this.dashboard.banner = safeGet<string>(data, 'dashboard.banner')
     this.dashboard.begin = safeGet<string>(data, 'dashboard.begin')

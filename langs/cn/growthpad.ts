@@ -335,7 +335,7 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
     // 分享标题
     title: '助力 ChainWallet 增长，领取20万美元 MDX 奖励',
     dashboard: {
-      banner:'https://res.ikingdata.com/nav/growthBannerCn.jpg',
+      banner: 'https://res.ikingdata.com/image/growthpad/chainwallet/banner.jpg',
       reward: {
         count: '总奖池金额',
         value: '单人最高可获得',
@@ -365,7 +365,9 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
       rule3: '大于100000U，奖励 2500 CHA',
     },
     task5: {
-      title: '依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~500 CHA。（粉丝数不低于2000人，阅读量不低于1000）',
+      title: '撰写 500 字原创 ChainWallet 体验文章，并发布在主流媒体。',
+      desc: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~500 CHA。（粉丝数不低于2000人，阅读量不低于1000）
+主流媒体包括不限于：微博、知乎、头条等。具体奖励数量根据人工审核情况而定`
     }
   }
 };

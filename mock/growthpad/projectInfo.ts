@@ -84,7 +84,7 @@ export const chainWallet = {
   projectName: 'ChainWallet',
   website: 'app.chainwallet.me',
   dashboard: {
-    banner: I18n.growthpad.growthpad.dashboard.banner,
+    banner: I18n.growthpad.chainwallet.dashboard.banner,
     begin: '2021-06-28 15:00:00', // 开始时间
     end: '', // 结束时间
     description: I18n.growthpad.chainwallet.dashboard.desc, // 描述

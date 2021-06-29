@@ -75,6 +75,10 @@ const data = {
       { icon: 'union', href: 'https://discord.gg/VMNGuDzxnq' },
     ],
   },
+  weibo: {
+    title: I18n.growthpad.channels.weibo.label,
+    desc: I18n.growthpad.channels.weibo.description
+  },
   taskList: [
     // 任务 1
     {

@@ -12,6 +12,7 @@ const props = defineProps({
 })
 
 // 判断任务类型是否相同
+// @ts-ignore
 const equal = function(type: TaskType): boolean {
   return props.data?.type === type
 }
@@ -22,35 +23,29 @@ const equal = function(type: TaskType): boolean {
   <div class="flex">
     <DotCount size="sm" />
     <div class="flex-1 ml-2.5">
-      <div class="task-content md:flex md:items-center">
-        <div class="md:mr-3">
-          <GrowthpadTaskTitle :data="data" class="flex justify-between items-center"/>
-          <p v-if="data.rule" class="pt-1">
-            <template v-for="(text, index) in data.rule" :key="index">
-              <span class="block text-xs font-color leading-4">{{ index + 1 }}. {{ text }}</span>
-            </template>
-          </p>
+      <!-- 微博任务 -->
+      <template v-if="equal(TaskType.weibo)">
+        <div class="flex justify-between">
+          <div class="mr-3">
+            <growthpadChainwalletTitle :data="data" />
+          </div>
+          <GrowthpadTaskReward :data="data"/>
         </div>
-        <div class="flex justify-between mt-3 md:mt-0 md:justify-end md:flex-1">
-          <GrowthpadTaskCheck class="text-right mr-7 flex items-center" :data="data"/>
-          <span class="inline-block cursor-pointer md:pl-0">
-              <GrowthpadTaskReward :data="data"/>
-            </span>
+        <div class="mt-3 md:mr-5">
+          <GrowthpadTaskWeibo></GrowthpadTaskWeibo>
         </div>
-      </div>
-
-      <div v-if="equal(TaskType.weibo)" class="no-count task-item mt-1.5 py-1.5 pr-1.5 pl-3">
-        <GrowthpadTaskWeibo></GrowthpadTaskWeibo>
-      </div>
+      </template>
+      <!-- 普通任务 -->
+      <template v-else>
+        <div class="flex justify-between md:items-center">
+          <div class="mr-3 md:flex md:flex-auto md:justify-between">
+            <growthpadChainwalletTitle :data="data" />
+            <GrowthpadTaskCheck class="mt-3 md:mt-0 text-right flex items-center" :data="data"/>
+          </div>
+          <GrowthpadTaskReward class="inline-block" :data="data"/>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-@import "../task/item.scss";
-
-.font-color {
-  color: #2b8dfe;
-}
-
-</style>

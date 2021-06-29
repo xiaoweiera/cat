@@ -4,53 +4,27 @@ import { reactive, ref, toRaw, computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import { messageSuccess, messageError } from '~/lib/tool'
-import { ProjectKey } from '~/logic/growthpad/config'
 import Message from '~/utils/message'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
 import { toNumber } from '~/utils/index'
+import safeGet from '@fengqiaogang/safe-get'
 
 const store = Task()
-
+// @ts-ignore
 const data = computed(() => {
   // @ts-ignore
-  if (store.projectName === ProjectKey.mdx) {
-    return {
-      title: I18n.growthpad.mdx.weibo.label,
-      description: I18n.growthpad.mdx.weibo.description,
-    }
-  }
-  // @ts-ignore
-  if (store.projectName === ProjectKey.channels) {
-    return {
-      title: I18n.growthpad.channels.weibo.label,
-      description: I18n.growthpad.channels.weibo.description,
-    }
-  }
-  // @ts-ignore
-  if (store.projectName === ProjectKey.coinwind) {
-    return {
-      title: I18n.growthpad.coinwind.weibo.label,
-      description: I18n.growthpad.coinwind.weibo.description,
-    }
-  }
-  // @ts-ignore
-  if (store.projectName === ProjectKey.chainwallet) {
-    return {
-      // title: I18n.growthpad.mdx.weibo.label,
-      description: I18n.growthpad.mdx.weibo.description,
-    }
-  }
+  const weibo = store.words.weibo
   return {
-    title: '',
-    description: '',
+    title: safeGet<string>(weibo || {}, 'label'),
+    description: safeGet<string>(weibo || {}, 'desc'),
   }
 })
-
+// @ts-ignore
 const rewardValue = computed<number>((): number => {
   return toNumber(store.article_reward.value)
 })
-
+// @ts-ignore
 const isRegistered = computed<boolean>((): boolean => {
   if (store.image_url.value && store.article_url.value) {
     return true
@@ -65,16 +39,21 @@ interface FormData {
 const formdata = reactive<FormData>({})
 
 // 图片上传成功
+// @ts-ignore
 const onUpload = async function(value: string) {
+  // @ts-ignore
   formdata.image_url = value
 }
 
 const formRef = ref<any>(null)
 
+// @ts-ignore
 const submit = async function() {
   const form = toRaw(formRef).value
   const data = new FormData()
+  // @ts-ignore
   data.append('article_url', formdata.article_url)
+  // @ts-ignore
   data.append('image_url', formdata.image_url)
   try {
     await form.validate()
@@ -103,7 +82,7 @@ const submit = async function() {
     messageError(err)
   }
 }
-
+// @ts-ignore
 const rules: any = {
   article_url: [
     {

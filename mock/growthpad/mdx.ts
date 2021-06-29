@@ -63,6 +63,10 @@ const data = {
       { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
     ],
   },
+  weibo: {
+    title: I18n.growthpad.mdx.weibo.label,
+    desc: I18n.growthpad.mdx.weibo.description
+  },
   taskList: [
     // 任务 1
     {

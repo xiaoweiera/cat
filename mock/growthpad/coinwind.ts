@@ -55,6 +55,10 @@ const data = {
       { icon: 'vector', href: 'https://medium.com/coinwind' },
     ],
   },
+  weibo: {
+    title: I18n.growthpad.coinwind.weibo.label,
+    desc: I18n.growthpad.coinwind.weibo.description
+  },
   taskList: [
     {
       id: chat.uuid(), // 任务ID

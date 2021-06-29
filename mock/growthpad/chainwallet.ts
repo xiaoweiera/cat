@@ -10,7 +10,7 @@ import TaskType from '~/logic/growthpad/tasktype'
 const token = chainWallet.coin // 代币名称
 
 const telegramHref = 'https://t.me/CHA_Wallet'
-// const sinaHref = 'https://weibo.com/u/7613046674'
+const sinaHref = 'https://weibo.com/u/7613046674'
 const website = `https://${chainWallet.website}`
 const twitterHref = 'https://twitter.com/Chain__Wallet'
 
@@ -35,11 +35,13 @@ const data = {
     share: [
       { icon: 'telegram', href: telegramHref },
       { icon: 'twitter', href: twitterHref },
-      // media链接
-      { icon: 'vector', href: '/' },
-      // discord链接
-      { icon: 'union', href: '/' },
+      // 微博
+      { icon: 'sina', href: sinaHref },
     ],
+  },
+  weibo: {
+    title: '', // I18n.growthpad.chainwallet.task5.title
+    desc: I18n.growthpad.chainwallet.task5.desc
   },
   taskList: [
     // 任务1，转发 twitter
