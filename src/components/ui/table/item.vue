@@ -1,13 +1,19 @@
-<template>
-$END$
-</template>
-
-<script>
-export default {
-name: "item"
-}
+<script setup lang="ts">
+  import { defineProps } from 'vue'
+  defineProps({
+    label: {
+      type: String
+    }
+  })
 </script>
 
-<style scoped>
-
-</style>
+<template>
+  <div class="w-full md:flex">
+    <slot name="label">
+      <div class="w-24 text-sm text-kdFang text-global-highTitle leading-10">{{ label }}</div>
+    </slot>
+    <div class="md:mt-0" :class="{'mt-2': !!label}">
+      <slot></slot>
+    </div>
+  </div>
+</template>

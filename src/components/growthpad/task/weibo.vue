@@ -104,107 +104,82 @@ const rules: any = {
   <div>
     <GrowthpadTaskTitle :data="data">
       <template v-if="data.description" #desc>
-        <span class="block" :class="{'pt-2': data.title }">{{ data.description }}</span>
+        <span class="block" :class="{'pt-2': !!data.title }">{{ data.description }}</span>
       </template>
     </GrowthpadTaskTitle>
-    <el-form
-      ref="formRef"
-      class="mt-3 pb-5"
-      :model="formdata"
-      label-width="100px"
-      :rules="rules"
-      autocomplete="off"
-      @submit.stop.prevent="submit"
-    >
+    <el-form ref="formRef" class="mt-3 pb-5" :model="formdata" label-width="0px" :rules="rules" autocomplete="off" @submit.stop.prevent="submit">
       <template v-if="isRegistered">
-        <el-form-item :label="I18n.growthpad.weibo.article">
-          <template v-if="store.article_url.value === 'undefined'">
-            <span>-</span>
-          </template>
-          <template v-else-if="store.article_url.value">
-            <a :href="store.article_url.value" target="_blank">{{
-              store.article_url.value
-            }}</a>
-          </template>
-          <template v-else>
-            <span>-</span>
-          </template>
-        </el-form-item>
+        <UiTableItem :label="I18n.growthpad.weibo.article">
+          <el-form-item>
+            <template v-if="store.article_url.value === 'undefined'">
+              <span>-</span>
+            </template>
+            <template v-else-if="store.article_url.value">
+              <a :href="store.article_url.value" target="_blank">{{ store.article_url.value }}</a>
+            </template>
+            <template v-else>
+              <span>-</span>
+            </template>
+          </el-form-item>
+        </UiTableItem>
         <!-- 已审核 -->
         <template v-if="rewardValue">
-          <el-form-item
-            :label="I18n.growthpad.weibo.articleImg"
-            style="margin-bottom: 0"
-          >
-            <a
-              class="avatar-uploader relative block"
-              :href="store.image_url.value"
-              target="_blank"
-            >
-              <img class="preview" :src="store.image_url.value" />
-            </a>
-          </el-form-item>
+          <UiTableItem :label="I18n.growthpad.weibo.articleImg" >
+            <el-form-item class="mb-0">
+              <a class="avatar-uploader relative block" :href="store.image_url.value" target="_blank">
+                <img class="preview" :src="store.image_url.value" />
+              </a>
+            </el-form-item>
+          </UiTableItem>
         </template>
         <!-- 审核中 -->
         <template v-else>
-          <el-form-item :label="I18n.growthpad.weibo.articleImg">
-            <a
-              class="avatar-uploader relative block"
-              :href="store.image_url.value"
-              target="_blank"
-            >
-              <img class="preview" :src="store.image_url.value" />
-            </a>
-          </el-form-item>
-          <el-form-item style="margin-bottom: 0">
-            <el-button type="info" round plain size="small" disabled>
-              <span>{{ I18n.common.button.review }}</span>
-            </el-button>
-          </el-form-item>
+          <UiTableItem :label="I18n.growthpad.weibo.articleImg">
+            <el-form-item>
+              <a class="avatar-uploader relative block" :href="store.image_url.value" target="_blank">
+                <img class="preview" :src="store.image_url.value" />
+              </a>
+            </el-form-item>
+          </UiTableItem>
+          <UiTableItem>
+            <el-form-item class="mb-0">
+              <el-button type="info" round plain size="small" disabled>
+                <span>{{ I18n.common.button.review }}</span>
+              </el-button>
+            </el-form-item>
+          </UiTableItem>
         </template>
       </template>
       <template v-else>
-        <el-form-item
-          :label="I18n.growthpad.weibo.article"
-          required
-          prop="article_url"
-        >
-          <el-input
-            v-model="formdata.article_url"
-            :placeholder="I18n.growthpad.weibo.articlePlaceholder"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item
-          :label="I18n.growthpad.weibo.articleImg"
-          required
-          prop="image_url"
-        >
-          <div class="md:flex md:items-center">
-            <div>
-              <Upload :src="formdata.image_url" size="xs" @change="onUpload"></Upload>
+        <UiTableItem :label="I18n.growthpad.weibo.article" >
+          <el-form-item required prop="article_url">
+            <el-input v-model="formdata.article_url" :placeholder="I18n.growthpad.weibo.articlePlaceholder" autocomplete="off" />
+          </el-form-item>
+        </UiTableItem>
+        <UiTableItem :label="I18n.growthpad.weibo.articleImg">
+          <el-form-item required prop="image_url">
+            <div class="md:flex md:items-center">
+              <div>
+                <Upload :src="formdata.image_url" size="xs" @change="onUpload" />
+              </div>
+              <div class="upload-tips md:pl-3 text-xs mt-3 md:mt-0">
+                <span>{{ I18n.growthpad.weibo.notify1 }}</span>
+                <span>{{ I18n.growthpad.weibo.notify2 }}</span>
+              </div>
             </div>
-            <div class="upload-tips md:pl-3 text-xs mt-3 md:mt-0">
-              <span>{{ I18n.growthpad.weibo.notify1 }}</span>
-              <span>{{ I18n.growthpad.weibo.notify2 }}</span>
+          </el-form-item>
+        </UiTableItem>
+        <UiTableItem>
+          <el-form-item class="mb-0">
+            <div class="md:flex md:items-center">
+              <div v-login>
+                <el-button type="primary" round size="small" native-type="submit">
+                  <span>{{ I18n.common.button.submit }}</span>
+                </el-button>
+              </div>
             </div>
-          </div>
-        </el-form-item>
-        <el-form-item style="margin-bottom: 0">
-          <div class="md:flex md:items-center">
-            <div v-login>
-              <el-button type="primary" round size="small" native-type="submit">
-                <span>{{ I18n.common.button.submit }}</span>
-              </el-button>
-            </div>
-            <!--有上传文章后显示-->
-            <!--            <template v-if="store.image_url.value">-->
-            <!--              <p class="md:ml-3 text-xs submit-tips mt-3 md:mt-0">-->
-            <!--                {{ I18n.growthpad.weibo.tips }}-->
-            <!--              </p>-->
-            <!--            </template>-->
-          </div>
-        </el-form-item>
+          </el-form-item>
+        </UiTableItem>
       </template>
     </el-form>
   </div>
@@ -243,5 +218,9 @@ a {
 
 .submit-tips {
   color: #e9592d;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
 }
 </style>
