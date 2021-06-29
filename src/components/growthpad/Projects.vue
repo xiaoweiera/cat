@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import I18n from '~/utils/i18n/index'
 import { taskList } from '/mock/growthpad/projectInfo'
+// @ts-ignore
 import { ElTabs, ElTabPane } from 'element-plus'
 import { TimeStatus, getTimeStatus } from '~/components/growthpad/task/task'
 

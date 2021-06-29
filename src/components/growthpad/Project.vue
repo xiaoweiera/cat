@@ -1,6 +1,9 @@
 <script setup lang="ts">
+// @ts-ignore
 import { formatCash, toNumber } from '~/utils/index'
 import safeGet from '@fengqiaogang/safe-get'
+// @ts-ignore
+import { TimeStatus } from '~/components/growthpad/task/task'
 // 倒计时
 import dayjs from 'dayjs'
 import { ref, defineProps, watch, onMounted } from 'vue'
@@ -104,37 +107,26 @@ timeout()
   <div class="project reative font-kdFang relative i8n-font-en-inter">
     <div class="relative z-2">
       <div class="flex items-center">
-        <img :src="props.project.icon" class="w-10.5" alt="" />
-        <div class="text-kd24px36px ml-2 font-medium">
-          {{ props.project.title }}
-        </div>
-        <div
-          v-if="props.status !== 'closure'"
-          :class="props.status === 'wait' ? 'statusTxtWait' : 'statusTxtIng'"
-        >
-          <span
-            v-if="props.status === 'wait'"
-          >⏱ <span class="ml-1">{{ I18n.growthpadShow.coming }}</span>
+        <img :src="props.project.icon" class="w-10.5"/>
+        <div class="text-kd24px36px ml-2 font-medium">{{ props.project.title }}</div>
+        <div v-if="props.status !== TimeStatus.closure" :class="{'statusTxtWait': props.status === TimeStatus.wait, 'statusTxtIng': props.status !== TimeStatus.wait}">
+          <span v-if="props.status === TimeStatus.wait">
+            <span>⏱</span>
+            <span class="ml-1">{{ I18n.growthpadShow.coming }}</span>
           </span>
-          <span v-else>🔥 {{ I18n.growthpadShow.ongoing }}</span>
+          <span v-else>
+            <span>🔥</span>
+            <span class="ml-1">{{ I18n.growthpadShow.ongoing }}</span>
+          </span>
         </div>
       </div>
       <div class="overDes">
-        <div :class="props.status === 'closure' ? 'max-w-43' : ''">
-          {{ props.project.dashboard.description }}
-        </div>
-        <img
-          v-if="props.status === 'closure'"
-          class="w-30 absolute top-4 right-0"
-          src="https://res.ikingdata.com/nav/grothpadOver.png"
-          alt=""
-        />
+        <div :class="{'max-w-43': props.status === TimeStatus.closure}">{{ props.project.dashboard.description }}</div>
+        <img v-if="props.status === TimeStatus.closure" class="w-30 absolute top-4 right-0" src="https://res.ikingdata.com/nav/grothpadOver.png"/>
       </div>
       <div class="flex mt-6 items-center font-normal">
         <p class="desc">{{ I18n.growthpadShow.reward }}</p>
-        <p class="projectNum">
-          {{ props.project.dashboard.reward.countStr }}
-        </p>
+        <p class="projectNum">{{ props.project.dashboard.reward.countStr }}</p>
       </div>
       <!--      <div class="flex blockItem">-->
       <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
@@ -157,40 +149,46 @@ timeout()
       </div>
 
       <div class="flex mt-3 items-end font-normal">
-        <div class="desc">
-          <span v-show="props.status !== 'closure'">{{
-            props.status === 'wait'
-              ? I18n.growthpadShow.timeBegin
-              : I18n.growthpadShow.timeLeft
-          }}</span>
-        </div>
-
-        <div
-          v-if="props.status !== 'closure'"
-          class="itemTxt"
-          :class="props.status + 'Color'"
-        >
-          <div class="flex items-end">
-            <div class="tiemNum">{{ day }}</div>
-            <div class="times">
-              {{ I18n.growthpadShow.day }}
+        <template v-if="props.status === TimeStatus.ing">
+          <template v-if="props.project.dashboard.end">
+            <div class="desc">
+              <span v-show="props.status !== TimeStatus.closure">{{props.status === TimeStatus.wait ? I18n.growthpadShow.timeBegin : I18n.growthpadShow.timeLeft }}</span>
+            </div>
+            <div v-if="props.status !== TimeStatus.closure" class="itemTxt" :class="props.status + 'Color'">
+              <div class="flex items-end">
+                <div class="tiemNum">{{ day }}</div>
+                <div class="times">{{ I18n.growthpadShow.day }}</div>
+              </div>
+              <div class="flex ml-2 items-end">
+                <div class="tiemNum">{{ hour }}</div>
+                <div class="times">{{ I18n.growthpadShow.hour }}</div>
+              </div>
+              <div class="flex ml-2 items-end">
+                <div class="tiemNum">{{ minute }}</div>
+                <div class="times">{{ I18n.growthpadShow.minute }}</div>
+              </div>
+            </div>
+          </template>
+        </template>
+        <template v-else>
+          <div class="desc">
+            <span v-show="props.status !== TimeStatus.closure">{{props.status === TimeStatus.wait ? I18n.growthpadShow.timeBegin : I18n.growthpadShow.timeLeft }}</span>
+          </div>
+          <div v-if="props.status !== TimeStatus.closure" class="itemTxt" :class="props.status + 'Color'">
+            <div class="flex items-end">
+              <div class="tiemNum">{{ day }}</div>
+              <div class="times">{{ I18n.growthpadShow.day }}</div>
+            </div>
+            <div class="flex ml-2 items-end">
+              <div class="tiemNum">{{ hour }}</div>
+              <div class="times">{{ I18n.growthpadShow.hour }}</div>
+            </div>
+            <div class="flex ml-2 items-end">
+              <div class="tiemNum">{{ minute }}</div>
+              <div class="times">{{ I18n.growthpadShow.minute }}</div>
             </div>
           </div>
-          <div class="flex ml-2 items-end">
-            <div class="tiemNum">{{ hour }}</div>
-            <div class="times">
-              {{ I18n.growthpadShow.hour }}
-            </div>
-          </div>
-          <div class="flex ml-2 items-end">
-            <div class="tiemNum">{{ minute }}</div>
-            <div class="times">
-              {{ I18n.growthpadShow.minute }}
-            </div>
-          </div>
-        </div>
-        <!--        保持格式-->
-        <div v-else class="mt-6.3"></div>
+        </template>
       </div>
       <GrowthpadIndexProjectButton
         :url="props.project.url"
