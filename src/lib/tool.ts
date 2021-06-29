@@ -185,3 +185,13 @@ export const subStr = (str:string)=>{
   if (!str || str.length<=10) return str
   return str.slice(0, 10)+'...'
 }
+//弱提示框
+export const messageTip=(content:string,typeName:string)=>{
+  ElMessage({
+    showClose: true,
+    dangerouslyUseHTMLString:true,
+    message:`<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="https://res.ikingdata.com/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
+    //@ts-ignore
+    type: typeName
+  });
+}

@@ -50,7 +50,12 @@ const graphic = () => {
     },
   ]
 }
-
+//@ts-ignore
+const dataZoom=()=>{
+ return {
+    type: 'inside'
+  }
+}
 const xAxis = (xdata: Array<string>, xAxisOption: object) => {
   return [
     {
@@ -98,7 +103,78 @@ const legend = (legendData: Array<string>) => {
     itemWidth: 14,
   }
 }
+//y轴左侧配置
+export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
+  return {
+    show: false,
+    position:'left',
+    axisLine: {
+      show: true, // 不显示坐标轴线
+    },
+    axisTick: {
+      show: false, // 隐藏刻度线
+    },
+    z: 1000,
+    splitLine: {
+      // 网格线
+      lineStyle: {
+        type: 'dashed', // 设置网格线类型 dotted：虚线   solid:实线
+        color: ['#f1f1f1'],
+      },
+      show: true, // 隐藏或显示
+    },
 
+    type: 'value',
+    min: min === max ? null : min,
+    max:max,
+    interval: min === max ? max / 4 : (max - min) / 4,
+    axisLabel: {
+      inside: true,
+      fontSize: 12,
+      textStyle: {
+        color: '#2B8DFF',
+      },
+      formatter: (value: any) => {
+        return yLabelFormat(value)
+      }
+    }
+  }
+}
+//y轴价格线配置
+export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
+  return {
+    show: true,
+    position:'right',
+    axisLine: {
+      show: false, // 不显示坐标轴线
+    },
+    axisTick: {
+      show: false, // 隐藏刻度线
+    },
+    splitLine: {
+      // 网格线
+      lineStyle: {
+        type: 'dashed', // 设置网格线类型 dotted：虚线   solid:实线
+        color: ['#f1f1f1'],
+      },
+      show: true, // 隐藏或显示
+    },
+    type: 'value',
+    min: kmin,
+    max: kmax,
+    interval: (kmax - kmin) / 4,
+    axisLabel: {
+      fontSize: 12,
+      textStyle: {
+        color: 'rgba(240, 191, 18, 1)',
+      },
+      formatter: (value: any) => {
+        return yLabelFormat(value)
+      }
+    }
+  }
+}
+//@ts-ignore  多线图
 const yAxisKline = (
   min: number,
   max: number,
@@ -176,10 +252,7 @@ const yAxisKline = (
 export const chartConfig = (
   xData: Array<string>,
   series: any,
-  min: number,
-  max: number,
-  kmin: number,
-  kmax: number,
+  allYAxis:any,
   legendList: Array<string>,
   yLabelFormat: any,
   getModel: any,
@@ -190,7 +263,7 @@ export const chartConfig = (
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
     legend: legend(legendList),
-    yAxis: yAxisKline(min, max, kmin, kmax, yLabelFormat),
+    yAxis: allYAxis,
     series,
   }
 }

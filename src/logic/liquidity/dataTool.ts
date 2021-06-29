@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 import {ref,reactive} from 'vue'
-
 import {getChartsUsdtById,getChartsCoinById,getChartsPairUsdById,getChartsPairUsdByEth,getChartsPairCoinById,getChartsPairCoinByEth,getChartsPairCoinByUSDT,getTokenPrice,getPairPrice,getPayChartsUsdtById,getPayChartsCoinById,getPayChartsPairUsdBySymbol0,getPayChartsPairUsdBySymbol1,getPayChartsPairCoinBySymbol0,getPayChartsPairCoinBySymbol1} from '~/api/liquidity'
 import {paramChart,analysisType,pairStore,priceData} from '~/store/liquidity/state'
 interface chartItem {
@@ -8,7 +7,7 @@ interface chartItem {
 }
 // 复制方法
 export const copyToken = (tokenAddress: string) => {
-  tokenAddress='tokenAddress'
+  tokenAddress=tokenAddress
   const dom = document.createElement('input')
   dom.setAttribute('value', tokenAddress)
   document.body.appendChild(dom)

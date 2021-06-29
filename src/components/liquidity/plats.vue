@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 // @ts-ignore
-import { reactive, ref, toRefs, onBeforeMount } from 'vue'
+import { reactive, ref, toRefs, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import * as R from 'ramda'
-import { platStore, pairStore, updateData } from '~/store/liquidity/state'
+import { platStore, updateData } from '~/store/liquidity/state'
 import { exchange_list } from '~/api/liquidity'
 import { changeRoute } from '~/lib/tool'
 const route = useRoute()
@@ -32,7 +32,7 @@ const changePlat = (plat: any) => {
   changeRoute(route, router, 'plat', plat.name)
   selectPlatChange(false)
 }
-onBeforeMount(() => {
+onMounted(() => {
   getPlat()
 })
 </script>
@@ -41,7 +41,7 @@ onBeforeMount(() => {
   <div class="flex w-23.75 px-3 relative h-full" @mouseleave="mouseLeave()">
     <div class="flex items-center hand" @mouseover="mouseover()">
       <img class="w-5 h-5" :src="plats.select.logo" alt="" />
-      <span class="ml-1.5">{{ plats.select.name }}</span>
+      <span class="ml-1.5 text-global-default text-opacity-85 text-kd12px16px font-kdExp">MDEX</span>
 <!--      <img class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/logoList.png" alt=""/>-->
       <div v-show="platShow" class="w-27.25 absolute top-14 left-0 z-2 py-1.5 showContainer">
         <ul>
