@@ -22,7 +22,7 @@ export const numberFormat = (value: any) => {
 }
 //更改数字文案
 export const numberUnitFormat = (value: any) => {
-  if (value===null) {
+  if (!value) {
     return 0
   }
   const k = 10000

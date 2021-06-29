@@ -169,7 +169,7 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
         color: 'rgba(240, 191, 18, 1)',
       },
       formatter: (value: any) => {
-        return yLabelFormat(value)
+        return '$'+yLabelFormat(value)
       }
     }
   }
