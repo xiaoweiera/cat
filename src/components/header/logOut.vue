@@ -33,6 +33,7 @@ const optionClose = () => {
           py-4.25
           px-3
           loginOut
+          z-50
         "
       >
         <div class="flex items-center itemMt cursor-pointer">

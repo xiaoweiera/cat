@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import Message from '~/utils/message'
 import activity from '~/logic/growthpad/activity'
-import { Project } from '~/api/growtask'
+import { ProjectKey } from '~/logic/growthpad/config'
 import { TimeStatus, getTimeStatus } from '~/components/growthpad/task/task'
 
 const store = Task()
@@ -31,30 +31,15 @@ const getToken = function(): string {
 // @ts-ignore
 const tokenIsNull = computed<boolean>((): boolean => {
   if (store?.info.bsc) {
-    return true
+    return false
   }
-  return false
+  return true
 })
 // @ts-ignore
-const placeholder = (): string => {
-  // @ts-ignore
-  if (store.projectName === Project.mdx) {
-    return I18n.growthpad.mdx.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === Project.channels) {
-    return I18n.growthpad.channels.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === Project.coinwind) {
-    return I18n.growthpad.coinwind.address.placeholder
-  }
-  // @ts-ignore
-  if (store.projectName === Project.growth) {
-    return I18n.growthpad.growthpad.address.placeholder
-  }
-  return I18n.growthpad.mdx.address.placeholder
-}
+const placeholder = computed<string>((): string => {
+  const value = store.address.placeholder
+  return value || I18n.growthpad.mdx.address.placeholder
+})
 
 const validityValue = computed<string>((): string => {
   const begin = store?.dashboard?.begin
@@ -135,57 +120,18 @@ const bindAddress = async function(): Promise<void> {
 
 <template>
   <div class="pb-15 font-kdFang">
-    <div v-if="tokenIsNull" class="flex-1">
-      <h2 class="pb-4 text-base font-medium address">
-        <span>{{ I18n.growthpad.address.reward }}</span>
-        <span class="reward">{{ store.reward.value }}</span>
-        <template v-if="store.projectName === Project.channels">
-          <span class="ml-1" style="color: #e9592d">{{
-            I18n.growthpad.channels.address.tips
-          }}</span>
-        </template>
-        <template v-else>
-          <span class="reward ml-1">{{ store.token }}</span>
-        </template>
-        <span v-if="isClosure" class="ml-1 reward" style="color: #e9592d">{{ I18n.growthpad.reward.send }}</span>
-      </h2>
-      <div>
-        <p class="text-sm address">
-          {{ I18n.growthpad.address.iCard }}{{ getToken() }}
-        </p>
-      </div>
-      <div class="pt-1.5 text-xs">
-        <p class="tips">{{ I18n.growthpad.address.notify2 }}</p>
-      </div>
-    </div>
-    <div v-else>
+    <div v-if="tokenIsNull">
       <h2 class="pb-4 text-base font-medium address">
         <span>{{ I18n.growthpad.register }}</span>
       </h2>
       <div class="w-full">
-        <el-form
-          ref="addressRef"
-          label-width="0px"
-          :show-message="false"
-          :model="formdata"
-          :rules="rules"
-          @submit.stop.prevent="bindAddress"
-        >
+        <el-form ref="addressRef" label-width="0px" :show-message="false" :model="formdata" :rules="rules" @submit.stop.prevent="bindAddress">
           <div class="flex">
             <div class="flex-1">
-              <el-form-item
-                prop="address"
-                class="address-content w-full block"
-                style="margin-bottom: 0"
-              >
-                <ElInput
-                  v-model="formdata.address"
-                  :placeholder="placeholder()"
-                >
+              <el-form-item prop="address" class="address-content w-full block" style="margin-bottom: 0">
+                <ElInput v-model="formdata.address" :placeholder="placeholder">
                   <template v-if="isNull(formdata.address)" #suffix>
-                    <span class="pr-3 text-sm tips">{{
-                      I18n.growthpad.address.invalid
-                    }}</span>
+                    <span class="pr-3 text-sm tips">{{I18n.growthpad.address.invalid }}</span>
                   </template>
                 </ElInput>
               </el-form-item>
@@ -202,18 +148,47 @@ const bindAddress = async function(): Promise<void> {
         <p class="tips">{{ I18n.growthpad.address.notify1 }}</p>
       </div>
     </div>
+    <div class="flex-1" v-else>
+      <h2 class="pb-4 text-base font-medium address">
+        <slot :reward="store.reward.value">
+          <span>{{ I18n.growthpad.address.reward }}</span>
+          <span class="reward">{{ store.reward.value }}</span>
+          <template v-if="store.projectName === ProjectKey.channels">
+            <span class="ml-1 warn">{{I18n.growthpad.channels.address.tips }}</span>
+          </template>
+          <template v-else>
+            <span class="reward ml-1">{{ store.token }}</span>
+          </template>
+          <span v-if="isClosure" class="ml-1 reward warn">{{ I18n.growthpad.reward.send }}</span>
+        </slot>
+      </h2>
+      <div>
+        <p class="text-sm address">
+          {{ I18n.growthpad.address.iCard }}{{ getToken() }}
+        </p>
+      </div>
+      <div class="pt-1.5 text-xs">
+        <p class="tips">{{ I18n.growthpad.address.notify2 }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+
+.warn {
+  color: #e9592d;
+}
+
 .reward {
   color: #2b8dfe;
 }
 .address {
   color: #033666;
 }
+
 .tips {
-  color: #e9592d;
+  @extend .warn;
 }
 .address-content {
   .tips {

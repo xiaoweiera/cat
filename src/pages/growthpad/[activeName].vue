@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
-import { Project } from '~/api/growtask'
+// @ts-ignore
+import { ProjectKey } from '~/logic/growthpad/config'
 import Task from '~/logic/growthpad/task'
 // @ts-ignore
 import { loading, ready } from '~/logic/growthpad/active'
@@ -13,15 +14,20 @@ onBeforeMount(() => {
   headerTag.name = 'GrowthPad'
   ready(store)
 })
+
 </script>
 <template>
   <div v-show="!loading" class="examples pb-20">
     <growthpadTaskDashboard />
 
     <div class="pt-15 px-4 md:px-6">
-      <growthpadTaskAdress />
+      <growthpadTaskAdress>
+        <template #default v-if="store.getNickName() === ProjectKey.chainwallet">
+          <GrowthpadChainwalletReward/>
+        </template>
+      </growthpadTaskAdress>
 
-      <template v-if="store.projectName === Project.coinwind">
+      <template v-if="store.projectName === ProjectKey.coinwind">
         <growthpadTaskCoinwind></growthpadTaskCoinwind>
       </template>
 
@@ -35,7 +41,12 @@ onBeforeMount(() => {
                 :key="index"
                 class="pb-7.5"
               >
-                <growthpadTaskItem :expant="index < 1" :data="item" />
+                <template v-if="store.getNickName() === ProjectKey.chainwallet">
+                  <growthpadChainwalletItem :data="item"></growthpadChainwalletItem>
+                </template>
+                <template v-else>
+                  <growthpadTaskItem :expant="index < 1" :data="item" />
+                </template>
               </li>
             </ul>
           </DotCountGroup>
@@ -44,12 +55,16 @@ onBeforeMount(() => {
 
       <growthpadTaskAbout></growthpadTaskAbout>
     </div>
+    <template v-if="store.projectName === ProjectKey.chainwallet">
+      <HelpFeedback>
+        <GrowthpadChainwalletHelp/>
+      </HelpFeedback>
+    </template>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import '~/styles/growthpad/task.scss';
-
 .examples {
   max-width: 848px;
   margin: 0 auto;

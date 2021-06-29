@@ -15,189 +15,52 @@ export const tradingList=[
 ]
 export const testData = [
     {
-        id: "0x29cf0bb481521c3135ab4582cebf6e14e33d6097",
-        token0_symbol: "UFC",
-        token1_symbol: "USDT",
+        pair_id: "0x29cf0bb481521c3135ab4582cebf6e14e33d6097",
+        symbol0: "UFC",
+        symbol1: "USDT",
         token0_name: "UFC",
         token1_name: "Heco-Peg USDT Token",
         volumeusd: 170.7553708619
     },
     {
-        id: "0x245816b5d5ec0b1cc6e77b4ac81ff21d63b8f996",
-        token0_symbol: "USDT",
-        token1_symbol: "WHT",
+        pair_id: "0x245816b5d5ec0b1cc6e77b4ac81ff21d63b8f996",
+        symbol0: "USDT",
+        symbol1: "WHT",
         token0_name: "TetherUSDT",
         token1_name: "Wrapped HT",
         volumeusd: 0.0
     },
     {
-        id: "0x0be965887ab3b9bae22169c56efff4086d330547",
-        token0_symbol: "CKB",
-        token1_symbol: "CRB",
+        pair_id: "0x0be965887ab3b9bae22169c56efff4086d330547",
+        symbol0: "CKB",
+        symbol1: "CRB",
         token0_name: "CELL KARB",
         token1_name: "cell karb",
         volumeusd: 0.0
     },
     {
-        id: "0x77050330592ca8ad408d543c3a0a7a4c6dc5a421",
-        token0_symbol: "TCARD1",
-        token1_symbol: "USDT",
+        pair_id: "0x77050330592ca8ad408d543c3a0a7a4c6dc5a421",
+        symbol0: "TCARD1",
+        symbol1: "USDT",
         token0_name: "Tcard1 Token",
         token1_name: "Heco-Peg USDT Token",
         volumeusd: 0.0
     },
 
     {
-        id: "0x8ee3c61c3709e9ccaba8248a7bcf9896cbf9aa62",
-        token0_symbol: "WHT",
-        token1_symbol: "HF",
+        pair_id: "0x8ee3c61c3709e9ccaba8248a7bcf9896cbf9aa62",
+        symbol0: "WHT",
+        symbol1: "HF",
         token0_name: "Wrapped HT",
         token1_name: "HF TOKEN",
         volumeusd: 110717.308951504
     },
     {
-        id: "0x02a5cc3dca2dcf99dcc299ebfce92d92d6e83d91",
-        token0_symbol: "MDX",
-        token1_symbol: "AS",
+        pair_id: "0x02a5cc3dca2dcf99dcc299ebfce92d92d6e83d91",
+        symbol0: "MDX",
+        symbol1: "AS",
         token0_name: "MDX Token",
         token1_name: "Avant sport",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x7cd8b4a002d3a2ec0d982140cfd498fae360bd80",
-        token0_symbol: "testSAX",
-        token1_symbol: "testSU",
-        token0_name: "test sax",
-        token1_name: "test su",
-        volumeusd: 0.0
-    },
-
-    {
-        id: "0x4f2cf69f546ef94efb97b14f5276f6cd8758e9ce",
-        token0_symbol: "USDT",
-        token1_symbol: "FOMP",
-        token0_name: "Heco-Peg USDT Token",
-        token1_name: "Fompund",
-        volumeusd: 0.0
-    },
-    {
-        id: "0xb1b67182e19913c464c325e875b2d3e6b52003d8",
-        token0_symbol: "USDT",
-        token1_symbol: "1H1K",
-        token0_name: "Heco-Peg USDT Token",
-        token1_name: "1H1K",
-        volumeusd: 2522.561487274
-    },
-    {
-        id: "0xcd94a9bba8566b003f3cc7d05124fd7729489b47",
-        token0_symbol: "MDIS",
-        token1_symbol: "USDT",
-        token0_name: "MDIS",
-        token1_name: "Heco-Peg USDT Token",
-        volumeusd: 0.0
-    },
-    {
-        id: "0xb896b51aa79bf61e1883b5f5726368c946770a03",
-        token0_symbol: "SPG",
-        token1_symbol: "WHT",
-        token0_name: "Super Gold",
-        token1_name: "Wrapped HT",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x55c108e7dbccfd49e5f8b94adef8b7c1ad8c7de2",
-        token0_symbol: "USDT",
-        token1_symbol: "PRS",
-        token0_name: "USDT",
-        token1_name: "Par Share",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x9cfe0b91ad78b851d674dbe700bcaf91e12cfde5",
-        token0_symbol: "BBB",
-        token1_symbol: "USDT",
-        token0_name: "BBB-Token",
-        token1_name: "Heco-Peg USDT Token",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x84dcb44ac85e4ef613d6e0894ffe7cc533f5bc9d",
-        token0_symbol: "HUSD",
-        token1_symbol: "SCS",
-        token0_name: "Heco-Peg HUSD Token",
-        token1_name: "SCS",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x6d05c344aaa485bd713b1432d66f776ae9d19619",
-        token0_symbol: "HC",
-        token1_symbol: "WHT",
-        token0_name: "HecoChain",
-        token1_name: "Wrapped HT",
-        volumeusd: 0.0
-    },
-    {
-        id: "0xaf47c335ffebac4b69cb2e88516533f0bbe46dbd",
-        token0_symbol: "HUSD",
-        token1_symbol: "HBT",
-        token0_name: "Heco-Peg HUSD Token",
-        token1_name: "HBT",
-        volumeusd: 29383.0087748
-    },
-    {
-        id: "0x877cbe098c4e5a3666621917e1a4eec6091f117f",
-        token0_symbol: "HUSD",
-        token1_symbol: "TOGO",
-        token0_name: "Heco-Peg HUSD Token",
-        token1_name: "TOGO TOKEN",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x56f2da832e9a5387361fc6a112ffa7cdf65c7cf9",
-        token0_symbol: "USDT",
-        token1_symbol: "HOC",
-        token0_name: "USDT",
-        token1_name: "HOC",
-        volumeusd: 0.0
-    },
-    {
-        id: "0xafd611ac31b9854f0fbdd3b915c89c42e43705a5",
-        token0_symbol: "DAI",
-        token1_symbol: "STC",
-        token0_name: "DAI",
-        token1_name: "STC",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x711c5bee0f22edcd90dddc2830fb98bbd4171668",
-        token0_symbol: "USDT",
-        token1_symbol: "ABC",
-        token0_name: "Heco-Peg USDT Token",
-        token1_name: "abc",
-        volumeusd: 0.0315509686
-    },
-    {
-        id: "0xaa60564240c494047536a02d351bf7414ded0c93",
-        token0_symbol: "WHT",
-        token1_symbol: "DBD",
-        token0_name: "Wrapped HT",
-        token1_name: "dbdc.finance",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x968f42e2d8c101f23a158aa101529c03a5059774",
-        token0_symbol: "DAI",
-        token1_symbol: "BDC",
-        token0_name: "DAI",
-        token1_name: "BDC",
-        volumeusd: 0.0
-    },
-    {
-        id: "0x53ed14c6e6e5db8139ec0298b01914106133af13",
-        token0_symbol: "USDT",
-        token1_symbol: "PPT",
-        token0_name: "Heco-Peg USDT Token",
-        token1_name: "PPT Token",
         volumeusd: 0.0
     }
 ];
@@ -1721,3 +1584,31 @@ export const echartData = [
         }
     },
 ];
+export const kData={
+    id: 1,
+    title: "流动性添加与撤出人数",
+    des: "展示选定币种/交易对在单位时间内参与流动性添加和撤出的人数分布情况。该指标一定程度上表现了市场上散户的情绪",
+    xaxis: [
+        1609873201,
+        1610452800,
+        1610456400,
+        1610460000,
+        1624178735,
+        1624524335
+    ],
+    yaxis: [{
+        name: "价格",
+        color: "F0BF12",
+        type: "line",
+        unit: "$",
+        data: [
+            12011.0248618371240357,
+            51161.0644617866073,
+            35130.0299127203773608,
+            45330.0753512729395482,
+            33330.248504082626839,
+            110.424957675528808
+        ]
+    }
+    ]
+}

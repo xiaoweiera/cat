@@ -13,12 +13,14 @@
     "prepare": "husky install",
     "message": "node scripts/translate/index"
   },
-  "lint-staged": {
+  "lint-staged1": {
     "./src/**/*.{vue,ts}": [
       "prettier --write",
       "npm run eslint",
       "git add"
     ]
+  },
+  "lint-staged": {
   },
   "husky": {
     "hooks": {
@@ -42,6 +44,7 @@
     "d3-dsv": "^2.0.0",
     "dayjs": "^1.10.4",
     "echarts": "^5.1.1",
+    "element-plus": "^1.0.2-beta.52",
     "intl-format": "^1.2.0",
     "js-cookie": "^2.2.1",
     "lint-staged": "^11.0.0",
@@ -74,7 +77,6 @@
     "@vue/server-renderer": "^3.1.2",
     "autoprefixer": "^10.2.5",
     "cross-env": "^7.0.3",
-    "element-plus": "^1.0.2-beta.41",
     "eslint": "^7.25.0",
     "https-localhost": "^4.6.4",
     "husky": "^6.0.0",

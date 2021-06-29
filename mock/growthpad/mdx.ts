@@ -32,6 +32,9 @@ const data = {
   dashboard: Object.assign({}, mdxInfo.dashboard, {
     description: I18n.growthpad.mdx.dashboard.desc
   }),
+  address: {
+    placeholder: I18n.growthpad.mdx.address.placeholder
+  },
   about: {
     website, // 项目官网
     minutias: [
@@ -59,6 +62,10 @@ const data = {
       // discord链接
       { icon: 'union', href: 'https://discord.com/invite/3TYDPktjqC' },
     ],
+  },
+  weibo: {
+    title: I18n.growthpad.mdx.weibo.label,
+    desc: I18n.growthpad.mdx.weibo.description
   },
   taskList: [
     // 任务 1

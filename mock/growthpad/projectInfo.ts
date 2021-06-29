@@ -79,15 +79,15 @@ export const growthInfo = {
 export const chainWallet = {
   title: 'ChainWallet', // 名称
   icon: 'https://res.ikingdata.com/icon/chainwallet.png', // icon
-  // url: '/growthpad/growth',
+  url: '/growthpad/ChainWallet',
   coin: 'CHA',
   projectName: 'ChainWallet',
   website: 'app.chainwallet.me',
   dashboard: {
-    banner: I18n.growthpad.growthpad.dashboard.banner,
-    begin: '2021-06-30 15:00:00', // 开始时间
-    end: '2021-07-15 15:00:00', // 结束时间
-    description: I18n.growthpad.ChainWallet.dashboard.desc, // 描述
+    banner: I18n.growthpad.chainwallet.dashboard.banner,
+    begin: '2021-06-28 15:00:00', // 开始时间
+    end: '', // 结束时间
+    description: I18n.growthpad.chainwallet.dashboard.desc, // 描述
     reward: {
       count: 200000, // 奖励数量
       countStr: '200,000 CHA',

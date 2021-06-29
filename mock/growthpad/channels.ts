@@ -1,7 +1,6 @@
 /**
- * @file growthpad mdx
+ * @file growthpad channels
  * @author svon.me@gmail.com
- * @description mdx
  */
 
 import I18n from '~/utils/i18n/index'
@@ -50,6 +49,9 @@ const data = {
   dashboard: Object.assign({}, channelsInfo.dashboard, {
     description: I18n.growthpad.channels.dashboard.desc, // 描述
   }),
+  address: {
+    placeholder: I18n.growthpad.channels.address.placeholder
+  },
   about: {
     website, // 项目官网
     qrcode: 'https://res.ikingdata.com/static/share/channels_qrcode.jpg?r=2',
@@ -72,6 +74,10 @@ const data = {
       // discord链接
       { icon: 'union', href: 'https://discord.gg/VMNGuDzxnq' },
     ],
+  },
+  weibo: {
+    title: I18n.growthpad.channels.weibo.label,
+    desc: I18n.growthpad.channels.weibo.description
   },
   taskList: [
     // 任务 1

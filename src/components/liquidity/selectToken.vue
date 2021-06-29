@@ -1,83 +1,84 @@
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
-import { ref, reactive,onMounted,watch} from 'vue'
+import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import { coinList, tradingList } from '/mock/liquidity'
-import { symbolStore,pairStore } from '~/store/liquidity/state'
+import { symbolStore,pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
-import {subStr} from '~/lib/tool'
-const selectTxt = ref('')
-const coinShow = ref(false)
-const tokenList=ref()
+import {useRoute, useRouter} from 'vue-router'
+import {subStr,changeRouteParam} from '~/lib/tool'
+
+const props = defineProps({
+  close:Function
+})
+const allData=ref([]) //请求数据的个数
+const tokenList=ref([])
+const page=ref(1) //页数
+const size=10 //每页数量
+const initSize=5 //首次加载数量
 const param={
   platId:1,
-  query:selectTxt.value
+  query:''
 }
-const tokenDB=new DBList(coinList)
-tokenList.value=tokenDB.select({}, 2)
+const route = useRoute()
+const router = useRouter()
 const changeSelect = (state) => {
-  coinShow.value = state
+  props.close(state)
 }
 const changeToken = (name: string,id:string) => {
+  symbolStore.name=name
   symbolStore.id=id
+  pairStore.id=''
+  pairStore.name=''
+  changeRouteParam(route,router,{token:id})
+  setHistory({token_id:id,name:name,type:'token'})
   changeSelect(false)
 }
-const changePair = (name: string,id:string) => {
-  pairStore.id=id
-  changeSelect(false)
+const getData=(list:any)=>{
+  const tokenDB=new DBList(list)
+  tokenList.value=tokenDB.select({}, initSize)
 }
-
-
-// 加延迟不然会先执行blur，不执行click
-const inputBlur = () => {
-  setTimeout(() => {
-    changeSelect(false)
-  }, 100)
+//更多
+const addMore=()=>{
+  const tokenDB=new DBList(allData.value)
+  tokenList.value=tokenDB.select({}, initSize+(size*page.value))
+  page.value++
+}
+const getList=async ()=>{
+  page.value=1
+  //如果为空则制空
+  if(!selectTxt.value){
+    tokenList.value=[]
+    return
+  }
+  param.query=selectTxt.value
+  const result=await getInfoByToken(param)
+  if(result?.data?.code===0){
+    allData.value=result?.data?.data
+    getData(result?.data?.data)
+  }else{
+    tokenList.value=[]
+  }
 }
 watch(()=>selectTxt.value,async (n,o)=>{
-  param.query=n
-  const {data:{data:data}}=await getInfoByToken(param)
-  tokenList.value=data
-  console.log(data)
+  getList()
+})
+onMounted(()=>{
+  getList()
 })
 </script>
 <template>
-  <div class="flex flex-1 relative items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
-    <el-input v-model="selectTxt" class="selectClass" placeholder="搜索" @focus="changeSelect(true)" @blur="inputBlur()"></el-input>
-    <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
-    <!--    弹窗-->
-    <div v-show="coinShow" class="absolute top-14.5 right-0 w-51.25 py-1.5 z-2 tipContainer h-82.5 overflow-hidden overflow-y-auto">
-      <!--      币-->
-      <ul>
-        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
-        <template v-for="item in tokenList">
-          <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}"
-              @click="changeToken(item.symbol,item.symbol_id)">
-            <div class="coinName">
-              <span>{{ item.symbol }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
-            </div>
-<!--            <div class="coinTip">-->
-<!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
-<!--            </div>-->
-          </li>
-        </template>
-        <li class="more hand">查看更多</li>
-      </ul>
-      <!--      交易对-->
-      <ul>
-        <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3 mt-1.5">交易对</li>
-        <template v-for="item in tradingList">
-          <li class="itemLi hand" :class="{selectBg:pairStore.id === item.symbol_id}"
-            @click="changePair(item.symbol,item.symbol_id)">
-            <div class="coinName">{{ item.symbol_name }}</div>
-<!--            <div class="coinTip">-->
-<!--              <span class="coinTipTxt">{{ item.origin }}</span>-->
-<!--            </div>-->
-          </li>
-        </template>
-        <li class="more hand">查看更多</li>
-      </ul>
-    </div>
-  </div>
+  <ul>
+    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
+    <template v-for="item in tokenList">
+      <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
+        <div class="coinName">
+          <span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
+        </div>
+      </li>
+    </template>
+    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand">查看更多</li>
+  </ul>
+  <!--      交易对-->
 </template>
 <style lang="postcss" scoped>
 .more {

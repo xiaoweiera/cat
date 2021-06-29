@@ -3,7 +3,7 @@ import { computed, toRaw } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { Project } from '~/api/growtask'
+import { ProjectKey } from '~/logic/growthpad/config'
 
 const store = Task()
 
@@ -25,7 +25,7 @@ const list = computed(() => {
 // @ts-ignore
 const title = computed<string>((): string => {
   // @ts-ignore
-  if (store.projectName === Project.mdx) {
+  if (store.projectName === ProjectKey.mdx) {
     // @ts-ignore
     return I18n.template(I18n.growthpad.about.title, {
       project: store.title.value,
@@ -158,6 +158,13 @@ const title = computed<string>((): string => {
     <h2 class="pb-3">{{ I18n.growthpad.about.projectDetail }}</h2>
     <p class="detail text-sm whitespace-pre-line w-full">
       {{ store.about.detail }}
+    </p>
+  </div>
+
+  <div v-if="store.about.tokenDetail" class="pt-6 font-kdFang">
+    <h2 class="pb-3">{{ I18n.growthpad.about.tokenDetail }}</h2>
+    <p class="detail text-sm whitespace-pre-line w-full">
+      {{ store.about.tokenDetail }}
     </p>
   </div>
 

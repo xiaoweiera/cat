@@ -1,7 +1,8 @@
 export default {
   status: {
+    wait: '即将开始',
     ing: '正在进行',
-    end: '已结束'
+    end: '已结束',
   },
   title: '支持喜欢的项目并领取 Token',
   des: 'GrowthPad 将很多有价值的项目方联合起来，精准的给社区用户奖励 Token，用户只需要完成任务，既可以帮助自己的喜欢的项目完成目标，也可以获得奖励 Token。',

@@ -1,12 +1,12 @@
 <script setup lang="ts">
+// @ts-ignore
 import { formatCash, toNumber } from '~/utils/index'
-import safeGet from '@fengqiaogang/safe-get'
-// 倒计时
-import dayjs from 'dayjs'
-import { ref, defineProps, watch, onMounted } from 'vue'
+// @ts-ignore
+import { TimeStatus } from '~/components/growthpad/task/task'
+
+import { defineProps, computed } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
-import { projectDetail } from '~/api/growtask'
 // @ts-ignore
 const props = defineProps({
   status: String,
@@ -14,58 +14,6 @@ const props = defineProps({
   value: [String, Number],
 })
 
-const format = 'YYYY-MM-DD HH:mm:ss'
-
-const day = ref<string>('00')
-const hour = ref<string>('00')
-const minute = ref<string>('00')
-const second = ref<string>('00')
-const end = ref(0)
-// 监听传入进来的时间值
-watch(
-  () => props.value as any,
-  () => {
-    const time = dayjs(props.value, format)
-
-    end.value = time.valueOf()
-  },
-  { immediate: true },
-)
-const cost = ref()
-const getValue = async() => {
-  // @ts-ignore
-  const costValue = await projectDetail(props.project.projectName) // 获取项目详情
-  if (costValue && costValue.price) {
-    // @ts-ignore
-    const count = safeGet<number>(props.project, 'dashboard.reward.count')
-    cost.value = toNumber(costValue.price) * toNumber(count)
-  } else {
-    cost.value = 0
-  }
-}
-onMounted(() => {
-  getValue()
-})
-// 计算倒计时 - 天
-const getDay = function(duration: number): string {
-  const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
-// 计算倒计时 - 时
-const getHour = function(duration: number): string {
-  const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
-// 计算倒计时 - 分
-const getMinute = function(duration: number): string {
-  const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
-// 计算倒计时 - 秒
-const getSecond = function(duration: number): string {
-  const number = parseInt(((duration / 1000) % 60) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
 // @ts-ignore
 const imgs = {
   MDEX: 'https://res.ikingdata.com/nav/mdexStatus.png',
@@ -73,68 +21,46 @@ const imgs = {
   Channels: 'https://res.ikingdata.com/nav/channelsStatus.png',
   ChainWallet: 'https://res.ikingdata.com/nav/chainwalletStatus.png'
 }
-// 倒计时
-let intemout: any
-const timeout = () => {
-  clearTimeout(intemout)
-  // 当前时间
-  const now = dayjs().valueOf()
-  const duration = Math.abs(end.value - now)
-  // 结束倒计时
-  if (duration < 0) {
-    day.value = '00'
-    hour.value = '00'
-    minute.value = '00'
-    second.value = '00'
-    return
+// @ts-ignore
+const timerValue = computed<string>((): string => {
+  // @ts-ignore
+  if (props.status === TimeStatus.wait) {
+    // @ts-ignore
+    return props.project.dashboard.begin
   }
-  // 计算倒计时剩余天
-  day.value = getDay(duration)
-  // 计算倒计时剩余时
-  hour.value = getHour(duration)
-  // 计算倒计时剩余分
-  minute.value = getMinute(duration)
-  // 计算倒计时剩余秒
-  second.value = getSecond(duration)
-  intemout = setTimeout(timeout, 1000)
-}
-timeout()
+  // @ts-ignore
+  if (props.status === TimeStatus.ing) {
+    // @ts-ignore
+    return props.project.dashboard.end
+  }
+  return ''
+})
+
 </script>
 <template>
   <div class="project reative font-kdFang relative i8n-font-en-inter">
     <div class="relative z-2">
       <div class="flex items-center">
-        <img :src="props.project.icon" class="w-10.5" alt="" />
-        <div class="text-kd24px36px ml-2 font-medium">
-          {{ props.project.title }}
-        </div>
-        <div
-          v-if="props.status !== 'closure'"
-          :class="props.status === 'wait' ? 'statusTxtWait' : 'statusTxtIng'"
-        >
-          <span
-            v-if="props.status === 'wait'"
-          >⏱ <span class="ml-1">{{ I18n.growthpadShow.coming }}</span>
+        <img :src="props.project.icon" class="w-10.5"/>
+        <div class="text-kd24px36px ml-2 font-medium">{{ props.project.title }}</div>
+        <div v-if="props.status !== TimeStatus.closure" :class="{'statusTxtWait': props.status === TimeStatus.wait, 'statusTxtIng': props.status !== TimeStatus.wait}">
+          <span v-if="props.status === TimeStatus.wait">
+            <span>⏱</span>
+            <span class="ml-1">{{ I18n.growthpadShow.coming }}</span>
           </span>
-          <span v-else>🔥 {{ I18n.growthpadShow.ongoing }}</span>
+          <span v-else>
+            <span>🔥</span>
+            <span class="ml-1">{{ I18n.growthpadShow.ongoing }}</span>
+          </span>
         </div>
       </div>
       <div class="overDes">
-        <div :class="props.status === 'closure' ? 'max-w-43' : ''">
-          {{ props.project.dashboard.description }}
-        </div>
-        <img
-          v-if="props.status === 'closure'"
-          class="w-30 absolute top-4 right-0"
-          src="https://res.ikingdata.com/nav/grothpadOver.png"
-          alt=""
-        />
+        <div :class="{'max-w-43': props.status === TimeStatus.closure}">{{ props.project.dashboard.description }}</div>
+        <img v-if="props.status === TimeStatus.closure" class="w-30 absolute top-4 right-0" src="https://res.ikingdata.com/nav/grothpadOver.png"/>
       </div>
       <div class="flex mt-6 items-center font-normal">
         <p class="desc">{{ I18n.growthpadShow.reward }}</p>
-        <p class="projectNum">
-          {{ props.project.dashboard.reward.countStr }}
-        </p>
+        <p class="projectNum">{{ props.project.dashboard.reward.countStr }}</p>
       </div>
       <!--      <div class="flex blockItem">-->
       <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
@@ -156,53 +82,18 @@ timeout()
         </p>
       </div>
 
-      <div class="flex mt-3 items-end font-normal">
-        <div class="desc">
-          <span v-show="props.status !== 'closure'">{{
-            props.status === 'wait'
-              ? I18n.growthpadShow.timeBegin
-              : I18n.growthpadShow.timeLeft
-          }}</span>
-        </div>
+      <!-- 活动倒计时 -->
+      <GrowthpadTimer class="w-full mt-3" :class="props.status + 'Color'" :value="timerValue">
+        <template #label>
+          <div class="desc whitespace-nowrap mr-8">
+            <span>{{props.status === TimeStatus.wait ? I18n.growthpadShow.timeBegin : I18n.growthpadShow.timeLeft }}</span>
+          </div>
+        </template>
+      </GrowthpadTimer>
 
-        <div
-          v-if="props.status !== 'closure'"
-          class="itemTxt"
-          :class="props.status + 'Color'"
-        >
-          <div class="flex items-end">
-            <div class="tiemNum">{{ day }}</div>
-            <div class="times">
-              {{ I18n.growthpadShow.day }}
-            </div>
-          </div>
-          <div class="flex ml-2 items-end">
-            <div class="tiemNum">{{ hour }}</div>
-            <div class="times">
-              {{ I18n.growthpadShow.hour }}
-            </div>
-          </div>
-          <div class="flex ml-2 items-end">
-            <div class="tiemNum">{{ minute }}</div>
-            <div class="times">
-              {{ I18n.growthpadShow.minute }}
-            </div>
-          </div>
-        </div>
-        <!--        保持格式-->
-        <div v-else class="mt-6.3"></div>
-      </div>
-      <GrowthpadIndexProjectButton
-        :url="props.project.url"
-        :status="props.status"
-      />
+      <GrowthpadIndexProjectButton :url="props.project.url" :status="props.status"/>
     </div>
-    <img
-      v-if="props.status !== 'closure'"
-      class="w-40 absolute top-4 right-5"
-      :src="imgs[props.project.title]"
-      alt=""
-    />
+    <img v-if="props.status !== TimeStatus.closure" class="w-40 absolute top-4 right-5" :src="imgs[props.project.title]"/>
   </div>
 </template>
 
@@ -259,12 +150,7 @@ timeout()
   border-radius: 50px;
   @apply text-kd14px18px  font-kdFang font-medium  ml-4;
 }
-.tiemNum {
-  @apply text-kd24px110 font-bold font-kdExp;
-}
-.times {
-  @apply ml-1 text-kd12px18px i8n-font-inter font-normal;
-}
+
 .project {
   background: linear-gradient(180deg, #f6f7ff 0%, #ddeafd 100%);
   box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26),

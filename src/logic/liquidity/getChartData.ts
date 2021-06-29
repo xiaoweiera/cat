@@ -16,6 +16,16 @@ export const getXData = (xData: Array<number>, interval: string) => {
     return R.map((item: number) => formatHourTime(item), xData)
   }
 }
+const getNewyData=(xdata:Array<number>,ydata:Array<number>,allData:Array<number>)=>{
+  const newyData= R.map(t=>{
+    if(xdata.includes(t)){
+      return ydata[xdata.indexOf(t)]
+    }else{
+      return null
+    }
+  },allData)
+  return newyData
+}
 // 获取图标
 const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
   const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -31,17 +41,20 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
 export const tooltipsTitle = (title: string) =>
   `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
 // 得到lengend
-export const getLegendList = (yData: Array<yModel>, kyData: yModel) => {
-  const legend = R.map((item: yModel) => item.name, yData)
+export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<number>,allData:Array<number>) => {
+  const barIcon='path://M853.312 85.312c-47.104 0-85.312 38.208-85.312 85.376v682.624a85.312 85.312 0 1 0 170.688 0V170.688c0-47.168-38.208-85.376-85.376-85.376zM426.688 426.688a85.312 85.312 0 1 1 170.624 0v426.624a85.312 85.312 0 1 1-170.624 0V426.688zM85.312 597.312a85.312 85.312 0 0 1 170.688 0v256a85.312 85.312 0 1 1-170.688 0v-256z'
+  const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
+  const legend = R.map((item: yModel) => {
+   return {icon:item.type==='bar'?barIcon:lineIcon,name:item.name}
+  }, yData)
   if (!kyData) return legend
-  legend.push(kyData.name)
+  legend.push({icon:lineIcon,name:kyData.name})
   return legend
 }
-const formatYData = (item: any, isKline: boolean) => {
+const formatYData = (item: any, isKline: boolean,xData:Array<number>,allxData:Array<number>) => {
   let min: any = null
   let max: any = null
-  const ydata = item.data // [0:1,1:2,2:4]
-  // const idxMap = R.addIndex(R.map);
+  const ydata=getNewyData(xData,item.data,allxData)
   const seriesData = R.map((v) => {
     [min, max] = min_max(min, max, v)
     return {
@@ -103,14 +116,14 @@ const formatYData = (item: any, isKline: boolean) => {
   ]
 }
 // 得到series
-export const getSeries = (yData: Array<yModel>, kyData: Array<number>) => {
+export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
   const series = []
   let minM: any = null
   let maxM: any = null
   let kminM: any = null
   let kmaxM: any = null
   R.forEach((item: yModel) => {
-    const [obj, min, max] = formatYData(item, false)
+    const [obj, min, max] = formatYData(item, false,xData,allxData)
     series.push(obj)
     minM = R.min(min, minM)
     maxM = R.max(max, maxM)
@@ -118,7 +131,7 @@ export const getSeries = (yData: Array<yModel>, kyData: Array<number>) => {
   }, yData)
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData, true)
+    const [obj, kmin, kmax] = formatYData(kyData, true,kxData,allxData)
     series.push(obj)
     kminM = kmin
     kmaxM = kmax

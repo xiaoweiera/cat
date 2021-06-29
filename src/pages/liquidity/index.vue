@@ -4,9 +4,9 @@ import { reactive, onBeforeMount } from 'vue'
 import {useRoute} from 'vue-router'
 import {symbolStore,pairStore} from '~/store/liquidity/state'
 const route = useRoute()
-symbolStore.id=symbolStore.id?symbolStore.id:route.query.symbol
-pairStore.id=pairStore.id?pairStore.id:route.query.pair
-pairStore.name=pairStore.name?pairStore.name:route.query.pairName
+symbolStore.id=route.query.token?route.query.token:symbolStore.id
+pairStore.id=route.query.pair?route.query.pair:pairStore.id
+pairStore.name=route.query.pairName?route.query.pairName:'ETH/USDT'
 </script>
 <template>
   <div class="flex w-full contentContainer" style="overflow-x: hidden">

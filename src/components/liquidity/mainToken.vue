@@ -1,21 +1,43 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { pairStore } from '~/store/liquidity/state'
+import { ref,watch,onMounted } from 'vue'
+import { pairStore,paramChart,analysisType} from '~/store/liquidity/state'
 import {useRoute, useRouter} from 'vue-router'
 import {changeRouteParam,smallToken} from '~/lib/tool'
-const filterType = ref([
-  { name: 'Pair', value: 'pair', selected: true },
-  { name: 'ETH', value: 'eth', selected: false },
-  { name: 'USDT', value: 'usdt', selected: false },
-])
+
+const filterType = ref()
+console.log(pairStore.id)
+const getOption=()=>{
+  if(analysisType.value==='pay'){
+    paramChart.tokenType=paramChart.tokenType==='pair'?'symbol0':paramChart.tokenType
+    filterType.value=[
+      { name:pairStore.name.split('/')[0] , value: 'symbol0', selected: paramChart.tokenType!=='symbol1'  },
+      { name: pairStore.name.split('/')[1], value: 'symbol1', selected:paramChart.tokenType==='symbol1' },
+    ]
+  }else{
+    filterType.value=[
+      { name: 'Pair', value: 'pair', selected: paramChart.tokenType==='pair'},
+      { name:pairStore.name.split('/')[0] , value: 'symbol0', selected: paramChart.tokenType==='symbol0'  },
+      { name: pairStore.name.split('/')[1], value: 'symbol1', selected:paramChart.tokenType==='symbol1' },
+    ]
+  }
+}
+watch(()=>pairStore.name,(n,o)=>getOption())
+
+watch(()=>analysisType.value,(n,o)=>getOption())
 const route = useRoute()
 const router = useRouter()
 const closePair = () => {
   pairStore.id = null
+  //这里触发了两次监听  ---tip me
+  paramChart.tokenType='pair'
   changeRouteParam(route,router,{pair:undefined,pairName:undefined})
 }
+onMounted(()=>{
+  getOption()
+})
 </script>
 <template>
+
   <div class="flex h-13.5 items-center justify-between px-5 bg-white">
     <!--    选择的token标签-->
     <div class="flex items-center">

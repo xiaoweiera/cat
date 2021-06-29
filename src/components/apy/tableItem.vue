@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { defineProps, onMounted, ref, watch } from 'vue'
+import { computed, defineProps, ref } from 'vue'
 // @ts-ignore
 import { unitConfig, unitConfigen } from '~/logic/apy/config'
 import I18n from '~/utils/i18n/index'
+import * as table from '~/logic/apy/table'
 import * as lang from '~/utils/lang'
 
 const props = defineProps({
@@ -18,16 +19,16 @@ const props = defineProps({
   scopeData: {
     type: Object,
   },
+  options: {
+    type: Object
+  }
 })
-const isShow = ref(false)
-const isNullFun = (data: any) => {
-  data &&
-    data.forEach((item) => {
-      if (item.value) {
-        isShow.value = true
-      }
-    })
-}
+
+// @ts-ignore
+const isShow = computed<boolean>(function() {
+  return table.isShow(props.itemData, props.options)
+})
+
 const getColor = (key: string, data: string) => {
   if ((key !== 'single_and_mine_award' && key!=='compound_and_mine_award' && key!='apy') || !data) {
     return ''
@@ -52,15 +53,7 @@ const getValue = (data: any, i) => {
     return data.value
   }
 }
-watch(
-  () => props.itemData,
-  () => {
-    isShow.value = false
-    isNullFun(props.itemData)
-  },
-)
-const tipState = ref(false)
-onMounted(() => isNullFun(props.itemData))
+
 </script>
 <template>
   <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
