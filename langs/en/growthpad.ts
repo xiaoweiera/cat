@@ -375,7 +375,6 @@ Rule: Before starting the task, participants need to the KingData account and en
       rule3: 'More than 100,000 U, reward 2,500 CHA',
     },
     task5: {
-      title: '撰写500 字原创 ChainWallet 体验文章，并发布在主流媒体。',
       desc: `The reward is based on the number of follwers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000)
 Mainstream media: Weibo, Zhihu, Toutiao, etc. The specific number of rewards is determined by manual review.`
     }

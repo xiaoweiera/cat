@@ -81,7 +81,7 @@ const data = {
     {
       id: chat.uuid(),
       type: TaskType.weibo,
-      title: I18n.growthpad.chainwallet.task5.title,
+      title: I18n.template(I18n.growthpad.weibo.title, { count: 500, project: chainWallet.title }),
       reward: [100, 500],
     },
   ],
