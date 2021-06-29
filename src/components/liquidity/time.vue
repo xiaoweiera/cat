@@ -22,7 +22,6 @@ const endTime = ref(0)
 const editTime = ref(false) // 控制是否显示自定义时间
 watch(
     () => time.value, (n, o) => {
-      console.log(formatDefaultTime(time.value[0]))
       if (time.value) {
         paramChart.timeBegin=dataToTimestamp(formatDefaultTime(n[0]))
         paramChart.timeEnd=dataToTimestamp(formatDefaultTime(n[1]))
@@ -30,6 +29,7 @@ watch(
       }
     },
 )
+//选择时间tag  7 30  90
 const selectTag = (timeM: timeModel) => {
   if (timeM.name === '自定义') {
     paramChart.timeType=0

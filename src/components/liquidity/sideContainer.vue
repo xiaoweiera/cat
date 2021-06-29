@@ -4,8 +4,8 @@ import { ref, reactive } from 'vue'
 import {symbolStore} from '~/store/liquidity/state'
 const selectTag = ref('my')
 const tags = [
-  { type: 'my', name: '自选' },
-  // { type: 'token', name: '相关交易对' },
+  // { type: 'my', name: '自选' },
+  { type: 'token', name: '相关交易对' },
 ]
 const changeTag = (type: string) => (selectTag.value = type)
 </script>
@@ -15,9 +15,7 @@ const changeTag = (type: string) => (selectTag.value = type)
     <div class="flex flex-col h-full overflow-hidden bg-white flex-1">
       <div class="p-3">
         <template v-for="item in tags">
-          <span
-            :class="selectTag === item.type ? 'selectedTag' : 'defaultTag'"
-          >{{ item.name }}</span>
+          <span :class="selectTag === item.type ? 'selectedTag' : 'defaultTag'">{{ item.name }}</span>
         </template>
       </div>
       <LiquidityTokenTable :symbol="symbolStore.id" :select-tag="selectTag" />
