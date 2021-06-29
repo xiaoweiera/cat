@@ -15,6 +15,10 @@ pairStore.name=route.query.pairName?route.query.pairName:'ETH/USDT'
   </div>
 </template>
 <style>
+.el-message{
+  width:160px !important;
+  min-width: 160px !important;
+}
 .contentContainer {
   display: flex;
   height: calc(100vh - 72px);

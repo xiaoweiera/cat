@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 import {ref,reactive} from 'vue'
-
 import {getChartsUsdtById,getChartsCoinById,getChartsPairUsdById,getChartsPairUsdByEth,getChartsPairCoinById,getChartsPairCoinByEth,getChartsPairCoinByUSDT,getTokenPrice,getPairPrice,getPayChartsUsdtById,getPayChartsCoinById,getPayChartsPairUsdBySymbol0,getPayChartsPairUsdBySymbol1,getPayChartsPairCoinBySymbol0,getPayChartsPairCoinBySymbol1} from '~/api/liquidity'
 import {paramChart,analysisType,pairStore,priceData} from '~/store/liquidity/state'
 interface chartItem {
@@ -8,7 +7,7 @@ interface chartItem {
 }
 // 复制方法
 export const copyToken = (tokenAddress: string) => {
-  tokenAddress='tokenAddress'
+  tokenAddress=tokenAddress
   const dom = document.createElement('input')
   dom.setAttribute('value', tokenAddress)
   document.body.appendChild(dom)
@@ -19,9 +18,7 @@ export const copyToken = (tokenAddress: string) => {
 //初始化5个图表
 export const initCharts=(chartsAllData:any)=>{
   const chartIds=[0,1,2,3,4]
-  R.map(id=>{
-    chartsAllData.value[id] = reactive<any>({})
-  },chartIds)
+  R.map(id=>chartsAllData.value[id] = reactive<any>({}),chartIds)
 }
 //flow 流动性
 export const getChartsPairUsdByPair=async (param:any)=>{
@@ -107,12 +104,12 @@ export const payGetCharts=async (param:any)=>{
 export const getAllChart= ()=>{
   const chartsAllData =ref<chartItem[]>([])
   const chartLoad=ref(true)
-  const chartIds=[1,2,3,4,5]
+  // const chartIds=[1,2,3,4,5]
   //token图表查询
   const requestTokenChart=async (param:any)=>{
     chartLoad.value=false
     initCharts(chartsAllData)
-   for (let i=0;i<chartIds.length;i++){
+   for (let i=0;i<chartsAllData.value.length;i++){
      let result=null
      if(analysisType.value==='flow'){
        param.chart_id=i+1
