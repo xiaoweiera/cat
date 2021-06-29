@@ -3,7 +3,7 @@ import { defineProps, onMounted, toRefs } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
 import { paramChart,priceData} from '~/store/liquidity/state'
-import {getXData, getSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
+import {getXData, getAllItemSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
 import {kData} from '/mock/liquidity'
 interface yModel {
@@ -20,9 +20,9 @@ const props = defineProps({
   chartData: Object,
   chartId:Number
 })
-const draw = (xData: Array<string>, series: any, legend: Array<string>, minM: number, maxM: number, kminM: number, kmaxM: number) => {
+const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any) => {
   // @ts-ignore
-  const chartOption = chartConfig(xData, series, minM, maxM, kminM, kmaxM, legend, yLabelFormat, getModel)
+  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel)
   myChart.setOption(chartOption)
   // @ts-ignore
   window.addEventListener('resize', myChart.resize)
@@ -31,12 +31,12 @@ const getChartData=()=>{
   const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData.xaxis,priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
-  const [minM, maxM, kminM, kmaxM, series] = getSeries(
+  const [series,allYAxis] = getAllItemSeries(
       props?.chartData.xaxis,priceData.value.xaxis,
       props?.chartData.yaxis, priceData.value.yaxis[0],
       allXaxis
   )
-  draw(xData, series, legend, minM, maxM, kminM, kmaxM)
+  draw(xData, series, legend,allYAxis)
 }
 onMounted(() => {
   const myChartDom = document.getElementById(props?.chartData.id)

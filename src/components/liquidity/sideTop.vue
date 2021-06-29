@@ -1,21 +1,17 @@
 <script lang="ts" setup>
-import { ElMessage,ElIcon } from 'element-plus'
-import { ref, reactive, defineProps, onMounted,watch } from 'vue'
+import { ref, defineProps, onMounted,watch } from 'vue'
 import { selectCoin,symbolStore } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
-import { toFixedNumber, smallToken } from '~/lib/tool'
+import { toFixedNumber, smallToken,messageTip } from '~/lib/tool'
 import I18n from '~/utils/i18n'
 import { getToken_side } from '~/api/liquidity'
 const props = defineProps({
   symbol: Object,
 })
 const info = ref({})
-const copy=()=>{
-  ElMessage({
-    showClose: true,
-    message: '复制成功',
-    type: 'success'
-  });
+const  copy=(tokenId:string,type:string)=>{
+  copyToken(tokenId)
+  messageTip('复制成功','success')
 }
 
 watch(()=>symbolStore.id,()=>{
@@ -29,6 +25,7 @@ const getInfo = async() => {
   const result = await getToken_side(param)
   if (result?.data?.code === 0) {
     info.value = result?.data?.data[0]
+    symbolStore.name=info.value.symbol
   }
 }
 onMounted(() => {
@@ -67,12 +64,13 @@ onMounted(() => {
       <div class="flex items-center font-kdFang mt-1.5">
         <span class="text-kd12px16px text-global-default opacity-35">Token地址</span>
         <span class="ml-1.5 text-global-primary text-kd14px20px">{{smallToken(info.symbol_id) }}</span>
-        <IconFont @click="copy" class="ml-2 hand flex mb-1 opacity-65" type="copy" size="base"></IconFont>
+        <IconFont @click="copy(info.symbol_id)" class="ml-2 hand flex mb-1 opacity-65" type="copy" size="base"></IconFont>
       </div>
     </div>
   </div>
 </template>
 <style scoped lang="postcss">
+
 .sideHeader {
   height: 205px;
   background: linear-gradient(
