@@ -41,6 +41,7 @@ export const ignore: string[] = [
   user.logoMail,
   '/apy/',
   '/api/v2/commercial',
+  topic.getMenuList
 ]
 
 // 判断登陆状态，已登陆状态下才发起请求

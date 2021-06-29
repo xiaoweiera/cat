@@ -1,11 +1,22 @@
 <script setup lang="ts">
-  import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, toRaw } from 'vue'
+  import { useRoute } from 'vue-router'
   // @ts-ignore
   import { menuList, syncMenuList } from '~/logic/topic/menu'
   // @ts-ignore
   const search = ref<string>('')
 
-  onBeforeMount(syncMenuList)
+  const onReady = function() {
+    const router = useRoute()
+    const $router = toRaw(router)
+    const query = $router.query.value as any
+    console.log(query)
+  }
+
+  onBeforeMount(() => {
+    onReady()
+    syncMenuList()
+  })
 </script>
 
 <template>
