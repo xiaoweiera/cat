@@ -139,7 +139,7 @@ class Store {
   })
 
   article_url = ref<string>('article_url') // 用户上传的文章链接
-  article_image = ref<string>('') // 用户上传的图片
+  image_url = ref<string>('') // 用户上传的图片
   article_audit = ref<boolean>(false) // 用户文章审核状态
   article_reward = ref<number>(0) // 用户文章的奖励
 
@@ -269,7 +269,7 @@ class Store {
       this.mission.chainwallet = transformStatus(mission.chainwallet)
     }
     this.article_audit.value = !!safeGet(result, 'article_audit')
-    this.article_image.value = safeGet<string>(result, 'article_image')
+    this.image_url.value = safeGet<string>(result, 'image_url')
     this.article_url.value = safeGet<string>(result, 'article_url')
     this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
 

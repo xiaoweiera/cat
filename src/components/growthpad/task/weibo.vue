@@ -52,7 +52,7 @@ const rewardValue = computed<number>((): number => {
 })
 
 const isRegistered = computed<boolean>((): boolean => {
-  if (store.article_image.value && store.article_url.value) {
+  if (store.image_url.value && store.article_url.value) {
     return true
   }
   return false
@@ -60,27 +60,13 @@ const isRegistered = computed<boolean>((): boolean => {
 
 interface FormData {
   article_url?: string
-  article_image?: File
+  image_url?: File
 }
-const previewSrc = ref<string>('')
 const formdata = reactive<FormData>({})
 
-const preview = function(file: File) {
-  // 读取文件的 base64 值
-  const filereader = new FileReader()
-  filereader.onload = function(e) {
-    // 获取 base64 编码
-    const base64 = e.target.result
-    previewSrc.value = base64
-  }
-  filereader.readAsDataURL(file)
-}
-
-const onUpload = async function(file: File): Promise<boolean> {
-  const value = file.raw
-  formdata.article_image = value
-  preview(value)
-  return false
+// 图片上传成功
+const onUpload = async function(value: string) {
+  formdata.image_url = value
 }
 
 const formRef = ref<any>(null)
@@ -89,7 +75,7 @@ const submit = async function() {
   const form = toRaw(formRef).value
   const data = new FormData()
   data.append('article_url', formdata.article_url)
-  data.append('article_image', formdata.article_image)
+  data.append('image_url', formdata.image_url)
   try {
     await form.validate()
     // 判断信息登记
@@ -111,7 +97,6 @@ const submit = async function() {
       form.clearValidate()
       // 清空表单
       form.resetFields()
-      previewSrc.value = ''
     }
   } catch (e) {
     const err = omit(['code'], e)
@@ -127,7 +112,7 @@ const rules: any = {
       message: I18n.growthpad.weibo.articlePlaceholder,
     },
   ],
-  article_image: [
+  image_url: [
     {
       required: true,
       trigger: ['change'],
@@ -174,10 +159,10 @@ const rules: any = {
           >
             <a
               class="avatar-uploader relative block"
-              :href="store.article_image.value"
+              :href="store.image_url.value"
               target="_blank"
             >
-              <img class="preview" :src="store.article_image.value" />
+              <img class="preview" :src="store.image_url.value" />
             </a>
           </el-form-item>
         </template>
@@ -186,10 +171,10 @@ const rules: any = {
           <el-form-item :label="I18n.growthpad.weibo.articleImg">
             <a
               class="avatar-uploader relative block"
-              :href="store.article_image.value"
+              :href="store.image_url.value"
               target="_blank"
             >
-              <img class="preview" :src="store.article_image.value" />
+              <img class="preview" :src="store.image_url.value" />
             </a>
           </el-form-item>
           <el-form-item style="margin-bottom: 0">
@@ -214,30 +199,12 @@ const rules: any = {
         <el-form-item
           :label="I18n.growthpad.weibo.articleImg"
           required
-          prop="article_image"
+          prop="image_url"
         >
           <div class="md:flex md:items-center">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              accept="image/*"
-              :show-file-list="false"
-              :multiple="false"
-              name="article_image"
-              :drag="true"
-              :on-change="onUpload"
-              :auto-upload="false"
-            >
-              <template v-if="previewSrc">
-                <img class="preview" :src="previewSrc" />
-              </template>
-              <IconFont
-                v-else
-                class="preview"
-                type="plus"
-                suffix="png"
-              ></IconFont>
-            </el-upload>
+            <div>
+              <Upload :src="formdata.image_url" size="xs" @change="onUpload"></Upload>
+            </div>
             <div class="upload-tips md:pl-3 text-xs mt-3 md:mt-0">
               <span>{{ I18n.growthpad.weibo.notify1 }}</span>
               <span>{{ I18n.growthpad.weibo.notify2 }}</span>
@@ -252,7 +219,7 @@ const rules: any = {
               </el-button>
             </div>
             <!--有上传文章后显示-->
-            <!--            <template v-if="store.article_image.value">-->
+            <!--            <template v-if="store.image_url.value">-->
             <!--              <p class="md:ml-3 text-xs submit-tips mt-3 md:mt-0">-->
             <!--                {{ I18n.growthpad.weibo.tips }}-->
             <!--              </p>-->
