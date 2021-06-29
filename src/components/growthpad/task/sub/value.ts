@@ -99,7 +99,7 @@ export const getValueStatus = function(
       return MissionStatus.success
     }
     // 判断是否为暂停
-    if (data.suspend) {
+    if (data?.suspend) {
       return MissionStatus.suspend
     }
     if (status) {
