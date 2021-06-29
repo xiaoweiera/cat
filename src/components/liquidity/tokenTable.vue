@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 import {ElTooltip} from 'element-plus'
-import {defineProps, onBeforeMount, reactive, watch, ref} from 'vue'
+import {defineProps,onMounted, reactive, watch, ref} from 'vue'
 import { symbolStore } from '~/store/liquidity/state'
 import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
@@ -38,16 +38,16 @@ const getPair_list = async () => {
     pairList.value = result?.data?.data
   }
 }
-onBeforeMount(() => {
+onMounted(() => {
   getPair_list()
 })
 </script>
 <template>
   <div class="w-full h-full">
       <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader">
-        <li class="flex-1">交易对</li>
-        <li class="w-15 pl-1">TVL($)</li>
-        <li class="w-15 pl-1">价格($)</li>
+        <li class="flex-1 w-1">交易对</li>
+        <li class="w-20 pl-1">TVL($)</li>
+        <li class="w-19 pl-1">价格($)</li>
 <!--        <li class="w-15 pl-1">涨跌幅</li>-->
       </ul>
       <div class="w-full h-full showY">
@@ -61,8 +61,8 @@ onBeforeMount(() => {
                 </span>
               </el-tooltip>
             </div>
-            <div class="tokenRow text-kd12px16px text-global-default">{{ item.TVL }}</div>
-            <div class="tokenRow text-kd12px16px text-global-default">{{ toFixedNumber(item.price) }}</div>
+            <div class="w-20  text-kd12px16px text-global-default">{{ toFixedNumber(item.tvl) }}</div>
+            <div class="w-15  text-kd12px16px text-global-default">{{ toFixedNumber(item.price) }}</div>
 <!--            <div class="percentGreen text-left">+20%</div>-->
           </div>
         </template>
@@ -108,9 +108,7 @@ onBeforeMount(() => {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.tokenRow {
-  @apply w-15 pl-1;
-}
+
 
 .percentGreen {
   @apply w-15 pl-1 text-kd12px16px text-global-numGreen;
