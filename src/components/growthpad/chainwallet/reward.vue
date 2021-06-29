@@ -7,6 +7,7 @@ import { toNumber } from '~/utils/index'
 import { MissionStatus } from '~/store/growthpad/props'
 import { getValueStatus } from '../task/sub/value'
 import { getMax } from '../task/task'
+import TaskType from '~/logic/growthpad/tasktype'
 
 const store = Task()
 
@@ -29,10 +30,12 @@ const week_reward = computed<string>((): string => {
   }
 
   for(const task of store.taskList.value) {
-    const status = getValueStatus(task.type, store)
-    if (status === MissionStatus.loading) {
-      const value = getMax(task.reward)
-      data.reward += value
+    if (task.type !== TaskType.weibo) {
+      const status = getValueStatus(task.type, store)
+      if (status === MissionStatus.loading) {
+        const value = getMax(task.reward)
+        data.reward += value
+      }
     }
   }
 

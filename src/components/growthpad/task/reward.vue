@@ -238,8 +238,13 @@ const rewardValue = computed<number>((): number => {
   }
   // chainwallet 任务
   if (props.data.type === TaskType.chainwallet) {
-    const value = toNumber(store.info.chainwallte_reward, 0)
-    return value
+    if (isSuccess(store.mission.chainwallet)) {
+      return toNumber(store.info.chainwallte_reward)
+    }
+    // 任务结果验证中
+    if (!isEmpty(store.mission.chainwallet)) {
+      return getMax(props.data.reward)
+    }
   }
 
   // twiiter 任务
@@ -270,6 +275,8 @@ const rewardValue = computed<number>((): number => {
       return getMin(props.data.reward)
     }
   }
+
+  console.log(props.data.type)
 
   return 0
 })
