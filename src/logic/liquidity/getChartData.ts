@@ -52,6 +52,14 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<n
   legend.push({icon:lineIcon,name:kyData.name})
   return legend
 }
+const unitOrder=(v:any,unit:string)=>{
+  if(!unit) return numberUnitFormat(v)
+  if(unit==='$'){
+    return  unit+numberUnitFormat(v)
+  }else{
+    return numberUnitFormat(v)+unit
+  }
+}
 const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>) => {
   let min: any = null
   let max: any = null
@@ -61,7 +69,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     return {
       value: v,
       orginValue: numberUnitFormat(v),
-      formatValue: numberUnitFormat(v) + (item.unit?item.unit:'无'),
+      formatValue:unitOrder(v,item.unit),
       // color: item.color
     }
   }, ydata)
@@ -116,7 +124,8 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     max,
   ]
 }
-export const yLabelFormat = (v: any) => numberUnitFormat(v)
+
+export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v)
 //getSeries
 export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
   const series = []
