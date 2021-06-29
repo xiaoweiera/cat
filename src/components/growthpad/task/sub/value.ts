@@ -88,11 +88,7 @@ const check: any = {
   }
 }
 
-export const getValueStatus = function(
-  name: string | undefined,
-  store: Store,
-  data?: any
-): MissionStatus {
+export const getValueStatus = function(name: string | undefined, store: Store, data?: any): MissionStatus {
   if (name) {
     const status: MissionStatus = check[name] ? check[name](store) : MissionStatus.init
     if (status && status === MissionStatus.success) {
