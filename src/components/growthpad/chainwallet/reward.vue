@@ -15,7 +15,7 @@ const store = Task()
 const total_reward = computed<string>((): string => {
   const data = {
     // @ts-ignore
-    reward: toNumber(store.grand_total_reward),
+    reward: toNumber(store.grand_total_reward.value),
     token: toUpper(store.token)
   }
   return I18n.template(I18n.growthpad.address.total_reward, data)
@@ -25,7 +25,7 @@ const total_reward = computed<string>((): string => {
 const week_reward = computed<string>((): string => {
   const data = {
     // @ts-ignore
-    reward: toNumber(store.week_expected_reward),
+    reward: toNumber(store.week_expected_reward.value),
     token: toUpper(store.token)
   }
 

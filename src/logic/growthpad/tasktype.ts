@@ -24,7 +24,7 @@ enum TaskType {
 
   // coinwind
   autofarm = 'autofarm',
-  beltfit = 'belt.fit',
+  beltfit = 'beltfit',
 
   bunny = 'bunny',
 

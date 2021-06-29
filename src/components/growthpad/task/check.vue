@@ -243,7 +243,7 @@ const onUpdated = function(): void {
       <!-- 判断 compound 验资是否通过 -->
       <GrowthpadTaskSubText
         :data="data"
-        name="beltfit"
+        :name="TaskType.beltfit"
         :placeholder="I18n.growthpad.form.placeholderBsc"
         :confirm="true" @updated="onUpdated"
       >

@@ -245,12 +245,18 @@ class Store {
   private updateData(result?: any) {
     const info: Info = safeGet<Info>(result, 'info')
     const mission: Mission = safeGet<Mission>(result, 'mission')
-    if (result?.price) {
-      this.price.value = result.price
-    }
-    this.reward.value = result?.reward || 0
-    this.invited_count.value = result?.invited_count || 0
-    this.project_invited_count.value = result?.project_invited_count || 0
+    this.price.value = safeGet<number>(result, 'price') || 0
+    this.reward.value = safeGet<number>(result, 'reward') || 0
+    this.invited_count.value = safeGet<number>(result, 'invited_count') || 0
+    this.project_invited_count.value = safeGet<number>(result, 'project_invited_count') || 0
+
+    // 累计获得奖励
+    this.grand_total_reward.value = safeGet<number>(result, 'grand_total_reward') || 0
+    // 预计获得奖励
+    this.week_expected_reward.value = safeGet<number>(result, 'week_expected_reward') || 0
+
+    console.log('total = "%s", week = "%s"', this.grand_total_reward.value, this.week_expected_reward.value)
+
     // 更新 info 信息
     if (info) {
       this.info.bsc = safeGet<string>(info, 'bsc')
