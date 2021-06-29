@@ -17,7 +17,7 @@ export const copyToken = (tokenAddress: string) => {
 }
 //初始化5个图表
 export const initCharts=(chartsAllData:any)=>{
-  const chartIds=[0]
+  const chartIds=[0,1,2,3,4]
   R.map(id=>chartsAllData.value[id] = reactive<any>({}),chartIds)
 }
 //flow 流动性
