@@ -94,8 +94,10 @@ const timeCountdownValue = computed<string>((): string => {
   const time = dayjs(store.dashboard.begin, format)
   const duration = time.valueOf() - now
   if (duration > 0) {
+    // @ts-ignore
     return store.dashboard.begin
   }
+  // @ts-ignore
   return store.dashboard.end
 })
 </script>
