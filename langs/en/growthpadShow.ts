@@ -1,5 +1,6 @@
 export default {
     status: {
+        wait: 'Start countdown',
         ing: 'Ongoing', // ⛳️
         end: 'Ended' // 🎯
     },
