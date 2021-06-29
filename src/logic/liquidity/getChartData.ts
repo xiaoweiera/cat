@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import {formatDefaultTime, min_max, numberFormat, formatHourTime} from '~/lib/tool'
+import {formatDefaultTime, min_max, numberUnitFormat, formatHourTime} from '~/lib/tool'
 import {getCharts} from '~/api/liquidity'
 import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
 interface yModel {
@@ -60,8 +60,8 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     [min, max] = min_max(min, max, v)
     return {
       value: v,
-      orginValue: numberFormat(v),
-      formatValue: numberFormat(v) + (item.unit?item.unit:'无'),
+      orginValue: numberUnitFormat(v),
+      formatValue: numberUnitFormat(v) + (item.unit?item.unit:'无'),
       // color: item.color
     }
   }, ydata)
@@ -116,7 +116,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     max,
   ]
 }
-export const yLabelFormat = (v: any) => numberFormat(v)
+export const yLabelFormat = (v: any) => numberUnitFormat(v)
 //getSeries
 export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
   const series = []

@@ -35,7 +35,7 @@ const getPair_list = async () => {
     symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
-    pairList.value = result?.data?.data
+    pairList.value = result?.data?.data.results
   }
 }
 onMounted(() => {
