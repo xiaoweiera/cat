@@ -12,7 +12,7 @@ interface yModel {
 // 将x轴转日期格式 得到x轴
 export const getXData = (xData: Array<number>, interval: string) => {
   if (interval === '1d' || interval === '1D') {
-    return R.map((item: number) => formatDefaultTime(item), xData)
+    return R.map((item: number) => formatDefaultTime(item,''), xData)
   } else {
     return R.map((item: number) => formatHourTime(item), xData)
   }
