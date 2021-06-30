@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // @ts-ignore
-import {ElTooltip} from 'element-plus'
+import {ElTooltip, ElInfiniteScroll} from 'element-plus'
 import {defineProps,onMounted, reactive, watch, ref} from 'vue'
 import { symbolStore } from '~/store/liquidity/state'
 import {testData} from '/mock/liquidity'
@@ -13,44 +13,63 @@ import {
 } from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
 
+const page=ref(0) //第几页
+const next=ref(true) //是否有下一页
 const route = useRoute()
 const router = useRouter()
 const props = defineProps({
   symbol:String,
 })
-const headerData = ['交易对', 'TVL($)', '价格($)', '涨跌幅']
 const pairList = ref([])
 const changePair = (name: string, id: string) => {
   updateData(pairStore, {name, id})
   changeRouteParam(route,router,{pair:id,pairName:name})
 
 }
-watch(()=>symbolStore.id,async ()=>
-   await getPair_list()
-)
+watch(()=>symbolStore.id,async ()=> {
+  page.value=0
+  next.value=true
+  pairList.value=[]
+  await getPair_list()
+})
 const likeStart = (item: any) => console.log(item)
 const getPair_list = async () => {
+  page.value++
   const result = await getPair_side({
+    page_size:5,
+    page:page.value,
     platId: 1,
     symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
-    pairList.value = result?.data?.data.results
+    next.value=result?.data?.data.next?true:false
+    pairList.value=pairList.value.concat(result?.data?.data.results)
   }
 }
 onMounted(() => {
   getPair_list()
 })
+const count=ref(8)
+const load=()=>{
+  const listDom=document.querySelector('.pairList')
+  if (parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) {
+    if(next.value){
+      getPair_list()
+    }
+    // 干你想干的事
+  }
+}
 </script>
 <template>
-  <div class="w-full h-full">
+  {{page}}-{{next}}
+  <div class="w-full h-full" >
       <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader">
         <li class="flex-1 w-1">交易对</li>
-        <li class="w-20 pl-1">TVL($)</li>
-        <li class="w-19 pl-1">价格($)</li>
+        <li class="w-20 pl-1">TVL</li>
+        <li class="w-19 pl-1">价格</li>
 <!--        <li class="w-15 pl-1">涨跌幅</li>-->
       </ul>
-      <div class="w-full h-full showY">
+      <div class="w-full h-25 showY pairList" @scroll="load">
         <template v-for="item in pairList">
           <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
             <div class="flex-1 font-kdExp flex items-center overflow-hidden">
