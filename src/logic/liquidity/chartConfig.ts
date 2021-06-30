@@ -54,7 +54,7 @@ const graphic = () => {
 }
 //@ts-ignore
 const dataZoom=()=>{
- return {
+  return {
     type: 'inside'
   }
 }
@@ -176,11 +176,11 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
 }
 //@ts-ignore  多线图
 const yAxisKline = (
-  min: number,
-  max: number,
-  kmin: number,
-  kmax: number,
-  yLabelFormat: any,
+    min: number,
+    max: number,
+    kmin: number,
+    kmax: number,
+    yLabelFormat: any,
 ) => {
   return [
     {
@@ -250,12 +250,12 @@ const yAxisKline = (
 }
 
 export const chartConfig = (
-  xData: Array<string>,
-  series: any,
-  allYAxis:any,
-  legendList: Array<string>,
-  yLabelFormat: any,
-  getModel: any,
+    xData: Array<string>,
+    series: any,
+    allYAxis:any,
+    legendList: Array<string>,
+    yLabelFormat: any,
+    getModel: any,
 ) => {
   return {
     grid: grid(),
