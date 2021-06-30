@@ -34,7 +34,8 @@ const getChartData=()=>{
   const [series,allYAxis] = getAllItemSeries(
       props?.chartData.xaxis,priceData.value.xaxis,
       props?.chartData.yaxis, priceData.value.yaxis[0],
-      allXaxis
+      allXaxis,
+      paramChart.interval
   )
   draw(xData, series, legend,allYAxis)
 }
