@@ -29,7 +29,8 @@ export default {
     submit: 'Submit',
     confirm: 'Confirm',
     close: 'Close',
-    review: 'In Review'
+    review: 'In Review',
+    success: 'Completed'
   },
   message: {
     verification: 'code',

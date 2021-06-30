@@ -53,7 +53,6 @@ const formdata = reactive({
 
 // @ts-ignore
 const onSubmit = async function() {
-  console.log(props)
   // 判断活动时间
   let status = activity(store)
   if (!status) {

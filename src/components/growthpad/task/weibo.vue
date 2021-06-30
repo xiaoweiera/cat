@@ -20,16 +20,42 @@ const data = computed(() => {
     description: safeGet<string>(weibo || {}, 'desc'),
   }
 })
-// @ts-ignore
-const rewardValue = computed<number>((): number => {
+
+// 获取文章奖励金额
+const getArticleReward = function(): number {
   return toNumber(store.article_reward.value)
-})
+}
+
 // @ts-ignore
-const isRegistered = computed<boolean>((): boolean => {
-  if (store.image_url.value && store.article_url.value) {
-    return true
+const rewardValue = computed<number>(getArticleReward)
+
+
+const ArticleStatus = {
+  init: 'init',
+  check: 'check',
+  fail: 'fail',
+  success: 'success'
+}
+
+
+// @ts-ignore
+const articleStatus = computed<string>((): string => {
+  // 奖励金额
+  const reward = getArticleReward()
+  // 如果奖励金额大于 0， 则表示已审核通过
+  if (reward > 0) {
+    return ArticleStatus.success
   }
-  return false
+  // 特殊处理，奖励金额为 -1， 则表示审核失败
+  if (reward === -1) {
+    return ArticleStatus.fail
+  }
+  // 判断文章截图与文章链接是否存在, 存在则表示已填写正在审核中
+  if (store.image_url.value && store.article_url.value) {
+    return ArticleStatus.check
+  }
+  // 默认为待填写状态
+  return ArticleStatus.init
 })
 
 interface FormData {
@@ -107,120 +133,79 @@ const rules: any = {
         <span class="block" :class="{'pt-2': !!data.title }">{{ data.description }}</span>
       </template>
     </GrowthpadTaskTitle>
-    <el-form ref="formRef" class="mt-3 pb-5" :model="formdata" label-width="0px" :rules="rules" autocomplete="off" @submit.stop.prevent="submit">
-      <template v-if="isRegistered">
-        <UiTableItem :label="I18n.growthpad.weibo.article">
-          <el-form-item>
-            <template v-if="store.article_url.value === 'undefined'">
-              <span>-</span>
-            </template>
-            <template v-else-if="store.article_url.value">
-              <a :href="store.article_url.value" target="_blank">{{ store.article_url.value }}</a>
-            </template>
-            <template v-else>
-              <span>-</span>
-            </template>
-          </el-form-item>
-        </UiTableItem>
-        <!-- 已审核 -->
-        <template v-if="rewardValue">
-          <UiTableItem :label="I18n.growthpad.weibo.articleImg" >
+
+    <!-- 审核通过 -->
+    <template v-if="articleStatus === ArticleStatus.success">
+      <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
+        <template #after>
+          <UiTableItem class="pt-5">
             <el-form-item class="mb-0">
-              <a class="avatar-uploader relative block" :href="store.image_url.value" target="_blank">
-                <img class="preview" :src="store.image_url.value" />
-              </a>
+              <el-button type="success" round size="small">
+                <span>{{ I18n.common.button.success }}</span>
+              </el-button>
             </el-form-item>
           </UiTableItem>
         </template>
-        <!-- 审核中 -->
-        <template v-else>
-          <UiTableItem :label="I18n.growthpad.weibo.articleImg">
-            <el-form-item>
-              <a class="avatar-uploader relative block" :href="store.image_url.value" target="_blank">
-                <img class="preview" :src="store.image_url.value" />
-              </a>
-            </el-form-item>
-          </UiTableItem>
-          <UiTableItem>
+      </GrowthpadTaskArticlePreview>
+    </template>
+
+    <!-- 审核中 -->
+    <template v-else-if="articleStatus === ArticleStatus.check">
+      <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
+        <template #after>
+          <UiTableItem class="pt-5">
             <el-form-item class="mb-0">
-              <el-button type="info" round plain size="small" disabled>
+              <el-button type="info" round size="small" disabled>
                 <span>{{ I18n.common.button.review }}</span>
               </el-button>
             </el-form-item>
           </UiTableItem>
         </template>
-      </template>
-      <template v-else>
-        <UiTableItem :label="I18n.growthpad.weibo.article" >
-          <el-form-item required prop="article_url">
-            <el-input v-model="formdata.article_url" :placeholder="I18n.growthpad.weibo.articlePlaceholder" autocomplete="off" />
-          </el-form-item>
-        </UiTableItem>
-        <UiTableItem :label="I18n.growthpad.weibo.articleImg">
-          <el-form-item required prop="image_url">
-            <div class="md:flex md:items-center">
-              <div>
-                <Upload :src="formdata.image_url" size="xs" @change="onUpload" />
-              </div>
-              <div class="upload-tips md:pl-3 text-xs mt-3 md:mt-0">
-                <span>{{ I18n.growthpad.weibo.notify1 }}</span>
-                <span>{{ I18n.growthpad.weibo.notify2 }}</span>
-              </div>
+      </GrowthpadTaskArticlePreview>
+    </template>
+
+    <!-- 审核失败 -->
+    <template v-else-if="articleStatus === ArticleStatus.fail">
+      <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
+        <template #after>
+          <div class="pt-5 text-sm text-kdFang">
+            <p class="text-global-numRed">{{ I18n.growthpad.weibo.fail }}</p>
+          </div>
+        </template>
+      </GrowthpadTaskArticlePreview>
+    </template>
+
+    <!-- 填写内容 -->
+    <el-form v-else ref="formRef" class="mt-3 pb-5" :model="formdata" label-width="0px" :rules="rules" autocomplete="off" @submit.stop.prevent="submit">
+      <UiTableItem :label="I18n.growthpad.weibo.article" >
+        <el-form-item required prop="article_url">
+          <el-input v-model="formdata.article_url" :placeholder="I18n.growthpad.weibo.articlePlaceholder" autocomplete="off" />
+        </el-form-item>
+      </UiTableItem>
+      <UiTableItem :label="I18n.growthpad.weibo.articleImg">
+        <el-form-item required prop="image_url">
+          <div class="md:flex md:items-center">
+            <div>
+              <Upload :src="formdata.image_url" @change="onUpload" />
             </div>
-          </el-form-item>
-        </UiTableItem>
-        <UiTableItem>
-          <el-form-item class="mb-0">
-            <div class="md:flex md:items-center">
-              <div v-login>
-                <el-button type="primary" round size="small" native-type="submit">
-                  <span>{{ I18n.common.button.submit }}</span>
-                </el-button>
-              </div>
+            <div class="text-global-default text-opacity-50 leading-6 md:pl-3 text-xs mt-3 md:mt-0">
+              <span class="block">{{ I18n.growthpad.weibo.notify1 }}</span>
+              <span class="block">{{ I18n.growthpad.weibo.notify2 }}</span>
             </div>
-          </el-form-item>
-        </UiTableItem>
-      </template>
+          </div>
+        </el-form-item>
+      </UiTableItem>
+      <UiTableItem>
+        <el-form-item class="mb-0">
+          <div class="md:flex md:items-center">
+            <div v-login>
+              <el-button type="primary" round size="small" native-type="submit">
+                <span>{{ I18n.common.button.submit }}</span>
+              </el-button>
+            </div>
+          </div>
+        </el-form-item>
+      </UiTableItem>
     </el-form>
   </div>
 </template>
-<style scoped lang="scss">
-a {
-  color: #2b8dfe;
-}
-.upload-tips {
-  line-height: 24px;
-  color: rgba(37, 62, 111, 0.65);
-  span {
-    display: block;
-  }
-}
-
-.avatar-uploader {
-  min-width: 120px;
-  width: 120px;
-  height: 120px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  background: #fff;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  .preview {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 120px;
-  }
-}
-
-.submit-tips {
-  color: #e9592d;
-}
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-</style>

@@ -78,7 +78,8 @@ Expected reward +{reward} {token}`,
     // tips: '* 已提交等待审核，重新提交会替换之前的内容。'
     tips: '* Verifying,when resubmitting the previous information will be covered. ',
     retwitter: 'And retweet the twitter.',
-    warn: 'After submitting for review, you cannot modify it. Please check your submission carefully.'
+    warn: 'After submitting for review, you cannot modify it. Please check your submission carefully.',
+    fail: 'The content of the article does not meet the requirements.'
   },
   invited: {
     count: 'My invitation: ',
