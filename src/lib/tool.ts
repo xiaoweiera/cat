@@ -27,13 +27,14 @@ export const numberUnitFormat = (value: any) => {
   }
   const k = 10000
   const sizes = ['', '万', '亿', '万亿']
-  if (value < k) {
+  if (value < k && value>=0) {
     return Math.round(value * 100) / 100
   }
-  const i: number = Math.floor(Math.log(value) / Math.log(k))
-  const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
+
+  const i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k))
+  const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
   const unit = sizes[i]
-  return values + unit
+  return value>=0?values + unit:'-'+values+unit
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
   if (!value && value !== 0) {
@@ -210,4 +211,29 @@ export const messageTip=(content:string,typeName:string)=>{
     //@ts-ignore
     type: typeName
   });
+}
+//保留小数点0后面的两位有效小数
+export const getTwoValidityNumber=(number:number)=>{
+  let result=''
+  const numberStr=number?number.toString():''
+  if(numberStr.indexOf('0')<0){
+    result=number?number.toFixed(2):'0'
+  }else{
+    if(numberStr.indexOf('.')<0){
+      result= number.toFixed(2)
+    }else{
+      const numberArray=numberStr.split('.')
+     numberArray[1].slice(0,numberArray[1].indexOf('0')+2)
+      let zeroIndex=-1
+       numberArray[1].split('').find((n:string,i:number)=>{
+          if(n!=='0') {
+            zeroIndex= i
+            return n
+          }
+      })
+      //@ts-ignore
+      result=numberArray[0]+'.'+numberArray[1].slice(0,zeroIndex+2)
+    }
+  }
+  return parseFloat(result)
 }
