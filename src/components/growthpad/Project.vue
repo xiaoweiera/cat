@@ -192,6 +192,13 @@ timeout()
         <!--        保持格式-->
         <div v-else class="mt-6.3"></div>
       </div>
+      <!-- 提示 -->
+      <div class="flex blockItem mt-3" v-if="props.project.warn">
+        <p class="projectNum" style="margin: 0;">
+          <a class="link">{{ props.project.warn }}</a>
+        </p>
+      </div>
+
       <GrowthpadIndexProjectButton
         :url="props.project.url"
         :status="props.status"

@@ -335,6 +335,9 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
     }
   },
   ChainWallet: {
+    project: {
+      warn: 'Due to force majeure, the activity is postponed to July 2.'
+    },
     dashboard: {
       desc: `In order to give back to community users, ChainWallet cooperated with KingData to launch an incentive activity worth 200,000 CHA on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
