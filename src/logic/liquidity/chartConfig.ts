@@ -1,7 +1,9 @@
+import { paramChart} from '~/store/liquidity/state'
 const grid = () => {
+  const xLength=paramChart.interval==='1D'?'11px':'33px'
   return {
-    left: '0px',
-    right: '0px',
+    left: xLength,
+    right: xLength,
     bottom: '45px',
     top: '16px',
     y2: 0,
@@ -75,12 +77,11 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       type: 'category',
       data: xdata,
       axisLabel: {
-        showMinLabel: true,
-        showMaxLabel: false,
+        // showMinLabel: true,
+        // showMaxLabel: true,
         // showMinLabel: isMobile ? null : null, //显示最小值
         // showMaxLabel: isMobile ? null : null, //显示最大值
-        align: 'left',
-        splitNumber: 3,
+        // splitNumber: 3,
         textStyle: {
           color: '#989898',
         },
