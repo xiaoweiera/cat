@@ -3,9 +3,11 @@
  * @author svon.me@gmail.com
  */
 
-import { trim } from 'ramda'
+import { is, trim, isEmpty as _isEmpty } from 'ramda'
 //@ts-ignore
 import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
+
+export { isNil } from 'ramda'
 
 type Callback = () => void
 
@@ -94,4 +96,41 @@ export const isHttp = function(value: string): boolean {
     }
   }
   return false;
+}
+
+export const isUndefined = function(value: any, checkUndefined?: boolean): boolean {
+  const check = 'undefined'
+  if (typeof value === check) {
+    return true
+  }
+  if (checkUndefined && value === check) {
+    return true
+  }
+  return false
+}
+
+export const isString = (value: any): boolean => is(String, value)
+
+export const isNumber = (value: any): boolean => is(Number, value)
+
+export const isArray = function(value: any): boolean {
+  if (Array.isArray(value)) {
+    return true
+  }
+  return is(Array, value)
+}
+export const isObject = function(value: any): boolean {
+  const status = isArray(value)
+  if (status) {
+    return false
+  }
+  return is(Object, value)
+}
+
+export const isEmpty = function(value: any, checkUndefined?: boolean): boolean {
+  const status = isUndefined(value, checkUndefined)
+  if (status) {
+    return true
+  }
+  return _isEmpty(value)
 }

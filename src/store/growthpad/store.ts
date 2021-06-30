@@ -255,8 +255,6 @@ class Store {
     // 预计获得奖励
     this.week_expected_reward.value = safeGet<number>(result, 'week_expected_reward') || 0
 
-    console.log('total = "%s", week = "%s"', this.grand_total_reward.value, this.week_expected_reward.value)
-
     // 更新 info 信息
     if (info) {
       this.info.bsc = safeGet<string>(info, 'bsc')

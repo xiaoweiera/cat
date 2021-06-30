@@ -29,7 +29,8 @@ export default {
     submit: 'Submit',
     confirm: 'Confirm',
     close: 'Close',
-    review: 'In Review'
+    review: 'In Review',
+    success: 'Completed'
   },
   message: {
     verification: 'code',
@@ -71,7 +72,7 @@ export default {
   chat: {
     telegram: 'Telegram',
     telegramGroup: 'Telegram Group',
-    joinTelegram: 'Join the telegram group',
+    joinTelegram: 'Join Telegram',
     twitter: 'Twitter',
     sina: 'Weibo'
   },

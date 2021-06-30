@@ -1,6 +1,7 @@
 import * as R from 'ramda'
-import {formatDefaultTime, min_max, numberFormat, formatHourTime} from '~/lib/tool'
+import {formatDefaultTime, min_max, numberUnitFormat, formatHourTime} from '~/lib/tool'
 import {getCharts} from '~/api/liquidity'
+import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
 interface yModel {
   color: string
   data: Array<number>
@@ -51,7 +52,15 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<n
   legend.push({icon:lineIcon,name:kyData.name})
   return legend
 }
-const formatYData = (item: any, isKline: boolean,xData:Array<number>,allxData:Array<number>) => {
+const unitOrder=(v:any,unit:string)=>{
+  if(!unit) return numberUnitFormat(v)
+  if(unit==='$'){
+    return  unit+numberUnitFormat(v)
+  }else{
+    return numberUnitFormat(v)+unit
+  }
+}
+const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>) => {
   let min: any = null
   let max: any = null
   const ydata=getNewyData(xData,item.data,allxData)
@@ -59,8 +68,8 @@ const formatYData = (item: any, isKline: boolean,xData:Array<number>,allxData:Ar
     [min, max] = min_max(min, max, v)
     return {
       value: v,
-      orginValue: numberFormat(v),
-      formatValue: numberFormat(v) + (item.unit?item.unit:'无'),
+      orginValue: numberUnitFormat(v),
+      formatValue:unitOrder(v,item.unit),
       // color: item.color
     }
   }, ydata)
@@ -90,7 +99,7 @@ const formatYData = (item: any, isKline: boolean,xData:Array<number>,allxData:Ar
       barGap: '0%',
       barCategoryGap: '35%',
       areaStyle: item.type === 'area' ? area : null,
-      yAxisIndex: isKline ? 1 : 0,
+      yAxisIndex: i,
       connectNulls: true,
       smooth: true,
       itemStyle: {
@@ -115,6 +124,25 @@ const formatYData = (item: any, isKline: boolean,xData:Array<number>,allxData:Ar
     max,
   ]
 }
+
+export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v)
+//getSeries
+export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
+  const series = []
+  const allYAxis=[]
+  yData.forEach((item:yModel,i:number)=>{
+    const [obj, min, max] = formatYData(item, i,false,xData,allxData)
+    allYAxis.push(yAxisModel(min,max,yLabelFormat))
+    series.push(obj)
+  })
+  // kline
+  if (kyData) {
+    const [obj, kmin, kmax] = formatYData(kyData,yData.length, true,kxData,allxData)
+    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat))
+    series.push(obj)
+  }
+  return [series,allYAxis]
+}
 // 得到series
 export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
   const series = []
@@ -122,24 +150,21 @@ export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Arra
   let maxM: any = null
   let kminM: any = null
   let kmaxM: any = null
-  R.forEach((item: yModel) => {
-    const [obj, min, max] = formatYData(item, false,xData,allxData)
+  yData.forEach((item:yModel,i:number)=>{
+    const [obj, min, max] = formatYData(item, 0,false,xData,allxData)
     series.push(obj)
     minM = R.min(min, minM)
     maxM = R.max(max, maxM)
-    // alert(this.min)
-  }, yData)
+  })
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData, true,kxData,allxData)
+    const [obj, kmin, kmax] = formatYData(kyData,1, true,kxData,allxData)
     series.push(obj)
     kminM = kmin
     kmaxM = kmax
   }
   return [minM, maxM, kminM, kmaxM, series]
 }
-
-export const yLabelFormat = (v: any) => numberFormat(v)
 // 提示文字
 export const getModel = (params: any) => {
   // 水印 遮盖有问题   需要改改改

@@ -29,7 +29,8 @@ export default {
     submit: '提交',
     confirm: '确认',
     close: '取消',
-    review: '审核中'
+    review: '审核中',
+    success: '审核完成'
   },
   message: {
     verification: '获取验证码',

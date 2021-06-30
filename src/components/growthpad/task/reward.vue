@@ -275,9 +275,6 @@ const rewardValue = computed<number>((): number => {
       return getMin(props.data.reward)
     }
   }
-
-  console.log(props.data.type)
-
   return 0
 })
 

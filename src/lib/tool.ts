@@ -5,9 +5,25 @@ import { ElMessage } from 'element-plus'
 import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 
+//apy的特殊处理，别更改
 export const numberFormat = (value: any) => {
   if (value===null) {
     return null
+  }
+  const k = 10000
+  const sizes = ['', '万', '亿', '万亿']
+  if (value < k) {
+    return Math.round(value * 100) / 100
+  }
+  const i: number = Math.floor(Math.log(value) / Math.log(k))
+  const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
+  const unit = sizes[i]
+  return values + unit
+}
+//更改数字文案
+export const numberUnitFormat = (value: any) => {
+  if (!value) {
+    return 0
   }
   const k = 10000
   const sizes = ['', '万', '亿', '万亿']
@@ -184,4 +200,14 @@ export const smallToken = (tokenId: string) => {
 export const subStr = (str:string)=>{
   if (!str || str.length<=10) return str
   return str.slice(0, 10)+'...'
+}
+//弱提示框
+export const messageTip=(content:string,typeName:string)=>{
+  ElMessage({
+    showClose: true,
+    dangerouslyUseHTMLString:true,
+    message:`<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="https://res.ikingdata.com/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
+    //@ts-ignore
+    type: typeName
+  });
 }
