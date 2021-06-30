@@ -11,7 +11,7 @@ const grid = () => {
   }
 }
 
-const tooltips = (getModel: any) => {
+const tooltips = (getModel: any,xData:any) => {
   return {
     padding: [8, 10, 8, 10],
     trigger: 'axis',
@@ -23,7 +23,7 @@ const tooltips = (getModel: any) => {
     borderWidth: 1.5,
     borderColor: 'rgba(0, 0, 0, 0.06)',
     formatter: (params: any) => {
-      return getModel(params)
+      return getModel(params,xData)
     },
   }
 }
@@ -259,7 +259,7 @@ export const chartConfig = (
 ) => {
   return {
     grid: grid(),
-    tooltip: tooltips(getModel),
+    tooltip: tooltips(getModel,xData),
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
     legend: legend(legendList),

@@ -12,7 +12,7 @@ interface yModel {
 // 将x轴转日期格式 得到x轴
 export const getXData = (xData: Array<number>, interval: string) => {
   if (interval === '1d' || interval === '1D') {
-    return R.map((item: number) => formatDefaultTime(item), xData)
+    return R.map((item: number) => formatDefaultTime(item,'MM/DD'), xData)
   } else {
     return R.map((item: number) => formatHourTime(item), xData)
   }
@@ -60,7 +60,7 @@ const unitOrder=(v:any,unit:string)=>{
     return numberUnitFormat(v)+unit
   }
 }
-const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>) => {
+const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string) => {
   let min: any = null
   let max: any = null
   const ydata=getNewyData(xData,item.data,allxData)
@@ -70,6 +70,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       value: v,
       orginValue: numberUnitFormat(v),
       formatValue:unitOrder(v,item.unit),
+      interval:interval
       // color: item.color
     }
   }, ydata)
@@ -127,49 +128,54 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
 
 export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v)
 //getSeries
-export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
+export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
   const series = []
   const allYAxis=[]
   yData.forEach((item:yModel,i:number)=>{
-    const [obj, min, max] = formatYData(item, i,false,xData,allxData)
+    const [obj, min, max] = formatYData(item, i,false,xData,allxData,interval)
     allYAxis.push(yAxisModel(min,max,yLabelFormat))
     series.push(obj)
   })
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,yData.length, true,kxData,allxData)
+    const [obj, kmin, kmax] = formatYData(kyData,yData.length, true,kxData,allxData,interval)
     allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat))
     series.push(obj)
   }
   return [series,allYAxis]
 }
 // 得到series
-export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>) => {
+export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
   const series = []
   let minM: any = null
   let maxM: any = null
   let kminM: any = null
   let kmaxM: any = null
   yData.forEach((item:yModel,i:number)=>{
-    const [obj, min, max] = formatYData(item, 0,false,xData,allxData)
+    const [obj, min, max] = formatYData(item, 0,false,xData,allxData,interval)
     series.push(obj)
     minM = R.min(min, minM)
     maxM = R.max(max, maxM)
   })
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,1, true,kxData,allxData)
+    const [obj, kmin, kmax] = formatYData(kyData,1, true,kxData,allxData,interval)
     series.push(obj)
     kminM = kmin
     kmaxM = kmax
   }
   return [minM, maxM, kminM, kmaxM, series]
 }
+
 // 提示文字
-export const getModel = (params: any) => {
+export const getModel = (params: any,xData:any) => {
   // 水印 遮盖有问题   需要改改改
   if (!params[0]) return
-  const title = params[0].axisValue
+  let title = xData[0]+' - '+xData[xData.length-1]
+  const titleList=title.split(' - ')
+  if(params[0].data.interval==='1D'){
+    title=R.replace('/','月',titleList[0])+'日'+' - '+R.replace('/','月',titleList[1])+'日'
+  }
   // @ts-ignore
   params = R.sortBy((item) => -item.data.value, params)
   const result = R.map(({ seriesName, data, seriesIndex: idx, color }) => {
