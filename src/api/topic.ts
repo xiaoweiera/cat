@@ -3,11 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import getAdsList from './ads'
 import { topic } from './pathname'
 import request from '~/lib/request'
 import CreateDB from '~/logic/topic/db'
 import safeGet from '@fengqiaogang/safe-get'
-import { MenuItem } from '~/logic/topic/props'
+import { MenuItem, MenuType } from '~/logic/topic/props'
 
 
 const myself: MenuItem = {
@@ -15,13 +16,16 @@ const myself: MenuItem = {
   id: 'my',
   order: 0,
   icon_image: 'https://res.ikingdata.com/nav/topicMy.png',
+  type: MenuType.star
 }
 
 const recommend: MenuItem = {
   name: '精选推荐',
+  title: '精选推荐数据专题',
   id: '0',
   order: 0.5,
-  icon_image: 'https://res.ikingdata.com/nav/topicRecom.png'
+  icon_image: 'https://res.ikingdata.com/nav/topicRecom.png',
+  type: MenuType.recommend
 }
 
 const convert = function(array: Array<MenuItem>): MenuItem[] {
@@ -56,7 +60,7 @@ const convert = function(array: Array<MenuItem>): MenuItem[] {
   return temp.childrenDeep()
 }
 
-
+// 获取菜单列表
 export const getMenuList = async function(): Promise<MenuItem[]> {
   try {
     const result = await request.get(topic.getMenuList)
@@ -76,3 +80,10 @@ export const getMenuList = async function(): Promise<MenuItem[]> {
   }
   return [myself, recommend]
 }
+
+// 精选广告位
+export const ads = function<T>(): Promise<T[]> {
+  // 获取数据图表-精选推荐广告位
+  return getAdsList(4)
+}
+

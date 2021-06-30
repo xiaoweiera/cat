@@ -1,9 +1,8 @@
 <script setup lang="ts">
   import { defineProps } from 'vue'
   import { toNumber } from '~/utils/index'
-  import { param } from '~/logic/topic/router'
-  import { menuList } from '~/logic/topic/menu'
-  import CreateDB from '~/logic/topic/db'
+  // @ts-ignore
+  import { menuList, isChecked, isChildren } from '~/logic/topic/menu'
 
   const props = defineProps({
     list: {
@@ -39,33 +38,6 @@
   const isParent = function(item?: any) {
     if (item && item.pid === '-1') {
       return true
-    }
-    return false
-  }
-
-  const isChecked = function(item: any): boolean {
-    const db = CreateDB()
-    db.insert(db.flatten(menuList.value, 'children'))
-    // 查询 topicId 匹配数据
-    const value = db.selectOne({
-      tagId: param.tagID,
-      topicID: param.topicID,
-    })
-    return value.mid === item.mid;
-  }
-  // 判断子集数据是否匹配
-  // @ts-ignore
-  const isChildren = function(item: any): boolean {
-    if (item.children) {
-      const db = CreateDB()
-      db.insert(db.flatten(item.children, 'children'))
-      const value = db.selectOne({
-        tagId: param.tagID,
-        topicID: param.topicID,
-      })
-      if (value) {
-        return true
-      }
     }
     return false
   }
