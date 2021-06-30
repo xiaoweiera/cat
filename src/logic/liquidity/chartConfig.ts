@@ -11,7 +11,7 @@ const grid = () => {
   }
 }
 
-const tooltips = (getModel: any) => {
+const tooltips = (getModel: any,xData:any) => {
   return {
     padding: [8, 10, 8, 10],
     trigger: 'axis',
@@ -23,7 +23,7 @@ const tooltips = (getModel: any) => {
     borderWidth: 1.5,
     borderColor: 'rgba(0, 0, 0, 0.06)',
     formatter: (params: any) => {
-      return getModel(params)
+      return getModel(params,xData)
     },
   }
 }
@@ -54,7 +54,7 @@ const graphic = () => {
 }
 //@ts-ignore
 const dataZoom=()=>{
- return {
+  return {
     type: 'inside'
   }
 }
@@ -176,11 +176,11 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
 }
 //@ts-ignore  多线图
 const yAxisKline = (
-  min: number,
-  max: number,
-  kmin: number,
-  kmax: number,
-  yLabelFormat: any,
+    min: number,
+    max: number,
+    kmin: number,
+    kmax: number,
+    yLabelFormat: any,
 ) => {
   return [
     {
@@ -250,16 +250,16 @@ const yAxisKline = (
 }
 
 export const chartConfig = (
-  xData: Array<string>,
-  series: any,
-  allYAxis:any,
-  legendList: Array<string>,
-  yLabelFormat: any,
-  getModel: any,
+    xData: Array<string>,
+    series: any,
+    allYAxis:any,
+    legendList: Array<string>,
+    yLabelFormat: any,
+    getModel: any,
 ) => {
   return {
     grid: grid(),
-    tooltip: tooltips(getModel),
+    tooltip: tooltips(getModel,xData),
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
     legend: legend(legendList),
