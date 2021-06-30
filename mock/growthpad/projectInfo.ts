@@ -85,8 +85,8 @@ export const chainWallet = {
   website: 'app.chainwallet.me',
   dashboard: {
     banner: I18n.growthpad.growthpad.dashboard.banner,
-    begin: '2021-06-30 15:00:00', // 开始时间
-    end: '2021-07-15 15:00:00', // 结束时间
+    begin: '2021-07-06 15:00:00', // 开始时间
+    end: '2021-12-30 15:00:00', // 结束时间
     description: I18n.growthpad.ChainWallet.dashboard.desc, // 描述
     reward: {
       count: 200000, // 奖励数量
