@@ -6,7 +6,7 @@ import {symbolStore} from '~/store/liquidity/state'
 import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
-import {changeRoute, changeRouteParam, toFixedNumber,numberUnitFormat} from '~/lib/tool'
+import {changeRoute, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber} from '~/lib/tool'
 import {
   pairStore,
   updateData,
@@ -63,7 +63,7 @@ const load = () => {
 <template>
   <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid #ffffff;">
     <li class="flex-1">交易对</li>
-    <li class="w-20">TVL</li>
+    <li class="w-20">TVL($)</li>
     <li class="w-27 mr-1">价格</li>
   </ul>
   <div class="w-full h-full showY pairList" @scroll="load">
@@ -77,7 +77,7 @@ const load = () => {
         <div class="w-20     text-kd12px16px text-global-default">{{ numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
         <div class="w-27    text-kd12px16px text-global-default">
           <el-tooltip :hide-after="10" :content="toFixedNumber(item.price)" placement="bottom" effect="light">
-            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ toFixedNumber(item.price) }}</span>
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ getTwoValidityNumber(item.price) }}</span>
           </el-tooltip>
 
           </div>

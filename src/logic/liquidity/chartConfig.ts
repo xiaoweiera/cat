@@ -77,8 +77,8 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       type: 'category',
       data: xdata,
       axisLabel: {
-        // showMinLabel: true,
-        // showMaxLabel: true,
+        showMinLabel: true,
+        showMaxLabel: true,
         // showMinLabel: isMobile ? null : null, //显示最小值
         // showMaxLabel: isMobile ? null : null, //显示最大值
         // splitNumber: 3,
