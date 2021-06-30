@@ -86,7 +86,7 @@ export const chainWallet = {
   warn: I18n.growthpad.ChainWallet.project.warn, // 警示
   dashboard: {
     banner: I18n.growthpad.growthpad.dashboard.banner,
-    begin: '2021-07-06 15:00:00', // 开始时间
+    begin: '2021-07-02 20:00:00', // 开始时间
     end: '2021-12-30 15:00:00', // 结束时间
     description: I18n.growthpad.ChainWallet.dashboard.desc, // 描述
     reward: {
