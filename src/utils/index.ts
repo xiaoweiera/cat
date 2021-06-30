@@ -127,6 +127,10 @@ export const isObject = function(value: any): boolean {
   return is(Object, value)
 }
 
+export const isFunction = function(value: any): boolean {
+  return is(Function, value)
+}
+
 export const isEmpty = function(value: any, checkUndefined?: boolean): boolean {
   const status = isUndefined(value, checkUndefined)
   if (status) {

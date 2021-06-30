@@ -5,8 +5,8 @@
 
 import { topic } from './pathname'
 import request from '~/lib/request'
+import CreateDB from '~/logic/topic/db'
 import safeGet from '@fengqiaogang/safe-get'
-import DBList from '@fengqiaogang/dblist'
 import { MenuItem } from '~/logic/topic/props'
 
 
@@ -21,13 +21,11 @@ const recommend: MenuItem = {
   name: '精选推荐',
   id: '0',
   order: 0.5,
-  icon_image: 'https://res.ikingdata.com/nav/topicRecom.png',
+  icon_image: 'https://res.ikingdata.com/nav/topicRecom.png'
 }
 
-
-
 const convert = function(array: Array<MenuItem>): MenuItem[] {
-  const db = new DBList([], 'mid', 'pid', '-1', 'order')
+  const db = CreateDB()
   // 根据 topic 字段打散数据
   const list = db.flatten<MenuItem>(array, 'topic')
   // 整理数据
@@ -35,10 +33,27 @@ const convert = function(array: Array<MenuItem>): MenuItem[] {
     if (item.web_logo_image) {
       item.icon_image = item.web_logo_image
     }
+    item.id = `${item.id}`
     return item;
   }))
+
+  const temp = CreateDB()
+
+  // @ts-ignore
+  db.clone().forEach(function(item: MenuItem) {
+    const data = Object.assign({}, item)
+    const parent: MenuItem = db.parent(item)
+    data.topicID = item.id
+    if (parent) {
+      data.tagId = parent.id
+    } else {
+      data.tagId = 'item'
+    }
+    temp.insert(data)
+  })
+
   // 按规则返回
-  return db.childrenDeep()
+  return temp.childrenDeep()
 }
 
 

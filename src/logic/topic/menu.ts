@@ -9,9 +9,9 @@ import { getMenuList } from '~/api/topic'
 
 export const menuList = ref<MenuItem[]>([])
 
+
 export const syncMenuList = async function() {
   const list = await getMenuList()
-  console.log(list)
   menuList.value = list
 }
 

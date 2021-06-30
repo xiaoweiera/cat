@@ -12,5 +12,7 @@ export class MenuItem {
   count?: number = 0
   order?: number = 0
   children?: MenuItem[] = []
+  tagId?: string | number
+  topicID?: string | number
 }
 

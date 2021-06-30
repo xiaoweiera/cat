@@ -1,6 +1,11 @@
 <script setup lang="ts">
   import { defineProps } from 'vue'
-  defineProps({
+  import { toNumber } from '~/utils/index'
+  import { param } from '~/logic/topic/router'
+  import { menuList } from '~/logic/topic/menu'
+  import CreateDB from '~/logic/topic/db'
+
+  const props = defineProps({
     list: {
       type: Array,
       default () {
@@ -11,6 +16,12 @@
       type: String,
       default () {
         return 'base'
+      }
+    },
+    padding: {
+      type: Number,
+      default () {
+        return 0
       }
     }
   })
@@ -31,13 +42,73 @@
     }
     return false
   }
+
+  const isChecked = function(item: any): boolean {
+    const db = CreateDB()
+    db.insert(db.flatten(menuList.value, 'children'))
+    // 查询 topicId 匹配数据
+    const value = db.selectOne({
+      tagId: param.tagID,
+      topicID: param.topicID,
+    })
+    return value.mid === item.mid;
+  }
+  // 判断子集数据是否匹配
+  // @ts-ignore
+  const isChildren = function(item: any): boolean {
+    if (item.children) {
+      const db = CreateDB()
+      db.insert(db.flatten(item.children, 'children'))
+      const value = db.selectOne({
+        tagId: param.tagID,
+        topicID: param.topicID,
+      })
+      if (value) {
+        return true
+      }
+    }
+    return false
+  }
+
+  // 动态计算 class 名称
+  const getClassName = function(item: any) {
+    const tmp = {
+      '4': 'pl-4',
+      '14': 'pl-14',
+      '24': 'pl-24',
+      '34': 'pl-34',
+      '44': 'pl-44'
+    }
+    let key = 4
+    const className = []
+    if (props.padding) {
+      key += toNumber(props.padding, 0)
+    }
+    className.push(tmp[key])
+    if (isParent(item)) {
+      className.push()
+    }
+
+    if (isChecked(item)) {
+      className.push('active')
+    }
+    return className
+  }
+
 </script>
 
 <template>
   <template v-for="(item, index) in list" :key="index">
     <div class="menu-item">
-      <input class="menu-radio" type="radio" :id="item.mid" :name="redioName" v-if="len(item.children)"/>
-      <TopicMenuName class="menu-label cursor-pointer px-4 py-3 font-kdFang block" :class="{ 'menu-parent': isParent(item) }" :data="item" :for="item.mid">
+      <template v-if="isChildren(item)">
+        <!-- 默认选中 -->
+        <input class="menu-radio" type="radio" checked :id="item.mid" :name="redioName" v-if="len(item.children)"/>
+      </template>
+      <template v-else>
+        <input class="menu-radio" type="radio" :id="item.mid" :name="redioName" v-if="len(item.children)"/>
+      </template>
+
+      <TopicMenuName class="menu-label cursor-pointer pr-4 py-3 font-kdFang block" :class="getClassName(item)" :data="item" :for="item.mid">
         <span class="flex items-center justify-between px-0.5">
           <span class="flex items-center">
             <IconFont class="mr-4 inline-flex" :type="item.icon_image" :size="iconSize"></IconFont>
@@ -51,8 +122,8 @@
           </span>
         </span>
       </TopicMenuName>
-      <div class="menu-children ml-10" v-if="len(item.children)">
-        <TopicMenu :list="item.children" icon-size="base"></TopicMenu>
+      <div class="menu-children" v-if="len(item.children)">
+        <TopicMenu :list="item.children" :padding="padding + 10" icon-size="base"></TopicMenu>
       </div>
     </div>
   </template>
@@ -98,7 +169,7 @@
         font-size: 16px;
       }
     }
-    &:hover {
+    &:hover, &.active {
       @extend %active;
       background: rgba(43,141,255,.12941);
     }
