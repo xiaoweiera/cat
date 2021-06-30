@@ -2,7 +2,7 @@
 import { ref, defineProps, onMounted,watch } from 'vue'
 import { selectCoin,symbolStore } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
-import { toFixedNumber, smallToken,messageTip } from '~/lib/tool'
+import { toFixedNumber, smallToken,messageTip,getTwoValidityNumber } from '~/lib/tool'
 import I18n from '~/utils/i18n'
 import { getToken_side } from '~/api/liquidity'
 const props = defineProps({
@@ -50,16 +50,16 @@ onMounted(() => {
       </div>
       <!-- 涨幅-->
       <div class="flex items-center mt-1.5">
-        <span class="text-global-default opacity-85 text-kd20px28px">${{ toFixedNumber(info.price) }}</span>
-        <div class="flex items-center bg-global-numRed px-1 py-0.25 ml-1.5" style="border-radius: 2px">
-          <img src="https://res.ikingdata.com/nav/liquUp.png" class="w-2 h-3" alt=""/>
-          <!--          <span class="text-kd12px18px text-white ml-0.5">130%</span>-->
-        </div>
+        <span class="text-global-default opacity-85 text-kd20px28px">${{ getTwoValidityNumber(info.price) }}</span>
+<!--        <div class="flex items-center bg-global-numRed px-1 py-0.25 ml-1.5" style="border-radius: 2px">-->
+<!--          <img src="https://res.ikingdata.com/nav/liquUp.png" class="w-2 h-3" alt=""/>-->
+<!--          &lt;!&ndash;          <span class="text-kd12px18px text-white ml-0.5">130%</span>&ndash;&gt;-->
+<!--        </div>-->
       </div>
       <!-- TVL-->
       <div class="flex items-center mt-1.5">
         <span class="text-kd14px20px text-global-default opacity-65">TVL:</span>
-        <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? info.tvl : '-' }}</span>
+        <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? parseInt(info.tvl) : '-' }}</span>
       </div>
       <div class="flex items-center font-kdFang mt-1.5">
         <span class="text-kd12px16px text-global-default opacity-35">Token地址</span>

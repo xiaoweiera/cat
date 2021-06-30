@@ -1,59 +1,59 @@
 <script setup lang="ts">
 // @ts-ignore
 import {ElTooltip, ElInfiniteScroll} from 'element-plus'
-import {defineProps,onMounted, reactive, watch, ref} from 'vue'
-import { symbolStore } from '~/store/liquidity/state'
+import {defineProps, onMounted, reactive, watch, ref} from 'vue'
+import {symbolStore} from '~/store/liquidity/state'
 import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
-import {changeRoute,changeRouteParam,toFixedNumber} from '~/lib/tool'
+import {changeRoute, changeRouteParam, toFixedNumber,numberUnitFormat} from '~/lib/tool'
 import {
   pairStore,
   updateData,
 } from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
 
-const page=ref(0) //第几页
-const next=ref(true) //是否有下一页
+const page = ref(0) //第几页
+const next = ref(true) //是否有下一页
 const route = useRoute()
 const router = useRouter()
 const props = defineProps({
-  symbol:String,
+  symbol: String,
 })
 const pairList = ref([])
 const changePair = (name: string, id: string) => {
   updateData(pairStore, {name, id})
-  changeRouteParam(route,router,{pair:id,pairName:name})
+  changeRouteParam(route, router, {pair: id, pairName: name})
 
 }
-watch(()=>symbolStore.id,async ()=> {
-  page.value=0
-  next.value=true
-  pairList.value=[]
+watch(() => symbolStore.id, async () => {
+  page.value = 0
+  next.value = true
+  pairList.value = []
   await getPair_list()
 })
 const likeStart = (item: any) => console.log(item)
 const getPair_list = async () => {
   page.value++
   const result = await getPair_side({
-    page_size:5,
-    page:page.value,
+    page_size: 100,
+    page: page.value,
     platId: 1,
     symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
-    next.value=result?.data?.data.next?true:false
-    pairList.value=pairList.value.concat(result?.data?.data.results)
+    next.value = result?.data?.data.next ? true : false
+    pairList.value = pairList.value.concat(result?.data?.data.results)
   }
 }
 onMounted(() => {
   getPair_list()
 })
-const count=ref(8)
-const load=()=>{
-  const listDom=document.querySelector('.pairList')
+const count = ref(8)
+const load = () => {
+  const listDom = document.querySelector('.pairList')
   if (parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) {
-    if(next.value){
+    if (next.value) {
       getPair_list()
     }
     // 干你想干的事
@@ -61,46 +61,41 @@ const load=()=>{
 }
 </script>
 <template>
-  {{page}}-{{next}}
-  <div class="w-full h-full" >
-      <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader">
-        <li class="flex-1 w-1">交易对</li>
-        <li class="w-20 pl-1">TVL</li>
-        <li class="w-19 pl-1">价格</li>
-<!--        <li class="w-15 pl-1">涨跌幅</li>-->
-      </ul>
-      <div class="w-full h-25 showY pairList" @scroll="load">
-        <template v-for="item in pairList">
-          <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
-            <div class="flex-1 font-kdExp flex items-center overflow-hidden">
-              <img class="w-3 h-3" src="https://res.ikingdata.com/nav/noStart.png" alt="" @click="likeStart(item)"/>
-              <el-tooltip :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">
-                <span class="txtSmall ml-1.5 text-kd12px16px text-global-default opacity-85">
-                  {{ item.symbol0 + '/' + item.symbol1 }}
-                </span>
-              </el-tooltip>
-            </div>
-            <div class="w-20  text-kd12px16px text-global-default">{{ toFixedNumber(item.tvl) }}</div>
-            <div class="w-15  text-kd12px16px text-global-default">{{ toFixedNumber(item.price) }}</div>
-<!--            <div class="percentGreen text-left">+20%</div>-->
+  <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid #ffffff;">
+    <li class="flex-1">交易对</li>
+    <li class="w-20">TVL</li>
+    <li class="w-27 mr-1">价格</li>
+  </ul>
+  <div class="w-full h-full showY pairList" @scroll="load">
+    <template v-for="item in pairList">
+      <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
+        <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
+          <el-tooltip :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">
+                <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ item.symbol0 + '/' + item.symbol1 }}</span>
+          </el-tooltip>
+        </div>
+        <div class="w-20     text-kd12px16px text-global-default">{{ numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
+        <div class="w-27    text-kd12px16px text-global-default">
+          <el-tooltip :hide-after="10" :content="toFixedNumber(item.price)" placement="bottom" effect="light">
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ toFixedNumber(item.price) }}</span>
+          </el-tooltip>
+
           </div>
-        </template>
       </div>
-    </div>
+    </template>
+  </div>
 </template>
 <style lang="postcss" scoped>
 ::v-deep(.el-table td) {
   padding: 8px 0;
 }
-
 .selectRow {
   border-right: 3px solid rgba(43, 141, 254, 0.9);
-  @apply bg-global-primary bg-opacity-18 flex h-7 px-3 selectRow items-center cursor-pointer;
+  @apply bg-global-primary bg-opacity-18 flex  h-7  px-3  items-center cursor-pointer;
 }
-
 .defaultRow {
   border-right: 3px solid #ffffff;
-  @apply flex h-7 px-3 selectRow items-center cursor-pointer;
+  @apply flex h-7  px-3   items-center cursor-pointer;
 }
 
 .tableHeader {
@@ -119,14 +114,13 @@ const load=()=>{
 }
 
 .showY::-webkit-scrollbar {
-  width: 8px;
   height: 8px;
+  @apply w-1;
 }
 
 .showY::-webkit-scrollbar-thumb:vertical {
   background: rgba(0, 0, 0, 0.1);
 }
-
 
 
 .percentGreen {
