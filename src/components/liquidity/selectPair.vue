@@ -71,7 +71,7 @@ onMounted(()=>{
 </script>
 <template>
   <ul class="mt-3">
-    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">交易对</li>
+    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 text-kdFang font-medium ">交易对</li>
     <template v-for="item in pairList">
       <li class="itemLi hand" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
         <div class="coinName">

@@ -6,7 +6,6 @@ import { symbolStore,pairStore,selectTxt,setHistory } from '~/store/liquidity/st
 import {getInfoByToken} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {subStr,changeRouteParam} from '~/lib/tool'
-
 const props = defineProps({
   close:Function
 })
@@ -68,12 +67,20 @@ onMounted(()=>{
 </script>
 <template>
   <ul>
-    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
+    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 text-kdFang font-medium ">币种</li>
+    <div class="flex py-1.5 header-Border">
+      <div class="header-txt w-35">Name/Symbol</div>
+      <div class="header-txt w-30">合约地址</div>
+      <div class="header-txt w-30">TVL</div>
+      <div class="header-txt flex-1">价格</div>
+    </div>
+
     <template v-for="item in tokenList">
       <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
         <div class="coinName">
           <span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
         </div>
+
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand">查看更多</li>
@@ -81,6 +88,14 @@ onMounted(()=>{
   <!--      交易对-->
 </template>
 <style lang="postcss" scoped>
+.header-Border{
+  border:none;
+  border-top:1px solid rgba(37, 62, 111, 0.08);
+  border-bottom:1px solid rgba(37, 62, 111, 0.08);
+}
+.header-txt{
+  @apply text-kdFang text-kd12px16px text-global-default text-opacity-65 border-1;
+}
 .more {
   @apply text-kd14px18px px-3 py-1.5 text-global-primary font-normal;
 }
