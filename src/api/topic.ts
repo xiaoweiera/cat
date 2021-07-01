@@ -82,7 +82,7 @@ export const getMenuList = async function(): Promise<MenuItem[]> {
 }
 
 // 精选广告位
-export const ads = function<T>(): Promise<T[]> {
+export const getAds = function<T>(): Promise<T[]> {
   // 获取数据图表-精选推荐广告位
   return getAdsList(4)
 }

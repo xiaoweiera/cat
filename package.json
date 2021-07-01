@@ -20,8 +20,7 @@
       "git add"
     ]
   },
-  "lint-staged": {
-  },
+  "lint-staged": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run precommit"
@@ -53,7 +52,7 @@
     "prism-theme-vars": "^0.2.2",
     "ramda": "^0.27.1",
     "sass": "^1.35.1",
-    "swiper": "^6.5.9",
+    "swiper": "6.7.1",
     "url": "^0.11.0",
     "url-pattern": "^1.0.3",
     "uuid": "^8.3.2",

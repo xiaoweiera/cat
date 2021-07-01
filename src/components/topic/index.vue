@@ -36,15 +36,17 @@ onBeforeMount(() => {
         </div>
       </div>
     </div>
-    <div class="flex-1" v-if="menuList.length > 0">
-      <TopicTitle :menu="current" />
-      <div class="p-5">
-        <template v-if="current.type && current.type === MenuType.recommend">
-          <TopicRecommend :menu="current"/>
-        </template>
-        <template v-else>
-          <p>{{ current.name }}</p>
-        </template>
+    <div class="flex-auto w-1" v-if="menuList.length > 0">
+      <div class="max-w-full">
+        <TopicTitle :menu="current" />
+        <div class="p-5">
+          <template v-if="current.type && current.type === MenuType.recommend">
+            <TopicRecommend :menu="current"/>
+          </template>
+          <template v-else>
+            <p>{{ current.name }}</p>
+          </template>
+        </div>
       </div>
     </div>
   </div>

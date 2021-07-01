@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import { ads } from './pathname'
 import request from '~/lib/request'
 import safeGet from '@fengqiaogang/safe-get'
 
@@ -12,12 +13,11 @@ import safeGet from '@fengqiaogang/safe-get'
  */
 
 const getAdsList = async function<T>(type: string | number): Promise<T[]> {
-  const url = '/api/v2/commercial'
   const params = {
     position: type
   }
   try {
-    const result = await request.get(url, { params })
+    const result = await request.get(ads.commercial, { params })
     const data = safeGet<T[]>(result, 'data.data')
     return data || []
   } catch (e) {

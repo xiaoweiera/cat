@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * @file 内容标题
+ */
 import { defineProps } from 'vue'
 defineProps({
   menu: {

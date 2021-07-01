@@ -19,7 +19,7 @@ const onSwitchLang = function() {
 }
 </script>
 <template>
-  <nav class="sticky md:static top-0 headerBg flex items-center justify-between relative z-2 px-4 md:px-6 h-18 font-kdFang">
+  <nav class="sticky top-0 headerBg flex items-center justify-between relative z-2 px-4 md:px-6 h-18 font-kdFang">
     <div class="flex items-center">
       <div class="md:hidden mr-3">
         <HeaderMobile></HeaderMobile>

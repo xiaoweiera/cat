@@ -45,7 +45,7 @@ specifiers:
   ramda: ^0.27.1
   rollup: ^2.52.2
   sass: ^1.35.1
-  swiper: ^6.5.9
+  swiper: 6.7.1
   tailwindcss: ^2.2.2
   ts-node: ^10.0.0
   typescript: ^4.3.4
@@ -89,7 +89,7 @@ dependencies:
   prism-theme-vars: 0.2.2
   ramda: 0.27.1
   sass: 1.35.1
-  swiper: 6.6.1
+  swiper: 6.7.1
   url: 0.11.0
   url-pattern: 1.0.3
   uuid: 8.3.2
@@ -8385,8 +8385,8 @@ packages:
     resolution: {integrity: sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=}
     dev: true
 
-  /swiper/6.6.1:
-    resolution: {integrity: sha512-vQ2f/zr9mux+EwYlJhObG1c2Vt6U9++YzgqTpTtdzc8K7HOB7AWpQJGXoeEJmfYlcoS9b4Oy8BM6JD70hHX9eA==}
+  /swiper/6.7.1:
+    resolution: {integrity: sha512-r5Xr0WdQ7CuQiomb/8A+j9QsIl2ClQk5KoJU1jWp8/OP4OS/0ZJf5tKLWlJMPRHafy1oRsmv1lSSyzJad6XoRg==}
     engines: {node: '>= 4.7.0'}
     requiresBuild: true
     dependencies:

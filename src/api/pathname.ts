@@ -3,6 +3,10 @@
  * @author svon.me@gmail.com
  */
 
+export const ads = {
+  commercial: '/api/v2/commercial'
+}
+
 export const user = {
   info: '/api/v1/users/my', // 获取个人信息
   logout: '/api/v1/users/logout', // 退出
@@ -41,7 +45,8 @@ export const ignore: string[] = [
   user.logoMail,
   '/apy/',
   '/api/v2/commercial',
-  topic.getMenuList
+  ads.commercial, // 广告位
+  topic.getMenuList,
 ]
 
 // 判断登陆状态，已登陆状态下才发起请求
