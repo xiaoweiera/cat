@@ -30,11 +30,15 @@ export const numberUnitFormat = (value: any) => {
   if (value < k && value>=0) {
     return Math.round(value * 100) / 100
   }
+  if(value<0 && value>-1){
+    return '-'+getTwoValidityNumber(Math.abs(value))
+  }else{
+    const i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k))
+    const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
+    const unit = sizes[i]
+    return value>=0?values + unit:'-'+values+unit
 
-  const i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k))
-  const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
-  const unit = sizes[i]
-  return value>=0?values + unit:'-'+values+unit
+  }
 }
 export const toFixedNumber = (value: any, rounded = 2) => {
   if (!value && value !== 0) {

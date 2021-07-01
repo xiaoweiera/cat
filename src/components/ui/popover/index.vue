@@ -38,8 +38,8 @@ defineProps({
   background: #fff;
   border-radius: 6px;
   display: none;
-  width: 435px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+  width: fit-content;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 }
 .placement-top {
   bottom: 100%;

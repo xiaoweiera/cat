@@ -7,6 +7,7 @@ interface yModel {
   data: Array<number>
   name: string
   type: string
+  group:number
   unit: string
 }
 // 将x轴转日期格式 得到x轴
@@ -127,7 +128,46 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
 }
 
 export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v)
-//getSeries
+//getSeries 根据group后端自定义组合y轴
+export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
+  const series = []
+  const allYAxis=[]
+  const groupList={}
+  //根据group分组
+  yData.forEach((item:yModel,i:number)=>{
+    const groupNumber=item.group?item.group:0
+    //@ts-ignore
+    if(!R.keys(groupList).includes(groupNumber.toString())){
+      //@ts-ignore
+      groupList[groupNumber]=[item]
+    }else{
+      //@ts-ignore
+      groupList[groupNumber].push(item)
+    }
+  })
+  for(let i=0;i<R.keys(groupList).length;i++){
+    let minM: any = null
+    let maxM: any = null
+    //@ts-ignore
+    groupList[R.keys(groupList)[i]].forEach((item:yModel,n:number)=>{
+      //如果给的分组大于y轴的配置数量那么默认走第一个y轴配置，即0
+      const groupIndex=item.group>=R.keys(groupList).length?0:item.group
+      const [obj, min, max] = formatYData(item, groupIndex,false,xData,allxData,interval)
+      minM = R.min(min, minM)
+      maxM = R.max(max, maxM)
+      series.push(obj)
+    })
+    allYAxis.push(yAxisModel(minM,maxM,yLabelFormat))
+  }
+  // // kline
+  if (kyData) {
+    const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval)
+    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat))
+    series.push(obj)
+  }
+  return [series,allYAxis]
+}
+//getSeries  单独的y轴
 export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
   const series = []
   const allYAxis=[]
