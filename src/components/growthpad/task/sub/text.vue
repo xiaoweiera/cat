@@ -9,6 +9,7 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
+import TaskType from '~/logic/growthpad/tasktype'
 
 const emitEvent = defineEmit(['updated'])
 
@@ -44,6 +45,25 @@ const loadingStatus = computed<MissionStatus>((): MissionStatus => {
   }
   // 默认为空
   return MissionStatus.init
+})
+
+// 输入框提示语
+const InputPlaceholder = computed<string>(function() {
+  if (loadingStatus === MissionStatus.fail) {
+    return I18n.common.message.fail
+  }
+  return props.placeholder
+})
+// 是否显示前缀
+const prefixStatus = computed<boo>(function() {
+  switch (props.name) {
+    case TaskType.telegram:
+    case TaskType.twitter:
+    case TaskType.retwitter:
+      return true
+    default:
+      return false
+  }
 })
 
 const formRef = ref<any>(null)
@@ -113,17 +133,11 @@ const onSubmit = async function() {
     @submit.stop.prevent="onSubmit"
   >
     <el-form-item prop="input">
-      <el-input
-        v-model="formdata.input"
-        :placeholder="
-          loadingStatus === MissionStatus.fail
-            ? I18n.common.message.fail
-            : placeholder
-        "
-        autocomplete="off"
-        size="small"
-        :class="{ fail: loadingStatus === MissionStatus.fail }"
-      />
+      <el-input type="text" v-model="formdata.input" :placeholder="InputPlaceholder" autocomplete="off" size="small" :class="{ fail: loadingStatus === MissionStatus.fail }">
+        <template v-if="prefixStatus" #prefix>
+          <span class="pl-1">@</span>
+        </template>
+      </el-input>
     </el-form-item>
     <div class="suffix" @click="onSubmit">
       <slot></slot>
