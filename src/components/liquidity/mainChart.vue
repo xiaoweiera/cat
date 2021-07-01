@@ -67,7 +67,7 @@ watch(() => chartLoad.value, (n, o) => {
   }
   let number = 0
   R.map(item => {
-      if (item.id &&  (item.code === 1 || item.xaxis.length===0)) {
+      if (item && item.id &&  (item.code === 1 || item.xaxis.length===0)) {
         number++
       }
     isHasData.value = number === 5 ? false : true
