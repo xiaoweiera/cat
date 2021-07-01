@@ -144,6 +144,10 @@ const iconCode = function() {
   min-height: $number;
 }
 
+.size-4xl {
+  @include size(42px);
+}
+
 .size-3xl {
   @include size(32px);
 }

@@ -5,7 +5,7 @@
 <template>
   <div class="help-box p-3 text-kdFang whitespace-nowrap">
     <span class="text-center mb-2 hidden md:block">
-      <img class="inline-block w-20" src="https://res.ikingdata.com/static/share/growth_qrcode.jpg?r=2&lang=en"/>
+      <img class="inline-block w-20" src="https://res.ikingdata.com/image/growthpad/kingdata/qrcode.jpg"/>
     </span>
     <span class="inline-block md:text-center md:block text-sm leading-5 md:whitespace-pre-line">
       <span class="md:block">{{ I18n.growthpad.chainwallet.help.val1 }}</span>

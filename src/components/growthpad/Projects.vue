@@ -53,22 +53,25 @@ const tabs = [
         <template #label>
           <span class="text-base font-kdFang" v-html="item.title"></span>
         </template>
-        <div>
-          <div class="md:-mx-3 md:flex md:flex-wrap">
-            <template v-for="(data, index) in item.list" :key="index">
-              <div class="mt-6 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96">
-                <GrowthpadProject
-                    :value="data.timeStatus === TimeStatus.wait ? data.dashboard.begin : data.dashboard.end"
-                    :status="data.timeStatus"
-                    :project="data"
-                />
-              </div>
-            </template>
-          </div>
-        </div>
       </el-tab-pane>
     </template>
   </el-tabs>
+
+  <div v-for="(item, index) in tabs" :key="index">
+    <div v-show="item.name === activeValue">
+      <div class="md:-mx-3 md:flex md:flex-wrap">
+        <template v-for="(data, index) in item.list" :key="index">
+          <div class="py-3 w-full lg:w-1/3 md:w-1/2 md:px-3 md:min-w-96">
+            <GrowthpadProject
+                :value="data.timeStatus === TimeStatus.wait ? data.dashboard.begin : data.dashboard.end"
+                :status="data.timeStatus"
+                :project="data"
+            />
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
 
 
 </template>
