@@ -58,7 +58,7 @@ const link = (): string => {
               </template>
               <template #content>
                 <p
-                  class="leading-loose"
+                  class="leading-loose w-108"
                   v-html="I18n.growthpad.invited.help"
                 ></p>
               </template>

@@ -132,6 +132,7 @@ export const echartData = [
                 name: "累计流动性资金",
                 color: "2B8DFF",
                 type: "area",
+
                 unit: "元",
                 data: [
                     0.5,
