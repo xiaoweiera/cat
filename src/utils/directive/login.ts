@@ -8,6 +8,7 @@ import { showVisible } from '~/store/header/login'
 import * as event from '~/utils/event/index'
 
 const login = function(e: Event) {
+  console.log(1)
   // 已登录状态
   if (isLogin.value) {
     return true
@@ -23,11 +24,11 @@ const install = function(vue: any) {
   const eventName = 'click'
   // 添加指令
   vue.directive('login', {
-    created(el: HTMLElement, _: any, vNode: any) {
-      event.bind(vNode, eventName, login, true)
+    mounted(el: HTMLElement) {
+      event.bind(el, eventName, login, true)
     },
-    beforeUnmount(el: HTMLElement, _: any, vNode: any) {
-      event.unbind(vNode, eventName, true)
+    beforeUnmount(el: HTMLElement) {
+      event.unbind(el, eventName, true)
     },
   })
 }

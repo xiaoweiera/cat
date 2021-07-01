@@ -22,7 +22,7 @@ const install = function(vue: any) {
   const eventName = 'click'
   // 添加指令
   vue.directive('validity', {
-    created: (el: HTMLElement, binding: Binding, vNode: any) => {
+    mounted: (el: HTMLElement, binding: Binding) => {
       const { modifiers } = binding
       const store = {}
       if (Array.isArray(binding.value)) {
@@ -46,11 +46,11 @@ const install = function(vue: any) {
         e.preventDefault()
       }
       // 绑定事件
-      event.bind(vNode, eventName, click, true)
+      event.bind(el, eventName, click, true)
     },
-    beforeUnmount: function(el: HTMLElement, binding: Binding, vNode: any) {
+    beforeUnmount: function(el: HTMLElement) {
       // 删除事件
-      event.unbind(vNode, eventName, true)
+      event.unbind(el, eventName, true)
     }
   })
 }

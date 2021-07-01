@@ -343,6 +343,9 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
   chainwallet: {
     // 分享标题
     title: 'Help CoinWind',
+    project: {
+      warn: 'Due to force majeure, the activity is postponed to July 2.'
+    },
     dashboard: {
       banner: 'https://res.ikingdata.com/image/growthpad/chainwallet/banner.jpg',
       reward: {

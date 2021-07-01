@@ -335,6 +335,9 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
   chainwallet: {
     // 分享标题
     title: '助力 ChainWallet 增长，领取20万美元 MDX 奖励',
+    project: {
+      warn: '由于不可抗力原因，活动延期至7月2日。'
+    },
     dashboard: {
       banner: 'https://res.ikingdata.com/image/growthpad/chainwallet/banner.jpg',
       reward: {

@@ -1,7 +1,9 @@
+import { paramChart} from '~/store/liquidity/state'
 const grid = () => {
+  const xLength=paramChart.interval==='1D'?'11px':'33px'
   return {
-    left: '0px',
-    right: '0px',
+    left: xLength,
+    right: xLength,
     bottom: '45px',
     top: '16px',
     y2: 0,
@@ -9,7 +11,7 @@ const grid = () => {
   }
 }
 
-const tooltips = (getModel: any) => {
+const tooltips = (getModel: any,xData:any) => {
   return {
     padding: [8, 10, 8, 10],
     trigger: 'axis',
@@ -21,7 +23,7 @@ const tooltips = (getModel: any) => {
     borderWidth: 1.5,
     borderColor: 'rgba(0, 0, 0, 0.06)',
     formatter: (params: any) => {
-      return getModel(params)
+      return getModel(params,xData)
     },
   }
 }
@@ -52,7 +54,7 @@ const graphic = () => {
 }
 //@ts-ignore
 const dataZoom=()=>{
- return {
+  return {
     type: 'inside'
   }
 }
@@ -75,13 +77,11 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       type: 'category',
       data: xdata,
       axisLabel: {
-        margin:20,
-        // showMinLabel: false,
-        showMaxLabel: false,
+        showMinLabel: true,
+        showMaxLabel: true,
         // showMinLabel: isMobile ? null : null, //显示最小值
         // showMaxLabel: isMobile ? null : null, //显示最大值
-        align: 'left',
-        splitNumber: 3,
+        // splitNumber: 3,
         textStyle: {
           color: '#989898',
         },
@@ -176,11 +176,11 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
 }
 //@ts-ignore  多线图
 const yAxisKline = (
-  min: number,
-  max: number,
-  kmin: number,
-  kmax: number,
-  yLabelFormat: any,
+    min: number,
+    max: number,
+    kmin: number,
+    kmax: number,
+    yLabelFormat: any,
 ) => {
   return [
     {
@@ -250,16 +250,16 @@ const yAxisKline = (
 }
 
 export const chartConfig = (
-  xData: Array<string>,
-  series: any,
-  allYAxis:any,
-  legendList: Array<string>,
-  yLabelFormat: any,
-  getModel: any,
+    xData: Array<string>,
+    series: any,
+    allYAxis:any,
+    legendList: Array<string>,
+    yLabelFormat: any,
+    getModel: any,
 ) => {
   return {
     grid: grid(),
-    tooltip: tooltips(getModel),
+    tooltip: tooltips(getModel,xData),
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
     legend: legend(legendList),

@@ -128,7 +128,7 @@ class Store {
     compound: '', // compound token 地址
     bunny: '', // bunny token 地址
     chainwallet: '', // chainwallet token 地址
-    chainwallte_reward: 0, // chainwallet 奖励
+    chainwallet_reward: 0, // chainwallet 奖励
   })
 
   // 完成状态
@@ -272,7 +272,7 @@ class Store {
       this.info.compound = safeGet<string>(info, 'compound')
       this.info.bunny = safeGet<string>(info, 'bunny')
       this.info.chainwallet = safeGet<string>(info, 'chainwallet')
-      this.info.chainwallte_reward = safeGet<number>(info, 'chainwallte_reward') || 0
+      this.info.chainwallet_reward = safeGet<number>(info, 'chainwallet_reward') || 0
     }
     if (mission) {
       this.mission.invited = transformStatus(mission.invited)

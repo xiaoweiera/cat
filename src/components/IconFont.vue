@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { isHttp } from '~/utils/index'
 import { defineProps, computed } from 'vue'
-const picture = 'https://res.ikingdata.com/icon'
+import { oss } from '~/lib/process'
+
+const statusRight = 'status-right' // 右侧箭头
 
 // 保存在 Ali OSS 中的图标
 const ossIconList: string[] = [
+  statusRight,
   '24', // 24.svg
   'apy', // apy.svg
   'arrow', // arrow.svg, arrow.png
@@ -77,11 +80,10 @@ const src = computed<string>(() => {
   if (props.type === 'down' && props.suffix === 'png') {
     return 'https://res.ikingdata.com/nav/down.png'
   }
-  // 特殊 icon
-  if (props.type === 'up' && props.suffix === 'png') {
-    return 'https://res.ikingdata.com/nav/up.png'
+  if (props.type === statusRight) {
+    return `${oss}/nav/statusRight.png`
   }
-  return `${picture}/${props.type}.${props.suffix}`
+  return `${oss}/icon/${props.type}.${props.suffix}`
 })
 // @ts-ignore
 const isAliOSS = computed<boolean>(() => {
@@ -98,7 +100,7 @@ const iconCode = function() {
 </script>
 
 <template>
-  <span class="inline-block none-select" v-if="isAliOSS">
+  <span class="inline-block none-select icon-font" v-if="isAliOSS">
     <img
       class="inline-block none-select"
       :class="`icon-${type} size-${size}`"
