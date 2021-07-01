@@ -20,15 +20,16 @@ const {chartsAllData, chartLoad, requestTokenChart: getTokenCharts} = getAllChar
 const tokenParam = {
   platId: 1,
   symbol_id: '',
-  from_ts: '',
-  to_ts: '',
+  from_ts: paramChart.timeBegin,
+  to_ts: paramChart.timeEnd,
   interval: paramChart.interval,
 }
+console.log(paramChart,'aa')
 const pairParam = {
   platId: 1,
   pair_id: '',
-  from_ts: '',
-  to_ts: '',
+  from_ts: paramChart.timeBegin,
+  to_ts: paramChart.timeEnd,
   interval: paramChart.interval,
 }
 //改变分析类型
@@ -77,7 +78,7 @@ watch(() => paramChart.interval, (n, o) => {
   tokenParam.interval = n
   pairParam.interval = n
   //如果颗粒度是小时，那么如果天查看的是90天或者自定义的时候，切换时就默认30天
-  if (paramChart.interval === '1H' && (paramChart.timeType === 90 || paramChart.timeType === 0)) {
+  if (paramChart.interval === '1H' && (paramChart.timeType >30 || paramChart.timeType === 0)) {
     paramChart.timeType = 30
     paramChart.timeBegin = getagoTimeStamp(30)
     paramChart.timeEnd = dataToTimestamp(formatDefaultTime())
@@ -90,7 +91,7 @@ const getChartsData = async () => {
   if (pairStore.id) {
     pairParam.pair_id = pairStore.id
     // await getPriceData({pair_id:pairStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'pair')
-    getPriceData({pair_id: pairStore.id, from_ts: pairParam.from_ts, to_ts: pairParam.to_ts}, 'pair')
+    await getPriceData({pair_id: pairStore.id, from_ts: pairParam.from_ts, to_ts: pairParam.to_ts}, 'pair')
     await getTokenCharts(pairParam)
   } else {
     tokenParam.symbol_id = symbolStore.id
