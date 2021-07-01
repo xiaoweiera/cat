@@ -6,9 +6,11 @@ import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import * as R from 'ramda'
 const filterOption = ref([
   { name: '近7天', value: 7, selected: true },
-  {name: '近30天', value: 30, selected: false},
-  { name: '近90天', value: 90, selected: false },
-  { name: '自定义', value: 0, selected: false },
+  {name: '近1月', value: 30, selected: false},
+  { name: '近3月', value: 90, selected: false },
+  { name: '近6月', value: 180, selected: false },
+  { name: '近1年', value: 365, selected: false },
+  // { name: '自定义', value: 0, selected: false },
 ])
 
 interface timeModel {
@@ -36,6 +38,10 @@ watch(()=>paramChart.timeType,(n)=>{
 })
 //选择时间tag  7 30  90
 const selectTag = (timeM: timeModel) => {
+  //如果颗粒度小h大于30天
+  if(!getClass(timeM)){
+    return
+  }
   if (timeM.name === '自定义') {
     paramChart.timeType=0
     document.getElementsByClassName('el-range-input')[0].click()
@@ -66,30 +72,42 @@ const pickerOptions=(time)=>{
     }
     return false
   }
+const getClass=(item:any)=>{
+  if(paramChart.interval==='1D' || (paramChart.interval==='1H' && item.value<=30)){
+    return true
+  }else{
+    return false
+  }
+}
 </script>
 <template>
   <div>
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
         <template v-for="item in filterOption">
-          <div v-if="paramChart.interval==='1D' || (paramChart.interval==='1H' && item.value!==90) ">
+          <div :class="getClass(item)?'showItemTime':'noShowItemTime'"  >
           <div v-if="item.name !== '自定义' || (item.name === '自定义' && paramChart.timeType!==0)" :class="item.value===paramChart.timeType? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
             {{ item.name }}
           </div>
           </div>
         </template>
-        <div v-show="paramChart.timeType===0" class="timeContainer">
-          <el-date-picker  :disabledDate="pickerOptions" id="datePickerDom" v-model="time" size="mini" type="daterange" range-separator="–" start-placeholder="开始" end-placeholder="结束">
-          </el-date-picker>
-        </div>
+<!--        <div v-show="paramChart.timeType===0" class="timeContainer">-->
+<!--          <el-date-picker  :disabledDate="pickerOptions" id="datePickerDom" v-model="time" size="mini" type="daterange" range-separator="–" start-placeholder="开始" end-placeholder="结束">-->
+<!--          </el-date-picker>-->
+<!--        </div>-->
       </div>
     </div>
   </div>
 </template>
 <style lang="postcss" scoped>
+.noShowItemTime{
+  @apply opacity-35;
+}
+.showItemTime{
+  @apply cursor-pointer;
+}
 .timeTag {
   border-radius: 2px;
-  cursor: pointer;
   @apply px-2 py-1 text-kd14px18px text-global-default opacity-65;
 }
 .timeTagSelected {

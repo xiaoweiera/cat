@@ -1,4 +1,5 @@
 import {  reactive,ref } from 'vue'
+import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import * as R from 'ramda'
 interface platModel {
   logo: string
@@ -22,10 +23,10 @@ export const selectCoin = reactive({
   origin: '',
 })
 export const paramChart = reactive({
-  timeBegin: 0, // 开始时间
-  timeEnd: 0, // 结束时间
+  timeBegin: getagoTimeStamp(90), // 开始时间
+  timeEnd: dataToTimestamp(formatDefaultTime(null,'YYYY-MM-DD')), // 结束时间
   time:'',//时间是否改变，改变值  判断是否改变
-  timeType:30,//7 30 90    0是自定义
+  timeType:90,//7 30 90    0是自定义
   interval: '1D', // 颗粒度
   coinType: 'usd', // USD或者币
   tokenType: 'pair', // pair ETH USDT

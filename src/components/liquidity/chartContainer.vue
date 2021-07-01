@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref } from 'vue'
 import { pairStore,symbolStore} from '~/store/liquidity/state'
+import {kData,groupData} from '/mock/liquidity'
 const props = defineProps({
   chartData: Object,
   chartId:Number

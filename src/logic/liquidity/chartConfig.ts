@@ -126,9 +126,10 @@ export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
     },
 
     type: 'value',
-    min: min === max ? null : min,
-    max:max,
-    interval: min === max ? max / 4 : (max - min) / 4,
+    // min: min === max ? null : min,
+    max:max+(max*0.05),
+    // interval: min === max ? max / 4 : (max - min) / 4,
+    interval:max/ 4,
     axisLabel: {
       inside: true,
       fontSize: 12,
@@ -161,9 +162,10 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
       show: true, // 隐藏或显示
     },
     type: 'value',
-    min: kmin,
-    max: kmax,
-    interval: (kmax - kmin) / 4,
+    // min: kmin,
+    max: kmax+(kmax*0.05),
+    // interval: (kmax - kmin) / 4,
+    interval: (kmax+(kmax*0.05)) / 4,
     axisLabel: {
       fontSize: 12,
       textStyle: {
