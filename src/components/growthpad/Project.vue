@@ -91,6 +91,13 @@ const timerValue = computed<string>((): string => {
         </template>
       </GrowthpadTimer>
 
+      <!-- 提示 -->
+      <div class="flex blockItem mt-3" v-if="props.project.warn">
+        <p class="projectNum" style="margin: 0;">
+          <a class="link">{{ props.project.warn }}</a>
+        </p>
+      </div>
+
       <GrowthpadIndexProjectButton :url="props.project.url" :status="props.status"/>
     </div>
     <img v-if="props.status !== TimeStatus.closure" class="w-40 absolute top-4 right-5" :src="imgs[props.project.title]"/>
