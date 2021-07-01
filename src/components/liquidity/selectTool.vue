@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { ref,watch,reactive} from 'vue'
+import { ref,watch,reactive,defineProps} from 'vue'
 import {selectTxt} from '~/store/liquidity/state'
+const props = defineProps({
+  changeShow: Function
+})
 const coinShow = reactive({valueData:false})
 const changeSelect = () => {
-  console.log(coinShow.valueData)
+  props.changeShow()
   coinShow.valueData = !coinShow.valueData
 }
 // 加延迟不然会先执行blur，不执行click
@@ -16,23 +19,14 @@ const close=(state:boolean)=>{
   coinShow.valueData=state
 }
 watch(()=>selectTxt.value,(n)=>{
+  props.changeShow(true)
   coinShow.valueData=n?true:false
 })
 </script>
 <template>
-  <div class="flex flex-1 relative items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
-    <el-input v-model="selectTxt" class="selectClass" placeholder="搜索" @click="changeSelect()" ></el-input>
+  <div class="flex flex-1 relative text-kd12px14px items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
+    <el-input v-model="selectTxt" class="text-kd12px14px" placeholder="搜索币种/交易对/合约地址" @change="changeSelect()" ></el-input>
     <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
-    <!--    弹窗-->
-      <div v-if="coinShow.valueData && selectTxt" class="absolute top-14.5 right-0 w-51.25 py-1.5 z-2 tipContainer h-82.5 overflow-hidden overflow-y-auto">
-        <LiquiditySelectToken  :close="close" />
-        <LiquiditySelectPair :close="close" />
-      </div>
-      <div v-if="coinShow.valueData && !selectTxt" class="absolute top-14.5 right-0 w-51.25  z-2 tipContainer h-42.5 overflow-hidden overflow-y-auto">
-        <LiquiditySelectHistory  :close="close" />
-      </div>
-
-
   </div>
 </template>
 <style lang="postcss" scoped>

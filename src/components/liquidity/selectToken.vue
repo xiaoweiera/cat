@@ -5,11 +5,7 @@ import { coinList, tradingList } from '/mock/liquidity'
 import { symbolStore,pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import {subStr,changeRouteParam} from '~/lib/tool'
-
-const props = defineProps({
-  close:Function
-})
+import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber,smallToken} from '~/lib/tool'
 const allData=ref([]) //请求数据的个数
 const tokenList=ref([])
 const page=ref(1) //页数
@@ -21,9 +17,6 @@ const param={
 }
 const route = useRoute()
 const router = useRouter()
-const changeSelect = (state) => {
-  props.close(state)
-}
 const changeToken = (name: string,id:string) => {
   symbolStore.name=name
   symbolStore.id=id
@@ -31,7 +24,6 @@ const changeToken = (name: string,id:string) => {
   pairStore.name=''
   changeRouteParam(route,router,{token:id})
   setHistory({token_id:id,name:name,type:'token'})
-  changeSelect(false)
 }
 const getData=(list:any)=>{
   const tokenDB=new DBList(list)
@@ -68,28 +60,49 @@ onMounted(()=>{
 </script>
 <template>
   <ul>
-    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 px-3">币种</li>
+    <li class="text-global-default opacity-65 text-kd14px18px mb-3 text-kdFang font-medium ">币种</li>
+    <div class="flex py-1.5 header-Border ">
+      <div class="header-txt txtSmall  w-50  whitespace-nowrap"># Name/Symbol</div>
+      <div class="header-txt w-25 ml-5">合约地址</div>
+      <div class="header-txt w-27.5 ml-5">TVL</div>
+      <div class="header-txt w-32.5 ml-5">价格</div>
+    </div>
     <template v-for="item in tokenList">
-      <li class="itemLi hand" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
-        <div class="coinName">
-          <span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ subStr(item.symbol_name) }}</span>
-        </div>
+      <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
+        <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ item.symbol_name}}</span></div>
+        <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.symbol_id)}}</div>
+        <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
+        <div class="w-32.5 ml-5">$500</div>
       </li>
     </template>
-    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand">查看更多</li>
+    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand ">查看更多</li>
   </ul>
   <!--      交易对-->
 </template>
 <style lang="postcss" scoped>
+.header-Border{
+  border:none;
+  border-top:1px solid rgba(37, 62, 111, 0.08);
+  border-bottom:1px solid rgba(37, 62, 111, 0.08);
+}
+.header-txt{
+  @apply font-normal text-kdFang text-kd12px16px text-global-default text-opacity-65 ;
+}
+
+.txtSmall {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.content-item{
+  @apply text-kdExp text-kd14px20px text-global-default opacity-85;
+}
 .more {
-  @apply text-kd14px18px px-3 py-1.5 text-global-primary font-normal;
+  @apply text-kd14px18px py-1.5 text-global-primary font-normal  text-center mt-2;
 }
 
 .itemLi {
-  @apply flex items-center justify-between px-3;
-  .coinName {
-    @apply text-kd14px20px py-1.5 text-global-default opacity-85 font-normal;
-  }
+  @apply flex items-center;
+
   .coinTip {
     border: 1px solid rgba(43, 141, 254, 0.4);
     border-radius: 2px;
