@@ -71,7 +71,7 @@ export interface Info {
 
   // chainwallet_token: string // chainwallet token 地址
   chainwallet: string
-  chainwallte_reward: string | number, // chainwallet 奖励
+  chainwallet_reward: string | number, // chainwallet 奖励
 }
 
 export interface Mission {
