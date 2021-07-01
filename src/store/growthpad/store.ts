@@ -148,6 +148,7 @@ class Store {
     cream: MissionStatus.init, // cream 验资
     bunny: MissionStatus.init,
     chainwallet: MissionStatus.init, // chainwallet 验资
+    article_status: MissionStatus.init, // 文章状态
   })
 
   article_url = ref<string>('article_url') // 用户上传的文章链接
@@ -295,6 +296,8 @@ class Store {
     this.image_url.value = safeGet<string>(result, 'image_url')
     this.article_url.value = safeGet<string>(result, 'article_url')
     this.article_reward.value = safeGet<number>(result, 'article_reward') || 0
+    // 文章状态
+    this.mission.article_status = transformStatus(safeGet(result, 'article_review_status'))
 
     // 朋友圈图片
     this.friendPicture.value

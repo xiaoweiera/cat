@@ -1,14 +1,20 @@
 <script setup lang="ts">
+/**
+ * @file 微博文章
+ * @author svon.me@gmail.com
+ */
+
 import { omit } from 'ramda'
-import { reactive, ref, toRaw, computed } from 'vue'
+import { computed, reactive, ref, toRaw } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { messageSuccess, messageError } from '~/lib/tool'
+import { messageError, messageSuccess } from '~/lib/tool'
 import Message from '~/utils/message'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
 import { toNumber } from '~/utils/index'
 import safeGet from '@fengqiaogang/safe-get'
+import { MissionStatus } from '~/store/growthpad/props'
 
 const store = Task()
 // @ts-ignore
@@ -30,32 +36,27 @@ const getArticleReward = function(): number {
 const rewardValue = computed<number>(getArticleReward)
 
 
-const ArticleStatus = {
-  init: 'init',
-  check: 'check',
-  fail: 'fail',
-  success: 'success'
-}
-
 
 // @ts-ignore
-const articleStatus = computed<string>((): string => {
+const articleStatus = computed<MissionStatus>((): MissionStatus => {
   // 奖励金额
   const reward = getArticleReward()
   // 如果奖励金额大于 0， 则表示已审核通过
-  if (reward > 0) {
-    return ArticleStatus.success
+  if (reward > 0 || store.mission.article_status === MissionStatus.success) {
+    return MissionStatus.success
   }
-  // 特殊处理，奖励金额为 -1， 则表示审核失败
-  if (reward === -1) {
-    return ArticleStatus.fail
+  if (store.mission.article_status === MissionStatus.fail) {
+    return MissionStatus.fail
+  }
+  if (store.mission.article_status === MissionStatus.loading) {
+    return MissionStatus.loading
   }
   // 判断文章截图与文章链接是否存在, 存在则表示已填写正在审核中
   if (store.image_url.value && store.article_url.value) {
-    return ArticleStatus.check
+    return MissionStatus.loading
   }
   // 默认为待填写状态
-  return ArticleStatus.init
+  return MissionStatus.init
 })
 
 interface FormData {
@@ -135,7 +136,7 @@ const rules: any = {
     </GrowthpadTaskTitle>
 
     <!-- 审核通过 -->
-    <template v-if="articleStatus === ArticleStatus.success">
+    <template v-if="articleStatus === MissionStatus.success">
       <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
         <template #after>
           <UiTableItem class="pt-5">
@@ -150,7 +151,7 @@ const rules: any = {
     </template>
 
     <!-- 审核中 -->
-    <template v-else-if="articleStatus === ArticleStatus.check">
+    <template v-else-if="articleStatus === MissionStatus.loading">
       <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
         <template #after>
           <UiTableItem class="pt-5">
@@ -165,12 +166,16 @@ const rules: any = {
     </template>
 
     <!-- 审核失败 -->
-    <template v-else-if="articleStatus === ArticleStatus.fail">
+    <template v-else-if="articleStatus === MissionStatus.fail">
       <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
         <template #after>
-          <div class="pt-5 text-sm text-kdFang">
-            <p class="text-global-numRed">{{ I18n.growthpad.weibo.fail }}</p>
-          </div>
+          <UiTableItem class="pt-5">
+            <el-form-item class="mb-0">
+              <el-button type="danger" round size="small">
+                <span>{{ I18n.common.button.danger }}</span>
+              </el-button>
+            </el-form-item>
+          </UiTableItem>
         </template>
       </GrowthpadTaskArticlePreview>
     </template>

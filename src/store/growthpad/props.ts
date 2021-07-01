@@ -94,5 +94,7 @@ export interface Mission {
 
   bunny: MissionStatus
 
-  chainwallet: MissionStatus
+  chainwallet: MissionStatus,
+
+  article_status: MissionStatus
 }
