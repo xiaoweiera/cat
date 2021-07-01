@@ -134,3 +134,21 @@ export const isEmpty = function(value: any, checkUndefined?: boolean): boolean {
   }
   return _isEmpty(value)
 }
+
+export const isElement = function(value: any) {
+  if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
+    return false
+  }
+
+  if (typeof HTMLElement === 'object') {
+    return value instanceof HTMLElement
+  }
+  let flag = true
+  if (typeof value === 'object') {
+    flag = true
+  }
+  if (flag && typeof value.nodeName === 'string') {
+    return true
+  }
+  return false
+}

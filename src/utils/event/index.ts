@@ -3,44 +3,19 @@
  * @author svon.me@gmail.com
  */
 
-import { is } from 'ramda'
+import { isString, isElement } from '~/utils/index'
 
 type Callback = (...args: any[]) => void
 const eventAttr = '__vueClickOutside'
 
-interface vNode {
-  el: HTMLElement
-  scopeId?: string
-  [key: string]: any
-}
-type El = HTMLElement & string & vNode
-
-const isDom = function(value: any): boolean {
-  // 判断该对象是否有某一个原生方法
-  if (value && 'getElementById' in value && value.getElementById) {
-    return true
-  }
-  return false
-}
-
-const isVNode = function(value: any): boolean {
-  // 判断对象 el 是否存在
-  if (value && 'el' in value && value.el) {
-    // 判断 el 是否是 dom
-    return isDom(value.el)
-  }
-  return false
-}
+type El = HTMLElement | string
 
 export const $ = function(value: El): HTMLElement | undefined {
-  if (is(String, value)) {
+  if (isString(value)) {
     const dom = document.querySelector(value as string)
     return dom as HTMLElement
   }
-  if (isVNode(value)) {
-    return value.el
-  }
-  if (isDom(value)) {
+  if (isElement(value)) {
     return value as HTMLElement
   }
 }
@@ -62,12 +37,6 @@ export const removeEvent = function(el: El, eventName: string, callback: Callbac
 }
 
 const makeEventName = function(el: El, event: string): string {
-  if (isVNode(el)) {
-    const scopeId = el.scopeId
-    if (scopeId) {
-      return `${scopeId}_${event}`
-    }
-  }
   return `${eventAttr}_${event}`
 }
 

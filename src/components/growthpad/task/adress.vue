@@ -136,7 +136,8 @@ const bindAddress = async function(): Promise<void> {
                 </ElInput>
               </el-form-item>
             </div>
-            <div v-validity.end="validityValue" class="ml-4">
+<!--            v-validity.end="validityValue" -->
+            <div class="ml-4">
               <ElButton v-login type="primary" native-type="submit">
                 <span>{{ I18n.growthpad.submit }}</span>
               </ElButton>
