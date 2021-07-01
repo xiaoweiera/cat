@@ -366,7 +366,6 @@ Rule: Before starting the task, participants need to the KingData account and en
       luanched: 'BSC',
       detail: `Chain Wallet Team has been deeply involved in the development of wallets, smart contracts, and NFT. Chain Wallet recently formed a business and overseas operation team. Chain Wallet is committed to lowering the industry threshold so that everyone has their own digital assets. In the future, Chain Wallet will work with partners to promote the development of the blockchain industry.`,
       tokenDetail: `Through circulation in various scenarios, CHA serves as a means of payment and proof of membership rights and interests, opening up the entire product business line of Chain Wallet. Users can also participate in Chain Wallet governance by mortgaging CHA when submitting proposals to prevent malicious initiation of proposals. Currently, CHA supports various scenarios such as advertising fee payment, DAPP listing, decentralized transaction listing, and token official website inclusion.`,
-      telegram: 'https://t.me/KingDataCN', // 客服电报群
     },
     help: {
       val1: 'Any problems?',

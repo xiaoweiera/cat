@@ -11,7 +11,7 @@
       <span class="md:block">{{ I18n.growthpad.chainwallet.help.val1 }}</span>
       <span class="ml-1 md:ml-0 md:block">{{ I18n.growthpad.chainwallet.help.val2 }}</span>
     </span>
-    <a class="inline-block ml-5 md:ml-0 md:block md:mt-2 cursor-pointer" target="_blank" v-router="I18n.growthpad.chainwallet.about.telegram">
+    <a class="inline-block ml-5 md:ml-0 md:block md:mt-2 cursor-pointer" target="_blank" v-router="I18n.growthpad.growthpad.about.telegram">
       <span class="md:w-full inline-block join-btn text-xs leading-4 py-1 px-3 text-center text-white">{{ I18n.common.chat.joinTelegram }}</span>
     </a>
   </div>
