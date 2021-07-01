@@ -12,7 +12,9 @@ export const adsList = ref<Media[]>([])
 
 // 获取广告位列表数据
 export const requestAdsList = async function() {
-  // 调用 api 获取媒体数据
-  const array = await getAds<Media>()
-  adsList.value = array
+  if (adsList.value.length < 1) {
+    // 调用 api 获取媒体数据
+    const array = await getAds<Media>()
+    adsList.value = array
+  }
 }
