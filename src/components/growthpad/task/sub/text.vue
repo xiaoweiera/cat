@@ -37,19 +37,21 @@ const store = Task()
 
 const editStatus = ref<boolean>(false)
 
-// @ts-ignore
-const loadingStatus = computed<MissionStatus>((): MissionStatus => {
+const _loadingStatus = function(): MissionStatus {
   const status: MissionStatus = getValueStatus(props.name, store, props.data)
   if (status) {
     return status
   }
   // 默认为空
   return MissionStatus.init
-})
+}
+
+// @ts-ignore
+const loadingStatus = computed<MissionStatus>(_loadingStatus)
 
 // 输入框提示语
 const InputPlaceholder = computed<string>(function() {
-  if (loadingStatus === MissionStatus.fail) {
+  if (_loadingStatus() === MissionStatus.fail) {
     return I18n.common.message.fail
   }
   return props.placeholder
