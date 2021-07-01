@@ -30,7 +30,8 @@ export default {
     confirm: '确认',
     close: '取消',
     review: '审核中',
-    success: '审核完成'
+    success: '审核完成',
+    danger: '审核未通过'
   },
   message: {
     verification: '获取验证码',
