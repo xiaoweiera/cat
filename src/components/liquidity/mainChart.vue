@@ -24,7 +24,6 @@ const tokenParam = {
   to_ts: paramChart.timeEnd,
   interval: paramChart.interval,
 }
-console.log(paramChart,'aa')
 const pairParam = {
   platId: 1,
   pair_id: '',
