@@ -379,7 +379,7 @@ Rule: Before starting the task, participants need to the KingData account and en
       rule4: 'The reward will be airdropped into the verification address.'
     },
     task5: {
-      desc: `The reward is based on the number of follwers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000) Mainstream media: Twittter,Facebook,Weibo,Zhihu, Toutiao, etc.`
+      desc: `The reward is based on the number of followers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000) Mainstream media: Twittter,Facebook,Weibo,Zhihu, Toutiao, etc.`
     }
   }
 };
