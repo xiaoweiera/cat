@@ -16,17 +16,33 @@ export const getChartList = async function(topId: string | number, page?: number
   const result = await api.getChartList(topId, page, limit)
   return map(function(data: any) {
     // 判断是单图还是多图
-    const isMultyChart = safeGet<boolean>(data, 'is_multy_chart')
+    const multiple = safeGet<boolean>(data, 'is_multy_chart')
     // 获取该图表的数据（根据 id 获取数据详情）
     const ids = getIds(safeGet<any[]>(data, 'chart'))
     return {
       ids: compact(ids),
-      isMultyChart: !!isMultyChart,
+      multiple: !!multiple,
     }
   }, safeGet<any[]>(result, 'list'))
 }
 
-export const getChartDetail = async function(id: string | number | string[] | number[]) {
-  const data = await api.getChartDetail(id)
+const chartDetail = function(data: any) {
   console.log(data)
+  return data
+}
+
+const getChartSingleDetail = async function(id: string | number) {
+  const result = await api.getChartDetail(id)
+  return chartDetail(result)
+}
+const getChartMultipleDetail = async function(id: string[] | number[]) {
+  const data = await api.getChartMultipleDetail(id)
+  return chartDetail(data)
+}
+
+export const getChartDetail = function(multiple: boolean, value: string | number | string[] | number[]) {
+  if (multiple) {
+    return getChartMultipleDetail(value as any)
+  }
+  return getChartSingleDetail(value as any)
 }

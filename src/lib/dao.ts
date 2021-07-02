@@ -13,6 +13,7 @@ import { getUserTooken } from '~/logic/user/token'
 import { current } from '~/utils/lang'
 
 import urlSome from '~/lib/urlsome'
+import safeGet from '@fengqiaogang/safe-get'
 
 const getUserAuth = function (config: AxiosRequestConfig): string {
   const cookie = getUserTooken()
@@ -93,7 +94,14 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
       return Promise.reject(error)
     },
   )
-
+  // @ts-ignore
+  service.check = function<T>(result: any): T | undefined {
+    const code = safeGet<number>(result, 'data.code')
+    if (code) {
+      return safeGet<T>(result, 'data.data')
+    }
+    return void 0
+  }
   return service
 }
 

@@ -43,10 +43,10 @@ export const topic = {
   charts: '/api/v2/topics/{id}/web_charts',
   // 根据 id 获取图表详情
   detail: 'api/v2/charts/{id}/details', // 单图详情
-  multyDetail: '/api/v2/charts/278/multy_details', // 多图详情
+  multipleDetail: '/api/v2/charts/278/multy_details', // 多图详情
   // 根据 id 获取图表数据
   trend: 'api/v2/charts/{id}/trends', // 单图数据
-  multyTrends: '/api/v2/charts/multy_trends', // 多图数据
+  multipleTrends: '/api/v2/charts/multy_trends', // 多图数据
 }
 
 // 忽略的接口地址，不传用户登录信息
@@ -63,6 +63,8 @@ export const ignore: string[] = [
   topic.charts, // 根据 id 查询
   topic.detail,
   topic.trend,
+  topic.multipleTrends,
+  topic.multipleTrends,
 ]
 
 // 判断登陆状态，已登陆状态下才发起请求

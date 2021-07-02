@@ -119,9 +119,9 @@ export const getChartList = async function(topId: string | number, page = 1, lim
   }
   try {
     const result: any = await request.get(url, { params: query })
-    const code = safeGet<number>(result, 'data.code')
-    if (code === 0) {
-      const data = safeGet<any>(result, 'data.data')
+    // @ts-ignore
+    const data = request.check<any>(result)
+    if (data) {
       const count = safeGet<number>(data, 'count')
       const list = safeGet<any[]>(data, 'results')
       return { count, list }
@@ -135,9 +135,22 @@ export const getChartList = async function(topId: string | number, page = 1, lim
   }
 }
 
-export const getChartDetail = function(id: string | number | string[] | number[]) {
-  const url = topic.detail
+export const getChartDetail = async function(id: string | number | string[] | number[]) {
   const params = { id }
-  return request.get(url, { params })
+  try {
+    const result = await request.get(topic.detail, { params })
+    // @ts-ignore
+    return request.check<any>(result)
+  } catch (e) {
+    return void 0
+  }
+}
+
+export const getChartMultipleDetail = function(id: string[] | number[]) {
+  const array: string[] = [].concat(id as any)
+  const params = {
+    chart_ids: array.join(',')
+  }
+  return request.get(topic.multipleDetail, { params })
 }
 

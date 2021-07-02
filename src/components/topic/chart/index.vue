@@ -21,16 +21,13 @@ const getData = async function() {
 }
 
 onMounted(getData)
-
 </script>
 
 <template>
   <div class="p-5">
     <template v-for="(data, index) in list" :key="index">
-      <div>
-        <span>isMultyChart = {{ data.isMultyChart }}</span>
-        <span> - </span>
-        <span>ids = {{ data.ids }}</span>
+      <div v-if="index < 1">
+        <TopicChartItem :multiple="data.multiple" :id="data.ids"></TopicChartItem>
       </div>
     </template>
   </div>
