@@ -18,11 +18,13 @@ const param={
 const route = useRoute()
 const router = useRouter()
 const changeToken = (name: string,id:string) => {
+
   symbolStore.name=name
   symbolStore.id=id
   pairStore.id=''
   pairStore.name=''
-  changeRouteParam(route,router,{token:id})
+  changeRouteParam(route,router,{token:id,pair:undefined,pairName:undefined})
+  // changeRouteParam(route,router,{pair:undefined,pairName:undefined})
   setHistory({token_id:id,name:name,type:'token'})
 }
 const getData=(list:any)=>{
