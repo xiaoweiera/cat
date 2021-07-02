@@ -57,14 +57,14 @@ const data = {
     // 任务2，关注 twitter
     chat.twitter(
       chainWallet.title,
-      I18n.growthpad.warning.article,
+      I18n.growthpad.warning.follow,
       twitterHref,
       [5]
     ),
     // 任务3，加入电报群
     chat.telegram(
       chainWallet.title,
-      I18n.growthpad.warning.article,
+      I18n.growthpad.warning.telegram,
       telegramHref,
       [10]
     ),
