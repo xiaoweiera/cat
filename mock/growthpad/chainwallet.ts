@@ -75,10 +75,10 @@ const data = {
       title: I18n.growthpad.chainwallet.task4.title,
       reward: [2500],
       rule: [
-        I18n.growthpad.chainwallet.task4.rule1,
-        I18n.growthpad.chainwallet.task4.rule2,
-        I18n.growthpad.chainwallet.task4.rule3,
-        I18n.growthpad.chainwallet.task4.rule4,
+        `1. ${I18n.growthpad.chainwallet.task4.rule1}`,
+        `2. ${I18n.growthpad.chainwallet.task4.rule2}`,
+        `3. ${I18n.growthpad.chainwallet.task4.rule3}`,
+        `<span class="text-global-numRed">* ${I18n.growthpad.chainwallet.task4.rule4}</span>`,
       ]
     },
     // 任务4, 微博文章分享推广
