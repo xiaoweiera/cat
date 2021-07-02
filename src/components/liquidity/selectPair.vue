@@ -76,7 +76,7 @@ onMounted(()=>{
           <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ subStr(item.pair) }}</span></div>
           <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
           <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
-          <div class="w-32.5 ml-5">$500</div>
+          <div class="w-32.5 ml-5">${{numberUnitFormat(toFixedNumber(item.price)) }}</div>
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand ">查看更多</li>
