@@ -22,8 +22,8 @@ export const numberFormat = (value: any) => {
 }
 //更改数字文案
 export const numberUnitFormat = (value: any,nullValue:any) => {
-  if (!value) {
-    return nullValue || nullValue===null?nullValue:0
+  if (!value ) {
+    return value===null ?nullValue:0
   }
   value=getRulesNumber(value,0)
   const k = 10000
@@ -260,10 +260,10 @@ const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
     }
   }
 }
-//数字格式化 约分
+//数字格式化 约分   值为空的时候返回 nullValue
 export const getRulesNumber=(v:any,nullValue:any)=>{
   if(!v){
-    return nullValue || nullValue===null?nullValue:0
+    return v===null ?nullValue:0
   }
   const result=getVNumber(v,0,true).toString()
   if(result.split('.')[1].split('0').length-1===4){
