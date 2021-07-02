@@ -59,7 +59,7 @@ onMounted(() => {
       <!-- TVL-->
       <div class="flex items-center mt-1.5">
         <span class="text-kd14px20px text-global-default opacity-65">TVL:</span>
-        <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? parseInt(info.tvl) : '-' }}</span>
+        <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? getRulesNumber(info.tvl) : '-' }}</span>
       </div>
       <div class="flex items-center font-kdFang mt-1.5">
         <span class="text-kd12px16px text-global-default opacity-35">Token地址</span>
