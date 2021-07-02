@@ -281,3 +281,13 @@ export const getRulesNumber=(v:any,nullValue:any)=>{
     return getVNumber(result,i,false)
   }
 }
+//单位
+export const unitOrder=(v:any,unit:string)=>{
+  let value=v?v:0
+  if(!unit) return value
+  if(unit==='$'){
+    return  unit+value
+  }else{
+    return value+unit
+  }
+}
