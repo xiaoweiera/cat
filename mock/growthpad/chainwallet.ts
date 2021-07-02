@@ -12,7 +12,10 @@ const token = chainWallet.coin // 代币名称
 const telegramHref = 'https://t.me/CHA_Wallet'
 const sinaHref = 'https://weibo.com/u/7613046674'
 const website = `https://${chainWallet.website}`
+// 关注 twitter 链接地址
 const twitterHref = 'https://twitter.com/Chain__Wallet'
+// 转发的 twitter 的文章地址
+const reTwitterHref = 'https://twitter.com/kingdata_com/status/1410801714836377601?s=21'
 
 const data = {
   token,
@@ -48,7 +51,7 @@ const data = {
     chat.retwitter(
       chainWallet.title,
       I18n.growthpad.warning.article,
-      twitterHref,
+      reTwitterHref,
       [10]
     ),
     // 任务2，关注 twitter
