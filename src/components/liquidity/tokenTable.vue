@@ -42,14 +42,20 @@ const getPair_list = async () => {
     symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
+    count.value=count.value*2
     next.value = result?.data?.data.next ? true : false
-    pairList.value = pairList.value.concat(result?.data?.data.results)
+    R.map(item=>pairList.value.push(item),result?.data?.data.results)
+    // pairList.value = pairList.value.concat(result?.data?.data.results)
   }
 }
+let a=[1,2,3]
+let b=[4,5]
+a.push(b)
+console.log(a)
 onMounted(() => {
   getPair_list()
 })
-const count = ref(8)
+const count = ref(100)
 const load = () => {
   const listDom = document.querySelector('.pairList')
   if (parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) {
@@ -64,7 +70,7 @@ const load = () => {
   <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid #ffffff;">
     <li class="flex-1">交易对</li>
     <li class="w-20">TVL($)</li>
-    <li class="w-27 mr-1">价格</li>
+    <li class="w-27 ">价格</li>
   </ul>
   <div class="w-full h-full showY pairList" @scroll="load">
     <template v-for="item in pairList">
@@ -75,7 +81,7 @@ const load = () => {
           </el-tooltip>
         </div>
         <div class="w-20     text-kd12px16px text-global-default">{{ numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
-        <div class="w-27    text-kd12px16px text-global-default">
+        <div class="w-27  text-kd12px16px text-global-default">
           <el-tooltip :hide-after="10" :content="toFixedNumber(item.price)" placement="bottom" effect="light">
             <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ getTwoValidityNumber(item.price) }}</span>
           </el-tooltip>

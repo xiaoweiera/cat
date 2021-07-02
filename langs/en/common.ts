@@ -30,7 +30,8 @@ export default {
     confirm: 'Confirm',
     close: 'Close',
     review: 'In Review',
-    success: 'Completed'
+    success: 'Completed',
+    danger: 'Not approved'
   },
   message: {
     verification: 'code',

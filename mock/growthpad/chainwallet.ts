@@ -62,7 +62,7 @@ const data = {
     chat.telegram(
       chainWallet.title,
       I18n.growthpad.warning.article,
-      twitterHref,
+      telegramHref,
       [10]
     ),
     // 任务4, 微博文章分享推广

@@ -36,167 +36,130 @@ const timerValue = computed<string>((): string => {
   return ''
 })
 
+const TaskStyle = computed<string>(function() {
+  if (props.status === TimeStatus.closure) {
+    return `background-image: url("https://res.ikingdata.com/nav/grothpadOver.png")`
+  }
+  console.log(props.project.title)
+  if (imgs[props.project.title]) {
+    const src = imgs[props.project.title]
+    console.log(src)
+    return `background-image: url("${src}")`
+  }
+  return ''
+})
+
 </script>
 <template>
-  <div class="project reative font-kdFang relative i8n-font-en-inter">
-    <div class="relative z-2">
+  <div class="relative rounded-xl item-detail font-kdFang p-6">
+    <div class="absolute top-6 right-6 bottom-6 left-6 task-bg z-0" :class="props.status" :style="TaskStyle"></div>
+    <div class="relative z-10">
       <div class="flex items-center">
-        <img :src="props.project.icon" class="w-10.5"/>
-        <div class="text-kd24px36px ml-2 font-medium">{{ props.project.title }}</div>
-        <div v-if="props.status !== TimeStatus.closure" :class="{'statusTxtWait': props.status === TimeStatus.wait, 'statusTxtIng': props.status !== TimeStatus.wait}">
+        <!-- 项目 ICON -->
+        <IconFont :type="props.project.icon" size="4xl"></IconFont>
+        <!-- 项目 名称 -->
+        <span class="text-2xl ml-2 text-global-highTitle">{{ props.project.title }}</span>
+        <!-- 项目 状态 -->
+        <div class="task-status py-1.5 px-3 bg-white bg-opacity-20 text-sm ml-4" :class="props.status">
           <span v-if="props.status === TimeStatus.wait">
             <span>⏱</span>
             <span class="ml-1">{{ I18n.growthpadShow.coming }}</span>
           </span>
-          <span v-else>
+          <span v-else-if="props.status === TimeStatus.ing">
             <span>🔥</span>
             <span class="ml-1">{{ I18n.growthpadShow.ongoing }}</span>
           </span>
         </div>
       </div>
-      <div class="overDes">
-        <div :class="{'max-w-43': props.status === TimeStatus.closure}">{{ props.project.dashboard.description }}</div>
-        <img v-if="props.status === TimeStatus.closure" class="w-30 absolute top-4 right-0" src="https://res.ikingdata.com/nav/grothpadOver.png"/>
+      <div class="py-2">
+        <p class="text-sm leading-5 text-global-default text-opacity-65 description">{{ props.project.dashboard.description }}</p>
       </div>
-      <div class="flex mt-6 items-center font-normal">
-        <p class="desc">{{ I18n.growthpadShow.reward }}</p>
-        <p class="projectNum">{{ props.project.dashboard.reward.countStr }}</p>
-      </div>
-      <!--      <div class="flex blockItem">-->
-      <!--        <p class="desc">{{ I18n.growthpadShow.values }}</p>-->
-      <!--        <p class="projectNum">${{ cost }}</p>-->
-      <!--      </div>-->
-
-      <div class="flex blockItem" :class="{ 'v-hidden': props.project.projectName === 'Growth' }">
-        <p class="desc">{{ I18n.growthpadShow.perPersion }}</p>
-        <p class="projectNum">
-          {{ formatCash(props.project.dashboard.reward.limits[0]) }}
-          {{ props.project.coin }}
-        </p>
-      </div>
-
-      <div class="flex blockItem" v-if="props.project.website">
-        <p class="desc">{{ I18n.growthpad.about.website }}</p>
-        <p class="projectNum">
-          <a class="link" :href="`https://${props.project.website}`" target="_blank">{{ props.project.website }}</a>
-        </p>
-      </div>
-
-      <!-- 活动倒计时 -->
-      <GrowthpadTimer class="w-full mt-3" :class="props.status + 'Color'" :value="timerValue">
-        <template #label>
-          <div class="desc whitespace-nowrap mr-8">
-            <span>{{props.status === TimeStatus.wait ? I18n.growthpadShow.timeBegin : I18n.growthpadShow.timeLeft }}</span>
-          </div>
-        </template>
-      </GrowthpadTimer>
-
-      <!-- 提示 -->
-      <div class="flex blockItem mt-3" v-if="props.project.warn">
-        <p class="projectNum" style="margin: 0;">
-          <a class="link">{{ props.project.warn }}</a>
-        </p>
-      </div>
-
+      <ul class="pt-2.5">
+        <li class="py-1.5 text-sm text-global-default text-opacity-65">
+          <label class="label mr-8">{{ I18n.growthpadShow.reward }}</label>
+          <span>{{ props.project.dashboard.reward.countStr }}</span>
+        </li>
+        <li class="py-1.5 text-sm text-global-default text-opacity-65">
+          <label class="label mr-8">{{ I18n.growthpadShow.perPersion }}</label>
+          <span>
+            {{ formatCash(props.project.dashboard.reward.limits[0]) }}{{ props.project.coin }}
+          </span>
+        </li>
+        <li class="py-1.5 text-sm text-global-default text-opacity-65" v-if="props.project.website">
+          <label class="label mr-8">{{ I18n.growthpad.about.website }}</label>
+          <span>
+            <a class="link" :href="`https://${props.project.website}`" target="_blank">{{ props.project.website }}</a>
+          </span>
+        </li>
+        <li class="py-1.5 text-sm" v-if="timerValue && props.status !== TimeStatus.closure">
+          <GrowthpadTimer class="w-full task-time" :class="props.status" :value="timerValue">
+            <template #label>
+              <div class="label whitespace-nowrap mr-8 text-global-default text-opacity-65">
+                <span>{{props.status === TimeStatus.wait ? I18n.growthpadShow.timeBegin : I18n.growthpadShow.timeLeft }}</span>
+              </div>
+            </template>
+          </GrowthpadTimer>
+        </li>
+        <li class="py-1.5 text-sm" v-if="props.project.warn">
+          <span class="text-global-primary">{{ props.project.warn }}</span>
+        </li>
+      </ul>
       <GrowthpadIndexProjectButton :url="props.project.url" :status="props.status"/>
     </div>
-    <img v-if="props.status !== TimeStatus.closure" class="w-40 absolute top-4 right-5" :src="imgs[props.project.title]"/>
   </div>
 </template>
 
 <style scoped lang="scss">
-.v-hidden {
-  visibility: hidden;
-}
-.ingColor {
-  color: #0ec674;
-}
-.waitColor {
-  color: #2b8dfe;
-}
-.closureColor {
-  color: #2b8dfe !important;
-}
-.itemTxt {
-  @apply ml-8 flex text-left items-center justify-center;
-}
-.projectNum {
-  @apply ml-8 text-kd14px18px font-kdExp text-global-default;
-}
-.overDes {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  .item-detail {
+    background: linear-gradient(180deg, #F8F9FF 0%, rgba(248, 249, 255, 0.6) 100%);
+    border: 1px solid rgba(43, 141, 255, 0.08);
+    box-shadow: 0 0 12px rgba(43, 141, 255, 0.26);
+  }
 
-  @apply mt-2 text-kd14px20px text-global-default opacity-65;
-}
-.noOverDes {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  @apply m-2 text-kd14px20px text-global-default opacity-65;
-}
-.statusTxtWait {
-  padding: 6px 12px;
-  background: rgba(43, 141, 254, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-sizing: border-box;
-  border-radius: 50px;
-  @apply text-kd14px18px text-global-primary font-kdFang font-medium  ml-4;
-}
-.statusTxtIng {
-  padding: 6px 12px;
-  background: rgba(30, 209, 130, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-sizing: border-box;
-  color: rgba(0, 180, 100, 1);
-  border-radius: 50px;
-  @apply text-kd14px18px  font-kdFang font-medium  ml-4;
-}
+  .task-bg {
+    background-size: 10rem 10rem;
+    background-position: top right;
+    background-repeat: no-repeat;
+    &.closure {
+      background-size: 7.5rem 7.5rem;
+      @apply opacity-50;
+    }
+  }
 
-.project {
-  background: linear-gradient(180deg, #f6f7ff 0%, #ddeafd 100%);
-  box-shadow: 0px 12px 42px -12px rgba(43, 141, 255, 0.26),
-    inset 0px -3px 66px rgba(255, 255, 255, 0.7);
-  border-radius: 12px;
-  @apply relative p-6  w-full;
-}
+  .task-status {
+    border-radius: 50px;
+    &.wait {
+      background: rgba(43, 141, 254, 0.12);
+      @apply text-global-primary;
+    }
+    &.ing {
+      background: rgba(30, 209, 130, 0.14);
+      color: rgba(0, 180, 100, 1);
+    }
+  }
 
-.shadows {
-  filter: drop-shadow(0px 0px 20px rgba(43, 141, 254, 0.16));
-}
+  .task-time {
+    &.wait {
+      @apply text-global-primary;
+    }
+    &.ing {
+      color: #00B464;
+    }
+    &.closure {
+      color: #00B464;
+    }
+  }
 
-.time {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-sizing: border-box;
-  border-radius: 50px;
-}
-
-.desc {
-  width: 100px;
-  min-width: 70px;
-  color: rgba(37, 62, 111, 0.65);
-  font-family: i8n-font-inter !important;
-  @apply text-kd14px18px;
-}
-
-.goButton {
-  border-radius: 44px;
-}
-
-.right-logo {
-  @apply h-32;
-}
-
-.blockItem {
-  @apply items-center mt-3 font-normal;
-}
-
-.project-default-btn {
-  @apply mx-auto w-full text-center flex items-center justify-center rounded-large cursor-pointer;
-}
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .label {
+    width: 100px;
+    min-width: 70px;
+    display: inline-block;
+  }
 </style>

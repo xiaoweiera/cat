@@ -3,9 +3,9 @@ import { defineProps, onMounted, toRefs } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
 import { paramChart,priceData} from '~/store/liquidity/state'
-import {getXData, getAllItemSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
+import {getXData, getAllItemSeries,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
-import {kData} from '/mock/liquidity'
+import {kData,groupData} from '/mock/liquidity'
 interface yModel {
   color: string
   data: Array<number>
@@ -20,6 +20,7 @@ const props = defineProps({
   chartData: Object,
   chartId:Number
 })
+
 const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any) => {
   // @ts-ignore
   const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel)
@@ -31,7 +32,7 @@ const getChartData=()=>{
   const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData.xaxis,priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
-  const [series,allYAxis] = getAllItemSeries(
+  const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,priceData.value.xaxis,
       props?.chartData.yaxis, priceData.value.yaxis[0],
       allXaxis,
