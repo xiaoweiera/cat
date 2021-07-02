@@ -1,22 +1,19 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref,watch} from 'vue'
+import {selectTxt,selectHistory} from '~/store/liquidity/state'
+const isHasHistory=ref(localStorage.getItem('history') && localStorage.getItem( 'history')!=='null'?true:false)
 
 const show=ref(false)
 const changeShow=(state:boolean)=>{
   show.value=state
 }
+watch(()=>selectHistory.value,()=>{
+  isHasHistory.value=localStorage.getItem('history') && localStorage.getItem( 'history')!=='null'?true:false
+})
 </script>
 <template>
   <div class="selectContainer">
-  <el-popover
-      popper-class="liquidity-search-select-con"
-      placement="bottom"
-      :offset="0"
-      :show-arrow="false"
-      :width="600"
-      v-model:visible="show"
-      trigger="click"
-  >
+  <el-popover popper-class="liquidity-search-select-con" placement="bottom" :offset="0" :show-arrow="false" :width="600" v-model:visible="show" trigger="click">
     <template #reference>
       <div class="flex items-center w-full h-14.5 bottomBorder">
         <LiquidityPlats />
@@ -24,9 +21,14 @@ const changeShow=(state:boolean)=>{
         <LiquiditySelectTool  :changeShow="changeShow"/>
       </div>
     </template>
-    <div class="showY">
+    <div v-show="selectTxt" class="showY">
       <LiquiditySelectToken  />
       <LiquiditySelectPair class="mt-2.5"/>
+    </div>
+    <div v-show="!selectTxt">
+      <LiquiditySelectHistory v-show="isHasHistory"/>
+      <div v-show="isHasHistory" class="mb-3 mt-3.5" style="border-top:1px solid rgba(37, 62, 111, 0.08);"></div>
+      <LiquiditySelectHot/>
     </div>
 
   </el-popover>
