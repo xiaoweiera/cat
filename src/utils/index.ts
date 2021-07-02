@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { is, trim, isEmpty as _isEmpty } from 'ramda'
+import { filter, is, trim, isEmpty as _isEmpty } from 'ramda'
 //@ts-ignore
 import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
 
@@ -155,4 +155,9 @@ export const isElement = function(value: any) {
     return true
   }
   return false
+}
+
+export const compact = function<T>(list: T[]): T[] {
+  const app = filter((value: T) => !isEmpty(value))
+  return app(list)
 }

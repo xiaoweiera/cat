@@ -4,6 +4,7 @@
  */
 
 import Url from 'url'
+import I18n from '~/utils/i18n/index'
 import { production as env } from '~/lib/process'
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import safeSet from '@fengqiaogang/safe-set'
@@ -62,6 +63,17 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
         }
         // 设置当前系统语言环境
         safeSet(config, 'params.lang', current.value)
+      }
+      // 处理 url 中的变量
+      if (config.params && config.url) {
+        /**
+         * 借助 i18n 模块中的 template 可以对字符串中的变量进行替换
+         * const url = "xxx/{id}/{name}/xxx"
+         * const params = { id: "1", name: "aaa" }
+         * 替换后为 "xxx/1/aaa/xxx"
+         */
+        const url = I18n.template(config.url, config.params)
+        config.url = url
       }
       return config
     },

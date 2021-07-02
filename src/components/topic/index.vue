@@ -9,6 +9,7 @@ import { MenuType } from '~/logic/topic/props'
 // @ts-ignore
 const search = ref<string>('')
 
+// @ts-ignore
 const current = computed(() => {
   const data = menuCurrent()
   return data || {}

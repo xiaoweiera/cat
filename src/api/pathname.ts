@@ -4,7 +4,7 @@
  */
 
 export const ads = {
-  commercial: '/api/v2/commercial'
+  commercial: '/api/v2/commercial',
 }
 
 export const user = {
@@ -34,7 +34,19 @@ export const res = {
 
 // 数据报表
 export const topic = {
-  getMenuList: '/api/v2/topics/web_topic'
+  getMenuList: '/api/v2/topics/web_topic',
+  // 用户关注的图表数据
+  follows: '/api/v2/charts/my/multy_follows',
+  // 系统推荐图表数据
+  recommend: '/api/v2/charts/web_recommend',
+  // 获取图表中所有的 id
+  charts: '/api/v2/topics/{id}/web_charts',
+  // 根据 id 获取图表详情
+  detail: 'api/v2/charts/{id}/details', // 单图详情
+  multyDetail: '/api/v2/charts/278/multy_details', // 多图详情
+  // 根据 id 获取图表数据
+  trend: 'api/v2/charts/{id}/trends', // 单图数据
+  multyTrends: '/api/v2/charts/multy_trends', // 多图数据
 }
 
 // 忽略的接口地址，不传用户登录信息
@@ -46,7 +58,11 @@ export const ignore: string[] = [
   '/apy/',
   '/api/v2/commercial',
   ads.commercial, // 广告位
-  topic.getMenuList,
+  topic.getMenuList, // 菜单
+  topic.recommend, // 推荐数据
+  topic.charts, // 根据 id 查询
+  topic.detail,
+  topic.trend,
 ]
 
 // 判断登陆状态，已登陆状态下才发起请求
