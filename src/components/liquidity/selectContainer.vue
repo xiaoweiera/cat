@@ -39,7 +39,7 @@ const changeShow=(state:boolean)=>{
   padding:12px 12px 12px 12px !important;
   border:1px solid red;
   margin-left:90px !important;
-  @apply max-h-141;
+  @apply max-h-153;
 }
 .bottomBorder {
   border-bottom: 1px solid rgba(37, 62, 111, 0.04);
