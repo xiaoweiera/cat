@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { ElMessage } from 'element-plus'
 import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
-
+import {BigNumber} from 'bignumber.js'
 //apy的特殊处理，别更改
 export const numberFormat = (value: any) => {
   if (value===null) {
@@ -21,10 +21,11 @@ export const numberFormat = (value: any) => {
   return values + unit
 }
 //更改数字文案
-export const numberUnitFormat = (value: any) => {
+export const numberUnitFormat = (value: any,nullValue:any) => {
   if (!value) {
-    return 0
+    return nullValue || nullValue===null?nullValue:0
   }
+  value=getRulesNumber(value,0)
   const k = 10000
   const sizes = ['', '万', '亿', '万亿']
   if (value < k && value>=0) {
@@ -204,8 +205,8 @@ export const smallToken = (tokenId: string) => {
   )}`
 }
 export const subStr = (str:string)=>{
-  if (!str || str.length<=10) return str
-  return str.slice(0, 10)+'...'
+  if (!str || str.length<=7) return str
+  return str.slice(0, 7)+'...'
 }
 //弱提示框
 export const messageTip=(content:string,typeName:string)=>{
@@ -220,9 +221,10 @@ export const messageTip=(content:string,typeName:string)=>{
 //保留小数点0后面的两位有效小数
 export const getTwoValidityNumber=(number:number)=>{
   let result=''
-  const numberStr=number?number.toString():''
+  if(!number) return 0
+  const numberStr=number.toString()
   if(numberStr.indexOf('0')<0){
-    result=number?number.toFixed(2):'0'
+    result=number.toFixed(2)
   }else{
     if(numberStr.indexOf('.')<0){
       result= number.toFixed(2)
@@ -241,4 +243,41 @@ export const getTwoValidityNumber=(number:number)=>{
     }
   }
   return parseFloat(result)
+}
+
+//价格约分为 小数点非0两位有效数字，但最高不超过小数点后4位(0000)。
+const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
+  const v=new BigNumber(value)
+  //@ts-ignore
+  const intNumber=parseInt(Math.abs(v)).toString().length
+  if(isFour){
+    return v.precision(intNumber+4).toFixed(4)
+  }else{
+    if(zeroIndex===0){
+      return v.precision(intNumber+4).toFixed(2)
+    }else{
+      return parseFloat(v.precision(intNumber+4).toFixed(2+(zeroIndex)))
+    }
+  }
+}
+//数字格式化 约分
+export const getRulesNumber=(v:any,nullValue:any)=>{
+  if(!v){
+    return nullValue || nullValue===null?nullValue:0
+  }
+  const result=getVNumber(v,0,true).toString()
+  if(result.split('.')[1].split('0').length-1===4){
+    return result
+  }else{
+    const twoNumber=  result.split('.')[1].split('')
+    let i=0;
+    for (let j=0;j<twoNumber.length;j++){
+      if(twoNumber[j]==='0'){
+        i++
+      }else{
+        break
+      }
+    }
+    return getVNumber(result,i,false)
+  }
 }
