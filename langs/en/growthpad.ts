@@ -376,10 +376,10 @@ Rule: Before starting the task, participants need to the KingData account and en
       rule1: 'More than 500 U and less than 10,000 U, reward 250 CHA',
       rule2: 'More than 10,000 U and less than 100,000 U, reward 1,000 CHA',
       rule3: 'More than 100,000 U, reward 2,500 CHA',
+      rule4: 'The reward will be airdropped into the verification address.'
     },
     task5: {
-      desc: `The reward is based on the number of follwers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000)
-Mainstream media: Weibo, Zhihu, Toutiao, etc. The specific number of rewards is determined by manual review.`
+      desc: `The reward is based on the number of followers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000) Mainstream media: Twittter,Facebook,Weibo,Zhihu, Toutiao, etc.`
     }
   }
 };
