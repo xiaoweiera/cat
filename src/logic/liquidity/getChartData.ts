@@ -53,15 +53,7 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<n
   legend.push({icon:lineIcon,name:kyData.name})
   return legend
 }
-//@ts-ignore
-const unitOrder=(v:any,unit:string)=>{
-  if(!unit) return numberUnitFormat(v,0)
-  if(unit==='$'){
-    return  unit+numberUnitFormat(v,0)
-  }else{
-    return numberUnitFormat(v,0)+unit
-  }
-}
+
 const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string) => {
   let min: any = null
   let max: any = null
