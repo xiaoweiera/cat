@@ -23,7 +23,7 @@ const data = {
   icon: 'https://res.ikingdata.com/icon/chainwallet.png',
   dashboard: chainWallet.dashboard,
   address: {
-    placeholder: I18n.growthpad.growthpad.address.placeholder
+    placeholder: I18n.growthpad.mdx.address.placeholder
   },
   about: {
     website, // 项目官网
