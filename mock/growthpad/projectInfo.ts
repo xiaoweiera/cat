@@ -83,7 +83,7 @@ export const chainWallet = {
   coin: 'CHA',
   projectName: 'ChainWallet',
   website: 'app.chainwallet.me',
-  warn: I18n.growthpad.chainwallet.project.warn, // 警示
+  // warn: I18n.growthpad.chainwallet.project.warn, // 警示
   dashboard: {
     banner: I18n.growthpad.chainwallet.dashboard.banner,
     begin: '2021-07-02 20:00:00', // 开始时间
