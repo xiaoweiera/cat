@@ -42,7 +42,6 @@ const getPair_list = async () => {
     symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
-    count.value=count.value*2
     next.value = result?.data?.data.next ? true : false
     R.map(item=>pairList.value.push(item),result?.data?.data.results)
     // pairList.value = pairList.value.concat(result?.data?.data.results)
@@ -51,7 +50,6 @@ const getPair_list = async () => {
 onMounted(() => {
   getPair_list()
 })
-const count = ref(100)
 const load = () => {
   const listDom = document.querySelector('.pairList')
   if (parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) {
