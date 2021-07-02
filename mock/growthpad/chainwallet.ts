@@ -77,7 +77,8 @@ const data = {
       rule: [
         I18n.growthpad.chainwallet.task4.rule1,
         I18n.growthpad.chainwallet.task4.rule2,
-        I18n.growthpad.chainwallet.task4.rule3
+        I18n.growthpad.chainwallet.task4.rule3,
+        I18n.growthpad.chainwallet.task4.rule4,
       ]
     },
     // 任务4, 微博文章分享推广
