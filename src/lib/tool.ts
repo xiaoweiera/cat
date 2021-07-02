@@ -265,6 +265,9 @@ export const getRulesNumber=(v:any,nullValue:any)=>{
   if(!v){
     return v===null ?nullValue:0
   }
+  if(v.toString().indexOf('.')<0){
+    return v
+  }
   const result=getVNumber(v,0,true).toString()
   if(result.split('.')[1].split('0').length-1===4){
     return result
@@ -281,13 +284,15 @@ export const getRulesNumber=(v:any,nullValue:any)=>{
     return getVNumber(result,i,false)
   }
 }
+
 //单位
 export const unitOrder=(v:any,unit:string)=>{
   let value=v?v:0
-  if(!unit) return value
+  if(value.toString().indexOf('e')>=0) return value
+  if(!unit) return getRulesNumber(v,0)
   if(unit==='$'){
-    return  unit+value
+    return  unit+getRulesNumber(v,0)
   }else{
-    return value+unit
+    return getRulesNumber(v,0)+unit
   }
 }
