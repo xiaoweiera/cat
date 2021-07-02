@@ -25,6 +25,7 @@ const changePair = (symbol0:string,name: string,id:string,tokenId:string) => {
   changeRouteParam(route,router,{token:tokenId})
   changeRouteParam(route,router,{pair:id,pairName:name})
   setHistory({name:name,pair_id:id,tokenName:symbol0,token_id:tokenId,type:'pair'})
+
 }
 const route = useRoute()
 const router = useRouter()
@@ -58,9 +59,7 @@ const getList=async ()=>{
 watch(()=>selectTxt.value,async (n)=> {
   getList()
 })
-onMounted(()=>{
-  getList()
-})
+onMounted(getList)
 </script>
 <template>
   <ul>

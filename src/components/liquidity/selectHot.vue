@@ -1,53 +1,36 @@
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
 import {ref, reactive, onMounted, watch, defineProps} from 'vue'
-import {symbolStore, pairStore, getHistory,selectHistory,clearHistory} from '~/store/liquidity/state'
+import {symbolStore, pairStore,hot} from '~/store/liquidity/state'
 import {subStr, changeRouteParam} from '~/lib/tool'
 import {useRoute, useRouter} from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
-const setHistory = (item: any) => {
-  console.log(item)
+const selectTag= (item: any) => {
   if (item.type === 'token') {
-    console.log('111')
     symbolStore.name = item.name
     symbolStore.id = item.token_id
     pairStore.id = ''
     pairStore.name = ''
-    changeRouteParam(route, router, {token: item.id})
+    changeRouteParam(route, router, {token: item.token_id})
   } else {
-    console.log('222222')
     symbolStore.name = item.tokenName
     symbolStore.id = item.token_id
     pairStore.name = item.name
     pairStore.id = item.pair_id
-    console.log(pairStore.id)
     changeRouteParam(route, router, {token: item.token_id,pair: item.pair_id, pairName: item.name})
     // changeRouteParam(route, router, {pair: item.pair_id, pairName: item.name})
   }
 }
-const getClass=(item:any)=>{
-  if(item.type==='token'){
-      return item.token_id===symbolStore.id && !pairStore.id?'selected':'noSelected'
-  }else{
-    return item.pair_id===pairStore.id?'selected':'noSelected'
-  }
-}
-const deleteHistory=()=>clearHistory()
-onMounted(getHistory)
-
 </script>
 <template>
-  <div v-show="isHasHistory">
-    <div class="text-global-default opacity-65 text-kd14px18px flex justify-between  text-kdFang font-medium ">
-      <div>历史记录</div>
-      <img @click="deleteHistory()" class="w-4.5 h-4.5 hand" src="https://res.ikingdata.com/nav/historyDelete.jpg" alt="">
-    </div>
+  <div class="font-kdExp">
+    <div class="text-global-default opacity-65 text-kd14px18px  text-kdFang font-medium ">热门搜索</div>
     <div class="flex flex-wrap">
-      <template v-for="item in selectHistory">
-        <div v-if="item.type"  class=" hand flex mt-3 ">
-          <span class="coinName mr-3 border-1" @click="setHistory(item)" :class="getClass(item)" >{{ item.name+item.type }}</span>
+      <template v-for="item in hot">
+        <div v-if="item.type" @click="selectTag(item)" class=" hand flex mt-3 ">
+          <span class="coinName mr-3"  :class="item.token_id===symbolStore.id?'selected':'noSelected'">{{ item.name }}</span>
         </div>
       </template>
     </div>
@@ -66,12 +49,13 @@ onMounted(getHistory)
   border: 1px solid rgba(43, 141, 254, 1);
   background: white;
 }
+
 .more {
   @apply text-kd14px18px px-3 py-1.5 text-global-primary font-normal;
 }
 
 .coinName {
-  border: 1px solid #2B8DFE;
+
   border-radius: 4px;
   @apply text-kd12px18px py-0.5 px-1.5 text-global-default opacity-85 font-normal border-1 whitespace-nowrap;
 }
