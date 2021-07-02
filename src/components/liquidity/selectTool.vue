@@ -4,10 +4,8 @@ import {selectTxt} from '~/store/liquidity/state'
 const props = defineProps({
   changeShow: Function
 })
-const coinShow = reactive({valueData:false})
 const changeSelect = () => {
-  props.changeShow()
-  coinShow.valueData = !coinShow.valueData
+  props.changeShow(true)
 }
 // 加延迟不然会先执行blur，不执行click
 const inputBlur = () => {
@@ -15,17 +13,13 @@ const inputBlur = () => {
     changeSelect(false)
   }, 100)
 }
-const close=(state:boolean)=>{
-  coinShow.valueData=state
-}
 watch(()=>selectTxt.value,(n)=>{
   props.changeShow(true)
-  coinShow.valueData=n?true:false
 })
 </script>
 <template>
   <div class="flex flex-1 relative text-kd12px14px items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
-    <el-input v-model="selectTxt" class="text-kd12px14px" placeholder="搜索币种/交易对/合约地址" @change="changeSelect()" ></el-input>
+    <el-input v-model="selectTxt"  placeholder="搜索币种/交易对/合约地址" @change="changeSelect()" ></el-input>
     <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
   </div>
 </template>
@@ -49,7 +43,7 @@ watch(()=>selectTxt.value,(n)=>{
 }
 
 ::v-deep(.el-input__inner) {
-  font-size: 14px !important;
+  font-size: 11px !important;
   padding-left: 0px;
 }
 </style>
