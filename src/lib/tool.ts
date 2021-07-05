@@ -1,3 +1,6 @@
+
+
+
 // @ts-ignore
 import dayjs from 'dayjs'
 import * as R from 'ramda'
@@ -21,18 +24,18 @@ export const numberFormat = (value: any) => {
   return values + unit
 }
 //更改数字文案
-export const numberUnitFormat = (value: any,nullValue:any) => {
+export const numberUnitFormat = (value: any) => {
   if (!value ) {
-    return value===null ?nullValue:0
+    return value===null ?'-':value
   }
-  value=getRulesNumber(value,0)
+  value=getRulesNumber(value)
   const k = 10000
   const sizes = ['', '万', '亿', '万亿']
   if (value < k && value>=0) {
     return Math.round(value * 100) / 100
   }
   if(value<0 && value>-1){
-    return '-'+getTwoValidityNumber(Math.abs(value))
+    return getRulesNumber(value)
   }else{
     const i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k))
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
@@ -218,7 +221,7 @@ export const messageTip=(content:string,typeName:string)=>{
     type: typeName
   });
 }
-//保留小数点0后面的两位有效小数
+//保留小数点0后面的两位有效小数 暂时不用
 export const getTwoValidityNumber=(number:number)=>{
   let result=''
   if(!number) return 0
@@ -260,10 +263,10 @@ const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
     }
   }
 }
-//数字格式化 约分   值为空的时候返回 nullValue
-export const getRulesNumber=(v:any,nullValue:any)=>{
+//数字格式化 约分
+export const getRulesNumber=(v:any)=>{
   if(!v){
-    return v===null ?nullValue:0
+    return !v && v!==0 ?'-':v
   }
   if(v.toString().indexOf('.')<0){
     return v
@@ -285,14 +288,14 @@ export const getRulesNumber=(v:any,nullValue:any)=>{
   }
 }
 
-//单位
+//tipModel单位
 export const unitOrder=(v:any,unit:string)=>{
-  let value=v?v:0
+  let value=v?v:v===0?0:'-'
   if(value.toString().indexOf('e')>=0) return value
-  if(!unit) return getRulesNumber(v,0)
+  if(!unit) return getRulesNumber(v)
   if(unit==='$'){
-    return  unit+getRulesNumber(v,0)
+    return  unit+getRulesNumber(v)
   }else{
-    return getRulesNumber(v,0)+unit
+    return getRulesNumber(v)+unit
   }
 }

@@ -1,3 +1,5 @@
+
+
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
 import { ref, reactive,onMounted,watch,defineProps} from 'vue'
@@ -72,27 +74,27 @@ onMounted(getList)
     </div>
     <template v-for="item in pairList">
       <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
-          <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ subStr(item.pair) }}</span></div>
-          <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
-          <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
-          <div class="w-32.5 ml-5">${{getRulesNumber(item.price) }}</div>
+        <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ item.pair }}</span></div>
+        <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
+        <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
+        <div class="w-32.5 ml-5">1:{{getRulesNumber(item.price) }}</div>
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand ">查看更多</li>
   </ul>
 
 
-<!--  <ul class="mt-3">-->
-<!--    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 text-kdFang font-medium ">交易对</li>-->
-<!--    <template v-for="item in pairList">-->
-<!--      <li class="itemLi hand" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">-->
-<!--        <div class="coinName">-->
-<!--          <span>{{ subStr(item.pair) }}</span>-->
-<!--        </div>-->
-<!--      </li>-->
-<!--    </template>-->
-<!--    <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand">查看更多</li>-->
-<!--  </ul>-->
+  <!--  <ul class="mt-3">-->
+  <!--    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 text-kdFang font-medium ">交易对</li>-->
+  <!--    <template v-for="item in pairList">-->
+  <!--      <li class="itemLi hand" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">-->
+  <!--        <div class="coinName">-->
+  <!--          <span>{{ subStr(item.pair) }}</span>-->
+  <!--        </div>-->
+  <!--      </li>-->
+  <!--    </template>-->
+  <!--    <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand">查看更多</li>-->
+  <!--  </ul>-->
   <!--      交易对-->
 </template>
 <style lang="postcss" scoped>
@@ -158,3 +160,4 @@ onMounted(getList)
   padding-left: 0px;
 }
 </style>
+

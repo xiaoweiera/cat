@@ -1,3 +1,5 @@
+
+
 import { paramChart} from '~/store/liquidity/state'
 const grid = () => {
   const xLength=paramChart.interval==='1D'?'12px':'35px'
@@ -143,7 +145,7 @@ export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
   }
 }
 //y轴价格线配置
-export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
+export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any,isHasUnit:string)=> {
   return {
     show: true,
     position:'right',
@@ -172,7 +174,7 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
         color: 'rgba(240, 191, 18, 1)',
       },
       formatter: (value: any) => {
-        return '$'+yLabelFormat(value)
+        return isHasUnit?(isHasUnit==='$'?isHasUnit+yLabelFormat(value):yLabelFormat(value)+isHasUnit):yLabelFormat(value)
       }
     }
   }
@@ -270,3 +272,4 @@ export const chartConfig = (
     series,
   }
 }
+

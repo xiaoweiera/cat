@@ -1,3 +1,5 @@
+
+
 import * as R from 'ramda'
 import {formatDefaultTime, min_max, numberUnitFormat, formatHourTime,unitOrder} from '~/lib/tool'
 import {getCharts} from '~/api/liquidity'
@@ -53,16 +55,18 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<n
   legend.push({icon:lineIcon,name:kyData.name})
   return legend
 }
-const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string) => {
+const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string,pairId:string) => {
   let min: any = null
   let max: any = null
   const ydata=getNewyData(xData,item.data,allxData)
+  const unit=pairId?'':item.unit
   const seriesData = R.map((v) => {
     [min, max] = min_max(min, max, v)
+    // const unit=''
     return {
       value: v,
-      orginValue: numberUnitFormat(v,0),
-      formatValue:v || v===0?unitOrder(v,item.unit):'-',
+      orginValue: numberUnitFormat(v),//万 亿 约汉字
+      formatValue:pairId?'1:'+unitOrder(v,unit):unitOrder(v,unit),
       interval:interval
       // color: item.color
     }
@@ -94,7 +98,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       barCategoryGap: '35%',
       areaStyle: item.type === 'area' ? area : null,
       yAxisIndex: i,
-      connectNulls: true,
+      // connectNulls: true,//为空的时候是否连接起来
       smooth: true,
       itemStyle: {
         color(p: any) {
@@ -119,9 +123,9 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   ]
 }
 
-export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v,0)
+export const yLabelFormat = (v: any) => numberUnitFormat(v)
 //getSeries 根据group后端自定义组合y轴
-export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
+export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []
   const allYAxis=[]
   const groupList={}
@@ -144,7 +148,7 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
     groupList[R.keys(groupList)[i]].forEach((item:yModel,n:number)=>{
       //如果给的分组大于y轴的配置数量那么默认走第一个y轴配置，即0
       const groupIndex=item.group>=R.keys(groupList).length?0:item.group
-      const [obj, min, max] = formatYData(item, groupIndex,false,xData,allxData,interval)
+      const [obj, min, max] = formatYData(item, groupIndex,false,xData,allxData,interval,'')
       minM = R.min(min, minM)
       maxM = R.max(max, maxM)
       series.push(obj)
@@ -153,25 +157,29 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
   }
   // // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval)
-    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat))
+    const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval,pairId)
+    //pair没有价格线美元单位
+    const unit=pairId?'':'$'
+    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat,unit))
     series.push(obj)
   }
   return [series,allYAxis]
 }
 //getSeries  单独的y轴
-export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
+export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []
   const allYAxis=[]
   yData.forEach((item:yModel,i:number)=>{
-    const [obj, min, max] = formatYData(item, i,false,xData,allxData,interval)
+    const [obj, min, max] = formatYData(item, i,false,xData,allxData,interval,'')
     allYAxis.push(yAxisModel(min,max,yLabelFormat))
     series.push(obj)
   })
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,yData.length, true,kxData,allxData,interval)
-    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat))
+    const [obj, kmin, kmax] = formatYData(kyData,yData.length, true,kxData,allxData,interval,'')
+    //pair没有价格线美元单位
+    const unit=pairId?'':'$'
+    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat,unit))
     series.push(obj)
   }
   return [series,allYAxis]
@@ -184,14 +192,14 @@ export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Arra
   let kminM: any = null
   let kmaxM: any = null
   yData.forEach((item:yModel,i:number)=>{
-    const [obj, min, max] = formatYData(item, 0,false,xData,allxData,interval)
+    const [obj, min, max] = formatYData(item, 0,false,xData,allxData,interval,'')
     series.push(obj)
     minM = R.min(min, minM)
     maxM = R.max(max, maxM)
   })
   // kline
   if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,1, true,kxData,allxData,interval)
+    const [obj, kmin, kmax] = formatYData(kyData,1, true,kxData,allxData,interval,'')
     series.push(obj)
     kminM = kmin
     kmaxM = kmax
@@ -217,3 +225,4 @@ export const getChartsFun=async (param:any)=>{
   const result=await getCharts(param)
   return result
 }
+

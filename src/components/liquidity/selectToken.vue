@@ -1,3 +1,5 @@
+
+
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
@@ -71,7 +73,7 @@ onMounted(()=>{
     </div>
     <template v-for="item in tokenList">
       <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
-        <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ item.symbol_name}}</span></div>
+        <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ item.symbol}}</span>,<span class="ml-2">{{ item.symbol_name}}</span></div>
         <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.symbol_id)}}</div>
         <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
         <div class="w-32.5 ml-5">${{getRulesNumber(item.price) }}</div>
@@ -142,3 +144,4 @@ onMounted(()=>{
   padding-left: 0px;
 }
 </style>
+
