@@ -62,7 +62,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     return {
       value: v,
       orginValue: numberUnitFormat(v,0),
-      formatValue:unitOrder(v,item.unit),
+      formatValue:v?unitOrder(v,item.unit):'-',
       interval:interval
       // color: item.color
     }
