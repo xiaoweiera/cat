@@ -266,7 +266,7 @@ const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
 //数字格式化 约分
 export const getRulesNumber=(v:any)=>{
   if(!v){
-    return !v && v!==0 ?'-':v
+    return v?v:v===0?0:'-'
   }
   if(v.toString().indexOf('.')<0){
     return v
