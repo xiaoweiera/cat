@@ -57,14 +57,14 @@ const data = {
     // 任务2，关注 twitter
     chat.twitter(
       chainWallet.title,
-      I18n.growthpad.warning.article,
+      I18n.growthpad.warning.follow,
       twitterHref,
       [5]
     ),
     // 任务3，加入电报群
     chat.telegram(
       chainWallet.title,
-      I18n.growthpad.warning.article,
+      I18n.growthpad.warning.telegram,
       telegramHref,
       [10]
     ),
@@ -75,10 +75,10 @@ const data = {
       title: I18n.growthpad.chainwallet.task4.title,
       reward: [2500],
       rule: [
-        I18n.growthpad.chainwallet.task4.rule1,
-        I18n.growthpad.chainwallet.task4.rule2,
-        I18n.growthpad.chainwallet.task4.rule3,
-        I18n.growthpad.chainwallet.task4.rule4,
+        `1. ${I18n.growthpad.chainwallet.task4.rule1}`,
+        `2. ${I18n.growthpad.chainwallet.task4.rule2}`,
+        `3. ${I18n.growthpad.chainwallet.task4.rule3}`,
+        `<span class="text-global-numRed">* ${I18n.growthpad.chainwallet.task4.rule4}</span>`,
       ]
     },
     // 任务4, 微博文章分享推广

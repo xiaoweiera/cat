@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import {formatDefaultTime, min_max, numberUnitFormat, formatHourTime} from '~/lib/tool'
+import {formatDefaultTime, min_max, numberUnitFormat, formatHourTime,unitOrder} from '~/lib/tool'
 import {getCharts} from '~/api/liquidity'
 import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
 interface yModel {
@@ -53,14 +53,6 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<n
   legend.push({icon:lineIcon,name:kyData.name})
   return legend
 }
-const unitOrder=(v:any,unit:string)=>{
-  if(!unit) return numberUnitFormat(v)
-  if(unit==='$'){
-    return  unit+numberUnitFormat(v)
-  }else{
-    return numberUnitFormat(v)+unit
-  }
-}
 const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string) => {
   let min: any = null
   let max: any = null
@@ -69,7 +61,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     [min, max] = min_max(min, max, v)
     return {
       value: v,
-      orginValue: numberUnitFormat(v),
+      orginValue: numberUnitFormat(v,0),
       formatValue:unitOrder(v,item.unit),
       interval:interval
       // color: item.color
@@ -127,7 +119,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   ]
 }
 
-export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v)
+export const yLabelFormat = (v: any,unit:string) => numberUnitFormat(v,0)
 //getSeries 根据group后端自定义组合y轴
 export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
   const series = []

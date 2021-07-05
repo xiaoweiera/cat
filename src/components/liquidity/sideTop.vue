@@ -2,7 +2,7 @@
 import { ref, defineProps, onMounted,watch } from 'vue'
 import { selectCoin,symbolStore } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
-import { toFixedNumber, smallToken,messageTip,getTwoValidityNumber } from '~/lib/tool'
+import { toFixedNumber, smallToken,messageTip,getRulesNumber,subStr } from '~/lib/tool'
 import I18n from '~/utils/i18n'
 import { getToken_side } from '~/api/liquidity'
 const props = defineProps({
@@ -42,7 +42,7 @@ onMounted(() => {
       <!--        币信息-->
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center">
-          <div class="text-global-default opacity-85 font-normal text-kd30px28px">{{ info.symbol }}</div>
+          <div class="text-global-default opacity-85 font-normal text-kd30px28px">{{subStr(info.symbol) }}</div>
           <div class="ml-1.5 text-global-default opacity-85 text-kd14px20px">{{ info.symbol_name }}</div>
           <div class="bg-global-primary ml-1.5 px-1.5 py-0.5 rounded bg-opacity-8 text-global-primary text-kd14px22px">{{ info.exchange }}</div>
         </div>
@@ -50,7 +50,7 @@ onMounted(() => {
       </div>
       <!-- 涨幅-->
       <div class="flex items-center mt-1.5">
-        <span class="text-global-default opacity-85 text-kd20px28px">${{ getTwoValidityNumber(info.price) }}</span>
+        <span class="text-global-default opacity-85 text-kd20px28px">${{getRulesNumber(info.price)}}</span>
 <!--        <div class="flex items-center bg-global-numRed px-1 py-0.25 ml-1.5" style="border-radius: 2px">-->
 <!--          <img src="https://res.ikingdata.com/nav/liquUp.png" class="w-2 h-3" alt=""/>-->
 <!--          &lt;!&ndash;          <span class="text-kd12px18px text-white ml-0.5">130%</span>&ndash;&gt;-->
@@ -59,7 +59,7 @@ onMounted(() => {
       <!-- TVL-->
       <div class="flex items-center mt-1.5">
         <span class="text-kd14px20px text-global-default opacity-65">TVL:</span>
-        <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? parseInt(info.tvl) : '-' }}</span>
+        <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? getRulesNumber(info.tvl) : '-' }}</span>
       </div>
       <div class="flex items-center font-kdFang mt-1.5">
         <span class="text-kd12px16px text-global-default opacity-35">Token地址</span>

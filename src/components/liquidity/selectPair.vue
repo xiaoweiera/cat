@@ -5,7 +5,7 @@ import { coinList, tradingList } from '/mock/liquidity'
 import {symbolStore, pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByPair} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber,smallToken} from '~/lib/tool'
+import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber,smallToken,getRulesNumber} from '~/lib/tool'
 const allData=ref([]) //请求数据的个数
 const pairList=ref([])
 const page=ref(1) //页数
@@ -25,6 +25,7 @@ const changePair = (symbol0:string,name: string,id:string,tokenId:string) => {
   changeRouteParam(route,router,{token:tokenId})
   changeRouteParam(route,router,{pair:id,pairName:name})
   setHistory({name:name,pair_id:id,tokenName:symbol0,token_id:tokenId,type:'pair'})
+
 }
 const route = useRoute()
 const router = useRouter()
@@ -58,9 +59,7 @@ const getList=async ()=>{
 watch(()=>selectTxt.value,async (n)=> {
   getList()
 })
-onMounted(()=>{
-  getList()
-})
+onMounted(getList)
 </script>
 <template>
   <ul>
@@ -76,7 +75,7 @@ onMounted(()=>{
           <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ subStr(item.pair) }}</span></div>
           <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
           <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
-          <div class="w-32.5 ml-5">${{numberUnitFormat(toFixedNumber(item.price)) }}</div>
+          <div class="w-32.5 ml-5">${{getRulesNumber(item.price) }}</div>
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand ">查看更多</li>

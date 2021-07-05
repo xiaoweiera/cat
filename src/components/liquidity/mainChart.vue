@@ -5,7 +5,7 @@ import {ElLoading} from 'element-plus'
 import {echartData} from '/mock/liquidity'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import {useRoute, useRouter} from 'vue-router'
-import {pairStore, paramChart, symbolStore, analysisType} from '~/store/liquidity/state'
+import {pairStore, paramChart, symbolStore, analysisType,selectHistory} from '~/store/liquidity/state'
 import {getAllChart, getPriceData} from '~/logic/liquidity/dataTool'
 
 const props = defineProps({
@@ -24,7 +24,6 @@ const tokenParam = {
   to_ts: paramChart.timeEnd,
   interval: paramChart.interval,
 }
-console.log(paramChart,'aa')
 const pairParam = {
   platId: 1,
   pair_id: '',

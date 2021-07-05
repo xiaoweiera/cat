@@ -1,6 +1,6 @@
 import { paramChart} from '~/store/liquidity/state'
 const grid = () => {
-  const xLength=paramChart.interval==='1D'?'11px':'33px'
+  const xLength=paramChart.interval==='1D'?'12px':'35px'
   return {
     left: xLength,
     right: xLength,

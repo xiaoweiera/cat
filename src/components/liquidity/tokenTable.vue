@@ -6,7 +6,7 @@ import {symbolStore} from '~/store/liquidity/state'
 import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
-import {changeRoute, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber} from '~/lib/tool'
+import {changeRoute, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber,getRulesNumber,unitOrder} from '~/lib/tool'
 import {
   pairStore,
   updateData,
@@ -42,27 +42,20 @@ const getPair_list = async () => {
     symbol_id: symbolStore.id,
   })
   if (result?.data?.code === 0) {
-    count.value=count.value*2
     next.value = result?.data?.data.next ? true : false
     R.map(item=>pairList.value.push(item),result?.data?.data.results)
     // pairList.value = pairList.value.concat(result?.data?.data.results)
   }
 }
-let a=[1,2,3]
-let b=[4,5]
-a.push(b)
-console.log(a)
 onMounted(() => {
   getPair_list()
 })
-const count = ref(100)
 const load = () => {
   const listDom = document.querySelector('.pairList')
   if (parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) {
     if (next.value) {
       getPair_list()
     }
-    // 干你想干的事
   }
 }
 </script>
@@ -82,8 +75,8 @@ const load = () => {
         </div>
         <div class="w-20     text-kd12px16px text-global-default">{{ numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
         <div class="w-27  text-kd12px16px text-global-default">
-          <el-tooltip :hide-after="10" :content="toFixedNumber(item.price)" placement="bottom" effect="light">
-            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ getTwoValidityNumber(item.price) }}</span>
+          <el-tooltip :hide-after="10" :content="unitOrder(item.price)" placement="bottom" effect="light">
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ getRulesNumber(item.price) }}</span>
           </el-tooltip>
 
           </div>
