@@ -7,10 +7,13 @@ interface platModel {
 }
 //热门搜索
 export const hot=ref([
-  {token_id:'0x64ff637fb478863b7468bc97d30a5bf3a428a1fd',name:'热门1',type:'token'},
-  {token_id:'0x6cac826c9ee29a7ac60a3ec64c69c5d3f6a7e12a',name:'热门2',type:'token'},
-  {token_id:'0x8ae16990ef269ba0ccdb6290b67430bfd5b6be49',name:'热门3',type:'token'},
-  {token_id:'0x68ef44dbc87badf502b0dfc974981ffa4209b139',name:'热门4',type:'token'}
+  {token_id:'0x25d2e80cb6b86881fd7e07dd263fb79f4abe033c',name:'MDX',type:'token'},
+  {token_id:'0x0298c2b32eae4da002a15f36fdf7615bea3da047',name:'HUSD',type:'token'},
+  {token_id:'0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f',name:'WHT',type:'token'},
+  {token_id:'0x64ff637fb478863b7468bc97d30a5bf3a428a1fd',name:'ETH',type:'token'},
+  {token_id:'0x66a79d23e58475d2738179ca52cd0b41d73f0bea',name:'HBTC',type:'token'},
+  {token_id:'0xae3a768f9ab104c69a7cd6041fe16ffa235d1810',name:'HFIL',type:'token'},
+  {token_id:'0x202b4936fe1a82a4965220860ae46d7d3939bb25',name:'AAVE',type:'token'}
 ])
 //分析种类tag
 export const analysisType=ref('flow')   //flow  pay
