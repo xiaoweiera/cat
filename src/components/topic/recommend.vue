@@ -11,7 +11,7 @@ const props = defineProps({
     type: Object
   }
 })
-
+// @ts-ignore
 const subTitle = computed<Object>(function() {
   return Object.assign({}, props.menu, {
     title: '精选推荐数据图表'

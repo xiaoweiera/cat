@@ -30,7 +30,7 @@ export const debounce = function <T>(callback: Callback, time?: number): T {
   }
 }
 
-export const toFixed = function (value: string | number, fixed = 2): number {
+export const toFixed = function (value: string | number = '', fixed = 2): number {
   const text = String(value)
   const [num1, num2 = ''] = text.split('.')
   let temp = parseFloat(num1)
@@ -43,7 +43,7 @@ export const toFixed = function (value: string | number, fixed = 2): number {
   return temp
 }
 
-export const toNumber = function (value: string | number, fixed = 2): number {
+export const toNumber = function (value: string | number = 0, fixed = 2): number {
   const number = parseFloat(value as any)
   if (isNaN(number)) {
     return 0
@@ -51,7 +51,7 @@ export const toNumber = function (value: string | number, fixed = 2): number {
   return toFixed(number, fixed)
 }
 
-export const inputBeautify = function(value: string): string {
+export const inputBeautify = function(value: string = ''): string {
   // 去掉前后空格
   let text = trim(value) || ''
   // 首字母如果是 @ 符合，则去掉
@@ -59,7 +59,7 @@ export const inputBeautify = function(value: string): string {
   return trim(text)
 }
 
-export const formatCash = function (value: string | number): string {
+export const formatCash = function (value: string | number = 0): string {
   const number = `${toNumber(value)}`
   const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   return text

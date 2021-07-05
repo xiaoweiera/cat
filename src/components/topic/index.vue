@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, computed } from 'vue'
-import * as router from '~/logic/topic/router'
+import safeGet from '@fengqiaogang/safe-get'
+import { ref, reactive, onBeforeMount, computed, watch } from 'vue'
+// @ts-ignore
+import { param, onReady } from '~/logic/topic/router'
 // @ts-ignore
 import { menuList, syncMenuList, menuCurrent } from '~/logic/topic/menu'
 // @ts-ignore
@@ -10,14 +12,21 @@ import { MenuType } from '~/logic/topic/props'
 const search = ref<string>('')
 
 // @ts-ignore
-const current = computed(() => {
-  const data = menuCurrent()
-  return data || {}
-})
+const current = reactive({})
 
-onBeforeMount(() => {
-  router.onReady()
-  syncMenuList()
+const setCurrent = function() {
+  const data = menuCurrent() || {}
+  for(const key of Object.keys(data)) {
+    current[key] = data[key]
+  }
+}
+
+watch(param, setCurrent)
+
+onBeforeMount(async () => {
+  onReady()
+  await syncMenuList()
+  setCurrent()
 })
 </script>
 
@@ -38,7 +47,7 @@ onBeforeMount(() => {
       </div>
     </div>
     <div class="flex-auto w-1" v-if="menuList.length > 0">
-      <div class="max-w-full">
+      <div class="max-w-full" v-if="current.topicID" :key="current.topicID">
         <TopicTitle :menu="current" />
         <div>
           <template v-if="current.type && current.type === MenuType.recommend">

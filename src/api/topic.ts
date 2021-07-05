@@ -8,6 +8,7 @@ import { topic } from './pathname'
 import request from '~/lib/request'
 import CreateDB from '~/logic/topic/db'
 import safeGet from '@fengqiaogang/safe-get'
+import * as response from '~/lib/response'
 import { MenuItem, MenuType } from '~/logic/topic/props'
 
 
@@ -101,6 +102,7 @@ export const getChartList = async function(topId: string | number, page = 1, lim
     page_size: limit
   }
   let url: string
+  console.log('topId = ', topId)
   switch (topId) {
   // 判断是否请求 "我的图表" 图表数据
   case myself.id:
@@ -120,14 +122,13 @@ export const getChartList = async function(topId: string | number, page = 1, lim
   try {
     const result: any = await request.get(url, { params: query })
     // @ts-ignore
-    const data = request.check<any>(result)
+    const data = response.check<any>(result)
     if (data) {
       const count = safeGet<number>(data, 'count')
       const list = safeGet<any[]>(data, 'results')
       return { count, list }
     }
   } catch (e) {
-    console.log(e)
   }
   return {
     count: 0,
@@ -135,22 +136,34 @@ export const getChartList = async function(topId: string | number, page = 1, lim
   }
 }
 
-export const getChartDetail = async function(id: string | number | string[] | number[]) {
+// 获取单图详情
+export const getChartDetail = async function(id: string | number) {
   const params = { id }
   try {
     const result = await request.get(topic.detail, { params })
-    // @ts-ignore
-    return request.check<any>(result)
+    return response.check<any>(result)
   } catch (e) {
     return void 0
   }
 }
 
+// 获取多图详情
 export const getChartMultipleDetail = function(id: string[] | number[]) {
   const array: string[] = [].concat(id as any)
   const params = {
     chart_ids: array.join(',')
   }
   return request.get(topic.multipleDetail, { params })
+}
+
+// 获取单图数据
+export const getChartTrends = async function (id: string | number) {
+  const params = { id }
+  try {
+    const result = await request.get(topic.trend, { params })
+    return response.check<any>(result)
+  } catch (e) {
+    return void 0
+  }
 }
 

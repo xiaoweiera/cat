@@ -5,7 +5,7 @@ import { menuList } from '~/logic/topic/menu'
 import DBList from '@fengqiaogang/dblist'
 import { router } from '~/utils/directive/router'
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object
   },
