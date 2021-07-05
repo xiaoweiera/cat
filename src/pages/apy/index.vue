@@ -71,11 +71,12 @@ const fetchChartByChain = (chain: String) => {
     })
   })
 }
-const timer = ref(120)
+const _timerCunt = 60
+const timer = ref(_timerCunt)
 let timerInterval: any = null
 const isFirstShow = ref(true)
 const newTable = ref([])
-const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
+const intervalFetchTableByChain = (chainId: string, timeout = _timerCunt) => {
   chainParam.value = chainId
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
@@ -97,7 +98,7 @@ watch(
     if (timerInterval) {
       clearInterval(timerInterval)
       isFirstShow.value = true
-      timer.value = 60
+      timer.value = _timerCunt
       timerInterval = null
     }
     newVal.forEach((i: any) => {
@@ -201,7 +202,7 @@ onUnmounted(() => {
         <ApyTable
           :chains="chainParam"
           :is-first-show="isFirstShow"
-          :timer="60"
+          :timer="_timerCunt"
           :index="index"
           :project="item.project"
           :title="item.title"
