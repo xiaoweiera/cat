@@ -57,14 +57,14 @@ const getValue = (data: any, i) => {
 </script>
 <template>
   <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
-      <template v-for="(item,i) in itemData">
-        <div v-if="(item.key==='single_and_mine_award' || item.key==='compound_and_mine_award' || item.key==='apy') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
-          <span class="desName mr-1">{{ item.name }}</span>
-          <div class="desNum">
-            <span :class="getColor(item.key, item.value)">{{ getValue(item, i) }}</span>
-          </div>
+    <template v-for="(item,i) in itemData">
+      <div v-if="(item.key==='single_and_mine_award' || item.key==='compound_and_mine_award' || item.key==='apy') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
+        <span class="desName mr-1">{{ item.name }}</span>
+        <div class="desNum">
+          <span :class="getColor(item.key, item.value)">{{ getValue(item, i) }}</span>
         </div>
-      </template>
+      </div>
+    </template>
     <template v-for="(item, i) in itemData">
       <div v-if="(item.key!=='single_and_mine_award' && item.key!=='compound_and_mine_award' && item.key!=='apy') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
         <span class="desName mr-1">{{ item.name }}</span>
@@ -74,11 +74,14 @@ const getValue = (data: any, i) => {
       </div>
     </template>
   </div>
-  <div v-else class="w-full h-full flex flex-col justify-center items-center">
-    <img style="width: 112px" src="https://res.ikingdata.com/nav/tableLogo.png" alt=""/>
-  </div>
+  <div v-else class="w-full h-full min-h-12 auto-background"></div>
 </template>
-<style scoped lang="postcss">
+<style scoped lang="scss">
+.auto-background {
+  $img: "https://res.ikingdata.com/nav/tableLogo.png";
+  background: url($img) center / contain no-repeat ;
+  min-width: 112px;
+}
 .tableLogo {
   width: 112.39px;
   height: 36px;
