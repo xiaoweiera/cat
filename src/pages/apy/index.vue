@@ -71,7 +71,7 @@ const fetchChartByChain = (chain: String) => {
     })
   })
 }
-const timer = ref(60)
+const timer = ref(120)
 let timerInterval: any = null
 const isFirstShow = ref(true)
 const newTable = ref([])
@@ -80,7 +80,7 @@ const intervalFetchTableByChain = (chainId: string, timeout = 60) => {
   fetchTableByChain(chainId)
   fetchChartByChain(chainId)
   timerInterval = setInterval(() => {
-    if (timer.value !== 0) {
+    if (timer.value > 0) {
       timer.value -= 1
       return
     }
@@ -190,7 +190,7 @@ onUnmounted(() => {
       <template v-if="(chainParam === 'hsc' || chainParam ==='oec') && index === 0">
         <div></div>
       </template>
-      <div v-else :id="`content-${item.slug}`">
+      <div v-else-if="index === 0" :id="`content-${item.slug}`">
         <a class="mdhidden">
           <ApyMobileTag
             :title="item.slug"
@@ -201,7 +201,7 @@ onUnmounted(() => {
         <ApyTable
           :chains="chainParam"
           :is-first-show="isFirstShow"
-          :timer="timer"
+          :timer="60"
           :index="index"
           :project="item.project"
           :title="item.title"

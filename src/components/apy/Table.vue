@@ -1,13 +1,5 @@
 <script setup lang="ts">
 // @ts-ignore
-import {
-  ElButton,
-  ElSwitch,
-  ElTable,
-  ElTableColumn,
-  ElLoading,
-  ElPopover,
-} from 'element-plus'
 import { ref, defineProps, watch, toRefs, reactive } from 'vue'
 import * as R from 'ramda'
 import * as table from '~/logic/apy/table'
@@ -104,6 +96,7 @@ const addClass = ({ row, columnIndex }) => {
 }
 // 是否为空  / 是否显示图片
 const isNullFun = (data: any) => {
+  console.log('null : ', data)
   let isNull = false
   if (data) {
     data.forEach((item) => {
@@ -205,23 +198,30 @@ const tipShowInfo=(key:string)=>{
               <ApyHeaderColumn :order-by-apy="orderByApy" :select-header-index="selectHeaderIndex" :header-index="i" :header-data="item"/>
             </template>
             <template #default="scope">
-              <el-popover class="mt-10 py-10" :offset="-6" :width="300" :show-arrow="isTipArrow" :disabled="!table.isShow(scope, options) ||  !isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)" effect="light" trigger="hover" placement="bottom">
-                <template #default>
-                  <template v-for="(item, i) in scope.row?.data[i]?.data" :key="i">
-                    <div v-if="getValue(item, i) !== '-' && tipShowInfo(item.key) " class="flex mb-0.5 items-center flex-wrap TipTxt">
-                      <span class="mr-1">{{ item.name }}</span>
-                      <div>
-                        <span>{{ getValue(item, i) }}</span>
+              <div v-if="!table.isShow(scope, options) ||  !isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)">
+                <div class="h-full min-h-12">
+                  <ApyTableItem :scope-data="scope" :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
+                </div>
+              </div>
+              <div v-else>
+                <el-popover class="mt-10 py-10" :offset="-6" :width="300" :show-arrow="isTipArrow" effect="light" trigger="hover" placement="bottom">
+                  <template #default>
+                    <template v-for="(item, i) in scope.row?.data[i]?.data" :key="i">
+                      <div v-if="getValue(item, i) !== '-' && tipShowInfo(item.key) " class="flex mb-0.5 items-center flex-wrap TipTxt">
+                        <span class="mr-1">{{ item.name }}</span>
+                        <div>
+                          <span>{{ getValue(item, i) }}</span>
+                        </div>
                       </div>
+                    </template>
+                  </template>
+                  <template #reference>
+                    <div class="h-full min-h-12">
+                      <ApyTableItem :scope-data="scope" :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
                     </div>
                   </template>
-                </template>
-                <template #reference>
-                  <div class="h-full min-h-12">
-                    <ApyTableItem :scope-data="scope" :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
-                  </div>
-                </template>
-              </el-popover>
+                </el-popover>
+              </div>
             </template>
           </el-table-column>
         </el-table>
