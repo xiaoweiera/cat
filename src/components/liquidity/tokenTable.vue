@@ -75,7 +75,7 @@ const load = () => {
         </div>
         <div class="w-20     text-kd12px16px text-global-default">{{ numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
         <div class="w-27  text-kd12px16px text-global-default">
-          <el-tooltip :hide-after="10" :content="item.price" placement="bottom" effect="light">
+          <el-tooltip :hide-after="10" :content="unitOrder(item.price)" placement="bottom" effect="light">
             <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ getRulesNumber(item.price) }}</span>
           </el-tooltip>
 
