@@ -198,8 +198,8 @@ const tipShowInfo=(key:string)=>{
             </template>
             <template #default="scope">
               <div v-if="!table.isShow(scope.row.data[i]?.data, options) ||  !isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)">
-                <div class="h-full min-h-12">
-                  <ApyTableItem :scope-data="scope" :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
+                <div class="h-full min-h-12 auto-background">
+                  <!-- 不展示数据, 展示默认图 -->
                 </div>
               </div>
               <div v-else>
@@ -274,6 +274,11 @@ const tipShowInfo=(key:string)=>{
 </template>
 
 <style scoped lang="scss">
+.auto-background {
+  $img: "https://res.ikingdata.com/nav/tableLogo.png";
+  background: url($img) center / contain no-repeat ;
+  min-width: 112px;
+}
 .TipTxt {
   @apply text-kdFang text-kd13px20px text-global-default opacity-85;
 }

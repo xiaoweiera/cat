@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, defineProps, ref } from 'vue'
+import { defineProps } from 'vue'
 // @ts-ignore
 import { unitConfig, unitConfigen } from '~/logic/apy/config'
 import I18n from '~/utils/i18n/index'
-import * as table from '~/logic/apy/table'
 import * as lang from '~/utils/lang'
 
 const props = defineProps({
@@ -24,10 +23,6 @@ const props = defineProps({
   }
 })
 
-// @ts-ignore
-const isShow = computed<boolean>(function() {
-  return table.isShow(props.itemData, props.options)
-})
 
 const getColor = (key: string, data: string) => {
   if ((key !== 'single_and_mine_award' && key!=='compound_and_mine_award' && key!='apy') || !data) {
@@ -39,6 +34,7 @@ const getColor = (key: string, data: string) => {
     return 'redTxt'
   }
 }
+// @ts-ignore
 const getValue = (data: any, i) => {
   const unitList = lang.current.value === 'cn' ? unitConfig : unitConfigen
 
@@ -56,7 +52,7 @@ const getValue = (data: any, i) => {
 
 </script>
 <template>
-  <div v-if="isShow" class="w-full h-full flex flex-col justify-center">
+  <div class="w-full h-full flex flex-col justify-center">
     <template v-for="(item,i) in itemData">
       <div v-if="(item.key==='single_and_mine_award' || item.key==='compound_and_mine_award' || item.key==='apy') && item.status && getValue(item, i) !== '-'" class="flex mb-0.5 items-center flex-wrap">
         <span class="desName mr-1">{{ item.name }}</span>
@@ -74,14 +70,8 @@ const getValue = (data: any, i) => {
       </div>
     </template>
   </div>
-  <div v-else class="w-full h-full min-h-12 auto-background"></div>
 </template>
 <style scoped lang="scss">
-.auto-background {
-  $img: "https://res.ikingdata.com/nav/tableLogo.png";
-  background: url($img) center / contain no-repeat ;
-  min-width: 112px;
-}
 .tableLogo {
   width: 112.39px;
   height: 36px;
