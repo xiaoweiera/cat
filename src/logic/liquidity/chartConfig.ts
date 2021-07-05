@@ -143,7 +143,7 @@ export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
   }
 }
 //y轴价格线配置
-export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
+export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any,isHasUnit:string)=> {
   return {
     show: true,
     position:'right',
@@ -172,7 +172,7 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
         color: 'rgba(240, 191, 18, 1)',
       },
       formatter: (value: any) => {
-        return '$'+yLabelFormat(value)
+        return isHasUnit?(isHasUnit==='$'?isHasUnit+yLabelFormat(value):yLabelFormat(value)+isHasUnit):yLabelFormat(value)
       }
     }
   }

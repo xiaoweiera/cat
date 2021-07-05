@@ -2,7 +2,7 @@
 import { defineProps, onMounted, toRefs } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
-import { paramChart,priceData} from '~/store/liquidity/state'
+import { paramChart,priceData,pairStore} from '~/store/liquidity/state'
 import {getXData, getAllItemSeries,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
 import {kData,groupData} from '/mock/liquidity'
@@ -36,7 +36,8 @@ const getChartData=()=>{
       props?.chartData.xaxis,priceData.value.xaxis,
       props?.chartData.yaxis, priceData.value.yaxis[0],
       allXaxis,
-      paramChart.interval
+      paramChart.interval,
+      pairStore.id
   )
   draw(xData, series, legend,allYAxis)
 }
