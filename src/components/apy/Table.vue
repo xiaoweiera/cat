@@ -96,7 +96,6 @@ const addClass = ({ row, columnIndex }) => {
 }
 // 是否为空  / 是否显示图片
 const isNullFun = (data: any) => {
-  console.log('null : ', data)
   let isNull = false
   if (data) {
     data.forEach((item) => {
@@ -160,7 +159,7 @@ const tipShowInfo=(key:string)=>{
       <img v-if="tableData.loading && isFirstShow" class="loading" src="/assets/loading.gif" alt=""/>
       <div class="xshidden">
         <!-- pc -->
-        <el-table v-if="!tableData.loading || (tableData.loading && !isFirstShow)" :data="renderCells" :header-cell-style="headerCellStyle" :cell-style="addClass" style="width: 100%">
+        <el-table class="w-full" v-if="!tableData.loading || (tableData.loading && !isFirstShow)" :data="renderCells.slice(0, 10)" :header-cell-style="headerCellStyle" :cell-style="addClass">
           <el-table-column fixed width="140">
             <template #header="scope">
               <div class="text-kd12px16px text-global-default opacity-65 mb-2.5 ml-3">
@@ -198,7 +197,7 @@ const tipShowInfo=(key:string)=>{
               <ApyHeaderColumn :order-by-apy="orderByApy" :select-header-index="selectHeaderIndex" :header-index="i" :header-data="item"/>
             </template>
             <template #default="scope">
-              <div v-if="!table.isShow(scope, options) ||  !isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)">
+              <div v-if="!table.isShow(scope.row.data[i]?.data, options) ||  !isShowTip || !isNullFun(scope.row?.data[scope.column.no - 1]?.data)">
                 <div class="h-full min-h-12">
                   <ApyTableItem :scope-data="scope" :index="index" :options="options" :item-data="scope.row.data[i]?.data"/>
                 </div>

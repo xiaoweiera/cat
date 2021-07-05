@@ -190,7 +190,7 @@ onUnmounted(() => {
       <template v-if="(chainParam === 'hsc' || chainParam ==='oec') && index === 0">
         <div></div>
       </template>
-      <div v-else-if="index === 0" :id="`content-${item.slug}`">
+      <div v-else :id="`content-${item.slug}`">
         <a class="mdhidden">
           <ApyMobileTag
             :title="item.slug"

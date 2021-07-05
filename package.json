@@ -7,7 +7,7 @@
     "dev": "vite --port 3333",
     "build": "cross-env NODE_ENV=production vite build",
     "test": "vite build --mode development",
-    "preview": "vite preview",
+    "preview": "vite preview --port 3333",
     "preview-https": "serve dist",
     "serve": "vite serve --host 0.0.0.0",
     "prepare": "husky install",
