@@ -7,7 +7,7 @@ import { coinList, tradingList } from '/mock/liquidity'
 import {symbolStore, pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByPair} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,smallToken,getRulesNumber} from '~/lib/tool'
+import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,smallToken,formatRulesNumber} from '~/lib/tool'
 const allData=ref([]) //请求数据的个数
 const pairList=ref([])
 const page=ref(1) //页数
@@ -74,10 +74,19 @@ onMounted(getList)
     </div>
     <template v-for="item in pairList">
       <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
-        <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ item.pair }}</span></div>
-        <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
-        <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
-        <div class="w-32.5 ml-5">1:{{getRulesNumber(item.price) }}</div>
+        <el-tooltip :hide-after="10" :content="item.pair" placement="bottom" effect="light">
+          <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ item.pair }}</span></div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="item.pair_id" placement="bottom" effect="light">
+          <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="item.tvl" placement="bottom" effect="light">
+          <div class="w-27.5 ml-5 ">${{formatRulesNumber(item.tvl)}}</div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="'1:'+item.price" placement="bottom" effect="light">
+          <div class="w-32.5 ml-5">1:{{formatRulesNumber(item.price) }}</div>
+        </el-tooltip>
+
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand ">查看更多</li>
