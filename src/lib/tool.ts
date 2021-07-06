@@ -23,6 +23,7 @@ export const numberFormat = (value: any) => {
   const unit = sizes[i]
   return values + unit
 }
+
 export const toFixedNumber = (value: any, rounded = 2) => {
   if (!value && value !== 0) {
     return ''
@@ -239,7 +240,6 @@ export const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
     }
   }
 }
-
 //hour 小数后18位数字全展示，18位以后科学技术法
 export const getBigNumber=(n:string | number)=>{
   const v=new BigNumber(n)
@@ -272,7 +272,6 @@ export const getRulesNumber=(v:any,isShowAll:boolean)=>{
     return getVNumber(result,i,false)
   }
 }
-
 //统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
 export const formatRulesNumber=(v:any,isShowAll:boolean)=>{
   if(!v){
