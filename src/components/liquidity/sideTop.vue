@@ -28,9 +28,8 @@ const getInfo = async() => {
     symbolStore.name=info.value.symbol
   }
 }
-onMounted(() => {
-  getInfo()
-})
+const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
+onMounted(()=>getInfo())
 </script>
 <template>
   <div class="w-full sideHeader">
@@ -63,7 +62,7 @@ onMounted(() => {
       </div>
       <div class="flex items-center font-kdFang mt-1.5">
         <span class="text-kd12px16px text-global-default opacity-35">Token地址</span>
-        <span class="ml-1.5 text-global-primary text-kd14px20px">{{smallToken(info.symbol_id) }}</span>
+        <a :href="getHref(info.symbol_id)" target="_blank" class="ml-1.5 text-global-primary text-kd14px20px">{{smallToken(info.symbol_id) }}</a>
         <IconFont @click="copy(info.symbol_id)" class="ml-2 hand flex mb-1 opacity-65" type="copy" size="base"></IconFont>
       </div>
     </div>
