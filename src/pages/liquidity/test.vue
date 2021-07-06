@@ -7,7 +7,11 @@
 </template>
 <style>
 .animal{
-  transition: all 2s;
+  transition: all 0.5s;
+}
+.animal:hover{
+  font-size: 100px;
+  @apply w-50 h-50;
 }
 </style>
 // @formatter:off
