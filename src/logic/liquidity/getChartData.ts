@@ -1,7 +1,7 @@
 
 
 import * as R from 'ramda'
-import {formatDefaultTime, min_max, numberUnitFormat, formatHourTime,unitOrder} from '~/lib/tool'
+import {formatDefaultTime, min_max,formatRulesNumber, formatHourTime,unitOrder,getSaveNumber} from '~/lib/tool'
 import {getCharts} from '~/api/liquidity'
 import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
 interface yModel {
@@ -65,7 +65,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     // const unit=''
     return {
       value: v,
-      orginValue: numberUnitFormat(v),//万 亿 约汉字
+      orginValue: formatRulesNumber(v,true),//万 亿 约汉字
       formatValue:pairId?'1:'+unitOrder(v,unit):unitOrder(v,unit),
       interval:interval
       // color: item.color
@@ -123,7 +123,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   ]
 }
 
-export const yLabelFormat = (v: any) => numberUnitFormat(v)
+export const yLabelFormat = (v: any) => getSaveNumber(v,2)
 //getSeries 根据group后端自定义组合y轴
 export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []

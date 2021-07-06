@@ -37,7 +37,6 @@ onMounted(()=>{
 })
 </script>
 <template>
-
   <div class="flex h-13.5 items-center justify-between px-5 bg-white">
     <!--    选择的token标签-->
     <div class="flex items-center">

@@ -7,7 +7,7 @@ import { coinList, tradingList } from '/mock/liquidity'
 import {symbolStore, pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByPair} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber,smallToken,getRulesNumber} from '~/lib/tool'
+import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,smallToken,getRulesNumber} from '~/lib/tool'
 const allData=ref([]) //请求数据的个数
 const pairList=ref([])
 const page=ref(1) //页数
