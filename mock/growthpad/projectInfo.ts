@@ -100,5 +100,6 @@ export const chainWallet = {
 
 // 所有任务
 export const taskList = [
-  mdxInfo, coinwindInfo, channelsInfo, growthInfo, chainWallet
+  mdxInfo, coinwindInfo, channelsInfo, growthInfo,
+  // chainWallet 下架
 ]
