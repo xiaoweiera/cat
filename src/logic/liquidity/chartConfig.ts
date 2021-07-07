@@ -1,14 +1,14 @@
 
 
 const grid = (interval:string) => {
-  const xLength=interval==='1D'?'12px':'35px'
+  // const xLength=interval==='1D'?'12px':'35px'
   return {
-    left: xLength,
-    right: xLength,
-    bottom: '45px',
-    top: '16px',
+    left: 72,
+    right: 70,
+    bottom: 70,
+    top: 16,
     // y2: 0,
-    containLabel: true,
+    containLabel: false,
   }
 }
 
