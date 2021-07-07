@@ -128,7 +128,6 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
       },
       show: true, // 隐藏或显示
     },
-
     type: 'value',
     min:min,
     max:max,
@@ -150,7 +149,6 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any,isHasUni
   kmin=Math.floor(kmin)
   kmax=Math.ceil(kmax+(kmax*0.05))
   const interval=parseFloat(((kmax-kmin)/4).toString())
-  console.log(kmin,kmax,interval)
   return {
     show: true,
     position:'right',
