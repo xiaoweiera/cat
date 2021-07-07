@@ -1,5 +1,16 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+// @ts-ignore
 import I18n from '~/utils/i18n/index'
+
+import { ProjectKey } from '~/logic/growthpad/config'
+
+// @ts-ignore
+const projectCount = computed<number>(function() {
+  const keys = Object.keys(ProjectKey)
+  return keys.length
+})
+
 </script>
 <template>
   <div
@@ -17,7 +28,7 @@ import I18n from '~/utils/i18n/index'
     "
   >
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px font-kdExp">$600,000</div>
+      <div class="text-global-primary text-kd24px30px font-kdExp">$500,000</div>
       <div
         class="
           text-global-default
@@ -32,7 +43,7 @@ import I18n from '~/utils/i18n/index'
     </div>
     <div class="w-0.25 bg-global-default opacity-10 h-6"></div>
     <div class="flex-1">
-      <div class="text-global-primary text-kd24px30px font-kdExp">5</div>
+      <div class="text-global-primary text-kd24px30px font-kdExp">{{ projectCount }}</div>
       <div
         class="
           text-global-default
@@ -62,11 +73,11 @@ import I18n from '~/utils/i18n/index'
     </div>
   </div>
 </template>
-<style scoped lang="postcss">
+<style scoped lang="scss">
 .tagContainer {
-  background: linear-gradient(180deg, #ffffff 0%, #edf5ff 100%);
+  background: linear-gradient(180deg, #fff 0, #edf5ff 100%);
   box-sizing: border-box;
-  box-shadow: 0px 12px 42px -12px rgb(43 141 255 / 26%);
+  box-shadow: 0 12px 42px -12px rgba(43, 141, 255, 0.26);
   border-radius: 12px;
 }
 </style>

@@ -24,9 +24,6 @@ taskList.forEach((data: any) => {
 })
 
 // @ts-ignore
-const activeValue = ref<string>(TimeStatus.ing)
-
-// @ts-ignore
 const tabs = [
   // {
   //   list: waitList,
@@ -44,8 +41,23 @@ const tabs = [
   }
 ]
 
+// @ts-ignore
+const activeValue = ref<string>('')
+
+for(let i = 0, len = tabs.length; i < len; i++) {
+  const item: any = tabs[i]
+  if (item.list.length > 0) {
+    activeValue.value = item.name
+    break
+  }
+}
+
 </script>
 <template>
+
+  <p class="text-sm text-global-numRed pb-3">
+    <span>{{ I18n.growthpadShow.notice }}</span>
+  </p>
 
   <el-tabs v-model="activeValue">
     <template v-for="(item, index) in tabs" :key="index">

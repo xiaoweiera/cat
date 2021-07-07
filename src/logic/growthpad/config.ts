@@ -10,7 +10,7 @@ import mockMdx from '../../../mock/growthpad/mdx'
 import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
 import mockGrowth from '../../../mock/growthpad/growth'
-import mockChainWallet from '../../../mock/growthpad/chainwallet'
+// import mockChainWallet from '../../../mock/growthpad/chainwallet'
 
 // 项目 ID
 export enum ProjectKey {
@@ -18,7 +18,7 @@ export enum ProjectKey {
   channels = 'CHANNELS',
   coinwind = 'COINWIND',
   growth = 'GROWTH',
-  chainwallet = 'CHAINWALLET'
+  // chainwallet = 'CHAINWALLET'
 }
 
 export const ProjectMockData = {
@@ -26,7 +26,7 @@ export const ProjectMockData = {
   [ProjectKey.channels]: mockChannels,
   [ProjectKey.coinwind]: mockCoinWind,
   [ProjectKey.growth]: mockGrowth,
-  [ProjectKey.chainwallet]: mockChainWallet
+  // [ProjectKey.chainwallet]: mockChainWallet
 }
 
 /**
@@ -51,7 +51,7 @@ export const ProjectShareCode: any = {
   [ProjectKey.coinwind]: '-G2',
   [ProjectKey.channels]: '-G3',
   [ProjectKey.growth]: '-G4',
-  [ProjectKey.chainwallet]: '-G5',
+  // [ProjectKey.chainwallet]: '-G5',
 }
 
 
@@ -60,7 +60,7 @@ export const ProjectPageTitle: any = {
   [ProjectKey.mdx]: `${I18n.growthpad.mdx.title}-GrowthPad`,
   [ProjectKey.channels]: `${I18n.growthpad.channels.title}-GrowthPad`,
   [ProjectKey.coinwind]: `${I18n.growthpad.coinwind.title}-GrowthPad`,
-  [ProjectKey.chainwallet]: `${I18n.growthpad.chainwallet.title as any}-GrowthPad`
+  // [ProjectKey.chainwallet]: `${I18n.growthpad.chainwallet.title as any}-GrowthPad`
 }
 
 
@@ -69,7 +69,7 @@ export const ProjectCopyTitle = {
   [ProjectKey.mdx]: I18n.growthpad.mdx.title,
   [ProjectKey.channels]: I18n.growthpad.channels.title,
   [ProjectKey.growth]: I18n.growthpad.growthpad.title,
-  [ProjectKey.chainwallet]: I18n.growthpad.chainwallet.title as any
+  // [ProjectKey.chainwallet]: I18n.growthpad.chainwallet.title as any
 }
 
 // 项目分享标题
@@ -86,9 +86,9 @@ export const ProjectShareTitle: any = {
   [ProjectKey.growth]: I18n.template(I18n.growthpad.wechat.title, {
     project: 'GrowthPad'
   }),
-  [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.title, {
-    project: 'ChainWallet'
-  })
+  // [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.title, {
+  //   project: 'ChainWallet'
+  // })
 }
 // 项目分享描述
 export const ProjectShareDesc: any = {
@@ -104,9 +104,9 @@ export const ProjectShareDesc: any = {
   [ProjectKey.growth]: I18n.template(I18n.growthpad.wechat.desc, {
     project: 'GrowthPad'
   }),
-  [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.desc, {
-    project: 'ChainWallet'
-  })
+  // [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.desc, {
+  //   project: 'ChainWallet'
+  // })
 }
 
 
