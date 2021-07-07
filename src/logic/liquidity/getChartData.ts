@@ -123,7 +123,8 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   ]
 }
 
-export const yLabelFormat = (v: any) => getSaveNumber(v,2)
+export const yLabelFormat = (v: any) => formatRulesNumber(v,false)
+export const ykLabelFormat = (v: any) => getSaveNumber(v,2)
 //getSeries 根据group后端自定义组合y轴
 export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []
@@ -153,25 +154,27 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
       maxM = R.max(max, maxM)
       series.push(obj)
     })
-    allYAxis.push(yAxisModel(minM,maxM,yLabelFormat))
+    //group索引为0的为主轴，不用i的原因防止后端配的时候0不是第一个
+    const isShow=R.keys(groupList)[i]==='0'?true:false
+    allYAxis.push(yAxisModel(minM,maxM,isShow,yLabelFormat))
   }
   // // kline
   if (kyData) {
     const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval,pairId)
     //pair没有价格线美元单位
     const unit=pairId?'':'$'
-    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat,unit))
+    allYAxis.push(yKAxisModel(kmin,kmax,ykLabelFormat,unit))
     series.push(obj)
   }
   return [series,allYAxis]
 }
-//getSeries  单独的y轴
+//getSeries  单独的y轴 暂时没用
 export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []
   const allYAxis=[]
   yData.forEach((item:yModel,i:number)=>{
     const [obj, min, max] = formatYData(item, i,false,xData,allxData,interval,'')
-    allYAxis.push(yAxisModel(min,max,yLabelFormat))
+    allYAxis.push(yAxisModel(min,max,false,yLabelFormat))
     series.push(obj)
   })
   // kline
@@ -184,7 +187,7 @@ export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yDat
   }
   return [series,allYAxis]
 }
-// 得到series
+// 得到series 暂时没用
 export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
   const series = []
   let minM: any = null
