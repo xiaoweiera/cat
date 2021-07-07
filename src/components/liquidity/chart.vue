@@ -23,7 +23,7 @@ const props = defineProps({
 
 const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any) => {
   // @ts-ignore
-  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel)
+  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel,paramChart.interval)
   myChart.setOption(chartOption)
   // @ts-ignore
   window.addEventListener('resize', myChart.resize)

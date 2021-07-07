@@ -1,6 +1,7 @@
-import { paramChart} from '~/store/liquidity/state'
-const grid = () => {
-  const xLength=paramChart.interval==='1D'?'12px':'35px'
+
+
+const grid = (interval:string) => {
+  const xLength=interval==='1D'?'12px':'35px'
   return {
     left: xLength,
     right: xLength,
@@ -259,9 +260,10 @@ export const chartConfig = (
     legendList: Array<string>,
     yLabelFormat: any,
     getModel: any,
+    interval:string
 ) => {
   return {
-    grid: grid(),
+    grid: grid(interval),
     tooltip: tooltips(getModel,xData),
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
@@ -270,3 +272,4 @@ export const chartConfig = (
     series,
   }
 }
+

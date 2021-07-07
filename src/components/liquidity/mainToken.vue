@@ -32,19 +32,17 @@ const closePair = () => {
   paramChart.tokenType='pair'
   changeRouteParam(route,router,{pair:undefined,pairName:undefined})
 }
-onMounted(()=>{
-  getOption()
-})
+const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
+onMounted(()=>getOption())
 </script>
 <template>
-
   <div class="flex h-13.5 items-center justify-between px-5 bg-white">
     <!--    选择的token标签-->
     <div class="flex items-center">
-      <div class="bg-global-primary bg-opacity-8 rounded px-1.5 py-0.4">
+      <a :href="getHref(pairStore.id)" target="_blank" class="bg-global-primary bg-opacity-8 rounded px-1.5 py-0.4">
         <span class="text-kd16px160 text-global-primary font-kdExp">{{pairStore.name }}</span>
         <span class="text-kd14px160 text-global-primary font-kdFang ml-2.5">{{smallToken(pairStore.id) }}</span>
-      </div>
+      </a>
       <img class="w-4 h-4 ml-1.5 cursor-pointer" src="https://res.ikingdata.com/nav/cardClose.png" alt="" @click="closePair"/>
     </div>
     <!--    筛选呀-->
