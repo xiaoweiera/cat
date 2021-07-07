@@ -3,9 +3,11 @@
  * @author svon.me@gmail.com
  */
 
-import { filter, is, trim, isEmpty as _isEmpty } from 'ramda'
+import I18n from '~/utils/i18n/index'
+import { toLower, toUpper, filter, is, trim, isEmpty as _isEmpty } from 'ramda'
 //@ts-ignore
 import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
+import dayjs from 'dayjs'
 
 export { isNil } from 'ramda'
 
@@ -157,7 +159,90 @@ export const isElement = function(value: any) {
   return false
 }
 
+export const forEach = function(callback: (value: any, index: number | string, data: any[]) => void, data: any[]) {
+  if (callback && data) {
+    if (isArray(data)) {
+      data.forEach(function(value: any, index: number) {
+        callback(value, index, data)
+      })
+    } else {
+      const keys = Object.keys(data)
+      keys.forEach(function(key: string) {
+        // @ts-ignore
+        const value = data[key]
+        callback(value, key, data)
+      })
+    }
+  }
+}
+
+export const map = function(callback: (value: any, index: number | string, data: any[]) => any, data: any[]): any {
+  const isArr = isArray(data)
+  const array: any[] = []
+  const result: any = {}
+  // @ts-ignore
+  forEach(function(value: any, index: number | string, origin: T[]) {
+    const item = callback(value, index, origin)
+    if (isArr) {
+      // @ts-ignore
+      array[index] = item
+    } else {
+      result[`${index}`] = item
+    }
+  }, data)
+  return isArr ? array : result
+}
+
+
+// 过滤数组中的空数据
 export const compact = function<T>(list: T[]): T[] {
-  const app = filter((value: T) => !isEmpty(value))
-  return app(list)
+  if (list) {
+    const app = filter((value: T) => !isEmpty(value))
+    return app(list)
+  }
+  return []
+}
+
+// 首字母大写
+export const upperFirst = function(value: string): string {
+  // 将字符串转换为小写
+  const str = toLower(value || '')
+  const first = toUpper(str[0] || '')
+  const last = str.slice(1)
+  return `${first}${last}`
+}
+
+export const timeFormat = 'YYYY-MM-DD HH:mm:ss'
+export enum DateType {
+  week	= 'week',	// 周
+  day	= 'day',	// 天
+  month	= 'month', // 月份
+  year	= 'year',	// 年
+  hour	= 'hour', 	// 小时
+  minute	= 'minute', 	//分钟
+  second	= 'second',	// 秒
+  millisecond = 'millisecond',// 毫秒
+}
+
+
+export const dateFormat = function(time: any, format: string = timeFormat): string {
+  if (isNumber(time)) {
+    const str = `${time}`
+    if (str.length === 10) {
+      return dayjs(time * 1000).format(format)
+    }
+    return dayjs(time).format(format)
+  }
+  return dayjs(time, timeFormat).format(format)
+}
+export const dateMDFormat = function(time: any): string {
+  return dateFormat(time, 'MM-DD')
+}
+
+export const dateDiff = function(time: any, diff: DateType = DateType.day): string {
+  const date = dateFormat(time)
+  const cur = dayjs().format(timeFormat)
+  const count = Math.abs(dayjs(date).diff(cur, diff))
+  const text = I18n.part(I18n.common.time.value[diff], count, { count })
+  return text
 }

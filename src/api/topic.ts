@@ -148,12 +148,14 @@ export const getChartDetail = async function(id: string | number) {
 }
 
 // 获取多图详情
-export const getChartMultipleDetail = function(id: string[] | number[]) {
-  const array: string[] = [].concat(id as any)
-  const params = {
-    chart_ids: array.join(',')
+export const getChartMultipleDetail = async function(id: string | number) {
+  const params = { id }
+  try {
+    const result = await request.get(topic.multipleDetail, { params })
+    return response.check<any>(result)
+  } catch (e) {
+    return void 0
   }
-  return request.get(topic.multipleDetail, { params })
 }
 
 // 获取单图数据

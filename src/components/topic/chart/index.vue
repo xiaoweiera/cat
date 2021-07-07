@@ -19,6 +19,17 @@ const getData = async function() {
   const data = await getChartList(id, page.value, limit.value)
   list.value = data
 }
+
+// 计算图表宽度
+const getRowColWidth = function(width: number): string {
+  const className = ['w-full']
+  if (width > 50) {
+    return className
+  }
+  className.push('md:w-1/2')
+  return className
+}
+
 onMounted(getData)
 
 </script>
@@ -26,9 +37,9 @@ onMounted(getData)
 <template>
   <div class="p-2.5 flex flex-wrap">
     <template v-for="(data, index) in list" :key="index">
-      <div v-if="index < 1" :style="{'width': `${data.width}%`}" class="p-2.5">
-        <div class="chart-item rounded w-full h-full p-3 bg-white">
-          <TopicChartItem :option="data" :multiple="data.multiple" :id="data.id"></TopicChartItem>
+      <div v-if="index === 1" class="p-2.5" :class="getRowColWidth(data.width)">
+        <div class="chart-item rounded p-3 bg-white">
+          <TopicChartItem :option="data"></TopicChartItem>
         </div>
       </div>
     </template>

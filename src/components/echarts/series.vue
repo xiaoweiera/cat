@@ -1,13 +1,24 @@
-<template>
+<script setup lang="ts">
+import { onBeforeMount, defineProps } from 'vue'
+import { EchartsOptionName, setInject, initProps } from '~/logic/echarts/tool'
+const props = defineProps({
+  value: {
+    type: Array,
+    default () {
+      return []
+    },
+  },
+  index: initProps.index(),
+})
 
-</template>
+const set = setInject(EchartsOptionName.series)
 
-<script>
-export default {
-  name: 'series',
-}
+onBeforeMount(() => {
+  set(props.value, props.index)
+})
+
 </script>
 
-<style scoped>
-
-</style>
+<template>
+  <p>series</p>
+</template>

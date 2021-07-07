@@ -43,7 +43,7 @@ export const topic = {
   charts: '/api/v2/topics/{id}/web_charts',
   // 根据 id 获取图表详情
   detail: 'api/v2/charts/{id}/details', // 单图详情
-  multipleDetail: '/api/v2/charts/278/multy_details', // 多图详情
+  multipleDetail: 'api/v2/charts/{id}/multy_details', // 多图详情
   // 根据 id 获取图表数据
   trend: 'api/v2/charts/{id}/trends', // 单图数据
   multipleTrends: '/api/v2/charts/multy_trends', // 多图数据
