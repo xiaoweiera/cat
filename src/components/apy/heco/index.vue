@@ -180,7 +180,10 @@ const headerBg = () => {
 }
 
 .heco-list {
-
+  min-height: 244px;
+  .el-table {
+    min-height: 180px;
+  }
   &.more {
     .j-more-btn {
       display: none;
@@ -198,6 +201,21 @@ const headerBg = () => {
     color: #009955;
     font-weight: bold;
     font-size: 20px;
+  }
+
+
+  &:after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    content: "KingData.com";
+    font-size: 32px;
+    font-weight: bold;
+    color: rgba(43, 140, 255, 0.2);
+    transform: translate(-50%, -50%);
+    font-family: sans-serif;
+    z-index: 10;
   }
 }
 
