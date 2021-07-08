@@ -86,7 +86,7 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
       }
       // 处理缓存逻辑
       if (cacheStatus) {
-        const key = cache.makeKey(config.url)
+        const key = cache.makeKey(config.url, config.params)
         // 如果缓存中有数据，则中断请求
         if (cache.has(key)) {
           return Promise.reject({

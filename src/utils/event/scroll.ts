@@ -11,10 +11,19 @@ let initAdd = false
 
 const data = new Map<string, Callback>()
 
+// 删除事件
+const removeScroll = function() {
+  if (data.size === 0) {
+    initAdd = false
+    event.removeEvent(document as any, 'scroll', onScroll)
+  }
+}
+
 const onScroll = function(e: Event) {
   data.forEach(function(callback: Callback) {
     callback(e)
   })
+  removeScroll()
 }
 
 const init = function() {
@@ -44,19 +53,19 @@ export const scrollTop = function(): number {
   return scroll_top;
 }
 
+export const unbind = function(namespace: string) {
+  if (data.has(namespace)) {
+    data.delete(namespace)
+  }
+}
+
 export const bind = function(namespace: string, callback: Callback) {
   init()
   const value = function(e: Event) {
     return callback(e)
   }
+  unbind(namespace)
   data.set(namespace, value)
 }
 
-export const unbind = function(namespace: string) {
-  if (data.has(namespace)) {
-    data.delete(namespace)
-    if (data.size < 1) {
-      event.removeEvent(document as any, 'scroll', onScroll)
-    }
-  }
-}
+

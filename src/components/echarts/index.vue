@@ -4,6 +4,7 @@ import * as echarts from 'echarts'
 import { compact, map } from '~/utils/index'
 import { ref, reactive, computed, toRaw, onMounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
+import { calcYAxisMark } from '~/logic/echarts/series'
 import {
   grid,
   graphic,
@@ -104,6 +105,7 @@ const getSeries = function() {
       symbol: 'none',
     }, result[index])
     if (option.stack) {
+      // 开启堆积图
       option.stack = 'stack'
     }
     return option
@@ -112,7 +114,7 @@ const getSeries = function() {
 
 
 const getOption = function() {
-  return {
+  const data = {
     grid: Object.assign({}, grid(), {
       top: 15,
       left: 100,
@@ -127,6 +129,7 @@ const getOption = function() {
     series: getSeries(),
     tooltip: getToolTip(),
   }
+  return calcYAxisMark(data)
 }
 
 // @ts-ignore
@@ -138,7 +141,6 @@ onMounted(function() {
   compChar.value = char
   try {
     const option = getOption()
-    // console.log(option)
     char.setOption(option)
   } catch (e) {
     console.log(e)

@@ -8,10 +8,13 @@ import safeGet from '@fengqiaogang/safe-get';
 const namespace = 'd';
 const cache = sessionStorage;
 
+const _keys = new Map<string, any>()
+
 export const makeKey = function(...args: any) {
-  const text: string = JSON.stringify(args)
   // 根据内容生成唯一的 key 值
-  return uuid(text)
+  const id = uuid(args)
+  _keys.set(id, args) // 缓存参数
+  return id
 }
 
 export const keys = function (): string[] {
@@ -38,6 +41,10 @@ export const get = function <T>(key: string): T | undefined {
 export const set = function (key: string, value: any): boolean {
   try {
     const data: any = {};
+    if (_keys.has(key)) {
+      data['q'] = _keys.get(key)
+      _keys.delete(key)
+    }
     data[namespace] = value;
     const text = JSON.stringify(data);
     cache.setItem(key, text);

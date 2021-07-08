@@ -81,3 +81,15 @@ export const convertDate = function(trends: Trend[], rightYAxis?: number) {
     }, xAxis)
   }
 }
+
+interface EchartOption {
+  yAxis: any[],
+  series: any[],
+  [key: string]: any
+}
+
+// 计算 Y 轴刻度
+export const calcYAxisMark = function(option: EchartOption): EchartOption {
+  // console.log(option)
+  return option
+}

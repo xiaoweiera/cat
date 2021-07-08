@@ -136,7 +136,6 @@ const echartBox = ref<any>(null)
 const fullStatus = ref<boolean>(false)
 
 function fullScreen(dom: HTMLElement): boolean {
-  console.log('打开全屏')
   const rfs = dom.requestFullScreen || dom.webkitRequestFullScreen || dom.mozRequestFullScreen || dom.msRequestFullScreen
   if (typeof rfs != "undefined" && rfs) {
     fullStatus.value = true
@@ -147,7 +146,6 @@ function fullScreen(dom: HTMLElement): boolean {
 }
 
 function exitFullScreen(): boolean {
-  console.log('退出全屏')
   const el = document
   const cfs = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullScreen
   if (typeof cfs != "undefined" && cfs) {

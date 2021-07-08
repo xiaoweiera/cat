@@ -35,7 +35,6 @@ interface APIChart {
 
 const getLegends = function(list: APIChart[], rightYAxis: number): LegendItem[] {
   const legends: LegendItem[] = []
-  // let rightName: string = ''
   for(let i = 0, len = list.length; i < len; i++) {
     const data: APIChart =  list[i]
     const id = safeGet<number>(data, 'chart.id')

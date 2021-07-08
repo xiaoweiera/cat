@@ -82,12 +82,11 @@ export const LoginStatus: string[] = [
 
 // 将一下接口加入到缓存中
 export const cache: string[] = [
-  // ads.commercial, // 广告位
-  // topic.getMenuList, // 菜单
-  // topic.recommend, // 推荐数据
-  // topic.charts, // 根据 id 查询
-  // topic.detail,
-  // topic.trend,
-  // topic.multipleDetail,
-  // topic.multipleTrends,
+  topic.getMenuList, // 菜单
+  topic.recommend, // 推荐数据
+  topic.charts, // 根据 id 查询
+  topic.detail,
+  topic.trend,
+  topic.multipleDetail,
+  topic.multipleTrends,
 ]

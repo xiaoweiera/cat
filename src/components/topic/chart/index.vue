@@ -11,27 +11,19 @@ const props = defineProps({
   }
 })
 
-const namespace = 'topic'
-let loading = false
+const namespace = 'topicList'
+let loading = ref<boolean>(false)
 
-let page = 1
-let limit = 10
-let count = page * limit
+let page = ref<number>(1)
+let limit = ref<number>(10)
+let count = ref<number>(page.value * limit.value)
 const list = ref<any[]>([])
 
-
-const getData = async function() {
-  if (!loading && (page * limit - limit) <= count) {
-    loading = true
-    const menu = props?.menu
-    const id = menu?.topicID || menu?.id
-    const { list: array, count: size } = await getChartList(id, page, limit)
-    list.value = [].concat(list.value, array)
-    count = toNumber(size, 0)
-    loading = false
-    page += 1
-  }
+const getNextStatus = function(): boolean {
+  const size = page.value * limit.value - limit.value
+  return size <= count.value
 }
+
 
 // 计算图表宽度
 // @ts-ignore
@@ -45,7 +37,7 @@ const getRowColWidth = function(width: number): string[] {
 }
 
 const onScroll = function() {
-  if (!loading) {
+  if (!loading.value) {
     const top = scroll.scrollTop()
     const viewHieght = scroll.viewHieght()
     const bodyHeight = scroll.bodyHeight()
@@ -57,10 +49,34 @@ const onScroll = function() {
   }
 }
 
-onMounted(function() {
-  getData()
-  scroll.bind(namespace, onScroll)
-})
+const getData = async function() {
+  if (!loading.value && getNextStatus()) {
+    loading.value = true
+    // 请求列表
+    const menu = props?.menu
+    const id = menu?.topicID || menu?.id
+    const { list: array, count: size } = await getChartList(id, page.value, limit.value)
+    // 处理数据
+    list.value = [].concat(list.value, array)
+    count.value = toNumber(size, 0)
+    page.value = page.value + 1
+    // 判断是否有下一页数据
+    if (getNextStatus()) {
+      loading.value = false
+      /**
+       * 添加滚动条事件
+       * 内部做好唯一性处理，不会重复绑定事件
+       */
+      scroll.bind(namespace, onScroll)
+    } else {
+      // 删除事件
+      scroll.unbind(namespace)
+    }
+  }
+}
+
+onMounted(getData)
+
 onUnmounted(function() {
   scroll.unbind(namespace)
 })

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import safeGet from '@fengqiaogang/safe-get'
 import { ref, reactive, onBeforeMount, computed, watch } from 'vue'
 // @ts-ignore
 import { param, onReady } from '~/logic/topic/router'
@@ -12,16 +11,19 @@ import { MenuType } from '~/logic/topic/props'
 const search = ref<string>('')
 
 // @ts-ignore
-const current = reactive({})
+const current = reactive({
+  data: {}
+})
 
 const setCurrent = function() {
   const data = menuCurrent() || {}
-  for(const key of Object.keys(data)) {
-    current[key] = data[key]
-  }
+  current.data = data
 }
 
-watch(param, setCurrent)
+watch(param, setCurrent, {
+  deep: true
+})
+
 
 onBeforeMount(async () => {
   onReady()
@@ -47,15 +49,15 @@ onBeforeMount(async () => {
       </div>
     </div>
     <div class="flex-auto w-1" v-if="menuList.length > 0">
-      <div class="max-w-full" v-if="current.topicID" :key="current.topicID">
-        <TopicTitle :menu="current" />
+      <div class="max-w-full" v-if="current.data.topicID">
+        <TopicTitle :menu="current.data"/>
         <div>
-          <template v-if="current.type && current.type === MenuType.recommend">
-            <TopicRecommend :menu="current"/>
+          <p>{{ current.type }}</p>
+          <template v-if="current.data.type && current.data.type === MenuType.recommend">
+            <TopicRecommend :menu="current.data"/>
           </template>
-          <template v-else>
-            <TopicChart :menu="current"/>
-          </template>
+
+          <TopicChart :menu="current.data" :key="current.data.topicID"/>
         </div>
       </div>
     </div>

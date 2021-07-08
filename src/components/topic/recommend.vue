@@ -46,7 +46,5 @@ onMounted(requestAdsList)
     </div>
     <TopicTitle :menu="subTitle" :bg="false"/>
   </div>
-  <!-- 展示图表 -->
-  <TopicChart :menu="menu"/>
 </template>
 

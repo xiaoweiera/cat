@@ -75,10 +75,11 @@ export const formatCash = function (value: string | number = 0): string {
 }
 
 // 生成唯一ID
-export const uuid = function(value?: string): string {
+export const uuid = function(value?: any): string {
   function create(): string {
     if (value) {
-      return uuidV5(value, uuidV5.URL)
+      const text = JSON.stringify({ value })
+      return uuidV5(text, uuidV5.URL)
     }
     if (Math.random() > 0.5) {
       return uuidV1();
