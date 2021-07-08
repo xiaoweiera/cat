@@ -1,9 +1,11 @@
 
 
 import * as R from 'ramda'
-import {formatDefaultTime, min_max,formatRulesNumber, formatHourTime,unitOrder,getSaveNumber} from '~/lib/tool'
+import {formatDefaultTime, min_max,formatRulesNumber, formatHourTime,unitOrder,numberUnitFormat} from '~/lib/tool'
 import {getCharts} from '~/api/liquidity'
+import {pairStore, paramChart, symbolStore} from '~/store/liquidity/state'
 import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
+import {unitDatas} from '~/logic/liquidity/dataCofig'
 interface yModel {
   color: string
   data: Array<number>
@@ -11,6 +13,22 @@ interface yModel {
   type: string
   group:number
   unit: string
+}
+const getUnitData=(name:string)=>{
+  if(paramChart.coinType==='coin'){
+    if(!pairStore.id) {
+      //@ts-ignore
+      if (unitDatas[name]) {
+        return name +='('+symbolStore.name+')'
+      }
+    } else {
+      //@ts-ignore
+      if (unitDatas[name] && paramChart.tokenType!=='pair') {
+        return name +='('+(paramChart.tokenType === 'symbol0' ? pairStore.name.split('/')[0] : pairStore.name.split('/')[1])+')'
+      }
+    }
+  }
+  return name
 }
 // 将x轴转日期格式 得到x轴
 export const getXData = (xData: Array<number>, interval: string) => {
@@ -49,7 +67,7 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,xData:Array<n
   const barIcon='path://M853.312 85.312c-47.104 0-85.312 38.208-85.312 85.376v682.624a85.312 85.312 0 1 0 170.688 0V170.688c0-47.168-38.208-85.376-85.376-85.376zM426.688 426.688a85.312 85.312 0 1 1 170.624 0v426.624a85.312 85.312 0 1 1-170.624 0V426.688zM85.312 597.312a85.312 85.312 0 0 1 170.688 0v256a85.312 85.312 0 1 1-170.688 0v-256z'
   const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
   const legend = R.map((item: yModel) => {
-    return {icon:item.type==='bar'?barIcon:lineIcon,name:item.name}
+    return {icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item.name)}
   }, yData)
   if (!kyData) return legend
   legend.push({icon:lineIcon,name:kyData.name})
@@ -88,10 +106,9 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       opacity: 0.1,
     },
   }
-  // let that = this;
   return [
     {
-      name: item.name,
+      name: getUnitData(item.name),
       type: item.type === 'bar' ? 'bar' : 'line',
       symbol: 'none',
       barGap: '0%',
@@ -122,7 +139,8 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     max,
   ]
 }
-export const yLabelFormat = (v: any) => getSaveNumber(v,2)
+export const yLabelFormat = (v: any) => formatRulesNumber(v,false)
+export const ykLabelFormat = (v: any) => numberUnitFormat(v)
 //getSeries 根据group后端自定义组合y轴
 export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []
@@ -152,25 +170,27 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
       maxM = R.max(max, maxM)
       series.push(obj)
     })
-    allYAxis.push(yAxisModel(minM,maxM,yLabelFormat))
+    //group索引为0的为主轴，不用i的原因防止后端配的时候0不是第一个
+    const isShow=R.keys(groupList)[i]==='0'?true:false
+    allYAxis.push(yAxisModel(minM,maxM,isShow,yLabelFormat))
   }
   // // kline
   if (kyData) {
     const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval,pairId)
     //pair没有价格线美元单位
     const unit=pairId?'':'$'
-    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat,unit))
+    allYAxis.push(yKAxisModel(kmin,kmax,ykLabelFormat,unit))
     series.push(obj)
   }
   return [series,allYAxis]
 }
-//getSeries  单独的y轴
+//getSeries  单独的y轴 暂时没用
 export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
   const series = []
   const allYAxis=[]
   yData.forEach((item:yModel,i:number)=>{
     const [obj, min, max] = formatYData(item, i,false,xData,allxData,interval,'')
-    allYAxis.push(yAxisModel(min,max,yLabelFormat))
+    allYAxis.push(yAxisModel(min,max,false,yLabelFormat))
     series.push(obj)
   })
   // kline
@@ -183,7 +203,7 @@ export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yDat
   }
   return [series,allYAxis]
 }
-// 得到series
+// 得到series 暂时没用
 export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
   const series = []
   let minM: any = null
