@@ -1,8 +1,10 @@
 export default {
     status: {
+        wait: 'Start countdown',
         ing: 'Ongoing', // ⛳️
         end: 'Ended' // 🎯
     },
+    notice: `Important: Due to the major risks of ChainWallet, in order to protect the interests of users, GrowthPad has removed related activities. Due to ChainWallet's unilateral reason, the rewards of this event cannot be settled temporarily. For users who have participated, GrowthPad will give priority rights in future events.`,
     title:'Earn crypt while supporting favorite projects',
     des:'GrowthPad unites many valuable project parties to accurately reward community users with Tokens. Users only need to complete tasks. Users can not only help their favorite projects complete their goals, but also get reward Tokens.',
     coming:'coming',

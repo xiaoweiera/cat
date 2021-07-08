@@ -31,7 +31,7 @@ const headerBg = () => {
               <IconFont class="flex" type="help" size="base"></IconFont>
             </template>
             <template #content>
-              <p class="leading-loose">
+              <p class="leading-loose help-tips">
                 <span class="block">
                   1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
                 </span>
@@ -139,6 +139,11 @@ const headerBg = () => {
 </template>
 
 <style scoped lang="scss">
+
+.help-tips {
+  min-width: 450px;
+}
+
 .tableHeight {
   @apply w-full md:max-h-48;
 }

@@ -103,16 +103,38 @@ const getAllCoinData = (platsSelect: string, data: any, chain: string) => {
     return Object.keys(item.data)
   } else {
     // @ts-ignore 当链不是ALl的时候得到coins.data
-    const temp: platInfo = R.find((item: platInfo) => {
-      if (
-        item.project_name === platsSelect
-        || platsSelect === I18n.apy.tagAll
-      ) {
-        return true
-      }
-    }, data)
-    return Object.keys(temp.data)
+    if(platsSelect===I18n.apy.tagAll){
+      //@ts-ignore
+      let keyList=[]
+      R.forEach((item:any)=>{
+        //@ts-ignore
+        keyList=keyList.concat(Object.keys(item.data))
+      },data)
+      //@ts-ignore
+      return R.uniq(keyList)
+    }else{
+      //@ts-ignore
+      const temp: platInfo = R.find((item: platInfo) => {
+        if (
+            item.project_name === platsSelect
+            || platsSelect === I18n.apy.tagAll
+        ) {
+          return true
+        }
+      }, data)
+      return Object.keys(temp.data)
+    }
   }
+}
+const getAllCoinKey=(data:any)=>{
+  //@ts-ignore
+  let keyList=[]
+  R.forEach((item:any)=>{
+    //@ts-ignore
+    keyList=keyList.concat(Object.keys(item.data))
+  },data)
+  //@ts-ignore
+  return R.uniq(keyList)
 }
 // 根据链得到所有平台 plats.data
 const getALlPlatsData = (chains: string, data: any) => {
@@ -251,7 +273,8 @@ export const getInfo = (params: dataSetModel, propsChartIndex: number) => {
     const data = await getDataSet(params)
     if (plats.select === I18n.apy.tagAll) {
       // @ts-ignore 得到所有的币
-      coins.data = Object.keys(data[0].data)
+      coins.data =getAllCoinKey(data)
+      // coins.data = Object.keys(data[0].data)
     } else {
       // @ts-ignore 得到所有的币 得到conis.data
       coins.data = getAllCoinData(plats.select, data, chains.select)

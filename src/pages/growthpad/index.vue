@@ -78,7 +78,7 @@ onMounted(async() => {
       <!--    pc banner-->
       <GrowthpadIndexPcBanner />
       <!--  即将开始-->
-      <div class="progress text-left mt-4 md:mt-15 md:mt-20">
+      <div class="progress text-left mt-4 md:mt-20">
         <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
       </div>
 

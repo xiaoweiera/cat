@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-  <span class="loading px-3">
+  <span class="loading px-3 whitespace-nowrap">
     <IconFont class="loading-icon flex" type="loading" suffix="jpg"></IconFont>
     <span class="text-xs inline-block">{{ value }}</span>
   </span>

@@ -75,16 +75,12 @@ const onRemove = function() {
 </script>
 
 <template>
-  <div v-if="preview" class="upload-box relative" :class="size">
+  <div v-if="preview" class="upload-box relative rounded-md overflow-hidden" :class="size">
     <a v-router="src" class="avatar-uploader cursor-pointer" target="_blank">
-      <span
-        class="preview picture inline-block"
-        :class="size"
-        :style="getStyle(src)"
-      />
+      <span class="preview picture inline-block" :class="size" :style="getStyle(src)"/>
     </a>
   </div>
-  <div v-else v-login class="upload-box relative" :class="size">
+  <div v-else v-login class="upload-box relative rounded-md overflow-hidden" :class="size">
     <template v-if="src">
       <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
         <IconFont type="remove"></IconFont>
@@ -97,7 +93,7 @@ const onRemove = function() {
         accept="image/*"
         :show-file-list="false"
         :multiple="false"
-        name="article_image"
+        name="image_url"
         :drag="true"
         :on-change="onUpload"
         :auto-upload="false"
@@ -150,7 +146,6 @@ const onRemove = function() {
   height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.04);
   background: #fff;
-  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;

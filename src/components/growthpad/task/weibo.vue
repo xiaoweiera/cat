@@ -1,88 +1,87 @@
 <script setup lang="ts">
+/**
+ * @file 微博文章
+ * @author svon.me@gmail.com
+ */
+
 import { omit } from 'ramda'
-import { reactive, ref, toRaw, computed } from 'vue'
+import { computed, reactive, ref, toRaw } from 'vue'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
-import { messageSuccess, messageError } from '~/lib/tool'
-import { Project } from '~/api/growtask'
+import { messageError, messageSuccess } from '~/lib/tool'
 import Message from '~/utils/message'
 import { checkAddress } from '~/components/growthpad/task/task'
 import activity from '~/logic/growthpad/activity'
 import { toNumber } from '~/utils/index'
+import safeGet from '@fengqiaogang/safe-get'
+import { MissionStatus } from '~/store/growthpad/props'
 
 const store = Task()
-
+// @ts-ignore
 const data = computed(() => {
   // @ts-ignore
-  if (store.projectName === Project.mdx) {
-    return {
-      title: I18n.growthpad.mdx.weibo.label,
-      description: I18n.growthpad.mdx.weibo.description,
-    }
-  }
-  // @ts-ignore
-  if (store.projectName === Project.channels) {
-    return {
-      title: I18n.growthpad.channels.weibo.label,
-      description: I18n.growthpad.channels.weibo.description,
-    }
-  }
-  // @ts-ignore
-  if (store.projectName === Project.coinwind) {
-    return {
-      title: I18n.growthpad.coinwind.weibo.label,
-      description: I18n.growthpad.coinwind.weibo.description,
-    }
-  }
+  const weibo = store.words.weibo
   return {
-    title: '',
-    description: '',
+    title: safeGet<string>(weibo || {}, 'label'),
+    description: safeGet<string>(weibo || {}, 'desc'),
   }
 })
 
-const rewardValue = computed<number>((): number => {
+// 获取文章奖励金额
+const getArticleReward = function(): number {
   return toNumber(store.article_reward.value)
-})
+}
 
-const isRegistered = computed<boolean>((): boolean => {
-  if (store.article_image.value && store.article_url.value) {
-    return true
+// @ts-ignore
+const rewardValue = computed<number>(getArticleReward)
+
+
+
+// @ts-ignore
+const articleStatus = computed<MissionStatus>((): MissionStatus => {
+  // 奖励金额
+  const reward = getArticleReward()
+  // 如果奖励金额大于 0， 则表示已审核通过
+  if (reward > 0 || store.mission.article_status === MissionStatus.success) {
+    return MissionStatus.success
   }
-  return false
+  if (store.mission.article_status === MissionStatus.fail) {
+    return MissionStatus.fail
+  }
+  if (store.mission.article_status === MissionStatus.loading) {
+    return MissionStatus.loading
+  }
+  // 判断文章截图与文章链接是否存在, 存在则表示已填写正在审核中
+  if (store.image_url.value && store.article_url.value) {
+    return MissionStatus.loading
+  }
+  // 默认为待填写状态
+  return MissionStatus.init
 })
 
 interface FormData {
   article_url?: string
-  article_image?: File
+  image_url?: File
 }
-const previewSrc = ref<string>('')
 const formdata = reactive<FormData>({})
 
-const preview = function(file: File) {
-  // 读取文件的 base64 值
-  const filereader = new FileReader()
-  filereader.onload = function(e) {
-    // 获取 base64 编码
-    const base64 = e.target.result
-    previewSrc.value = base64
-  }
-  filereader.readAsDataURL(file)
-}
-
-const onUpload = async function(file: File): Promise<boolean> {
-  const value = file.raw
-  formdata.article_image = value
-  preview(value)
-  return false
+// 图片上传成功
+// @ts-ignore
+const onUpload = async function(value: string) {
+  // @ts-ignore
+  formdata.image_url = value
 }
 
 const formRef = ref<any>(null)
 
+// @ts-ignore
 const submit = async function() {
   const form = toRaw(formRef).value
   const data = new FormData()
+  // @ts-ignore
   data.append('article_url', formdata.article_url)
-  data.append('article_image', formdata.article_image)
+  // @ts-ignore
+  data.append('image_url', formdata.image_url)
   try {
     await form.validate()
     // 判断信息登记
@@ -104,14 +103,13 @@ const submit = async function() {
       form.clearValidate()
       // 清空表单
       form.resetFields()
-      previewSrc.value = ''
     }
   } catch (e) {
     const err = omit(['code'], e)
     messageError(err)
   }
 }
-
+// @ts-ignore
 const rules: any = {
   article_url: [
     {
@@ -120,7 +118,7 @@ const rules: any = {
       message: I18n.growthpad.weibo.articlePlaceholder,
     },
   ],
-  article_image: [
+  image_url: [
     {
       required: true,
       trigger: ['change'],
@@ -133,162 +131,86 @@ const rules: any = {
   <div>
     <GrowthpadTaskTitle :data="data">
       <template v-if="data.description" #desc>
-        <span class="block pt-2">{{ data.description }}</span>
+        <span class="block" :class="{'pt-2': !!data.title }">{{ data.description }}</span>
       </template>
     </GrowthpadTaskTitle>
-    <el-form
-      ref="formRef"
-      class="mt-3 pb-5"
-      :model="formdata"
-      label-width="100px"
-      :rules="rules"
-      autocomplete="off"
-      @submit.stop.prevent="submit"
-    >
-      <template v-if="isRegistered">
-        <el-form-item :label="I18n.growthpad.weibo.article">
-          <template v-if="store.article_url.value === 'undefined'">
-            <span>-</span>
-          </template>
-          <template v-else-if="store.article_url.value">
-            <a :href="store.article_url.value" target="_blank">{{
-              store.article_url.value
-            }}</a>
-          </template>
-          <template v-else>
-            <span>-</span>
-          </template>
-        </el-form-item>
-        <!-- 已审核 -->
-        <template v-if="rewardValue">
-          <el-form-item
-            :label="I18n.growthpad.weibo.articleImg"
-            style="margin-bottom: 0"
-          >
-            <a
-              class="avatar-uploader relative block"
-              :href="store.article_image.value"
-              target="_blank"
-            >
-              <img class="preview" :src="store.article_image.value" />
-            </a>
-          </el-form-item>
+
+    <!-- 审核通过 -->
+    <template v-if="articleStatus === MissionStatus.success">
+      <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
+        <template #after>
+          <UiTableItem class="pt-5">
+            <el-form-item class="mb-0">
+              <el-button type="success" round size="small">
+                <span>{{ I18n.common.button.success }}</span>
+              </el-button>
+            </el-form-item>
+          </UiTableItem>
         </template>
-        <!-- 审核中 -->
-        <template v-else>
-          <el-form-item :label="I18n.growthpad.weibo.articleImg">
-            <a
-              class="avatar-uploader relative block"
-              :href="store.article_image.value"
-              target="_blank"
-            >
-              <img class="preview" :src="store.article_image.value" />
-            </a>
-          </el-form-item>
-          <el-form-item style="margin-bottom: 0">
-            <el-button type="info" round plain size="small" disabled>
-              <span>{{ I18n.common.button.review }}</span>
-            </el-button>
-          </el-form-item>
+      </GrowthpadTaskArticlePreview>
+    </template>
+
+    <!-- 审核中 -->
+    <template v-else-if="articleStatus === MissionStatus.loading">
+      <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
+        <template #after>
+          <UiTableItem class="pt-5">
+            <el-form-item class="mb-0">
+              <el-button type="info" round size="small" disabled>
+                <span>{{ I18n.common.button.review }}</span>
+              </el-button>
+            </el-form-item>
+          </UiTableItem>
         </template>
-      </template>
-      <template v-else>
-        <el-form-item
-          :label="I18n.growthpad.weibo.article"
-          required
-          prop="article_url"
-        >
-          <el-input
-            v-model="formdata.article_url"
-            :placeholder="I18n.growthpad.weibo.articlePlaceholder"
-            autocomplete="off"
-          ></el-input>
+      </GrowthpadTaskArticlePreview>
+    </template>
+
+    <!-- 审核失败 -->
+    <template v-else-if="articleStatus === MissionStatus.fail">
+      <GrowthpadTaskArticlePreview :link="store.article_url.value" :picture="store.image_url.value">
+        <template #after>
+          <UiTableItem class="pt-5">
+            <el-form-item class="mb-0">
+              <el-button type="danger" round size="small">
+                <span>{{ I18n.common.button.danger }}</span>
+              </el-button>
+            </el-form-item>
+          </UiTableItem>
+        </template>
+      </GrowthpadTaskArticlePreview>
+    </template>
+
+    <!-- 填写内容 -->
+    <el-form v-else ref="formRef" class="mt-3 pb-5" :model="formdata" label-width="0px" :rules="rules" autocomplete="off" @submit.stop.prevent="submit">
+      <UiTableItem :label="I18n.growthpad.weibo.article" >
+        <el-form-item required prop="article_url">
+          <el-input v-model="formdata.article_url" :placeholder="I18n.growthpad.weibo.articlePlaceholder" autocomplete="off" />
         </el-form-item>
-        <el-form-item
-          :label="I18n.growthpad.weibo.articleImg"
-          required
-          prop="article_image"
-        >
+      </UiTableItem>
+      <UiTableItem :label="I18n.growthpad.weibo.articleImg">
+        <el-form-item required prop="image_url">
           <div class="md:flex md:items-center">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              accept="image/*"
-              :show-file-list="false"
-              :multiple="false"
-              name="article_image"
-              :drag="true"
-              :on-change="onUpload"
-              :auto-upload="false"
-            >
-              <template v-if="previewSrc">
-                <img class="preview" :src="previewSrc" />
-              </template>
-              <IconFont
-                v-else
-                class="preview"
-                type="plus"
-                suffix="png"
-              ></IconFont>
-            </el-upload>
-            <div class="upload-tips md:pl-3 text-xs mt-3 md:mt-0">
-              <span>{{ I18n.growthpad.weibo.notify1 }}</span>
-              <span>{{ I18n.growthpad.weibo.notify2 }}</span>
+            <div>
+              <Upload :src="formdata.image_url" @change="onUpload" />
+            </div>
+            <div class="text-global-default text-opacity-50 leading-6 md:pl-3 text-xs mt-3 md:mt-0">
+              <span class="block">{{ I18n.growthpad.weibo.notify1 }}</span>
+              <span class="block">{{ I18n.growthpad.weibo.notify2 }}</span>
             </div>
           </div>
         </el-form-item>
-        <el-form-item style="margin-bottom: 0">
+      </UiTableItem>
+      <UiTableItem>
+        <el-form-item class="mb-0">
           <div class="md:flex md:items-center">
             <div v-login>
               <el-button type="primary" round size="small" native-type="submit">
                 <span>{{ I18n.common.button.submit }}</span>
               </el-button>
             </div>
-            <!--有上传文章后显示-->
-            <!--            <template v-if="store.article_image.value">-->
-            <!--              <p class="md:ml-3 text-xs submit-tips mt-3 md:mt-0">-->
-            <!--                {{ I18n.growthpad.weibo.tips }}-->
-            <!--              </p>-->
-            <!--            </template>-->
           </div>
         </el-form-item>
-      </template>
+      </UiTableItem>
     </el-form>
   </div>
 </template>
-<style scoped lang="scss">
-a {
-  color: #2b8dfe;
-}
-.upload-tips {
-  line-height: 24px;
-  color: rgba(37, 62, 111, 0.65);
-  span {
-    display: block;
-  }
-}
-
-.avatar-uploader {
-  min-width: 120px;
-  width: 120px;
-  height: 120px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  background: #fff;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  .preview {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 120px;
-  }
-}
-
-.submit-tips {
-  color: #e9592d;
-}
-</style>

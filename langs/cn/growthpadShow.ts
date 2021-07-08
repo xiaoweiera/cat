@@ -1,8 +1,10 @@
 export default {
   status: {
+    wait: '即将开始',
     ing: '正在进行',
-    end: '已结束'
+    end: '已结束',
   },
+  notice: '重要提示：因 ChainWallet 存在重大风险，为保护用户利益，GrowthPad 已对相关活动下架。因 ChainWallet 单方面原因，本次活动奖励暂无法结算，对已参与用户，GrowthPad 将在未来活动中给与优先权益。',
   title: '支持喜欢的项目并领取 Token',
   des: 'GrowthPad 将很多有价值的项目方联合起来，精准的给社区用户奖励 Token，用户只需要完成任务，既可以帮助自己的喜欢的项目完成目标，也可以获得奖励 Token。',
   coming: '即将开始',

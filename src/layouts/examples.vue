@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <div class="circleContainer"></div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">

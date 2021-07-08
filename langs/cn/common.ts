@@ -29,7 +29,9 @@ export default {
     submit: '提交',
     confirm: '确认',
     close: '取消',
-    review: '审核中'
+    review: '审核中',
+    success: '审核完成',
+    danger: '审核未通过'
   },
   message: {
     verification: '获取验证码',
@@ -38,6 +40,7 @@ export default {
     new_password: '两次密码不一致',
     telError: '请输入正确的手机号',
     testing: '验证中 预计15分钟更新结果',
+    checking24h: '验证中，预计24小时更新结果',
     get: '已得',
     copy: '已复制邀请链接',
     fail: '失败, 请重新验证',
@@ -70,6 +73,7 @@ export default {
   chat: {
     telegram: '电报',
     telegramGroup: '电报群',
+    joinTelegram: '加入电报群',
     twitter: 'Twitter',
     sina: '微博'
   },
@@ -79,5 +83,5 @@ export default {
   },
   api: {
     wrong: '系统异常，请稍后再试'
-  }
+  },
 }

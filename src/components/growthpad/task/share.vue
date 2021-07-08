@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import TaskType from '~/logic/growthpad/tasktype'
 import Task from '~/logic/growthpad/task'
 import { userData } from '~/logic/user/login'
-import { Project } from '~/api/growtask'
+import { ProjectCopyTitle } from '~/logic/growthpad/config'
 const store = Task()
 // @ts-ignore
 const data = computed(() => {
@@ -21,18 +21,11 @@ const link = (): string => {
   if (code) {
     url = `${url}?code=${code}`
   }
-  let value = ''
+  let value: string
 
-  // @ts-ignore
-  const name: Project = store.projectName
-  if (name === Project.coinwind) {
-    value = I18n.growthpad.coinwind.title
-  } else if (name === Project.mdx) {
-    value = I18n.growthpad.mdx.title
-  } else if (name === Project.channels) {
-    value = I18n.growthpad.channels.title
-  } else if (name === Project.growth) {
-    value = I18n.growthpad.growthpad.title
+  const name = store.getNickName()
+  if (ProjectCopyTitle[name]) {
+    value = ProjectCopyTitle[name]
   } else {
     const $title = document.querySelector('title')
     value = $title.innerText
@@ -70,16 +63,10 @@ const link = (): string => {
           class="mt-1.5 md:mt-0 md:ml-6 flex items-center"
         >
           <span>{{ I18n.growthpad.invited.code }}</span>
-          <i
-            class="ml-1"
-          >{{ userData.my_invitation_code }}{{ store.shareCode.value }}</i>
+          <i class="ml-1">{{ userData.my_invitation_code }}{{ store.shareCode.value }}</i>
           <span v-login>
             <Copy :link="link">
-              <IconFont
-                class="ml-2 hand flex"
-                type="copy"
-                size="base"
-              ></IconFont>
+              <IconFont class="ml-2 hand flex" type="copy" size="base"></IconFont>
             </Copy>
           </span>
         </span>

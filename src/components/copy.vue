@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import { copyTxt } from '~/lib/tool'
+// import { copyTxt } from '~/lib/tool'
+
 const props = defineProps({
   message: {
     type: Boolean,
@@ -16,18 +17,24 @@ const props = defineProps({
   },
 })
 
-const copy = function() {
-  if (typeof props.link === 'function') {
-    const value = props.link()
-    copyTxt(value, props.message)
-  } else {
-    copyTxt(props.link, props.message)
-  }
-}
+// const copy = function() {
+//   if (typeof props.link === 'function') {
+//     const value = props.link()
+//     copyTxt(value, props.message)
+//   } else {
+//     copyTxt(props.link, props.message)
+//   }
+// }
+
+// @click.stop.prevent="copy"
+
 </script>
 
 <template>
-  <span class="inline-block" @click.stop.prevent="copy">
+  <span class="inline-block" v-if="message" v-copy.message="link">
+    <slot></slot>
+  </span>
+  <span class="inline-block" v-else v-copy="link">
     <slot></slot>
   </span>
 </template>

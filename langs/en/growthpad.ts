@@ -31,7 +31,11 @@ export default {
     invalid: 'Invalid Address',
     tips: `Once confirmed, the address can't be modified`,
     notify1: '* Please register your address receiving rewards(Rewards for tasks related to TVL will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
-    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.'
+    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.',
+    checkMessage: `Submitted
+Expected reward +{reward} {token}`,
+    week_reward: 'Expected reward (not issued)：<i>{reward} {token}</i>',
+    total_reward: 'Settled reward: <i>{reward} {token} (The reward will be issued within 10 working days after the weekly settlement date)</i>'
   },
   about: {
     title: '{project} Exchange',
@@ -39,6 +43,7 @@ export default {
     website: 'Official website',
     community: 'Community',
     projectDetail: 'Project introduction',
+    tokenDetail: 'Token introduction',
     name: 'Coin',
     symbol: 'Coin',
     online: 'Online Time',
@@ -73,7 +78,8 @@ export default {
     // tips: '* 已提交等待审核，重新提交会替换之前的内容。'
     tips: '* Verifying,when resubmitting the previous information will be covered. ',
     retwitter: 'And retweet the twitter.',
-    warn: 'After submitting for review, you cannot modify it. Please check your submission carefully.'
+    warn: 'After submitting for review, you cannot modify it. Please check your submission carefully.',
+    fail: 'The content of the article does not meet the requirements.'
   },
   invited: {
     count: 'My invitation: ',
@@ -334,11 +340,46 @@ GrowthPad conducts comprehensive mining and analysis of data on the chain and ma
       copy: 'Share the GrowthPad extra 12,000 USDT reward with simple finger swipes~ Link: {url}'
     }
   },
-  ChainWallet: {
+  chainwallet: {
+    // 分享标题
+    title: 'Help CoinWind',
+    project: {
+      warn: 'Due to force majeure, the activity is postponed to July 2.'
+    },
     dashboard: {
+      banner: 'https://res.ikingdata.com/image/growthpad/chainwallet/banner.jpg',
+      reward: {
+        count: '总奖池金额',
+        value: '单人最高可获得',
+        person: '该项奖励金额'
+      },
       desc: `In order to give back to community users, ChainWallet cooperated with KingData to launch an incentive activity worth 200,000 CHA on GrowthPad. In order to give back to as many supporters as possible, the tasks are set with different difficulty thresholds. And participants only need to complete the task to get the corresponding reward.
 
 Rule: Before starting the task, participants need to the KingData account and enter the BSC wallet address which is used to receive reward. After filling in, participants can choose the task they want to participate in according to the task description, fill in the corresponding information for verification. If the conditions are verified, the corresponding rewards will be given. Rewards will be uniformly distributed to your registered address after the activity. Rewards will be distributed to your registered address in 10 working days after the event ends; the reward of tasks about holding quantity will be air-drop into the address verified.`
+    },
+    address: {
+      placeholder: 'Enter BSC / HECO address',
+    },
+    about: {
+      online: '1/19/2021',
+      count: '1 billion',
+      luanched: 'BSC',
+      detail: `Chain Wallet Team has been deeply involved in the development of wallets, smart contracts, and NFT. Chain Wallet recently formed a business and overseas operation team. Chain Wallet is committed to lowering the industry threshold so that everyone has their own digital assets. In the future, Chain Wallet will work with partners to promote the development of the blockchain industry.`,
+      tokenDetail: `Through circulation in various scenarios, CHA serves as a means of payment and proof of membership rights and interests, opening up the entire product business line of Chain Wallet. Users can also participate in Chain Wallet governance by mortgaging CHA when submitting proposals to prevent malicious initiation of proposals. Currently, CHA supports various scenarios such as advertising fee payment, DAPP listing, decentralized transaction listing, and token official website inclusion.`,
+    },
+    help: {
+      val1: 'Any problems?',
+      val2: 'Contact us',
+    },
+    task4: {
+      title: 'Provide a liquidity in ChainWallet, and get rewards based on the amount of pledge, the maximum reward is 2500 CHA.',
+      rule1: 'More than 500 U and less than 10,000 U, reward 250 CHA',
+      rule2: 'More than 10,000 U and less than 100,000 U, reward 1,000 CHA',
+      rule3: 'More than 100,000 U, reward 2,500 CHA',
+      rule4: 'The reward will be airdropped into the verification address.'
+    },
+    task5: {
+      desc: `The reward is based on the number of followers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000) Mainstream media: Twittter,Facebook,Weibo,Zhihu, Toutiao, etc.`
     }
   }
 };

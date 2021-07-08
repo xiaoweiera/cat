@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, reactive, ref, toRaw } from 'vue'
+import { computed, defineProps, reactive, ref, toRaw, defineEmit } from 'vue'
 import { addressEnum, getValueStatus } from './value'
 // @ts-ignore
 import rules from './rule'
@@ -9,6 +9,9 @@ import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
 import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
+import TaskType from '~/logic/growthpad/tasktype'
+
+const emitEvent = defineEmit(['updated'])
 
 const props = defineProps({
   // 判断地址名称
@@ -34,14 +37,35 @@ const store = Task()
 
 const editStatus = ref<boolean>(false)
 
-// @ts-ignore
-const loadingStatus = computed<MissionStatus>((): MissionStatus => {
+const _loadingStatus = function(): MissionStatus {
   const status: MissionStatus = getValueStatus(props.name, store, props.data)
   if (status) {
     return status
   }
   // 默认为空
   return MissionStatus.init
+}
+
+// @ts-ignore
+const loadingStatus = computed<MissionStatus>(_loadingStatus)
+
+// 输入框提示语
+const InputPlaceholder = computed<string>(function() {
+  if (_loadingStatus() === MissionStatus.fail) {
+    return I18n.common.message.fail
+  }
+  return props.placeholder
+})
+// 是否显示前缀
+const prefixStatus = computed<boo>(function() {
+  switch (props.name) {
+    case TaskType.telegram:
+    case TaskType.twitter:
+    case TaskType.retwitter:
+      return true
+    default:
+      return false
+  }
 })
 
 const formRef = ref<any>(null)
@@ -83,9 +107,10 @@ const onSubmit = async function() {
         form.resetFields()
         // 清除验证结果
         form.clearValidate()
-
         // @ts-ignore
         await store[name](value)
+        // 数据更新成功后执行
+        emitEvent('updated', props.name)
       }
     }
   } catch (e) {
@@ -96,12 +121,9 @@ const onSubmit = async function() {
 </script>
 
 <template>
-  <IconFont
-    v-if="loadingStatus === MissionStatus.success"
-    type="success"
-  ></IconFont>
+  <IconFont v-if="loadingStatus === MissionStatus.success" type="success"/>
   <span class="suspend inline-block" v-else-if="loadingStatus === MissionStatus.suspend">{{ I18n.growthpad.status.suspend }}</span>
-  <Loading v-else-if="loadingStatus === MissionStatus.loading"></Loading>
+  <Loading v-else-if="loadingStatus === MissionStatus.loading" :value="I18n.common.message.checking24h"/>
   <el-form
     v-else
     ref="formRef"
@@ -113,17 +135,11 @@ const onSubmit = async function() {
     @submit.stop.prevent="onSubmit"
   >
     <el-form-item prop="input">
-      <el-input
-        v-model="formdata.input"
-        :placeholder="
-          loadingStatus === MissionStatus.fail
-            ? I18n.common.message.fail
-            : placeholder
-        "
-        autocomplete="off"
-        size="small"
-        :class="{ fail: loadingStatus === MissionStatus.fail }"
-      />
+      <el-input type="text" v-model="formdata.input" :placeholder="InputPlaceholder" autocomplete="off" size="small" :class="{ fail: loadingStatus === MissionStatus.fail }">
+        <template v-if="prefixStatus" #prefix>
+          <span class="pl-1">@</span>
+        </template>
+      </el-input>
     </el-form-item>
     <div class="suffix" @click="onSubmit">
       <slot></slot>

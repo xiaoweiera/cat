@@ -28,6 +28,6 @@ try {
   mode = 'production'
 }
 
-console.log('mode = %s', mode)
+export const oss = 'https://res.ikingdata.com'
 
 export const env: Env = mode === 'production' ? production : development

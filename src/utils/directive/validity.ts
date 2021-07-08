@@ -5,6 +5,7 @@
 
 import safeSet from '@fengqiaogang/safe-set'
 import activity from '~/logic/growthpad/activity'
+import * as event from '~/utils/event/index'
 
 interface Modifiers {
   begin?: boolean
@@ -18,36 +19,39 @@ interface Binding {
 }
 
 const install = function(vue: any) {
-  // console.log(1)
+  const eventName = 'click'
   // 添加指令
-  vue.directive('validity', (el: HTMLElement, binding: Binding) => {
-    const { modifiers } = binding
-    const store = {}
-    if (Array.isArray(binding.value)) {
-      binding.value = binding.value.join(',')
-    }
-    const [begin, end]: Array<string> = binding.value
-      ? binding.value.split(',')
-      : []
-    if (modifiers.begin) {
-      safeSet(store, 'dashboard.begin', begin)
-    }
-    if (modifiers.end) {
-      safeSet(store, 'dashboard.end', end)
-    }
-    el.addEventListener(
-      'click',
-      (e: Event) => {
+  vue.directive('validity', {
+    mounted: (el: HTMLElement, binding: Binding) => {
+      const { modifiers } = binding
+      const store = {}
+      if (Array.isArray(binding.value)) {
+        binding.value = binding.value.join(',')
+      }
+      const [begin, end]: Array<string> = binding.value
+        ? binding.value.split(',')
+        : []
+      if (modifiers.begin) {
+        safeSet(store, 'dashboard.begin', begin)
+      }
+      if (modifiers.end) {
+        safeSet(store, 'dashboard.end', end)
+      }
+      const click = function(e: Event) {
         const status = activity(store as any)
         if (status) {
           return true
         }
-        console.log('status : ', status);
         e.stopPropagation()
         e.preventDefault()
-      },
-      true,
-    )
+      }
+      // 绑定事件
+      event.bind(el, eventName, click, true)
+    },
+    beforeUnmount: function(el: HTMLElement) {
+      // 删除事件
+      event.unbind(el, eventName, true)
+    }
   })
 }
 

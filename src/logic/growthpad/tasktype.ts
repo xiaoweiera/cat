@@ -24,7 +24,7 @@ enum TaskType {
 
   // coinwind
   autofarm = 'autofarm',
-  beltfit = 'belt.fit',
+  beltfit = 'beltfit',
 
   bunny = 'bunny',
 
@@ -32,6 +32,9 @@ enum TaskType {
   friends = 'friends',
   // 聊天群
   groups = 'group',
+
+  //chainwallet
+  chainwallet = 'chainwallet'
 }
 
 export default TaskType
