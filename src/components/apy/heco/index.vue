@@ -205,17 +205,19 @@ const headerBg = () => {
 
 
   &:after {
+    outline: none;
+    user-select: none;
     position: absolute;
     left: 50%;
     top: 50%;
     display: inline-block;
-    content: "KingData.com";
-    font-size: 32px;
-    font-weight: bold;
-    color: rgba(43, 140, 255, 0.2);
+    content: "";
     transform: translate(-50%, -50%);
-    font-family: sans-serif;
     z-index: 10;
+    $src: "https://res.ikingdata.com/image/watermark.png";
+    background: url($src) center / contain no-repeat;
+
+    @apply w-72 h-15 md:w-87 md:h-18 lg:w-120 lg:h-20 xl:w-145 xl:h-25;
   }
 }
 
