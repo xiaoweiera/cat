@@ -165,6 +165,10 @@ const iconCode = function() {
     @include size(20px);
   }
 }
+.size-8 {
+  @include size(8);
+}
+
 .size-base {
   @include size(16px);
 }

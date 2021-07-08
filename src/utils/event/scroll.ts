@@ -25,6 +25,25 @@ const init = function() {
   event.addEvent(document as any, 'scroll', onScroll)
 }
 
+export const viewHieght = function() {
+  return document.documentElement.clientHeight
+}
+
+export const bodyHeight = function() {
+  return document.body.clientHeight
+}
+
+export const scrollTop = function(): number {
+  let scroll_top = 0
+  if (document.documentElement && document.documentElement.scrollTop) {
+    scroll_top = document.documentElement.scrollTop
+  }
+  else if (document.body) {
+    scroll_top = document.body.scrollTop
+  }
+  return scroll_top;
+}
+
 export const bind = function(namespace: string, callback: Callback) {
   init()
   const value = function(e: Event) {

@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import { uniq } from 'ramda'
 import getAdsList from './ads'
 import { topic } from './pathname'
 import request from '~/lib/request'
@@ -10,6 +11,7 @@ import CreateDB from '~/logic/topic/db'
 import safeGet from '@fengqiaogang/safe-get'
 import * as response from '~/lib/response'
 import { MenuItem, MenuType } from '~/logic/topic/props'
+import { compact } from '~/utils/index'
 
 
 const myself: MenuItem = {
@@ -102,7 +104,6 @@ export const getChartList = async function(topId: string | number, page = 1, lim
     page_size: limit
   }
   let url: string
-  console.log('topId = ', topId)
   switch (topId) {
   // 判断是否请求 "我的图表" 图表数据
   case myself.id:
@@ -163,6 +164,21 @@ export const getChartTrends = async function (id: string | number) {
   const params = { id }
   try {
     const result = await request.get(topic.trend, { params })
+    return response.check<any>(result)
+  } catch (e) {
+    return void 0
+  }
+}
+// 获取多图数据
+export const getChartMultipleTrends = async function(ids: string[] | number[]) {
+  // 去重，去空
+  const list = uniq(compact<string | number>(ids))
+  const params = {
+    chart_ids: list.join(','),
+    cache: true
+  }
+  try {
+    const result = await request.get(topic.multipleTrends, { params })
     return response.check<any>(result)
   } catch (e) {
     return void 0

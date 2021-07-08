@@ -4,6 +4,7 @@
  */
 
 import Url from 'url'
+import { includes } from 'ramda'
 import I18n from '~/utils/i18n/index'
 import { production as env } from '~/lib/process'
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
@@ -11,8 +12,10 @@ import safeSet from '@fengqiaogang/safe-set'
 import { ignore } from '~/api/pathname'
 import { getUserTooken } from '~/logic/user/token'
 import { current } from '~/utils/lang'
-
+import * as cache from '~/utils/cache/index'
 import urlSome from '~/lib/urlsome'
+import safeGet from '@fengqiaogang/safe-get'
+import { cache as apiCacheList } from '~/api/pathname'
 
 const getUserAuth = function (config: AxiosRequestConfig): string {
   const cookie = getUserTooken()
@@ -40,6 +43,11 @@ const isKinddataDomain = function(config: AxiosRequestConfig): boolean {
   return true
 }
 
+const getCacheStatus = function(config: AxiosRequestConfig): boolean {
+  const url = config.url
+  return includes(url, apiCacheList)
+}
+
 const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
   const setting = Object.assign(
     {
@@ -54,6 +62,7 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
 
   service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
+      const cacheStatus = getCacheStatus(config)
       const status = isKinddataDomain(config)
       if (status) {
         // 设置 token
@@ -75,6 +84,20 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
         const url = I18n.template(config.url, config.params)
         config.url = url
       }
+      // 处理缓存逻辑
+      if (cacheStatus) {
+        const key = cache.makeKey(config.url)
+        // 如果缓存中有数据，则中断请求
+        if (cache.has(key)) {
+          return Promise.reject({
+            cache: true,
+            data: cache.get(key),
+          })
+        } else {
+          // 标识本次请求需要处理缓存逻辑
+          safeSet(config, 'cache', key)
+        }
+      }
       return config
     },
     (error) => {
@@ -86,10 +109,19 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
       if (res.status !== 200) {
         return Promise.reject('error')
       } else {
+        // 标识本次请求需要处理缓存逻辑
+        const key = safeGet<string>(res.config, 'cache')
+        if (key) {
+          cache.set(key, res)
+        }
         return res
       }
     },
     (error) => {
+      // 判断是否是由缓存终端请求引起的错误
+      if (safeGet<boolean>(error, 'cache')) {
+        return safeGet<any>(error, 'data')
+      }
       return Promise.reject(error)
     },
   )

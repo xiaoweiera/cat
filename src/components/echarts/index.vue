@@ -60,7 +60,13 @@ const getXAxis = function() {
 const getYAxis = function() {
   const [ option ] = makeYAxisOption()
   return map(function(item) {
-    return Object.assign({}, option, item)
+    return Object.assign({}, option, item, {
+      // todo
+      // min: 0,
+      // max: 10000,
+      splitNumber: 5,
+      // interval: 2000
+    })
   }, getValue(yAxis))
 }
 
@@ -86,15 +92,21 @@ const getYindex = function(yaxis: any[]) {
 const getSeries = function() {
   const result: any[] = getValue(series)
   const app = getYindex(getYAxis())
-  // @ts-ignore
   return map((item: any, index: number) => {
-    return {
+    const option = Object.assign({
       name: item.value,
       type: item.type,
       connectNulls: true,
       yAxisIndex: app(item.value),
-      data: compact(result[index]),
+      label: {
+        show: false,
+      },
+      symbol: 'none',
+    }, result[index])
+    if (option.stack) {
+      option.stack = 'stack'
     }
+    return option
   }, getValue(legend))
 }
 
@@ -103,8 +115,10 @@ const getOption = function() {
   return {
     grid: Object.assign({}, grid(), {
       top: 15,
-      left: 15,
-      bottom: 35,
+      left: 100,
+      right: 100,
+      bottom: 55,
+      containLabel: false,
     }),
     graphic: graphic(30),
     legend: getLegend(),
@@ -124,7 +138,7 @@ onMounted(function() {
   compChar.value = char
   try {
     const option = getOption()
-    console.log(option)
+    // console.log(option)
     char.setOption(option)
   } catch (e) {
     console.log(e)

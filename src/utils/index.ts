@@ -6,7 +6,7 @@
 import I18n from '~/utils/i18n/index'
 import { toLower, toUpper, filter, is, trim, isEmpty as _isEmpty } from 'ramda'
 //@ts-ignore
-import { v1 as uuidV1, v4 as uuidV4 } from 'uuid'
+import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from 'uuid'
 import dayjs from 'dayjs'
 
 export { isNil } from 'ramda'
@@ -45,6 +45,13 @@ export const toFixed = function (value: string | number = '', fixed = 2): number
   return temp
 }
 
+export const toBoolean = function(value: any): boolean {
+  if (value || value === 0) {
+    return true
+  }
+  return false
+}
+
 export const toNumber = function (value: string | number = 0, fixed = 2): number {
   const number = parseFloat(value as any)
   if (isNaN(number)) {
@@ -68,20 +75,18 @@ export const formatCash = function (value: string | number = 0): string {
 }
 
 // 生成唯一ID
-export const uuid = function(): string {
+export const uuid = function(value?: string): string {
   function create(): string {
+    if (value) {
+      return uuidV5(value, uuidV5.URL)
+    }
     if (Math.random() > 0.5) {
       return uuidV1();
     }
     return uuidV4();
   }
-
-  const app = function(): string {
-    const value = create();
-    const id = value.replace(/-/g, '');
-    return id;
-  };
-  return app()
+  const text = create();
+  return text.replace(/-/g, '');
 }
 
 export const isHttp = function(value: string): boolean {
@@ -159,7 +164,7 @@ export const isElement = function(value: any) {
   return false
 }
 
-export const forEach = function(callback: (value: any, index: number | string, data: any[]) => void, data: any[]) {
+export const forEach = function(callback: any, data: any) {
   if (callback && data) {
     if (isArray(data)) {
       data.forEach(function(value: any, index: number) {
@@ -176,7 +181,7 @@ export const forEach = function(callback: (value: any, index: number | string, d
   }
 }
 
-export const map = function(callback: (value: any, index: number | string, data: any[]) => any, data: any[]): any {
+export const map = function(callback: any, data: any): any {
   const isArr = isArray(data)
   const array: any[] = []
   const result: any = {}
@@ -203,6 +208,23 @@ export const compact = function<T>(list: T[]): T[] {
   return []
 }
 
+export const max = function(array: number[]): number {
+  // @ts-ignore
+  const value = [].concat(array)
+  if (value.length > 0) {
+    return Math.max.apply(null, value)
+  }
+  return 0
+}
+export const min = function(array: number[]): number {
+  // @ts-ignore
+  const value = [].concat(array)
+  if (value.length > 0) {
+    return Math.min.apply(null, value)
+  }
+  return 0
+}
+
 // 首字母大写
 export const upperFirst = function(value: string): string {
   // 将字符串转换为小写
@@ -213,6 +235,7 @@ export const upperFirst = function(value: string): string {
 }
 
 export const timeFormat = 'YYYY-MM-DD HH:mm:ss'
+
 export enum DateType {
   week	= 'week',	// 周
   day	= 'day',	// 天
@@ -225,24 +248,40 @@ export enum DateType {
 }
 
 
-export const dateFormat = function(time: any, format: string = timeFormat): string {
-  if (isNumber(time)) {
+export const toDate = function(time?: any) {
+  if (time && isNumber(time)) {
     const str = `${time}`
     if (str.length === 10) {
-      return dayjs(time * 1000).format(format)
+      return dayjs(time * 1000)
     }
-    return dayjs(time).format(format)
+    return dayjs(time)
   }
-  return dayjs(time, timeFormat).format(format)
+  if (time) {
+    return dayjs(time, timeFormat)
+  }
+  return dayjs()
 }
-export const dateMDFormat = function(time: any): string {
-  return dateFormat(time, 'MM-DD')
+// 获取时间戳
+export const dateTime = function(time?: any): number {
+  const date = toDate(time)
+  return date.valueOf()
 }
 
+// 时间格式化
+export const dateFormat = function(time?: any, format: string = timeFormat): string {
+  const date = toDate(time)
+  return date.format(format)
+}
+// 格式化（月/日）
+export const dateMDFormat = function(time?: any): string {
+  return dateFormat(time, 'MM-DD')
+}
+// 日期与当前时间做比较
 export const dateDiff = function(time: any, diff: DateType = DateType.day): string {
-  const date = dateFormat(time)
   const cur = dayjs().format(timeFormat)
-  const count = Math.abs(dayjs(date).diff(cur, diff))
-  const text = I18n.part(I18n.common.time.value[diff], count, { count })
-  return text
+  const count = Math.abs(toDate(time).diff(cur, diff))
+  if (I18n.common.time.value[diff]) {
+    return I18n.part(I18n.common.time.value[diff], count, { count })
+  }
+  return `${count}`
 }

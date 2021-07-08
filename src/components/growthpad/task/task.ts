@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import I18n from '~/utils/i18n/index'
 import Store from '~/store/growthpad/store'
 import Message from '~/utils/message'
+import { max as getMax, min as getMin, dateTime, uuid, timeFormat } from '~/utils/index'
 
 export const TimeStatus = {
   wait: 'wait',
@@ -10,12 +11,11 @@ export const TimeStatus = {
 }
 
 export const getTimeStatus = function(store: Store): string {
-  const format = 'YYYY-MM-DD HH:mm:ss'
-  const today = dayjs().valueOf()
+  const today = dateTime()
   // @ts-ignore
   if (store.dashboard?.begin) {
     // @ts-ignore
-    const time = dayjs(store.dashboard.begin, format).valueOf()
+    const time = dayjs(store.dashboard.begin, timeFormat).valueOf()
     if (time > today) {
       return TimeStatus.wait
     }
@@ -23,31 +23,12 @@ export const getTimeStatus = function(store: Store): string {
   // @ts-ignore
   if (store.dashboard?.end) {
     // @ts-ignore
-    const time = dayjs(store.dashboard.end, format).valueOf()
+    const time = dayjs(store.dashboard.end, timeFormat).valueOf()
     if (today > time) {
       return TimeStatus.closure
     }
   }
   return TimeStatus.ing
-}
-
-export const uuid = function(): string {
-  return String(Math.random())
-}
-
-export const getMax = function(array: number[]): number {
-  const value = [].concat(array as any)
-  if (value.length > 0) {
-    return Math.max.apply(null, value)
-  }
-  return 0
-}
-export const getMin = function(array: number[]): number {
-  const value = [].concat(array as any)
-  if (value.length > 0) {
-    return Math.min.apply(null, value)
-  }
-  return 0
 }
 
 export const makeDescription = function(data: any, token: string): string {
@@ -78,3 +59,5 @@ export const checkAddress = function(store: Store): boolean {
   Message.alert(I18n.growthpad.address.warning)
   return false
 }
+
+export { getMax, getMin, uuid }
