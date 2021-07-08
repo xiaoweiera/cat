@@ -42,12 +42,13 @@ const getChartData=()=>{
   draw(xData, series, legend,allYAxis)
 }
 onMounted(() => {
+  console.log(props.chartData)
   const myChartDom = document.getElementById(props.chartId)
   if (myChart) {
     myChart.dispose();
   }
   myChart = echarts.init(myChartDom, 'light')
-  // getChartData()
+  getChartData()
 })
 </script>
 <template>

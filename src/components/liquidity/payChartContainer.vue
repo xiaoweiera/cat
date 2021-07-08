@@ -84,7 +84,7 @@ watch(() => paramChart.interval, (n, o) => {
   getChartsData()
 })
 onMounted(() => {
-  getChartsData()
+  // getChartsData()
 })
 </script>
 <template>

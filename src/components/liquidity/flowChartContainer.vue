@@ -36,7 +36,6 @@ const pairParam = {
   interval: paramChart.interval,
 }
 const getChartsData = async () => {
-  console.log()
   console.log('11')
   tokenParam.symbol_id = symbolStore.id
   await getPriceData({symbol_id: symbolStore.id, from_ts: tokenParam.from_ts, to_ts: tokenParam.to_ts}, 'token')
@@ -87,10 +86,11 @@ watch(() => paramChart.interval, (n, o) => {
   getChartsData()
 })
 onMounted(() => {
-  getChartsData()
+  // getChartsData()
 })
 </script>
 <template>
+  {{tokenParam}}
   <div class="mt-4 w-full h-full">
         <template v-for="item in [0,1,2,3,4]">
             <LiquidityChartContainer :chartId="item+1" :tokenParam="tokenParam"  class="border-1" />

@@ -100,6 +100,17 @@ export const payGetCharts=async (param:any)=>{
   }
   return result
 }
+//得到流动性图表数据
+export const getFlowChartModel=async (param:any,chartId:number)=>{
+  //token图表查询
+  const newParam={...param,chart_id:chartId}
+  console.log(newParam)
+  const result=await flowGetCharts(newParam)
+  console.log(result)
+  // getPairCharts
+  return result?.data?.data
+}
+
 
 //得到5个流动性图表数据
 export const getFlowChart= ()=>{
