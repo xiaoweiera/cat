@@ -29,7 +29,7 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis
   window.addEventListener('resize', myChart.resize)
 }
 const getChartData=()=>{
-  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData.xaxis,priceData.value.xaxis)))
+  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
   const [series,allYAxis] = getGroupSeries(
@@ -42,7 +42,7 @@ const getChartData=()=>{
   draw(xData, series, legend,allYAxis)
 }
 onMounted(() => {
-  const myChartDom = document.getElementById(props?.chartData.id)
+  const myChartDom = document.getElementById(props.chartId)
   if (myChart) {
     myChart.dispose();
   }
@@ -52,6 +52,6 @@ onMounted(() => {
 </script>
 <template>
   <div class="mt-4 w-full h-full">
-    <div :id="props.chartData.id" class="chartCanvas w-full h-full"></div>
+    <div :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>
 </template>

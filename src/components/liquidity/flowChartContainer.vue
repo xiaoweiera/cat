@@ -92,10 +92,8 @@ onMounted(() => {
 </script>
 <template>
   <div class="mt-4 w-full h-full">
-        <template v-for="(item,i) in []">
-          <div v-if="item && item.id && item.xaxis.length>0 " class="flex-1">
-            <LiquidityChartContainer :tokenParam="tokenParam"  class="border-1" :chart-data="item"/>
-          </div>
+        <template v-for="item in [0,1,2,3,4]">
+            <LiquidityChartContainer :chartId="item+1" :tokenParam="tokenParam"  class="border-1" />
         </template>
   </div>
 </template>

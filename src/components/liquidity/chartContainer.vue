@@ -4,9 +4,9 @@ import { pairStore,symbolStore} from '~/store/liquidity/state'
 import {kData,groupData} from '/mock/liquidity'
 const props = defineProps({
   tokenParam:Object,
-  chartData: Object,
   chartId:Number
 })
+const chartData=ref({})
 const title=ref()
 const getTitle=()=>{
   title.value= pairStore.id?pairStore.name:symbolStore.name
@@ -14,7 +14,7 @@ const getTitle=()=>{
 onMounted(()=>getTitle())
 </script>
 <template>
-  <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer">
+  <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer border-1">
     <!--    图表的信息-->
     <div class="text-kd18px28px text-global-default opacity-85">
       <span>{{title}}</span>
@@ -23,7 +23,7 @@ onMounted(()=>getTitle())
     <div class="text-kd13px19px text-global-default opacity-45">
      {{ chartData.desc }}
     </div>
-    <LiquidityChart :chartId="props.chartId" :chart-data="chartData" />
+    <LiquidityChart :chartId="props.chartId" />
   </div>
 </template>
 <style scoped lang="postcss">
