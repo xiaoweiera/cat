@@ -47,7 +47,7 @@ onMounted(() => {
     myChart.dispose();
   }
   myChart = echarts.init(myChartDom, 'light')
-  getChartData()
+  // getChartData()
 })
 </script>
 <template>
