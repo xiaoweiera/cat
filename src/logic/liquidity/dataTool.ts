@@ -16,8 +16,7 @@ export const copyToken = (tokenAddress: string) => {
   document.body.removeChild(dom)
 }
 //初始化5个图表
-export const initCharts=(chartsAllData:any)=>{
-  const chartIds=[0,1,2,3,4]
+export const initCharts=(chartsAllData:any,chartIds:Array<number>)=>{
   // const chartIds=[0]
   R.map(id=>chartsAllData.value[id] = reactive<any>({}),chartIds)
 }
@@ -101,7 +100,45 @@ export const payGetCharts=async (param:any)=>{
   }
   return result
 }
-//得到5个图表数据
+
+//得到5个流动性图表数据
+export const getFlowChart= ()=>{
+  const chartsAllData =ref<chartItem[]>([])
+  const chartLoad=ref(true)
+  //token图表查询
+  const requestChart=async (param:any)=>{
+    chartLoad.value=false
+    initCharts(chartsAllData,[0,1,2,3,4])
+    for (let i=0;i<chartsAllData.value.length;i++){
+      const newParam={...param,chart_id:i+1}
+      let result=await flowGetCharts(newParam)
+      chartsAllData.value[i] =result.data.data
+    }
+    chartLoad.value=true
+  }
+  // getPairCharts
+  return {chartsAllData,chartLoad,requestChart}
+}
+//得到5个数据分析图表数据
+export const getPayChart= ()=>{
+  const chartsAllData =ref<chartItem[]>([])
+  const chartLoad=ref(true)
+  //token图表查询
+  const requestChart=async (param:any)=>{
+    chartLoad.value=false
+    initCharts(chartsAllData,[5,6,7,8,9])
+    for (let i=0;i<chartsAllData.value.length;i++){
+      const newParam={...param,chart_id:i+1}
+      let result=await payGetCharts(newParam)
+      chartsAllData.value[i] =result.data.data
+    }
+    chartLoad.value=true
+  }
+  // getPairCharts
+  return {chartsAllData,chartLoad,requestChart}
+}
+
+//得到5图表数据
 export const getAllChart= ()=>{
   const chartsAllData =ref<chartItem[]>([])
   const chartLoad=ref(true)
@@ -109,20 +146,20 @@ export const getAllChart= ()=>{
   //token图表查询
   const requestTokenChart=async (param:any)=>{
     chartLoad.value=false
-    initCharts(chartsAllData)
-   for (let i=0;i<chartsAllData.value.length;i++){
-     let result=null
-     if(analysisType.value==='flow'){
-       param.chart_id=i+1
-       //流动性分析
-       result=await flowGetCharts(param)
-     }else{
-       param.chart_id=i+6
-       //交易数据分析
-       result=await payGetCharts(param)
-     }
-     chartsAllData.value[i] =result.data.data
-   }
+    initCharts(chartsAllData,[0,1,2,3,4])
+    for (let i=0;i<chartsAllData.value.length;i++){
+      let result=null
+      if(analysisType.value==='flow'){
+        param.chart_id=i+1
+        //流动性分析
+        result=await flowGetCharts(param)
+      }else{
+        param.chart_id=i+6
+        //交易数据分析
+        result=await payGetCharts(param)
+      }
+      chartsAllData.value[i] =result.data.data
+    }
     chartLoad.value=true
   }
   // getPairCharts

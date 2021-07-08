@@ -41,6 +41,7 @@ watch(() => symbolStore.id, (n, o) => {
 })
 //改变pair
 watch(() => pairStore.id, (n, o) => {
+  console.log('aaa22')
   getChartsData()
 })
 //监听时间改变
@@ -87,6 +88,7 @@ watch(() => paramChart.interval, (n, o) => {
   getChartsData()
 })
 const getChartsData = async () => {
+  return
   if (pairStore.id) {
     pairParam.pair_id = pairStore.id
     // await getPriceData({pair_id:pairStore.id,from_ts:pairParam.from_ts,to_ts:pairParam.to_ts},'pair')
@@ -99,25 +101,30 @@ const getChartsData = async () => {
   }
 }
 onMounted(async () => {
-  await getChartsData()
+  // await getChartsData()
 })
 const loading = false
 </script>
 <template>
-  <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">
-    <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
+  <div class="flex flex-1 px-5 pt-3 chartContainer">
+    <LiquidityFlowChartContainer class="border-1 mr-2.5"/>
+<!--    <LiquidityPayChartContainer class="border-1 ml-2.5"/>-->
   </div>
-  <div v-if="chartsAllData && isHasData" class="flex flex-1 h-full flex-col bg-global-body px-5 pt-3 chartContainer">
-    <template v-for="item in chartsAllData">
-      <div v-if="item && item.id && item.xaxis.length>0" class="w-full">
-        <LiquidityChartContainer v-loading="loading" class="border-1" :key="chartKey" :chart-data="item"/>
-      </div>
-    </template>
-  </div>
-  <div v-if="chartLoad && !isHasData">
-    <img class="w-60 mx-auto mt-20" src="https://res.ikingdata.com/nav/noData.png" alt="">
-    <div class="text-kd14px18px text-global-primary text-center mt-5">暂无数据</div>
-  </div>
+
+<!--  <div v-if="!chartLoad" class="w-50 absolute top-100  left-65  loadingGif">-->
+<!--    <img src="https://res.ikingdata.com/nav/loadingState.gif" alt="">-->
+<!--  </div>-->
+<!--  <div v-if="chartsAllData && isHasData" class="flex h-full  bg-global-body px-5 pt-3 chartContainer">-->
+<!--    <template v-for="item in chartsAllData">-->
+<!--      <div v-if="item && item.id && item.xaxis.length>0" class="flex-1">-->
+<!--        <LiquidityChartContainer v-loading="loading" class="border-1" :key="chartKey" :chart-data="item"/>-->
+<!--      </div>-->
+<!--    </template>-->
+<!--  </div>-->
+<!--  <div v-if="chartLoad && !isHasData">-->
+<!--    <img class="w-60 mx-auto mt-20" src="https://res.ikingdata.com/nav/noData.png" alt="">-->
+<!--    <div class="text-kd14px18px text-global-primary text-center mt-5">暂无数据</div>-->
+<!--  </div>-->
 </template>
 <style scoped lang="postcss">
 .loadingGif {
