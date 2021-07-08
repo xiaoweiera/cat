@@ -152,7 +152,7 @@ const tipShowInfo=(key:string)=>{
   }
 }
 </script>
-<template>
+<template> 
   <div v-if="props.tableData.rows" class="tableHeaderTop">
     <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
     <div class="flex flex-col relative minWidth">
