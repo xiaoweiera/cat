@@ -1,13 +1,14 @@
-import { paramChart} from '~/store/liquidity/state'
-const grid = () => {
-  const xLength=paramChart.interval==='1D'?'12px':'35px'
+
+
+const grid = (interval:string) => {
+  // const xLength=interval==='1D'?'12px':'35px'
   return {
-    left: xLength,
-    right: xLength,
-    bottom: '45px',
-    top: '16px',
-    y2: 0,
-    containLabel: true,
+    left: 72,
+    right: 70,
+    bottom: 70,
+    top: 16,
+    // y2: 0,
+    containLabel: false,
   }
 }
 
@@ -105,17 +106,20 @@ const legend = (legendData: Array<string>) => {
   }
 }
 //y轴左侧配置
-export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
+export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat: any)=> {
+  min=Math.floor(min)
+  max=Math.ceil(max+(max*0.05))
+  const interval=parseFloat(((max-min)/4).toString())
   return {
-    show: false,
+    show: isShow,
     position:'left',
     axisLine: {
-      show: true, // 不显示坐标轴线
+      show: false, // 不显示坐标轴线
     },
     axisTick: {
       show: false, // 隐藏刻度线
     },
-    z: 1000,
+
     splitLine: {
       // 网格线
       lineStyle: {
@@ -124,14 +128,12 @@ export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
       },
       show: true, // 隐藏或显示
     },
-
     type: 'value',
-    // min: min === max ? null : min,
-    max:max+(max*0.05),
-    // interval: min === max ? max / 4 : (max - min) / 4,
-    interval:max/ 4,
+    min:min,
+    max:max,
+    interval:interval,
+    splitNumber:4,
     axisLabel: {
-      inside: true,
       fontSize: 12,
       textStyle: {
         color: '#2B8DFF',
@@ -143,7 +145,10 @@ export const  yAxisModel=(min: number, max: number, yLabelFormat: any)=> {
   }
 }
 //y轴价格线配置
-export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
+export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any,isHasUnit:string)=> {
+  kmin=Math.floor(kmin)
+  kmax=Math.ceil(kmax+(kmax*0.05))
+  const interval=parseFloat(((kmax-kmin)/4).toString())
   return {
     show: true,
     position:'right',
@@ -162,17 +167,17 @@ export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any)=> {
       show: true, // 隐藏或显示
     },
     type: 'value',
-    // min: kmin,
-    max: kmax+(kmax*0.05),
-    // interval: (kmax - kmin) / 4,
-    interval: (kmax+(kmax*0.05)) / 4,
+    min:kmin,
+    max:kmax,
+    interval:interval,
+    splitNumber:4,
     axisLabel: {
       fontSize: 12,
       textStyle: {
         color: 'rgba(240, 191, 18, 1)',
       },
       formatter: (value: any) => {
-        return '$'+yLabelFormat(value)
+        return isHasUnit?(isHasUnit==='$'?isHasUnit+yLabelFormat(value):yLabelFormat(value)+isHasUnit):yLabelFormat(value)
       }
     }
   }
@@ -259,9 +264,10 @@ export const chartConfig = (
     legendList: Array<string>,
     yLabelFormat: any,
     getModel: any,
+    interval:string
 ) => {
   return {
-    grid: grid(),
+    grid: grid(interval),
     tooltip: tooltips(getModel,xData),
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
@@ -270,3 +276,4 @@ export const chartConfig = (
     series,
   }
 }
+

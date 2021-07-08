@@ -1,3 +1,5 @@
+
+
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
@@ -5,7 +7,7 @@ import { coinList, tradingList } from '/mock/liquidity'
 import { symbolStore,pairStore,selectTxt,setHistory } from '~/store/liquidity/state'
 import {getInfoByToken} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
-import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,getTwoValidityNumber,smallToken,getRulesNumber} from '~/lib/tool'
+import {changeRoute, changeRouteParam,smallToken,formatRulesNumber} from '~/lib/tool'
 const allData=ref([]) //请求数据的个数
 const tokenList=ref([])
 const page=ref(1) //页数
@@ -71,10 +73,20 @@ onMounted(()=>{
     </div>
     <template v-for="item in tokenList">
       <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
-        <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ subStr(item.symbol) }}</span>,<span class="ml-2">{{ item.symbol_name}}</span></div>
-        <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.symbol_id)}}</div>
-        <div class="w-27.5 ml-5 ">${{numberUnitFormat(toFixedNumber(item.tvl)) }}</div>
-        <div class="w-32.5 ml-5">${{getRulesNumber(item.price) }}</div>
+        <el-tooltip :hide-after="10" :content="item.symbol+', '+item.symbol_name" placement="bottom" effect="light">
+          <div class="txtSmall w-50 whitespace-nowrap  ">
+            <span>{{ item.symbol}}</span>,<span class="ml-2">{{ item.symbol_name}}</span>
+          </div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="item.symbol_id" placement="bottom" effect="light">
+          <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.symbol_id)}}</div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="item.tvl" placement="bottom" effect="light">
+          <div class="w-27.5 ml-5 ">${{formatRulesNumber(item.tvl) }}</div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="item.price" placement="bottom" effect="light">
+          <div class="w-32.5 ml-5">{{formatRulesNumber(item.price) }}</div>
+        </el-tooltip>
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand ">查看更多</li>
@@ -142,3 +154,4 @@ onMounted(()=>{
   padding-left: 0px;
 }
 </style>
+

@@ -7,8 +7,10 @@ import I18n from '~/utils/i18n'
       {{ I18n.growthpadShow.partners }}
     </div>
     <div class="pt-8">
-      <img class="hidden md:block w-full" src="https://res.ikingdata.com/image/growthpad-pc.png"/>
-      <img class="block md:hidden w-full" src="https://res.ikingdata.com/image/growthpad-moblie.png"/>
+<!--      <img class="hidden md:block w-full" src="https://res.ikingdata.com/image/growthpad-pc.png"/>-->
+<!--      <img class="block md:hidden w-full" src="https://res.ikingdata.com/image/growthpad-moblie.png"/> -->
+      <img class="hidden md:block w-full" src="https://res.ikingdata.com/nav/growthPadPcCompany.png"/>
+      <img class="block md:hidden w-full" src="https://res.ikingdata.com/nav/growthPadMobileCompany.png"/>
     </div>
   </div>
 </template>

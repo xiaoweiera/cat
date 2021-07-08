@@ -1,3 +1,6 @@
+
+
+
 // @ts-ignore
 import dayjs from 'dayjs'
 import * as R from 'ramda'
@@ -20,27 +23,7 @@ export const numberFormat = (value: any) => {
   const unit = sizes[i]
   return values + unit
 }
-//更改数字文案
-export const numberUnitFormat = (value: any,nullValue:any) => {
-  if (!value ) {
-    return value===null ?nullValue:0
-  }
-  value=getRulesNumber(value,0)
-  const k = 10000
-  const sizes = ['', '万', '亿', '万亿']
-  if (value < k && value>=0) {
-    return Math.round(value * 100) / 100
-  }
-  if(value<0 && value>-1){
-    return '-'+getTwoValidityNumber(Math.abs(value))
-  }else{
-    const i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k))
-    const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
-    const unit = sizes[i]
-    return value>=0?values + unit:'-'+values+unit
 
-  }
-}
 export const toFixedNumber = (value: any, rounded = 2) => {
   if (!value && value !== 0) {
     return ''
@@ -218,35 +201,32 @@ export const messageTip=(content:string,typeName:string)=>{
     type: typeName
   });
 }
-//保留小数点0后面的两位有效小数
-export const getTwoValidityNumber=(number:number)=>{
-  let result=''
-  if(!number) return 0
-  const numberStr=number.toString()
-  if(numberStr.indexOf('0')<0){
-    result=number.toFixed(2)
-  }else{
-    if(numberStr.indexOf('.')<0){
-      result= number.toFixed(2)
-    }else{
-      const numberArray=numberStr.split('.')
-      numberArray[1].slice(0,numberArray[1].indexOf('0')+2)
-      let zeroIndex=-1
-      numberArray[1].split('').find((n:string,i:number)=>{
-        if(n!=='0') {
-          zeroIndex= i
-          return n
-        }
-      })
-      //@ts-ignore
-      result=numberArray[0]+'.'+numberArray[1].slice(0,zeroIndex+2)
-    }
-  }
-  return parseFloat(result)
+//得到两位小数
+export const getSaveNumber=(v:any,number:number)=>{
+  const value=new BigNumber(v)
+  return value.toFixed(number)
 }
-
+//更改数字文案
+export const numberUnitFormat = (value: any) => {
+  if (!value ) {
+    return value===0?0:'-'
+  }
+  const k = 10000
+  const sizes = ['', '万', '亿', '万亿']
+  const v=new BigNumber(value)
+  if ((value < 100000 && value>=0) || (value<0 && value>-2)) {
+    return v.toFixed(2)
+    // return Math.round(value * 100) / 100
+  } else{
+    const i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
+    if(i>3) return v.toFixed(2)
+    const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
+    const unit = sizes[i]
+    return value>=0?values + unit:'-'+values+unit
+  }
+}
 //价格约分为 小数点非0两位有效数字，但最高不超过小数点后4位(0000)。
-const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
+export const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
   const v=new BigNumber(value)
   //@ts-ignore
   const intNumber=parseInt(Math.abs(v)).toString().length
@@ -260,19 +240,27 @@ const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
     }
   }
 }
-//数字格式化 约分   值为空的时候返回 nullValue
-export const getRulesNumber=(v:any,nullValue:any)=>{
+//hour 小数后18位数字全展示，18位以后科学技术法
+export const getBigNumber=(n:string | number)=>{
+  const v=new BigNumber(n)
+  const newV=v.toFixed() //科学技术法展开
+  if(newV.split('.')[1].length<19) return newV
+  else return parseFloat(newV)
+}
+//数字格式化 约分
+export const getRulesNumber=(v:any,isShowAll:boolean)=>{
   if(!v){
-    return v===null ?nullValue:0
+    return v?v:v===0?0:'-'
   }
-  if(v.toString().indexOf('.')<0){
+  const bigV=new BigNumber(v)
+  if(bigV.toFixed().indexOf('.')<0){
     return v
   }
   const result=getVNumber(v,0,true).toString()
   if(result.split('.')[1].split('0').length-1===4){
-    return result
+    return isShowAll?getBigNumber(v):result
   }else{
-    const twoNumber=  result.split('.')[1].split('')
+    const twoNumber= result.split('.')[1].split('')
     let i=0;
     for (let j=0;j<twoNumber.length;j++){
       if(twoNumber[j]==='0'){
@@ -284,15 +272,24 @@ export const getRulesNumber=(v:any,nullValue:any)=>{
     return getVNumber(result,i,false)
   }
 }
-
-//单位
-export const unitOrder=(v:any,unit:string)=>{
-  let value=v?v:0
-  if(value.toString().indexOf('e')>=0) return value
-  if(!unit) return getRulesNumber(v,0)
-  if(unit==='$'){
-    return  unit+getRulesNumber(v,0)
+//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
+export const formatRulesNumber=(v:any,isShowAll:boolean)=>{
+  if(!v){
+    return v===0?0:'-'
+  }
+  const value=new BigNumber(v)
+  if(parseFloat(value.toFixed())>1 || parseFloat(value.toFixed())<-1){
+    return numberUnitFormat(v)
   }else{
-    return getRulesNumber(v,0)+unit
+    return getRulesNumber(v,isShowAll)
+  }
+}
+//tipModel单位
+export const unitOrder=(v:any,unit:string)=>{
+  if(!unit) return formatRulesNumber(v,true)
+  if(unit==='$'){
+    return  unit+formatRulesNumber(v,true)
+  }else{
+    return formatRulesNumber(v,true)+unit
   }
 }

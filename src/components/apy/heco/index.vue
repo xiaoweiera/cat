@@ -180,7 +180,10 @@ const headerBg = () => {
 }
 
 .heco-list {
-
+  min-height: 244px;
+  .el-table {
+    min-height: 180px;
+  }
   &.more {
     .j-more-btn {
       display: none;
@@ -198,6 +201,23 @@ const headerBg = () => {
     color: #009955;
     font-weight: bold;
     font-size: 20px;
+  }
+
+
+  &:after {
+    outline: none;
+    user-select: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    content: "";
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    $src: "https://res.ikingdata.com/image/watermark.png";
+    background: url($src) center / contain no-repeat;
+
+    @apply w-72 h-15 md:w-87 md:h-18 lg:w-120 lg:h-20 xl:w-145 xl:h-25;
   }
 }
 
