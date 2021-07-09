@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
+import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import { pairStore,symbolStore,paramChart} from '~/store/liquidity/state'
 import {getFlowChartModel,getPayChartModel,getTokenPriceData,getPairPriceData} from '~/logic/liquidity/dataTool'
 import {kData,groupData} from '/mock/liquidity'
@@ -8,7 +9,16 @@ const props = defineProps({
   pairParam:Object,
   chartId:Number
 })
-watch(props.tokenParam,(n)=>getData(n))
+watch(()=>props.tokenParam.interval,(n)=>{
+  getData(props.tokenParam)})
+watch(()=>paramChart.time,(n)=>{
+  getData(props.tokenParam)})
+//改变pair
+watch(() => pairStore.id, (n, o) => {
+  getTokenTypeList()
+  getData()
+})
+
 //改变pair
 watch(() => pairStore.id, (n, o) => {
   console.log('改变pair',o)

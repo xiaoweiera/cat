@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
+import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import { pairStore,symbolStore,paramChart} from '~/store/liquidity/state'
 import {getFlowChartModel,getPayChartModel,getTokenPriceData,getPairPriceData} from '~/logic/liquidity/dataTool'
 import {kData,groupData} from '/mock/liquidity'
@@ -8,13 +9,14 @@ const props = defineProps({
   pairParam:Object,
   chartId:Number
 })
-watch(props.tokenParam,(n)=>getData(n))
+watch(()=>props.tokenParam.interval,(n)=>{
+  getData(props.tokenParam)})
+watch(()=>paramChart.time,(n)=>{
+  getData(props.tokenParam)})
 //改变pair
 watch(() => pairStore.id, (n, o) => {
-
-    getTokenTypeList()
+  getTokenTypeList()
   getData()
-
 })
 //监听颗粒度
 watch(() => paramChart.interval, (n, o) => {
@@ -35,7 +37,7 @@ const tokenType=ref('pair')  //pair 选项如： pair| symbol0| symbol1
 
 // tokenType.value=initType()
 watch(()=>tokenType.value,(n,o)=>{
-  console.log('改变tokenType',o)
+  console.log('3333',o)
   getData()
 })
 const getTokenTypeList=()=>{
@@ -74,10 +76,12 @@ const selectTokenType=(item:any)=>{
 }
 onMounted(()=>{
   getTokenTypeList()
+  console.log('init')
   getData()
 })
 </script>
 <template>
+<!--  {{tokenType}}-->
   <!--  {{pairStore.id}}-->
 
   <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer border-1">
