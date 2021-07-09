@@ -43,6 +43,8 @@ watch(() => paramChart.time, (n, o) => {
 })
 </script>
 <template>
+  {{symbolStore}}
+  {{pairStore}}
   <div class="flex flex-1 flex-col px-5 mt-8 chartContainer">
 <!--    流动性分析-->
     <LiquidityAnalysisTitle :data="analysisConfig[0]"/>
