@@ -9,15 +9,24 @@ const props = defineProps({
   pairParam:Object,
   chartId:Number
 })
+//改变symbol
+watch(() => symbolStore.id, (n, o) => {
+  console.log('token地址 change',pairStore.id)
+  if(!pairStore.id){
+    getData()
+  }
+})
+//改变pair
+watch(() => pairStore.id, (n, o) => {
+  console.log('pair地址 change',n)
+  getTokenTypeList()
+    getData()
+})
 watch(()=>props.tokenParam.interval,(n)=>{
   getData(props.tokenParam)})
 watch(()=>paramChart.time,(n)=>{
   getData(props.tokenParam)})
-//改变pair
-watch(() => pairStore.id, (n, o) => {
-  getTokenTypeList()
-  getData()
-})
+
 //监听颗粒度
 watch(() => paramChart.interval, (n, o) => {
   props.tokenParam.interval = n

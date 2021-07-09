@@ -50,9 +50,9 @@ watch(() => paramChart.time, (n, o) => {
       <template v-for="item in [0]">
         <LiquidityFlowChartContainer :chartId="item+1" :tokenParam="tokenParam"  :pairParam="pairParam" class="flex-1"/>
       </template>
-      <template v-for="item in [5]">
-        <LiquidityPayChartContainer :chartId="item+1" :tokenParam="tokenParam"  :pairParam="pairParam" class=" flex-1"/>
-      </template>
+<!--      <template v-for="item in [5]">-->
+<!--        <LiquidityPayChartContainer :chartId="item+1" :tokenParam="tokenParam"  :pairParam="pairParam" class=" flex-1"/>-->
+<!--      </template>-->
     </div>
   </div>
 </template>
