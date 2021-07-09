@@ -2,7 +2,7 @@
 import { defineProps, onMounted, toRefs } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
-import { paramChart,priceData,pairStore} from '~/store/liquidity/state'
+import { paramChart,pairStore} from '~/store/liquidity/state'
 import {getXData, getAllItemSeries,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
 import {kData,groupData} from '/mock/liquidity'
@@ -17,6 +17,7 @@ interface yModel {
 let myChart: any = null
 const pp = toRefs(paramChart)
 const props = defineProps({
+  priceData:Object,
   chartData: Object,
   chartId:Number
 })
@@ -29,12 +30,12 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis
   window.addEventListener('resize', myChart.resize)
 }
 const getChartData=()=>{
-  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,priceData.value.xaxis)))
+  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
-  const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
+  const legend = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0])
   const [series,allYAxis] = getGroupSeries(
-      props?.chartData.xaxis,priceData.value.xaxis,
-      props?.chartData.yaxis, priceData.value.yaxis[0],
+      props?.chartData.xaxis,props.priceData.value.xaxis,
+      props?.chartData.yaxis, props.priceData.value.yaxis[0],
       allXaxis,
       paramChart.interval,
       pairStore.id
@@ -42,7 +43,6 @@ const getChartData=()=>{
   draw(xData, series, legend,allYAxis)
 }
 onMounted(() => {
-  console.log(props.chartData)
   const myChartDom = document.getElementById(props.chartId)
   if (myChart) {
     myChart.dispose();
@@ -52,6 +52,7 @@ onMounted(() => {
 })
 </script>
 <template>
+
   <div class="mt-4 w-full h-full">
     <div :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>

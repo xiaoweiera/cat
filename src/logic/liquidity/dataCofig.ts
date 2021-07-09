@@ -9,3 +9,7 @@ export const unitDatas={
     '单位时间内主动卖出':true,
     '交易额趋势':true
 }
+export const analysisConfig=[
+    {title:'流动性分析',des:'展示选定币种/交易对在单位时间内的流动性净流入，计算方法为单位时间内的流。'},
+    {title:'交易数据分析',des:'展示选定币种/交易对在单位时间内的流动性净流入，计算方法为单位时间内的流。'}
+]

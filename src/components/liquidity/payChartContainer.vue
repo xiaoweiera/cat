@@ -1,78 +1,25 @@
-<script lang="ts" setup>
-import {onMounted, ref, watch, reactive, defineProps} from 'vue'
-import * as R from 'ramda'
-import {ElLoading} from 'element-plus'
-import {echartData} from '/mock/liquidity'
-import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
-import {useRoute, useRouter} from 'vue-router'
-import {pairStore, paramChart, symbolStore, analysisType,selectHistory} from '~/store/liquidity/state'
-import {getPayChart, getPriceData} from '~/logic/liquidity/dataTool'
-interface yModel {
-  color: string
-  data: Array<number>
-  name: string
-  type: string
-  unit: string
-}
-const {chartsAllData, chartLoad, requestChart: getCharts} = getPayChart()
-// 颗粒度天 时
-let myChart: any = null
+<script setup lang="ts">
+import { defineProps,onMounted,ref,reactive,watch } from 'vue'
+import { pairStore,symbolStore,paramChart} from '~/store/liquidity/state'
+import {getFlowChartModel,getPayChartModel,getTokenPriceData,getPairPriceData} from '~/logic/liquidity/dataTool'
+import {kData,groupData} from '/mock/liquidity'
 const props = defineProps({
-  chartData: Object,
+  tokenParam:Object,
+  pairParam:Object,
   chartId:Number
 })
-const tokenParam = {
-  platId: 1,
-  symbol_id: '',
-  from_ts: paramChart.timeBegin,
-  to_ts: paramChart.timeEnd,
-  interval: paramChart.interval,
-}
-const pairParam = {
-  platId: 1,
-  pair_id: '',
-  from_ts: paramChart.timeBegin,
-  to_ts: paramChart.timeEnd,
-  interval: paramChart.interval,
-}
-const getChartsData = async () => {
-  tokenParam.symbol_id = symbolStore.id
-  await getPriceData({symbol_id: symbolStore.id, from_ts: tokenParam.from_ts, to_ts: tokenParam.to_ts}, 'token')
-  await getCharts(tokenParam)
-}
-
-//改变分析类型
-watch(() => analysisType.value, (n, o) => {
-  getChartsData()
-})
-//改变symbol
-watch(() => symbolStore.id, (n, o) => {
-  getChartsData()
-})
+watch(props.tokenParam,(n)=>getData(n))
 //改变pair
 watch(() => pairStore.id, (n, o) => {
-  getChartsData()
-})
-//监听时间改变
-watch(() => paramChart.time, (n, o) => {
-  tokenParam.from_ts = paramChart.timeBegin
-  tokenParam.to_ts = paramChart.timeEnd
-  pairParam.from_ts = paramChart.timeBegin
-  pairParam.to_ts = paramChart.timeEnd
-  getChartsData()
-})
-//监听USD和币
-watch(() => paramChart.coinType, (n, o) => {
-  getChartsData()
-})
-//监听token图表 的类型 pair eth usdt
-watch(() => paramChart.tokenType, (n, o) => {
-  getChartsData()
+  console.log('改变pair',o)
+  getTokenTypeList()
+  getData()
+
 })
 //监听颗粒度
 watch(() => paramChart.interval, (n, o) => {
-  tokenParam.interval = n
-  pairParam.interval = n
+  props.tokenParam.interval = n
+  props.pairParam.interval = n
   //如果颗粒度是小时，那么如果天查看的是90天或者自定义的时候，切换时就默认30天
   if (paramChart.interval === '1H' && (paramChart.timeType >30 || paramChart.timeType === 0)) {
     paramChart.timeType = 30
@@ -81,18 +28,90 @@ watch(() => paramChart.interval, (n, o) => {
     paramChart.time = getagoTimeStamp(30)
     return
   }
-  getChartsData()
+  getData()
 })
-onMounted(() => {
-  // getChartsData()
+const tokenTypeList=ref([])
+const tokenType=ref('symbol0')  //pair 选项如： pair| symbol0| symbol1
+
+// tokenType.value=initType()
+watch(()=>tokenType.value,(n,o)=>{
+  console.log('改变tokenType',o)
+  getData()
+})
+const getTokenTypeList=()=>{
+  if(pairStore.id){
+      tokenTypeList.value=[
+        { name:pairStore.name.split('/')[0] , value: 'symbol0', selected: paramChart.tokenType!=='symbol1'  },
+        { name: pairStore.name.split('/')[1], value: 'symbol1', selected:paramChart.tokenType==='symbol1' },
+      ]
+  }
+}
+
+const chartKey=ref(0)
+let chartData=reactive({value:{}})
+const title=ref()
+const priceData=reactive({value:{}})
+
+//得到数据
+const getData=async ()=>{
+  console.log('刷新')
+  title.value= pairStore.id?pairStore.name:symbolStore.name
+  if (pairStore.id) {
+    //pair查询
+    props.pairParam.pair_id = pairStore.id
+    priceData.value=await getPairPriceData({pair_id: pairStore.id, from_ts: props.pairParam.from_ts, to_ts: props.pairParam.to_ts}, 'pair')
+    chartData.value=await getPayChartModel(props.pairParam,props.chartId,tokenType.value)
+  } else {
+    //token查询
+    props.tokenParam.symbol_id = symbolStore.id
+    priceData.value= await getTokenPriceData({symbol_id: symbolStore.id, from_ts: props.tokenParam.from_ts, to_ts: props.tokenParam.to_ts}, 'token')
+    chartData.value=await getPayChartModel(props.tokenParam,props.chartId)
+  }
+  chartKey.value++
+}
+const selectTokenType=(item:any)=>{
+  tokenType.value=item.value
+}
+onMounted(()=>{
+  getTokenTypeList()
+  getData()
 })
 </script>
 <template>
-  <div class="mt-4 w-full h-full">
-    <template v-for="(item,i) in chartsAllData">
-      <div v-if="item && item.id && item.xaxis.length>0 " class="flex-1">
-        <LiquidityChartContainer :tokenParam="tokenParam"  class="border-1" :chart-data="item"/>
-      </div>
-    </template>
+  <!--  {{pairStore.id}}-->
+
+  <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer border-1">
+    <!--    图表的信息-->
+    <div class="text-kd18px28px text-global-default opacity-85">
+      <span>{{title}}</span>
+      <span class="ml-2">{{chartData.value.title}}</span>
+    </div>
+    <div class="text-kd13px19px text-global-default opacity-45">
+      {{ chartData.value.desc }}
+    </div>
+    <div  v-if="pairStore.id" class="flex items-center mt-2">
+      <template v-for="(item,i) in tokenTypeList">
+        <div @click="selectTokenType(item)"  :class="item.value===tokenType?'selectTokenType':'tokenType'">{{item.name}}</div>
+        <span v-if="i<tokenTypeList.length-1" class="betweenIcon">|</span>
+      </template>
+    </div>
+    <LiquidityChart :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" />
   </div>
 </template>
+<style scoped lang="postcss">
+.betweenIcon{
+  color:rgba(37, 62, 111, 0.1);
+  @apply mx-3;
+}
+.selectTokenType{
+  @apply font-kdFang text-kd14px18px text-global-primary text-opacity-65 cursor-pointer;
+}
+.tokenType{
+  @apply font-kdFang text-kd14px18px text-global-default text-opacity-65 cursor-pointer;
+}
+.chartContainer {
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(44, 140, 248, 0.12);
+  border-radius: 2px;
+}
+</style>

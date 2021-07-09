@@ -21,36 +21,36 @@ export const initCharts=(chartsAllData:any,chartIds:Array<number>)=>{
   R.map(id=>chartsAllData.value[id] = reactive<any>({}),chartIds)
 }
 //flow 流动性
-export const getChartsPairUsdByPair=async (param:any)=>{
-  if(paramChart.tokenType==='pair'){
+export const getChartsPairUsdByPair=async (param:any,tokenType:string)=>{
+  if(tokenType==='pair'){
     return await getChartsPairUsdById(param)
-  }else if(paramChart.tokenType==='symbol0'){
+  }else if(tokenType==='symbol0'){
     return await getChartsPairUsdByEth(param)
   }else {
     return await getChartsPairUsdByEth(param)
   }
 }
 // flow 流动性pair
-export const getChartsPairCoinByPair=async (param:any)=>{
-  if(paramChart.tokenType==='pair'){
+export const getChartsPairCoinByPair=async (param:any,tokenType:string)=>{
+  if(tokenType==='pair'){
     return await getChartsPairCoinById(param)
-  }else if(paramChart.tokenType==='symbol0'){
+  }else if(tokenType==='symbol0'){
     return await getChartsPairCoinByEth(param)
   }else {
     return await getChartsPairCoinByUSDT(param)
   }
 }
 //pay 交易数据分析
-export const getPayChartsPairUsdByPair=async (param:any)=>{
-  if(paramChart.tokenType==='symbol0'){
+export const getPayChartsPairUsdByPair=async (param:any,tokenType:string)=>{
+  if(tokenType==='symbol0'){
     return await getPayChartsPairUsdBySymbol0(param)
   }else {
     return await getPayChartsPairUsdBySymbol1(param)
   }
 }
 //pay 交易数据分析
-export const getPayChartsPairCoinByPair=async (param:any)=>{
-  if(paramChart.tokenType==='symbol0'){
+export const getPayChartsPairCoinByPair=async (param:any,tokenType:string)=>{
+  if(tokenType==='symbol0'){
     return await getPayChartsPairCoinBySymbol0(param)
   }else {
     return await getPayChartsPairCoinBySymbol1(param)
@@ -58,16 +58,16 @@ export const getPayChartsPairCoinByPair=async (param:any)=>{
 }
 
 //流动性分析请求图表
-export const flowGetCharts=async (param:any)=>{
+export const flowGetCharts=async (param:any,tokenType:string)=>{
   let result=null
   //pair查询
   if(pairStore.id){
     if(paramChart.coinType==='usd'){
       //usd 查询
-      result=  await getChartsPairUsdByPair(param)
+      result=  await getChartsPairUsdByPair(param,tokenType)
     }else{
       //币查询
-      result=  await getChartsPairCoinByPair(param)
+      result=  await getChartsPairCoinByPair(param,tokenType)
     }
   }else{
     //token查询
@@ -82,13 +82,13 @@ export const flowGetCharts=async (param:any)=>{
   return result
 }
 //交易数据分析
-export const payGetCharts=async (param:any)=>{
+export const payGetCharts=async (param:any,tokenType:string)=>{
   let result=null
   if(pairStore.id){
     if(paramChart.coinType==='usd'){
-      result=  await getPayChartsPairUsdByPair(param)
+      result=  await getPayChartsPairUsdByPair(param,tokenType)
     }else{
-      result=  await getPayChartsPairCoinByPair(param)
+      result=  await getPayChartsPairCoinByPair(param,tokenType)
     }
   }else{
     //token查询
@@ -101,16 +101,21 @@ export const payGetCharts=async (param:any)=>{
   return result
 }
 //得到流动性图表数据
-export const getFlowChartModel=async (param:any,chartId:number)=>{
+export const getFlowChartModel=async (param:any,chartId:number,tokenType:string)=>{
   //token图表查询
   const newParam={...param,chart_id:chartId}
-  console.log(newParam)
-  const result=await flowGetCharts(newParam)
-  console.log(result)
+  const result=await flowGetCharts(newParam,tokenType)
   // getPairCharts
   return result?.data?.data
 }
-
+//得到交易数据图表数据
+export const getPayChartModel=async (param:any,chartId:number,tokenType:string)=>{
+  //token图表查询
+  const newParam={...param,chart_id:chartId}
+  const result=await payGetCharts(newParam,tokenType)
+  // getPairCharts
+  return result?.data?.data
+}
 
 //得到5个流动性图表数据
 export const getFlowChart= ()=>{
@@ -122,7 +127,7 @@ export const getFlowChart= ()=>{
     initCharts(chartsAllData,[0,1,2,3,4])
     for (let i=0;i<chartsAllData.value.length;i++){
       const newParam={...param,chart_id:i+1}
-      let result=await flowGetCharts(newParam)
+      let result=await flowGetCharts(newParam,'flow')
       chartsAllData.value[i] =result.data.data
     }
     chartLoad.value=true
@@ -140,7 +145,7 @@ export const getPayChart= ()=>{
     initCharts(chartsAllData,[5,6,7,8,9])
     for (let i=0;i<chartsAllData.value.length;i++){
       const newParam={...param,chart_id:i+1}
-      let result=await payGetCharts(newParam)
+      let result=await payGetCharts(newParam,'pair')
       chartsAllData.value[i] =result.data.data
     }
     chartLoad.value=true
@@ -163,11 +168,11 @@ export const getAllChart= ()=>{
       if(analysisType.value==='flow'){
         param.chart_id=i+1
         //流动性分析
-        result=await flowGetCharts(param)
+        result=await flowGetCharts(param,'pair')
       }else{
         param.chart_id=i+6
         //交易数据分析
-        result=await payGetCharts(param)
+        result=await payGetCharts(param,'pair')
       }
       chartsAllData.value[i] =result.data.data
     }
@@ -187,5 +192,23 @@ export const getPriceData=async (param:any,type:string)=>{
     priceData.value=result.data.data
   }else{
     priceData.value={}
+  }
+}
+//token价格线
+export const getTokenPriceData=async (param:any,type:string)=>{
+  const result=await getTokenPrice(param)
+  if(result.data.code===0){
+    return result.data.data
+  }else{
+    return {}
+  }
+}
+//pair价格线
+export const getPairPriceData=async (param:any,type:string)=>{
+  const result=await getPairPrice(param)
+  if(result.data.code===0){
+    return result.data.data
+  }else{
+    return {}
   }
 }
