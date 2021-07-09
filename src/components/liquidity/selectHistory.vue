@@ -47,7 +47,7 @@ onMounted(getHistory)
     <div class="flex flex-wrap">
       <template v-for="item in selectHistory">
         <div v-if="item.type"  class=" hand flex mt-3 ">
-          <span class="coinName mr-3 border-1" @click="setHistory(item)" :class="getClass(item)" >{{ item.name+item.type }}</span>
+          <span class="coinName mr-3 border-1" @click="setHistory(item)" :class="getClass(item)" >{{ item.name }}</span>
         </div>
       </template>
     </div>
