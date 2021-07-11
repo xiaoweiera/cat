@@ -107,7 +107,7 @@ export const getChartList = async function(topId: string | number, page = 1, lim
   switch (topId) {
   // 判断是否请求 "我的图表" 图表数据
   case myself.id:
-    url = topic.follows
+    url = topic.followList
     break
   // 判断是否请求 "精选推荐" 图表数据
   case recommend.id:
@@ -179,6 +179,16 @@ export const getChartMultipleTrends = async function(ids: string[] | number[]) {
   }
   try {
     const result = await request.get(topic.multipleTrends, { params })
+    return response.check<any>(result)
+  } catch (e) {
+    return void 0
+  }
+}
+// 关注
+export const addFollow = async function(id: string | number) {
+  const data = { id }
+  try {
+    const result = await request.post(topic.addfollow, data)
     return response.check<any>(result)
   } catch (e) {
     return void 0

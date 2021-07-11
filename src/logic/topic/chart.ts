@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { pick, last } from 'ramda'
+import { pick, last, toLower } from 'ramda'
 import * as api from '~/api/topic'
 import safeGet from '@fengqiaogang/safe-get'
 import { forEach ,map, compact, toNumber, toBoolean } from '~/utils/index'
@@ -123,8 +123,14 @@ const getDetail = function(result: any) {
   const keys = [
     'value', // 涨浮数(不需要计算百分比)
     'change', // 涨浮（需要计算百分比）
+    'title', // 名称
   ]
-  return pick(keys, ext)
+  const id = safeGet<string>(result, 'id')
+  const interval = safeGet<string>(result, 'interval')
+  return Object.assign({
+    id,
+    interval: toLower(interval || ''),
+  }, pick(keys, ext || {}))
 }
 
 export const getChartTrends = async function(multiple: boolean, value: string[] | number[]) {
@@ -132,24 +138,25 @@ export const getChartTrends = async function(multiple: boolean, value: string[] 
     const result = await api.getChartMultipleTrends(value)
     const db = new DBList(result, 'id')
     const data: any = {}
-    let ext: any
+    const detail: any = {}
     forEach(function(id: string | number) {
       const item = db.selectOne<any>({ id })
       data[id] = safeGet<any>(item, 'trend.data')
-      if (!ext) {
-        ext = data[id]
-      }
+      detail[id] = getDetail(safeGet<any>(item, 'trend'))
     }, value)
     return {
-      // detail: getDetail(ext), 多图模式下不展示详细信息
+      detail,
       series: data
     }
   } else {
     const id = value[0]
     // 单图数据
     const result = await api.getChartTrends(id)
+    const detail = getDetail(result)
     return {
-      detail: getDetail(result),
+      detail: {
+        [id]: detail
+      },
       series: {
         [id]: safeGet<any[]>(result, 'data')
       }

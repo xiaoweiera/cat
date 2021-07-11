@@ -4,7 +4,19 @@
  */
 
 import I18n from '~/utils/i18n/index'
-import { toLower, toUpper, filter, is, trim, isEmpty as _isEmpty } from 'ramda'
+import {
+  flatten,
+  toLower,
+  toUpper,
+  filter,
+  is,
+  trim,
+  isEmpty as _isEmpty,
+  reduce,
+  maxBy,
+  minBy
+} from 'ramda'
+
 //@ts-ignore
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from 'uuid'
 import dayjs from 'dayjs'
@@ -32,12 +44,17 @@ export const debounce = function <T>(callback: Callback, time?: number): T {
   }
 }
 
+
+export const toBoolean = function(value: any): boolean {
+  return !!(value || value === 0);
+}
+
 export const toFixed = function (value: string | number = '', fixed = 2): number {
   const text = String(value)
-  const [num1, num2 = ''] = text.split('.')
+  const [num1 = '0', num2 = ''] = text.split('.')
   let temp = parseFloat(num1)
   if (num2) {
-    temp = parseFloat(`${num1 || 0}.${num2.slice(0, fixed)}`)
+    temp = parseFloat(`${num1}.${num2.slice(0, fixed)}`)
   }
   if (isNaN(temp)) {
     return 0
@@ -45,12 +62,6 @@ export const toFixed = function (value: string | number = '', fixed = 2): number
   return temp
 }
 
-export const toBoolean = function(value: any): boolean {
-  if (value || value === 0) {
-    return true
-  }
-  return false
-}
 
 export const toNumber = function (value: string | number = 0, fixed = 2): number {
   const number = parseFloat(value as any)
@@ -58,6 +69,16 @@ export const toNumber = function (value: string | number = 0, fixed = 2): number
     return 0
   }
   return toFixed(number, fixed)
+}
+
+export const toInteger = function(value: string | number = 0): number {
+  const number = toNumber(value)
+  return parseInt(number as any, 10)
+}
+
+export const toNumberCeil = function(value: string | number = 0, fixed = 2): number {
+  const number = toNumber(value, fixed + 1)
+  return toNumber(number.toFixed(fixed))
 }
 
 export const inputBeautify = function(value: string = ''): string {
@@ -209,19 +230,37 @@ export const compact = function<T>(list: T[]): T[] {
   return []
 }
 
-export const max = function(array: number[]): number {
+export const arrayRealFirst = function<T>(list: T[]): T | undefined{
+  for(let i = 0, len = list.length; i < len; i++) {
+    const value = list[i]
+    if (isNumber(value)) {
+      return value
+    }
+  }
+}
+
+export const max = function(...args: any[]): number {
   // @ts-ignore
-  const value = [].concat(array)
-  if (value.length > 0) {
-    return Math.max.apply(null, value)
+  const list: number[] = flatten([].concat(args))
+  const length = list.length
+  if (length) {
+    const num1: any = arrayRealFirst<number>(list)
+    if (isNumber(num1)) {
+      return reduce(maxBy((v: number) => v), num1, list);
+    }
   }
   return 0
 }
-export const min = function(array: number[]): number {
+export const min = function(...args: any[]): number {
   // @ts-ignore
-  const value = [].concat(array)
-  if (value.length > 0) {
-    return Math.min.apply(null, value)
+  const list: number[] = flatten([].concat(args))
+  const length = list.length
+  if (length) {
+    const num1: any = arrayRealFirst<number>(list)
+    if (isNumber(num1)) {
+      const data = reduce(minBy((v: number) => v), num1, list);
+      return data
+    }
   }
   return 0
 }
@@ -277,6 +316,23 @@ export const dateFormat = function(time?: any, format: string = timeFormat): str
 export const dateMDFormat = function(time?: any): string {
   return dateFormat(time, 'MM-DD')
 }
+export const dateYMDFormat = function(time?: any): string {
+  return dateFormat(time, 'YYYY-MM-DD')
+}
+export const dateYMDHFormat = function(time?: any): string {
+  return dateFormat(time, 'YYYY-MM-DD HH')
+}
+export const dateYMDHmFormat = function(time?: any): string {
+  return dateFormat(time, 'YYYY-MM-DD HH:mm')
+}
+
+// 分解时间间隔
+export const convertInterval = function(interval = '1d') {
+  const number = toNumber(interval.replace(/[^0-9]/g, ''))
+  const type = toLower(interval.replace(/[^a-zA-Z]/g, ''))
+  return { number, type }
+}
+
 // 日期与当前时间做比较
 export const dateDiff = function(time: any, diff: DateType = DateType.day): string {
   const cur = dayjs().format(timeFormat)
@@ -285,4 +341,66 @@ export const dateDiff = function(time: any, diff: DateType = DateType.day): stri
     return I18n.part(I18n.common.time.value[diff], count, { count })
   }
   return `${count}`
+}
+
+export const dateAdd = function(time: any, interval?: string) {
+  const date = toDate(time)
+  const { number, type } = convertInterval(interval)
+  return dateTime(date.add(number, type as any).valueOf())
+}
+
+export enum Unit {
+  unit = '',
+  ten = '十',
+  hundred = '百',
+  thousand = '千',
+  tenThousand = '万',
+  hundredThousand = '十万',
+  million = '百万',
+  tenMillion = '千万',
+  hundredMillion = '亿',
+  billion = '十亿',
+  tenBillion = '百亿',
+  hundredBillion = '千亿'
+}
+
+const unitPow = {
+  [Unit.unit]: 1,
+  [Unit.ten]: 10,
+  [Unit.hundred]: 100,
+  [Unit.thousand]: 1000,
+  [Unit.tenThousand]: 10000,
+  [Unit.hundredThousand]: 100000,
+  [Unit.million]: 1000000,
+  [Unit.tenMillion]: 10000000,
+  [Unit.hundredMillion]: 100000000,
+  [Unit.billion]: 1000000000,
+  [Unit.tenBillion]: 10000000000,
+  [Unit.hundredBillion]: 100000000000,
+}
+
+export const numberUint = function(value: number, unit?: Unit) {
+  const count = toNumber(value, 4)
+  if (!unit) {
+    const number = (`${toInteger(value)}`).replace(/[^0-9]/, '')
+    const length = number.length
+    if (length > 8) {
+      unit = Unit.hundredMillion
+    } else if (length > 4) {
+      unit = Unit.tenThousand
+    } else {
+      unit = Unit.unit
+    }
+  }
+  const pow = unitPow[unit]
+
+  const template = `0 | {data}${unit}`
+
+  if (count > 0) {
+    const data = toNumberCeil(count / pow)
+    return I18n.part(template, data, { data })
+  } else {
+    const data = toNumberCeil(count * pow)
+    return I18n.part(template, data, { data: `-${Math.abs(data)}` })
+  }
 }

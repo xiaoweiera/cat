@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { toNumber, map, dateDiff, max, forEach } from '~/utils/index'
+import { toNumber, map, dateDiff, max, forEach, toBoolean, uuid } from '~/utils/index'
 import bignumber from 'bignumber.js'
 import { reactive, toRaw, defineProps, onMounted, computed, ref } from 'vue'
 import { getChartTrends } from '~/logic/topic/chart'
 import { convertDate } from '~/logic/echarts/series'
 import safeGet from '@fengqiaogang/safe-get'
 
-export interface ChartDetail {
+const echartKey = ref<string>(uuid)
+
+interface ChartDetail {
   default_chart?: string // 图形类型
   interval?: number // 更新时间频率
   relation_unit?: string // 价格单位
@@ -47,7 +49,7 @@ const getData = async function() {
   const ids = [].concat(toRaw(option.seriesIds))
   const result = await getChartTrends(option.multiple, ids)
   if (result?.series) {
-    const { series, xAxis, right } = convertDate(result.series, option.rightYAxis)
+    const { series, xAxis, right } = convertDate(result.series, result.detail, option.rightYAxis)
     chart.xaxis = xAxis
     const array: any[] = []
     // 多图
@@ -132,46 +134,26 @@ const convertNumber = function(value: number | string, zoom: 1) {
   const data = number.multipliedBy(zoom)
   return toNumber(data as any)
 }
-const echartBox = ref<any>(null)
-const fullStatus = ref<boolean>(false)
 
-function fullScreen(dom: HTMLElement): boolean {
-  const rfs = dom.requestFullScreen || dom.webkitRequestFullScreen || dom.mozRequestFullScreen || dom.msRequestFullScreen
-  if (typeof rfs != "undefined" && rfs) {
-    fullStatus.value = true
-    rfs.call(dom)
-    return true
-  }
-  return false
+const followed = ref<boolean>(false)
+
+const onChangeZoom = function() {
+  echartKey.value = uuid()
 }
 
-function exitFullScreen(): boolean {
-  const el = document
-  const cfs = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullScreen
-  if (typeof cfs != "undefined" && cfs) {
-    cfs.call(el)
-    setTimeout(() => {
-      fullStatus.value = false
-    }, 500)
-    return true
-  }
-  return false
-}
+onMounted(function() {
+  followed.value = toBoolean(props.option.followed)
+  // 获取图表详情
+  getData()
+})
 
-// @ts-ignore
-const onFull = function() {
-  const dom: any = echartBox.value
-  const status = fullStatus.value ? exitFullScreen(dom) : fullScreen(dom)
-  console.log(status)
-}
 
-onMounted(getData)
 
 
 </script>
 
 <template>
-  <div :class="{ 'bg-white': fullStatus, 'full': fullStatus }" ref="echartBox">
+  <FullScreen>
     <div class="text-kdFang">
       <div class="flex justify-between">
         <h4 class="font-bold text-global-highTitle">{{ option.name }}</h4>
@@ -180,11 +162,8 @@ onMounted(getData)
           <span>更新时间:</span>
           <span class="ml-1">{{ updateLast }}前</span>
         </span>
-          <div class="ml-3 inline-block">
-            <el-button type="primary" round size="small">
-              <IconFont type="icon-plus" class="text-white"></IconFont>
-              <span class="ml-1">关注</span>
-            </el-button>
+          <div class="inline-block">
+            <TopicFollow :id="option.chartId" v-model:status="followed"/>
           </div>
         </div>
       </div>
@@ -205,14 +184,9 @@ onMounted(getData)
           </span>
         </span>
       </span>
-        <span class="cursor-pointer" @click="onFull">
-          <span :class="{'hidden': fullStatus}">
-            <IconFont type="icon-zoom" class="text-white"></IconFont>
-          </span>
-          <span :class="{ 'hidden': !fullStatus }">缩放</span>
-        </span>
+        <FullZoom @change="onChangeZoom"/> <!-- 缩放按钮 -->
       </div>
-      <div :style="{ 'height': `${option.height}px` }">
+      <div :style="{ 'height': `${option.height}px` }" :key="echartKey">
         <Echarts v-if="chart.legend.length > 0">
           <!-- 提示框 trigger: 触发方式 -->
           <EchartsTooltip trigger="axis" />
@@ -248,9 +222,6 @@ onMounted(getData)
         </Echarts>
       </div>
     </div>
-  </div>
+  </FullScreen>
 </template>
 
-<style scoped>
-
-</style>

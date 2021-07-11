@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { includes } from 'ramda'
 import * as echarts from 'echarts'
-import { compact, map } from '~/utils/index'
+import { compact, map, numberUint, Unit } from '~/utils/index'
 import { ref, reactive, computed, toRaw, onMounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { calcYAxisMark } from '~/logic/echarts/series'
@@ -59,14 +59,12 @@ const getXAxis = function() {
 }
 
 const getYAxis = function() {
-  const [ option ] = makeYAxisOption()
+  const [ option ] = makeYAxisOption(function(value: number) {
+    return numberUint(value)
+  })
   return map(function(item) {
     return Object.assign({}, option, item, {
       // todo
-      // min: 0,
-      // max: 10000,
-      splitNumber: 5,
-      // interval: 2000
     })
   }, getValue(yAxis))
 }

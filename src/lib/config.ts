@@ -17,7 +17,8 @@ export const iconFont = [
 
 export const development: Config = {
   domain: 'ikingdata.com',
-  api: 'https://dev.ikingdata.com',
+  api: 'https://kingdata.com',
+  // api: 'https://dev.ikingdata.com',
   // api: 'https://4b678cd825dd.ngrok.io',
 }
 export const production: Config = {

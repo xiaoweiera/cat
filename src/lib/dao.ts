@@ -74,16 +74,24 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
         safeSet(config, 'params.lang', current.value)
       }
       // 处理 url 中的变量
-      if (config.params && config.url) {
+      const parameter: any = {}
+      if (config.params) {
+        Object.assign(parameter, config.params)
+      }
+      if (config.data) {
+        Object.assign(parameter, config.data)
+      }
+      if (config.url) {
         /**
          * 借助 i18n 模块中的 template 可以对字符串中的变量进行替换
          * const url = "xxx/{id}/{name}/xxx"
          * const params = { id: "1", name: "aaa" }
          * 替换后为 "xxx/1/aaa/xxx"
          */
-        const url = I18n.template(config.url, config.params)
+        const url = I18n.template(config.url, parameter)
         config.url = url
       }
+
       // 处理缓存逻辑
       if (cacheStatus) {
         const key = cache.makeKey(config.url, config.params)
@@ -120,7 +128,9 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
     (error) => {
       // 判断是否是由缓存终端请求引起的错误
       if (safeGet<boolean>(error, 'cache')) {
-        return safeGet<any>(error, 'data')
+        const response = safeGet<any>(error, 'data')
+        // console.log(response.data)
+        return response
       }
       return Promise.reject(error)
     },

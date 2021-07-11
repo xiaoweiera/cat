@@ -33,10 +33,9 @@ export const res = {
 }
 
 // 数据报表
+// @ts-ignore
 export const topic = {
   getMenuList: '/api/v2/topics/web_topic',
-  // 用户关注的图表数据
-  follows: '/api/v2/charts/my/multy_follows',
   // 系统推荐图表数据
   recommend: '/api/v2/charts/web_recommend',
   // 获取图表中所有的 id
@@ -47,6 +46,10 @@ export const topic = {
   // 根据 id 获取图表数据
   trend: 'api/v2/charts/{id}/trends', // 单图数据
   multipleTrends: '/api/v2/charts/multy_trends', // 多图数据
+
+  // 用户关注的图表数据
+  followList: '/api/v2/charts/my/multy_follows',
+  addfollow: '/api/v2/charts/{id}/multy_follow', // 关注
 }
 
 // 忽略的接口地址，不传用户登录信息
@@ -59,7 +62,7 @@ export const ignore: string[] = [
   '/api/v2/commercial',
   ads.commercial, // 广告位
   topic.getMenuList, // 菜单
-  topic.recommend, // 推荐数据
+  // topic.recommend, // 推荐数据
   topic.charts, // 根据 id 查询
   topic.detail,
   topic.trend,
@@ -72,16 +75,21 @@ export const LoginStatus: string[] = [
   res.policy,
   res.image,
   user.info,
+
   growthpad.getUserInfo,
   growthpad.postArticle,
   growthpad.setUserInfo,
   growthpad.postChatPicture,
   growthpad.postFriendPicture,
   growthpad.getGrowthPicture,
+
+  topic.followList,
+  topic.addfollow,
 ]
 
 // 将一下接口加入到缓存中
 export const cache: string[] = [
+  /*
   topic.getMenuList, // 菜单
   topic.recommend, // 推荐数据
   topic.charts, // 根据 id 查询
@@ -89,4 +97,5 @@ export const cache: string[] = [
   topic.trend,
   topic.multipleDetail,
   topic.multipleTrends,
+  */
 ]

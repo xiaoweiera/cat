@@ -3,10 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { upperFirst } from '~/utils/index'
-import { inject, provide, ref, toRaw } from 'vue'
-
-type SetCallback = (value?: any, index?: number | string) => void
+export * from '~/utils/use/state'
 
 export enum EchartsOptionName {
   series = 'series',
@@ -14,42 +11,6 @@ export enum EchartsOptionName {
   xAxis = 'xAxis',
   legend = 'legend',
   tooltip = 'tooltip'
-}
-
-export const useProvide = function<T>(name: string, value?: any): any[] {
-  const state = ref<T[]>(value ? [].concat(value) : [])
-  const set = function(data: any, index: number | string = 0) {
-    const arr = toRaw(state.value)
-    // @ts-ignore
-    arr[index] = data
-    state.value = arr
-  }
-  provide(name, set)
-  provide(`get${upperFirst(name)}`, () => state)
-  return [state, set]
-}
-
-export const getInject = function(name: string) {
-  const get = inject(`get${upperFirst(name)}`)
-  if (get) {
-    // @ts-ignore
-    return get()
-  }
-  return void 0
-}
-
-export const setInject = function(name: string): SetCallback {
-  return inject<SetCallback>(name) as any
-}
-export const updateInject = function(name: string, ...args: any[]): boolean {
-  if (name && args.length > 0) {
-    const set = setInject(name)
-    if (set) {
-      set(...args)
-      return true
-    }
-  }
-  return false
 }
 
 export const initProps = {

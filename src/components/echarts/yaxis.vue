@@ -23,7 +23,7 @@ onBeforeMount(function() {
   const option = {
     type: props.type,
     position: props.position,
-    legend: props.legend ? compact(toRaw(props.legend)) : []
+    legend: props.legend ? compact(toRaw(props.legend)) : [],
   }
   updateInject(EchartsOptionName.yAxis, option, props.index)
 })
