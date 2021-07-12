@@ -4,6 +4,7 @@
  */
 
 import * as event from './index'
+import { debounce } from '~/utils/index'
 
 type Callback = (e: Event) => void
 
@@ -19,12 +20,12 @@ const removeResize = function() {
   }
 }
 
-const onResize = function(e: Event) {
+const onResize = debounce<any>(function(e: Event) {
   data.forEach(function(callback: Callback) {
     callback(e)
   })
   removeResize()
-}
+}, 300)
 
 const init = function() {
   if (initAdd) {

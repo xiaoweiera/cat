@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { toNumber, map, dateDiff, max, forEach, toBoolean } from '~/utils/index'
+import { toNumber, map, dateDiff, max, forEach } from '~/utils/index'
 import bignumber from 'bignumber.js'
-import { reactive, toRaw, defineProps, onMounted, computed, ref } from 'vue'
+import { reactive, toRaw, defineProps, onMounted, computed } from 'vue'
 import { getChartTrends } from '~/logic/topic/chart'
 import { convertDate } from '~/logic/echarts/series'
 import safeGet from '@fengqiaogang/safe-get'

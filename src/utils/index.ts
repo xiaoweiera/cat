@@ -23,10 +23,10 @@ import dayjs from 'dayjs'
 
 export { isNil } from 'ramda'
 
-type Callback = () => void
+type Callback = (...args: any[]) => void
 
 // 防抖节流
-export const debounce = function <T>(callback: Callback, time?: number): T {
+export const debounce = function<T>(callback: Callback, time?: number): T {
   if (!time) {
     return callback as any
   }
@@ -180,8 +180,14 @@ export const isElement = function(value: any) {
   if (typeof value === 'object') {
     flag = true
   }
-  if (flag && typeof value.nodeName === 'string') {
-    return true
+
+  if (flag) {
+    if (typeof value.nodeName === 'string') {
+      return true
+    }
+    if (value?.navigator) {
+      return true
+    }
   }
   return false
 }

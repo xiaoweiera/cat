@@ -3,7 +3,7 @@ import { includes } from 'ramda'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, map, numberUint, uuid } from '~/utils/index'
-import { ref, reactive, computed, toRaw, onMounted } from 'vue'
+import { ref, reactive, computed, toRaw, onMounted, onUnmounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { calcYAxisMark } from '~/logic/echarts/series'
 import {
@@ -136,7 +136,8 @@ const getOption = function() {
 const echartOption = computed(getOption)
 
 const onResize = function() {
-  console.log(1)
+  const char: any = compChar.value
+  char.resize()
 }
 
 
@@ -153,7 +154,10 @@ onMounted(function() {
   finally {
     resize.bind(echartId.value, onResize)
   }
+})
 
+onUnmounted(function() {
+  resize.unbind(echartId.value)
 })
 
 
