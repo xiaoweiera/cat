@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { defineProps, onMounted, toRefs } from 'vue'
+import { defineProps, onMounted, toRefs,watch } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
-import { paramChart,priceData,pairStore} from '~/store/liquidity/state'
-import {getXData, getAllItemSeries,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
+import { paramChart,pairStore} from '~/store/liquidity/state'
+import {getXData,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
 import { chartConfig } from '~/logic/liquidity/chartConfig'
 import {kData,groupData} from '/mock/liquidity'
 interface yModel {
@@ -17,32 +17,36 @@ interface yModel {
 let myChart: any = null
 const pp = toRefs(paramChart)
 const props = defineProps({
+  priceData:Object,
   chartData: Object,
-  chartId:Number
+  chartId:Number,
+  coinType:Object
 })
-
 const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any) => {
   // @ts-ignore
   const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel,paramChart.interval)
   myChart.setOption(chartOption)
   // @ts-ignore
+
   window.addEventListener('resize', myChart.resize)
 }
 const getChartData=()=>{
-  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData.xaxis,priceData.value.xaxis)))
+  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
-  const legend = getLegendList(props?.chartData.yaxis,priceData.value.yaxis[0])
+  const legend = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
+  console.log(legend,props.coinType.value)
   const [series,allYAxis] = getGroupSeries(
-      props?.chartData.xaxis,priceData.value.xaxis,
-      props?.chartData.yaxis, priceData.value.yaxis[0],
+      props?.chartData.xaxis,props.priceData.value.xaxis,
+      props?.chartData.yaxis, props.priceData.value.yaxis[0],
       allXaxis,
       paramChart.interval,
-      pairStore.id
+      pairStore.id,
+      props.coinType.value
   )
   draw(xData, series, legend,allYAxis)
 }
 onMounted(() => {
-  const myChartDom = document.getElementById(props?.chartData.id)
+  const myChartDom = document.getElementById(props.chartId)
   if (myChart) {
     myChart.dispose();
   }
@@ -51,7 +55,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class="mt-4 w-full h-full">
-    <div :id="props.chartData.id" class="chartCanvas w-full h-full"></div>
+  <div class="mt-4 w-full h-77.5">
+    <div :id="props.chartId" class="chartCanvas w-full h-77.5"></div>
   </div>
 </template>

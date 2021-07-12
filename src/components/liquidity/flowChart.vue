@@ -1,22 +1,36 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
+import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import { pairStore,symbolStore,paramChart} from '~/store/liquidity/state'
 import {getFlowChartModel,getPayChartModel,getTokenPriceData,getPairPriceData} from '~/logic/liquidity/dataTool'
 import {kData,groupData} from '/mock/liquidity'
 const props = defineProps({
-  analysisType:String,
   tokenParam:Object,
   pairParam:Object,
   chartId:Number
 })
-watch(props.tokenParam,(n)=>getData(n))
+//改变symbol
+watch(() => symbolStore.id, (n, o) => {
+  console.log('token地址 change',pairStore.id)
+  if(!pairStore.id){
+    getData()
+  }
+})
 //改变pair
 watch(() => pairStore.id, (n, o) => {
-  console.log('改变pair',o)
-  getTokenTypeList()
-  getData()
+  console.log('pair地址 change1111',pairStore)
+  //null是关闭pair的时候，切换历史的时候为空字符串
+  if(pairStore.id || pairStore.id===null){
 
+    getTokenTypeList()
+    getData()
+  }
 })
+watch(()=>props.tokenParam.interval,(n)=>{
+  getData(props.tokenParam)})
+watch(()=>paramChart.time,(n)=>{
+  getData(props.tokenParam)})
+
 //监听颗粒度
 watch(() => paramChart.interval, (n, o) => {
   props.tokenParam.interval = n
@@ -33,33 +47,18 @@ watch(() => paramChart.interval, (n, o) => {
 })
 const tokenTypeList=ref([])
 const tokenType=ref('pair')  //pair 选项如： pair| symbol0| symbol1
-const initType=()=>{
-  if(pairStore.id && props.analysisType==='pay'){
-    tokenType.value= tokenType.value==='pair'?'symbol0':tokenType.value
-  }else{
-    tokenType.value= 'pair'
-  }
-}
 
 // tokenType.value=initType()
 watch(()=>tokenType.value,(n,o)=>{
-  console.log('改变tokenType',o)
+  console.log('3333',o)
   getData()
 })
 const getTokenTypeList=()=>{
-  initType()
   if(pairStore.id){
-    if(props.analysisType==='flow'){
-      tokenTypeList.value=[
-      { name: 'Pair', value: 'pair', selected: paramChart.tokenType==='pair'},
-      { name:pairStore.name.split('/')[0] , value: 'symbol0', selected: paramChart.tokenType==='symbol0'  },
-      { name: pairStore.name.split('/')[1], value: 'symbol1', selected:paramChart.tokenType==='symbol1' }]
-    } else{
-      tokenTypeList.value=[
-        { name:pairStore.name.split('/')[0] , value: 'symbol0', selected: paramChart.tokenType!=='symbol1'  },
-        { name: pairStore.name.split('/')[1], value: 'symbol1', selected:paramChart.tokenType==='symbol1' },
-      ]
-    }
+    tokenTypeList.value=[
+      { name: 'Pair', value: 'pair', selected: tokenType.value==='pair'},
+      { name:pairStore.name.split('/')[0] , value: 'symbol0', selected:tokenType.value==='symbol0'  },
+      { name: pairStore.name.split('/')[1], value: 'symbol1', selected:tokenType.value==='symbol1' }]
   }
 }
 
@@ -70,52 +69,43 @@ const priceData=reactive({value:{}})
 
 //得到数据
 const getData=async ()=>{
-  console.log('刷新')
+  console.log('flow重会')
   title.value= pairStore.id?pairStore.name:symbolStore.name
   if (pairStore.id) {
     //pair查询
     props.pairParam.pair_id = pairStore.id
     priceData.value=await getPairPriceData({pair_id: pairStore.id, from_ts: props.pairParam.from_ts, to_ts: props.pairParam.to_ts}, 'pair')
-    if(props.analysisType==='flow'){
-      console.log(tokenType.value)
-      chartData.value=await getFlowChartModel(props.pairParam,props.chartId,tokenType.value)
-    }else{
-      paramChart.tokenType='symbol0'
-      chartData.value=await getPayChartModel(props.pairParam,props.chartId,tokenType.value)
-    }
+    chartData.value=await getFlowChartModel(props.pairParam,props.chartId,tokenType.value)
   } else {
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
     priceData.value= await getTokenPriceData({symbol_id: symbolStore.id, from_ts: props.tokenParam.from_ts, to_ts: props.tokenParam.to_ts}, 'token')
-    if(props.analysisType==='flow'){
-      chartData.value=await getFlowChartModel(props.tokenParam,props.chartId)
-    }else{
-      paramChart.tokenType='symbol0'
-      chartData.value=await getPayChartModel(props.tokenParam,props.chartId)
-    }
+    chartData.value=await getFlowChartModel(props.tokenParam,props.chartId)
   }
-chartKey.value++
+  chartKey.value++
 }
 const selectTokenType=(item:any)=>{
   tokenType.value=item.value
 }
 onMounted(()=>{
   getTokenTypeList()
+  console.log('init')
   getData()
 })
 </script>
 <template>
-<!--  {{tokenType}}-->
-<!--  {{pairStore.id}}-->
+  <!--  {{props.chartId}}-->
+  <!--  {{tokenType}}-->
+  <!--  {{pairStore.id}}-->
 
-  <div class="flex flex-col p-4 w-full h-106 min-h-106 mb-5 bg-white font-kdFang chartContainer border-1">
+  <div class="flex flex-col p-4 flex-1 h-113   mb-5 bg-white font-kdFang chartContainer">
     <!--    图表的信息-->
     <div class="text-kd18px28px text-global-default opacity-85">
       <span>{{title}}</span>
       <span class="ml-2">{{chartData.value.title}}</span>
     </div>
     <div class="text-kd13px19px text-global-default opacity-45">
-     {{ chartData.value.desc }}
+      {{ chartData.value.desc }}
     </div>
     <div  v-if="pairStore.id" class="flex items-center mt-2">
       <template v-for="(item,i) in tokenTypeList">
@@ -139,7 +129,6 @@ onMounted(()=>{
 }
 .chartContainer {
   background: #ffffff;
-  box-shadow: 0px 0px 12px rgba(44, 140, 248, 0.12);
-  border-radius: 2px;
+
 }
 </style>

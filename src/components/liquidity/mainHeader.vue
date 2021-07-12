@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import {toRefs, defineProps} from 'vue'
-import {analysisType} from '~/store/liquidity/state'
-
-const typeList = [
-  {type: 'flow', name: '流动性分析'},
-  {type: 'pay', name: '交易数据分析'},
-]
-// 改变类型标签  （流动性分析/交易数据分析）
-const changeType = (typeName: string) => {
-  console.log(typeName)
-  analysisType.value=typeName
+import { ref,watch,onMounted } from 'vue'
+import { pairStore,paramChart,analysisType} from '~/store/liquidity/state'
+import {useRoute, useRouter} from 'vue-router'
+import {changeRouteParam,smallToken} from '~/lib/tool'
+const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
+const route = useRoute()
+const router = useRouter()
+const closePair = () => {
+  pairStore.id = null
+  //这里触发了两次监听  ---tip me
+  paramChart.tokenType='pair'
+  changeRouteParam(route,router,{pair:undefined,pairName:undefined})
 }
 </script>
 <template>
-  <div class="flex w-full h-14.5 items-center justify-between px-5 bg-white font-kdFang bottomBorder">
+  <div class="flex w-full h-14.5 min-h-14.5 items-center justify-between px-5 bg-white font-kdFang bottomBorder">
     <!--    类型切换-->
     <div class="flex h-full items-center">
-      <template v-for="item in typeList">
-        <div :class="analysisType === item.type ? 'tagSelect' : 'tagDefault'"  @click="changeType(item.type)">
-          {{ item.name }}
-        </div>
-      </template>
+      <div v-if="pairStore.id" class="flex items-center">
+        <a :href="getHref(pairStore.id)" target="_blank" class="bg-global-primary bg-opacity-8 rounded px-1.5 py-0.4">
+          <span class="text-kd16px160 text-global-primary font-kdExp">{{pairStore.name }}</span>
+          <span class="text-kd14px160 text-global-primary font-kdFang ml-2.5">{{smallToken(pairStore.id) }}</span>
+        </a>
+        <img class="w-4 h-4 ml-1.5 cursor-pointer" src="https://res.ikingdata.com/nav/cardClose.png" alt="" @click="closePair"/>
+      </div>
     </div>
     <!--    时间筛选-->
     <div class="flex">

@@ -46,9 +46,9 @@ onMounted(()=>getOption())
       <img class="w-4 h-4 ml-1.5 cursor-pointer" src="https://res.ikingdata.com/nav/cardClose.png" alt="" @click="closePair"/>
     </div>
     <!--    筛选呀-->
-    <div>
-      <LiquidityFilterType tag-type="tokenType" :filter-data="filterType" />
-    </div>
+<!--    <div>-->
+<!--      <LiquidityFilterType tag-type="tokenType" :filter-data="filterType" />-->
+<!--    </div>-->
   </div>
 </template>
 <style scoped lang="postcss"></style>
