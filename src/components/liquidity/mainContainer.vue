@@ -7,8 +7,6 @@ const chartType = reactive({ type: 'flow' })
   <div class="flex flex-1 flex-col">
     <!--    右侧第一个header-->
     <LiquidityMainHeader :chartType="chartType" />
-    <!--    右侧第二个header-->
-    <LiquidityMainToken v-if="pairStore.id" :pair-store="pairStore" />
     <!--    图表集合-->
     <LiquidityMainChart :chart-type="chartType" />
   </div>

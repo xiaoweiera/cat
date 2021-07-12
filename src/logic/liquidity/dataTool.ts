@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import {ref,reactive} from 'vue'
 import {getChartsUsdtById,getChartsCoinById,getChartsPairUsdById,getChartsPairUsdByEth,getChartsPairCoinById,getChartsPairCoinByEth,getChartsPairCoinByUSDT,getTokenPrice,getPairPrice,getPayChartsUsdtById,getPayChartsCoinById,getPayChartsPairUsdBySymbol0,getPayChartsPairUsdBySymbol1,getPayChartsPairCoinBySymbol0,getPayChartsPairCoinBySymbol1} from '~/api/liquidity'
-import {paramChart,analysisType,pairStore,priceData} from '~/store/liquidity/state'
+import {analysisType,pairStore,priceData} from '~/store/liquidity/state'
 interface chartItem {
   data: Object
 }
@@ -58,11 +58,11 @@ export const getPayChartsPairCoinByPair=async (param:any,tokenType:string)=>{
 }
 
 //流动性分析请求图表
-export const flowGetCharts=async (param:any,tokenType:string)=>{
+export const flowGetCharts=async (param:any,tokenType:string,coinType:string)=>{
   let result=null
   //pair查询
   if(pairStore.id){
-    if(paramChart.coinType==='usd'){
+    if(coinType==='usd'){
       //usd 查询
       result=  await getChartsPairUsdByPair(param,tokenType)
     }else{
@@ -71,7 +71,7 @@ export const flowGetCharts=async (param:any,tokenType:string)=>{
     }
   }else{
     //token查询
-    if(paramChart.coinType==='usd'){
+    if(coinType==='usd'){
       //usd 查询
       result=  await getChartsUsdtById(param)
     }else{
@@ -82,17 +82,17 @@ export const flowGetCharts=async (param:any,tokenType:string)=>{
   return result
 }
 //交易数据分析
-export const payGetCharts=async (param:any,tokenType:string)=>{
+export const payGetCharts=async (param:any,tokenType:string,coinType:string)=>{
   let result=null
   if(pairStore.id){
-    if(paramChart.coinType==='usd'){
+    if(coinType==='usd'){
       result=  await getPayChartsPairUsdByPair(param,tokenType)
     }else{
       result=  await getPayChartsPairCoinByPair(param,tokenType)
     }
   }else{
     //token查询
-    if(paramChart.coinType==='usd'){
+    if(coinType==='usd'){
       result=  await getPayChartsUsdtById(param)
     }else{
       result=  await getPayChartsCoinById(param)
@@ -101,18 +101,19 @@ export const payGetCharts=async (param:any,tokenType:string)=>{
   return result
 }
 //得到流动性图表数据
-export const getFlowChartModel=async (param:any,chartId:number,tokenType:string)=>{
+export const getFlowChartModel=async (param:any,chartId:number,tokenType:string,coinType:string)=>{
   //token图表查询
   const newParam={...param,chart_id:chartId}
-  const result=await flowGetCharts(newParam,tokenType)
+  console.log(param)
+  const result=await flowGetCharts(newParam,tokenType,coinType)
   // getPairCharts
   return result?.data?.data
 }
 //得到交易数据图表数据
-export const getPayChartModel=async (param:any,chartId:number,tokenType:string)=>{
+export const getPayChartModel=async (param:any,chartId:number,tokenType:string,coinType:string)=>{
   //token图表查询
   const newParam={...param,chart_id:chartId}
-  const result=await payGetCharts(newParam,tokenType)
+  const result=await payGetCharts(newParam,tokenType,coinType)
   // getPairCharts
   return result?.data?.data
 }
@@ -127,7 +128,7 @@ export const getFlowChart= ()=>{
     initCharts(chartsAllData,[0,1,2,3,4])
     for (let i=0;i<chartsAllData.value.length;i++){
       const newParam={...param,chart_id:i+1}
-      let result=await flowGetCharts(newParam,'flow')
+      let result=await flowGetCharts(newParam,'flow','')
       chartsAllData.value[i] =result.data.data
     }
     chartLoad.value=true
@@ -145,7 +146,7 @@ export const getPayChart= ()=>{
     initCharts(chartsAllData,[5,6,7,8,9])
     for (let i=0;i<chartsAllData.value.length;i++){
       const newParam={...param,chart_id:i+1}
-      let result=await payGetCharts(newParam,'pair')
+      let result=await payGetCharts(newParam,'pair','')
       chartsAllData.value[i] =result.data.data
     }
     chartLoad.value=true
@@ -168,11 +169,11 @@ export const getAllChart= ()=>{
       if(analysisType.value==='flow'){
         param.chart_id=i+1
         //流动性分析
-        result=await flowGetCharts(param,'pair')
+        result=await flowGetCharts(param,'pair','')
       }else{
         param.chart_id=i+6
         //交易数据分析
-        result=await payGetCharts(param,'pair')
+        result=await payGetCharts(param,'pair','')
       }
       chartsAllData.value[i] =result.data.data
     }

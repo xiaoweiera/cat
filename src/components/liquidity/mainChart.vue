@@ -3,7 +3,7 @@ import {onMounted, ref, watch, reactive, defineProps} from 'vue'
 import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import {pairStore, paramChart, symbolStore, analysisType, selectHistory} from '~/store/liquidity/state'
 import {getFlowChart, getTokenPriceData} from '~/logic/liquidity/dataTool'
-import {analysisConfig} from '~/logic/liquidity/dataCofig'
+import {chartDataConfig} from '~/logic/liquidity/dataCofig'
 
 interface yModel {
   color: string
@@ -41,21 +41,35 @@ watch(() => paramChart.time, (n, o) => {
   pairParam.from_ts = paramChart.timeBegin
   pairParam.to_ts = paramChart.timeEnd
 })
+//监听颗粒度
+watch(() => paramChart.interval, (n, o) => {
+  tokenParam.interval = n
+  pairParam.interval = n
+  //如果颗粒度是小时，那么如果天查看的是90天或者自定义的时候，切换时就默认30天
+  if (paramChart.interval === '1H' && (paramChart.timeType >30 || paramChart.timeType === 0)) {
+    paramChart.timeType = 30
+    paramChart.timeBegin = getagoTimeStamp(30)
+    paramChart.timeEnd = dataToTimestamp(formatDefaultTime())
+    paramChart.time = getagoTimeStamp(30)
+    return
+  }
+})
 </script>
 <template>
-  {{symbolStore}}
-  {{pairStore}}
-  <div class="flex flex-1 flex-col px-5 mt-8 chartContainer">
-<!--    流动性分析-->
-    <LiquidityAnalysisTitle :data="analysisConfig[0]"/>
-    <div class="flex  mr-2.5 bgContainer">
-      <template v-for="item in [0]">
-        <LiquidityFlowChartContainer :chartId="item+1" :tokenParam="tokenParam"  :pairParam="pairParam" class="flex-1"/>
-      </template>
-<!--      <template v-for="item in [5]">-->
-<!--        <LiquidityPayChartContainer :chartId="item+1" :tokenParam="tokenParam"  :pairParam="pairParam" class=" flex-1"/>-->
-<!--      </template>-->
-    </div>
+<!--  {{paramChart}}-->
+<!--  {{symbolStore}}-->
+<!--  {{pairStore}}-->
+  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer">
+    <template v-for="(item,i) in chartDataConfig">
+      <div class="mb-8">
+        <LiquidityAnalysisTitle :title="item.title" :desc="item.desc"/>
+        <div class="flex  h-107.5  bgContainer border-1">
+          <LiquidityFlowChartContainer :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
+          <img class="my-4 mx-4" src="https:res.ikingdata.com/nav/liquidityBetween.jpg" alt="">
+          <LiquidityPayChartContainer :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 <style scoped lang="postcss">
@@ -68,13 +82,12 @@ watch(() => paramChart.time, (n, o) => {
   background: #ffffff;
   box-shadow: 0px 0px 12px rgba(44, 140, 248, 0.12);
   border-radius: 2px;
-  @apply h-107;
 }
 .chartContainer {
   overflow: hidden;
   overflow-y: auto;
-
 }
+
 
 .chartContainer::-webkit-scrollbar {
   width: 8px;

@@ -13,6 +13,5 @@ const filterCoin = ref([
   <div class="flex items-center">
     <LiquidityTime />
     <LiquidityFilterType tag-type="interval" :filter-data="filterDay" />
-    <LiquidityFilterType tag-type="coinType" :filter-data="filterCoin" />
   </div>
 </template>

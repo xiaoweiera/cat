@@ -6,7 +6,7 @@ const grid = (interval:string) => {
     left: 72,
     right: 70,
     bottom: 70,
-    top: 16,
+    top: 5,
     // y2: 0,
     containLabel: false,
   }
@@ -101,7 +101,7 @@ const legend = (legendData: Array<string>) => {
     itemHeight: 11.5,
     itemGap: 40,
     data: legendData,
-    bottom: '2%',
+    top: '90%',
     itemWidth: 14,
   }
 }
