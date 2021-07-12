@@ -212,6 +212,10 @@ a {
   }
 }
 
+.p-0 {
+  padding: 0 !important;
+}
+
 /* 等宽等高 */
 .equal-width-height {
   width: 100%;

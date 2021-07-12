@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { toNumber, map, dateDiff, max, forEach, toBoolean, uuid } from '~/utils/index'
+import { toNumber, map, dateDiff, max, forEach, toBoolean } from '~/utils/index'
 import bignumber from 'bignumber.js'
 import { reactive, toRaw, defineProps, onMounted, computed, ref } from 'vue'
 import { getChartTrends } from '~/logic/topic/chart'
 import { convertDate } from '~/logic/echarts/series'
 import safeGet from '@fengqiaogang/safe-get'
-
-const echartKey = ref<string>(uuid)
 
 interface ChartDetail {
   default_chart?: string // 图形类型
@@ -135,93 +133,31 @@ const convertNumber = function(value: number | string, zoom: 1) {
   return toNumber(data as any)
 }
 
-const followed = ref<boolean>(false)
-
-const onChangeZoom = function() {
-  echartKey.value = uuid()
-}
-
-onMounted(function() {
-  followed.value = toBoolean(props.option.followed)
-  // 获取图表详情
-  getData()
-})
-
-
-
+onMounted(getData)
 
 </script>
 
 <template>
   <FullScreen>
-    <div class="text-kdFang">
-      <div class="flex justify-between">
-        <h4 class="font-bold text-global-highTitle">{{ option.name }}</h4>
-        <div class="text-global-time text-xs">
-        <span v-if="updateLast">
-          <span>更新时间:</span>
-          <span class="ml-1">{{ updateLast }}前</span>
-        </span>
-          <div class="inline-block">
-            <TopicFollow :id="option.chartId" v-model:status="followed"/>
+    <template #default="scope">
+      <!-- 全屏 -->
+      <el-container v-if="scope.status" class="h-full">
+        <el-header height="initial" class="p-0">
+          <TopicChartHead :data="option" :full="scope.status"/>
+        </el-header>
+        <el-main class="p-0">
+          <div class="pt-3 h-full">
+            <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>
           </div>
+        </el-main>
+      </el-container>
+      <template v-else>
+        <TopicChartHead :data="option" :full="scope.status"/>
+        <div class="text-kdFang" :style="{ 'height': `${option.height}px` }">
+          <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>
         </div>
-      </div>
-      <div class="flex justify-between items-center mt-1.5 h-9">
-      <span class="flex items-baseline">
-        <span class="text-3xl mr-2  block" v-if="detail.value">
-          <span v-if="detail.value > 0" class="text-global-numGreen">{{ toNumber(detail.value) }}%</span>
-          <span v-else class="text-global-numRed">{{ toNumber(detail.value) }}%</span>
-        </span>
-        <span class="text-sm block" v-if="detail.change">
-          <span v-if="detail.change > 0" class="text-global-numGreen flex items-center">
-            <span>+{{ convertNumber(detail.change, 100) }}%</span>
-            <IconFont class="ml-1" size="8" type="https://res.ikingdata.com/nav/topicUp.svg"/>
-          </span>
-          <span v-else class="text-global-numRed flex items-center">
-            <span>{{ convertNumber(detail.change, 100) }}%</span>
-            <IconFont class="ml-1" size="8" type="https://res.ikingdata.com/nav/topicDown.svg"/>
-          </span>
-        </span>
-      </span>
-        <FullZoom @change="onChangeZoom"/> <!-- 缩放按钮 -->
-      </div>
-      <div :style="{ 'height': `${option.height}px` }" :key="echartKey">
-        <Echarts v-if="chart.legend.length > 0">
-          <!-- 提示框 trigger: 触发方式 -->
-          <EchartsTooltip trigger="axis" />
-          <!--图例-->
-          <template v-for="(item, index) in chart.legend" :key="`legend-${index}`">
-            <!--
-              value: 图例名称
-              type: 图例对应的图形类型(通过 index 与 series 数据匹配)
-              show: 是否显示
-            -->
-            <EchartsLegend :index="index" :value="item.name" :type="item.type"/>
-          </template>
-          <!-- 设置Y轴 -->
-          <!--
-            position: Y轴位置 [left / right]
-            legend: 控制某些图例(series)数据的刻度尺
-          -->
-          <template v-for="(item, index) in chart.yaxis" :key="`yaxis-${index}`">
-            <EchartsYaxis :index="index" :position="item.position" :legend="item.legend"/>
-          </template>
-
-          <!-- 设置X轴 -->
-          <EchartsXaxis :value="chart.xaxis"/>
-
-          <!--数据-->
-          <template v-for="(item, index) in chart.series" :key="index">
-            <!--
-              通过 index 与 legend 对应
-              value: 数据
-            -->
-            <EchartsSeries :index="index" :value="item.data" :stack="item.stack"/>
-          </template>
-        </Echarts>
-      </div>
-    </div>
+      </template>
+    </template>
   </FullScreen>
 </template>
 

@@ -1,58 +1,74 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, watch, ref, defineProps, onMounted } from 'vue'
 import { useProvide } from '~/utils/use/state'
+import { toBoolean, uuid } from '~/utils'
 
-const [ fullStatus ] = useProvide('fullStatus', false)
-
-/*
-const fullStatus = ref<boolean>(false)
-
-function fullScreen(dom: HTMLElement): boolean {
-  // @ts-ignore
-  const rfs = dom.requestFullScreen || dom.webkitRequestFullScreen || dom.mozRequestFullScreen || dom.msRequestFullScreen
-  if (typeof rfs != "undefined" && rfs) {
-    fullStatus.value = true
-    rfs.call(dom)
-    return true
+const props = defineProps({
+  status: {
+    type: Boolean,
+    default () {
+      return false
+    }
   }
-  return false
-}
+})
 
-function exitFullScreen(): boolean {
-  const el = document
-  // @ts-ignore
-  const cfs = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullScreen
-  if (typeof cfs != "undefined" && cfs) {
-    cfs.call(el)
-    setTimeout(() => {
-      fullStatus.value = false
-    }, 500)
-    return true
-  }
-  return false
+const screenId = ref<string>(uuid())
+const opened = ref<boolean>(false)
+
+const [ fullStatus, set ] = useProvide('fullStatus', false)
+
+watch(fullStatus, function() {
+  opened.value = false
+  screenId.value = uuid()
+})
+
+// @ts-ignore
+const status = computed<boolean>(function() {
+  const [ value ] = fullStatus?.value
+  return toBoolean(value)
+})
+
+// @ts-ignore
+const onShow = function() {
+  opened.value = true
 }
 
 // @ts-ignore
-const onFull = function() {
-  const dom: any = echartBox.value
-  const status = fullStatus.value ? exitFullScreen(dom) : fullScreen(dom)
-  console.log(status)
+const onClose = function() {
+  set(false)
+  return true
 }
-*/
 
-const className = computed<string>(function(): string {
-  const [ status ] = fullStatus?.value
-  if (status) {
-    return 'fixed top-0 right-0 bottom-0 left-0 bg-white z-1000'
-  }
-  return ''
+onMounted(function() {
+  set(props.status)
 })
+
 
 </script>
 
 <template>
-  <div :class="className">
-    <slot></slot>
+  <slot :status="false" :id="screenId"></slot>
+  <div v-if="status">
+    <el-dialog top="0" v-model="status" custom-class="screen-dialog" :append-to-body="true" @opened="onShow" @close="onClose">
+      <div class="w-full h-full" v-if="opened">
+        <slot :status="status" :id="screenId"></slot>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
+<style lang="scss">
+  .el-dialog.screen-dialog {
+    margin: 0 !important;
+    width: initial !important;
+    @apply absolute;
+    @apply left-30 top-20 right-30 bottom-20;
+    .el-dialog__header {
+      @apply hidden;
+    }
+    .el-dialog__body {
+      padding: 20px !important;
+      @apply h-full;
+    }
+  }
+</style>

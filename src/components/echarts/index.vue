@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { includes } from 'ramda'
 import * as echarts from 'echarts'
-import { compact, map, numberUint, Unit } from '~/utils/index'
+import * as resize from '~/utils/event/resize'
+import { compact, map, numberUint, uuid } from '~/utils/index'
 import { ref, reactive, computed, toRaw, onMounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { calcYAxisMark } from '~/logic/echarts/series'
@@ -13,6 +14,7 @@ import {
   yAxisKline as makeYAxisOption
 } from '~/lib/chartOption'
 
+const echartId = ref<string>(uuid())
 
 const echartsRef = ref<any>(null)
 const compChar = reactive<any>({
@@ -53,7 +55,7 @@ const getLegend = function() {
 
 const getXAxis = function() {
   const [ option ] = makeXAxisOption()
-  return map(function(item) {
+  return map(function(item: any) {
     return Object.assign({}, option, item)
   }, getValue(xAxis))
 }
@@ -62,7 +64,7 @@ const getYAxis = function() {
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
-  return map(function(item) {
+  return map(function(item: any) {
     return Object.assign({}, option, item, {
       // todo
     })
@@ -133,6 +135,11 @@ const getOption = function() {
 // @ts-ignore
 const echartOption = computed(getOption)
 
+const onResize = function() {
+  console.log(1)
+}
+
+
 onMounted(function() {
   const echart = toRaw(echartsRef).value
   const char = echarts.init(echart);
@@ -143,6 +150,10 @@ onMounted(function() {
   } catch (e) {
     console.log(e)
   }
+  finally {
+    resize.bind(echartId.value, onResize)
+  }
+
 })
 
 

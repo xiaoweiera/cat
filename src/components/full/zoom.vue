@@ -13,6 +13,7 @@ const getStatus = function() {
   return toBoolean(arr[0])
 }
 
+// @ts-ignore
 const onFull = function() {
   const status = !getStatus()
   set(status)
@@ -25,7 +26,9 @@ const onFull = function() {
     <span :class="{'hidden': getStatus()}">
       <IconFont type="icon-zoom" class="text-white"></IconFont>
     </span>
-    <span :class="{ 'hidden': !getStatus() }">缩放</span>
+    <span :class="{ 'hidden': !getStatus() }">
+      <IconFont type="icon-suoxiao" class="text-white"></IconFont>
+    </span>
   </span>
 </template>
 

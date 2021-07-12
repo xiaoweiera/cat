@@ -33,11 +33,8 @@ const onClickfollow = async function() {
 
 <template>
   <div>
-    <div v-if="!status" class="pl-3">
-      <el-button type="primary" round size="small" @click="onClickfollow">
-        <IconFont type="icon-plus" class="text-white"></IconFont>
-        <span class="ml-1">关注</span>
-      </el-button>
+    <div v-if="!status" class="pl-3" @click="onClickfollow">
+      <slot></slot>
     </div>
     <el-dialog v-model="folloed" width="320px !important" :append-to-body="true">
       <template #title>

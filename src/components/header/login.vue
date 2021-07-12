@@ -172,13 +172,13 @@ onMounted(async() => {
 
 <style lang="scss">
 @media screen and (max-width: 768px) {
-  .el-dialog {
+  .dialog-login {
     width: 350px !important;
     margin-top: 7vh;
   }
 }
 @media screen and (min-width: 768px) {
-  .el-dialog {
+  .dialog-login {
     width: 400px !important;
   }
 }
