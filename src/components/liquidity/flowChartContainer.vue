@@ -57,15 +57,40 @@ const getData=async ()=>{
   chartKey.value++
 }
 onMounted(()=>{
-  getData()
+  initLoad()
+  // getData()
 })
+const initLoad=()=>{
+  const dom = document.querySelector('.chartScroll'+props.chartId)
+  const offset=dom.getBoundingClientRect()
+  const offsetTop = offset.top;
+  const offsetBottom = offset.bottom;
+  if(offsetTop<=window.innerHeight && offsetBottom>=0){
+    ok.value=true
+    getData()
+  }
+}
+const ok=ref(false)
+const scrollHandle=()=>{
+  const dom = document.querySelector('.chartScroll'+props.chartId)
+  const offset=dom.getBoundingClientRect()
+  const offsetTop = offset.top;
+  const offsetBottom = offset.bottom;
+  if(offsetTop<=window.innerHeight && offsetBottom>=0){
+    window.removeEventListener('scroll', scrollHandle, true);
+    ok.value=true
+    getData()
+  }
+}
+window.addEventListener('scroll', scrollHandle, true);
 </script>
 <template>
 <!--  {{coinType.value}}-->
 <!--  {{props.chartId}}-->
 <!--  {{tokenType}}-->
   <!--  {{pairStore.id}}-->
-  <div class="flex flex-col py-4 pl-4 flex-1 h-full   mb-5 bg-white font-kdFang ">
+  <div :class="'chartScroll'+props.chartId">{{ok}}</div>
+  <div class=" flex flex-col py-4 pl-4 flex-1 h-full   mb-5 bg-white font-kdFang border-1">
     <!--    图表的信息-->
     <div class="flex items-center">
      <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
