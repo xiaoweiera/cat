@@ -15,18 +15,15 @@ const tokenTypeList=ref([])
 const tokenType=ref('pair')  //pair 选项如： pair| symbol0| symbol1
 //改变symbol
 watch(() => symbolStore.id, (n, o) => {
-  console.log('token地址 change',pairStore.id)
   if(!pairStore.id){
     getData()
   }
 })
 watch(()=>coinType.value,(n)=>{
-  console.log('1111')
   getData()
 })
 //改变pair
 watch(() => pairStore.id, (n, o) => {
-  console.log('pair地址 change1111',pairStore)
   //null是关闭pair的时候，切换历史的时候为空字符串
   if(pairStore.id || pairStore.id===null){
     getData()
@@ -42,7 +39,6 @@ const priceData=reactive({value:{}})
 
 //得到数据
 const getData=async ()=>{
-  console.log('flow重会')
   title.value= pairStore.id?pairStore.name:symbolStore.name
   let chartCoin=''
   if (pairStore.id) {
@@ -61,7 +57,6 @@ const getData=async ()=>{
   chartKey.value++
 }
 onMounted(()=>{
-  console.log('init')
   getData()
 })
 </script>

@@ -7,8 +7,6 @@ const props = defineProps({
 })
 const coinTypeValue=toRef(props.coinType,'value')
 const changeTag = (tag: string) => {
-  console.log(tag,props.coinType)
-  console.log(props.coinType.value)
   coinTypeValue.value=tag
 }
 </script>
