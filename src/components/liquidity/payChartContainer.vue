@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
-import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import { pairStore,symbolStore,paramChart} from '~/store/liquidity/state'
-import {getPayChartModel,getTokenPriceData,getPairPriceData} from '~/logic/liquidity/dataTool'
-import {kData,groupData} from '/mock/liquidity'
+import {getPayChartModel,getTokenPriceData,getPairPriceData,getIsNullChartData} from '~/logic/liquidity/dataTool'
 const props = defineProps({
   config:Object,
   tokenParam:Object,
@@ -16,7 +14,6 @@ const tokenType=ref('symbol0')  //pair 选项如： pair| symbol0| symbol1
 watch(()=>coinType.value,(n)=>{
   getData()
 })
-
 //改变symbol
 watch(() => symbolStore.id, (n, o) => {
   if(!pairStore.id){
@@ -36,7 +33,7 @@ const chartKey=ref(0)
 let chartData=reactive({value:{}})
 const title=ref()
 const priceData=reactive({value:{}})
-
+const isNull=ref(true) //是否有数据
 //得到数据
 const getData=async ()=>{
   console.log('pay重绘')
@@ -55,28 +52,49 @@ const getData=async ()=>{
     priceData.value= await getTokenPriceData({symbol_id: symbolStore.id, from_ts: props.tokenParam.from_ts, to_ts: props.tokenParam.to_ts}, 'token')
     chartData.value=await getPayChartModel(props.tokenParam,props.chartId,tokenType.value,chartCoin)
   }
+  isNull.value=getIsNullChartData(chartData.value)
   chartKey.value++
 }
+//监听价格线
+const initLoad=()=>{
+  window.addEventListener('scroll', scrollHandle, true);
+  const dom = document.querySelector('.chartScroll'+props.chartId)
+  const offset=dom.getBoundingClientRect()
+  const offsetTop = offset.top;
+  const offsetBottom = offset.bottom;
+  if(offsetTop<=window.innerHeight && offsetBottom>=0){
+    window.removeEventListener('scroll', scrollHandle, true);
+    getData()
+  }
+}
+const scrollHandle=()=>{
+  initLoad()
+}
 onMounted(()=>{
-
-  getData()
+  initLoad()
 })
 </script>
 <template>
   <!--  {{pairStore.id}}-->
   <div class="flex flex-col py-4 pr-4 flex-1 h-full mb-5 bg-white font-kdFang ">
-    <!--    图表的信息-->
-    <div class="flex items-center">
-      <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
-        <span>{{title}}</span>
-        <span class="ml-2">{{chartData.value.title}}</span>
+    <div :class="'chartScroll'+props.chartId"></div>
+    <div v-if="isNull">
+      <!--    图表的信息-->
+      <div class="flex items-center">
+        <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
+          <span>{{title}}</span>
+          <span class="ml-2">{{chartData.value.title}}</span>
+        </div>
+        <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)"   class="ml-1.25" :coinType="coinType"/>
       </div>
-      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)"   class="ml-1.25" :coinType="coinType"/>
+      <div class="text-kd13px19px text-global-default mt-2 opacity-45">
+        {{ chartData.value.desc }}
+      </div>
+      <LiquidityChart :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType" />
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45">
-      {{ chartData.value.desc }}
+    <div v-else class="flex items-center justify-center  w-full h-full">
+      <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
     </div>
-    <LiquidityChart :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType" />
   </div>
 </template>
 <style scoped lang="postcss">

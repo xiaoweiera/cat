@@ -22,7 +22,17 @@ export default {
     dd: 'Days',
     hh: 'Hours',
     mm: 'Minutes',
-    ss: 'Seconds'
+    ss: 'Seconds',
+    value: {
+      week: 'no week | {count} weeks',	// 周
+      day: 'no day | {count} days',	// 天
+      month: 'no month | {count} months', // 月份
+      year: 'no year | {count} years',	// 年
+      hour: 'no hour | {count} hours', 	// 小时
+      minute: 'no minute | {count} minutes', 	//分钟
+      second: 'no second | {count} | seconds',	// 秒
+      millisecond: 'no millisecond | {count} milliseconds',// 毫秒
+    }
   },
   button: {
     copy: 'Copy',

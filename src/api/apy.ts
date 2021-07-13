@@ -4,6 +4,8 @@
 import safeGet from '@fengqiaogang/safe-get'
 // import request from '~/lib/request'
 import request from '~/lib/request'
+import getAdsList from './ads'
+
 // table header
 export function getColumns(query: any) {
   return request({
@@ -36,6 +38,7 @@ export function getChartByMoney(query: any) {
 }
 // 获取媒体列表
 export const getMediaList = async function <T>(): Promise<T[]> {
+  /*
   const url = '/api/v2/commercial'
   const params = {
     position: 5,
@@ -48,6 +51,8 @@ export const getMediaList = async function <T>(): Promise<T[]> {
     // todo
   }
   return []
+  */
+  return getAdsList<T>(5)
 }
 
 export const getHecoDetail = async function (): Promise<any> {

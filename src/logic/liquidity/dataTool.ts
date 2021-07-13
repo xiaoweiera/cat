@@ -5,6 +5,14 @@ import {analysisType,pairStore,priceData} from '~/store/liquidity/state'
 interface chartItem {
   data: Object
 }
+interface yaxisModel {
+  color:String
+  data:Number[]
+  group:Number
+  name:String
+  type:String
+  nuit:String
+}
 // 复制方法
 export const copyToken = (tokenAddress: string) => {
   tokenAddress=tokenAddress
@@ -212,4 +220,21 @@ export const getPairPriceData=async (param:any,type:string)=>{
   }else{
     return {}
   }
+}
+//判断数据是否为空
+export const getIsNullChartData=(data:any):boolean=>{
+  if(!data || !data.xaxis || data.xaxis.length===0){
+    return false
+  }
+  let isHas=false
+  data.yaxis.forEach((item:yaxisModel)=>{
+    if(item.data.length>0){
+      item.data.forEach(value=>{
+        if(value===0 || value){
+          isHas=true
+        }
+      })
+    }
+  })
+  return isHas
 }

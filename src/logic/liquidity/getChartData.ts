@@ -141,7 +141,6 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
     max,
   ]
 }
-
 export const yLabelFormat = (v: any) => formatRulesNumber(v,false)
 export const ykLabelFormat = (v: any) => numberUnitFormat(v)
 //getSeries 根据group后端自定义组合y轴

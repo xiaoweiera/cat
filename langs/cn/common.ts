@@ -22,8 +22,19 @@ export default {
     dd: '天',
     hh: '小时',
     mm: '分钟',
-    ss: '秒'
+    ss: '秒',
+    value: {
+      week: '{count}周',	// 周
+      day: '{count}天',	// 星期
+      month: '{count}月份', // 月份
+      year: '{count}年',	// 年
+      hour: '{count}小时', 	// 小时
+      minute: '{count}分钟', 	//分钟
+      second: '{count}秒',	// 秒
+      millisecond: '{count}毫秒',// 毫秒
+    }
   },
+
   button: {
     copy: '复制',
     submit: '提交',

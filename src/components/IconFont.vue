@@ -76,6 +76,10 @@ const src = computed<string>(() => {
   if (isHttp(props.type) || props.type.includes('.')) {
     return props.type
   }
+  // 特殊 icon
+  if (props.type === 'down' && props.suffix === 'png') {
+    return 'https://res.ikingdata.com/nav/down.png'
+  }
   if (props.type === statusRight) {
     return `${oss}/nav/statusRight.png`
   }
@@ -161,11 +165,18 @@ const iconCode = function() {
     @include size(20px);
   }
 }
+.size-8 {
+  @include size(8);
+}
+
 .size-base {
   @include size(16px);
 }
 .size-xs {
   @include size(12px);
+}
+.size-mini {
+  @include size(10px);
 }
 
 .icon-loading {

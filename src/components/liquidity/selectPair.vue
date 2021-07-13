@@ -86,7 +86,6 @@ onMounted(getList)
         <el-tooltip :hide-after="10" :content="'1:'+item.price" placement="bottom" effect="light">
           <div class="w-32.5 ml-5">1:{{formatRulesNumber(item.price) }}</div>
         </el-tooltip>
-
       </li>
     </template>
     <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand ">查看更多</li>
