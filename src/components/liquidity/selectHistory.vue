@@ -10,14 +10,12 @@ const router = useRouter()
 const setHistory = (item: any) => {
   console.log(item)
   if (item.type === 'token') {
-    console.log('111')
     symbolStore.name = item.name
     symbolStore.id = item.token_id
     pairStore.id = ''
     pairStore.name = ''
     changeRouteParam(route, router, {token: item.id})
   } else {
-    console.log('222222')
     symbolStore.name = item.tokenName
     symbolStore.id = item.token_id
     pairStore.name = item.name
@@ -47,7 +45,7 @@ onMounted(getHistory)
     <div class="flex flex-wrap">
       <template v-for="item in selectHistory">
         <div v-if="item.type"  class=" hand flex mt-3 ">
-          <span class="coinName mr-3 border-1" @click="setHistory(item)" :class="getClass(item)" >{{ item.name }}</span>
+          <span class="coinName mr-3 border-1" @click="setHistory(item)" :class="getClass(item)" >{{ item.name}}</span>
         </div>
       </template>
     </div>

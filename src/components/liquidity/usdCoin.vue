@@ -21,7 +21,6 @@ const changeTag = (tag: string) => {
 .usdCoinContainer {
   background: #F6FAFD;
   border-radius: 4px;
-  border: 1px solid rgba(3, 54, 102, 0.06);
   @apply p-0.25  flex  font-kdFang;
 }
 .tag{
