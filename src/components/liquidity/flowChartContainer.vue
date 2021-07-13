@@ -72,6 +72,7 @@ const getData = async () => {
 const initLoad = () => {
   window.addEventListener('scroll', scrollHandle, true);
   const dom = document.querySelector('.chartScroll' + props.chartId)
+  if(!dom) return
   const offset = dom.getBoundingClientRect()
   const offsetTop = offset.top;
   const offsetBottom = offset.bottom;
@@ -98,12 +99,12 @@ onMounted(() => {
     <div class="flex items-center">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{ title }}</span>
-        <span class="ml-2">{{ chartData.value.title }}</span>
+        <span class="ml-2">{{ chartData.value?.title }}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45">
-      {{ chartData.value.desc }}
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-12 ">
+      {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="h-full">
       <div v-if="!isNull">
@@ -120,6 +121,14 @@ onMounted(() => {
   </div>
 </template>
 <style scoped lang="postcss">
+.txtSmall{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .betweenIcon {
   color: rgba(37, 62, 111, 0.1);
   @apply mx-3;

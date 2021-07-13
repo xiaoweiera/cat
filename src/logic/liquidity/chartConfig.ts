@@ -16,6 +16,7 @@ const legend = (legendData: Array<string>) => {
     textStyle: {
       fontSize: 13,
     },
+    align:'auto',
     itemHeight: 11.5,
     itemGap: 13,
     data: legendData,

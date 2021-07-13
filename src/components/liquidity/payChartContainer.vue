@@ -2,7 +2,7 @@
 import {defineProps, onMounted, ref, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
-
+import {titleCofig} from '~/logic/liquidity/dataCofig'
 const props = defineProps({
   config: Object,
   tokenParam: Object,
@@ -70,6 +70,7 @@ const getData = async () => {
 const initLoad = () => {
   window.addEventListener('scroll', scrollHandle, true);
   const dom = document.querySelector('.chartScroll' + props.chartId)
+  if(!dom) return
   const offset = dom.getBoundingClientRect()
   const offsetTop = offset.top;
   const offsetBottom = offset.bottom;
@@ -84,6 +85,21 @@ const scrollHandle = () => {
 onMounted(() => {
   initLoad()
 })
+
+const getTitleDesc=(title:string)=>{
+  if(!title) return
+  if(!pairStore.id) return title
+  if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
+    const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
+    if(titleCofig[props.chartId].replaceStr){
+      return title.replace(titleCofig[props.chartId].replaceStr,' '+symbol0+titleCofig[props.chartId].replaceStr)
+    }else{
+      return title+' '+symbol0
+    }
+  }
+  return title+'-'+props.chartId
+
+}
 </script>
 <template>
   <div class="flex flex-col py-4 pr-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
@@ -92,12 +108,12 @@ onMounted(() => {
     <div class="flex items-center">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{ title }}</span>
-        <span class="ml-2">{{ chartData.value.title }}</span>
+        <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45">
-      {{ chartData.value.desc }}
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-12 ">
+      {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="h-full">
       <div v-if="!isNull">
@@ -113,6 +129,14 @@ onMounted(() => {
   </div>
 </template>
 <style scoped lang="postcss">
+.txtSmall{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .betweenIcon {
   color: rgba(37, 62, 111, 0.1);
   @apply mx-3;
