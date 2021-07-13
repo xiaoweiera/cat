@@ -35,7 +35,6 @@ const getChartData=()=>{
   const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
-  console.log(legend,props.coinType.value)
   const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,props.priceData.value.xaxis,
       props?.chartData.yaxis, props.priceData.value.yaxis[0],
