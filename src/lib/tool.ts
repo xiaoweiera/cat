@@ -215,7 +215,7 @@ export const numberUnitFormat = (value: any) => {
   const sizes = ['', '万', '亿', '万亿']
   const v=new BigNumber(value)
   if ((value < 100000 && value>=0) || (value<0 && value>-2)) {
-    return v.toFixed(2)
+    return parseFloat(v.toFixed(2))
     // return Math.round(value * 100) / 100
   } else{
     const i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
@@ -234,7 +234,7 @@ export const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
     return v.precision(intNumber+4).toFixed(4)
   }else{
     if(zeroIndex===0){
-      return v.precision(intNumber+4).toFixed(2)
+      return parseFloat(v.precision(intNumber+4).toFixed(2))
     }else{
       return parseFloat(v.precision(intNumber+4).toFixed(2+(zeroIndex)))
     }

@@ -4,7 +4,6 @@ import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import {pairStore, paramChart, symbolStore, analysisType, selectHistory} from '~/store/liquidity/state'
 import {getFlowChart, getTokenPriceData} from '~/logic/liquidity/dataTool'
 import {chartDataConfig} from '~/logic/liquidity/dataCofig'
-
 interface yModel {
   color: string
   data: Array<number>
@@ -59,7 +58,7 @@ watch(() => paramChart.interval, (n, o) => {
 <!--  {{paramChart}}-->
 <!--  {{symbolStore}}-->
 <!--  {{pairStore}}-->
-  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer">
+  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer" >
     <template v-for="(item,i) in chartDataConfig">
       <div class="mb-8">
         <LiquidityAnalysisTitle :title="item.title" :desc="item.desc"/>

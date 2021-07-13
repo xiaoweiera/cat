@@ -5,13 +5,24 @@ const grid = (interval:string) => {
   return {
     left: 72,
     right: 70,
-    bottom: 70,
+    bottom: 85,
     top: 5,
     // y2: 0,
     containLabel: false,
   }
 }
-
+const legend = (legendData: Array<string>) => {
+  return {
+    textStyle: {
+      fontSize: 13,
+    },
+    itemHeight: 11.5,
+    itemGap: 13,
+    data: legendData,
+    top: '86%',
+    itemWidth: 14,
+  }
+}
 const tooltips = (getModel: any,xData:any) => {
   return {
     padding: [8, 10, 8, 10],
@@ -93,18 +104,7 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
   ]
 }
 
-const legend = (legendData: Array<string>) => {
-  return {
-    textStyle: {
-      fontSize: 13,
-    },
-    itemHeight: 11.5,
-    itemGap: 40,
-    data: legendData,
-    top: '90%',
-    itemWidth: 14,
-  }
-}
+
 //y轴左侧配置
 export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat: any)=> {
   min=Math.floor(min)

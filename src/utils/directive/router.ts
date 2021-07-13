@@ -7,7 +7,7 @@ import { is } from 'ramda'
 import { href } from '~/utils/lang'
 
 interface Query {
-  [key: string]: string
+  [key: string]: number | string | undefined
 }
 
 interface To {

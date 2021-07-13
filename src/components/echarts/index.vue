@@ -1,0 +1,174 @@
+<script setup lang="ts">
+import { includes } from 'ramda'
+import * as echarts from 'echarts'
+import * as resize from '~/utils/event/resize'
+import { compact, map, numberUint, uuid } from '~/utils/index'
+import { ref, reactive, computed, toRaw, onMounted, onUnmounted } from 'vue'
+import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
+import { calcYAxisMark } from '~/logic/echarts/series'
+import {
+  grid,
+  graphic,
+  tooltips as makeTooltipOption,
+  xAxis as makeXAxisOption,
+  yAxisKline as makeYAxisOption
+} from '~/lib/chartOption'
+
+const echartId = ref<string>(uuid())
+
+const echartsRef = ref<any>(null)
+const compChar = reactive<any>({
+  value: void 0,
+})
+
+const [ series ] = useProvide(EchartsOptionName.series)
+const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
+const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
+const [ legend ] = useProvide(EchartsOptionName.legend)
+const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
+
+
+/**
+ * 获取 ref 对象中的数据，并去除空值
+ * @param data ref
+ */
+const getValue = function(data: any) {
+  const value = toRaw(data.value)
+  return compact(value)
+}
+
+const getToolTip = function() {
+  const array = getValue(tooltip)
+  const option = makeTooltipOption()
+  return Object.assign({}, option, array[0])
+}
+
+const getLegend = function() {
+  const array = getValue(legend)
+  const data = map((item: any) => {
+    if (item.show) {
+      return item.value
+    }
+  }, array)
+  return { data: compact(data), bottom: 0 }
+}
+
+const getXAxis = function() {
+  const [ option ] = makeXAxisOption()
+  return map(function(item: any) {
+    return Object.assign({}, option, item)
+  }, getValue(xAxis))
+}
+
+const getYAxis = function() {
+  const [ option ] = makeYAxisOption(function(value: number) {
+    return numberUint(value)
+  })
+  return map(function(item: any) {
+    return Object.assign({}, option, item, {
+      // todo
+    })
+  }, getValue(yAxis))
+}
+
+const getYindex = function(yaxis: any[]) {
+  return function(value: string): number {
+    let index: number = 0
+    for(let i = 0, len = yaxis.length; i < len; i++) {
+      const item = yaxis[i]
+      if (item.position === 'left') {
+        index = i
+      }
+      const list = compact(toRaw(item.legend))
+      const status = includes(value, list)
+      if (status) {
+        index = i
+        break
+      }
+    }
+    return index
+  }
+}
+
+const getSeries = function() {
+  const result: any[] = getValue(series)
+  const app = getYindex(getYAxis())
+  return map((item: any, index: number) => {
+    const option = Object.assign({
+      name: item.value,
+      type: item.type,
+      connectNulls: true,
+      yAxisIndex: app(item.value),
+      label: {
+        show: false,
+      },
+      symbol: 'none',
+    }, result[index])
+    if (option.stack) {
+      // 开启堆积图
+      option.stack = 'stack'
+    }
+    return option
+  }, getValue(legend))
+}
+
+
+const getOption = function() {
+  const data = {
+    grid: Object.assign({}, grid(), {
+      top: 15,
+      left: 100,
+      right: 100,
+      bottom: 55,
+      containLabel: false,
+    }),
+    graphic: graphic(30),
+    legend: getLegend(),
+    xAxis: getXAxis(),
+    yAxis: getYAxis(),
+    series: getSeries(),
+    tooltip: getToolTip(),
+  }
+  return calcYAxisMark(data)
+}
+
+// @ts-ignore
+const echartOption = computed(getOption)
+
+const onResize = function() {
+  const char: any = compChar.value
+  char.resize()
+}
+
+
+onMounted(function() {
+  const echart = toRaw(echartsRef).value
+  const char = echarts.init(echart);
+  compChar.value = char
+  try {
+    const option = getOption()
+    char.setOption(option)
+  } catch (e) {
+    console.log(e)
+  }
+  finally {
+    resize.bind(echartId.value, onResize)
+  }
+})
+
+onUnmounted(function() {
+  resize.unbind(echartId.value)
+})
+
+
+</script>
+
+<template>
+  <div class="w-full h-full">
+    <div class="hidden">
+      <slot></slot>
+    </div>
+    <div class="relative w-full h-full" ref="echartsRef">
+    </div>
+  </div>
+</template>

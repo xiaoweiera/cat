@@ -30,11 +30,11 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis
 
   window.addEventListener('resize', myChart.resize)
 }
+
 const getChartData=()=>{
   const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
-  console.log(legend,props.coinType.value)
   const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,props.priceData.value.xaxis,
       props?.chartData.yaxis, props.priceData.value.yaxis[0],
@@ -51,6 +51,23 @@ onMounted(() => {
     myChart.dispose();
   }
   myChart = echarts.init(myChartDom, 'light')
+
+  // myChart.on('legendselectchanged', function(params) {
+  //   console.log('kkkkk')
+  //   const option = this.getOption();
+  //   const select_key = Object.keys(params.selected);
+  //   const select_value = Object.values(params.selected);
+  //   let n = 0;
+  //   select_value.map(res => {
+  //     if(!res){
+  //       n++;
+  //     }
+  //   });
+  //   // this.setOption(option)
+  //   console.log('n',n,select_value,option)
+  //   console.log(option.legend)
+  //   console.log(params.name)
+  // })
   getChartData()
 })
 </script>
