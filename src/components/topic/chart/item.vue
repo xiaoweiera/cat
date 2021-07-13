@@ -5,6 +5,7 @@ import { reactive, toRaw, defineProps, onMounted, computed } from 'vue'
 import { getChartTrends } from '~/logic/topic/chart'
 import { convertDate } from '~/logic/echarts/series'
 import safeGet from '@fengqiaogang/safe-get'
+import { getItemData } from '~/logic/topic/item'
 
 interface ChartDetail {
   default_chart?: string // 图形类型
@@ -33,13 +34,14 @@ const props = defineProps({
     是否关注: followed
     图表ID: chartId
     数据ID集合: seriesIds
+    multiple: 单图或多图
   */
   option: {
     type: Object,
     required: true,
   }
 })
-
+/*
 const getData = async function() {
   const option = props.option
   const legend = toRaw(option.legends)
@@ -110,20 +112,7 @@ const getData = async function() {
     }, chart.legend)
   }
 }
-
-// 最后更新时间
-// @ts-ignore
-const updateLast = computed<number | undefined>(function() {
-  const xaxis = toRaw(chart.xaxis)
-  if (xaxis.length > 0) {
-    const list = map((item: any) => item.date, xaxis)
-    const value = max(list)
-    if (value) {
-      return dateDiff(value)
-    }
-  }
-  return ''
-})
+ */
 
 
 // @ts-ignore
@@ -133,7 +122,13 @@ const convertNumber = function(value: number | string, zoom: 1) {
   return toNumber(data as any)
 }
 
-onMounted(getData)
+const init = async function() {
+  const option = props.option
+  await getItemData(option)
+  // console.log(option)
+}
+
+onMounted(init)
 
 </script>
 
@@ -147,14 +142,14 @@ onMounted(getData)
         </el-header>
         <el-main class="p-0">
           <div class="pt-3 h-full">
-            <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>
+<!--            <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>-->
           </div>
         </el-main>
       </el-container>
       <template v-else>
         <TopicChartHead :data="option" :full="scope.status"/>
         <div class="text-kdFang" :style="{ 'height': `${option.height}px` }">
-          <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>
+<!--          <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>-->
         </div>
       </template>
     </template>

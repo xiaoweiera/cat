@@ -3,10 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-import { pick, last, toLower } from 'ramda'
+import { pick, toLower } from 'ramda'
 import * as api from '~/api/topic'
 import safeGet from '@fengqiaogang/safe-get'
-import { forEach ,map, compact, toNumber, toBoolean } from '~/utils/index'
+import { forEach ,map, compact, toBoolean } from '~/utils/index'
 import DBList from '@fengqiaogang/dblist'
 
 enum Position {
@@ -33,7 +33,7 @@ interface APIChart {
   chart: APIChartDetail
 }
 
-const getLegends = function(list: APIChart[], rightYAxis: number): LegendItem[] {
+const getLegends = function(list: APIChart[]): LegendItem[] {
   const legends: LegendItem[] = []
   for(let i = 0, len = list.length; i < len; i++) {
     const data: APIChart =  list[i]
@@ -46,16 +46,16 @@ const getLegends = function(list: APIChart[], rightYAxis: number): LegendItem[] 
       type: safeGet<string>(data, 'chart.default_chart'),
     })
   }
-  if (list.length === 1 || rightYAxis) {
-    // 价格线（约定为右Y轴）
-    legends.push({
-      id: rightYAxis || safeGet<number>(list, '[0].chart.id'), // 默认取第一条数据
-      name: safeGet<string>(list, '[0].chart.relation_title'), // 默认取第一条数据
-      unit: safeGet<string>(list, '[0].chart.relation_unit'),
-      type: safeGet<string>(list, '[0].chart.default_chart'),
-      position: Position.right
-    })
-  }
+  // if (list.length === 1 || rightYAxis) {
+  //   // 价格线（约定为右Y轴）
+  //   legends.push({
+  //     id: rightYAxis || safeGet<number>(list, '[0].chart.id'), // 默认取第一条数据
+  //     name: safeGet<string>(list, '[0].chart.relation_title'), // 默认取第一条数据
+  //     unit: safeGet<string>(list, '[0].chart.relation_unit'),
+  //     type: safeGet<string>(list, '[0].chart.default_chart'),
+  //     position: Position.right
+  //   })
+  // }
   return compact(legends)
 }
 
@@ -64,30 +64,18 @@ export const getChartList = async function(topId: string | number, page?: number
   const list = map(function(data: any) {
     // 判断是单图还是多图
     const multiple = toBoolean(safeGet<boolean>(data, 'is_multy_chart'))
-    const stack = toBoolean(safeGet<boolean>(data, 'stacked'))
-
-    // 价格线（右侧刻度尺）
-    const rightYAxis = safeGet<number>(data, 'kline_chart')
-
-    const width = toNumber(safeGet<number>(data, 'width'))
-    const height = toNumber(safeGet<number>(data, 'height'))
+    // const stack = toBoolean(safeGet<boolean>(data, 'stacked'))
 
     const apiCharts: APIChart[] = safeGet<APIChart[]>(data, 'chart')
-    const legends = getLegends(apiCharts, rightYAxis)
+    const legends = getLegends(apiCharts)
 
     // 获取该图表的数据（根据 id 获取数据详情）
     return {
-      stack,
       multiple,
-      rightYAxis: last(legends)?.id, // 价格线 id
-      width: width > 50 ? width : 50, // 最小 50%
-      height: height > 200 ? height : 200, // 最小 200
       name: safeGet<string>(data, 'name') || '', // 图表名称
-      desc: safeGet<string>(data, 'desc') || '', // 图表描述
-      followed: toBoolean(safeGet<boolean>(data, 'followed')), // 是否关注
       chartId: safeGet<string>(data, 'id'), // 图表ID
-      legends, // 图例集合
       seriesIds: map((item: LegendItem) => item.id, legends), // 数据ID集合
+      legends, // 图例集合
     }
   }, safeGet<any[]>(result, 'list'))
   return {
@@ -104,19 +92,19 @@ const chartDetail = function(data: any) {
   ]
   return pick(keys, data)
 }
+*/
 
 // 获取图表详情
-export const getChartDetail = async function(multiple: boolean, chartId: string | number, ids: string[] | number[]) {
+export const getChartDetail = function(multiple: boolean, chartId: string | number, ids: string[] | number[]) {
   if (multiple) {
     // 多图详情
-    const data = await api.getChartMultipleDetail(chartId)
-    return chartDetail(data)
+    return api.getChartMultipleDetail(chartId)
   }
   // 单图详情
-  const result = await api.getChartDetail(ids[0])
-  return chartDetail(result)
+  const [ value ] = ids
+  return api.getChartDetail(value)
 }
-*/
+
 
 const getDetail = function(result: any) {
   const ext = safeGet<any>(result, 'ext[0]')

@@ -3,11 +3,12 @@
  * @author svon.me@gmail.com
  */
 
-import { flatten } from 'ramda'
+import { flatten, pick } from 'ramda'
 import DBList from '@fengqiaogang/dblist'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
 import {
+  sort,
   map,
   forEach,
   dateTime,
@@ -22,6 +23,7 @@ import {
   dateAdd,
   convertInterval
 } from '~/utils/index'
+import { toRaw } from 'vue'
 
 interface XAxis {
   value: string | number,
@@ -132,42 +134,6 @@ export const convertDate = function(trends: {[key: string]: Trend}, details?: { 
 
   return { right, series, xAxis }
 
-
-
-  /*
-  const series: Series = {}
-  const right: number[] = []
-  const db = new DBList([], 'date')
-
-  forEach(function(list: number[][], key: string) {
-    forEach(function(item: number[], index: number) {
-      const date = dateTime(item[0])
-      const temp = db.selectOne({ date })
-      if (!temp) {
-        db.insert({
-          date,
-          value: dateMDFormat(date)
-        })
-      }
-      const value = safeGet<number>(item, '1')
-      safeSet(series, `${key}[${index}]`, toData(value))
-      // 添加右侧刻度数据
-      if (rightYAxis && equal(`${key}`, `${rightYAxis}`)) {
-        right.push(toData(safeGet<number>(item, '2')))
-      }
-    }, list)
-  }, trends)
-
-  const xAxis = db.clone<XAxis>()
-
-  return {
-    right: right.length > 0 ? right : null,
-    series,
-    xAxis: sort(function(item1: XAxis, item2: XAxis) {
-      return item2.date - item1.date
-    }, xAxis)
-  }
-  */
 }
 
 interface EchartOption {
@@ -307,4 +273,86 @@ export const calcYAxisMark = function(option: EchartOption): EchartOption {
   }
   option.yAxis = db.clone()
   return option
+}
+
+
+// -------------
+/**
+ * @file 处理图例数据
+ */
+export const calcLegends = function<T>(legends: T[], detail: {[key: string]: object}): T[] {
+  const primaryKey = 'id'
+  const nameKey = 'name'
+  const db = new DBList([], primaryKey)
+  // @ts-ignore
+  forEach((item: T) => db.insert(toRaw(item)), legends)
+
+  forEach(function(item: T){
+    const where = pick([primaryKey], item)
+    const temp = db.selectOne<T>(where)
+    if (!safeGet<string>(temp, nameKey)) {
+      db.update(where, {
+        name: safeGet<string>(item, nameKey)
+      })
+    }
+  }, detail)
+  return db.clone<T>()
+}
+
+export const getInterval = function(detail: {[key: string]: object}): string {
+  const keys = Object.keys(detail)
+  let value = ''
+  for(const key of keys) {
+    const item = safeGet<object>(detail, key)
+    const interval = safeGet<string>(item, 'interval')
+    if (interval) {
+      value = interval
+      break
+    }
+  }
+  return value
+}
+
+
+// 转换时间格式数据
+export const calcDates = function(trends: {[key: string]: Trend}, interval?: string) {
+  const db = new DBList([], 'key')
+  // 整合数据
+  forEach(function(list: number[][], id: string) {
+    forEach(function(item: number[]) {
+      const time = dateTime(item[0])
+      const where: any = { key: makeDateKey(time, interval) }
+      const data: any = { time, value: dateMDFormat(time) }
+      if (db.selectOne(where)) {
+        db.update(where, data)
+      } else {
+        db.insert(Object.assign({}, where, data))
+      }
+    }, list)
+  }, trends)
+
+  const times = db.clone<number>((item: any) => {
+    return item.time
+  })
+  // 最大时间 (结束时间)
+  const maxTime = dateAdd(max(times), interval)
+  // 最小时间 (开始时间)
+  let intervalTime = min(times)
+
+  do {
+    const key = makeDateKey(intervalTime, interval)
+    const where: any = { key }
+    // 判断数据是否存在
+    const item = db.selectOne<any>(where)
+    if (!item) {
+      db.insert({
+        key,
+        time: intervalTime,
+        value: dateMDFormat(intervalTime),
+      })
+    }
+    intervalTime = dateAdd(intervalTime, interval)
+  } while (intervalTime < maxTime)
+
+  return sort(db.clone(), 'time')
 }

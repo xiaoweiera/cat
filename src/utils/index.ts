@@ -14,14 +14,26 @@ import {
   isEmpty as _isEmpty,
   reduce,
   maxBy,
-  minBy
+  minBy,
+  sort as _sort
 } from 'ramda'
 
 //@ts-ignore
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from 'uuid'
 import dayjs from 'dayjs'
+import safeGet from '@fengqiaogang/safe-get'
 
 export { isNil } from 'ramda'
+
+export const sort = function(list: any[], diff?: string) {
+  const app = function(value1: any, value2: any) {
+    if (diff) {
+      return safeGet<number>(value1, diff) - safeGet<number>(value2, diff)
+    }
+    return value1 - value2
+  }
+  return _sort(app, list)
+}
 
 type Callback = (...args: any[]) => void
 
