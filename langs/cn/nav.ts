@@ -12,7 +12,7 @@ export default {
             href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
         },
         liquidity: {
-            name:'流动性分析',
+            name:'DEX 数据分析',
             desc:'流动性资金来龙去脉一目了然',
             href:''
         },

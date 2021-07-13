@@ -12,7 +12,7 @@ export default {
             href:'https://kingdata.com/apy?utm_source=https://kingdata.com'
         },
         liquidity: {
-            name:'TVL Analysis',
+            name:'DEX Data Analysis',
             desc:'Easy to know ins and outs of liquid funds',
             href:''
         },
