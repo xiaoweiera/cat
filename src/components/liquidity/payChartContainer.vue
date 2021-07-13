@@ -38,7 +38,6 @@ const isNull = ref(false) //是否有数据
 const chartLoad = ref(true)
 //得到数据
 const getData = async () => {
-  console.log('pay重绘')
   chartLoad.value = true
   title.value = pairStore.id ? pairStore.name : symbolStore.name
   let chartCoin = ''

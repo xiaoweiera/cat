@@ -60,10 +60,10 @@ export const chartDataConfig=[
 
     },
     {
-        title:'参与人数分析',
+        title:'频率数据分析',
         desc:'展示选定币种/交易对在单位时间内的流动性净流入，计算方法为单位时间内的流。',
         flow:{
-            id:2,
+            id:4,
             tokenCofig:{
                 usdCoin:false,
             },
@@ -72,7 +72,7 @@ export const chartDataConfig=[
             }
         },
         pay:{
-            id:7,
+            id:9,
             tokenCofig:{
                 usdCoin:false,
             },
@@ -104,10 +104,10 @@ export const chartDataConfig=[
         }
     },
     {
-        title:'频率数据分析',
+        title:'参与人数分析',
         desc:'展示选定币种/交易对在单位时间内的流动性净流入，计算方法为单位时间内的流。',
         flow:{
-            id:4,
+            id:2,
             tokenCofig:{
                 usdCoin:false,
             },
@@ -116,7 +116,7 @@ export const chartDataConfig=[
             }
         },
         pay:{
-            id:9,
+            id:7,
             tokenCofig:{
                 usdCoin:false,
             },
