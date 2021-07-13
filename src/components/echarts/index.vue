@@ -2,10 +2,12 @@
 import { includes } from 'ramda'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
-import { compact, map, numberUint, uuid } from '~/utils/index'
-import { ref, reactive, computed, toRaw, onMounted, onUnmounted } from 'vue'
+import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
+import { ref, reactive, computed, toRaw, defineProps, onMounted, onUnmounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
-import { calcYAxisMark } from '~/logic/echarts/series'
+import { Position } from '~/logic/topic/item'
+import { calcYAxis } from '~/logic/echarts/series'
+
 import {
   grid,
   graphic,
@@ -13,6 +15,16 @@ import {
   xAxis as makeXAxisOption,
   yAxisKline as makeYAxisOption
 } from '~/lib/chartOption'
+import safeGet from '@fengqiaogang/safe-get'
+
+const props = defineProps({
+  stack: {
+    type: Boolean,
+    default () {
+      return false
+    }
+  },
+})
 
 const echartId = ref<string>(uuid())
 
@@ -40,16 +52,21 @@ const getValue = function(data: any) {
 const getToolTip = function() {
   const array = getValue(tooltip)
   const option = makeTooltipOption()
-  return Object.assign({}, option, array[0])
+  return Object.assign({}, option, array[0], {
+    formatter: function(params) {
+      console.log(params)
+    }
+  })
 }
 
 const getLegend = function() {
-  const array = getValue(legend)
   const data = map((item: any) => {
     if (item.show) {
-      return item.value
+      return {
+        name: item.value
+      }
     }
-  }, array)
+  }, getValue(legend))
   return { data: compact(data), bottom: 0 }
 }
 
@@ -60,56 +77,74 @@ const getXAxis = function() {
   }, getValue(xAxis))
 }
 
+// 计算 Y 轴刻度数据
 const getYAxis = function() {
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
-  return map(function(item: any) {
-    return Object.assign({}, option, item, {
-      // todo
-    })
-  }, getValue(yAxis))
+
+  const legends = getValue(legend)
+  const seriesList = getValue(series)
+  const yAxis = []
+
+  const leftData: any[] = []
+  const rightData: any[] = []
+  forEach(function(item: any, index: number) {
+    const value = safeGet<any[]>(seriesList, `[${index}].data`)
+    if (item.position === Position.right) {
+      rightData.push(value)
+    } else {
+      leftData.push(value)
+    }
+  }, legends)
+
+  if (leftData.length > 0) {
+    const value = calcYAxis(leftData, props.stack)
+    yAxis.push(Object.assign({}, option, value, {
+      position: Position.left
+    }))
+  }
+  if (rightData.length > 0) {
+    const value = calcYAxis(rightData, props.stack)
+    yAxis.push(Object.assign({}, option, value, {
+      position: Position.right
+    }))
+  }
+  return yAxis
 }
 
-const getYindex = function(yaxis: any[]) {
-  return function(value: string): number {
-    let index: number = 0
-    for(let i = 0, len = yaxis.length; i < len; i++) {
-      const item = yaxis[i]
-      if (item.position === 'left') {
-        index = i
-      }
-      const list = compact(toRaw(item.legend))
-      const status = includes(value, list)
-      if (status) {
-        index = i
-        break
-      }
+const getYindex = function() {
+  const list = getValue(legend)
+  return function(i: number): number {
+    const item = list[i]
+    let index = 0
+    if (item.position === Position.right) {
+      index = 1
     }
-    return index
+    return Object.assign({ index }, item)
   }
 }
 
 const getSeries = function() {
-  const result: any[] = getValue(series)
   const app = getYindex(getYAxis())
   return map((item: any, index: number) => {
+    const data = app(index)
     const option = Object.assign({
-      name: item.value,
-      type: item.type,
+      name: data.value,
+      type: data.type,
       connectNulls: true,
-      yAxisIndex: app(item.value),
+      yAxisIndex: data.index,
       label: {
         show: false,
       },
       symbol: 'none',
-    }, result[index])
-    if (option.stack) {
+    }, item)
+    if (props.stack && data.position === Position.left) {
       // 开启堆积图
       option.stack = 'stack'
     }
     return option
-  }, getValue(legend))
+  }, getValue(series))
 }
 
 
@@ -117,19 +152,20 @@ const getOption = function() {
   const data = {
     grid: Object.assign({}, grid(), {
       top: 15,
-      left: 100,
-      right: 100,
+      left: 0,
+      right: 0,
       bottom: 55,
-      containLabel: false,
+      containLabel: true,
     }),
     graphic: graphic(30),
+    tooltip: getToolTip(),
     legend: getLegend(),
     xAxis: getXAxis(),
     yAxis: getYAxis(),
     series: getSeries(),
-    tooltip: getToolTip(),
   }
-  return calcYAxisMark(data)
+
+  return data
 }
 
 // @ts-ignore

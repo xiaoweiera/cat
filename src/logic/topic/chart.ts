@@ -115,8 +115,10 @@ const getDetail = function(result: any) {
   ]
   const id = safeGet<string>(result, 'id')
   const interval = safeGet<string>(result, 'interval')
+  const type = safeGet<string>(result, 'default_chart')
   return Object.assign({
     id,
+    type,
     interval: toLower(interval || ''),
   }, pick(keys, ext || {}))
 }

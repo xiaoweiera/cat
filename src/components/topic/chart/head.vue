@@ -3,13 +3,22 @@
  * @file 图表表头信息
  * @author svon.me@gmail.com
  */
-import { toBoolean } from '~/utils'
-import { defineProps, onMounted, ref } from 'vue'
+import { toBoolean, dateDiff, dateTime } from '~/utils'
+import { defineProps, onMounted, ref, computed } from 'vue'
+import safeGet from '@fengqiaogang/safe-get'
+import * as time from '~/utils/time/index'
+import { dateDiffDay, dateDiffMinute } from '~/utils/time/index'
 
 const props = defineProps({
   data: {
     type: Object,
     required: true,
+  },
+  xzxis: {
+    type: Array,
+    default() {
+      return []
+    }
   },
   full: {
     type: Boolean,
@@ -20,6 +29,34 @@ const props = defineProps({
 })
 
 const followed = ref<boolean>(false)
+
+const timeEnd = computed(function() {
+  const data = props.data
+  const last = safeGet<number>(data, 'last')
+  if (last) {
+    const value = dateTime(last)
+    const day = time.dateDiffDay(value)
+    if (day > 0) {
+      return `${day}天前`
+    }
+    const hour = time.dateDiffHour(value)
+    if (hour > 0) {
+      return `${hour}小时前`
+    }
+    const minute = time.dateDiffMinute(value)
+    if (minute > 0) {
+      return `${minute}分钟前`
+    }
+    return '1分钟'
+  } else {
+    if (props.xzxis?.length > 0) {
+      const [data] = props.xzxis.slice(-1)
+      const { time } = data
+      return `${dateDiff(time)}前`
+    }
+  }
+  return ''
+})
 
 onMounted(function() {
   followed.value = toBoolean(props.data.followed)
@@ -66,12 +103,15 @@ onMounted(function() {
           </div>
         </div>
         <div v-else class="inline-block">
-          <TopicFollow :id="data.chartId" v-model:status="followed">
-            <span class="bg-global-primary follow-btn small">
-              <IconFont type="icon-plus" class="text-white"></IconFont>
-              <span class="ml-1">关注</span>
-            </span>
-          </TopicFollow>
+          <div class="flex items-center">
+            <span>{{ timeEnd }}</span>
+            <TopicFollow class="ml-3" :id="data.chartId" v-model:status="followed">
+              <span class="bg-global-primary follow-btn small">
+                <IconFont type="icon-plus" class="text-white"></IconFont>
+                <span class="ml-1">关注</span>
+              </span>
+            </TopicFollow>
+          </div>
         </div>
       </div>
     </div>

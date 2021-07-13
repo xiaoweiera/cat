@@ -12,10 +12,7 @@ import {
   is,
   trim,
   isEmpty as _isEmpty,
-  reduce,
-  maxBy,
-  minBy,
-  sort as _sort
+  sort as _sort,
 } from 'ramda'
 
 //@ts-ignore
@@ -25,10 +22,22 @@ import safeGet from '@fengqiaogang/safe-get'
 
 export { isNil } from 'ramda'
 
-export const sort = function(list: any[], diff?: string) {
+/**
+ * 排序
+ * @param list 排序的列表数据
+ * @param diff 如果数据是集合, 以集合中某一个健值做排序
+ * @param reverse 是否倒序, 默认正序
+ */
+export const sort = function(list: any[], diff?: string, reverse?: boolean) {
   const app = function(value1: any, value2: any) {
     if (diff) {
+      if (reverse) {
+        return safeGet<number>(value2, diff) - safeGet<number>(value1, diff)
+      }
       return safeGet<number>(value1, diff) - safeGet<number>(value2, diff)
+    }
+    if (reverse) {
+      return value2 - value1
     }
     return value1 - value2
   }
@@ -74,6 +83,9 @@ export const toFixed = function (value: string | number = '', fixed = 2): number
   return temp
 }
 
+export const toArray = function(value: any): any[] {
+  return [].concat(value)
+}
 
 export const toNumber = function (value: string | number = 0, fixed = 2): number {
   const number = parseFloat(value as any)
@@ -240,47 +252,48 @@ export const map = function(callback: any, data: any): any {
 
 
 // 过滤数组中的空数据
-export const compact = function<T>(list: T[]): T[] {
+export const compact = function<T>(list: T[], iteration?: (value: T) => boolean): T[] {
   if (list) {
-    const app = filter((value: T) => !isEmpty(value))
+    const app = filter((value: T) => {
+      if (iteration) {
+        return iteration(value)
+      } else {
+        return !isEmpty(value)
+      }
+    })
     return app(list)
   }
   return []
 }
 
-export const arrayRealFirst = function<T>(list: T[]): T | undefined{
-  for(let i = 0, len = list.length; i < len; i++) {
-    const value = list[i]
-    if (isNumber(value)) {
-      return value
+export const max = function(...args: any[]): number {
+  const list = compact(flatten(args), isNumber)
+  if (list.length > 0) {
+    let value: number = list[0]
+    for(const item of list) {
+      if (item > value) {
+        value = item
+      }
     }
+    return value
   }
+  // @ts-ignore
+  return void 0
 }
 
-export const max = function(...args: any[]): number {
-  // @ts-ignore
-  const list: number[] = flatten([].concat(args))
-  const length = list.length
-  if (length) {
-    const num1: any = arrayRealFirst<number>(list)
-    if (isNumber(num1)) {
-      return reduce(maxBy((v: number) => v), num1, list);
-    }
-  }
-  return 0
-}
 export const min = function(...args: any[]): number {
-  // @ts-ignore
-  const list: number[] = flatten([].concat(args))
-  const length = list.length
-  if (length) {
-    const num1: any = arrayRealFirst<number>(list)
-    if (isNumber(num1)) {
-      const data = reduce(minBy((v: number) => v), num1, list);
-      return data
+  const list = compact(flatten(args), isNumber)
+  if (list.length > 0) {
+    let value: number = list[0]
+    for(const item of list) {
+      if (item < value) {
+        value = item
+      }
     }
+    return value
   }
-  return 0
+  // @ts-ignore
+  return void 0
 }
 
 // 首字母大写
@@ -332,16 +345,16 @@ export const dateFormat = function(time?: any, format: string = timeFormat): str
 }
 // 格式化（月/日）
 export const dateMDFormat = function(time?: any): string {
-  return dateFormat(time, 'MM-DD')
+  return dateFormat(time, 'MM/DD')
 }
 export const dateYMDFormat = function(time?: any): string {
-  return dateFormat(time, 'YYYY-MM-DD')
+  return dateFormat(time, 'YYYY/MM/DD')
 }
 export const dateYMDHFormat = function(time?: any): string {
-  return dateFormat(time, 'YYYY-MM-DD HH')
+  return dateFormat(time, 'YYYY/MM/DD HH')
 }
 export const dateYMDHmFormat = function(time?: any): string {
-  return dateFormat(time, 'YYYY-MM-DD HH:mm')
+  return dateFormat(time, 'YYYY/MM/DD HH:mm')
 }
 
 // 分解时间间隔
@@ -355,10 +368,11 @@ export const convertInterval = function(interval = '1d') {
 export const dateDiff = function(time: any, diff: DateType = DateType.day): string {
   const cur = dayjs().format(timeFormat)
   const count = Math.abs(toDate(time).diff(cur, diff))
-  if (I18n.common.time.value[diff]) {
+
+  if (count > 0 && I18n.common.time.value[diff]) {
     return I18n.part(I18n.common.time.value[diff], count, { count })
   }
-  return `${count}`
+  return '1分钟'
 }
 
 export const dateAdd = function(time: any, interval?: string) {
