@@ -3,21 +3,13 @@
  * @file 图表表头信息
  * @author svon.me@gmail.com
  */
-import { toBoolean, dateDiff, dateTime } from '~/utils'
-import { defineProps, onMounted, ref, computed } from 'vue'
-import safeGet from '@fengqiaogang/safe-get'
-import * as time from '~/utils/time/index'
+import { toBoolean } from '~/utils'
+import { defineProps, onMounted, ref } from 'vue'
 
 const props = defineProps({
   data: {
     type: Object,
     required: true,
-  },
-  xzxis: {
-    type: Array,
-    default() {
-      return []
-    }
   },
   full: {
     type: Boolean,
@@ -28,35 +20,6 @@ const props = defineProps({
 })
 
 const followed = ref<boolean>(false)
-
-// @ts-ignore
-const timeEnd = computed(function() {
-  const data = props.data
-  const last = safeGet<number>(data, 'last')
-  if (last) {
-    const value = dateTime(last)
-    const day = time.dateDiffDay(value)
-    if (day > 0) {
-      return `${day}天前`
-    }
-    const hour = time.dateDiffHour(value)
-    if (hour > 0) {
-      return `${hour}小时前`
-    }
-    const minute = time.dateDiffMinute(value)
-    if (minute > 0) {
-      return `${minute}分钟前`
-    }
-    return '1分钟'
-  } else {
-    if (props.xzxis?.length > 0) {
-      const [ data ]: any[] = props.xzxis.slice(-1)
-      const { time } = data
-      return `${dateDiff(time)}前`
-    }
-  }
-  return ''
-})
 
 onMounted(function() {
   followed.value = toBoolean(props.data.followed)
@@ -78,11 +41,6 @@ onMounted(function() {
         </div>
       </div>
       <div class="text-global-time text-xs whitespace-nowrap">
-        <!-- 更新时间 -->
-        <span v-if="updateLast">
-          <span>更新时间:</span>
-          <span class="ml-1">2天前</span>
-        </span>
         <div v-if="full" class="inline-block">
           <div class="flex flex-wrap flex-col-reverse md:flex-row">
             <div class="inline-flex items-center justify-end">
@@ -100,10 +58,10 @@ onMounted(function() {
               <!-- 关注按钮 -->
               <div class="inline-block">
                 <TopicFollow :id="data.chartId" v-model:status="followed">
-                <span class="bg-global-primary follow-btn">
-                  <IconFont type="icon-plus" class="text-white"></IconFont>
-                  <span class="ml-1">关注</span>
-                </span>
+                  <span class="bg-global-primary follow-btn">
+                    <IconFont type="icon-plus" class="text-white"></IconFont>
+                    <span class="ml-1">关注</span>
+                  </span>
                 </TopicFollow>
               </div>
 
@@ -116,7 +74,9 @@ onMounted(function() {
         </div>
         <div v-else class="block">
           <div class="flex items-center">
-            <span>{{ timeEnd }}</span>
+            <div class="inline-block">
+              <slot name="timeEnd"></slot>
+            </div>
             <TopicFollow class="ml-3" :id="data.chartId" v-model:status="followed">
               <span class="bg-global-primary follow-btn small">
                 <IconFont type="icon-plus" class="text-white"></IconFont>

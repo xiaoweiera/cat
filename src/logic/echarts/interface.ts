@@ -16,10 +16,13 @@ export enum Unit {
   e = '人'
 }
 
-export interface SeriesItem extends XAxisItem {
+interface AnyValue {
+  [key: string]: any
+}
+
+export interface SeriesItem extends XAxisItem, AnyValue {
   klValue?: number | string
   unit?: Unit
-  [key: string]: any
 }
 
 export interface SeriesMap {
@@ -29,4 +32,11 @@ export interface SeriesMap {
 export enum seriesType {
   bar = 'bar',
   line = 'line'
+}
+
+export interface LegendItem extends AnyValue{
+  position: string
+  show?: boolean
+  type: seriesType
+  value: string
 }

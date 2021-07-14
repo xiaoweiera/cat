@@ -32,9 +32,10 @@ export const formatter = function(query: any) {
     const html: string[] = []
     html.push(`<span class="block text-gray-500">${title}</span>`)
     forEach(function(data: Params) {
-      const value = `${data.seriesName} ${valueFormatter(data.data)}`
+      const name = `<span class="ml-1.5 text-xs text-gray-500">${data.seriesName}</span>`
+      const value = `<span class="ml-1.5 text-xs text-gray-500">${valueFormatter(data.data)}</span>`
       const icon = makeSvg(data.seriesType, data.color)
-      const code = `<span class="flex items-center text-base mt-1">${icon}<span class="ml-1.5 text-xs text-gray-500">${value}</span></span>`
+      const code = `<span class="flex items-center mt-1">${icon}${name}${value}</span>`
       html.push(code)
     }, sort(list, 'value', true))
     return `<div class="text-xs text-kdFang">${html.join('')}</div>`

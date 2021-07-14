@@ -79,12 +79,12 @@ onMounted(init)
 </script>
 
 <template>
-  <FullScreen :status="false">
+  <FullScreen>
     <template #default="scope">
       <!-- 全屏 -->
       <el-container v-if="scope.status" class="h-full">
         <el-header height="initial" class="p-0" >
-          <TopicChartHead :data="echartDetail" :xzxis="result.xAxis" :full="scope.status"/>
+          <TopicChartHead :data="echartDetail" :full="scope.status"/>
         </el-header>
         <el-main class="p-0">
           <div class="pt-3 h-full">
@@ -93,9 +93,21 @@ onMounted(init)
             </template>
           </div>
         </el-main>
+        <el-footer height="initial" class="p-0">
+          <TopicChartFooter :data="echartDetail">
+            <template #timeEnd>
+              <TopicTimeend :data="echartDetail" :xzxis="result.xAxis"></TopicTimeend>
+            </template>
+          </TopicChartFooter>
+        </el-footer>
       </el-container>
+
       <template v-else>
-        <TopicChartHead :data="echartDetail" :xzxis="result.xAxis" :full="scope.status"/>
+        <TopicChartHead :data="echartDetail" :full="scope.status">
+          <template #timeEnd>
+            <TopicTimeend :data="echartDetail" :xzxis="result.xAxis"></TopicTimeend>
+          </template>
+        </TopicChartHead>
         <div class="text-kdFang" :style="{ 'height': `${echartHeight}px` }">
           <template v-if="result.xAxis.length > 0">
             <TopicChartView :data="result"/>

@@ -17,6 +17,7 @@ import {
   yAxisKline as makeYAxisOption
 } from '~/lib/chartOption'
 import safeGet from '@fengqiaogang/safe-get'
+import safeSet from '@fengqiaogang/safe-set'
 
 const props = defineProps({
   stack: {
@@ -39,7 +40,6 @@ const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
 const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
 const [ legend ] = useProvide(EchartsOptionName.legend)
 const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
-
 
 /**
  * 获取 ref 对象中的数据，并去除空值
@@ -80,6 +80,8 @@ const getXAxis = function() {
 
 // 计算 Y 轴刻度数据
 const getYAxis = function(): any[] {
+  const viewWidth = document.documentElement.clientHeight
+  const char: any = compChar.value
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
@@ -110,6 +112,12 @@ const getYAxis = function(): any[] {
     yAxis.push(Object.assign({}, option, value, {
       position: Position.right
     }))
+  }
+  if (viewWidth < 768) {
+    return map(function(item: any) {
+      safeSet(item, 'axisLabel.inside', true)
+      return item
+    }, yAxis)
   }
   return yAxis
 }
@@ -169,12 +177,13 @@ const getOption = function() {
   return data
 }
 
-// @ts-ignore
-const echartOption = computed(getOption)
-
 const onResize = function() {
   const char: any = compChar.value
   char.resize()
+
+  const option = getOption()
+  char.setOption(option)
+
 }
 
 
