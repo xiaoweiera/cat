@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { toNumber } from '~/utils/index'
-import bignumber from 'bignumber.js'
 import { reactive, defineProps, computed } from 'vue'
 import { getItemData } from '~/logic/topic/item'
 
@@ -44,12 +42,6 @@ const result = reactive<Result>({
   xAxis: [],
 })
 
-// @ts-ignore
-const convertNumber = function(value: number | string, zoom: 1) {
-  const number = new bignumber(value)
-  const data = number.multipliedBy(zoom)
-  return toNumber(data as any)
-}
 //@ts-ignore
 const echartDetail = computed(function() {
   return result.detail ? result.detail : props.option

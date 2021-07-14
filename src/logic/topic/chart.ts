@@ -46,16 +46,6 @@ const getLegends = function(list: APIChart[]): LegendItem[] {
       type: safeGet<string>(data, 'chart.default_chart'),
     })
   }
-  // if (list.length === 1 || rightYAxis) {
-  //   // 价格线（约定为右Y轴）
-  //   legends.push({
-  //     id: rightYAxis || safeGet<number>(list, '[0].chart.id'), // 默认取第一条数据
-  //     name: safeGet<string>(list, '[0].chart.relation_title'), // 默认取第一条数据
-  //     unit: safeGet<string>(list, '[0].chart.relation_unit'),
-  //     type: safeGet<string>(list, '[0].chart.default_chart'),
-  //     position: Position.right
-  //   })
-  // }
   return compact(legends)
 }
 
@@ -64,22 +54,21 @@ export const getChartList = async function(topId: string | number, page?: number
   const list = map(function(data: any) {
     // 判断是单图还是多图
     const multiple = toBoolean(safeGet<boolean>(data, 'is_multy_chart'))
-    // const stack = toBoolean(safeGet<boolean>(data, 'stacked'))
-
     const apiCharts: APIChart[] = safeGet<APIChart[]>(data, 'chart')
-    const legends = getLegends(apiCharts)
-
-    // 获取该图表的数据（根据 id 获取数据详情）
-    return {
-      multiple,
-      name: safeGet<string>(data, 'name') || '', // 图表名称
-      chartId: safeGet<string>(data, 'id'), // 图表ID
-      seriesIds: map((item: LegendItem) => item.id, legends), // 数据ID集合
-      legends, // 图例集合
+    if (apiCharts && apiCharts.length > 0) {
+      const legends = getLegends(apiCharts)
+      // 获取该图表的数据（根据 id 获取数据详情）
+      return {
+        multiple,
+        name: safeGet<string>(data, 'name') || '', // 图表名称
+        chartId: safeGet<string>(data, 'id'), // 图表ID
+        seriesIds: map((item: LegendItem) => item.id, legends), // 数据ID集合
+        legends, // 图例集合
+      }
     }
   }, safeGet<any[]>(result, 'list'))
   return {
-    list,
+    list: compact(list),
     count: safeGet<number>(result, 'count')
   }
 }
@@ -99,8 +88,6 @@ export const getChartDetail = function(multiple: boolean, chartId: string | numb
 const getDetail = function(result: any) {
   const ext = safeGet<any>(result, 'ext[0]')
   const keys = [
-    'value', // 涨浮数(不需要计算百分比)
-    'change', // 涨浮（需要计算百分比）
     'title', // 名称
   ]
   const id = safeGet<string>(result, 'id')

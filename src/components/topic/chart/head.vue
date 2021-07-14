@@ -40,8 +40,7 @@ onMounted(function() {
           <span>{{ data.name }}</span>
         </h4>
         <div class="h-7.5 flex items-center" :class="{'md:ml-3': full}">
-          <span>1%</span>
-          <span>1%</span>
+          <TopicRate :data="data"></TopicRate>
         </div>
       </div>
       <div class="text-global-time text-xs whitespace-nowrap">

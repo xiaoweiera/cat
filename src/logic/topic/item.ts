@@ -42,6 +42,10 @@ interface ItemData {
   stack: boolean
   followed: boolean
   last: number
+
+  rateValue: number // 数量
+  rateUnit: string // 数量单位
+  rateChange: number // 涨浮（需要计算百分比）
   [key: string]: any
 }
 
@@ -118,6 +122,12 @@ const getDetail = async function(data: ItemData) {
   data.desc = desc  // 图表描述
   const followed = toBoolean(safeGet<boolean>(result, 'followed'))
   data.followed = followed // 是否关注
+
+  // 涨浮数(不需要计算百分比)
+  data.rateValue = safeGet<number>(result, 'value')
+  data.rateUnit = safeGet<string>(result, 'field_unit')
+  // 涨浮（需要计算百分比）
+  data.rateChange = safeGet<number>(result, 'change')
 
   return data
 }
