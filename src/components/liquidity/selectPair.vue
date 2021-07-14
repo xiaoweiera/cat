@@ -52,7 +52,6 @@ const getList=async ()=>{
   const result = await getInfoByPair(param)
   if (result?.data?.code === 0) {
     allData.value = result?.data?.data
-    console.log(allData, '---')
     getData(result?.data?.data)
   } else {
     pairList.value = []
