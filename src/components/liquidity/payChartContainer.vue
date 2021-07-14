@@ -12,14 +12,14 @@ const props = defineProps({
 const coinType = reactive({value: 'usd'})
 const tokenTypeList = ref([])
 const tokenType = ref('symbol0')  //pair 选项如： pair| symbol0| symbol1
-watch(() => coinType.value, (n) => {
-  getData()
-})
 //改变symbol
 watch(() => symbolStore.id, (n, o) => {
   if (!pairStore.id) {
     getData()
   }
+})
+watch(() => coinType.value, (n) => {
+  getData()
 })
 //改变pair
 watch(() => pairStore.id, (n, o) => {
@@ -35,14 +35,12 @@ let chartData = reactive({value: {}})
 const priceData = reactive({value: {}})
 const isNull = ref(false) //是否有数据
 const chartLoad = ref(true)
-// @ts-ignore
 const title= computed<string>((): string => {
  return pairStore.id ? pairStore.name : symbolStore.name
 })
 //得到数据
 const getData = async () => {
   chartLoad.value = true
-  // title.value = pairStore.id ? pairStore.name : symbolStore.name
   let chartCoin = ''
   if (pairStore.id) {
     chartCoin = props.config.pay.pairCofig.usdCoin ? coinType.value : 'usd'
