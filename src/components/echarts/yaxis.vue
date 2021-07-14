@@ -9,12 +9,8 @@ const props = defineProps({
       return 'value'
     }
   },
-  // 确认某些图例来确认series中数据的参考线
-  // series 中 yAxisIndex 配置
-  legend: {
-    type: Array
-  },
   index: initProps.index(),
+  // 展示位置
   position: initProps.position(),
 })
 

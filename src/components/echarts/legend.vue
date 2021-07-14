@@ -20,6 +20,7 @@ const props = defineProps({
     }
   },
   index: initProps.index(),
+  position: initProps.position(),
 })
 
 onBeforeMount(function() {
@@ -27,6 +28,7 @@ onBeforeMount(function() {
     value: props.value,
     type: props.type,
     show: props.show,
+    position: props.position,
   }
   updateInject(EchartsOptionName.legend, data, props.index)
 })
