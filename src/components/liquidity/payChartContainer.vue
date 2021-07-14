@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, onMounted, ref, reactive, watch} from 'vue'
+import {defineProps, onMounted,computed, ref, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import {titleCofig} from '~/logic/liquidity/dataCofig'
@@ -32,14 +32,17 @@ watch(() => paramChart.time, (n) => getData(props.tokenParam))
 watch(() => tokenType.value, (n) => getData())
 const chartKey = ref(0)
 let chartData = reactive({value: {}})
-const title = ref()
 const priceData = reactive({value: {}})
 const isNull = ref(false) //是否有数据
 const chartLoad = ref(true)
+// @ts-ignore
+const title= computed<string>((): string => {
+ return pairStore.id ? pairStore.name : symbolStore.name
+})
 //得到数据
 const getData = async () => {
   chartLoad.value = true
-  title.value = pairStore.id ? pairStore.name : symbolStore.name
+  // title.value = pairStore.id ? pairStore.name : symbolStore.name
   let chartCoin = ''
   if (pairStore.id) {
     chartCoin = props.config.pay.pairCofig.usdCoin ? coinType.value : 'usd'
@@ -87,7 +90,7 @@ onMounted(() => {
 })
 
 const getTitleDesc=(title:string)=>{
-  if(!title) return
+  if(!title) return ''
   if(!pairStore.id) return title
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
     const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
@@ -97,8 +100,6 @@ const getTitleDesc=(title:string)=>{
       return title+' '+symbol0
     }
   }
-  return title+'-'+props.chartId
-
 }
 </script>
 <template>
@@ -107,7 +108,7 @@ const getTitleDesc=(title:string)=>{
     <!--    图表的信息-->
     <div class="flex items-center">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
-        <span>{{ title }}</span>
+        <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>

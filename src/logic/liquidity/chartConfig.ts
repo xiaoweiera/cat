@@ -11,11 +11,28 @@ const grid = (interval:string) => {
     containLabel: false,
   }
 }
+// const legend = (legendData: Array<string>) => {
+//   let newData=legendData.map((item:any)=>{
+//     return {...item,
+//       textStyle: {
+//         fontSize: 13,
+//       },
+//       x:'center',
+//       align:'auto',
+//       itemHeight: 11.5,
+//       itemGap: 13,
+//       bottom: ((item.index*8))+'%',
+//       itemWidth: 14,
+//     }
+//   })
+//  return newData
+// }
 const legend = (legendData: Array<string>) => {
   return {
     textStyle: {
       fontSize: 13,
     },
+    x:'center',
     align:'auto',
     itemHeight: 11.5,
     itemGap: 13,
@@ -146,12 +163,12 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
   }
 }
 //y轴价格线配置
-export const yKAxisModel=(kmin: number, kmax: number, yLabelFormat: any,isHasUnit:string)=> {
+export const yKAxisModel=(kmin: number, kmax: number,isShow:boolean, yLabelFormat: any,isHasUnit:string)=> {
   kmin=Math.floor(kmin)
-  kmax=Math.ceil(kmax+(kmax*0.05))
+  kmax=kmax+(kmax*0.05)
   const interval=parseFloat(((kmax-kmin)/4).toString())
   return {
-    show: true,
+    show: isShow,
     position:'right',
     axisLine: {
       show: false, // 不显示坐标轴线
