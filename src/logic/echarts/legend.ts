@@ -4,7 +4,7 @@
  */
 
 import { LegendItem, seriesType } from './interface'
-import { map } from '~/utils/index'
+import { forEach } from '~/utils/index'
 
 export const source = {
   [seriesType.line]: `M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z`,
@@ -27,11 +27,21 @@ export const makeSvg = function(type: seriesType, color?: string) {
   return `<span class="icon-font inline-block text-base" style="${style}">${svg}</span>`
 }
 
-export const clacLegendBoxWidth = function(legends: LegendItem[]) {
-  const widths = map((item: LegendItem) => {
+export const clacLegendBoxWidth = function(legends: LegendItem[]): number {
+  let width = 0
+  forEach((item: LegendItem, index: number) => {
     const name = `${item.value || ''}`
     const len = name.length
-    return len * 9 + 14
+    width += len * 9 + 14
+    if (index > 0) {
+      width += 15
+    }
   }, legends)
-  console.log(widths)
+  return width
+}
+
+export const clacLegendRows = function(legends: LegendItem[], dom: HTMLElement) {
+  const width = clacLegendBoxWidth(legends)
+  const boxWidth = dom.clientWidth - 20 * 2
+  return Math.ceil(width / boxWidth)
 }

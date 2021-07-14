@@ -18,6 +18,7 @@ import {
 } from '~/lib/chartOption'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
+import { clacLegendRows } from '~/logic/echarts/legend'
 
 const props = defineProps({
   stack: {
@@ -56,6 +57,12 @@ const getToolTip = function() {
   return Object.assign({}, option, array[0], {
     formatter: logicToolTip.formatter
   })
+}
+
+const getLegendRow = function(): number {
+  const echart = toRaw(echartsRef).value
+  const row = logicLegend.clacLegendRows(getValue(legend), echart)
+  return row
 }
 
 const getLegend = function() {
@@ -156,16 +163,26 @@ const getSeries = function() {
   }, getValue(series))
 }
 
+const getGrid = function() {
+  const row = getLegendRow()
+  let height = 0
+  if (row <= 1) {
+    height = 35
+  } else {
+    height = row * 25
+  }
+  return Object.assign({}, grid(), {
+    top: 15,
+    left: 0,
+    right: 0,
+    bottom: height,
+    containLabel: true,
+  })
+}
 
 const getOption = function() {
   const data = {
-    grid: Object.assign({}, grid(), {
-      top: 15,
-      left: 0,
-      right: 0,
-      bottom: 55,
-      containLabel: true,
-    }),
+    grid: getGrid(),
     graphic: graphic(30),
     tooltip: getToolTip(),
     legend: getLegend(),
@@ -173,17 +190,24 @@ const getOption = function() {
     yAxis: getYAxis(),
     series: getSeries(),
   }
-
   return data
 }
 
 const onResize = function() {
   const char: any = compChar.value
-  char.resize()
-
-  const option = getOption()
-  char.setOption(option)
-
+  char.resize({
+    width: 'auto',
+    height: 'auto',
+    silent: true,
+    animation: {
+      duration: 0
+    }
+  })
+  setTimeout(function() {
+    char.setOption({
+      grid: getGrid(),
+    })
+  })
 }
 
 
