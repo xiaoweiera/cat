@@ -4,7 +4,7 @@
  * @author svon.me@gmail.com
  */
 import { toBoolean } from '~/utils'
-import { defineProps, onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
   data: {
@@ -20,6 +20,10 @@ const props = defineProps({
 })
 
 const followed = ref<boolean>(false)
+
+watch(props.data, function(data: any) {
+  followed.value = toBoolean(data.followed)
+})
 
 onMounted(function() {
   followed.value = toBoolean(props.data.followed)
@@ -77,7 +81,7 @@ onMounted(function() {
             <div class="inline-block">
               <slot name="timeEnd"></slot>
             </div>
-            <TopicFollow class="ml-3" :id="data.chartId" v-model:status="followed">
+            <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
               <span class="bg-global-primary follow-btn small">
                 <IconFont type="icon-plus" class="text-white"></IconFont>
                 <span class="ml-1">关注</span>

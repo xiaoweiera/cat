@@ -83,16 +83,6 @@ export const getChartList = async function(topId: string | number, page?: number
     count: safeGet<number>(result, 'count')
   }
 }
-/*
-详情中的数据可以从 trends 接口中获取
-const chartDetail = function(data: any) {
-  const keys = [
-    'value', // 涨浮数(不需要计算百分比)
-    'change', // 涨浮（需要计算百分比）
-  ]
-  return pick(keys, data)
-}
-*/
 
 // 获取图表详情
 export const getChartDetail = function(multiple: boolean, chartId: string | number, ids: string[] | number[]) {

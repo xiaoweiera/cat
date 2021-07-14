@@ -116,8 +116,7 @@ const getDetail = async function(data: ItemData) {
   const desc = safeGet<string>(result, 'desc') || ''
 
   data.desc = desc  // 图表描述
-
-  const followed = toBoolean(safeGet<boolean>(data, 'followed'))
+  const followed = toBoolean(safeGet<boolean>(result, 'followed'))
   data.followed = followed // 是否关注
 
   return data
