@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, onMounted, ref, reactive, watch} from 'vue'
+import {defineProps, onMounted, ref,computed, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getFlowChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 
@@ -33,14 +33,15 @@ watch(() => paramChart.time, (n) => getData(props.tokenParam))
 watch(() => tokenType.value, (n) => getData())
 const chartKey = ref(0)
 let chartData = reactive({value: {}})
-const title = ref()
 const priceData = reactive({value: {}})
 const isNull = ref(false) //是否有数据
 const chartLoad = ref(true)
+const title= computed<string>((): string => {
+  return pairStore.id ? pairStore.name : symbolStore.name
+})
 //得到数据
 const getData = async () => {
   chartLoad.value = true
-  title.value = pairStore.id ? pairStore.name : symbolStore.name
   let chartCoin = ''
   if (pairStore.id) {
     chartCoin = props.config.flow.pairCofig.usdCoin ? coinType.value : 'usd'

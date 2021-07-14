@@ -60,17 +60,43 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
   return `<p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;" class='flex items-center'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><span class="ml-1">${item}</span> </p>`
 }
 // 获取提示文字的每一行
-export const tooltipsTitle = (title: string) =>
-    `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
+export const tooltipsTitle = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
+// export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:string) => {
+//   const barIcon='path://M853.312 85.312c-47.104 0-85.312 38.208-85.312 85.376v682.624a85.312 85.312 0 1 0 170.688 0V170.688c0-47.168-38.208-85.376-85.376-85.376zM426.688 426.688a85.312 85.312 0 1 1 170.624 0v426.624a85.312 85.312 0 1 1-170.624 0V426.688zM85.312 597.312a85.312 85.312 0 0 1 170.688 0v256a85.312 85.312 0 1 1-170.688 0v-256z'
+//   const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
+//   //@ts-ignore
+//   let legend=[]
+//   //拆分成3个为一组的legend，这样每一行会居中
+//   const splitYdata=R.splitEvery(3,yData)
+//   console.log(splitYdata,splitYdata.length,'splitspli t')
+//   console.log(splitYdata[splitYdata.length-1].length)
+//   splitYdata.forEach((obj:any,index:number)=>{
+//     let data:Array<object>=[]
+//     obj.forEach((item: yModel,i:number) => {
+//       data.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item.name,coinType)})
+//     })
+//     legend.push({index:index,data:data})
+//   })
+//   //@ts-ignore
+//   if (!kyData) return legend
+//   //判断最后一行是不是3个，如果是3个则换行，如果不是，那么价格线添加进去
+//   if(splitYdata[splitYdata.length-1].length<3){
+//     legend[splitYdata.length-1].data.push({icon:lineIcon,name:kyData.name})
+//   }else{
+//     legend.push({index:splitYdata.length,data:[{icon:lineIcon,name:kyData.name}]})
+//   }
+//   return legend
+// }
 // 得到lengend
 export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:string) => {
   const barIcon='path://M853.312 85.312c-47.104 0-85.312 38.208-85.312 85.376v682.624a85.312 85.312 0 1 0 170.688 0V170.688c0-47.168-38.208-85.376-85.376-85.376zM426.688 426.688a85.312 85.312 0 1 1 170.624 0v426.624a85.312 85.312 0 1 1-170.624 0V426.688zM85.312 597.312a85.312 85.312 0 0 1 170.688 0v256a85.312 85.312 0 1 1-170.688 0v-256z'
   const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
   //@ts-ignore
   let legend=[]
-   yData.forEach((item: yModel,i:number) => {
-     legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item.name,coinType)})
-  })
+  //拆分成3个为一组的legend，这样每一行会居中
+  yData.forEach((item: yModel,i:number) => {
+    legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item.name,coinType)})
+    })
   //@ts-ignore
   if (!kyData) return legend
   legend.push({icon:lineIcon,name:kyData.name})
@@ -182,53 +208,12 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
     const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval,pairId,coinType)
     //pair没有价格线美元单位
     const unit=pairId?'':'$'
-    allYAxis.push(yKAxisModel(kmin,kmax,ykLabelFormat,unit))
+    const isShow=!kmax?false:(kmax<0.01?false:true)
+    allYAxis.push(yKAxisModel(kmin,kmax,isShow,ykLabelFormat,unit))
     series.push(obj)
   }
   return [series,allYAxis]
 }
-//getSeries  单独的y轴 暂时没用
-export const getAllItemSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string) => {
-  const series = []
-  const allYAxis=[]
-  yData.forEach((item:yModel,i:number)=>{
-    const [obj, min, max] = formatYData(item, i,false,xData,allxData,interval,'','')
-    allYAxis.push(yAxisModel(min,max,false,yLabelFormat))
-    series.push(obj)
-  })
-  // kline
-  if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,yData.length, true,kxData,allxData,interval,'','')
-    //pair没有价格线美元单位
-    const unit=pairId?'':'$'
-    allYAxis.push(yKAxisModel(kmin,kmax,yLabelFormat,unit))
-    series.push(obj)
-  }
-  return [series,allYAxis]
-}
-// 得到series 暂时没用
-export const getSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string) => {
-  const series = []
-  let minM: any = null
-  let maxM: any = null
-  let kminM: any = null
-  let kmaxM: any = null
-  yData.forEach((item:yModel,i:number)=>{
-    const [obj, min, max] = formatYData(item, 0,false,xData,allxData,interval,'','')
-    series.push(obj)
-    minM = R.min(min, minM)
-    maxM = R.max(max, maxM)
-  })
-  // kline
-  if (kyData) {
-    const [obj, kmin, kmax] = formatYData(kyData,1, true,kxData,allxData,interval,'','')
-    series.push(obj)
-    kminM = kmin
-    kmaxM = kmax
-  }
-  return [minM, maxM, kminM, kmaxM, series]
-}
-
 // 提示文字
 export const getModel = (params: any,xData:any) => {
   // 水印 遮盖有问题   需要改改改
