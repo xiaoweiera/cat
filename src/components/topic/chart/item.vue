@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toNumber } from '~/utils/index'
 import bignumber from 'bignumber.js'
-import { reactive, defineProps, onMounted, computed } from 'vue'
+import { reactive, defineProps, computed } from 'vue'
 import { getItemData } from '~/logic/topic/item'
 
 interface ChartDetail {
@@ -63,7 +63,7 @@ const echartHeight = computed(function() {
   return 200
 })
 
-const init = async function() {
+const onLoad = async function() {
   const option = props.option
   //@ts-ignore
   const data: Result = await getItemData(option)
@@ -73,8 +73,6 @@ const init = async function() {
   result.xAxis = data.xAxis
 
 }
-
-onMounted(init)
 
 </script>
 
@@ -109,9 +107,11 @@ onMounted(init)
           </template>
         </TopicChartHead>
         <div class="text-kdFang" :style="{ 'height': `${echartHeight}px` }">
-          <template v-if="result.xAxis.length > 0">
-            <TopicChartView :data="result"/>
-          </template>
+          <Winshow class="h-full" @onload="onLoad">
+            <template v-if="result.xAxis.length > 0">
+              <TopicChartView :data="result"/>
+            </template>
+          </Winshow>
         </div>
       </template>
     </template>
