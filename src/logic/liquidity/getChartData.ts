@@ -5,7 +5,6 @@ import {formatDefaultTime, min_max,formatRulesNumber, formatHourTime,unitOrder,n
 import {getCharts} from '~/api/liquidity'
 import {pairStore, symbolStore} from '~/store/liquidity/state'
 import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
-import {unitDatas} from '~/logic/liquidity/dataCofig'
 interface yModel {
   color: string
   data: Array<number>
@@ -13,22 +12,16 @@ interface yModel {
   type: string
   group:number
   unit: string
+  suffix:string
 }
-const getUnitData=(name:string,coinType:string)=>{
-  if(coinType==='coin'){
-    if(!pairStore.id) {
-      //@ts-ignore
-      if (unitDatas[name]) {
-        return name +='('+symbolStore.name+')'
-      }
-    } else {
-      //@ts-ignore
-      if (unitDatas[name]) {
-        return name +='('+pairStore.name.split('/')[0]+')'
-      }
-    }
-  }
-  return name
+//根据后端配置显示什么后缀
+const getUnitData=(item:yModel,coinType:string)=>{
+  // suffix：symbol0, symbol1, token, null
+  if(!item.suffix) return item.name
+  if(item.suffix==='token' && !pairStore.id) return `${item.name}(${symbolStore.name})`
+  if(item.suffix==='symbol0' && pairStore.id) return `${item.name}(${pairStore.name.split('/')[0]})`
+  if(item.suffix==='symbol1' && pairStore.id) return `${item.name}(${pairStore.name.split('/')[1]})`
+  return item.name
 }
 // 将x轴转日期格式 得到x轴
 export const getXData = (xData: Array<number>, interval: string) => {
@@ -95,7 +88,7 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:stri
   let legend=[]
   //拆分成3个为一组的legend，这样每一行会居中
   yData.forEach((item: yModel,i:number) => {
-    legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item.name,coinType)})
+    legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item,coinType)})
     })
   //@ts-ignore
   if (!kyData) return legend
@@ -137,7 +130,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   }
   return [
     {
-      name: getUnitData(item.name,coinType),
+      name: getUnitData(item,coinType),
       type: item.type === 'bar' ? 'bar' : 'line',
       symbol: 'none',
       barGap: '0%',
