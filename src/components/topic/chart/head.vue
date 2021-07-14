@@ -7,7 +7,6 @@ import { toBoolean, dateDiff, dateTime } from '~/utils'
 import { defineProps, onMounted, ref, computed } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import * as time from '~/utils/time/index'
-import { dateDiffDay, dateDiffMinute } from '~/utils/time/index'
 
 const props = defineProps({
   data: {
@@ -30,6 +29,7 @@ const props = defineProps({
 
 const followed = ref<boolean>(false)
 
+// @ts-ignore
 const timeEnd = computed(function() {
   const data = props.data
   const last = safeGet<number>(data, 'last')
@@ -50,7 +50,7 @@ const timeEnd = computed(function() {
     return '1分钟'
   } else {
     if (props.xzxis?.length > 0) {
-      const [data] = props.xzxis.slice(-1)
+      const [ data ]: any[] = props.xzxis.slice(-1)
       const { time } = data
       return `${dateDiff(time)}前`
     }
@@ -66,43 +66,55 @@ onMounted(function() {
 
 <template>
   <div class="text-kdFang">
-    <div class="flex justify-between">
+    <div class="flex justify-between items-start whitespace-nowrap">
       <!-- 标题 -->
-      <h4 class="font-bold text-global-highTitle">{{ data.name }}</h4>
-      <div class="text-global-time text-xs">
+      <div :class="{'md:flex': full}">
+        <h4 class="font-bold text-global-highTitle h-7.5 inline-flex items-center">
+          <span>{{ data.name }}</span>
+        </h4>
+        <div class="h-7.5 flex items-center" :class="{'md:ml-3': full}">
+          <span>1%</span>
+          <span>1%</span>
+        </div>
+      </div>
+      <div class="text-global-time text-xs whitespace-nowrap">
         <!-- 更新时间 -->
         <span v-if="updateLast">
           <span>更新时间:</span>
           <span class="ml-1">2天前</span>
         </span>
         <div v-if="full" class="inline-block">
-          <div class="flex items-center">
-            <span class="btn-border">
-              <IconFont type="icon-download"/>
-            </span>
+          <div class="flex flex-wrap flex-col-reverse md:flex-row">
+            <div class="inline-flex items-center justify-end">
+              <span class="btn-border">
+                <IconFont type="icon-download"/>
+              </span>
 
-            <!-- 缩放按钮 -->
-            <span class="btn-border ml-3">
-              <FullZoom/>
-            </span>
+                <!-- 缩放按钮 -->
+                <span class="btn-border ml-3">
+                <FullZoom/>
+              </span>
+            </div>
 
-            <!-- 关注按钮 -->
-            <div class="inline-block">
-              <TopicFollow :id="data.chartId" v-model:status="followed">
+            <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
+              <!-- 关注按钮 -->
+              <div class="inline-block">
+                <TopicFollow :id="data.chartId" v-model:status="followed">
                 <span class="bg-global-primary follow-btn">
                   <IconFont type="icon-plus" class="text-white"></IconFont>
                   <span class="ml-1">关注</span>
                 </span>
-              </TopicFollow>
-            </div>
+                </TopicFollow>
+              </div>
 
-            <div class="message ml-3 cursor-pointer">
-              <IconFont type="icon-message" class="text-white"/>
-              <span class="ml-1">时时接收数据异动</span>
+              <div class="message ml-3 cursor-pointer">
+                <IconFont type="icon-message" class="text-white"/>
+                <span class="ml-1">时时接收数据异动</span>
+              </div>
             </div>
           </div>
         </div>
-        <div v-else class="inline-block">
+        <div v-else class="block">
           <div class="flex items-center">
             <span>{{ timeEnd }}</span>
             <TopicFollow class="ml-3" :id="data.chartId" v-model:status="followed">
@@ -112,35 +124,11 @@ onMounted(function() {
               </span>
             </TopicFollow>
           </div>
+          <div class="flex items-center justify-end h-7.5">
+            <FullZoom/>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="flex justify-between items-center mt-1.5 h-9" v-if="!full">
-      <!-- 涨浮比 -->
-      <!--
-      <span class="flex items-baseline">
-        <span class="text-3xl mr-2  block" v-if="detail.value">
-          <span v-if="detail.value > 0" class="text-global-numGreen">{{ toNumber(detail.value) }}%</span>
-          <span v-else class="text-global-numRed">{{ toNumber(detail.value) }}%</span>
-        </span>
-        <span class="text-sm block" v-if="detail.change">
-          <span v-if="detail.change > 0" class="text-global-numGreen flex items-center">
-            <span>+{{ convertNumber(detail.change, 100) }}%</span>
-            <IconFont class="ml-1" size="8" type="https://res.ikingdata.com/nav/topicUp.svg"/>
-          </span>
-          <span v-else class="text-global-numRed flex items-center">
-            <span>{{ convertNumber(detail.change, 100) }}%</span>
-            <IconFont class="ml-1" size="8" type="https://res.ikingdata.com/nav/topicDown.svg"/>
-          </span>
-        </span>
-      </span>
-      -->
-      <span>0%</span>
-
-      <span>
-        <FullZoom v-show="!full"/> <!-- 缩放按钮 -->
-      </span>
     </div>
   </div>
 </template>

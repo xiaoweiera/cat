@@ -23,6 +23,7 @@ import {
   convertInterval
 } from '~/utils/index'
 
+import { XAxisItem, SeriesItem, SeriesMap } from './interface'
 
 interface Trend {
   [key: string]: number[][]
@@ -93,24 +94,6 @@ export const calcLegends = function<T>(legends: T[], detail: {[key: string]: obj
     }
     return item
   }, legends)
-
-  /*
-  // @ts-ignore
-  forEach((item: T) => db.insert(toRaw(item)), legends)
-
-  forEach(function(item: T){
-    const where = pick(['id'], item)
-    const temp = db.selectOne<T>(where)
-    if (!safeGet<string>(temp, nameKey)) {
-      db.update(where, {
-        name: safeGet<string>(item, nameKey)
-      })
-    }
-  }, detail)
-  return db.clone<T>(function(item: T) {
-    return omit([primaryKey, 'dbIndex'], item)
-  })
-   */
 }
 
 export const getInterval = function(detail: {[key: string]: object}): string {
@@ -125,21 +108,6 @@ export const getInterval = function(detail: {[key: string]: object}): string {
     }
   }
   return value
-}
-
-interface XAxisItem {
-  time: number // 时间戳
-  value: string | number // 简化时间
-  key?: string // 时间戳对应的格式化时间
-}
-
-interface SeriesItem extends XAxisItem {
-  klValue?: number | string
-  [key: string]: any
-}
-
-interface SeriesMap {
-  [key: string]: SeriesItem[]
 }
 
 

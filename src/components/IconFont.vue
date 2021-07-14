@@ -112,7 +112,7 @@ const iconCode = function() {
   </i>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .icon-font{
   display: inline-block;
   font-style: normal;
@@ -128,8 +128,9 @@ const iconCode = function() {
     height: 1em;
   }
 }
+</style>
 
-
+<style scoped lang="scss">
 @keyframes rotating {
   0% {
     transform: rotate(0deg);

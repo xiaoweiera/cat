@@ -32,14 +32,14 @@ const props = defineProps({
 })
 
 interface Result {
-  detail: ChartDetail
+  detail?: ChartDetail
   legends: Array<any>
   xAxis: Array<any>
   // yAxis: Array<any>
 }
 
 const result = reactive<Result>({
-  detail: null,
+  detail: void 0,
   legends: [],
   xAxis: [],
 })
@@ -50,10 +50,11 @@ const convertNumber = function(value: number | string, zoom: 1) {
   const data = number.multipliedBy(zoom)
   return toNumber(data as any)
 }
-
+//@ts-ignore
 const echartDetail = computed(function() {
   return result.detail ? result.detail : props.option
 })
+//@ts-ignore
 const echartHeight = computed(function() {
   const data = result.detail
   if (data) {
@@ -64,6 +65,7 @@ const echartHeight = computed(function() {
 
 const init = async function() {
   const option = props.option
+  //@ts-ignore
   const data: Result = await getItemData(option)
 
   result.detail = data.detail
@@ -77,7 +79,7 @@ onMounted(init)
 </script>
 
 <template>
-  <FullScreen>
+  <FullScreen :status="false">
     <template #default="scope">
       <!-- 全屏 -->
       <el-container v-if="scope.status" class="h-full">

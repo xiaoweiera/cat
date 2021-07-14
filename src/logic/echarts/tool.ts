@@ -3,7 +3,10 @@
  * @author svon.me@gmail.com
  */
 
+
 export * from '~/utils/use/state'
+import { SeriesItem, Unit } from './interface'
+import { isNumber, numberUint } from '~/utils/index'
 
 export enum EchartsOptionName {
   series = 'series',
@@ -36,6 +39,18 @@ export const initProps = {
       }
     }
   }
+}
+
+export const valueFormatter = function(data: SeriesItem): string {
+  let value = '-'
+  if (isNumber(data.value)) {
+    value = numberUint(data.value as number)
+  }
+  // 判断是否是 $
+  if (data.unit === Unit.a) {
+    return `${data.unit}${value}`
+  }
+  return `${value}${data.unit}`
 }
 
 

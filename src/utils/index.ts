@@ -83,9 +83,12 @@ export const toFixed = function (value: string | number = '', fixed = 2): number
   return temp
 }
 
-export const toArray = function(value: any): any[] {
-  return [].concat(value)
+export const arrayConcat = function(...args: any[]): any[] {
+  return [].concat(...args)
 }
+
+export const toArray = arrayConcat
+
 
 export const toNumber = function (value: string | number = 0, fixed = 2): number {
   const number = parseFloat(value as any)

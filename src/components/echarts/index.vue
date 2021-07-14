@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { includes } from 'ramda'
+import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
@@ -7,6 +7,7 @@ import { ref, reactive, computed, toRaw, defineProps, onMounted, onUnmounted } f
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/topic/item'
 import { calcYAxis } from '~/logic/echarts/series'
+import * as logicLegend from '~/logic/echarts/legend'
 
 import {
   grid,
@@ -53,21 +54,21 @@ const getToolTip = function() {
   const array = getValue(tooltip)
   const option = makeTooltipOption()
   return Object.assign({}, option, array[0], {
-    formatter: function(params) {
-      console.log(params)
-    }
+    formatter: logicToolTip.formatter
   })
 }
 
 const getLegend = function() {
   const data = map((item: any) => {
     if (item.show) {
+      const icon = `path://${logicLegend.source[item.type]}`
       return {
-        name: item.value
+        icon,
+        name: item.value,
       }
     }
   }, getValue(legend))
-  return { data: compact(data), bottom: 0 }
+  return { data: compact(data), bottom: 0, itemWidth: 14, }
 }
 
 const getXAxis = function() {
@@ -78,7 +79,7 @@ const getXAxis = function() {
 }
 
 // 计算 Y 轴刻度数据
-const getYAxis = function() {
+const getYAxis = function(): any[] {
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
@@ -113,8 +114,8 @@ const getYAxis = function() {
   return yAxis
 }
 
-const getYindex = function() {
-  const list = getValue(legend)
+const getYindex = function(): any {
+  const list: any[] = getValue(legend)
   return function(i: number): number {
     const item = list[i]
     let index = 0
@@ -126,7 +127,7 @@ const getYindex = function() {
 }
 
 const getSeries = function() {
-  const app = getYindex(getYAxis())
+  const app = getYindex()
   return map((item: any, index: number) => {
     const data = app(index)
     const option = Object.assign({
