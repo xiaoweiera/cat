@@ -5,16 +5,13 @@
 
 import { upperFirst, isUndefined } from '~/utils/index'
 import { inject, provide, ref, toRaw } from 'vue'
-
 type SetCallback = (value?: any, index?: number | string) => void
-
 const autoValue = function(value?: any): Array<any> {
   if (isUndefined(value)) {
     return []
   }
   return [].concat(value)
 }
-
 export const useProvide = function<T>(name: string, value?: any): any[] {
   const state = ref<T[]>(autoValue(value))
   const set = function(data: any, index: number | string = 0) {
@@ -46,6 +43,19 @@ export const updateInject = function(name: string, ...args: any[]): boolean {
     const set = setInject(name)
     if (set) {
       set(...args)
+      return true
+    }
+  }
+  return false
+}
+
+export const margeInject = function(name: string, value: any): boolean {
+  if (name && value) {
+    const set = setInject(name)
+    const state = getInject(name)
+    if (set && state) {
+      const [ oldValue = {} ] = state.value
+      set(Object.assign({}, oldValue, value))
       return true
     }
   }

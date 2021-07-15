@@ -10,7 +10,6 @@ const props = defineProps({
   chartId: Number
 })
 const coinType = reactive({value: 'usd'})
-const tokenTypeList = ref([])
 const tokenType = ref('pair')  //pair 选项如： pair| symbol0| symbol1
 //改变symbol
 watch(() => symbolStore.id, (n, o) => {
@@ -90,9 +89,6 @@ onMounted(() => {
 })
 </script>
 <template>
-  <!--  {{coinType.value}}-->
-  <!--  {{props.chartId}}-->
-  <!--  {{tokenType}}-->
   <div class=" flex flex-col py-4 pl-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
     <!--    定位用-->
     <div :class="'chartScroll'+props.chartId"></div>
@@ -103,22 +99,14 @@ onMounted(() => {
         <span class="ml-2">{{ chartData.value?.title }}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
-<!--      <FullScreen>-->
-<!--        <template #default="scope">-->
-<!--          <div class="flex">-->
-<!--            <div>fff</div>-->
-<!--            <FullZoom/>-->
-<!--          </div>-->
-<!--        </template>-->
-<!--      </FullScreen>-->
+      <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
     <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-12 ">
       {{ chartData.value?.desc }}
     </div>
-    <div v-if="!chartLoad" class="h-full">
-      <div v-if="!isNull">
-
-        <LiquidityChart :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
+    <div v-if="!chartLoad" class="h-full w-full">
+      <div v-if="!isNull" class="w-full">
+        <LiquidityChart class="h-77.5 w-full"   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
         <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
