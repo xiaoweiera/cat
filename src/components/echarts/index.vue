@@ -18,7 +18,6 @@ import {
 } from '~/lib/chartOption'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
-import { clacLegendRows } from '~/logic/echarts/legend'
 import { seriesType, colors } from '~/logic/echarts/interface'
 
 const props = defineProps({
