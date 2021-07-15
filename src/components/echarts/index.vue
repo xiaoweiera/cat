@@ -57,7 +57,7 @@ const getToolTip = function() {
   return Object.assign({}, option, array[0], {
     formatter: logicToolTip.formatter,
     textStyle: {
-      color: colors
+      // color: colors
     }
   })
 }
@@ -91,7 +91,6 @@ const getXAxis = function() {
 // 计算 Y 轴刻度数据
 const getYAxis = function(): any[] {
   const viewWidth = document.documentElement.clientHeight
-  const char: any = compChar.value
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
@@ -204,7 +203,7 @@ const getOption = function() {
     xAxis: getXAxis(),
     yAxis: getYAxis(),
     series: getSeries(),
-    color: colors
+    // color: colors
   }
   return data
 }
