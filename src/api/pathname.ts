@@ -50,6 +50,7 @@ export const topic = {
   // 用户关注的图表数据
   followList: '/api/v2/charts/my/multy_follows',
   addfollow: '/api/v2/charts/{id}/multy_follow', // 关注
+  unfollow: '/api/v2/charts/{id}/multy_unfollow', // 取消关注
 }
 
 // 忽略的接口地址，不传用户登录信息
@@ -85,6 +86,7 @@ export const LoginStatus: string[] = [
 
   topic.followList,
   topic.addfollow,
+  topic.unfollow,
 ]
 
 // 将一下接口加入到缓存中

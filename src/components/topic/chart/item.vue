@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { toNumber } from '~/utils/index'
-import bignumber from 'bignumber.js'
-import { reactive, defineProps, onMounted, computed } from 'vue'
+import { reactive, defineProps, computed } from 'vue'
 import { getItemData } from '~/logic/topic/item'
 
 interface ChartDetail {
@@ -44,12 +42,6 @@ const result = reactive<Result>({
   xAxis: [],
 })
 
-// @ts-ignore
-const convertNumber = function(value: number | string, zoom: 1) {
-  const number = new bignumber(value)
-  const data = number.multipliedBy(zoom)
-  return toNumber(data as any)
-}
 //@ts-ignore
 const echartDetail = computed(function() {
   return result.detail ? result.detail : props.option
@@ -63,7 +55,7 @@ const echartHeight = computed(function() {
   return 200
 })
 
-const init = async function() {
+const onLoad = async function() {
   const option = props.option
   //@ts-ignore
   const data: Result = await getItemData(option)
@@ -73,8 +65,6 @@ const init = async function() {
   result.xAxis = data.xAxis
 
 }
-
-onMounted(init)
 
 </script>
 
@@ -109,9 +99,11 @@ onMounted(init)
           </template>
         </TopicChartHead>
         <div class="text-kdFang" :style="{ 'height': `${echartHeight}px` }">
-          <template v-if="result.xAxis.length > 0">
-            <TopicChartView :data="result"/>
-          </template>
+          <Winshow class="h-full" @onload="onLoad">
+            <template v-if="result.xAxis.length > 0">
+              <TopicChartView :data="result"/>
+            </template>
+          </Winshow>
         </div>
       </template>
     </template>

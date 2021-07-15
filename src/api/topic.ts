@@ -194,4 +194,14 @@ export const addFollow = async function(id: string | number) {
     return void 0
   }
 }
+// 取消关注
+export const unFollow = async function(id: string | number) {
+  const data = { id }
+  try {
+    const result = await request.post(topic.unfollow, data)
+    return response.check<any>(result)
+  } catch (e) {
+    return void 0
+  }
+}
 

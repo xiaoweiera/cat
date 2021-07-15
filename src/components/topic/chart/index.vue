@@ -84,7 +84,7 @@ onUnmounted(function() {
 </script>
 
 <template>
-  <div class="p-2.5 flex flex-wrap">
+  <div class="p-2.5 flex flex-wrap" v-if="list.length > 0">
     <template v-for="(data, index) in list" :key="index">
       <!-- v-if="data.chartId === 621"  -->
       <div class="p-2.5" :class="getRowColWidth(data.width)">
@@ -93,6 +93,9 @@ onUnmounted(function() {
         </div>
       </div>
     </template>
+  </div>
+  <div v-else>
+    <empty desc="暂无图表"/>
   </div>
 </template>
 
