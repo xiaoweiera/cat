@@ -7,8 +7,8 @@ const props=defineProps({
 })
 </script>
 <template>
-  <div>
-    {{props.coinType}}
+  <div>main
+<!--    {{props.coinType}}-->
   </div>
 </template>
 <style scoped lang="postcss">

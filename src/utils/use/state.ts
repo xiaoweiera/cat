@@ -5,16 +5,13 @@
 
 import { upperFirst, isUndefined } from '~/utils/index'
 import { inject, provide, ref, toRaw } from 'vue'
-
 type SetCallback = (value?: any, index?: number | string) => void
-
 const autoValue = function(value?: any): Array<any> {
   if (isUndefined(value)) {
     return []
   }
   return [].concat(value)
 }
-
 export const useProvide = function<T>(name: string, value?: any): any[] {
   const state = ref<T[]>(autoValue(value))
   const set = function(data: any, index: number | string = 0) {

@@ -90,7 +90,6 @@ onMounted(() => {
 })
 </script>
 <template>
-  {{coinType}}
   <div class=" flex flex-col py-4 pl-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
     <!--    定位用-->
     <div :class="'chartScroll'+props.chartId"></div>
@@ -101,14 +100,13 @@ onMounted(() => {
         <span class="ml-2">{{ chartData.value?.title }}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
-      <LiquidityFullChartFull :chartType="flow" :chartId="props.chartId" :queryCoinType="coinType"/>
+      <LiquidityFullChartFull :queryInterval="props.tokenParam.interval" :chartType="flow" :chartId="props.chartId" :queryCoinType="coinType"/>
     </div>
     <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-12 ">
       {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="h-full">
       <div v-if="!isNull">
-
         <LiquidityChart :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
