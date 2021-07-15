@@ -3,7 +3,7 @@ import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
-import { ref, reactive, computed, toRaw, defineProps, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, toRaw, defineProps, onMounted, onUnmounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/topic/item'
 import { calcYAxis } from '~/logic/echarts/series'
@@ -19,6 +19,7 @@ import {
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
 import { clacLegendRows } from '~/logic/echarts/legend'
+import { seriesType, colors } from '~/logic/echarts/interface'
 
 const props = defineProps({
   stack: {
@@ -55,7 +56,10 @@ const getToolTip = function() {
   const array = getValue(tooltip)
   const option = makeTooltipOption()
   return Object.assign({}, option, array[0], {
-    formatter: logicToolTip.formatter
+    formatter: logicToolTip.formatter,
+    textStyle: {
+      color: colors
+    }
   })
 }
 
@@ -145,7 +149,7 @@ const getSeries = function() {
   const app = getYindex()
   return map((item: any, index: number) => {
     const data = app(index)
-    const option = Object.assign({
+    const option: any = Object.assign({
       name: data.value,
       type: data.type,
       connectNulls: true,
@@ -155,6 +159,18 @@ const getSeries = function() {
       },
       symbol: 'none',
     }, item)
+    if (data.type === seriesType.line) {
+      // 线条平滑处理
+      option.smooth = true;
+      if (data.index !== 1) {
+        option.areaStyle = {}
+      }
+    }
+    if (data.type === seriesType.bar) {
+      // 柱状图最大宽度
+      option.barMaxWidth = 50
+    }
+
     if (props.stack && data.position === Position.left) {
       // 开启堆积图
       option.stack = 'stack'
@@ -189,6 +205,7 @@ const getOption = function() {
     xAxis: getXAxis(),
     yAxis: getYAxis(),
     series: getSeries(),
+    color: colors
   }
   return data
 }
