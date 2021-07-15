@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, watch, ref, defineProps, onMounted } from 'vue'
+import { computed, watch, ref, defineProps, onMounted, defineEmit } from 'vue'
 import { useProvide } from '~/utils/use/state'
 import { toBoolean, uuid } from '~/utils'
+
+const emitEvent = defineEmit(['change'])
 
 const props = defineProps({
   status: {
@@ -17,9 +19,12 @@ const opened = ref<boolean>(false)
 
 const [ fullStatus, set ] = useProvide('fullStatus', false)
 
-watch(fullStatus, function() {
+watch(fullStatus, function(data: any) {
+  const [ value ]: [boolean] = data
+  console.log(value)
   opened.value = false
   screenId.value = uuid()
+  emitEvent('change', value)
 })
 
 // @ts-ignore

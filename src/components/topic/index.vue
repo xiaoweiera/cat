@@ -24,6 +24,11 @@ watch(param, setCurrent, {
   deep: true
 })
 
+// @ts-ignore
+const onSearch = function(e: Event) {
+  console.log(e)
+}
+
 
 onBeforeMount(async () => {
   onReady()
@@ -39,7 +44,7 @@ onBeforeMount(async () => {
         <div class="pt-2 w-full h-full">
           <div class="menu-box w-full h-full overflow-y-auto overflow-x-hidden bg-white">
             <div class="search-box h-14 flex items-center">
-              <el-input v-model="search" placeholder="搜索" prefix-icon="el-icon-search" />
+              <el-input v-model="search" placeholder="搜索" prefix-icon="el-icon-search" @change="onSearch"/>
             </div>
             <template v-if="menuList.length > 0">
               <TopicMenu :list="menuList" icon-size="2xl"></TopicMenu>
