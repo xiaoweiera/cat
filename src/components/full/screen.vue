@@ -21,7 +21,6 @@ const [ fullStatus, set ] = useProvide('fullStatus', false)
 
 watch(fullStatus, function(data: any) {
   const [ value ]: [boolean] = data
-  console.log(value)
   opened.value = false
   screenId.value = uuid()
   emitEvent('change', value)
