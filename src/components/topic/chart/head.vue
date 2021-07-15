@@ -59,7 +59,7 @@ onMounted(function() {
 
             <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
               <!-- 关注按钮 -->
-              <div class="inline-block">
+              <div class="inline-block mr-3" v-if="!followed">
                 <TopicFollow :id="data.chartId" v-model:status="followed">
                   <span class="bg-global-primary follow-btn">
                     <IconFont type="icon-plus" class="text-white"></IconFont>
@@ -68,10 +68,21 @@ onMounted(function() {
                 </TopicFollow>
               </div>
 
-              <div class="message ml-3 cursor-pointer">
-                <IconFont type="icon-message" class="text-white"/>
-                <span class="ml-1">时时接收数据异动</span>
+              <div>
+                <el-popover placement="bottom" :width="300" trigger="hover">
+                  <template #reference>
+                    <div class="message cursor-pointer">
+                      <IconFont type="icon-message" class="text-white"/>
+                      <span class="ml-1">时时接收数据异动</span>
+                    </div>
+                  </template>
+                  <div>
+                    <p class="text-center text-lg font-normal pb-2">指标异动订阅</p>
+                    <AppDownTips/>
+                  </div>
+                </el-popover>
               </div>
+
             </div>
           </div>
         </div>

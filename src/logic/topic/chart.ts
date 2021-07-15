@@ -67,6 +67,7 @@ export const getChartList = async function(topId: string | number, page: number 
         multiple,
         name: safeGet<string>(data, 'name') || '', // 图表名称
         chartId: safeGet<string>(data, 'id'), // 图表ID
+        followed: toBoolean(safeGet<boolean>(data, 'followed')), // 是否已关注图表
         seriesIds: map((item: LegendItem) => item.id, legends), // 数据ID集合
         legends, // 图例集合
       }

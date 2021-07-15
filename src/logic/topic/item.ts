@@ -120,8 +120,6 @@ const getDetail = async function(data: ItemData) {
   const desc = safeGet<string>(result, 'desc') || ''
 
   data.desc = desc  // 图表描述
-  const followed = toBoolean(safeGet<boolean>(result, 'followed'))
-  data.followed = followed // 是否关注
 
   // 涨浮数(不需要计算百分比)
   data.rateValue = safeGet<number>(result, 'value')
