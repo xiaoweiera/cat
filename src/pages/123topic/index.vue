@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <Topic></Topic>
+  <Topic/>
 </template>
 
 // @formatter:off

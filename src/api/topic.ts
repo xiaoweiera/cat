@@ -91,18 +91,13 @@ export const getAds = function<T>(): Promise<T[]> {
 }
 
 // 根据
-export const getChartList = async function(topId: string | number, page = 1, limit = 10) {
+export const getChartList = async function(topId: string | number, query: { [key: string]: any }) {
   // 我的图表
   // https://kingdata.com/api/v2/charts/my/multy_follows?page=1&page_size=10
   // 精选推荐
   // https://kingdata.com/api/v2/charts/web_recommend?page=1&page_size=10
   // 根据 topId 获取
   // https://kingdata.com/api/v2/topics/22/web_charts?page=1&page_size=10
-
-  const query: any = {
-    page,
-    page_size: limit
-  }
   let url: string
   switch (topId) {
   // 判断是否请求 "我的图表" 图表数据
@@ -119,6 +114,10 @@ export const getChartList = async function(topId: string | number, page = 1, lim
     url = topic.charts
     query['id'] = topId
     break
+  }
+  // 判断查询参数中是否包含 query 字段
+  if (safeGet<string>(query, 'query')) {
+    url = topic.search
   }
   try {
     const result: any = await request.get(url, { params: query })
@@ -189,6 +188,16 @@ export const addFollow = async function(id: string | number) {
   const data = { id }
   try {
     const result = await request.post(topic.addfollow, data)
+    return response.check<any>(result)
+  } catch (e) {
+    return void 0
+  }
+}
+// 取消关注
+export const unFollow = async function(id: string | number) {
+  const data = { id }
+  try {
+    const result = await request.post(topic.unfollow, data)
     return response.check<any>(result)
   } catch (e) {
     return void 0

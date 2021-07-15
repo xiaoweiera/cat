@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { toNumber, map, dateDiff, max, forEach } from '~/utils/index'
-import bignumber from 'bignumber.js'
-import { reactive, toRaw, defineProps, onMounted, computed } from 'vue'
-import { getChartTrends } from '~/logic/topic/chart'
-import { convertDate } from '~/logic/echarts/series'
-import safeGet from '@fengqiaogang/safe-get'
+import { reactive, defineProps, computed } from 'vue'
 import { getItemData } from '~/logic/topic/item'
 
 interface ChartDetail {
@@ -16,14 +11,6 @@ interface ChartDetail {
   width?: number
   height?: number
 }
-
-const detail = reactive<ChartDetail>({})
-const chart = reactive<any>({
-  yaxis: [],
-  xaxis: [],
-  legend: [],
-  series: []
-})
 
 const props = defineProps({
   /*
@@ -41,94 +28,43 @@ const props = defineProps({
     required: true,
   }
 })
-/*
-const getData = async function() {
+
+interface Result {
+  detail?: ChartDetail
+  legends: Array<any>
+  xAxis: Array<any>
+  // yAxis: Array<any>
+}
+
+const result = reactive<Result>({
+  detail: void 0,
+  legends: [],
+  xAxis: [],
+})
+
+//@ts-ignore
+const echartDetail = computed(function() {
+  return result.detail ? result.detail : props.option
+})
+//@ts-ignore
+const echartHeight = computed(function() {
+  const data = result.detail
+  if (data) {
+    return data.height
+  }
+  return 200
+})
+
+const onLoad = async function() {
   const option = props.option
-  const legend = toRaw(option.legends)
-  // @ts-ignore
-  const ids = [].concat(toRaw(option.seriesIds))
-  const result = await getChartTrends(option.multiple, ids)
-  if (result?.series) {
-    const { series, xAxis, right } = convertDate(result.series, result.detail, option.rightYAxis)
-    chart.xaxis = xAxis
-    const array: any[] = []
-    // 多图
-    if (option.multiple) {
-      const map = new Map<any, boolean>()
-      forEach(function(item: any) {
-        const id = safeGet<number>(item, 'id')
-        if (!map.has(id)) {
-          array.push({
-            data: series[id],
-            stack: option.stack,
-          })
-          map.set(id, true)
-        }
-      }, legend)
-    } else {
-      for (let i = 0, len = legend.length - 1; i < len; i++) {
-        const id = safeGet<number>(legend[i], 'id')
-        array.push({
-          data: series[id],
-          stack: option.stack,
-        })
-      }
-    }
-    // 添加价格线
-    if (right && right.length > 0) {
-      array.push({
-        data: right
-      })
-    }
-    chart.series = array
-  }
-  if (result?.detail) {
-    forEach(function(value: any, key: string) {
-      // @ts-ignore
-      detail[key] = value
-    }, result.detail)
-  }
+  //@ts-ignore
+  const data: Result = await getItemData(option)
 
-  chart.legend = legend
-  // 根据图例数据生成 Y 轴数据
-  if (option.multiple) {
-    chart.yaxis = [{}]
-    if (option.rightYAxis) {
-      forEach(function(item: any) {
-        if (item.position === 'right') {
-          chart.yaxis.push({
-            legend: [item.name],
-            position: item.position
-          })
-        }
-      }, legend)
-    }
-  } else {
-    chart.yaxis = map(function(item: any){
-      return {
-        legend: [item.name],
-        position: item.position ? item.position : 'left', // 默认左刻度
-      }
-    }, chart.legend)
-  }
+  result.detail = data.detail
+  result.legends = data.legends
+  result.xAxis = data.xAxis
+
 }
- */
-
-
-// @ts-ignore
-const convertNumber = function(value: number | string, zoom: 1) {
-  const number = new bignumber(value)
-  const data = number.multipliedBy(zoom)
-  return toNumber(data as any)
-}
-
-const init = async function() {
-  const option = props.option
-  await getItemData(option)
-  // console.log(option)
-}
-
-onMounted(init)
 
 </script>
 
@@ -137,19 +73,37 @@ onMounted(init)
     <template #default="scope">
       <!-- 全屏 -->
       <el-container v-if="scope.status" class="h-full">
-        <el-header height="initial" class="p-0">
-          <TopicChartHead :data="option" :full="scope.status"/>
+        <el-header height="initial" class="p-0" >
+          <TopicChartHead :data="echartDetail" :full="scope.status"/>
         </el-header>
         <el-main class="p-0">
           <div class="pt-3 h-full">
-<!--            <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>-->
+            <template v-if="result.xAxis.length > 0">
+              <TopicChartView :data="result"/>
+            </template>
           </div>
         </el-main>
+        <el-footer height="initial" class="p-0">
+          <TopicChartFooter :data="echartDetail">
+            <template #timeEnd>
+              <TopicTimeend :data="echartDetail" :xzxis="result.xAxis"></TopicTimeend>
+            </template>
+          </TopicChartFooter>
+        </el-footer>
       </el-container>
+
       <template v-else>
-        <TopicChartHead :data="option" :full="scope.status"/>
-        <div class="text-kdFang" :style="{ 'height': `${option.height}px` }">
-<!--          <TopicChartView v-if="chart.legend.length > 0" :chart="chart"/>-->
+        <TopicChartHead :data="echartDetail" :full="scope.status">
+          <template #timeEnd>
+            <TopicTimeend :data="echartDetail" :xzxis="result.xAxis"></TopicTimeend>
+          </template>
+        </TopicChartHead>
+        <div class="text-kdFang" :style="{ 'height': `${echartHeight}px` }">
+          <Winshow class="h-full" @onload="onLoad">
+            <template v-if="result.xAxis.length > 0">
+              <TopicChartView :data="result"/>
+            </template>
+          </Winshow>
         </div>
       </template>
     </template>

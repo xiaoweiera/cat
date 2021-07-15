@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { defineProps, onMounted, ref, onUnmounted } from 'vue'
 import { getChartList } from '~/logic/topic/chart'
-import { toNumber } from '~/utils/index'
+import { arrayConcat, toNumber } from '~/utils/index'
 import * as scroll from '~/utils/event/scroll'
 
 // @ts-ignore
 const props = defineProps({
   menu: {
     type: Object
+  },
+  query: {
+    type: String,
+    default () {
+      return ''
+    }
   }
 })
 
@@ -32,7 +38,7 @@ const getRowColWidth = function(width: number): string[] {
   if (width > 50) {
     return className
   }
-  className.push('md:w-1/2')
+  className.push('lg:w-1/2')
   return className
 }
 
@@ -55,9 +61,9 @@ const getData = async function() {
     // 请求列表
     const menu = props?.menu
     const id = menu?.topicID || menu?.id
-    const { list: array, count: size } = await getChartList(id, page.value, limit.value)
+    const { list: array, count: size } = await getChartList(id, page.value, limit.value, props.query)
     // 处理数据
-    list.value = [].concat(list.value, array)
+    list.value = arrayConcat(list.value, array)
     count.value = toNumber(size, 0)
     page.value = page.value + 1
     // 判断是否有下一页数据
@@ -84,15 +90,18 @@ onUnmounted(function() {
 </script>
 
 <template>
-  <div class="p-2.5 flex flex-wrap">
+  <div class="p-2.5 flex flex-wrap" v-if="list.length > 0">
     <template v-for="(data, index) in list" :key="index">
       <!-- v-if="data.chartId === 621"  -->
-      <div v-if="index === 0" class="p-2.5" :class="getRowColWidth(data.width)">
+      <div class="p-2.5" :class="getRowColWidth(data.width)">
         <div class="chart-item rounded p-3 bg-white">
           <TopicChartItem :option="data"></TopicChartItem>
         </div>
       </div>
     </template>
+  </div>
+  <div v-else>
+    <empty desc="暂无图表"/>
   </div>
 </template>
 

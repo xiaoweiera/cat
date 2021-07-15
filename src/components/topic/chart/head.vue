@@ -4,7 +4,7 @@
  * @author svon.me@gmail.com
  */
 import { toBoolean } from '~/utils'
-import { defineProps, onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
   data: {
@@ -21,6 +21,10 @@ const props = defineProps({
 
 const followed = ref<boolean>(false)
 
+watch(props.data, function(data: any) {
+  followed.value = toBoolean(data.followed)
+})
+
 onMounted(function() {
   followed.value = toBoolean(props.data.followed)
 })
@@ -29,78 +33,76 @@ onMounted(function() {
 
 <template>
   <div class="text-kdFang">
-    <div class="flex justify-between">
+    <div class="flex justify-between items-start whitespace-nowrap">
       <!-- 标题 -->
-      <h4 class="font-bold text-global-highTitle">{{ data.name }}</h4>
-      <div class="text-global-time text-xs">
-        <!-- 更新时间 -->
-        <span v-if="updateLast">
-          <span>更新时间:</span>
-          <span class="ml-1">2天前</span>
-        </span>
+      <div :class="{'md:flex': full}">
+        <h4 class="font-bold text-global-highTitle h-7.5 inline-flex items-center">
+          <span>{{ data.name }}</span>
+        </h4>
+        <div class="h-7.5 flex items-center" :class="{'md:ml-3': full}">
+          <TopicRate :data="data"></TopicRate>
+        </div>
+      </div>
+      <div class="text-global-time text-xs whitespace-nowrap">
         <div v-if="full" class="inline-block">
-          <div class="flex items-center">
-            <span class="btn-border">
-              <IconFont type="icon-download"/>
-            </span>
+          <div class="flex flex-wrap flex-col-reverse md:flex-row">
+            <div class="inline-flex items-center justify-end">
+              <span class="btn-border">
+                <IconFont type="icon-download"/>
+              </span>
 
-            <!-- 缩放按钮 -->
-            <span class="btn-border ml-3">
-              <FullZoom/>
-            </span>
-
-            <!-- 关注按钮 -->
-            <div class="inline-block">
-              <TopicFollow :id="data.chartId" v-model:status="followed">
-                <span class="bg-global-primary follow-btn">
-                  <IconFont type="icon-plus" class="text-white"></IconFont>
-                  <span class="ml-1">关注</span>
-                </span>
-              </TopicFollow>
+                <!-- 缩放按钮 -->
+                <span class="btn-border ml-3">
+                <FullZoom/>
+              </span>
             </div>
 
-            <div class="message ml-3 cursor-pointer">
-              <IconFont type="icon-message" class="text-white"/>
-              <span class="ml-1">时时接收数据异动</span>
+            <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
+              <!-- 关注按钮 -->
+              <div class="inline-block mr-3" v-if="!followed">
+                <TopicFollow :id="data.chartId" v-model:status="followed">
+                  <span class="bg-global-primary follow-btn">
+                    <IconFont type="icon-plus" class="text-white"></IconFont>
+                    <span class="ml-1">关注</span>
+                  </span>
+                </TopicFollow>
+              </div>
+
+              <div>
+                <el-popover placement="bottom" :width="300" trigger="hover">
+                  <template #reference>
+                    <div class="message cursor-pointer">
+                      <IconFont type="icon-message" class="text-white"/>
+                      <span class="ml-1">时时接收数据异动</span>
+                    </div>
+                  </template>
+                  <div>
+                    <p class="text-center text-lg font-normal pb-2">指标异动订阅</p>
+                    <AppDownTips/>
+                  </div>
+                </el-popover>
+              </div>
+
             </div>
           </div>
         </div>
-        <div v-else class="inline-block">
-          <TopicFollow :id="data.chartId" v-model:status="followed">
-            <span class="bg-global-primary follow-btn small">
-              <IconFont type="icon-plus" class="text-white"></IconFont>
-              <span class="ml-1">关注</span>
-            </span>
-          </TopicFollow>
+        <div v-else class="block">
+          <div class="flex items-center">
+            <div class="inline-block">
+              <slot name="timeEnd"></slot>
+            </div>
+            <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
+              <span class="bg-global-primary follow-btn small">
+                <IconFont type="icon-plus" class="text-white"></IconFont>
+                <span class="ml-1">关注</span>
+              </span>
+            </TopicFollow>
+          </div>
+          <div class="flex items-center justify-end h-7.5">
+            <FullZoom/>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="flex justify-between items-center mt-1.5 h-9" v-if="!full">
-      <!-- 涨浮比 -->
-      <!--
-      <span class="flex items-baseline">
-        <span class="text-3xl mr-2  block" v-if="detail.value">
-          <span v-if="detail.value > 0" class="text-global-numGreen">{{ toNumber(detail.value) }}%</span>
-          <span v-else class="text-global-numRed">{{ toNumber(detail.value) }}%</span>
-        </span>
-        <span class="text-sm block" v-if="detail.change">
-          <span v-if="detail.change > 0" class="text-global-numGreen flex items-center">
-            <span>+{{ convertNumber(detail.change, 100) }}%</span>
-            <IconFont class="ml-1" size="8" type="https://res.ikingdata.com/nav/topicUp.svg"/>
-          </span>
-          <span v-else class="text-global-numRed flex items-center">
-            <span>{{ convertNumber(detail.change, 100) }}%</span>
-            <IconFont class="ml-1" size="8" type="https://res.ikingdata.com/nav/topicDown.svg"/>
-          </span>
-        </span>
-      </span>
-      -->
-      <span>0%</span>
-
-      <span>
-        <FullZoom v-show="!full"/> <!-- 缩放按钮 -->
-      </span>
     </div>
   </div>
 </template>

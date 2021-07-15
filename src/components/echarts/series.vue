@@ -1,4 +1,9 @@
 <script setup lang="ts">
+/**
+ * @file series 数据
+ * @author svon.me@gmail.com
+ */
+
 import { onBeforeMount, defineProps, toRaw } from 'vue'
 import { EchartsOptionName, setInject, initProps } from '~/logic/echarts/tool'
 const props = defineProps({
@@ -8,24 +13,15 @@ const props = defineProps({
       return []
     },
   },
-  stack: {
-    type: Boolean,
-    default () {
-      return false
-    }
-  },
   index: initProps.index(),
 })
 
 const set = setInject(EchartsOptionName.series)
 
 onBeforeMount(() => {
+  // 将 props 数据传入到
   const option = {
     data: toRaw(props.value),
-    stack: props.stack,
-  }
-  if (props.stack) {
-    option.areaStyle = {}
   }
   set(option, props.index)
 })

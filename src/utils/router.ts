@@ -5,4 +5,8 @@
  */
 import { router } from '~/utils/directive/router'
 
+export const config = {
+  topic: '/123topic'
+}
+
 export default router

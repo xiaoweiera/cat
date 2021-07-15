@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { includes } from 'ramda'
+import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
-import { compact, map, numberUint, uuid } from '~/utils/index'
-import { ref, reactive, computed, toRaw, onMounted, onUnmounted } from 'vue'
+import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
+import { ref, reactive, toRaw, defineProps, onMounted, onUnmounted } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
-import { calcYAxisMark } from '~/logic/echarts/series'
+import { Position } from '~/logic/topic/item'
+import { calcYAxis } from '~/logic/echarts/series'
+import * as logicLegend from '~/logic/echarts/legend'
+
 import {
   grid,
   graphic,
@@ -13,6 +16,19 @@ import {
   xAxis as makeXAxisOption,
   yAxisKline as makeYAxisOption
 } from '~/lib/chartOption'
+import safeGet from '@fengqiaogang/safe-get'
+import safeSet from '@fengqiaogang/safe-set'
+import { clacLegendRows } from '~/logic/echarts/legend'
+import { seriesType, colors } from '~/logic/echarts/interface'
+
+const props = defineProps({
+  stack: {
+    type: Boolean,
+    default () {
+      return false
+    }
+  },
+})
 
 const echartId = ref<string>(uuid())
 
@@ -27,7 +43,6 @@ const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
 const [ legend ] = useProvide(EchartsOptionName.legend)
 const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
 
-
 /**
  * 获取 ref 对象中的数据，并去除空值
  * @param data ref
@@ -40,17 +55,31 @@ const getValue = function(data: any) {
 const getToolTip = function() {
   const array = getValue(tooltip)
   const option = makeTooltipOption()
-  return Object.assign({}, option, array[0])
+  return Object.assign({}, option, array[0], {
+    formatter: logicToolTip.formatter,
+    textStyle: {
+      color: colors
+    }
+  })
+}
+
+const getLegendRow = function(): number {
+  const echart = toRaw(echartsRef).value
+  const row = logicLegend.clacLegendRows(getValue(legend), echart)
+  return row
 }
 
 const getLegend = function() {
-  const array = getValue(legend)
   const data = map((item: any) => {
     if (item.show) {
-      return item.value
+      const icon = `path://${logicLegend.source[item.type]}`
+      return {
+        icon,
+        name: item.value,
+      }
     }
-  }, array)
-  return { data: compact(data), bottom: 0 }
+  }, getValue(legend))
+  return { data: compact(data), bottom: 0, itemWidth: 14, }
 }
 
 const getXAxis = function() {
@@ -60,84 +89,142 @@ const getXAxis = function() {
   }, getValue(xAxis))
 }
 
-const getYAxis = function() {
+// 计算 Y 轴刻度数据
+const getYAxis = function(): any[] {
+  const viewWidth = document.documentElement.clientHeight
+  const char: any = compChar.value
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
-  return map(function(item: any) {
-    return Object.assign({}, option, item, {
-      // todo
-    })
-  }, getValue(yAxis))
+
+  const legends = getValue(legend)
+  const seriesList = getValue(series)
+  const yAxis = []
+
+  const leftData: any[] = []
+  const rightData: any[] = []
+  forEach(function(item: any, index: number) {
+    const value = safeGet<any[]>(seriesList, `[${index}].data`)
+    if (item.position === Position.right) {
+      rightData.push(value)
+    } else {
+      leftData.push(value)
+    }
+  }, legends)
+
+  if (leftData.length > 0) {
+    const value = calcYAxis(leftData, props.stack)
+    yAxis.push(Object.assign({}, option, value, {
+      position: Position.left
+    }))
+  }
+  if (rightData.length > 0) {
+    const value = calcYAxis(rightData, props.stack)
+    yAxis.push(Object.assign({}, option, value, {
+      position: Position.right
+    }))
+  }
+  if (viewWidth < 768) {
+    return map(function(item: any) {
+      safeSet(item, 'axisLabel.inside', true)
+      return item
+    }, yAxis)
+  }
+  return yAxis
 }
 
-const getYindex = function(yaxis: any[]) {
-  return function(value: string): number {
-    let index: number = 0
-    for(let i = 0, len = yaxis.length; i < len; i++) {
-      const item = yaxis[i]
-      if (item.position === 'left') {
-        index = i
-      }
-      const list = compact(toRaw(item.legend))
-      const status = includes(value, list)
-      if (status) {
-        index = i
-        break
-      }
+const getYindex = function(): any {
+  const list: any[] = getValue(legend)
+  return function(i: number): number {
+    const item = list[i]
+    let index = 0
+    if (item.position === Position.right) {
+      index = 1
     }
-    return index
+    return Object.assign({ index }, item)
   }
 }
 
 const getSeries = function() {
-  const result: any[] = getValue(series)
-  const app = getYindex(getYAxis())
+  const app = getYindex()
   return map((item: any, index: number) => {
-    const option = Object.assign({
-      name: item.value,
-      type: item.type,
+    const data = app(index)
+    const option: any = Object.assign({
+      name: data.value,
+      type: data.type,
       connectNulls: true,
-      yAxisIndex: app(item.value),
+      yAxisIndex: data.index,
       label: {
         show: false,
       },
       symbol: 'none',
-    }, result[index])
-    if (option.stack) {
+    }, item)
+    if (data.type === seriesType.line) {
+      // 线条平滑处理
+      option.smooth = true;
+      if (data.index !== 1) {
+        option.areaStyle = {}
+      }
+    }
+    if (data.type === seriesType.bar) {
+      // 柱状图最大宽度
+      option.barMaxWidth = 50
+    }
+
+    if (props.stack && data.position === Position.left) {
       // 开启堆积图
       option.stack = 'stack'
     }
     return option
-  }, getValue(legend))
+  }, getValue(series))
 }
 
+const getGrid = function() {
+  const row = getLegendRow()
+  let height = 0
+  if (row <= 1) {
+    height = 35
+  } else {
+    height = row * 25
+  }
+  return Object.assign({}, grid(), {
+    top: 15,
+    left: 0,
+    right: 0,
+    bottom: height,
+    containLabel: true,
+  })
+}
 
 const getOption = function() {
   const data = {
-    grid: Object.assign({}, grid(), {
-      top: 15,
-      left: 100,
-      right: 100,
-      bottom: 55,
-      containLabel: false,
-    }),
+    grid: getGrid(),
     graphic: graphic(30),
+    tooltip: getToolTip(),
     legend: getLegend(),
     xAxis: getXAxis(),
     yAxis: getYAxis(),
     series: getSeries(),
-    tooltip: getToolTip(),
+    color: colors
   }
-  return calcYAxisMark(data)
+  return data
 }
-
-// @ts-ignore
-const echartOption = computed(getOption)
 
 const onResize = function() {
   const char: any = compChar.value
-  char.resize()
+  char.resize({
+    width: 'auto',
+    height: 'auto',
+    silent: true,
+    animation: {
+      duration: 0
+    }
+  })
+  setTimeout(function() {
+    char.setOption({
+      grid: getGrid(),
+    })
+  })
 }
 
 

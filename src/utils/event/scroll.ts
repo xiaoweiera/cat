@@ -53,6 +53,12 @@ export const scrollTop = function(): number {
   return scroll_top;
 }
 
+// 设置页面滚动条位置
+export const setScrollTop = function(top: number = 0) {
+  // @ts-ignore
+  document.scrollingElement.scrollTop = top
+}
+
 export const unbind = function(namespace: string) {
   if (data.has(namespace)) {
     data.delete(namespace)

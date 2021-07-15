@@ -25,7 +25,7 @@ const onResize = debounce<any>(function(e: Event) {
     callback(e)
   })
   removeResize()
-}, 300)
+}, 100)
 
 const init = function() {
   if (initAdd) {

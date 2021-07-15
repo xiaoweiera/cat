@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, watch, ref, defineProps, onMounted } from 'vue'
+import { computed, watch, ref, defineProps, onMounted, defineEmit } from 'vue'
 import { useProvide } from '~/utils/use/state'
 import { toBoolean, uuid } from '~/utils'
+
+const emitEvent = defineEmit(['change'])
 
 const props = defineProps({
   status: {
@@ -17,9 +19,12 @@ const opened = ref<boolean>(false)
 
 const [ fullStatus, set ] = useProvide('fullStatus', false)
 
-watch(fullStatus, function() {
+watch(fullStatus, function(data: any) {
+  const [ value ]: [boolean] = data
+  console.log(value)
   opened.value = false
   screenId.value = uuid()
+  emitEvent('change', value)
 })
 
 // @ts-ignore
@@ -47,11 +52,11 @@ onMounted(function() {
 </script>
 
 <template>
-  <slot :status="false" :id="screenId"></slot>
+  <slot :status="false" :id="`small-${screenId}`"></slot>
   <div v-if="status">
     <el-dialog top="0" v-model="status" custom-class="screen-dialog" :append-to-body="true" @opened="onShow" @close="onClose">
       <div class="w-full h-full" v-if="opened">
-        <slot :status="status" :id="screenId"></slot>
+        <slot :status="status" :id="`medium-${screenId}`"></slot>
       </div>
     </el-dialog>
   </div>
@@ -62,7 +67,8 @@ onMounted(function() {
     margin: 0 !important;
     width: initial !important;
     @apply absolute;
-    @apply left-30 top-20 right-30 bottom-20;
+    @apply left-15 top-15 right-15 bottom-15;
+    @apply md:left-30 md:top-20 md:right-30 md:bottom-20;
     .el-dialog__header {
       @apply hidden;
     }

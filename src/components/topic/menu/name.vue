@@ -3,7 +3,7 @@ import { defineProps } from 'vue'
 import { MenuItem } from '~/logic/topic/props'
 import { menuList } from '~/logic/topic/menu'
 import DBList from '@fengqiaogang/dblist'
-import { router } from '~/utils/directive/router'
+import router, { config } from '~/utils/router'
 
 defineProps({
   data: {
@@ -31,7 +31,7 @@ const makeQuery = function(item: MenuItem) {
   const topicID = item.id
 
   const value = router({
-    path: '/topic',
+    path: config.topic,
     query: { tagID, topicID }
   })
   return value
