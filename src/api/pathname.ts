@@ -36,6 +36,8 @@ export const res = {
 // @ts-ignore
 export const topic = {
   getMenuList: '/api/v2/topics/web_topic',
+  // 根据搜索框内容获取图表数据
+  search: '/api/v2/charts/search_chart',
   // 系统推荐图表数据
   recommend: '/api/v2/charts/web_recommend',
   // 获取图表中所有的 id

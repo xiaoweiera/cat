@@ -49,8 +49,13 @@ const getLegends = function(list: APIChart[]): LegendItem[] {
   return compact(legends)
 }
 
-export const getChartList = async function(topId: string | number, page?: number, limit?: number) {
-  const result = await api.getChartList(topId, page, limit)
+export const getChartList = async function(topId: string | number, page: number = 1, limit: number = 10, search: string = '') {
+  const query = {
+    page,
+    page_size: limit,
+    query: search
+  }
+  const result = await api.getChartList(topId, query)
   const list = map(function(data: any) {
     // 判断是单图还是多图
     const multiple = toBoolean(safeGet<boolean>(data, 'is_multy_chart'))

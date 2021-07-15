@@ -18,7 +18,7 @@ const hooks = new Set<Callback>()
 // 默认数据
 export const param = reactive<Param>({
   tagID: 'item',
-  topicID: '0'
+  topicID: '0',
 })
 
 // 绑定路由变化时事件
@@ -32,9 +32,9 @@ export const watch = function(callback: Callback) {
 // 路由更新时出发
 const updated = function(router: any) {
   const $router = toRaw(router)
-  const query: Param = $router?.query?.value as any
-  const tagId = safeGet(query, 'tagID') || 'item'
-  const topId =  safeGet(query, 'topicID') || 0
+  const data: Param = $router?.query?.value as any
+  const tagId = safeGet<string>(data, 'tagID') || 'item'
+  const topId =  safeGet<string>(data, 'topicID') || 0
   param.tagID = `${tagId}`
   param.topicID = `${topId}`
 

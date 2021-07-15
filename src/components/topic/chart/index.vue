@@ -8,6 +8,12 @@ import * as scroll from '~/utils/event/scroll'
 const props = defineProps({
   menu: {
     type: Object
+  },
+  query: {
+    type: String,
+    default () {
+      return ''
+    }
   }
 })
 
@@ -55,7 +61,7 @@ const getData = async function() {
     // 请求列表
     const menu = props?.menu
     const id = menu?.topicID || menu?.id
-    const { list: array, count: size } = await getChartList(id, page.value, limit.value)
+    const { list: array, count: size } = await getChartList(id, page.value, limit.value, props.query)
     // 处理数据
     list.value = arrayConcat(list.value, array)
     count.value = toNumber(size, 0)
