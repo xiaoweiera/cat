@@ -10,8 +10,7 @@ const changeTag = (tag: string) => {
 }
 </script>
 <template>
-  <div class="usdCoinContainer flex">
-    {{coinType}}
+  <div class="usdCoinContainer flex" >
     <div @click="changeTag('usd')" :class="coinType[0]==='usd'?'tagSelected':'tag'">USD 计价</div>
     <div @click="changeTag('coin')" :class="coinType[0]==='coin'?'tagSelected':'tag'">币本位计价</div>
   </div>

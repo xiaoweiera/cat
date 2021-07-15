@@ -41,93 +41,93 @@ export const chartDataConfig=[
             }
         }
     },
-    // {
-    //     title:'流入流出明细',
-    //     desc:'展示选定币种或者交易对的相关资金净流入流出的明细，更直观的展示资金在多空博弈时的体量。',
-    //     flow:{
-    //         id:1,
-    //         tokenCofig:{
-    //             usdCoin:true,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     },
-    //     pay:{
-    //         id:6,
-    //         tokenCofig:{
-    //             usdCoin:true,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:true
-    //         }
-    //     }
-    //
-    // },
-    // {
-    //     title:'流出流出频次',
-    //     desc:'展示选定币种或者交易对的用户操作的频率，能直观的反映人们参与的热情。',
-    //     flow:{
-    //         id:4,
-    //         tokenCofig:{
-    //             usdCoin:false,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     },
-    //     pay:{
-    //         id:9,
-    //         tokenCofig:{
-    //             usdCoin:false,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     }
-    // },
-    // {
-    //     title:'参与人数分析',
-    //     desc:'展示选定币种或者交易对的参数人数的明细，能直观的看出相关项目的用户规模。',
-    //     flow:{
-    //         id:3,
-    //         tokenCofig:{
-    //             usdCoin:false,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     },
-    //     pay:{
-    //         id:8,
-    //         tokenCofig:{
-    //             usdCoin:false,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     }
-    // },
-    // {
-    //     title:'新增人数分析',
-    //     desc:'展示选定币种或者交易对的新增用户的明细，能直观的看出相关项目有多少新用户进入。',
-    //     flow:{
-    //         id:2,
-    //         tokenCofig:{
-    //             usdCoin:false,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     },
-    //     pay:{
-    //         id:7,
-    //         tokenCofig:{
-    //             usdCoin:false,
-    //         },
-    //         pairCofig:{
-    //             usdCoin:false
-    //         }
-    //     }
-    // }
+    {
+        title:'流入流出明细',
+        desc:'展示选定币种或者交易对的相关资金净流入流出的明细，更直观的展示资金在多空博弈时的体量。',
+        flow:{
+            id:1,
+            tokenCofig:{
+                usdCoin:true,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        },
+        pay:{
+            id:6,
+            tokenCofig:{
+                usdCoin:true,
+            },
+            pairCofig:{
+                usdCoin:true
+            }
+        }
+
+    },
+    {
+        title:'流出流出频次',
+        desc:'展示选定币种或者交易对的用户操作的频率，能直观的反映人们参与的热情。',
+        flow:{
+            id:4,
+            tokenCofig:{
+                usdCoin:false,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        },
+        pay:{
+            id:9,
+            tokenCofig:{
+                usdCoin:false,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        }
+    },
+    {
+        title:'参与人数分析',
+        desc:'展示选定币种或者交易对的参数人数的明细，能直观的看出相关项目的用户规模。',
+        flow:{
+            id:3,
+            tokenCofig:{
+                usdCoin:false,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        },
+        pay:{
+            id:8,
+            tokenCofig:{
+                usdCoin:false,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        }
+    },
+    {
+        title:'新增人数分析',
+        desc:'展示选定币种或者交易对的新增用户的明细，能直观的看出相关项目有多少新用户进入。',
+        flow:{
+            id:2,
+            tokenCofig:{
+                usdCoin:false,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        },
+        pay:{
+            id:7,
+            tokenCofig:{
+                usdCoin:false,
+            },
+            pairCofig:{
+                usdCoin:false
+            }
+        }
+    }
 ]

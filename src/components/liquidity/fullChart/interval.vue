@@ -11,7 +11,6 @@ const changeTag = (tag: string) => {
 
 </script>
 <template>
-  --{{interval[0]}}
   <div class="usdCoinContainer flex">
     <div @click="changeTag('1H')" :class="interval[0]==='1H'?'tagSelected':'tag'">1H</div>
     <div @click="changeTag('1D')" :class="interval[0]==='1D'?'tagSelected':'tag'">1D</div>

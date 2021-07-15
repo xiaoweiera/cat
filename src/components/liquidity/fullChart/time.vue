@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref,watch } from 'vue'
-import {paramChart} from '~/store/liquidity/state'
+import { ref,watch,reactive } from 'vue'
 import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import {  setInject, getInject } from '~/utils/use/state'
 import * as R from 'ramda'
@@ -17,27 +16,23 @@ interface timeModel {
   value: number
   selected: boolean
 }
-// timeBegin: getagoTimeStamp(90), // 开始时间
-//     timeEnd: dataToTimestamp(formatDefaultTime(null,'YYYY-MM-DD')), // 结束时间
-//     time:'',//时间是否改变，改变值  判断是否改变
-//     timeType:90,//7 30 90    0是自定义
-//     interval: '1D', // 颗粒度
-//     coinType: 'usd', // USD或者币
-//     tokenType: 'pair', // pair ETH USDT
+const timeParam=getInject('timeParam')
+const paramData=reactive({
+  ...timeParam.value[0]
+})
+const setTimeParam = setInject('timeParam')
 const interval=getInject('interval')
-console.log(interval.value,'0---')
-const beginTime = ref(0)
-const endTime = ref(0)
 //选择时间tag  7 30  90
 const selectTag = (timeM: timeModel) => {
   //如果颗粒度小h大于30天
   if(!getClass(timeM)){
     return
   }
-    paramChart.timeType=timeM.value
-    paramChart.timeBegin=getagoTimeStamp(timeM.value)
-    paramChart.timeEnd=dataToTimestamp(formatDefaultTime())
-    paramChart.time=getagoTimeStamp(timeM.value)
+  paramData.timeType=timeM.value
+  paramData.timeBegin=getagoTimeStamp(timeM.value)
+  paramData.timeEnd=dataToTimestamp(formatDefaultTime())
+  paramData.time=getagoTimeStamp(timeM.value)
+  setTimeParam(paramData)
   R.forEach((item) => {
     if (item.name === timeM.name) {
       item.selected = true
@@ -50,7 +45,7 @@ const selectTime=ref()
 //给时间选择进行时间范围限制，1h的时候只能访问前1个月的，1d的时候只能访问前三个月的
 const pickerOptions=(time)=>{
   if(time) {
-    if(interval.value==='1D'){
+    if(interval.value[0]==='1D'){
       if(dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(90))) || dataToTimestamp(time)>dataToTimestamp(new Date())) return true
     }else{
       if(dataToTimestamp(time) < dataToTimestamp(formatDefaultTime(getagoTimeStamp(30))) || dataToTimestamp(time)>dataToTimestamp(new Date())) return true
@@ -59,7 +54,7 @@ const pickerOptions=(time)=>{
   return false
 }
 const getClass=(item:any)=>{
-  if(interval.value==='1D' || (interval.value==='1H' && item.value<=30)){
+  if(interval.value[0]==='1D' || (interval.value[0]==='1H' && item.value<=30)){
     return true
   }else{
     return false
@@ -72,7 +67,7 @@ const getClass=(item:any)=>{
       <div class="flex h-7.8 items-center timeFilter">
         <template v-for="item in filterOption">
           <div :class="getClass(item)?'showItemTime':'noShowItemTime'"  >
-            <div :class="item.value===paramChart.timeType? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
+            <div :class="item.value===paramData.timeType? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
               {{ item.name }}
             </div>
           </div>

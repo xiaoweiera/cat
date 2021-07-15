@@ -49,5 +49,18 @@ export const updateInject = function(name: string, ...args: any[]): boolean {
   return false
 }
 
+export const margeInject = function(name: string, value: any): boolean {
+  if (name && value) {
+    const set = setInject(name)
+    const state = getInject(name)
+    if (set && state) {
+      const [ oldValue = {} ] = state.value
+      set(Object.assign({}, oldValue, value))
+      return true
+    }
+  }
+  return false
+}
+
 
 

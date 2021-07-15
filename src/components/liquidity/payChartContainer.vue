@@ -110,13 +110,14 @@ const getTitleDesc=(title:string)=>{
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
+      <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="pay" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
     <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-12 ">
       {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="h-full">
       <div v-if="!isNull">
-        <LiquidityChart :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
+        <LiquidityChart class="h-77.5"  :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
         <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
