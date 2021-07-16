@@ -80,7 +80,7 @@ const isVisible = function(value: any) {
       <div class="py-2">
         <p class="text-sm leading-5 text-global-default text-opacity-65 description">{{ props.project.dashboard.description }}</p>
       </div>
-      <ul class="pt-2.5 min-h-28">
+      <ul class="pt-2.5">
         <li class="py-1.5 text-sm text-global-default text-opacity-65" :class="isVisible(props.project.dashboard.reward.countStr)">
           <label class="label mr-8">{{ I18n.growthpadShow.reward }}</label>
           <span>{{ props.project.dashboard.reward.countStr }}</span>

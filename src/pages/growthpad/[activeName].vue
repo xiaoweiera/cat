@@ -38,6 +38,7 @@ onBeforeMount(() => {
 
       <div>
         <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
+        <p class="text-sm text-global-highTitle">{{ store.taskDetail.value }}</p>
         <div class="pb-15">
           <DotCountGroup class="pt-4">
             <ul class="task-list">

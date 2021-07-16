@@ -2,7 +2,13 @@
 </script>
 
 <template>
-  <div class="table-box font-kdFang">
+  <div class="about-note font-kdFang">
+    <div class="mt-6">
+      <h3>About NFT Mystery Box</h3>
+      <p>HECO NFT Mystery Box is actually composed of three types of NFT: Crypto Art NFT+ Privileged NFT+ Game Props NFT.</p>
+    </div>
+  </div>
+  <div class="table-box font-kdFang mt-6">
     <table border="0" cellpadding="0" cellspacing="0">
       <thead>
         <tr>
@@ -31,7 +37,7 @@
           <td>Crypto ArtNFT</td>
           <td>
             <span class="block">TKSX graffiti artist</span>
-            <span class="block link">iBox NFT platform</span>
+            <span class="block">iBox NFT platform</span>
           </td>
           <td>First release/exclusive/selected crypto artwork</td>
         </tr>
@@ -71,32 +77,27 @@
         After winning the Crypto Art NFT, it can be resold in iBox after users obtain the NFT, or hold for a long time to wait for the appreciation of the artwork to obtain the future value.
       </p>
 
-      <h5>2. What’s Heco？</h5>
-      <p><a>HECO Chain</a> is an EVM-compatible public chain with an efficient and low-cost on-chain environment for DApps, smart contracts, and digital assets. The native digital asset of Huobi ecological chain is HT, which adopts the consensus mechanism of HPOS. For now, more than 200 developers have joined HECO, with an average of 4 million+ transactions per day and 100,000 + active addresses per day.</p>
+      <h5>2. What’s HECO？</h5>
+      <p><a href="https://www.hecochain.com/en-us/assets/" target="_blank">HECO Chain</a> is an EVM-compatible public chain with an efficient and low-cost on-chain environment for DApps, smart contracts, and digital assets. The native digital asset of Huobi ecological chain is HT, which adopts the consensus mechanism of HPOS. For now, more than 200 developers have joined HECO, with an average of 4 million+ transactions per day and 100,000 + active addresses per day.</p>
 
       <h5>3. What is Huobi global?</h5>
-      <p>Huobi Global is a global blockchain asset financial services provider including exchange, trade, wallet, and storage. Since its establishment in 2013.</p>
+      <p><a href="www.huobi.com/" target="_blank">Huobi Global</a> is a global blockchain asset financial services provider including exchange, trade, wallet, and storage. Since its establishment in 2013.</p>
 
       <h5>4. What’s Filda？</h5>
-      <p><a>FilDA</a> is the first HECO-based cross-chain lending DeFi project which provides users with deposit, lending and liquid mining services. It now supports lending for 20 kinds of assets, including HUSD and HBTC. Interest and FilDA can be obtained by depositing digital assets, and FilDA can be earned by borrowing digital assets.</p>
+      <p><a href="https://www.filda.io/" target="_blank">FilDA</a> is the first HECO-based cross-chain lending DeFi project which provides users with deposit, lending and liquid mining services. It now supports lending for 20 kinds of assets, including HUSD and HBTC. Interest and FilDA can be obtained by depositing digital assets, and FilDA can be earned by borrowing digital assets.</p>
 
       <h5>5. What’s Evolution Land？</h5>
-      <p><a>Evolution Land</a> is a blockchain game that supports cross-chain virtual operation. Players can buy and sell land, dig elements for them, build buildings, make items, etc., Play to earn.</p>
+      <p><a href="https://www.evolution.land" target="_blank">Evolution Land</a> is a blockchain game that supports cross-chain virtual operation. Players can buy and sell land, dig elements for them, build buildings, make items, etc., Play to earn.</p>
 
       <h5>6. What’s iBox？</h5>
-      <p><a>IBox</a> (ibox.com) is the world's leading digital collection e-commerce platform, positioned at the issue and circulation of high-end digital collections, where users not only can purchase the NFT products, but also buy and sell in the secondary market.</p>
+      <p><a href="https://www.evolution.land" target="_blank">IBox</a> (ibox.com) is the world's leading digital collection e-commerce platform, positioned at the issue and circulation of high-end digital collections, where users not only can purchase the NFT products, but also buy and sell in the secondary market.</p>
 
       <h5>7. Who is TKSX？</h5>
       <p>TKSX is the first NFT fashion brand in Asia. It was established in 2020. Since its establishment, the brand has signed hundreds of young artists. Artists cover graffiti, rap, tattoos, designer toys, ACGN and other fields. TKSX is committed to creating  unique and valuable collections.</p>
     </div>
     <div class="mt-6">
-      <h3>About the event:</h3>
-
-      <h5>1. How to participate the event？</h5>
-      <p>Click on the <a>form link</a> to participate</p>
-
-      <h5>2. How do I know if I won the airdrop?</h5>
-      <p>Please check if you have won the NFT mystery box in the official website reward announcement on 2021/7/23(UTC). You will see the NFT airdrop in your Heco wallet address in the next 3 days. Then you can view that in the personal center of <a>IBox , Evolution Land</a> after binding the Heco wallet.</p>
+      <h3>How do I know if I won the airdrop?</h3>
+      <p>Please check if you have won the NFT mystery box in the official website reward announcement on 2021/7/23(UTC). You will see the NFT airdrop in your HECO wallet address in the next 3 days. Then you can view that in the personal center of <a href="https://www.ibox.com/en-us/account/" target="_blank">IBox</a> , <a href="https://www.evolution.land/" target="_blank">Evolution Land</a> after binding the HECO wallet.</p>
     </div>
   </div>
 </template>
