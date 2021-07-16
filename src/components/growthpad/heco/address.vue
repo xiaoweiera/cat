@@ -22,6 +22,9 @@ const infoStatus = computed<boolean>(function() {
         <span>{{ I18n.growthpad.register }}</span>
       </h2>
     </div>
+    <div v-else>
+      <h2 class="pb-4 text-base font-medium address">Award Information</h2>
+    </div>
     <!--个人信息填写-->
     <div>
       <div>
