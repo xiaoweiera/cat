@@ -46,7 +46,7 @@ const data = {
       'KingData',
       I18n.growthpad.warning.follow,
       'https://twitter.com/KingData_com',
-      [5]
+      [10]
     ),
     // 任务3，加入电报群
     chat.telegram(
