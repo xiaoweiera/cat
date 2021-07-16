@@ -35,6 +35,15 @@ export const postInfo = function(key: string) {
       data[key] = inputBeautify(value)
       // 将结果传递给原方法
       try {
+        // @ts-ignore
+        const areaRestrict = await this.getAreaRestrictStatus(true)
+        // 判断是否有区域限制
+        if (areaRestrict) {
+          return Promise.reject({
+            restrict: true
+          })
+        }
+
         const temp = await Promise.resolve(fun.call(self, value, data))
         if (temp) {
           Object.assign(data, temp)
@@ -45,12 +54,6 @@ export const postInfo = function(key: string) {
         if (mission[key]) {
           // @ts-ignore
           mission[key] = MissionStatus.loading // 设置对应任务为检测中状态
-        }
-        // @ts-ignore
-        const areaRestrict = this.getAreaRestrictStatus(true)
-        // 判断是否有区域限制
-        if (areaRestrict) {
-          return
         }
         const result: any = await setProjectUserInfo(project, data)
         const code = safeGet<number>(result, 'data.code')

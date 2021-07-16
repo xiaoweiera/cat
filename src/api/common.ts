@@ -11,7 +11,7 @@ import { toBoolean } from '~/utils/index'
 export const getAreaRestrictStatus = async function() {
   try {
     const result = await request.get(common.ipValidate)
-    return result
+    return safeGet(result, 'data')
   } catch (e) {
     return {}
   }
@@ -20,6 +20,7 @@ export const getAreaRestrictStatus = async function() {
 // 判断是否是中国区域
 export const getChineseAreaSttus = async function() {
   const data = await getAreaRestrictStatus()
+  // @ts-ignore
   const value = safeGet<boolean>(data, 'chinese')
   return toBoolean(value) ? true : false
 }
