@@ -37,6 +37,10 @@ const title = computed<string>((): string => {
 </script>
 
 <template>
+  <template v-if="store.getNickName() === ProjectKey.heco">
+    <GrowthpadHecoAbout/>
+  </template>
+
   <div class="pb-6">
     <h2 class="text-base font-medium">
       {{ I18n.growthpad.about.projectDetail }}

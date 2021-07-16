@@ -37,6 +37,9 @@ const format = 'YYYY-MM-DD HH:mm:ss'
 const title = computed<string>((): string => {
   // @ts-ignore
   const data = { project: store.title.value }
+  if (store.getNickName() === ProjectKey.heco) {
+    return 'LUCKY HECO'
+  }
   // @ts-ignore
   if (store.getNickName() === ProjectKey.growth) {
     return data.project
@@ -101,6 +104,7 @@ const timeCountdownValue = computed<string>((): string => {
   return store.dashboard.end
 })
 
+// @ts-ignore
 const rewardStatus = computed(function() {
   if (store.getNickName() === ProjectKey.heco) {
     return false
@@ -157,7 +161,10 @@ const rewardStatus = computed(function() {
         </div>
       </div>
       <div>
-        <p class="description text-sm font-kdFang whitespace-pre-line" v-html="store.dashboard.description"></p>
+        <p class="pb-1.5" v-if="store.getNickName() === ProjectKey.heco">
+          <span class="text-base leading-6 text-global-highTitle font-medium">Lucky Heco event is live, fill in Heco address to get NFT Mystery box! </span>
+        </p>
+        <p class="description text-sm font-kdFang whitespace-pre-line leading-5" v-html="store.dashboard.description"></p>
       </div>
       <div class="pt-5" :class="{'hidden': !rewardStatus}">
         <slot :count-title="rewardCountTitle" :count-data="countComputed(store.dashboard.rewardCount)" :value-title="rewardValueTitle" :value-data="getPrice(store.dashboard.rewardCount)" :person-title="rewardPersonTitle" :person-data="[store.dashboard.rewardLimit, store.dashboard.rewardLimit]" :token="store.token">

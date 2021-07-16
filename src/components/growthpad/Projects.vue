@@ -55,7 +55,7 @@ for(let i = 0, len = tabs.length; i < len; i++) {
 </script>
 <template>
 
-  <p class="text-sm text-global-numRed pb-3">
+  <p class="text-sm text-global-numRed pb-3" v-show="I18n.growthpadShow.notice">
     <span>{{ I18n.growthpadShow.notice }}</span>
   </p>
 

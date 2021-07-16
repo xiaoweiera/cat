@@ -377,16 +377,5 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
   heco: {
     // 分享标题
     title: '助力 ChainWallet 增长',
-    dashboard: {
-      desc: `The Mystery box event--"Lucky Heco" co-founded by Hecochain, Dapp and crypto artists. This is the first phase of the “Lucky Heco”. Rare NFTs are waiting for you! 
-登记huobi global UID和HECO地址信息，并完成下方任意任务，即可参与抽奖。
-活动时间：
-1、Please fill in the information before 16:00 (UTC) on 2021 / 7 / 21
-2、Please check the announcement on 2021 / 7 / 23 (UTC) to confirm whether you have won the NFT prize.
-3、If you win, you will see the NFT prize in your heco wallet within 3 days.`
-    },
-    about: {
-      detail: 'Huobi ECO Chain (Heco) is a decentralized, high-efficiency and energy-saving public chain, also the first product launched by the Huobi Open Platform. It is compatible with smart contracts and supports high-performance transactions. The endogenous token of Heco is HT and it adopts the HPoS consensus mechanism. Heco will continue to improve the efficiency of Ethereum by Layer2, which will supplement and empower the Ethereum ecosystem.'
-    }
   }
 };

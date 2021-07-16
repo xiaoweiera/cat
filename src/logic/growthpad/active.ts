@@ -7,12 +7,14 @@ import { ref } from 'vue'
 import { useHead } from '@vueuse/head'
 import { wxShare } from '~/lib/wxShare'
 import Store from '~/store/growthpad/store'
+import * as lang from '~/utils/lang'
 
 import {
   getProjectType,
+  ProjectKey,
   ProjectPageTitle,
+  ProjectShareDesc,
   ProjectShareTitle,
-  ProjectShareDesc
 } from '~/logic/growthpad/config'
 
 export const loading = ref<boolean>(true)
@@ -32,6 +34,14 @@ const meta = [
 
 export const ready = async function(store: Store): Promise<void> {
   const name = store.getNickName()
+  if (name === ProjectKey.heco) {
+    if (lang.current.value !== lang.Language.en) {
+      const url = lang.href(window.location.href, lang.Language.en)
+      // @ts-ignore
+      window.location.href = url
+      return
+    }
+  }
   // 项目名称
   const id = getProjectType(name)
   if (id) {

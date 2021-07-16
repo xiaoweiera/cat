@@ -99,7 +99,7 @@ export const chainWallet = {
 }
 
 export const heco = {
-  title: 'LUCKY HECO', // 名称
+  title: 'HECO', // 名称
   icon: 'https://res.ikingdata.com/image/growthpad/heco/logo2.png', // icon
   url: '/growthpad/heco',
   coin: '',
@@ -108,7 +108,13 @@ export const heco = {
     banner: 'https://res.ikingdata.com/image/growthpad/heco/banner.jpg',
     begin: '2021-07-16 10:00:00', // 开始时间
     end: '2021-07-21 00:00:00', // 结束时间
-    description: I18n.growthpad.heco.dashboard.desc, // 描述
+    // 描述
+    description: `The Mystery box event--"Lucky Heco" co-founded by Hecochain, Dapp and crypto artists. This is the first phase of the “Lucky Heco”. Rare NFTs are waiting for you! 
+Register the Huobi Global UID and HECO address information, and complete any of the tasks below to participate in the lottery.
+Event Time:
+1、Please fill in the information before 16:00 (UTC) on 2021 / 7 / 21
+2、Please check the announcement on 2021 / 7 / 23 (UTC) to confirm if you have won the NFT reward.
+3、If you win, you will receive the NFT reward in your heco wallet within 3 days.`,
     reward: {
       count: 0, // 奖励数量
       countStr: '',
