@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref,watch,reactive } from 'vue'
+import { ref,reactive } from 'vue'
 import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import {  setInject, getInject } from '~/utils/use/state'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
 const filterOption = ref([
   { name: I18n.liquidity.mainHeader.week, value: 7, selected: true },
   {name: I18n.liquidity.mainHeader.month, value: 30, selected: false},

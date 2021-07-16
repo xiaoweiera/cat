@@ -47,6 +47,7 @@ const getData = async () => {
     //pair查询
     props.pairParam.pair_id = pairStore.id
     priceData.value = await getPairPriceData({
+      platId:1,
       pair_id: pairStore.id,
       from_ts: props.pairParam.from_ts,
       to_ts: props.pairParam.to_ts
@@ -57,6 +58,7 @@ const getData = async () => {
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
     priceData.value = await getTokenPriceData({
+      platId:1,
       symbol_id: symbolStore.id,
       from_ts: props.tokenParam.from_ts,
       to_ts: props.tokenParam.to_ts

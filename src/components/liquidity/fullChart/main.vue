@@ -56,7 +56,7 @@ const getData = async () => {
     const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
     chartCoin = props.config[props.chartType].tokenCofig.usdCoin ? coinType.value[0] : 'usd'
     requestParam.symbol_id = tokenData.value[0].id
-    priceData.value = await getTokenPriceData({symbol_id: tokenData.value[0].id, from_ts: requestParam.from_ts, to_ts: requestParam.to_ts}, 'token')
+    priceData.value = await getTokenPriceData({platId:1,symbol_id: tokenData.value[0].id, from_ts: requestParam.from_ts, to_ts: requestParam.to_ts}, 'token')
     if(props.chartType==='flow'){
       chartData.value = await getFlowChartModel(param, props.chartId, tokenType, chartCoin)
     }else{
