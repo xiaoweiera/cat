@@ -26,24 +26,23 @@ const infoStatus = computed<boolean>(function() {
     <div>
       <div>
         <p class="text-global-highTitle text-sm leading-6" v-if="store.info.uid">
-          <span class="block md:inline-block mr-1.5">您登记的奖励领取地址为:</span>
+          <span class="block md:inline-block mr-1.5">Enter Huobi UID:</span>
           <span class="block md:inline whitespace-pre-wrap break-all font-medium">{{ store.info.uid }}</span>
         </p>
-        <GrowthpadFormInput v-else name="uid" :placeholder="I18n.growthpad.form.placeholderUID" :button="I18n.growthpad.submit">
+        <GrowthpadFormInput v-else name="uid" placeholder="Enter Huobi UID" :button="I18n.growthpad.submit">
           <template #warn>
             <p class="warn">
-              <span>Enter your UID of Huobi Global,</span>
-              <a class="link ml-1" target="_blank" href="https://www.huobi.com/en-us/">Login the APP which could be seen from the upper left corner</a>
+              <span>Log in to Huobi Global, click My-Profile to see the UID.</span>
             </p>
           </template>
         </GrowthpadFormInput>
       </div>
       <div>
         <p class="text-global-highTitle text-sm leading-6" v-if="store.info.bsc">
-          <span class="block md:inline-block mr-1.5">您登记的奖励领取地址为:</span>
+          <span class="block md:inline-block mr-1.5">Enter HECO address:</span>
           <span class="block md:inline whitespace-pre-wrap break-all font-medium">{{ store.info.bsc }}</span>
         </p>
-        <GrowthpadFormInput v-else class="pt-5" name="address" :placeholder="I18n.growthpad.form.placeholderHECO" :button="I18n.growthpad.submit">
+        <GrowthpadFormInput v-else class="pt-5" name="address" placeholder="Enter HECO address" :button="I18n.growthpad.submit">
           <template #warn>
             <span>Enter your Heco wallet address,</span>
             <a class="link ml-1" target="_blank" href="https://medium.com/heco-chain/how-to-set-up-matemask-for-heco-chian-53eda451424c">HECO wallet address creation tutorial</a>
