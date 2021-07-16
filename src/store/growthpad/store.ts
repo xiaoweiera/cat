@@ -113,6 +113,7 @@ class Store {
     tokenDetail: '',
   })
 
+  taskDetail = ref<string>('')
   // 任务列表
   taskList = ref<TaskItem[]>([])
   // 个人信息, 用户数据
@@ -246,6 +247,7 @@ class Store {
       this.about.minutias.push(minutia)
     }
 
+    this.taskDetail.value = safeGet<string>(data, 'taskDetail')
     // 任务列表
     this.taskList.value = safeGet<TaskItem[]>(data, 'taskList')
   }

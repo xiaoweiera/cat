@@ -34,7 +34,7 @@ const rewardProbability = computed<number>((): number => {
   for(const task of store.taskList.value) {
     if (task.type !== TaskType.weibo) {
       const status = getValueStatus(task.type, store)
-      if (status === MissionStatus.success) {
+      if (status === MissionStatus.success || status === MissionStatus.loading) {
         const value = getMax(task.reward)
         size += value
       }
