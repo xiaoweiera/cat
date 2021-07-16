@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 // @ts-ignore
-import {unitDatas} from '~/logic/liquidity/dataCofig'
 
-console.log(unitDatas['单位时间内流动性添加总量'])
 
 </script>
 <template>
