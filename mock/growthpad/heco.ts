@@ -8,11 +8,9 @@ import { heco } from './projectInfo'
 import * as chat from './chat'
 const token = heco.coin // 代币名称
 
-const telegramHref = 'https://t.me/Huobiecochainofficial'
-// 关注 twitter 链接地址
-const twitterHref = 'https://twitter.com/HECO_Chain'
-// 转发的 twitter 的文章地址
-const reTwitterHref = 'https://twitter.com/kingdata_com/status/1410801714836377601?s=21'
+// 转发 twitter 内容
+const reTwitterHref = 'https://twitter.com/KingData_com'
+const website = 'www.hecochain.com' // 项目官网
 
 const data = {
   token,
@@ -23,12 +21,12 @@ const data = {
     placeholder: I18n.growthpad.mdx.address.placeholder
   },
   about: {
-    website: 'www.hecochain.com',
+    website,
     minutias: [],
     detail: I18n.growthpad.heco.about.detail, // 项目介绍
     share: [
-      { icon: 'telegram', href: telegramHref },
-      { icon: 'twitter', href: twitterHref },
+      { icon: 'telegram', href: 'https://t.me/Huobiecochainofficial' },
+      { icon: 'twitter', href: 'https://twitter.com/HECO_Chain' },
       // 微博
       { icon: 'sina', href: 'https://weibo.com/p/1005057532436575/home?from=page_100505&mod=TAB&is_all=1' },
       { icon: 'icon-facebook-circle-fill', href: 'https://www.facebook.com/100058911686668/posts/106376634669392/?d=n&substory_index=0' },
@@ -47,14 +45,14 @@ const data = {
     chat.twitter(
       'KingData',
       I18n.growthpad.warning.follow,
-      twitterHref,
+      'https://twitter.com/KingData_com',
       [5]
     ),
     // 任务3，加入电报群
     chat.telegram(
       'KingData',
       I18n.growthpad.warning.telegram,
-      telegramHref,
+      'https://t.me/KingDataEN',
       [10]
     ),
   ],
