@@ -4,11 +4,11 @@ import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import {  setInject, getInject } from '~/utils/use/state'
 import * as R from 'ramda'
 const filterOption = ref([
-  { name: '近7天', value: 7, selected: true },
-  {name: '近1月', value: 30, selected: false},
-  { name: '近3月', value: 90, selected: false },
-  { name: '近6月', value: 180, selected: false },
-  { name: '近1年', value: 365, selected: false },
+  { name: I18n.liquidity.mainHeader.week, value: 7, selected: true },
+  {name: I18n.liquidity.mainHeader.month, value: 30, selected: false},
+  { name: I18n.liquidity.mainHeader.streeMonth, value: 90, selected: false },
+  { name: I18n.liquidity.mainHeader.sixMonth, value: 180, selected: false },
+  { name: I18n.liquidity.mainHeader.year, value: 365, selected: false },
 ])
 
 interface timeModel {

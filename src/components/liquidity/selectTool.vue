@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref,watch,reactive,defineProps} from 'vue'
+import I18n from '~/utils/i18n/index'
 import {selectTxt} from '~/store/liquidity/state'
 const props = defineProps({
   changeShow: Function
@@ -19,7 +20,7 @@ watch(()=>selectTxt.value,(n)=>{
 </script>
 <template>
   <div class="flex flex-1 relative text-kd12px14px items-center ml-1 pl-1.5 pr-3 font-kdFang h-14.5">
-    <el-input v-model="selectTxt"  placeholder="搜索币种/交易对/合约地址" @change="changeSelect()" ></el-input>
+    <el-input v-model="selectTxt"  :placeholder="I18n.liquidity.select.tip" @change="changeSelect()" ></el-input>
     <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
   </div>
 </template>

@@ -178,3 +178,10 @@ export function getPairPrice(param:any){
     method:'get'
   })
 }
+export function  testCnEn(){
+  return request({
+    url:`https://820f1515f85f.ngrok.io/api/liquidity/1/liquidity_token_usd_chart_single/?chart_id=1&symbol_id=0xb24f1d5d9c63380e221a36a11171214a9dfd7a99`,
+    params:{},
+    method:'get'
+  })
+}

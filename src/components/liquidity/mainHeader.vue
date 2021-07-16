@@ -3,6 +3,7 @@ import { ref,watch,onMounted } from 'vue'
 import { pairStore,paramChart,symbolStore,analysisType} from '~/store/liquidity/state'
 import {useRoute, useRouter} from 'vue-router'
 import {changeRouteParam,smallToken} from '~/lib/tool'
+import I18n from '~/utils/i18n/index'
 const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
 const route = useRoute()
 const router = useRouter()
@@ -13,10 +14,11 @@ const closePair = () => {
   changeRouteParam(route,router,{pair:undefined,pairName:undefined})
 }
 const getDesc=()=>{
+
   if(pairStore.id){
-    return '仅对 '+pairStore.name+' 交易对相关的数据聚合分析'
+    return  I18n.template(I18n.liquidity.mainHeader.payData, {pair:pairStore.name})
   }else{
-    return symbolStore.name+' 所有相关的交易对数据聚合分析'
+    return symbolStore.name+I18n.liquidity.mainHeader.liquidity
   }
 }
 </script>

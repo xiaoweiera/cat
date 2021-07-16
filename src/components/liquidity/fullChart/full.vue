@@ -11,13 +11,7 @@ const props=defineProps({
   queryInterval:String,
   timeParam:Object
 })
-// timeBegin: getagoTimeStamp(90), // 开始时间
-// timeEnd: dataToTimestamp(formatDefaultTime(null,'YYYY-MM-DD')), // 结束时间
-// time:'',//时间是否改变，改变值  判断是否改变
-// timeType:90,//7 30 90    0是自定义
-// interval: '1D', // 颗粒度
-// coinType: 'usd', // USD或者币
-// tokenType: 'pair', // pair ETH USDT
+
 
 const state=ref(false)
 const [,]=useProvide('title','')
