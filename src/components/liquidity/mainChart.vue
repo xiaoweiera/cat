@@ -11,7 +11,6 @@ interface yModel {
   type: string
   unit: string
 }
-
 const {chartsAllData, chartLoad, requestChart: getCharts} = getFlowChart()
 // 颗粒度天 时
 let myChart: any = null

@@ -11,7 +11,7 @@ const props = defineProps({
 const info = ref({})
 const  copy=(tokenId:string,type:string)=>{
   copyToken(tokenId)
-  messageTip('复制成功','success')
+  messageTip(I18n.liquidity.message.success,'success')
 }
 
 watch(()=>symbolStore.id,()=>{

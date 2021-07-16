@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
-import {ref, reactive, onMounted, watch, defineProps} from 'vue'
+import { onMounted,} from 'vue'
 import {symbolStore, pairStore, getHistory,selectHistory,clearHistory} from '~/store/liquidity/state'
-import {subStr, changeRouteParam} from '~/lib/tool'
+import { changeRouteParam} from '~/lib/tool'
 import {useRoute, useRouter} from 'vue-router'
-
+import I18n from '~/utils/i18n/index'
 const route = useRoute()
 const router = useRouter()
 const setHistory = (item: any) => {
@@ -39,7 +39,7 @@ onMounted(getHistory)
 <template>
   <div v-show="isHasHistory">
     <div class="text-global-default opacity-65 text-kd14px18px flex justify-between  text-kdFang font-medium ">
-      <div>历史记录</div>
+      <div>{{I18n.liquidity.select.history}}</div>
       <img @click="deleteHistory()" class="w-4.5 h-4.5 hand" src="https://res.ikingdata.com/nav/historyDelete.jpg" alt="">
     </div>
     <div class="flex flex-wrap">

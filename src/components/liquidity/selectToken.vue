@@ -8,6 +8,7 @@ import { symbolStore,pairStore,selectTxt,setHistory } from '~/store/liquidity/st
 import {getInfoByToken} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {changeRoute, changeRouteParam,smallToken,formatRulesNumber} from '~/lib/tool'
+import I18n from '~/utils/i18n/index'
 const allData=ref([]) //请求数据的个数
 const tokenList=ref([])
 const page=ref(1) //页数
@@ -64,12 +65,12 @@ onMounted(()=>{
 </script>
 <template>
   <ul>
-    <li class="text-global-default opacity-65 text-kd14px18px mb-3 text-kdFang font-medium ">币种</li>
+    <li class="text-global-default opacity-65 text-kd14px18px mb-3 text-kdFang font-medium ">{{I18n.liquidity.select.coinType}}</li>
     <div class="flex py-1.5 header-Border ">
       <div class="header-txt txtSmall  w-50  whitespace-nowrap"># Name/Symbol</div>
-      <div class="header-txt w-25 ml-5">合约地址</div>
+      <div class="header-txt w-25 ml-5">{{I18n.liquidity.select.address}}</div>
       <div class="header-txt w-27.5 ml-5">TVL</div>
-      <div class="header-txt w-32.5 ml-5">价格</div>
+      <div class="header-txt w-32.5 ml-5">{{I18n.liquidity.select.price}}</div>
     </div>
     <template v-for="item in tokenList">
       <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
@@ -89,7 +90,7 @@ onMounted(()=>{
         </el-tooltip>
       </li>
     </template>
-    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand ">查看更多</li>
+    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand ">{{I18n.liquidity.select.more}}</li>
   </ul>
   <!--      交易对-->
 </template>
@@ -129,19 +130,6 @@ onMounted(()=>{
 
 .selectBg {
   background: rgba(43, 141, 254, 0.08);
-}
-
-.tipContainer {
-  background: #ffffff;
-  box-shadow: 0px 4px 12px rgba(43, 140, 255, 0.16);
-  border-radius: 4px;
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  &::-webkit-scrollbar-thumb:vertical {
-    background: rgba(0, 0, 0, 0.1);
-  }
 }
 ::v-deep(.el-input__inner) {
   height: 20px;

@@ -2,10 +2,11 @@
 // @ts-ignore
 import { ref, reactive } from 'vue'
 import {symbolStore} from '~/store/liquidity/state'
+import I18n from '~/utils/i18n/index'
 const selectTag = ref('my')
 const tags = [
   // { type: 'my', name: '自选' },
-  { type: 'token', name: '相关交易对' },
+  { type: 'token', name: I18n.liquidity.side.pairDesc },
 ]
 const changeTag = (type: string) => (selectTag.value = type)
 </script>

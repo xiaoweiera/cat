@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import DBList from '@fengqiaogang/dblist'
-import {ref, reactive, onMounted, watch, defineProps} from 'vue'
 import {symbolStore, pairStore,hot} from '~/store/liquidity/state'
-import {subStr, changeRouteParam} from '~/lib/tool'
+import {changeRouteParam} from '~/lib/tool'
 import {useRoute, useRouter} from 'vue-router'
-
+import I18n from '~/utils/i18n/index'
 const route = useRoute()
 const router = useRouter()
 const selectTag= (item: any) => {
@@ -26,7 +24,7 @@ const selectTag= (item: any) => {
 </script>
 <template>
   <div class="font-kdExp">
-    <div class="text-global-default opacity-65 text-kd14px18px  text-kdFang font-medium ">热门搜索</div>
+    <div class="text-global-default opacity-65 text-kd14px18px  text-kdFang font-medium ">{{I18n.liquidity.select.hot}}</div>
     <div class="flex flex-wrap">
       <template v-for="item in hot">
         <div v-if="item.type" @click="selectTag(item)" class=" hand flex mt-3 ">
