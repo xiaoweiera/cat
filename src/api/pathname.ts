@@ -3,6 +3,11 @@
  * @author svon.me@gmail.com
  */
 
+export const common = {
+  ipValidate: '/api/v1/ip/validate',
+  ipDetail: '/api/v1/ip/me=_='
+}
+
 export const ads = {
   commercial: '/api/v2/commercial',
 }
@@ -57,6 +62,8 @@ export const topic = {
 
 // 忽略的接口地址，不传用户登录信息
 export const ignore: string[] = [
+  common.ipDetail,
+  common.ipValidate,
   user.login,
   user.signup,
   user.verify,

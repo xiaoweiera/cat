@@ -14,13 +14,14 @@ import mockGrowth from '../../../mock/growthpad/growth'
 import mockHeco from '../../../mock/growthpad/heco'
 
 // 项目 ID
+
 export enum ProjectKey {
   mdx = 'MDX',
   channels = 'CHANNELS',
   coinwind = 'COINWIND',
   growth = 'GROWTH',
   // chainwallet = 'CHAINWALLET'
-  heco = 'HECO'
+  heco = 'HECO',
 }
 
 export const ProjectMockData = {

@@ -12,6 +12,8 @@ import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
 import { getProjectType, ProjectKey, ProjectMockData, ProjectShareCode } from '~/logic/growthpad/config'
 import I18n from '~/utils/i18n'
+import message from '~/utils/message'
+import { getChineseAreaSttus } from '~/api/common'
 
 interface Minutia {
   label: string
@@ -188,6 +190,24 @@ class Store {
 
   clearTimeout(): void {
     clearTimeout(this.timeout)
+  }
+  // 获取是否有区域限制
+  async getAreaRestrictStatus (tips: boolean) {
+    let status = false
+    if (this.getNickName() === ProjectKey.heco) {
+      status = await getChineseAreaSttus()
+      if (tips && status) {
+        const html = `<div class="text-center font-kdFang">
+          <p class="text-global-numRed text-base leading-6">
+            <span class="block">Sorry</span>
+            <span class="block">This activity does not allow users in</span>
+            <span class="block">mainland China to participate</span>
+          </p>
+        </div>`
+        message.custom('', html)
+      }
+    }
+    return status
   }
 
   // 设置基础数据

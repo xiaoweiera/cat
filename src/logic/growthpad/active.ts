@@ -32,6 +32,10 @@ const meta = [
   },
 ]
 
+const areaTips = async function(store: Store) {
+  store.getAreaRestrictStatus(true)
+}
+
 export const ready = async function(store: Store): Promise<void> {
   const name = store.getNickName()
   if (name === ProjectKey.heco) {
@@ -55,6 +59,7 @@ export const ready = async function(store: Store): Promise<void> {
     const desc: string = ProjectShareDesc[id]
     // 设置分享地址
     wxShare(title, desc)
+    areaTips(store)
     await store.init()
     loading.value = false
   } else {

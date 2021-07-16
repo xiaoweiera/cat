@@ -22,7 +22,7 @@ export const postInfo = function(key: string) {
     descriptor: PropertyDescriptor,
   ) {
     const fun = descriptor.value
-    descriptor.value = async function <T>(value: string): Promise<T> {
+    descriptor.value = async function <T>(value: string): Promise<T | undefined> {
       const self = this
       // 取消定时器
       // @ts-ignore
@@ -45,6 +45,12 @@ export const postInfo = function(key: string) {
         if (mission[key]) {
           // @ts-ignore
           mission[key] = MissionStatus.loading // 设置对应任务为检测中状态
+        }
+        // @ts-ignore
+        const areaRestrict = this.getAreaRestrictStatus(true)
+        // 判断是否有区域限制
+        if (areaRestrict) {
+          return
         }
         const result: any = await setProjectUserInfo(project, data)
         const code = safeGet<number>(result, 'data.code')
