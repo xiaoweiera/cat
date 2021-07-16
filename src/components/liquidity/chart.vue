@@ -17,14 +17,15 @@ interface yModel {
 let myChart: any = null
 const pp = toRefs(paramChart)
 const props = defineProps({
+  full:Boolean,
   priceData:Object,
   chartData: Object,
-  chartId:Number,
+  chartId:String,
   coinType:Object
 })
 const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any) => {
   // @ts-ignore
-  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel,paramChart.interval)
+  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel,paramChart.interval,props.full)
   myChart.setOption(chartOption)
   // @ts-ignore
 
@@ -51,28 +52,11 @@ onMounted(() => {
     myChart.dispose();
   }
   myChart = echarts.init(myChartDom, 'light')
-
-  // myChart.on('legendselectchanged', function(params) {
-  //   console.log('kkkkk')
-  //   const option = this.getOption();
-  //   const select_key = Object.keys(params.selected);
-  //   const select_value = Object.values(params.selected);
-  //   let n = 0;
-  //   select_value.map(res => {
-  //     if(!res){
-  //       n++;
-  //     }
-  //   });
-  //   // this.setOption(option)
-  //   console.log('n',n,select_value,option)
-  //   console.log(option.legend)
-  //   console.log(params.name)
-  // })
   getChartData()
 })
 </script>
 <template>
-  <div class="mt-4 w-full h-77.5">
-    <div :id="props.chartId" class="chartCanvas w-full h-77.5"></div>
+  <div class=" w-full h-full" :class="props.full?'':'mt-4'">
+    <div :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>
 </template>

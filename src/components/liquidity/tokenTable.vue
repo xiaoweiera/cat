@@ -104,6 +104,7 @@ const load = () => {
 }
 
 .txtSmall {
+  white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }

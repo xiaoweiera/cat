@@ -1,12 +1,12 @@
 
 
-const grid = (interval:string) => {
+const grid = (interval:string,full:boolean) => {
   // const xLength=interval==='1D'?'12px':'35px'
   return {
     left: 72,
     right: 70,
-    bottom: 85,
-    top: 5,
+    bottom: full?68:85,
+    top: 10,
     // y2: 0,
     containLabel: false,
   }
@@ -27,7 +27,7 @@ const grid = (interval:string) => {
 //   })
 //  return newData
 // }
-const legend = (legendData: Array<string>) => {
+const legend = (legendData: Array<string>,full:boolean) => {
   return {
     textStyle: {
       fontSize: 13,
@@ -37,7 +37,7 @@ const legend = (legendData: Array<string>) => {
     itemHeight: 11.5,
     itemGap: 13,
     data: legendData,
-    top: '86%',
+    bottom:full?0:4,
     itemWidth: 14,
   }
 }
@@ -282,14 +282,15 @@ export const chartConfig = (
     legendList: Array<string>,
     yLabelFormat: any,
     getModel: any,
-    interval:string
+    interval:string,
+    full:boolean
 ) => {
   return {
-    grid: grid(interval),
+    grid: grid(interval,full),
     tooltip: tooltips(getModel,xData),
     graphic: graphic(),
     xAxis: xAxis(xData, {}),
-    legend: legend(legendList),
+    legend: legend(legendList,full),
     yAxis: allYAxis,
     series,
   }
