@@ -74,12 +74,12 @@ const getData=async ()=>{
   if (pairStore.id) {
     //pair查询
     props.pairParam.pair_id = pairStore.id
-    priceData.value=await getPairPriceData({pair_id: pairStore.id, from_ts: props.pairParam.from_ts, to_ts: props.pairParam.to_ts}, 'pair')
+    priceData.value=await getPairPriceData({platId:1,pair_id: pairStore.id, from_ts: props.pairParam.from_ts, to_ts: props.pairParam.to_ts}, 'pair')
     chartData.value=await getFlowChartModel(props.pairParam,props.chartId,tokenType.value)
   } else {
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
-    priceData.value= await getTokenPriceData({symbol_id: symbolStore.id, from_ts: props.tokenParam.from_ts, to_ts: props.tokenParam.to_ts}, 'token')
+    priceData.value= await getTokenPriceData({platId:1,symbol_id: symbolStore.id, from_ts: props.tokenParam.from_ts, to_ts: props.tokenParam.to_ts}, 'token')
     chartData.value=await getFlowChartModel(props.tokenParam,props.chartId)
   }
   chartKey.value++
