@@ -101,7 +101,7 @@ onMounted(() => {
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
       <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall">
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 ">
       {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="w-full">
