@@ -8,13 +8,14 @@ import { ElMessage } from 'element-plus'
 import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 import {BigNumber} from 'bignumber.js'
+
 //apy的特殊处理，别更改
 export const numberFormat = (value: any) => {
   if (value===null) {
     return null
   }
   const k = 10000
-  const sizes = ['', '万', '亿', '万亿']
+  const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
   if (value < k) {
     return Math.round(value * 100) / 100
   }
@@ -212,7 +213,7 @@ export const numberUnitFormat = (value: any) => {
     return value===0?0:'-'
   }
   const k = 10000
-  const sizes = ['', '万', '亿', '万亿']
+  const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
   const v=new BigNumber(value)
   if ((value < 100000 && value>=0) || (value<0 && value>-2)) {
     return parseFloat(v.toFixed(2))

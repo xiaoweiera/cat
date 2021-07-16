@@ -2,6 +2,11 @@ export default {
     message:{
         success:'复制成功',
     },
+    numberUnit:{
+        wan:'万',
+        yi:'亿',
+        wanyi:'万亿'
+    },
     select:{
         tip:'搜索币种/交易对/合约地址',
         coinType:'币种',
