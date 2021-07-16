@@ -231,7 +231,7 @@ export const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{
   //@ts-ignore
   const intNumber=parseInt(Math.abs(v)).toString().length
   if(isFour){
-    return v.precision(intNumber+4).toFixed(4)
+    return v.precision(intNumber+5).toFixed(5)
   }else{
     if(zeroIndex===0){
       return parseFloat(v.precision(intNumber+4).toFixed(2))
@@ -257,8 +257,8 @@ export const getRulesNumber=(v:any,isShowAll:boolean)=>{
     return v
   }
   const result=getVNumber(v,0,true).toString()
-  if(result.split('.')[1].split('0').length-1===4){
-    return isShowAll?getBigNumber(v):result
+  if(result.split('.')[1].split('0').length-1===5){
+    return isShowAll?getBigNumber(v): '<0.00001'   //result等于0.00000
   }else{
     const twoNumber= result.split('.')[1].split('')
     let i=0;

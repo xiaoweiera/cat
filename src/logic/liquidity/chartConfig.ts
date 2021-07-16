@@ -6,7 +6,7 @@ const grid = (interval:string,full:boolean) => {
     left: 72,
     right: 70,
     bottom: full?68:85,
-    top: 5,
+    top: 10,
     // y2: 0,
     containLabel: false,
   }
