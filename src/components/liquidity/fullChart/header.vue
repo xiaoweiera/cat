@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps,onMounted,ref,reactive } from 'vue'
+import { defineProps,onMounted,computed } from 'vue'
 import {  setInject, getInject } from '~/utils/use/state'
 const props=defineProps({
   desc:String,
@@ -17,25 +17,26 @@ const isShowUsdCoin=()=>{
   }
   return false
 }
-let titleDesc=ref(['',''])
-const getTitle=()=>{
+const titleDesc= computed((): string => {
+  console.log('ttt')
   if(!pairData.value[0].id){
-    titleDesc.value= ['',`${tokenData.value[0].name} ${title.value[0]}`]
+    return ['',`${tokenData.value[0].name} ${title.value[0]}`]
   }else{
-    titleDesc.value= [`${tokenData.value[0].name}`,`${pairData.value[0].name} ${title.value[0]}`]
+    return[`${tokenData.value[0].name}`,`${pairData.value[0].name} ${title.value[0]}`]
   }
-}
+})
 onMounted(()=>{
-  getTitle()
   isShowUsdCoin()})
 </script>
 <template>
     <div class="font-kdFang">
       <div class="flex items-center justify-between">
-        <div class="flex items-center text-global-default text-opacity-85 text-kd18px28px font-semibold">
-          <span>{{titleDesc[0]}}</span>
-          <img v-if="titleDesc[0]"  class="w-3 h-3 mx-1.5" src="https://res.ikingdata.com/nav/liquidityRightTip.jpg" alt="">
-          <span>{{titleDesc[1]}}</span>
+        <div class="text-global-default text-opacity-85 text-kd18px28px font-semibold">
+          <div class="flex items-center" v-if="title[0]">
+            <span>{{titleDesc[0]}}</span>
+            <img v-if="titleDesc[0]"  class="w-3 h-3 mx-1.5" src="https://res.ikingdata.com/nav/liquidityRightTip.jpg" alt="">
+            <span>{{titleDesc[1]}}</span>
+          </div>
         </div>
 
         <div class="flex">
