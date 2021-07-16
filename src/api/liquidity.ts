@@ -19,7 +19,7 @@ export function analysis_tool(param: any) {
 // 获取币信息位
 export function getToken_side(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/token_sidebar/`,
+    url: `/api/liquidity/{platId}/token_sidebar/`,
     params: param,
     method: 'get',
   })
@@ -27,7 +27,7 @@ export function getToken_side(param: any) {
 // 获取side列表
 export function getPair_side(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/pair_sidebar/`,
+    url: `/api/liquidity/{platId}/pair_sidebar/`,
     params: param,
     method: 'get',
   })
@@ -35,7 +35,7 @@ export function getPair_side(param: any) {
 //图表接口
 export function getCharts(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_token_usd_chart/`,
+    url: `/api/liquidity/{platId}/liquidity_token_usd_chart/`,
     params: param,
     method: 'get',
   })
@@ -43,7 +43,7 @@ export function getCharts(param: any) {
 //图表接口token USDT
 export function getChartsUsdtById(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_token_usd_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_token_usd_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -51,7 +51,7 @@ export function getChartsUsdtById(param: any) {
 //图表接口 token 币
 export function getChartsCoinById(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_token_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_token_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -59,7 +59,7 @@ export function getChartsCoinById(param: any) {
 //图表接口 pair usd pair
 export function getChartsPairUsdById(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_pair_usd_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_pair_usd_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -67,7 +67,7 @@ export function getChartsPairUsdById(param: any) {
 //图表接口 pair usd ETH/USDT
 export function getChartsPairUsdByEth(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_pair_symbol10_usd_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_pair_symbol10_usd_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -75,7 +75,7 @@ export function getChartsPairUsdByEth(param: any) {
 //图表接口 pair coin pair
 export function getChartsPairCoinById(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_pair_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_pair_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -83,7 +83,7 @@ export function getChartsPairCoinById(param: any) {
 //图表接口 pair coin ETH
 export function getChartsPairCoinByEth(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_pair_symbol0_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_pair_symbol0_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -91,7 +91,7 @@ export function getChartsPairCoinByEth(param: any) {
 //图表接口 pair coin USDT
 export function getChartsPairCoinByUSDT(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/liquidity_pair_symbol1_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/liquidity_pair_symbol1_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -99,7 +99,7 @@ export function getChartsPairCoinByUSDT(param: any) {
 //搜索 token
 export function getInfoByToken(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/token_search/`,
+    url: `/api/liquidity/{platId}/token_search/`,
     params: param,
     method: 'get',
   })
@@ -107,7 +107,7 @@ export function getInfoByToken(param: any) {
 //搜索 pair
 export function getInfoByPair(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/pair_search/`,
+    url: `/api/liquidity/{platId}/pair_search/`,
     params: param,
     method: 'get',
   })
@@ -116,7 +116,7 @@ export function getInfoByPair(param: any) {
 //图表接口token USDT
 export function getPayChartsUsdtById(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/translate_token_usd_chart_single/`,
+    url: `/api/liquidity/{platId}/translate_token_usd_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -124,7 +124,7 @@ export function getPayChartsUsdtById(param: any) {
 //图表接口 token 币
 export function getPayChartsCoinById(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/translate_token_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/translate_token_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -132,7 +132,7 @@ export function getPayChartsCoinById(param: any) {
 //图表接口 pair usd Symbol0
 export function getPayChartsPairUsdBySymbol0(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/translate_pair_symbol0_usd_chart_single/`,
+    url: `/api/liquidity/{platId}/translate_pair_symbol0_usd_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -140,7 +140,7 @@ export function getPayChartsPairUsdBySymbol0(param: any) {
 //图表接口 pair usd Symbol1
 export function getPayChartsPairUsdBySymbol1(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/translate_pair_symbol1_usd_chart_single/`,
+    url: `/api/liquidity/{platId}/translate_pair_symbol1_usd_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -148,7 +148,7 @@ export function getPayChartsPairUsdBySymbol1(param: any) {
 //图表接口 pair coin Symbol0
 export function getPayChartsPairCoinBySymbol0(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/translate_pair_symbol0_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/translate_pair_symbol0_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -156,7 +156,7 @@ export function getPayChartsPairCoinBySymbol0(param: any) {
 //图表接口 pair coin Symbol1
 export function getPayChartsPairCoinBySymbol1(param: any) {
   return request({
-    url: `/api/liquidity/${param.platId}/translate_pair_symbol1_currency_chart_single/`,
+    url: `/api/liquidity/{platId}/translate_pair_symbol1_currency_chart_single/`,
     params: param,
     method: 'get',
   })
@@ -165,7 +165,7 @@ export function getPayChartsPairCoinBySymbol1(param: any) {
 //token 价格线
 export function getTokenPrice(param:any){
   return request({
-    url:`/api/liquidity/1/liquidity_token_price_chart/`,
+    url:`/api/liquidity/{platId}/liquidity_token_price_chart/`,
     params:param,
     method:'get'
   })
@@ -173,7 +173,7 @@ export function getTokenPrice(param:any){
 //pair 价格线
 export function getPairPrice(param:any){
   return request({
-    url:`/api/liquidity/1/liquidity_pair_price_chart/`,
+    url:`/api/liquidity/{platId}/liquidity_pair_price_chart/`,
     params:param,
     method:'get'
   })
