@@ -75,7 +75,7 @@ const title = computed<string>((): string => {
               :href="item.href"
             >
               <IconFont
-                class="flex"
+                class="flex text-xl font-color-theme"
                 :class="{ 'ml-4': index > 0 }"
                 :type="item.icon"
                 size="xl"
@@ -106,7 +106,7 @@ const title = computed<string>((): string => {
               :href="item.href"
             >
               <IconFont
-                class="flex"
+                class="flex text-xl font-color-theme"
                 :class="{ 'ml-4': index > 0 }"
                 :type="item.icon"
                 size="xl"

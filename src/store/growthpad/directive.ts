@@ -4,7 +4,7 @@
  */
 
 import safeGet from '@fengqiaogang/safe-get'
-import { Info, Mission, MissionStatus } from './props'
+import { Mission, MissionStatus } from './props'
 import { setProjectUserInfo } from '~/api/growtask'
 import { messageError } from '~/lib/tool'
 import { inputBeautify } from '~/utils/index'
@@ -77,9 +77,8 @@ export const postInfoBasis = function(key = 'bsc') {
       data: Query,
     ): Promise<T> {
       // @ts-ignore
-      const info: Info = this.info
-      const address = inputBeautify(info.bsc)
-      data[key] = address
+      // const info: Info = this.info
+      // data[key] = inputBeautify(safeGet(info, key))
       try {
         const result = await Promise.resolve(fun.call(this, value, data))
         if (result) {

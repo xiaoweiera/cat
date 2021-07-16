@@ -6,7 +6,7 @@
 import { reactive, ref } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { Info, Mission, MissionStatus, transformStatus } from './props'
-import { postInfo, postInfoBasis } from './directive'
+import { postInfo } from './directive' // @postInfoBasis
 import { isLogin } from '~/logic/user/login'
 import * as API from '~/api/growtask'
 import TaskType from '~/logic/growthpad/tasktype'
@@ -78,6 +78,8 @@ class Store {
   intervalTime = 10000
   // 当前币价
   price = ref<string | number>(0)
+  // 开奖状态
+  lottery = ref<number>(0)
   // 用户活动的奖励
   reward = ref<string | number>(0)
   // 用户要求参与活动的数量
@@ -113,6 +115,8 @@ class Store {
   taskList = ref<TaskItem[]>([])
   // 个人信息, 用户数据
   info = reactive<Info>({
+    rewardData: '', // 任务奖励结果
+    uid: '',
     bsc: '', // 领取奖励的地址
     pancake: '', // pancake  token地址
     uniswap: '', // uniswap  token地址
@@ -247,6 +251,7 @@ class Store {
     const info: Info = safeGet<Info>(result, 'info')
     const mission: Mission = safeGet<Mission>(result, 'mission')
     this.price.value = safeGet<number>(result, 'price') || 0
+    this.lottery.value = safeGet<number>(result, 'lottery') || 0
     this.reward.value = safeGet<number>(result, 'reward') || 0
     this.invited_count.value = safeGet<number>(result, 'invited_count') || 0
     this.project_invited_count.value = safeGet<number>(result, 'project_invited_count') || 0
@@ -258,6 +263,8 @@ class Store {
 
     // 更新 info 信息
     if (info) {
+      this.info.rewardData = safeGet<string>(info, 'heco_reward')
+      this.info.uid = safeGet<string>(info, 'uid')
       this.info.bsc = safeGet<string>(info, 'bsc')
       this.info.pancake = safeGet<string>(info, 'pancake')
       this.info.uniswap = safeGet<string>(info, 'uniswap')
@@ -360,6 +367,13 @@ class Store {
     }
   }
 
+  // 设置用户id
+  @postInfo('uid')
+  setUserId(value: string) {
+    // 设置地址
+    this.info.uid = value
+  }
+
   // 设置合约地址
   @postInfo('bsc')
   setAdress(value: string) {
@@ -370,7 +384,7 @@ class Store {
   // 设置 telegram id
   @postInfo('telegram_group')
   // post 时携带基础数据
-  @postInfoBasis()
+  // @postInfoBasis()
   setTelegram(id: string) {
     this.info.telegram_group = id
   }
@@ -378,7 +392,7 @@ class Store {
   // 设置 twitter id
   @postInfo('follow_twitter')
   // post 时携带基础数据
-  @postInfoBasis()
+  // @postInfoBasis()
   setTwitter(id: string) {
     this.info.follow_twitter = id
   }
@@ -386,7 +400,7 @@ class Store {
   // 转发 twitter
   @postInfo('retweet')
   // post 时携带基础数据
-  @postInfoBasis()
+  // @postInfoBasis()
   setReTwitter(id: string) {
     this.info.retweet = id
   }
@@ -407,77 +421,77 @@ class Store {
 
   // 设置 pancake
   @postInfo('pancake')
-  @postInfoBasis()
+  // @postInfoBasis()
   setPancake(value: string) {
     this.info.pancake = value
   }
 
   // 设置 uniswap
   @postInfo('uniswap')
-  @postInfoBasis()
+  // @postInfoBasis()
   setUniswap(value: string) {
     this.info.uniswap = value
   }
 
   // 设置 sushiswap
   @postInfo('sushiswap')
-  @postInfoBasis()
+  // @postInfoBasis()
   setSushiswap(value: string) {
     this.info.sushiswap = value
   }
 
   // 设置微博名称
   @postInfo('follow_weibo')
-  @postInfoBasis()
+  // @postInfoBasis()
   setSinaNickname(value: string) {
     this.info.follow_weibo = value
   }
 
   // 设置 venus
   @postInfo('venus')
-  @postInfoBasis()
+  // @postInfoBasis()
   setVenus(value: string) {
     this.info.venus = value
   }
 
   // 设置 compound
   @postInfo('compound')
-  @postInfoBasis()
+  // @postInfoBasis()
   setCompound(value: string) {
     this.info.compound = value
   }
 
   // 设置 cream
   @postInfo('cream')
-  @postInfoBasis()
+  // @postInfoBasis()
   setCream(value: string) {
     this.info.cream = value
   }
 
   // 设置 autofarm
   @postInfo('autofarm')
-  @postInfoBasis()
+  // @postInfoBasis()
   setAutofarm(value: string) {
     this.info.autofarm = value
   }
 
   // 设置 beltfit
   @postInfo('belt')
-  @postInfoBasis()
+  // @postInfoBasis()
   setBeltfit(value: string) {
     this.info.belt = value
   }
 
   // 设置 bunny
   @postInfo('bunny')
-  @postInfoBasis()
+  // @postInfoBasis()
   setBunny(value: string) {
     this.info.bunny = value
   }
 
   // 设置 chainWallet
   @postInfo('chainwallet')
-  @postInfoBasis()
+  // @postInfoBasis()
   setChainWallet(value: string) {
     this.info.chainwallet = value
   }

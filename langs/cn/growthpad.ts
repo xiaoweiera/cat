@@ -97,6 +97,8 @@ export default {
     warning: '地址一旦确认不可修改，任务奖励将发放到该地址中',
     placeholderBsc: '请输入 BSC 地址',
     placeholderETH: '请输入 ETH 地址',
+    placeholderHECO: '请输入 HECO 地址',
+    placeholderUID: '请输入火币用户ID',
     placeholderTelegram: '输入您的 Username',
     twitter: '请输入 Twitter ID',
     retwitter: '请输入 Twitter ID',
@@ -334,7 +336,7 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
   },
   chainwallet: {
     // 分享标题
-    title: '助力 ChainWallet 增长，领取20万美元 MDX 奖励',
+    title: '助力 ChainWallet 增长',
     project: {
       warn: '由于不可抗力原因，活动延期至7月2日。'
     },
@@ -370,6 +372,21 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
     },
     task5: {
       desc: `依据不同平台粉丝数或文章阅读量进行奖励，粉丝数、阅读数据越多，获得奖励越多，奖励金额 100~500 CHA。（粉丝数不低于 2000 人，阅读量不低于 1000） 主流媒体包括不限于：微博、Twitter、币乎、知乎、Facebook、头条、币圈媒体专栏等。`
+    }
+  },
+  heco: {
+    // 分享标题
+    title: '助力 ChainWallet 增长',
+    dashboard: {
+      desc: `The Mystery box event--"Lucky Heco" co-founded by Hecochain, Dapp and crypto artists. This is the first phase of the “Lucky Heco”. Rare NFTs are waiting for you! 
+登记huobi global UID和HECO地址信息，并完成下方任意任务，即可参与抽奖。
+活动时间：
+1、Please fill in the information before 16:00 (UTC) on 2021 / 7 / 21
+2、Please check the announcement on 2021 / 7 / 23 (UTC) to confirm whether you have won the NFT prize.
+3、If you win, you will see the NFT prize in your heco wallet within 3 days.`
+    },
+    about: {
+      detail: 'Huobi ECO Chain (Heco) is a decentralized, high-efficiency and energy-saving public chain, also the first product launched by the Huobi Open Platform. It is compatible with smart contracts and supports high-performance transactions. The endogenous token of Heco is HT and it adopts the HPoS consensus mechanism. Heco will continue to improve the efficiency of Ethereum by Layer2, which will supplement and empower the Ethereum ecosystem.'
     }
   }
 };

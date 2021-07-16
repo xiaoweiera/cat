@@ -98,8 +98,27 @@ export const chainWallet = {
   },
 }
 
+export const heco = {
+  title: 'LUCKY HECO', // 名称
+  icon: 'https://res.ikingdata.com/image/growthpad/heco/logo2.png', // icon
+  url: '/growthpad/heco',
+  coin: '',
+  projectName: 'LUCKY HECO',
+  dashboard: {
+    banner: 'https://res.ikingdata.com/image/growthpad/heco/banner.jpg',
+    begin: '2021-07-16 10:00:00', // 开始时间
+    end: '2021-07-21 00:00:00', // 结束时间
+    description: I18n.growthpad.heco.dashboard.desc, // 描述
+    reward: {
+      count: 0, // 奖励数量
+      countStr: '',
+      limits: [], // 每人可领取范围
+    },
+  },
+}
+
 // 所有任务
 export const taskList = [
-  mdxInfo, coinwindInfo, channelsInfo, growthInfo,
+  mdxInfo, coinwindInfo, channelsInfo, growthInfo, heco
   // chainWallet 下架
 ]
