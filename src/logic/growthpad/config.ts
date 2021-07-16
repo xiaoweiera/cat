@@ -117,9 +117,10 @@ export const ProjectShareDesc: any = {
   // [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.desc, {
   //   project: 'ChainWallet'
   // }),
-  [ProjectKey.heco]: I18n.template(I18n.growthpad.wechat.desc, {
-    project: I18n.growthpad.heco.title
-  }),
+  // [ProjectKey.heco]: I18n.template(I18n.growthpad.wechat.desc, {
+  //   project: I18n.growthpad.heco.title
+  // }),
+  [ProjectKey.heco]: 'Lucky Heco event is live, fill in Heco address to get NFT Mystery box!',
 }
 
 
