@@ -106,8 +106,8 @@ export const heco = {
   projectName: 'LUCKY HECO',
   dashboard: {
     banner: 'https://res.ikingdata.com/image/growthpad/heco/banner.jpg',
-    begin: '2021-07-16 10:00:00', // 开始时间
-    end: '2021-07-21 00:00:00', // 结束时间
+    begin: '2021-07-16 15:00:00', // 开始时间
+    end: '2021-07-21 23:59:59', // 结束时间
     description: 'Lucky Heco event is live, fill in Heco address to get NFT Mystery box!',
     reward: {
       count: 0, // 奖励数量
