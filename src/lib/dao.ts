@@ -63,7 +63,7 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
     (config: AxiosRequestConfig) => {
       const cacheStatus = getCacheStatus(config)
       const status = isKinddataDomain(config)
-      config.headers['accept-language']=current.value
+
       if (status) {
         // 设置 token
         const token = getUserAuth(config)
@@ -73,6 +73,7 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
 
         // 设置当前系统语言环境
         safeSet(config, 'params.lang', current.value)
+        safeSet(config, 'headers.accept-language', current.value)
       }
       // 处理 url 中的变量
       const parameter: any = {}
