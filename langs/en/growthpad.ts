@@ -383,6 +383,6 @@ Rule: Before starting the task, participants need to the KingData account and en
     }
   },
   heco: {
-    title: 'Help CoinWind'
+    title: 'LUCKY HECO'
   }
 };

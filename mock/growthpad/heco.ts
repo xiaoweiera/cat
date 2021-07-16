@@ -14,7 +14,7 @@ const website = 'www.hecochain.com' // 项目官网
 
 const data = {
   token,
-  title: heco.title,
+  title: 'HECO',
   icon: heco.icon,
   dashboard: Object.assign({}, heco.dashboard, {
     // 描述

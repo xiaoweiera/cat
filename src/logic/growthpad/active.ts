@@ -32,8 +32,8 @@ const meta = [
   },
 ]
 
-const areaTips = async function(store: Store) {
-  store.getAreaRestrictStatus(true)
+const areaTips = function(store: Store) {
+  return store.getAreaRestrictStatus(true)
 }
 
 export const ready = async function(store: Store): Promise<void> {
@@ -59,7 +59,7 @@ export const ready = async function(store: Store): Promise<void> {
     const desc: string = ProjectShareDesc[id]
     // 设置分享地址
     wxShare(title, desc)
-    areaTips(store)
+    setTimeout(() => areaTips(store))
     await store.init()
     loading.value = false
   } else {

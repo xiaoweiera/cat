@@ -376,6 +376,6 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
   },
   heco: {
     // 分享标题
-    title: '助力 ChainWallet 增长',
+    title: 'LUCKY HECO',
   }
 };
