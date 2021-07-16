@@ -99,7 +99,7 @@ export const chainWallet = {
 }
 
 export const heco = {
-  title: 'LUCKY HECO', // 名称
+  title: I18n.growthpad.heco.title, // 名称
   icon: 'https://res.ikingdata.com/image/growthpad/heco/logo2.png', // icon
   url: '/growthpad/heco',
   coin: '',

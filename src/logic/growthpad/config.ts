@@ -97,7 +97,7 @@ export const ProjectShareTitle: any = {
   //   project: 'ChainWallet'
   // }),
   [ProjectKey.heco]: I18n.template(I18n.growthpad.wechat.title, {
-    project: 'LUCKY HECO'
+    project: I18n.growthpad.heco.title
   }),
 }
 // 项目分享描述
@@ -118,7 +118,7 @@ export const ProjectShareDesc: any = {
   //   project: 'ChainWallet'
   // }),
   [ProjectKey.heco]: I18n.template(I18n.growthpad.wechat.desc, {
-    project: 'LUCKY HECO'
+    project: I18n.growthpad.heco.title
   }),
 }
 
