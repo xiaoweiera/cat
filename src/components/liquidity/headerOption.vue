@@ -4,10 +4,6 @@ const filterDay = ref([
   { name: '1H', value: '1H', selected: false },
   { name: '1D', value: '1D', selected: true },
 ])
-const filterCoin = ref([
-  { name: 'USD', value: 'usd', selected: true },
-  { name: '币', value: 'coin', selected: false },
-])
 </script>
 <template>
   <div class="flex items-center">

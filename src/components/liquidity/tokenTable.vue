@@ -13,7 +13,7 @@ import {
   updateData,
 } from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
-
+import I18n from '~/utils/i18n/index'
 const page = ref(0) //第几页
 const next = ref(true) //是否有下一页
 const route = useRoute()
@@ -62,9 +62,9 @@ const load = () => {
 </script>
 <template>
   <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid #ffffff;">
-    <li class="flex-1">交易对</li>
+    <li class="flex-1">{{I18n.liquidity.side.pair}}</li>
     <li class="w-20">TVL($)</li>
-    <li class="w-27 ">价格</li>
+    <li class="w-27 ">{{I18n.liquidity.side.price}}</li>
   </ul>
   <div class="w-full h-full showY pairList" @scroll="load">
     <template v-for="item in pairList">

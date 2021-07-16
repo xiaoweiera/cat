@@ -59,17 +59,18 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
     option || {},
   )
   const service = Axios.create(setting)
-
   service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       const cacheStatus = getCacheStatus(config)
       const status = isKinddataDomain(config)
+      config.headers['accept-language']=current.value
       if (status) {
         // 设置 token
         const token = getUserAuth(config)
         if (token) {
           config.headers.Authorization = `Token ${token}`
         }
+
         // 设置当前系统语言环境
         safeSet(config, 'params.lang', current.value)
       }
@@ -91,7 +92,6 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
         const url = I18n.template(config.url, parameter)
         config.url = url
       }
-
       // 处理缓存逻辑
       if (cacheStatus) {
         const key = cache.makeKey(config.url, config.params)
