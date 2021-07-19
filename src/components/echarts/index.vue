@@ -10,7 +10,6 @@ import { calcYAxis } from '~/logic/echarts/series'
 import * as logicLegend from '~/logic/echarts/legend'
 
 import {
-  grid,
   graphic,
   tooltips as makeTooltipOption,
   xAxis as makeXAxisOption,
@@ -18,15 +17,38 @@ import {
 } from '~/lib/chartOption'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
-import { seriesType, colors } from '~/logic/echarts/interface'
+import { seriesType, LegendDirection } from '~/logic/echarts/interface'
 
 const props = defineProps({
+  log: {
+    type: Boolean,
+    default: () => false
+  },
   stack: {
     type: Boolean,
-    default () {
-      return false
-    }
+    default: () => false
   },
+  legend: {
+    type: [String, Boolean],
+    default(): string {
+      return LegendDirection.bottom
+    },
+    validator (value: string | boolean): boolean {
+      let status = false
+      switch(value) {
+        case LegendDirection.top:
+        case LegendDirection.left:
+        case LegendDirection.right:
+        case LegendDirection.bottom:
+          status = true
+          break
+      }
+      if (value === false) {
+        status = true
+      }
+      return status
+    }
+  }
 })
 
 const echartId = ref<string>(uuid())
@@ -63,22 +85,44 @@ const getToolTip = function() {
 }
 
 const getLegendRow = function(): number {
+  // @ts-ignore
   const echart = toRaw(echartsRef).value
-  const row = logicLegend.clacLegendRows(getValue(legend), echart)
-  return row
+  const list: any[] = getValue(legend)
+  return logicLegend.clacLegendRows(list, echart)
 }
 
 const getLegend = function() {
   const data = map((item: any) => {
     if (item.show) {
-      const icon = `path://${logicLegend.source[item.type]}`
+      // @ts-ignore
+      const code = logicLegend.source[item.type]
+      // @ts-ignore
+      const icon = `path://${code}`
       return {
         icon,
         name: item.value,
       }
     }
   }, getValue(legend))
-  return { data: compact(data), bottom: 0, itemWidth: 14, }
+  if (props.legend) {
+    const option = { data: compact(data), itemWidth: 14, }
+    if (props.legend === LegendDirection.top) {
+      safeSet(option, 'top', 0)
+    } else if (props.legend === LegendDirection.bottom) {
+      safeSet(option, 'bottom', 0)
+    } else if (props.legend === LegendDirection.left) {
+      safeSet(option, 'left', 0)
+      safeSet(option, 'top', 'auto')
+      safeSet(option, 'orient', 'vertical')
+    } else if (props.legend === LegendDirection.right) {
+      safeSet(option, 'right', 0)
+      safeSet(option, 'top', 'auto')
+      safeSet(option, 'orient', 'vertical')
+    }
+    return option
+  }
+  // 隐藏
+  return { show: false }
 }
 
 const getXAxis = function() {
@@ -88,17 +132,22 @@ const getXAxis = function() {
   }, getValue(xAxis))
 }
 
+const getYAxisData = function(position: Position) {
+  const yAxisData = getValue(yAxis)
+  for(let i = 0; i < yAxisData.length; i++) {
+    const item: any = yAxisData[i]
+    if (item?.position === position) {
+      return item
+    }
+  }
+}
+
 // 计算 Y 轴刻度数据
 const getYAxis = function(): any[] {
-  const viewWidth = document.documentElement.clientHeight
-  const [ option ] = makeYAxisOption(function(value: number) {
-    return numberUint(value)
-  })
-
+  const viewWidth = document.documentElement.clientWidth
   const legends = getValue(legend)
   const seriesList = getValue(series)
-  const yAxis = []
-
+  const yaxis: any[] = []
   const leftData: any[] = []
   const rightData: any[] = []
   forEach(function(item: any, index: number) {
@@ -110,25 +159,38 @@ const getYAxis = function(): any[] {
     }
   }, legends)
 
+  const app = function(data: any[], position: Position) {
+    const value = calcYAxis(data, props.stack && position === Position.left, props.log)
+    const yaxisData = getYAxisData(position)
+    const [ option ] = makeYAxisOption(function(value: number) {
+      const formatter = safeGet<any>(yaxisData, 'axisLabel.formatter')
+      if (formatter) {
+        return formatter(value)
+      }
+      return numberUint(value)
+    })
+    const temp = Object.assign({}, option, value, { position })
+    const key = 'axisLabel.textStyle.color'
+    const color = safeGet<string>(yaxisData, key)
+    if (color) {
+      safeSet(temp, key, color)
+    }
+    yaxis.push(temp)
+  }
+
   if (leftData.length > 0) {
-    const value = calcYAxis(leftData, props.stack)
-    yAxis.push(Object.assign({}, option, value, {
-      position: Position.left
-    }))
+    app(leftData, Position.left)
   }
   if (rightData.length > 0) {
-    const value = calcYAxis(rightData, props.stack)
-    yAxis.push(Object.assign({}, option, value, {
-      position: Position.right
-    }))
+    app(rightData, Position.right)
   }
   if (viewWidth < 768) {
     return map(function(item: any) {
       safeSet(item, 'axisLabel.inside', true)
       return item
-    }, yAxis)
+    }, yaxis)
   }
-  return yAxis
+  return yaxis
 }
 
 const getYindex = function(): any {
@@ -185,13 +247,45 @@ const getGrid = function() {
   } else {
     height = row * 25
   }
-  return Object.assign({}, grid(), {
+
+  if (props.legend === LegendDirection.top) {
+    return {
+      top: height,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      containLabel: true,
+    }
+  } else if (props.legend === LegendDirection.bottom) {
+    return {
+      top: 15,
+      left: 0,
+      right: 0,
+      bottom: height,
+      containLabel: true,
+    }
+  } else if (props.legend === LegendDirection.left) {
+    return {
+      top: 15,
+      right: 0,
+      bottom: 0,
+      containLabel: true,
+    }
+  } else if (props.legend === LegendDirection.right) {
+    return {
+      top: 15,
+      left: 0,
+      bottom: 0,
+      containLabel: true,
+    }
+  }
+  return {
     top: 15,
     left: 0,
     right: 0,
-    bottom: height,
+    bottom: 0,
     containLabel: true,
-  })
+  }
 }
 
 const getOption = function() {
@@ -230,6 +324,7 @@ onMounted(function() {
   const echart = toRaw(echartsRef).value
   const char = echarts.init(echart);
   compChar.value = char
+
   try {
     const option = getOption()
     char.setOption(option)

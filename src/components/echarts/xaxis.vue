@@ -5,15 +5,11 @@ import { EchartsOptionName, updateInject } from '~/logic/echarts/tool'
 const props = defineProps({
   type: {
     type: String,
-    default () {
-      return 'category'
-    },
+    default: () => 'category',
   },
   boundaryGap: {
     type: [Boolean, Array],
-    default() {
-      return [20,20]
-    }
+    default: () => [20,20]
   },
   value: {
     type: Array,

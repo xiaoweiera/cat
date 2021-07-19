@@ -17,6 +17,7 @@ const iconFontName = {
 }
 
 export const makeSvg = function(type: seriesType, color?: string) {
+  // @ts-ignore
   const name = iconFontName[type]
   const use = `<use xlink:href="#${name}"></use>`
   const svg = `<svg aria-hidden="true">${use}</svg>`

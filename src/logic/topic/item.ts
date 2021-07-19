@@ -32,6 +32,7 @@ interface Legends {
 
 interface ItemData {
   multiple: boolean
+  log: boolean // 是否启用对数
   name: string // 图表名称
   chartId: number // 图表ID
   seriesIds: number[] // 数据ID集合
@@ -114,8 +115,8 @@ const getDetail = async function(data: ItemData) {
   const height = toNumber(safeGet<number>(result, 'height'))
   data.height = height > 200 ? height : 200
 
-  const stack = toBoolean(safeGet<boolean>(result, 'stacked'))
-  data.stack = stack // 是否开启堆积图
+  // const stack = toBoolean(safeGet<boolean>(result, 'stacked'))
+  // data.stack = stack // 是否开启堆积图
 
   const desc = safeGet<string>(result, 'desc') || ''
 

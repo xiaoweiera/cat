@@ -233,38 +233,53 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
   return data
 }
 
-
 // 计算Y轴数据
-export const calcYAxis = function(series: any[], stack?: boolean) {
+export const calcYAxis = function(series: any[], stack: boolean = false, log: boolean = false) {
   const splitNumber = 4
-
   const array: number[][] = []
   forEach(function(list: any[], j: number) {
     forEach(function(item: any, index: number) {
       safeSet(array, `[${index}][${j}]`, item.value)
     }, list)
   }, series)
-
+  let minValue = 0
+  let maxValue = 0
   // 是否开启堆积图
   if (stack) {
     const minList = map((item: number[]) => subtract(item), array)
     const maxList = map((item: number[]) => add(item), array)
-    const minValue = min(minList)
-    const maxValue = max(maxList)
-    return {
-      min: minValue,
-      max: maxValue,
-      splitNumber,
-      interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
-    }
+    minValue = min(minList)
+    maxValue = max(maxList)
   } else {
-    const minValue = min(array)
-    const maxValue = max(array)
-    return {
-      min: minValue,
-      max: maxValue,
-      splitNumber,
-      interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
-    }
+    minValue = min(array)
+    maxValue = max(array)
+  }
+  if (log) {
+    // const size = `${maxValue}`.length
+    // const numData = [0]
+    // for(let i = 1; i < size; i++) {
+    //   const value = Math.pow(1000, i)
+    //   numData.push(value)
+    //   if (value > maxValue) {
+    //     break
+    //   }
+    // }
+    // return {
+      // type: 'log',
+      // logBase: 10,
+      // min: 0,
+      // data: numData,
+      // splitNumber: numData.length,
+      // // interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber),
+      // minorSplitLine: {
+      //   show: true
+      // }
+    // }
+  }
+  return {
+    min: minValue,
+    max: maxValue,
+    splitNumber,
+    interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
   }
 }

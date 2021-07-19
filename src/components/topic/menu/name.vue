@@ -39,10 +39,10 @@ const makeQuery = function(item: MenuItem) {
 </script>
 
 <template>
-  <router-link v-if="isChild(data)" :to="makeQuery(data)" >
+  <router-link v-login v-if="isChild(data)" :to="makeQuery(data)" >
     <slot></slot>
   </router-link>
-  <label v-else>
+  <label v-login v-else>
     <slot></slot>
   </label>
 </template>

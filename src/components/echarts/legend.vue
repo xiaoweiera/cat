@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { defineProps, onBeforeMount } from 'vue'
 import { EchartsOptionName, updateInject, initProps } from '~/logic/echarts/tool'
+import { seriesType } from '~/logic/echarts/interface'
+
 const props = defineProps({
   value: {
     type: String,
@@ -9,15 +11,11 @@ const props = defineProps({
   // 图列对应的图形类型
   type: {
     type: String,
-    default() {
-      return 'line'
-    }
+    default: () => seriesType.line
   },
   show: {
     type: Boolean,
-    default() {
-      return true
-    }
+    default: () => true
   },
   index: initProps.index(),
   position: initProps.position(),

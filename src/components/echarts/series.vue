@@ -3,15 +3,13 @@
  * @file series 数据
  * @author svon.me@gmail.com
  */
-
 import { onBeforeMount, defineProps, toRaw } from 'vue'
 import { EchartsOptionName, setInject, initProps } from '~/logic/echarts/tool'
+
 const props = defineProps({
   value: {
     type: Array,
-    default () {
-      return []
-    },
+    default: () => [],
   },
   index: initProps.index(),
 })

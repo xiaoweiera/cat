@@ -29,6 +29,15 @@ onMounted(function() {
   followed.value = toBoolean(props.data.followed)
 })
 
+// @ts-ignore
+const saveChart = function() {
+  const id = `j-big-${props.data.chartId}`
+  const canvas: any = document.querySelector(`.${id} canvas`)
+  const strDataURI = canvas.toDataURL("image/jpeg")
+  const image = strDataURI.replace("image/jpeg", "image/octet-stream")
+  window.location.href = image
+}
+
 </script>
 
 <template>
@@ -47,7 +56,7 @@ onMounted(function() {
         <div v-if="full" class="inline-block">
           <div class="flex flex-wrap flex-col-reverse md:flex-row">
             <div class="inline-flex items-center justify-end">
-              <span class="btn-border">
+              <span class="btn-border cursor-pointer" @click="saveChart">
                 <IconFont type="icon-download"/>
               </span>
 

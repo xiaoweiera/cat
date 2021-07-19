@@ -3,8 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-import { upperFirst, isUndefined } from '~/utils/index'
 import { inject, provide, ref, toRaw } from 'vue'
+import { upperFirst, isUndefined } from '~/utils/index'
+
 type SetCallback = (value?: any, index?: number | string) => void
 const autoValue = function(value?: any): Array<any> {
   if (isUndefined(value)) {
@@ -15,6 +16,7 @@ const autoValue = function(value?: any): Array<any> {
 export const useProvide = function<T>(name: string, value?: any): any[] {
   const state = ref<T[]>(autoValue(value))
   const set = function(data: any, index: number | string = 0) {
+    console.log(name, data)
     // @ts-ignore
     const arr = [].concat(toRaw(state.value))
     // @ts-ignore

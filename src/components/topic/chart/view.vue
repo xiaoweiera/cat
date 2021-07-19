@@ -4,9 +4,10 @@
  * @author svon.me@gmail.com
  */
 
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 // @ts-ignore
 import { Position } from '~/logic/topic/item'
+import { toBoolean } from '~/utils/index'
 
 /*
 interface data {
@@ -17,17 +18,25 @@ interface data {
 }
 */
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     required: true,
   }
 })
+// @ts-ignore
+const stackStatus = computed(function() {
+  return toBoolean(props.data?.detail?.stack)
+})
+// @ts-ignore
+const logStatus = computed(function() {
+  return toBoolean(props.data?.detail?.log)
+})
 
 </script>
 
 <template>
-  <Echarts :stack="true">
+  <Echarts :stack="stackStatus" :log="logStatus">
     <!-- 提示框 trigger: 触发方式 -->
     <EchartsTooltip trigger="axis" />
     <!--图例-->
@@ -45,8 +54,8 @@ defineProps({
       position: Y轴位置 [left / right]
       legend: 控制某些图例(series)数据的刻度尺
     -->
-    <EchartsYaxis :index="0" :position="Position.left"/>
-    <EchartsYaxis :index="1" :position="Position.right"/>
+    <EchartsYaxis :index="0" :position="Position.left" color="#2B8DFE"/>
+    <EchartsYaxis :index="1" :position="Position.right" color="#F88923"/>
 
     <!-- 设置X轴 -->
     <EchartsXaxis :value="data.xAxis"/>

@@ -43,6 +43,7 @@
   }
 
   // 动态计算 class 名称
+  // @ts-ignore
   const getClassName = function(item: any) {
     const tmp = {
       '4': 'pl-4',
@@ -56,6 +57,7 @@
     if (props.padding) {
       key += toNumber(props.padding, 0)
     }
+    // @ts-ignore
     className.push(tmp[key])
     if (isParent(item)) {
       className.push()

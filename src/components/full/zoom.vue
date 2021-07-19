@@ -22,7 +22,7 @@ const onFull = function() {
 </script>
 
 <template>
-  <span class="cursor-pointer" @click="onFull">
+  <span class="cursor-pointer" v-login @click="onFull">
     <span :class="{'hidden': getStatus()}">
       <IconFont type="icon-zoom" class="text-white"></IconFont>
     </span>

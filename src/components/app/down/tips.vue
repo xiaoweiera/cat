@@ -8,9 +8,7 @@
       <img class="w-40 h-40 inline-table" src="https://res.ikingdata.com/nav/topicDown.png">
     </div>
     <div>
-      <div class="w-56 px-0.5 inline-block" @click="folloed = false">
-        <el-button class="w-full" type="primary">确定</el-button>
-      </div>
+      <slot></slot>
     </div>
   </div>
 </template>

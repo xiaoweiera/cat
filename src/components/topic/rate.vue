@@ -1,6 +1,7 @@
 <script setup="setup" lang="ts">
 import { defineProps, computed } from 'vue'
 import bignumber from 'bignumber.js'
+// @ts-ignore
 import { toNumber, isNumber } from '~/utils'
 
 const props = defineProps({
@@ -11,7 +12,7 @@ const props = defineProps({
 })
 
 // @ts-ignore
-const convertNumber = function(value: number | string, zoom: 1) {
+const convertNumber = function(value: number | string, zoom: number = 1) {
   const number = new bignumber(value)
   const data = number.multipliedBy(zoom)
   return toNumber(data as any)
