@@ -50,7 +50,8 @@ const getData = async () => {
       platId:1,
       pair_id: pairStore.id,
       from_ts: props.pairParam.from_ts,
-      to_ts: props.pairParam.to_ts
+      to_ts: props.pairParam.to_ts,
+      interval:props.pairParam.interval
     }, 'pair')
     chartData.value = await getFlowChartModel(props.pairParam, props.chartId, tokenType.value, chartCoin)
   } else {
@@ -61,7 +62,8 @@ const getData = async () => {
       platId:1,
       symbol_id: symbolStore.id,
       from_ts: props.tokenParam.from_ts,
-      to_ts: props.tokenParam.to_ts
+      to_ts: props.tokenParam.to_ts,
+      interval:props.tokenParam.interval
     }, 'token')
     chartData.value = await getFlowChartModel(props.tokenParam, props.chartId, tokenType.value, chartCoin)
   }

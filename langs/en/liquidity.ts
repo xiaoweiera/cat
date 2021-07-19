@@ -19,11 +19,12 @@ export default {
         changePrice:'汇率价格'
     },
     info: {
-        tokenAddress: 'Token地址',
+        tokenAddress: '合约地址',
     },
     side: {
         self: '自选',
         pairDesc: '相关交易对',
+        tvlNumber:'锁仓量',
         pair: '交易对',
         tvl: 'TVL($)',
         price: '价格($)',
