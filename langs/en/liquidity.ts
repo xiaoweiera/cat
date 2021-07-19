@@ -59,7 +59,7 @@ export default {
             desc:'展示选定币种或者交易对的相关资金净流入流出的明细，更直观的展示资金在多空博弈时的体量。',
         },
         IntoInOutNumber:{
-            title:'流出流出频次',
+            title:'流入流出频次',
             desc:'展示选定币种或者交易对的用户操作的频率，能直观的反映人们参与的热情。',
         },
         joinUsersAnalysis:{

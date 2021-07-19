@@ -41,7 +41,7 @@ onMounted(() => {
   <div class="flex w-23.75 px-3 relative h-full" @mouseleave="mouseLeave()">
     <div class="flex items-center hand" @mouseover="mouseover()">
       <img class="w-5 h-5" :src="plats.select.logo" alt="" />
-      <span class="ml-1.5 text-global-default text-opacity-85 text-kd12px16px font-kdExp">MDEX</span>
+      <span class="ml-1.5 text-global-default text-opacity-85 text-kd16px16px md:text-kd12px16px font-kdExp">MDEX</span>
 <!--      <img class="w-2 h-1 ml-2" src="https://res.ikingdata.com/nav/logoList.png" alt=""/>-->
       <div v-show="platShow" class="w-27.25 absolute top-14 left-0 z-2 py-1.5 showContainer">
         <ul>
