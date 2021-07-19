@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // @ts-ignore
-import {reactive, onBeforeMount} from 'vue'
+import {ref} from 'vue'
 import I18n from '~/utils/i18n/index'
 import {useRoute} from 'vue-router'
 import {symbolStore, pairStore} from '~/store/liquidity/state'
@@ -9,9 +9,11 @@ const route = useRoute()
 symbolStore.id = route.query.token ? route.query.token : symbolStore.id
 pairStore.id = route.query.pair ? route.query.pair : pairStore.id
 pairStore.name = route.query.pairName ? route.query.pairName : 'ETH/USDT'
+const mobile=ref(false)
+mobile.value=window.screen.width>768?false:true
 </script>
 <template>
-  <div class="flex w-full contentContainer" style="overflow-x: hidden">
+  <div v-if="!mobile" class="flex w-full contentContainer" style="overflow-x: hidden">
     <LiquiditySideContainer/>
     <LiquidityMainContainer/>
 <!--    浮窗户-->
@@ -26,6 +28,9 @@ pairStore.name = route.query.pairName ? route.query.pairName : 'ETH/USDT'
         </a>
       </template>
     </UiFixTip>
+  </div>
+  <div v-else class="w-full ">
+    <LiquidityMobileMain class="pt-4"/>
   </div>
 </template>
 <style>

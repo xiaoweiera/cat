@@ -25,18 +25,6 @@ watch(()=>selectTxt.value,(n)=>{
   </div>
 </template>
 <style lang="postcss" scoped>
-.tipContainer {
-  background: #ffffff;
-  box-shadow: 0px 4px 12px rgba(43, 140, 255, 0.16);
-  border-radius: 4px;
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  &::-webkit-scrollbar-thumb:vertical {
-    background: rgba(0, 0, 0, 0.1);
-  }
-}
 ::v-deep(.el-input__inner) {
   height: 20px;
   background: none;

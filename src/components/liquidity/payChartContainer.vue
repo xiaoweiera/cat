@@ -2,7 +2,7 @@
 import {defineProps, onMounted,computed, ref, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
-import {titleCofig} from '~/logic/liquidity/dataCofig'
+import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 const props = defineProps({
   config: Object,
   tokenParam: Object,
@@ -29,7 +29,7 @@ watch(() => pairStore.id, (n, o) => {
 })
 watch(() => props.tokenParam.interval, (n) => getData(props.tokenParam))
 watch(() => paramChart.time, (n) => getData(props.tokenParam))
-watch(() => tokenType.value, (n) => getData())
+// watch(() => tokenType.value, (n) => getData())
 const chartKey = ref(0)
 let chartData = reactive({value: {}})
 const priceData = reactive({value: {}})
@@ -53,6 +53,12 @@ const getData = async () => {
       to_ts: props.pairParam.to_ts,
       interval: props.pairParam.interval
     }, 'pair')
+    if(isSymbol0Symbol1.includes(props.chartId)){
+      tokenType.value=pairStore.name?(pairStore.name.split('/')[0]===symbolStore.name?'symbol0':'symbol1'):'symbol0'
+    }else{
+      tokenType.value='symbol0'
+    }
+    console.log(tokenType.value)
     chartData.value = await getPayChartModel(props.pairParam, props.chartId, tokenType.value, chartCoin)
   } else {
     chartCoin = props.config.pay.tokenCofig.usdCoin ? coinType.value : 'usd'
@@ -65,6 +71,7 @@ const getData = async () => {
       to_ts: props.tokenParam.to_ts,
       interval: props.tokenParam.interval
     }, 'token')
+    tokenType.value='symbol0'
     chartData.value = await getPayChartModel(props.tokenParam, props.chartId, tokenType.value, chartCoin)
   }
   chartKey.value++
