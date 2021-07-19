@@ -44,6 +44,7 @@ const getChartData=()=>{
       pairStore.id,
       props.coinType.value
   )
+  console.log(series)
   draw(xData, series, legend,allYAxis)
 }
 onMounted(() => {
