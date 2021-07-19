@@ -30,12 +30,17 @@ onMounted(function() {
 })
 
 // @ts-ignore
-const saveChart = function() {
+const saveChart = function(e: Event) {
   const id = `j-big-${props.data.chartId}`
   const canvas: any = document.querySelector(`.${id} canvas`)
-  const strDataURI = canvas.toDataURL("image/jpeg")
-  const image = strDataURI.replace("image/jpeg", "image/octet-stream")
-  window.location.href = image
+  const strDataURI = canvas.toDataURL("image/png")
+  const image = strDataURI.replace("image/png", "image/octet-stream")
+  const name = `${props.data.name}.png`
+  const downlink = document.createElement('a')
+  downlink.setAttribute('download', name)
+  downlink.download = name
+  downlink.href = image;
+  downlink.click();
 }
 
 </script>
@@ -56,12 +61,12 @@ const saveChart = function() {
         <div v-if="full" class="inline-block">
           <div class="flex flex-wrap flex-col-reverse md:flex-row">
             <div class="inline-flex items-center justify-end">
-              <span class="btn-border cursor-pointer" @click="saveChart">
+              <a class="btn-border cursor-pointer" @click="saveChart">
                 <IconFont type="icon-download"/>
-              </span>
+              </a>
 
-                <!-- 缩放按钮 -->
-                <span class="btn-border ml-3">
+              <!-- 缩放按钮 -->
+              <span class="btn-border ml-3">
                 <FullZoom/>
               </span>
             </div>

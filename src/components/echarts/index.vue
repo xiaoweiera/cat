@@ -298,6 +298,7 @@ const getOption = function() {
     yAxis: getYAxis(),
     series: getSeries(),
     // color: colors
+    backgroundColor: '#fff',
   }
   return data
 }
@@ -305,8 +306,6 @@ const getOption = function() {
 const onResize = function() {
   const char: any = compChar.value
   char.resize({
-    width: 'auto',
-    height: 'auto',
     silent: true,
     animation: {
       duration: 0
@@ -322,12 +321,13 @@ const onResize = function() {
 
 onMounted(function() {
   const echart = toRaw(echartsRef).value
-  const char = echarts.init(echart);
-  compChar.value = char
-
   try {
     const option = getOption()
-    char.setOption(option)
+    setTimeout(function() {
+      const char = echarts.init(echart);
+      compChar.value = char
+      char.setOption(option)
+    })
   } catch (e) {
     console.log(e)
   }
@@ -344,11 +344,11 @@ onUnmounted(function() {
 </script>
 
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full overflow-hidden">
     <div class="hidden">
       <slot></slot>
     </div>
-    <div class="relative w-full h-full" ref="echartsRef">
+    <div class="w-full h-full" ref="echartsRef">
     </div>
   </div>
 </template>

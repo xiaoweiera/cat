@@ -109,6 +109,11 @@ const getDetail = async function(data: ItemData) {
 
   data.last = safeGet<number>(result, 'last')
 
+  const followed = toBoolean(safeGet<boolean>(result, 'followed'))
+  if (followed) {
+    data.followed = followed
+  }
+
   const width = toNumber(safeGet<number>(result, 'width'))
   data.width = width > 50 ? 100 : 50
 
