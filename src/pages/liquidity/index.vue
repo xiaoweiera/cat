@@ -1,23 +1,41 @@
 <script lang="ts" setup>
 // @ts-ignore
-import { reactive, onBeforeMount } from 'vue'
+import {reactive, onBeforeMount} from 'vue'
+import I18n from '~/utils/i18n/index'
 import {useRoute} from 'vue-router'
-import {symbolStore,pairStore} from '~/store/liquidity/state'
+import {symbolStore, pairStore} from '~/store/liquidity/state'
+
 const route = useRoute()
-symbolStore.id=route.query.token?route.query.token:symbolStore.id
-pairStore.id=route.query.pair?route.query.pair:pairStore.id
-pairStore.name=route.query.pairName?route.query.pairName:'ETH/USDT'
+symbolStore.id = route.query.token ? route.query.token : symbolStore.id
+pairStore.id = route.query.pair ? route.query.pair : pairStore.id
+pairStore.name = route.query.pairName ? route.query.pairName : 'ETH/USDT'
 </script>
 <template>
   <div class="flex w-full contentContainer" style="overflow-x: hidden">
-    <LiquiditySideContainer />
-    <LiquidityMainContainer />
+    <LiquiditySideContainer/>
+    <LiquidityMainContainer/>
+<!--    浮窗户-->
+    <UiFixTip>
+      <template #default="scope">
+        <span class="inline-block md:text-center md:block text-kd12px16px font-medium leading-5 text-global-default text-opacity-85 md:whitespace-pre-line">
+          <span class="md:block">{{ I18n.common.chat.join }} KingData</span>
+          <span>{{ I18n.common.chat.telegramGroup }}</span>
+        </span>
+        <a class="inline-block ml-5 md:ml-0 md:block md:mt-2 cursor-pointer" target="_blank" v-router="I18n.growthpad.growthpad.about.telegram">
+            <span class="md:w-full inline-block join-btn text-xs leading-4 py-1 px-3 text-center text-white">{{ I18n.common.chat.joinTelegram }}</span>
+        </a>
+      </template>
+    </UiFixTip>
   </div>
 </template>
 <style>
-.el-message{
-  width:160px !important;
+.el-message {
+  width: 160px !important;
   min-width: 160px !important;
+}
+.join-btn {
+  background: #2B8DFE;
+  border-radius: 12px;
 }
 .contentContainer {
   display: flex;
