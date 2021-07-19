@@ -90,6 +90,7 @@ export default {
   },
   chat: {
     telegram: 'Telegram',
+    join:'Join',
     telegramGroup: 'Telegram Group',
     joinTelegram: 'Join Telegram',
     twitter: 'Twitter',
