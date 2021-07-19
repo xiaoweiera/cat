@@ -2,7 +2,7 @@
 
 </script>
 <template>
-  <div class="bg-global-white ">
+  <div class="bg-global-white pt-4">
     <div class="px-4">
       <LiquidityMobileSelectContainer />
       <LiquidityMobileInfo/>
@@ -13,7 +13,7 @@
       <LiquidityMobileFilterOption/>
     </div>
   </div>
-  <div class="mt-1.5">
+  <div>
     <LiquidityMobileChartMainChart/>
   </div>
 </template>

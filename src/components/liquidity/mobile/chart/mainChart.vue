@@ -54,9 +54,9 @@ watch(() => paramChart.interval, (n, o) => {
 })
 </script>
 <template>
-  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer" >
+  <div class="flex flex-1  flex-col  chartContainer" >
     <template v-for="(item,i) in chartDataConfig">
-      <div class="mb-8">
+      <div class="mt-1.5 ">
         <div class="flex  h-107.5  bgContainer border-1">
           <LiquidityFlowChartContainer :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
 <!--          <LiquidityPayChartContainer :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />-->

@@ -1,10 +1,11 @@
 
-
+const mobile=window.screen.width>768?false:true
 const grid = (interval:string,full:boolean) => {
   // const xLength=interval==='1D'?'12px':'35px'
+  console.log(mobile)
   return {
-    left: 72,
-    right: 70,
+    left:mobile?0:72,
+    right: mobile?0:70,
     bottom: full?68:85,
     top: 10,
     // y2: 0,
@@ -108,11 +109,8 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       data: xdata,
       axisLabel: {
         margin:14,
-        showMinLabel: true,
-        showMaxLabel: true,
-        // showMinLabel: isMobile ? null : null, //显示最小值
-        // showMaxLabel: isMobile ? null : null, //显示最大值
-        // splitNumber: 3,
+        showMinLabel: mobile?null:true,
+        showMaxLabel: mobile?null:true,
         textStyle: {
           color: '#989898',
         },
@@ -137,7 +135,6 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
     axisTick: {
       show: false, // 隐藏刻度线
     },
-
     splitLine: {
       // 网格线
       lineStyle: {
@@ -153,6 +150,7 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
     splitNumber:4,
     axisLabel: {
       fontSize: 12,
+      inside:mobile?true:false,
       textStyle: {
         color: '#2B8DFF',
       },
@@ -190,6 +188,7 @@ export const yKAxisModel=(kmin: number, kmax: number,isShow:boolean, yLabelForma
     interval:interval,
     splitNumber:4,
     axisLabel: {
+      inside:mobile?true:false,
       fontSize: 12,
       textStyle: {
         color: 'rgba(240, 191, 18, 1)',
