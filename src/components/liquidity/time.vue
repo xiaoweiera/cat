@@ -73,7 +73,7 @@ const pickerOptions=(time)=>{
     return false
   }
 const getClass=(item:any)=>{
-  if(paramChart.interval==='1D' || (paramChart.interval==='1H' && item.value<=30)){
+  if(paramChart.interval==='1D' || (paramChart.interval==='1H' && item.value<=500)){
     return true
   }else{
     return false
