@@ -117,7 +117,7 @@ const getTitleDesc=(title:string)=>{
     <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 ">
       {{ chartData.value?.desc }}
     </div>
-    <div v-if="!chartLoad" class="w-full">
+    <div v-if="!chartLoad" class="w-full h-full">
       <div v-if="!isNull" class="w-full">
         <LiquidityChart class="h-77.5"  :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
