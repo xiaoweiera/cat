@@ -64,7 +64,7 @@ const onGetCode = async function() {
   try {
     const result = await onCaptchaResgister()
     if (result.data.code !== 0) {
-      messageError(result.data.message)
+      messageError(result.data)
     } else {
       codeFlag = true
       interval = setInterval(() => {
