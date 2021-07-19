@@ -93,7 +93,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class=" flex flex-col py-4 pl-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
+  <div class=" flex flex-col py-4  pl-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
     <!--    定位用-->
     <div :class="'chartScroll'+props.chartId"></div>
     <!--    图表的信息-->
@@ -103,7 +103,8 @@ onMounted(() => {
         <span class="ml-2">{{ chartData.value?.title }}</span>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
-      <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
+        <LiquidityFullChartFull   :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
+
     </div>
     <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 ">
       {{ chartData.value?.desc }}
