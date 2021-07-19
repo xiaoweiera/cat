@@ -93,7 +93,8 @@ onUnmounted(function() {
   <Spin class="min-h-120" :loading="loading">
     <div class="p-2.5 flex flex-wrap" v-if="list.length > 0">
       <template v-for="(data, index) in list" :key="index">
-        <div v-if="data.chartId === 621" class="p-2.5" :class="getRowColWidth(data.width)">
+        <!--v-if="data.chartId === 621" -->
+        <div class="p-2.5" :class="getRowColWidth(data.width)">
           <div class="chart-item rounded p-3 bg-white">
             <TopicChartItem :option="data"></TopicChartItem>
           </div>
