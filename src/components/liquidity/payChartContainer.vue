@@ -113,10 +113,9 @@ const getTitleDesc=(title:string)=>{
 }
 </script>
 <template>
-  <div class="flex flex-col py-4 px-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
-    <div :class="'chartScroll'+props.chartId"></div>
+  <div :class="'chartScroll'+props.chartId"  class="flex flex-col py-4 px-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
     <!--    图表的信息-->
-    <div class="flex items-center">
+    <div class="flex items-center flex-wrap">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>

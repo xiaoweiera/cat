@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-
+import { ref} from 'vue'
+const pcTip=ref(true)
 </script>
 <template>
   <div class="flex mt-4 items-center justify-between text-kdFang">
@@ -13,6 +14,6 @@
       <div class="text-kd12px16px font-medium text-global-default  text-opacity-85 ml-1">1H</div>
       <IconFont class="iconjiantou ml-2" type="icon-xialaxiao"></IconFont>
     </div>
-    
+    <UiDialogPcTip :show="pcTip"/>
   </div>
 </template>

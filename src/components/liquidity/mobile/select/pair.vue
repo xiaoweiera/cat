@@ -9,11 +9,13 @@ import {getInfoByPair} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,smallToken,formatRulesNumber} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
+import {setInject } from '~/utils/use/state'
+const setSelectTableShow= setInject('selectTableShow')
 const allData=ref([]) //请求数据的个数
 const pairList=ref([])
 const page=ref(1) //页数
 const size=10 //每页数量
-const initSize=5 //首次加载数量
+const initSize=3 //首次加载数量
 
 const param={
   platId:1,
@@ -28,6 +30,7 @@ const changePair = (symbol0:string,name: string,id:string,tokenId:string) => {
   changeRouteParam(route,router,{token:tokenId})
   changeRouteParam(route,router,{pair:id,pairName:name})
   setHistory({name:name,pair_id:id,tokenName:symbol0,token_id:tokenId,type:'pair'})
+  setSelectTableShow(false)
 
 }
 const route = useRoute()
@@ -65,51 +68,32 @@ onMounted(getList)
 </script>
 <template>
   <ul>
-    <li class="text-global-default opacity-65 text-kd14px18px mb-3 text-kdFang font-medium ">{{I18n.liquidity.select.tradingPairs}}</li>
-    <div class="flex py-1.5 header-Border ">
+    <li class="text-global-default text-kd14px18px mb-1 px-4 text-kdFang  ">{{I18n.liquidity.select.tradingPairs}}</li>
+    <div class="flex py-1.5 header-Border px-4">
       <div class="header-txt txtSmall  w-50  whitespace-nowrap"># Pair</div>
-      <div class="header-txt w-25 ml-5">{{I18n.liquidity.select.address}}</div>
-      <div class="header-txt w-27.5 ml-5">TVL</div>
-      <div class="header-txt w-32.5 ml-5">{{I18n.liquidity.select.changePrice}}</div>
+      <div class="header-txt w-28.5 ml-5">{{I18n.liquidity.select.changePrice}}</div>
+      <div class="header-txt w-31.5 ml-5 text-right">TVL</div>
     </div>
     <template v-for="item in pairList">
-      <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
+      <li class="flex items-center hand content-item py-2 px-4 text-kd14px16x font-kdExp text-global-default  text-opacity-85" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
         <el-tooltip :hide-after="10" :content="item.pair" placement="bottom" effect="light">
-          <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ item.pair }}</span></div>
-        </el-tooltip>
-        <el-tooltip :hide-after="10" :content="item.pair_id" placement="bottom" effect="light">
-          <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.pair_id)}}</div>
-        </el-tooltip>
-        <el-tooltip :hide-after="10" :content="item.tvl" placement="bottom" effect="light">
-          <div class="w-27.5 ml-5 ">${{formatRulesNumber(item.tvl)}}</div>
+          <div style="font-weight: 700;" class="txtSmall w-50 whitespace-nowrap  font-kdFang  text-kd14px16px font-bold  "><span>{{ item.pair }}</span></div>
         </el-tooltip>
         <el-tooltip :hide-after="10" :content="'1:'+item.price" placement="bottom" effect="light">
-          <div class="w-32.5 ml-5">1:{{formatRulesNumber(item.price) }}</div>
+          <div class="w-28.5 ml-5">1:{{formatRulesNumber(item.price) }}</div>
+        </el-tooltip>
+        <el-tooltip :hide-after="10" :content="item.tvl" placement="bottom" effect="light">
+          <div class="w-31.5 ml-5 text-right">${{formatRulesNumber(item.tvl)}}</div>
         </el-tooltip>
       </li>
     </template>
-    <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand ">{{I18n.liquidity.select.more}}</li>
+    <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand px-4">{{I18n.liquidity.select.more}}</li>
   </ul>
-
-
-  <!--  <ul class="mt-3">-->
-  <!--    <li class="text-global-default opacity-65 text-kd14px18px py-1.5 text-kdFang font-medium ">交易对</li>-->
-  <!--    <template v-for="item in pairList">-->
-  <!--      <li class="itemLi hand" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">-->
-  <!--        <div class="coinName">-->
-  <!--          <span>{{ subStr(item.pair) }}</span>-->
-  <!--        </div>-->
-  <!--      </li>-->
-  <!--    </template>-->
-  <!--    <li v-if="allData.length>initSize && allData.length!==pairList.length" @click="addMore" class="more hand">查看更多</li>-->
-  <!--  </ul>-->
-  <!--      交易对-->
 </template>
 <style lang="postcss" scoped>
+
 .header-Border{
   border:none;
-  border-top:1px solid rgba(37, 62, 111, 0.08);
-  border-bottom:1px solid rgba(37, 62, 111, 0.08);
 }
 .header-txt{
   @apply font-normal text-kdFang text-kd12px16px text-global-default text-opacity-65 ;
@@ -123,23 +107,9 @@ onMounted(getList)
   @apply text-kdExp text-kd14px20px text-global-default opacity-85;
 }
 .more {
-  @apply text-kd14px18px py-1.5 text-global-primary font-normal  text-center mt-2 ;
+  @apply text-kd14px18px py-1.5 text-global-primary font-normal  text-left ;
 }
 
-.itemLi {
-  @apply flex items-center justify-between px-3;
-.coinName {
-  @apply text-kd14px20px py-1.5 text-global-default opacity-85 font-normal;
-}
-.coinTip {
-  border: 1px solid rgba(43, 141, 254, 0.4);
-  border-radius: 2px;
-  @apply px-1 py-0.5 text-kd12px16px flex items-center justify-center text-global-primary font-bold;
-}
-&:hover {
-   background: rgba(43, 141, 254, 0.08);
- }
-}
 
 .selectBg {
   background: rgba(43, 141, 254, 0.08);
