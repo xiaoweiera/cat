@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { useProvide,setInject } from '~/utils/use/state'
+import { useProvide } from '~/utils/use/state'
+import {selectTxt} from '~/store/liquidity/state'
 const [tokenTableShow, ] = useProvide('tokenTableShow', false)
+
 </script>
 <template>
+  {{selectTxt}}
   <div class="bg-global-white pt-4">
     <div class="px-4 ">
       <LiquidityMobileSelectContainer />

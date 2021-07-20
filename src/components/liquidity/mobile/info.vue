@@ -31,8 +31,11 @@ const getInfo = async() => {
 }
 const changeTokenTable=()=>{
   setTokenTableShow(!tokenTableShow.value[0])
+  //兼容手机端懒加载
   if(!tokenTableShow.value[0]){
-    setTimeout(()=>  window.scrollTo(0,3))
+    setTimeout(()=> { 
+      window.scrollTo(0,3)
+      window.scrollTo(0,0)})
   }
 }
 const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
