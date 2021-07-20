@@ -4,16 +4,18 @@
  */
 
 import Ethereum from './_'
-import { erc20ABI, PairABI } from './pair'
+import BigNumber from 'bignumber.js'
 // @ts-ignore
 import Web3 from 'web3/dist/web3.min.js'
 import { getAddress } from './status'
-import { SymbolInfo } from '~/utils/ethereum/interface'
+import { erc20ABI, PairABI } from './pair'
+import { PairInfo, SymbolInfo } from '~/utils/ethereum/interface'
 import swapConfig from './config'
-import { equalsIgnoreCase, compact } from '~/utils'
+import { compact, equalsIgnoreCase } from '~/utils'
+import DBList from '@fengqiaogang/dblist'
 
 
-class Web3Util extends Web3 {
+export class Web3Util extends Web3 {
   constructor() {
     const ethereum: any = Ethereum()
     super(ethereum);
@@ -45,7 +47,8 @@ class Web3Util extends Web3 {
       return 0
     }
   }
-  async getPairInfo (address: string) {
+  // 合约信息
+  async getPairInfo (address: string): Promise<PairInfo> {
     // @ts-ignore
     const contract = new this.eth.Contract(PairABI, address)
     const [total, decimals, balance, symbol0, symbol1] = await Promise.all([
@@ -101,7 +104,7 @@ class Web3Util extends Web3 {
         return { ...data, token, reserveCount }
       }
     }
-    return { token, reserveCount }
+    return { token, reserveCount, name: '', symbol: '', decimals: 0, balance: 0 }
   }
 
   /**
@@ -127,7 +130,7 @@ class Web3Util extends Web3 {
         return { ...data, token, reserveCount }
       }
     }
-    return { token, reserveCount }
+    return { token, reserveCount, name: '', symbol: '', decimals: 0, balance: 0 }
   }
 // ------------------------------------
   /**
@@ -139,12 +142,13 @@ class Web3Util extends Web3 {
     // weth 地址
     // @ts-ignore
     const contract = new this.eth.Contract(erc20ABI, contractAddress)
-    const [name, symbol, decimals] = await Promise.all([
+    const [name, symbol, decimals, balance] = await Promise.all([
       this.getSymbolName(contract),
       this.getSymbolSymbol(contract),
-      this.getDecimalsValue(contract)
+      this.getDecimalsValue(contract),
+      this.getSymbolBalance(contractAddress)
     ])
-    return { name, symbol, decimals }
+    return { name, symbol, decimals, balance }
   }
   // symbol/token 名称
   private async getSymbolName (contract: any): Promise<string> {
@@ -183,9 +187,7 @@ class Web3Util extends Web3 {
       // @ts-ignore
       try {
         // @ts-ignore
-        const value = await this.eth.getBalance(address)
-        console.log(value)
-        return value
+        return await this.eth.getBalance(address)
       } catch (e) {
         // todo
       }
@@ -195,9 +197,7 @@ class Web3Util extends Web3 {
         // @ts-ignore
         const contract = new this.eth.Contract(erc20ABI, contractAddress)
         // @ts-ignore
-        const value = await contract.methods.balanceOf(address).call()
-        console.log('value : ', value)
-        return value
+        return await contract.methods.balanceOf(address).call()
       } catch (e) {
         // todo
       }
@@ -206,4 +206,46 @@ class Web3Util extends Web3 {
   }
 }
 
-export default Web3Util
+
+/**
+ * 给定一项资产的输入量和配对的储备，返回另一项资产的最大输出量
+ * @param amountIn 输入数额
+ * @param reserveIn 储备量
+ * @param reserveOut 储备量Out
+ */
+export const getAmountOut = function(amountIn: string | number, reserveIn: string | number, reserveOut: string | number): string {
+  const amountInBig = new BigNumber(amountIn)
+  const reserveInBig = new BigNumber(reserveIn)
+  const reserveOutBig = new BigNumber(reserveOut)
+  // 判断输入数额是否小于等于 0
+  if (amountInBig.lte(0)) {
+    return new BigNumber(-1).toString(10)
+  }
+  // 判断 储备量In 和 储备量Out 小于等于 0
+  if (reserveInBig.lte(0) && reserveOutBig.lte(0)) {
+    return new BigNumber(-1).toString(10)
+  }
+  // 税后输入数额 = 输入数额 * 997
+  const amountInWithFee = amountInBig.multipliedBy(997)
+  // 分子 = 税后输入数额 * 储备量Out
+  const numerator = amountInWithFee.multipliedBy(reserveOut)
+  // 分母 = 储备量In * 1000 + 税后输入数额
+  const denominator = reserveInBig.multipliedBy(1000).plus(amountInWithFee)
+  // 输出数额 = 分子 / 分母
+  const amountOut = numerator.dividedBy(denominator)
+  return amountOut.dp(0, 1).toString(10)
+}
+
+/**
+ * 查询 pair 信息中的 symbol 信息
+ * @param pairData pair 数据 (web3.getPairInfo 获取)
+ * @param symbol symbol 名称
+ */
+export const getPairSymbolData = function(pairData: PairInfo, symbol: string): SymbolInfo | undefined {
+  const primaryKey = 'symbol'
+  const list = compact([pairData.symbol0, pairData.symbol1])
+  const db = new DBList(list, primaryKey)
+  const where = {[primaryKey]: symbol}
+  return db.selectOne<SymbolInfo>(where)
+}
+

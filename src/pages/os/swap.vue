@@ -6,8 +6,8 @@
     <SwapWallet/>
     <br/>
     <br/>
-    <div style="width: 500px;">
-      <SwapTrade/>
+    <div>
+      <SwapTradeTrigger/>
     </div>
   </div>
 </template>

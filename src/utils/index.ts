@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import BigNumber from 'bignumber.js'
 import I18n from '~/utils/i18n/index'
 import {
   flatten,
@@ -320,6 +321,17 @@ export const upperFirst = function(value: string): string {
  */
 export const equalsIgnoreCase = function(str1: string, str2: string): boolean {
   return str1.toString().toUpperCase() === str2.toString().toUpperCase()
+}
+
+
+export const decimalFormat = function(value: string | number, decimal: string | number): number {
+  const pow = Math.pow(10, decimal as number)
+  return new BigNumber(value).dividedBy(pow).toNumber()
+}
+
+export const numberDecimal = function(value: string | number, decimal: string | number): string {
+  const pow = Math.pow(10, decimal as number)
+  return new BigNumber(value).multipliedBy(pow).toString(10)
 }
 
 export const timeFormat = 'YYYY-MM-DD HH:mm:ss'

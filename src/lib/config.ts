@@ -10,7 +10,7 @@ interface Config {
 
 export const iconFont = [
   // 行情&流动性呀
-  '//at.alicdn.com/t/font_2596648_5vzq7zcgit.js',
+  '//at.alicdn.com/t/font_2596648_yr82ex0wlja.js',
   // 通用
   '//at.alicdn.com/t/font_2596380_wm55l21ry5g.js'
 ]

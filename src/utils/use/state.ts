@@ -33,8 +33,9 @@ export const useProvide = function<T>(name: string, value?: any): any[] {
 }
 
 export const useWatch = function<T>(name: string, callback: SetCallback, value?: any) {
-  const [ state ] = useProvide(name, value)
+  const [ state, set ] = useProvide(name, value)
   watch(state, callback)
+  return [state, set]
 }
 
 export const getInject = function(name: string) {
@@ -50,11 +51,9 @@ export const setInject = function(name: string): SetCallback {
   return inject<SetCallback>(name) as any
 }
 export const updateInject = function(name: string, ...args: any[]): boolean {
-  console.log(name, args)
   if (name) {
     const set = setInject(name)
     if (set) {
-      console.log('update : ', name, set)
       set(...args)
       return true
     }
@@ -62,15 +61,25 @@ export const updateInject = function(name: string, ...args: any[]): boolean {
   return false
 }
 
-export const margeInject = function(name: string, value: any): boolean {
-  if (name && value) {
-    const set = setInject(name)
-    const state = getInject(name)
+export const margetState = function(name: string) {
+  const set = setInject(name)
+  const state = getInject(name)
+  return function<T>(value: T) {
     if (set && state) {
       const [ oldValue = {} ] = state.value
-      set(Object.assign({}, oldValue, value))
+      const data = Object.assign({}, oldValue, value)
+      set(data)
       return true
     }
+    return false
+  }
+}
+
+export const margeInject = function(name: string, value: any): boolean {
+  console.warn('不建议使用，请改为 margetState 方法')
+  if (name && value) {
+    const marge = margetState(name)
+    return marge(value)
   }
   return false
 }
