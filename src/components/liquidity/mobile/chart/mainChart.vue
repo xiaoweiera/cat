@@ -32,34 +32,16 @@ const pairParam = reactive({
   to_ts: paramChart.timeEnd,
   interval: paramChart.interval,
 })
-//监听时间改变
-watch(() => paramChart.time, (n, o) => {
-  tokenParam.from_ts = paramChart.timeBegin
-  tokenParam.to_ts = paramChart.timeEnd
-  pairParam.from_ts = paramChart.timeBegin
-  pairParam.to_ts = paramChart.timeEnd
-})
-//监听颗粒度
-watch(() => paramChart.interval, (n, o) => {
-  tokenParam.interval = n
-  pairParam.interval = n
-  //如果颗粒度是小时，那么如果天查看的是90天或者自定义的时候，切换时就默认30天
-  if (paramChart.interval === '1H' && (paramChart.timeType >30 || paramChart.timeType === 0)) {
-    paramChart.timeType = 30
-    paramChart.timeBegin = getagoTimeStamp(30)
-    paramChart.timeEnd = dataToTimestamp(formatDefaultTime())
-    paramChart.time = getagoTimeStamp(30)
-    return
-  }
-})
+
+
 </script>
 <template>
   <div class="flex flex-1  flex-col  chartContainer" >
     <template v-for="(item,i) in chartDataConfig">
       <div class="mt-1.5 ">
         <div class="flex  h-107.5  bgContainer border-1">
-          <LiquidityFlowChartContainer :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
-<!--          <LiquidityPayChartContainer :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />-->
+          <LiquidityFlowChartContainer v-if="analysisType==='flow'" :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
+          <LiquidityPayChartContainer v-else :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
         </div>
       </div>
     </template>

@@ -93,7 +93,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class=" flex flex-col py-4  pl-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
+  <div class=" flex flex-col py-4  px-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
     <!--    定位用-->
     <div :class="'chartScroll'+props.chartId"></div>
     <!--    图表的信息-->
@@ -111,7 +111,7 @@ onMounted(() => {
     </div>
     <div v-if="!chartLoad" class="w-full h-full">
       <div v-if="!isNull" class="w-full">
-        <LiquidityChart class="h-77.5 w-full"   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
+        <LiquidityChart class="h-77.5 w-full "   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
         <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
