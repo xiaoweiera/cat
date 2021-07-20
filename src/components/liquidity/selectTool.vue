@@ -8,12 +8,7 @@ const props = defineProps({
 const changeSelect = () => {
   props.changeShow(true)
 }
-// 加延迟不然会先执行blur，不执行click
-const inputBlur = () => {
-  setTimeout(() => {
-    changeSelect(false)
-  }, 100)
-}
+
 watch(()=>selectTxt.value,(n)=>{
   props.changeShow(true)
 })

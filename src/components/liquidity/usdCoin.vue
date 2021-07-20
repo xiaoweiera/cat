@@ -11,7 +11,7 @@ const changeTag = (tag: string) => {
 }
 </script>
 <template>
-  <div class="usdCoinContainer">
+  <div class="usdCoinContainer  flex">
     <div @click="changeTag('usd')" :class="coinTypeValue==='usd'?'tagSelected':'tag'">USD 计价</div>
     <div @click="changeTag('coin')" :class="coinTypeValue==='coin'?'tagSelected':'tag'">币本位计价</div>
   </div>
@@ -19,6 +19,7 @@ const changeTag = (tag: string) => {
 </template>
 <style scoped lang="postcss">
 .usdCoinContainer {
+  width:fit-content;
   background: #F6FAFD;
   border-radius: 4px;
   @apply p-0.25  flex  font-kdFang;

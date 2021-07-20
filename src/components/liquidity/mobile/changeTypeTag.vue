@@ -5,7 +5,7 @@ const changeTag=(type:string)=>{
 }
 </script>
 <template>
-  <div class=" container flex items-center  bg-global-bgHui h-10.5 px-1 mt-4 font-kdFang ">
+  <div class=" container flex items-center  bg-global-bgHui h-10.5 px-1  font-kdFang ">
     <div @click="changeTag('flow')" :class="analysisType==='flow'?'selectedTag':'tag'">流动性分析</div>
     <div @click="changeTag('pay')" :class="analysisType==='pay'?'selectedTag':'tag'">交易数据分析</div>
   </div>

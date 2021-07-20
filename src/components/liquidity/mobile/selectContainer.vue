@@ -1,25 +1,32 @@
 <script setup lang="ts">
 import {ref,watch} from 'vue'
 import {selectTxt} from '~/store/liquidity/state'
-
+import { getInject,setInject } from '~/utils/use/state'
+const selectTableShow=getInject('selectTableShow')
+const setSelectTableShow= setInject('selectTableShow')
 const show=ref(false)
 
-// 加延迟不然会先执行blur，不执行click
-const inputBlur = () => {
-  setTimeout(() => {
-    changeSelect(false)
-  }, 100)
+const changeSelect = () => {
+  setSelectTableShow(true)
 }
-// watch(()=>selectTxt.value,(n)=>{
-//   props.changeShow(true)
-// })
+
+watch(()=>selectTxt.value,(n)=>{
+  if(n){
+    setSelectTableShow(true)
+  }
+})
+const close=()=>{
+  selectTxt.value=''
+  setSelectTableShow(!selectTableShow.value[0])
+}
 </script>
 <template>
-  <div class="selectContainer flex items-center bg-global-bgHui h-11">
+  <div class="selectContainer  flex items-center bg-global-bgHui h-11">
     <LiquidityPlats />
     <div class="flex flex-1 relative text-kd12px14px items-center  ml-2  font-kdFang mr-3  ">
-      <el-input v-model="selectTxt"  placeholder="查看自选或搜索币种" @change="changeSelect()" ></el-input>
-      <img class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
+      <el-input v-model="selectTxt"  placeholder="查看自选或搜索币种"  @change="changeSelect()" ></el-input>
+      <img v-if="!selectTableShow[0]" class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
+      <IconFont @click="close()" v-else type="icon-x"/>
     </div>
   </div>
 </template>

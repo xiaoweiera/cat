@@ -9,11 +9,13 @@ import {getInfoByToken} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {changeRoute, changeRouteParam,smallToken,formatRulesNumber} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
+import {setInject } from '~/utils/use/state'
+const setSelectTableShow= setInject('selectTableShow')
 const allData=ref([]) //请求数据的个数
 const tokenList=ref([])
 const page=ref(1) //页数
 const size=10 //每页数量
-const initSize=5 //首次加载数量
+const initSize=3 //首次加载数量
 const param={
   platId:1,
   query:''
@@ -29,6 +31,7 @@ const changeToken = (name: string,id:string) => {
   changeRouteParam(route,router,{token:id,pair:undefined,pairName:undefined})
   // changeRouteParam(route,router,{pair:undefined,pairName:undefined})
   setHistory({token_id:id,name:name,type:'token'})
+  setSelectTableShow(false)
 }
 const getData=(list:any)=>{
   const tokenDB=new DBList(list)
@@ -65,40 +68,35 @@ onMounted(()=>{
 </script>
 <template>
   <ul>
-    <li class="text-global-default opacity-65 text-kd14px18px mb-3 text-kdFang font-medium ">{{I18n.liquidity.select.coinType}}</li>
-    <div class="flex py-1.5 header-Border ">
+    <li class="text-global-default text-kd14px18px mb-1 text-kdFang px-4 ">{{I18n.liquidity.select.coinType}}</li>
+    <div class="flex py-1.5 header-Border px-4">
       <div class="header-txt txtSmall  w-50  whitespace-nowrap"># Name/Symbol</div>
-      <div class="header-txt w-25 ml-5">{{I18n.liquidity.select.address}}</div>
-      <div class="header-txt w-27.5 ml-5">TVL</div>
-      <div class="header-txt w-32.5 ml-5">{{I18n.liquidity.select.price}}</div>
+      <div class="header-txt w-28.5 ml-5 ">{{I18n.liquidity.select.price}}</div>
+      <div class="header-txt w-31.5 ml-5 text-right ">TVL</div>
     </div>
     <template v-for="item in tokenList">
-      <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
+      <li  class="flex items-center hand content-item py-2 px-4   text-kd14px16x font-kdExp text-global-default  text-opacity-85" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
         <el-tooltip :hide-after="10" :content="item.symbol+', '+item.symbol_name" placement="bottom" effect="light">
-          <div class="txtSmall w-50 whitespace-nowrap  ">
+          <div class="txtSmall w-50 whitespace-nowrap  text-kd12px16x ">
             <span>{{ item.symbol}}</span>,<span class="ml-2">{{ item.symbol_name}}</span>
           </div>
         </el-tooltip>
-        <el-tooltip :hide-after="10" :content="item.symbol_id" placement="bottom" effect="light">
-          <div class="w-25 ml-5 whitespace-nowrap  ">{{smallToken(item.symbol_id)}}</div>
+        <el-tooltip :hide-after="10" :content="item.price" placement="bottom" effect="light">
+          <div class="w-28.5 ml-5">{{formatRulesNumber(item.price) }}</div>
         </el-tooltip>
         <el-tooltip :hide-after="10" :content="item.tvl" placement="bottom" effect="light">
-          <div class="w-27.5 ml-5 ">${{formatRulesNumber(item.tvl) }}</div>
-        </el-tooltip>
-        <el-tooltip :hide-after="10" :content="item.price" placement="bottom" effect="light">
-          <div class="w-32.5 ml-5">{{formatRulesNumber(item.price) }}</div>
+          <div class="w-31.5 ml-5 text-right ">${{formatRulesNumber(item.tvl) }}</div>
         </el-tooltip>
       </li>
     </template>
-    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand ">{{I18n.liquidity.select.more}}</li>
+    <li v-if="allData.length>initSize && allData.length!==tokenList.length" @click="addMore" class="more hand  px-4">{{I18n.liquidity.select.more}}</li>
   </ul>
   <!--      交易对-->
 </template>
 <style lang="postcss" scoped>
+
 .header-Border{
   border:none;
-  border-top:1px solid rgba(37, 62, 111, 0.08);
-  border-bottom:1px solid rgba(37, 62, 111, 0.08);
 }
 .header-txt{
   @apply font-normal text-kdFang text-kd12px16px text-global-default text-opacity-65 ;
@@ -112,21 +110,9 @@ onMounted(()=>{
   @apply text-kdExp text-kd14px20px text-global-default opacity-85;
 }
 .more {
-  @apply text-kd14px18px py-1.5 text-global-primary font-normal  text-center mt-2;
+  @apply text-kd14px18px pt-1.5 text-global-primary font-normal  text-left ;
 }
 
-.itemLi {
-  @apply flex items-center;
-
-.coinTip {
-  border: 1px solid rgba(43, 141, 254, 0.4);
-  border-radius: 2px;
-  @apply px-1 py-0.5 text-kd12px16px flex items-center justify-center text-global-primary font-bold;
-}
-&:hover {
-   background: rgba(43, 141, 254, 0.08);
- }
-}
 
 .selectBg {
   background: rgba(43, 141, 254, 0.08);

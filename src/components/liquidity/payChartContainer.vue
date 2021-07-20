@@ -113,18 +113,25 @@ const getTitleDesc=(title:string)=>{
 }
 </script>
 <template>
-  <div class="flex flex-col py-4 px-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
-    <div :class="'chartScroll'+props.chartId"></div>
+  <div :class="'chartScroll'+props.chartId"  class="flex flex-col py-4 px-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
     <!--    图表的信息-->
-    <div class="flex items-center">
+    <div class="flex flex-col md:flex-row  md:items-center flex-wrap">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
+        <UiPopover class="ml-1 inline-block">
+          <template #reference>
+            <IconFont class="mt-0.5 ml-1" type="icon-info" />
+          </template>
+          <template #content>
+            <p class="w-60">{{chartData.value?.desc}}</p>
+          </template>
+        </UiPopover>
       </div>
-      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
+      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
       <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="pay" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 ">
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 xshidden">
       {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="w-full h-full">

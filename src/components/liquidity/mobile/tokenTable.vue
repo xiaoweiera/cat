@@ -59,8 +59,8 @@ const load = () => {
   <div v-show="tokenTableShow[0]" class="bg-global-bodyTwo">
     <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid rgba(37, 62, 111, 0);">
       <li class="flex-1">{{I18n.liquidity.side.pair}}</li>
-      <li class="w-20">TVL($)</li>
-      <li class="w-27 ">{{I18n.liquidity.side.price}}</li>
+      <li class="w-25">TVL($)</li>
+      <li class="w-22 ">{{I18n.liquidity.side.price}}</li>
     </ul>
     <div class="w-full tableHeight showY relative pairList" @scroll="load">
       <template v-for="item in pairList">
@@ -70,8 +70,8 @@ const load = () => {
               <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ item.symbol0 + '/' + item.symbol1 }}</span>
             </el-tooltip>
           </div>
-          <div class="w-20     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
-          <div class="w-27  text-kd12px16px text-global-default">
+          <div class="w-25     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
+          <div class="w-22  text-kd12px16px text-global-default">
             <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="'1:'+formatRulesNumber(item.price,true)" placement="bottom" effect="light">
               <span class="txtSmall  text-kd12px16px text-global-default opacity-85">1:{{ formatRulesNumber(item.price,false) }}</span>
             </el-tooltip>

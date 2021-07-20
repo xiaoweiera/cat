@@ -2,25 +2,25 @@
 import { useProvide } from '~/utils/use/state'
 import {selectTxt} from '~/store/liquidity/state'
 const [tokenTableShow, ] = useProvide('tokenTableShow', false)
-
+const [selectTableShow, ] = useProvide('selectTableShow', false)
 </script>
 <template>
-  {{selectTxt}}
-  <div class="bg-global-white pt-4">
-    <div class="px-4 ">
+  <div class="bg-global-white ">
+    <div class="py-4 px-4">
       <LiquidityMobileSelectContainer />
-      <LiquidityMobileInfo/>
+      <LiquidityMobileInfo v-if="!selectTableShow[0]"/>
     </div>
-    <div  style="border-bottom:1px solid #F1F3F5;" class="mt-4.25"></div>
-      <LiquidityMobileTokenTable />
-    <div v-if="!tokenTableShow[0]" class="px-4 pb-4.25">
+    <LiquidityMobileSelectTable v-if="selectTableShow[0]"/>
+      <LiquidityMobileTokenTable v-if="!selectTableShow[0]" />
+    <div v-if="!tokenTableShow[0] && !selectTableShow[0]" class="px-4  pb-4">
       <LiquidityMobileChangeTypeTag/>
       <LiquidityMobileFilterOption/>
     </div>
   </div>
-  <div v-if="!tokenTableShow[0]">
+  <div v-if="!tokenTableShow[0] && !selectTableShow[0]">
     <LiquidityMobileChartMainChart/>
   </div>
+
 </template>
 <style>
 .showY {
