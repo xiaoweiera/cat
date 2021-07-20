@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import {onMounted, ref, watch, reactive, defineProps} from 'vue'
-import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
-import {pairStore, paramChart, symbolStore, analysisType, selectHistory} from '~/store/liquidity/state'
-import {getFlowChart, getTokenPriceData} from '~/logic/liquidity/dataTool'
+import { reactive, defineProps} from 'vue'
+import {paramChart, analysisType} from '~/store/liquidity/state'
+import {getFlowChart} from '~/logic/liquidity/dataTool'
 import {chartDataConfig} from '~/logic/liquidity/dataCofig'
 interface yModel {
   color: string
@@ -48,12 +47,7 @@ const pairParam = reactive({
   </div>
 </template>
 <style scoped lang="postcss">
-.loadingGif {
-  right: 0;
-  margin: 0 auto;
-}
 .bgContainer{
-
   background: #ffffff;
   box-shadow: 0px 0px 12px rgba(44, 140, 248, 0.12);
   border-radius: 2px;
@@ -62,13 +56,10 @@ const pairParam = reactive({
   overflow: hidden;
   overflow-y: auto;
 }
-
-
 .chartContainer::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 .chartContainer::-webkit-scrollbar-thumb:vertical {
   background: rgba(0, 0, 0, 0.1);
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps,onMounted,computed } from 'vue'
 import {  setInject, getInject } from '~/utils/use/state'
+import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 const props=defineProps({
   desc:String,
   config:Object,
@@ -18,13 +19,40 @@ const isShowUsdCoin=()=>{
   return false
 }
 const titleDesc= computed((): string => {
-  console.log('ttt')
+  // if(!title.value[0]) return ['','']
+  // if(!pairData.value[0].id) return [,title.value[0]]
+  // if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
+  //   const symbol0=pairData.value[0].name?pairData.value[0].name.split('/')[0]+' ':''
+  //   const coin=isSymbol0Symbol1.includes(props.chartId)?tokenData.value[0].name:symbol0
+  //   if(titleCofig[props.chartId].replaceStr){
+  //     return [tokenData.value[0].name,title.value[0].replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)]
+  //   }else{
+  //     return [tokenData.value[0].name,title.value[0]+' '+coin]
+  //   }
+  // }else{
+  //   return [tokenData.value[0].name,title.value[0]]
+  // }
   if(!pairData.value[0].id){
     return ['',`${tokenData.value[0].name} ${title.value[0]}`]
   }else{
     return[`${tokenData.value[0].name}`,`${pairData.value[0].name} ${title.value[0]}`]
   }
 })
+const getTitleDesc=(title:string)=>{
+  if(!title.value[0]) return ''
+  if(!pairData.value[0].id) return title.value[0]
+  if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
+    const symbol0=pairData.value[0].name?pairData.value[0].name.split('/')[0]+' ':''
+    const coin=isSymbol0Symbol1.includes(props.chartId)?tokenData.value[0].name:symbol0
+    if(titleCofig[props.chartId].replaceStr){
+      return title.value[0].replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)
+    }else{
+      return title.value[0]+' '+coin
+    }
+  }else{
+    return title.value[0]
+  }
+}
 onMounted(()=>{
   isShowUsdCoin()})
 </script>
