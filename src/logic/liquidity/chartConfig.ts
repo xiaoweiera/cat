@@ -2,10 +2,9 @@
 const mobile=window.screen.width>768?false:true
 const grid = (interval:string,full:boolean) => {
   // const xLength=interval==='1D'?'12px':'35px'
-  console.log(mobile)
   return {
-    left:mobile?0:72,
-    right: mobile?0:70,
+    left:mobile?3:72,
+    right: mobile?3:70,
     bottom: full?68:85,
     top: 10,
     // y2: 0,
@@ -108,6 +107,7 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       type: 'category',
       data: xdata,
       axisLabel: {
+        align:'left',
         margin:14,
         showMinLabel: mobile?null:true,
         showMaxLabel: mobile?null:true,

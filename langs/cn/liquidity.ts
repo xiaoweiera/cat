@@ -64,7 +64,7 @@ export default {
         },
         joinUsersAnalysis:{
             title:'参与人数分析',
-            desc:'展示选定币种或者交易对的参数人数的明细，能直观的看出相关项目的用户规模。',
+            desc:'展示选定币种或者交易对的参与人数的明细，能直观的看出相关项目的用户规模。',
         },
         addUsersAnalysis:{
             title:'新增人数分析',

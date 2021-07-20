@@ -97,7 +97,6 @@ const scrollHandle = () => {
 onMounted(() => {
   initLoad()
 })
-
 const getTitleDesc=(title:string)=>{
   if(!title) return ''
   if(!pairStore.id) return title
@@ -108,11 +107,13 @@ const getTitleDesc=(title:string)=>{
     }else{
       return title+' '+symbol0
     }
+  }else{
+    return title
   }
 }
 </script>
 <template>
-  <div class="flex flex-col py-4 pr-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
+  <div class="flex flex-col py-4 px-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
     <div :class="'chartScroll'+props.chartId"></div>
     <!--    图表的信息-->
     <div class="flex items-center">
