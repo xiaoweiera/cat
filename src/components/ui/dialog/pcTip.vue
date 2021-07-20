@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { ref} from 'vue'
-const centerDialogVisible=ref(true)
+import { defineProps,computed} from 'vue'
+const props=defineProps({
+  pcTip:Object
+})
+
+const close=()=>{
+  props.pcTip.value=false
+}
 </script>
 
 <template>
   <div class="text-kdFang">
     <ElDialog
-        v-model="centerDialogVisible"
+        v-model="props.pcTip.value"
         custom-class="pcTip"
-        :append-to-body="true"
-    >
+        :append-to-body="true">
       <div class="mt-6 w-full text-center flex justify-center  items-center flex-col text-kd16px24px font-kdFang text-global-default text-opacity-85">
         <img class="w-30  " src="https://res.ikingdata.com/nav/pcTip.jpg" alt="">
         <div class="mt-6">为了您良好的使用体验</div>
         <div>建议在电脑中访问该页面</div>
       </div>
-      <div style="border-radius: 4px;" class="h-10 flex items-center justify-center   mt-6 bg-global-primary text-center  text-global-white text-kd16px24px"><span>确定</span></div>
+      <div @click="close()" style="border-radius: 4px;" class="h-10 flex items-center justify-center   mt-6 bg-global-primary text-center  text-global-white text-kd16px24px"><span>确定</span></div>
     </ElDialog>
   </div>
 </template>
@@ -28,8 +33,7 @@ const centerDialogVisible=ref(true)
   border-radius: 8px;
   left:0;
   right:0;
-  top: 50%; /*偏移*/
-  transform: translateY(-50%);
+  top: 25%; /*偏移*/
   margin:0 auto !important;
 }
 .help-box {
