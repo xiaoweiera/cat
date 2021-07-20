@@ -45,6 +45,17 @@ const pairParam = reactive({
       </div>
     </template>
   </div>
+<!--  .chartContainer {-->
+<!--  overflow: hidden;-->
+<!--  overflow-y: auto;-->
+<!--  }-->
+<!--  .chartContainer::-webkit-scrollbar {-->
+<!--  width: 8px;-->
+<!--  height: 8px;-->
+<!--  }-->
+<!--  .chartContainer::-webkit-scrollbar-thumb:vertical {-->
+<!--  background: rgba(0, 0, 0, 0.1);-->
+<!--  }-->
 </template>
 <style scoped lang="postcss">
 .bgContainer{
@@ -52,15 +63,5 @@ const pairParam = reactive({
   box-shadow: 0px 0px 12px rgba(44, 140, 248, 0.12);
   border-radius: 2px;
 }
-.chartContainer {
-  overflow: hidden;
-  overflow-y: auto;
-}
-.chartContainer::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-.chartContainer::-webkit-scrollbar-thumb:vertical {
-  background: rgba(0, 0, 0, 0.1);
-}
+
 </style>

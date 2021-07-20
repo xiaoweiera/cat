@@ -31,6 +31,9 @@ const getInfo = async() => {
 }
 const changeTokenTable=()=>{
   setTokenTableShow(!tokenTableShow.value[0])
+  if(!tokenTableShow.value[0]){
+    setTimeout(()=>  window.scrollTo(0,3))
+  }
 }
 const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
 
