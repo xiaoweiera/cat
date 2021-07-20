@@ -80,7 +80,7 @@ const initLoad = () => {
   const offset = dom.getBoundingClientRect()
   const offsetTop = offset.top;
   const offsetBottom = offset.bottom;
-  console.log(offsetTop,window.innerHeight,offsetBottom)
+
   if (offsetTop <= window.innerHeight && offsetBottom >= 0) {
     window.removeEventListener('scroll', scrollHandle, true);
     getData()
@@ -90,14 +90,13 @@ const scrollHandle = () => {
   initLoad()
 }
 onMounted(() => {
-  console.log('11')
   initLoad()
 })
 </script>
 <template>
   <div class=" flex flex-col py-4  px-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
     <!--    定位用-->
-    <div :class="'chartScroll'+props.chartId"></div>
+    <div :class="'chartScroll'+props.chartId" ></div>
     <!--    图表的信息-->
     <div class="flex items-center">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">

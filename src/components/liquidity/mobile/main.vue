@@ -4,7 +4,7 @@ const [tokenTableShow, ] = useProvide('tokenTableShow', false)
 </script>
 <template>
   <div class="bg-global-white pt-4">
-    <div class="px-4 a">
+    <div class="px-4 ">
       <LiquidityMobileSelectContainer />
       <LiquidityMobileInfo/>
     </div>
@@ -20,14 +20,6 @@ const [tokenTableShow, ] = useProvide('tokenTableShow', false)
   </div>
 </template>
 <style>
-.a{
-  position: relative;
-  z-index: 1000;
-}
-.b{
-  position: relative;
-  z-index: -1;
-}
 .showY {
   overflow: hidden;
   overflow-y: auto;

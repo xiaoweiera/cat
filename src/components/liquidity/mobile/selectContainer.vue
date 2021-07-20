@@ -17,7 +17,7 @@ watch(()=>selectTxt.value,(n)=>{
 })
 </script>
 <template>
-  <div class="selectContainer flex items-center bg-global-bgHui h-11 ">
+  <div class="selectContainer flex items-center bg-global-bgHui h-11">
     <LiquidityPlats />
     <div class="flex flex-1 relative text-kd12px14px items-center  ml-2  font-kdFang mr-3  ">
       <el-input v-model="selectTxt"  placeholder="查看自选或搜索币种" @change="changeSelect()" ></el-input>
