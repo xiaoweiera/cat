@@ -88,7 +88,7 @@ watch(() => paramChart.interval, (n, o) => {
 
 
 .chartContainer::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
   height: 8px;
 }
 

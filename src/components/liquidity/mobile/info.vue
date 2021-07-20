@@ -5,9 +5,14 @@ import { copyToken } from '~/logic/liquidity/dataTool'
 import {smallToken,messageTip,formatRulesNumber,subStr } from '~/lib/tool'
 import I18n from '~/utils/i18n'
 import { getToken_side } from '~/api/liquidity'
+import { getInject,setInject } from '~/utils/use/state'
+
 const props = defineProps({
   symbol: Object,
 })
+const pairData=getInject('pairData')
+const tokenTableShow=getInject('tokenTableShow')
+const setTokenTableShow=setInject('tokenTableShow')
 const info = ref({})
 
 watch(()=>symbolStore.id,()=>{
@@ -24,7 +29,11 @@ const getInfo = async() => {
     symbolStore.name=info.value.symbol
   }
 }
+const changeTokenTable=()=>{
+  setTokenTableShow(!tokenTableShow.value[0])
+}
 const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
+
 onMounted(()=>getInfo())
 </script>
 <template>
@@ -32,10 +41,10 @@ onMounted(()=>getInfo())
     <div class="flex flex-col font-kdExp ">
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center  w-full">
-          <div class="text-global-default opacity-85 font-bold text-kd22px26px ">{{subStr(info.symbol) }}</div>
-          <div class="ml-1.5 text-global-default opacity-85 text-kd14px20px">{{ info.symbol_name }}</div>
+          <div class="text-global-default opacity-85 font-bold text-kd22px26px  max-w-20 txtSmall">{{subStr(info.symbol) }}</div>
+          <div class="ml-1.5 text-global-default opacity-85 text-kd14px20px max-w-20 txtSmall">{{ info.symbol_name }}</div>
           <div class="bg-global-primary ml-1.5 px-1.5 py-0.5 rounded bg-opacity-8 text-global-primary text-kd14px22px">{{ info.exchange }}</div>
-          <div class="pair">相关交易对<IconFont class="iconjiantou" type="icon-xiajiantou"></IconFont></div>
+          <div @click="changeTokenTable()" :class="tokenTableShow[0]?'selectedPair':'pair'">相关交易对<IconFont :class="tokenTableShow[0]?'selectedIconjiantou':'iconjiantou'" type="icon-xiajiantou"></IconFont></div>
         </div>
       </div>
     </div>
@@ -57,5 +66,11 @@ onMounted(()=>getInfo())
 }
 .selectedIconjiantou{
   @apply text-global-white  ml-2;
+}
+
+.txtSmall {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

@@ -1,26 +1,21 @@
 <script setup lang="ts">
 // @ts-ignore
 import {ElTooltip, ElInfiniteScroll} from 'element-plus'
-import {defineProps, onMounted, reactive, watch, ref} from 'vue'
+import {onMounted, watch, ref} from 'vue'
 import {symbolStore} from '~/store/liquidity/state'
-import {testData} from '/mock/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
-
-import {changeRoute, changeRouteParam,formatRulesNumber,unitOrder} from '~/lib/tool'
-import {
-  pairStore,
-  updateData,
-} from '~/store/liquidity/state'
+import {changeRoute, changeRouteParam,formatRulesNumber} from '~/lib/tool'
+import {pairStore, updateData} from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
+import { getInject } from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
+const pairData=getInject('pairData')
+const tokenTableShow= getInject('tokenTableShow', false)
 const page = ref(0) //第几页
 const next = ref(true) //是否有下一页
 const route = useRoute()
 const router = useRouter()
-const props = defineProps({
-  symbol: String,
-})
 const pairList = ref([])
 const changePair = (name: string, id: string) => {
   updateData(pairStore, {name, id})
@@ -61,40 +56,48 @@ const load = () => {
 }
 </script>
 <template>
-  <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid #ffffff;">
-    <li class="flex-1">{{I18n.liquidity.side.pair}}</li>
-    <li class="w-20">TVL($)</li>
-    <li class="w-27 ">{{I18n.liquidity.side.price}}</li>
-  </ul>
-  <div class="w-full h-full showY pairList" @scroll="load">
-    <template v-for="item in pairList">
-      <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
-        <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
-          <el-tooltip :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">
-                <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ item.symbol0 + '/' + item.symbol1 }}</span>
-          </el-tooltip>
-        </div>
-        <div class="w-20     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
-        <div class="w-27  text-kd12px16px text-global-default">
-          <el-tooltip :hide-after="10" :content="'1:'+formatRulesNumber(item.price,true)" placement="bottom" effect="light">
-            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">1:{{ formatRulesNumber(item.price,false) }}</span>
-          </el-tooltip>
+  <div v-show="tokenTableShow[0]" class="bg-global-bodyTwo">
+    <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid rgba(37, 62, 111, 0);">
+      <li class="flex-1">{{I18n.liquidity.side.pair}}</li>
+      <li class="w-20">TVL($)</li>
+      <li class="w-27 ">{{I18n.liquidity.side.price}}</li>
+    </ul>
+    <div class="w-full tableHeight showY relative pairList" @scroll="load">
+      <template v-for="item in pairList">
+        <div :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
+          <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
+            <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">
+              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ item.symbol0 + '/' + item.symbol1 }}</span>
+            </el-tooltip>
+          </div>
+          <div class="w-20     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
+          <div class="w-27  text-kd12px16px text-global-default">
+            <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="'1:'+formatRulesNumber(item.price,true)" placement="bottom" effect="light">
+              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">1:{{ formatRulesNumber(item.price,false) }}</span>
+            </el-tooltip>
 
           </div>
-      </div>
-    </template>
+        </div>
+      </template>
+    </div>
   </div>
+
 </template>
 <style lang="postcss" scoped>
+.tip{
+  position: relative;
+  z-index: -10;
+}
 ::v-deep(.el-table td) {
   padding: 8px 0;
 }
+.tableHeight{
+  height:calc( 100vh - 220px)
+}
 .selectRow {
-  border-right: 3px solid rgba(43, 141, 254, 0.9);
   @apply bg-global-primary bg-opacity-18 flex  h-7  px-3  items-center cursor-pointer;
 }
 .defaultRow {
-  border-right: 3px solid #ffffff;
   @apply flex h-7  px-3   items-center cursor-pointer;
 }
 

@@ -80,6 +80,7 @@ const initLoad = () => {
   const offset = dom.getBoundingClientRect()
   const offsetTop = offset.top;
   const offsetBottom = offset.bottom;
+  console.log(offsetTop,window.innerHeight,offsetBottom)
   if (offsetTop <= window.innerHeight && offsetBottom >= 0) {
     window.removeEventListener('scroll', scrollHandle, true);
     getData()
@@ -89,6 +90,7 @@ const scrollHandle = () => {
   initLoad()
 }
 onMounted(() => {
+  console.log('11')
   initLoad()
 })
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps,onMounted,ref,reactive,watch } from 'vue'
+import { defineProps,onMounted,ref } from 'vue'
 import {pairStore, symbolStore} from '~/store/liquidity/state'
-import { useProvide,setInject } from '~/utils/use/state'
+import { useProvide } from '~/utils/use/state'
 const props=defineProps({
   desc:String,
   config:Object,

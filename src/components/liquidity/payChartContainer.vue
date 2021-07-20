@@ -58,7 +58,6 @@ const getData = async () => {
     }else{
       tokenType.value='symbol0'
     }
-    console.log(tokenType.value)
     chartData.value = await getPayChartModel(props.pairParam, props.chartId, tokenType.value, chartCoin)
   } else {
     chartCoin = props.config.pay.tokenCofig.usdCoin ? coinType.value : 'usd'
@@ -102,10 +101,11 @@ const getTitleDesc=(title:string)=>{
   if(!pairStore.id) return title
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
     const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
+    const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
     if(titleCofig[props.chartId].replaceStr){
-      return title.replace(titleCofig[props.chartId].replaceStr,' '+symbol0+titleCofig[props.chartId].replaceStr)
+      return title.replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)
     }else{
-      return title+' '+symbol0
+      return title+' '+coin
     }
   }else{
     return title
