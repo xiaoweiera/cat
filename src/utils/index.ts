@@ -261,7 +261,12 @@ export const compact = function<T>(list: T[], iteration?: (value: T) => boolean)
       if (iteration) {
         return iteration(value)
       } else {
-        return !isEmpty(value)
+        const status = !isEmpty(value)
+        const boolean = toBoolean(value)
+        if (boolean && status) {
+          return true
+        }
+        return false
       }
     })
     return app(list)
@@ -306,6 +311,15 @@ export const upperFirst = function(value: string): string {
   const first = toUpper(str[0] || '')
   const last = str.slice(1)
   return `${first}${last}`
+}
+
+/**
+ * 不区分大小写比较是否相等
+ * @param str1
+ * @param str2
+ */
+export const equalsIgnoreCase = function(str1: string, str2: string): boolean {
+  return str1.toString().toUpperCase() === str2.toString().toUpperCase()
 }
 
 export const timeFormat = 'YYYY-MM-DD HH:mm:ss'

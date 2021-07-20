@@ -1,13 +1,21 @@
-<template>
-$END$
-</template>
-
-<script>
-export default {
-name: "swap"
-}
+<script setup lang="ts">
 </script>
 
-<style scoped>
+<template>
+  <div class="p-5">
+    <SwapWallet/>
+    <br/>
+    <br/>
+    <div style="width: 500px;">
+      <SwapTrade/>
+    </div>
+  </div>
+</template>
 
-</style>
+// @formatter:off
+<route lang="yaml">
+meta:
+  layout: index
+</route>
+// @formatter:off
+
