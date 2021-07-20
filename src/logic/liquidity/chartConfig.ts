@@ -66,17 +66,17 @@ const graphic = () => {
       bounding: 'raw',
       right: '49%',
       bottom: '65%',
-      z: -1000,
+      silent: true,
       children: [
         {
           type: 'text',
           left: 'center',
           top: 'center',
-          z: -1000,
+          silent: true,
           style: {
             fill: 'rgba(43, 140, 255, 0.08)',
             text: 'KingData.com',
-            font: 'bold 52px sans-serif',
+            font: mobile?'bold 36px sans-serif':'bold 52px sans-serif',
           },
         },
       ],
