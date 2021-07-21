@@ -7,6 +7,7 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    webTitle:'DEX分析——Kingdata',
     mobile:{
         select:'搜索',
         selectDes:'查看自选或搜索币种',

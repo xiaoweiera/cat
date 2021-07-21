@@ -11,8 +11,8 @@ const changeTag = (tag: string) => {
 </script>
 <template>
   <div class="usdCoinContainer  flex">
-    <div @click="changeTag('usd')" :class="coinTypeValue==='usd'?'tagSelected':'tag'">{{I18n.liquidity.mainHeader.usd}}</div>
-    <div @click="changeTag('coin')" :class="coinTypeValue==='coin'?'tagSelected':'tag'">{{I18n.liquidity.mainHeader.coin}}</div>
+    <div v-login @click="changeTag('usd')" :class="coinTypeValue==='usd'?'tagSelected':'tag'">{{I18n.liquidity.mainHeader.usd}}</div>
+    <div v-login @click="changeTag('coin')" :class="coinTypeValue==='coin'?'tagSelected':'tag'">{{I18n.liquidity.mainHeader.coin}}</div>
   </div>
 
 </template>

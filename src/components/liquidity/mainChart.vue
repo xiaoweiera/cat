@@ -54,10 +54,7 @@ watch(() => paramChart.interval, (n, o) => {
 })
 </script>
 <template>
-<!--  {{paramChart}}-->
-<!--  {{symbolStore}}-->
-<!--  {{pairStore}}-->
-  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer" >
+  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer">
     <template v-for="(item,i) in chartDataConfig">
       <div class="mb-8">
         <LiquidityAnalysisTitle :title="item.title" :desc="item.desc"/>
