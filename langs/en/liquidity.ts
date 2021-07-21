@@ -1,78 +1,87 @@
 export default {
     message:{
-        success:'复制成功',
+        success:'Success',
     },
     numberUnit:{
         wan:'万',
         yi:'亿',
         wanyi:'万亿'
     },
+    mobile:{
+        select:'Search',
+        selectDes:'Optional or search currency',
+        flow:'Liquidity',
+        pay:'Transaction',
+        time:'Time',
+        interval:'Interval',
+        pairDesc:'Related pairs',
+    },
     select:{
-        tip:'搜索币种/交易对/合约地址',
-        coinType:'币种',
-        tradingPairs:'交易对',
-        more:'查看更多',
-        history:'历史记录',
-        hot:'热门搜索',
-        address:'合约地址',
-        price:'价格',
-        changePrice:'汇率价格'
+        tip:'Search token/pair/address',
+        coinType:'Token',
+        TradingPairs:'Pair',
+        more:'More',
+        history:'History',
+        hot:'Hot ',
+        address:'Address',
+        price:'Price',
+        changePrice:'Rate'
     },
     info: {
-        tokenAddress: '合约地址',
+        tokenAddress: 'Token Address',
     },
     side: {
-        self: '自选',
-        pairDesc: '相关交易对',
-        tvlNumber:'锁仓量',
-        pair: '交易对',
+        self: 'Optional',
+        pairDesc: 'Related pairs',
+        tvlNumber:'TVL',
+        pair: 'Pair',
         tvl: 'TVL($)',
-        price: '价格($)',
-        change: '涨跌幅'
+        price: 'Price',
+        change: 'Change'
     },
     mainHeader: {
-        liquidity: '所有相关的交易对数据聚合分析',
-        payData: '仅对{pair}交易对相关的数据聚合分析',
-        follow:'关注',
-        analysis:'分析数据异常',
-        week: '近7天',
-        month: '近1月',
-        streeMonth: '近3月',
-        sixMonth:'近6月',
-        year:'近1年',
-        custom: '自定义',
-        usd: 'USD计价',
-        coin:'币本位计价',
-        bottom:'已到底部'
+        liquidity: 'Data aggregation analysis of all related pairs about ',
+        payData: 'Only aggregate and analyze data of {pair}',
+        follow:'Follow',
+        analysis:'Data error',
+        week: '1 Week',
+        month: '1 Month',
+        streeMonth: '3 Months',
+        sixMonth:'6 Months',
+        year:'Year',
+        custom: 'Custom',
+        usd: 'USD',
+        coin:'Token',
+        bottom:'Bottom'
     },
     titleCofig:{
-        money:'资金明细',
-        number:'频次'
+        money:'Details',
+        number:'Frequency'
     },
     mainChart: {
         moneyInto:{
-            title:'资金净流入',
-            desc:'展示选定币种或者交易对的相关资金净流入情况。资金的净流入方向一定程度上代表着用户对产品的认可程度，对后市价格也影响较大。',
+            title:'Net Inflow',
+            desc:'Show the net inflow of relevant funds in the selected token or pair. The direction of the net inflow of funds represents to a certain extent the degree of user acceptance of the product, and it also has a greater impact on the market outlook.',
         },
         IntoInOutAnalysis:{
-            title:'流入流出明细',
-            desc:'展示选定币种或者交易对的相关资金净流入流出的明细，更直观的展示资金在多空博弈时的体量。',
+            title:'Inflow&Outflow Detail',
+            desc:'Show the details of the net inflow and outflow of funds related to the selected token or pair, and more intuitively show the funds volume in the long-short game.',
         },
         IntoInOutNumber:{
-            title:'流入流出频次',
-            desc:'展示选定币种或者交易对的用户操作的频率，能直观的反映人们参与的热情。',
+            title:'Inflow&Outflow Frequency',
+            desc:'Show the frequency of user operations of the selected token or pair, which can intuitively reflect users enthusiasm for participation',
         },
         joinUsersAnalysis:{
-            title:'参与人数分析',
-            desc:'展示选定币种或者交易对的参数人数的明细，能直观的看出相关项目的用户规模。',
+            title:'Participants Analysis',
+            desc:'Show the details of the number of participants in the selected token or pair, which can intuitively reflect the user scale of the relevant project.',
         },
         addUsersAnalysis:{
-            title:'新增人数分析',
-            desc:'展示选定币种或者交易对的新增用户的明细，能直观的看出相关项目有多少新用户进入。',
+            title:'New Users Analysis',
+            desc:'Show the details of new users of the selected token or pair, which can intuitively reflect the number of new users',
         },
-
     },
     fullChart:{
-        tip:'* 点击柱图可进行数据过滤'
+        tip:'* Click on the bar graph to filter the data'
     }
 }
+

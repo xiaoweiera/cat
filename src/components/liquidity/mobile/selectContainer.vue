@@ -4,6 +4,7 @@ import {selectTxt} from '~/store/liquidity/state'
 import { getInject,setInject } from '~/utils/use/state'
 const selectTableShow=getInject('selectTableShow')
 const setSelectTableShow= setInject('selectTableShow')
+import I18n from '~/utils/i18n/index'
 const show=ref(false)
 
 const changeSelect = () => {
@@ -24,7 +25,7 @@ const close=()=>{
   <div class="selectContainer  flex items-center bg-global-bgHui h-11">
     <LiquidityPlats />
     <div class="flex flex-1 relative text-kd12px14px items-center  ml-2  font-kdFang mr-3  ">
-      <el-input v-model="selectTxt"  placeholder="查看自选或搜索币种"  @change="changeSelect()" ></el-input>
+      <el-input v-model="selectTxt"  :placeholder="I18n.liquidity.mobile.selectDes"  @change="changeSelect()" ></el-input>
       <img v-if="!selectTableShow[0]" class="w-3.5 h-3.5" src="https://res.ikingdata.com/nav/topicSearch.png" alt=""/>
       <IconFont @click="close()" v-else type="icon-x"/>
     </div>

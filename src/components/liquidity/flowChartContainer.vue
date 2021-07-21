@@ -100,14 +100,11 @@ onMounted(() => {
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{ title }}</span>
         <span  class="ml-2 ">{{ chartData.value?.title }}</span>
-        <UiPopover class="ml-1 inline-block mdhidden">
-          <template #reference>
+        <el-tooltip class="mdhidden" :append-to-body="false" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
+          <div>
             <IconFont class="mt-0.5 ml-1" type="icon-info" />
-          </template>
-          <template #content>
-            <p class="w-60">{{chartData.value?.desc}}</p>
-          </template>
-        </UiPopover>
+          </div>
+        </el-tooltip>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
       <LiquidityFullChartFull   :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
@@ -129,6 +126,10 @@ onMounted(() => {
   </div>
 </template>
 <style scoped lang="postcss">
+
+::v-deep(.el-popper.is-light){
+  margin-right:10px !important;
+}
 .tip{
   width: 100px !important;
 }

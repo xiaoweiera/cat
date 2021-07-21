@@ -120,14 +120,11 @@ const getTitleDesc=(title:string)=>{
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
-        <UiPopover class="ml-1 inline-block mdhidden">
-          <template #reference>
+        <el-tooltip class="mdhidden" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
+          <div>
             <IconFont class="mt-0.5 ml-1" type="icon-info" />
-          </template>
-          <template #content>
-            <p class="w-60">{{chartData.value?.desc}}</p>
-          </template>
-        </UiPopover>
+          </div>
+        </el-tooltip>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
       <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="pay" :chartId="props.chartId" :queryCoinType="coinType.value"/>
@@ -149,6 +146,10 @@ const getTitleDesc=(title:string)=>{
   </div>
 </template>
 <style scoped lang="postcss">
+.desTip{
+  width:50px !important;
+  margin-right:10px;
+}
 .txtSmall{
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import {analysisType} from '~/store/liquidity/state'
+import I18n from '~/utils/i18n/index'
 const changeTag=(type:string)=>{
   analysisType.value=type
 }
 </script>
 <template>
   <div class=" container flex items-center  bg-global-bgHui h-10.5 px-1  font-kdFang ">
-    <div @click="changeTag('flow')" :class="analysisType==='flow'?'selectedTag':'tag'">流动性分析</div>
-    <div @click="changeTag('pay')" :class="analysisType==='pay'?'selectedTag':'tag'">交易数据分析</div>
+    <div @click="changeTag('flow')" :class="analysisType==='flow'?'selectedTag':'tag'">{{I18n.liquidity.mobile.flow}}</div>
+    <div @click="changeTag('pay')" :class="analysisType==='pay'?'selectedTag':'tag'">{{I18n.liquidity.mobile.pay}}</div>
   </div>
 </template>
 <style scoped lang="postcss">

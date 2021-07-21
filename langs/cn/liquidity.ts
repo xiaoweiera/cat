@@ -7,6 +7,15 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    mobile:{
+        select:'搜索',
+        selectDes:'查看自选或搜索币种',
+        flow:'流动性分析',
+        pay:'交易数据分析',
+        time:'选择时间',
+        interval:'时间粒度',
+        pairDesc:'相关交易对',
+    },
     select:{
         tip:'搜索币种/交易对/合约地址',
         coinType:'币种',
@@ -27,7 +36,7 @@ export default {
         tvlNumber:'锁仓量',
         pair: '交易对',
         tvl: 'TVL($)',
-        price: '价格($)',
+        price: '价格',
         change: '涨跌幅'
     },
     mainHeader: {
@@ -70,7 +79,6 @@ export default {
             title:'新增人数分析',
             desc:'展示选定币种或者交易对的新增用户的明细，能直观的看出相关项目有多少新用户进入。',
         },
-
     },
     fullChart:{
         tip:'* 点击柱图可进行数据过滤'
