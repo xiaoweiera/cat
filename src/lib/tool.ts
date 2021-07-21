@@ -8,7 +8,7 @@ import { ElMessage } from 'element-plus'
 import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 import {BigNumber} from 'bignumber.js'
-
+import * as lang from '~/utils/lang'
 //apy的特殊处理，别更改
 export const numberFormat = (value: any) => {
   if (value===null) {
@@ -195,6 +195,10 @@ export const subStr = (str:string)=>{
   if (!str || str.length<=7) return str
   return str.slice(0, 7)+'...'
 }
+export const subStrByNumber = (str:string,number:number)=>{
+  if (!str || str.length<=number) return str
+  return str.slice(0, number)+'...'
+}
 //弱提示框
 export const messageTip=(content:string,typeName:string)=>{
   ElMessage({
@@ -210,11 +214,7 @@ export const getSaveNumber=(v:any,number:number)=>{
   const value=new BigNumber(v)
   return value.toFixed(number)
 }
-//更改数字文案
-export const numberUnitFormat = (value: any) => {
-  if (!value ) {
-    return value===0?0:'-'
-  }
+export const aboutCn=(value:any)=>{
   const k = 10000
   //@ts-ignore
   const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
@@ -228,6 +228,33 @@ export const numberUnitFormat = (value: any) => {
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
     const unit = sizes[i]
     return value>=0?values + unit:'-'+values+unit
+  }
+}
+export const aboutEn=(value:any)=>{
+  const k = 1000
+  //@ts-ignore
+  const sizes = ['', 'K','M','B']
+  const v=new BigNumber(value)
+  if ((value < 10000 && value>=0) || (value<0 && value>-2)) {
+    return parseFloat(v.toFixed(2))
+    // return Math.round(value * 100) / 100
+  } else{
+    const i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
+    // if(i>3) return v.toFixed(2)
+    const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
+    const unit = sizes[i]
+    return value>=0?values + unit:'-'+values+unit
+  }
+}
+//更改数字文案
+export const numberUnitFormat = (value: any) => {
+  if (!value ) {
+    return value===0?0:'-'
+  }
+  if(lang.current.value==='cn'){
+    return aboutCn(value)
+  }else{
+    return aboutEn(value)
   }
 }
 //价格约分为 小数点非0两位有效数字，但最高不超过小数点后4位(0000)。
@@ -293,7 +320,7 @@ export const formatRulesNumber=(v:any,isShowAll:boolean)=>{
 export const unitOrder=(v:any,unit:string)=>{
   if(!unit) return formatRulesNumber(v,true)
   if(unit==='$'){
-    return  unit+formatRulesNumber(v,true)
+    return  unit+' '+formatRulesNumber(v,true)
   }else{
     return formatRulesNumber(v,true)+unit
   }

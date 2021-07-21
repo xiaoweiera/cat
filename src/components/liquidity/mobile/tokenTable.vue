@@ -8,10 +8,11 @@ import * as R from 'ramda'
 import {changeRoute, changeRouteParam,formatRulesNumber} from '~/lib/tool'
 import {pairStore, updateData} from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
-import { getInject } from '~/utils/use/state'
+import { getInject,setInject} from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
 const pairData=getInject('pairData')
-const tokenTableShow= getInject('tokenTableShow', false)
+const tokenTableShow= getInject('tokenTableShow')
+const setTokenTableShow= setInject('tokenTableShow')
 const page = ref(0) //第几页
 const next = ref(true) //是否有下一页
 const route = useRoute()
@@ -20,6 +21,11 @@ const pairList = ref([])
 const changePair = (name: string, id: string) => {
   updateData(pairStore, {name, id})
   changeRouteParam(route, router, {pair: id, pairName: name})
+  console.log(!tokenTableShow.value[0])
+    setTimeout(()=> {
+      window.scrollTo(0,3)
+      window.scrollTo(0,0)})
+  setTokenTableShow(false)
 
 }
 watch(() => symbolStore.id, async () => {

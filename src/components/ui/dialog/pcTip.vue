@@ -21,7 +21,7 @@ const close=()=>{
         <div style="word-break: break-word;" class="mt-6">{{I18n.liquidity.mobile.pcDes1}}</div>
         <div style="word-break: break-word;">{{I18n.liquidity.mobile.pcDes2}}</div>
       </div>
-      <div @click="close()" style="border-radius: 4px;" class="h-10 flex items-center justify-center   mt-6 bg-global-primary text-center  text-global-white text-kd16px24px"><span>确定</span></div>
+      <div @click="close()" style="border-radius: 4px;" class="h-10 flex items-center justify-center   mt-6 bg-global-primary text-center  text-global-white text-kd16px24px"><span>{{I18n.liquidity.mobile.confirm}}</span></div>
     </ElDialog>
   </div>
 </template>

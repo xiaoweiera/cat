@@ -99,14 +99,14 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   let min: any = null
   let max: any = null
   const ydata=getNewyData(xData,item.data,allxData)
-  const unit=pairId?'':item.unit
+  const unit=pairId?item.unit:item.unit
   const seriesData = R.map((v) => {
     [min, max] = min_max(min, max, v)
     // const unit=''
     return {
       value: v,
       orginValue: formatRulesNumber(v,true),//万 亿 约汉字
-      formatValue:pairId?'1:'+unitOrder(v,unit):unitOrder(v,unit),
+      formatValue:pairId?unitOrder(v,unit):unitOrder(v,unit),
       interval:interval
       // color: item.color
     }
@@ -200,7 +200,7 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
   if (kyData) {
     const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval,pairId,coinType)
     //pair没有价格线美元单位
-    const unit=pairId?'':'$'
+    const unit=pairId?'$':'$'
     const isShow=!kmax?false:(kmax<0.01?false:true)
     allYAxis.push(yKAxisModel(kmin,kmax,isShow,ykLabelFormat,unit))
     series.push(obj)
