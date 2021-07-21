@@ -120,7 +120,7 @@ const getTitleDesc=(title:string)=>{
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
-        <el-tooltip popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
+        <el-tooltip class="mdhidden" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
           <div>
             <IconFont class="mt-0.5 ml-1" type="icon-info" />
           </div>

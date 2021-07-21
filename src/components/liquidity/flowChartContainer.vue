@@ -100,7 +100,7 @@ onMounted(() => {
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{ title }}</span>
         <span  class="ml-2 ">{{ chartData.value?.title }}</span>
-        <el-tooltip :append-to-body="false" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
+        <el-tooltip class="mdhidden" :append-to-body="false" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
           <div>
             <IconFont class="mt-0.5 ml-1" type="icon-info" />
           </div>
