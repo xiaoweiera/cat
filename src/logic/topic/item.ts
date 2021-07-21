@@ -7,6 +7,7 @@ import { trim } from 'ramda'
 import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
+//@ts-ignore
 import { map, toArray, toBoolean } from '~/utils'
 import { toRaw } from 'vue'
 import {
@@ -16,6 +17,7 @@ import {
   calcSeries,
   // calcYAxis
 } from '~/logic/echarts/series'
+//@ts-ignore
 import { Position, LegendItem, seriesType } from '~/logic/echarts/interface'
 
 interface Legends extends LegendItem{
@@ -77,6 +79,7 @@ const getDetail = async function(data: ItemData) {
       const db = new DBList(charts, 'id')
       const item = db.selectOne<any>({ id: kline_chart })
       if (item) {
+        //@ts-ignore
         legends.push({
           kline: true, // 价格线
           id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
@@ -96,6 +99,7 @@ const getDetail = async function(data: ItemData) {
       type: seriesType.line,
       position: Position.right
     }
+    //@ts-ignore
     legends.push(temp)
   }
   data.legends = map(function(item: any) {
