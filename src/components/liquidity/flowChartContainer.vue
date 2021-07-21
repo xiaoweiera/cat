@@ -42,29 +42,29 @@ const title= computed<string>((): string => {
 const getData = async () => {
   chartLoad.value = true
   let chartCoin = ''
+  priceData.value = await getTokenPriceData({
+    platId:1,
+    symbol_id: symbolStore.id,
+    from_ts: props.tokenParam.from_ts,
+    to_ts: props.tokenParam.to_ts,
+    interval:props.tokenParam.interval
+  }, 'token')
   if (pairStore.id) {
     chartCoin = props.config.flow.pairCofig.usdCoin ? coinType.value : 'usd'
     //pair查询
     props.pairParam.pair_id = pairStore.id
-    priceData.value = await getPairPriceData({
-      platId:1,
-      pair_id: pairStore.id,
-      from_ts: props.pairParam.from_ts,
-      to_ts: props.pairParam.to_ts,
-      interval:props.pairParam.interval
-    }, 'pair')
+    // priceData.value = await getPairPriceData({
+    //   platId:1,
+    //   pair_id: pairStore.id,
+    //   from_ts: props.pairParam.from_ts,
+    //   to_ts: props.pairParam.to_ts,
+    //   interval:props.pairParam.interval
+    // }, 'pair')
     chartData.value = await getFlowChartModel(props.pairParam, props.chartId, tokenType.value, chartCoin)
   } else {
     chartCoin = props.config.flow.tokenCofig.usdCoin ? coinType.value : 'usd'
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
-    priceData.value = await getTokenPriceData({
-      platId:1,
-      symbol_id: symbolStore.id,
-      from_ts: props.tokenParam.from_ts,
-      to_ts: props.tokenParam.to_ts,
-      interval:props.tokenParam.interval
-    }, 'token')
     chartData.value = await getFlowChartModel(props.tokenParam, props.chartId, tokenType.value, chartCoin)
   }
   chartKey.value++
@@ -100,7 +100,7 @@ onMounted(() => {
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{ title }}</span>
         <span  class="ml-2 ">{{ chartData.value?.title }}</span>
-        <UiPopover class="ml-1 inline-block">
+        <UiPopover class="ml-1 inline-block mdhidden">
           <template #reference>
             <IconFont class="mt-0.5 ml-1" type="icon-info" />
           </template>
