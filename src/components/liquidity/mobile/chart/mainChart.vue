@@ -35,7 +35,7 @@ const pairParam = reactive({
 
 </script>
 <template>
-  <div class="flex flex-1  flex-col  chartContainer" >
+  <div class="flex   flex-col  chartContainer" >
     <template v-for="(item,i) in chartDataConfig">
       <div class="mt-1.5 ">
         <div class="flex  min-h-70  bgContainer ">

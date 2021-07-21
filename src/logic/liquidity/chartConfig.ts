@@ -82,7 +82,7 @@ const graphic = (row:number) => {
       type: 'group',
       bounding: 'raw',
       right: '49%',
-      bottom: bottomNumber,
+      bottom:mobile?'50%': bottomNumber,
       silent: true,
       children: [
         {

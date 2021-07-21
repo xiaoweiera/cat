@@ -120,7 +120,7 @@ onMounted(() => {
         <img class="w-62.5  md:mt-0 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
       </div>
     </div>
-    <div v-else class="flex items-center justify-center absolute  w-full   h-full justify-center">
+    <div v-else class="flex items-center justify-center   w-full   h-full justify-center">
       <img class="w-50   z-2 mt-4 md:mt-0 mr-4 mb-10" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
     </div>
   </div>
