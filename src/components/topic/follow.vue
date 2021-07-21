@@ -67,11 +67,7 @@ const onClickUnFollow = async function() {
         <p class="text-center text-base font-normal title">关注成功</p>
       </template>
       <!--App 下载提示-->
-      <AppDownTips>
-        <div class="w-56 px-0.5 inline-block" @click="folloed = false">
-          <el-button class="w-full" type="primary">确定</el-button>
-        </div>
-      </AppDownTips>
+      <AppDownTips @click="folloed = false"/>
     </el-dialog>
   </div>
 </template>

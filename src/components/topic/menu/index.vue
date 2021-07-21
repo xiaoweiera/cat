@@ -82,7 +82,7 @@
         <input class="menu-radio" type="radio" :id="item.mid" :name="redioName" v-if="len(item.children)"/>
       </template>
 
-      <TopicMenuName class="menu-label cursor-pointer pr-4 py-3 font-kdFang block" :class="getClassName(item)" :data="item" :for="item.mid">
+      <TopicMenuName class="menu-label cursor-pointer pr-4 font-kdFang block" :class="getClassName(item)" :data="item" :for="item.mid">
         <span class="flex items-center justify-between px-0.5">
           <span class="flex items-center">
             <IconFont class="mr-4 inline-flex" :type="item.icon_image" :size="iconSize"></IconFont>
@@ -133,6 +133,16 @@
   .menu-label {
     transition: all 0.3s;
     color: rgba(37,62,111,.65);
+    height: 40px;
+    line-height: 40px;
+    @apply relative;
+    &:after {
+      width: 3px;
+      content: "";
+      background: #1890ff;
+      transition: all 0.3s;
+      @apply absolute right-0 top-0 bottom-0 invisible opacity-0;
+    }
     b {
       font-size: 14px;
       font-weight: normal;
@@ -146,6 +156,11 @@
     &:hover, &.active {
       @extend %active;
       background: rgba(43,141,255,.12941);
+    }
+    &.active {
+      &:after {
+        @apply visible opacity-100;
+      }
     }
   }
 

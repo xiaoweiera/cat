@@ -3,9 +3,9 @@ import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
-import { ref, reactive, toRaw, defineProps, onMounted, onUnmounted } from 'vue'
+import { defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
-import { Position } from '~/logic/topic/item'
+import { Position } from '~/logic/echarts/interface'
 import { calcYAxis } from '~/logic/echarts/series'
 import * as logicLegend from '~/logic/echarts/legend'
 
@@ -13,10 +13,11 @@ import {
   graphic,
   tooltips as makeTooltipOption,
   xAxis as makeXAxisOption,
-  yAxisKline as makeYAxisOption
+  yAxisKline as makeYAxisOption,
 } from '~/lib/chartOption'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
+import { viewWidth } from '~/utils/event/scroll'
 import { seriesType, LegendDirection } from '~/logic/echarts/interface'
 
 const props = defineProps({
@@ -48,6 +49,14 @@ const props = defineProps({
       }
       return status
     }
+  },
+  rightColor: {
+    type: String,
+    default: () => '#F88923'
+  },
+  leftColor: {
+    type: String,
+    default: () => '#2B8DFE'
   }
 })
 
@@ -98,10 +107,15 @@ const getLegend = function() {
       const code = logicLegend.source[item.type]
       // @ts-ignore
       const icon = `path://${code}`
-      return {
-        icon,
-        name: item.value,
+      const { itemStyle } = item
+      const opt = { icon, name: item.value}
+      if (itemStyle) {
+        Object.assign(opt, { itemStyle })
       }
+      if (item.position === Position.right) {
+        safeSet(opt, 'itemStyle.color', props.rightColor)
+      }
+      return opt
     }
   }, getValue(legend))
   if (props.legend) {
@@ -144,7 +158,6 @@ const getYAxisData = function(position: Position) {
 
 // 计算 Y 轴刻度数据
 const getYAxis = function(): any[] {
-  const viewWidth = document.documentElement.clientWidth
   const legends = getValue(legend)
   const seriesList = getValue(series)
   const yaxis: any[] = []
@@ -169,22 +182,21 @@ const getYAxis = function(): any[] {
       }
       return numberUint(value)
     })
-    const temp = Object.assign({}, option, value, { position })
-    const key = 'axisLabel.textStyle.color'
-    const color = safeGet<string>(yaxisData, key)
-    if (color) {
-      safeSet(temp, key, color)
-    }
-    yaxis.push(temp)
+    return Object.assign({}, option, value, { position })
   }
 
+  const colorKey = 'axisLabel.textStyle.color'
   if (leftData.length > 0) {
-    app(leftData, Position.left)
+    const opt = app(leftData, Position.left)
+    safeSet(opt, colorKey, props.leftColor)
+    yaxis.push(opt)
   }
   if (rightData.length > 0) {
-    app(rightData, Position.right)
+    const opt = app(rightData, Position.right)
+    safeSet(opt, colorKey, props.rightColor)
+    yaxis.push(opt)
   }
-  if (viewWidth < 768) {
+  if (viewWidth() < 768) {
     return map(function(item: any) {
       safeSet(item, 'axisLabel.inside', true)
       return item
@@ -222,15 +234,22 @@ const getSeries = function() {
     if (data.type === seriesType.line) {
       // 线条平滑处理
       option.smooth = true;
-      if (data.index !== 1) {
-        option.areaStyle = {}
+      if (data.index === 1) {
+        // 右侧价格线删除渐变色
+        safeSet(option, 'areaStyle', null)
       }
+      safeSet(option, 'itemStyle.borderWidth', 1)
+    } else {
+      safeSet(option, 'areaStyle', null)
+    }
+    // 右侧价格线使用指定颜色
+    if (data.index === 1) {
+      safeSet(option, 'itemStyle.color', props.rightColor)
     }
     if (data.type === seriesType.bar) {
       // 柱状图最大宽度
       option.barMaxWidth = 50
     }
-
     if (props.stack && data.position === Position.left) {
       // 开启堆积图
       option.stack = 'stack'

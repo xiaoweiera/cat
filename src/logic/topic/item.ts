@@ -3,10 +3,11 @@
  * @author svon.me@gmail.com
  */
 
+import { trim } from 'ramda'
 import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
-import { map, toNumber, toArray, toBoolean } from '~/utils'
+import { map, toArray, toBoolean } from '~/utils'
 import { toRaw } from 'vue'
 import {
   getInterval,
@@ -15,18 +16,9 @@ import {
   calcSeries,
   // calcYAxis
 } from '~/logic/echarts/series'
+import { Position, LegendItem, seriesType } from '~/logic/echarts/interface'
 
-export enum Position {
-  left = 'left',
-  right = 'right'
-}
-
-interface Legends {
-  id: number
-  name: string
-  unit: string // 单位
-  type: string
-  position?: Position
+interface Legends extends LegendItem{
   kline?: boolean
 }
 
@@ -67,7 +59,7 @@ const getDetail = async function(data: ItemData) {
   const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds)
   const kline_chart = safeGet<number>(result, 'kline_chart')
   const charts = getCharts(result)
-  const line = 'line'
+  const line = seriesType.line
   const type = safeGet<string>(result, 'default_chart')
 
   // @ts-ignore
@@ -109,27 +101,22 @@ const getDetail = async function(data: ItemData) {
 
   data.last = safeGet<number>(result, 'last')
 
+  const stack = toBoolean(safeGet<boolean>(result, 'stacked'))
+  if (stack) {
+    data.stack = stack // 是否开启堆积图
+  }
+
   const followed = toBoolean(safeGet<boolean>(result, 'followed'))
   if (followed) {
     data.followed = followed
   }
 
-  const width = toNumber(safeGet<number>(result, 'width'))
-  data.width = width > 50 ? 100 : 50
-
-  const height = toNumber(safeGet<number>(result, 'height'))
-  data.height = height > 200 ? height : 200
-
-  // const stack = toBoolean(safeGet<boolean>(result, 'stacked'))
-  // data.stack = stack // 是否开启堆积图
-
   const desc = safeGet<string>(result, 'desc') || ''
-
   data.desc = desc  // 图表描述
 
   // 涨浮数(不需要计算百分比)
   data.rateValue = safeGet<number>(result, 'value')
-  data.rateUnit = safeGet<string>(result, 'field_unit')
+  data.rateUnit = trim(safeGet<string>(result, 'field_unit') || '')
   // 涨浮（需要计算百分比）
   data.rateChange = safeGet<number>(result, 'change')
 

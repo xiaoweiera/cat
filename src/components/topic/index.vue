@@ -66,7 +66,11 @@ onBeforeMount(async () => {
         <div class="pt-2 w-full h-full">
           <div class="menu-box w-full h-full overflow-y-auto overflow-x-hidden bg-white">
             <div class="search-box h-14 flex items-center">
-              <el-input v-model="search" placeholder="搜索" prefix-icon="el-icon-search" @change="onSearch"/>
+              <el-input v-model="search" placeholder="搜索" @change="onSearch">
+                <template #prefix>
+                  <IconFont type="icon-sousuo" class="ml-1.5 text-base"></IconFont>
+                </template>
+              </el-input>
             </div>
             <template v-if="menuList.length > 0">
               <TopicMenu :list="menuList" icon-size="2xl"></TopicMenu>

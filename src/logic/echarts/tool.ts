@@ -5,9 +5,9 @@
 
 
 export * from '~/utils/use/state'
-import { Position } from '~/logic/topic/item'
-import { SeriesItem, Unit } from './interface'
+import { Position, SeriesItem, Unit } from './interface'
 import { isNumber, numberUint } from '~/utils/index'
+
 
 export enum EchartsOptionName {
   series = 'series',
@@ -40,8 +40,12 @@ export const valueFormatter = function(data: SeriesItem): string {
   if (isNumber(data.value)) {
     value = numberUint(data.value as number)
   }
-  // 判断是否是 $
-  if (data.unit === Unit.a) {
+  // 判断是否是金额
+  switch (data.unit) {
+  case Unit.a:
+  case Unit.a1:
+  case Unit.a2:
+  case Unit.a3:
     return `${data.unit}${value}`
   }
   return `${value}${data.unit}`
