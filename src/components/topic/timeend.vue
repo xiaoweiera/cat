@@ -21,33 +21,34 @@ const props = defineProps({
 // @ts-ignore
 const timeEnd = computed(function() {
   const data = props.data
-  const last = safeGet<number>(data, 'last')
-  if (last) {
-    const value = dateTime(last)
-    const day = time.dateDiffDay(value)
-    if (day > 0) {
-      return `${day}天前`
-    }
-    const hour = time.dateDiffHour(value)
-    if (hour > 0) {
-      return `${hour}小时前`
-    }
-    const minute = time.dateDiffMinute(value)
-    if (minute > 0) {
-      return `${minute}分钟前`
-    }
-    return '1分钟'
-  } else {
+  let last = safeGet<number>(data, 'last')
+  if (!last) {
     if (props.xzxis?.length > 0) {
-      const [ data ]: any[] = props.xzxis.slice(-1)
-      const { time } = data
-      return `${dateDiff(time)}前`
+      const [ temp ]: any[] = props.xzxis.slice(-1)
+      const { time } = temp
+      last = time
     }
   }
-  return ''
+  const value = dateTime(last)
+  const day = time.dateDiffDay(value)
+  if (day > 0) {
+    return `${day}天前`
+  }
+  const hour = time.dateDiffHour(value)
+  if (hour > 0) {
+    return `${hour}小时前`
+  }
+  const minute = time.dateDiffMinute(value)
+  if (minute > 0) {
+    return `${minute}分钟前`
+  }
+  return '1分钟内'
 })
 </script>
 
 <template>
-  <span class="text-global-time">{{ timeEnd }}</span>
+  <span class="text-global-time">
+    <span>更新时间</span>
+    <span class="ml-1">{{ timeEnd }}</span>
+  </span>
 </template>

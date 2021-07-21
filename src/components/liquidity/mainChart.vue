@@ -54,14 +54,11 @@ watch(() => paramChart.interval, (n, o) => {
 })
 </script>
 <template>
-<!--  {{paramChart}}-->
-<!--  {{symbolStore}}-->
-<!--  {{pairStore}}-->
-  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer" >
+  <div class="flex flex-1 flex-col px-5 pt-8 chartContainer">
     <template v-for="(item,i) in chartDataConfig">
       <div class="mb-8">
         <LiquidityAnalysisTitle :title="item.title" :desc="item.desc"/>
-        <div class="flex  h-107.5  bgContainer border-1">
+        <div class="flex h-107.5  bgContainer">
           <LiquidityFlowChartContainer :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
           <img class="my-4 mx-4" src="https://res.ikingdata.com/nav/liquidityBetween.jpg" alt="">
           <LiquidityPayChartContainer :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
@@ -88,7 +85,7 @@ watch(() => paramChart.interval, (n, o) => {
 
 
 .chartContainer::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
   height: 8px;
 }
 

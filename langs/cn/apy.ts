@@ -89,7 +89,7 @@ export default {
         },
         oneChartTitle: '各币种存款APY趋势对比',
         twoChartTitle: '在不同平台存款的 APY 趋势对比',
-        streeChartTitle: '各平台存款总额对比'
+        streeChartTitle: '各平台存款总额'
     },
     jkTable: {
         title: 'DeFi 借贷平台借款利息对比',
@@ -104,7 +104,7 @@ export default {
         },
         oneChartTitle: '各币种借款APY趋势对比',
         twoChartTitle: '在不同平台借款的 APY 趋势对比',
-        streeChartTitle: '各平台借款总额对比'
+        streeChartTitle: '各平台借款总额'
     },
     unitConfig:{
         remain:'可投额度',

@@ -2,6 +2,8 @@
 import { defineProps, onBeforeMount } from 'vue'
 import { EchartsOptionName, updateInject, initProps } from '~/logic/echarts/tool'
 import { seriesType } from '~/logic/echarts/interface'
+import safeSet from '@fengqiaogang/safe-set'
+import { Position } from '~/logic/echarts/interface'
 
 const props = defineProps({
   value: {
@@ -17,6 +19,9 @@ const props = defineProps({
     type: Boolean,
     default: () => true
   },
+  color: {
+    type: String,
+  },
   index: initProps.index(),
   position: initProps.position(),
 })
@@ -27,6 +32,9 @@ onBeforeMount(function() {
     type: props.type,
     show: props.show,
     position: props.position,
+  }
+  if (props.color) {
+    safeSet(data, 'itemStyle.color', props.color)
   }
   updateInject(EchartsOptionName.legend, data, props.index)
 })

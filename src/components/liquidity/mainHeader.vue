@@ -14,11 +14,10 @@ const closePair = () => {
   changeRouteParam(route,router,{pair:undefined,pairName:undefined})
 }
 const getDesc=()=>{
-
   if(pairStore.id){
     return  I18n.template(I18n.liquidity.mainHeader.payData, {pair:pairStore.name})
   }else{
-    return symbolStore.name+I18n.liquidity.mainHeader.liquidity
+    return I18n.template(I18n.liquidity.mainHeader.liquidity,{token:symbolStore.name})
   }
 }
 </script>

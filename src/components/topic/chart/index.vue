@@ -35,10 +35,12 @@ const getNextStatus = function(): boolean {
 // @ts-ignore
 const getRowColWidth = function(width: number): string[] {
   const className = ['w-full']
-  if (width > 50) {
-    return className
+  if (width === 50) {
+    className.push('lg:w-1/2')
   }
-  className.push('lg:w-1/2')
+  else if (width === 33) {
+    className.push('lg:w-1/3')
+  }
   return className
 }
 
@@ -93,13 +95,15 @@ onUnmounted(function() {
   <Spin class="min-h-120" :loading="loading">
     <div class="p-2.5 flex flex-wrap" v-if="list.length > 0">
       <template v-for="(data, index) in list" :key="index">
-        <!--v-if="data.chartId === 621" -->
         <div class="p-2.5" :class="getRowColWidth(data.width)">
           <div class="chart-item rounded p-3 bg-white">
             <TopicChartItem :option="data"></TopicChartItem>
           </div>
         </div>
       </template>
+      <div class="py-5 w-full">
+        <p class="text-xs text-global-grey text-center">—— 已到底部 ——</p>
+      </div>
     </div>
     <template v-else>
       <div v-if="!loading">

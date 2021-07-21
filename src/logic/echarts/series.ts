@@ -181,7 +181,7 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
       const [date, value, klValue] = [...array]
       const time = dateTime(date)
       const key = makeDateKey(time, interval)
-      const item: SeriesItem = { key, time, value, klValue, id }
+      const item: SeriesItem = { key, time, value, klValue, id, origin: value }
       db.insert(item)
     }, trends[id])
     dbMaps.set(id, db)
@@ -206,6 +206,7 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
           key: null,
           time: null,
           value: null,
+          origin: null,
           klValue: null,
         }
         array.push(temp)
@@ -236,6 +237,17 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
 // 计算Y轴数据
 export const calcYAxis = function(series: any[], stack: boolean = false, log: boolean = false) {
   const splitNumber = 4
+  if (log) {
+    return {
+      type: 'value',
+      min: 0,
+      splitNumber,
+      minorSplitLine: {
+        show: true
+      }
+    }
+  }
+
   const array: number[][] = []
   forEach(function(list: any[], j: number) {
     forEach(function(item: any, index: number) {
@@ -253,28 +265,6 @@ export const calcYAxis = function(series: any[], stack: boolean = false, log: bo
   } else {
     minValue = min(array)
     maxValue = max(array)
-  }
-  if (log) {
-    // const size = `${maxValue}`.length
-    // const numData = [0]
-    // for(let i = 1; i < size; i++) {
-    //   const value = Math.pow(1000, i)
-    //   numData.push(value)
-    //   if (value > maxValue) {
-    //     break
-    //   }
-    // }
-    // return {
-      // type: 'log',
-      // logBase: 10,
-      // min: 0,
-      // data: numData,
-      // splitNumber: numData.length,
-      // // interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber),
-      // minorSplitLine: {
-      //   show: true
-      // }
-    // }
   }
   return {
     min: minValue,

@@ -73,7 +73,7 @@ onMounted(getList)
       <div class="header-txt w-32.5 ml-5">{{I18n.liquidity.select.changePrice}}</div>
     </div>
     <template v-for="item in pairList">
-      <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
+      <li v-login  class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
         <el-tooltip :hide-after="10" :content="item.pair" placement="bottom" effect="light">
           <div class="txtSmall w-50 whitespace-nowrap  "><span>{{ item.pair }}</span></div>
         </el-tooltip>

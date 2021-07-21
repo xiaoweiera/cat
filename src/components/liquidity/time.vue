@@ -5,18 +5,17 @@ import I18n from '~/utils/i18n/index'
 import { dataToTimestamp, formatDefaultTime, getagoTimeStamp } from '~/lib/tool'
 import * as R from 'ramda'
 const filterOption = ref([
-  { name: I18n.liquidity.mainHeader.week, value: 7, selected: true },
-  {name: I18n.liquidity.mainHeader.month, value: 30, selected: false},
-  { name: I18n.liquidity.mainHeader.streeMonth, value: 90, selected: false },
-  { name: I18n.liquidity.mainHeader.sixMonth, value: 180, selected: false },
-  { name: I18n.liquidity.mainHeader.year, value: 365, selected: false },
+  { name: I18n.liquidity.mainHeader.week, value: 7},
+  {name: I18n.liquidity.mainHeader.month, value: 30},
+  { name: I18n.liquidity.mainHeader.streeMonth, value: 90 },
+  { name: I18n.liquidity.mainHeader.sixMonth, value: 180 },
+  { name: I18n.liquidity.mainHeader.year, value: 365 },
   // { name: '自定义', value: 0, selected: false },
 ])
 
 interface timeModel {
   name: string
   value: number
-  selected: boolean
 }
 const time = ref(null)
 const beginTime = ref(0)
@@ -52,13 +51,6 @@ const selectTag = (timeM: timeModel) => {
     paramChart.time=getagoTimeStamp(timeM.value)
     time.value = null // 自定义清空
   }
-  R.forEach((item) => {
-    if (item.name === timeM.name) {
-      item.selected = true
-    } else {
-      item.selected = false
-    }
-  }, filterOption.value)
 }
 const selectTime=ref()
 //给时间选择进行时间范围限制，1h的时候只能访问前1个月的，1d的时候只能访问前三个月的
@@ -85,7 +77,7 @@ const getClass=(item:any)=>{
     <div class="flex">
       <div class="flex h-7.8 items-center timeFilter">
         <template v-for="item in filterOption">
-          <div :class="getClass(item)?'showItemTime':'noShowItemTime'"  >
+          <div v-login :class="getClass(item)?'showItemTime':'noShowItemTime'"  >
           <div v-if="item.name !== '自定义' || (item.name === '自定义' && paramChart.timeType!==0)" :class="item.value===paramChart.timeType? 'timeTagSelected' : 'timeTag'" @click="selectTag(item)">
             {{ item.name }}
           </div>

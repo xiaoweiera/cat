@@ -50,7 +50,7 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
       unescape(encodeURIComponent(origin)),
   )}`
 
-  return `<p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;" class='flex items-center'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><span class="ml-1">${item}</span> </p>`
+  return `<div style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;line-height: 12px;" class='mt-2 md:mt-0 w-50 md:w-full flex items-center break-words whitespace-pre-wrap'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><div class="ml-1">${item}</div> </div>`
 }
 // 获取提示文字的每一行
 export const tooltipsTitle = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
@@ -99,14 +99,14 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   let min: any = null
   let max: any = null
   const ydata=getNewyData(xData,item.data,allxData)
-  const unit=pairId?'':item.unit
+  const unit=pairId?item.unit:item.unit
   const seriesData = R.map((v) => {
     [min, max] = min_max(min, max, v)
     // const unit=''
     return {
       value: v,
       orginValue: formatRulesNumber(v,true),//万 亿 约汉字
-      formatValue:pairId?'1:'+unitOrder(v,unit):unitOrder(v,unit),
+      formatValue:pairId?unitOrder(v,unit):unitOrder(v,unit),
       interval:interval
       // color: item.color
     }
@@ -138,7 +138,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       areaStyle: item.type === 'area' ? area : null,
       yAxisIndex: i,
       // connectNulls: true,//为空的时候是否连接起来
-      smooth: true,
+      // smooth: true,
       itemStyle: {
         color(p: any) {
           return p.value < 0 && item.type === 'bar'
@@ -200,7 +200,7 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
   if (kyData) {
     const [obj, kmin, kmax] = formatYData(kyData,R.keys(groupList).length, true,kxData,allxData,interval,pairId,coinType)
     //pair没有价格线美元单位
-    const unit=pairId?'':'$'
+    const unit=pairId?'$':'$'
     const isShow=!kmax?false:(kmax<0.01?false:true)
     allYAxis.push(yKAxisModel(kmin,kmax,isShow,ykLabelFormat,unit))
     series.push(obj)
@@ -213,7 +213,7 @@ export const getModel = (params: any,xData:any) => {
   if (!params[0]) return
   let title = params[0].axisValue
   // @ts-ignore
-  params = R.sortBy((item) => -item.data.value, params)
+  // params = R.sortBy((item) => -item.data.value, params)
   const result = R.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { formatValue } = data
     return tooptipsModelByLiquidity(`${seriesName} ${formatValue}`, idx, color)

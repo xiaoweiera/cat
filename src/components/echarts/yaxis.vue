@@ -9,12 +9,6 @@ const props = defineProps({
       return 'value'
     }
   },
-  color: {
-    type: String,
-    default () {
-      return ''
-    }
-  },
   formatter: {
     type: Function,
   },
@@ -29,9 +23,6 @@ onBeforeMount(function() {
     type: props.type,
     position: props.position,
     axisLabel: {
-      textStyle: {
-        color: props.color
-      },
       formatter: props.formatter
     }
   }

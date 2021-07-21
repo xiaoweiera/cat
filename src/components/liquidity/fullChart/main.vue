@@ -41,11 +41,13 @@ const getData = async () => {
   const tokenType=props.chartType==='flow'?'pair':'symbol0'
   chartLoad.value = true
   let chartCoin = ''
+  const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
+  priceData.value = await getTokenPriceData(param, 'token')
   if (pairData.value[0].id) {
     //pair查询
     const param=R.pick(['platId','pair_id','from_ts','to_ts','interval'],requestParam)
     chartCoin = props.config[props.chartType].pairCofig.usdCoin ? coinType.value[0] : 'usd'
-    priceData.value = await getPairPriceData(param, 'pair')
+    // priceData.value = await getPairPriceData(param, 'pair')
     if(props.chartType==='flow'){
       chartData.value = await getFlowChartModel(param, props.chartId, tokenType, chartCoin)
     }else{
@@ -55,8 +57,8 @@ const getData = async () => {
     requestParam.symbol_id = tokenData.value[0].id
     //token查询
     const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
+    // priceData.value = await getTokenPriceData(param, 'token')
     chartCoin = props.config[props.chartType].tokenCofig.usdCoin ? coinType.value[0] : 'usd'
-    priceData.value = await getTokenPriceData(param, 'token')
     if(props.chartType==='flow'){
       chartData.value = await getFlowChartModel(param, props.chartId, tokenType, chartCoin)
     }else{

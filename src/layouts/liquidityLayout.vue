@@ -1,7 +1,7 @@
 <template>
   <div class="circleContainer"></div>
   <div class="bg-global-body md:bg-opacity-100">
-    <ApyHeader />
+    <LiquidityWebHeader />
     <main class="w-full flex justify-center">
       <router-view />
     </main>

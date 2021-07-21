@@ -44,7 +44,7 @@ onMounted(requestAdsList)
         </UiBanner>
       </div>
     </div>
-    <TopicTitle :menu="subTitle" :bg="false"/>
+    <TopicTitle :menu="subTitle" :sub="true"/>
   </div>
 </template>
 
