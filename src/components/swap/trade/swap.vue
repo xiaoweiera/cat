@@ -104,6 +104,22 @@ const symbolRatio = computed<string>(function(): string {
   return ''
 })
 
+// 授权
+// @ts-ignore
+const onAuthorizatio = async function() {
+  const [ symbol ] = symbolNames.value
+  const web3 = new Web3Util()
+  const info = getPairSymbolData(detail.value[0], symbol)
+  if (info) {
+    try {
+      const status = await web3.getAuthorizatioStatus(info.token)
+      console.log(status)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
 onMounted(ready)
 
 </script>
@@ -124,7 +140,7 @@ onMounted(ready)
         <span class="ml-1 text-global-highTitle">{{ symbolRatio }}</span>
       </p>
     </div>
-    <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer">
+    <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
       <span class="text-white select-none">授权</span>
     </div>
   </div>
