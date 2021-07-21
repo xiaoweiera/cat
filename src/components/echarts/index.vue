@@ -249,6 +249,13 @@ const getSeries = function() {
     if (data.type === seriesType.bar) {
       // 柱状图最大宽度
       option.barMaxWidth = 50
+      const color = safeGet(option, 'itemStyle.color')
+      safeSet(option, 'itemStyle.color', function(d: any) {
+        if (d.value < 0) {
+          return 'rgba(255, 140, 128, 1)'
+        }
+        return color
+      })
     }
     if (props.stack && data.position === Position.left) {
       // 开启堆积图
@@ -363,7 +370,7 @@ onUnmounted(function() {
 </script>
 
 <template>
-  <div class="w-full h-full overflow-hidden">
+  <div class="w-full h-full">
     <div class="hidden">
       <slot></slot>
     </div>

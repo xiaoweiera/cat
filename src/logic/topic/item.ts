@@ -59,12 +59,16 @@ const getDetail = async function(data: ItemData) {
   const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds)
   const kline_chart = safeGet<number>(result, 'kline_chart')
   const charts = getCharts(result)
-  const line = seriesType.line
-  const type = safeGet<string>(result, 'default_chart')
-
+  // const type = safeGet<seriesType>(result, 'default_chart')
   // @ts-ignore
-  const legends: Legends[] = map(function(item: any) {
-    return Object.assign({}, item, { type })
+  const legends: Legends[] = map(function(item: LegendItem) {
+    const temp = { ...item }
+    if (!temp.type) {
+      // 设置默认值
+      // temp.type = type || seriesType.line
+      temp.type = seriesType.line
+    }
+    return temp
   }, toArray(toRaw(data.legends)))
 
   // 如果是单线图
@@ -78,7 +82,7 @@ const getDetail = async function(data: ItemData) {
           id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
           name: safeGet<string>(item, 'chart.relation_title'), // 默认取第一条数据
           unit: safeGet<string>(item, 'chart.relation_unit'),
-          type: line,
+          type: seriesType.line,
           position: Position.right
         })
       }
@@ -89,7 +93,7 @@ const getDetail = async function(data: ItemData) {
       id: safeGet<number>(result, 'id'), // 默认取第一条数据
       name: safeGet<string>(result, 'relation_title'), // 默认取第一条数据
       unit: safeGet<string>(result, 'relation_unit'),
-      type: line,
+      type: seriesType.line,
       position: Position.right
     }
     legends.push(temp)

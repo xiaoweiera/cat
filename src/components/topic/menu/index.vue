@@ -133,8 +133,8 @@
   .menu-label {
     transition: all 0.3s;
     color: rgba(37,62,111,.65);
-    height: 40px;
-    line-height: 40px;
+    height: 38px;
+    line-height: 38px;
     @apply relative;
     &:after {
       width: 3px;

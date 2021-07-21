@@ -70,7 +70,8 @@ export interface LegendItem {
 export const colors = [
   'rgba(43, 140, 255)',
   'rgba(56, 214, 0)',
-  'rgba(0, 209, 134)',
+  'rgb(0, 0, 0, 0.8)',
+  // 'rgba(0, 209, 134)',
   'rgba(35, 159, 149)',
   'rgba(0, 198, 225)',
   'rgba(33, 85, 169)',

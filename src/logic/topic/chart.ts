@@ -28,7 +28,10 @@ const getLegends = function(list: APIChart[]): LegendItem[] {
     const id = safeGet<number>(data, 'chart.id')
     const name = safeGet<string>(data, 'alias') // 名称
     const unit = safeGet<string>(data, 'chart.field_unit') // 单位
-    const type = safeGet<seriesType>(data, 'chart.default_chart')
+    const type = safeGet<seriesType>(data, 'default_chart')
+    // if (!type) {
+    //   type = safeGet<seriesType>(data, 'chart.default_chart')
+    // }
     legends.push({ id, name, type, unit })
   }
   return compact(legends)
@@ -64,7 +67,7 @@ export const getChartList = async function(topId: string | number, page: number 
         height = 200
       }
       // 我的图表需要特殊处理
-      if (topId === 'my') {
+      if (topId === 'my' || topId === '0' || topId === 0) {
         width = 50
         height = 200
       }

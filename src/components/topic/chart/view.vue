@@ -33,6 +33,20 @@ const logStatus = computed(function() {
   return toBoolean(props.data?.detail?.log)
 })
 
+const getAreaStatus = computed(function() {
+  if (props.data?.detail) {
+    const stack = toBoolean(props.data?.detail?.stack)
+    if (stack) {
+      return true
+    }
+    const multiple = toBoolean(props.data?.detail?.multiple)
+    if (!multiple) {
+      return true
+    }
+  }
+  return false
+})
+
 </script>
 
 <template>
@@ -66,7 +80,7 @@ const logStatus = computed(function() {
         通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
         value: 数据
       -->
-      <EchartsSeries :index="index" :value="item.data" :color="colors[index]"/>
+      <EchartsSeries :index="index" :value="item.data" :color="colors[index]" :area="getAreaStatus"/>
     </template>
   </Echarts>
 </template>
