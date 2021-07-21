@@ -15,6 +15,7 @@ export const numberFormat = (value: any) => {
     return null
   }
   const k = 10000
+  //@ts-ignore
   const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
   if (value < k) {
     return Math.round(value * 100) / 100
@@ -213,14 +214,15 @@ export const numberUnitFormat = (value: any) => {
     return value===0?0:'-'
   }
   const k = 10000
+  //@ts-ignore
   const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
   const v=new BigNumber(value)
-  if ((value < 100000 && value>=0) || (value<0 && value>-2)) {
+  if ((value < 10000 && value>=0) || (value<0 && value>-2)) {
     return parseFloat(v.toFixed(2))
     // return Math.round(value * 100) / 100
   } else{
     const i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
-    if(i>3) return v.toFixed(2)
+    // if(i>3) return v.toFixed(2)
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
     const unit = sizes[i]
     return value>=0?values + unit:'-'+values+unit

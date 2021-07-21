@@ -42,17 +42,24 @@ const title= computed<string>((): string => {
 const getData = async () => {
   chartLoad.value = true
   let chartCoin = ''
+  priceData.value = await getTokenPriceData({
+    platId:1,
+    symbol_id: symbolStore.id,
+    from_ts: props.tokenParam.from_ts,
+    to_ts: props.tokenParam.to_ts,
+    interval: props.tokenParam.interval
+  }, 'token')
   if (pairStore.id) {
     chartCoin = props.config.pay.pairCofig.usdCoin ? coinType.value : 'usd'
     //pair查询
     props.pairParam.pair_id = pairStore.id
-    priceData.value = await getPairPriceData({
-      platId:1,
-      pair_id: pairStore.id,
-      from_ts: props.pairParam.from_ts,
-      to_ts: props.pairParam.to_ts,
-      interval: props.pairParam.interval
-    }, 'pair')
+    // priceData.value = await getPairPriceData({
+    //   platId:1,
+    //   pair_id: pairStore.id,
+    //   from_ts: props.pairParam.from_ts,
+    //   to_ts: props.pairParam.to_ts,
+    //   interval: props.pairParam.interval
+    // }, 'pair')
     if(isSymbol0Symbol1.includes(props.chartId)){
       tokenType.value=pairStore.name?(pairStore.name.split('/')[0]===symbolStore.name?'symbol0':'symbol1'):'symbol0'
     }else{
@@ -63,13 +70,7 @@ const getData = async () => {
     chartCoin = props.config.pay.tokenCofig.usdCoin ? coinType.value : 'usd'
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
-    priceData.value = await getTokenPriceData({
-      platId:1,
-      symbol_id: symbolStore.id,
-      from_ts: props.tokenParam.from_ts,
-      to_ts: props.tokenParam.to_ts,
-      interval: props.tokenParam.interval
-    }, 'token')
+
     tokenType.value='symbol0'
     chartData.value = await getPayChartModel(props.tokenParam, props.chartId, tokenType.value, chartCoin)
   }
@@ -119,7 +120,7 @@ const getTitleDesc=(title:string)=>{
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
-        <UiPopover class="ml-1 inline-block">
+        <UiPopover class="ml-1 inline-block mdhidden">
           <template #reference>
             <IconFont class="mt-0.5 ml-1" type="icon-info" />
           </template>
