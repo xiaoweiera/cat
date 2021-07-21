@@ -52,7 +52,7 @@ const onClickUnFollow = async function() {
 </script>
 
 <template>
-  <div>
+  <div v-login>
     <div class="cursor-pointer" v-if="!status" @click="onClickfollow">
       <slot></slot>
     </div>

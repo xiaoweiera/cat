@@ -2,7 +2,7 @@
 import {defineProps, onMounted,computed, ref, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
-import {titleCofig} from '~/logic/liquidity/dataCofig'
+import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 const props = defineProps({
   config: Object,
   tokenParam: Object,
@@ -29,7 +29,7 @@ watch(() => pairStore.id, (n, o) => {
 })
 watch(() => props.tokenParam.interval, (n) => getData(props.tokenParam))
 watch(() => paramChart.time, (n) => getData(props.tokenParam))
-watch(() => tokenType.value, (n) => getData())
+// watch(() => tokenType.value, (n) => getData())
 const chartKey = ref(0)
 let chartData = reactive({value: {}})
 const priceData = reactive({value: {}})
@@ -42,27 +42,36 @@ const title= computed<string>((): string => {
 const getData = async () => {
   chartLoad.value = true
   let chartCoin = ''
+  priceData.value = await getTokenPriceData({
+    platId:1,
+    symbol_id: symbolStore.id,
+    from_ts: props.tokenParam.from_ts,
+    to_ts: props.tokenParam.to_ts,
+    interval: props.tokenParam.interval
+  }, 'token')
   if (pairStore.id) {
     chartCoin = props.config.pay.pairCofig.usdCoin ? coinType.value : 'usd'
     //pair查询
     props.pairParam.pair_id = pairStore.id
-    priceData.value = await getPairPriceData({
-      platId:1,
-      pair_id: pairStore.id,
-      from_ts: props.pairParam.from_ts,
-      to_ts: props.pairParam.to_ts
-    }, 'pair')
+    // priceData.value = await getPairPriceData({
+    //   platId:1,
+    //   pair_id: pairStore.id,
+    //   from_ts: props.pairParam.from_ts,
+    //   to_ts: props.pairParam.to_ts,
+    //   interval: props.pairParam.interval
+    // }, 'pair')
+    if(isSymbol0Symbol1.includes(props.chartId)){
+      tokenType.value=pairStore.name?(pairStore.name.split('/')[0]===symbolStore.name?'symbol0':'symbol1'):'symbol0'
+    }else{
+      tokenType.value='symbol0'
+    }
     chartData.value = await getPayChartModel(props.pairParam, props.chartId, tokenType.value, chartCoin)
   } else {
     chartCoin = props.config.pay.tokenCofig.usdCoin ? coinType.value : 'usd'
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
-    priceData.value = await getTokenPriceData({
-      platId:1,
-      symbol_id: symbolStore.id,
-      from_ts: props.tokenParam.from_ts,
-      to_ts: props.tokenParam.to_ts
-    }, 'token')
+
+    tokenType.value='symbol0'
     chartData.value = await getPayChartModel(props.tokenParam, props.chartId, tokenType.value, chartCoin)
   }
   chartKey.value++
@@ -88,36 +97,42 @@ const scrollHandle = () => {
 onMounted(() => {
   initLoad()
 })
-
 const getTitleDesc=(title:string)=>{
   if(!title) return ''
   if(!pairStore.id) return title
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
     const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
+    const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
     if(titleCofig[props.chartId].replaceStr){
-      return title.replace(titleCofig[props.chartId].replaceStr,' '+symbol0+titleCofig[props.chartId].replaceStr)
+      return title.replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)
     }else{
-      return title+' '+symbol0
+      return title+' '+coin
     }
+  }else{
+    return title
   }
 }
 </script>
 <template>
-  <div class="flex flex-col py-4 pr-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
-    <div :class="'chartScroll'+props.chartId"></div>
+  <div :class="'chartScroll'+props.chartId"  class="flex flex-col py-4 px-4 flex-1 h-full mb-5 relative bg-white font-kdFang ">
     <!--    图表的信息-->
-    <div class="flex items-center">
+    <div class="flex flex-col md:flex-row  md:items-center flex-wrap">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{title }}</span>
         <span class="ml-2">{{getTitleDesc(chartData.value?.title)}}</span>
+        <el-tooltip class="mdhidden" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
+          <div>
+            <IconFont class="mt-0.5 ml-1" type="icon-info" />
+          </div>
+        </el-tooltip>
       </div>
-      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
+      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
       <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="pay" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 ">
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-11 xshidden">
       {{ chartData.value?.desc }}
     </div>
-    <div v-if="!chartLoad" class="w-full">
+    <div v-if="!chartLoad" class="w-full h-full">
       <div v-if="!isNull" class="w-full">
         <LiquidityChart class="h-77.5"  :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
@@ -131,6 +146,10 @@ const getTitleDesc=(title:string)=>{
   </div>
 </template>
 <style scoped lang="postcss">
+.desTip{
+  width:50px !important;
+  margin-right:10px;
+}
 .txtSmall{
   overflow: hidden;
   text-overflow: ellipsis;

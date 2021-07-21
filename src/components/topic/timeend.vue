@@ -18,6 +18,7 @@ const props = defineProps({
   },
 })
 
+// @ts-ignore
 const timeEnd = computed(function() {
   const data = props.data
   const last = safeGet<number>(data, 'last')

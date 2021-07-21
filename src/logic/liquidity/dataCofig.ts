@@ -15,6 +15,8 @@ export const titleCofig={
     '7':{change:true,replaceStr:I18n.liquidity.titleCofig.money},
     '10':{change:true,replaceStr:I18n.liquidity.titleCofig.number},
 }
+//token是否根据pair交易对的未知，来确定tokenType为symbol0或者symbol1
+export const isSymbol0Symbol1=[6,7,10]
 export const chartDataConfig=[
     {
         title:I18n.liquidity.mainChart.moneyInto.title,

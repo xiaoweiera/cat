@@ -76,8 +76,8 @@ const load = () => {
         </div>
         <div class="w-20     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
         <div class="w-27  text-kd12px16px text-global-default">
-          <el-tooltip :hide-after="10" :content="formatRulesNumber(item.price,true)" placement="bottom" effect="light">
-            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ formatRulesNumber(item.price,false) }}</span>
+          <el-tooltip :hide-after="10" :content="'1:'+formatRulesNumber(item.price,true)" placement="bottom" effect="light">
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">1:{{ formatRulesNumber(item.price,false) }}</span>
           </el-tooltip>
 
           </div>
@@ -116,7 +116,7 @@ const load = () => {
 
 .showY::-webkit-scrollbar {
   height: 8px;
-  @apply w-1;
+  @apply w-0.5;
 }
 
 .showY::-webkit-scrollbar-thumb:vertical {

@@ -1,11 +1,22 @@
 
 
-const grid = (interval:string,full:boolean) => {
+const mobile=window.screen.width>768?false:true
+const grid = (interval:string,full:boolean,row:number) => {
   // const xLength=interval==='1D'?'12px':'35px'
+  //@ts-ignore
+  let height=0
+  if (row <= 1) {
+    height = 65
+  } else if(row===2){
+    height =110
+  }else {
+    height = row * 45
+  }
   return {
-    left: 72,
-    right: 70,
-    bottom: full?68:85,
+    left:mobile?3:72,
+    right: mobile?3:70,
+    // bottom: full?68:85,
+    bottom:mobile?30:height,
     top: 10,
     // y2: 0,
     containLabel: false,
@@ -46,36 +57,43 @@ const tooltips = (getModel: any,xData:any) => {
     padding: [8, 10, 8, 10],
     trigger: 'axis',
     extraCssText: 'z-index:21',
-    backgroundColor: 'rgba(255, 255, 255, 0.8);',
+    backgroundColor: 'rgba(255, 255, 255, 0.9);',
     textStyle: {
       color: 'black',
     },
     borderWidth: 1.5,
     borderColor: 'rgba(0, 0, 0, 0.06)',
+    confine:true,
     formatter: (params: any) => {
       return getModel(params,xData)
     },
   }
 }
 
-const graphic = () => {
+const graphic = (row:number) => {
+  let bottomNumber='65%'
+  if(row===3){
+    bottomNumber='70%'
+  }else if(row>3){
+    bottomNumber='80%'
+  }
   return [
     {
       type: 'group',
       bounding: 'raw',
       right: '49%',
-      bottom: '65%',
-      z: -1000,
+      bottom: bottomNumber,
+      silent: true,
       children: [
         {
           type: 'text',
           left: 'center',
           top: 'center',
-          z: -1000,
+          silent: true,
           style: {
             fill: 'rgba(43, 140, 255, 0.08)',
             text: 'KingData.com',
-            font: 'bold 52px sans-serif',
+            font: mobile?'bold 36px sans-serif':(row>=3?'bold 32px sans-serif':'bold 52px sans-serif'),
           },
         },
       ],
@@ -107,12 +125,10 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       type: 'category',
       data: xdata,
       axisLabel: {
+        align:'left',
         margin:14,
-        showMinLabel: true,
-        showMaxLabel: true,
-        // showMinLabel: isMobile ? null : null, //显示最小值
-        // showMaxLabel: isMobile ? null : null, //显示最大值
-        // splitNumber: 3,
+        showMinLabel: mobile?null:true,
+        showMaxLabel: mobile?null:true,
         textStyle: {
           color: '#989898',
         },
@@ -137,7 +153,6 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
     axisTick: {
       show: false, // 隐藏刻度线
     },
-
     splitLine: {
       // 网格线
       lineStyle: {
@@ -153,6 +168,7 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
     splitNumber:4,
     axisLabel: {
       fontSize: 12,
+      inside:mobile?true:false,
       textStyle: {
         color: '#2B8DFF',
       },
@@ -190,6 +206,7 @@ export const yKAxisModel=(kmin: number, kmax: number,isShow:boolean, yLabelForma
     interval:interval,
     splitNumber:4,
     axisLabel: {
+      inside:mobile?true:false,
       fontSize: 12,
       textStyle: {
         color: 'rgba(240, 191, 18, 1)',
@@ -283,16 +300,59 @@ export const chartConfig = (
     yLabelFormat: any,
     getModel: any,
     interval:string,
-    full:boolean
+    full:boolean,
+    row:number
 ) => {
   return {
-    grid: grid(interval,full),
+    grid: grid(interval,full,row),
     tooltip: tooltips(getModel,xData),
-    graphic: graphic(),
+    graphic: graphic(row),
     xAxis: xAxis(xData, {}),
-    legend: legend(legendList,full),
+    legend:mobile?null: legend(legendList,full),
     yAxis: allYAxis,
     series,
   }
 }
-
+export const getCodeWidth=(name:string)=>{
+  let width=0
+  name.split('').forEach((str:string)=>{
+    //@ts-ignore
+    const code=str.charCodeAt()
+    if(code>=97 && code<=122){
+      //a-z
+      width+= 5
+    }else if(code>=65 && code<=90){
+      //A-Z
+      width+= 3
+    }else if(code===40 || code===41) {
+      //( )
+      width+= 10
+    }else if(code===32){
+      //' '
+      width+=12
+    }else if(code===43){
+      //+
+      width+=8
+    }
+    else{
+      width+= 13.5
+    }
+  })
+return width
+}
+export const clacLegendBoxWidth =(legends:string[])=> {
+  let width = 0
+  legends.forEach((item:any, index: number) => {
+    const newName = item.name || ' '
+    width +=  getCodeWidth(newName)
+    if (index > 0) {
+      width += 10
+    }
+  })
+  return width
+}
+export const getLegendRow =(dom:any,legends:string[])=> {
+  const width = clacLegendBoxWidth(legends)
+  const boxWidth = dom.clientWidth - 30 * 2
+  return Math.ceil(width / boxWidth)
+}

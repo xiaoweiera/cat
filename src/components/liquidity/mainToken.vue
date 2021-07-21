@@ -8,6 +8,7 @@ const filterType = ref()
 console.log(pairStore.id)
 const getOption=()=>{
   if(analysisType.value==='pay'){
+    console.log('aaaa')
     paramChart.tokenType=paramChart.tokenType==='pair'?'symbol0':paramChart.tokenType
     filterType.value=[
       { name:pairStore.name.split('/')[0] , value: 'symbol0', selected: paramChart.tokenType!=='symbol1'  },

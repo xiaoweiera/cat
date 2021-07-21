@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { defineProps, onMounted, toRefs,watch } from 'vue'
+import { defineProps, onMounted, toRefs,ref,toRaw } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
 import { paramChart,pairStore} from '~/store/liquidity/state'
 import {getXData,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
-import { chartConfig } from '~/logic/liquidity/chartConfig'
+import { chartConfig,getLegendRow } from '~/logic/liquidity/chartConfig'
 import {kData,groupData} from '/mock/liquidity'
 interface yModel {
   color: string
@@ -23,19 +23,20 @@ const props = defineProps({
   chartId:String,
   coinType:Object
 })
-const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any) => {
+const draw = (xData: Array<string>, series: any, legend: Array<string>, allYAxis:any,row:number) => {
   // @ts-ignore
-  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel,paramChart.interval,props.full)
+  const chartOption = chartConfig(xData, series,allYAxis, legend, yLabelFormat, getModel,paramChart.interval,props.full,row)
   myChart.setOption(chartOption)
   // @ts-ignore
 
   window.addEventListener('resize', myChart.resize)
 }
-
+const echartsRef = ref<any>(null)
 const getChartData=()=>{
   const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis, paramChart.interval)
   const legend = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
+  const row=getLegendRow(toRaw(echartsRef).value,legend)
   const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,props.priceData.value.xaxis,
       props?.chartData.yaxis, props.priceData.value.yaxis[0],
@@ -44,8 +45,9 @@ const getChartData=()=>{
       pairStore.id,
       props.coinType.value
   )
-  draw(xData, series, legend,allYAxis)
+  draw(xData, series, legend,allYAxis,row)
 }
+
 onMounted(() => {
   const myChartDom = document.getElementById(props.chartId)
   if (myChart) {
@@ -57,6 +59,6 @@ onMounted(() => {
 </script>
 <template>
   <div class=" w-full h-full" :class="props.full?'':'mt-4'">
-    <div :id="props.chartId" class="chartCanvas w-full h-full"></div>
+    <div ref="echartsRef" :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>
 </template>

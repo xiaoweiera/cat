@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { defineProps, onBeforeMount } from 'vue'
 import { EchartsOptionName, updateInject } from '~/logic/echarts/tool'
+import { triggerType } from '~/logic/echarts/interface'
 
 const props = defineProps({
   trigger: {
     type: String,
-    default: () => 'axis',
-    validator (value: string): boolean {
-      const trigger = ['item', 'axis', 'none']
+    default: () => triggerType.axis,
+    validator (value: triggerType): boolean {
+      const trigger = [triggerType.item, triggerType.axis, triggerType.none]
       return trigger.includes(value)
     }
   }

@@ -83,6 +83,7 @@ export default {
   },
   chat: {
     telegram: '电报',
+    join:'加入',
     telegramGroup: '电报群',
     joinTelegram: '加入电报群',
     twitter: 'Twitter',

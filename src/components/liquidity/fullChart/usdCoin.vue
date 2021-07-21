@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { toRef,defineProps } from 'vue'
-import * as R from 'ramda'
-import { paramChart } from '~/store/liquidity/state'
+import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
 const coinType=getInject('coinType')
 const set=setInject('coinType')
@@ -11,8 +9,8 @@ const changeTag = (tag: string) => {
 </script>
 <template>
   <div class="usdCoinContainer flex" >
-    <div @click="changeTag('usd')" :class="coinType[0]==='usd'?'tagSelected':'tag'">USD 计价</div>
-    <div @click="changeTag('coin')" :class="coinType[0]==='coin'?'tagSelected':'tag'">币本位计价</div>
+    <div @click="changeTag('usd')" :class="coinType[0]==='usd'?'tagSelected':'tag'">{{I18n.liquidity.mainHeader.usd}}</div>
+    <div @click="changeTag('coin')" :class="coinType[0]==='coin'?'tagSelected':'tag'">{{I18n.liquidity.mainHeader.coin}}</div>
   </div>
 
 </template>

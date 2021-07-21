@@ -68,7 +68,7 @@ onMounted(getList)
     <li class="text-global-default opacity-65 text-kd14px18px mb-3 text-kdFang font-medium ">{{I18n.liquidity.select.tradingPairs}}</li>
     <div class="flex py-1.5 header-Border ">
       <div class="header-txt txtSmall  w-50  whitespace-nowrap"># Pair</div>
-      <div class="header-txt w-25 ml-5">Pair ID</div>
+      <div class="header-txt w-25 ml-5">{{I18n.liquidity.select.address}}</div>
       <div class="header-txt w-27.5 ml-5">TVL</div>
       <div class="header-txt w-32.5 ml-5">{{I18n.liquidity.select.changePrice}}</div>
     </div>

@@ -32,6 +32,7 @@ export default defineConfig({
                 'kd14px18px':['14px','18px'],
                 'kd9px14px':['9px','14px'],
                 'kd22px28px':['22px','28px'],
+                'kd22px26px':['22px','26px'],
                 'kd24px150':['24px','150%'],
                 'kd24px36px':['24px','36px'],
                 'kd24px110':['24px','110%'],
@@ -74,7 +75,9 @@ export default defineConfig({
             },
             colors: {
                 global: {
+                    bgHui:'#F1F3F5',
                     body: '#F6FAFD',
+                    bodyTwo:'#F8FBFD',
                     default: '#253E6F',
                     primary: '#2B8DFE',
                     highTitle:'#033666',
@@ -84,7 +87,8 @@ export default defineConfig({
                     time:'#A2A4A8',
                     noSelect:'#A8A8A8',
                     white:'#FFFFFF',
-                    grey: '#7b8db1'
+                    grey: '#7b8db1',
+                    money: '#F88923'
                 },
             },
             opacity: {

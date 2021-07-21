@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps,onMounted,ref,reactive,watch } from 'vue'
+import { defineProps,onMounted,ref } from 'vue'
 import {pairStore, symbolStore} from '~/store/liquidity/state'
-import { useProvide,setInject } from '~/utils/use/state'
+import { useProvide } from '~/utils/use/state'
 const props=defineProps({
   desc:String,
   config:Object,
@@ -47,9 +47,9 @@ const statusChange=(status:boolean)=>{
 
 </script>
 <template>
-  <FullScreen @change="statusChange">
+  <FullScreen  @change="statusChange">
     <template #default="scope">
-      <el-container v-if="scope.status" class="h-full">
+      <el-container v-if="scope.status" class="h-full xshidden">
         <el-header height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
@@ -62,7 +62,7 @@ const statusChange=(status:boolean)=>{
 <!--          <LiquidityFullChartFooter/>-->
 <!--        </el-footer>-->
       </el-container>
-      <div class="flex absolute right-2" v-else>
+      <div class="flex absolute right-2 xshidden" v-else>
         <FullZoom/>
       </div>
     </template>
