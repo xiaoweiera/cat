@@ -138,7 +138,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       areaStyle: item.type === 'area' ? area : null,
       yAxisIndex: i,
       // connectNulls: true,//为空的时候是否连接起来
-      smooth: true,
+      // smooth: true,
       itemStyle: {
         color(p: any) {
           return p.value < 0 && item.type === 'bar'

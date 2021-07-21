@@ -27,7 +27,7 @@ const selectTag= (item: any) => {
     <div class="text-global-default opacity-65 text-kd14px18px  text-kdFang font-medium ">{{I18n.liquidity.select.hot}}</div>
     <div class="flex flex-wrap">
       <template v-for="item in hot">
-        <div v-if="item.type" @click="selectTag(item)" class=" hand flex mt-3 ">
+        <div v-login  v-if="item.type" @click="selectTag(item)" class=" hand flex mt-3 ">
           <span class="coinName mr-3"  :class="item.token_id===symbolStore.id?'selected':'noSelected'">{{ item.name }}</span>
         </div>
       </template>

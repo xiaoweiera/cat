@@ -7,6 +7,7 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    webTitle:'DEX Analysis——Kingdata',
     mobile:{
         select:'Search',
         selectDes:'Search token',
@@ -70,7 +71,7 @@ export default {
             desc:'Show the details of the net inflow and outflow of funds related to the selected token or pair, and more intuitively show the funds volume in the long-short game.',
         },
         IntoInOutNumber:{
-            title:'Inflow and Outflow Frequency',
+            title:'Inflow and Outflow Times',
             desc:'Show the frequency of user operations of the selected token or pair, which can intuitively reflect users enthusiasm for participation',
         },
         joinUsersAnalysis:{

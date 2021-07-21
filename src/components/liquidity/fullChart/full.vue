@@ -47,7 +47,7 @@ const statusChange=(status:boolean)=>{
 
 </script>
 <template>
-  <FullScreen  @change="statusChange">
+  <FullScreen   @change="statusChange">
     <template #default="scope">
       <el-container v-if="scope.status" class="h-full xshidden">
         <el-header height="initial" class="p-0">
@@ -62,8 +62,8 @@ const statusChange=(status:boolean)=>{
 <!--          <LiquidityFullChartFooter/>-->
 <!--        </el-footer>-->
       </el-container>
-      <div class="flex absolute right-2 xshidden" v-else>
-        <FullZoom/>
+      <div v-else  class="flex absolute right-2 xshidden">
+        <FullZoom v-login/>
       </div>
     </template>
   </FullScreen>
