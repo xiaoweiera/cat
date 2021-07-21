@@ -38,7 +38,7 @@ const pairParam = reactive({
   <div class="flex flex-1  flex-col  chartContainer" >
     <template v-for="(item,i) in chartDataConfig">
       <div class="mt-1.5 ">
-        <div class="flex  h-77  bgContainer ">
+        <div class="flex  min-h-70  bgContainer ">
           <LiquidityFlowChartContainer v-if="analysisType==='flow'" :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
           <LiquidityPayChartContainer v-else :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
         </div>

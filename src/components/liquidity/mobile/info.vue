@@ -50,7 +50,7 @@ onMounted(()=>getInfo())
           <div class="text-global-default opacity-85 font-bold text-kd22px26px  max-w-20 txtSmall">{{subStr(info.symbol) }}</div>
           <div class="ml-1.5 text-global-default opacity-85 text-kd14px20px max-w-20 txtSmall">{{ info.symbol_name }}</div>
           <div class="bg-global-primary ml-1.5 px-1.5 py-0.5 rounded bg-opacity-8 text-global-primary text-kd14px22px">{{ info.exchange }}</div>
-          <div @click="changeTokenTable()" :class="tokenTableShow[0]?'selectedPair':'pair'">相关交易对<IconFont :class="tokenTableShow[0]?'selectedIconjiantou':'iconjiantou'" type="icon-xiajiantou"></IconFont></div>
+          <div @click="changeTokenTable()" :class="tokenTableShow[0]?'selectedPair':'pair'">{{I18n.liquidity.mobile.pairDesc}}<IconFont :class="tokenTableShow[0]?'selectedIconjiantou':'iconjiantou'" type="icon-xiajiantou"></IconFont></div>
         </div>
       </div>
     </div>
