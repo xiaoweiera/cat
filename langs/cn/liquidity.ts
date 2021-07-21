@@ -15,6 +15,8 @@ export default {
         time:'选择时间',
         interval:'时间粒度',
         pairDesc:'相关交易对',
+        pcDes1:'为了您良好的使用体验',
+        pcDes2:'建议在电脑中访问该页面'
     },
     select:{
         tip:'搜索币种/交易对/合约地址',
@@ -40,8 +42,8 @@ export default {
         change: '涨跌幅'
     },
     mainHeader: {
-        liquidity: '所有相关的交易对数据聚合分析',
-        payData: '仅对{pair}交易对相关的数据聚合分析',
+        liquidity: '{token} 所有相关的交易对数据聚合分析',
+        payData: '仅对 {pair} 交易对相关的数据聚合分析',
         follow:'关注',
         analysis:'分析数据异常',
         week: '近7天',

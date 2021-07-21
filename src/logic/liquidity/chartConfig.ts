@@ -320,7 +320,7 @@ export const getCodeWidth=(name:string)=>{
     const code=str.charCodeAt()
     if(code>=97 && code<=122){
       //a-z
-      width+= 5
+      width+= 6
     }else if(code>=65 && code<=90){
       //A-Z
       width+= 3
@@ -353,6 +353,6 @@ export const clacLegendBoxWidth =(legends:string[])=> {
 }
 export const getLegendRow =(dom:any,legends:string[])=> {
   const width = clacLegendBoxWidth(legends)
-  const boxWidth = dom.clientWidth - 30 * 2
+  const boxWidth = dom.clientWidth - 55 * 2
   return Math.ceil(width / boxWidth)
 }
