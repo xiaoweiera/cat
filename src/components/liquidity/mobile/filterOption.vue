@@ -13,7 +13,7 @@ const open=()=>pcTip.value=true
     </div>
     <div class="flex items-center">
       <div class="text-kd12px16px font-medium text-global-default  text-opacity-35">{{I18n.liquidity.mobile.interval}}:</div>
-      <div class="text-kd12px16px font-medium text-global-default  text-opacity-85 ml-1">1H</div>
+      <div class="text-kd12px16px font-medium text-global-default  text-opacity-85 ml-1">1D</div>
       <IconFont class="iconjiantou ml-2" type="icon-xialaxiao"></IconFont>
     </div>
   </div>

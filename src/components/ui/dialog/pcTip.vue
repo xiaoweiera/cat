@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { defineProps,computed} from 'vue'
+import { defineProps} from 'vue'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({
   pcTip:Object
 })
@@ -17,8 +18,8 @@ const close=()=>{
         :append-to-body="true">
       <div class="mt-6 w-full text-center flex justify-center  items-center flex-col text-kd16px24px font-kdFang text-global-default text-opacity-85">
         <img class="w-30  " src="https://res.ikingdata.com/nav/pcTip.jpg" alt="">
-        <div class="mt-6">为了您良好的使用体验</div>
-        <div>建议在电脑中访问该页面</div>
+        <div style="word-break: break-word;" class="mt-6">{{I18n.liquidity.mobile.pcDes1}}</div>
+        <div style="word-break: break-word;">{{I18n.liquidity.mobile.pcDes2}}</div>
       </div>
       <div @click="close()" style="border-radius: 4px;" class="h-10 flex items-center justify-center   mt-6 bg-global-primary text-center  text-global-white text-kd16px24px"><span>确定</span></div>
     </ElDialog>
