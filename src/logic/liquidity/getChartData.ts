@@ -50,7 +50,7 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
       unescape(encodeURIComponent(origin)),
   )}`
 
-  return `<p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;" class='flex items-center'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><span class="ml-1">${item}</span> </p>`
+  return `<div style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;line-height: 12px;" class='mt-2 md:mt-0 w-50 md:w-full flex items-center break-words whitespace-pre-wrap'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><div class="ml-1">${item}</div> </div>`
 }
 // 获取提示文字的每一行
 export const tooltipsTitle = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
@@ -213,7 +213,7 @@ export const getModel = (params: any,xData:any) => {
   if (!params[0]) return
   let title = params[0].axisValue
   // @ts-ignore
-  params = R.sortBy((item) => -item.data.value, params)
+  // params = R.sortBy((item) => -item.data.value, params)
   const result = R.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { formatValue } = data
     return tooptipsModelByLiquidity(`${seriesName} ${formatValue}`, idx, color)

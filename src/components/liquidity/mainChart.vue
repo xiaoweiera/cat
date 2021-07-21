@@ -61,7 +61,7 @@ watch(() => paramChart.interval, (n, o) => {
     <template v-for="(item,i) in chartDataConfig">
       <div class="mb-8">
         <LiquidityAnalysisTitle :title="item.title" :desc="item.desc"/>
-        <div class="flex  h-107.5  bgContainer border-1">
+        <div class="flex h-107.5  bgContainer">
           <LiquidityFlowChartContainer :config="item" :chartId="item.flow.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />
           <img class="my-4 mx-4" src="https://res.ikingdata.com/nav/liquidityBetween.jpg" alt="">
           <LiquidityPayChartContainer :config="item" :chartId="item.pay.id+1" :tokenParam="tokenParam"  :pairParam="pairParam" />

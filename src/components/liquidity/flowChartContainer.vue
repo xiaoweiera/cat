@@ -112,12 +112,12 @@ onMounted(() => {
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
       <LiquidityFullChartFull   :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 xshidden">
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-11 xshidden">
       {{ chartData.value?.desc }}
     </div>
     <div v-if="!chartLoad" class="w-full h-full">
       <div v-if="!isNull" class="w-full">
-        <LiquidityChart class="h-77.5 w-full "   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
+        <LiquidityChart class=" h-60 md:h-77.5 w-full "   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
         <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
