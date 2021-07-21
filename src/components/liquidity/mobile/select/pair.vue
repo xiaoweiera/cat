@@ -9,7 +9,7 @@ import {getInfoByPair} from '~/api/liquidity'
 import {useRoute, useRouter} from 'vue-router'
 import {changeRoute,subStr, changeRouteParam, toFixedNumber,numberUnitFormat,smallToken,formatRulesNumber} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import {setInject } from '~/utils/use/state'
+import {setInject,getInject } from '~/utils/use/state'
 const setSelectTableShow= setInject('selectTableShow')
 const allData=ref([]) //请求数据的个数
 const pairList=ref([])
@@ -75,7 +75,7 @@ onMounted(getList)
       <div class="header-txt w-31.5 ml-5 text-right">TVL</div>
     </div>
     <template v-for="item in pairList">
-      <li class="flex items-center hand content-item py-2 px-4 text-kd14px16x font-kdExp text-global-default  text-opacity-85" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
+      <li v-login  class="flex items-center hand content-item py-2 px-4 text-kd14px16x font-kdExp text-global-default  text-opacity-85" :class="{selectBg:pairStore.id === item.pair_id}" @click="changePair(item.symbol0,item.pair,item.pair_id,item.symbol0_id)">
         <el-tooltip :hide-after="10" :content="item.pair" placement="bottom" effect="light">
           <div style="font-weight: 700;" class="txtSmall w-50 whitespace-nowrap  font-kdFang  text-kd14px16px font-bold  "><span>{{ item.pair }}</span></div>
         </el-tooltip>

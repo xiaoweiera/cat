@@ -7,6 +7,7 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    address:'地址',
     webTitle:'DEX分析——Kingdata',
     mobile:{
         select:'搜索',
@@ -17,7 +18,8 @@ export default {
         interval:'时间粒度',
         pairDesc:'相关交易对',
         pcDes1:'为了您良好的使用体验',
-        pcDes2:'建议在电脑中访问该页面'
+        pcDes2:'建议在电脑中访问该页面',
+        confirm:'确定'
     },
     select:{
         tip:'搜索币种/交易对/合约地址',
@@ -58,8 +60,10 @@ export default {
         bottom:'已到底部'
     },
     titleCofig:{
-        money:'资金明细',
-        number:'频次'
+        moneyReplaceStr:'资金明细',
+        numberReplaceStr:'频次',
+        money:' {value} 资金明细',
+        number:' {value} 频次'
     },
     mainChart: {
         moneyInto:{

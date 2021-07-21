@@ -7,17 +7,19 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    address:'Address',
     webTitle:'DEX Analysis——Kingdata',
     mobile:{
         select:'Search',
         selectDes:'Search token',
-        flow:'Liquidity',
-        pay:'Trading Data',
+        flow:'Liquidity Data',
+        pay:'Trade Data',
         time:'Time',
         interval:'Interval',
-        pairDesc:'Related pairs',
+        pairDesc:'Related Pairs',
         pcDes1:'For good use experience',
-        pcDes2:'Please access this page on your computer'
+        pcDes2:'Please access this page on your computer',
+        confirm:'Confirm'
     },
     select:{
         tip:'Search token/pair/address',
@@ -35,7 +37,7 @@ export default {
     },
     side: {
         self: 'Optional',
-        pairDesc: 'Related pairs',
+        pairDesc: 'Related Pairs',
         tvlNumber:'TVL',
         pair: 'Pair',
         tvl: 'TVL($)',
@@ -58,8 +60,10 @@ export default {
         bottom:'Bottom'
     },
     titleCofig:{
-        money:'Details',
-        number:'Frequency'
+        moneyReplaceStr:'Sell',
+        numberReplaceStr:'Sell',
+        money:'Sell {value}',
+        number:'Sell {value}'
     },
     mainChart: {
         moneyInto:{

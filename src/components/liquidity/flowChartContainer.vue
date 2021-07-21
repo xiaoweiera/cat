@@ -94,7 +94,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div :class="'chartScroll'+props.chartId" class=" flex flex-col py-4  px-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
+  <div :class="'chartScroll'+props.chartId" class=" flex flex-col py-4  px-4 flex-1 min-h-70  md:h-full relative    mb-5 bg-white font-kdFang">
     <!--    图表的信息-->
     <div class="flex flex-col md:flex-row  md:items-center flex-wrap">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
@@ -117,11 +117,11 @@ onMounted(() => {
         <LiquidityChart class=" h-60 md:h-77.5 w-full "   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
-        <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
+        <img class="w-62.5  md:mt-0 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
       </div>
     </div>
-    <div v-else class="flex items-center   h-full justify-center">
-      <img class="w-50 absolute  z-2" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
+    <div v-else class="flex items-center justify-center absolute  w-full   h-full justify-center">
+      <img class="w-50   z-2 mt-4 md:mt-0 mr-4 mb-10" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
     </div>
   </div>
 </template>

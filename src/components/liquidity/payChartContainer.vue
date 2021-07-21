@@ -3,6 +3,7 @@ import {defineProps, onMounted,computed, ref, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
+import I18n from '~/utils/i18n/index'
 const props = defineProps({
   config: Object,
   tokenParam: Object,
@@ -103,8 +104,9 @@ const getTitleDesc=(title:string)=>{
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
     const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
     const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
+    console.log('aaa', I18n.template(titleCofig[props.chartId].replaceStr, {value:pairStore.name}))
     if(titleCofig[props.chartId].replaceStr){
-      return title.replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)
+      return title.replace(titleCofig[props.chartId].replaceStr, I18n.template(titleCofig[props.chartId].replace, {value:pairStore.name}))
     }else{
       return title+' '+coin
     }
@@ -134,14 +136,14 @@ const getTitleDesc=(title:string)=>{
     </div>
     <div v-if="!chartLoad" class="w-full h-full">
       <div v-if="!isNull" class="w-full">
-        <LiquidityChart class="h-77.5"  :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
+        <LiquidityChart class="h-60 md:h-77.5 w-full "  :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
       <div v-else class="flex items-center justify-center  w-full h-full">
-        <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
+        <img class="w-62.5  md:mt-0 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
       </div>
     </div>
-    <div v-else class="flex items-center   h-full justify-center">
-      <img class="w-50 absolute  z-2" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
+    <div v-else class="flex items-center justify-center absolute  w-full   h-full justify-center">
+      <img class="w-50   z-2 mt-4 md:mt-0 mr-4 mb-10" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
     </div>
   </div>
 </template>
