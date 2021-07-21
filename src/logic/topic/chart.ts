@@ -26,9 +26,9 @@ const getLegends = function(list: APIChart[]): LegendItem[] {
   for(let i = 0, len = list.length; i < len; i++) {
     const data: APIChart =  list[i]
     const id = safeGet<number>(data, 'chart.id')
-    const name = safeGet<string>(data, 'alias') // 名称
-    const unit = safeGet<string>(data, 'chart.field_unit') // 单位
-    const type = safeGet<seriesType>(data, 'default_chart')
+    const name = safeGet<string>(data, 'alias') || '' // 名称
+    const unit = safeGet<string>(data, 'chart.field_unit') || '' // 单位
+    const type = safeGet<seriesType>(data, 'default_chart') || ''
     // if (!type) {
     //   type = safeGet<seriesType>(data, 'chart.default_chart')
     // }

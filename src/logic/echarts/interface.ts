@@ -32,6 +32,7 @@ interface AnyValue {
 
 export interface SeriesItem extends XAxisItem, AnyValue {
   klValue?: number | string
+  origin: number | string // 原始数据
   unit?: Unit
 }
 

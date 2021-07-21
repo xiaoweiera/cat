@@ -2,7 +2,7 @@
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
-import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
+import { compact, forEach, map, numberUint, toNumber, uuid } from '~/utils/index'
 import { defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/echarts/interface'
@@ -87,9 +87,6 @@ const getToolTip = function() {
   const option = makeTooltipOption()
   return Object.assign({}, option, array[0], {
     formatter: logicToolTip.formatter,
-    textStyle: {
-      // color: colors
-    }
   })
 }
 
@@ -180,6 +177,12 @@ const getYAxis = function(): any[] {
       if (formatter) {
         return formatter(value)
       }
+      if (props.log) {
+        if (value === 0) {
+          return 0
+        }
+        return numberUint(Math.pow(10, value))
+      }
       return numberUint(value)
     })
     return Object.assign({}, option, value, { position })
@@ -260,6 +263,23 @@ const getSeries = function() {
     if (props.stack && data.position === Position.left) {
       // 开启堆积图
       option.stack = 'stack'
+    }
+    if (props.log) {
+      option.data = map(function(item: any) {
+        const value = item.value
+        if (value) {
+          // @ts-ignore
+          let num: number
+          if (value > 0) {
+            num = Math.log10(value)
+          } else {
+            num = Math.abs(toNumber(value))
+            num = Math.log10(num) * -1
+          }
+          return Object.assign({}, item, { value: num })
+        }
+        return item
+      }, option.data)
     }
     return option
   }, getValue(series))

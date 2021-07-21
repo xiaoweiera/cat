@@ -16,7 +16,7 @@ defineProps({
     }
   }
 })
-
+// @ts-ignore
 const visible = ref<boolean>(false)
 
 </script>
@@ -28,11 +28,14 @@ const visible = ref<boolean>(false)
       <b class="inline-block leading-6 text-lg">{{ menu.title || menu.name }}</b>
     </span>
     <div class="followed" :class="`type-${menu.tagId}`">
-      <el-popover placement="bottom-end" v-model:visible="visible" :width="300" trigger="click" :show-arrow="false">
+      <el-popover placement="bottom-end" v-model:visible="visible" :width="300" trigger="click" :show-arrow="true">
         <template #reference>
           <div class="flex items-center cursor-pointer">
             <IconFont class="text-2xl mr-1" type="icon-message"></IconFont>
-            <span class="text-base">订阅专题相关异动</span>
+            <span class="text-base">
+              <span class="hidden md:inline-block">订阅专题相关异动</span>
+              <span class="inline-block md:hidden">订阅</span>
+            </span>
           </div>
         </template>
         <div>

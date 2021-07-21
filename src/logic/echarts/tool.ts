@@ -37,7 +37,9 @@ export const initProps = {
 
 export const valueFormatter = function(data: SeriesItem): string {
   let value = '-'
-  if (isNumber(data.value)) {
+  if (data.origin && isNumber(data.origin)) {
+    value = numberUint(data.origin as number)
+  } else if (data.value && isNumber(data.value)) {
     value = numberUint(data.value as number)
   }
   // 判断是否是金额

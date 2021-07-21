@@ -33,6 +33,7 @@ const logStatus = computed(function() {
   return toBoolean(props.data?.detail?.log)
 })
 
+// @ts-ignore
 const getAreaStatus = computed(function() {
   if (props.data?.detail) {
     const stack = toBoolean(props.data?.detail?.stack)
