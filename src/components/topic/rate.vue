@@ -1,7 +1,10 @@
 <script setup="setup" lang="ts">
 import { defineProps, computed } from 'vue'
 import bignumber from 'bignumber.js'
+// @ts-ignore
 import { toNumber, isNumber } from '~/utils'
+// @ts-ignore
+import { valueFormatter } from '~/logic/echarts/tool'
 
 const props = defineProps({
   data: {
@@ -26,13 +29,18 @@ const rateChange = computed<number>(function() {
   return convertNumber(props.data?.rateChange, 100)
 })
 
+// @ts-ignore 处理数字
+const rateFormatter = function(value: number, unit: string) {
+  return valueFormatter({ value, unit })
+}
+
 </script>
 
 <template>
   <span class="flex items-end">
     <span v-if="isNumber(data.rateValue)" class="text-2xl mr-2">
-      <span class="text-global-numGreen " v-if="rateValue >= 0">{{rateValue}}{{ data.rateUnit }}</span>
-      <span class="text-global-numRed" v-else>{{rateValue}}{{ data.rateUnit }}</span>
+      <span class="text-global-numGreen " v-if="rateValue >= 0">{{ rateFormatter(rateValue, data.rateUnit) }}</span>
+      <span class="text-global-numRed" v-else>{{ rateFormatter(rateValue, data.rateUnit) }}</span>
     </span>
     <span v-if="isNumber(data.rateChange)" class="text-sm">
       <template v-if="rateChange >= 0">

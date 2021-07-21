@@ -35,10 +35,12 @@ const getNextStatus = function(): boolean {
 // @ts-ignore
 const getRowColWidth = function(width: number): string[] {
   const className = ['w-full']
-  if (width > 50) {
-    return className
+  if (width === 50) {
+    className.push('lg:w-1/2')
   }
-  className.push('lg:w-1/2')
+  else if (width === 33) {
+    className.push('lg:w-1/3')
+  }
   return className
 }
 
@@ -99,6 +101,9 @@ onUnmounted(function() {
         </div>
       </div>
     </template>
+    <div class="py-5 w-full">
+      <p class="text-xs text-global-grey text-center">—— 已到底部 ——</p>
+    </div>
   </div>
   <div v-else>
     <empty desc="暂无图表"/>

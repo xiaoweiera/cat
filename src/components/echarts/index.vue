@@ -3,22 +3,23 @@ import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, forEach, map, numberUint, uuid } from '~/utils/index'
-import { ref, reactive, toRaw, defineProps, onMounted, onUnmounted } from 'vue'
+import { defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/topic/item'
 import { calcYAxis } from '~/logic/echarts/series'
 import * as logicLegend from '~/logic/echarts/legend'
 
 import {
-  grid,
   graphic,
+  grid,
   tooltips as makeTooltipOption,
   xAxis as makeXAxisOption,
-  yAxisKline as makeYAxisOption
+  yAxisKline as makeYAxisOption,
 } from '~/lib/chartOption'
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
-import { seriesType, colors } from '~/logic/echarts/interface'
+import { seriesType } from '~/logic/echarts/interface'
+import { viewWidth } from '~/utils/event/scroll'
 
 const props = defineProps({
   stack: {
@@ -64,8 +65,7 @@ const getToolTip = function() {
 
 const getLegendRow = function(): number {
   const echart = toRaw(echartsRef).value
-  const row = logicLegend.clacLegendRows(getValue(legend), echart)
-  return row
+  return logicLegend.clacLegendRows(getValue(legend), echart)
 }
 
 const getLegend = function() {
@@ -90,7 +90,6 @@ const getXAxis = function() {
 
 // 计算 Y 轴刻度数据
 const getYAxis = function(): any[] {
-  const viewWidth = document.documentElement.clientHeight
   const [ option ] = makeYAxisOption(function(value: number) {
     return numberUint(value)
   })
@@ -122,7 +121,7 @@ const getYAxis = function(): any[] {
       position: Position.right
     }))
   }
-  if (viewWidth < 768) {
+  if (viewWidth() < 768) {
     return map(function(item: any) {
       safeSet(item, 'axisLabel.inside', true)
       return item

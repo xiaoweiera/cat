@@ -6,7 +6,7 @@
 import { pick, toLower } from 'ramda'
 import * as api from '~/api/topic'
 import safeGet from '@fengqiaogang/safe-get'
-import { forEach ,map, compact, toBoolean } from '~/utils/index'
+import { forEach, map, compact, toBoolean, toNumber } from '~/utils/index'
 import DBList from '@fengqiaogang/dblist'
 
 enum Position {
@@ -55,6 +55,7 @@ export const getChartList = async function(topId: string | number, page: number 
     page_size: limit,
     query: search
   }
+  console.log(topId)
   const result = await api.getChartList(topId, query)
   const list = map(function(data: any) {
     // 判断是单图还是多图
@@ -63,8 +64,30 @@ export const getChartList = async function(topId: string | number, page: number 
     if (apiCharts && apiCharts.length > 0) {
       const legends = getLegends(apiCharts)
       // 获取该图表的数据（根据 id 获取数据详情）
+
+      let width = toNumber(safeGet<number>(data, 'width'))
+      let height = toNumber(safeGet<number>(data, 'height'))
+      if (width === 0) {
+        width = 50
+      } else if (width > 0 && width < 50) {
+        width = 33
+      } else if (width >= 50 && width < 100) {
+        width = 50
+      } else {
+        width = 100
+      }
+      if (height <= 200) {
+        height = 200
+      }
+      // 我的图表需要特殊处理
+      if (topId === 'my') {
+        width = 50
+        height = 200
+      }
       return {
         multiple,
+        width,
+        height,
         name: safeGet<string>(data, 'name') || '', // 图表名称
         chartId: safeGet<string>(data, 'id'), // 图表ID
         followed: toBoolean(safeGet<boolean>(data, 'followed')), // 是否已关注图表

@@ -6,7 +6,7 @@
 import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
-import { map, toNumber, toArray, toBoolean } from '~/utils'
+import { map, toArray, toBoolean } from '~/utils'
 import { toRaw } from 'vue'
 import {
   getInterval,
@@ -107,12 +107,6 @@ const getDetail = async function(data: ItemData) {
   }, legends)
 
   data.last = safeGet<number>(result, 'last')
-
-  const width = toNumber(safeGet<number>(result, 'width'))
-  data.width = width > 50 ? 100 : 50
-
-  const height = toNumber(safeGet<number>(result, 'height'))
-  data.height = height > 200 ? height : 200
 
   const stack = toBoolean(safeGet<boolean>(result, 'stacked'))
   data.stack = stack // 是否开启堆积图
