@@ -9,15 +9,20 @@ import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
 import { headerTag } from '~/store/header/login'
+import { wxShare } from '~/lib/wxShare'
 // 获取当前路由对象
 const router = useRoute()
 const titleName=computed(()=>{
+  let name=''
   if(!pairStore.id){
-    return `${symbolStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
+    name= `${symbolStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
   }else{
-    return `${pairStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
+    name= `${pairStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
   }
+  wxShare(name, 'liquidity')
+  return name
 })
+
 const navIsSelect = (path: string): string => {
   const $router = toRaw(router)
   const pathname: string = $router.path.value
@@ -45,7 +50,7 @@ onBeforeMount(() => {
 <template>
 
   <HeaderNav>
-    <template #nav>{{titleName}}
+    <template #nav>
       <nav class="itemContainer">
         <div class="h-full">
           <div class="flex font-normal h-full items-center">
