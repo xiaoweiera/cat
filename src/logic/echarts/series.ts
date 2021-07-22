@@ -237,17 +237,6 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
 // 计算Y轴数据
 export const calcYAxis = function(series: any[], stack: boolean = false, log: boolean = false) {
   const splitNumber = 4
-  if (log) {
-    return {
-      type: 'value',
-      min: 0,
-      splitNumber,
-      minorSplitLine: {
-        show: true
-      }
-    }
-  }
-
   const array: number[][] = []
   forEach(function(list: any[], j: number) {
     forEach(function(item: any, index: number) {
@@ -266,10 +255,21 @@ export const calcYAxis = function(series: any[], stack: boolean = false, log: bo
     minValue = min(array)
     maxValue = max(array)
   }
+  if (log) {
+    if (minValue > 0) {
+      minValue = Math.log10(minValue)
+    } else if (minValue < 0){
+      minValue = Math.log10(Math.abs(minValue))
+    } else {
+      minValue = 0
+    }
+    minValue = Math.floor(minValue)
+    maxValue = Math.ceil(Math.log10(maxValue))
+  }
   return {
+    splitNumber,
     min: minValue,
     max: maxValue,
-    splitNumber,
     interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
   }
 }

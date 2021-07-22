@@ -8,6 +8,8 @@ interface Config {
   api: string,
 }
 
+export const domain = 'https://kingdata.com'
+
 export const iconFont = [
   // 行情&流动性呀
   '//at.alicdn.com/t/font_2596648_8wx94egmbnx.js',
