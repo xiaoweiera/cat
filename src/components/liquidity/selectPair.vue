@@ -25,8 +25,8 @@ const changePair = (symbol0:string,name: string,id:string,tokenId:string) => {
   symbolStore.id=tokenId
   pairStore.name=name
   pairStore.id=id
-  changeRouteParam(route,router,{token:tokenId})
-  changeRouteParam(route,router,{pair:id,pairName:name})
+  changeRouteParam(route,router,{token:tokenId,pair:id,pairName:name})
+  // changeRouteParam(route,router,{pair:id,pairName:name})
   setHistory({name:name,pair_id:id,tokenName:symbol0,token_id:tokenId,type:'pair'})
 
 }
