@@ -102,13 +102,12 @@ const getTitleDesc=(title:string)=>{
   if(!title) return ''
   if(!pairStore.id) return title
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
-    const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
-    const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
-    console.log('aaa', I18n.template(titleCofig[props.chartId].replaceStr, {value:pairStore.name}))
+    // const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
+    // const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
     if(titleCofig[props.chartId].replaceStr){
-      return title.replace(titleCofig[props.chartId].replaceStr, I18n.template(titleCofig[props.chartId].replace, {value:pairStore.name}))
+      return title.replace(titleCofig[props.chartId].replaceStr, I18n.template(titleCofig[props.chartId].replace, {value:symbolStore.name}))
     }else{
-      return title+' '+coin
+      return title+' '+symbolStore.name
     }
   }else{
     return title
@@ -138,8 +137,9 @@ const getTitleDesc=(title:string)=>{
       <div v-if="!isNull" class="w-full">
         <LiquidityChart class="h-60 md:h-77.5 w-full "  :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
-      <div v-else class="flex items-center justify-center  w-full h-full">
-        <img class="w-62.5  md:mt-0 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
+      <div v-else class="flex flex-col items-center justify-center  w-full h-full">
+        <img class="w-50 mb-2 md:mb-4 md:w-62.5  md:mt-0" src="https://res.ikingdata.com/liquidity/liquidityNullData.jpg" alt="">
+        <span class="text-kd14px18px text-global-default text-opacity-32 font-kdFang ">{{I18n.liquidity.noData}}</span>
       </div>
     </div>
     <div v-else class="flex items-center justify-center   w-full   h-full justify-center">

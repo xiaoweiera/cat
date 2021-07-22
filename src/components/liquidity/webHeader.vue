@@ -1,15 +1,27 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { onBeforeMount, toRaw } from 'vue'
+import { onBeforeMount, toRaw,computed } from 'vue'
 import { useHead } from '@vueuse/head'
+import {pairStore, symbolStore,platStore} from '~/store/liquidity/state'
 import I18n from '~/utils/i18n/index'
 import * as lang from '~/utils/lang'
 import { href } from '~/utils/lang'
 import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
 import { headerTag } from '~/store/header/login'
+import { wxShare } from '~/lib/wxShare'
 // 获取当前路由对象
 const router = useRoute()
+const titleName=computed(()=>{
+  let name=''
+  if(!pairStore.id){
+    name= `${symbolStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
+  }else{
+    name= `${pairStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
+  }
+  wxShare(name, 'liquidity')
+  return name
+})
 
 const navIsSelect = (path: string): string => {
   const $router = toRaw(router)
@@ -21,23 +33,22 @@ const navIsSelect = (path: string): string => {
 }
 onBeforeMount(() => {
   useHead({
-    title: I18n.liquidity.webTitle,
+    title: titleName,
     meta: [
       {
         name: 'keywords',
-        content:
-            'Heco生态币,BSC生态币,ETH生态币,挖矿收益,生态币年化收益,DeFi挖矿,Heco挖矿,BSC挖矿,ETH挖矿,挖矿收益APY大全',
+        content:'MDEX 、PANCAKE、UNISWAP、SHISUSWAP、SWAP、DEX Analysis、流动性份分析、交易数据分析、TVL、liquidity、dextools',
       },
       {
         name: 'description',
-        content:
-            '本站收集整理了Heco、ETH、BSC三条公链各借贷平台和机枪池的挖矿收益APY数据，根据类型将其分类方便您的查看',
+        content:'MDEX 、PANCAKE、UNISWAP、SHISUSWAP、SWAP、DEX Analysis、流动性份分析、交易数据分析、TVL、liquidity、dextools',
       },
     ],
   })
 })
 </script>
 <template>
+
   <HeaderNav>
     <template #nav>
       <nav class="itemContainer">

@@ -6,9 +6,12 @@
 import { router } from '~/utils/directive/router'
 
 export const config = {
-  topic: '/123topic',
+  topic: '/topic',
   growthpad: '/growthpad',
   apy: '/apy',
+  bull: '/bull',
+  nav: '/nav',
+  tih: '/tih',
   reports: 'https://ikingdata.com/reports/', // 研究报告
   news: 'https://ikingdata.com/news/' // 7x24小时监控
 }

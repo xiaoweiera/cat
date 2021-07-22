@@ -31,8 +31,7 @@ export const router = function(data: string | To): any {
     Object.keys(to.query).forEach((key: string) => {
       query.push(`${key}=${to.query[key]}`)
     })
-    const path = `${to.path}?${query.join('&')}`
-    return path
+    return `${to.path}?${query.join('&')}`
   }
   if (data) {
     return data

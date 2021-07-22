@@ -18,7 +18,7 @@ const getPlat = async() => {
   } = await exchange_list()
   plats.data = data
   plats.select = R.find((item) => item.name === routeQuery.plat, plats.data) || plats.data[0]
-  updateData(platStore, plats.select)
+  // updateData(platStore, plats.select)
 }
 const selectPlatChange = (status: boolean) => {
   platShow.value = status

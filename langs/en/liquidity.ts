@@ -7,8 +7,9 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    noData:'No Data',
     address:'Address',
-    webTitle:'DEX Analysis——Kingdata',
+    webTitle:'KingData DEX Analysis',
     mobile:{
         select:'Search',
         selectDes:'Search token',

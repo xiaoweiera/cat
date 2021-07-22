@@ -21,7 +21,6 @@ const pairList = ref([])
 const changePair = (name: string, id: string) => {
   updateData(pairStore, {name, id})
   changeRouteParam(route, router, {pair: id, pairName: name})
-  console.log(!tokenTableShow.value[0])
     setTimeout(()=> {
       window.scrollTo(0,3)
       window.scrollTo(0,0)})

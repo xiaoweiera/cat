@@ -1,6 +1,9 @@
 <script setup lang="ts">
+// @ts-ignore
 import { menu } from '~/logic/menu'
+// @ts-ignore
 import I18n from '~/utils/i18n/index'
+// @ts-ignore
 import { headerTag } from '~/store/header/login'
 </script>
 <template>
