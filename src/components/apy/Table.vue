@@ -152,14 +152,14 @@ const tipShowInfo=(key:string)=>{
   }
 }
 </script>
-<template>
+<template> 
   <div v-if="props.tableData.rows" class="tableHeaderTop">
     <ApyTableFilters :timer="timer" :project="tableData.slug" :options="options" :title="title"/>
     <div class="flex flex-col relative minWidth">
       <img v-if="tableData.loading && isFirstShow" class="loading" src="/assets/loading.gif" alt=""/>
       <div class="xshidden">
         <!-- pc -->
-        <el-table class="w-full" v-if="!tableData.loading || (tableData.loading && !isFirstShow)" :data="renderCells.slice(0, 10)" :header-cell-style="headerCellStyle" :cell-style="addClass">
+        <el-table class="w-full" v-if="!tableData.loading || (tableData.loading && !isFirstShow)" :data="renderCells" :header-cell-style="headerCellStyle" :cell-style="addClass">
           <el-table-column fixed width="140">
             <template #header="scope">
               <div class="text-kd12px16px text-global-default opacity-65 mb-2.5 ml-3">

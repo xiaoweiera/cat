@@ -55,6 +55,7 @@ const echartHeight = computed(function() {
   return 200
 })
 
+// @ts-ignore
 const onLoad = async function() {
   const option = props.option
   //@ts-ignore
@@ -63,7 +64,6 @@ const onLoad = async function() {
   result.detail = data.detail
   result.legends = data.legends
   result.xAxis = data.xAxis
-
 }
 
 </script>
@@ -72,7 +72,7 @@ const onLoad = async function() {
   <FullScreen>
     <template #default="scope">
       <!-- 全屏 -->
-      <el-container v-if="scope.status" class="h-full">
+      <el-container v-if="scope.status" class="h-full" :class="`j-big-${echartDetail.chartId}`">
         <el-header height="initial" class="p-0" >
           <TopicChartHead :data="echartDetail" :full="scope.status"/>
         </el-header>

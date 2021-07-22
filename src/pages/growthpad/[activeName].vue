@@ -21,11 +21,16 @@ onBeforeMount(() => {
     <growthpadTaskDashboard />
 
     <div class="pt-15 px-4 md:px-6">
-      <growthpadTaskAdress>
-        <template #default v-if="store.getNickName() === ProjectKey.chainwallet">
-          <GrowthpadChainwalletReward/>
-        </template>
-      </growthpadTaskAdress>
+      <template v-if="store.getNickName() === ProjectKey.heco">
+        <growthpadHecoAddress/>
+      </template>
+      <template v-else>
+        <growthpadTaskAdress>
+          <template #default v-if="store.getNickName() === ProjectKey.chainwallet">
+            <GrowthpadChainwalletReward/>
+          </template>
+        </growthpadTaskAdress>
+      </template>
 
       <template v-if="store.projectName === ProjectKey.coinwind">
         <growthpadTaskCoinwind></growthpadTaskCoinwind>
@@ -33,6 +38,7 @@ onBeforeMount(() => {
 
       <div>
         <h2 class="font-kdFang">{{ I18n.growthpad.growthTasks }}</h2>
+        <p class="text-sm text-global-highTitle">{{ store.taskDetail.value }}</p>
         <div class="pb-15">
           <DotCountGroup class="pt-4">
             <ul class="task-list">
@@ -42,6 +48,9 @@ onBeforeMount(() => {
                 class="pb-7.5"
               >
                 <template v-if="store.getNickName() === ProjectKey.chainwallet">
+                  <growthpadChainwalletItem :data="item"></growthpadChainwalletItem>
+                </template>
+                <template v-else-if="store.getNickName() === ProjectKey.heco">
                   <growthpadChainwalletItem :data="item"></growthpadChainwalletItem>
                 </template>
                 <template v-else>

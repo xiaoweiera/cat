@@ -11,14 +11,17 @@ import mockChannels from '../../../mock/growthpad/channels'
 import mockCoinWind from '../../../mock/growthpad/coinwind'
 import mockGrowth from '../../../mock/growthpad/growth'
 // import mockChainWallet from '../../../mock/growthpad/chainwallet'
+import mockHeco from '../../../mock/growthpad/heco'
 
 // 项目 ID
+
 export enum ProjectKey {
   mdx = 'MDX',
   channels = 'CHANNELS',
   coinwind = 'COINWIND',
   growth = 'GROWTH',
   // chainwallet = 'CHAINWALLET'
+  heco = 'HECO',
 }
 
 export const ProjectMockData = {
@@ -27,6 +30,7 @@ export const ProjectMockData = {
   [ProjectKey.coinwind]: mockCoinWind,
   [ProjectKey.growth]: mockGrowth,
   // [ProjectKey.chainwallet]: mockChainWallet
+  [ProjectKey.heco]: mockHeco,
 }
 
 /**
@@ -52,6 +56,7 @@ export const ProjectShareCode: any = {
   [ProjectKey.channels]: '-G3',
   [ProjectKey.growth]: '-G4',
   // [ProjectKey.chainwallet]: '-G5',
+  [ProjectKey.heco]: '-G6'
 }
 
 
@@ -61,6 +66,7 @@ export const ProjectPageTitle: any = {
   [ProjectKey.channels]: `${I18n.growthpad.channels.title}-GrowthPad`,
   [ProjectKey.coinwind]: `${I18n.growthpad.coinwind.title}-GrowthPad`,
   // [ProjectKey.chainwallet]: `${I18n.growthpad.chainwallet.title as any}-GrowthPad`
+  [ProjectKey.heco]: `${I18n.growthpad.heco.title}-GrowthPad`,
 }
 
 
@@ -70,6 +76,7 @@ export const ProjectCopyTitle = {
   [ProjectKey.channels]: I18n.growthpad.channels.title,
   [ProjectKey.growth]: I18n.growthpad.growthpad.title,
   // [ProjectKey.chainwallet]: I18n.growthpad.chainwallet.title as any
+  [ProjectKey.heco]: I18n.growthpad.heco.title,
 }
 
 // 项目分享标题
@@ -88,7 +95,10 @@ export const ProjectShareTitle: any = {
   }),
   // [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.title, {
   //   project: 'ChainWallet'
-  // })
+  // }),
+  [ProjectKey.heco]: I18n.template(I18n.growthpad.wechat.title, {
+    project: I18n.growthpad.heco.title
+  }),
 }
 // 项目分享描述
 export const ProjectShareDesc: any = {
@@ -106,7 +116,11 @@ export const ProjectShareDesc: any = {
   }),
   // [ProjectKey.chainwallet]: I18n.template(I18n.growthpad.wechat.desc, {
   //   project: 'ChainWallet'
-  // })
+  // }),
+  // [ProjectKey.heco]: I18n.template(I18n.growthpad.wechat.desc, {
+  //   project: I18n.growthpad.heco.title
+  // }),
+  [ProjectKey.heco]: 'Lucky Heco event is live, fill in Heco address to get NFT Mystery box!',
 }
 
 

@@ -21,6 +21,7 @@ const isWeibo = computed((): boolean => {
   return props.data?.type === TaskType.weibo
 })
 
+// @ts-ignore
 const symbolValue = computed<string>((): string => {
   // 项目名称
   // @ts-ignore
@@ -150,6 +151,7 @@ const childrenRewardStatus = function(data: any): number {
 // @ts-ignore
 const rewardValue = computed<number>((): number => {
   // 微博文章任务
+  // @ts-ignore
   if (props.data.type === TaskType.weibo) {
     const number = toNumber(store.article_reward.value, 0)
     return number
@@ -237,41 +239,51 @@ const rewardValue = computed<number>((): number => {
     }
   }
   // chainwallet 任务
+  // @ts-ignore
   if (props.data.type === TaskType.chainwallet) {
     if (isSuccess(store.mission.chainwallet)) {
       return toNumber(store.info.chainwallet_reward)
     }
     // 任务结果验证中
     if (!isEmpty(store.mission.chainwallet)) {
+      // @ts-ignore
       return getMax(props.data.reward)
     }
   }
 
   // twiiter 任务
+  // @ts-ignore
   if (props.data.type === TaskType.twitter) {
     // 任务完成
     if (!isEmpty(store.mission.follow_twitter)) {
+      // @ts-ignore
       return getMin(props.data.reward)
     }
   }
 
   // 转发 twiiter 任务
+  // @ts-ignore
   if (props.data.type === TaskType.retwitter) {
     if (!isEmpty(store.mission.retweet)) {
+      // @ts-ignore
       return getMin(props.data.reward)
     }
   }
 
   // 关注电报任务
+  // @ts-ignore
   if (props.data.type === TaskType.telegram) {
     if (!isEmpty(store.mission.telegram_group)) {
+      // @ts-ignore
       return getMin(props.data.reward)
     }
   }
 
   // 关注新浪微博任务
+  // @ts-ignore
   if (props.data.type === TaskType.sina) {
     if (!isEmpty(store.mission.follow_weibo)) {
+      // @ts-ignore
       return getMin(props.data.reward)
     }
   }
@@ -283,30 +295,27 @@ const rewardValue = computed<number>((): number => {
 
 </script>
 <template>
+  <!-- 已获得  -->
   <template v-if="rewardValue">
     <span class="font-bold font-kdExp inline-block whitespace-nowrap">
       <span class="reward bonus block md:inline-block">
-        <span class="min-w-16 inline-block text-right">
-          <span class="text-xs">{{ I18n.common.message.get }}</span>
-          <span class="count">{{ rewardValue }}</span>
-        </span>
-        <span class="ml-1">{{ tokenValue }}</span>
+        <GrowthpadRewardFormat :unid="tokenValue" :value="rewardValue" :symbol="I18n.common.message.get" />
       </span>
       <span class="block md:inline-block text-right md:text-left">
         <slot></slot>
       </span>
     </span>
   </template>
+  <!-- 未获得 -->
   <template v-else>
     <span class="font-bold font-kdExp inline-block whitespace-nowrap">
       <span class="reward block md:inline-block">
         <template v-if="isWeibo">
-          <span class="count">{{ symbolValue }}{{ getMin(data.reward) }}~{{getMax(data.reward) }}</span>
+          <GrowthpadRewardFormat :unid="tokenValue" :value="[getMin(data.reward), getMax(data.reward)]" :symbol="symbolValue" />
         </template>
         <template v-else>
-          <span class="count inline-block min-w-16 text-right">{{ symbolValue }}{{ getMax(data.reward) }}</span>
+          <GrowthpadRewardFormat :unid="tokenValue" :value="getMax(data.reward)" :symbol="symbolValue" />
         </template>
-        <span class="ml-1">{{ tokenValue }}</span>
       </span>
       <span class="block md:inline-block text-right md:text-left">
         <slot></slot>
@@ -319,11 +328,24 @@ const rewardValue = computed<number>((): number => {
 .reward {
   user-select: none;
   color: #2b8dfe;
+
+  %number {
+    font-size: 26px;
+  }
+
   &.bonus {
     color: #00b464;
   }
-  .count {
-    font-size: 26px;
+  ::v-deep(.reward-value) {
+    @extend %number;
+  }
+  ::v-deep(.reward-unit) {
+    @apply ml-1;
+  }
+  &:not(.bonus) {
+    ::v-deep(.reward-symbol) {
+      @extend %number;
+    }
   }
 }
 </style>

@@ -40,7 +40,6 @@ const TaskStyle = computed<string>(function() {
   if (props.status === TimeStatus.closure) {
     return `background-image: url("https://res.ikingdata.com/nav/grothpadOver.png")`
   }
-  console.log(props.project.title)
   if (imgs[props.project.title]) {
     const src = imgs[props.project.title]
     console.log(src)
@@ -48,6 +47,13 @@ const TaskStyle = computed<string>(function() {
   }
   return ''
 })
+
+const isVisible = function(value: any) {
+  if (value) {
+    return ''
+  }
+  return 'hidden'
+}
 
 </script>
 <template>
@@ -75,11 +81,11 @@ const TaskStyle = computed<string>(function() {
         <p class="text-sm leading-5 text-global-default text-opacity-65 description">{{ props.project.dashboard.description }}</p>
       </div>
       <ul class="pt-2.5">
-        <li class="py-1.5 text-sm text-global-default text-opacity-65">
+        <li class="py-1.5 text-sm text-global-default text-opacity-65" :class="isVisible(props.project.dashboard.reward.countStr)">
           <label class="label mr-8">{{ I18n.growthpadShow.reward }}</label>
           <span>{{ props.project.dashboard.reward.countStr }}</span>
         </li>
-        <li class="py-1.5 text-sm text-global-default text-opacity-65">
+        <li class="py-1.5 text-sm text-global-default text-opacity-65" :class="isVisible(props.project.dashboard.reward.limits[0])">
           <label class="label mr-8">{{ I18n.growthpadShow.perPersion }}</label>
           <span>
             {{ formatCash(props.project.dashboard.reward.limits[0]) }}{{ props.project.coin }}

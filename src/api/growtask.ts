@@ -8,28 +8,22 @@ import request from '~/lib/service'
 import { growthpad } from '~/api/pathname'
 import { LoginStatus } from '~/logic/user/check'
 import { getProjectType } from '~/logic/growthpad/config'
+import { toNumber } from '~/utils/index'
 
-const _cacheData: any = {}
 // 项目信息
 export const projectDetail = async function(id: string): Promise<any> {
   try {
-    if (_cacheData && _cacheData[id]) {
-      return Promise.resolve(_cacheData[id])
-    }
     const result = await request.get(growthpad.getProject, {
       params: { project: id },
     })
     const data = safeGet(result, 'data.data')
-    _cacheData[id] = data
     return data
   } catch (e) {
     return {}
   }
 }
 // 用户完成任务的信息
-const projectInfo = LoginStatus(
-  growthpad.getUserInfo,
-  async(id: string): Promise<any> => {
+const projectInfo = LoginStatus(growthpad.getUserInfo, async(id: string): Promise<any> => {
     try {
       const result = await request.get(growthpad.getUserInfo, {
         params: { project: id },
@@ -50,6 +44,7 @@ export const getProjectInfo = async function(id: string): Promise<any> {
     ])
     const value = Object.assign({}, result, {
       price: safeGet(detail, 'price') || 0,
+      lottery: toNumber(safeGet(detail, 'info.lottery_status') || 0) // 开奖状态
     })
     return value
   }

@@ -8,6 +8,6 @@
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: examples
+  layout: topic
 </route>
 // @formatter:off

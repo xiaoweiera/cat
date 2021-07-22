@@ -98,17 +98,17 @@ const onSubmit = async function() {
       })
     }
     if (status) {
-      editStatus.value = true
       // @ts-ignore
       const name = addressEnum[props.name]
       // @ts-ignore
       if (name && store[name]) {
+        // @ts-ignore
+        await store[name](value)
+        editStatus.value = true
         // 清空表单
         form.resetFields()
         // 清除验证结果
         form.clearValidate()
-        // @ts-ignore
-        await store[name](value)
         // 数据更新成功后执行
         emitEvent('updated', props.name)
       }

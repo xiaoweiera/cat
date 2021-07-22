@@ -181,7 +181,7 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
       const [date, value, klValue] = [...array]
       const time = dateTime(date)
       const key = makeDateKey(time, interval)
-      const item: SeriesItem = { key, time, value, klValue, id }
+      const item: SeriesItem = { key, time, value, klValue, id, origin: value }
       db.insert(item)
     }, trends[id])
     dbMaps.set(id, db)
@@ -206,6 +206,7 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
           key: null,
           time: null,
           value: null,
+          origin: null,
           klValue: null,
         }
         array.push(temp)
@@ -233,38 +234,42 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
   return data
 }
 
-
 // 计算Y轴数据
-export const calcYAxis = function(series: any[], stack?: boolean) {
+export const calcYAxis = function(series: any[], stack: boolean = false, log: boolean = false) {
   const splitNumber = 4
-
   const array: number[][] = []
   forEach(function(list: any[], j: number) {
     forEach(function(item: any, index: number) {
       safeSet(array, `[${index}][${j}]`, item.value)
     }, list)
   }, series)
-
+  let minValue = 0
+  let maxValue = 0
   // 是否开启堆积图
   if (stack) {
     const minList = map((item: number[]) => subtract(item), array)
     const maxList = map((item: number[]) => add(item), array)
-    const minValue = min(minList)
-    const maxValue = max(maxList)
-    return {
-      min: minValue,
-      max: maxValue,
-      splitNumber,
-      interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
-    }
+    minValue = min(minList)
+    maxValue = max(maxList)
   } else {
-    const minValue = min(array)
-    const maxValue = max(array)
-    return {
-      min: minValue,
-      max: maxValue,
-      splitNumber,
-      interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
+    minValue = min(array)
+    maxValue = max(array)
+  }
+  if (log) {
+    if (minValue > 0) {
+      minValue = Math.log10(minValue)
+    } else if (minValue < 0){
+      minValue = Math.log10(Math.abs(minValue))
+    } else {
+      minValue = 0
     }
+    minValue = Math.floor(minValue)
+    maxValue = Math.ceil(Math.log10(maxValue))
+  }
+  return {
+    splitNumber,
+    min: minValue,
+    max: maxValue,
+    interval: minValue === maxValue ? (maxValue / splitNumber) : ((maxValue - minValue) / splitNumber)
   }
 }

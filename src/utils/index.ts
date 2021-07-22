@@ -417,7 +417,7 @@ const unitPow = {
 export const numberUint = function(value: number, unit?: Unit) {
   const count = toNumber(value, 4)
   if (!unit) {
-    const number = (`${toInteger(value)}`).replace(/[^0-9]/, '')
+    const number = (`${toInteger(Math.abs(value))}`).replace(/[^0-9]/, '')
     const length = number.length
     if (length > 8) {
       unit = Unit.hundredMillion
@@ -435,7 +435,7 @@ export const numberUint = function(value: number, unit?: Unit) {
     const data = toNumberCeil(count / pow)
     return I18n.part(template, data, { data })
   } else {
-    const data = toNumberCeil(count * pow)
+    const data = toNumberCeil(count / pow)
     return I18n.part(template, data, { data: `-${Math.abs(data)}` })
   }
 }

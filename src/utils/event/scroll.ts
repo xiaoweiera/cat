@@ -4,6 +4,7 @@
  */
 
 import * as event from './index'
+import { max } from '~/utils'
 
 type Callback = (e: Event) => void
 
@@ -37,6 +38,9 @@ const init = function() {
 export const viewHieght = function() {
   return document.documentElement.clientHeight
 }
+export const viewWidth = function() {
+  return max(document.body.clientWidth, document.documentElement.clientWidth)
+}
 
 export const bodyHeight = function() {
   return document.body.clientHeight
@@ -51,6 +55,12 @@ export const scrollTop = function(): number {
     scroll_top = document.body.scrollTop
   }
   return scroll_top;
+}
+
+// 设置页面滚动条位置
+export const setScrollTop = function(top: number = 0) {
+  // @ts-ignore
+  document.scrollingElement.scrollTop = top
 }
 
 export const unbind = function(namespace: string) {

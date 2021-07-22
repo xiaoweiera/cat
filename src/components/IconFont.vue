@@ -101,11 +101,12 @@ const iconCode = function() {
 
 <template>
   <span class="inline-block none-select icon-font" v-if="isAliOSS">
-    <img
-      class="inline-block none-select"
-      :class="`icon-${type} size-${size}`"
-      :src="src"
-    />
+    <template v-if="isHttp(type)">
+      <img class="inline-block none-select" :class="`size-${size}`" :src="src"/>
+    </template>
+    <template v-else>
+      <img class="inline-block none-select" :class="`icon-${type} size-${size}`" :src="src"/>
+    </template>
   </span>
   <i class="icon-font inline-block" v-else>
     <svg aria-hidden="true" v-html="iconCode()"></svg>
@@ -141,6 +142,9 @@ const iconCode = function() {
 }
 
 @mixin size($number) {
+  @if unitless($number) {
+    $number: $number * 1px;
+  }
   width: $number;
   height: $number;
   max-width: $number;
@@ -160,16 +164,11 @@ const iconCode = function() {
 .size-2xl {
   @include size(24px);
 }
-
 .size-xl {
   &:not(.icon-new) {
     @include size(20px);
   }
 }
-.size-8 {
-  @include size(8);
-}
-
 .size-base {
   @include size(16px);
 }
@@ -179,6 +178,17 @@ const iconCode = function() {
 .size-mini {
   @include size(10px);
 }
+/*
+  快速生成一批尺寸 6，8，10,,,60
+*/
+@for $index from 6 through 60 {
+  @if ($index % 2 == 0) {
+    .size-#{$index} {
+      @include size($index);
+    }
+  }
+}
+
 
 .icon-loading {
   transform-origin: 50% 50%;

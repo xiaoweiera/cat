@@ -4,7 +4,7 @@
  */
 
 import safeGet from '@fengqiaogang/safe-get'
-import { Info, Mission, MissionStatus } from './props'
+import { Mission, MissionStatus } from './props'
 import { setProjectUserInfo } from '~/api/growtask'
 import { messageError } from '~/lib/tool'
 import { inputBeautify } from '~/utils/index'
@@ -22,7 +22,7 @@ export const postInfo = function(key: string) {
     descriptor: PropertyDescriptor,
   ) {
     const fun = descriptor.value
-    descriptor.value = async function <T>(value: string): Promise<T> {
+    descriptor.value = async function <T>(value: string): Promise<T | undefined> {
       const self = this
       // 取消定时器
       // @ts-ignore
@@ -35,6 +35,15 @@ export const postInfo = function(key: string) {
       data[key] = inputBeautify(value)
       // 将结果传递给原方法
       try {
+        // @ts-ignore
+        const areaRestrict = await this.getAreaRestrictStatus(true)
+        // 判断是否有区域限制
+        if (areaRestrict) {
+          return Promise.reject({
+            restrict: true
+          })
+        }
+
         const temp = await Promise.resolve(fun.call(self, value, data))
         if (temp) {
           Object.assign(data, temp)
@@ -77,9 +86,8 @@ export const postInfoBasis = function(key = 'bsc') {
       data: Query,
     ): Promise<T> {
       // @ts-ignore
-      const info: Info = this.info
-      const address = inputBeautify(info.bsc)
-      data[key] = address
+      // const info: Info = this.info
+      // data[key] = inputBeautify(safeGet(info, key))
       try {
         const result = await Promise.resolve(fun.call(this, value, data))
         if (result) {

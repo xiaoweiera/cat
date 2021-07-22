@@ -2,7 +2,7 @@
 import { computed, defineProps } from 'vue'
 import dayjs from 'dayjs'
 // @ts-ignore
-import { TimeStatus, getTimeStatus, getMax, getMin } from './task'
+import { getMax, getMin, getTimeStatus, TimeStatus } from './task'
 import { ProjectKey } from '~/logic/growthpad/config'
 import I18n from '~/utils/i18n/index'
 import Task from '~/logic/growthpad/task'
@@ -37,6 +37,9 @@ const format = 'YYYY-MM-DD HH:mm:ss'
 const title = computed<string>((): string => {
   // @ts-ignore
   const data = { project: store.title.value }
+  if (store.getNickName() === ProjectKey.heco) {
+    return 'LUCKY HECO'
+  }
   // @ts-ignore
   if (store.getNickName() === ProjectKey.growth) {
     return data.project
@@ -100,6 +103,15 @@ const timeCountdownValue = computed<string>((): string => {
   // @ts-ignore
   return store.dashboard.end
 })
+
+// @ts-ignore
+const rewardStatus = computed(function() {
+  if (store.getNickName() === ProjectKey.heco) {
+    return false
+  }
+  return true
+})
+
 </script>
 
 <template>
@@ -108,12 +120,12 @@ const timeCountdownValue = computed<string>((): string => {
       <div class="equal-content">
         <div class="w-full h-full banner-item" :style="bannerStyle"></div>
         <DotChar
-          class="logo left-6 absolute hidden md:block"
+          class="logo left-6 absolute hidden bg-white md:block"
           :img="store.icon.value"
           size="xl-10"
         />
         <DotChar
-          class="logo left-4 absolute block md:hidden"
+          class="logo left-4 absolute block bg-white md:hidden"
           :img="store.icon.value"
           size="xl-8"
         />
@@ -149,9 +161,12 @@ const timeCountdownValue = computed<string>((): string => {
         </div>
       </div>
       <div>
-        <p class="description text-sm font-kdFang whitespace-pre-line" v-html="store.dashboard.description"></p>
+        <p class="pb-1.5" v-if="store.getNickName() === ProjectKey.heco">
+          <span class="text-base leading-6 text-global-highTitle font-medium">Lucky Heco event is live, fill in Heco address to get NFT Mystery box! </span>
+        </p>
+        <p class="description text-sm font-kdFang whitespace-pre-line leading-5" v-html="store.dashboard.description"></p>
       </div>
-      <div class="pt-5">
+      <div class="pt-5" :class="{'hidden': !rewardStatus}">
         <slot :count-title="rewardCountTitle" :count-data="countComputed(store.dashboard.rewardCount)" :value-title="rewardValueTitle" :value-data="getPrice(store.dashboard.rewardCount)" :person-title="rewardPersonTitle" :person-data="[store.dashboard.rewardLimit, store.dashboard.rewardLimit]" :token="store.token">
           <ul class="flex font-kdFang">
             <li class="align-text-bottom">

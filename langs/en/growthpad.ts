@@ -299,7 +299,7 @@ CoinWind now supports the pledge of HECO and BSC mainchain ecologies, and will s
       placeholder: 'Enter BSC / HECO address',
     },
     about: {
-      telegram: 'https://t.me/KingDataEN', // 中文电报群
+      telegram: 'https://t.me/KingDataEN', // 英文电报群
       detail: `GrowthPad is aimed to help the project accurately screen and locate users through accurate user behavior portraits, sophisticated modeling, and efficient task mode. At the same time, GrowthPad helps the project distribute generous rewards to target users and avoid invalid users in order to achieve rapid project growth.
 
 GrowthPad conducts comprehensive mining and analysis of data on the chain and mainstream project data on the public chain, and has established a rich database of user behavior characteristics. Currently GrowthPad supports the following public chains: ETH, HECO, BSC, OKChain.`
@@ -381,5 +381,8 @@ Rule: Before starting the task, participants need to the KingData account and en
     task5: {
       desc: `The reward is based on the number of followers or article readings volume on different platforms. The more follwers and reading volume, the more rewards participants will get. The reward amount is 100~500 CHA. (The number of follwers is not less than 2,000, and the number of readings is not less than 1,000) Mainstream media: Twittter,Facebook,Weibo,Zhihu, Toutiao, etc.`
     }
+  },
+  heco: {
+    title: 'LUCKY HECO'
   }
 };

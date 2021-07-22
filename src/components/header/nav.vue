@@ -1,13 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
+import { useProvide } from '~/utils/use/state'
+// @ts-ignore
 import { headerTag } from '~/store/header/login'
 // @ts-ignore
 import { current, nextLang, href } from '~/utils/lang'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
-// @ts-ignore
 
+import { useHead } from '@vueuse/head'
+
+const props = defineProps({
+  title: {
+    type: String
+  }
+})
+
+// @ts-ignore
 const download = ref<string>('https://www.kingdata.com/download')
+// @ts-ignore
 const growthPad = ref('https://kingdata.com/growthpad')
 // @ts-ignore
 const onSwitchLang = function() {
@@ -17,6 +28,25 @@ const onSwitchLang = function() {
     window.location.href = url
   }
 }
+
+
+
+const [metaState] = useProvide('headerMeta')
+
+onMounted(function() {
+  const list = metaState.value
+  const data: any = {}
+  if (props.title) {
+    data.title = props.title
+  }
+  if (list.length > 0) {
+    data.meta = list
+  }
+  if(Object.keys(data).length > 0) {
+    useHead(data)
+  }
+})
+
 </script>
 <template>
   <nav class="sticky top-0 headerBg flex items-center justify-between relative z-2 px-4 md:px-6 h-18 font-kdFang">
@@ -24,17 +54,8 @@ const onSwitchLang = function() {
       <div class="md:hidden mr-3">
         <HeaderMobile></HeaderMobile>
       </div>
-      <a
-        v-if="headerTag.name === 'GrowthPad'"
-        v-router="growthPad"
-        class="block"
-        target="_blank"
-      >
-        <img
-          class="w-28 h-9.5"
-          src="https://res.ikingdata.com/nav/navLogoAll.png"
-          alt=""
-        />
+      <a v-if="headerTag.name === 'GrowthPad'" v-router="growthPad" class="block" target="_blank">
+        <img class="w-28 h-9.5" src="https://res.ikingdata.com/nav/navLogoAll.png" alt=""/>
       </a>
       <a v-else href="https://www.kingdata.com" class="block mb-1 ml-1 md:ml-0" target="_blank">
         <img class="w-28 h-9.5" src="/assets/logo.svg" alt="" />
@@ -43,41 +64,33 @@ const onSwitchLang = function() {
         <HeaderPc class="ml-12"></HeaderPc>
       </div>
       <div class="ml-12.5 flex-grow items-center text-global-default hidden md:flex pr-8">
-        <slot name="nav" :lang="current"></slot>
+        <slot name="nav" :lang="current">
+          <!-- 默认导航内容 -->
+          <HeaderContent/>
+        </slot>
       </div>
     </div>
     <div>
       <slot name="about" :lang="current">
-        <ul class="flex items-center mt-2">
-          <span
-            class="flex items-center hand text-global-default"
-            @click.stop.prevent="onSwitchLang"
-          >
-            <img
-              class="w-5 h-5 hidden hidden md:inline-block"
-              src="https://res.ikingdata.com/nav/navLang.png"
-              alt=""
-            />
-            <span class="ml-1.5 opacity-85 inline-block whitespace-nowrap">
-              {{ I18n.common.lang }}
-            </span>
+        <div class="flex items-center">
+          <span class="flex items-center hand text-global-default" @click.stop.prevent="onSwitchLang">
+            <img class="w-5 h-5 hidden hidden md:inline-block" src="https://res.ikingdata.com/nav/navLang.png" alt=""/>
+            <span class="ml-1.5 opacity-85 inline-block whitespace-nowrap">{{ I18n.common.lang }}</span>
           </span>
           <!-- 下载 -->
           <div class="betweenIcon">|</div>
-          <a
-            class="hidden md:inline-block opacity-85 text-global-default"
-            :href="download"
-            target="_blank"
-          >
-            <span class="inline-block whitespace-nowrap">{{
-              I18n.common.nav.download
-            }}</span>
+          <a class="hidden md:inline-block opacity-85 text-global-default" :href="download" target="_blank">
+            <span class="inline-block whitespace-nowrap">{{I18n.common.nav.download }}</span>
           </a>
           <div class="betweenIcon hidden md:block">|</div>
           <!-- 登录/注册 -->
           <HeaderLogin></HeaderLogin>
-        </ul>
+        </div>
       </slot>
+      <div class="hidden">
+        <slot name="share"></slot>
+        <slot name="meta"></slot>
+      </div>
     </div>
   </nav>
 </template>

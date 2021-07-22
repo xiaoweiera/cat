@@ -8,8 +8,18 @@ export interface XAxisItem {
   key?: string // 时间戳对应的格式化时间
 }
 
+export enum LegendDirection {
+  top = 'top',
+  left = 'left',
+  right = 'right',
+  bottom = 'bottom'
+}
+
 export enum Unit {
   a = '$',
+  a1 = '＄',
+  a2 = '¥',
+  a3 = '￥',
   b = '枚',
   c = 'wei',
   d = '个',
@@ -22,6 +32,7 @@ interface AnyValue {
 
 export interface SeriesItem extends XAxisItem, AnyValue {
   klValue?: number | string
+  origin: number | string // 原始数据
   unit?: Unit
 }
 
@@ -29,14 +40,44 @@ export interface SeriesMap {
   [key: string]: SeriesItem[]
 }
 
-export enum seriesType {
-  bar = 'bar',
-  line = 'line'
+export enum triggerType {
+  item = 'item',
+  axis = 'axis',
+  none = 'none',
 }
 
-export interface LegendItem extends AnyValue{
-  position: string
-  show?: boolean
-  type: seriesType
-  value: string
+export enum seriesType {
+  bar = 'bar',
+  line = 'line',
+  log = 'log'
 }
+
+export enum Position {
+  left = 'left',
+  right = 'right'
+}
+
+export interface LegendItem {
+  name: string
+  unit: string
+  id: string | number
+  type?: seriesType // echarts 展示图形类型 line / bar ...
+  position?: Position
+  show?: boolean
+  value?: string
+}
+
+// 颜色集合
+export const colors = [
+  'rgba(43, 140, 255)',
+  'rgba(56, 214, 0)',
+  'rgb(0, 0, 0, 0.8)',
+  // 'rgba(0, 209, 134)',
+  'rgba(35, 159, 149)',
+  'rgba(0, 198, 225)',
+  'rgba(33, 85, 169)',
+  'rgba(34, 55, 238)',
+  'rgba(161, 31, 240)',
+  'rgba(244, 42, 151)',
+  'rgba(233, 45, 45)'
+]

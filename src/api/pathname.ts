@@ -3,6 +3,11 @@
  * @author svon.me@gmail.com
  */
 
+export const common = {
+    ipValidate: '/api/v1/ip/validate',
+    ipDetail: '/api/v1/ip/me=_='
+}
+
 export const ads = {
     commercial: '/api/v2/commercial',
 }
@@ -59,6 +64,8 @@ export const res = {
 // @ts-ignore
 export const topic = {
     getMenuList: '/api/v2/topics/web_topic',
+    // 根据搜索框内容获取图表数据
+    search: '/api/v2/charts/search_chart',
     // 系统推荐图表数据
     recommend: '/api/v2/charts/web_recommend',
     // 获取图表中所有的 id
@@ -69,7 +76,6 @@ export const topic = {
     // 根据 id 获取图表数据
     trend: 'api/v2/charts/{id}/trends', // 单图数据
     multipleTrends: '/api/v2/charts/multy_trends', // 多图数据
-
     // 用户关注的图表数据
     followList: '/api/v2/charts/my/multy_follows',
     addfollow: '/api/v2/charts/{id}/multy_follow', // 关注
@@ -78,6 +84,8 @@ export const topic = {
 
 // 忽略的接口地址，不传用户登录信息
 export const ignore: string[] = [
+    common.ipDetail,
+    common.ipValidate,
     user.login,
     user.signup,
     user.verify,

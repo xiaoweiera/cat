@@ -98,8 +98,27 @@ export const chainWallet = {
   },
 }
 
+export const heco = {
+  title: I18n.growthpad.heco.title, // 名称
+  icon: 'https://res.ikingdata.com/image/growthpad/heco/logo2.png', // icon
+  url: '/growthpad/heco',
+  coin: '',
+  projectName: 'LUCKY HECO',
+  dashboard: {
+    banner: 'https://res.ikingdata.com/image/growthpad/heco/banner.jpg',
+    begin: '2021-07-16 15:00:00', // 开始时间
+    end: '2021-07-21 23:59:59', // 结束时间
+    description: 'Lucky Heco event is live, fill in Heco address to get NFT Mystery box!',
+    reward: {
+      count: 0, // 奖励数量
+      countStr: '',
+      limits: [], // 每人可领取范围
+    },
+  },
+}
+
 // 所有任务
 export const taskList = [
-  mdxInfo, coinwindInfo, channelsInfo, growthInfo,
+  mdxInfo, coinwindInfo, channelsInfo, growthInfo, heco
   // chainWallet 下架
 ]

@@ -4,7 +4,7 @@
  */
 
 
-import { toArray, forEach, sort } from '~/utils/index'
+import { toArray, forEach } from '~/utils/index'
 import { SeriesItem, seriesType } from './interface'
 import safeGet from '@fengqiaogang/safe-get'
 import { makeSvg } from '~/logic/echarts/legend'
@@ -37,7 +37,7 @@ export const formatter = function(query: any) {
       const icon = makeSvg(data.seriesType, data.color)
       const code = `<span class="flex items-center mt-1">${icon}${name}${value}</span>`
       html.push(code)
-    }, sort(list, 'value', true))
+    }, list)
     return `<div class="text-xs text-kdFang">${html.join('')}</div>`
   }
   return ''

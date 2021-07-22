@@ -29,6 +29,9 @@ export const transformStatus = function(
 }
 
 export interface Info {
+  rewardData: string // 任务奖励
+  // 用户 id
+  uid: string
   // bsc_token: string // 领取奖励的地址
   bsc: string
 

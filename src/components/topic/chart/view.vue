@@ -4,9 +4,10 @@
  * @author svon.me@gmail.com
  */
 
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 // @ts-ignore
-import { Position } from '~/logic/topic/item'
+import { Position, colors } from '~/logic/echarts/interface'
+import { toBoolean } from '~/utils'
 
 /*
 interface data {
@@ -17,17 +18,40 @@ interface data {
 }
 */
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     required: true,
   }
 })
+// @ts-ignore
+const stackStatus = computed(function() {
+  return toBoolean(props.data?.detail?.stack)
+})
+// @ts-ignore
+const logStatus = computed(function() {
+  return toBoolean(props.data?.detail?.log)
+})
+
+// @ts-ignore
+const getAreaStatus = computed(function() {
+  if (props.data?.detail) {
+    const stack = toBoolean(props.data?.detail?.stack)
+    if (stack) {
+      return true
+    }
+    const multiple = toBoolean(props.data?.detail?.multiple)
+    if (!multiple) {
+      return true
+    }
+  }
+  return false
+})
 
 </script>
 
 <template>
-  <Echarts :stack="true">
+  <Echarts :stack="stackStatus" :log="logStatus">
     <!-- 提示框 trigger: 触发方式 -->
     <EchartsTooltip trigger="axis" />
     <!--图例-->
@@ -38,7 +62,7 @@ defineProps({
         show: 是否显示
         position: 通过该字段控制 Series 中对应的数据以那个 Y 轴为纬度展示
       -->
-      <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+      <EchartsLegend :index="index" :value="item.name" :color="colors[index]" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
     </template>
     <!-- 设置Y轴 -->
     <!--
@@ -57,7 +81,7 @@ defineProps({
         通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
         value: 数据
       -->
-      <EchartsSeries :index="index" :value="item.data"/>
+      <EchartsSeries :index="index" :value="item.data" :color="colors[index]" :area="getAreaStatus"/>
     </template>
   </Echarts>
 </template>

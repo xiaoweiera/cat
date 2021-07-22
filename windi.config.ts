@@ -86,8 +86,9 @@ export default defineConfig({
                     numRed:'#E9592D',
                     time:'#A2A4A8',
                     noSelect:'#A8A8A8',
-                    white:'#FFFFFF'
-
+                    white:'#FFFFFF',
+                    grey: '#7b8db1',
+                    money: '#F88923'
                 },
             },
             opacity: {

@@ -62,18 +62,28 @@ const validityValue = computed<string>((): string | string[] => {
 // 信息填写正确后
 // @ts-ignore
 const onUpdated = function(): void {
-  if (store.getNickName() !== ProjectKey.chainwallet) {
-    return void 0;
-  }
-  // 当前任务等于 chainwallet 时执行
-  const reward = getMax(props.data?.reward || 0)
-  const token = R.toUpper(store.token)
-  const title = I18n.template(I18n.growthpad.address.checkMessage, { reward, token })
-  const html = `<div class="text-center font-kdFang">
+  // @ts-ignore
+  if (store.getNickName() === ProjectKey.chainwallet) {
+    // 当前任务等于 chainwallet 时执行
+    const reward = getMax(props.data?.reward || 0)
+    const token = R.toUpper(store.token)
+    const title = I18n.template(I18n.growthpad.address.checkMessage, { reward, token })
+    const html = `<div class="text-center font-kdFang">
     <pre class="whitespace-pre-line text-green-600 text-base">${title}</pre>
     <p class="pt-3 pb-2 text-sm text-global-default text-opacity-85">${ I18n.common.message.checking24h }</p>
   </div>`
-  message.custom('', html)
+    message.custom('', html)
+  }
+
+  if (store.getNickName() === ProjectKey.heco) {
+    // 当前任务等于 chainwallet 时执行
+    const reward = getMax(props.data?.reward || 0)
+    const html = `<div class="text-center font-kdFang">
+    <pre class="whitespace-pre-line text-green-600 text-base">The probability of winning +${reward}%</pre>
+    <p class="pt-3 pb-2 text-sm text-global-default text-opacity-85">${ I18n.common.message.checking24h }</p>
+  </div>`
+    message.custom('', html)
+  }
 }
 
 </script>
