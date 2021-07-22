@@ -10,6 +10,8 @@ import I18n from '~/utils/i18n/index'
 //     '单位时间内主动卖出':true,
 //     '交易额趋势':true
 // }
+//隐藏线的图表chartId
+export const opacityLine=[1]
 export const titleCofig={
     '6':{change:true,replaceStr:''},
     '7':{change:true,replaceStr:I18n.liquidity.titleCofig.moneyReplaceStr,replace:I18n.liquidity.titleCofig.money},
