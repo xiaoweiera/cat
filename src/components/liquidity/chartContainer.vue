@@ -12,7 +12,6 @@ const props = defineProps({
 watch(props.tokenParam,(n)=>getData(n))
 //改变pair
 watch(() => pairStore.id, (n, o) => {
-  console.log('改变pair',o)
   getTokenTypeList()
   getData()
 
@@ -43,7 +42,6 @@ const initType=()=>{
 
 // tokenType.value=initType()
 watch(()=>tokenType.value,(n,o)=>{
-  console.log('改变tokenType',o)
   getData()
 })
 const getTokenTypeList=()=>{
@@ -70,14 +68,12 @@ const priceData=reactive({value:{}})
 
 //得到数据
 const getData=async ()=>{
-  console.log('刷新')
   title.value= pairStore.id?pairStore.name:symbolStore.name
   if (pairStore.id) {
     //pair查询
     props.pairParam.pair_id = pairStore.id
     priceData.value=await getPairPriceData({platId:1,pair_id: pairStore.id, from_ts: props.pairParam.from_ts, to_ts: props.pairParam.to_ts}, 'pair')
     if(props.analysisType==='flow'){
-      console.log(tokenType.value)
       chartData.value=await getFlowChartModel(props.pairParam,props.chartId,tokenType.value)
     }else{
       paramChart.tokenType='symbol0'

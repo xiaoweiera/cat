@@ -8,7 +8,6 @@ import { showVisible } from '~/store/header/login'
 import * as event from '~/utils/event/index'
 
 const login = function(e: Event) {
-  console.log(1)
   // 已登录状态
   if (isLogin.value) {
     return true
