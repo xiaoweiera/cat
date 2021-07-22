@@ -47,10 +47,10 @@ const saveChart = function(e: Event) {
 
 <template>
   <div class="text-kdFang">
-    <div class="flex justify-between items-start whitespace-nowrap">
+    <div class="flex justify-between items-start">
       <!-- 标题 -->
       <div :class="{'md:flex': full}">
-        <h4 class="font-bold text-global-highTitle h-7.5 inline-flex items-center">
+        <h4 class="font-bold text-global-highTitle h-7.5 inline-flex items-center truncate">
           <span>{{ data.name }}</span>
         </h4>
         <div class="h-7.5 flex items-center" :class="{'md:ml-3': full}">
