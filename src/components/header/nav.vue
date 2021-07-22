@@ -36,7 +36,7 @@ const onSwitchLang = function() {
           alt=""
         />
       </a>
-      <a v-else href="https://www.kingdata.com" class="block" target="_blank">
+      <a v-else href="https://www.kingdata.com" class="block mb-1 ml-1 md:ml-0" target="_blank">
         <img class="w-28 h-9.5" src="/assets/logo.svg" alt="" />
       </a>
       <div class="hidden md:inline-block">
@@ -48,7 +48,7 @@ const onSwitchLang = function() {
     </div>
     <div>
       <slot name="about" :lang="current">
-        <ul class="flex items-center">
+        <ul class="flex items-center mt-2">
           <span
             class="flex items-center hand text-global-default"
             @click.stop.prevent="onSwitchLang"

@@ -2,6 +2,7 @@
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
 import * as R from 'ramda'
 import {  setInject, getInject,margeInject } from '~/utils/use/state'
+import I18n from '~/utils/i18n/index'
 import {getFlowChartModel,getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import get = Reflect.get;
 const props=defineProps({
@@ -87,8 +88,9 @@ watch(()=>timeParam.value[0].timeBegin,(n,o)=>{
     <div v-if="!isNull" class="w-full h-full">
       <LiquidityChart :full=full   :key="chartKey" v-if=" chartData.value.id" :chartId="props.chartId+'full'" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
     </div>
-    <div v-else class="flex items-center justify-center  w-full h-full">
-      <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
+    <div v-else class="flex flex-col items-center justify-center  w-full h-full">
+      <img class="w-62.5 mb-4" src="https://res.ikingdata.com/liquidity/liquidityNullData.jpg" alt="">
+      <span class="text-kd14px18px text-global-default text-opacity-32 font-kdFang ">{{I18n.liquidity.noData}}</span>
     </div>
   </div>
 </template>
