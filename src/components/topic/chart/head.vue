@@ -49,9 +49,9 @@ const saveChart = function(e: Event) {
   <div class="text-kdFang">
     <div class="flex justify-between items-start">
       <!-- 标题 -->
-      <div :class="{'md:flex': full}">
-        <h4 class="font-bold text-global-highTitle h-7.5 inline-flex items-center truncate">
-          <span>{{ data.name }}</span>
+      <div class="flex-auto" :class="{'md:flex': full}">
+        <h4 class="font-bold text-global-highTitle leading-6 inline-flex items-center">
+          <span class="w-36 lg:w-auto truncate inline-block">{{ data.name }}</span>
         </h4>
         <div class="h-7.5 flex items-center" :class="{'md:ml-3': full}">
           <TopicRate :data="data"></TopicRate>
@@ -102,7 +102,7 @@ const saveChart = function(e: Event) {
         </div>
         <div v-else class="block">
           <div class="flex items-center">
-            <div class="inline-block">
+            <div class="inline-block leading-6">
               <slot name="timeEnd"></slot>
             </div>
             <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
@@ -112,7 +112,7 @@ const saveChart = function(e: Event) {
               </span>
             </TopicFollow>
           </div>
-          <div class="flex items-center justify-end h-7.5">
+          <div class="leading-6 hidden lg:flex lg:items-center lg:justify-end">
             <FullZoom/>
           </div>
         </div>
