@@ -2,6 +2,7 @@
 // @ts-ignore
 import {ref} from 'vue'
 import I18n from '~/utils/i18n/index'
+
 import {useRoute} from 'vue-router'
 import {symbolStore, pairStore} from '~/store/liquidity/state'
 
@@ -11,6 +12,7 @@ pairStore.id = route.query.pair ? route.query.pair : pairStore.id
 pairStore.name = route.query.pairName ? route.query.pairName : 'ETH/USDT'
 const mobile=ref(false)
 mobile.value=window.screen.width>768?false:true
+
 </script>
 <template>
   <div v-if="!mobile" class="flex w-full contentContainer" style="overflow-x: hidden">

@@ -7,8 +7,9 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    noData:'暂无数据',
     address:'地址',
-    webTitle:'DEX分析——Kingdata',
+    webTitle:'KingData DEX 分析',
     mobile:{
         select:'搜索',
         selectDes:'查看自选或搜索币种',
