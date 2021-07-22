@@ -18,11 +18,8 @@ const download = ref<string>('https://www.kingdata.com/download')
     name="nav-mobile-menu"
     type="checkbox"
   />
-  <label
-    class="icon-box inline-flex items-center justify-center"
-    for="nav-mobile-menu"
-  >
-    <IconFont class="more-button" type="more" size="2xl"></IconFont>
+  <label class="icon-box inline-flex items-center justify-center mt-2" for="nav-mobile-menu">
+    <IconFont class="text-kd24px36px more-button" type="icon-gengduo" size="3xl" ></IconFont>
     <IconFont class="close-button" type="close" size="2xl"></IconFont>
   </label>
   <div class="nav-menu-box">
@@ -30,11 +27,7 @@ const download = ref<string>('https://www.kingdata.com/download')
       <HeaderNavitem :list="menuData" index="0"></HeaderNavitem>
     </div>
     <div class="operation flex font-kdFang">
-      <a
-        class="flex-1 h-full flex items-center justify-center"
-        :href="download"
-        target="_blank"
-      >
+      <a class="flex-1 h-full flex items-center justify-center" :href="download" target="_blank">
         <IconFont type="mobile" size="2xl"></IconFont>
         <span class="text-base ml-2">{{ I18n.common.nav.download }}</span>
       </a>
