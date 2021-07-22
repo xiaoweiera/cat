@@ -34,6 +34,7 @@ const rateChange = computed<number>(function() {
 const rateFormatter = function(value: number, unit: string) {
   return valueFormatter({ value, unit })
 }
+// @ts-ignore
 const rateClassName = function(value: number, unit: string) {
   // 判断是否是金额
   switch (unit) {
