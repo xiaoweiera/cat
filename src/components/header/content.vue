@@ -1,13 +1,18 @@
 <script setup lang="ts">
 // @ts-ignore
 import { menu } from '~/logic/menu'
+import { config } from '~/utils/router'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
 
 // @ts-ignore
 const getActive = function(item: any) {
-  const path: string = window.location.pathname
+  let path: string = window.location.pathname
+  // 首页默认为数据图表
+  if (path === '' || path === '/') {
+    path = config.topic
+  }
   const db = new DBList([])
   db.insert(db.flatten(item.children, 'children'))
   const [temp] = db.like<any>({ href: path }, 1)
