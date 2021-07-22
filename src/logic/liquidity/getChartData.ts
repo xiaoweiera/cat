@@ -23,6 +23,15 @@ const getUnitData=(item:yModel,coinType:string)=>{
   if(item.suffix==='symbol1' && pairStore.id) return `${item.name}(${pairStore.name.split('/')[1]})`
   return item.name
 }
+//价格线根据后端配置显示什么后缀
+const getUnitPriceData=(item:yModel)=>{
+  // suffix：symbol0, symbol1, token, null
+  if(!item.suffix) return item.name
+  if(item.suffix==='token') return `${item.name}(${symbolStore.name})`
+  if(item.suffix==='symbol0') return `${item.name}(${pairStore.name.split('/')[0]})`
+  if(item.suffix==='symbol1') return `${item.name}(${pairStore.name.split('/')[1]})`
+  return item.name
+}
 // 将x轴转日期格式 得到x轴
 export const getXData = (xData: Array<number>, interval: string) => {
   if (interval === '1d' || interval === '1D') {
@@ -54,32 +63,6 @@ const tooptipsModelByLiquidity = (item: any, index: number, color: string) => {
 }
 // 获取提示文字的每一行
 export const tooltipsTitle = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
-// export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:string) => {
-//   const barIcon='path://M853.312 85.312c-47.104 0-85.312 38.208-85.312 85.376v682.624a85.312 85.312 0 1 0 170.688 0V170.688c0-47.168-38.208-85.376-85.376-85.376zM426.688 426.688a85.312 85.312 0 1 1 170.624 0v426.624a85.312 85.312 0 1 1-170.624 0V426.688zM85.312 597.312a85.312 85.312 0 0 1 170.688 0v256a85.312 85.312 0 1 1-170.688 0v-256z'
-//   const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
-//   //@ts-ignore
-//   let legend=[]
-//   //拆分成3个为一组的legend，这样每一行会居中
-//   const splitYdata=R.splitEvery(3,yData)
-//   console.log(splitYdata,splitYdata.length,'splitspli t')
-//   console.log(splitYdata[splitYdata.length-1].length)
-//   splitYdata.forEach((obj:any,index:number)=>{
-//     let data:Array<object>=[]
-//     obj.forEach((item: yModel,i:number) => {
-//       data.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item.name,coinType)})
-//     })
-//     legend.push({index:index,data:data})
-//   })
-//   //@ts-ignore
-//   if (!kyData) return legend
-//   //判断最后一行是不是3个，如果是3个则换行，如果不是，那么价格线添加进去
-//   if(splitYdata[splitYdata.length-1].length<3){
-//     legend[splitYdata.length-1].data.push({icon:lineIcon,name:kyData.name})
-//   }else{
-//     legend.push({index:splitYdata.length,data:[{icon:lineIcon,name:kyData.name}]})
-//   }
-//   return legend
-// }
 // 得到lengend
 export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:string) => {
   const barIcon='path://M853.312 85.312c-47.104 0-85.312 38.208-85.312 85.376v682.624a85.312 85.312 0 1 0 170.688 0V170.688c0-47.168-38.208-85.376-85.376-85.376zM426.688 426.688a85.312 85.312 0 1 1 170.624 0v426.624a85.312 85.312 0 1 1-170.624 0V426.688zM85.312 597.312a85.312 85.312 0 0 1 170.688 0v256a85.312 85.312 0 1 1-170.688 0v-256z'
@@ -92,7 +75,8 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:stri
     })
   //@ts-ignore
   if (!kyData) return legend
-  legend.push({icon:lineIcon,name:kyData.name})
+  legend.push({icon:lineIcon,name:getUnitPriceData(kyData)})
+  console.log(legend)
   return legend
 }
 const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string,pairId:string,coinType:string) => {
@@ -130,7 +114,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   }
   return [
     {
-      name: getUnitData(item,coinType),
+      name:isKline?getUnitPriceData(item): getUnitData(item,coinType),
       type: item.type === 'bar' ? 'bar' : 'line',
       symbol: 'none',
       barGap: '0%',
