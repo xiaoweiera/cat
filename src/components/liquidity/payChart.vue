@@ -63,7 +63,6 @@ const priceData=reactive({value:{}})
 
 //得到数据
 const getData=async ()=>{
-  console.log('pay重绘')
   title.value= pairStore.id?pairStore.name:symbolStore.name
   if (pairStore.id) {
     //pair查询

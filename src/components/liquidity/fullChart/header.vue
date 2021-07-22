@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { defineProps,onMounted,computed } from 'vue'
-import {  setInject, getInject } from '~/utils/use/state'
-import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
+import {getInject } from '~/utils/use/state'
+import {titleCofig} from '~/logic/liquidity/dataCofig'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({
   desc:String,
   config:Object,
@@ -18,41 +19,22 @@ const isShowUsdCoin=()=>{
   }
   return false
 }
-const titleDesc= computed((): string => {
-  // if(!title.value[0]) return ['','']
-  // if(!pairData.value[0].id) return [,title.value[0]]
-  // if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
-  //   const symbol0=pairData.value[0].name?pairData.value[0].name.split('/')[0]+' ':''
-  //   const coin=isSymbol0Symbol1.includes(props.chartId)?tokenData.value[0].name:symbol0
-  //   if(titleCofig[props.chartId].replaceStr){
-  //     return [tokenData.value[0].name,title.value[0].replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)]
-  //   }else{
-  //     return [tokenData.value[0].name,title.value[0]+' '+coin]
-  //   }
-  // }else{
-  //   return [tokenData.value[0].name,title.value[0]]
-  // }
-  if(!pairData.value[0].id){
-    return ['',`${tokenData.value[0].name} ${title.value[0]}`]
-  }else{
-    return[`${tokenData.value[0].name}`,`${pairData.value[0].name} ${title.value[0]}`]
-  }
+const tokenOrPairName= computed<string>((): string => {
+  return pairData.value[0].id ? pairData.value[0].name : tokenData.value[0].name
 })
-const getTitleDesc=(title:string)=>{
+const titleDesc= computed((): string => {
   if(!title.value[0]) return ''
   if(!pairData.value[0].id) return title.value[0]
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
-    const symbol0=pairData.value[0].name?pairData.value[0].name.split('/')[0]+' ':''
-    const coin=isSymbol0Symbol1.includes(props.chartId)?tokenData.value[0].name:symbol0
     if(titleCofig[props.chartId].replaceStr){
-      return title.value[0].replace(titleCofig[props.chartId].replaceStr,' '+coin+' '+titleCofig[props.chartId].replaceStr)
+      return title.value[0].replace(titleCofig[props.chartId].replaceStr, I18n.template(titleCofig[props.chartId].replace, {value:tokenData.value[0].name}))
     }else{
-      return title.value[0]+' '+coin
+      return title.value[0]+' '+tokenData.value[0].name
     }
   }else{
     return title.value[0]
   }
-}
+})
 onMounted(()=>{
   isShowUsdCoin()})
 </script>
@@ -61,9 +43,9 @@ onMounted(()=>{
       <div class="flex items-center justify-between">
         <div class="text-global-default text-opacity-85 text-kd18px28px font-semibold">
           <div class="flex items-center" v-if="title[0]">
-            <span>{{titleDesc[0]}}</span>
-            <img v-if="titleDesc[0]"  class="w-3 h-3 mx-1.5" src="https://res.ikingdata.com/nav/liquidityRightTip.jpg" alt="">
-            <span>{{titleDesc[1]}}</span>
+            <span v-if="pairData[0].id">{{tokenData[0].name}}</span>
+            <img v-if="pairData[0].id"  class="w-3 h-3 mx-1.5" src="https://res.ikingdata.com/nav/liquidityRightTip.jpg" alt="">
+            <span>{{tokenOrPairName}} {{titleDesc}}</span>
           </div>
         </div>
 

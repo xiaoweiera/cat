@@ -11,14 +11,12 @@ const props = defineProps({
 })
 //改变symbol
 watch(() => symbolStore.id, (n, o) => {
-  console.log('token地址 change',pairStore.id)
   if(!pairStore.id){
     getData()
   }
 })
 //改变pair
 watch(() => pairStore.id, (n, o) => {
-  console.log('pair地址 change1111',pairStore)
   //null是关闭pair的时候，切换历史的时候为空字符串
   if(pairStore.id || pairStore.id===null){
 
@@ -50,7 +48,6 @@ const tokenType=ref('pair')  //pair 选项如： pair| symbol0| symbol1
 
 // tokenType.value=initType()
 watch(()=>tokenType.value,(n,o)=>{
-  console.log('3333',o)
   getData()
 })
 const getTokenTypeList=()=>{
@@ -69,7 +66,6 @@ const priceData=reactive({value:{}})
 
 //得到数据
 const getData=async ()=>{
-  console.log('flow重会')
   title.value= pairStore.id?pairStore.name:symbolStore.name
   if (pairStore.id) {
     //pair查询
@@ -89,7 +85,6 @@ const selectTokenType=(item:any)=>{
 }
 onMounted(()=>{
   getTokenTypeList()
-  console.log('init')
   getData()
 })
 </script>
