@@ -6,7 +6,7 @@
 import { router } from '~/utils/directive/router'
 
 export const config = {
-  topic: '/123topic',
+  topic: '/topic',
   growthpad: '/growthpad',
   apy: '/apy',
   bull: '/bull',
