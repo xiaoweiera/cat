@@ -47,73 +47,100 @@ const saveChart = function(e: Event) {
 
 <template>
   <div class="text-kdFang">
-    <div class="flex justify-between items-start">
-      <!-- 标题 -->
-      <div class="flex-auto" :class="{'md:flex': full}">
-        <h4 class="font-bold text-global-highTitle leading-6 inline-flex items-center">
-          <span class="w-36 lg:w-auto truncate inline-block">{{ data.name }}</span>
-        </h4>
-        <div class="h-7.5 flex items-center" :class="{'md:ml-3': full}">
-          <TopicRate :data="data"></TopicRate>
+    <!--手机端样式-->
+    <div class="block md:hidden">
+      <div class="flex items-center">
+        <div class="flex-1 w-1">
+          <div class="inline-block max-w-full">
+            <h4 class="font-bold text-global-highTitle">
+              <span class="inline-block max-w-full truncate">{{ data.name }}</span>
+            </h4>
+          </div>
+        </div>
+        <div class="flex items-center text-global-time text-xs whitespace-nowrap ml-2">
+          <div class="inline-block leading-6">
+            <slot name="timeEnd"></slot>
+          </div>
+          <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
+          <span class="bg-global-primary follow-btn small">
+            <IconFont type="icon-plus" class="text-white"></IconFont>
+            <span class="ml-1">关注</span>
+          </span>
+          </TopicFollow>
         </div>
       </div>
-      <div class="text-global-time text-xs whitespace-nowrap">
-        <div v-if="full" class="inline-block">
-          <div class="flex flex-wrap flex-col-reverse md:flex-row">
-            <div class="inline-flex items-center justify-end">
-              <a class="btn-border cursor-pointer" @click="saveChart">
-                <IconFont type="icon-download"/>
-              </a>
-
-              <!-- 缩放按钮 -->
-              <span class="btn-border ml-3">
-                <FullZoom/>
-              </span>
-            </div>
-
-            <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
-              <!-- 关注按钮 -->
-              <div class="inline-block mr-3" v-if="!followed">
-                <TopicFollow :id="data.chartId" v-model:status="followed">
-                  <span class="bg-global-primary follow-btn">
-                    <IconFont type="icon-plus" class="text-white"></IconFont>
-                    <span class="ml-1">关注</span>
-                  </span>
-                </TopicFollow>
-              </div>
-
-              <div>
-                <el-popover placement="bottom" :width="300" trigger="hover">
-                  <template #reference>
-                    <div class="message cursor-pointer">
-                      <IconFont type="icon-message" class="text-white"/>
-                      <span class="ml-1">时时接收数据异动</span>
-                    </div>
-                  </template>
-                  <div>
-                    <p class="text-center text-lg font-normal pb-2">指标异动订阅</p>
-                    <AppDownTips/>
-                  </div>
-                </el-popover>
-              </div>
-
-            </div>
+      <div>
+        <TopicRate :data="data"></TopicRate>
+      </div>
+    </div>
+    <!-- PC端样式 -->
+    <div class="hidden md:block">
+      <div class="flex justify-between items-start">
+        <!-- 标题 -->
+        <div class="flex-auto w-1 mr-2" :class="{'md:flex': full, 'items-center': full}">
+          <div class="font-bold text-global-highTitle h-6 leading-6">
+            <span class="inline-block max-w-full truncate">{{ data.name }}</span>
+          </div>
+          <div :class="{'md:ml-3': full}">
+            <TopicRate :data="data"></TopicRate>
           </div>
         </div>
-        <div v-else class="block">
-          <div class="flex items-center">
-            <div class="inline-block leading-6">
-              <slot name="timeEnd"></slot>
+        <div class="text-global-time text-xs whitespace-nowrap">
+          <div v-if="full" class="inline-block">
+            <div class="flex flex-wrap flex-col-reverse md:flex-row">
+              <div class="inline-flex items-center justify-end">
+                <a class="btn-border cursor-pointer" @click="saveChart">
+                  <IconFont type="icon-download"/>
+                </a>
+                <!-- 缩放按钮 -->
+                <span class="btn-border ml-3">
+                  <FullZoom/>
+                </span>
+              </div>
+              <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
+                <!-- 关注按钮 -->
+                <div class="inline-block mr-3" v-if="!followed">
+                  <TopicFollow :id="data.chartId" v-model:status="followed">
+                    <span class="bg-global-primary follow-btn">
+                      <IconFont type="icon-plus" class="text-white"></IconFont>
+                      <span class="ml-1">关注</span>
+                    </span>
+                  </TopicFollow>
+                </div>
+
+                <div>
+                  <el-popover placement="bottom" :width="300" trigger="hover">
+                    <template #reference>
+                      <div class="message cursor-pointer">
+                        <IconFont type="icon-message" class="text-white"/>
+                        <span class="ml-1">时时接收数据异动</span>
+                      </div>
+                    </template>
+                    <div>
+                      <p class="text-center text-lg font-normal pb-2">指标异动订阅</p>
+                      <AppDownTips/>
+                    </div>
+                  </el-popover>
+                </div>
+
+              </div>
             </div>
-            <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
-              <span class="bg-global-primary follow-btn small">
-                <IconFont type="icon-plus" class="text-white"></IconFont>
-                <span class="ml-1">关注</span>
-              </span>
-            </TopicFollow>
           </div>
-          <div class="leading-6 hidden lg:flex lg:items-center lg:justify-end">
-            <FullZoom/>
+          <div v-else class="block">
+            <div class="flex items-center">
+              <div class="inline-block leading-6">
+                <slot name="timeEnd"></slot>
+              </div>
+              <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
+                <span class="bg-global-primary follow-btn small">
+                  <IconFont type="icon-plus" class="text-white"></IconFont>
+                  <span class="ml-1">关注</span>
+                </span>
+              </TopicFollow>
+            </div>
+            <div class="leading-8 hidden lg:flex lg:items-center lg:justify-end">
+              <FullZoom/>
+            </div>
           </div>
         </div>
       </div>
