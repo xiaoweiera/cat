@@ -8,7 +8,7 @@ export default {
         wanyi:'万亿'
     },
     address:'Address',
-    webTitle:'DEX Analysis——Kingdata',
+    webTitle:'KingData DEX Analysis',
     mobile:{
         select:'Search',
         selectDes:'Search token',
