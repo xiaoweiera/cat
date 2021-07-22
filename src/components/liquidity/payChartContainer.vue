@@ -102,13 +102,13 @@ const getTitleDesc=(title:string)=>{
   if(!title) return ''
   if(!pairStore.id) return title
   if(titleCofig[props.chartId] && titleCofig[props.chartId].change){
-    const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
-    const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
-    console.log('aaa', I18n.template(titleCofig[props.chartId].replaceStr, {value:pairStore.name}))
+    // const symbol0=pairStore.name?pairStore.name.split('/')[0]+' ':''
+    // const coin=isSymbol0Symbol1.includes(props.chartId)?symbolStore.name:symbol0
+    console.log('aaa', I18n.template(titleCofig[props.chartId].replaceStr, {value:symbolStore.name}))
     if(titleCofig[props.chartId].replaceStr){
-      return title.replace(titleCofig[props.chartId].replaceStr, I18n.template(titleCofig[props.chartId].replace, {value:pairStore.name}))
+      return title.replace(titleCofig[props.chartId].replaceStr, I18n.template(titleCofig[props.chartId].replace, {value:symbolStore.name}))
     }else{
-      return title+' '+coin
+      return title+' '+symbolStore.name
     }
   }else{
     return title
