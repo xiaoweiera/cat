@@ -50,7 +50,6 @@ onBeforeMount(() => {
 <template>
 
   <HeaderNav>
-   
   </HeaderNav>
 </template>
 <style lang="scss" scoped>

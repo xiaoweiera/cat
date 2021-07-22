@@ -4,8 +4,6 @@ import {dataToTimestamp, formatDefaultTime, getagoTimeStamp} from '~/lib/tool'
 import {pairStore, paramChart, symbolStore, analysisType, selectHistory} from '~/store/liquidity/state'
 import {getFlowChart, getTokenPriceData} from '~/logic/liquidity/dataTool'
 import {chartDataConfig} from '~/logic/liquidity/dataCofig'
-
-console.log('aaa',Math.random(1,3))
 interface yModel {
   color: string
   data: Array<number>
