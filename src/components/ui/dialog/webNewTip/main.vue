@@ -13,12 +13,12 @@ onMounted(()=>stateValue.value=isShow())
 
 <template>
   <div class="text-kdFang  relative">
-    <ElDialog :width="820" v-model="stateValue" custom-class="pcTips" :append-to-body="false">
-      <div class="h-140 border-1">
+    <ElDialog :width="820" v-model="stateValue" custom-class="pcTips bor" :append-to-body="false">
+      <div class="h-140 bor">
         <template v-for="(item,i) in newData">
           <div v-if="i===selectNameIndex" class="h-full flex">
-            <UiDialogWebNewTipLeft />
-            <UiDialogWebNewTipRight  :data="item"/>
+            <UiDialogWebNewTipLeft class="borLeft" />
+            <UiDialogWebNewTipRight class="borLeft"  :data="item"/>
           </div>
         </template>
       </div>
@@ -28,7 +28,13 @@ onMounted(()=>stateValue.value=isShow())
 </template>
 
 <style  scoped>
-
+.bor{
+  border-radius: 100px !important;
+}
+.borLeft{
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+}
 .webTip{
   background: red;
   backdrop-filter: blur(80px);
@@ -36,10 +42,14 @@ onMounted(()=>stateValue.value=isShow())
 ::v-deep(.el-dialog .el-dialog__body){
   padding: 0px !important;
 }
+::v-deep(.el-dialog){
+  border-radius: 6px !important;
+}
 ::v-deep(.el-dialog__header){
   display: none;
 }
 .pcTips{
+  border-radius: 100px !important;
   position: absolute;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04);
   border-radius: 6px;
