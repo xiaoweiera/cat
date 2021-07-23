@@ -15,6 +15,7 @@ interface yModel {
   unit: string
   suffix:string
   show:boolean | string
+  gray_button:boolean
 }
 //是否隐藏线,返回透明度
 const isOpacityLine=(item:yModel)=>{
@@ -85,18 +86,27 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:stri
   const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
   //@ts-ignore
   let legend=[]
+  let selected={}
   yData.forEach((item: yModel,i:number) => {
     if(isOpacityLine(item)){
       legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item,coinType)})
+      if(item.gray_button) {
+        //@ts-ignore
+        selected[getUnitData(item, coinType)] = false
+      }
     }
     })
   //@ts-ignore
   if (!kyData) return legend
   if(isOpacityLine(kyData)){
     legend.push({icon:lineIcon,name:getUnitPriceData(kyData)})
+    if(kyData.gray_button) {
+      //@ts-ignore
+      selected[getUnitPriceData(kyData)] = false
+    }
   }
 
-  return legend
+  return [legend,selected]
 }
 const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string,pairId:string,coinType:string) => {
   let min: any = null

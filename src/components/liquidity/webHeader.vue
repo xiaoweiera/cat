@@ -19,10 +19,9 @@ const titleName=computed(()=>{
   }else{
     name= `${pairStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
   }
-  wxShare(name, 'liquidity')
   return name
 })
-
+wxShare(titleName, '发现聪明的钱流向，大户、散户行为一目了然')
 const navIsSelect = (path: string): string => {
   const $router = toRaw(router)
   const pathname: string = $router.path.value
@@ -41,7 +40,7 @@ onBeforeMount(() => {
       },
       {
         name: 'description',
-        content:'MDEX 、PANCAKE、UNISWAP、SHISUSWAP、SWAP、DEX Analysis、流动性份分析、交易数据分析、TVL、liquidity、dextools',
+        content:'description：KingData DEX 分析 对MDEX中的流动性添加与撤出、交易数据进行了多维度多场景的详尽分析，对主力、散户行为一目了然，帮助用户提前发现市场中的异常，分析价格变动的原因和不同指标的相关性。',
       },
     ],
   })

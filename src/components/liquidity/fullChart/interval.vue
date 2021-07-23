@@ -6,6 +6,7 @@ import {  setInject, getInject } from '~/utils/use/state'
 const interval=getInject('interval')
 const set=setInject('interval')
 const changeTag = (tag: string) => {
+  if(tag==='1H') return
   set(tag)
 }
 
