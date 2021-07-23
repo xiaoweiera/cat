@@ -21,7 +21,7 @@ const winStatus = computed(function() {
     return WinType.lottery
   }
   // @ts-ignore
-  if (toNumber(store.lottery) === 0) {
+  if (toNumber(store.lottery.value) === 0) {
     return WinType.init
   }
   return WinType.success
