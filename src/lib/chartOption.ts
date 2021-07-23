@@ -38,12 +38,14 @@ export const graphic = function (fontSize: number = 22) {
         right: 'center',
         bottom: 'center',
         z: -100,
+        silent: true,
         children: [
           {
             type: 'text',
             left: 'center',
             top: 'center',
             z: 100,
+            silent: true,
             style: {
               fill: 'rgba(43, 140, 255, 0.08)',
               text: 'KingData.com',

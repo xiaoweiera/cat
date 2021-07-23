@@ -32,6 +32,7 @@ onBeforeMount(() => {
       color: props.color
     }
   }
+  // 处理阴影渐变色
   if (props.area) {
     let areaColor = 'rgba(43, 141, 255, 0.2)'
     if (props.color) {
@@ -50,6 +51,7 @@ onBeforeMount(() => {
       ],
     })
   }
+  // 设置边框色
   if (props.color) {
     safeSet(option, 'itemStyle.color', props.color)
   }
