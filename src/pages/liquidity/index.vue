@@ -9,7 +9,7 @@ import {symbolStore, pairStore} from '~/store/liquidity/state'
 const route = useRoute()
 symbolStore.id = route.query.token ? route.query.token : symbolStore.id
 pairStore.id = route.query.pair ? route.query.pair : pairStore.id
-pairStore.name = route.query.pairName ? route.query.pairName : 'ETH/USDT'
+pairStore.name = route.query.pairName ? route.query.pairName : ''
 const mobile=ref(false)
 mobile.value=window.screen.width>768?false:true
 
