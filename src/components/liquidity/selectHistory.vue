@@ -13,7 +13,7 @@ const setHistory = (item: any) => {
     symbolStore.id = item.token_id
     pairStore.id = ''
     pairStore.name = ''
-    changeRouteParam(route, router, {token: item.id})
+    changeRouteParam(route, router, {token: item.token_id,pair:undefined,pairName:undefined})
   } else {
     symbolStore.name = item.tokenName
     symbolStore.id = item.token_id
