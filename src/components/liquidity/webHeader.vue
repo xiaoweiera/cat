@@ -10,6 +10,7 @@ import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
 import { headerTag } from '~/store/header/login'
 import { wxShare } from '~/lib/wxShare'
+import {watch} from 'vue'
 // 获取当前路由对象
 const router = useRoute()
 const titleName=computed(()=>{
@@ -21,7 +22,7 @@ const titleName=computed(()=>{
   }
   return name
 })
-wxShare(titleName.value, I18n.liquidity.share)
+watch(titleName,(n)=>wxShare(n, I18n.liquidity.share))
 const navIsSelect = (path: string): string => {
   const $router = toRaw(router)
   const pathname: string = $router.path.value
@@ -32,7 +33,7 @@ const navIsSelect = (path: string): string => {
 }
 onBeforeMount(() => {
   useHead({
-    title: titleName.value,
+    title: titleName,
     meta: [
       {
         name: 'keywords',
