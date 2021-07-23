@@ -7,7 +7,7 @@
     <br/>
     <br/>
     <div>
-      <SwapTradeTrigger/>
+      <SwapTradeTrigger pair="0x6dd2993b50b365c707718b0807fc4e344c072ec2"/>
     </div>
   </div>
 </template>

@@ -13,6 +13,7 @@ import { PairInfo, SymbolInfo } from '~/utils/ethereum/interface'
 import swapConfig from './config'
 import { compact, equalsIgnoreCase } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
+import { tryError, before, validate, required, ErrorDefault } from '~/utils/decorate'
 
 
 export class Web3Util extends Web3 {
@@ -23,51 +24,49 @@ export class Web3Util extends Web3 {
 
   /**
    * 获取合约
-   * @param abi
-   * @param address
+   * @param abi 合约类型
+   * @param address 地址
    */
-  getContract(abi: any, address: string) {
-    if (getConnected()) {
-      // @ts-ignore
-      return new this.eth.Contract(abi, address)
-    }
+  @validate
+  @before(getConnected) // 判断小狐狸是否已连接
+  getContract(@required abi: any, @required address: string) {
+    // @ts-ignore
+    return new this.eth.Contract(abi, address)
   }
-
   // 获取储备量信息
-  async getReservesValue(contract: any) {
+  @validate
+  async getReservesValue(@required contract: any) {
     try {
-      const value = await contract.methods.getReserves().call()
-      return value
+      return await contract.methods.getReserves().call()
     } catch (e) {
       console.log('小狐狸未链接火币网络 https://cointool.app/other/chainList')
     }
   }
 
   // 总量
-  async getTotalValue (contract: any) {
-    try {
-      return await contract.methods.totalSupply().call()
-    } catch (e) {
-      return 0
-    }
+  @validate
+  @tryError(ErrorDefault(0))
+  getTotalValue (@required contract: any): number {
+    return contract.methods.totalSupply().call()
   }
   // 小数
-  async getDecimalsValue (contract: any) {
-    try {
-      return await contract.methods.decimals().call()
-    } catch (e) {
-      return 0
-    }
+  @validate
+  @tryError(ErrorDefault(0))
+  getDecimalsValue (@required contract: any) {
+    return contract.methods.decimals().call()
   }
   // 合约信息
-  async getPairInfo (address: string): Promise<PairInfo> {
+  @tryError()
+  @validate
+  async getPairInfo (@required address: string): Promise<PairInfo> {
+    // 获取合约对象
     const contract = this.getContract(PairABI, address)
     const [total, decimals, balance, symbol0, symbol1] = await Promise.all([
       this.getTotalValue(contract),
       this.getDecimalsValue(contract),
       this.getPairBalance(contract),
-      this.getSymbol0(contract, true),
-      this.getSymbol1(contract, true)
+      this.getSymbol0(contract),
+      this.getSymbol1(contract)
     ])
     return {
       total, decimals, balance, symbol0, symbol1,
@@ -80,15 +79,11 @@ export class Web3Util extends Web3 {
    * @param address 用户的钱包地址
    * @protected
    */
-  async getPairBalance(contract: any, address: string = getAddress()): Promise<number> {
-    if (contract && address) {
-      try {
-        return await contract.methods.balanceOf(address).call()
-      } catch (e) {
-        console.log('pairBalance : ', e)
-      }
-    }
-    return 0
+  @validate // 判断 参数是否为空
+  @before(getConnected) // 判断钱包是否已链接
+  @tryError(ErrorDefault(0)) // 监听异常，有异常返回默认值
+  getPairBalance(@required contract: any, address: string = getAddress()): number {
+    return contract.methods.balanceOf(address).call()
   }
 
   /**
@@ -97,7 +92,8 @@ export class Web3Util extends Web3 {
    * @param info 是否查询相信信息
    * @private
    */
-  protected async getSymbol0(contract: any, info: boolean = false): Promise<SymbolInfo> {
+  @validate // 判断 参数是否为空
+  protected async getSymbol0(@required contract: any, info: boolean = false): Promise<SymbolInfo> {
     let token: string = ''
     let reserveCount: string = ''
     const reserves = await this.getReservesValue(contract)
@@ -123,7 +119,8 @@ export class Web3Util extends Web3 {
    * @param info 是否查询相信信息
    * @private
    */
-  protected async getSymbol1 (contract: any, info: boolean = false): Promise<SymbolInfo> {
+  @validate // 判断 参数是否为空
+  protected async getSymbol1 (@required contract: any, info: boolean = false): Promise<SymbolInfo> {
     let token: string = ''
     let reserveCount: string = ''
     const reserves = await this.getReservesValue(contract)
@@ -148,7 +145,9 @@ export class Web3Util extends Web3 {
    * @param contractAddress 合约地址
    * @protected
    */
-  async getSymbolInfo (contractAddress: string) {
+  @validate // 判断 参数是否为空
+  @tryError()
+  async getSymbolInfo (@required contractAddress: string) {
     // weth 地址
     const contract = await this.getContract(erc20ABI, contractAddress)
     const [name, symbol, decimals, balance] = await Promise.all([
@@ -160,22 +159,16 @@ export class Web3Util extends Web3 {
     return { name, symbol, decimals, balance }
   }
   // symbol/token 名称
-  protected async getSymbolName (contract: any): Promise<string> {
-    try {
-      return await contract.methods.name().call()
-    } catch (e) {
-      console.log(e)
-      return ''
-    }
+  @validate // 判断 参数是否为空
+  @tryError(ErrorDefault(''))
+  protected getSymbolName (@required contract: any): string {
+    return contract.methods.name().call()
   }
   // symbol/token 代号
-  protected async getSymbolSymbol (contract: any): Promise<string> {
-    try {
-      return await contract.methods.symbol().call()
-    } catch (e) {
-      console.log(e)
-      return ''
-    }
+  @validate // 判断 参数是否为空
+  @tryError(ErrorDefault(''))
+  protected getSymbolSymbol (@required contract: any): string {
+    return contract.methods.symbol().call()
   }
   // -----------
   /**
@@ -184,7 +177,10 @@ export class Web3Util extends Web3 {
    * @param address 用户地址(默认当前链接的钱包地址)
    * @protected
    */
-  async getSymbolBalance (contractAddress: string, address: string = getAddress()): Promise<number> {
+  @validate // 判断 参数是否为空
+  @before(getAddress)
+  @tryError(ErrorDefault(0)) // 监听异常，返回默认值
+  async getSymbolBalance (@required contractAddress: string, address: string = getAddress()): Promise<number> {
     const status = [
       equalsIgnoreCase(contractAddress, swapConfig.UniWETHAddress),
       equalsIgnoreCase(contractAddress, swapConfig.SushiWETHAddress),
@@ -194,24 +190,14 @@ export class Web3Util extends Web3 {
     // 如果地址是 weth 地址就查询地址的 eth 余额
     if (compact(status).length > 0) {
       // @ts-ignore
-      try {
-        // @ts-ignore
-        return await this.eth.getBalance(address)
-      } catch (e) {
-        // todo
-      }
+      return this.eth.getBalance(address)
     } else {
       // 查询余额
-      try {
-        // @ts-ignore
-        const contract = await this.getContract(erc20ABI, contractAddress)
-        // @ts-ignore
-        return await contract.methods.balanceOf(address).call()
-      } catch (e) {
-        // todo
-      }
+      // @ts-ignore
+      const contract = await this.getContract(erc20ABI, contractAddress)
+      // @ts-ignore
+      return contract.methods.balanceOf(address).call()
     }
-    return 0
   }
   //----------------------
   /**
@@ -219,19 +205,12 @@ export class Web3Util extends Web3 {
    * @param symbolAddress symbol 地址
    * @param userAddress   钱包地址（默认小狐狸钱包链接的地址）
    */
-  async getAuthorizatioStatus (symbolAddress: string, userAddress: string = getAddress()): Promise<boolean> {
-    if (symbolAddress && userAddress) {
-      const erc20contract = await this.getContract(erc20ABI, symbolAddress)
-      try {
-        const res = await erc20contract.methods.allowance(userAddress, swapConfig.MdexRouterAddress).call()
-        return res.toString(10) !== '0';
-      } catch (e) {
-        return Promise.reject(e)
-      }
-    }
-    return Promise.reject({
-      message: 'symbolAddress 不能为空'
-    })
+  @tryError()
+  @validate
+  async getAuthorizatioStatus (@required symbolAddress: string, userAddress: string = getAddress()): Promise<boolean> {
+    const erc20contract = await this.getContract(erc20ABI, symbolAddress)
+    const res = await erc20contract.methods.allowance(userAddress, swapConfig.MdexRouterAddress).call()
+    return res.toString(10) !== '0';
   }
 
   /**

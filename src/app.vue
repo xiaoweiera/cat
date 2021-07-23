@@ -233,4 +233,17 @@ a {
   bottom: -1px;
   position: absolute;
 }
+
+
+/* 去掉 dialog 一些默认内边距 */
+
+.el-dialog.diy-dialog {
+  .el-dialog__header {
+    @apply hidden;
+  }
+  .el-dialog__body {
+    padding: 0 !important;
+  }
+}
+
 </style>

@@ -4,6 +4,8 @@ import { getPairSymbolData, Web3Util, getAmountOut } from '~/utils/ethereum/util
 import { useProvide } from '~/utils/use/state'
 import { toArray, numberDecimal, decimalFormat, equalsIgnoreCase } from '~/utils'
 import { stateName } from '~/utils/ethereum/interface'
+// @ts-ignore
+import { getAddress } from '~/utils/ethereum/status'
 import { toUpper } from 'ramda'
 import bignumber from 'bignumber.js'
 
@@ -49,13 +51,16 @@ const swapRatio = function(symbol0: string, symbol1: string): string | number | 
 const ready = async function() {
   const web3 = new Web3Util()
   const data = await web3.getPairInfo(props.pair)
-  const names: string[] = [
-    data.symbol0.symbol,
-    data.symbol1.symbol
-  ]
-  symbolNames.value = names
+  if (data) {
+    const names: string[] = [
+      data.symbol0.symbol,
+      data.symbol1.symbol
+    ]
+    symbolNames.value = names
 
-  setDetail(data)
+    setDetail(data)
+  }
+
 }
 
 // 监听 symbol 合约数量变化
@@ -111,12 +116,8 @@ const onAuthorizatio = async function() {
   const web3 = new Web3Util()
   const info = getPairSymbolData(detail.value[0], symbol)
   if (info) {
-    try {
-      const status = await web3.getAuthorizatioStatus(info.token)
-      console.log(status)
-    } catch (e) {
-      console.log(e)
-    }
+    const status = await web3.getAuthorizatioStatus(info.token)
+    console.log('status = ', status)
   }
 }
 
@@ -140,9 +141,11 @@ onMounted(ready)
         <span class="ml-1 text-global-highTitle">{{ symbolRatio }}</span>
       </p>
     </div>
-    <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
-      <span class="text-white select-none">授权</span>
-    </div>
+    <Before :app="getAddress" content="请先连接钱包">
+      <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
+        <span class="text-white select-none">授权</span>
+      </div>
+    </Before>
   </div>
 </template>
 

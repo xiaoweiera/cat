@@ -49,6 +49,7 @@ specifiers:
   prettier-stylelint: ^0.4.2
   prism-theme-vars: ^0.2.2
   ramda: ^0.27.1
+  reflect-metadata: ^0.1.13
   rollup: ^2.52.2
   sass: ^1.35.1
   swiper: 6.7.1
@@ -101,6 +102,7 @@ dependencies:
   postcss-preset-env: 6.7.0
   prism-theme-vars: 0.2.2
   ramda: 0.27.1
+  reflect-metadata: 0.1.13
   sass: 1.35.1
   swiper: 6.7.1
   url: 0.11.0
@@ -8368,6 +8370,10 @@ packages:
       css-unit-converter: 1.1.2
       postcss-value-parser: 3.3.1
     dev: true
+
+  /reflect-metadata/0.1.13:
+    resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
+    dev: false
 
   /regenerate-unicode-properties/8.2.0:
     resolution: {integrity: sha512-F9DjY1vKLo/tPePDycuH3dn9H1OTPIkVD9Kz4LODu+F2C75mgjAJ7x/gwy6ZcSNRAAkhNlJSOHRe8k3p+K9WhA==}

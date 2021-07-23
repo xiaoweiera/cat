@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 // @ts-ignore
 import { uuid } from '~/utils'
+
+defineProps( {
+  pair: {
+    type: String,
+    required: true
+  }
+})
 
 const showStatus = ref<boolean>(true)
 
@@ -13,9 +20,6 @@ const onShowSwap = function() {
 const onHideSwap = function() {
   showStatus.value = false
 }
-// @ts-ignore
-const pair = '0x6dd2993b50b365c707718b0807fc4e344c072ec2'
-
 
 </script>
 
