@@ -5,6 +5,7 @@ import {formatDefaultTime, min_max,formatRulesNumber, formatHourTime,unitOrder,n
 import {getCharts} from '~/api/liquidity'
 import {pairStore, symbolStore} from '~/store/liquidity/state'
 import {yAxisModel,yKAxisModel} from '~/logic/liquidity/chartConfig'
+// import {opacityLine} from '~/logic/liquidity/dataCofig'
 interface yModel {
   color: string
   data: Array<number>
@@ -13,6 +14,11 @@ interface yModel {
   group:number
   unit: string
   suffix:string
+  show:boolean | string
+}
+//是否隐藏线,返回透明度
+const isOpacityLine=(item:yModel)=>{
+  return ((item.show || item.show==='' || item.show===undefined) && item.show!=='false')
 }
 //根据后端配置显示什么后缀
 const getUnitData=(item:yModel,coinType:string)=>{
@@ -79,13 +85,17 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:stri
   const lineIcon='path://M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z'
   //@ts-ignore
   let legend=[]
-  //拆分成3个为一组的legend，这样每一行会居中
   yData.forEach((item: yModel,i:number) => {
-    legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item,coinType)})
+    if(isOpacityLine(item)){
+      legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item,coinType)})
+    }
     })
   //@ts-ignore
   if (!kyData) return legend
-  legend.push({icon:lineIcon,name:getUnitPriceData(kyData)})
+  if(isOpacityLine(kyData)){
+    legend.push({icon:lineIcon,name:getUnitPriceData(kyData)})
+  }
+
   return legend
 }
 const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,allxData:Array<number>,interval:string,pairId:string,coinType:string) => {
@@ -122,6 +132,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       opacity: 0.1,
     },
   }
+
   return [
     {
       name:isKline?getUnitPriceData(item): getUnitData(item,coinType),
@@ -147,6 +158,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
       },
       lineStyle: {
         width: 1.5,
+        opacity:isOpacityLine(item)?1:0,
       },
       color: '#'+item.color,
       data: seriesData,

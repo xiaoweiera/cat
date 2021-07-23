@@ -50,7 +50,7 @@ onMounted(function() {
 </script>
 <template>
   <nav class="sticky top-0 headerBg flex items-center justify-between relative z-2 px-4 md:px-6 h-18 font-kdFang">
-    <div class="flex items-center">
+    <div class="flex items-center h-full">
       <div class="md:hidden mr-3">
         <HeaderMobile></HeaderMobile>
       </div>
@@ -63,7 +63,7 @@ onMounted(function() {
       <div class="hidden md:inline-block">
         <HeaderPc class="ml-12"></HeaderPc>
       </div>
-      <div class="ml-12.5 flex-grow items-center text-global-default hidden md:flex pr-8">
+      <div class="h-full ml-8.5 flex-grow items-center text-global-default hidden md:flex pr-8">
         <slot name="nav" :lang="current">
           <!-- 默认导航内容 -->
           <HeaderContent/>
