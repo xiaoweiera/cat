@@ -21,7 +21,7 @@ const titleName=computed(()=>{
   }
   return name
 })
-wxShare(titleName, '发现聪明的钱流向，大户、散户行为一目了然')
+wxShare(titleName.value, I18n.liquidity.share)
 const navIsSelect = (path: string): string => {
   const $router = toRaw(router)
   const pathname: string = $router.path.value
@@ -32,7 +32,7 @@ const navIsSelect = (path: string): string => {
 }
 onBeforeMount(() => {
   useHead({
-    title: titleName,
+    title: titleName.value,
     meta: [
       {
         name: 'keywords',
@@ -40,7 +40,7 @@ onBeforeMount(() => {
       },
       {
         name: 'description',
-        content:'description：KingData DEX 分析 对MDEX中的流动性添加与撤出、交易数据进行了多维度多场景的详尽分析，对主力、散户行为一目了然，帮助用户提前发现市场中的异常，分析价格变动的原因和不同指标的相关性。',
+        content:I18n.liquidity.description
       },
     ],
   })
