@@ -49,6 +49,7 @@ export const updateData = (origin: any, data: any) => {
   }, keys)
 }
 
+
 // 获取缓存的搜索记录
 export const getHistory=()=>{
   if(localStorage.getItem('history') && localStorage.getItem('history')!=='null'){
