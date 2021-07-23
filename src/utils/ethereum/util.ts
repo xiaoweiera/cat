@@ -7,7 +7,7 @@ import Ethereum from './_'
 import BigNumber from 'bignumber.js'
 // @ts-ignore
 import Web3 from 'web3/dist/web3.min.js'
-import { getAddress } from './status'
+import { getAddress, getConnected } from './status'
 import { erc20ABI, PairABI } from './pair'
 import { PairInfo, SymbolInfo } from '~/utils/ethereum/interface'
 import swapConfig from './config'
@@ -27,8 +27,10 @@ export class Web3Util extends Web3 {
    * @param address
    */
   getContract(abi: any, address: string) {
-    // @ts-ignore
-    return new this.eth.Contract(abi, address)
+    if (getConnected()) {
+      // @ts-ignore
+      return new this.eth.Contract(abi, address)
+    }
   }
 
   // 获取储备量信息
@@ -218,7 +220,7 @@ export class Web3Util extends Web3 {
    * @param userAddress   钱包地址（默认小狐狸钱包链接的地址）
    */
   async getAuthorizatioStatus (symbolAddress: string, userAddress: string = getAddress()): Promise<boolean> {
-    if (symbolAddress) {
+    if (symbolAddress && userAddress) {
       const erc20contract = await this.getContract(erc20ABI, symbolAddress)
       try {
         const res = await erc20contract.methods.allowance(userAddress, swapConfig.MdexRouterAddress).call()
