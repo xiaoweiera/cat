@@ -20,7 +20,7 @@ import {
   max,
   min,
   dateAdd,
-  convertInterval
+  convertInterval, dateFormat,
 } from '~/utils/index'
 
 import { XAxisItem, SeriesItem, SeriesMap } from './interface'
@@ -42,6 +42,22 @@ const makeDateKey = function(date: any, interval?: string): string {
   // 按天生成时间
   return dateYMDFormat(date)
 }
+
+const makeDateFormat = function(date: any, interval?: string): string {
+  const { type } = convertInterval(interval)
+  // 按小时
+  if (type === 'h') {
+    return dateFormat(date, 'MM/DD HH')
+  }
+  // 按分钟
+  if (type === 'm') {
+    return dateFormat(date, 'MM/DD HH:mm')
+  }
+  // 按天生成时间
+  return dateMDFormat(date)
+}
+
+
 
 const add = function(...args: number[] | number[][]): number {
   const data: number[] = flatten(args)
@@ -119,7 +135,7 @@ export const calcDates = function(trends: {[key: string]: Trend}, interval?: str
     forEach(function(item: number[]) {
       const time = dateTime(item[0])
       const where: any = { key: makeDateKey(time, interval) }
-      const data: XAxisItem = { time, value: dateMDFormat(time) }
+      const data: XAxisItem = { time, value: makeDateFormat(time, interval) }
       if (db.selectOne(where)) {
         db.update(where, data)
       } else {
@@ -259,7 +275,7 @@ export const calcYAxis = function(series: any[], stack: boolean = false, log: bo
     if (minValue > 0) {
       minValue = Math.log10(minValue)
     } else if (minValue < 0){
-      minValue = Math.log10(Math.abs(minValue))
+      minValue = Math.log10(Math.abs(minValue)) * -1
     } else {
       minValue = 0
     }

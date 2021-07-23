@@ -79,36 +79,40 @@ const getDetail = async function(data: ItemData) {
       const db = new DBList(charts, 'id')
       const item = db.selectOne<any>({ id: kline_chart })
       if (item) {
-        //@ts-ignore
-        legends.push({
-          kline: true, // 价格线
-          id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
-          name: safeGet<string>(item, 'chart.relation_title'), // 默认取第一条数据
-          unit: safeGet<string>(item, 'chart.relation_unit'),
-          type: seriesType.line,
-          position: Position.right
-        })
+        const name = safeGet<string>(item, 'chart.relation_title')
+        if (name) {
+          //@ts-ignore
+          legends.push({
+            kline: true, // 价格线
+            name,
+            id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
+            unit: safeGet<string>(item, 'chart.relation_unit'),
+            type: seriesType.line,
+            position: Position.right
+          })
+        }
       }
     }
   } else {
-    const temp = {
-      kline: true, // 价格线
-      id: safeGet<number>(result, 'id'), // 默认取第一条数据
-      name: safeGet<string>(result, 'relation_title'), // 默认取第一条数据
-      unit: safeGet<string>(result, 'relation_unit'),
-      type: seriesType.line,
-      position: Position.right
+    const name = safeGet<string>(result, 'relation_title') // 默认取第一条数据
+    if (name) {
+      const temp = {
+        kline: true, // 价格线
+        name,
+        id: safeGet<number>(result, 'id'), // 默认取第一条数据
+        unit: safeGet<string>(result, 'relation_unit'),
+        type: seriesType.line,
+        position: Position.right
+      }
+      //@ts-ignore
+      legends.push(temp)
     }
-    //@ts-ignore
-    legends.push(temp)
   }
   data.legends = map(function(item: any) {
     item.kline = toBoolean(item.kline)
     return item
   }, legends)
-
   data.last = safeGet<number>(result, 'last')
-
   const stack = toBoolean(safeGet<boolean>(result, 'stacked'))
   if (stack) {
     data.stack = stack // 是否开启堆积图

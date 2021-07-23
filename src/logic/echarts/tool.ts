@@ -37,20 +37,25 @@ export const initProps = {
 
 export const valueFormatter = function(data: SeriesItem): string {
   let value = '-'
-  if (data.origin && isNumber(data.origin)) {
-    value = numberUint(data.origin as number)
-  } else if (data.value && isNumber(data.value)) {
-    value = numberUint(data.value as number)
+  if (data.value && isNumber(data.value)) {
+    if (data.origin && isNumber(data.origin)) {
+      value = numberUint(data.origin as number)
+    } else {
+      value = numberUint(data.value as number)
+    }
   }
-  // 判断是否是金额
-  switch (data.unit) {
-  case Unit.a:
-  case Unit.a1:
-  case Unit.a2:
-  case Unit.a3:
-    return `${data.unit}${value}`
+  if (data.unit) {
+    // 判断是否是金额
+    switch (data.unit) {
+    case Unit.a:
+    case Unit.a1:
+    case Unit.a2:
+    case Unit.a3:
+      return `${data.unit}${value}`
+    }
+    return `${value}${data.unit}`
   }
-  return `${value}${data.unit}`
+  return value
 }
 
 
