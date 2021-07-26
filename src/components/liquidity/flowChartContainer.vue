@@ -36,7 +36,7 @@ const priceData = reactive({value: {}})
 const isNull = ref(false) //是否有数据
 const chartLoad = ref(true)
 const title= computed<string>((): string => {
-  return pairStore.id ? pairStore.name : symbolStore.name
+  return pairStore.id ? pairStore.orderTokenName : symbolStore.name
 })
 //得到数据
 const getData = async () => {

@@ -20,7 +20,7 @@ const  copy=()=>{
   messageTip(I18n.liquidity.message.success,'success')
 }
 const pairName=computed(()=>{
-  return subStrByNumber(pairStore.name.split('/')[0],5)+'/'+subStrByNumber(pairStore.name.split('/')[1],5)
+  return subStrByNumber(pairStore.orderTokenName.split('/')[0],5)+'/'+subStrByNumber(pairStore.orderTokenName.split('/')[1],5)
 })
 </script>
 <template>

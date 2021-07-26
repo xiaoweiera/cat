@@ -1,4 +1,5 @@
 export default {
+    go:'立即体验',
     name: '流动性分析 🔥',
     img: 'https://res.ikingdata.com/liquidity/webTipImg.jpg',
     title: '流动性分析 🔥',

@@ -59,6 +59,20 @@ const load = () => {
     }
   }
 }
+const  getPayName=(symbol0:string,symbol1:string)=>{
+  if(symbolStore.name===symbol0){
+    return symbol0 + '/' + symbol1
+  }else{
+    return symbol1 + '/' + symbol0
+  }
+}
+const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
+  if(symbolStore.name===symbol0){
+    return `1:${price}`
+  }else{
+    return `${price}:1`
+  }
+}
 </script>
 <template>
   <div v-show="tokenTableShow[0]" class="bg-global-bodyTwo">
@@ -71,14 +85,14 @@ const load = () => {
       <template v-for="item in pairList">
         <div v-login :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
           <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
-            <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">
-              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ item.symbol0 + '/' + item.symbol1 }}</span>
+            <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="getPayName(item.symbol0,item.symbol1)" placement="bottom" effect="light">
+              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayName(item.symbol0,item.symbol1)}}</span>
             </el-tooltip>
           </div>
           <div class="w-25     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
           <div class="w-22  text-kd12px16px text-global-default">
-            <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="'1:'+formatRulesNumber(item.price,true)" placement="bottom" effect="light">
-              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">1:{{ formatRulesNumber(item.price,false) }}</span>
+            <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))" placement="bottom" effect="light">
+              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,false))}}</span>
             </el-tooltip>
 
           </div>

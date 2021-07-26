@@ -1,4 +1,5 @@
 export default {
+    go:'Go',
     name: 'Liquidity Analysis 🔥',
     img: 'https://res.ikingdata.com/nav/coinmetrics.jpg',
     title: 'Liquidity Analysis 🔥',

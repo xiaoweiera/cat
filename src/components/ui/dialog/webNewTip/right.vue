@@ -23,7 +23,7 @@ const props=defineProps({
           </template>
         </div>
     <a :href="data.href" target="_blank" class="borRaduis bg-global-primary w-27.5 flex items-center py-2.5 absolute bottom-6 right-6 cursor-pointer   justify-center rounded">
-      <span class="text-kd14px18px text-global-white font-medium">立即体验</span>
+      <span class="text-kd14px18px text-global-white font-medium">{{I18n.webtip.go}}</span>
       <img class="w-4 ml-1" style="border-top-right-radius: 100px !important;" src="https://res.ikingdata.com/liquidity/right.png" alt="">
     </a>
     </div>

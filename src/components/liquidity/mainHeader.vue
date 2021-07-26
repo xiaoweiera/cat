@@ -15,7 +15,7 @@ const closePair = () => {
 }
 const getDesc=()=>{
   if(pairStore.id){
-    return  I18n.template(I18n.liquidity.mainHeader.payData, {pair:pairStore.name})
+    return  I18n.template(I18n.liquidity.mainHeader.payData, {pair:pairStore.orderTokenName})
   }else{
     return I18n.template(I18n.liquidity.mainHeader.liquidity,{token:symbolStore.name})
   }
@@ -27,7 +27,7 @@ const getDesc=()=>{
     <div class="flex h-full items-center">
       <div v-if="pairStore.id" class="flex items-center mr-4">
         <a :href="getHref(pairStore.id)" target="_blank" class="bg-global-primary bg-opacity-8 rounded px-1.5 py-0.4">
-          <span class="text-kd16px160 text-global-primary font-kdExp">{{pairStore.name }}</span>
+          <span class="text-kd16px160 text-global-primary font-kdExp">{{pairStore.orderTokenName }}</span>
           <span class="text-kd14px160 text-global-primary font-kdFang ml-2.5">{{smallToken(pairStore.id) }}</span>
         </a>
         <img class="w-4 h-4 ml-1.5 cursor-pointer" src="https://res.ikingdata.com/nav/cardClose.png" alt="" @click="closePair"/>
