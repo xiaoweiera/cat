@@ -4,6 +4,7 @@ const props = defineProps({
   url: String,
   image: String,
 })
+// @ts-ignore
 const style = computed((): string => {
   return `background-image: url(${props.image});`
 })
@@ -11,7 +12,7 @@ const style = computed((): string => {
 
 <template>
   <div class="equal-width-height">
-    <div class="equal-content">
+    <div class="equal-content" v-login>
       <a
         v-if="url"
         class="ad-picture inline-block"

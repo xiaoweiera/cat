@@ -5,7 +5,6 @@ import {useRoute, useRouter} from 'vue-router'
 import {changeRouteParam,smallToken} from '~/lib/tool'
 
 const filterType = ref()
-console.log(pairStore.id)
 const getOption=()=>{
   if(analysisType.value==='pay'){
     paramChart.tokenType=paramChart.tokenType==='pair'?'symbol0':paramChart.tokenType

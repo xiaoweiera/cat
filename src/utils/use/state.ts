@@ -3,8 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-import { upperFirst, isUndefined } from '~/utils/index'
 import { inject, provide, ref, toRaw } from 'vue'
+import { upperFirst, isUndefined } from '~/utils/index'
+
 type SetCallback = (value?: any, index?: number | string) => void
 const autoValue = function(value?: any): Array<any> {
   if (isUndefined(value)) {

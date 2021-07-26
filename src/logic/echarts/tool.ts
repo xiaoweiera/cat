@@ -5,8 +5,9 @@
 
 
 export * from '~/utils/use/state'
-import { SeriesItem, Unit } from './interface'
+import { Position, SeriesItem, Unit } from './interface'
 import { isNumber, numberUint } from '~/utils/index'
+
 
 export enum EchartsOptionName {
   series = 'series',
@@ -20,22 +21,15 @@ export const initProps = {
   index: function() {
     return {
       type: [Number, String],
-      default () {
-        return 0
-      }
+      default: () => 0
     }
   },
   position: function() {
     return {
       type: String,
-      default(): string {
-        return 'left'
-      },
+      default: () => Position.left,
       validator (value: string): boolean {
-        if (value === 'left' || value === 'right') {
-          return true
-        }
-        return false
+        return value === Position.left || value === Position.right;
       }
     }
   }
@@ -43,14 +37,25 @@ export const initProps = {
 
 export const valueFormatter = function(data: SeriesItem): string {
   let value = '-'
-  if (isNumber(data.value)) {
-    value = numberUint(data.value as number)
+  if (data.value && isNumber(data.value)) {
+    if (data.origin && isNumber(data.origin)) {
+      value = numberUint(data.origin as number)
+    } else {
+      value = numberUint(data.value as number)
+    }
   }
-  // 判断是否是 $
-  if (data.unit === Unit.a) {
-    return `${data.unit}${value}`
+  if (data.unit) {
+    // 判断是否是金额
+    switch (data.unit) {
+    case Unit.a:
+    case Unit.a1:
+    case Unit.a2:
+    case Unit.a3:
+      return `${data.unit}${value}`
+    }
+    return `${value}${data.unit}`
   }
-  return `${value}${data.unit}`
+  return value
 }
 
 

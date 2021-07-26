@@ -73,7 +73,7 @@ onMounted(()=>{
       <div class="header-txt w-32.5 ml-5">{{I18n.liquidity.select.price}}</div>
     </div>
     <template v-for="item in tokenList">
-      <li class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
+      <li v-login  class="flex items-center hand content-item py-1.5 mt-1.5" :class="{selectBg:symbolStore.id === item.symbol_id}" @click="changeToken(item.symbol,item.symbol_id)">
         <el-tooltip :hide-after="10" :content="item.symbol+', '+item.symbol_name" placement="bottom" effect="light">
           <div class="txtSmall w-50 whitespace-nowrap  ">
             <span>{{ item.symbol}}</span>,<span class="ml-2">{{ item.symbol_name}}</span>

@@ -5,6 +5,7 @@
 
 import Url from 'url'
 import { ref } from 'vue'
+import { domain } from '~/lib/config'
 import safeSet from '@fengqiaogang/safe-set'
 
 export enum Language {
@@ -86,7 +87,8 @@ const splitJoin = function(href: string, value?: Language): string {
   // @ts-ignore
   const data = Url.parse(href, true)
   data.search = ''
-  data.query.lang = switchLang(value)
+  safeSet(data, 'query.lang', switchLang(value))
+  safeSet(data, 'query.utm_source', encodeURI(domain))
   return Url.format(data)
 }
 
@@ -100,5 +102,8 @@ export const href = function <T>(data: Query, lang?: Language): T {
   if (typeof data === 'string') {
     return splitJoin(data, lang) as any
   }
-  return safeSet<T>(data, 'query.lang', switchLang(lang))
+  const temp: any = {...data}
+  safeSet<T>(temp, 'query.lang', switchLang(lang))
+  safeSet(temp, 'query.utm_source', encodeURI(domain))
+  return temp
 }

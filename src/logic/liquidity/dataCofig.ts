@@ -10,11 +10,15 @@ import I18n from '~/utils/i18n/index'
 //     '单位时间内主动卖出':true,
 //     '交易额趋势':true
 // }
+//隐藏线的图表chartId
+export const opacityLine=[1]
 export const titleCofig={
     '6':{change:true,replaceStr:''},
-    '7':{change:true,replaceStr:I18n.liquidity.titleCofig.money},
-    '10':{change:true,replaceStr:I18n.liquidity.titleCofig.number},
+    '7':{change:true,replaceStr:I18n.liquidity.titleCofig.moneyReplaceStr,replace:I18n.liquidity.titleCofig.money},
+    '10':{change:true,replaceStr:I18n.liquidity.titleCofig.numberReplaceStr,replace:I18n.liquidity.titleCofig.number},
 }
+//token是否根据pair交易对的未知，来确定tokenType为symbol0或者symbol1
+export const isSymbol0Symbol1=[6,7,10]
 export const chartDataConfig=[
     {
         title:I18n.liquidity.mainChart.moneyInto.title,

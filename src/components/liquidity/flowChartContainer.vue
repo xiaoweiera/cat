@@ -2,7 +2,7 @@
 import {defineProps, onMounted, ref,computed, reactive, watch} from 'vue'
 import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getFlowChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
-
+import I18n from '~/utils/i18n/index'
 const props = defineProps({
   config: Object,
   tokenParam: Object,
@@ -42,27 +42,29 @@ const title= computed<string>((): string => {
 const getData = async () => {
   chartLoad.value = true
   let chartCoin = ''
+  priceData.value = await getTokenPriceData({
+    platId:1,
+    symbol_id: symbolStore.id,
+    from_ts: props.tokenParam.from_ts,
+    to_ts: props.tokenParam.to_ts,
+    interval:props.tokenParam.interval
+  }, 'token')
   if (pairStore.id) {
     chartCoin = props.config.flow.pairCofig.usdCoin ? coinType.value : 'usd'
     //pair查询
     props.pairParam.pair_id = pairStore.id
-    priceData.value = await getPairPriceData({
-      platId:1,
-      pair_id: pairStore.id,
-      from_ts: props.pairParam.from_ts,
-      to_ts: props.pairParam.to_ts
-    }, 'pair')
+    // priceData.value = await getPairPriceData({
+    //   platId:1,
+    //   pair_id: pairStore.id,
+    //   from_ts: props.pairParam.from_ts,
+    //   to_ts: props.pairParam.to_ts,
+    //   interval:props.pairParam.interval
+    // }, 'pair')
     chartData.value = await getFlowChartModel(props.pairParam, props.chartId, tokenType.value, chartCoin)
   } else {
     chartCoin = props.config.flow.tokenCofig.usdCoin ? coinType.value : 'usd'
     //token查询
     props.tokenParam.symbol_id = symbolStore.id
-    priceData.value = await getTokenPriceData({
-      platId:1,
-      symbol_id: symbolStore.id,
-      from_ts: props.tokenParam.from_ts,
-      to_ts: props.tokenParam.to_ts
-    }, 'token')
     chartData.value = await getFlowChartModel(props.tokenParam, props.chartId, tokenType.value, chartCoin)
   }
   chartKey.value++
@@ -78,6 +80,7 @@ const initLoad = () => {
   const offset = dom.getBoundingClientRect()
   const offsetTop = offset.top;
   const offsetBottom = offset.bottom;
+
   if (offsetTop <= window.innerHeight && offsetBottom >= 0) {
     window.removeEventListener('scroll', scrollHandle, true);
     getData()
@@ -91,35 +94,46 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class=" flex flex-col py-4 pl-4 flex-1 h-full relative   mb-5 bg-white font-kdFang">
-    <!--    定位用-->
-    <div :class="'chartScroll'+props.chartId"></div>
+  <div :class="'chartScroll'+props.chartId" class=" flex flex-col py-4  px-4 flex-1 min-h-70  md:h-full relative    mb-5 bg-white font-kdFang">
     <!--    图表的信息-->
-    <div class="flex items-center">
+    <div class="flex flex-col md:flex-row  md:items-center flex-wrap">
       <div class="text-kd14px18px flex text-global-default opacity-85 font-medium">
         <span>{{ title }}</span>
-        <span class="ml-2">{{ chartData.value?.title }}</span>
+        <span  class="ml-2 ">{{ chartData.value?.title }}</span>
+        <el-tooltip class="mdhidden" :append-to-body="false" popper-class="desTip" :hide-after="10" :content="chartData.value?.desc" placement="top" effect="light">
+          <div>
+            <IconFont class="mt-0.5 ml-1" type="icon-info" />
+          </div>
+        </el-tooltip>
       </div>
-      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="ml-1.25" :coinType="coinType"/>
-      <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
+      <LiquidityUsdCoin v-if="(!pairStore.id && props.config.flow.tokenCofig.usdCoin) || (pairStore.id && props.config.flow.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
+      <LiquidityFullChartFull   :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="flow" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
-    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-10 ">
+    <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-11 xshidden">
       {{ chartData.value?.desc }}
     </div>
-    <div v-if="!chartLoad" class="w-full">
+    <div v-if="!chartLoad" class="w-full h-full">
       <div v-if="!isNull" class="w-full">
-        <LiquidityChart class="h-77.5 w-full"   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
+        <LiquidityChart class=" h-60 md:h-77.5 w-full "   :key="chartKey" v-if="chartData.value.id" :chartId="props.chartId" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
       </div>
-      <div v-else class="flex items-center justify-center  w-full h-full">
-        <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
+      <div v-else class="flex flex-col items-center justify-center  w-full h-full">
+        <img class="w-50 mb-2 md:mb-4 md:w-62.5  md:mt-0 " src="https://res.ikingdata.com/liquidity/liquidityNullData.jpg" alt="">
+        <span class="text-kd14px18px text-global-default text-opacity-32 font-kdFang ">{{I18n.liquidity.noData}}</span>
       </div>
     </div>
-    <div v-else class="flex items-center   h-full justify-center">
-      <img class="w-50 absolute  z-2" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
+    <div v-else class="flex items-center justify-center   w-full   h-full justify-center">
+      <img class="w-50   z-2 mt-4 md:mt-0 mr-4 mb-10" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
     </div>
   </div>
 </template>
 <style scoped lang="postcss">
+
+::v-deep(.el-popper.is-light){
+  margin-right:10px !important;
+}
+.tip{
+  width: 100px !important;
+}
 .txtSmall{
   overflow: hidden;
   text-overflow: ellipsis;

@@ -2,10 +2,27 @@ export default {
     message:{
         success:'复制成功',
     },
+    share:'发现聪明的钱流向，大户、散户行为一目了然',
+    description:'KingData DEX 分析 对MDEX中的流动性添加与撤出、交易数据进行了多维度多场景的详尽分析，对主力、散户行为一目了然，帮助用户提前发现市场中的异常，分析价格变动的原因和不同指标的相关性。',
     numberUnit:{
         wan:'万',
         yi:'亿',
         wanyi:'万亿'
+    },
+    noData:'暂无数据',
+    address:'地址',
+    webTitle:'KingData DEX 分析',
+    mobile:{
+        select:'搜索',
+        selectDes:'查看自选或搜索币种',
+        flow:'流动性分析',
+        pay:'交易数据分析',
+        time:'选择时间',
+        interval:'时间粒度',
+        pairDesc:'相关交易对',
+        pcDes1:'为了您良好的使用体验',
+        pcDes2:'建议在电脑中访问该页面',
+        confirm:'确定'
     },
     select:{
         tip:'搜索币种/交易对/合约地址',
@@ -19,19 +36,20 @@ export default {
         changePrice:'汇率价格'
     },
     info: {
-        tokenAddress: 'Token地址',
+        tokenAddress: '合约地址',
     },
     side: {
         self: '自选',
         pairDesc: '相关交易对',
+        tvlNumber:'锁仓量',
         pair: '交易对',
         tvl: 'TVL($)',
-        price: '价格($)',
+        price: '价格',
         change: '涨跌幅'
     },
     mainHeader: {
-        liquidity: '所有相关的交易对数据聚合分析',
-        payData: '仅对{pair}交易对相关的数据聚合分析',
+        liquidity: '{token} 所有相关的交易对数据聚合分析',
+        payData: '仅对 {pair} 交易对相关的数据聚合分析',
         follow:'关注',
         analysis:'分析数据异常',
         week: '近7天',
@@ -45,8 +63,10 @@ export default {
         bottom:'已到底部'
     },
     titleCofig:{
-        money:'资金明细',
-        number:'频次'
+        moneyReplaceStr:'资金明细',
+        numberReplaceStr:'频次',
+        money:' {value} 资金明细',
+        number:' {value} 频次'
     },
     mainChart: {
         moneyInto:{
@@ -58,18 +78,17 @@ export default {
             desc:'展示选定币种或者交易对的相关资金净流入流出的明细，更直观的展示资金在多空博弈时的体量。',
         },
         IntoInOutNumber:{
-            title:'流出流出频次',
+            title:'流入流出频次',
             desc:'展示选定币种或者交易对的用户操作的频率，能直观的反映人们参与的热情。',
         },
         joinUsersAnalysis:{
             title:'参与人数分析',
-            desc:'展示选定币种或者交易对的参数人数的明细，能直观的看出相关项目的用户规模。',
+            desc:'展示选定币种或者交易对的参与人数的明细，能直观的看出相关项目的用户规模。',
         },
         addUsersAnalysis:{
             title:'新增人数分析',
             desc:'展示选定币种或者交易对的新增用户的明细，能直观的看出相关项目有多少新用户进入。',
         },
-
     },
     fullChart:{
         tip:'* 点击柱图可进行数据过滤'

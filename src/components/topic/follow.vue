@@ -52,7 +52,7 @@ const onClickUnFollow = async function() {
 </script>
 
 <template>
-  <div>
+  <div v-login>
     <div class="cursor-pointer" v-if="!status" @click="onClickfollow">
       <slot></slot>
     </div>
@@ -67,7 +67,7 @@ const onClickUnFollow = async function() {
         <p class="text-center text-base font-normal title">关注成功</p>
       </template>
       <!--App 下载提示-->
-      <AppDownTips/>
+      <AppDownTips @click="folloed = false"/>
     </el-dialog>
   </div>
 </template>

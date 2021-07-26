@@ -2,6 +2,7 @@
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
 import * as R from 'ramda'
 import {  setInject, getInject,margeInject } from '~/utils/use/state'
+import I18n from '~/utils/i18n/index'
 import {getFlowChartModel,getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import get = Reflect.get;
 const props=defineProps({
@@ -41,22 +42,24 @@ const getData = async () => {
   const tokenType=props.chartType==='flow'?'pair':'symbol0'
   chartLoad.value = true
   let chartCoin = ''
+  const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
+  priceData.value = await getTokenPriceData(param, 'token')
   if (pairData.value[0].id) {
     //pair查询
     const param=R.pick(['platId','pair_id','from_ts','to_ts','interval'],requestParam)
     chartCoin = props.config[props.chartType].pairCofig.usdCoin ? coinType.value[0] : 'usd'
-    priceData.value = await getPairPriceData({pair_id: pairData.value[0].id, from_ts: requestParam.from_ts, to_ts: requestParam.to_ts}, 'pair')
+    // priceData.value = await getPairPriceData(param, 'pair')
     if(props.chartType==='flow'){
       chartData.value = await getFlowChartModel(param, props.chartId, tokenType, chartCoin)
     }else{
       chartData.value = await getPayChartModel(param, props.chartId,tokenType, chartCoin)
     }
   } else {
+    requestParam.symbol_id = tokenData.value[0].id
     //token查询
     const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
+    // priceData.value = await getTokenPriceData(param, 'token')
     chartCoin = props.config[props.chartType].tokenCofig.usdCoin ? coinType.value[0] : 'usd'
-    requestParam.symbol_id = tokenData.value[0].id
-    priceData.value = await getTokenPriceData({platId:1,symbol_id: tokenData.value[0].id, from_ts: requestParam.from_ts, to_ts: requestParam.to_ts}, 'token')
     if(props.chartType==='flow'){
       chartData.value = await getFlowChartModel(param, props.chartId, tokenType, chartCoin)
     }else{
@@ -85,8 +88,9 @@ watch(()=>timeParam.value[0].timeBegin,(n,o)=>{
     <div v-if="!isNull" class="w-full h-full">
       <LiquidityChart :full=full   :key="chartKey" v-if=" chartData.value.id" :chartId="props.chartId+'full'" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
     </div>
-    <div v-else class="flex items-center justify-center  w-full h-full">
-      <img class="w-62.5 " src="https://res.ikingdata.com/nav/liquidityNullData.jpg" alt="">
+    <div v-else class="flex flex-col items-center justify-center  w-full h-full">
+      <img class="w-62.5 mb-4" src="https://res.ikingdata.com/liquidity/liquidityNullData.jpg" alt="">
+      <span class="text-kd14px18px text-global-default text-opacity-32 font-kdFang ">{{I18n.liquidity.noData}}</span>
     </div>
   </div>
 </template>

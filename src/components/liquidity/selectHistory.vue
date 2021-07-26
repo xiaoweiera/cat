@@ -8,19 +8,17 @@ import I18n from '~/utils/i18n/index'
 const route = useRoute()
 const router = useRouter()
 const setHistory = (item: any) => {
-  console.log(item)
   if (item.type === 'token') {
     symbolStore.name = item.name
     symbolStore.id = item.token_id
     pairStore.id = ''
     pairStore.name = ''
-    changeRouteParam(route, router, {token: item.id})
+    changeRouteParam(route, router, {token: item.token_id,pair:undefined,pairName:undefined})
   } else {
     symbolStore.name = item.tokenName
     symbolStore.id = item.token_id
     pairStore.name = item.name
     pairStore.id = item.pair_id
-    console.log(pairStore.id)
     changeRouteParam(route, router, {token: item.token_id,pair: item.pair_id, pairName: item.name})
     // changeRouteParam(route, router, {pair: item.pair_id, pairName: item.name})
   }
@@ -44,7 +42,7 @@ onMounted(getHistory)
     </div>
     <div class="flex flex-wrap">
       <template v-for="item in selectHistory">
-        <div v-if="item.type"  class=" hand flex mt-3 ">
+        <div v-login  v-if="item.type"  class=" hand flex mt-3 ">
           <span class="coinName mr-3 border-1" @click="setHistory(item)" :class="getClass(item)" >{{ item.name}}</span>
         </div>
       </template>

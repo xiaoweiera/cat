@@ -6,21 +6,9 @@
 import { pick, toLower } from 'ramda'
 import * as api from '~/api/topic'
 import safeGet from '@fengqiaogang/safe-get'
-import { forEach ,map, compact, toBoolean } from '~/utils/index'
+import { forEach, map, compact, toBoolean, toNumber } from '~/utils/index'
 import DBList from '@fengqiaogang/dblist'
-
-enum Position {
-  left = 'left',
-  right = 'right'
-}
-
-interface LegendItem {
-  name: string
-  unit: string
-  id: string | number,
-  type: string // echarts 展示图形类型 line / bar ...
-  position?: Position,
-}
+import { LegendItem, seriesType } from '~/logic/echarts/interface'
 
 interface APIChartDetail {
   field_unit: string
@@ -38,13 +26,13 @@ const getLegends = function(list: APIChart[]): LegendItem[] {
   for(let i = 0, len = list.length; i < len; i++) {
     const data: APIChart =  list[i]
     const id = safeGet<number>(data, 'chart.id')
-    const name = safeGet<string>(data, 'alias') // 名称
-    legends.push({
-      id,
-      name,
-      unit: safeGet<string>(data, 'chart.field_unit'), // 单位
-      type: safeGet<string>(data, 'chart.default_chart'),
-    })
+    const name = safeGet<string>(data, 'alias') || '' // 名称
+    const unit = safeGet<string>(data, 'chart.field_unit') || '' // 单位
+    const type = safeGet<seriesType>(data, 'default_chart') || ''
+    // if (!type) {
+    //   type = safeGet<seriesType>(data, 'chart.default_chart')
+    // }
+    legends.push({ id, name, type, unit })
   }
   return compact(legends)
 }
@@ -62,9 +50,33 @@ export const getChartList = async function(topId: string | number, page: number 
     const apiCharts: APIChart[] = safeGet<APIChart[]>(data, 'chart')
     if (apiCharts && apiCharts.length > 0) {
       const legends = getLegends(apiCharts)
+      const log = toBoolean(safeGet<boolean>(data, 'log'))
       // 获取该图表的数据（根据 id 获取数据详情）
+      let width = toNumber(safeGet<number>(data, 'width'))
+      let height = toNumber(safeGet<number>(data, 'height'))
+      if (width === 0) {
+        width = 50
+      } else if (width > 0 && width < 50) {
+        width = 33
+      } else if (width >= 50 && width < 100) {
+        width = 50
+      } else {
+        width = 100
+      }
+      if (height <= 200) {
+        height = 200
+      }
+      // 我的图表需要特殊处理
+      if (topId === 'my' || topId === '0' || topId === 0) {
+        width = 50
+        height = 200
+      }
       return {
         multiple,
+        width,
+        height,
+        log,
+        stack: toBoolean(safeGet<boolean>(data, 'stacked')),
         name: safeGet<string>(data, 'name') || '', // 图表名称
         chartId: safeGet<string>(data, 'id'), // 图表ID
         followed: toBoolean(safeGet<boolean>(data, 'followed')), // 是否已关注图表

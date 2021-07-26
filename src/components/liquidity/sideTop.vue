@@ -57,11 +57,11 @@ onMounted(()=>getInfo())
       </div>
       <!-- TVL-->
       <div class="flex items-center mt-1.5">
-        <span class="text-kd14px20px text-global-default opacity-65">TVL:</span>
+        <span class="text-kd14px20px text-global-default opacity-65">{{I18n.liquidity.side.tvlNumber}}:</span>
         <span class="text-kd20px28px text-global-default opacity-85 ml-1.5">${{ info.tvl ? formatRulesNumber(info.tvl) : '-' }}</span>
       </div>
       <div class="flex items-center font-kdFang mt-1.5">
-        <span class="text-kd12px16px text-global-default opacity-35">Token地址</span>
+        <span class="text-kd12px16px text-global-default opacity-35">{{I18n.liquidity.info.tokenAddress}}</span>
         <a :href="getHref(info.symbol_id)" target="_blank" class="ml-1.5 text-global-primary text-kd14px20px">{{smallToken(info.symbol_id) }}</a>
         <IconFont @click="copy(info.symbol_id)" class="ml-2 hand flex mb-1 opacity-65" type="copy" size="base"></IconFont>
       </div>

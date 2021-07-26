@@ -113,6 +113,12 @@ export const chainConfig = [
   },
   // {
   //   select: false,
+  //   key: 'polygon',
+  //   name: 'POLYGON',
+  //   img: 'https://res.ikingdata.com/nav/apyHsc.png',
+  // },
+  // {
+  //   select: false,
   //   key: 'hsc',
   //   name: 'HSC',
   //   img: 'https://res.ikingdata.com/nav/apyHsc.png',

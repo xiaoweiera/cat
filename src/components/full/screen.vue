@@ -53,7 +53,7 @@ onMounted(function() {
 <template>
   <slot :status="false" :id="`small-${screenId}`"></slot>
   <div v-if="status">
-    <el-dialog top="0" v-model="status" custom-class="screen-dialog" :append-to-body="true" @opened="onShow" @close="onClose">
+    <el-dialog top="0" v-model="status" custom-class="screen-dialog" :show-close="false" :lock-scroll="true" :append-to-body="true" @opened="onShow" @close="onClose">
       <div class="w-full h-full" v-if="opened">
         <slot :status="status" :id="`medium-${screenId}`"></slot>
       </div>

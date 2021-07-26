@@ -20,10 +20,10 @@ export const analysisType=ref('flow')   //flow  pay
 export const selectTxt = ref<string>('')
 export const selectHistory=ref([{},{},{},{},{},{},{},{},{},{}])
 // 选择的平台
-export const platStore: platModel = reactive({ logo: '', name: '' }) // 弹窗状态
+export const platStore: platModel = reactive({ logo: '', name: 'MDX' }) // 弹窗状态
 // 左侧列表table 选择的 交易对
 export const pairStore = reactive({ name: '', id: '' })
-export const symbolStore = reactive({ name: '', id: '0xe36ffd17b2661eb57144ceaef942d95295e637f0' })  //主币
+export const symbolStore = reactive({ name: '', id: '0x25d2e80cb6b86881fd7e07dd263fb79f4abe033c' })  //主币
 export const symbol0 = reactive({ name: '', id: '' })  // WHT/FILDA  WHT
 export const symbol1 = reactive({ name: '', id: '' })   // WHT/FILDA  FILDA
 export const priceData=ref()
@@ -48,6 +48,7 @@ export const updateData = (origin: any, data: any) => {
       origin[key] = data[key]
   }, keys)
 }
+
 
 // 获取缓存的搜索记录
 export const getHistory=()=>{

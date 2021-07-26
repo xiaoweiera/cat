@@ -4,6 +4,7 @@
  */
 
 import * as event from './index'
+import { max } from '~/utils'
 
 type Callback = (e: Event) => void
 
@@ -36,6 +37,9 @@ const init = function() {
 
 export const viewHieght = function() {
   return document.documentElement.clientHeight
+}
+export const viewWidth = function() {
+  return max(document.body.clientWidth, document.documentElement.clientWidth)
 }
 
 export const bodyHeight = function() {
