@@ -16,8 +16,7 @@ export const projectDetail = async function(id: string): Promise<any> {
     const result = await request.get(growthpad.getProject, {
       params: { project: id },
     })
-    const data = safeGet(result, 'data.data')
-    return data
+    return safeGet(result, 'data.data')
   } catch (e) {
     return {}
   }
@@ -42,11 +41,10 @@ export const getProjectInfo = async function(id: string): Promise<any> {
       projectInfo(type),
       projectDetail(type),
     ])
-    const value = Object.assign({}, result, {
+    return Object.assign({}, result, {
       price: safeGet(detail, 'price') || 0,
       lottery: toNumber(safeGet(detail, 'info.lottery_status') || 0) // 开奖状态
     })
-    return value
   }
   return {}
 }

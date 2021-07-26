@@ -40,5 +40,6 @@ export const formatter = function(query: any) {
     }, list)
     return `<div class="text-xs text-kdFang">${html.join('')}</div>`
   }
+  console.log(title, query)
   return ''
 }
