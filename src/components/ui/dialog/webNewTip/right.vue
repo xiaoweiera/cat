@@ -9,11 +9,15 @@ const props=defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col text-kdFang flex-1 relative bg-global-white bor">
-    <img class="w-full h-84.5 imgborRadius" :src="data.img" alt="">
-    <div class="flex-1 p-6  bor">
+  <div class="flex flex-col text-kdFang flex-1 relative bg-global-white imgborRadius BottomRightRadius">
+    <img class="w-full h-84.5 imgborRadius BottomRightRadius" :src="data.img" alt="">
+    <div class="flex-1 p-6  bor BottomRightRadius">
         <div class="font-medium text-kd14px18px text-global-default text-opacity-85">{{data.title}}</div>
-        <div class="mt-2.5">
+        <div class="mt-1.5">
+          <template v-for="item in data.contents">
+            <div class="text-global-default text-opacity-65 text-kd12px20px">{{item}}</div>
+          </template>
+          <div class="mt-1"></div>
           <template v-for="item in data.descs">
             <div class="text-global-default text-opacity-65 text-kd12px20px">{{item}}</div>
           </template>
@@ -27,6 +31,9 @@ const props=defineProps({
 </template>
 
 <style  scoped>
+.BottomRightRadius{
+  border-bottom-right-radius: 6px !important;
+}
 .imgborRadius{
   border-top-right-radius: 6px !important;
 }
@@ -34,7 +41,7 @@ const props=defineProps({
   border-radius: 6px !important;
 }
 .bor{
-  border-top:1px solid rgba(0, 0, 0, 0.04);
+  border-top:2px solid rgba(0, 0, 0, 0.06);
   backdrop-filter: blur(80px);
 }
 </style>
