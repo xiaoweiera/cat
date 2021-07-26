@@ -87,6 +87,7 @@ export const getLegendList = (yData: Array<yModel>, kyData: yModel,coinType:stri
   //@ts-ignore
   let legend=[]
   let selected={}
+  yData = R.sortBy((item) => item.group, yData)
   yData.forEach((item: yModel,i:number) => {
     if(isOpacityLine(item)){
       legend.push({icon:item.type==='bar'?barIcon:lineIcon,name:getUnitData(item,coinType)})
@@ -184,6 +185,7 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
   const series = []
   const allYAxis=[]
   const groupList={}
+  yData = R.sortBy((item) => item.group, yData)
   //根据group分组
   yData.forEach((item:yModel,i:number)=>{
     const groupNumber=item.group?item.group:0
@@ -228,6 +230,7 @@ export const getModel = (params: any,xData:any) => {
   // 水印 遮盖有问题   需要改改改
   if (!params[0]) return
   let title = params[0].axisValue
+  // params = R.sortBy((item) => -item.data.value, params)
   // @ts-ignore
   const result = R.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { formatValue } = data

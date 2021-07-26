@@ -58,7 +58,6 @@ const draw = () => {
   )
 }
 onMounted(() => {
-  console.log(props.id,'idid')
   // @ts-ignore
   myChart = echarts.init(document.getElementById(props.id), 'light')
   window.addEventListener('resize', myChart.resize)
