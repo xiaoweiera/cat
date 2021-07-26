@@ -77,7 +77,8 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
   if(symbolStore.name===symbol0){
     return `1:${price}`
   }else{
-    return `${price}:1`
+    const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
+    return `1:${newPrice}`
   }
 }
 </script>
