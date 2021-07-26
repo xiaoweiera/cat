@@ -67,7 +67,8 @@ const getMarks = (
     marks.select = I18n.apy.loadMark
   } else {
     // @ts-ignore
-    marks.data = [I18n.apy.marks.apy]
+    // marks.data = [I18n.apy.marks.apy]
+    marks.data = ['APY']
     marks.select = marks.data[0]
   }
   return marks
