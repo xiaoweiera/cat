@@ -20,7 +20,7 @@ const isShowUsdCoin=()=>{
   return false
 }
 const tokenOrPairName= computed<string>((): string => {
-  return pairData.value[0].id ? pairData.value[0].name : tokenData.value[0].name
+  return pairData.value[0].id ? pairData.value[0].orderTokenName : tokenData.value[0].name
 })
 const titleDesc= computed((): string => {
   if(!title.value[0]) return ''

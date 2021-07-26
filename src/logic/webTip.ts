@@ -1,13 +1,11 @@
-export const newData=[
+import I18n from '~/utils/i18n/index'
+export const webTipData=[
     {
-        name:'流动性分析 🔥',
-        img:'https://res.ikingdata.com/nav/coinmetrics.jpg',
-        title:'流动性分析 🔥',
-        href:'https://preview.ikingdata.com/liquidity',
-        descs:[
-            '1. 请先下载 Figma 官方客户端',
-            '2. 使用此工具需要替换 Figma 客户端内的文件，但请放心，我们不会影响原本的任何功能。',
-            '3. 当 Figma 官方客户端更新版本后，工具都会失效，需要重新设置一次。'
-        ]
+        name:I18n.webtip.name,
+        img:I18n.webtip.img,
+        title:I18n.webtip.title,
+        href:I18n.webtip.href,
+        contents:I18n.webtip.contents,
+        descs:I18n.webtip.descs
     }
 ]

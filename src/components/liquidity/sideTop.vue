@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, defineProps, onMounted,watch } from 'vue'
-import { selectCoin,symbolStore } from '~/store/liquidity/state'
+import {pairStore,symbolStore,updateData } from '~/store/liquidity/state'
 import { copyToken } from '~/logic/liquidity/dataTool'
 import {smallToken,messageTip,formatRulesNumber,subStr } from '~/lib/tool'
 import I18n from '~/utils/i18n'
@@ -26,6 +26,15 @@ const getInfo = async() => {
   if (result?.data?.code === 0) {
     info.value = result?.data?.data[0]
     symbolStore.name=info.value.symbol
+    //得到token颠倒到前面的交易对名称
+    let orderTokenName=''
+    const [symbol0,symbol1]=pairStore.name.split('/')
+    if(symbolStore.name===symbol0){
+      orderTokenName= symbol0 + '/' + symbol1
+    }else{
+      orderTokenName= symbol1 + '/' + symbol0
+    }
+    updateData(pairStore, {orderTokenName})
   }
 }
 const getHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
