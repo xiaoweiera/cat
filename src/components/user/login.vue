@@ -17,7 +17,6 @@ const submit = async function() {
     hideVisible()
     window.location.reload()
   } catch (e) {
-    console.log(e)
     const message = e?.message
     if (message) {
       const data = {
