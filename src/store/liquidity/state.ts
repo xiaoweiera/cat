@@ -20,7 +20,7 @@ export const analysisType=ref('flow')   //flow  pay
 export const selectTxt = ref<string>('')
 export const selectHistory=ref([{},{},{},{},{},{},{},{},{},{}])
 // 选择的平台
-export const platStore: platModel = reactive({ logo: '', name: 'MDX' }) // 弹窗状态
+export const platStore: platModel = reactive({ logo: '', name: 'MDEX' }) // 弹窗状态
 // 左侧列表table 选择的 交易对
 export const pairStore = reactive({ name: '',orderTokenName:'', id: '' })//pair名称   根据token在左边的名字  pairId
 export const symbolStore = reactive({ name: '', id: '0x25d2e80cb6b86881fd7e07dd263fb79f4abe033c' })  //主币

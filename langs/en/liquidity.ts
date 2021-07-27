@@ -9,6 +9,7 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    comingsoon:'ComingSoon',
     noData:'No Data',
     address:'Address',
     webTitle:'KingData DEX Analysis',
