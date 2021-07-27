@@ -1,5 +1,5 @@
 // @ts-ignore
-import { numberFormat, tooptipsModel,toopTipsContainer } from '~/lib/tool'
+import { numberFormat, tooptipsModel,toopTipsContainer,getMaxWidth } from '~/lib/tool'
 // @ts-ignore
 import { tableConfig } from '~/logic/apy/config'
 import I18n from '~/utils/i18n/index'
@@ -104,7 +104,7 @@ export const getModel = (params: any, unit: string,) => {
   const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
     if (value) {
-      return tooptipsModel(seriesName, color, formatValue, unit,false)
+      return tooptipsModel(seriesName, color, formatValue, unit,false,0)
     }
   })
   return time + result.join('')
@@ -115,13 +115,15 @@ export const getBigModel = (params: any, unit: string,) => {
   }
   params = orderByDesc(params)
   const title = params[0].axisValue
+  const maxWidth=getMaxWidth(params)
+
   const time = `<div>${title}</div>`
   // @ts-ignore
   // eslint-disable-next-line array-callback-return
   const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
     if (value) {
-      return tooptipsModel(seriesName, color, formatValue, unit,true)
+      return tooptipsModel(seriesName, color, formatValue, unit,true,2*maxWidth+50)
     }
   })
   return time + toopTipsContainer(result,true)
