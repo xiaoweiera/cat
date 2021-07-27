@@ -155,7 +155,7 @@ export const getInfo = (params: dataSetModel, propsChartIndex: number) => {
   const chains = reactive({
     name: I18n.apy.bigChartFilterType.chain,
     select: params.chain.toLocaleUpperCase(),
-    data: ['ETH', 'HECO', 'BSC', 'HSC', 'ALL'],
+    data: ['ETH', 'HECO', 'BSC', 'ALL'],
   })
   const types = reactive({
     name: I18n.apy.bigChartFilterType.type,
