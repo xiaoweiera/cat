@@ -80,7 +80,7 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
   }else{
     // const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
     // return `1:${newPrice}`
-    return `1:${formatRulesNumber(1/parseFloat(price),false)}`
+    return `1:${formatRulesNumber(1/parseFloat(price),true)}`
   }
 }
 </script>
