@@ -2,11 +2,10 @@
 // @ts-ignore
 import {ElTooltip, ElInfiniteScroll} from 'element-plus'
 import {onMounted, watch, ref} from 'vue'
-import {symbolStore} from '~/store/liquidity/state'
 import {useRoute, useRouter} from 'vue-router'
 import * as R from 'ramda'
 import {changeRoute, changeRouteParam,formatRulesNumber} from '~/lib/tool'
-import {pairStore, updateData} from '~/store/liquidity/state'
+import {pairStore,symbolStore, updateData} from '~/store/liquidity/state'
 import {getPair_side} from '~/api/liquidity'
 import { getInject,setInject} from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
@@ -18,14 +17,20 @@ const next = ref(true) //是否有下一页
 const route = useRoute()
 const router = useRouter()
 const pairList = ref([])
-const changePair = (name: string, id: string) => {
-  updateData(pairStore, {name, id})
+const changePair = (symbol0: string,symbol1:string, id: string) => {
+  let orderTokenName=''
+  if(symbolStore.name===symbol0){
+    orderTokenName= symbol0 + '/' + symbol1
+  }else{
+    orderTokenName= symbol1 + '/' + symbol0
+  }
+  const name=symbol0 + '/' + symbol1
+  updateData(pairStore, {name,orderTokenName, id})
   changeRouteParam(route, router, {pair: id, pairName: name})
-    setTimeout(()=> {
-      window.scrollTo(0,3)
-      window.scrollTo(0,0)})
+  setTimeout(()=> {
+    window.scrollTo(0,3)
+    window.scrollTo(0,0)})
   setTokenTableShow(false)
-
 }
 watch(() => symbolStore.id, async () => {
   page.value = 0
@@ -70,8 +75,9 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
   if(symbolStore.name===symbol0){
     return `1:${price}`
   }else{
-    const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
-    return `1:${newPrice}`
+    // const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
+    // return `1:${newPrice}`
+    return `1:${formatRulesNumber(1/parseFloat(price),false)}`
   }
 }
 </script>
@@ -84,7 +90,7 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
     </ul>
     <div class="w-full tableHeight showY relative pairList" @scroll="load">
       <template v-for="item in pairList">
-        <div v-login :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
+        <div v-login :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0,item.symbol1, item.pair_id)">
           <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
             <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="getPayName(item.symbol0,item.symbol1)" placement="bottom" effect="light">
               <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayName(item.symbol0,item.symbol1)}}</span>
@@ -93,7 +99,7 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
           <div class="w-25     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
           <div class="w-22  text-kd12px16px text-global-default">
             <el-tooltip :append-to-body="false"  popper-class="tip" :hide-after="10" :content="getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))" placement="bottom" effect="light">
-              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,false))}}</span>
+              <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))}}</span>
             </el-tooltip>
 
           </div>

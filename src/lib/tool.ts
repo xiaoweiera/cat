@@ -217,7 +217,7 @@ export const getSaveNumber=(v:any,number:number)=>{
 export const aboutCn=(value:any)=>{
   const k = 10000
   //@ts-ignore
-  const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
+  const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi,'亿亿','十亿亿']
   const v=new BigNumber(value)
   if ((value < 10000 && value>=0) || (value<0 && value>-2)) {
     return parseFloat(v.toFixed(2))
@@ -312,6 +312,18 @@ export const formatRulesNumber=(v:any,isShowAll:boolean)=>{
   const value=new BigNumber(v)
   if(parseFloat(value.toFixed())>1 || parseFloat(value.toFixed())<-1){
     return numberUnitFormat(v)
+  }else{
+    return getRulesNumber(v,isShowAll)
+  }
+}
+//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
+export const formatRulesPrice=(v:any,isShowAll:boolean)=>{
+  if(!v){
+    return v===0?0:'-'
+  }
+  const value=new BigNumber(v)
+  if(parseFloat(value.toFixed())>1 || parseFloat(value.toFixed())<-1){
+    return parseFloat(value.toFixed(2))
   }else{
     return getRulesNumber(v,isShowAll)
   }
