@@ -58,7 +58,8 @@ onMounted(()=>getInfo())
       </div>
       <!-- 涨幅-->
       <div class="flex items-center mt-1.5">
-        <span class="text-global-default opacity-85 text-kd20px28px">${{formatRulesNumber(info.price)}}</span>
+<!--        <span class="text-global-default opacity-85 text-kd20px28px">${{formatRulesNumber(info.price)}}</span>-->
+        <span class="text-global-default opacity-85 text-kd20px28px">${{info.price}}</span>
 <!--        <div class="flex items-center bg-global-numRed px-1 py-0.25 ml-1.5" style="border-radius: 2px">-->
 <!--          <img src="https://res.ikingdata.com/nav/liquUp.png" class="w-2 h-3" alt=""/>-->
 <!--          &lt;!&ndash;          <span class="text-kd12px18px text-white ml-0.5">130%</span>&ndash;&gt;-->
