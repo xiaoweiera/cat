@@ -20,7 +20,7 @@ useHead({
 </script>
 <template>
   <div :class="t('lang') === 'En' ? 'en' : 'cn'">
-    <UiDialogWebNewTipMain class="xshidden"/>
+    <UiDialogWebNewTipMain class="xshidden"/> 
     <router-view />
   </div>
 </template>
