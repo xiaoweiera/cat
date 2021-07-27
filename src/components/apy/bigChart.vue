@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { defineProps, onMounted, reactive, ref, watch } from 'vue'
+import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 import * as utils from '~/utils/index'
+import {getLegendRow} from '~/lib/tool'
 import { chartOption } from '~/lib/chartOptionBig'
 import {
-  getModel,
+  getBigModel,
   getSerise,
   getUnit,
   yLabelFormat,
@@ -36,6 +37,10 @@ let maxY = 0
 const beginTime = ref('')
 const endTime = ref('')
 const chartDataFilter = reactive({ title: props.chartData.title })
+
+
+
+const echartsRef = ref<any>(null)
 // 请求参数
 // @ts-ignore
 const param = {
@@ -46,17 +51,18 @@ const param = {
   to_ts: '',
 }
 // 画图表
-const draw = () => {
+const draw = (row:number) => {
   myChart.setOption(
     chartOption(
       xChartData.value,
-      getModel,
+        getBigModel,
       serise.value,
       legendData.value,
       yLabelFormat,
       minY,
       maxY,
       unit.value,
+        row
     ),
     true,
   )
@@ -90,9 +96,12 @@ const optionData = (
   xChartData.value = xData
   minY = min
   maxY = max
+
+
   serise.value = getSerise(yData)
   legendData.value = getLengent(yData)
-  draw()
+  const row=getLegendRow(toRaw(echartsRef).value,legendData.value)
+  draw(row)
 }
 </script>
 <template>
@@ -113,7 +122,7 @@ const optionData = (
       />
       <!--      <ApyPlatBig :chartData="chartData" :chartIndex="chartIndex" :tags="tags"/>-->
       <div class="flex relative whNumber mt-5">
-        <div :id="props.id + 'big'" class="whChartNumber"></div>
+        <div ref="echartsRef" :id="props.id + 'big'" class="whChartNumber"></div>
         <!--        分析器 下拉框-->
         <ApyFilterChart
           :begin-time="beginTime"
@@ -143,7 +152,7 @@ const optionData = (
   width: 100%;
   position: fixed;
   height: 100%;
-  z-index: 10;
+  z-index: 1000;
   background: rgba(68, 90, 132, 0.4);
   backdrop-filter: blur(10px);
   top: 0;
