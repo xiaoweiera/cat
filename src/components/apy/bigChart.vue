@@ -4,7 +4,7 @@ import { defineProps, onMounted, reactive, ref, watch } from 'vue'
 import * as utils from '~/utils/index'
 import { chartOption } from '~/lib/chartOptionBig'
 import {
-  getModel,
+  getBigModel,
   getSerise,
   getUnit,
   yLabelFormat,
@@ -50,7 +50,7 @@ const draw = () => {
   myChart.setOption(
     chartOption(
       xChartData.value,
-      getModel,
+        getBigModel,
       serise.value,
       legendData.value,
       yLabelFormat,
@@ -143,7 +143,7 @@ const optionData = (
   width: 100%;
   position: fixed;
   height: 100%;
-  z-index: 10;
+  z-index: 1000;
   background: rgba(68, 90, 132, 0.4);
   backdrop-filter: blur(10px);
   top: 0;

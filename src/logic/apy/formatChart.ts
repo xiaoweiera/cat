@@ -1,5 +1,5 @@
 // @ts-ignore
-import { numberFormat, tooptipsModel } from '~/lib/tool'
+import { numberFormat, tooptipsModel,toopTipsContainer } from '~/lib/tool'
 // @ts-ignore
 import { tableConfig } from '~/logic/apy/config'
 import I18n from '~/utils/i18n/index'
@@ -92,7 +92,7 @@ export const getLengent = (yData: any) => {
   }
   return yData.map((item: any) => item.name)
 }
-export const getModel = (params: any, unit: string) => {
+export const getModel = (params: any, unit: string,) => {
   if (!params[0]) {
     return
   }
@@ -104,10 +104,27 @@ export const getModel = (params: any, unit: string) => {
   const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
     if (value) {
-      return tooptipsModel(seriesName, color, formatValue, unit)
+      return tooptipsModel(seriesName, color, formatValue, unit,false)
     }
   })
   return time + result.join('')
+}
+export const getBigModel = (params: any, unit: string,) => {
+  if (!params[0]) {
+    return
+  }
+  params = orderByDesc(params)
+  const title = params[0].axisValue
+  const time = `<div>${title}</div>`
+  // @ts-ignore
+  // eslint-disable-next-line array-callback-return
+  const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
+    const { value, formatValue } = data
+    if (value) {
+      return tooptipsModel(seriesName, color, formatValue, unit,true)
+    }
+  })
+  return time + toopTipsContainer(result,true)
 }
 // @ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)

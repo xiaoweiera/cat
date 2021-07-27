@@ -295,143 +295,143 @@ export const tableConfig = [
     },
     charts: chartsConfig.machine_gun_pool,
   },
-  {
-    name: 'lend_single',
-    title: I18n.apy.ckTable.title,
-    options: {
-      data: [
-        {
-          key: 'apy',
-          name: 'APY',
-          status: true,
-          format_func: percent2Precision,
-        },
-        {
-          key: 'single_and_mine_award',
-          name: I18n.apy.single_APY,
-          status: false,
-          format_func: percent2Precision,
-        },
-        {
-          key: 'compound_and_mine_award',
-          name: I18n.apy.compound_APY,
-          status: false,
-          format_func: percent2Precision,
-        },
-        // {
-        //   key: 'apy_detail',
-        //   name: I18n.apy.ckTable.option.yield,
-        //   status: false,
-        // },
-        {
-          key: 'comprehensive',
-          name: I18n.apy.yield,
-          status: true,
-        },
-        {
-          key: 'single_detail',
-          name: I18n.apy.yield,
-          status: false,
-        },
-        {
-          key: 'compound_detail',
-          name: I18n.apy.yield,
-          status: false,
-        },
-        {
-          key: 'tvl',
-          name: I18n.apy.ckTable.option.totalSum,
-          status: true,
-          format_func: numberFormat,
-        },
-        {
-          key: 'quota_used',
-          name: I18n.apy.ckTable.option.outSum,
-          status: false,
-          format_func: numberFormat,
-        },
-        {
-          key: 'yield',
-          name: I18n.apy.jqcTable.option.yield,
-          status: false,
-        },
-      ],
-      select: 'apy',
-    },
-    charts: chartsConfig.lend,
-  },
-  {
-    name: 'loan_single',
-    title: I18n.apy.jkTable.title,
-    options: {
-      data: [
-        {
-          key: 'apy',
-          name: I18n.apy.interest,
-          status: true,
-          format_func: percent2Precision,
-        },
-        {
-          key: 'single_and_mine_award',
-          name: I18n.apy.interest,
-          status: false,
-          format_func: percent2Precision,
-        },
-        {
-          key: 'compound_and_mine_award',
-          name: I18n.apy.compound_APY,
-          status: false,
-          format_func: percent2Precision,
-        },
-        // {
-        //   key: 'apy_detail',
-        //   name: I18n.apy.jkTable.option.InterestBear,
-        //   status: false,
-        // },
-        {
-          key: 'comprehensive',
-          name: I18n.apy.InterestBear,
-          status: true,
-        },
-        {
-          key: 'single_detail',
-          name: I18n.apy.InterestBear,
-          status: false,
-        },
-        {
-          key: 'compound_detail',
-          name: I18n.apy.InterestBear,
-          status: false,
-        },
-        {
-          key: 'quota_remain',
-          name: I18n.apy.jkTable.option.available,
-          status: true,
-          format_func: numberFormat,
-        },
-        {
-          key: 'quota_remain*quota_remain_percent',
-          name: I18n.apy.jkTable.option.borrowed,
-          status: true,
-          format_cb: (v: any) => numberFormat(v.quota_used),
-        },
-        {
-          key: 'quota_remain_percent',
-          name: I18n.apy.jkTable.option.remainRatio,
-          status: false,
-          unit: '%',
-          format_func: numberFormat,
-        },
-        {
-          key: 'yield',
-          name: I18n.apy.InterestBear,
-          status: false,
-        },
-      ],
-      select: 'apy',
-    },
-    charts: chartsConfig.loan,
-  },
+  // {
+  //   name: 'lend_single',
+  //   title: I18n.apy.ckTable.title,
+  //   options: {
+  //     data: [
+  //       {
+  //         key: 'apy',
+  //         name: 'APY',
+  //         status: true,
+  //         format_func: percent2Precision,
+  //       },
+  //       {
+  //         key: 'single_and_mine_award',
+  //         name: I18n.apy.single_APY,
+  //         status: false,
+  //         format_func: percent2Precision,
+  //       },
+  //       {
+  //         key: 'compound_and_mine_award',
+  //         name: I18n.apy.compound_APY,
+  //         status: false,
+  //         format_func: percent2Precision,
+  //       },
+  //       // {
+  //       //   key: 'apy_detail',
+  //       //   name: I18n.apy.ckTable.option.yield,
+  //       //   status: false,
+  //       // },
+  //       {
+  //         key: 'comprehensive',
+  //         name: I18n.apy.yield,
+  //         status: true,
+  //       },
+  //       {
+  //         key: 'single_detail',
+  //         name: I18n.apy.yield,
+  //         status: false,
+  //       },
+  //       {
+  //         key: 'compound_detail',
+  //         name: I18n.apy.yield,
+  //         status: false,
+  //       },
+  //       {
+  //         key: 'tvl',
+  //         name: I18n.apy.ckTable.option.totalSum,
+  //         status: true,
+  //         format_func: numberFormat,
+  //       },
+  //       {
+  //         key: 'quota_used',
+  //         name: I18n.apy.ckTable.option.outSum,
+  //         status: false,
+  //         format_func: numberFormat,
+  //       },
+  //       {
+  //         key: 'yield',
+  //         name: I18n.apy.jqcTable.option.yield,
+  //         status: false,
+  //       },
+  //     ],
+  //     select: 'apy',
+  //   },
+  //   charts: chartsConfig.lend,
+  // },
+  // {
+  //   name: 'loan_single',
+  //   title: I18n.apy.jkTable.title,
+  //   options: {
+  //     data: [
+  //       {
+  //         key: 'apy',
+  //         name: I18n.apy.interest,
+  //         status: true,
+  //         format_func: percent2Precision,
+  //       },
+  //       {
+  //         key: 'single_and_mine_award',
+  //         name: I18n.apy.interest,
+  //         status: false,
+  //         format_func: percent2Precision,
+  //       },
+  //       {
+  //         key: 'compound_and_mine_award',
+  //         name: I18n.apy.compound_APY,
+  //         status: false,
+  //         format_func: percent2Precision,
+  //       },
+  //       // {
+  //       //   key: 'apy_detail',
+  //       //   name: I18n.apy.jkTable.option.InterestBear,
+  //       //   status: false,
+  //       // },
+  //       {
+  //         key: 'comprehensive',
+  //         name: I18n.apy.InterestBear,
+  //         status: true,
+  //       },
+  //       {
+  //         key: 'single_detail',
+  //         name: I18n.apy.InterestBear,
+  //         status: false,
+  //       },
+  //       {
+  //         key: 'compound_detail',
+  //         name: I18n.apy.InterestBear,
+  //         status: false,
+  //       },
+  //       {
+  //         key: 'quota_remain',
+  //         name: I18n.apy.jkTable.option.available,
+  //         status: true,
+  //         format_func: numberFormat,
+  //       },
+  //       {
+  //         key: 'quota_remain*quota_remain_percent',
+  //         name: I18n.apy.jkTable.option.borrowed,
+  //         status: true,
+  //         format_cb: (v: any) => numberFormat(v.quota_used),
+  //       },
+  //       {
+  //         key: 'quota_remain_percent',
+  //         name: I18n.apy.jkTable.option.remainRatio,
+  //         status: false,
+  //         unit: '%',
+  //         format_func: numberFormat,
+  //       },
+  //       {
+  //         key: 'yield',
+  //         name: I18n.apy.InterestBear,
+  //         status: false,
+  //       },
+  //     ],
+  //     select: 'apy',
+  //   },
+  //   charts: chartsConfig.loan,
+  // },
 ]
 export const anchorConfig = [
   {
