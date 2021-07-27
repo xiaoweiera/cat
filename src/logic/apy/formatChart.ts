@@ -123,7 +123,7 @@ export const getBigModel = (params: any, unit: string,) => {
   const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
     if (value) {
-      return tooptipsModel(seriesName, color, formatValue, unit,true,2*maxWidth+50)
+      return tooptipsModel(seriesName, color, formatValue, unit,true,1.5*maxWidth)
     }
   })
   return time + toopTipsContainer(result,true)

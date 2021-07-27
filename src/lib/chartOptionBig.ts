@@ -1,8 +1,8 @@
-const grid = () => {
+const grid = (row:number) => {
   return {
     left: 0,
     right: 0,
-    bottom:40,
+    bottom:row===1?36:(row*25),
     containLabel: true,
   }
 }
@@ -29,6 +29,7 @@ const graphic = () => {
       bounding: 'raw',
       right: '49%',
       bottom: '65%',
+      silent:true,
       z: -100,
       children: [
         {
@@ -133,9 +134,10 @@ export const chartOption: any = (
   min: number,
   max: number,
   unit: string,
+  row:number
 ) => {
   return {
-    grid: grid(),
+    grid: grid(row),
     tooltip: tooltips(getModel, unit),
     legend: legend(legendData),
     graphic: graphic(),

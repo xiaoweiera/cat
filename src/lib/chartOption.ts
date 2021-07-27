@@ -38,6 +38,7 @@ export const graphic = function (fontSize: number = 22) {
         right: 'center',
         bottom: 'center',
         z: -100,
+        silent:true,
         children: [
           {
             type: 'text',

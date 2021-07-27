@@ -314,10 +314,10 @@ export const getCodeWidth=(name:string)=>{
     const code=str.charCodeAt()
     if(code>=97 && code<=122){
       //a-z
-      width+= 3
+      width+= 8
     }else if(code>=65 && code<=90){
       //A-Z
-      width+= 5
+      width+= 10
     }else if(code===40 || code===41) {
       //( )
       width+= 3
@@ -344,4 +344,21 @@ export const getMaxWidth=(list:string[])=>{
     max=max===0?width:(width>max)?width:max
   })
   return max
+}
+export const clacLegendBoxWidth =(legends:string[])=> {
+  let width = 0
+  legends.forEach((item:any, index: number) => {
+    if(item || item===' '){
+      width +=  getCodeWidth(item)
+      if (index > 0) {
+        width += 15
+      }
+    }
+  })
+  return width
+}
+export const getLegendRow =(dom:any,legends:string[])=> {
+  const width = clacLegendBoxWidth(legends)
+  const boxWidth = dom.clientWidth - 24* 2
+  return Math.ceil(width / boxWidth)
 }
