@@ -73,12 +73,14 @@ const  getPayName=(symbol0:string,symbol1:string)=>{
     return symbol1 + '/' + symbol0
   }
 }
+
 const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
   if(symbolStore.name===symbol0){
     return `1:${price}`
   }else{
-    const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
-    return `1:${newPrice}`
+    // const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
+    // return `1:${newPrice}`
+    return `1:${formatRulesNumber(1/parseFloat(price),false)}`
   }
 }
 </script>
@@ -93,16 +95,16 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
       <div v-login :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair( item.pair_id,item.symbol0,item.symbol1)">
         <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
           <el-tooltip :hide-after="10" :content="getPayName(item.symbol0,item.symbol1)" placement="bottom" effect="light">
-                <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayName(item.symbol0,item.symbol1)}}</span>
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayName(item.symbol0,item.symbol1)}}</span>
           </el-tooltip>
         </div>
         <div class="w-20     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
         <div class="w-27  text-kd12px16px text-global-default">
           <el-tooltip :hide-after="10" :content="getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))" placement="bottom" effect="light">
-            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,false))}}</span>
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))}}</span>
           </el-tooltip>
 
-          </div>
+        </div>
       </div>
     </template>
   </div>
