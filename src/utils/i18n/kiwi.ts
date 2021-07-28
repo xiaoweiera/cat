@@ -78,7 +78,12 @@ format.part = function(text: string, mode?: number, args?: Args) {
       return format.template(text, mode as Args)
     }
     if (typeof mode === 'number' || typeof mode === 'string') {
-      const index = Math.abs(parseInt(mode as any, 10))
+      let index = Math.abs(parseFloat(mode as any))
+      if (index > 0) {
+        index = Math.ceil(index)
+      } else {
+        index = 0
+      }
       return part(text, isNaN(index) ? 0 : index, args || {})
     }
   }
