@@ -67,7 +67,8 @@ const getMarks = (
     marks.select = I18n.apy.loadMark
   } else {
     // @ts-ignore
-    marks.data = [I18n.apy.marks.apy]
+    // marks.data = [I18n.apy.marks.apy]
+    marks.data = ['APY']
     marks.select = marks.data[0]
   }
   return marks
@@ -154,7 +155,7 @@ export const getInfo = (params: dataSetModel, propsChartIndex: number) => {
   const chains = reactive({
     name: I18n.apy.bigChartFilterType.chain,
     select: params.chain.toLocaleUpperCase(),
-    data: ['ETH', 'HECO', 'BSC', 'HSC', 'ALL'],
+    data: ['ETH', 'HECO', 'BSC', 'ALL'],
   })
   const types = reactive({
     name: I18n.apy.bigChartFilterType.type,

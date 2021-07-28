@@ -268,17 +268,18 @@ const getSeries = function() {
     }
     if (props.log) {
       option.data = map(function(item: any) {
-        const value = item.value
-        if (value) {
+        const value: number = item.value
+        if (value || value === 0) {
           // @ts-ignore
           let num: number
+          const origin = value
           if (value > 0) {
             num = Math.log10(value)
           } else {
             num = Math.abs(toNumber(value))
             num = Math.log10(num) * -1
           }
-          return Object.assign({}, item, { value: num })
+          return Object.assign({}, item, { value: num, origin })
         }
         return item
       }, option.data)

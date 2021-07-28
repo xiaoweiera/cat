@@ -10,6 +10,7 @@ import { headerConfig } from '~/logic/apy/config'
 import { menu } from '~/logic/menu'
 import { headerTag } from '~/store/header/login'
 import { wxShare } from '~/lib/wxShare'
+import {watch} from 'vue'
 // 获取当前路由对象
 const router = useRoute()
 const titleName=computed(()=>{
@@ -19,10 +20,9 @@ const titleName=computed(()=>{
   }else{
     name= `${pairStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
   }
-  wxShare(name, 'liquidity')
   return name
 })
-
+watch(titleName,(n)=>wxShare(n, I18n.liquidity.share))
 const navIsSelect = (path: string): string => {
   const $router = toRaw(router)
   const pathname: string = $router.path.value
@@ -41,7 +41,7 @@ onBeforeMount(() => {
       },
       {
         name: 'description',
-        content:'MDEX 、PANCAKE、UNISWAP、SHISUSWAP、SWAP、DEX Analysis、流动性份分析、交易数据分析、TVL、liquidity、dextools',
+        content:I18n.liquidity.description
       },
     ],
   })

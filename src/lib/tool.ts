@@ -54,26 +54,37 @@ export const formatTimeMD = (date: string) =>
     dayjs(parseInt(`${date}000`)).format('MM/DD')
 export const formatTimeHour = (date: string) =>
     dayjs(parseInt(`${date}000`)).format('M/DD HH:mm')
-export const tooptipsModel = (
-    item: any,
-    color: any,
-    value: any,
-    unit: string,
-) => {
-  const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.35216 5.53165L5.03262 8.17072C4.77853 8.6789 4.25914 8.9999 3.69098 8.9999H1.33333C0.781043 8.9999 0.333328 8.55219 0.333328 7.9999C0.333328 7.44762 0.781043 6.9999 1.33333 6.9999H3.38196L5.53045 2.70293C6.02868 1.70646 7.49773 1.86772 7.76793 2.94854L9.64783 10.4682L10.9674 7.82908C11.2215 7.32091 11.7409 6.9999 12.309 6.9999H14.6667C15.2189 6.9999 15.6667 7.44762 15.6667 7.9999C15.6667 8.55219 15.2189 8.9999 14.6667 8.9999H12.618L10.4695 13.2969C9.9713 14.2934 8.50226 14.1321 8.23206 13.0513L6.35216 5.53165Z" fill="${color}"/>
-      </svg>`
-  const svg = `data:image/svg+xml;base64,${window.btoa(
-      unescape(encodeURIComponent(origin)),
-  )}`
-  const info =
-      unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
-
-  return `<span style="display:flex;
-    align-items: center;"><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
+export const tooptipsModel = (item: any, color: any, value: any, unit: string,full:boolean,maxWidth:number) => {
+  const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.35216 5.53165L5.03262 8.17072C4.77853 8.6789 4.25914 8.9999 3.69098 8.9999H1.33333C0.781043 8.9999 0.333328 8.55219 0.333328 7.9999C0.333328 7.44762 0.781043 6.9999 1.33333 6.9999H3.38196L5.53045 2.70293C6.02868 1.70646 7.49773 1.86772 7.76793 2.94854L9.64783 10.4682L10.9674 7.82908C11.2215 7.32091 11.7409 6.9999 12.309 6.9999H14.6667C15.2189 6.9999 15.6667 7.44762 15.6667 7.9999C15.6667 8.55219 15.2189 8.9999 14.6667 8.9999H12.618L10.4695 13.2969C9.9713 14.2934 8.50226 14.1321 8.23206 13.0513L6.35216 5.53165Z" fill="${color}"/></svg>`
+  const svg = `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(origin)))}`
+  const info = unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`
+  let dom=''
+  if(full){
+    dom=`<span class="flex flex-1 items-center " style="min-width:${maxWidth}px" ><p style="font-size:12px;color:#272C33;line-height:1;" class="flex items-center"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${info}</p></span>`
+  }else{
+    dom=`<span class="flex mr-1" ><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
     align-items: center;"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${info}</p></span>`
+  }
+  return dom
 }
-
+export const toopTipsContainer=(divDoms:string[],full:boolean)=>{
+  let domStr=''
+  const newDoms=divDoms.map(item=>{
+    if(item) return item
+  })
+  newDoms.forEach((item,i)=>{
+    let str=''
+    if(item){
+      if(i===0){ str=`<div class="flex" >${item}`}
+      else{
+        str=i%2===0 ?`</div><div class="flex">${item}`:`<span class="pl-2">${item}</span>`
+      }
+      domStr+=str
+    }
+  })
+  domStr+='</div>'
+  return `<div >${domStr}</div>`
+}
 // 时间转化为时间戳
 export function dataToTimestamp(time: string) {
   return dayjs(time).valueOf() / 1000
@@ -324,4 +335,59 @@ export const unitOrder=(v:any,unit:string)=>{
   }else{
     return formatRulesNumber(v,true)+unit
   }
+}
+export const getCodeWidth=(name:string)=>{
+  let width=0
+  name.split('').forEach((str:string)=>{
+    //@ts-ignore
+    const code=str.charCodeAt()
+    if(code>=97 && code<=122){
+      //a-z
+      width+= 8
+    }else if(code>=65 && code<=90){
+      //A-Z
+      width+= 10
+    }else if(code===40 || code===41) {
+      //( )
+      width+= 3
+    }else if(code===32){
+      //' '
+      width+=3
+    }else if(code===43){
+      //+
+      width+=8
+    }else if(code>=48 && code<=57 ){
+      width+= 3.5
+    }
+    else{
+      width+= 13.5
+    }
+  })
+  return width
+}
+export const getMaxWidth=(list:string[])=>{
+  let max=0
+  list.forEach(item=>{
+    //@ts-ignore
+    const width=getCodeWidth(item.seriesName)
+    max=max===0?width:(width>max)?width:max
+  })
+  return max
+}
+export const clacLegendBoxWidth =(legends:string[])=> {
+  let width = 0
+  legends.forEach((item:any, index: number) => {
+    if(item || item===' '){
+      width +=  getCodeWidth(item)
+      if (index > 0) {
+        width += 15
+      }
+    }
+  })
+  return width
+}
+export const getLegendRow =(dom:any,legends:string[])=> {
+  const width = clacLegendBoxWidth(legends)
+  const boxWidth = dom.clientWidth - 24* 2
+  return Math.ceil(width / boxWidth)
 }

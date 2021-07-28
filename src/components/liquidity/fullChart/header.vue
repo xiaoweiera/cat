@@ -57,7 +57,7 @@ onMounted(()=>{
       </div>
       <div class="text-kd13px19px text-global-default mt-1.5  opacity-65">{{props.desc}}</div>
     </div>
-  <div class="absolute right-25  z-10 text-kd13px19px text-global-default mt-1.5  opacity-35">* 点击柱图可进行数据过滤</div>
+<!--  <div class="absolute right-25  z-10 text-kd13px19px text-global-default mt-1.5  opacity-35">* 点击柱图可进行数据过滤</div>-->
 </template>
 <style scoped lang="postcss">
 

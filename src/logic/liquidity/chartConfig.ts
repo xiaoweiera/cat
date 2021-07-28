@@ -22,23 +22,7 @@ const grid = (interval:string,full:boolean,row:number) => {
     containLabel: false,
   }
 }
-// const legend = (legendData: Array<string>) => {
-//   let newData=legendData.map((item:any)=>{
-//     return {...item,
-//       textStyle: {
-//         fontSize: 13,
-//       },
-//       x:'center',
-//       align:'auto',
-//       itemHeight: 11.5,
-//       itemGap: 13,
-//       bottom: ((item.index*8))+'%',
-//       itemWidth: 14,
-//     }
-//   })
-//  return newData
-// }
-const legend = (legendData: Array<string>,full:boolean) => {
+const legend = (legendData: Array<string>,selected:object,full:boolean) => {
   return {
     textStyle: {
       fontSize: 13,
@@ -48,6 +32,7 @@ const legend = (legendData: Array<string>,full:boolean) => {
     itemHeight: 11.5,
     itemGap: 13,
     data: legendData,
+    selected:selected,
     bottom:full?0:4,
     itemWidth: 14,
   }
@@ -209,7 +194,7 @@ export const yKAxisModel=(kmin: number, kmax: number,isShow:boolean, yLabelForma
       inside:mobile?true:false,
       fontSize: 12,
       textStyle: {
-        color: 'rgba(240, 191, 18, 1)',
+        color: '#F88923',
       },
       formatter: (value: any) => {
         return isHasUnit?(isHasUnit==='$'?isHasUnit+yLabelFormat(value):yLabelFormat(value)+isHasUnit):yLabelFormat(value)
@@ -297,6 +282,7 @@ export const chartConfig = (
     series: any,
     allYAxis:any,
     legendList: Array<string>,
+    selected:object,
     yLabelFormat: any,
     getModel: any,
     interval:string,
@@ -308,7 +294,7 @@ export const chartConfig = (
     tooltip: tooltips(getModel,xData),
     graphic: graphic(row),
     xAxis: xAxis(xData, {}),
-    legend:mobile?null: legend(legendList,full),
+    legend:mobile?null: legend(legendList,selected,full),
     yAxis: allYAxis,
     series,
   }

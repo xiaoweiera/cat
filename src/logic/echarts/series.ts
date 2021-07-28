@@ -197,7 +197,7 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
       const [date, value, klValue] = [...array]
       const time = dateTime(date)
       const key = makeDateKey(time, interval)
-      const item: SeriesItem = { key, time, value, klValue, id, origin: value }
+      const item: SeriesItem = { key, time, value, klValue, id }
       db.insert(item)
     }, trends[id])
     dbMaps.set(id, db)

@@ -2,6 +2,8 @@ export default {
     message:{
         success:'复制成功',
     },
+    share:'发现聪明的钱流向，大户、散户行为一目了然',
+    description:'KingData DEX 分析 对MDEX中的流动性添加与撤出、交易数据进行了多维度多场景的详尽分析，对主力、散户行为一目了然，帮助用户提前发现市场中的异常，分析价格变动的原因和不同指标的相关性。',
     numberUnit:{
         wan:'万',
         yi:'亿',

@@ -2,6 +2,8 @@ export default {
     message:{
         success:'Success',
     },
+    share:'Find the flow of smart money, easy to know the ins and outs of liquidity funds',
+    description:'KingData DEX Analysis makes a multi-dimensional and multi-scene detailed analysis of liquidity addition and removing and trading data of MDEX. It is easy to know the behaviors of users, and help users find anomalies in the market in advance, analyze the reasons for price changes and the correlation of different indicators.',
     numberUnit:{
         wan:'万',
         yi:'亿',
