@@ -3,6 +3,7 @@ export default {
     user:'Name',
     chart:'Charts',
     outLogin:'Log Out',
+    betaSrc:'https://res.ikingdata.com/liquidity/betaEn.png',
     soonLine:'https://res.ikingdata.com/nav/navOnLineTipEn.jpg',
     defi:{
         name:'DeFi',

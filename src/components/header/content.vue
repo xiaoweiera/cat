@@ -30,6 +30,7 @@ const getActive = function(item: any) {
       <UiNav>
         <template #reference>
           <template v-if="getActive(item)">
+            <img class="w-4  absolute  right-3 bottom-4" src="https://res.ikingdata.com/liquidity/newRedTip.png" alt="">
             <div class="flex items-center cursor-pointer text-base menu-title active">
               <span>{{ getActive(item).name }}</span>
               <IconFont class="ml-1.5" type="icon-xiajiantou"/>
@@ -50,6 +51,7 @@ const getActive = function(item: any) {
                   <IconFont :type="child.icon" size="40"/>
                   <div class="relative ml-2.5">
                     <img v-if="child.badge" class="w-13 absolute -top-4 -right-6" :src="I18n.nav.soonLine"/>
+                    <img v-if="child.beta" class="w-9 absolute -top-4 -right-3" :src="child.beta"/>
                     <div class="flex items-center">
                       <span class="child-name whitespace-nowrap">{{ child.name }}</span>
                       <img class="w-3 ml-1 img-show" src="https://res.ikingdata.com/nav/navRight.jpg"/>
