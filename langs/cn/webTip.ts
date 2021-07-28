@@ -3,7 +3,7 @@ export default {
     name: '流动性分析 🔥',
     img: 'https://res.ikingdata.com/liquidity/webTipImg.jpg',
     title: '流动性分析 🔥',
-    href: 'https://preview.ikingdata.com/liquidity',
+    href: 'http://kingdata.com/liquidity',
     contents:[
         'KingData 新功能上线——全网首家 DEX 数据分析工具',
         'LP+Swap双边数据深度透视分析'

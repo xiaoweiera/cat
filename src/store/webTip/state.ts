@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-export const webVersion=ref(3)
+export const webVersion=ref(1)
 // 是否展示
 export const isShow=()=>{
     const version=localStorage.getItem('webVersion')
