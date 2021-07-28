@@ -10,12 +10,14 @@ export interface Menu {
   query?: any // url 携带参数
   badge?: string // 提示标记
   beta?:string//是否是内测
+  newTip?:boolean
   children?: Menu[]
 }
 
 export const menu: Menu[] = [
   {
     name: I18n.nav.defi.name,
+    newTip:true,
     children: [
       {
         name: I18n.nav.defi.apy.name,
@@ -41,6 +43,7 @@ export const menu: Menu[] = [
   },
   {
     name: I18n.nav.analysis.name,
+    newTip:false,
     children: [
       {
         name: I18n.nav.analysis.hData.name,
@@ -230,6 +233,7 @@ export const menu: Menu[] = [
   },
   {
     name: I18n.nav.dataTools.name,
+    newTip:false,
     children: [
       {
         name: I18n.nav.dataTools.top.name,
@@ -253,6 +257,7 @@ export const menu: Menu[] = [
   },
   {
     name: I18n.nav.service.name,
+    newTip:false,
     children: [
       {
         name: 'GrowthPad',
