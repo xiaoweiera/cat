@@ -243,6 +243,7 @@ const getSeries = function() {
       }
       safeSet(option, 'itemStyle.borderWidth', 1)
     } else {
+      // 取消阴影部分设置
       safeSet(option, 'areaStyle', null)
     }
     // 右侧价格线使用指定颜色
@@ -254,6 +255,7 @@ const getSeries = function() {
       option.barMaxWidth = 50
       const color = safeGet(option, 'itemStyle.color')
       safeSet(option, 'itemStyle.color', function(d: any) {
+        // 负数时强制设置为红色
         if (d.value < 0) {
           return 'rgba(255, 140, 128, 1)'
         }
@@ -266,17 +268,18 @@ const getSeries = function() {
     }
     if (props.log) {
       option.data = map(function(item: any) {
-        const value = item.value
-        if (value) {
+        const value: number = item.value
+        if (value || value === 0) {
           // @ts-ignore
           let num: number
+          const origin = value
           if (value > 0) {
             num = Math.log10(value)
           } else {
             num = Math.abs(toNumber(value))
             num = Math.log10(num) * -1
           }
-          return Object.assign({}, item, { value: num })
+          return Object.assign({}, item, { value: num, origin })
         }
         return item
       }, option.data)
@@ -343,7 +346,6 @@ const getOption = function() {
     xAxis: getXAxis(),
     yAxis: getYAxis(),
     series: getSeries(),
-    // color: colors
     backgroundColor: '#fff',
   }
   return data
