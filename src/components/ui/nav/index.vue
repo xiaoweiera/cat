@@ -16,13 +16,17 @@
 %animation {
   opacity: 0;
   z-index: 0;
+  max-height: 0;
   visibility: visible;
   transition: all 0.3s;
+  overflow: hidden;
 }
 %active {
   opacity: 1;
   z-index: 999;
   visibility: visible;
+  max-height: 1000px;
+  height: auto;
 }
 
 .nav-label {
