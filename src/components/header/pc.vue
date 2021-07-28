@@ -49,15 +49,15 @@ import { headerTag } from '~/store/header/login'
                     :src="I18n.nav.soonLine"
                     alt=""
                   />
-                  <div class="flex items-center">
-                    <span class="childName inline-block whitespace-pre-line">{{
-                      child.name
-                    }}</span>
-                    <img
-                      class="w-3 ml-1 imgShow"
-                      src="https://res.ikingdata.com/nav/navRight.jpg"
+                  <img
+                      v-if="child.beta"
+                      class="w-9 absolute -top-4 -right-5"
+                      :src="child.beta"
                       alt=""
-                    />
+                  />
+                  <div class="flex items-center">
+                    <span class="childName inline-block whitespace-pre-line">{{child.name }}</span>
+                    <img class="w-3 ml-1 imgShow" src="https://res.ikingdata.com/nav/navRight.jpg" alt=""/>
                   </div>
                   <span class="desc">{{ child.desc }}</span>
                 </div>

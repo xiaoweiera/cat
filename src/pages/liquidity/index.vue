@@ -12,7 +12,9 @@ pairStore.id = route.query.pair ? route.query.pair : pairStore.id
 pairStore.name = route.query.pairName ? route.query.pairName : ''
 const mobile=ref(false)
 mobile.value=window.screen.width>768?false:true
-
+window.addEventListener('resize', function() {
+  mobile.value=window.screen.width>768?false:true
+})
 </script>
 <template>
 <!--  <UiDialogWebNewTipMain class="xshidden"/>-->

@@ -9,6 +9,7 @@ export interface Menu {
   desc?: string
   query?: any // url 携带参数
   badge?: string // 提示标记
+  beta?:string//是否是内测
   children?: Menu[]
 }
 
@@ -25,9 +26,9 @@ export const menu: Menu[] = [
       {
         name: I18n.nav.defi.liquidity.name,
         desc: I18n.nav.defi.liquidity.desc,
-        badge: '即将上线',
+        beta: I18n.nav.betaSrc,
         icon: 'https://res.ikingdata.com/icon/defi_flow.svg',
-        href: ''
+        href: config.liquidity
       },
       {
         name: I18n.nav.defi.quotes.name,

@@ -2,7 +2,6 @@
 import { defineProps, computed } from 'vue'
 import { current } from '~/utils/lang'
 import { toNumber } from '~/utils/index'
-
 const props = defineProps({
   list: {
     type: Array,
@@ -70,6 +69,7 @@ const isChildren = (data: any): boolean => {
             ></IconFont>
             <span class="align-middle inline">{{ item.name }}</span>
             <i v-if="item.badge" class="badge" :class="current" />
+            <i v-if="item.beta" class="beta" :class="current" />
           </a>
           <span>
             <IconFont class="icon-down" type="down" size="2xl"></IconFont>
@@ -92,6 +92,7 @@ const isChildren = (data: any): boolean => {
             <span class="inline">
               <span>{{ item.name }}</span>
               <i v-if="item.badge" class="badge" :class="current" />
+                  <i v-if="item.beta" class="beta" :class="current" />
             </span>
           </a>
         </div>
@@ -144,7 +145,37 @@ const isChildren = (data: any): boolean => {
       background: rgba(69, 91, 133, 0.1);
     }
   }
-
+  .beta {
+    display: inline-block;
+    position: relative;
+    height: 1px;
+    width: 1px;
+    &:after {
+      content: '';
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 32px;
+      height: 24px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      transform: translate(-13px, -34px);
+    }
+    &.cn {
+      &:after {
+        $icon: 'https://res.ikingdata.com/liquidity/betaCn.png';
+        background-image: url($icon);
+      }
+    }
+    &.en {
+      &:after {
+        $icon: 'https://res.ikingdata.com/liquidity/betaEn.png';
+        background-image: url($icon);
+      }
+    }
+  }
   .badge {
     display: inline-block;
     position: relative;

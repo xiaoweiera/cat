@@ -22,8 +22,15 @@ const props = defineProps({
   symbol: String,
 })
 const pairList = ref([])
-const changePair = (name: string, id: string) => {
-  updateData(pairStore, {name, id})
+const changePair = (id: string,symbol0:string,symbol1:string) => {
+  let orderTokenName=''
+  if(symbolStore.name===symbol0){
+    orderTokenName= symbol0 + '/' + symbol1
+  }else{
+    orderTokenName= symbol1 + '/' + symbol0
+  }
+  const name=symbol0 + '/' + symbol1
+  updateData(pairStore, {name,orderTokenName, id})
   changeRouteParam(route, router, {pair: id, pairName: name})
 
 }
@@ -59,6 +66,23 @@ const load = () => {
     }
   }
 }
+const  getPayName=(symbol0:string,symbol1:string)=>{
+  if(symbolStore.name===symbol0){
+    return symbol0 + '/' + symbol1
+  }else{
+    return symbol1 + '/' + symbol0
+  }
+}
+
+const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
+  if(symbolStore.name===symbol0){
+    return `1:${price}`
+  }else{
+    // const newPrice=parseFloat(1/parseFloat(price)).toFixed(2)
+    // return `1:${newPrice}`
+    return `1:${formatRulesNumber(1/parseFloat(price),true)}`
+  }
+}
 </script>
 <template>
   <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid #ffffff;">
@@ -68,19 +92,19 @@ const load = () => {
   </ul>
   <div class="w-full h-full showY pairList" @scroll="load">
     <template v-for="item in pairList">
-      <div v-login :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair(item.symbol0 + '/' + item.symbol1, item.pair_id)">
+      <div v-login :class="pairStore.id === item.pair_id? 'selectRow': 'defaultRow'" @click="changePair( item.pair_id,item.symbol0,item.symbol1)">
         <div class="  flex-1 font-kdExp flex items-center overflow-hidden">
-          <el-tooltip :hide-after="10" :content="item.symbol0 + '/' + item.symbol1" placement="bottom" effect="light">
-                <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{ item.symbol0 + '/' + item.symbol1 }}</span>
+          <el-tooltip :hide-after="10" :content="getPayName(item.symbol0,item.symbol1)" placement="bottom" effect="light">
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayName(item.symbol0,item.symbol1)}}</span>
           </el-tooltip>
         </div>
         <div class="w-20     text-kd12px16px text-global-default">{{ formatRulesNumber(item.tvl,false) }}</div>
         <div class="w-27  text-kd12px16px text-global-default">
-          <el-tooltip :hide-after="10" :content="'1:'+formatRulesNumber(item.price,true)" placement="bottom" effect="light">
-            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">1:{{ formatRulesNumber(item.price,false) }}</span>
+          <el-tooltip :hide-after="10" :content="getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))" placement="bottom" effect="light">
+            <span class="txtSmall  text-kd12px16px text-global-default opacity-85">{{getPayPrice(item.symbol0,item.symbol1,formatRulesNumber(item.price,true))}}</span>
           </el-tooltip>
 
-          </div>
+        </div>
       </div>
     </template>
   </div>

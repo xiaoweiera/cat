@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps,ref,onMounted} from 'vue'
 import I18n from '~/utils/i18n/index'
-import {newData} from '~/logic/webTip'
+import {webTipData} from '~/logic/webTip'
 import {isShow} from '~/store/webTip/state'
 const state=()=>{
   return true
@@ -13,9 +13,9 @@ onMounted(()=>stateValue.value=isShow())
 
 <template>
   <div class="text-kdFang  relative">
-    <ElDialog :width="820" v-model="stateValue" custom-class="pcTips bor" :append-to-body="false">
-      <div class="h-140 bor">
-        <template v-for="(item,i) in newData">
+    <ElDialog :width="820" v-model="stateValue" custom-class="pcTips" :append-to-body="false">
+      <div class="h-140">
+        <template v-for="(item,i) in webTipData">
           <div v-if="i===selectNameIndex" class="h-full flex">
             <UiDialogWebNewTipLeft class="borLeft" />
             <UiDialogWebNewTipRight class="borLeft"  :data="item"/>
@@ -28,9 +28,6 @@ onMounted(()=>stateValue.value=isShow())
 </template>
 
 <style  scoped>
-.bor{
-  border-radius: 100px !important;
-}
 .borLeft{
   border-top-left-radius: 6px !important;
   border-bottom-left-radius: 6px !important;
@@ -49,7 +46,6 @@ onMounted(()=>stateValue.value=isShow())
   display: none;
 }
 .pcTips{
-  border-radius: 100px !important;
   position: absolute;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04);
   border-radius: 6px;
