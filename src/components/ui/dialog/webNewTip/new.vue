@@ -13,7 +13,7 @@ const props=defineProps({
   <div class="text-kdFang leftSide">
     <div class="flex items-center mb-3.5">
       <img class="w-7.5 " src="https://res.ikingdata.com/liquidity/leftYunTip.png" alt="">
-      <div class="text-kd16px24px text-global-highTitle ml-1" style="font-weight: 500;">新增功能</div>
+      <div class="text-kd16px24px text-global-highTitle ml-1" style="font-weight: 500;">{{I18n.webTip.newFeatures}}</div>
     </div>
     <div class="pl-4">
       <template v-for="item in webTipData">

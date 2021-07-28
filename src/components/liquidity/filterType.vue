@@ -38,7 +38,7 @@ const changeTag = (tag: any) => {
 <style scoped lang="postcss">
 .noSelected{
   border-radius: 2px;
-  cursor:default;
+  cursor:no-drop;
   @apply px-2 py-1 text-kd14px18px text-global-default opacity-35 min-w-12 text-center;
 }
 .timeTag {
