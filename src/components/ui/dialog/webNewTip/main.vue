@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { defineProps,ref,onMounted} from 'vue'
+import {ref,onMounted} from 'vue'
 import I18n from '~/utils/i18n/index'
 import {webTipData} from '~/logic/webTip'
 import {isShow} from '~/store/webTip/state'
+import * as lang from '~/utils/lang'
 const state=()=>{
   return true
 }
 const selectNameIndex=ref(0)
 const stateValue=ref(false)
-onMounted(()=>stateValue.value=isShow())
+onMounted(()=>stateValue.value=isShow(lang.current.value))
 </script>
 
 <template>
