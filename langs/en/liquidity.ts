@@ -46,7 +46,8 @@ export default {
         pair: 'Pair',
         tvl: 'TVL($)',
         price: 'Price',
-        change: 'Change'
+        change: 'Change',
+        rate:'Rate',
     },
     mainHeader: {
         liquidity: 'Data aggregation analysis of all related pairs about {token}',
