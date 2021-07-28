@@ -5,7 +5,7 @@ import growthpad from './growthpad'
 import growthpadShow from './growthpadShow'
 import liquidity from './liquidity'
 import nav from './nav'
-import webtip from './webTip'
+import webTip from './webTip'
 export default {
   apy,
   common,
@@ -13,5 +13,5 @@ export default {
   growthpadShow,
   nav,
   liquidity,
-  webtip
+  webTip
 }

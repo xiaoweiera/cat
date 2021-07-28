@@ -1,9 +1,10 @@
 export default {
     go:'Go',
+    newFeatures:'New Function',
     name: 'Liquidity Analysis 🔥',
-    img: 'https://res.ikingdata.com/nav/coinmetrics.jpg',
+    img: 'https://res.ikingdata.com/liquidity/webTipImg.jpg',
     title: 'Liquidity Analysis 🔥',
-    href: 'https://preview.ikingdata.com/liquidity',
+    href: './liquidity',
     contents:[
         'KingData new function online- The first DEX data analysis tool',
         'LP+Swap in-depth perspective analysis'
