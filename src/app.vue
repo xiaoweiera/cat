@@ -21,7 +21,7 @@ useHead({
 </script>
 <template>
   <div :class="langType">
-<!--    <UiDialogWebNewTipMain class="xshidden"/>-->
+    <UiDialogWebNewTipMain class="xshidden"/>
     <router-view />
   </div>
 </template>

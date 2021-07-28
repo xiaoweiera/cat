@@ -1,24 +1,22 @@
 <script setup lang="ts">
 import { defineProps} from 'vue'
 import I18n from '~/utils/i18n/index'
-const props=defineProps({
-  data:Object
-})
-
+import { getInject } from '~/utils/use/state'
+const data=getInject('data')
 
 </script>
 
 <template>
   <div class="flex flex-col text-kdFang  flex-1 relative bg-global-white imgborRadius BottomRightRadius">
-    <img class="w-full h-84.5 imgborRadius BottomRightRadius" :src="data.img" alt="">
+    <img v-if="data[0].img" class="w-full h-84.5 imgborRadius BottomRightRadius" :src="data[0].img" alt="">
     <div class="flex-1 p-6  bor BottomRightRadius">
-        <div class="font-semibold text-kd20px28px text-kdFang  i8n-font-en-Barlow text-global-default text-opacity-85">{{data.title}}</div>
+        <div class="font-semibold text-kd20px28px text-kdFang  i8n-font-en-Barlow text-global-default text-opacity-85">{{data[0].title}}</div>
         <div class="mt-1.5 ">
-          <template v-for="item in data.contents">
+          <template v-for="item in data[0].contents">
             <div class="text-global-default i8n-font-en-inter text-opacity-65 text-kd14px24px">{{item}}</div>
           </template>
           <div class="mt-1"></div>
-          <template v-for="item in data.descs">
+          <template v-for="item in data[0].descs">
             <div class="text-global-default i8n-font-en-inter text-opacity-65 text-kd14px35px">{{item}}</div>
           </template>
         </div>
