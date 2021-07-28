@@ -19,40 +19,18 @@ const p=new person2('小明')
 alert(p.desc)
 </script>
 <template>
-  <div class="cursors">
-    <div class="auto">auto</div>
-    <div class="default">default</div>
-    <div class="none">none</div>
-    <div class="context-menu">context-menu</div>
-    <div class="help">help</div>
-    <div class="pointer">pointer</div>
-    <div class="progress">progress</div>
-    <div class="wait">wait</div>
-    <div class="cell">cell</div>
-    <div class="crosshair">crosshair</div>
-    <div class="text">text</div>
-    <div class="vertical-text">vertical-text</div>
-    <div class="alias">alias</div>
-    <div class="copy">copy</div>
-    <div class="move">move</div>
-    <div class="no-drop">no-drop</div>
-    <div class="not-allowed">not-allowed</div>
-    <div class="all-scroll">all-scroll</div>
-    <div class="col-resize">col-resize</div>
-    <div class="row-resize">row-resize</div>
-    <div class="n-resize">n-resize</div>
-    <div class="s-resize">s-resize</div>
-    <div class="e-resize">e-resize</div>
-    <div class="w-resize">w-resize</div>
-    <div class="ns-resize">ns-resize</div>
-    <div class="ew-resize">ew-resize</div>
-    <div class="ne-resize">ne-resize</div>
-    <div class="nw-resize">nw-resize</div>
-    <div class="se-resize">se-resize</div>
-    <div class="sw-resize">sw-resize</div>
-    <div class="nesw-resize">nesw-resize</div>
-    <div class="nwse-resize">nwse-resize</div>
-  </div>
+  <el-popover
+      placement="bottom"
+      title="标题"
+      :width="200"
+      trigger="hover"
+  >
+    <div>aaa</div>
+    <template #reference>
+      <el-button>hover 激活</el-button>
+    </template>
+  </el-popover>
+
 </template>
 <style>
 .auto            { cursor: auto; }

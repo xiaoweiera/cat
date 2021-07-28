@@ -98,16 +98,17 @@ export const getModel = (params: any, unit: string,) => {
   }
   params = orderByDesc(params)
   const title = params[0].axisValue
+  const maxWidth=getMaxWidth(params)
   const time = `<div>${title}</div>`
   // @ts-ignore
   // eslint-disable-next-line array-callback-return
   const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
-    if (value) {
-      return tooptipsModel(seriesName, color, formatValue, unit,false,0)
+    if (value || value===0) {
+      return tooptipsModel(seriesName, color, formatValue, unit,true,(1.3*maxWidth)+15)
     }
   })
-  return time + result.join('')
+  return time + toopTipsContainer(result)
 }
 export const getBigModel = (params: any, unit: string,) => {
   if (!params[0]) {
@@ -122,11 +123,11 @@ export const getBigModel = (params: any, unit: string,) => {
   // eslint-disable-next-line array-callback-return
   const result = params.map(({ seriesName, data, seriesIndex: idx, color }) => {
     const { value, formatValue } = data
-    if (value) {
-      return tooptipsModel(seriesName, color, formatValue, unit,true,1.5*maxWidth)
+    if (value || value===0) {
+      return tooptipsModel(seriesName, color, formatValue, unit,true,(1.3*maxWidth)+15)
     }
   })
-  return time + toopTipsContainer(result,true)
+  return time + toopTipsContainer(result)
 }
 // @ts-ignore
 export const yLabelFormat = (num: any) => numberFormat(num, true)
