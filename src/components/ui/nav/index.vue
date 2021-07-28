@@ -16,7 +16,7 @@
 %animation {
   opacity: 0;
   z-index: 0;
-  visibility: hidden;
+  visibility: visible;
   transition: all 0.3s;
 }
 %active {

@@ -46,7 +46,8 @@ export default {
         pair: '交易对',
         tvl: 'TVL($)',
         price: '价格',
-        change: '涨跌幅'
+        change: '涨跌幅',
+        rate:'汇率',
     },
     mainHeader: {
         liquidity: '{token} 所有相关的交易对数据聚合分析',

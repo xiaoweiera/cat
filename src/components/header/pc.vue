@@ -43,20 +43,11 @@ import { headerTag } from '~/store/header/login'
               >
                 <img :src="child.icon" alt="" />
                 <div class="flex flex-col ml-2.5">
-                  <img
-                    v-if="child.badge"
-                    class="w-13 absolute -top-4 -right-6"
-                    :src="I18n.nav.soonLine"
-                    alt=""
-                  />
-                  <img
-                      v-if="child.beta"
-                      class="w-9 absolute -top-4 -right-5"
-                      :src="child.beta"
-                      alt=""
-                  />
                   <div class="flex items-center">
-                    <span class="childName inline-block whitespace-pre-line">{{child.name }}</span>
+                    <span class="childName relative inline-block whitespace-pre-line">{{child.name }}
+                      <img v-if="child.badge" class="w-13 absolute -top-5 -right-11" :src="I18n.nav.soonLine"/>
+                      <img v-if="child.beta" class="w-9 absolute -top-5 -right-6.5" :src="child.beta"/>
+                    </span>
                     <img class="w-3 ml-1 imgShow" src="https://res.ikingdata.com/nav/navRight.jpg" alt=""/>
                   </div>
                   <span class="desc">{{ child.desc }}</span>
