@@ -9,6 +9,7 @@ export const config = {
   topic: '/topic',
   growthpad: '/growthpad',
   apy: '/apy',
+  liquidity:'/liquidity',
   bull: '/bull',
   nav: '/nav',
   tih: '/tih',
