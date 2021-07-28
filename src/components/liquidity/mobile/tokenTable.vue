@@ -86,7 +86,7 @@ const  getPayPrice=(symbol0:string,symbol1:string,price:string)=>{
     <ul class="px-3 h-7 w-full flex items-center text-global-default opacity-65 text-kd12px16px font-kdFang tableHeader" style=" border-right: 3px solid rgba(37, 62, 111, 0);">
       <li class="flex-1">{{I18n.liquidity.side.pair}}</li>
       <li class="w-25">TVL($)</li>
-      <li class="w-22 ">{{I18n.liquidity.side.price}}</li>
+      <li class="w-22 ">{{I18n.liquidity.side.rate}}</li>
     </ul>
     <div class="w-full tableHeight showY relative pairList" @scroll="load">
       <template v-for="item in pairList">
