@@ -1,20 +1,19 @@
-  <script setup lang="ts">
+<script setup lang="ts">
 
 </script>
 
 <template>
   <div class="text-kdFang w-55 bord h-full py-6  bor  leftSide">
-      <UiDialogWebNewTipNew   />
-<!--    <UiDialogWebNewTipFix />-->
+    <UiDialogWebNewTipNew   />
+    <div style="border-bottom: 1px solid rgba(37, 62, 111, 0.06);" class="mx-6 h-0.1 my-6"></div>
+    <UiDialogWebNewTipFix />
   </div>
 </template>
 
 <style   scoped>
-.bor{
-  border-right:2px solid rgba(0, 0, 0, 0.01);
-}
+
 .leftSide{
-  background: #F5FAFF;
+  background: rgba(245, 247, 250, 1);
   backdrop-filter: blur(80px);
 }
 </style>

@@ -3,12 +3,18 @@ import {ref,onMounted} from 'vue'
 import I18n from '~/utils/i18n/index'
 import {webTipData} from '~/logic/webTip'
 import {isShow} from '~/store/webTip/state'
+import { useProvide } from '~/utils/use/state'
+import {  setInject, getInject } from '~/utils/use/state'
+const setTitle=setInject('title')
+const coinType=getInject('coinType')
 import * as lang from '~/utils/lang'
 const state=()=>{
   return true
 }
+
 const selectNameIndex=ref(0)
 const stateValue=ref(false)
+const [selectData, ] = useProvide('data',webTipData.newData[0])
 onMounted(()=>stateValue.value=isShow(lang.current.value))
 </script>
 
@@ -16,12 +22,10 @@ onMounted(()=>stateValue.value=isShow(lang.current.value))
   <div class="text-kdFang  relative">
     <ElDialog :width="820" v-model="stateValue" custom-class="pcTips" :append-to-body="false">
       <div class="h-140">
-        <template v-for="(item,i) in webTipData">
-          <div v-if="i===selectNameIndex" class="h-full flex">
+          <div  class="h-full flex">
             <UiDialogWebNewTipLeft class="borLeft" />
-            <UiDialogWebNewTipRight class="borLeft"  :data="item"/>
+            <UiDialogWebNewTipRight class="borLeft" />
           </div>
-        </template>
       </div>
       <img @click="stateValue=false" class="w-6 absolute top-4 right-4 cursor-pointer" src="https://res.ikingdata.com/liquidity/closeWebTip.png" alt="">
     </ElDialog>
