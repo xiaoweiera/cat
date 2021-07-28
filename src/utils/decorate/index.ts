@@ -4,7 +4,31 @@
 import 'reflect-metadata'
 import { isString, isFunction, isEmpty, compact, toBoolean } from '~/utils'
 
+type CallBack = <T>(...args: any[]) => T
 export type ErrCatch = (e: Error, ...args: any[]) => void
+
+// 执行回调函数
+const runCallback = function<T>(callback?: string | CallBack | ErrCatch, args?: any[]): T | undefined {
+  // @ts-ignore
+  let app: CallBack
+  // @ts-ignore
+  if (callback && isString(callback) && isFunction(this[callback])) {
+    // @ts-ignore
+    app = this[callback].bind(this)
+  } else if (callback && isFunction(callback)) {
+    // @ts-ignore
+    app = callback
+  }
+  // @ts-ignore
+  if (app) {
+    if(args && args.length > 0) {
+      return app<T>(...args)
+    } else {
+      return app<T>()
+    }
+  }
+  return void 0
+}
 
 // 处理异常默认值
 export const ErrorDefault = function(value?: any, log?: boolean) {
@@ -23,15 +47,19 @@ export const ErrorDefault = function(value?: any, log?: boolean) {
 export const ErrorNull = ErrorDefault(void 0)
 
 
-export const before = function(fun: () => any) {
+export const before = function(callback: string | CallBack | any) {
   return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
     const app = descriptor.value
     descriptor.value = function(...args: any[]) {
-      const status = toBoolean(fun())
-      if (status) {
+      const fun = runCallback.bind(this)
+      const status = fun<boolean>(callback);
+      if (toBoolean(status)) {
         return app.apply(this, args)
       } else {
-        throw new Error('before result = false, Function name = ' + methodName)
+        throw {
+          code: 500,
+          message: `before result = false, Function name = ${methodName}, CallBack name = ${callback.name}`
+        }
       }
     }
   }
@@ -45,14 +73,10 @@ export const tryError = function(errCatch?: string | ErrCatch) {
         return await Promise.resolve(app.apply(this, args))
       } catch (e) {
         const query: any[] = compact([e].concat(args))
-        // @ts-ignore
-        if (errCatch && isString(errCatch) && this[errCatch]) {
-          // @ts-ignore
-          return this[errCatch](...query)
-        }
-        if (errCatch && isFunction(errCatch)) {
-          // @ts-ignore
-          return errCatch(...query)
+        const callback = runCallback.bind(this)
+        const result = callback<any>(errCatch, query);
+        if (result) {
+          return result
         }
         console.warn('Function %s trigger Error', methodName)
         // @ts-ignore

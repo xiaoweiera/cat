@@ -7,20 +7,63 @@ import Ethereum from './_'
 import BigNumber from 'bignumber.js'
 // @ts-ignore
 import Web3 from 'web3/dist/web3.min.js'
-import { getAddress, getConnected } from './status'
+import { getAddress, getConnected, getLogin } from './status'
 import { erc20ABI, PairABI } from './pair'
 import { PairInfo, SymbolInfo } from '~/utils/ethereum/interface'
 import swapConfig from './config'
-import { compact, equalsIgnoreCase } from '~/utils'
+import { compact, equalsIgnoreCase, isFunction } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import { tryError, before, validate, required, ErrorDefault } from '~/utils/decorate'
+import * as event from '~/utils/ethereum/event'
 
+type AccountCallback = (address: string) => void
 
 export class Web3Util extends Web3 {
+  public ethereum: any
   constructor() {
     const ethereum: any = Ethereum()
     super(ethereum);
+    this.ethereum = ethereum
   }
+  /**
+   * 获取用户钱包地址
+   */
+  getUserAddress (): string | undefined {
+    return getAddress()
+  }
+
+  /**
+   * 连接钱包
+   */
+  @before(getConnected) // 判断是否已安装小狐狸插件并且已打开
+  async enableEthereum () {
+    // 打开钱包，让用户授权
+    await event.enableEthereum()
+    // 返回已授权的地址
+    return this.getUserAddress()
+  }
+
+  /**
+   * 监听账户状态
+   * @param callback 账户发生变化时回调函数
+   */
+  @before(getConnected) // 判断是否已安装小狐狸插件并且已打开
+  @before(getLogin)     // 判断是否已登录
+  onChangeAccount(callback: AccountCallback): void {
+    if (callback && isFunction(callback)) {
+      const app = () => {
+        const address = this.getUserAddress()
+        callback(address || '')
+      }
+      // 切换账户
+      event.onChangeAccount(app)
+      // 用户断开链接
+      event.onDisconnect(app)
+      app()
+    }
+  }
+
+  //-----------------
 
   /**
    * 获取合约

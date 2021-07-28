@@ -16,19 +16,27 @@ export const getAddress = function(): string {
   const open = getOpenStatus()
   if (open) {
     const ethereum = Ethereum()
-    return ethereum.selectedAddress
+    return ethereum?.selectedAddress
   }
   return ''
 }
 
 /**
- * 是否已链接
+ * 判断是否已登录小狐狸插件
+ */
+export const getLogin = function(): boolean {
+  const address = getAddress()
+  return toBoolean(address)
+}
+
+/**
+ * 是否已安装小狐狸插件并且为打开状态
  */
 export const getConnected = function(): boolean {
   const open = getOpenStatus()
   if (open) {
     const ethereum = Ethereum()
-    return toBoolean(ethereum.isConnected())
+    return toBoolean(ethereum?.isConnected())
   }
   return false
 }
