@@ -29,8 +29,8 @@ const getActive = function(item: any) {
     <template v-for="(item, i) in menu" :key="i">
       <UiNav>
         <template #reference>
+          <img v-if="item.newTip" class="w-4  absolute  right-3 bottom-4" src="https://res.ikingdata.com/liquidity/newRedTip.png" alt="">
           <template v-if="getActive(item)">
-            <img class="w-4  absolute  right-3 bottom-4" src="https://res.ikingdata.com/liquidity/newRedTip.png" alt="">
             <div class="flex items-center cursor-pointer text-base menu-title active">
               <span>{{ getActive(item).name }}</span>
               <IconFont class="ml-1.5" type="icon-xiajiantou"/>

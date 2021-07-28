@@ -1,9 +1,9 @@
-<script setup lang="ts">
+  <script setup lang="ts">
 
 </script>
 
 <template>
-  <div class="text-kdFang w-55 h-full p-6 bor  leftSide">
+  <div class="text-kdFang w-55 bord h-full pl-6 pt-6 pb-6 bor  leftSide">
       <UiDialogWebNewTipNew   />
 <!--    <UiDialogWebNewTipFix />-->
   </div>
