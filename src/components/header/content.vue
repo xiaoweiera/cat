@@ -3,8 +3,6 @@
 import { menu } from '~/logic/menu'
 import { config } from '~/utils/router'
 // @ts-ignore
-import { toBoolean } from '~/utils'
-// @ts-ignore
 import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
 
@@ -29,62 +27,59 @@ const getActive = function(item: any) {
 <template>
   <div class="flex font-normal h-full items-center">
     <template v-for="(item, i) in menu" :key="i">
-      <div class="nav-item" :class="{'active': toBoolean(getActive(item)) }">
-        <UiNav>
-          <template #reference>
+      <UiNav>
+        <template #reference>
+          <img v-if="item.newTip" class="w-4  absolute  right-3 bottom-4" src="https://res.ikingdata.com/liquidity/newRedTip.png" alt="">
+          <template v-if="getActive(item)">
+            <div class="flex items-center cursor-pointer text-base menu-title active">
+              <span>{{ getActive(item).name }}</span>
+              <IconFont class="ml-1.5" type="icon-xiajiantou"/>
+            </div>
+          </template>
+          <template v-else>
             <div class="flex items-center cursor-pointer text-base menu-title">
-              <template v-if="getActive(item)">
-                <span>{{ getActive(item).name }}</span>
-              </template>
-              <template v-else>
-                <span>{{ item.name }}</span>
-              </template>
-              <IconFont class="ml-1 transform scale-55" type="icon-xiajiantou"/>
+              <span>{{ item.name }}</span>
+              <IconFont class="ml-1.5" type="icon-xiajiantou"/>
             </div>
           </template>
-          <template #content v-if="item.children">
-            <div class="flex font-kdFang">
-              <div class="flex flex-col">
-                <template v-for="child in item.children">
-                  <a v-router="child.href" target="_blank" class="cursor-pointer flex items-center menu-item">
-                    <IconFont :type="child.icon" size="40"/>
-                    <div class="relative ml-2.5">
-                      <img v-if="child.badge" class="w-13 absolute -top-4 -right-6" :src="I18n.nav.soonLine"/>
-                      <div class="flex items-center">
-                        <span class="child-name whitespace-nowrap">{{ child.name }}</span>
-                        <img class="w-3 ml-1 img-show" src="https://res.ikingdata.com/nav/navRight.jpg"/>
-                      </div>
-                      <span class="desc whitespace-nowrap">{{child.desc }}</span>
+        </template>
+        <template #content v-if="item.children">
+          <div class="flex font-kdFang">
+            <div class="flex flex-col">
+              <template v-for="child in item.children">
+                <a v-router="child.href" target="_blank" class="cursor-pointer flex items-center menu-item">
+                  <IconFont :type="child.icon" size="40"/>
+                  <div class="relative ml-2.5">
+                    <div class="flex items-center">
+                      <span class="child-name relative whitespace-nowrap">{{ child.name }}
+                        <img v-if="child.badge" class="w-13 absolute -top-5 -right-11" :src="I18n.nav.soonLine"/>
+                        <img v-if="child.beta" class="w-9 absolute -top-5 -right-6.5" :src="child.beta"/>
+                      </span>
+                      <img class="w-3 ml-1 img-show" src="https://res.ikingdata.com/nav/navRight.jpg"/>
                     </div>
-                  </a>
-                </template>
-              </div>
+                    <span class="desc whitespace-nowrap">{{child.desc }}</span>
+                  </div>
+                </a>
+              </template>
             </div>
-          </template>
-        </UiNav>
-      </div>
+          </div>
+        </template>
+      </UiNav>
     </template>
   </div>
 </template>
 
 <style scoped lang="scss">
-.nav-item {
-  @apply px-4 inline-flex items-center h-full;
+.menu-title {
+  &.active {
+    @apply text-global-primary;
+  }
+}
+
+.nav-main {
+  @apply ml-8;
   &:first-child {
     @apply ml-0;
-  }
-  &:after {
-    @apply absolute left-0 right-0 bottom-0 h-0.5;
-    @apply bg-global-primary bg-opacity-65;
-  }
-  &.active {
-    @apply relative;
-    .menu-title {
-      @apply text-global-primary;
-    }
-    &:after {
-      content: "";
-    }
   }
 }
 

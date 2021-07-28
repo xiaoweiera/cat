@@ -18,7 +18,7 @@ const titleName=computed(()=>{
   if(!pairStore.id){
     name= `${symbolStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
   }else{
-    name= `${pairStore.name}_${platStore.name} | ${I18n.liquidity.webTitle}`
+    name= `${pairStore.orderTokenName}_${platStore.name} | ${I18n.liquidity.webTitle}`
   }
   return name
 })

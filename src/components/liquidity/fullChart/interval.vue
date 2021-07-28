@@ -16,7 +16,7 @@ const changeTag = (tag: string) => {
   <div class="usdCoinContainer flex">
 
     <div @click="changeTag('1H')" :class="interval[0]==='1H'?'tagSelected':'noSelected'">
-      <el-tooltip :hide-after="10" :content="I18n.liquidity.noData" placement="bottom" effect="light">
+      <el-tooltip :hide-after="10" :content="I18n.liquidity.comingsoon" placement="bottom" effect="light">
         <span class="txtSmall  text-kd14px18px  text-global-default opacity-65">1H</span>
       </el-tooltip>
     </div>
@@ -27,6 +27,7 @@ const changeTag = (tag: string) => {
 <style scoped lang="postcss">
 .noSelected{
   border-radius: 2px;
+  cursor:no-drop;
   @apply px-2 py-1 text-kd14px18px text-global-default opacity-35 min-w-12 text-center;
 }
 .tag {

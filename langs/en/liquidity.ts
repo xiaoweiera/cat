@@ -9,6 +9,7 @@ export default {
         yi:'亿',
         wanyi:'万亿'
     },
+    comingsoon:'ComingSoon',
     noData:'No Data',
     address:'Address',
     webTitle:'KingData DEX Analysis',
@@ -45,7 +46,8 @@ export default {
         pair: 'Pair',
         tvl: 'TVL($)',
         price: 'Price',
-        change: 'Change'
+        change: 'Change',
+        rate:'Rate',
     },
     mainHeader: {
         liquidity: 'Data aggregation analysis of all related pairs about {token}',

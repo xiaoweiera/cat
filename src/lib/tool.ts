@@ -228,32 +228,34 @@ export const getSaveNumber=(v:any,number:number)=>{
 export const aboutCn=(value:any)=>{
   const k = 10000
   //@ts-ignore
-  const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
+  const sizes = ['', '万','亿','兆']
   const v=new BigNumber(value)
   if ((value < 10000 && value>=0) || (value<0 && value>-2)) {
     return parseFloat(v.toFixed(2))
     // return Math.round(value * 100) / 100
   } else{
-    const i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
+    let i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
+    i=i<=3?i:3
     // if(i>3) return v.toFixed(2)
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
-    const unit = sizes[i]
+    const unit =i<=3? sizes[i]:sizes[3]
     return value>=0?values + unit:'-'+values+unit
   }
 }
 export const aboutEn=(value:any)=>{
   const k = 1000
   //@ts-ignore
-  const sizes = ['', 'K','M','B']
+  const sizes = ['', 'K','M','B','T']
   const v=new BigNumber(value)
   if ((value < 10000 && value>=0) || (value<0 && value>-2)) {
     return parseFloat(v.toFixed(2))
     // return Math.round(value * 100) / 100
   } else{
-    const i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
+    let i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)))
+    i=i<=4?i:4
     // if(i>3) return v.toFixed(2)
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2))
-    const unit = sizes[i]
+    const unit =i<=4? sizes[i]:sizes[4]
     return value>=0?values + unit:'-'+values+unit
   }
 }
@@ -323,6 +325,18 @@ export const formatRulesNumber=(v:any,isShowAll:boolean)=>{
   const value=new BigNumber(v)
   if(parseFloat(value.toFixed())>1 || parseFloat(value.toFixed())<-1){
     return numberUnitFormat(v)
+  }else{
+    return getRulesNumber(v,isShowAll)
+  }
+}
+//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
+export const formatRulesPrice=(v:any,isShowAll:boolean)=>{
+  if(!v){
+    return v===0?0:'-'
+  }
+  const value=new BigNumber(v)
+  if(parseFloat(value.toFixed())>1 || parseFloat(value.toFixed())<-1){
+    return parseFloat(value.toFixed(2))
   }else{
     return getRulesNumber(v,isShowAll)
   }

@@ -449,19 +449,17 @@ export const numberUint = function(value: number, unit?: Unit) {
       unit = Unit.hundredMillion
     } else if (length > 4) {
       unit = Unit.tenThousand
-    } else {
-      unit = Unit.unit
     }
   }
-  const pow = unitPow[unit]
-
-  const template = `0 | {data}${unit}`
-
+  let res: string | number
+  const pow = unit ? unitPow[unit] : 1
+  const template = `0 | {data}${unit || ''}`
   if (count > 0) {
     const data = toNumberCeil(count / pow)
-    return I18n.part(template, data, { data })
+    res = I18n.part(template, data, { data })
   } else {
     const data = toNumberCeil(count / pow)
-    return I18n.part(template, data, { data: `-${Math.abs(data)}` })
+    res = I18n.part(template, data, { data: `-${Math.abs(data)}` })
   }
+  return res
 }

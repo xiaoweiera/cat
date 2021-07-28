@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
 import '~/styles/font.css'
-import { useI18n } from 'vue-i18n'
-// @ts-ignore
-const { t } = useI18n()
+import { ref } from 'vue'
+import * as lang from '~/utils/lang'
+const langType = ref(lang.current.value)
+
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
@@ -19,12 +20,18 @@ useHead({
 })
 </script>
 <template>
-  <div :class="t('lang') === 'En' ? 'en' : 'cn'">
+  <div :class="langType">
 <!--    <UiDialogWebNewTipMain class="xshidden"/>-->
     <router-view />
   </div>
 </template>
 <style lang="scss">
+.en .i8n-font-en-inter {
+  font-family: i8n-font-inter;
+}
+.en .i8n-font-en-Barlow {
+  font-family: i8n-font-Barlow;
+}
 body {
   -webkit-overflow-scrolling: touch;
 }

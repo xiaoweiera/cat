@@ -24,7 +24,7 @@ const changeTag = (tag: any) => {
     <div class="flex h-7.8 items-center timeFilter">
       <template v-for="item in filterData">
         <div v-login v-if="item.name==='1H'" class="noSelected">
-          <el-tooltip :hide-after="10" :content="I18n.liquidity.noData" placement="bottom" effect="light">
+          <el-tooltip :hide-after="10" :content="I18n.liquidity.comingsoon" placement="bottom" effect="light">
             <span class="txtSmall text-kd14px18px text-global-default opacity-65">{{item.name}}</span>
           </el-tooltip>
         </div>
@@ -38,6 +38,7 @@ const changeTag = (tag: any) => {
 <style scoped lang="postcss">
 .noSelected{
   border-radius: 2px;
+  cursor:no-drop;
   @apply px-2 py-1 text-kd14px18px text-global-default opacity-35 min-w-12 text-center;
 }
 .timeTag {
