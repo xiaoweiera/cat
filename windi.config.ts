@@ -13,6 +13,7 @@ export default defineConfig({
                 'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],
                 'kd14px20px': ['14px', '20px'],
+                'kd14px35px': ['14px', '25px'],
                 'kd12px22px': ['12px', '22px'],
                 'kd12px20px': ['12px', '20px'],
                 'kd12px18px': ['12px', '18px'],
