@@ -3,6 +3,7 @@ import { defineProps,onMounted,ref,reactive,watch } from 'vue'
 import * as R from 'ramda'
 import {  setInject, getInject,margeInject } from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
+import {isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 import {getFlowChartModel,getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import get = Reflect.get;
 const props=defineProps({
@@ -39,7 +40,7 @@ onMounted(function () {
 
 //得到数据
 const getData = async () => {
-  const tokenType=props.chartType==='flow'?'pair':'symbol0'
+  let tokenType=props.chartType==='flow'?'pair':'symbol0'
   chartLoad.value = true
   let chartCoin = ''
   const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
@@ -52,6 +53,9 @@ const getData = async () => {
     if(props.chartType==='flow'){
       chartData.value = await getFlowChartModel(param, props.chartId, tokenType, chartCoin)
     }else{
+      if(isSymbol0Symbol1.includes(props.chartId)){
+        tokenType=pairData.value[0].name?(pairData.value[0].name.split('/')[0]===tokenData.value[0].name?'symbol0':'symbol1'):'symbol0'
+      }
       chartData.value = await getPayChartModel(param, props.chartId,tokenType, chartCoin)
     }
   } else {
