@@ -15,7 +15,6 @@ interface yModel {
 }
 // 颗粒度天 时
 let myChart: any = null
-const pp = toRefs(paramChart)
 const props = defineProps({
   full:Boolean,
   priceData:Object,
