@@ -22,7 +22,7 @@ export default {
         interval:'时间粒度',
         pairDesc:'相关交易对',
         pcDes1:'为了您良好的使用体验',
-        pcDes2:'建议在电脑中访问该页面',
+        pcDes2:'该功能仅限在电脑中访问',
         confirm:'确定'
     },
     select:{
