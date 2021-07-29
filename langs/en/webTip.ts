@@ -2,7 +2,7 @@ export default {
     go:'Go',
     newFeatures:'New Function',
     fixIcon:'🎉',
-    fix:'更新优化',
+    fix:'UPDATE',
     liquidity:{
         name: 'DEX Data Analysis 🔥',
         img: 'https://res.ikingdata.com/liquidity/webTipEn.jpg',
@@ -18,11 +18,11 @@ export default {
         ]
     },
     fix1:{
-        name: '7月28日更新',
+        name: '7/29 UPDATE',
         href: './liquidity',
         descs: [
             '1. 优化了数据图表的体验',
-            '2. 修复了数据图表中已知的数据（SUSHI数据修复、MDEX项目数据修复、MDX Token 数据修复、UniSwap数据修复、DeFi数据修复、AMPL数据修复',
+            '2. 修复了数据图表中已知存在问题数据（SUSHI数据修复、MDEX项目数据修复、MDX Token 数据修复、UniSwap数据修复、DeFi数据修复、AMPL数据修复）',
             '3. 新增了UNISWAP V3流动性数据',
             '4. 修复了APY大全目前已知的问题'
         ]

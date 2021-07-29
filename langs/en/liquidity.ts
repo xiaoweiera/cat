@@ -22,7 +22,7 @@ export default {
         interval:'Interval',
         pairDesc:'Related Pairs',
         pcDes1:'For good use experience',
-        pcDes2:'Please access this page on your computer',
+        pcDes2:'This function is only accessible on the computer',
         confirm:'Confirm'
     },
     select:{
