@@ -58,9 +58,9 @@ const statusChange=(status:boolean)=>{
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
         </el-main>
-<!--        <el-footer height="initial" class="p-0">-->
-<!--          <LiquidityFullChartFooter/>-->
-<!--        </el-footer>-->
+        <el-footer height="initial" class="p-0">
+          <LiquidityFullChartPairDown/>
+        </el-footer>
       </el-container>
       <div v-else  class="flex absolute right-2 xshidden">
         <FullZoom v-login/>
