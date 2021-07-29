@@ -9,7 +9,7 @@ const close=()=>{
   props.pcTip.value=false
 }
 </script>
- 
+
 <template>
   <div class="text-kdFang">
     <ElDialog
