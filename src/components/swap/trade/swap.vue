@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, onMounted, ref, watch, computed } from 'vue'
+import { defineProps, onMounted, ref, watch, computed, reactive } from 'vue'
 import { getPairSymbolData, Web3Util, getAmountOut } from '~/utils/ethereum/util'
 import { useProvide } from '~/utils/use/state'
 import { toArray, numberDecimal, decimalFormat, equalsIgnoreCase } from '~/utils'
@@ -14,6 +14,10 @@ const props = defineProps({
   pair: {
     type: String,
     required: true
+  },
+  // 钱包地址
+  walletAddress: {
+    type: String,
   }
 })
 // @ts-ignore
@@ -22,7 +26,10 @@ const [ symbolInput, setSymbolInput ] = useProvide(stateName.stateInput, {
 })
 
 
+// 币种名称
 const symbolNames = ref<string[]>([])
+// 币种授权状态
+const symbolAuths = reactive<{[key: string]: boolean}>({})
 
 // 切换交易对 symbol 信息
 // @ts-ignore
@@ -57,10 +64,15 @@ const ready = async function() {
       data.symbol1.symbol
     ]
     symbolNames.value = names
+    const status = await Promise.all([
+      web3.getAuthorizatioStatus(data.symbol0.token),
+      web3.getAuthorizatioStatus(data.symbol1.token)
+    ])
+    symbolAuths[data.symbol0.symbol] = status[0]
+    symbolAuths[data.symbol1.symbol] = status[1]
 
     setDetail(data)
   }
-
 }
 
 // 监听 symbol 合约数量变化
@@ -116,8 +128,14 @@ const onAuthorizatio = async function() {
   const web3 = new Web3Util()
   const info = getPairSymbolData(detail.value[0], symbol)
   if (info) {
-    const status = await web3.getAuthorizatioStatus(info.token)
-    console.log('status = ', status)
+    try {
+      // 发起授权
+      await web3.postApprove(info.token)
+      // 设置授权状态
+      symbolAuths[info.symbol] = true
+    } catch (e) {
+
+    }
   }
 }
 
@@ -127,12 +145,27 @@ onMounted(ready)
 
 <template>
   <div class="w-100 p-4 text-kdExp">
+    <div class="flex justify-between text-global-default text-opacity-65 pb-4">
+      <div>
+        <span class="text-base">交易</span>
+      </div>
+      <div>
+        <el-popover placement="bottom" >
+          <template #reference>
+            <IconFont type="icon-setting" class="text-xl cursor-pointer"/>
+          </template>
+          <div class="w-50 whitespace-nowrap">
+            这是一段内容,这是一段内容,这是一段内容,这是一段内容。
+          </div>
+        </el-popover>
+      </div>
+    </div>
     <template v-for="(symbol, index) in symbolNames" :key="`${symbol}-${index}`">
       <div>
         <div v-show="index > 0" class="text-center py-4">
           <IconFont type="icon-switch" class="text-3xl cursor-pointer" @click="onSwitch"></IconFont>
         </div>
-        <SwapTradeInput :symbol="symbol" :index="index"/>
+        <SwapTradeInput :symbol="symbol" :wallet-address="walletAddress" :index="index"/>
       </div>
     </template>
     <div class="mt-4" v-show="symbolRatio">
@@ -141,11 +174,30 @@ onMounted(ready)
         <span class="ml-1 text-global-highTitle">{{ symbolRatio }}</span>
       </p>
     </div>
-    <Before :app="getAddress" content="请先连接钱包">
-      <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
-        <span class="text-white select-none">授权</span>
+    <div class="mt-4">
+      <!--已连接钱包-->
+      <template v-if="walletAddress">
+        <!-- 判断是否已授权 -->
+        <div v-if="symbolAuths[symbolNames[0]]">
+          <Before :app="getAddress" content="请先连接钱包">
+            <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer">
+              <span class="text-white select-none">交易</span>
+            </div>
+          </Before>
+        </div>
+        <!-- 进行授权 -->
+        <div v-else>
+          <Before :app="getAddress" content="请先连接钱包">
+            <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
+              <span class="text-white select-none">授权</span>
+            </div>
+          </Before>
+        </div>
+      </template>
+      <div v-show="!walletAddress">
+        <slot name="wallet"></slot>
       </div>
-    </Before>
+    </div>
   </div>
 </template>
 

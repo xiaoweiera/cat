@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Web3Util } from '~/utils/ethereum/util'
 import { defineProps, onMounted, ref, watch } from 'vue'
 // @ts-ignore
 import { toUpper } from 'ramda'
@@ -12,6 +13,10 @@ const props = defineProps({
   symbol: {
     type: String,
     required: true
+  },
+  // 钱包地址
+  walletAddress: {
+    type: String,
   },
   index: {
     type: Number,
@@ -46,12 +51,18 @@ const onChangeInput = function() {
 }
 
 
-const ready = function() {
+const ready = async function() {
   const state = getInject(stateName.statePair)
   const [detail] = state.value
   const symbol = getPairSymbolData(detail, props.symbol)
   if (symbol) {
-    balance.value = symbol.balance
+    if (symbol.token) {
+      const web3 = new Web3Util()
+      const count = await web3.getSymbolBalance(symbol.token, props.walletAddress)
+      balance.value = count || 0
+    } else {
+      balance.value = 0
+    }
     decimals.value = toNumber(symbol.decimals)
   }
 }

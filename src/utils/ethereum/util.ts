@@ -3,13 +3,14 @@
  * @author svon.me@gmail.com
  */
 
+import { once } from 'ramda'
 import Ethereum from './_'
 import BigNumber from 'bignumber.js'
 // @ts-ignore
 import Web3 from 'web3/dist/web3.min.js'
 import { getAddress, getConnected, getLogin } from './status'
 import { erc20ABI, PairABI } from './pair'
-import { PairInfo, SymbolInfo } from '~/utils/ethereum/interface'
+import { EventType, PairInfo, SymbolInfo, SymbolInfoDetail } from '~/utils/ethereum/interface'
 import swapConfig from './config'
 import { compact, equalsIgnoreCase, isFunction } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
@@ -123,84 +124,66 @@ export class Web3Util extends Web3 {
    * @protected
    */
   @validate // 判断 参数是否为空
-  @before(getConnected) // 判断钱包是否已链接
   @tryError(ErrorDefault(0)) // 监听异常，有异常返回默认值
+  @before(getConnected) // 判断钱包是否已链接
   getPairBalance(@required contract: any, address: string = getAddress()): number {
-    return contract.methods.balanceOf(address).call()
+    if (address) {
+      return contract.methods.balanceOf(address).call()
+    }
+    return 0
+  }
+
+  /**
+   * 获取 symbol/token 地址
+   * @param contract 合约信息
+   * @param index symbol 下标
+   * @private
+   */
+  @validate // 判断 参数是否为空
+  private async _getSymbolItem(@required contract: any, @required index: number | string): Promise<SymbolInfoDetail> {
+    let token: string = ''
+    let reserveCount: string = ''
+    let name: string = ''
+    let symbol: string = ''
+    let decimals: number = 0
+    const reserves = await this.getReservesValue(contract)
+    if (reserves) {
+      reserveCount = reserves[index]
+      try {
+        // @ts-ignore
+        token = await contract.methods[`token${index}`]().call()
+      } catch (e) {
+        console.log(e)
+      }
+      if (token) {
+        // weth 地址
+        const contract = await this.getContract(erc20ABI, token)
+        name = await this.getSymbolName(contract)
+        symbol = await this.getSymbolSymbol(contract)
+        decimals = await this.getDecimalsValue(contract)
+      }
+    }
+    return { token, reserveCount, name, symbol, decimals}
   }
 
   /**
    * 获取 symbol0/token0 地址
    * @param contract 合约信息
-   * @param info 是否查询相信信息
    * @private
    */
-  @validate // 判断 参数是否为空
-  protected async getSymbol0(@required contract: any, info: boolean = false): Promise<SymbolInfo> {
-    let token: string = ''
-    let reserveCount: string = ''
-    const reserves = await this.getReservesValue(contract)
-    if (reserves) {
-      reserveCount = reserves['0']
-      try {
-        // @ts-ignore
-        token = await contract.methods.token0().call()
-      } catch (e) {
-        console.log(e)
-      }
-      if (info && token) {
-        const data = await this.getSymbolInfo(token)
-        return { ...data, token, reserveCount }
-      }
-    }
-    return { token, reserveCount, name: '', symbol: '', decimals: 0, balance: 0 }
+  protected getSymbol0(contract: any): Promise<SymbolInfo> {
+    return this._getSymbolItem(contract, 0)
   }
 
   /**
    * 获取 symbol1/token1 地址
    * @param contract 合约信息
-   * @param info 是否查询相信信息
    * @private
    */
-  @validate // 判断 参数是否为空
-  protected async getSymbol1 (@required contract: any, info: boolean = false): Promise<SymbolInfo> {
-    let token: string = ''
-    let reserveCount: string = ''
-    const reserves = await this.getReservesValue(contract)
-    if (reserves) {
-      reserveCount = reserves['1']
-      try {
-        // @ts-ignore
-        token = await contract.methods.token1().call()
-      } catch (e) {
-        console.log(e)
-      }
-      if (info && token) {
-        const data = await this.getSymbolInfo(token)
-        return { ...data, token, reserveCount }
-      }
-    }
-    return { token, reserveCount, name: '', symbol: '', decimals: 0, balance: 0 }
+  protected getSymbol1 (@required contract: any): Promise<SymbolInfo> {
+    return this._getSymbolItem(contract, 1)
   }
 // ------------------------------------
-  /**
-   * 查询地址详情信息
-   * @param contractAddress 合约地址
-   * @protected
-   */
-  @validate // 判断 参数是否为空
-  @tryError()
-  async getSymbolInfo (@required contractAddress: string) {
-    // weth 地址
-    const contract = await this.getContract(erc20ABI, contractAddress)
-    const [name, symbol, decimals, balance] = await Promise.all([
-      this.getSymbolName(contract),
-      this.getSymbolSymbol(contract),
-      this.getDecimalsValue(contract),
-      this.getSymbolBalance(contractAddress)
-    ])
-    return { name, symbol, decimals, balance }
-  }
   // symbol/token 名称
   @validate // 判断 参数是否为空
   @tryError(ErrorDefault(''))
@@ -248,9 +231,13 @@ export class Web3Util extends Web3 {
    * @param symbolAddress symbol 地址
    * @param userAddress   钱包地址（默认小狐狸钱包链接的地址）
    */
-  @tryError()
+  @tryError(ErrorDefault(false))
   @validate
   async getAuthorizatioStatus (@required symbolAddress: string, userAddress: string = getAddress()): Promise<boolean> {
+    // 如果币种的地址是 wht 则默认为已授权
+    if (symbolAddress === '0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F') {
+      return true
+    }
     const erc20contract = await this.getContract(erc20ABI, symbolAddress)
     const res = await erc20contract.methods.allowance(userAddress, swapConfig.MdexRouterAddress).call()
     return res.toString(10) !== '0';
@@ -261,11 +248,43 @@ export class Web3Util extends Web3 {
    * @param symbolAddress
    * @param userAddress
    */
-  async postApprove (symbolAddress: string, userAddress: string = getAddress()) {
+  @validate
+  async postApprove (@required symbolAddress: string, userAddress: string = getAddress()) {
     const erc20contract = await this.getContract(erc20ABI, symbolAddress)
     const $0xff = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
     const approve = await erc20contract.methods.approve(swapConfig.MdexRouterAddress, $0xff)
-    approve.send({ from: userAddress })
+
+    return new Promise((resolve: any) => {
+
+      const callback = once(function(data: any) {
+        return resolve(data)
+      })
+
+      // 本次交易生成一个唯一地址
+      const hash = function(id: string) {
+        const url = `https://hecoinfo.com/tx/${id}`
+        window.open(url)
+      }
+      // 本次交易记账（会触发多次）
+      const action = function(index: number) {
+        if (index >= 3) {
+          // todo 基本可以确认本次交易成功了
+          callback(true)
+        }
+      }
+      // 本次交易信息
+      const receipt = function(data: any) {
+        console.log('receipt : ', data)
+      }
+
+      approve.send({ from: userAddress })
+        .on(EventType.transactionHash, hash)
+        .on(EventType.confirmation, action)
+        .on(EventType.receipt, receipt)
+        .on(EventType.error, function(data: any) {
+          console.log('error : ', data);
+        })
+    })
   }
 }
 
@@ -304,11 +323,11 @@ export const getAmountOut = function(amountIn: string | number, reserveIn: strin
  * @param pairData pair 数据 (web3.getPairInfo 获取)
  * @param symbol symbol 名称
  */
-export const getPairSymbolData = function(pairData: PairInfo, symbol: string): SymbolInfo | undefined {
+export const getPairSymbolData = function(pairData: PairInfo, symbol: string): SymbolInfoDetail | undefined {
   const primaryKey = 'symbol'
   const list = compact([pairData.symbol0, pairData.symbol1])
   const db = new DBList(list, primaryKey)
   const where = {[primaryKey]: symbol}
-  return db.selectOne<SymbolInfo>(where)
+  return db.selectOne<SymbolInfoDetail>(where)
 }
 
