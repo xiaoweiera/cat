@@ -3,27 +3,29 @@
  * @author svon.me@gmail.com
  */
 
-import { once } from 'ramda'
 import Ethereum from './_'
 import BigNumber from 'bignumber.js'
 // @ts-ignore
 import Web3 from 'web3/dist/web3.min.js'
 import { getAddress, getConnected, getLogin } from './status'
-import { erc20ABI, PairABI } from './pair'
-import { EventType, PairInfo, SymbolInfo, SymbolInfoDetail } from '~/utils/ethereum/interface'
+import { erc20ABI, PairABI, UniSwapV2Router02ABI } from './pair'
+import { EventType, PairInfo, SymbolInfoDetail } from '~/utils/ethereum/interface'
 import swapConfig from './config'
-import { compact, equalsIgnoreCase, isFunction } from '~/utils'
+import { compact, equalsIgnoreCase, isFunction, numberDecimal } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import { tryError, before, validate, required, ErrorDefault } from '~/utils/decorate'
 import * as event from '~/utils/ethereum/event'
+import { RecordAccounts } from '~/utils/ethereum/event'
 
 type AccountCallback = (address: string) => void
 
 export class Web3Util extends Web3 {
   public ethereum: any
-  constructor() {
+  public pairAddress: string // pair 地址
+  constructor(pairAddress: string) {
     const ethereum: any = Ethereum()
     super(ethereum);
+    this.pairAddress = pairAddress
     this.ethereum = ethereum
   }
   /**
@@ -78,9 +80,9 @@ export class Web3Util extends Web3 {
     return new this.eth.Contract(abi, address)
   }
   // 获取储备量信息
-  @validate
-  async getReservesValue(@required contract: any) {
+  async getReservesValue() {
     try {
+      const contract = this.getContract(PairABI, this.pairAddress)
       return await contract.methods.getReserves().call()
     } catch (e) {
       console.log('小狐狸未链接火币网络 https://cointool.app/other/chainList')
@@ -101,16 +103,15 @@ export class Web3Util extends Web3 {
   }
   // 合约信息
   @tryError()
-  @validate
-  async getPairInfo (@required address: string): Promise<PairInfo> {
+  async getPairInfo (address: string = this.pairAddress): Promise<PairInfo> {
     // 获取合约对象
     const contract = this.getContract(PairABI, address)
     const [total, decimals, balance, symbol0, symbol1] = await Promise.all([
       this.getTotalValue(contract),
       this.getDecimalsValue(contract),
-      this.getPairBalance(contract),
-      this.getSymbol0(contract),
-      this.getSymbol1(contract)
+      this.getBalanceCount(contract),
+      this.getSymbol(0),
+      this.getSymbol(1)
     ])
     return {
       total, decimals, balance, symbol0, symbol1,
@@ -126,7 +127,7 @@ export class Web3Util extends Web3 {
   @validate // 判断 参数是否为空
   @tryError(ErrorDefault(0)) // 监听异常，有异常返回默认值
   @before(getConnected) // 判断钱包是否已链接
-  getPairBalance(@required contract: any, address: string = getAddress()): number {
+  getBalanceCount(@required contract: any, address: string = getAddress()): number {
     if (address) {
       return contract.methods.balanceOf(address).call()
     }
@@ -135,18 +136,18 @@ export class Web3Util extends Web3 {
 
   /**
    * 获取 symbol/token 地址
-   * @param contract 合约信息
    * @param index symbol 下标
    * @private
    */
   @validate // 判断 参数是否为空
-  private async _getSymbolItem(@required contract: any, @required index: number | string): Promise<SymbolInfoDetail> {
+  protected async getSymbol(@required index: number | string): Promise<SymbolInfoDetail> {
     let token: string = ''
     let reserveCount: string = ''
     let name: string = ''
     let symbol: string = ''
     let decimals: number = 0
-    const reserves = await this.getReservesValue(contract)
+    const contract = this.getContract(PairABI, this.pairAddress)
+    const reserves = await this.getReservesValue()
     if (reserves) {
       reserveCount = reserves[index]
       try {
@@ -166,23 +167,6 @@ export class Web3Util extends Web3 {
     return { token, reserveCount, name, symbol, decimals}
   }
 
-  /**
-   * 获取 symbol0/token0 地址
-   * @param contract 合约信息
-   * @private
-   */
-  protected getSymbol0(contract: any): Promise<SymbolInfo> {
-    return this._getSymbolItem(contract, 0)
-  }
-
-  /**
-   * 获取 symbol1/token1 地址
-   * @param contract 合约信息
-   * @private
-   */
-  protected getSymbol1 (@required contract: any): Promise<SymbolInfo> {
-    return this._getSymbolItem(contract, 1)
-  }
 // ------------------------------------
   // symbol/token 名称
   @validate // 判断 参数是否为空
@@ -219,75 +203,163 @@ export class Web3Util extends Web3 {
       return this.eth.getBalance(address)
     } else {
       // 查询余额
-      // @ts-ignore
       const contract = await this.getContract(erc20ABI, contractAddress)
-      // @ts-ignore
-      return contract.methods.balanceOf(address).call()
+      return this.getBalanceCount(contract, address)
     }
   }
   //----------------------
   /**
    * 查询 symbol 授权状态
    * @param symbolAddress symbol 地址
-   * @param userAddress   钱包地址（默认小狐狸钱包链接的地址）
    */
   @tryError(ErrorDefault(false))
   @validate
-  async getAuthorizatioStatus (@required symbolAddress: string, userAddress: string = getAddress()): Promise<boolean> {
+  @before(getAddress) // 判断钱包地址是否为空 钱包地址（默认小狐狸钱包链接的地址）
+  async getAuthorizatioStatus (@required symbolAddress: string): Promise<boolean> {
     // 如果币种的地址是 wht 则默认为已授权
     if (symbolAddress === '0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F') {
       return true
     }
     const erc20contract = await this.getContract(erc20ABI, symbolAddress)
-    const res = await erc20contract.methods.allowance(userAddress, swapConfig.MdexRouterAddress).call()
+    const res = await erc20contract.methods.allowance(getAddress(), swapConfig.MdexRouterAddress).call()
     return res.toString(10) !== '0';
   }
 
   /**
    * 钱包将某一币种授权给当前站点
    * @param symbolAddress
-   * @param userAddress
    */
   @validate
-  async postApprove (@required symbolAddress: string, userAddress: string = getAddress()) {
+  async postApprove (@required symbolAddress: string) {
     const erc20contract = await this.getContract(erc20ABI, symbolAddress)
     const $0xff = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
     const approve = await erc20contract.methods.approve(swapConfig.MdexRouterAddress, $0xff)
+    return RecordAccounts(approve.send({ from: this.getUserAddress() }))
+  }
 
-    return new Promise((resolve: any) => {
+  //--- 交易 ------
+  @validate
+  private async _getAmountIn (@required fromAddress: string, @required toAddress: string, @required inputAddress: string, @required amount: number) {
+    const slipPointValue = 5
+    if (fromAddress === inputAddress) {
+      const contract = await this.getContract(erc20ABI, fromAddress)
+      const decimals = await this.getDecimalsValue(contract)
+      // 兑换数量
+      const value = numberDecimal(amount, decimals)
+      // 计算滑点（求最小交易量）
+      const amountMinValue = await this.getAmountValue(fromAddress, toAddress, inputAddress, SlipPoint(value, slipPointValue))
+      return [value, amountMinValue]
+    } else {
+      const contract = await this.getContract(erc20ABI, toAddress)
+      const decimals = await this.getDecimalsValue(contract)
+      // 兑换数量
+      const value = numberDecimal(amount, decimals)
+      // 计算滑点（求最小交易量）
+      const amountMinValue = await this.getAmountValue(fromAddress, toAddress, inputAddress, SlipPoint(value, slipPointValue * -1))
+      return [value, amountMinValue]
+    }
 
-      const callback = once(function(data: any) {
-        return resolve(data)
-      })
 
-      // 本次交易生成一个唯一地址
-      const hash = function(id: string) {
-        const url = `https://hecoinfo.com/tx/${id}`
-        window.open(url)
+  }
+  /**
+   * 交易
+   * @param fromAddress  地址
+   * @param toAddress    地址
+   * @param inputAddress 输入 symbol 地址
+   * @param amount       兑换数量
+   * @param onChangeCallBack 事件回调函数
+   */
+  @validate
+  async swap (@required fromAddress: string, @required toAddress: string, @required inputAddress: string, @required amount: number, onChangeCallBack?: (type: EventType, data: any) => void) {
+    const deadline = Math.floor(Date.now() / 1000) + 60 * 20
+    // console.log('from = %s, to = %s, input = %s, amount = %s', fromAddress, toAddress, inputAddress, amount)
+    // 兑换数量, 计算滑点（求最小交易量）
+    const [amountValue, amountMinValue] = await this._getAmountIn(fromAddress, toAddress, inputAddress, amount)
+    // console.log('兑换数量 ： %s', amountValue)
+    // console.log('计算最小兑换量 : %s', amountMinValue)
+    const metaMaskAccount = this.getUserAddress() // 钱包地址
+
+    const uniswapV2Router = await this.getContract(UniSwapV2Router02ABI, swapConfig.MdexRouterAddress)
+
+    const path = [fromAddress, toAddress]
+
+    // console.log('amountIn = "%s"  amountMinValue = "%s" deadline = "%s"', amountValue, amountMinValue, deadline)
+    // console.log('form address = "%s"  to address = "%s"', path[0], path[1])
+    // console.log('metaMaskAccount = "%s"', metaMaskAccount)
+
+    if (fromAddress === inputAddress) {
+      // 输入换输出
+      if (equalsIgnoreCase(swapConfig.WHTAddress, fromAddress)) {
+        // 判断输入地址是否是 eth
+        const contract = uniswapV2Router.methods.swapExactETHForTokens(amountMinValue, path, metaMaskAccount, deadline)
+          .send({ from: metaMaskAccount, value: amountValue })
+        return RecordAccounts(contract, onChangeCallBack)
+      } else if (equalsIgnoreCase(swapConfig.WHTAddress, toAddress)) {
+        // 判断输出是否是 eth
+        const contract = uniswapV2Router.methods.swapExactTokensForETH(amountValue, amountMinValue, path, metaMaskAccount, deadline)
+          .send({ from: metaMaskAccount })
+        return RecordAccounts(contract, onChangeCallBack)
+      } else {
+        const contract = uniswapV2Router.methods.swapExactTokensForTokens(amountValue, amountMinValue, path, metaMaskAccount, deadline)
+          .send({ from: metaMaskAccount })
+        return RecordAccounts(contract, onChangeCallBack)
       }
-      // 本次交易记账（会触发多次）
-      const action = function(index: number) {
-        if (index >= 3) {
-          // todo 基本可以确认本次交易成功了
-          callback(true)
-        }
+    } else {
+      // 输出换输入
+      if (equalsIgnoreCase(swapConfig.WHTAddress, fromAddress)) {
+        // 判断输入地址是否是 eth
+        const contract = uniswapV2Router.methods.swapETHForExactTokens(amountValue, path, metaMaskAccount, deadline)
+          .send({ from: metaMaskAccount, value: amountMinValue })
+        return RecordAccounts(contract, onChangeCallBack)
+      } else if (equalsIgnoreCase(swapConfig.WHTAddress, toAddress)) {
+        // 判断输出是否是 eth
+        const contract = uniswapV2Router.methods.swapTokensForExactETH(amountValue, amountMinValue, path, metaMaskAccount, deadline)
+          .send({ from: metaMaskAccount })
+        return RecordAccounts(contract, onChangeCallBack)
+      } else {
+        const contract =  uniswapV2Router.methods.swapTokensForExactTokens(amountValue, amountMinValue, path, metaMaskAccount, deadline)
+          .send({ from: metaMaskAccount })
+        return RecordAccounts(contract, onChangeCallBack)
       }
-      // 本次交易信息
-      const receipt = function(data: any) {
-        console.log('receipt : ', data)
-      }
+    }
+  }
+  @validate
+  async getAmountValue (@required fromAddress: string, @required toAddress: string, @required inputAddress: string, @required amount: number | string) {
+    const input = new BigNumber(amount).toString(10)
+    // 获取合约对象
+    const uniswapV2Router = await this.getContract(UniSwapV2Router02ABI, swapConfig.MdexRouterAddress)
+    const [symbol0, symbol1] = await Promise.all([this.getSymbol(0), this.getSymbol(1)])
 
-      approve.send({ from: userAddress })
-        .on(EventType.transactionHash, hash)
-        .on(EventType.confirmation, action)
-        .on(EventType.receipt, receipt)
-        .on(EventType.error, function(data: any) {
-          console.log('error : ', data);
-        })
-    })
+    let info0: SymbolInfoDetail
+    let info1: SymbolInfoDetail
+
+    if (fromAddress === symbol0.token) {
+      info0 = symbol0
+      info1 = symbol1
+    } else {
+      info0 = symbol1
+      info1 = symbol0
+    }
+
+    if (fromAddress === inputAddress) {
+      // symbol0 换 symbol1
+      // 输入计算输出
+      // @ts-ignore
+      return uniswapV2Router.methods.getAmountOut(input, info0.reserveCount, info1.reserveCount).call()
+    } else {
+      // symbol1 换 symbol0
+      // 输出计算输入
+      // @ts-ignore
+      return uniswapV2Router.methods.getAmountIn(input, info0.reserveCount, info1.reserveCount).call()
+    }
   }
 }
 
+export const SlipPoint = function(number: number | string, slipValue: number) {
+  const num1 = new BigNumber(number)
+  const num2 = new BigNumber(number).multipliedBy(slipValue / 100)
+  return num1.minus(num2).toString(10)
+}
 
 /**
  * 给定一项资产的输入量和配对的储备，返回另一项资产的最大输出量

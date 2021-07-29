@@ -4,6 +4,7 @@
 
 import Ethereum from './_'
 import { EventType, Callback } from './interface'
+import { once } from 'ramda'
 
 /**
  * 切换账户的时候会调用此方法
@@ -51,4 +52,50 @@ export const onMessage = function(callback: Callback) {
 export const enableEthereum = async function() {
   const ethereum = Ethereum()
   return ethereum.request({ method: 'eth_requestAccounts' })
+}
+
+/**
+ * 记账
+ * @param contract    合约对象
+ * @param onChangeCallBack  事件回调函数
+ */
+export const RecordAccounts = function(contract: any, onChangeCallBack?: (type: EventType, data: any) => void) {
+  return new Promise((resolve: any, reject: any) => {
+    const resolveCallBack = once(function(data: any) {
+      return resolve(data)
+    })
+    const rejectCallBack = once(function(data: any) {
+      return reject(data)
+    })
+    // 本次交易生成一个唯一地址
+    const hash = function(id: string) {
+      const url = `https://hecoinfo.com/tx/${id}`
+      if (onChangeCallBack) {
+        onChangeCallBack(EventType.transactionHash, { id, url })
+      }
+    }
+    // 本次交易记账（会触发多次）
+    const action = function(index: number) {
+      console.log(`${EventType.confirmation}: %s`, index)
+      if (index >= 3) {
+        // todo 基本可以确认本次交易成功了
+        resolveCallBack(true)
+      }
+      if (onChangeCallBack) {
+        onChangeCallBack(EventType.confirmation, index)
+      }
+    }
+    // 本次交易信息
+    const receipt = function(data: any) {
+      console.log('receipt : ', data)
+      if (onChangeCallBack) {
+        onChangeCallBack(EventType.receipt, data)
+      }
+    }
+
+    contract.on(EventType.transactionHash, hash)
+      .on(EventType.confirmation, action)
+      .on(EventType.receipt, receipt)
+      .on(EventType.error, rejectCallBack)
+  })
 }

@@ -3,11 +3,12 @@ import { defineProps, onMounted, ref, watch, computed, reactive } from 'vue'
 import { getPairSymbolData, Web3Util, getAmountOut } from '~/utils/ethereum/util'
 import { useProvide } from '~/utils/use/state'
 import { toArray, numberDecimal, decimalFormat, equalsIgnoreCase } from '~/utils'
-import { stateName } from '~/utils/ethereum/interface'
+import { EventType, stateName } from '~/utils/ethereum/interface'
 // @ts-ignore
 import { getAddress } from '~/utils/ethereum/status'
 import { toUpper } from 'ramda'
 import bignumber from 'bignumber.js'
+import safeGet from '@fengqiaogang/safe-get'
 
 const props = defineProps({
   // 合约地址
@@ -20,16 +21,54 @@ const props = defineProps({
     type: String,
   }
 })
+
+let web3: Web3Util
+
 // @ts-ignore
 const [ detail, setDetail ] = useProvide(stateName.statePair, {})
 const [ symbolInput, setSymbolInput ] = useProvide(stateName.stateInput, {
 })
 
+// 获取 input symbol 名称
+const getInputSymbolName = function(): string | undefined {
+  const [ data ] = symbolInput.value
+  const name = safeGet<string>(data, 'trigger')
+  if (name) {
+    return name
+  }
+  return void 0
+}
+
+// loading 装
+// @ts-ignore
+const loading = ref<boolean>(false)
 
 // 币种名称
 const symbolNames = ref<string[]>([])
 // 币种授权状态
 const symbolAuths = reactive<{[key: string]: boolean}>({})
+// 交易按钮状态
+// @ts-ignore
+const swapStatus = computed<boolean>(function(): boolean {
+  let flag = true
+  const names: string[] = symbolNames.value
+  const [ data ] = symbolInput.value
+  for(let i = 0; i < names.length; i++) {
+    const key = names[i]
+    const status = symbolAuths[key]
+    const count = safeGet<number>(data, key)
+    if (!status || !count) {
+      flag = false
+      break
+    }
+  }
+  if (flag) {
+    if (!getInputSymbolName()) {
+      flag = false
+    }
+  }
+  return flag
+})
 
 // 切换交易对 symbol 信息
 // @ts-ignore
@@ -56,8 +95,8 @@ const swapRatio = function(symbol0: string, symbol1: string): string | number | 
 }
 
 const ready = async function() {
-  const web3 = new Web3Util()
-  const data = await web3.getPairInfo(props.pair)
+  web3 = new Web3Util(props.pair)
+  const data = await web3.getPairInfo()
   if (data) {
     const names: string[] = [
       data.symbol0.symbol,
@@ -101,6 +140,7 @@ watch(symbolInput, function([data]: [any]) {
     }
     // 修改数据
     setSymbolInput({
+      trigger: formSymbol,
       [formSymbol]: form,
       [toSymbol]: to
     })
@@ -125,7 +165,6 @@ const symbolRatio = computed<string>(function(): string {
 // @ts-ignore
 const onAuthorizatio = async function() {
   const [ symbol ] = symbolNames.value
-  const web3 = new Web3Util()
   const info = getPairSymbolData(detail.value[0], symbol)
   if (info) {
     try {
@@ -139,65 +178,97 @@ const onAuthorizatio = async function() {
   }
 }
 
+// 发起交易
+// @ts-ignore
+const onSwap = async function() {
+  const [ symbol0, symbol1 ] = symbolNames.value
+  const info0 = getPairSymbolData(detail.value[0], symbol0)
+  const info1 = getPairSymbolData(detail.value[0], symbol1)
+  if (info0 && info1) {
+    const inputName = getInputSymbolName()
+    if (inputName) {
+      const [ data ] = symbolInput.value
+      const amount: number = safeGet<number>(data, inputName)
+      const onChangeCallBack = function(type: EventType) {
+        if (type === EventType.transactionHash) {
+          loading.value = true
+        }
+      }
+      try {
+        const status = await web3.swap(info0.token, info1.token, inputName === symbol0 ? info0.token : info1.token, amount, onChangeCallBack)
+        console.log('交易状态 = ', status)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        loading.value = false
+      }
+    }
+  }
+}
+
 onMounted(ready)
 
 </script>
 
 <template>
-  <div class="w-100 p-4 text-kdExp">
-    <div class="flex justify-between text-global-default text-opacity-65 pb-4">
-      <div>
-        <span class="text-base">交易</span>
-      </div>
-      <div>
-        <el-popover placement="bottom" >
-          <template #reference>
-            <IconFont type="icon-setting" class="text-xl cursor-pointer"/>
-          </template>
-          <div class="w-50 whitespace-nowrap">
-            这是一段内容,这是一段内容,这是一段内容,这是一段内容。
+  <div class="relative w-full h-full">
+    <Spin :fit="false" :loading="loading">
+      <div class="w-100 p-4 text-kdExp">
+        <div class="flex justify-between text-global-default text-opacity-65 pb-4">
+          <div>
+            <span class="text-base">交易</span>
           </div>
-        </el-popover>
-      </div>
-    </div>
-    <template v-for="(symbol, index) in symbolNames" :key="`${symbol}-${index}`">
-      <div>
-        <div v-show="index > 0" class="text-center py-4">
-          <IconFont type="icon-switch" class="text-3xl cursor-pointer" @click="onSwitch"></IconFont>
+          <div>
+            <el-popover placement="bottom" >
+              <template #reference>
+                <IconFont type="icon-setting" class="text-xl cursor-pointer"/>
+              </template>
+              <div class="w-50 whitespace-nowrap">
+                这是一段内容,这是一段内容,这是一段内容,这是一段内容。
+              </div>
+            </el-popover>
+          </div>
         </div>
-        <SwapTradeInput :symbol="symbol" :wallet-address="walletAddress" :index="index"/>
-      </div>
-    </template>
-    <div class="mt-4" v-show="symbolRatio">
-      <p class="text-sm leading-5">
-        <span class="text-global-default text-opacity-65">兑换比例:</span>
-        <span class="ml-1 text-global-highTitle">{{ symbolRatio }}</span>
-      </p>
-    </div>
-    <div class="mt-4">
-      <!--已连接钱包-->
-      <template v-if="walletAddress">
-        <!-- 判断是否已授权 -->
-        <div v-if="symbolAuths[symbolNames[0]]">
-          <Before :app="getAddress" content="请先连接钱包">
-            <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer">
-              <span class="text-white select-none">交易</span>
+        <template v-for="(symbol, index) in symbolNames" :key="`${symbol}-${index}`">
+          <div>
+            <div v-show="index > 0" class="text-center py-4">
+              <IconFont type="icon-switch" class="text-3xl cursor-pointer" @click="onSwitch"></IconFont>
             </div>
-          </Before>
+            <SwapTradeInput :symbol="symbol" :wallet-address="walletAddress" :index="index"/>
+          </div>
+        </template>
+        <div class="mt-4" v-show="symbolRatio">
+          <p class="text-sm leading-5">
+            <span class="text-global-default text-opacity-65">兑换比例:</span>
+            <span class="ml-1 text-global-highTitle">{{ symbolRatio }}</span>
+          </p>
         </div>
-        <!-- 进行授权 -->
-        <div v-else>
-          <Before :app="getAddress" content="请先连接钱包">
-            <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
-              <span class="text-white select-none">授权</span>
+        <div class="mt-4">
+          <!--已连接钱包-->
+          <template v-if="walletAddress">
+            <!-- 判断是否已授权 -->
+            <div v-if="symbolAuths[symbolNames[0]]">
+              <Before :app="getAddress" content="请先连接钱包">
+                <el-button :disabled="!swapStatus" type="primary" class="rounded w-full bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onSwap">
+                  <span class="text-white select-none">交易</span>
+                </el-button>
+              </Before>
             </div>
-          </Before>
+            <!-- 进行授权 -->
+            <div v-else>
+              <Before :app="getAddress" content="请先连接钱包">
+                <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
+                  <span class="text-white select-none">授权</span>
+                </div>
+              </Before>
+            </div>
+          </template>
+          <div v-show="!walletAddress">
+            <slot name="wallet"></slot>
+          </div>
         </div>
-      </template>
-      <div v-show="!walletAddress">
-        <slot name="wallet"></slot>
       </div>
-    </div>
+    </Spin>
   </div>
 </template>
 
