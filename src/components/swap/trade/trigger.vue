@@ -12,7 +12,7 @@ defineProps( {
   }
 })
 
-const showStatus = ref<boolean>(true)
+const showStatus = ref<boolean>(false)
 
 // @ts-ignore
 const onShowSwap = function() {

@@ -9,6 +9,7 @@ import { getAddress } from '~/utils/ethereum/status'
 import { toUpper } from 'ramda'
 import bignumber from 'bignumber.js'
 import safeGet from '@fengqiaogang/safe-get'
+import Message from '~/utils/message'
 
 const props = defineProps({
   // 合约地址
@@ -196,9 +197,11 @@ const onSwap = async function() {
       }
       try {
         const status = await web3.swap(info0.token, info1.token, inputName === symbol0 ? info0.token : info1.token, amount, onChangeCallBack)
-        console.log('交易状态 = ', status)
+        if (status) {
+          Message.alert('提示', '交易完成')
+        }
       } catch (e) {
-        console.log(e)
+        Message.alert('提示', '交易失败，请重试')
       } finally {
         loading.value = false
       }

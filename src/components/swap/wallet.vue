@@ -49,7 +49,7 @@ const openWallet = async function() {
 }
 
 onMounted(function() {
-  web3 = new Web3Util()
+  web3 = new Web3Util('')
   onWatchAddress()
 })
 
