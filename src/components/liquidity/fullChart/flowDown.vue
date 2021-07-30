@@ -65,7 +65,7 @@ const change = (name: string) => {
     <span class="text-global-default text-opacity-65 text-kd12px16px ml-1.5">点击列表地址可对图表数据过滤 </span>
     <img @click="full()" class="w-4 h-4 absolute right-0 hand" :src="isFull[0]?'https://res.ikingdata.com/liquidity/fullSmall.jpg':'https://res.ikingdata.com/liquidity/fullBig.jpg'" alt="">
   </div>
-  <div :class="isFull[0]?'flex-1':'h-70'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+  <div :class="isFull[0]?'flex-1':'h-50'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
     <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="item in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
@@ -74,7 +74,7 @@ const change = (name: string) => {
       </template>
     </div>
     <!-- 二次展开-->
-    <div :class="isFull[0]?'flex-1':'h-70'" class="flex   flex-col   showY">
+    <div :class="isFull[0]?'flex-1':'h-50'" class="flex   flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.addr) }}
