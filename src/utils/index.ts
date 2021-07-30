@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import BigNumber from 'bignumber.js'
 import I18n from '~/utils/i18n/index'
 import {
   flatten,
@@ -261,7 +262,12 @@ export const compact = function<T>(list: T[], iteration?: (value: T) => boolean)
       if (iteration) {
         return iteration(value)
       } else {
-        return !isEmpty(value)
+        const status = !isEmpty(value)
+        const boolean = toBoolean(value)
+        if (boolean && status) {
+          return true
+        }
+        return false
       }
     })
     return app(list)
@@ -306,6 +312,26 @@ export const upperFirst = function(value: string): string {
   const first = toUpper(str[0] || '')
   const last = str.slice(1)
   return `${first}${last}`
+}
+
+/**
+ * 不区分大小写比较是否相等
+ * @param str1
+ * @param str2
+ */
+export const equalsIgnoreCase = function(str1: string, str2: string): boolean {
+  return str1.toString().toUpperCase() === str2.toString().toUpperCase()
+}
+
+
+export const decimalFormat = function(value: string | number, decimal: string | number): number {
+  const pow = Math.pow(10, decimal as number)
+  return new BigNumber(value).dividedBy(pow).toNumber()
+}
+
+export const numberDecimal = function(value: string | number, decimal: string | number): string {
+  const pow = Math.pow(10, decimal as number)
+  return new BigNumber(value).multipliedBy(pow).toString(10)
 }
 
 export const timeFormat = 'YYYY-MM-DD HH:mm:ss'
