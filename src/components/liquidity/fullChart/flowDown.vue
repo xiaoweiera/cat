@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import {ref, toRaw} from 'vue'
-import {flowHeader} from '~/logic/liquidity'
+import {flowHeader,flowOpenHeader} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice} from '~/lib/tool'
+import {getInject,  setInject } from '~/utils/use/state'
 import {xiazuan} from '/mock/xiazuan'
-const openHeaders = ['时间', '交易对', '方向', '净添加量', '总价值']
+const isFull=getInject('isFull')
+const setIsFull=setInject('isFull')
 const data = ref([
   {
     index: 0,
@@ -49,28 +51,30 @@ const headerBg = () => {
 const tableData = ref(xiazuan['one'])
 const row = ref(0)
 const selectRow = (index: number) => {
-  row.value = index
+
+  row.value = index===row.value?-1:index
 }
+const full=()=>setIsFull(!isFull.value[0])
 const change = (name: string) => {
   tableData.value = xiazuan[name]
 }
 </script>
 <template>
-  <div class="mb-3 flex text-kd18px28px font-kdFang text-global-default text-opacity-85">
-    数据详解
-    <div class="border-1 px-2 hand" @click="change('one')">7月1号</div>
-    <div class="border-1 ml-3 px-2 hand" @click="change('two')">7月2号</div>
+  <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
+    <span>数据详解</span>
+    <span class="text-global-default text-opacity-65 text-kd12px16px ml-1.5">点击列表地址可对图表数据过滤 </span>
+    <img @click="full()" class="w-4 h-4 absolute right-0 hand" :src="isFull[0]?'https://res.ikingdata.com/liquidity/fullSmall.jpg':'https://res.ikingdata.com/liquidity/fullBig.jpg'" alt="">
   </div>
-  <div class="flex flex-col  font-kdFang  w-full h-70  bg-global-white">
-    <div class="header  px-2.5 h-9 flex items-center">
+  <div :class="isFull[0]?'flex-1':'h-70'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+    <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="item in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
           {{ item.name }}
         </div>
       </template>
     </div>
-    <!--  -->
-    <div class="flex  flex-col flex-1 overflow-hidden overflow-y-scroll ">
+    <!-- 二次展开-->
+    <div :class="isFull[0]?'flex-1':'h-70'" class="flex   flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.addr) }}
@@ -91,39 +95,61 @@ const change = (name: string) => {
           <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.mint_tx }}</div>
           <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.burn_tx }}</div>
         </div>
-      </template>
-      <!--        二次下钻-->
-      <div class="px-2.5">
-        <div class="flex  h-9  items-center">
-          <template v-for="item in openHeaders">
-            <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item }}</div>
-          </template>
-        </div>
-        <template v-for="item in openData">
-          <div class="flex ">
-            <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.time }}</div>
-            <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.pair }}</div>
-            <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.position }}</div>
-            <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.netAddNumber }}</div>
-            <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.money }}</div>
+          <!--        二次下钻-->
+          <div v-if="row===i" class="px-2.5 openContainer">
+            <div class="flex py-2.5   items-center">
+              <template v-for="item in flowOpenHeader">
+                <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
+              </template>
+            </div>
+            <template v-for="item in openData">
+              <div class="flex items-center min-h-4.5   ">
+                <div class="openHeader">{{ item.time }}</div>
+                <div class="openHeader">{{ item.pair }}</div>
+                <div class="openHeader">{{ item.position }}</div>
+                <div class="openHeader">{{ item.netAddNumber }}</div>
+                <div class="openHeader">{{ item.money }}</div>
+              </div>
+            </template>
           </div>
-        </template>
-      </div>
+      </template>
+
     </div>
   </div>
 </template>
 <style scoped>
+.showY{
+  @apply overFlow-hidden overFlow-y-scroll;
+}
 .selectedRow {
-  @apply bg-global-primary bg-opacity-8;
+  @apply bg-global-primary bg-opacity-8 flex items-center;
 }
 
 .openContainer {
-  @apply bg-global-primary bg-opacity-4;
+  @apply  bg-global-primary bg-opacity-4;
 }
 
+.openHeader{
+  @apply mb-2.5 font-kdFang  flex-1  text-kd14px18px text-global-highTitle;
+}
 .header {
   border-top: 1px solid rgba(37, 62, 111, 0.12);
   border-bottom: 1px solid rgba(37, 62, 111, 0.12);
+}
+
+.txtSmall {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+.showY::-webkit-scrollbar {
+  height: 8px;
+  @apply w-0.5;
+}
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.1);
 }
 </style>
 // @formatter:off
