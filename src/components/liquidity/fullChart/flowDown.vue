@@ -60,21 +60,21 @@ const change = (name: string) => {
 }
 </script>
 <template>
-  <div class="mb-3 flex items-center relative text-kd18px28px font-kdFang text-global-default text-opacity-85">
+  <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
     <span>数据详解</span>
     <span class="text-global-default text-opacity-65 text-kd12px16px ml-1.5">点击列表地址可对图表数据过滤 </span>
-    <img @click="full()" class="w-5 h-5 absolute right-0 hand" src="https://res.ikingdata.com/liquidity/fullBig.jpg" alt="">
+    <img @click="full()" class="w-4 h-4 absolute right-0 hand" :src="isFull[0]?'https://res.ikingdata.com/liquidity/fullSmall.jpg':'https://res.ikingdata.com/liquidity/fullBig.jpg'" alt="">
   </div>
-  <div class="flex flex-col  font-kdFang  w-full h-70  bg-global-white">
-    <div class="header  px-2.5 min-h-9 mb-1 flex items-center">
+  <div :class="isFull[0]?'flex-1':'h-70'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+    <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="item in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
           {{ item.name }}
         </div>
       </template>
     </div>
-    <!--  -->
-    <div class="flex  flex-col flex-1  showY">
+    <!-- 二次展开-->
+    <div :class="isFull[0]?'flex-1':'h-70'" class="flex   flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.addr) }}
@@ -95,23 +95,23 @@ const change = (name: string) => {
           <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.mint_tx }}</div>
           <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.burn_tx }}</div>
         </div>
-        <!--        二次下钻-->
-        <div v-if="row===i" class="px-2.5 openContainer">
-          <div class="flex py-2.5   items-center">
-            <template v-for="item in flowOpenHeader">
-              <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
+          <!--        二次下钻-->
+          <div v-if="row===i" class="px-2.5 openContainer">
+            <div class="flex py-2.5   items-center">
+              <template v-for="item in flowOpenHeader">
+                <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
+              </template>
+            </div>
+            <template v-for="item in openData">
+              <div class="flex items-center min-h-4.5   ">
+                <div class="openHeader">{{ item.time }}</div>
+                <div class="openHeader">{{ item.pair }}</div>
+                <div class="openHeader">{{ item.position }}</div>
+                <div class="openHeader">{{ item.netAddNumber }}</div>
+                <div class="openHeader">{{ item.money }}</div>
+              </div>
             </template>
           </div>
-          <template v-for="item in openData">
-            <div class="flex items-center min-h-4.5   ">
-              <div class="openHeader">{{ item.time }}</div>
-              <div class="openHeader">{{ item.pair }}</div>
-              <div class="openHeader">{{ item.position }}</div>
-              <div class="openHeader">{{ item.netAddNumber }}</div>
-              <div class="openHeader">{{ item.money }}</div>
-            </div>
-          </template>
-        </div>
       </template>
 
     </div>
@@ -122,7 +122,7 @@ const change = (name: string) => {
   @apply overFlow-hidden overFlow-y-scroll;
 }
 .selectedRow {
-  @apply bg-global-primary bg-opacity-8 h-full flex items-center;
+  @apply bg-global-primary bg-opacity-8 flex items-center;
 }
 
 .openContainer {

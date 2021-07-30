@@ -20,6 +20,7 @@ const [,setCoinType ] = useProvide('coinType', null)
 const [,setInterval]=useProvide('interval',null)
 const [,setPairData]=useProvide('pairData',null)
 const [,setTokenData]=useProvide('tokenData',null)
+const [isFull, ] = useProvide('isFull', false)
 onMounted(()=>{
   setTokenData(symbolStore)
   setPairData(pairStore)
@@ -49,20 +50,20 @@ const statusChange=(status:boolean)=>{
 <template>
   <FullScreen   @change="statusChange">
     <template #default="scope">
-      <el-container v-if="scope.status" class="h-full xshidden">
-        <el-header height="initial" class="p-0">
+      <el-container v-if="scope.status" class="h-full xshidden  ">
+        <el-header v-if="!isFull[0]" height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
-        <el-main  class="p-0 mt-4">
+        <el-main v-if="!isFull[0]"  class="p-0 mt-4">
           <div class=" h-full">
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
         </el-main>
-        <el-footer height="initial" class="p-0">
-          <LiquidityFullChartPairDown/>
+        <el-footer height="initial" :class="isFull[0]?'overflow-hidden':''" class="flex flex-1 flex-col ">
+          <LiquidityFullChartFlowDown/>
         </el-footer>
       </el-container>
-      <div v-else  class="flex absolute right-2 xshidden">
+      <div v-else  class="flex absolute right-2 xshidden  ">
         <FullZoom v-login/>
       </div>
     </template>
