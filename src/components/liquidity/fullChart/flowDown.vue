@@ -1,18 +1,9 @@
 <script lang="ts" setup>
 import {ref, toRaw} from 'vue'
+import {flowHeader} from '~/logic/liquidity'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice} from '~/lib/tool'
 import {xiazuan} from '/mock/xiazuan'
-
-const jj = 200
-const headers = [
-  {name: '地址', width: '110px'},
-  {name: '净添加量', width: ''},
-  {name: '添加总量', width: ''},
-  {name: '移除总量', width: ''},
-  {name: '参与次数', width: '60px'},
-  {name: '添加次数', width: '60px'},
-  {name: '移除次数', width: '60px'}]
 const openHeaders = ['时间', '交易对', '方向', '净添加量', '总价值']
 const data = ref([
   {
@@ -72,7 +63,7 @@ const change = (name: string) => {
   </div>
   <div class="flex flex-col  font-kdFang  w-full h-70  bg-global-white">
     <div class="header  px-2.5 h-9 flex items-center">
-      <template v-for="item in headers">
+      <template v-for="item in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
           {{ item.name }}
         </div>
@@ -82,23 +73,23 @@ const change = (name: string) => {
     <div class="flex  flex-col flex-1 overflow-hidden overflow-y-scroll ">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
-          <div :style="{width:headers[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.addr) }}
+          <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.addr) }}
           </div>
-          <div :style="{width:headers[1].width}" class="flex-1 text-global-highTitle">
+          <div :style="{width:flowHeader[1].width}" class="flex-1 text-global-highTitle">
             +{{ formatRulesPrice(item.net_amount0) }}{{ item.token0_symbol }}+{{ formatRulesPrice(item.net_amount1) }}{{ item.token1_symbol }}
             <span class="ml-1 text-global-default text-opacity-65 font-kdExp text-kd12px16px">${{ formatRulesPrice(item.net_usd) }}</span>
           </div>
-          <div :style="{width:headers[2].width}" class="flex-1 text-global-highTitle">
+          <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
             +{{ formatRulesPrice(item.total_amount0_in) }}{{ item.token0_symbol }}+{{ formatRulesPrice(item.total_amount1_in) }}{{ item.token1_symbol }}
             <span class="ml-1 text-global-default text-opacity-65 font-kdExp text-kd12px16px">${{ formatRulesPrice(item.total_amountusd_in) }}</span>
           </div>
-          <div :style="{width:headers[3].width}" class="flex-1 text-global-highTitle">
+          <div :style="{width:flowHeader[3].width}" class="flex-1 text-global-highTitle">
             +{{ formatRulesPrice(item.total_amount0_out) }}{{ item.token0_symbol }}+{{ formatRulesPrice(item.total_amount1_out) }}{{ item.token1_symbol }}
             <span class="ml-1 text-global-default text-opacity-65 font-kdExp text-kd12px16px">${{ formatRulesPrice(item.total_amountusd_out) }}</span>
           </div>
-          <div :style="{width:headers[4].width}" class="text-center">{{ item.total_tx }}</div>
-          <div :style="{width:headers[5].width}" class="text-center">{{ item.mint_tx }}</div>
-          <div :style="{width:headers[6].width}" class="text-center">{{ item.burn_tx }}</div>
+          <div :style="{width:flowHeader[4].width}" class="text-center">{{ item.total_tx }}</div>
+          <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.mint_tx }}</div>
+          <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.burn_tx }}</div>
         </div>
       </template>
       <!--        二次下钻-->
@@ -138,6 +129,6 @@ const change = (name: string) => {
 // @formatter:off
 <route lang="yaml">
 meta:
-layout: liquidityLayout
+ layout: liquidityLayout
 </route>
 // @formatter:off

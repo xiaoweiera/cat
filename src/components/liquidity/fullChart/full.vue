@@ -49,7 +49,7 @@ const statusChange=(status:boolean)=>{
 <template>
   <FullScreen   @change="statusChange">
     <template #default="scope">
-      <el-container v-if="scope.status" class="h-full xshidden">
+      <el-container v-if="scope.status" class="h-full xshidden ">
         <el-header height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
@@ -58,11 +58,11 @@ const statusChange=(status:boolean)=>{
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
         </el-main>
-        <el-footer height="initial" class="p-0">
-          <LiquidityFullChartPairDown/>
+        <el-footer height="initial" class="p-0 ">
+          <LiquidityFullChartFlowDown class=" "/>
         </el-footer>
       </el-container>
-      <div v-else  class="flex absolute right-2 xshidden">
+      <div v-else  class="flex absolute right-2 xshidden ">
         <FullZoom v-login/>
       </div>
     </template>
