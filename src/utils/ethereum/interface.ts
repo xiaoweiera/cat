@@ -56,3 +56,12 @@ export interface PairInfo extends Any {
   symbol0: SymbolInfo
   symbol1: SymbolInfo
 }
+
+export interface ChainItem {
+  name: string,
+  chainID: number,
+  rpc: string,
+  scan: string,
+  decimals: number,
+  currency: string
+}

@@ -99,3 +99,22 @@ export const RecordAccounts = function(contract: any, onChangeCallBack?: (type: 
       .on(EventType.error, rejectCallBack)
   })
 }
+
+
+export const onAdd = function() {
+  const ethereum = Ethereum()
+  ethereum.request({
+    method: 'wallet_addEthereumChain',
+    params: [{
+      chainId: 128,
+      chainName: 'Heco Mainnet',
+      nativeCurrency: {
+        name: 'Heco',
+        symbol: 'HT',
+        decimals: 18,
+      },
+      rpcUrls: ['https://http-mainnet-node.defibox.com'],
+      blockExplorerUrls: ['https://hecoinfo.com'],
+    }],
+  })
+}

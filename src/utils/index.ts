@@ -168,7 +168,12 @@ export const isUndefined = function(value: any, checkUndefined?: boolean): boole
 
 export const isString = (value: any): boolean => is(String, value)
 
-export const isNumber = (value: any): boolean => is(Number, value)
+export const isNumber = (value: any): boolean => {
+  if (is(Number, value)) {
+    return true
+  }
+  return value === 0;
+}
 
 export const isArray = function(value: any): boolean {
   if (Array.isArray(value)) {
@@ -264,10 +269,7 @@ export const compact = function<T>(list: T[], iteration?: (value: T) => boolean)
       } else {
         const status = !isEmpty(value)
         const boolean = toBoolean(value)
-        if (boolean && status) {
-          return true
-        }
-        return false
+        return boolean && status;
       }
     })
     return app(list)

@@ -20,6 +20,12 @@ const props = defineProps({
   // 钱包地址
   walletAddress: {
     type: String,
+  },
+  // 线路ID
+  chainId: {
+    type: Number,
+    // 默认 ht 线路
+    default: () => 128
   }
 })
 
