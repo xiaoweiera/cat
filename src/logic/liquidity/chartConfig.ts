@@ -165,7 +165,6 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
 }
 //y轴价格线配置
 export const yKAxisModel=(kmin: number, kmax: number,isShow:boolean, yLabelFormat: any,isHasUnit:string)=> {
-  console.log(kmin,Math.floor(kmin),kmin*0.9)
   kmin=kmin*0.96
   kmax=kmax+(kmax*0.05)
   const interval=parseFloat(((kmax-kmin)/4).toString())
