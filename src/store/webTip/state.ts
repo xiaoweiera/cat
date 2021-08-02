@@ -1,6 +1,7 @@
 import { ref } from 'vue'
-export const webVersionCn=ref(1)
-export const webVersionEn=ref(1)
+const version = 2
+export const webVersionCn=ref(version)
+export const webVersionEn=ref(version)
 // 是否展示
 export const isShow=(lang:string)=>{
     const webVersion=lang==='cn'?'webVersionCn':'webVersionEn'

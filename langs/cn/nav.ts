@@ -12,7 +12,7 @@ export default {
             desc:'快速发现高收益矿池',
         },
         liquidity: {
-            name:'DEX 数据分析',
+            name:'DEX 聪明钱',
             desc:'流动性资金来龙去脉一目了然',
         },
         quotes: {
