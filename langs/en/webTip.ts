@@ -7,7 +7,7 @@ export default {
         name: 'DEX Data Analysis 🔥',
         img: 'https://res.ikingdata.com/liquidity/webTipEn.jpg',
         title: 'DEX Data Analysis 🔥',
-        href: './liquidity',
+        href: 'https://kingdata.com/liquidity',
         contents:[
             'KingData new function online- The first DEX data analysis tool'],
         descs: [
@@ -19,12 +19,12 @@ export default {
     },
     fix1:{
         name: '7/29 UPDATE',
-        href: './liquidity',
+        href: 'https://kingdata.com/liquidity',
         descs: [
-            '1. 优化了数据图表的体验',
-            '2. 修复了数据图表中已知存在问题数据（SUSHI数据修复、MDEX项目数据修复、MDX Token 数据修复、UniSwap数据修复、DeFi数据修复、AMPL数据修复）',
-            '3. 新增了UNISWAP V3流动性数据',
-            '4. 修复了APY大全目前已知的问题'
+            '1. Optimized the experience of data charts',
+            '2. Fixed the known problem data in the data chart (SUSHI Data, MDEX Project, MDX Token, UniSwap Data, DeFi Data, AMPL Data)',
+            '3. Added Uniswap V3 liquidity data',
+            '4. Fixed the currently known problems of APY List'
         ]
     },
 }

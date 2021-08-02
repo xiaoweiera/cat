@@ -7,7 +7,7 @@ export default {
         name: 'DEX 数据分析 🔥',
         img: 'https://res.ikingdata.com/liquidity/webTipCn.jpg',
         title: 'DEX 数据分析 🔥',
-        href: './liquidity',
+        href: 'https://kingdata.com/liquidity',
         contents:[
             'KingData 新功能上线——全网首家 DEX 数据分析工具'],
         descs: [
@@ -19,7 +19,7 @@ export default {
     },
     fix1:{
         name: '7月28日更新',
-        href: './liquidity',
+        href: 'https://kingdata.com/liquidity',
         descs: [
             '1. 优化了数据图表的体验',
             '2. 修复了数据图表中已知存在问题数据（SUSHI数据修复、MDEX项目数据修复、MDX Token 数据修复、UniSwap数据修复、DeFi数据修复、AMPL数据修复）',

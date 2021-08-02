@@ -12,7 +12,7 @@ export default {
             desc:'Quickly get high-yield mining pools',
         },
         liquidity: {
-            name:'DEX Data Analysis',
+            name:'DEX Smart Money',
             desc:'Easy to know ins and outs of liquid funds',
         },
         quotes: {
