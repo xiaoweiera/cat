@@ -17,10 +17,6 @@ const props = defineProps({
     type: String,
     required: true
   },
-  // 钱包地址
-  walletAddress: {
-    type: String,
-  },
   // 线路ID
   chainId: {
     type: Number,
@@ -102,7 +98,7 @@ const swapRatio = function(symbol0: string, symbol1: string): string | number | 
 }
 
 const ready = async function() {
-  web3 = new Web3Util(props.pair)
+  web3 = new Web3Util(props.pair, props.chainId)
   const data = await web3.getPairInfo()
   if (data) {
     const names: string[] = [
@@ -243,7 +239,7 @@ onMounted(ready)
             <div v-show="index > 0" class="text-center py-4">
               <IconFont type="icon-switch" class="text-3xl cursor-pointer" @click="onSwitch"></IconFont>
             </div>
-            <SwapTradeInput :symbol="symbol" :wallet-address="walletAddress" :index="index"/>
+            <SwapTradeInput :symbol="symbol" :web3="web3" :index="index"/>
           </div>
         </template>
         <div class="mt-4" v-show="symbolRatio">
@@ -253,27 +249,21 @@ onMounted(ready)
           </p>
         </div>
         <div class="mt-4">
-          <!--已连接钱包-->
-          <template v-if="walletAddress">
-            <!-- 判断是否已授权 -->
-            <div v-if="symbolAuths[symbolNames[0]]">
-              <Before :app="getAddress" content="请先连接钱包">
-                <el-button :disabled="!swapStatus" type="primary" class="rounded w-full bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onSwap">
-                  <span class="text-white select-none">交易</span>
-                </el-button>
-              </Before>
-            </div>
-            <!-- 进行授权 -->
-            <div v-else>
-              <Before :app="getAddress" content="请先连接钱包">
-                <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
-                  <span class="text-white select-none">授权</span>
-                </div>
-              </Before>
-            </div>
-          </template>
-          <div v-show="!walletAddress">
-            <slot name="wallet"></slot>
+          <!-- 判断是否已授权 -->
+          <div v-if="symbolAuths[symbolNames[0]]">
+            <Before :app="getAddress" content="请先连接钱包">
+              <el-button :disabled="!swapStatus" type="primary" class="rounded w-full bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onSwap">
+                <span class="text-white select-none">交易</span>
+              </el-button>
+            </Before>
+          </div>
+          <!-- 进行授权 -->
+          <div v-else>
+            <Before :app="getAddress" content="请先连接钱包">
+              <div class="rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onAuthorizatio">
+                <span class="text-white select-none">授权</span>
+              </div>
+            </Before>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@
 // @ts-ignore
 import Web3 from 'web3/dist/web3.min.js'
 import Ethereum from '~/utils/ethereum/_'
-import { compact, forEach, isNumber, toArray, toBoolean } from '~/utils'
+import { compact, forEach, isNumber, toArray, toBoolean, toNumber } from '~/utils'
 import { before, ErrorDefault, tryError } from '~/utils/decorate'
 import { Callback, EventType, ChainItem } from '~/utils/ethereum/interface'
 import { chainList } from './chainlist'
@@ -46,6 +46,12 @@ export default class Wallet extends Web3 {
     this.ethereum.on(EventType.disconnect, function(data: any) {
       eventCallback(EventType.disconnect, data)
     })
+    // 网络切换
+    this.ethereum.on(EventType.network, function(data: any) {
+      // 切换网络时刷新页面
+      window.location.reload()
+      // eventCallback(EventType.network, data)
+    })
   }
 
   /**
@@ -67,8 +73,28 @@ export default class Wallet extends Web3 {
    */
   // @ts-ignore
   private chainIdIsNaN(): boolean {
-    return isNumber(this.chainId)
+    return isNumber(this.chainId);
   }
+  /**
+   * 判断网络是否与指定的相同
+   */
+  expectNetWork () {
+    try {
+      if (this.chainIdIsNaN()) {
+        const id = toNumber(this.chainId)
+        const version = toNumber(this.ethereum.networkVersion)
+        if (version === id) {
+          return true
+        }
+      } else {
+        // 网络不相同
+        throw { code: 5001 }
+      }
+    } catch (e) {
+    }
+    return false
+  }
+
   /**
    * 判断是否已安装小狐狸插件
    */
@@ -89,10 +115,14 @@ export default class Wallet extends Web3 {
   /**
    * 获取小狐狸选中的线路地址(用户钱包地址)
    */
-  @tryError() // 默认返回空
   @before('getConnected') // 判断小狐狸插件对象是否存在
   getChainAddress (): string | undefined {
-    return this.ethereum.selectedAddress
+    try {
+      return this.ethereum.selectedAddress
+    } catch (e) {
+      // todo
+    }
+    return void 0
   }
   /**
    * 判断是否已登录
@@ -110,27 +140,23 @@ export default class Wallet extends Web3 {
   @before('getConnected') // 判断是否已安装小狐狸插件并且已打开
   async enableEthereum () {
     try {
+      if (this.getIsLogin()) {
+        return true
+      }
       // 打开钱包，让用户授权
       await this.ethereum.request({
         method: 'eth_requestAccounts'
       })
-      // 重新查询钱包地址
-      return this.getChainAddress()
+      return true
     } catch (e) {
       const code = safeGet(e, 'code')
       if (code === -32002) {
-        return Promise.reject({
-          message: '请先关闭已有的 MetaMask 连接窗口后在试一次'
-        })
+        return Promise.reject({ code: 6001 })
       } else if (code === 4001) {
-        return Promise.reject({
-          message: '连接失败，请重试'
-        })
+        return Promise.reject({ code: 4001 })
       }
     }
-    return Promise.reject({
-      message: '请先安装 MetaMask 插件并且登录'
-    })
+    return Promise.reject({ code: 6002 })
   }
 
   /**
@@ -138,14 +164,15 @@ export default class Wallet extends Web3 {
    */
   @before('chainIdIsNaN') // 判断是否设置了线路 id
   @before('getConnected') // 判断是否已安装小狐狸插件并且已打开
-  connectChain () {
+  async connectChain () {
     const db = new DBList(chainList, 'chainID')
     const data = db.selectOne<ChainItem>({ 'chainID': this.chainId })
     if (data) {
-      return this.ethereum.request({
+      const opt = {
         method: 'wallet_addEthereumChain',
         params: [{
-          chainId: data.chainID,
+          // @ts-ignore
+          chainId: this.utils.toHex(data.chainID),
           chainName: data.name,
           nativeCurrency: {
             name: data.currency,
@@ -155,10 +182,24 @@ export default class Wallet extends Web3 {
           rpcUrls: [data.rpc],
           blockExplorerUrls: [data.scan],
         }],
-      })
+      }
+      try {
+        return await this.ethereum.request(opt)
+      } catch (e) {
+        const code = safeGet<number>(e, 'code')
+        if (code === 4001) {
+          return Promise.reject({
+            code: 5003
+          })
+        } else {
+          return Promise.reject({
+            code: 5004
+          })
+        }
+      }
     }
     return Promise.reject({
-      message: 'chain 信息不存在，请检查 chainID 是否正确'
+      code: 5002
     })
   }
 }

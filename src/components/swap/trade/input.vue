@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { Web3Util } from '~/utils/ethereum/util'
 import { defineProps, onMounted, ref, watch } from 'vue'
 // @ts-ignore
 import { toUpper } from 'ramda'
 import { getInject, margetState } from '~/utils/use/state'
-import { toNumber } from '~/utils/index'
-import { getPairSymbolData } from '~/utils/ethereum/util'
+import { toNumber } from '~/utils'
+import { getPairSymbolData, Web3Util } from '~/utils/ethereum/util'
 import { stateName } from '~/utils/ethereum/interface'
 
 const props = defineProps({
-  // 合约地址
+  // symbol 地址
   symbol: {
     type: String,
     required: true
   },
   // 钱包地址
-  walletAddress: {
-    type: String,
+  web3: {
+    type: Object,
+    required: true
   },
   index: {
     type: Number,
@@ -57,8 +57,9 @@ const ready = async function() {
   const symbol = getPairSymbolData(detail, props.symbol)
   if (symbol) {
     if (symbol.token) {
-      const web3 = new Web3Util()
-      const count = await web3.getSymbolBalance(symbol.token, props.walletAddress)
+      const web3: Web3Util = props.web3 as any
+      const count = await web3.getSymbolBalance(symbol.token)
+      console.log(count)
       balance.value = count || 0
     } else {
       balance.value = 0

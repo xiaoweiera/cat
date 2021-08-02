@@ -36,7 +36,7 @@ export const onDisconnect = function(callback: Callback) {
  */
 export const onChangeNetWord = function(callback: Callback) {
   const ethereum = Ethereum()
-  ethereum.on(EventType.netword, callback)
+  ethereum.on(EventType.network, callback)
 }
 
 
@@ -106,7 +106,7 @@ export const onAdd = function() {
   ethereum.request({
     method: 'wallet_addEthereumChain',
     params: [{
-      chainId: 128,
+      chainId: '0x18',
       chainName: 'Heco Mainnet',
       nativeCurrency: {
         name: 'Heco',

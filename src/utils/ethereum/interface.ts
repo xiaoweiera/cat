@@ -24,7 +24,7 @@ export enum EventType {
   account = 'accountsChanged', // 切换账号
   connect = 'connect', // 链接
   disconnect = 'disconnect', // 断开
-  netword = 'chainChanged', // 网络切换
+  network = 'chainChanged', // 网络切换
   message = 'message', // 消息通信
 
 

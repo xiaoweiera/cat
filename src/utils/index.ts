@@ -23,6 +23,18 @@ import safeGet from '@fengqiaogang/safe-get'
 
 export { isNil } from 'ramda'
 
+export const sleep = function(callback: () => void, time: number = 1000) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      if (callback && isFunction(callback)) {
+        resolve(callback())
+      } else {
+        resolve(callback)
+      }
+    }, time)
+  })
+}
+
 /**
  * 排序
  * @param list 排序的列表数据

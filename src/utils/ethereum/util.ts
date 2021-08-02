@@ -3,70 +3,24 @@
  * @author svon.me@gmail.com
  */
 
-import Ethereum from './_'
+import Wallet from './wallet'
+import swapConfig from './config'
 import BigNumber from 'bignumber.js'
-// @ts-ignore
-import Web3 from 'web3/dist/web3.min.js'
-import { getAddress, getConnected, getLogin } from './status'
+import { getAddress } from './status'
 import { erc20ABI, PairABI, UniSwapV2Router02ABI } from './pair'
 import { EventType, PairInfo, SymbolInfoDetail } from '~/utils/ethereum/interface'
-import swapConfig from './config'
-import { compact, equalsIgnoreCase, isFunction, numberDecimal } from '~/utils'
+import { compact, equalsIgnoreCase, numberDecimal } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import { tryError, before, validate, required, ErrorDefault } from '~/utils/decorate'
-import * as event from '~/utils/ethereum/event'
 import { RecordAccounts } from '~/utils/ethereum/event'
 
-type AccountCallback = (address: string) => void
-
-export class Web3Util extends Web3 {
-  public ethereum: any
+// 继承钱包类，扩展合约方法
+export class Web3Util extends Wallet {
   public pairAddress: string // pair 地址
-  constructor(pairAddress: string) {
-    const ethereum: any = Ethereum()
-    super(ethereum);
+  constructor(pairAddress: string, chainId: number) {
+    super(chainId);
     this.pairAddress = pairAddress
-    this.ethereum = ethereum
   }
-  /**
-   * 获取用户钱包地址
-   */
-  getUserAddress (): string | undefined {
-    return getAddress()
-  }
-
-  /**
-   * 连接钱包
-   */
-  @before(getConnected) // 判断是否已安装小狐狸插件并且已打开
-  async enableEthereum () {
-    // 打开钱包，让用户授权
-    await event.enableEthereum()
-    // 返回已授权的地址
-    return this.getUserAddress()
-  }
-
-  /**
-   * 监听账户状态
-   * @param callback 账户发生变化时回调函数
-   */
-  @before(getConnected) // 判断是否已安装小狐狸插件并且已打开
-  @before(getLogin)     // 判断是否已登录
-  onChangeAccount(callback: AccountCallback): void {
-    if (callback && isFunction(callback)) {
-      const app = () => {
-        const address = this.getUserAddress()
-        callback(address || '')
-      }
-      // 切换账户
-      event.onChangeAccount(app)
-      // 用户断开链接
-      event.onDisconnect(app)
-      app()
-    }
-  }
-
-  //-----------------
 
   /**
    * 获取合约
@@ -74,7 +28,7 @@ export class Web3Util extends Web3 {
    * @param address 地址
    */
   @validate
-  @before(getConnected) // 判断小狐狸是否已连接
+  @before('getIsLogin') // 判断小狐狸是否已连接
   getContract(@required abi: any, @required address: string) {
     // @ts-ignore
     return new this.eth.Contract(abi, address)
@@ -121,13 +75,13 @@ export class Web3Util extends Web3 {
   /**
    * 当前用户的 pair 余额
    * @param contract
-   * @param address 用户的钱包地址
    * @protected
    */
   @validate // 判断 参数是否为空
   @tryError(ErrorDefault(0)) // 监听异常，有异常返回默认值
-  @before(getConnected) // 判断钱包是否已链接
-  getBalanceCount(@required contract: any, address: string = getAddress()): number {
+  @before('getIsLogin') // 判断钱包是否已链接
+  getBalanceCount(@required contract: any): number {
+    const address = this.getChainAddress()
     if (address) {
       return contract.methods.balanceOf(address).call()
     }
@@ -184,13 +138,12 @@ export class Web3Util extends Web3 {
   /**
    * 查询余额
    * @param contractAddress 合约地址(symbol0/symbol1)
-   * @param address 用户地址(默认当前链接的钱包地址)
    * @protected
    */
   @validate // 判断 参数是否为空
-  @before(getAddress)
+  @before('getIsLogin') // 判断钱包是否已链接
   @tryError(ErrorDefault(0)) // 监听异常，返回默认值
-  async getSymbolBalance (@required contractAddress: string, address: string = getAddress()): Promise<number> {
+  async getSymbolBalance (@required contractAddress: string): Promise<number> {
     const status = [
       equalsIgnoreCase(contractAddress, swapConfig.UniWETHAddress),
       equalsIgnoreCase(contractAddress, swapConfig.SushiWETHAddress),
@@ -200,11 +153,11 @@ export class Web3Util extends Web3 {
     // 如果地址是 weth 地址就查询地址的 eth 余额
     if (compact(status).length > 0) {
       // @ts-ignore
-      return this.eth.getBalance(address)
+      return this.eth.getBalance(this.getChainAddress())
     } else {
       // 查询余额
       const contract = await this.getContract(erc20ABI, contractAddress)
-      return this.getBalanceCount(contract, address)
+      return this.getBalanceCount(contract)
     }
   }
   //----------------------
@@ -214,7 +167,7 @@ export class Web3Util extends Web3 {
    */
   @tryError(ErrorDefault(false))
   @validate
-  @before(getAddress) // 判断钱包地址是否为空 钱包地址（默认小狐狸钱包链接的地址）
+  @before('getIsLogin') // 判断钱包是否已链接
   async getAuthorizatioStatus (@required symbolAddress: string): Promise<boolean> {
     // 如果币种的地址是 wht 则默认为已授权
     if (symbolAddress === '0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F') {
@@ -234,7 +187,7 @@ export class Web3Util extends Web3 {
     const erc20contract = await this.getContract(erc20ABI, symbolAddress)
     const $0xff = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
     const approve = await erc20contract.methods.approve(swapConfig.MdexRouterAddress, $0xff)
-    return RecordAccounts(approve.send({ from: this.getUserAddress() }))
+    return RecordAccounts(approve.send({ from: this.getChainAddress() }))
   }
 
   //--- 交易 ------
@@ -277,7 +230,7 @@ export class Web3Util extends Web3 {
     const [amountValue, amountMinValue] = await this._getAmountIn(fromAddress, toAddress, inputAddress, amount)
     // console.log('兑换数量 ： %s', amountValue)
     // console.log('计算最小兑换量 : %s', amountMinValue)
-    const metaMaskAccount = this.getUserAddress() // 钱包地址
+    const metaMaskAccount = this.getChainAddress() // 钱包地址
 
     const uniswapV2Router = await this.getContract(UniSwapV2Router02ABI, swapConfig.MdexRouterAddress)
 
