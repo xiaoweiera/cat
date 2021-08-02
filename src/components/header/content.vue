@@ -33,13 +33,13 @@ const getActive = function(item: any) {
           <template v-if="getActive(item)">
             <div class="flex items-center cursor-pointer text-base menu-title active">
               <span>{{ getActive(item).name }}</span>
-              <IconFont class="ml-1.5" type="icon-xiajiantou"/>
+              <IconFont class="ml-1.5" style="transform: scale(0.6)" type="icon-xiajiantou"/>
             </div>
           </template>
           <template v-else>
             <div class="flex items-center cursor-pointer text-base menu-title">
               <span>{{ item.name }}</span>
-              <IconFont class="ml-1.5" type="icon-xiajiantou"/>
+              <IconFont class="ml-1.5" style="transform: scale(0.6)" type="icon-xiajiantou"/>
             </div>
           </template>
         </template>
