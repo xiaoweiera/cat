@@ -114,18 +114,19 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
   let max: any = null
   const ydata=getNewyData(xData,item.data,allxData)
   const unit=pairId?item.unit:item.unit
-  const seriesData = R.map((v) => {
+  const seriesData = ydata.map((v,i) => {
     [min, max] = min_max(min, max, v)
     // const unit=''
     return {
       value: v,
+      time:allxData[i],
       orginValue: formatRulesNumber(v,true),//万 亿 约汉字
       formatValue:pairId?unitOrder(v,unit):unitOrder(v,unit),
       type:item.type,
       interval:interval
       // color: item.color
     }
-  }, ydata)
+  })
   const area = {
     normal: {
       color: {
@@ -181,7 +182,7 @@ const formatYData = (item: any,i:number, isKline: boolean,xData:Array<number>,al
 export const yLabelFormat = (v: any) => formatRulesNumber(v,false)
 export const ykLabelFormat = (v: any) => numberUnitFormat(v)
 //getSeries 根据group后端自定义组合y轴
-export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string,coinType:string) => {
+export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData: Array<yModel>, kyData: Array<number>,allxData: Array<number>,interval:string,pairId:string,coinType:string,selectIndex:number) => {
   const series = []
   const allYAxis=[]
   const groupList={}
@@ -224,6 +225,17 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
     series.push(obj)
   }
   return [series,allYAxis]
+}
+export const getXAreaColorList=(xData:Array<string>,selectIndex:number)=>{
+  if(!selectIndex) return null
+  const colorList=xData.map((item,i)=>{
+    if(i===selectIndex){
+      return 'rgba(76, 159, 254, 0.1)'
+    }else{
+      return ''
+    }
+  })
+  return colorList
 }
 // 提示文字
 export const getModel = (params: any,xData:any) => {

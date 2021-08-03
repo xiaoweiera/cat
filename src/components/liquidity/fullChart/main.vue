@@ -18,6 +18,7 @@ const priceData = reactive({value: {}})
 const isNull = ref(false) //是否有数据
 const chartLoad = ref(true)
 const setTitle=setInject('title')
+const setTs=setInject('ts')
 const coinType=getInject('coinType')
 const interval=getInject('interval')
 const timeParam=getInject('timeParam')

@@ -1,62 +1,62 @@
 <script lang="ts" setup>
-import {ref, toRaw} from 'vue'
-import {flowHeader,flowOpenHeader} from '~/logic/liquidity/down'
+import {ref, computed,onMounted,watch,defineProps} from 'vue'
+
+import {flowHeader,flowOpenHeader,typeName} from '~/logic/liquidity/down'
 import * as R from 'ramda'
-import {smallToken, formatRulesPrice} from '~/lib/tool'
+import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
+import * as scroll from '~/utils/event/scroll'
+import {getPairName} from '~/logic/liquidity/dataTool'
+import {getDownFirstData} from '~/logic/liquidity/downTool'
+import {pairStore, symbolStore} from '~/store/liquidity/state'
 import {getInject,  setInject } from '~/utils/use/state'
 import {xiazuan} from '/mock/xiazuan'
+const props=defineProps({chartType:String})
+const timeParam=getInject('timeParam')
+const ts=getInject('ts')
 const isFull=getInject('isFull')
+const interval=getInject('interval')
 const setIsFull=setInject('isFull')
-const data = ref([
-  {
-    index: 0,
-    address: '北京',
-    netAddNumber: '1000',
-    allNumber: '2000',
-    removeNumber: '1200',
-    joinNumber: '1100',
-    addNumber: '888',
-    removeCount: '123'
-  },
-  {
-    index: 1,
-    address: '石家庄',
-    netAddNumber: '1300',
-    allNumber: '4000',
-    removeNumber: '3200',
-    joinNumber: '2100',
-    addNumber: '688',
-    removeCount: '1231'
-  }
-])
-const openData = ref([
-  {
-    time: '2021-03-19 11:35',
-    pair: 'ETH/USDT',
-    position: '添加流动性',
-    netAddNumber: '1ETH+1678.22USDT',
-    money: '≈$1678.2'
-  },
-  {
-    time: '2021-03-19 11:35',
-    pair: 'ETH/USDT',
-    position: '添加流动性',
-    netAddNumber: '1ETH+1678.22USDT',
-    money: '≈$1678.2'
-  },
-])
-const headerBg = () => {
-  return 'background: rgba(43, 141, 254, 0.04)'
-}
-const tableData = ref(xiazuan['one'])
-const row = ref(0)
-const selectRow = (index: number) => {
-
-  row.value = index===row.value?-1:index
-}
+const row = ref(-1)
+const selectRow = (index: number) => row.value = index===row.value?-1:index
 const full=()=>setIsFull(!isFull.value[0])
-const change = (name: string) => {
-  tableData.value = xiazuan[name]
+const change = (name: string) => tableData.value = xiazuan[name]
+const pairName= computed<string>((): string => getPairName(symbolStore.name,tableData.value[0]?.token0_symbol,tableData.value[0]?.token1_symbol))
+const param={
+  platId:'1',
+  page:1,
+  page_size:20,
+  pair_id:pairStore.id,
+  symbol_id:symbolStore.id,
+  ts:timeParam.value[0].timeEnd,
+  interval:interval.value[0]
+}
+let hasData=true
+const tableData=ref([])
+watch(()=>ts.value[0],async (n)=>{
+  param.ts=n
+  param.page=1
+  hasData=true
+  row.value=-1
+  tableData.value=[]
+  await getData()
+})
+const getData=async ()=>{
+  const data=await getDownFirstData(param,props.chartType,pairStore.id)
+  if(data.code===0) {
+    hasData=data?.data?.next?true:false
+    R.map(item => tableData.value.push(item), data?.data?.results)
+  }
+}
+onMounted(async ()=>{
+ await getData()
+})
+
+const scrollFun=()=>{
+  const listDom = document.querySelector('.first')
+  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData) {
+    param.page++
+    getData()
+  }
 }
 </script>
 <template>
@@ -65,7 +65,7 @@ const change = (name: string) => {
     <span class="text-global-default text-opacity-65 text-kd12px16px ml-1.5">点击列表地址可对图表数据过滤 </span>
     <img @click="full()" class="w-4 h-4 absolute right-0 hand" :src="isFull[0]?'https://res.ikingdata.com/liquidity/fullSmall.jpg':'https://res.ikingdata.com/liquidity/fullBig.jpg'" alt="">
   </div>
-  <div :class="isFull[0]?'flex-1':'h-60'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+  <div :class="isFull[0]?'flex-1':'h-50'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
     <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="item in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
@@ -74,43 +74,27 @@ const change = (name: string) => {
       </template>
     </div>
     <!-- 二次展开-->
-    <div :class="isFull[0]?'flex-1':'flex-1'" class="flex   flex-col   showY">
+    <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
       <template v-for="(item,i) in tableData">
-        <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
-          <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.addr) }}
-          </div>
-          <div :style="{width:flowHeader[1].width}" class="flex-1 text-global-highTitle">
-            +{{ formatRulesPrice(item.net_amount0) }}{{ item.token0_symbol }}+{{ formatRulesPrice(item.net_amount1) }}{{ item.token1_symbol }}
-            <span class="ml-1 text-global-default text-opacity-65 font-kdExp text-kd12px16px">${{ formatRulesPrice(item.net_usd) }}</span>
-          </div>
+        <div @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
+          <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</div>
+          <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName}}</div>
           <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
-            +{{ formatRulesPrice(item.total_amount0_in) }}{{ item.token0_symbol }}+{{ formatRulesPrice(item.total_amount1_in) }}{{ item.token1_symbol }}
-            <span class="ml-1 text-global-default text-opacity-65 font-kdExp text-kd12px16px">${{ formatRulesPrice(item.total_amountusd_in) }}</span>
+           <LiquidityFullChartTableItem  :token0="pairName.split('/')[0]" :token1="pairName.split('/')[1]"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
           </div>
           <div :style="{width:flowHeader[3].width}" class="flex-1 text-global-highTitle">
-            +{{ formatRulesPrice(item.total_amount0_out) }}{{ item.token0_symbol }}+{{ formatRulesPrice(item.total_amount1_out) }}{{ item.token1_symbol }}
-            <span class="ml-1 text-global-default text-opacity-65 font-kdExp text-kd12px16px">${{ formatRulesPrice(item.total_amountusd_out) }}</span>
+            <LiquidityFullChartTableItem  :token0="pairName.split('/')[0]" :token1="pairName.split('/')[1]"  :token0Money="item.mints_amounts0" :token1Money="item.mints_amounts1" :usdMoney="item.mints_amountusd" />
           </div>
-          <div :style="{width:flowHeader[4].width}" class="text-center">{{ item.total_tx }}</div>
-          <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.mint_tx }}</div>
-          <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.burn_tx }}</div>
+          <div :style="{width:flowHeader[4].width}" class="flex-1 text-global-highTitle">
+            <LiquidityFullChartTableItem  :token0="pairName.split('/')[0]" :token1="pairName.split('/')[1]"  :token0Money="item.burns_amounts0" :token1Money="item.burns_amounts1" :usdMoney="item.burns_amountusd" />
+          </div>
+          <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.total_join_num?item.total_join_num:0 }}</div>
+          <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.mints_join_num?item.mints_join_num:0 }}</div>
+          <div :style="{width:flowHeader[7].width}" class="text-center">{{ item.burns_join_num?item.burns_join_num:0 }}</div>
         </div>
           <!--        二次下钻-->
           <div v-if="row===i" class="px-2.5 openContainer">
-            <div class="flex py-2.5   items-center">
-              <template v-for="item in flowOpenHeader">
-                <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
-              </template>
-            </div>
-            <template v-for="item in openData">
-              <div class="flex items-center min-h-4.5   ">
-                <div class="openHeader">{{ item.time }}</div>
-                <div class="openHeader">{{ item.pair }}</div>
-                <div class="openHeader">{{ item.position }}</div>
-                <div class="openHeader">{{ item.netAddNumber }}</div>
-                <div class="openHeader">{{ item.money }}</div>
-              </div>
-            </template>
+            <LiquidityFullChartOpenDown  :address="item.address" :pair_id="item.pair_id" :pairName="pairName"/>
           </div>
       </template>
 
@@ -129,9 +113,7 @@ const change = (name: string) => {
   @apply  bg-global-primary bg-opacity-4;
 }
 
-.openHeader{
-  @apply mb-2.5 font-kdFang  flex-1  text-kd14px18px text-global-highTitle;
-}
+
 .header {
   border-top: 1px solid rgba(37, 62, 111, 0.12);
   border-bottom: 1px solid rgba(37, 62, 111, 0.12);

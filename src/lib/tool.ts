@@ -49,7 +49,8 @@ export const numColor = (value: any) => {
     return toFixedNumber(value, 2)
   }
 }
-
+export const formatTime = (date: string,format:string) =>
+    dayjs(parseInt(`${date}000`)).format(format)
 export const formatTimeMD = (date: string) =>
     dayjs(parseInt(`${date}000`)).format('MM/DD')
 export const formatTimeHour = (date: string) =>

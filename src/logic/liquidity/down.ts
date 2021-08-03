@@ -9,6 +9,10 @@ export const flowHeader = [
     {name: '添加次数', width: '60px'},
     {name: '移除次数', width: '60px'}
 ]
+export const typeName={
+    'mints':'添加流动性',
+    'burns':'撤出流动性'
+}
 //流动性pair二级下钻
 export const flowOpenHeader=[
     {name: '时间', width: ''},
@@ -16,6 +20,7 @@ export const flowOpenHeader=[
     {name: '方向', width: ''},
     {name: '净添加量', width: ''},
     {name: '总价值', width: ''},
+    {name: 'TX ID', width: '110px'},
 ]
 //交易数据下钻header
 export const payHeader = [

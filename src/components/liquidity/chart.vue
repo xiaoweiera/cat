@@ -3,9 +3,10 @@ import { defineProps, onMounted, toRefs,ref,toRaw } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
 import { paramChart,pairStore} from '~/store/liquidity/state'
-import {getXData,getGroupSeries, yLabelFormat, getModel, getLegendList} from '~/logic/liquidity/getChartData'
+import {getXData,getGroupSeries, yLabelFormat, getModel, getLegendList,getXAreaColorList} from '~/logic/liquidity/getChartData'
 import { chartConfig,getLegendRow } from '~/logic/liquidity/chartConfig'
 import {kData,groupData} from '/mock/liquidity'
+import { setInject } from '~/utils/use/state'
 interface yModel {
   color: string
   data: Array<number>
@@ -22,29 +23,33 @@ const props = defineProps({
   chartId:String,
   coinType:Object
 })
-const draw = (xData: Array<string>, series: any, legend: Array<string>,selected:Array<object>, allYAxis:any,row:number) => {
+const setTs=setInject('ts') //设置点选图表后的时间戳
+const draw = (xData: Array<string>, series: any, legend: Array<string>,selected:Array<object>, allYAxis:any,row:number,areaColorList:Array<string>) => {
   // @ts-ignore
-  const chartOption = chartConfig(xData, series,allYAxis, legend,selected, yLabelFormat, getModel,paramChart.interval,props.full,row)
+  const chartOption = chartConfig(xData, series,allYAxis, legend,selected, yLabelFormat, getModel,paramChart.interval,props.full,row,areaColorList)
   myChart.setOption(chartOption)
   // @ts-ignore
 
   window.addEventListener('resize', myChart.resize)
 }
+const allXaxis=ref()
 const echartsRef = ref<any>(null)
-const getChartData=()=>{
-  const allXaxis=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
-  const xData = getXData(allXaxis, paramChart.interval)
+const getChartData=(selectIndex:number)=>{
+   allXaxis.value=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
+  const xData = getXData(allXaxis.value, paramChart.interval)
   const [legend,selected] = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
   const row=getLegendRow(toRaw(echartsRef).value,legend)
   const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,props.priceData.value.xaxis,
       props?.chartData.yaxis, props.priceData.value.yaxis[0],
-      allXaxis,
+      allXaxis.value,
       paramChart.interval,
       pairStore.id,
-      props.coinType.value
+      props.coinType.value,
+      selectIndex
   )
-  draw(xData, series, legend,selected,allYAxis,row)
+  const areaColorList=getXAreaColorList(allXaxis.value,selectIndex)
+  draw(xData, series, legend,selected,allYAxis,row,areaColorList)
 }
 
 onMounted(() => {
@@ -54,6 +59,18 @@ onMounted(() => {
   }
   myChart = echarts.init(myChartDom, 'light')
   getChartData()
+  myChart.getZr().on('click',params=>{
+    const pointInPixel= [params.offsetX, params.offsetY];
+    if (myChart.containPixel('grid',pointInPixel)) {
+      let index=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
+      setTs(allXaxis.value[index])
+      const series=myChart.getOption()
+
+      console.log(myChart.getOption())
+      getChartData(index)
+    }
+  });
+
 })
 </script>
 <template>
