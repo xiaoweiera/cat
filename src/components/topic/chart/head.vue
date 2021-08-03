@@ -81,19 +81,16 @@ const saveChart = function(e: Event) {
         <div class="flex justify-between items-start">
           <!-- 左侧标题 -->
           <div class="flex-auto w-1 mr-2 md:flex items-center">
-            <div class="font-bold text-global-highTitle h-6 leading-6">
-              <span class="inline-block max-w-full truncate">{{ data.name }}</span>
+            <div class="max-w-full font-bold text-global-highTitle h-6 leading-6">
+              <span class="inline-block max-w-full truncate" :title="data.name">{{ data.name }}</span>
             </div>
             <div class="md:ml-3">
               <TopicRate :data="data"></TopicRate>
             </div>
           </div>
-          <div class="text-global-time text-xs whitespace-nowrap">
-            <div class="inline-block">
+          <div class="text-global-time 2xl:flex 2xl:flex-row-reverse 2xl:items-center">
+            <div class="text-xs whitespace-nowrap flex justify-end">
               <div class="flex flex-wrap items-center flex-col-reverse md:flex-row">
-                <div class="mr-3">
-                  <slot name="time"></slot>
-                </div>
                 <div class="inline-flex items-center justify-end">
                   <!-- 保存 -->
                   <a class="btn-border cursor-pointer" @click="saveChart">
@@ -131,6 +128,9 @@ const saveChart = function(e: Event) {
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="mt-2 2xl:mt-0 2xl:mr-3">
+              <slot name="time"></slot>
             </div>
           </div>
         </div>

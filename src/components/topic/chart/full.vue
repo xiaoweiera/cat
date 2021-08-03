@@ -19,7 +19,7 @@ const shortcuts = computed(function() {
   const interval = props.option?.interval || 'd'
   const data: any = {}
   if (interval === 'd') {
-    data['day'] = ['7', '30', { value: '90', default: true }, '365', 'custom']
+    data['day'] = ['7', '30', { value: '90', default: true }, '365', 'all', 'custom']
   }
   if (interval === 'h') {
     data['hour'] = [{ value: '7', default: true }, '30']

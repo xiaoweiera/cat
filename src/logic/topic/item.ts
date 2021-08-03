@@ -169,8 +169,14 @@ const getDetail = async function(data: ItemData, query?: any) {
   data.rateChange = safeGet<number>(result, 'change')
 
   try {
-    const { type } = convertInterval(safeGet<string>(result, 'interval'))
-    data.interval = type
+    let interval = safeGet<string>(result, 'chart[0].chart.interval')
+    if (interval) {
+      const { type } = convertInterval(interval)
+      data.interval = type
+    } else {
+      const { type } = convertInterval(safeGet<string>(result, 'interval'))
+      data.interval = type
+    }
   } catch (e) {
     console.log(e)
   }

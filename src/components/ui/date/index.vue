@@ -58,16 +58,7 @@ const dateTypeList = computed(function() {
   }, ['hour', 'day'])
 })
 
-// @ts-ignore 选中时间
-const onClickDate = function(data: any) {
-  if (data) {
-    timeIndex.value = data.id
-  }
-  // 排除自定义时间的点击事件
-  if (data && !data.custom) {
-    customTime.value = []
-  }
-
+const syncData = function(data: any) {
   let list: string[] = []
   if (data && isFunction(data.value)) {
     list = data.value()
@@ -84,12 +75,27 @@ const onClickDate = function(data: any) {
   }
 }
 
+// @ts-ignore 选中时间
+const onClickDate = function(data: any) {
+  if (data) {
+    if (timeIndex.value === data.id) {
+      return false
+    }
+    timeIndex.value = data.id
+  }
+  // 排除自定义时间的点击事件
+  if (data && !data.custom) {
+    customTime.value = []
+    syncData(data)
+  }
+}
+
 // 选择自定义时间
 // @ts-ignore
 const onChangeCustomTime = function(data: any, value: number[]) {
   const { id, custom } = data
   const tmp = { id, custom, value }
-  onClickDate(tmp)
+  syncData(tmp)
 }
 
 // 切换日期类型
@@ -143,8 +149,13 @@ onMounted(function(){
     <div class="date-select-box">
       <template v-for="item in dateList" :key="item.id">
         <template v-if="item.custom">
-          <el-date-picker class="ui-date-picker" :disabledDate="disabledDate" id="datePickerDom" v-model="customTime" @change="onChangeCustomTime(item, $event)" format="YYYY-MM-DD" size="mini" type="daterange" range-separator="–" :start-placeholder="I18n.apy.times.begin" :end-placeholder="I18n.apy.times.end">
-          </el-date-picker>
+          <div class="custom-date-picker" :class="{'active': item.id === timeIndex}" @click="onClickDate(item)">
+            <span class="custom-label">{{ item.label }}</span>
+            <div class="custom-date-box">
+              <el-date-picker class="ui-date-picker cursor-pointer" :disabledDate="disabledDate" :unlink-panels="true" v-model="customTime" @change="onChangeCustomTime(item, $event)" format="YYYY-MM-DD" size="mini" type="daterange" range-separator="–" :start-placeholder="I18n.apy.times.begin" :end-placeholder="I18n.apy.times.end">
+              </el-date-picker>
+            </div>
+          </div>
         </template>
         <template v-else>
           <span class="date-item" :class="{'active': item.id === timeIndex}" @click="onClickDate(item)">{{ item.label }}</span>
@@ -167,19 +178,44 @@ onMounted(function(){
 
 <style scoped lang="scss">
 .date-select-box {
-  @apply rounded bg-global-primary bg-opacity-8 p-0.5;
+  @apply rounded bg-global-primary bg-opacity-8 p-0.5 flex;
 }
 .date-item {
   transition: all 0.3s;
   @apply inline-block px-2 h-full leading-7 rounded-sm select-none text-sm;
   &.active {
-    @apply bg-global-white text-global-primary;
+    &:not(.custom-date-picker) {
+      @apply bg-global-white text-global-primary;
+    }
   }
   &.disabled {
-    @apply cursor-not-allowed
+    @apply cursor-not-allowed hidden;
   }
   &:not(.disabled) {
     @apply cursor-pointer;
+  }
+}
+
+.custom-date-picker {
+  @extend .date-item;
+  &.active {
+    .custom-label {
+      @apply hidden;
+    }
+  }
+  &:not(.active) {
+    @apply relative h-7 overflow-hidden;
+    .custom-date-box {
+      @apply absolute left-0 top-0 right-0 bottom-0 opacity-0;
+      ::v-deep {
+        .ui-date-picker {
+          transform: scale(100);
+        }
+        input {
+          @apply cursor-pointer;
+        }
+      }
+    }
   }
 }
 </style>
