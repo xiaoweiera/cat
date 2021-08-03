@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref,reactive,watch } from 'vue'
 import * as R from 'ramda'
-import {  setInject, getInject,margeInject } from '~/utils/use/state'
+import {  setInject, getInject } from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
 import {isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 import {getFlowChartModel,getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
