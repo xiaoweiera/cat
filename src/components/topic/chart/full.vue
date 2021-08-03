@@ -50,6 +50,7 @@ const onGetData = async function(timeData: number[]) {
   result.detail = data.detail
   result.legends = data.legends
   result.xAxis = data.xAxis
+  result.uuid = data.uuid
 }
 
 // 监听日期组件
@@ -72,7 +73,7 @@ useWatch('uiDate', function(data: number[][]) {
     <el-main class="p-0">
       <div class="pt-3 h-full">
         <template v-if="result.xAxis.length > 0">
-          <TopicChartView :data="result"/>
+          <TopicChartView :key="result.uuid" :data="result"/>
         </template>
       </div>
     </el-main>

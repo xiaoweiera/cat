@@ -8,7 +8,7 @@ import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 //@ts-ignore
-import { convertInterval, map, toArray, toBoolean } from '~/utils'
+import { uuid, convertInterval, map, toArray, toBoolean } from '~/utils'
 import { reactive, toRaw } from 'vue'
 import {
   getInterval,
@@ -57,6 +57,7 @@ interface Result {
   detail?: ChartDetail
   legends: Array<any>
   xAxis: Array<any>
+  uuid?: string
 }
 
 export const createItemChartResult = function() {
@@ -64,6 +65,7 @@ export const createItemChartResult = function() {
     detail: void 0,
     legends: [],
     xAxis: [],
+    uuid: uuid()
   })
 }
 
@@ -189,5 +191,6 @@ export const getItemData = async function(data: ItemData, query?: any): Promise<
     detail,
     legends,
     xAxis,
+    uuid: uuid()
   }
 }

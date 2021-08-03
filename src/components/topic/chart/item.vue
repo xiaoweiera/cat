@@ -45,12 +45,13 @@ const onLoad = async function() {
   result.detail = data.detail
   result.legends = data.legends
   result.xAxis = data.xAxis
+  result.uuid = data.uuid
 }
 
 </script>
 
 <template>
-  <FullScreen :status="true">
+  <FullScreen>
     <template #default="scope">
       <!-- 全屏 -->
       <div v-if="scope.status" class="h-full" :class="`j-big-${echartDetail.chartId}`">
@@ -65,7 +66,7 @@ const onLoad = async function() {
         <div class="text-kdFang" :style="{ 'height': `${echartHeight}px` }">
           <Winshow class="h-full" @onload="onLoad">
             <template v-if="result.xAxis.length > 0">
-              <TopicChartView :data="result"/>
+              <TopicChartView :key="result.uuid" :data="result"/>
             </template>
           </Winshow>
         </div>
