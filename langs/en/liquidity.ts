@@ -60,6 +60,7 @@ export default {
         sixMonth:'6 Months',
         year:'Year',
         custom: 'Custom',
+        all: 'All',
         usd: 'USD',
         coin:'Token',
         bottom:'Bottom'

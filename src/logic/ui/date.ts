@@ -4,8 +4,9 @@
  */
 
 import dayjs from 'dayjs'
-import { dateNow, dateTime } from '~/utils/time'
 import { dateFormat } from '~/utils'
+import I18n from '~/utils/i18n/index'
+import { dateNow, dateTime } from '~/utils/time'
 
 // 去掉小时以后的时间，只保留到天
 export const formatResult = function(times: any[]): Array<number | string> {
@@ -37,7 +38,7 @@ export const disabledDate = (function(){
 
 export const shortcuts = {
   '7': {
-    label: '近7天',
+    label: I18n.liquidity.mainHeader.week,
     value: function() {
       const today = dateNow()
       const start = dayjs(today).subtract(7, 'day')
@@ -45,7 +46,7 @@ export const shortcuts = {
     }
   },
   '30': {
-    label: '近1月',
+    label: I18n.liquidity.mainHeader.month,
     value: function() {
       const today = dateNow()
       const start = dayjs(today).subtract(1, 'month')
@@ -53,7 +54,7 @@ export const shortcuts = {
     }
   },
   '90': {
-    label: '近3月',
+    label:I18n.liquidity.mainHeader.streeMonth,
     value: function() {
       const today = dateNow()
       const start = dayjs(today).subtract(3, 'month')
@@ -61,7 +62,7 @@ export const shortcuts = {
     }
   },
   '180': {
-    label: '近半年',
+    label: I18n.liquidity.mainHeader.sixMonth,
     value: function() {
       const today = dateNow()
       const start = dayjs(today).subtract(6, 'month')
@@ -69,7 +70,7 @@ export const shortcuts = {
     }
   },
   '365': {
-    label: '近1年',
+    label: I18n.liquidity.mainHeader.year,
     value: function() {
       const today = dateNow()
       const start = dayjs(today).subtract(1, 'year')
@@ -77,7 +78,7 @@ export const shortcuts = {
     }
   },
   'all': {
-    label: 'All',
+    label: I18n.liquidity.mainHeader.all,
     value: function() {
       const today = dateNow()
       return ['', today]

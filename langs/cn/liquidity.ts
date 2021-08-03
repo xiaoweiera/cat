@@ -60,6 +60,7 @@ export default {
         sixMonth:'近6月',
         year:'近1年',
         custom: '自定义',
+        all: 'All',
         usd: 'USD计价',
         coin:'币本位计价',
         bottom:'已到底部'

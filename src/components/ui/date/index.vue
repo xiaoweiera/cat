@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { setInject } from '~/utils/use/state'
+import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
+import { setInject } from '~/utils/use/state'
 // @ts-ignore
 import { shortcuts, disabledDate, formatResult } from '~/logic/ui/date'
 import safeGet from '@fengqiaogang/safe-get'
 import { defineProps, onMounted, ref, computed, defineEmit } from 'vue'
-import { map, forEach, isString, isNumber, isFunction, toArray } from '~/utils'
+import { map, forEach, isString, isNumber, isFunction, toArray, isObject, toBoolean } from '~/utils'
 
 const emitEvent = defineEmit(['change', 'update:value'])
 
@@ -96,7 +97,10 @@ const onChangeCustomTime = function(data: any, value: number[]) {
 const onChangeType = function(type: string){
   if (type && dateType.value !== type) {
     dateType.value = type
-    const autoValue = db.selectOne<any>({ key: type })
+    let autoValue = db.selectOne<any>({ key: type, auto: true })
+    if (!autoValue) {
+      autoValue = db.selectOne<any>({ key: type })
+    }
     if (autoValue) {
       onClickDate(autoValue)
     }
@@ -108,13 +112,18 @@ onMounted(function(){
   const types: string[] = []
   forEach(function(list: any[], key: string) {
     types.push(key)
-    forEach(function(value: any){
+    forEach(function(item: any){
+      const value = isObject(item) ? safeGet(item, 'value') : item
+      const auto = isObject(item) ? toBoolean(safeGet<boolean>(item, 'default')) : false
+      const label = isObject(item) ? safeGet(item, 'label') : ''
       if (value === 'custom') {
-        db.insert({ key, label: '自定义', custom: true })
+        db.insert({ key, label: I18n.liquidity.mainHeader.custom, custom: true })
+      } else if (label && isFunction(value)) {
+        db.insert({ key, label, auto, value, custom: false })
       } else if (isString(value) || isNumber(value)) {
         const data = safeGet(shortcuts, `${value}`)
         if (data) {
-          db.insert(Object.assign({}, data, { key, custom: false }))
+          db.insert(Object.assign({ label }, data, { key, auto, custom: false }))
         }
       }
     }, list)
@@ -134,7 +143,7 @@ onMounted(function(){
     <div class="date-select-box">
       <template v-for="item in dateList" :key="item.id">
         <template v-if="item.custom">
-          <el-date-picker class="ui-date-picker" :disabledDate="disabledDate" id="datePickerDom" v-model="customTime" @change="onChangeCustomTime(item, $event)" format="YYYY-MM-DD" size="mini" type="daterange" range-separator="–" start-placeholder="开始" end-placeholder="结束">
+          <el-date-picker class="ui-date-picker" :disabledDate="disabledDate" id="datePickerDom" v-model="customTime" @change="onChangeCustomTime(item, $event)" format="YYYY-MM-DD" size="mini" type="daterange" range-separator="–" :start-placeholder="I18n.apy.times.begin" :end-placeholder="I18n.apy.times.end">
           </el-date-picker>
         </template>
         <template v-else>

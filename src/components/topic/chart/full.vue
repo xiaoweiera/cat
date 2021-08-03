@@ -3,6 +3,7 @@ import { isNumber, sleep } from '~/utils'
 import { useWatch } from '~/utils/use/state'
 import { computed, defineProps, ref } from 'vue'
 import { getItemData, createItemChartResult } from '~/logic/topic/item'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   option: {
@@ -18,10 +19,10 @@ const shortcuts = computed(function() {
   const interval = props.option?.interval || 'd'
   const data: any = {}
   if (interval === 'd') {
-    data['day'] = ['7', '30', '90', '365', 'custom']
+    data['day'] = ['7', '30', { value: '90', default: true }, '365', 'custom']
   }
   if (interval === 'h') {
-    data['hour'] = ['7', '30']
+    data['hour'] = [{ value: '7', default: true }, '30']
   }
   return data
 })

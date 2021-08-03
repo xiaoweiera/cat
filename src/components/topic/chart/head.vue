@@ -4,6 +4,7 @@
  * @author svon.me@gmail.com
  */
 import { toBoolean } from '~/utils'
+import I18n from '~/utils/i18n/index'
 import { defineProps, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
@@ -109,6 +110,7 @@ const saveChart = function(e: Event) {
                     <TopicFollow :id="data.chartId" v-model:status="followed">
                       <span class="bg-global-primary follow-btn">
                         <IconFont type="icon-plus" class="text-white"></IconFont>
+<!--                        <span class="ml-1">{{ I18n.liquidity.mainHeader.follow }}</span>-->
                         <span class="ml-1">关注</span>
                       </span>
                     </TopicFollow>
@@ -156,6 +158,7 @@ const saveChart = function(e: Event) {
               <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
                 <span class="bg-global-primary follow-btn small">
                   <IconFont type="icon-plus" class="text-white"></IconFont>
+<!--                  <span class="ml-1">{{ I18n.liquidity.mainHeader.follow }}</span>-->
                   <span class="ml-1">关注</span>
                 </span>
               </TopicFollow>
