@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 import { getAddress } from './status'
 import { erc20ABI, PairABI, UniSwapV2Router02ABI } from './pair'
 import { EventType, PairInfo, SymbolInfoDetail } from '~/utils/ethereum/interface'
-import { compact, equalsIgnoreCase, numberDecimal } from '~/utils'
+import { compact, decimalFormat, equalsIgnoreCase, numberDecimal } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import { tryError, before, validate, required, ErrorDefault } from '~/utils/decorate'
 import { RecordAccounts } from '~/utils/ethereum/event'
@@ -60,15 +60,17 @@ export class Web3Util extends Wallet {
   async getPairInfo (address: string = this.pairAddress): Promise<PairInfo> {
     // 获取合约对象
     const contract = this.getContract(PairABI, address)
-    const [total, decimals, balance, symbol0, symbol1] = await Promise.all([
+    const [total, decimals, balance, symbols] = await Promise.all([
       this.getTotalValue(contract),
       this.getDecimalsValue(contract),
       this.getBalanceCount(contract),
-      this.getSymbol(0),
-      this.getSymbol(1)
+      Promise.all([
+        this.getSymbol(0),
+        this.getSymbol(1)
+      ])
     ])
     return {
-      total, decimals, balance, symbol0, symbol1,
+      total, decimals, balance, symbols,
     }
   }
 
@@ -97,9 +99,7 @@ export class Web3Util extends Wallet {
   protected async getSymbol(@required index: number | string): Promise<SymbolInfoDetail> {
     let token: string = ''
     let reserveCount: string = ''
-    let name: string = ''
-    let symbol: string = ''
-    let decimals: number = 0
+    let auth: boolean = false
     const contract = this.getContract(PairABI, this.pairAddress)
     const reserves = await this.getReservesValue()
     if (reserves) {
@@ -107,18 +107,22 @@ export class Web3Util extends Wallet {
       try {
         // @ts-ignore
         token = await contract.methods[`token${index}`]().call()
+        auth = await this.getAuthorizatioStatus(token) // 授权状态
       } catch (e) {
         console.log(e)
       }
       if (token) {
         // weth 地址
         const contract = await this.getContract(erc20ABI, token)
-        name = await this.getSymbolName(contract)
-        symbol = await this.getSymbolSymbol(contract)
-        decimals = await this.getDecimalsValue(contract)
+        let [name = '', symbol = '', decimals = 0] = await Promise.all([
+          this.getSymbolName(contract),
+          this.getSymbolSymbol(contract),
+          this.getDecimalsValue(contract)
+        ])
+        return { token, reserveCount, auth, name, symbol, decimals}
       }
     }
-    return { token, reserveCount, name, symbol, decimals}
+    return { token, reserveCount, auth, name: '', symbol:'', decimals: 0,}
   }
 
 // ------------------------------------
@@ -201,7 +205,7 @@ export class Web3Util extends Wallet {
       const value = numberDecimal(amount, decimals)
       // 计算滑点（求最小交易量）
       const amountMinValue = await this.getAmountValue(fromAddress, toAddress, inputAddress, SlipPoint(value, slipPointValue))
-      return [value, amountMinValue]
+      return [value, numberDecimal(amountMinValue, decimals)]
     } else {
       const contract = await this.getContract(erc20ABI, toAddress)
       const decimals = await this.getDecimalsValue(contract)
@@ -209,7 +213,7 @@ export class Web3Util extends Wallet {
       const value = numberDecimal(amount, decimals)
       // 计算滑点（求最小交易量）
       const amountMinValue = await this.getAmountValue(fromAddress, toAddress, inputAddress, SlipPoint(value, slipPointValue * -1))
-      return [value, amountMinValue]
+      return [value, numberDecimal(amountMinValue, decimals)]
     }
 
 
@@ -236,9 +240,9 @@ export class Web3Util extends Wallet {
 
     const path = [fromAddress, toAddress]
 
-    // console.log('amountIn = "%s"  amountMinValue = "%s" deadline = "%s"', amountValue, amountMinValue, deadline)
-    // console.log('form address = "%s"  to address = "%s"', path[0], path[1])
-    // console.log('metaMaskAccount = "%s"', metaMaskAccount)
+    console.log('amountIn = "%s"  amountMinValue = "%s" deadline = "%s"', amountValue, amountMinValue, deadline)
+    console.log('form address = "%s"  to address = "%s"', path[0], path[1])
+    console.log('metaMaskAccount = "%s"', metaMaskAccount)
 
     if (fromAddress === inputAddress) {
       // 输入换输出
@@ -276,9 +280,9 @@ export class Web3Util extends Wallet {
       }
     }
   }
+  // 计算兑换比例
   @validate
-  async getAmountValue (@required fromAddress: string, @required toAddress: string, @required inputAddress: string, @required amount: number | string) {
-    const input = new BigNumber(amount).toString(10)
+  async getAmountValue (@required fromAddress: string, @required toAddress: string, @required inputAddress: string, amount: number | string = 1) {
     // 获取合约对象
     const uniswapV2Router = await this.getContract(UniSwapV2Router02ABI, swapConfig.MdexRouterAddress)
     const [symbol0, symbol1] = await Promise.all([this.getSymbol(0), this.getSymbol(1)])
@@ -296,14 +300,18 @@ export class Web3Util extends Wallet {
 
     if (fromAddress === inputAddress) {
       // symbol0 换 symbol1
+      const input = numberDecimal(amount, info0.decimals)
       // 输入计算输出
       // @ts-ignore
-      return uniswapV2Router.methods.getAmountOut(input, info0.reserveCount, info1.reserveCount).call()
+      const number = await uniswapV2Router.methods.getAmountOut(input, info0.reserveCount, info1.reserveCount).call()
+      return decimalFormat(number, info0.decimals)
     } else {
       // symbol1 换 symbol0
+      const input = numberDecimal(amount, info1.decimals)
       // 输出计算输入
       // @ts-ignore
-      return uniswapV2Router.methods.getAmountIn(input, info0.reserveCount, info1.reserveCount).call()
+      const number = await uniswapV2Router.methods.getAmountIn(input, info0.reserveCount, info1.reserveCount).call()
+      return decimalFormat(number, info1.decimals)
     }
   }
 }

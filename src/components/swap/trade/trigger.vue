@@ -18,7 +18,7 @@ const props = defineProps( {
 
 let wallet:Wallet
 
-const showStatus = ref<boolean>(false)
+const showStatus = ref<boolean>(true)
 const swapDisabled = ref<boolean>(false)
 
 // @ts-ignore

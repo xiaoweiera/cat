@@ -2,19 +2,15 @@
 import { defineProps, onMounted, ref, watch } from 'vue'
 // @ts-ignore
 import { toUpper } from 'ramda'
-import { getInject, margetState } from '~/utils/use/state'
-import { toNumber } from '~/utils'
-import { getPairSymbolData, Web3Util } from '~/utils/ethereum/util'
+import { getInject } from '~/utils/use/state'
+import { decimalFormat, toNumber } from '~/utils'
+import { Web3Util } from '~/utils/ethereum/util'
 import { stateName } from '~/utils/ethereum/interface'
+import safeGet from '@fengqiaogang/safe-get'
 
 const props = defineProps({
   // symbol 地址
-  symbol: {
-    type: String,
-    required: true
-  },
-  // 钱包地址
-  web3: {
+  info: {
     type: Object,
     required: true
   },
@@ -23,51 +19,66 @@ const props = defineProps({
     required: true
   },
 })
-
+//
 const active = ref<number>(1)
 const balance = ref<number>(0)
-const decimals = ref<number>(0)
+
+const tmpWeb3 = getInject(stateName.swap)
+const symbolInput = getInject(stateName.stateInput)
+const watchSymbolInput = getInject(stateName.watchInput)
+
+const getWeb3Util = function<T>(): T | undefined {
+  const [ web3 ] = tmpWeb3.value
+  if (web3) {
+    try {
+      return web3() as any
+    }
+    catch (e) {
+      // todo
+    }
+  }
+}
 
 let input = ref<string | number>('')
-const updateInput = margetState(stateName.stateInput)
-const state = getInject(stateName.stateInput)
+
 
 // 监听 state input 数据
-watch(state, function([data]: [any]) {
-  if (data) {
-    // 获取当前 symbol 对应的数据，并设置
-    input.value = data[props.symbol]
+watch(symbolInput, function([data]: [any]) {
+  const key = props.info?.token
+  if (data && key) {
+    // // 获取当前 symbol 对应的数据，并设置
+    const value = safeGet<number>(data, key) || 0
+    if (toNumber(input.value) !== toNumber(value)) {
+      input.value = value
+    }
   }
 })
 
 // 数量发生变化
 const onChangeInput = function() {
-  const value = input.value
-  const data = {
-    [props.symbol]: value, // 修改的值
-    trigger: props.symbol, // 触发的 symbol 名称
+  if (watchSymbolInput) {
+    const [change] = watchSymbolInput.value
+    if (change) {
+      const value = input.value
+      change(props.index, value)
+    }
   }
-  updateInput(data)
 }
 
-
 const ready = async function() {
-  const state = getInject(stateName.statePair)
-  const [detail] = state.value
-  const symbol = getPairSymbolData(detail, props.symbol)
-  if (symbol) {
-    if (symbol.token) {
-      const web3: Web3Util = props.web3 as any
-      const count = await web3.getSymbolBalance(symbol.token)
-      console.log(count)
-      balance.value = count || 0
+  const info = props.info
+  const web3 = getWeb3Util<Web3Util>()
+  if (info && web3) {
+    const count = await web3.getSymbolBalance(info.token)
+    if (count) {
+      const number = decimalFormat(count, info.decimals)
+      balance.value = toNumber(number, 4)
     } else {
       balance.value = 0
     }
-    decimals.value = toNumber(symbol.decimals)
   }
 }
-
+//
 // @ts-ignore
 const onChangeBalance = function(index: number) {
   active.value = index
@@ -81,8 +92,8 @@ const onChangeBalance = function(index: number) {
   }
   onChangeInput()
 }
-
-onMounted(ready)
+//
+onMounted(() => setTimeout(ready))
 
 </script>
 
@@ -93,12 +104,12 @@ onMounted(ready)
       <span v-show="index === 0">
         <span>钱包余额:</span>
         <span class="ml-1">{{ balance }}</span>
-        <span class="ml-1">{{ toUpper(symbol) }}</span>
+        <span class="ml-1">{{ toUpper(info.symbol) }}</span>
       </span>
     </div>
     <div class="pt-3.5 flex items-center justify-between">
       <div class="text-lg select-none">
-        <span>{{ toUpper(symbol) }}</span>
+        <span>{{ toUpper(info.symbol) }}</span>
       </div>
       <div class="flex-1 ml-5">
         <input class="w-full text-right text-global-highTitle" placeholder="0" v-model="input" @input="onChangeInput"/>

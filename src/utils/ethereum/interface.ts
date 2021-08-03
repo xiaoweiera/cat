@@ -10,8 +10,10 @@ interface Any {
 }
 
 export enum stateName {
+  swap = 'swapUtil',
   statePair = 'symbolDetail',
-  stateInput = 'symbolForm',
+  watchInput = 'watchSymbol',
+  stateInput = 'symbolInput',
 }
 
 export interface SymbolForm {
@@ -47,14 +49,14 @@ export interface SymbolInfoDetail extends SymbolInfo{
   symbol: string   // 代号（币名称）
   decimals: number // 小数
   balance?: number
+  auth?: boolean // 授权
 }
 
 export interface PairInfo extends Any {
   total: string | number // 总数
   decimals: string | number // 小数
   balance: string | number // 余额
-  symbol0: SymbolInfo
-  symbol1: SymbolInfo
+  symbols: SymbolInfo[]
 }
 
 export interface ChainItem {
