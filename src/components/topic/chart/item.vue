@@ -26,6 +26,12 @@ const result = createItemChartResult()
 const echartDetail = computed(function() {
   return result.detail ? result.detail : props.option
 })
+// 大屏数据
+// @ts-ignore
+const fullEchartDetail = computed(function() {
+  const interval = result?.detail?.interval || '1d'
+  return Object.assign({}, props.option, { interval })
+})
 
 //@ts-ignore
 const echartHeight = computed(function() {
@@ -48,6 +54,7 @@ const onLoad = async function() {
   result.uuid = data.uuid
 }
 
+
 </script>
 
 <template>
@@ -55,7 +62,7 @@ const onLoad = async function() {
     <template #default="scope">
       <!-- 全屏 -->
       <div v-if="scope.status" class="h-full" :class="`j-big-${echartDetail.chartId}`">
-        <TopicChartFull :option="echartDetail"/>
+        <TopicChartFull :option="fullEchartDetail"/>
       </div>
       <template v-else>
         <TopicChartHead :data="echartDetail" :full="scope.status">

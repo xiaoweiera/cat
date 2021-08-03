@@ -89,7 +89,9 @@ const getDetail = async function(data: ItemData, query?: any) {
   const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds, query)
   const kline_chart = safeGet<number>(result, 'kline_chart')
   const charts = getCharts(result)
-  // const type = safeGet<seriesType>(result, 'default_chart')
+
+  let isklineStatus = false
+
   // @ts-ignore
   const legends: Legends[] = map(function(item: LegendItem) {
     const temp = { ...item }
@@ -98,44 +100,50 @@ const getDetail = async function(data: ItemData, query?: any) {
       // temp.type = type || seriesType.line
       temp.type = seriesType.line
     }
+    if (item.kline) {
+      isklineStatus = true
+    }
     return temp
   }, toArray(toRaw(data.legends)))
 
-  // 如果是单线图
-  if (data.multiple) {
-    if(kline_chart && charts && charts.length > 0) {
-      const db = new DBList(charts, 'id')
-      const item = db.selectOne<any>({ id: kline_chart })
-      if (item) {
-        const name = safeGet<string>(item, 'chart.relation_title')
-        if (name) {
-          //@ts-ignore
-          legends.push({
-            kline: true, // 价格线
-            name,
-            id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
-            unit: safeGet<string>(item, 'chart.relation_unit'),
-            type: seriesType.line,
-            position: Position.right
-          })
+  if (!isklineStatus) {
+    // 如果是单线图
+    if (data.multiple) {
+      if(kline_chart && charts && charts.length > 0) {
+        const db = new DBList(charts, 'id')
+        const item = db.selectOne<any>({ id: kline_chart })
+        if (item) {
+          const name = safeGet<string>(item, 'chart.relation_title')
+          if (name) {
+            //@ts-ignore
+            legends.push({
+              kline: true, // 价格线
+              name,
+              id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
+              unit: safeGet<string>(item, 'chart.relation_unit'),
+              type: seriesType.line,
+              position: Position.right
+            })
+          }
         }
       }
-    }
-  } else {
-    const name = safeGet<string>(result, 'relation_title') // 默认取第一条数据
-    if (name) {
-      const temp = {
-        kline: true, // 价格线
-        name,
-        id: safeGet<number>(result, 'id'), // 默认取第一条数据
-        unit: safeGet<string>(result, 'relation_unit'),
-        type: seriesType.line,
-        position: Position.right
+    } else {
+      const name = safeGet<string>(result, 'relation_title') // 默认取第一条数据
+      if (name) {
+        const temp = {
+          kline: true, // 价格线
+          name,
+          id: safeGet<number>(result, 'id'), // 默认取第一条数据
+          unit: safeGet<string>(result, 'relation_unit'),
+          type: seriesType.line,
+          position: Position.right
+        }
+        //@ts-ignore
+        legends.push(temp)
       }
-      //@ts-ignore
-      legends.push(temp)
     }
   }
+
   data.legends = map(function(item: any) {
     item.kline = toBoolean(item.kline)
     return item
