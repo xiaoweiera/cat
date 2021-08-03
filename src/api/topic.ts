@@ -137,8 +137,8 @@ export const getChartList = async function(topId: string | number, query: { [key
 }
 
 // 获取单图详情
-export const getChartDetail = async function(id: string | number) {
-  const params = { id }
+export const getChartDetail = async function(id: string | number, query?: any) {
+  const params = Object.assign({}, query || {}, { id })
   try {
     const result = await request.get(topic.detail, { params })
     return response.check<any>(result)
@@ -148,8 +148,8 @@ export const getChartDetail = async function(id: string | number) {
 }
 
 // 获取多图详情
-export const getChartMultipleDetail = async function(id: string | number) {
-  const params = { id }
+export const getChartMultipleDetail = async function(id: string | number, query?: any) {
+  const params = Object.assign({}, query || {}, { id })
   try {
     const result = await request.get(topic.multipleDetail, { params })
     return response.check<any>(result)
@@ -159,8 +159,8 @@ export const getChartMultipleDetail = async function(id: string | number) {
 }
 
 // 获取单图数据
-export const getChartTrends = async function (id: string | number) {
-  const params = { id }
+export const getChartTrends = async function (id: string | number, query?: any) {
+  const params = Object.assign({}, query || {}, { id })
   try {
     const result = await request.get(topic.trend, { params })
     return response.check<any>(result)
@@ -169,13 +169,13 @@ export const getChartTrends = async function (id: string | number) {
   }
 }
 // 获取多图数据
-export const getChartMultipleTrends = async function(ids: string[] | number[]) {
+export const getChartMultipleTrends = async function(ids: string[] | number[], query?: any) {
   // 去重，去空
   const list = uniq(compact<string | number>(ids))
-  const params = {
+  const params = Object.assign({}, query || {}, {
     chart_ids: list.join(','),
     cache: true
-  }
+  })
   try {
     const result = await request.get(topic.multipleTrends, { params })
     return response.check<any>(result)

@@ -92,14 +92,14 @@ export const getChartList = async function(topId: string | number, page: number 
 }
 
 // 获取图表详情
-export const getChartDetail = function(multiple: boolean, chartId: string | number, ids: string[] | number[]) {
+export const getChartDetail = function(multiple: boolean, chartId: string | number, ids: string[] | number[], query?: any) {
   if (multiple) {
     // 多图详情
-    return api.getChartMultipleDetail(chartId)
+    return api.getChartMultipleDetail(chartId, query)
   }
   // 单图详情
   const [ value ] = ids
-  return api.getChartDetail(value)
+  return api.getChartDetail(value, query)
 }
 
 
@@ -118,9 +118,9 @@ const getDetail = function(result: any) {
   }, pick(keys, ext || {}))
 }
 
-export const getChartTrends = async function(multiple: boolean, value: string[] | number[]) {
+export const getChartTrends = async function(multiple: boolean, value: string[] | number[], query?: any) {
   if (multiple) {
-    const result = await api.getChartMultipleTrends(value)
+    const result = await api.getChartMultipleTrends(value, query)
     const db = new DBList(result, 'id')
     const data: any = {}
     const detail: any = {}
@@ -136,7 +136,7 @@ export const getChartTrends = async function(multiple: boolean, value: string[] 
   } else {
     const id = value[0]
     // 单图数据
-    const result = await api.getChartTrends(id)
+    const result = await api.getChartTrends(id, query)
     const detail = getDetail(result)
     return {
       detail: {

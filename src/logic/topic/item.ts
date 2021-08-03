@@ -8,8 +8,8 @@ import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 //@ts-ignore
-import { map, toArray, toBoolean } from '~/utils'
-import { toRaw } from 'vue'
+import { convertInterval, map, toArray, toBoolean } from '~/utils'
+import { reactive, toRaw } from 'vue'
 import {
   getInterval,
   calcLegends,
@@ -44,6 +44,31 @@ interface ItemData {
   [key: string]: any
 }
 
+interface ChartDetail {
+  default_chart?: string // 图形类型
+  interval?: number // 更新时间频率
+  relation_unit?: string // 价格单位
+  value?: number // 涨浮数(不需要计算百分比)
+  change?: number // 涨浮（需要计算百分比）
+  width?: number
+  height?: number
+}
+interface Result {
+  detail?: ChartDetail
+  legends: Array<any>
+  xAxis: Array<any>
+}
+
+export const createItemChartResult = function() {
+  return reactive<Result>({
+    detail: void 0,
+    legends: [],
+    xAxis: [],
+  })
+}
+
+
+
 const getCharts = function(result: any): any[] {
   const chart = safeGet<any[]>(result, 'chart')
   if (chart && chart.length > 0) {
@@ -57,8 +82,9 @@ const getCharts = function(result: any): any[] {
   return []
 }
 
-const getDetail = async function(data: ItemData) {
-  const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds)
+// 获取图表详情
+const getDetail = async function(data: ItemData, query?: any) {
+  const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds, query)
   const kline_chart = safeGet<number>(result, 'kline_chart')
   const charts = getCharts(result)
   // const type = safeGet<seriesType>(result, 'default_chart')
@@ -132,13 +158,19 @@ const getDetail = async function(data: ItemData) {
   // 涨浮（需要计算百分比）
   data.rateChange = safeGet<number>(result, 'change')
 
+  try {
+    const { type } = convertInterval(safeGet<string>(result, 'interval'))
+    data.interval = type
+  } catch (e) {
+    console.log(e)
+  }
   return data
 }
 
-export const getItemData = async function(data: ItemData) {
+export const getItemData = async function(data: ItemData, query?: any): Promise<Result> {
   const [ detail, trends ] = await Promise.all([
-    getDetail(data),
-    getChartTrends(data.multiple, data.seriesIds)
+    getDetail(data, query),
+    getChartTrends(data.multiple, data.seriesIds, query)
   ])
 
   // 计算图例

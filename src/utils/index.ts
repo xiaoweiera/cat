@@ -361,7 +361,6 @@ export enum DateType {
   millisecond = 'millisecond',// 毫秒
 }
 
-
 export const toDate = function(time?: any) {
   if (time && isNumber(time)) {
     const str = `${time}`
@@ -371,7 +370,7 @@ export const toDate = function(time?: any) {
     return dayjs(time)
   }
   if (time) {
-    return dayjs(time, timeFormat)
+    return dayjs(time)
   }
   return dayjs()
 }
