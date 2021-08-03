@@ -80,13 +80,13 @@ const scrollFun=()=>{
           <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</div>
           <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
           <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
-           <LiquidityFullChartTableItem  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
+           <LiquidityFullChartTableItem :tip="true"  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
           </div>
           <div :style="{width:flowHeader[3].width}" class="flex-1 text-global-highTitle">
-            <LiquidityFullChartTableItem  :token0="item.token0_symbol" :token1="item.token1_symbol"   :token0Money="item.mints_amounts0" :token1Money="item.mints_amounts1" :usdMoney="item.mints_amountusd" />
+            <LiquidityFullChartTableItem :tip="false"  :token0="item.token0_symbol" :token1="item.token1_symbol"   :token0Money="item.mints_amounts0" :token1Money="item.mints_amounts1" :usdMoney="item.mints_amountusd" />
           </div>
           <div :style="{width:flowHeader[4].width}" class="flex-1 text-global-highTitle">
-            <LiquidityFullChartTableItem  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.burns_amounts0" :token1Money="item.burns_amounts1" :usdMoney="item.burns_amountusd" />
+            <LiquidityFullChartTableItem :tip="false"  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.burns_amounts0" :token1Money="item.burns_amounts1" :usdMoney="item.burns_amountusd" />
           </div>
           <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.total_join_num?item.total_join_num:0 }}</div>
           <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.mints_join_num?item.mints_join_num:0 }}</div>
