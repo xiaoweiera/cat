@@ -3,6 +3,7 @@ import { defineProps,onMounted,ref } from 'vue'
 import {pairStore, symbolStore} from '~/store/liquidity/state'
 import { useProvide } from '~/utils/use/state'
 const props=defineProps({
+  FullType:String,
   desc:String,
   config:Object,
   chartType:String,
@@ -18,6 +19,7 @@ const [,]=useProvide('title','')
 const [,setTimeParam ] = useProvide('timeParam', null)
 const [,setCoinType ] = useProvide('coinType', null)
 const [,setInterval]=useProvide('interval',null)
+const [,setTs]=useProvide('ts',null)
 const [,setPairData]=useProvide('pairData',null)
 const [,setTokenData]=useProvide('tokenData',null)
 const [isFull, ] = useProvide('isFull', false)
@@ -60,7 +62,7 @@ const statusChange=(status:boolean)=>{
           </div>
         </el-main>
         <el-footer height="initial" :class="isFull[0]?'overflow-hidden flex-1':'overflow-hidden'" class="flex flex-col ">
-          <LiquidityFullChartFlowDown/>
+          <LiquidityFullChartFlowDown :chartType="props.chartType"/>
         </el-footer>
       </el-container>
       <div v-else  class="flex absolute right-2 xshidden  ">
