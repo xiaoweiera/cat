@@ -9,6 +9,8 @@ const ts=getInject('ts')
 const interval=getInject('interval')
 
 const props=defineProps({
+  token0:String,
+  token1:String,
   address:String,
   pair_id:String,
   pairName:String
@@ -34,7 +36,6 @@ const getData=async ()=>{
 }
 const scrollFun=()=>{
   const listDom = document.querySelector('.second')
-
   if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight && hasData)) {
     param.page++
     getData()
@@ -58,8 +59,11 @@ onMounted(()=>{
           <div class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
           <div class="openHeader">{{ props.pairName }}</div>
           <div class="openHeader">{{ typeName[item.type] }}</div>
-          <div class="openHeader">{{ formatRulesPrice(item.amount0) }}</div>
-          <div class="openHeader">{{ formatRulesPrice(item.amount1) }}</div>
+          <div class="openHeader">
+            <span>{{ formatRulesPrice(item.amount0) }}{{props.token0}}</span>+
+            <span>{{ formatRulesPrice(item.amount1) }}{{props.token1}}</span>
+          </div>
+          <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
           <div class="openHeaderId">{{ smallToken(item.base_id) }}</div>
         </div>
       </template>

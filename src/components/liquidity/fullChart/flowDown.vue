@@ -20,7 +20,7 @@ const row = ref(-1)
 const selectRow = (index: number) => row.value = index===row.value?-1:index
 const full=()=>setIsFull(!isFull.value[0])
 const change = (name: string) => tableData.value = xiazuan[name]
-const pairName= computed<string>((): string => getPairName(symbolStore.name,tableData.value[0]?.token0_symbol,tableData.value[0]?.token1_symbol))
+const pairName=(tokenName0:string,tokenName1:string)=> getPairName(symbolStore.name,tokenName0,tokenName1)
 const param={
   platId:'1',
   page:1,
@@ -40,10 +40,10 @@ watch(()=>ts.value[0],async (n)=>{
   tableData.value=[]
   await getData()
 })
-const getData=async ()=>{
-  const data=await getDownFirstData(param,props.chartType,pairStore.id)
-  if(data?.code===0) {
-    hasData=data?.data?.next?true:false
+const getData=async ()=> {
+  const data = await getDownFirstData(param, props.chartType, pairStore.id)
+  if (data?.code === 0) {
+    hasData = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
 }
@@ -78,15 +78,15 @@ const scrollFun=()=>{
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</div>
-          <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName}}</div>
+          <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
           <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
-           <LiquidityFullChartTableItem  :token0="pairName.split('/')[0]" :token1="pairName.split('/')[1]"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
+           <LiquidityFullChartTableItem  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
           </div>
           <div :style="{width:flowHeader[3].width}" class="flex-1 text-global-highTitle">
-            <LiquidityFullChartTableItem  :token0="pairName.split('/')[0]" :token1="pairName.split('/')[1]"  :token0Money="item.mints_amounts0" :token1Money="item.mints_amounts1" :usdMoney="item.mints_amountusd" />
+            <LiquidityFullChartTableItem  :token0="item.token0_symbol" :token1="item.token1_symbol"   :token0Money="item.mints_amounts0" :token1Money="item.mints_amounts1" :usdMoney="item.mints_amountusd" />
           </div>
           <div :style="{width:flowHeader[4].width}" class="flex-1 text-global-highTitle">
-            <LiquidityFullChartTableItem  :token0="pairName.split('/')[0]" :token1="pairName.split('/')[1]"  :token0Money="item.burns_amounts0" :token1Money="item.burns_amounts1" :usdMoney="item.burns_amountusd" />
+            <LiquidityFullChartTableItem  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.burns_amounts0" :token1Money="item.burns_amounts1" :usdMoney="item.burns_amountusd" />
           </div>
           <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.total_join_num?item.total_join_num:0 }}</div>
           <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.mints_join_num?item.mints_join_num:0 }}</div>
@@ -94,7 +94,7 @@ const scrollFun=()=>{
         </div>
           <!--        二次下钻-->
           <div v-if="row===i" class="px-2.5 openContainer">
-            <LiquidityFullChartOpenDown  :address="item.address" :pair_id="item.pair_id" :pairName="pairName"/>
+            <LiquidityFullChartOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address" :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
           </div>
       </template>
 
