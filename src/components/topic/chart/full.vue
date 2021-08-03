@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { isNumber } from '~/utils'
+import { isNumber, sleep } from '~/utils'
 import { useWatch } from '~/utils/use/state'
-import { computed, defineProps } from 'vue'
+import { computed, defineProps, ref } from 'vue'
 import { getItemData, createItemChartResult } from '~/logic/topic/item'
 
 const props = defineProps({
@@ -10,6 +10,8 @@ const props = defineProps({
     required: true,
   }
 })
+
+const loading = ref<boolean>(false)
 
 // @ts-ignore
 const shortcuts = computed(function() {
@@ -34,6 +36,7 @@ const echartDetail = computed(function() {
 })
 
 const onGetData = async function(timeData: number[]) {
+  loading.value = true
   const [from_ts, to_ts] = timeData
   const option = props.option
   const query: any = {}
@@ -51,6 +54,9 @@ const onGetData = async function(timeData: number[]) {
   result.legends = data.legends
   result.xAxis = data.xAxis
   result.uuid = data.uuid
+  return sleep(function() {
+    loading.value = false
+  }, 300)
 }
 
 // 监听日期组件
@@ -72,9 +78,11 @@ useWatch('uiDate', function(data: number[][]) {
     </el-header>
     <el-main class="p-0">
       <div class="pt-3 h-full">
-        <template v-if="result.xAxis.length > 0">
-          <TopicChartView :key="result.uuid" :data="result"/>
-        </template>
+        <Spin :loading="loading">
+          <template v-if="result.xAxis.length > 0">
+            <TopicChartView :key="result.uuid" :data="result"/>
+          </template>
+        </Spin>
       </div>
     </el-main>
     <el-footer height="initial" class="p-0">
