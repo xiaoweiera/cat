@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import { dateFormat } from '~/utils'
 import I18n from '~/utils/i18n/index'
 import { dateNow, dateTime } from '~/utils/time'
+import safeGet from '@fengqiaogang/safe-get'
 
 // 去掉小时以后的时间，只保留到天
 export const formatResult = function(times: any[]): Array<number | string> {
@@ -79,9 +80,9 @@ export const shortcuts = {
   },
   'all': {
     label: I18n.liquidity.mainHeader.all,
-    value: function() {
-      const today = dateNow()
-      return ['', today]
+    value: function(option?: any) {
+      const timeEnd = safeGet<any>(option, 'timeEnd') || dateNow()
+      return ['', timeEnd]
     }
   }
 }

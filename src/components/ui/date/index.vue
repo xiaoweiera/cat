@@ -64,7 +64,7 @@ const dateTypeList = computed(function() {
 const syncData = function(data: any) {
   let list: string[] = []
   if (data && isFunction(data.value)) {
-    list = data.value()
+    list = data.value({ timeEnd: props.timeEnd })
   } else {
     list = toArray(data.value)
   }
