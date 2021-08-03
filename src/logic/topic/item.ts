@@ -8,7 +8,7 @@ import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 //@ts-ignore
-import { uuid, convertInterval, map, toArray, toBoolean } from '~/utils'
+import { uuid, convertInterval, map, toArray, toBoolean, toDate, dateTime } from '~/utils'
 import { reactive, toRaw } from 'vue'
 import {
   getInterval,
@@ -179,6 +179,17 @@ const getDetail = async function(data: ItemData, query?: any) {
     }
   } catch (e) {
     console.log(e)
+  }
+
+
+  try {
+    let end_ts = safeGet<string>(result, 'chart[0].chart.end_ts')
+    if (!end_ts) {
+      end_ts = safeGet<string>(result, 'end_ts')
+    }
+    data.dateTimeEnd = dateTime(end_ts)
+  } catch (e) {
+    data.dateTimeEnd = dateTime()
   }
   return data
 }

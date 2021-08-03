@@ -27,14 +27,14 @@ export const formatResult = function(times: any[]): Array<number | string> {
   return array
 }
 
-export const disabledDate = (function(){
-  const today = dateNow()
+export const disabledDate = function(timeEnd?: any){
+  const today = dateTime(timeEnd)
   // 判断日期是否是当前时间之后
   return function(date: any) {
     // @ts-ignore
     return dayjs(date).isAfter(today, 'day')
   }
-})()
+}
 
 export const shortcuts = {
   '7': {

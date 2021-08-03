@@ -3,7 +3,6 @@ import { isNumber, sleep } from '~/utils'
 import { useWatch } from '~/utils/use/state'
 import { computed, defineProps, ref } from 'vue'
 import { getItemData, createItemChartResult } from '~/logic/topic/item'
-import dayjs from 'dayjs'
 
 const props = defineProps({
   option: {
@@ -73,7 +72,7 @@ useWatch('uiDate', function(data: number[][]) {
     <el-header height="initial" class="p-0" >
       <TopicChartHead :data="echartDetail" :full="true">
         <template #time>
-          <UiDate :shortcuts="shortcuts"/>
+          <UiDate :shortcuts="shortcuts" :time-end="option.dateTimeEnd"/>
         </template>
       </TopicChartHead>
     </el-header>

@@ -20,6 +20,9 @@ const props = defineProps({
       }
     }
   },
+  timeEnd: {
+    type: [String, Number]
+  }
 })
 
 const db = new DBList()
@@ -152,7 +155,7 @@ onMounted(function(){
           <div class="custom-date-picker" :class="{'active': item.id === timeIndex}" @click="onClickDate(item)">
             <span class="custom-label">{{ item.label }}</span>
             <div class="custom-date-box">
-              <el-date-picker class="ui-date-picker cursor-pointer" :disabledDate="disabledDate" :unlink-panels="true" v-model="customTime" @change="onChangeCustomTime(item, $event)" format="YYYY-MM-DD" size="mini" type="daterange" range-separator="–" :start-placeholder="I18n.apy.times.begin" :end-placeholder="I18n.apy.times.end">
+              <el-date-picker class="ui-date-picker cursor-pointer" :disabledDate="disabledDate(timeEnd)" :unlink-panels="true" v-model="customTime" @change="onChangeCustomTime(item, $event)" format="YYYY-MM-DD" size="mini" type="daterange" range-separator="–" :start-placeholder="I18n.apy.times.begin" :end-placeholder="I18n.apy.times.end">
               </el-date-picker>
             </div>
           </div>
