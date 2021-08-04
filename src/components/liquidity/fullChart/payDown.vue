@@ -26,7 +26,9 @@ const param={
   pair_id:pairStore.id,
   symbol_id:symbolStore.id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
-  interval:interval.value[0]
+  interval:interval.value[0],
+  ordering:'swap_count',
+  sort:'desc'
 }
 const loading=ref(true)
 let hasData=ref(true)
@@ -91,17 +93,34 @@ const scrollFun=()=>{
             <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
             <div :style="{width:payHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
             <div :style="{width:payHeader[2].width}" class="flex-1 text-global-highTitle">
-<!--              <LiquidityFullChartPayTableItem :symbolItem="{}" />-->
-             {{item.symbol0_flow_in_coin_number}}
-              {{symbol0_flow_in_fund}}
+              <LiquidityFullChartPayTableItem
+                  :symbol0="item.token0_symbol"
+                  :symbol1="item.token1_symbol"
+                  :symbol0Number="item.symbol0_flow_in_coin_number"
+                  :symbol0Fund="item.symbol0_flow_in_fund"
+                  :symbol1Number="item.symbol1_flow_in_coin_number"
+                  :symbol1Fund="item.symbol1_flow_in_fund"
+              />
             </div>
             <div :style="{width:payHeader[3].width}" class="flex-1 text-global-highTitle">
-              {{item.symbol0_buy_coin_number}}
-              {{symbol0_buy_fund}}
+              <LiquidityFullChartPayTableItem
+                  :symbol0="item.token0_symbol"
+                  :symbol1="item.token1_symbol"
+                  :symbol0Number="item.symbol0_buy_coin_number"
+                  :symbol0Fund="item.symbol0_buy_fund"
+                  :symbol1Number="item.symbol1_buy_coin_number"
+                  :symbol1Fund="item.symbol1_buy_fund"
+              />
             </div>
             <div :style="{width:payHeader[4].width}" class="flex-1 text-global-highTitle">
-              {{item.symbol0_sell_coin_number}}
-              {{symbol0_sell_fund}}
+              <LiquidityFullChartPayTableItem
+                  :symbol0="item.token0_symbol"
+                  :symbol1="item.token1_symbol"
+                  :symbol0Number="item.symbol0_sell_coin_number"
+                  :symbol0Fund="item.symbol0_sell_fund"
+                  :symbol1Number="item.symbol1_sell_coin_number"
+                  :symbol1Fund="item.symbol1_sell_fund"
+              />
             </div>
             <div :style="{width:payHeader[5].width}" class="text-center">{{ item.swap_count?item.total_join_num:0 }}</div>
             <div :style="{width:payHeader[6].width}" class="text-center">{{ item.buy_count?item.mints_join_num:0 }}</div>

@@ -1,31 +1,40 @@
 <script setup lang="ts">
 import { defineProps,computed } from 'vue'
 import {formatRulesPrice} from '~/lib/tool'
-
+import {tokenIsPlace,getAddressHref} from '~/logic/liquidity/dataTool'
+import {symbolStore} from '~/store/liquidity/state'
 const props=defineProps({
   tip:Boolean,
-  token0:String,
-  token1:String,
-  token0Money:Number,
-  token1Money:Number,
-  usdMoney:Number
+  symbol0:String,
+  symbol1:String,
+  symbol0Number:Number,
+  symbol0Fund:Number,
+  symbol1Number:Number,
+  symbol1Fund:Number,
 })
 const getNumber=(v:number)=>{
   if(v==='-') return props.tip?'+0':'0'
   return props.tip? (v>=0?'+'+v:v):v
 }
+const isChangePlace=computed(()=> tokenIsPlace(symbolStore.name,props.symbol0,props.symbol1))
+const number=computed(()=>isChangePlace.value?props.symbol1Number:props.symbol0Number)
+const fund=computed(()=>isChangePlace?props.symbol1Fund:props.symbol0Fund)
+const tokenName=computed(()=>isChangePlace?props.symbol1:props.symbol0)
 const isNull=computed(()=>{
-  if(!props.token0Money && !props.token1Money && !props.usdMoney){
+  if(!number.value && fund.value && tokenName.value){
     return false
   }
   return true
 })
 </script>
 <template>
-  <div v-if="isNull" class="flex items-center flex-wrap">
-    <div class="mr-0.5 whitespace-nowrap flex items-center"><span class="text-global-highTitle text-kd15px18px ">{{formatRulesPrice(props.token0Money)}}</span><span class="text-global-default text-opacity-65 text-kd12px18px ml-0.5">({{token0}})</span></div>/
-    <div class="ml-0.5 whitespace-nowrap flex items-center"><span class="text-global-highTitle text-kd15px18px whitespace-nowrap">{{getNumber(formatRulesPrice(token1Money))}}</span><span class="text-global-default text-opacity-65 text-kd12px18px ml-0.5">({{token1}})</span></div>
-    <div class="text-global-highTitle whitespace-nowrap  text-kd12px16px font-kdFang">≈${{getNumber(formatRulesPrice(usdMoney))}}</div>
+  <div v-if="isNull" class="flex  items-center flex-wrap">
+    <span class="text-global-default text-opacity-65">≈</span>
+    <div v-if="!isChangePlace" class="flex items-center ml-1.2">
+      <span class="font-medium text-kd14px18px  ">{{number}}/{{props.symbol1Number}}</span>
+      <span class="font-normal text-global-kd12px16px text-global-default text-opacity-65 ml-0.5">{{fund}}</span>
+      <span class="font-normal text-global-kd12px16px text-global-default text-opacity-65 ml-0.5">{{tokenName}}</span>
+    </div>
   </div>
   <div v-else>
     --
