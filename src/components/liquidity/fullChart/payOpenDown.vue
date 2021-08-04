@@ -29,7 +29,6 @@ const hasData=ref(true)
 const tableData=ref([])
 const loadingOpen=ref(false)
 const getData=async ()=>{
-  console.log('aaa')
   loadingOpen.value=true
   const res=await translate_second_level(param)
   if(res.data.code===0) {
