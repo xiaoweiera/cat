@@ -4,12 +4,17 @@ import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 import I18n from '~/utils/i18n/index'
+import { useProvide } from '~/utils/use/state'
+import FullEventName from '~/components/full/eventname'
+
 const props = defineProps({
   config: Object,
   tokenParam: Object,
   pairParam: Object,
   chartId: Number
 })
+// 定义一个状态，用于控制 fullScreen 打开全屏或者取消全屏
+useProvide(FullEventName.triggerFullEvent, false)
 const coinType = reactive({value: 'usd'})
 const tokenTypeList = ref([])
 const tokenType = ref('symbol0')  //pair 选项如： pair| symbol0| symbol1

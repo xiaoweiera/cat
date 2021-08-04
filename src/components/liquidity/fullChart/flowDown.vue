@@ -112,11 +112,11 @@ const scrollFun=()=>{
             <LiquidityFullChartOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
           </div>
       </template>
-<!--      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">-->
-<!--        <div v-if="hasData && loading">加载中...</div>-->
-<!--        <div v-if="hasData && !loading">上拉加载更多</div>-->
-<!--        <div v-if="!hasData">没有更多了</div>-->
-<!--      </div>-->
+      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
+        <div v-if="hasData && loading">加载中...</div>
+        <div v-else-if="hasData && !loading">上拉加载更多</div>
+        <div v-else-if="!hasData">没有更多了</div>
+      </div>
     </div>
   </div>
   </Spin>

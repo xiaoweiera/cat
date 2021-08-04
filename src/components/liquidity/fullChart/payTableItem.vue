@@ -31,8 +31,8 @@ const isNull=computed(()=>{
   <div v-if="isNull" class="flex  items-center flex-wrap">
     <span class="text-global-default text-opacity-65">≈</span>
     <div v-if="!isChangePlace" class="flex items-center ml-1.2">
-      <span class="font-medium text-kd14px18px  ">{{number}}/{{props.symbol1Number}}</span>
-      <span class="font-normal text-global-kd12px16px text-global-default text-opacity-65 ml-0.5">{{fund}}</span>
+      <span class="font-medium text-kd14px18px  ">{{formatRulesPrice(number)}}</span>
+      <span class="font-normal text-global-kd12px16px text-global-default text-opacity-65 ml-0.5">{{formatRulesPrice(fund)}}</span>
       <span class="font-normal text-global-kd12px16px text-global-default text-opacity-65 ml-0.5">{{tokenName}}</span>
     </div>
   </div>
