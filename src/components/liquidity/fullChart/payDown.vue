@@ -88,20 +88,23 @@ const scrollFun=()=>{
       <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
         <template v-for="(item,i) in tableData">
           <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
-            <a :href="getAddressHref(item.address)" target="_blank" :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
-            <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
-            <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
-              <LiquidityFullChartTableItem :tip="true"  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
+            <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
+            <div :style="{width:payHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
+            <div :style="{width:payHeader[2].width}" class="flex-1 text-global-highTitle">
+             {{item.symbol0_flow_in_coin_number}}
+              {{symbol0_flow_in_fund}}
             </div>
-            <div :style="{width:flowHeader[3].width}" class="flex-1 text-global-highTitle">
-              <LiquidityFullChartTableItem :tip="false"  :token0="item.token0_symbol" :token1="item.token1_symbol"   :token0Money="item.mints_amounts0" :token1Money="item.mints_amounts1" :usdMoney="item.mints_amountusd" />
+            <div :style="{width:payHeader[3].width}" class="flex-1 text-global-highTitle">
+              {{item.symbol0_buy_coin_number}}
+              {{symbol0_buy_fund}}
             </div>
-            <div :style="{width:flowHeader[4].width}" class="flex-1 text-global-highTitle">
-              <LiquidityFullChartTableItem :tip="false"  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.burns_amounts0" :token1Money="item.burns_amounts1" :usdMoney="item.burns_amountusd" />
+            <div :style="{width:payHeader[4].width}" class="flex-1 text-global-highTitle">
+              {{item.symbol0_sell_coin_number}}
+              {{symbol0_sell_fund}}
             </div>
-            <div :style="{width:flowHeader[5].width}" class="text-center">{{ item.total_join_num?item.total_join_num:0 }}</div>
-            <div :style="{width:flowHeader[6].width}" class="text-center">{{ item.mints_join_num?item.mints_join_num:0 }}</div>
-            <div :style="{width:flowHeader[7].width}" class="text-center">{{ item.burns_join_num?item.burns_join_num:0 }}</div>
+            <div :style="{width:payHeader[5].width}" class="text-center">{{ item.swap_count?item.total_join_num:0 }}</div>
+            <div :style="{width:payHeader[6].width}" class="text-center">{{ item.buy_count?item.mints_join_num:0 }}</div>
+            <div :style="{width:payHeader[7].width}" class="text-center">{{ item.sell_count?item.burns_join_num:0 }}</div>
           </div>
           <!--        二次下钻-->
           <div v-if="row===i" class="px-2.5 openContainer">
