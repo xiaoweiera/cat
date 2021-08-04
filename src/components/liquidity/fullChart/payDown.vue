@@ -128,7 +128,7 @@ const scrollFun=()=>{
           </div>
           <!--        二次下钻-->
           <div v-if="row===i" class="px-2.5 openContainer">
-            <LiquidityFullChartOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
+            <LiquidityFullChartPayOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
           </div>
         </template>
         <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
