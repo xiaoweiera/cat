@@ -113,7 +113,7 @@ const scrollFun=()=>{
           </div>
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-        <div v-if="hasData">加载中...</div>
+        <div v-if="loading">加载中...</div>
 <!--        <div v-else-if="hasData && !loading">上拉加载更多</div>-->
 <!--        <div v-else-if="!hasData">没有更多了</div>-->
       </div>
