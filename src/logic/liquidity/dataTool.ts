@@ -239,6 +239,7 @@ export const getIsNullChartData=(data:any):boolean=>{
 }
 //根据token颠倒交易对
 export const  getPairName=(tokenName:string,symbol0:string,symbol1:string)=>{
+  console.log(tokenName,symbol0,symbol1)
   if(tokenName===symbol0){
     return symbol0 + '/' + symbol1
   }else{

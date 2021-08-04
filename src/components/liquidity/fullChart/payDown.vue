@@ -89,7 +89,7 @@ const scrollFun=()=>{
         <template v-for="(item,i) in tableData">
           <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
             <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
-            <div :style="{width:payHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
+            <div :style="{width:payHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.buy_token_symbol,item.sell_token_symbol)}}</div>
             <div :style="{width:payHeader[2].width}" class="flex-1 text-global-highTitle">
              {{item.symbol0_flow_in_coin_number}}
               {{symbol0_flow_in_fund}}
