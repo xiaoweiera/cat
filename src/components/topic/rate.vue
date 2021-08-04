@@ -32,6 +32,7 @@ const rateChange = computed<number>(function() {
 
 // @ts-ignore 处理数字
 const rateFormatter = function(value: number, unit: string) {
+  // @ts-ignore
   return valueFormatter({ value, unit })
 }
 // @ts-ignore
@@ -54,10 +55,10 @@ const rateClassName = function(value: number, unit: string) {
 
 <template>
   <span class="flex items-end">
-    <span v-if="isNumber(data.rateValue)" class="text-2xl mr-2">
+    <span v-if="isNumber(data.rateValue)" class="text-2xl mr-2 whitespace-nowrap">
       <span :class="rateClassName(rateValue, data.rateUnit)">{{ rateFormatter(rateValue, data.rateUnit) }}</span>
     </span>
-    <span v-if="isNumber(data.rateChange)" class="text-sm">
+    <span v-if="isNumber(data.rateChange)" class="text-sm whitespace-nowrap">
       <template v-if="rateChange >= 0">
         <span class="text-global-numGreen">{{rateChange}}%</span>
         <IconFont type="https://res.ikingdata.com/nav/topicUp.svg" size="xs"></IconFont>

@@ -89,9 +89,9 @@ message.confirm = function(
 
 message.alert = function(title: string, content?: Content | string) {
   if (content) {
-    return app(title, '', 'alert')
+    return app(title, getContent(content), 'alert')
   }
-  return app(title, getContent(content), 'alert')
+  return app('', title, 'alert')
 }
 
 message.copy = function(content?: Content | string) {

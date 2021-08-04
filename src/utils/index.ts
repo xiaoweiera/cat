@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import BigNumber from 'bignumber.js'
 import I18n from '~/utils/i18n/index'
 import {
   flatten,
@@ -21,6 +22,18 @@ import dayjs from 'dayjs'
 import safeGet from '@fengqiaogang/safe-get'
 
 export { isNil } from 'ramda'
+
+export const sleep = function(callback: () => void, time: number = 1000) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      if (callback && isFunction(callback)) {
+        resolve(callback())
+      } else {
+        resolve(callback)
+      }
+    }, time)
+  })
+}
 
 /**
  * 排序
@@ -167,7 +180,12 @@ export const isUndefined = function(value: any, checkUndefined?: boolean): boole
 
 export const isString = (value: any): boolean => is(String, value)
 
-export const isNumber = (value: any): boolean => is(Number, value)
+export const isNumber = (value: any): boolean => {
+  if (is(Number, value)) {
+    return true
+  }
+  return value === 0;
+}
 
 export const isArray = function(value: any): boolean {
   if (Array.isArray(value)) {
@@ -261,7 +279,9 @@ export const compact = function<T>(list: T[], iteration?: (value: T) => boolean)
       if (iteration) {
         return iteration(value)
       } else {
-        return !isEmpty(value)
+        const status = !isEmpty(value)
+        const boolean = toBoolean(value)
+        return boolean && status;
       }
     })
     return app(list)
@@ -308,6 +328,26 @@ export const upperFirst = function(value: string): string {
   return `${first}${last}`
 }
 
+/**
+ * 不区分大小写比较是否相等
+ * @param str1
+ * @param str2
+ */
+export const equalsIgnoreCase = function(str1: string, str2: string): boolean {
+  return str1.toString().toUpperCase() === str2.toString().toUpperCase()
+}
+
+
+export const decimalFormat = function(value: string | number, decimal: string | number): number {
+  const pow = Math.pow(10, decimal as number)
+  return new BigNumber(value).dividedBy(pow).toNumber()
+}
+
+export const numberDecimal = function(value: string | number, decimal: string | number): string {
+  const pow = Math.pow(10, decimal as number)
+  return new BigNumber(value).multipliedBy(pow).toString(10)
+}
+
 export const timeFormat = 'YYYY-MM-DD HH:mm:ss'
 
 export enum DateType {
@@ -321,7 +361,6 @@ export enum DateType {
   millisecond = 'millisecond',// 毫秒
 }
 
-
 export const toDate = function(time?: any) {
   if (time && isNumber(time)) {
     const str = `${time}`
@@ -331,7 +370,7 @@ export const toDate = function(time?: any) {
     return dayjs(time)
   }
   if (time) {
-    return dayjs(time, timeFormat)
+    return dayjs(time)
   }
   return dayjs()
 }

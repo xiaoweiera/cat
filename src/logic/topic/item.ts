@@ -8,8 +8,8 @@ import { getChartDetail, getChartTrends } from './chart'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 //@ts-ignore
-import { map, toArray, toBoolean } from '~/utils'
-import { toRaw } from 'vue'
+import { uuid, convertInterval, map, toArray, toBoolean, toDate, dateTime } from '~/utils'
+import { reactive, toRaw } from 'vue'
 import {
   getInterval,
   calcLegends,
@@ -44,6 +44,33 @@ interface ItemData {
   [key: string]: any
 }
 
+interface ChartDetail {
+  default_chart?: string // 图形类型
+  interval?: number // 更新时间频率
+  relation_unit?: string // 价格单位
+  value?: number // 涨浮数(不需要计算百分比)
+  change?: number // 涨浮（需要计算百分比）
+  width?: number
+  height?: number
+}
+interface Result {
+  detail?: ChartDetail
+  legends: Array<any>
+  xAxis: Array<any>
+  uuid?: string
+}
+
+export const createItemChartResult = function() {
+  return reactive<Result>({
+    detail: void 0,
+    legends: [],
+    xAxis: [],
+    uuid: uuid()
+  })
+}
+
+
+
 const getCharts = function(result: any): any[] {
   const chart = safeGet<any[]>(result, 'chart')
   if (chart && chart.length > 0) {
@@ -57,11 +84,14 @@ const getCharts = function(result: any): any[] {
   return []
 }
 
-const getDetail = async function(data: ItemData) {
-  const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds)
+// 获取图表详情
+const getDetail = async function(data: ItemData, query?: any) {
+  const result = await getChartDetail(data.multiple, data.chartId, data.seriesIds, query)
   const kline_chart = safeGet<number>(result, 'kline_chart')
   const charts = getCharts(result)
-  // const type = safeGet<seriesType>(result, 'default_chart')
+
+  let isklineStatus = false
+
   // @ts-ignore
   const legends: Legends[] = map(function(item: LegendItem) {
     const temp = { ...item }
@@ -70,44 +100,50 @@ const getDetail = async function(data: ItemData) {
       // temp.type = type || seriesType.line
       temp.type = seriesType.line
     }
+    if (item.kline) {
+      isklineStatus = true
+    }
     return temp
   }, toArray(toRaw(data.legends)))
 
-  // 如果是单线图
-  if (data.multiple) {
-    if(kline_chart && charts && charts.length > 0) {
-      const db = new DBList(charts, 'id')
-      const item = db.selectOne<any>({ id: kline_chart })
-      if (item) {
-        const name = safeGet<string>(item, 'chart.relation_title')
-        if (name) {
-          //@ts-ignore
-          legends.push({
-            kline: true, // 价格线
-            name,
-            id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
-            unit: safeGet<string>(item, 'chart.relation_unit'),
-            type: seriesType.line,
-            position: Position.right
-          })
+  if (!isklineStatus) {
+    // 如果是单线图
+    if (data.multiple) {
+      if(kline_chart && charts && charts.length > 0) {
+        const db = new DBList(charts, 'id')
+        const item = db.selectOne<any>({ id: kline_chart })
+        if (item) {
+          const name = safeGet<string>(item, 'chart.relation_title')
+          if (name) {
+            //@ts-ignore
+            legends.push({
+              kline: true, // 价格线
+              name,
+              id: safeGet<number>(item, 'chart.id'), // 默认取第一条数据
+              unit: safeGet<string>(item, 'chart.relation_unit'),
+              type: seriesType.line,
+              position: Position.right
+            })
+          }
         }
       }
-    }
-  } else {
-    const name = safeGet<string>(result, 'relation_title') // 默认取第一条数据
-    if (name) {
-      const temp = {
-        kline: true, // 价格线
-        name,
-        id: safeGet<number>(result, 'id'), // 默认取第一条数据
-        unit: safeGet<string>(result, 'relation_unit'),
-        type: seriesType.line,
-        position: Position.right
+    } else {
+      const name = safeGet<string>(result, 'relation_title') // 默认取第一条数据
+      if (name) {
+        const temp = {
+          kline: true, // 价格线
+          name,
+          id: safeGet<number>(result, 'id'), // 默认取第一条数据
+          unit: safeGet<string>(result, 'relation_unit'),
+          type: seriesType.line,
+          position: Position.right
+        }
+        //@ts-ignore
+        legends.push(temp)
       }
-      //@ts-ignore
-      legends.push(temp)
     }
   }
+
   data.legends = map(function(item: any) {
     item.kline = toBoolean(item.kline)
     return item
@@ -132,13 +168,36 @@ const getDetail = async function(data: ItemData) {
   // 涨浮（需要计算百分比）
   data.rateChange = safeGet<number>(result, 'change')
 
+  try {
+    let interval = safeGet<string>(result, 'chart[0].chart.interval')
+    if (interval) {
+      const { type } = convertInterval(interval)
+      data.interval = type
+    } else {
+      const { type } = convertInterval(safeGet<string>(result, 'interval'))
+      data.interval = type
+    }
+  } catch (e) {
+    console.log(e)
+  }
+
+
+  try {
+    let end_ts = safeGet<string>(result, 'chart[0].chart.end_ts')
+    if (!end_ts) {
+      end_ts = safeGet<string>(result, 'end_ts')
+    }
+    data.dateTimeEnd = dateTime(end_ts)
+  } catch (e) {
+    data.dateTimeEnd = dateTime()
+  }
   return data
 }
 
-export const getItemData = async function(data: ItemData) {
+export const getItemData = async function(data: ItemData, query?: any): Promise<Result> {
   const [ detail, trends ] = await Promise.all([
-    getDetail(data),
-    getChartTrends(data.multiple, data.seriesIds)
+    getDetail(data, query),
+    getChartTrends(data.multiple, data.seriesIds, query)
   ])
 
   // 计算图例
@@ -157,5 +216,6 @@ export const getItemData = async function(data: ItemData) {
     detail,
     legends,
     xAxis,
+    uuid: uuid()
   }
 }

@@ -1,16 +1,6 @@
 <script setup lang="ts">
-import { reactive, defineProps, computed } from 'vue'
-import { getItemData } from '~/logic/topic/item'
-
-interface ChartDetail {
-  default_chart?: string // 图形类型
-  interval?: number // 更新时间频率
-  relation_unit?: string // 价格单位
-  value?: number // 涨浮数(不需要计算百分比)
-  change?: number // 涨浮（需要计算百分比）
-  width?: number
-  height?: number
-}
+import { defineProps, computed } from 'vue'
+import { createItemChartResult, getItemData } from '~/logic/topic/item'
 
 const props = defineProps({
   /*
@@ -29,23 +19,20 @@ const props = defineProps({
   }
 })
 
-interface Result {
-  detail?: ChartDetail
-  legends: Array<any>
-  xAxis: Array<any>
-  // yAxis: Array<any>
-}
-
-const result = reactive<Result>({
-  detail: void 0,
-  legends: [],
-  xAxis: [],
-})
+// 定义数据对象
+const result = createItemChartResult()
 
 //@ts-ignore
 const echartDetail = computed(function() {
   return result.detail ? result.detail : props.option
 })
+// 大屏数据
+// @ts-ignore
+const fullEchartDetail = computed(function() {
+  const interval = result?.detail?.interval || '1d'
+  return Object.assign({}, props.option, { interval })
+})
+
 //@ts-ignore
 const echartHeight = computed(function() {
   const data = result.detail
@@ -59,12 +46,14 @@ const echartHeight = computed(function() {
 const onLoad = async function() {
   const option = props.option
   //@ts-ignore
-  const data: Result = await getItemData(option)
+  const data = await getItemData(option)
 
   result.detail = data.detail
   result.legends = data.legends
   result.xAxis = data.xAxis
+  result.uuid = data.uuid
 }
+
 
 </script>
 
@@ -72,26 +61,9 @@ const onLoad = async function() {
   <FullScreen>
     <template #default="scope">
       <!-- 全屏 -->
-      <el-container v-if="scope.status" class="h-full" :class="`j-big-${echartDetail.chartId}`">
-        <el-header height="initial" class="p-0" >
-          <TopicChartHead :data="echartDetail" :full="scope.status"/>
-        </el-header>
-        <el-main class="p-0">
-          <div class="pt-3 h-full">
-            <template v-if="result.xAxis.length > 0">
-              <TopicChartView :data="result"/>
-            </template>
-          </div>
-        </el-main>
-        <el-footer height="initial" class="p-0">
-          <TopicChartFooter :data="echartDetail">
-            <template #timeEnd>
-              <TopicTimeend :data="echartDetail" :xzxis="result.xAxis"></TopicTimeend>
-            </template>
-          </TopicChartFooter>
-        </el-footer>
-      </el-container>
-
+      <div v-if="scope.status" class="h-full" :class="`j-big-${echartDetail.chartId}`">
+        <TopicChartFull :option="fullEchartDetail"/>
+      </div>
       <template v-else>
         <TopicChartHead :data="echartDetail" :full="scope.status">
           <template #timeEnd>
@@ -101,7 +73,7 @@ const onLoad = async function() {
         <div class="text-kdFang" :style="{ 'height': `${echartHeight}px` }">
           <Winshow class="h-full" @onload="onLoad">
             <template v-if="result.xAxis.length > 0">
-              <TopicChartView :data="result"/>
+              <TopicChartView :key="result.uuid" :data="result"/>
             </template>
           </Winshow>
         </div>

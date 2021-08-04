@@ -6,13 +6,19 @@ defineProps({
     default () {
       return false
     }
+  },
+  fit: {
+    type: Boolean,
+    default () {
+      return true
+    }
   }
 })
 </script>
 
 <template>
   <slot></slot>
-  <span class="loading-icon" v-show="loading">
+  <span class="loading-icon" :class="{'fit': fit}" v-show="loading">
     <svg class="circular" viewBox="25 25 50 50">
       <circle class="path" cx="50" cy="50" r="20" fill="none"></circle>
     </svg>
@@ -42,7 +48,13 @@ defineProps({
 }
 
 .loading-icon {
-  @apply fixed left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2;
+  &.fit {
+    @apply fixed;
+  }
+  &:not(.fit) {
+    @apply absolute;
+  }
+  @apply left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2;
   @apply z-100;
   .circular {
     height: 42px;

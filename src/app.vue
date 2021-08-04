@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
+
 import '~/styles/font.css'
-import { ref } from 'vue'
+
+import { computed } from 'vue'
 import * as lang from '~/utils/lang'
-const langType = ref(lang.current.value)
+import { useHead } from '@vueuse/head'
+
+// @ts-ignore
+const locale = computed(function() {
+  if (lang.current.value === lang.Language.en) {
+    return zhEn
+  }
+  return zhCn
+})
 
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
@@ -20,7 +29,7 @@ useHead({
 })
 </script>
 <template>
-  <div :class="langType">
+  <div>
     <UiDialogWebNewTipMain class="xshidden"/>
     <router-view />
   </div>
@@ -244,4 +253,17 @@ a {
   bottom: -1px;
   position: absolute;
 }
+
+
+/* 去掉 dialog 一些默认内边距 */
+
+.el-dialog.diy-dialog {
+  .el-dialog__header {
+    @apply hidden;
+  }
+  .el-dialog__body {
+    padding: 0 !important;
+  }
+}
+
 </style>

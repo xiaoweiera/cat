@@ -61,6 +61,7 @@ export interface LegendItem {
   name: string
   unit: string
   id: string | number
+  kline?: boolean // 是否为价格线
   type?: seriesType // echarts 展示图形类型 line / bar ...
   position?: Position
   show?: boolean
