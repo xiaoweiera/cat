@@ -137,7 +137,7 @@ const order=(key:string,i:number)=>{
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
         <div v-if="hasData && loading">加载中...</div>
-        <div v-if="hasData && !loading">上拉加载更多</div>
+        <div v-else-if="hasData && !loading">上拉加载更多</div>
         <div v-else>没有更多了</div>
       </div>
     </div>
