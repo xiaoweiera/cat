@@ -65,7 +65,7 @@ const scrollFun=()=>{
 }
 </script>
 <template>
-  <Spin class="min-h-120" :loading="loadingDown">
+  <Spin class="min-h-120" :loading="loadingDown.value">
     <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
       <div class="font-semibold">
         <span>{{tokenOrPairName[0]}}</span>
@@ -133,6 +133,9 @@ const scrollFun=()=>{
         </template>
         <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
           <div v-if="hasData && loadingDown">加载中...</div>
+          <div v-if="hasData && !loadingDown">上拉加载更多</div>
+          <div v-if="!hasData">没有更多了</div>
+<!--          <div v-if="hasData && loadingDown">加载中...</div>-->
 <!--          <div v-if="hasData && !loadingDown">上拉加载更多</div>-->
 <!--          <div v-if="!hasData">没有更多了</div>-->
         </div>
