@@ -5,17 +5,17 @@ import {flowHeader,flowOpenHeader,typeName} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
 import * as scroll from '~/utils/event/scroll'
-import {getPairName} from '~/logic/liquidity/dataTool'
+import {getPairName,getAddressHref} from '~/logic/liquidity/dataTool'
 import {getDownFirstData} from '~/logic/liquidity/downTool'
-import {pairStore, symbolStore} from '~/store/liquidity/state'
+import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
 import {getInject,  setInject } from '~/utils/use/state'
 import {xiazuan} from '/mock/xiazuan'
 const props=defineProps({chartType:String})
 const timeParam=getInject('timeParam')
-const ts=getInject('ts')
 const isFull=getInject('isFull')
 const interval=getInject('interval')
 const setIsFull=setInject('isFull')
+const tokenOrPairName=getInject('tokenOrPairName')
 const row = ref(-1)
 const selectRow = (index: number) => row.value = index===row.value?-1:index
 const full=()=>setIsFull(!isFull.value[0])
@@ -27,12 +27,15 @@ const param={
   page_size:20,
   pair_id:pairStore.id,
   symbol_id:symbolStore.id,
-  ts:timeParam.value[0].timeEnd,
+  ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0]
 }
+const loading=ref(true)
 let hasData=true
 const tableData=ref([])
-watch(()=>ts.value[0],async (n)=>{
+//更改图表日期的时候重新得到数据
+watch(()=>selectX.ts,async (n)=>{
+  console.log('aaaa',n)
   param.ts=n
   param.page=1
   hasData=true
@@ -41,8 +44,11 @@ watch(()=>ts.value[0],async (n)=>{
   await getData()
 })
 const getData=async ()=> {
+  console.log('aaqqq')
+  loading.value=true
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
+    loading.value=false
     hasData = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
@@ -60,10 +66,18 @@ const scrollFun=()=>{
 }
 </script>
 <template>
+  <Spin class="min-h-120" :loading="loading">
   <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
-    <span>数据详解</span>
-    <span class="text-global-default text-opacity-65 text-kd12px16px ml-1.5">点击列表地址可对图表数据过滤 </span>
-    <img @click="full()" class="w-4 h-4 absolute right-0 hand" :src="isFull[0]?'https://res.ikingdata.com/liquidity/fullSmall.jpg':'https://res.ikingdata.com/liquidity/fullBig.jpg'" alt="">
+    <div class="font-semibold">
+      <span>{{tokenOrPairName[0]}}</span>
+      <span class="ml-2">数据详解</span>
+      <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>
+    </div>
+    <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
+    <div @click="full()" class="flex items-center donwBig p-1 absolute right-0 hand  ">
+      <img class="w-4 h-4 mr-0.5" src="https://res.ikingdata.com/liquidity/downBig.jpg" alt="">
+      <span class="text-kd12px16px font-medium text-global-primary">点击放大表格</span>
+    </div>
   </div>
   <div :class="isFull[0]?'flex-1':'h-50'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
     <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
@@ -77,7 +91,7 @@ const scrollFun=()=>{
     <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
-          <div :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</div>
+          <a :href="getAddressHref(item.address)" target="_blank" :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
           <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
           <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
            <LiquidityFullChartTableItem :tip="true"  :token0="item.token0_symbol" :token1="item.token1_symbol"  :token0Money="item.net_inflow0" :token1Money="item.net_inflow1" :usdMoney="item.net_inflowusd" />
@@ -94,14 +108,19 @@ const scrollFun=()=>{
         </div>
           <!--        二次下钻-->
           <div v-if="row===i" class="px-2.5 openContainer">
-            <LiquidityFullChartOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address" :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
+            <LiquidityFullChartOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
           </div>
       </template>
 
     </div>
   </div>
+  </Spin>
 </template>
 <style scoped>
+.donwBig{
+  border:1px solid rgba(43, 141, 255, 0.24);
+  border-radius: 4px;
+}
 .showY{
   @apply overFlow-hidden overFlow-y-scroll;
 }

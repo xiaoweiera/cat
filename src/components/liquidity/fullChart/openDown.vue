@@ -2,12 +2,13 @@
 import {ref, onMounted,defineProps} from 'vue'
 import {flowOpenHeader,typeName} from '~/logic/liquidity/down'
 import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
+import {getTxHref} from '~/logic/liquidity/dataTool'
+import {selectX} from '~/store/liquidity/state'
 import * as R from 'ramda'
 import {getInject } from '~/utils/use/state'
 import {liquidity_second_level} from '~/api/liquidity'
-const ts=getInject('ts')
 const interval=getInject('interval')
-
+const timeParam=getInject('timeParam')
 const props=defineProps({
   token0:String,
   token1:String,
@@ -20,16 +21,18 @@ const param={
   page:1,
   page_size:20,
   pair_id:props.pair_id,
-  ts:ts.value[0],
+  ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0],
   address:props.address
 }
 let hasData=true
 const tableData=ref([])
-
+const loadingOpen=ref(false)
 const getData=async ()=>{
+  loadingOpen.value=true
   const res=await liquidity_second_level(param)
   if(res.data.code===0) {
+    loadingOpen.value=false
     hasData=res?.data?.data?.next?true:false
     R.map(item => tableData.value.push(item), res?.data?.data?.results)
   }
@@ -47,7 +50,8 @@ onMounted(()=>{
 
 </script>
 <template>
-  <div class="">
+  <Spin class="min-h-30" :loading="loadingOpen">
+  <div >
     <div class="flex py-2.5   items-center">
       <template v-for="item in flowOpenHeader">
         <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
@@ -64,11 +68,12 @@ onMounted(()=>{
             <span>{{ formatRulesPrice(item.amount1) }}{{props.token1}}</span>
           </div>
           <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
-          <div class="openHeaderId">{{ smallToken(item.base_id) }}</div>
+          <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
         </div>
       </template>
     </div>
   </div>
+  </Spin>
 </template>
 <style scoped lang="postcss">
 .openHeader{
