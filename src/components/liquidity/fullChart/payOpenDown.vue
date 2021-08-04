@@ -61,12 +61,12 @@ onMounted(()=>{
         <template v-for="item in tableData">
           <div class="flex items-center min-h-4.5   ">
             <div class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
-            <div class="openHeader">{{ props.pairName }}</div>
-            <div class="openHeader">{{ typeName[item.type] }}</div>
             <div class="openHeader">
-              <span>{{ formatRulesPrice(item.amount0) }}{{props.token0}}</span>+
-              <span>{{ formatRulesPrice(item.amount1) }}{{props.token1}}</span>
+              <span>{{formatRulesPrice(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
+              <span class="mx-1">→</span>
+              <span>{{formatRulesPrice(item.sell_token_num)}}</span><span class="ml-1">{{item.sell_token_symbol}}</span>
             </div>
+            <div class="openHeader">净买入</div>
             <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
             <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
           </div>
