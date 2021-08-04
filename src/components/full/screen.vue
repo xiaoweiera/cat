@@ -67,7 +67,7 @@ onMounted(function() {
     width: initial !important;
     @apply absolute;
     @apply left-15 top-15 right-15 bottom-15;
-    @apply md:left-30 md:top-20 md:right-30 md:bottom-20;
+    @apply md:left-15 md:top-20 md:right-15 md:bottom-20;
     .el-dialog__header {
       @apply hidden;
     }

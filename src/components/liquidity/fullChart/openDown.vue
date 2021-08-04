@@ -19,7 +19,7 @@ const props=defineProps({
 const param={
   platId:'1',
   page:1,
-  page_size:20,
+  page_size:50,
   pair_id:props.pair_id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0],
@@ -32,9 +32,9 @@ const getData=async ()=>{
   loadingOpen.value=true
   const res=await liquidity_second_level(param)
   if(res.data.code===0) {
-    loadingOpen.value=false
     hasData.value=res?.data?.data?.next?true:false
     R.map(item => tableData.value.push(item), res?.data?.data?.results)
+    loadingOpen.value=false
   }
 }
 const scrollFun=()=>{

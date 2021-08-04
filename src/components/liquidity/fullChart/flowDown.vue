@@ -46,9 +46,9 @@ const getData=async ()=> {
   loading.value=true
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
-    loading.value=false
     hasData.value = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
+    loading.value=false
   }
 }
 onMounted(async ()=>{
@@ -77,7 +77,7 @@ const scrollFun=()=>{
       <span class="text-kd12px16px font-medium text-global-primary">点击放大表格</span>
     </div>
   </div>
-  <div :class="isFull[0]?'flex-1':'h-50'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+  <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
     <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="item in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">

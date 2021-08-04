@@ -82,7 +82,7 @@ onMounted(() => {
 </script>
 <template>
   <div class=" w-full h-full relative" :class="props.full?'':'mt-4'">
-    <div v-if="full" class="absolute z-2 bg-global-white right-20 top-1 text-global-default text-opacity-35 text-kdFang text-kd12px16px">* 点击柱图可进行数据过滤</div>
+    <div v-if="full" class="absolute z-2  right-20 top-1 text-global-default text-opacity-35 text-kdFang text-kd12px16px">* 点击柱图可进行数据过滤</div>
     <div ref="echartsRef" :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>
 </template>
