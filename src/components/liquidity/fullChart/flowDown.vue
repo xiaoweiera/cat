@@ -26,7 +26,9 @@ const param={
   pair_id:pairStore.id,
   symbol_id:symbolStore.id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
-  interval:interval.value[0]
+  interval:interval.value[0],
+  ordering:'total_join_num',
+  sort:'desc'
 }
 const loading=ref(true)
 const hasData=ref(true)
@@ -67,11 +69,11 @@ const scrollFun=()=>{
 <template>
   <Spin class="min-h-120" :loading="loading">
   <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
-<!--    <div class="font-semibold">-->
-<!--      <span>{{tokenOrPairName[0]}}</span>-->
-<!--      <span class="ml-2">数据详解</span>-->
-<!--      <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>-->
-<!--    </div>-->
+    <div class="font-semibold">
+      <span>{{tokenOrPairName[0]}}</span>
+      <span class="ml-2">数据详解</span>
+      <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>
+    </div>
     <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
     <div @click="full()" class="flex items-center donwBig p-1 absolute right-0 hand  ">
       <img class="w-4 h-4 mr-0.5" src="https://res.ikingdata.com/liquidity/downBig.jpg" alt="">

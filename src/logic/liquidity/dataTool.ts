@@ -239,12 +239,15 @@ export const getIsNullChartData=(data:any):boolean=>{
 }
 //根据token颠倒交易对
 export const  getPairName=(tokenName:string,symbol0:string,symbol1:string)=>{
-  console.log(tokenName,symbol0,symbol1)
   if(tokenName===symbol0){
     return symbol0 + '/' + symbol1
   }else{
     return symbol1 + '/' + symbol0
   }
+}
+//是否token颠倒 tokenIsPlace
+export const  tokenIsPlace=(tokenName:string,symbol0:string,symbol1:string)=>{
+  return tokenName===symbol0?false:true
 }
 //跳转到官方地址详情
 export const getAddressHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
