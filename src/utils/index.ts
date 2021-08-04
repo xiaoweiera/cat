@@ -23,6 +23,18 @@ import safeGet from '@fengqiaogang/safe-get'
 
 export { isNil } from 'ramda'
 
+export const sleep = function(callback: () => void, time: number = 1000) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      if (callback && isFunction(callback)) {
+        resolve(callback())
+      } else {
+        resolve(callback)
+      }
+    }, time)
+  })
+}
+
 /**
  * 排序
  * @param list 排序的列表数据
@@ -168,7 +180,12 @@ export const isUndefined = function(value: any, checkUndefined?: boolean): boole
 
 export const isString = (value: any): boolean => is(String, value)
 
-export const isNumber = (value: any): boolean => is(Number, value)
+export const isNumber = (value: any): boolean => {
+  if (is(Number, value)) {
+    return true
+  }
+  return value === 0;
+}
 
 export const isArray = function(value: any): boolean {
   if (Array.isArray(value)) {
@@ -264,10 +281,7 @@ export const compact = function<T>(list: T[], iteration?: (value: T) => boolean)
       } else {
         const status = !isEmpty(value)
         const boolean = toBoolean(value)
-        if (boolean && status) {
-          return true
-        }
-        return false
+        return boolean && status;
       }
     })
     return app(list)
@@ -347,7 +361,6 @@ export enum DateType {
   millisecond = 'millisecond',// 毫秒
 }
 
-
 export const toDate = function(time?: any) {
   if (time && isNumber(time)) {
     const str = `${time}`
@@ -357,7 +370,7 @@ export const toDate = function(time?: any) {
     return dayjs(time)
   }
   if (time) {
-    return dayjs(time, timeFormat)
+    return dayjs(time)
   }
   return dayjs()
 }

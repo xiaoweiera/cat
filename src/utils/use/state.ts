@@ -29,13 +29,21 @@ export const useProvide = function<T>(name: string, value?: any): any[] {
   }
   provide(name, set)
   provide(`get${upperFirst(name)}`, () => state)
-  return [state, set]
+  const merge = function(data: any) {
+    const [ oldValue = {} ] = state.value
+    const newValue = Object.assign({}, oldValue, data)
+    set(newValue)
+  }
+  return [state, set, merge]
 }
 
 export const useWatch = function<T>(name: string, callback: SetCallback, value?: any) {
-  const [ state, set ] = useProvide(name, value)
-  watch(state, callback)
-  return [state, set]
+  const array = useProvide(name, value)
+  const [ state ] = array
+  if (state) {
+    watch(state, callback)
+  }
+  return array
 }
 
 export const getInject = function(name: string) {
@@ -61,7 +69,7 @@ export const updateInject = function(name: string, ...args: any[]): boolean {
   return false
 }
 
-export const margetState = function(name: string) {
+export const mergeState = function(name: string) {
   const set = setInject(name)
   const state = getInject(name)
   return function<T>(value: T) {
@@ -75,10 +83,10 @@ export const margetState = function(name: string) {
   }
 }
 
-export const margeInject = function(name: string, value: any): boolean {
-  console.warn('不建议使用，请改为 margetState 方法')
+export const mergeInject = function(name: string, value: any): boolean {
+  console.warn('不建议使用，请改为 margeState 方法')
   if (name && value) {
-    const marge = margetState(name)
+    const marge = mergeState(name)
     return marge(value)
   }
   return false

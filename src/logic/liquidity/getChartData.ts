@@ -226,10 +226,10 @@ export const getGroupSeries = (xData: Array<number>,kxData: Array<number>,yData:
   }
   return [series,allYAxis]
 }
-export const getXAreaColorList=(xData:Array<string>,selectIndex:number)=>{
+export const getXAreaColorList=(xData:Array<string>,selectIndex:number,full:boolean)=>{
   if(!selectIndex) return null
   const colorList=xData.map((item,i)=>{
-    if(i===selectIndex){
+    if(((i===selectIndex) || (selectIndex===-1 && i===xData.length-1) ) && full){
       return 'rgba(76, 159, 254, 0.1)'
     }else{
       return ''
@@ -255,4 +255,3 @@ export const getChartsFun=async (param:any)=>{
   const result=await getCharts(param)
   return result
 }
-

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
+import { defineEmit } from 'vue'
+const emitEvent = defineEmit(['confirm'])
 
 const props = defineProps({
   app: {
@@ -13,7 +15,7 @@ const props = defineProps({
 const visible = ref<boolean>(false)
 
 // @ts-ignore
-const onClick = async function(e) {
+const onClick = function(e) {
   if (props.app) {
     try {
       const status = props.app()
@@ -25,6 +27,11 @@ const onClick = async function(e) {
     } catch (err) {
     }
   }
+}
+
+const onConfirm = function() {
+  visible.value = false
+  emitEvent('confirm')
 }
 
 </script>
@@ -41,7 +48,7 @@ const onClick = async function(e) {
             <span>{{ content }}</span>
           </div>
         </slot>
-        <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="visible = false">
+        <div class="mt-4 rounded bg-global-primary text-base py-2.5 text-center cursor-pointer" @click="onConfirm">
           <span class="text-white select-none">确定</span>
         </div>
       </div>

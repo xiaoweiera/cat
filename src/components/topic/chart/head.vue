@@ -4,6 +4,7 @@
  * @author svon.me@gmail.com
  */
 import { toBoolean } from '~/utils'
+import I18n from '~/utils/i18n/index'
 import { defineProps, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
@@ -75,58 +76,81 @@ const saveChart = function(e: Event) {
     </div>
     <!-- PC端样式 -->
     <div class="hidden md:block">
-      <div class="flex justify-between items-start">
-        <!-- 标题 -->
-        <div class="flex-auto w-1 mr-2" :class="{'md:flex': full, 'items-center': full}">
-          <div class="font-bold text-global-highTitle h-6 leading-6">
-            <span class="inline-block max-w-full truncate">{{ data.name }}</span>
-          </div>
-          <div :class="{'md:ml-3': full}">
-            <TopicRate :data="data"></TopicRate>
-          </div>
-        </div>
-        <div class="text-global-time text-xs whitespace-nowrap">
-          <div v-if="full" class="inline-block">
-            <div class="flex flex-wrap flex-col-reverse md:flex-row">
-              <div class="inline-flex items-center justify-end">
-                <a class="btn-border cursor-pointer" @click="saveChart">
-                  <IconFont type="icon-download"/>
-                </a>
-                <!-- 缩放按钮 -->
-                <span class="btn-border ml-3">
-                  <FullZoom/>
-                </span>
-              </div>
-              <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
-                <!-- 关注按钮 -->
-                <div class="inline-block mr-3" v-if="!followed">
-                  <TopicFollow :id="data.chartId" v-model:status="followed">
-                    <span class="bg-global-primary follow-btn">
-                      <IconFont type="icon-plus" class="text-white"></IconFont>
-                      <span class="ml-1">关注</span>
-                    </span>
-                  </TopicFollow>
-                </div>
-
-                <div>
-                  <el-popover placement="bottom" :width="300" trigger="hover">
-                    <template #reference>
-                      <div class="message cursor-pointer">
-                        <IconFont type="icon-message" class="text-white"/>
-                        <span class="ml-1">时时接收数据异动</span>
-                      </div>
-                    </template>
-                    <div>
-                      <p class="text-center text-lg font-normal pb-2">指标异动订阅</p>
-                      <AppDownTips/>
-                    </div>
-                  </el-popover>
-                </div>
-
-              </div>
+      <!-- 大屏模式 -->
+      <template v-if="full">
+        <div class="flex justify-between items-start">
+          <!-- 左侧标题 -->
+          <div class="flex-auto w-1 mr-2 md:flex items-center">
+            <div class="max-w-full font-bold text-global-highTitle h-6 leading-6">
+              <span class="inline-block max-w-full truncate" :title="data.name">{{ data.name }}</span>
+            </div>
+            <div class="md:ml-3">
+              <TopicRate :data="data"></TopicRate>
             </div>
           </div>
-          <div v-else class="block">
+          <div class="text-global-time 2xl:flex 2xl:flex-row-reverse 2xl:items-center">
+            <div class="text-xs whitespace-nowrap flex justify-end">
+              <div class="flex flex-wrap items-center flex-col-reverse md:flex-row">
+                <div class="inline-flex items-center justify-end">
+                  <!-- 保存 -->
+                  <a class="btn-border cursor-pointer" @click="saveChart">
+                    <IconFont type="icon-download"/>
+                  </a>
+                  <!-- 缩放按钮 -->
+                  <span class="btn-border ml-3">
+                    <FullZoom/>
+                  </span>
+                </div>
+                <div class="mb-3 md:mb-0 md:ml-3 inline-flex items-center">
+                  <!-- 关注按钮 -->
+                  <div class="inline-block mr-3" v-if="!followed">
+                    <TopicFollow :id="data.chartId" v-model:status="followed">
+                      <span class="bg-global-primary follow-btn">
+                        <IconFont type="icon-plus" class="text-white"></IconFont>
+<!--                        <span class="ml-1">{{ I18n.liquidity.mainHeader.follow }}</span>-->
+                        <span class="ml-1">关注</span>
+                      </span>
+                    </TopicFollow>
+                  </div>
+                  <div>
+                    <el-popover placement="bottom" :width="300" trigger="hover">
+                      <template #reference>
+                        <div class="message cursor-pointer">
+                          <IconFont type="icon-message" class="text-white"/>
+                          <span class="ml-1">时时接收数据异动</span>
+                        </div>
+                      </template>
+                      <div>
+                        <p class="text-center text-lg font-normal pb-2">指标异动订阅</p>
+                        <AppDownTips/>
+                      </div>
+                    </el-popover>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2 2xl:mt-0 2xl:mr-3">
+              <slot name="time"></slot>
+            </div>
+          </div>
+        </div>
+      </template>
+      <!-- 正常模式 -->
+      <template v-else>
+        <div class="flex justify-between items-start">
+          <!-- 左侧标题 -->
+          <div class="flex-auto w-1 mr-2">
+            <!-- 标题名称 -->
+            <div class="font-bold text-global-highTitle h-6 leading-6">
+              <span class="inline-block max-w-full truncate">{{ data.name }}</span>
+            </div>
+            <!-- 涨浮概率 -->
+            <div>
+              <TopicRate :data="data"></TopicRate>
+            </div>
+          </div>
+          <!-- 右侧功能 -->
+          <div>
             <div class="flex items-center">
               <div class="inline-block leading-6">
                 <slot name="timeEnd"></slot>
@@ -134,6 +158,7 @@ const saveChart = function(e: Event) {
               <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
                 <span class="bg-global-primary follow-btn small">
                   <IconFont type="icon-plus" class="text-white"></IconFont>
+<!--                  <span class="ml-1">{{ I18n.liquidity.mainHeader.follow }}</span>-->
                   <span class="ml-1">关注</span>
                 </span>
               </TopicFollow>
@@ -143,7 +168,7 @@ const saveChart = function(e: Event) {
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

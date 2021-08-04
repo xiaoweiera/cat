@@ -10,8 +10,10 @@ interface Any {
 }
 
 export enum stateName {
+  swap = 'swapUtil',
   statePair = 'symbolDetail',
-  stateInput = 'symbolForm',
+  watchInput = 'watchSymbol',
+  stateInput = 'symbolInput',
 }
 
 export interface SymbolForm {
@@ -24,7 +26,7 @@ export enum EventType {
   account = 'accountsChanged', // 切换账号
   connect = 'connect', // 链接
   disconnect = 'disconnect', // 断开
-  netword = 'chainChanged', // 网络切换
+  network = 'chainChanged', // 网络切换
   message = 'message', // 消息通信
 
 
@@ -47,12 +49,21 @@ export interface SymbolInfoDetail extends SymbolInfo{
   symbol: string   // 代号（币名称）
   decimals: number // 小数
   balance?: number
+  auth?: boolean // 授权
 }
 
 export interface PairInfo extends Any {
   total: string | number // 总数
   decimals: string | number // 小数
   balance: string | number // 余额
-  symbol0: SymbolInfo
-  symbol1: SymbolInfo
+  symbols: SymbolInfo[]
+}
+
+export interface ChainItem {
+  name: string,
+  chainID: number,
+  rpc: string,
+  scan: string,
+  decimals: number,
+  currency: string
 }

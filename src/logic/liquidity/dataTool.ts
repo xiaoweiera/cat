@@ -245,3 +245,7 @@ export const  getPairName=(tokenName:string,symbol0:string,symbol1:string)=>{
     return symbol1 + '/' + symbol0
   }
 }
+//跳转到官方地址详情
+export const getAddressHref=(id:string)=>`https://hecoinfo.com/address/${id}?utm_source=https://ikingdata.com/liquidity`
+//跳转到官方TX详情
+export const getTxHref=(id:string)=>`https://hecoinfo.com/tx/${id}?utm_source=https://ikingdata.com/liquidity`

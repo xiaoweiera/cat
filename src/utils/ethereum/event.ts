@@ -36,7 +36,7 @@ export const onDisconnect = function(callback: Callback) {
  */
 export const onChangeNetWord = function(callback: Callback) {
   const ethereum = Ethereum()
-  ethereum.on(EventType.netword, callback)
+  ethereum.on(EventType.network, callback)
 }
 
 
@@ -97,5 +97,24 @@ export const RecordAccounts = function(contract: any, onChangeCallBack?: (type: 
       .on(EventType.confirmation, action)
       .on(EventType.receipt, receipt)
       .on(EventType.error, rejectCallBack)
+  })
+}
+
+
+export const onAdd = function() {
+  const ethereum = Ethereum()
+  ethereum.request({
+    method: 'wallet_addEthereumChain',
+    params: [{
+      chainId: '0x18',
+      chainName: 'Heco Mainnet',
+      nativeCurrency: {
+        name: 'Heco',
+        symbol: 'HT',
+        decimals: 18,
+      },
+      rpcUrls: ['https://http-mainnet-node.defibox.com'],
+      blockExplorerUrls: ['https://hecoinfo.com'],
+    }],
   })
 }

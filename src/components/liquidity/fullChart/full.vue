@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { defineProps,onMounted,ref } from 'vue'
-import {pairStore, symbolStore} from '~/store/liquidity/state'
-import { useProvide } from '~/utils/use/state'
+import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
+import { useProvide,getInject } from '~/utils/use/state'
 const props=defineProps({
-  FullType:String,
   desc:String,
   config:Object,
   chartType:String,
@@ -12,10 +11,10 @@ const props=defineProps({
   queryInterval:String,
   timeParam:Object
 })
-
-
 const state=ref(false)
 const [,]=useProvide('title','')
+const [,]=useProvide('chartloading',true)
+const [,]=useProvide('tokenOrPairName','')
 const [,setTimeParam ] = useProvide('timeParam', null)
 const [,setCoinType ] = useProvide('coinType', null)
 const [,setInterval]=useProvide('interval',null)
@@ -23,6 +22,7 @@ const [,setTs]=useProvide('ts',null)
 const [,setPairData]=useProvide('pairData',null)
 const [,setTokenData]=useProvide('tokenData',null)
 const [isFull, ] = useProvide('isFull', false)
+
 onMounted(()=>{
   setTokenData(symbolStore)
   setPairData(pairStore)
@@ -33,8 +33,11 @@ onMounted(()=>{
 
 const statusChange=(status:boolean)=>{
   //@ts-ignore 定时器防止进行多余监听
-
   setTimeout(() => {
+    if(!status){
+      selectX.index=-1
+      selectX.ts=null
+    }
     const time={
       timeBegin:props.timeParam.timeBegin,
       timeEnd:props.timeParam.timeEnd,
@@ -50,7 +53,7 @@ const statusChange=(status:boolean)=>{
 
 </script>
 <template>
-  <FullScreen   @change="statusChange">
+  <FullScreen @change="statusChange">
     <template #default="scope">
       <el-container v-if="scope.status" class="h-full xshidden  showY ">
         <el-header v-if="!isFull[0]" height="initial" class="p-0">
@@ -68,6 +71,8 @@ const statusChange=(status:boolean)=>{
       <div v-else  class="flex absolute right-2 xshidden  ">
         <FullZoom v-login/>
       </div>
+      <!--监听外层，控制 fullScreen 打开全屏或者取消全屏-->
+      <FullTrigger/>
     </template>
   </FullScreen>
 </template>
