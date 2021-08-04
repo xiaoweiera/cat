@@ -25,11 +25,12 @@ const param={
   page_size:50,
   pair_id:pairStore.id,
   symbol_id:symbolStore.id,
-  ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
+  ts:1624291200,
+  // ts:sele.ts?selectX.ts:timeParam.value[0].timeEndctX,
   interval:interval.value[0]
 }
 const loading=ref(true)
-let hasData=ref(true)
+const hasData=ref(true)
 const tableData=ref([])
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
