@@ -59,12 +59,12 @@ const statusChange=(status:boolean)=>{
         <el-header v-if="!isFull[0]" height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
-        <el-main v-if="!isFull[0]"  class="p-0 mt-4 flex-1" style="flex:1 !important;">
+        <el-main v-if="!isFull[0]"  class="p-0 mt-4 "  style="flex:5">
           <div class=" h-full">
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
         </el-main>
-        <el-footer height="initial" :class="isFull[0]?'overflow-hidden flex-1':'overflow-hidden flex-1 '" class="flex flex-col ">
+        <el-footer height="initial" :class="isFull[0]?'overflow-hidden flex-1':'overflow-hidden  '" style="flex:6" class="flex flex-col ">
           <LiquidityFullChartFlowDown v-if="props.chartType==='flow'" :chartType="props.chartType"/>
           <LiquidityFullChartPayDown v-else :chartType="props.chartType"/>
         </el-footer>
