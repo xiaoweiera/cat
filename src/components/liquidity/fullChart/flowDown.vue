@@ -88,7 +88,6 @@ const order=(key:string,i:number)=>{
 }
 </script>
 <template>
-  <Spin class="min-h-120" :loading="loading">
   <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
     <div class="font-semibold">
       <span>{{tokenOrPairName[0]}}</span>
@@ -137,13 +136,12 @@ const order=(key:string,i:number)=>{
           </div>
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-<!--        <div v-if="hasData && loadingData">加载中...</div>-->
-        <div v-if="hasData">上拉加载更多</div>
+        <div v-if="hasData && loading">加载中...</div>
+        <div v-if="hasData && !loading">上拉加载更多</div>
         <div v-else>没有更多了</div>
       </div>
     </div>
   </div>
-  </Spin>
 </template>
 
 <style scoped>
