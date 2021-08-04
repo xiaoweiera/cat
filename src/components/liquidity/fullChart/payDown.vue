@@ -40,9 +40,9 @@ const tableData=ref([])
 watch(()=>selectX.ts,async (n)=>{
   param.ts=n
   param.page=1
-  hasData.value=true
   row.value=-1
   tableData.value=[]
+  hasData.value=true
   await getData()
 })
 const getData=async ()=> {
@@ -156,8 +156,8 @@ const order=(key:string,i:number)=>{
           </div>
         </template>
         <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-          <div v-if="hasData">上拉加载更多</div>
-          <div v-else>没有更多了</div>
+<!--          <div v-if="hasData">上拉加载更多</div>-->
+<!--          <div v-else>没有更多了</div>-->
 <!--          <div v-if="hasData && loadingData">加载中...</div>-->
 <!--          <div v-if="hasData">上拉加载更多</div>-->
 <!--          <div v-else>没有更多了</div>-->
