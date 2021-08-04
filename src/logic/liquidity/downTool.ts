@@ -1,4 +1,4 @@
-import {liquidity_token_first_level,liquidity_pair_first_level} from '~/api/liquidity'
+import {liquidity_token_first_level,liquidity_pair_first_level,translate_token_first_level,translate_pair_first_level} from '~/api/liquidity'
 interface firstModel{
     pair_id?:string
     symbol_id?:string
@@ -15,9 +15,13 @@ export const getDownFirstData=async (param:firstModel,chartType:string,pair_id:s
             const res=await liquidity_pair_first_level(param)
             return res.data
         }
-
     }else{
-
+        if(!pair_id){
+            const res=await translate_token_first_level(param)
+            return res.data
+        }else{
+            const res=await translate_pair_first_level(param)
+            return res.data
+        }
     }
-
 }

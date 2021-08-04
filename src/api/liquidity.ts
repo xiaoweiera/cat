@@ -226,3 +226,30 @@ export function  liquidity_second_level(param:secondModel){
     method:'get'
   })
 }
+
+
+//交易一级下钻 token
+export function  translate_token_first_level(param:firstModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/translate_token_first_level`,
+    params:param,
+    method:'get'
+  })
+}
+//交易一级下钻 pair
+export function  translate_pair_first_level(param:firstModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/translate_pair_first_level`,
+    params:param,
+    method:'get'
+  })
+}
+
+//交易二级下钻
+export function  translate_second_level(param:secondModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/translate_second_level`,
+    params:param,
+    method:'get'
+  })
+}

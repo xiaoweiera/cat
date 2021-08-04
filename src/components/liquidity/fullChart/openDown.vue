@@ -6,7 +6,7 @@ import {getTxHref} from '~/logic/liquidity/dataTool'
 import {selectX} from '~/store/liquidity/state'
 import * as R from 'ramda'
 import {getInject } from '~/utils/use/state'
-import {liquidity_second_level} from '~/api/liquidity'
+import {liquidity_second_level,translate_second_level} from '~/api/liquidity'
 const interval=getInject('interval')
 const timeParam=getInject('timeParam')
 const props=defineProps({
