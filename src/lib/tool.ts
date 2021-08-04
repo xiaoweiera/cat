@@ -406,3 +406,7 @@ export const getLegendRow =(dom:any,legends:string[])=> {
   const boxWidth = dom.clientWidth - 24* 2
   return Math.ceil(width / boxWidth)
 }
+export const formatNumber=(v:number)=>{
+  if(!v) return 0
+  return v
+}

@@ -64,17 +64,24 @@ onMounted(()=>{
           <div class="openHeader">{{ props.pairName }}</div>
           <div class="openHeader">{{ typeName[item.type] }}</div>
           <div class="openHeader">
-            <span>{{ formatRulesPrice(item.amount0) }}{{props.token0}}</span>+
-            <span>{{ formatRulesPrice(item.amount1) }}{{props.token1}}</span>
+            <div v-if="item.type==='mints'">
+              <span>{{ formatRulesPrice(item.amount0) }} {{props.token0}}</span> /
+              <span>{{ formatRulesPrice(item.amount1) }} {{props.token1}}</span>
+            </div>
+            <div v-else>
+              -<span>{{ formatRulesPrice(item.amount0) }}{{props.token0}}</span> /
+              -<span>{{ formatRulesPrice(item.amount1) }}{{props.token1}}</span>
+            </div>
+
           </div>
           <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
           <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
         </div>
       </template>
       <div class="w-full mb-2 text-center text-kd12px18px text-global-time">
-<!--        <div v-if="hasData && loadingOpen">加载中...</div>-->
-<!--        <div v-if="hasData && !loadingOpen">上拉加载更多</div>-->
-<!--        <div v-if="!hasData">没有更多了</div>-->
+        <div v-if="hasData && loadingOpen">加载中...</div>
+        <div v-if="hasData && !loadingOpen">上拉加载更多</div>
+        <div v-if="!hasData">没有更多了</div>
       </div>
     </div>
   </div>

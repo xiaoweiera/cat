@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref, computed,onMounted,watch,defineProps} from 'vue'
 
-import {flowHeader,flowOpenHeader,typeName} from '~/logic/liquidity/down'
+import {flowHeader,flowOpenHeader,typeName,orderTypeName} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
 import * as scroll from '~/utils/event/scroll'
@@ -31,12 +31,10 @@ const param={
   sort:'desc'
 }
 const loading=ref(true)
-const loadingCom=ref(true)
-watch(()=>loadingCom.value,(n)=>{
-  loading.value=n
-})
+const loadingData=ref(true)
 const hasData=ref(true)
 const tableData=ref([])
+watch(()=>loading.value,(n)=>loadingData.value=n)
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
   param.ts=n
@@ -47,10 +45,10 @@ watch(()=>selectX.ts,async (n)=>{
   await getData()
 })
 const getData=async ()=> {
-  loadingCom.value=true
+  loading.value=true
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
-    loadingCom.value=false
+    loading.value=false
     hasData.value = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
@@ -69,11 +67,28 @@ const scrollFun=()=>{
     }
   }
 }
+
+const orderType=ref(0)  //类型 desc asc ''
+const orderIndex=ref(-1)  //排序的第几个header
+const order=(key:string,i:number)=>{
+  console.log(orderIndex.value,i,orderType.value)
+  if(orderIndex.value!==i && orderIndex.value!==-1){ orderType.value=1 ; orderIndex.value=i}
+  else {
+    orderIndex.value=i
+    if(orderType.value===2 ){ orderType.value=0}
+    else  {orderType.value++}
+  }
+  param.sort=orderTypeName[orderType.value].key
+  param.ordering=key
+  param.page=1
+  hasData.value=true
+  row.value=-1
+  tableData.value=[]
+  getData()
+}
 </script>
 <template>
-  {{loadingCom}}
-  {{loading}}
-  <Spin class="min-h-120" :loading="loadingCom">
+  <Spin class="min-h-120" :loading="loading">
   <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
     <div class="font-semibold">
       <span>{{tokenOrPairName[0]}}</span>
@@ -88,13 +103,16 @@ const scrollFun=()=>{
   </div>
   <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
     <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
-      <template v-for="item in flowHeader">
+      <template v-for="(item,i) in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
-          {{ item.name }}
+          <div class="flex items-center">
+            <span>{{item.name}}</span>
+            <img v-if="i>1" @click="order(item.key,i)" class="w-2 h-2.5 ml-1 hand" :src="orderIndex===i?orderTypeName[orderType].img:orderTypeName[0].img" alt="">
+          </div>
         </div>
       </template>
     </div>
-    <!-- 二次展开-->
+    <!-- 展开-->
     <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
@@ -119,8 +137,8 @@ const scrollFun=()=>{
           </div>
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-        <div v-if="hasData && loading">加载中...</div>
-        <div v-else-if="hasData && !loading">上拉加载更多</div>
+        <div v-if="hasData && loadingData">加载中...</div>
+        <div v-else-if="hasData && !loadingData">上拉加载更多</div>
         <div v-else-if="!hasData">没有更多了</div>
       </div>
     </div>
