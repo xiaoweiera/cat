@@ -88,7 +88,7 @@ const scrollFun=()=>{
         </div>
       </template>
     </div>
-    <!-- 二次展开-->
+    <!-- 展开-->
     <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">

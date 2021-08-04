@@ -3,8 +3,7 @@ import {ref, onMounted,defineProps} from 'vue'
 import {payOpenHeader,typeName} from '~/logic/liquidity/down'
 import {smallToken, formatRulesPrice,formatTime,formatNumber} from '~/lib/tool'
 import {getTxHref,tokenIsPlace} from '~/logic/liquidity/dataTool'
-import {symbolStore} from '~/store/liquidity/state'
-import {selectX} from '~/store/liquidity/state'
+import {symbolStore,selectX} from '~/store/liquidity/state'
 import * as R from 'ramda'
 import {getInject } from '~/utils/use/state'
 import {translate_second_level} from '~/api/liquidity'
@@ -61,14 +60,14 @@ onMounted(()=>{
   <Spin class="min-h-30" :loading="loadingOpen">
     <div >
       <div class="flex py-2.5   items-center">
-        <template v-for="item in payOpenHeader">
-          <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
+        <template v-for="(item,i) in payOpenHeader">
+          <div  class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
         </template>
       </div>
       <div @scroll="scrollFun" class="max-h-70 showY second">
         <template v-for="item in tableData">
           <div class="flex items-center min-h-4.5   ">
-            <div class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
+            <div  class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
             <div v-if="item.buy_token_num || item.sell_token_num" class="openHeader">
               <span>{{formatRulesPrice(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
               <span class="mx-1">→</span>
@@ -77,7 +76,7 @@ onMounted(()=>{
             <div v-else class="openHeader">
               --
             </div>
-            <div class="openHeader">{{getBuyNumber(item)}}</div>
+            <div class="openHeader">{{getBuyNumber(item)}}{{symbolStore.name}}</div>
             <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
             <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
           </div>
