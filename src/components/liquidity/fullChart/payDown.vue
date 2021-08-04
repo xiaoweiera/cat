@@ -30,7 +30,7 @@ const param={
   ordering:'swap_count',
   sort:'desc'
 }
-const loading=ref(true)
+const loadingDown=ref(true)
 let hasData=ref(true)
 const tableData=ref([])
 //更改图表日期的时候重新得到数据
@@ -43,10 +43,10 @@ watch(()=>selectX.ts,async (n)=>{
   await getData()
 })
 const getData=async ()=> {
-  loading.value=true
+  loadingDown.value=true
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
-    loading.value=false
+    loadingDown.value=false
     hasData.value = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
@@ -65,7 +65,7 @@ const scrollFun=()=>{
 }
 </script>
 <template>
-  <Spin class="min-h-120" :loading="loading">
+  <Spin class="min-h-120" :loading="loadingDown">
     <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
       <div class="font-semibold">
         <span>{{tokenOrPairName[0]}}</span>
@@ -132,9 +132,9 @@ const scrollFun=()=>{
           </div>
         </template>
         <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-<!--          <div v-if="hasData && loading">加载中...</div>-->
-<!--          <div v-if="hasData && !loading">上拉加载更多</div>-->
-<!--          <div v-if="!hasData">没有更多了</div>-->
+          <div v-if="hasData && loadingDown">加载中...</div>
+          <div v-if="hasData && !loadingDown">上拉加载更多</div>
+          <div v-if="!hasData">没有更多了</div>
         </div>
       </div>
     </div>
