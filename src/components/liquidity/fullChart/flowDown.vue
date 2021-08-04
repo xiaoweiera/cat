@@ -9,7 +9,6 @@ import {getPairName,getAddressHref} from '~/logic/liquidity/dataTool'
 import {getDownFirstData} from '~/logic/liquidity/downTool'
 import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
 import {getInject,  setInject } from '~/utils/use/state'
-import {xiazuan} from '/mock/xiazuan'
 const props=defineProps({chartType:String})
 const timeParam=getInject('timeParam')
 const isFull=getInject('isFull')
@@ -19,7 +18,6 @@ const tokenOrPairName=getInject('tokenOrPairName')
 const row = ref(-1)
 const selectRow = (index: number) => row.value = index===row.value?-1:index
 const full=()=>setIsFull(!isFull.value[0])
-const change = (name: string) => tableData.value = xiazuan[name]
 const pairName=(tokenName0:string,tokenName1:string)=> getPairName(symbolStore.name,tokenName0,tokenName1)
 const param={
   platId:'1',
@@ -52,6 +50,7 @@ const getData=async ()=> {
   }
 }
 onMounted(async ()=>{
+  console.log('flow')
  await getData()
 })
 const fullButtonName=computed(()=> isFull.value[0]?'点击缩小表格':'点击放大表格')

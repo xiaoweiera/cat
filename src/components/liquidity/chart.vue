@@ -39,10 +39,12 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>,selected:
 const allXaxis=ref()
 const echartsRef = ref<any>(null)
 const getChartData=()=>{
+  console.log('11')
    allXaxis.value=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis.value, paramChart.interval)
   const [legend,selected] = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
   const row=getLegendRow(toRaw(echartsRef).value,legend)
+  console.log('222')
   const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,props.priceData.value.xaxis,
       props?.chartData.yaxis, props.priceData.value.yaxis[0],
@@ -52,6 +54,8 @@ const getChartData=()=>{
       props.coinType.value,
       selectX.index
   )
+  console.log('333')
+  console.log(selectX)
   const areaColorList=getXAreaColorList(allXaxis.value,selectX.index,props.full)
   draw(xData, series, legend,selected,allYAxis,row,areaColorList)
 }
@@ -64,19 +68,14 @@ onMounted(() => {
   myChart = echarts.init(myChartDom, 'light')
   getChartData()
   myChart.getZr().on('click',params=>{
-    console.log('111')
     const pointInPixel= [params.offsetX, params.offsetY];
     if (myChart.containPixel('grid',pointInPixel)) {
-      console.log('222')
       let index=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
       selectX.index=index
       selectX.ts=allXaxis.value[index]
-      console.log('333')
       if(!props.full){
-        console.log('444')
         //改变放大full状态
         onTriggerFull(true)
-        console.log('555')
       }else{
         getChartData()
       }
