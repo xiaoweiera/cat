@@ -122,9 +122,9 @@ const scrollFun=()=>{
                   :symbol1Fund="item.symbol1_sell_fund"
               />
             </div>
-            <div :style="{width:payHeader[5].width}" class="text-center">{{ item.swap_count?item.total_join_num:0 }}</div>
-            <div :style="{width:payHeader[6].width}" class="text-center">{{ item.buy_count?item.mints_join_num:0 }}</div>
-            <div :style="{width:payHeader[7].width}" class="text-center">{{ item.sell_count?item.burns_join_num:0 }}</div>
+            <div :style="{width:payHeader[5].width}" class="text-center">{{ item.swap_count?item.swap_count:0 }}</div>
+            <div :style="{width:payHeader[6].width}" class="text-center">{{ item.buy_count?item.buy_count:0 }}</div>
+            <div :style="{width:payHeader[7].width}" class="text-center">{{ item.sell_count?item.sell_count:0 }}</div>
           </div>
           <!--        二次下钻-->
           <div v-if="row===i" class="px-2.5 openContainer">
