@@ -32,9 +32,9 @@ const getData=async ()=>{
   loadingOpen.value=true
   const res=await liquidity_second_level(param)
   if(res.data.code===0) {
+    loadingOpen.value=false
     hasData.value=res?.data?.data?.next?true:false
     R.map(item => tableData.value.push(item), res?.data?.data?.results)
-    loadingOpen.value=false
   }
 }
 const scrollFun=()=>{
