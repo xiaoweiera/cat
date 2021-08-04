@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {ref, onMounted,defineProps} from 'vue'
 import {payOpenHeader,typeName} from '~/logic/liquidity/down'
-import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
-import {getTxHref} from '~/logic/liquidity/dataTool'
+import {smallToken, formatRulesPrice,formatTime,formatNumber} from '~/lib/tool'
+import {getTxHref,tokenIsPlace} from '~/logic/liquidity/dataTool'
+import {symbolStore} from '~/store/liquidity/state'
 import {selectX} from '~/store/liquidity/state'
 import * as R from 'ramda'
 import {getInject } from '~/utils/use/state'
@@ -44,6 +45,13 @@ const scrollFun=()=>{
     getData()
   }
 }
+const getBuyNumber=(item:any)=>{
+  if(symbolStore.name===item.buy_token_symbol){
+    return  '-'+formatRulesPrice(Math.abs(formatNumber(item.buy_token_num)))
+  }else{
+    return formatRulesPrice(item.sell_token_num)
+  }
+}
 onMounted(()=>{
   getData()
 })
@@ -61,12 +69,15 @@ onMounted(()=>{
         <template v-for="item in tableData">
           <div class="flex items-center min-h-4.5   ">
             <div class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
-            <div class="openHeader">
+            <div v-if="item.buy_token_num || item.sell_token_num" class="openHeader">
               <span>{{formatRulesPrice(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
               <span class="mx-1">→</span>
               <span>{{formatRulesPrice(item.sell_token_num)}}</span><span class="ml-1">{{item.sell_token_symbol}}</span>
             </div>
-            <div class="openHeader">净买入</div>
+            <div v-else class="openHeader">
+              --
+            </div>
+            <div class="openHeader">{{getBuyNumber(item)}}</div>
             <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
             <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
           </div>
