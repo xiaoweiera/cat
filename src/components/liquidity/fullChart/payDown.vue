@@ -1,90 +1,4 @@
-<script lang="ts" setup>
-import {ref, computed,onMounted,watch,defineProps} from 'vue'
 
-import {payHeader,typeName,orderTypeName} from '~/logic/liquidity/down'
-import * as R from 'ramda'
-import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
-import * as scroll from '~/utils/event/scroll'
-import {getPairName,getAddressHref} from '~/logic/liquidity/dataTool'
-import {getDownFirstData} from '~/logic/liquidity/downTool'
-import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
-import {getInject,  setInject } from '~/utils/use/state'
-const props=defineProps({chartType:String})
-const timeParam=getInject('timeParam')
-const isFull=getInject('isFull')
-const interval=getInject('interval')
-const setIsFull=setInject('isFull')
-const tokenOrPairName=getInject('tokenOrPairName')
-const row = ref(-1)
-const selectRow = (index: number) => row.value = index===row.value?-1:index
-const full=()=>setIsFull(!isFull.value[0])
-const pairName=(tokenName0:string,tokenName1:string)=> getPairName(symbolStore.name,tokenName0,tokenName1)
-const param={
-  platId:'1',
-  page:1,
-  page_size:50,
-  pair_id:pairStore.id,
-  symbol_id:symbolStore.id,
-  ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
-  interval:interval.value[0],
-  ordering:'symbol0_flow_in_fund',
-  sort:'desc'
-}
-
-const loading=ref(true)
-const loadingData=ref(true)
-const hasData=ref(true)
-const tableData=ref([])
-// watch(()=>loading.value,(n)=>loadingData.value=n)
-//更改图表日期的时候重新得到数据
-watch(()=>selectX.ts,async (n)=>{
-  param.ts=n
-  param.page=1
-  row.value=-1
-  tableData.value=[]
-  hasData.value=true
-  await getData()
-})
-const getData=async ()=> {
-  loading.value=true
-  const data = await getDownFirstData(param, props.chartType, pairStore.id)
-  if (data?.code === 0) {
-    loading.value=false
-    hasData.value = data.data.next ? true : false
-    R.map(item => tableData.value.push(item), data?.data?.results)
-  }
-}
-onMounted(async ()=>{
-  console.log('pay')
-  await getData()
-})
-const fullButtonName=computed(()=> isFull.value[0]?'点击缩小表格':'点击放大表格')
-const scrollFun=()=>{
-  const listDom = document.querySelector('.first')
-  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
-    param.page++
-    getData()
-  }
-}
-const orderType=ref(0)  //类型 desc asc ''
-const orderIndex=ref(-1)  //排序的第几个header
-const order=(key:string,i:number)=>{
-  console.log(orderIndex.value,i,orderType.value)
-  if(orderIndex.value!==i && orderIndex.value!==-1){ orderType.value=1 ; orderIndex.value=i}
-  else {
-    orderIndex.value=i
-    if(orderType.value===2 ){ orderType.value=0}
-    else  {orderType.value++}
-  }
-  param.sort=orderTypeName[orderType.value].key
-  param.ordering=key
-  param.page=1
-  hasData.value=true
-  row.value=-1
-  tableData.value=[]
-  getData()
-}
-</script>
 <template>
   <Spin class="min-h-120" :loading="loading">
     <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
@@ -158,14 +72,101 @@ const order=(key:string,i:number)=>{
         <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
 <!--          <div v-if="hasData">上拉加载更多</div>-->
 <!--          <div v-else>没有更多了</div>-->
-<!--          <div v-if="hasData && loadingData">加载中...</div>-->
-<!--          <div v-if="hasData">上拉加载更多</div>-->
-<!--          <div v-else>没有更多了</div>-->
+          <div v-if="hasData && loadingData">加载中...</div>
+          <div v-if="hasData">上拉加载更多</div>
+          <div v-else>没有更多了</div>
         </div>
       </div>
     </div>
   </Spin>
 </template>
+<script lang="ts" setup>
+import {ref, computed,onMounted,watch,defineProps} from 'vue'
+
+import {payHeader,typeName,orderTypeName} from '~/logic/liquidity/down'
+import * as R from 'ramda'
+import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
+import * as scroll from '~/utils/event/scroll'
+import {getPairName,getAddressHref} from '~/logic/liquidity/dataTool'
+import {getDownFirstData} from '~/logic/liquidity/downTool'
+import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
+import {getInject,  setInject } from '~/utils/use/state'
+const props=defineProps({chartType:String})
+const timeParam=getInject('timeParam')
+const isFull=getInject('isFull')
+const interval=getInject('interval')
+const setIsFull=setInject('isFull')
+const tokenOrPairName=getInject('tokenOrPairName')
+const row = ref(-1)
+const selectRow = (index: number) => row.value = index===row.value?-1:index
+const full=()=>setIsFull(!isFull.value[0])
+const pairName=(tokenName0:string,tokenName1:string)=> getPairName(symbolStore.name,tokenName0,tokenName1)
+const param={
+  platId:'1',
+  page:1,
+  page_size:50,
+  pair_id:pairStore.id,
+  symbol_id:symbolStore.id,
+  ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
+  interval:interval.value[0],
+  ordering:'symbol0_flow_in_fund',
+  sort:'desc'
+}
+
+const loading=ref(true)
+const loadingData=ref(true)
+const hasData=ref(true)
+const tableData=ref([])
+watch(()=>loading.value,(n)=>loadingData.value=n)
+//更改图表日期的时候重新得到数据
+watch(()=>selectX.ts,async (n)=>{
+  param.ts=n
+  param.page=1
+  row.value=-1
+  tableData.value=[]
+  hasData.value=true
+  await getData()
+})
+const getData=async ()=> {
+  loading.value=true
+  const data = await getDownFirstData(param, props.chartType, pairStore.id)
+  if (data?.code === 0) {
+    loading.value=false
+    hasData.value = data.data.next ? true : false
+    R.map(item => tableData.value.push(item), data?.data?.results)
+  }
+}
+onMounted(async ()=>{
+  console.log('pay')
+  await getData()
+})
+const fullButtonName=computed(()=> isFull.value[0]?'点击缩小表格':'点击放大表格')
+const scrollFun=()=>{
+  const listDom = document.querySelector('.first')
+  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
+    param.page++
+    getData()
+  }
+}
+const orderType=ref(0)  //类型 desc asc ''
+const orderIndex=ref(-1)  //排序的第几个header
+const order=(key:string,i:number)=>{
+  console.log(orderIndex.value,i,orderType.value)
+  if(orderIndex.value!==i && orderIndex.value!==-1){ orderType.value=1 ; orderIndex.value=i}
+  else {
+    orderIndex.value=i
+    if(orderType.value===2 ){ orderType.value=0}
+    else  {orderType.value++}
+  }
+  param.sort=orderTypeName[orderType.value].key
+  param.ordering=key
+  param.page=1
+  hasData.value=true
+  row.value=-1
+  tableData.value=[]
+  getData()
+}
+</script>
 <style scoped>
 .donwBig{
   border:1px solid rgba(43, 141, 255, 0.24);
