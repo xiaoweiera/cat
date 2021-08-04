@@ -1,85 +1,3 @@
-
-<template>
-  <Spin class="min-h-120" :loading="loading">
-    <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
-      <div class="font-semibold">
-        <span>{{tokenOrPairName[0]}}</span>
-        <span class="ml-2">数据详解</span>
-        <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>
-      </div>
-      <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
-      <div @click="full()" class="flex items-center donwBig p-1 absolute right-0 hand  ">
-        <img class="w-4 h-4 mr-0.5" src="https://res.ikingdata.com/liquidity/downBig.jpg" alt="">
-        <span class="text-kd12px16px font-medium text-global-primary">{{fullButtonName}}</span>
-      </div>
-    </div>
-    <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
-      <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
-        <template v-for="(item,i) in payHeader">
-          <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
-            <div class="flex items-center">
-              <span>{{item.name}}</span>
-              <img v-if="i>1" @click="order(item.key,i)" class="w-2 h-2.5 ml-1 hand" :src="orderIndex===i?orderTypeName[orderType].img:orderTypeName[0].img" alt="">
-            </div>
-          </div>
-        </template>
-      </div>
-      <!-- 二次展开-->
-      <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
-        <template v-for="(item,i) in tableData">
-          <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
-            <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
-            <div :style="{width:payHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
-            <div :style="{width:payHeader[2].width}" class="flex-1 text-global-highTitle">
-              <LiquidityFullChartPayTableItem
-                  :symbol0="item.token0_symbol"
-                  :symbol1="item.token1_symbol"
-                  :symbol0Number="item.symbol0_flow_in_coin_number"
-                  :symbol0Fund="item.symbol0_flow_in_fund"
-                  :symbol1Number="item.symbol1_flow_in_coin_number"
-                  :symbol1Fund="item.symbol1_flow_in_fund"
-              />
-            </div>
-            <div :style="{width:payHeader[3].width}" class="flex-1 text-global-highTitle">
-              <LiquidityFullChartPayTableItem
-                  :symbol0="item.token0_symbol"
-                  :symbol1="item.token1_symbol"
-                  :symbol0Number="item.symbol0_buy_coin_number"
-                  :symbol0Fund="item.symbol0_buy_fund"
-                  :symbol1Number="item.symbol1_buy_coin_number"
-                  :symbol1Fund="item.symbol1_buy_fund"
-              />
-            </div>
-            <div :style="{width:payHeader[4].width}" class="flex-1 text-global-highTitle">
-              <LiquidityFullChartPayTableItem
-                  :symbol0="item.token0_symbol"
-                  :symbol1="item.token1_symbol"
-                  :symbol0Number="item.symbol0_sell_coin_number"
-                  :symbol0Fund="item.symbol0_sell_fund"
-                  :symbol1Number="item.symbol1_sell_coin_number"
-                  :symbol1Fund="item.symbol1_sell_fund"
-              />
-            </div>
-            <div :style="{width:payHeader[5].width}" class="text-center">{{ item.swap_count?item.swap_count:0 }}</div>
-            <div :style="{width:payHeader[6].width}" class="text-center">{{ item.buy_count?item.buy_count:0 }}</div>
-            <div :style="{width:payHeader[7].width}" class="text-center">{{ item.sell_count?item.sell_count:0 }}</div>
-          </div>
-          <!--        二次下钻-->
-          <div v-if="row===i" class="px-2.5 openContainer">
-            <LiquidityFullChartPayOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
-          </div>
-        </template>
-        <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-<!--          <div v-if="hasData">上拉加载更多</div>-->
-<!--          <div v-else>没有更多了</div>-->
-          <div v-if="hasData && loadingData">加载中...</div>
-          <div v-if="hasData">上拉加载更多</div>
-          <div v-else>没有更多了</div>
-        </div>
-      </div>
-    </div>
-  </Spin>
-</template>
 <script lang="ts" setup>
 import {ref, computed,onMounted,watch,defineProps} from 'vue'
 
@@ -169,6 +87,86 @@ const order=(key:string,i:number)=>{
   getData()
 }
 </script>
+<template>
+    <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
+      <div class="font-semibold">
+        <span>{{tokenOrPairName[0]}}</span>
+        <span class="ml-2">数据详解</span>
+        <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>
+      </div>
+      <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
+      <div @click="full()" class="flex items-center donwBig p-1 absolute right-0 hand  ">
+        <img class="w-4 h-4 mr-0.5" src="https://res.ikingdata.com/liquidity/downBig.jpg" alt="">
+        <span class="text-kd12px16px font-medium text-global-primary">{{fullButtonName}}</span>
+      </div>
+    </div>
+    <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+      <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
+        <template v-for="(item,i) in payHeader">
+          <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
+            <div class="flex items-center">
+              <span>{{item.name}}</span>
+              <img v-if="i>1" @click="order(item.key,i)" class="w-2 h-2.5 ml-1 hand" :src="orderIndex===i?orderTypeName[orderType].img:orderTypeName[0].img" alt="">
+            </div>
+          </div>
+        </template>
+      </div>
+      <!-- 二次展开-->
+      <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
+        <template v-for="(item,i) in tableData">
+          <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
+            <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
+            <div :style="{width:payHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
+            <div :style="{width:payHeader[2].width}" class="flex-1 text-global-highTitle">
+              <LiquidityFullChartPayTableItem
+                  :symbol0="item.token0_symbol"
+                  :symbol1="item.token1_symbol"
+                  :symbol0Number="item.symbol0_flow_in_coin_number"
+                  :symbol0Fund="item.symbol0_flow_in_fund"
+                  :symbol1Number="item.symbol1_flow_in_coin_number"
+                  :symbol1Fund="item.symbol1_flow_in_fund"
+              />
+            </div>
+            <div :style="{width:payHeader[3].width}" class="flex-1 text-global-highTitle">
+              <LiquidityFullChartPayTableItem
+                  :symbol0="item.token0_symbol"
+                  :symbol1="item.token1_symbol"
+                  :symbol0Number="item.symbol0_buy_coin_number"
+                  :symbol0Fund="item.symbol0_buy_fund"
+                  :symbol1Number="item.symbol1_buy_coin_number"
+                  :symbol1Fund="item.symbol1_buy_fund"
+              />
+            </div>
+            <div :style="{width:payHeader[4].width}" class="flex-1 text-global-highTitle">
+              <LiquidityFullChartPayTableItem
+                  :symbol0="item.token0_symbol"
+                  :symbol1="item.token1_symbol"
+                  :symbol0Number="item.symbol0_sell_coin_number"
+                  :symbol0Fund="item.symbol0_sell_fund"
+                  :symbol1Number="item.symbol1_sell_coin_number"
+                  :symbol1Fund="item.symbol1_sell_fund"
+              />
+            </div>
+            <div :style="{width:payHeader[5].width}" class="text-center">{{ item.swap_count?item.swap_count:0 }}</div>
+            <div :style="{width:payHeader[6].width}" class="text-center">{{ item.buy_count?item.buy_count:0 }}</div>
+            <div :style="{width:payHeader[7].width}" class="text-center">{{ item.sell_count?item.sell_count:0 }}</div>
+          </div>
+          <!--        二次下钻-->
+          <div v-if="row===i" class="px-2.5 openContainer">
+            <LiquidityFullChartPayOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
+          </div>
+        </template>
+        <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
+<!--          <div v-if="hasData">上拉加载更多</div>-->
+<!--          <div v-else>没有更多了</div>-->
+          <div v-if="hasData && loading">加载中...</div>
+          <div v-else-if="hasData && !loading">上拉加载更多</div>
+          <div v-else>没有更多了</div>
+        </div>
+      </div>
+    </div>
+</template>
+
 <style scoped>
 .donwBig{
   border:1px solid rgba(43, 141, 255, 0.24);
