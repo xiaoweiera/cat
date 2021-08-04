@@ -50,7 +50,7 @@ const getData=async ()=> {
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
     loading.value=false
-    hasData.value = data?.data?.next ? true : false
+    hasData.value = data.data.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
 }
