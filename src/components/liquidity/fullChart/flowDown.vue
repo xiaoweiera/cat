@@ -31,8 +31,10 @@ const param={
   sort:'desc'
 }
 const loading=ref(true)
+const loadingData=ref(true)
 const hasData=ref(true)
 const tableData=ref([])
+watch(()=>loading.value,(n)=>loadingData.value=n)
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
   param.ts=n
@@ -135,8 +137,8 @@ const order=(key:string,i:number)=>{
           </div>
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-        <div v-if="hasData && loading">加载中...</div>
-        <div v-else-if="hasData && !loading">上拉加载更多</div>
+        <div v-if="hasData && loadingData">加载中...</div>
+        <div v-else-if="hasData && !loadingData">上拉加载更多</div>
         <div v-else-if="!hasData">没有更多了</div>
       </div>
     </div>
