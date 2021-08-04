@@ -54,7 +54,7 @@ const getData=async ()=> {
 onMounted(async ()=>{
  await getData()
 })
-
+const fullButtonName=computed(()=> isFull.value[0]?'点击缩小表格':'点击放大表格')
 const scrollFun=()=>{
   const listDom = document.querySelector('.first')
   if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
@@ -74,7 +74,7 @@ const scrollFun=()=>{
     <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
     <div @click="full()" class="flex items-center donwBig p-1 absolute right-0 hand  ">
       <img class="w-4 h-4 mr-0.5" src="https://res.ikingdata.com/liquidity/downBig.jpg" alt="">
-      <span class="text-kd12px16px font-medium text-global-primary">点击放大表格</span>
+      <span class="text-kd12px16px font-medium text-global-primary">{{fullButtonName}}</span>
     </div>
   </div>
   <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
