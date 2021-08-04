@@ -12,7 +12,6 @@ import FullEventName from '~/components/full/eventname'
 
 // 获取外层的变量，修改数据用于控制 fullScreen 打开全屏或者取消全屏
 const onTriggerFull = setInject(FullEventName.triggerFullEvent)
-
 interface yModel {
   color: string
   data: Array<number>

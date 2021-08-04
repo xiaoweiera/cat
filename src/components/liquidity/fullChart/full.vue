@@ -13,6 +13,7 @@ const props=defineProps({
 })
 const state=ref(false)
 const [,]=useProvide('title','')
+const [,]=useProvide('chartloading',true)
 const [,]=useProvide('tokenOrPairName','')
 const [,setTimeParam ] = useProvide('timeParam', null)
 const [,setCoinType ] = useProvide('coinType', null)

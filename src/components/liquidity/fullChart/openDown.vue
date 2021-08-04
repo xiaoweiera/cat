@@ -25,7 +25,7 @@ const param={
   interval:interval.value[0],
   address:props.address
 }
-let hasData=true
+const hasData=ref(true)
 const tableData=ref([])
 const loadingOpen=ref(false)
 const getData=async ()=>{
@@ -33,13 +33,13 @@ const getData=async ()=>{
   const res=await liquidity_second_level(param)
   if(res.data.code===0) {
     loadingOpen.value=false
-    hasData=res?.data?.data?.next?true:false
+    hasData.value=res?.data?.data?.next?true:false
     R.map(item => tableData.value.push(item), res?.data?.data?.results)
   }
 }
 const scrollFun=()=>{
   const listDom = document.querySelector('.second')
-  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight && hasData)) {
+  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight && hasData.value)) {
     param.page++
     getData()
   }
@@ -57,7 +57,7 @@ onMounted(()=>{
         <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
       </template>
     </div>
-    <div @scroll="scrollFun" class="h-28 showY second">
+    <div @scroll="scrollFun" class="max-h-30 showY second">
       <template v-for="item in tableData">
         <div class="flex items-center min-h-4.5   ">
           <div class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
@@ -71,6 +71,11 @@ onMounted(()=>{
           <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
         </div>
       </template>
+      <div class="w-full mb-2 text-center text-kd12px18px text-global-time">
+        <div v-if="hasData && loadingOpen">加载中...</div>
+        <div v-if="hasData && !loadingOpen">上拉加载更多</div>
+        <div v-if="!hasData">没有更多了</div>
+      </div>
     </div>
   </div>
   </Spin>

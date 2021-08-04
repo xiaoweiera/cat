@@ -24,32 +24,30 @@ const pairName=(tokenName0:string,tokenName1:string)=> getPairName(symbolStore.n
 const param={
   platId:'1',
   page:1,
-  page_size:20,
+  page_size:50,
   pair_id:pairStore.id,
   symbol_id:symbolStore.id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0]
 }
 const loading=ref(true)
-let hasData=true
+let hasData=ref(true)
 const tableData=ref([])
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
-  console.log('aaaa',n)
   param.ts=n
   param.page=1
-  hasData=true
+  hasData.value=true
   row.value=-1
   tableData.value=[]
   await getData()
 })
 const getData=async ()=> {
-  console.log('aaqqq')
   loading.value=true
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
     loading.value=false
-    hasData = data?.data?.next ? true : false
+    hasData.value = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
 }
@@ -59,7 +57,7 @@ onMounted(async ()=>{
 
 const scrollFun=()=>{
   const listDom = document.querySelector('.first')
-  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData) {
+  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
     param.page++
     getData()
   }
@@ -90,7 +88,7 @@ const scrollFun=()=>{
     <!-- 二次展开-->
     <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
       <template v-for="(item,i) in tableData">
-        <div @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
+        <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <a :href="getAddressHref(item.address)" target="_blank" :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
           <div :style="{width:flowHeader[1].width}" class="text-global-highTitle font-medium "> {{ pairName(item.token0_symbol,item.token1_symbol)}}</div>
           <div :style="{width:flowHeader[2].width}" class="flex-1 text-global-highTitle">
@@ -111,7 +109,11 @@ const scrollFun=()=>{
             <LiquidityFullChartOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol"   :address="item.address"  :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
           </div>
       </template>
-
+      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
+        <div v-if="hasData && loading">加载中...</div>
+        <div v-if="hasData && !loading">上拉加载更多</div>
+        <div v-if="!hasData">没有更多了</div>
+      </div>
     </div>
   </div>
   </Spin>
