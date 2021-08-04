@@ -69,8 +69,8 @@ onMounted(()=>{
               <span>{{ formatRulesNumber(item.amount1) }} {{props.token1}}</span>
             </div>
             <div v-else>
-              -<span>{{ formatRulesNumber(item.amount0) }}{{props.token0}}</span> /
-              -<span>{{ formatRulesNumber(item.amount1) }}{{props.token1}}</span>
+              -<span>{{ formatRulesNumber(item.amount0) }} {{props.token0}}</span> /
+              -<span>{{ formatRulesNumber(item.amount1) }} {{props.token1}}</span>
             </div>
 
           </div>

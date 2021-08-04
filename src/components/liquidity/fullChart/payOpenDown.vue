@@ -76,7 +76,7 @@ onMounted(()=>{
             <div v-else class="openHeader">
               --
             </div>
-            <div class="openHeader">{{getBuyNumber(item)}}{{symbolStore.name}}</div>
+            <div class="openHeader">{{getBuyNumber(item)}} {{symbolStore.name}}</div>
             <div class="openHeader">${{ formatRulesNumber(item.amountusd) }}</div>
             <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
           </div>
