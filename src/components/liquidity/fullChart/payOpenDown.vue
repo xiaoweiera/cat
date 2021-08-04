@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted,defineProps} from 'vue'
 import {payOpenHeader,typeName} from '~/logic/liquidity/down'
-import {smallToken, formatRulesPrice,formatTime,formatNumber} from '~/lib/tool'
+import {smallToken, formatRulesPrice,formatRulesNumber,formatTime,formatNumber} from '~/lib/tool'
 import {getTxHref,tokenIsPlace} from '~/logic/liquidity/dataTool'
 import {symbolStore,selectX} from '~/store/liquidity/state'
 import * as R from 'ramda'
@@ -46,9 +46,9 @@ const scrollFun=()=>{
 }
 const getBuyNumber=(item:any)=>{
   if(symbolStore.name===item.buy_token_symbol){
-    return  '-'+formatRulesPrice(Math.abs(formatNumber(item.buy_token_num)))
+    return  '-'+formatRulesNumber(Math.abs(formatNumber(item.buy_token_num)))
   }else{
-    return formatRulesPrice(item.sell_token_num)
+    return formatRulesNumber(item.sell_token_num)
   }
 }
 onMounted(()=>{
@@ -69,15 +69,15 @@ onMounted(()=>{
           <div class="flex items-center min-h-4.5   ">
             <div  class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
             <div v-if="item.buy_token_num || item.sell_token_num" class="openHeader">
-              <span>{{formatRulesPrice(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
+              <span>{{formatRulesNumber(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
               <span class="mx-1">→</span>
-              <span>{{formatRulesPrice(item.sell_token_num)}}</span><span class="ml-1">{{item.sell_token_symbol}}</span>
+              <span>{{formatRulesNumber(item.sell_token_num)}}</span><span class="ml-1">{{item.sell_token_symbol}}</span>
             </div>
             <div v-else class="openHeader">
               --
             </div>
             <div class="openHeader">{{getBuyNumber(item)}}{{symbolStore.name}}</div>
-            <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
+            <div class="openHeader">${{ formatRulesNumber(item.amountusd) }}</div>
             <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
           </div>
         </template>

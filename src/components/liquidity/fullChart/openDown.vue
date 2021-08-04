@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted,defineProps} from 'vue'
 import {flowOpenHeader,typeName} from '~/logic/liquidity/down'
-import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
+import {smallToken, formatRulesPrice,formatRulesNumber,formatTime} from '~/lib/tool'
 import {getTxHref} from '~/logic/liquidity/dataTool'
 import {selectX} from '~/store/liquidity/state'
 import * as R from 'ramda'
@@ -65,16 +65,16 @@ onMounted(()=>{
           <div class="openHeader">{{ typeName[item.type] }}</div>
           <div class="openHeader">
             <div v-if="item.type==='mints'">
-              <span>{{ formatRulesPrice(item.amount0) }} {{props.token0}}</span> /
-              <span>{{ formatRulesPrice(item.amount1) }} {{props.token1}}</span>
+              <span>{{ formatRulesNumber(item.amount0) }} {{props.token0}}</span> /
+              <span>{{ formatRulesNumber(item.amount1) }} {{props.token1}}</span>
             </div>
             <div v-else>
-              -<span>{{ formatRulesPrice(item.amount0) }}{{props.token0}}</span> /
-              -<span>{{ formatRulesPrice(item.amount1) }}{{props.token1}}</span>
+              -<span>{{ formatRulesNumber(item.amount0) }}{{props.token0}}</span> /
+              -<span>{{ formatRulesNumber(item.amount1) }}{{props.token1}}</span>
             </div>
 
           </div>
-          <div class="openHeader">${{ formatRulesPrice(item.amountusd) }}</div>
+          <div class="openHeader">${{ formatRulesNumber(item.amountusd) }}</div>
           <a :href="getTxHref(item.base_id)" target="_blank" class="openHeaderId">{{ smallToken(item.base_id) }}</a>
         </div>
       </template>

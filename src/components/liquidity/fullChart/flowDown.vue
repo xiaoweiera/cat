@@ -3,7 +3,7 @@ import {ref, computed,onMounted,watch,defineProps} from 'vue'
 
 import {flowHeader,flowOpenHeader,typeName,orderTypeName} from '~/logic/liquidity/down'
 import * as R from 'ramda'
-import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
+import {smallToken, formatRulesPrice,formatRulesNumber,formatTime} from '~/lib/tool'
 import * as scroll from '~/utils/event/scroll'
 import {getPairName,getAddressHref} from '~/logic/liquidity/dataTool'
 import {getDownFirstData} from '~/logic/liquidity/downTool'
