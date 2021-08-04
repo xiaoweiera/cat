@@ -57,7 +57,7 @@ onMounted(()=>{
           <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
         </template>
       </div>
-      <div @scroll="scrollFun" class="max-h-30 showY second">
+      <div @scroll="scrollFun" class="max-h-70 showY second">
         <template v-for="item in tableData">
           <div class="flex items-center min-h-4.5   ">
             <div class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
