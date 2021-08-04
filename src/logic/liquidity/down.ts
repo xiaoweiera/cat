@@ -36,9 +36,9 @@ export const payHeader = [
 //交易数据pair二级下钻
 export const payOpenHeader=[
     {name: '时间', width: ''},
-    {name: '交易对', width: ''},
     {name: '方向', width: ''},
     {name: '净买入', width: ''},
     {name: '总价值', width: ''},
+    {name: 'TX ID', width: '110px'},
 ]
 

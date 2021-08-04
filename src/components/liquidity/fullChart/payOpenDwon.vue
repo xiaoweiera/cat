@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, onMounted,defineProps} from 'vue'
-import {flowOpenHeader,typeName} from '~/logic/liquidity/down'
+import {payOpenHeader,typeName} from '~/logic/liquidity/down'
 import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
 import {getTxHref} from '~/logic/liquidity/dataTool'
 import {selectX} from '~/store/liquidity/state'
@@ -53,7 +53,7 @@ onMounted(()=>{
   <Spin class="min-h-30" :loading="loadingOpen">
     <div >
       <div class="flex py-2.5   items-center">
-        <template v-for="item in flowOpenHeader">
+        <template v-for="item in payOpenHeader">
           <div class="flex-1 text-kd12px16px text-global-default text-opacity-65">{{ item.name }}</div>
         </template>
       </div>

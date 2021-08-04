@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref, computed,onMounted,watch,defineProps} from 'vue'
 
-import {flowHeader,flowOpenHeader,typeName} from '~/logic/liquidity/down'
+import {payHeader,typeName} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice,formatTime} from '~/lib/tool'
 import * as scroll from '~/utils/event/scroll'
@@ -78,7 +78,7 @@ const scrollFun=()=>{
     </div>
     <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
       <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
-        <template v-for="item in flowHeader">
+        <template v-for="item in payHeader">
           <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
             {{ item.name }}
           </div>
