@@ -27,14 +27,14 @@ const param={
   symbol_id:symbolStore.id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0],
-  ordering:'total_join_num',
+  ordering:'net_inflowusd',
   sort:'desc'
 }
 const loading=ref(true)
 const loadingData=ref(true)
 const hasData=ref(true)
 const tableData=ref([])
-watch(()=>loading.value,(n)=>loadingData.value=n)
+// watch(()=>loading.value,(n)=>loadingData.value=n)
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
   param.ts=n

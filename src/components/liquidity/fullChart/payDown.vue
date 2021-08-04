@@ -27,7 +27,7 @@ const param={
   symbol_id:symbolStore.id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0],
-  ordering:'swap_count',
+  ordering:'symbol0_flow_in_fund',
   sort:'desc'
 }
 
@@ -35,7 +35,7 @@ const loading=ref(true)
 const loadingData=ref(true)
 let hasData=ref(true)
 const tableData=ref([])
-watch(()=>loading.value,(n)=>loadingData.value=n)
+// watch(()=>loading.value,(n)=>loadingData.value=n)
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
   param.ts=n
