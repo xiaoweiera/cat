@@ -143,9 +143,11 @@ onMounted(async ()=>{
 const fullButtonName=computed(()=> isFull.value[0]?'点击缩小表格':'点击放大表格')
 const scrollFun=()=>{
   const listDom = document.querySelector('.first')
-  if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
-    param.page++
-    getData()
+  if(listDom){
+    if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
+      param.page++
+      getData()
+    }
   }
 }
 const orderType=ref(0)  //类型 desc asc ''
