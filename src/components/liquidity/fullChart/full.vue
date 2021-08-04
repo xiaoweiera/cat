@@ -65,7 +65,8 @@ const statusChange=(status:boolean)=>{
           </div>
         </el-main>
         <el-footer height="initial" :class="isFull[0]?'overflow-hidden flex-1':'overflow-hidden flex-1'" class="flex flex-col ">
-          <LiquidityFullChartFlowDown :chartType="props.chartType"/>
+          <LiquidityFullChartFlowDown v-if="props.chartType==='flow'" :chartType="props.chartType"/>
+          <LiquidityFullChartFlowDown v-else :chartType="props.chartType"/>
         </el-footer>
       </el-container>
       <div v-else  class="flex absolute right-2 xshidden  ">

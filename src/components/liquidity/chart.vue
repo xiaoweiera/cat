@@ -64,14 +64,19 @@ onMounted(() => {
   myChart = echarts.init(myChartDom, 'light')
   getChartData()
   myChart.getZr().on('click',params=>{
+    console.log('111')
     const pointInPixel= [params.offsetX, params.offsetY];
     if (myChart.containPixel('grid',pointInPixel)) {
+      console.log('222')
       let index=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
       selectX.index=index
       selectX.ts=allXaxis.value[index]
+      console.log('333')
       if(!props.full){
+        console.log('444')
         //改变放大full状态
         onTriggerFull(true)
+        console.log('555')
       }else{
         getChartData()
       }
