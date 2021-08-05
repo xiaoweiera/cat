@@ -11,7 +11,7 @@ const props=defineProps({
   usdMoney:Number
 })
 const getNumber=(v:number)=>{
-  if(v==='-') return props.tip?'+0':'0'
+  if(!v) return props.tip?'+0':'0'
   return props.tip? (v>=0?'+$'+formatRulesNumber(v):'-$'+formatRulesNumber(Math.abs(v))):'$'+formatRulesNumber(v)
 }
 const isNull=computed(()=>{
