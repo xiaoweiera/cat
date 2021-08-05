@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps,onMounted,ref } from 'vue'
+import { defineProps,onMounted,ref,reactive } from 'vue'
 import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
 import { useProvide,getInject } from '~/utils/use/state'
 const props=defineProps({
@@ -49,22 +49,34 @@ const statusChange=(status:boolean)=>{
     setInterval(props.queryInterval)
   },10)
 }
-
+const page=reactive({value:1})
+const scrollWatch=()=>{
+  // const listDom = document.querySelector('.header')
+  // console.log(listDom.getBoundingClientRect().top-100)
+  const listDom = document.querySelector('.containerChart')
+  if(listDom){
+    if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight)) {
+      param.page++
+      getData()
+    }
+  }
+}
 
 </script>
 <template>
   <FullScreen @change="statusChange">
     <template #default="scope">
-      <el-container v-if="scope.status" class="h-full xshidden  showY ">
+<!--      <el-container @scroll="scrollWatch()" v-if="scope.status" class="containerChart relative h-full flex xshidden  showY ">-->
+      <el-container @scroll="scrollWatch()" v-if="scope.status" class="containerChart relative h-full flex xshidden  showY ">
         <el-header v-if="!isFull[0]" height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
-        <el-main v-if="!isFull[0]"  class="p-0 mt-4 "  style="flex:5">
+        <div v-if="!isFull[0]"  class="p-0 mt-4 "  style="flex:5">
           <div class=" h-full">
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
-        </el-main>
-        <el-footer height="initial" :class="isFull[0]?'overflow-hidden flex-1':'overflow-hidden  '" style="flex:6" class="flex flex-col ">
+        </div>
+        <el-footer height="initial"  style="flex:6" class="flex flex-col ">
           <LiquidityFullChartFlowDown v-if="props.chartType==='flow'" :chartType="props.chartType"/>
           <LiquidityFullChartPayDown v-else :chartType="props.chartType"/>
         </el-footer>
@@ -78,5 +90,11 @@ const statusChange=(status:boolean)=>{
   </FullScreen>
 </template>
 <style scoped lang="postcss">
-
+.showY::-webkit-scrollbar {
+  height: 8px;
+  @apply w-0.5;
+}
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.1);
+}
 </style>
