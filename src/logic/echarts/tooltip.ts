@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { toArray, forEach, dateYMDFormat } from '~/utils/index'
+import { toArray, forEach } from '~/utils/index'
 import { SeriesItem, seriesType } from './interface'
 import safeGet from '@fengqiaogang/safe-get'
 import { makeSvg } from '~/logic/echarts/legend'
@@ -26,10 +26,11 @@ interface Params {
 
 export const formatter = function(query: any) {
   const list: Params[] = toArray(query)
-  const firstTime = safeGet(list, '[0].data.time')
+  console.log(list)
+  const firstTime = safeGet(list, '[0].data.key')
   if (firstTime) {
     const html: string[] = []
-    html.push(`<span class="block text-gray-500">${dateYMDFormat(firstTime)}</span>`)
+    html.push(`<span class="block text-gray-500">${firstTime}</span>`)
     forEach(function(data: Params) {
       const name = `<span class="ml-1.5 text-xs text-gray-500">${data.seriesName}</span>`
       const value = `<span class="ml-1.5 text-xs text-gray-500">${valueFormatter(data.data)}</span>`

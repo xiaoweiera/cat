@@ -6,6 +6,7 @@ export interface XAxisItem {
   time: number // 时间戳
   value: string | number // 简化时间
   key?: string // 时间戳对应的格式化时间
+  interval?: string // 颗粒度
 }
 
 export enum LegendDirection {
