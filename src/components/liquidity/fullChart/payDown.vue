@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref, computed, onMounted, watch, defineProps} from 'vue'
 
-import {payHeader, typeName, orderTypeName} from '~/logic/liquidity/down'
+import {payHeader, typeName, orderTypeName,orderRules} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice, formatTime} from '~/lib/tool'
 import * as scroll from '~/utils/event/scroll'

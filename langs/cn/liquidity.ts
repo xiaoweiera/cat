@@ -95,5 +95,19 @@ export default {
     },
     fullChart:{
         tip:'* 点击柱图可进行数据过滤'
+    },
+    down:{
+        address:'地址',
+        pair:'交易对 ',
+        netAdd:'净添加量' ,
+        add:'添加总量',
+        remove:'移除总量',
+        times:'参与次数',
+        addTimes:'添加次数',
+        removeTimes:'移除次数',
+        addLiquidity:'添加流动性',
+        removeLiquidity:'撤出流动性',
+
+
     }
 }
