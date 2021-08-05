@@ -9,6 +9,22 @@ export const flowHeader = [
     {key:'mints_join_num',name: '添加次数', width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
     {key:'burns_join_num',name: '移除次数', width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'}
 ]
+export const orderRules={
+    flow:{
+        '1':'net_inflowusd',
+        '2':'net_inflowusd',
+        '3':'total_join_num',
+        '4':'total_join_num',
+        '5':'total_join_num',
+    },
+    pay:{
+        '6':'symbol0_flow_in_fund',
+        '7':'symbol0_flow_in_fund',
+        '8':'swap_count',
+        '9':'swap_count',
+        '10':'swap_count'
+    }
+}
 export const typeName={
     'mints':'添加流动性',
     'burns':'撤出流动性'

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref, computed,onMounted,watch,defineProps} from 'vue'
 
-import {flowHeader,flowOpenHeader,typeName,orderTypeName} from '~/logic/liquidity/down'
+import {flowHeader,flowOpenHeader,typeName,orderTypeName,orderRules} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice,formatRulesNumber,formatTime} from '~/lib/tool'
 import * as scroll from '~/utils/event/scroll'
@@ -9,7 +9,7 @@ import {getPairName,getAddressHref} from '~/logic/liquidity/dataTool'
 import {getDownFirstData} from '~/logic/liquidity/downTool'
 import {pairStore, symbolStore,selectX} from '~/store/liquidity/state'
 import {getInject,  setInject } from '~/utils/use/state'
-const props=defineProps({chartType:String})
+const props=defineProps({chartId:Number,chartType:String,page:Object,hasData:Object})
 const timeParam=getInject('timeParam')
 const isFull=getInject('isFull')
 const interval=getInject('interval')
@@ -21,25 +21,24 @@ const full=()=>setIsFull(!isFull.value[0])
 const pairName=(tokenName0:string,tokenName1:string)=> getPairName(symbolStore.name,tokenName0,tokenName1)
 const param={
   platId:'1',
-  page:1,
+  page:props.page.value,
   page_size:50,
   pair_id:pairStore.id,
   symbol_id:symbolStore.id,
   ts:selectX.ts?selectX.ts:timeParam.value[0].timeEnd,
   interval:interval.value[0],
-  ordering:'net_inflowusd',
+  ordering:orderRules[props.chartType][props.chartId],
   sort:'desc'
 }
 const loading=ref(true)
 const loadingData=ref(true)
-const hasData=ref(true)
 const tableData=ref([])
-// watch(()=>loading.value,(n)=>loadingData.value=n)
 //更改图表日期的时候重新得到数据
 watch(()=>selectX.ts,async (n)=>{
   param.ts=n
   param.page=1
-  hasData.value=true
+  props.page.value=1
+  props.hasData.value=true
   row.value=-1
   tableData.value=[]
   await getData()
@@ -49,25 +48,17 @@ const getData=async ()=> {
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
   if (data?.code === 0) {
     loading.value=false
-    hasData.value = data?.data?.next ? true : false
+    props.hasData.value = data?.data?.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
   }
 }
 onMounted(async ()=>{
-  console.log('flow')
   await getData()
 })
-const fullButtonName=computed(()=> isFull.value[0]?'点击缩小表格':'点击放大表格')
-const scrollFun=()=>{
-  const listDom = document.querySelector('.first')
-  if(listDom){
-    if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
-      param.page++
-      getData()
-    }
-  }
-}
-
+watch(()=>props.page.value,(n)=>{
+  param.page=n
+  getData()
+})
 const orderType=ref(0)  //类型 desc asc ''
 const orderIndex=ref(-1)  //排序的第几个header
 const order=(key:string,i:number)=>{
@@ -81,27 +72,27 @@ const order=(key:string,i:number)=>{
   param.sort=orderTypeName[orderType.value].key
   param.ordering=key
   param.page=1
-  hasData.value=true
+  props.page=1
+  props.hasData.value=true
   row.value=-1
   tableData.value=[]
   getData()
 }
 </script>
 <template>
-  <div class="mb-3 flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
-    <div class="font-semibold">
-      <span>{{tokenOrPairName[0]}}</span>
-      <span class="ml-2">数据详解</span>
-      <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>
+  {{props.chartId}}
+  {{props.chartType}}
+  <div  class="flex flex-1 flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+    <el-affix :offset="90">
+    <div class="pb-3 flex items-center bg-global-white  relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
+      <div class="font-semibold">
+        <span>{{tokenOrPairName[0]}}</span>
+        <span class="ml-2">数据详解</span>
+        <span class="ml-4">({{formatTime(selectX.ts?selectX.ts:timeParam[0].timeEnd,'M月DD日')}})</span>
+      </div>
+      <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
     </div>
-    <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
-    <div @click="full()" class="flex items-center donwBig p-1 absolute right-0 hand  ">
-      <img class="w-4 h-4 mr-0.5" src="https://res.ikingdata.com/liquidity/downBig.jpg" alt="">
-      <span class="text-kd12px16px font-medium text-global-primary">{{fullButtonName}}</span>
-    </div>
-  </div>
-  <div :class="isFull[0]?'flex-1':'flex-1'" class="flex flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
-    <div class="header  px-2.5 min-h-9 mb-1  flex items-center">
+    <div class="header bg-global-white px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="(item,i) in flowHeader">
         <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
           <div class="flex items-center">
@@ -111,8 +102,9 @@ const order=(key:string,i:number)=>{
         </div>
       </template>
     </div>
+    </el-affix>
     <!-- 展开-->
-    <div  @scroll="scrollFun()" :class="isFull[0]?'flex-1':'flex-1'" class="flex first  flex-col   showY">
+    <div  class="flex flex-1 first  flex-col   showY">
       <template v-for="(item,i) in tableData">
         <div  @click="selectRow(i)"  :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <a :href="getAddressHref(item.address)" target="_blank" :style="{width:flowHeader[0].width}" class="text-global-primary font-medium "> {{ smallToken(item.address) }}</a>
@@ -136,8 +128,8 @@ const order=(key:string,i:number)=>{
           </div>
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-        <div v-if="hasData && loading">加载中...</div>
-        <div v-else-if="hasData && !loading">上拉加载更多</div>
+        <div v-if="props.hasData.value && loading">加载中...</div>
+        <div v-else-if="props.hasData.value && !loading">上拉加载更多</div>
         <div v-else>没有更多了</div>
       </div>
     </div>

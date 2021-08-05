@@ -35,6 +35,8 @@ const statusChange=(status:boolean)=>{
   //@ts-ignore 定时器防止进行多余监听
   setTimeout(() => {
     if(!status){
+      page.value=1
+      hasData.value=true
       selectX.index=-1
       selectX.ts=null
     }
@@ -50,14 +52,12 @@ const statusChange=(status:boolean)=>{
   },10)
 }
 const page=reactive({value:1})
+const hasData=reactive({value:true})
 const scrollWatch=()=>{
-  // const listDom = document.querySelector('.header')
-  // console.log(listDom.getBoundingClientRect().top-100)
   const listDom = document.querySelector('.containerChart')
   if(listDom){
-    if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight)) {
-      param.page++
-      getData()
+    if ((parseInt(listDom.scrollHeight - listDom.scrollTop) === listDom.clientHeight) && hasData.value) {
+      page.value++
     }
   }
 }
@@ -66,7 +66,6 @@ const scrollWatch=()=>{
 <template>
   <FullScreen @change="statusChange">
     <template #default="scope">
-<!--      <el-container @scroll="scrollWatch()" v-if="scope.status" class="containerChart relative h-full flex xshidden  showY ">-->
       <el-container @scroll="scrollWatch()" v-if="scope.status" class="containerChart relative h-full flex xshidden  showY ">
         <el-header v-if="!isFull[0]" height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
@@ -77,8 +76,8 @@ const scrollWatch=()=>{
           </div>
         </div>
         <el-footer height="initial"  style="flex:6" class="flex flex-col ">
-          <LiquidityFullChartFlowDown v-if="props.chartType==='flow'" :chartType="props.chartType"/>
-          <LiquidityFullChartPayDown v-else :chartType="props.chartType"/>
+          <LiquidityFullChartFlowDown v-if="props.chartType==='flow'" :chartId="props.chartId" :page="page" :hasData="hasData"  :chartType="props.chartType"/>
+          <LiquidityFullChartPayDown v-else  :page="page"  :chartId="props.chartId" :hasData="hasData" :chartType="props.chartType"/>
         </el-footer>
       </el-container>
       <div v-else  class="flex absolute right-2 xshidden  ">
