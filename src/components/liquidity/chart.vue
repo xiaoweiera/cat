@@ -55,8 +55,6 @@ const getChartData=()=>{
       props.coinType.value,
       selectX.index
   )
-  console.log('333')
-  console.log(selectX)
   const areaColorList=getXAreaColorList(allXaxis.value,selectX.index,props.full)
   draw(xData, series, legend,selected,allYAxis,row,areaColorList)
 }

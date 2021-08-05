@@ -69,7 +69,7 @@ const scrollWatch=()=>{
         <el-header  height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
-        <div  class="p-0 mt-4 " height="initial"  style="flex:5">
+        <div  class="p-0 mt-4" height="initial"  style="flex:5;min-height:250px;">
           <div class=" h-full">
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
