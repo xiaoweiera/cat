@@ -2,6 +2,7 @@
 import { defineProps, onMounted, toRefs,ref,toRaw } from 'vue'
 import * as R from 'ramda'
 import * as echarts from 'echarts'
+import I18n from '~/utils/i18n/index'
 import { paramChart,pairStore,selectX} from '~/store/liquidity/state'
 import {getXData,getGroupSeries, yLabelFormat, getModel, getLegendList,getXAreaColorList} from '~/logic/liquidity/getChartData'
 import { chartConfig,getLegendRow } from '~/logic/liquidity/chartConfig'
@@ -86,7 +87,7 @@ onMounted(() => {
 </script>
 <template>
   <div class=" w-full h-full relative" :class="props.full?'':'mt-4'">
-    <div v-if="full" class="absolute z-2  right-20 top-1 text-global-default text-opacity-35 text-kdFang text-kd12px16px">* 点击柱图可进行数据过滤</div>
+    <div v-if="full" class="absolute z-2  right-20 top-1 text-global-default text-opacity-35 text-kdFang text-kd12px16px">* {{I18n.liquidity.down.chartTipTwo}}</div>
     <div ref="echartsRef" :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>
 </template>

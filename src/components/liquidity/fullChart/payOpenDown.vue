@@ -4,6 +4,7 @@ import {payOpenHeader,typeName} from '~/logic/liquidity/down'
 import {smallToken, formatRulesPrice,formatRulesNumber,formatTime,formatNumber} from '~/lib/tool'
 import {getTxHref,tokenIsPlace} from '~/logic/liquidity/dataTool'
 import {symbolStore,selectX} from '~/store/liquidity/state'
+import I18n from '~/utils/i18n/index'
 import * as R from 'ramda'
 import {getInject } from '~/utils/use/state'
 import {translate_second_level} from '~/api/liquidity'
@@ -82,9 +83,9 @@ onMounted(()=>{
           </div>
         </template>
         <div class="w-full mb-2 text-center text-kd12px18px text-global-time">
-          <div v-if="hasData && loadingOpen">加载中...</div>
-          <div v-if="hasData && !loadingOpen">上拉加载更多</div>
-          <div v-if="!hasData">没有更多了</div>
+          <div v-if="hasData && loadingOpen">{{I18n.liquidity.down.loading}}</div>
+          <div v-if="hasData && !loadingOpen">{{I18n.liquidity.down.pull}}</div>
+          <div v-if="!hasData">{{I18n.liquidity.down.noMore}}</div>
         </div>
       </div>
     </div>

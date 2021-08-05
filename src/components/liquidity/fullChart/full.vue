@@ -21,7 +21,6 @@ const [,setInterval]=useProvide('interval',null)
 const [,setTs]=useProvide('ts',null)
 const [,setPairData]=useProvide('pairData',null)
 const [,setTokenData]=useProvide('tokenData',null)
-const [isFull, ] = useProvide('isFull', false)
 
 onMounted(()=>{
   setTokenData(symbolStore)
@@ -67,10 +66,10 @@ const scrollWatch=()=>{
   <FullScreen @change="statusChange">
     <template #default="scope">
       <el-container @scroll="scrollWatch()" v-if="scope.status" class="containerChart relative h-full flex xshidden  showY ">
-        <el-header v-if="!isFull[0]" height="initial" class="p-0">
+        <el-header  height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
-        <div v-if="!isFull[0]"  class="p-0 mt-4 "  style="flex:5">
+        <div  class="p-0 mt-4 " height="initial"  style="flex:5">
           <div class=" h-full">
             <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>

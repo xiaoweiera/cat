@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {ref, computed, onMounted, watch, defineProps} from 'vue'
-
+import I18n from '~/utils/i18n/index'
+import * as lang from '~/utils/lang'
 import {payHeader, typeName, orderTypeName,orderRules} from '~/logic/liquidity/down'
 import * as R from 'ramda'
 import {smallToken, formatRulesPrice, formatTime} from '~/lib/tool'
@@ -86,6 +87,15 @@ const order = (key: string, i: number) => {
   tableData.value = []
   getData()
 }
+const timeName=computed(()=>{
+  if(!param.ts) return
+  const time=formatTime(param.ts,'M/DD')
+  if(lang.current.value === 'cn'){
+    const timeList=time.split('/')
+    return `${timeList[0]}月${timeList[1]}日`
+  }
+  return time
+})
 </script>
 <template>
   <div class="flex flex-1 flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
@@ -93,10 +103,10 @@ const order = (key: string, i: number) => {
     <div class="pb-3 bg-global-white flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
       <div class="font-semibold">
         <span>{{ tokenOrPairName[0] }}</span>
-        <span class="ml-2">数据详解</span>
-        <span class="ml-4">({{ formatTime(selectX.ts ? selectX.ts : timeParam[0].timeEnd, 'M月DD日') }})</span>
+        <span class="ml-2">{{I18n.liquidity.down.details}}</span>
+        <span class="ml-4">({{timeName}})</span>
       </div>
-      <span class="text-global-default  text-opacity-65 text-kd12px16px ml-4">点击列表地址可对图表数据过滤 </span>
+      <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">{{I18n.liquidity.down.chartTip}} </span>
     </div>
     <div class="header bg-global-white  px-2.5 min-h-9 mb-1  flex items-center">
       <template v-for="(item,i) in payHeader">
@@ -158,9 +168,9 @@ const order = (key: string, i: number) => {
         </div>
       </template>
       <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-        <div v-if="props.hasData.value && loading">加载中...</div>
-        <div v-else-if="props.hasData.value && !loading">上拉加载更多</div>
-        <div v-else>没有更多了</div>
+        <div v-if="props.hasData.value && loading">{{I18n.liquidity.down.loading}}</div>
+        <div v-else-if="props.hasData.value && !loading">{{I18n.liquidity.down.pull}}</div>
+        <div v-else>{{I18n.liquidity.down.noMore}}</div>
       </div>
     </div>
   </div>

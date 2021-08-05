@@ -12,7 +12,7 @@ const props=defineProps({
 })
 const getNumber=(v:number)=>{
   if(v==='-') return props.tip?'+0':'0'
-  return props.tip? (v>=0?'+$'+formatRulesNumber(v):'-$'+formatRulesNumber(Math.abs(v))):formatRulesNumber(v)
+  return props.tip? (v>=0?'+$'+formatRulesNumber(v):'-$'+formatRulesNumber(Math.abs(v))):'$'+formatRulesNumber(v)
 }
 const isNull=computed(()=>{
   if(!props.token0Money && !props.token1Money && !props.usdMoney){
