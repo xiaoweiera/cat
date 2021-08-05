@@ -80,8 +80,6 @@ const order=(key:string,i:number)=>{
 }
 </script>
 <template>
-  {{props.chartId}}
-  {{props.chartType}}
   <div  class="flex flex-1 flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
     <el-affix :offset="90">
     <div class="pb-3 flex items-center bg-global-white  relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">

@@ -98,7 +98,7 @@ export default {
     },
     down:{
         address:'地址',
-        pair:'交易对 ',
+        pair:'交易对',
         netAdd:'净添加量' ,
         add:'添加总量',
         remove:'移除总量',
@@ -107,7 +107,19 @@ export default {
         removeTimes:'移除次数',
         addLiquidity:'添加流动性',
         removeLiquidity:'撤出流动性',
-
-
+        time:'时间',
+        direction:'方向',
+        netBuy:'净买入',
+        buy:'买入',
+        sell:'卖出',
+        Times:'交易笔数',
+        buyTimes:'买入笔数',
+        sellTimes:'卖出笔数',
+        value:'总价值',
+        details:'数据详解',
+        chartTip:'点击列表地址可对图表数据过滤',
+        loading:'加载中...',
+        pull:'上拉加载更多',
+        noMore:'没有更多了'
     }
 }

@@ -95,6 +95,32 @@ export default {
     },
     fullChart:{
         tip:'* Click on the bar graph to filter the data'
+    },
+    down:{
+        address:'Address',
+        pair:'Pair',
+        netAdd:'Net Add' ,
+        add:'Add',
+        remove:'Remove',
+        times:'Times',
+        addTimes:'Add Times',
+        removeTimes:'Remove Times',
+        addLiquidity:'Add Liquidity',
+        removeLiquidity:'Remove Liquidity',
+        time:'Time',
+        direction:'Direction',
+        netBuy:'Net Buy',
+        buy:'Buy',
+        sell:'Sell',
+        Times:'Times',
+        buyTimes:'Buy Times',
+        sellTimes:'Sell Times',
+        value:'Value',
+        details:'Details',
+        chartTip:'Click the list address to filter the chart data',
+        loading:'Loading...',
+        pull:'Pull up to load more',
+        noMore:'No more'
     }
 }
 
