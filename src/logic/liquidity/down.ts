@@ -3,12 +3,12 @@ import I18n from '~/utils/i18n/index'
 export const flowHeader = [
     {name: I18n.liquidity.down.address, width: '110px'},
     {name: I18n.liquidity.down.pair, width: '110px'},
-    {key:'net_inflowusd',name: I18n.liquidity.down.netAdd, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'mints_amountusd',name: I18n.liquidity.down.add, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'burns_amountusd',name: I18n.liquidity.down.remove, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'total_join_num',name: I18n.liquidity.down.times, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'mints_join_num',name: I18n.liquidity.down.addTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'burns_join_num',name: I18n.liquidity.down.removeTimes, width: '100px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'}
+    {index:2,key:'net_inflowusd',name: I18n.liquidity.down.netAdd, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:3,key:'mints_amountusd',name: I18n.liquidity.down.add, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:4,key:'burns_amountusd',name: I18n.liquidity.down.remove, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:5,key:'total_join_num',name: I18n.liquidity.down.times, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:6,key:'mints_join_num',name: I18n.liquidity.down.addTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:7,key:'burns_join_num',name: I18n.liquidity.down.removeTimes, width: '100px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'}
 ]
 export const orderRules={
     flow:{
@@ -43,12 +43,12 @@ export const flowOpenHeader=[
 export const payHeader = [
     {name: I18n.liquidity.down.address, width: '110px'},
     {name: I18n.liquidity.down.pair, width: '110px'},
-    {key:'symbol0_flow_in_fund',name: I18n.liquidity.down.netBuy, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'symbol0_buy_fund',name: I18n.liquidity.down.buy, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'symbol0_sell_fund',name: I18n.liquidity.down.sell, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'swap_count',name: I18n.liquidity.down.payTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'buy_count',name: I18n.liquidity.down.buyTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    {key:'sell_count',name: I18n.liquidity.down.sellTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'}
+    {index:2,key:'symbol0_flow_in_fund',name: I18n.liquidity.down.netBuy, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:3,key:'symbol0_buy_fund',name: I18n.liquidity.down.buy, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:4,key:'symbol0_sell_fund',name: I18n.liquidity.down.sell, width: '',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:5,key:'swap_count',name: I18n.liquidity.down.payTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:6,key:'buy_count',name: I18n.liquidity.down.buyTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    {index:7,key:'sell_count',name: I18n.liquidity.down.sellTimes, width: '80px',img:'https://res.ikingdata.com/nav/apyNoOrder.png'}
 ]
 //交易数据pair二级下钻
 export const payOpenHeader=[

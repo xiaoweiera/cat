@@ -39,6 +39,11 @@ const tableData = ref([])
 watch(() => loading.value, (n) => loadingData.value = n)
 //更改图表日期的时候重新得到数据
 watch(() => selectX.ts, async (n) => {
+  orderType.value=1
+  const orderSelect=payHeader.find((item,i)=>item.key===orderRules[props.chartType][props.chartId])
+  orderIndex.value=orderSelect.index
+  param.sort=orderTypeName[orderType.value].key
+  param.ordering=orderRules[props.chartType][props.chartId]
   param.ts = n
   param.page = 1
   props.page.value = 1
@@ -63,10 +68,11 @@ watch(() => props.page.value, (n) => {
   param.page = n
   getData()
 })
-const orderType = ref(0)  //类型 desc asc ''
-const orderIndex = ref(-1)  //排序的第几个header
+const orderType=ref(1)  //类型 desc asc ''
+const orderIndex=ref(-1)  //排序的第几个header
+const orderSelect=payHeader.find((item,i)=>item.key===param.ordering)
+orderIndex.value=orderSelect.index
 const order = (key: string, i: number) => {
-  console.log(orderIndex.value, i, orderType.value)
   if (orderIndex.value !== i && orderIndex.value !== -1) {
     orderType.value = 1;
     orderIndex.value = i
@@ -88,8 +94,9 @@ const order = (key: string, i: number) => {
   getData()
 }
 const timeName=computed(()=>{
-  if(!param.ts) return
-  const time=formatTime(param.ts,'M/DD')
+  const ts=selectX.ts?selectX.ts:timeParam.value[0].timeEnd
+  if(!ts) return
+  const time=formatTime(ts,'M/DD')
   if(lang.current.value === 'cn'){
     const timeList=time.split('/')
     return `${timeList[0]}月${timeList[1]}日`

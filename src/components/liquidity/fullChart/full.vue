@@ -69,12 +69,12 @@ const scrollWatch=()=>{
         <el-header  height="initial" class="p-0">
             <LiquidityFullChartHeader :desc="props.desc" :config="config"   :chartType="props.chartType" :chartId="props.chartId" />
         </el-header>
-        <div  class="p-0 mt-4" height="initial"  style="flex:5;">
-          <div class=" h-full">
-            <LiquidityFullChartMain class="h-full" :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
+        <el-main  class="p-0 mt-4"  style="flex:5;">
+          <div class=" h-full" style="height:100%;">
+            <LiquidityFullChartMain class="h-full"  :config="config" :chartId="props.chartId" :chartType="props.chartType"/>
           </div>
-        </div>
-        <el-footer height="initial"  style="flex:6" class="flex flex-col ">
+        </el-main>
+        <el-footer  style="flex:6" class="flex flex-col ">
           <LiquidityFullChartFlowDown v-if="props.chartType==='flow'" :chartId="props.chartId" :page="page" :hasData="hasData"  :chartType="props.chartType"/>
           <LiquidityFullChartPayDown v-else  :page="page"  :chartId="props.chartId" :hasData="hasData" :chartType="props.chartType"/>
         </el-footer>
