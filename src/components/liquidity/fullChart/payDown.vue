@@ -105,7 +105,7 @@ const timeName=computed(()=>{
 })
 </script>
 <template>
-  <div class="flex flex-1 flex-col  font-kdFang  w-full   overflow-hidden bg-global-white">
+  <div class="flex flex-1 flex-col  font-kdFang  w-full   bg-global-white">
     <el-affix :offset="90">
     <div class="pb-3 bg-global-white flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
       <div class="font-semibold">
