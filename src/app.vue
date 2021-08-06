@@ -35,6 +35,9 @@ useHead({
   </div>
 </template>
 <style lang="scss">
+.showY{
+  @apply overFlow-hidden overFlow-y-scroll;
+}
 .en .i8n-font-en-inter {
   font-family: i8n-font-inter;
 }

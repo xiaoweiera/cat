@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps,onMounted,computed } from 'vue'
-import {getInject } from '~/utils/use/state'
+import {getInject ,setInject} from '~/utils/use/state'
 import {titleCofig} from '~/logic/liquidity/dataCofig'
 import I18n from '~/utils/i18n/index'
 const props=defineProps({
@@ -13,6 +13,7 @@ const props=defineProps({
 const title=getInject('title')
 const pairData=getInject('pairData')
 const tokenData=getInject('tokenData')
+const setTokenOrPairName=setInject('tokenOrPairName')
 const isShowUsdCoin=()=>{
   if((!pairData.value[0].id && props.config[props.chartType].tokenCofig.usdCoin) || (pairData.value[0].id && props.config[props.chartType].pairCofig.usdCoin)){
     return true
@@ -20,6 +21,7 @@ const isShowUsdCoin=()=>{
   return false
 }
 const tokenOrPairName= computed<string>((): string => {
+  setTokenOrPairName(pairData.value[0].id ? pairData.value[0].orderTokenName : tokenData.value[0].name)
   return pairData.value[0].id ? pairData.value[0].orderTokenName : tokenData.value[0].name
 })
 const titleDesc= computed((): string => {
@@ -48,7 +50,6 @@ onMounted(()=>{
             <span>{{tokenOrPairName}} {{titleDesc}}</span>
           </div>
         </div>
-
         <div class="flex">
           <LiquidityFullChartTime class="mr-3.5"/>
           <LiquidityFullChartInterval class="mr-3.5"/>

@@ -91,7 +91,7 @@ const dataZoom=()=>{
     type: 'inside'
   }
 }
-const xAxis = (xdata: Array<string>, xAxisOption: object) => {
+const xAxis = (xdata: Array<string>,areaColorList:Array<string>) => {
   return [
     {
       axisTick: {
@@ -109,6 +109,13 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
       },
       type: 'category',
       data: xdata,
+      splitArea: areaColorList?{
+        show: true,
+        interval: 0,
+        areaStyle: {
+          color: areaColorList
+        }
+      }:null,
       axisLabel: {
         align:'left',
         margin:14,
@@ -118,7 +125,6 @@ const xAxis = (xdata: Array<string>, xAxisOption: object) => {
           color: '#989898',
         },
       },
-      ...xAxisOption,
     },
   ]
 }
@@ -165,7 +171,6 @@ export const  yAxisModel=(min: number, max: number,isShow:boolean, yLabelFormat:
 }
 //y轴价格线配置
 export const yKAxisModel=(kmin: number, kmax: number,isShow:boolean, yLabelFormat: any,isHasUnit:string)=> {
-  console.log(kmin,Math.floor(kmin),kmin*0.9)
   kmin=kmin*0.96
   kmax=kmax+(kmax*0.05)
   const interval=parseFloat(((kmax-kmin)/4).toString())
@@ -288,13 +293,14 @@ export const chartConfig = (
     getModel: any,
     interval:string,
     full:boolean,
-    row:number
+    row:number,
+    areaColorList:Array<string>
 ) => {
   return {
     grid: grid(interval,full,row),
     tooltip: tooltips(getModel,xData),
     graphic: graphic(row),
-    xAxis: xAxis(xData, {}),
+    xAxis: xAxis(xData, areaColorList),
     legend:mobile?null: legend(legendList,selected,full),
     yAxis: allYAxis,
     series,

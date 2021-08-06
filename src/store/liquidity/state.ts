@@ -27,6 +27,7 @@ export const symbolStore = reactive({ name: '', id: '0x25d2e80cb6b86881fd7e07dd2
 export const symbol0 = reactive({ name: '', id: '' })  // WHT/FILDA  WHT
 export const symbol1 = reactive({ name: '', id: '' })   // WHT/FILDA  FILDA
 export const priceData=ref()
+export const selectX=reactive({index:-1,ts:0})  //点击走势图时候的时间戳
 export const selectCoin = reactive({
   tokenId: '',
   name: '',

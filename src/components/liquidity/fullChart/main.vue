@@ -16,13 +16,14 @@ const chartKey=ref(0)
 let chartData = reactive({value: {}})
 const priceData = reactive({value: {}})
 const isNull = ref(false) //是否有数据
-const chartLoad = ref(true)
 const setTitle=setInject('title')
+const setTs=setInject('ts')
 const coinType=getInject('coinType')
 const interval=getInject('interval')
 const timeParam=getInject('timeParam')
 const pairData=getInject('pairData')
 const tokenData=getInject('tokenData')
+const loading=ref(true)
 const requestParam = reactive({
   platId: 1,
   symbol_id: tokenData.value[0].id,
@@ -41,7 +42,7 @@ onMounted(function () {
 //得到数据
 const getData = async () => {
   let tokenType=props.chartType==='flow'?'pair':'symbol0'
-  chartLoad.value = true
+  loading.value=true
   let chartCoin = ''
   const param=R.pick(['platId','symbol_id','from_ts','to_ts','interval'],requestParam)
   priceData.value = await getTokenPriceData(param, 'token')
@@ -73,7 +74,7 @@ const getData = async () => {
   setTitle(chartData.value.title)
   chartKey.value++
   isNull.value = getIsNullChartData(chartData.value)
-  chartLoad.value = false
+  loading.value=false
 }
 watch(()=>coinType.value[0],(n,o)=>{
   getData()
@@ -88,7 +89,7 @@ watch(()=>timeParam.value[0].timeBegin,(n,o)=>{
 })
 </script>
 <template>
-  <div v-if="!chartLoad" class="h-full w-full">
+  <Spin class="min-h-120" :loading="loading">
     <div v-if="!isNull" class="w-full h-full">
       <LiquidityChart :full=full   :key="chartKey" v-if=" chartData.value.id" :chartId="props.chartId+'full'" :priceData="priceData" :chartData="chartData.value" :coinType="coinType"/>
     </div>
@@ -96,7 +97,7 @@ watch(()=>timeParam.value[0].timeBegin,(n,o)=>{
       <img class="w-62.5 mb-4" src="https://res.ikingdata.com/liquidity/liquidityNullData.jpg" alt="">
       <span class="text-kd14px18px text-global-default text-opacity-32 font-kdFang ">{{I18n.liquidity.noData}}</span>
     </div>
-  </div>
+  </Spin>
 </template>
 <style scoped lang="postcss">
 

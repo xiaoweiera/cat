@@ -11,7 +11,6 @@ const filterOption = ref([
   { name: I18n.liquidity.mainHeader.sixMonth, value: 180, selected: false },
   { name: I18n.liquidity.mainHeader.year, value: 365, selected: false },
 ])
-
 interface timeModel {
   name: string
   value: number

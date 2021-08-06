@@ -4,12 +4,17 @@ import {pairStore, symbolStore, paramChart} from '~/store/liquidity/state'
 import {getPayChartModel, getTokenPriceData, getPairPriceData, getIsNullChartData} from '~/logic/liquidity/dataTool'
 import {titleCofig,isSymbol0Symbol1} from '~/logic/liquidity/dataCofig'
 import I18n from '~/utils/i18n/index'
+import { useProvide } from '~/utils/use/state'
+import FullEventName from '~/components/full/eventname'
+
 const props = defineProps({
   config: Object,
   tokenParam: Object,
   pairParam: Object,
   chartId: Number
 })
+// 定义一个状态，用于控制 fullScreen 打开全屏或者取消全屏
+useProvide(FullEventName.triggerFullEvent, false)
 const coinType = reactive({value: 'usd'})
 const tokenTypeList = ref([])
 const tokenType = ref('symbol0')  //pair 选项如： pair| symbol0| symbol1
@@ -128,7 +133,7 @@ const getTitleDesc=(title:string)=>{
         </el-tooltip>
       </div>
       <LiquidityUsdCoin v-if="(!pairStore.id && props.config.pay.tokenCofig.usdCoin) || (pairStore.id && props.config.pay.pairCofig.usdCoin)" class="md:ml-1.25 md:mt-0 mt-3.25 " :coinType="coinType"/>
-      <LiquidityFullChartFull :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="pay" :chartId="props.chartId" :queryCoinType="coinType.value"/>
+      <LiquidityFullChartFull   :desc="chartData.value?.desc" :config="config" :timeParam="paramChart" :queryInterval="props.tokenParam.interval" chartType="pay" :chartId="props.chartId" :queryCoinType="coinType.value"/>
     </div>
     <div class="text-kd13px19px text-global-default mt-2 opacity-45 txtSmall h-11 xshidden">
       {{ chartData.value?.desc }}

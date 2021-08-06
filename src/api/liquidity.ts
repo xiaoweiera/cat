@@ -1,6 +1,19 @@
 // @ts-ignore
 // import request from '~/lib/service'
 import request from '~/lib/request'
+interface firstModel{
+  pair_id?:string
+  symbol_id?:string
+  ts:string
+  interval:string
+}
+
+interface secondModel{
+  pair_id:string
+  ts:string
+  interval:string
+  address:string
+}
 // 交易所
 export function exchange_list() {
   return request({
@@ -182,6 +195,61 @@ export function  testCnEn(){
   return request({
     url:`https://820f1515f85f.ngrok.io/api/liquidity/1/liquidity_token_usd_chart_single/?chart_id=1&symbol_id=0xb24f1d5d9c63380e221a36a11171214a9dfd7a99`,
     params:{},
+    method:'get'
+  })
+}
+//下钻 下钻 下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻下钻
+
+
+//流动性一级下钻 token
+export function  liquidity_token_first_level(param:firstModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/liquidity_token_first_level`,
+    params:param,
+    method:'get'
+  })
+}
+//流动性一级下钻 pair
+export function  liquidity_pair_first_level(param:firstModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/liquidity_pair_first_level`,
+    params:param,
+    method:'get'
+  })
+}
+
+//流动性二级下钻
+export function  liquidity_second_level(param:secondModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/liquidity_second_level`,
+    params:param,
+    method:'get'
+  })
+}
+
+
+//交易一级下钻 token
+export function  translate_token_first_level(param:firstModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/translate_token_first_level`,
+    params:param,
+    method:'get'
+  })
+}
+//交易一级下钻 pair
+export function  translate_pair_first_level(param:firstModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/translate_pair_first_level`,
+    params:param,
+    method:'get'
+  })
+}
+
+//交易二级下钻
+export function  translate_second_level(param:secondModel){
+  return request({
+    url:`/api/liquidity/drill_down/{platId}/translate_second_level`,
+    params:param,
     method:'get'
   })
 }

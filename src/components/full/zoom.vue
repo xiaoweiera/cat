@@ -5,7 +5,7 @@ import { defineEmit } from 'vue'
 
 const emitEvent = defineEmit(['change'])
 
-const set = setInject('fullStatus')
+const setFullStatus = setInject('fullStatus')
 const fullStatus = getInject('fullStatus')
 
 const getStatus = function() {
@@ -16,7 +16,7 @@ const getStatus = function() {
 // @ts-ignore
 const onFull = function() {
   const status = !getStatus()
-  set(status)
+  setFullStatus(status)
   emitEvent('change', status)
 }
 </script>

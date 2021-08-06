@@ -34,6 +34,7 @@ const getDesc=()=>{
       </div>
       <div class="font-kdFang text-kd13px19px text-global-default text-opacity-45 font-normal">{{getDesc()}}</div>
     </div>
+<!--    <SwapTradeTrigger pair="0x6dd2993b50b365c707718b0807fc4e344c072ec2"/>-->
     <!--    时间筛选-->
     <div class="flex">
       <LiquidityHeaderOption/>

@@ -177,15 +177,38 @@ onMounted(ready)
           <div>
             <span class="text-base">交易</span>
           </div>
-          <div>
-            <el-popover placement="bottom" >
-              <template #reference>
-                <IconFont type="icon-setting" class="text-xl cursor-pointer"/>
-              </template>
-              <div class="w-50 whitespace-nowrap">
-<!--                这是一段内容,这是一段内容,这是一段内容,这是一段内容。-->
+          <div class="setting-box">
+            <div class="mr-4.5 setting-icon">
+              <IconFont type="icon-setting" class="text-xl cursor-pointer"/>
+            </div>
+            <div class="setting-main">
+              <div class="pb-1.5">
+                <label class="text-sm text-global-highTitle">滑点设置</label>
               </div>
-            </el-popover>
+              <div class="w-42">
+                <el-input placeholder="自定义" size="small">
+                  <template #suffix>
+                    <span class="text-sm text-global-default text-opacity-85">%</span>
+                  </template>
+                </el-input>
+              </div>
+              <div>
+                <span class="text-xs text-global-default text-opacity-65">滑点不能超过50%</span>
+              </div>
+              <div class="pb-1.5 pt-4">
+                <label class="text-sm text-global-highTitle">交易截止时间</label>
+              </div>
+              <div class="w-42">
+                <el-input placeholder="自定义" size="small">
+                  <template #suffix>
+                    <span class="text-sm text-global-default text-opacity-85">分钟</span>
+                  </template>
+                </el-input>
+              </div>
+              <div>
+                <span class="text-xs text-global-default text-opacity-65">建议不超过1天</span>
+              </div>
+            </div>
           </div>
         </div>
         <template v-for="(info, index) in getSymbols()" :key="`${info.symbol}-${index}`">
@@ -225,5 +248,40 @@ onMounted(ready)
   </div>
 </template>
 
+<style scoped lang="scss">
+.setting-box {
+  @apply relative pb-3;
+  .setting-icon {
+    @apply relative;
+    &:after {
+      content: none;
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: 50%;
+      top: 100%;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #fff;
+      transform: translate(-50%, 4px);
+      z-index: 1;
+    }
+  }
 
-
+  .setting-main {
+    border-radius: 8px;
+    @apply absolute top-full right-0 p-4 bg-global-white hidden;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.12);
+  }
+  &:hover {
+    .setting-icon {
+      &:after {
+        content: "";
+      }
+    }
+    .setting-main {
+      @apply block;
+    }
+  }
+}
+</style>
