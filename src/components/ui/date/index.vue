@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // @ts-ignore
 // import { useI18n } from 'vue-i18n/dist/vue-i18n.esm-bundler.js'
-import { useI18n } from '~/lib/vue-i18n.esm-bundler.js'
+import { useI18n } from '~/lib/vue-i18n.esm-browser'
 import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
 import { setInject } from '~/utils/use/state'
