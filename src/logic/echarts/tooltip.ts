@@ -26,7 +26,6 @@ interface Params {
 
 export const formatter = function(query: any) {
   const list: Params[] = toArray(query)
-  console.log(list)
   const firstTime = safeGet(list, '[0].data.key')
   if (firstTime) {
     const html: string[] = []

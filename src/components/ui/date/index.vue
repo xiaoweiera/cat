@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
 import { setInject } from '~/utils/use/state'
+import { current } from '~/utils/lang'
 // @ts-ignore
 import { shortcuts, disabledDate, formatResult } from '~/logic/ui/date'
 import safeGet from '@fengqiaogang/safe-get'
-import { defineProps, onMounted, ref, computed, defineEmit } from 'vue'
+import { defineProps, onMounted, ref, computed, defineEmit, provide } from 'vue'
 import { map, forEach, isString, isNumber, isFunction, toArray, isObject, toBoolean } from '~/utils'
 
 const emitEvent = defineEmit(['change', 'update:value'])
@@ -143,7 +145,8 @@ onMounted(function(){
   onChangeType(autoType)
 })
 
-
+const { t, locale } = useI18n()
+provide('ElLocaleInjection', {locale, t, lang: current })
 
 </script>
 

@@ -20,6 +20,7 @@ import {
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from 'uuid'
 import dayjs from 'dayjs'
 import safeGet from '@fengqiaogang/safe-get'
+import { formatRulesPrice } from '~/lib/tool'
 
 export { isNil } from 'ramda'
 
@@ -116,9 +117,9 @@ export const toInteger = function(value: string | number = 0): number {
   return parseInt(number as any, 10)
 }
 
-export const toNumberCeil = function(value: string | number = 0, fixed = 2): number {
-  const number = toNumber(value, fixed + 1)
-  return toNumber(number.toFixed(fixed))
+export const toNumberCeil = function(value: string | number = 0): number {
+  return formatRulesPrice(value, false)
+  // return toNumber(number.toFixed(fixed))
 }
 
 export const inputBeautify = function(value: string = ''): string {
@@ -454,7 +455,7 @@ const unitPow = {
 }
 
 export const numberUint = function(value: number, unit?: Unit) {
-  const count = toNumber(value, 4)
+  const count = formatRulesPrice(value, false)
   if (!unit) {
     const number = (`${toInteger(Math.abs(value))}`).replace(/[^0-9]/, '')
     const length = number.length
