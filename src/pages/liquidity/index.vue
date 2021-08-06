@@ -25,8 +25,10 @@ window.addEventListener('resize', function() {
     <UiFixTip>
       <template #default="scope">
         <span class="inline-block md:text-center md:block text-kd12px16px font-medium leading-5 text-global-default text-opacity-85 md:whitespace-pre-line">
-          <span class="md:block">{{ I18n.common.chat.join }} KingData</span>
-          <span>{{ I18n.common.chat.telegramGroup }}</span>
+          <div class="md:block">{{ I18n.common.fixTip.content1 }}</div>
+           <div class="md:block">{{ I18n.common.fixTip.content2 }}</div>
+           <div class="md:block">{{ I18n.common.fixTip.content3 }}</div>
+          <span>{{ I18n.common.fixTip.confirm }}</span>
         </span>
         <a class="inline-block ml-5 md:ml-0 md:block md:mt-2 cursor-pointer" target="_blank" v-router="I18n.growthpad.growthpad.about.telegram">
             <span class="md:w-full inline-block join-btn text-xs leading-4 py-1 px-3 text-center text-white">{{ I18n.common.chat.joinTelegram }}</span>

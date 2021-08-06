@@ -96,4 +96,10 @@ export default {
   api: {
     wrong: '系统异常，请稍后再试'
   },
+  fixTip:{
+    content1:'学习交流，问题反馈',
+    content2:'',
+    content3:'',
+    comfirm:'加入电报群'
+  }
 }
