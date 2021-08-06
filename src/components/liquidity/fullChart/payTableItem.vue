@@ -21,7 +21,7 @@ const number=computed(()=>isChangePlace.value?props.symbol1Number:props.symbol0N
 const fund=computed(()=>isChangePlace.value?props.symbol1Fund:props.symbol0Fund)
 const tokenName=computed(()=>isChangePlace.value?props.symbol1:props.symbol0)
 const isNull=computed(()=>{
-  if(!number.value && fund.value && tokenName.value){
+  if(!number.value && !fund.value){
     return false
   }
   return true
