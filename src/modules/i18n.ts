@@ -1,4 +1,5 @@
-import { createI18n } from 'vue-i18n'
+// @ts-ignore
+import { createI18n } from 'vue-i18n/dist/vue-i18n.esm-bundler.js'
 import { UserModule } from '~/types'
 // import 'dayjs/locale/zh-cn'
 import ElementPlus from 'element-plus'
