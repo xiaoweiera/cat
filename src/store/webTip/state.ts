@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-const version = 2
+const version = 10
 export const webVersionCn=ref(version)
 export const webVersionEn=ref(version)
 // 是否展示

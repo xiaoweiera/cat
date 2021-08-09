@@ -14,9 +14,12 @@ const changeData=(item:any)=>{
     <div class="flex items-center px-6 mb-3">
       <div style="font-weight: 600;" class="text-kd20px28px text-global-highTitle i8n-font-en-barlow ml-1" >{{I18n.webTip.fixIcon}}&nbsp;&nbsp;{{I18n.webTip.fix}}</div>
     </div>
-    <div style="height: 34px !important;" class="flex items-center   ">
+    <div>
+
+    </div>
+    <div style="height: 34px !important;" class="flex items-center  flex-col  ">
       <template v-for="item in webTipData.fixData">
-        <div @click="changeData(item)" :class="data[0].name===item.name?'selectItem':'noItem'" class="itemProject w-full h-full flex items-center pl-13.5 text-center i8n-font-en-inter hand">{{item.name}}</div>
+        <div @click="changeData(item)" :class="data[0].title===item.title?'selectItem':'noItem'" class="mt-2 pl-13 py-2  itemProject w-full h-full flex items-center pl-13.5  i8n-font-en-inter hand">{{item.name}}</div>
       </template>
     </div>
   </div>

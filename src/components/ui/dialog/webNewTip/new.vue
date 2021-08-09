@@ -15,9 +15,14 @@ const changeData=(item:any)=>{
       <img class="w-7.5 " src="https://res.ikingdata.com/liquidity/leftYunTip.png" alt="">
       <div style="font-weight: 600;" class="text-kd20px28px text-global-highTitle i8n-font-en-barlow ml-1" >{{I18n.webTip.newFeatures}}</div>
     </div>
-    <div style="height: 34px !important;" class="flex items-center   ">
+    <div  class="flex items-center flex-col  ">
       <template v-for="item in webTipData.newData">
-      <div @click="changeData(item)" :class="data[0].name===item.name?'selectItem':'noItem'" class="itemProject w-full h-full flex items-center pl-13.5 text-center i8n-font-en-inter hand">{{item.name}}</div>
+        <div @click="changeData(item)" :class="data[0].title===item.title?'selectItem':'noItem'" class="mt-2 pl-13 pt-2 w-full itemProject w-full h-full flex flex-col justify-center  i8n-font-en-inter hand">
+          <template v-for="itemTwo in item.name">
+              <div class="flex h-full mb-2 items-center">{{itemTwo}}</div>
+          </template>
+        </div>
+
       </template>
     </div>
   </div>
