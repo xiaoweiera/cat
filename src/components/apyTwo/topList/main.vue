@@ -8,7 +8,13 @@ const selectTag=(key:string)=>selectName.value=key
 </script>
 <template>
   <div>
-    <div>a</div>
+    <div class="font-kdFang">
+      <span>借贷利率榜</span>
+      <div class="flex items-center">
+        <img class="w-4 h-4" src="https://res.ikingdata.com/apyTwo/count.jpg" alt="">
+        <span class="ml-0.5 text-global-primary text-kd14px18px">真实利率计算器</span>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped lang="postcss">
