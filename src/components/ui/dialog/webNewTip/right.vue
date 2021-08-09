@@ -8,7 +8,7 @@ const data=getInject('data')
 
 <template>
   <div class="flex flex-col text-kdFang  flex-1 relative bg-global-white imgborRadius BottomRightRadius">
-    <img v-if="data[0].img" class="w-full h-84.5 imgborRadius BottomRightRadius" :src="data[0].img" alt="">
+    <img v-if="data[0].img" class="w-full h-84.5 imgborRadius " :src="data[0].img" alt="">
     <div class="flex-1 p-6  bor BottomRightRadius">
         <div class="font-semibold text-kd20px28px text-kdFang  i8n-font-en-Barlow text-global-default text-opacity-85">{{data[0].title}}</div>
         <div class="mt-1.5 ">
@@ -39,7 +39,7 @@ const data=getInject('data')
   border-radius: 6px !important;
 }
 .bor{
-  border-top:2px solid rgba(0, 0, 0, 0.06);
+  border-top:1px solid rgba(0, 0, 0, 0.06);
   backdrop-filter: blur(80px);
 }
 </style>
