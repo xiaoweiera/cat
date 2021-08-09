@@ -5,7 +5,7 @@ import {ref} from 'vue'
 <template>
 <div class="bg-global-white w-full h-full">
   <ApyTwoChains />
-  <ApyTwoTopListIndex />
+  <ApyTwoTopListTopListMain />
 </div>
 </template>
 <style scoped>
