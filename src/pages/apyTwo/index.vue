@@ -3,7 +3,9 @@
 import {ref} from 'vue'
 </script>
 <template>
-<div class="bg-global-white w-full h-full">
+<div class="bg-global-white w-full h-full font-kdFang">
+  <ApyTwoBaseHeader/>
+  <ApyTwoBaseNotice/>
   <ApyTwoChains />
   <ApyTwoTopListMain />
 </div>
