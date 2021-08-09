@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { LegendItem, XAxisItem, SeriesItem } from '~/logic/echarts/interface'
+import { LegendItem, XAxisItem, SeriesItem, seriesType } from '~/logic/echarts/interface'
 import { toArray, uuid } from '~/utils'
 
 export const makeSeriesItem = function(value: number | string): SeriesItem {
@@ -7,12 +7,12 @@ export const makeSeriesItem = function(value: number | string): SeriesItem {
 }
 
 const randomSeriesValue = function() {
-  const array: SeriesItem[] = []
+  const array: Array<string | number> = []
   for (let i = 0; i < 12; i++) {
-    const value = Math.random() * 100
-    array.push(makeSeriesItem(value))
+    const value = parseInt(Math.random() * 100 as any)
+    array.push(value)
   }
-  return array
+  return JSON.stringify(array)
 }
 
 interface EchartData {
@@ -21,7 +21,7 @@ interface EchartData {
   // 横轴数据
   xAxis: XAxisItem[],
   // 数据
-  series: Array<SeriesItem[]>
+  series: string[]
 }
 
 export const onRemoveLegend = function(echartData: EchartData, index: number) {
@@ -42,6 +42,8 @@ export const onAddLegend = function(echartData: EchartData) {
   legends.push({
     name: '名称',
     unit: '',
+    show: true,
+    type: seriesType.line,
     id: uuid()
   })
 
@@ -57,16 +59,22 @@ export const createEchartData = function() {
       {
         name: '蒸发量',
         unit: 'ml',
+        show: true,
+        type: seriesType.line,
         id: uuid()
       },
       {
         name: '降水量',
         unit: 'ml',
+        show: true,
+        type: seriesType.line,
         id: uuid()
       },
       {
         name: '平均温度',
         unit: '°C',
+        show: true,
+        type: seriesType.line,
         id: uuid()
       }
     ],

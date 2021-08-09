@@ -1,15 +1,28 @@
 <script setup lang="ts">
-import { toArray, uuid } from '~/utils'
-import { ref, watch } from 'vue'
+import { uuid, map } from '~/utils'
+import { ref } from 'vue'
 // @ts-ignore
-import { Position } from '~/logic/echarts/interface'
-import { createEchartData, onRemoveLegend, onAddLegend } from '~/logic/demo/chart'
+import { Position, seriesType } from '~/logic/echarts/interface'
+import { createEchartData, onRemoveLegend, onAddLegend, makeSeriesItem } from '~/logic/demo/chart'
 const echartData = createEchartData()
 
 const key = ref<string>(uuid())
 
 const sync = function(){
   key.value = uuid()
+}
+const toJSON = function(value: string) {
+  if (value) {
+    const list: any[] = JSON.parse(value)
+    return map(function(item: any){
+      return makeSeriesItem(item)
+    }, list)
+  }
+  return []
+}
+
+const toStringify = function() {
+  return JSON.stringify(echartData, null, 4)
 }
 
 const onRemove = function(index: number) {
@@ -35,12 +48,31 @@ const onAdd = function() {
         <div class="flex-1 w-1 p-2">
           <el-form ref="form" :model="echartData" label-position="top">
             <template v-for="(item, index) in echartData.legends" :key="index">
-              <div class="flex justify-between items-center pb-2">
-                <div class="flex-1">
-                  <el-input v-model="echartData.legends[index].name"></el-input>
-                </div>
-                <div class="ml-5">
+              <div class="pb-5">
+                <div class="flex justify-end">
                   <el-button size="small" type="warning" @click="onRemove(index)">删除</el-button>
+                </div>
+                <div>
+                  <el-form-item label="名称">
+                    <el-input v-model="echartData.legends[index].name"></el-input>
+                  </el-form-item>
+                  <div class="flex">
+                    <el-form-item label="图形类型" class="flex-1">
+                      <el-select v-model="echartData.legends[index].type">
+                        <el-option :value="seriesType.line" label="折线"></el-option>
+                        <el-option :value="seriesType.bar" label="柱状"></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="是否显示" class="flex-1">
+                      <el-select v-model="echartData.legends[index].show">
+                        <el-option :value="true" label="显示"></el-option>
+                        <el-option :value="false" label="隐藏"></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </div>
+                  <el-form-item label="数据">
+                    <el-input type="textarea" v-model="echartData.series[index]"></el-input>
+                  </el-form-item>
                 </div>
               </div>
             </template>
@@ -60,7 +92,7 @@ const onAdd = function() {
                   show: 是否显示
                   position: 通过该字段控制 Series 中对应的数据以那个 Y 轴为纬度展示
                 -->
-                <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+                <EchartsLegend :index="index" :value="item.name" :show="item.show" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
 
                 <EchartsYaxis :index="0" :position="Position.left"/>
                 <EchartsYaxis :index="1" :position="Position.right"/>
@@ -75,13 +107,15 @@ const onAdd = function() {
                     通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
                     value: 数据
                   -->
-                  <EchartsSeries :index="index" :value="item"/>
+                  <EchartsSeries :index="index" :value="toJSON(item)"/>
                 </template>
               </template>
             </Echarts>
           </div>
+          <div>
+            <pre v-html="toStringify()"></pre>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
