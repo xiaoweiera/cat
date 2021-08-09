@@ -3,8 +3,9 @@
 import {ref} from 'vue'
 </script>
 <template>
-<div>
+<div class="bg-global-white w-full h-full">
   <ApyTwoChains />
+  <ApyTwoTopListIndex />
 </div>
 </template>
 <style scoped>
