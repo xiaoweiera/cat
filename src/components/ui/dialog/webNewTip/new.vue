@@ -17,9 +17,9 @@ const changeData=(item:any)=>{
     </div>
     <div  class="flex items-center flex-col  ">
       <template v-for="item in webTipData.newData">
-        <div @click="changeData(item)" :class="data[0].title===item.title?'selectItem':'noItem'" class="mt-2 pl-13 pt-2 w-full itemProject w-full h-full flex flex-col justify-center  i8n-font-en-inter hand">
+        <div @click="changeData(item)" :class="data[0].title===item.title?'selectItem':'noItem'" class="mt-2 pl-13 py-2 w-full itemProject w-full h-full flex flex-col justify-center  i8n-font-en-inter hand">
           <template v-for="itemTwo in item.name">
-              <div class="flex h-full mb-2 items-center">{{itemTwo}}</div>
+              <div class="flex h-full  items-center">{{itemTwo}}</div>
           </template>
         </div>
 
