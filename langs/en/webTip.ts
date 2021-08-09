@@ -41,6 +41,7 @@ export default {
     fix1:{
         name: '7/29 UPDATE',
         href: '/liquidity',
+
         descs: [
             '1. Optimized the experience of data charts',
             '2. Fixed the known problem data in the data chart (SUSHI Data, MDEX Project, MDX Token, UniSwap Data, DeFi Data, AMPL Data)',
@@ -49,7 +50,8 @@ export default {
         ]
     },
     fix2:{
-        name: '8/09 UPDATE',
+        name: 'APY New Included',
+        img: 'https://res.ikingdata.com/liquidity/apyEn.jpg',
         href: '/apy',
         title:'APY New Included',
         descs: [

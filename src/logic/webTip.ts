@@ -31,6 +31,7 @@ export const webTipData={
     fixData:[
         {
             name:I18n.webTip.fix2.name,
+            img:I18n.webTip.fix2.img,
             href:I18n.webTip.fix2.href,
             title:I18n.webTip.fix2.title,
             descs:I18n.webTip.fix2.descs

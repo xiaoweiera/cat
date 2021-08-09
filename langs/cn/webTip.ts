@@ -47,7 +47,8 @@ export default {
         ]
     },
     fix2:{
-        name: '8月09日更新',
+        name: 'APY收录',
+        img: 'https://res.ikingdata.com/liquidity/apyCn.jpg',
         href: '/apy',
         title:'APY收录',
         descs: [
