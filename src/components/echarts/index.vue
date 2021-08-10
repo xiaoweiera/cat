@@ -2,7 +2,7 @@
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
-import { compact, forEach, map, numberUint, toNumber, uuid } from '~/utils/index'
+import { compact, forEach, map, numberUint, toBoolean, toNumber, uuid } from '~/utils/index'
 import { defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/echarts/interface'
@@ -222,8 +222,11 @@ const getYindex = function(): any {
 
 const getSeries = function() {
   const app = getYindex()
-  return map((item: any, index: number) => {
+  const seriesList = map((item: any, index: number) => {
     const data = app(index)
+    if (!toBoolean(data.show)) {
+      return void 0
+    }
     const option: any = Object.assign({
       name: data.value,
       type: data.type,
@@ -254,13 +257,15 @@ const getSeries = function() {
       // 柱状图最大宽度
       option.barMaxWidth = 50
       const color = safeGet(option, 'itemStyle.color')
-      safeSet(option, 'itemStyle.color', function(d: any) {
-        // 负数时强制设置为红色
-        if (d.value < 0) {
-          return 'rgba(255, 140, 128, 1)'
-        }
-        return color
-      })
+      if (color) {
+        safeSet(option, 'itemStyle.color', function(d: any) {
+          // 负数时强制设置为红色
+          if (d.value < 0) {
+            return 'rgba(255, 140, 128, 1)'
+          }
+          return color
+        })
+      }
     }
     if (props.stack && data.position === Position.left) {
       // 开启堆积图
@@ -286,6 +291,7 @@ const getSeries = function() {
     }
     return option
   }, getValue(series))
+  return compact(seriesList)
 }
 
 const getGrid = function() {
@@ -348,6 +354,7 @@ const getOption = function() {
     series: getSeries(),
     backgroundColor: '#fff',
   }
+  console.log(data)
   return data
 }
 

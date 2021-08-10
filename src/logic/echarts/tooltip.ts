@@ -26,10 +26,10 @@ interface Params {
 
 export const formatter = function(query: any) {
   const list: Params[] = toArray(query)
-  const firstTime = safeGet(list, '[0].data.key')
-  if (firstTime) {
+  const firstValue = safeGet(list, '[0].data.key') || safeGet(list, '[0].data.value')
+  if (firstValue) {
     const html: string[] = []
-    html.push(`<span class="block text-gray-500">${firstTime}</span>`)
+    html.push(`<span class="block text-gray-500">${firstValue}</span>`)
     forEach(function(data: Params) {
       const name = `<span class="ml-1.5 text-xs text-gray-500">${data.seriesName}</span>`
       const value = `<span class="ml-1.5 text-xs text-gray-500">${valueFormatter(data.data)}</span>`
