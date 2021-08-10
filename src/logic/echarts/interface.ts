@@ -2,6 +2,11 @@
  * @file 定义 echarts 中常用的数据格式
  */
 
+export enum Direction {
+  horizontal = 'horizontal',
+  vertical = 'vertical'
+}
+
 export interface XAxisItem {
   value: string | number // 简化时间
   key?: string // 时间戳对应的格式化时间

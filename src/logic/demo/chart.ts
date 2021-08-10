@@ -60,21 +60,21 @@ export const createEchartData = function() {
         name: '蒸发量',
         unit: 'ml',
         show: true,
-        type: seriesType.line,
+        type: seriesType.bar,
         id: uuid()
       },
       {
         name: '降水量',
         unit: 'ml',
         show: true,
-        type: seriesType.line,
+        type: seriesType.bar,
         id: uuid()
       },
       {
         name: '平均温度',
         unit: '°C',
         show: true,
-        type: seriesType.line,
+        type: seriesType.bar,
         id: uuid()
       }
     ],

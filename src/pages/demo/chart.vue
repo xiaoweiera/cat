@@ -2,11 +2,14 @@
 import { uuid, map } from '~/utils'
 import { ref } from 'vue'
 // @ts-ignore
-import { Position, seriesType } from '~/logic/echarts/interface'
+import { Position, seriesType, Direction } from '~/logic/echarts/interface'
 import { createEchartData, onRemoveLegend, onAddLegend, makeSeriesItem } from '~/logic/demo/chart'
 const echartData = createEchartData()
 
 const key = ref<string>(uuid())
+
+// @ts-ignore
+const direction = ref<Direction>(Direction.vertical)
 
 const sync = function(){
   key.value = uuid()
@@ -43,6 +46,10 @@ const onAdd = function() {
       <div class="w-full p-2 flex">
         <el-button type="primary" @click="sync">刷新图表</el-button>
         <el-button type="success" @click="onAdd">添加一条新数据</el-button>
+        <el-select v-model="direction" class="ml-5" @change="sync">
+          <el-option :value="Direction.horizontal" label="水平"></el-option>
+          <el-option :value="Direction.vertical" label="垂直"></el-option>
+        </el-select>
       </div>
       <div class="flex border-gray-500 border-t border-solid">
         <div class="flex-1 w-1 p-2">
@@ -81,7 +88,7 @@ const onAdd = function() {
         <div class="flex-1 w-1 border-gray-500 border-l border-solid">
           <div class="h-100" :key="key">
             <!-- 堆积图，log 图 --->
-            <Echarts :stack="false" :log="false">
+            <Echarts :stack="false" :log="false" :direction="direction">
               <!-- 提示框 trigger: 触发方式 -->
               <EchartsTooltip trigger="axis" />
               <!--图例-->
