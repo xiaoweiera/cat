@@ -23,7 +23,15 @@ export const menu: Menu[] = [
         name: I18n.nav.defi.apy.name,
         desc: I18n.nav.defi.apy.desc,
         icon: 'https://res.ikingdata.com/icon/apy.svg',
-        href: config.apy
+        href: config.apy,
+        children: [
+          {
+            name: '币种分析',
+            desc: '币种分析',
+            icon: 'https://res.ikingdata.com/icon/24.svg',
+            href: `${config.apy}/token`
+          }
+        ]
       },
       {
         name: I18n.nav.defi.liquidity.name,

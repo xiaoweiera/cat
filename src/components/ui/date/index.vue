@@ -11,6 +11,7 @@ import { shortcuts, disabledDate, formatResult } from '~/logic/ui/date'
 import safeGet from '@fengqiaogang/safe-get'
 import { defineProps, onMounted, ref, computed, defineEmit, provide } from 'vue'
 import { map, forEach, isString, isNumber, isFunction, toArray, isObject, toBoolean } from '~/utils'
+import DateEventName from './eventname'
 
 const emitEvent = defineEmit(['change', 'update:value'])
 
@@ -26,12 +27,18 @@ const props = defineProps({
   },
   timeEnd: {
     type: [String, Number]
+  },
+  hiddenType: {
+    type: Boolean,
+    default () {
+      return false
+    }
   }
 })
 
 const db = new DBList()
 
-const setUiDate = setInject('uiDate')
+const setUiDate = setInject(DateEventName.value)
 
 const timeIndex = ref<string>('')
 const dateType = ref<string>('')
@@ -170,7 +177,7 @@ provide('ElLocaleInjection', {locale, t, lang: current })
         </template>
       </template>
     </div>
-    <div class="date-select-box ml-3">
+    <div class="date-select-box ml-3" v-if="!hiddenType">
       <template v-for="item in dateTypeList" :key="item.label">
         <template v-if="item.disabled">
           <span class="date-item disabled">{{ item.label }}</span>
@@ -190,6 +197,7 @@ provide('ElLocaleInjection', {locale, t, lang: current })
 }
 .date-item {
   transition: all 0.3s;
+  color: rgba(3, 54, 102, 0.65);
   @apply inline-block px-2 h-full leading-7 rounded-sm select-none text-sm;
   &.active {
     &:not(.custom-date-picker) {
