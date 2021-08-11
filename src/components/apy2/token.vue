@@ -4,8 +4,9 @@
  * @author svon.me@gmail.com
  */
 import { onMounted, toRaw } from 'vue'
+import { tokenList } from '~/store/apy2/state'
 // @ts-ignore
-import { tokenList, ready } from '~/logic/apy2/token'
+import { ready } from '~/logic/apy2/token'
 import { useProvide } from '~/utils/use/state'
 import { useRoute } from 'vue-router'
 // @ts-ignore

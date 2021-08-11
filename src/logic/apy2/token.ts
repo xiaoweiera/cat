@@ -2,14 +2,12 @@
  * @file 币种相关
  */
 
-import { ref } from 'vue'
 import { map } from '~/utils'
 import * as model from '~/api/apy2'
 import router, { config } from '~/utils/router'
 import { TokenItem } from './interface'
 
-// 币种数据
-export const tokenList = ref<TokenItem[]>([])
+import { tokenList } from '~/store/apy2/state'
 
 // 获取币种列表数据
 export const getTokenList = async function() {
