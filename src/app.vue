@@ -240,6 +240,10 @@ a {
   padding: 0 !important;
 }
 
+.w-fit {
+  width: fit-content;
+}
+
 /* 等宽等高 */
 .equal-width-height {
   width: 100%;

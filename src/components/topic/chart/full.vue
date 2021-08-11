@@ -69,7 +69,7 @@ useWatch('uiDate', function(data: number[][]) {
 
 <template>
   <el-container class="h-full">
-    <el-header height="initial" class="p-0" >
+    <el-header height="initial" class="p-0">
       <TopicChartHead :data="echartDetail" :full="true">
         <template #time>
           <UiDate :shortcuts="shortcuts" :time-end="option.dateTimeEnd"/>
