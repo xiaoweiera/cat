@@ -8,7 +8,7 @@ import { defineProps } from 'vue'
 defineProps({
   menuClass: {
     type: String,
-    default: () => 'w-68'
+    default: () => 'w-60'
   }
 })
 </script>
@@ -20,7 +20,7 @@ defineProps({
         <slot name="menu"></slot>
       </div>
     </div>
-    <div class="flex-1 w-1">
+    <div class="flex-1 w-1 ml-8">
       <slot name="content"></slot>
     </div>
   </div>
