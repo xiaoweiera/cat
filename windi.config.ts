@@ -1,6 +1,27 @@
 import {defineConfig} from 'vite-plugin-windicss'
 import colors from 'windicss/colors'
 import typography from 'windicss/plugin/typography'
+import * as echart from  './src/logic/echarts/colors'
+
+
+const cssGlobal = {
+    bgHui:'#F1F3F5',
+    body: '#F6FAFD',
+    bodyTwo:'#F8FBFD',
+    default: '#253E6F',
+    primary: '#2B8DFE',
+    highTitle:'#033666', /*3,54,102*/
+    mobileBody:'#D8E8FF',
+    numGreen:'#00B464',
+    numRed:'#E9592D',
+    time:'#A2A4A8',
+    noSelect:'#A8A8A8',
+    white:'#FFFFFF',
+    grey: '#7b8db1',
+    money: '#F88923',
+    disabled: '#cccccc', // 禁用，灰色
+    ...echart.tailwind,
+}
 
 export default defineConfig({
     darkMode: 'class',
@@ -88,29 +109,7 @@ export default defineConfig({
                 'kd12px':'12px'
             },
             colors: {
-                global: {
-                    bgHui:'#F1F3F5',
-                    body: '#F6FAFD',
-                    bodyTwo:'#F8FBFD',
-                    default: '#253E6F',
-                    primary: '#2B8DFE',
-                    highTitle:'#033666', /*3,54,102*/
-                    mobileBody:'#D8E8FF',
-                    numGreen:'#00B464',
-                    numRed:'#E9592D',
-                    time:'#A2A4A8',
-                    noSelect:'#A8A8A8',
-                    white:'#FFFFFF',
-                    grey: '#7b8db1',
-                    money: '#F88923',
-                    plat: '#EBF7FF',
-                    coin: '#E4FDFF',
-                    loan:'#ECFFE6',
-                    noAsk:'#FDF4ED',
-                    coinTxt:'#03B7AB',
-                    loanTxt:'#09B86A',
-                    noAskTxt:'#DA9D00'
-                },
+                global: cssGlobal,
             },
             opacity: {
                 85: '.85',
