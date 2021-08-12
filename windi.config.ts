@@ -20,6 +20,13 @@ const cssGlobal = {
     grey: '#7b8db1',
     money: '#F88923',
     disabled: '#cccccc', // 禁用，灰色
+    plat: '#EBF7FF',
+    coin: '#E4FDFF',
+    loan:'#ECFFE6',
+    noAsk:'#FDF4ED',
+    coinTxt:'#03B7AB',
+    loanTxt:'#09B86A',
+    noAskTxt:'#DA9D00',
     ...echart.tailwind,
 }
 
