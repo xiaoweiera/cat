@@ -29,8 +29,19 @@ export default defineConfig({
         typography(),
     ],
     theme: {
+        borderRadius:{
+            'kd4px':'4px',
+            'kd6px':'6px',
+            'kd8px':'8px',
+            'kd12px':'12px',
+            'kd30px':'30px'
+
+        },
         extend: {
             fontSize: {
+                'kd10px10px':['10px','10px'],
+                'kd20px20px':['20px','20px'],
+                'kd11px16px':['11px','16px'],
                 'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],
                 'kd14px20px': ['14px', '20px'],
@@ -76,6 +87,7 @@ export default defineConfig({
                 'kd13px20px':['13px','20px'],
                 'kd13px18px':['13px','18px'],
                 'kd17px17px':['17px','17px'],
+                'kd32px32px':['32px','32px'],
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
