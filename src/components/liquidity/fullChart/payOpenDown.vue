@@ -47,15 +47,15 @@ const scrollFun=()=>{
 }
 const getBuyNumber=(item:any)=>{
   if(symbolStore.name===item.buy_token_symbol){
-    return  '-'+formatRulesNumber(Math.abs(formatNumber(item.buy_token_num)))
+    return  formatRulesNumber(Math.abs(formatNumber(item.buy_token_num)))
   }else{
-    return formatRulesNumber(item.sell_token_num)
+    return '-'+formatRulesNumber(item.sell_token_num)
   }
 }
+
 onMounted(()=>{
   getData()
 })
-
 </script>
 <template>
   <Spin class="min-h-30" :loading="loadingOpen">
@@ -70,9 +70,11 @@ onMounted(()=>{
           <div class="flex items-center min-h-4.5   ">
             <div  class="openHeader">{{ formatTime(item.timestamp,'YYYY-MM-DD HH:mm') }}</div>
             <div v-if="item.buy_token_num || item.sell_token_num" class="openHeader">
-              <span>{{formatRulesNumber(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
-              <span class="mx-1">→</span>
-              <span>{{formatRulesNumber(item.sell_token_num)}}</span><span class="ml-1">{{item.sell_token_symbol}}</span>
+              <div >
+                <span>{{formatRulesNumber(item.sell_token_num)}}</span><span class="ml-1">{{item.sell_token_symbol}}</span>
+                <span class="mx-1">→</span>
+                <span>{{formatRulesNumber(item.buy_token_num)}}</span><span class="ml-1">{{item.buy_token_symbol}}</span>
+              </div>
             </div>
             <div v-else class="openHeader">
               --
