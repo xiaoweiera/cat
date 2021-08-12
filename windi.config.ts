@@ -97,7 +97,7 @@ export default defineConfig({
                     bodyTwo:'#F8FBFD',
                     default: '#253E6F',
                     primary: '#2B8DFE',
-                    highTitle:'#033666',
+                    highTitle:'#033666', /*3,54,102*/
                     mobileBody:'#D8E8FF',
                     numGreen:'#00B464',
                     numRed:'#E9592D',

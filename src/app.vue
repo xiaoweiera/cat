@@ -50,6 +50,8 @@ body {
 .el-loading-spinner .circular{
   display: inline !important;
 }
+
+/*
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;
@@ -64,6 +66,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*/
+
 .el-picker-panel__icon-btn {
   font-size: 12px;
   color: #303133;
@@ -236,6 +240,10 @@ a {
   padding: 0 !important;
 }
 
+.w-fit {
+  width: fit-content;
+}
+
 /* 等宽等高 */
 .equal-width-height {
   width: 100%;
@@ -258,8 +266,10 @@ a {
 /* 去掉 dialog 一些默认内边距 */
 
 .el-dialog.diy-dialog {
-  .el-dialog__header {
-    @apply hidden;
+  &.hidden-header {
+    .el-dialog__header {
+      @apply hidden;
+    }
   }
   .el-dialog__body {
     padding: 0 !important;

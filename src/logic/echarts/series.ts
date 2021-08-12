@@ -14,7 +14,6 @@ import {
   dateTime,
   dateMDFormat,
   dateYMDFormat,
-  dateYMDHFormat,
   dateYMDHmFormat,
   isNumber,
   max,
@@ -33,10 +32,6 @@ const makeDateKey = function(date: any, interval?: string): string {
   const { type } = convertInterval(interval)
   // 按小时
   if (type === 'h') {
-    return dateYMDHFormat(date)
-  }
-  // 按分钟
-  if (type === 'm') {
     return dateYMDHmFormat(date)
   }
   // 按天生成时间
@@ -47,10 +42,6 @@ const makeDateFormat = function(date: any, interval?: string): string {
   const { type } = convertInterval(interval)
   // 按小时
   if (type === 'h') {
-    return dateFormat(date, 'MM/DD HH')
-  }
-  // 按分钟
-  if (type === 'm') {
     return dateFormat(date, 'MM/DD HH:mm')
   }
   // 按天生成时间

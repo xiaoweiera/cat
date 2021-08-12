@@ -2,10 +2,16 @@
  * @file 定义 echarts 中常用的数据格式
  */
 
+export enum Direction {
+  horizontal = 'horizontal',
+  vertical = 'vertical'
+}
+
 export interface XAxisItem {
-  time: number // 时间戳
   value: string | number // 简化时间
   key?: string // 时间戳对应的格式化时间
+  time?: number // 时间戳
+  interval?: string // 颗粒度
 }
 
 export enum LegendDirection {
@@ -32,7 +38,7 @@ interface AnyValue {
 
 export interface SeriesItem extends XAxisItem, AnyValue {
   klValue?: number | string
-  origin?: number | string // 原始数据
+  origin?: number | string // 原始数据 log 图时自动处理
   unit?: Unit
 }
 
@@ -58,9 +64,9 @@ export enum Position {
 }
 
 export interface LegendItem {
-  name: string
-  unit: string
-  id: string | number
+  name: string // 名称
+  unit: string // 单位
+  id: string | number // id
   kline?: boolean // 是否为价格线
   type?: seriesType // echarts 展示图形类型 line / bar ...
   position?: Position

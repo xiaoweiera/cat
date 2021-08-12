@@ -1,3 +1,9 @@
+$--color-primary: #2B8DFE;
+/* $--font-path: "node_modules/element-plus/lib/theme-chalk/fonts"; */
+/* 改变字体文件路径 */
+$--font-path: "/assets/font/element";
+@import "node_modules/element-plus/packages/theme-chalk/src/index";
+
 @import './markdown.css';
 
 html,

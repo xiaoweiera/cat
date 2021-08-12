@@ -40,12 +40,10 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>,selected:
 const allXaxis=ref()
 const echartsRef = ref<any>(null)
 const getChartData=()=>{
-  console.log('11')
    allXaxis.value=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis.value, paramChart.interval)
   const [legend,selected] = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
   const row=getLegendRow(toRaw(echartsRef).value,legend)
-  console.log('222')
   const [series,allYAxis] = getGroupSeries(
       props?.chartData.xaxis,props.priceData.value.xaxis,
       props?.chartData.yaxis, props.priceData.value.yaxis[0],

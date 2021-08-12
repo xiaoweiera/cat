@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="fixed right-7 top-150 help-box p-3 text-kdFang whitespace-nowrap">
+  <div class="fixed right-7 help-box p-3 text-kdFang whitespace-nowrap" style="top:65vh;">
     <span class="text-center mb-2 hidden md:block">
       <img class="inline-block w-20" src="https://res.ikingdata.com/image/growthpad/kingdata/qrcode.jpg"/>
     </span>

@@ -96,7 +96,6 @@ const timeName=computed(()=>{
   }
   return time
 })
-
 </script>
 <template>
   <div  class="flex flex-1 flex-col  font-kdFang  w-full   bg-global-white">

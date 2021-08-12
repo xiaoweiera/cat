@@ -8,7 +8,7 @@ const data=getInject('data')
 
 <template>
   <div class="flex flex-col text-kdFang  flex-1 relative bg-global-white imgborRadius BottomRightRadius">
-    <img v-if="data[0].img" class="w-full h-84.5 imgborRadius BottomRightRadius" :src="data[0].img" alt="">
+    <img v-if="data[0].img" class="w-full h-84.5 imgborRadius " :src="data[0].img" alt="">
     <div class="flex-1 p-6  bor BottomRightRadius">
         <div class="font-semibold text-kd20px28px text-kdFang  i8n-font-en-Barlow text-global-default text-opacity-85">{{data[0].title}}</div>
         <div class="mt-1.5 ">
@@ -20,7 +20,7 @@ const data=getInject('data')
             <div class="text-global-default i8n-font-en-inter text-opacity-65 text-kd14px35px">{{item}}</div>
           </template>
         </div>
-    <a :href="data[0].href" target="_blank" class="borRaduis bg-global-primary w-27.5 flex items-center py-2.5 absolute bottom-6 right-6 cursor-pointer   justify-center rounded">
+    <a :href="data[0].href" target="_blank" class="borRaduis bg-global-primary w-27.5 flex items-center py-2.5 absolute bottom-4 right-6 cursor-pointer   justify-center rounded">
       <span class="text-kd14px18px text-global-white i8n-font-en-barlow font-medium">{{I18n.webTip.go}}</span>
       <img class="w-4 ml-1" style="border-top-right-radius: 100px !important;" src="https://res.ikingdata.com/liquidity/right.png" alt="">
     </a>
@@ -39,7 +39,7 @@ const data=getInject('data')
   border-radius: 6px !important;
 }
 .bor{
-  border-top:2px solid rgba(0, 0, 0, 0.06);
+  border-top:1px solid rgba(0, 0, 0, 0.06);
   backdrop-filter: blur(80px);
 }
 </style>

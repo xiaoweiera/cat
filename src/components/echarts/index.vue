@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { omit, pick } from 'ramda'
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
-import { compact, forEach, map, numberUint, toNumber, uuid } from '~/utils/index'
+import { compact, forEach, map, numberUint, toBoolean, toNumber, uuid } from '~/utils/index'
 import { defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/echarts/interface'
@@ -18,17 +19,28 @@ import {
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
 import { viewWidth } from '~/utils/event/scroll'
-import { seriesType, LegendDirection } from '~/logic/echarts/interface'
+import { seriesType, LegendDirection, Direction } from '~/logic/echarts/interface'
 
 const props = defineProps({
+  // 是否开启log效果
   log: {
     type: Boolean,
     default: () => false
   },
+  // 是否开启堆积
   stack: {
     type: Boolean,
     default: () => false
   },
+  // 图形位置
+  direction: {
+    type: String,
+    default: () => Direction.horizontal,
+    validator: (value: string) => {
+      return value === Direction.horizontal || value === Direction.vertical;
+    }
+  },
+  // 图列位置及是否显示
   legend: {
     type: [String, Boolean],
     default(): string {
@@ -50,10 +62,12 @@ const props = defineProps({
       return status
     }
   },
+  // 右侧刻度颜色
   rightColor: {
     type: String,
     default: () => '#F88923'
   },
+  // 左侧刻度颜色
   leftColor: {
     type: String,
     default: () => '#2B8DFE'
@@ -139,7 +153,11 @@ const getLegend = function() {
 const getXAxis = function() {
   const [ option ] = makeXAxisOption()
   return map(function(item: any) {
-    return Object.assign({}, option, item)
+    const opt = Object.assign({}, option, item)
+    if (props.direction === Direction.vertical) {
+      return pick(['type', 'data', 'axisTick', 'axisLine'], opt)
+    }
+    return opt
   }, getValue(xAxis))
 }
 
@@ -222,8 +240,11 @@ const getYindex = function(): any {
 
 const getSeries = function() {
   const app = getYindex()
-  return map((item: any, index: number) => {
+  const seriesList = map((item: any, index: number) => {
     const data = app(index)
+    if (!toBoolean(data.show)) {
+      return void 0
+    }
     const option: any = Object.assign({
       name: data.value,
       type: data.type,
@@ -254,13 +275,15 @@ const getSeries = function() {
       // 柱状图最大宽度
       option.barMaxWidth = 50
       const color = safeGet(option, 'itemStyle.color')
-      safeSet(option, 'itemStyle.color', function(d: any) {
-        // 负数时强制设置为红色
-        if (d.value < 0) {
-          return 'rgba(255, 140, 128, 1)'
-        }
-        return color
-      })
+      if (color) {
+        safeSet(option, 'itemStyle.color', function(d: any) {
+          // 负数时强制设置为红色
+          if (d.value < 0) {
+            return 'rgba(255, 140, 128, 1)'
+          }
+          return color
+        })
+      }
     }
     if (props.stack && data.position === Position.left) {
       // 开启堆积图
@@ -286,6 +309,7 @@ const getSeries = function() {
     }
     return option
   }, getValue(series))
+  return compact(seriesList)
 }
 
 const getGrid = function() {
@@ -338,16 +362,31 @@ const getGrid = function() {
 }
 
 const getOption = function() {
+  const gridOpt = getGrid()
+  let xAxisOpt
+  let yAxisOpt
+  // 垂直方向
+  if (Direction.vertical === props.direction) {
+    safeSet(gridOpt, 'left', '3%')
+    safeSet(gridOpt, 'right', 15)
+    xAxisOpt = getYAxis()
+    yAxisOpt = getXAxis()
+  } else {
+    xAxisOpt = getXAxis()
+    yAxisOpt = getYAxis()
+  }
+
   const data = {
-    grid: getGrid(),
+    grid: gridOpt,
     graphic: graphic(30),
     tooltip: getToolTip(),
     legend: getLegend(),
-    xAxis: getXAxis(),
-    yAxis: getYAxis(),
+    xAxis: xAxisOpt,
+    yAxis: yAxisOpt,
     series: getSeries(),
     backgroundColor: '#fff',
   }
+  console.log(data)
   return data
 }
 
@@ -371,6 +410,7 @@ onMounted(function() {
   const echart = toRaw(echartsRef).value
   try {
     const option = getOption()
+    console.log(option)
     setTimeout(function() {
       const char = echarts.init(echart);
       compChar.value = char

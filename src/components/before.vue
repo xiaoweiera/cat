@@ -41,7 +41,7 @@ const onConfirm = function() {
     <div @click.capture="onClick">
       <slot></slot>
     </div>
-    <el-dialog custom-class="diy-dialog" v-model="visible" width="280px" :append-to-body="true" :show-close="false">
+    <el-dialog custom-class="diy-dialog hidden-header" v-model="visible" width="280px" :append-to-body="true" :show-close="false">
       <div class="p-4">
         <slot name="content">
           <div class="py-4 text-center">

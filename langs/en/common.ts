@@ -102,5 +102,11 @@ export default {
   },
   api: {
     wrong: 'System exception'
+  },
+  fixTip:{
+    content1:'Learn, communicate',
+    content2:'And',
+    content3:'Feedback questions',
+    comfirm:'Join Telegram'
   }
 }
