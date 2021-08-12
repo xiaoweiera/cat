@@ -396,8 +396,8 @@ const getGrid = function() {
   } else if (props.legend === LegendDirection.custom) {
     return {
       top: 6,
-      left: 6,
-      right: 6,
+      left: 15,
+      right: 15,
       bottom: 6,
       containLabel: true,
     }
@@ -489,7 +489,7 @@ onUnmounted(function() {
     <template v-if="legend === LegendDirection.custom">
       <el-container class="h-full">
         <el-header height="initial" class="p-0">
-          <div class="custom-legend text-kdFang">
+          <div class="custom-legend text-kdFang pt-3">
             <template v-for="(item, index) in chartLegends" :key="`${item.value}-${index}`">
               <div class="item cursor-pointer" :class="getLegendTheme(item, index)" @click="onChangeLegend(item, index)">
                 <div class="flex items-center">

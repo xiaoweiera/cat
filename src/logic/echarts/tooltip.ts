@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { toArray, forEach } from '~/utils/index'
+import { toArray, forEach, isObject } from '~/utils/index'
 import { SeriesItem, seriesType } from './interface'
 import safeGet from '@fengqiaogang/safe-get'
 import { makeSvg } from '~/logic/echarts/legend'
@@ -26,7 +26,11 @@ interface Params {
 
 export const formatter = function(query: any) {
   const list: Params[] = toArray(query)
-  const firstValue = safeGet(list, '[0].data.key') || safeGet(list, '[0].data.value')
+  const firstData: any = safeGet(list, '[0].data')
+  let firstValue = firstData
+  if (isObject(firstData)) {
+    firstValue = safeGet(firstData, 'key') || safeGet(firstData, 'value')
+  }
   if (firstValue) {
     const html: string[] = []
     html.push(`<span class="block text-gray-500">${firstValue}</span>`)

@@ -6,7 +6,7 @@
 
 export * from '~/utils/use/state'
 import { Position, SeriesItem, Unit } from './interface'
-import { isNumber, numberUint } from '~/utils/index'
+import { isNumber, isString, numberUint } from '~/utils/index'
 
 
 export enum EchartsOptionName {
@@ -36,6 +36,9 @@ export const initProps = {
 }
 
 export const valueFormatter = function(data: SeriesItem): string {
+  if (isNumber(data) || isString(data)) {
+    data = { value: data } as any
+  }
   let value = '-'
   if (data.value && isNumber(data.value)) {
     if (data.origin && isNumber(data.origin)) {

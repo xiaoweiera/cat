@@ -26,7 +26,7 @@ const props = defineProps({
     }
   }
 })
-const dialogVisible = ref<boolean>(true)
+const dialogVisible = ref<boolean>(false)
 const radioValue = ref<string | number>()
 const selectValue = ref<string | number>()
 const checkboxValue = ref<Array<string | number>>([])
@@ -36,11 +36,6 @@ onMounted(function() {
   selectValue.value = safeGet(props.selects, '[0].value')
 })
 
-// 关闭弹窗前回调
-// @ts-ignore
-const handleClose = async function() {
-  return true
-}
 // 取消
 const onHidden = function() {
   dialogVisible.value = false;
@@ -68,7 +63,10 @@ const onRemove = function(value: string | number) {
 </script>
 
 <template>
-  <el-dialog custom-class="diy-dialog" :title="title" v-model="dialogVisible" width="fit-content" :before-close="handleClose">
+  <div @click="dialogVisible = true">
+    <slot name="content"></slot>
+  </div>
+  <el-dialog custom-class="diy-dialog" :title="title" v-model="dialogVisible" width="fit-content" destroy-on-close show-close>
     <div class="px-5 py-1.5 flex transfer-box" :class="{'search': selects.length > 0}">
       <div class="data-list max-h-full relative">
         <div class="absolute left-0 top-0 right-0 bottom-0">

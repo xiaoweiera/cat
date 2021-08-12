@@ -6,9 +6,16 @@
 import { onMounted, toRaw } from 'vue'
 import { tokenList } from '~/store/apy2/state'
 // @ts-ignore
+import makeRouterPath from '~/utils/router'
+// @ts-ignore
 import { ready } from '~/logic/apy2/token'
 import { useProvide } from '~/utils/use/state'
 import { useRoute } from 'vue-router'
+import { Position, LegendDirection, colors, seriesType } from '~/logic/echarts/interface'
+import safeGet from '@fengqiaogang/safe-get'
+import safeSet from '@fengqiaogang/safe-set'
+import { equalsIgnoreCase } from '~/utils'
+
 // @ts-ignore
 const [ date ] = useProvide('uiDate')
 
@@ -20,18 +27,67 @@ const radios = [
   { label: '单币', value: 1 },
   { label: 'LP', value: 2 }
 ]
+const selects = [
+  { label: '选择公链', value: 1 },
+]
 
 const onSumbit = function(value: Array<string | number>) {
 
 }
 
-const isRouterActive = function(item: any) {
+const isRouterActive = function(item: any, type: string) {
   const $router = toRaw(router)
   const query: Query = $router.query.value as any
-  return query.id === item.id;
+  // 处理默认值
+  if (!safeGet(query, type)) {
+    if (type === 'type') {
+      safeSet(query, type, 1)
+    }
+    if (type === 'id') {
+      const [ item ] = toRaw(tokenList.value)
+      safeSet(query, type, item.id)
+    }
+  }
+  return equalsIgnoreCase(query[type], item[type]);
 }
 
 onMounted(ready)
+
+const legends = [
+  {
+    id: 'd-1',
+    name: 'BTC', // 名称
+    unit: '', // 单位
+    kline: false, // 是否为价格线 (价格线会放到右侧显示)
+    type: 'line',  // line / bar
+    color: '', // 颜色 （为空取系统默认颜色）
+  },
+  { id: 'd-2', name: 'ETH', unit: '', type: 'line' },
+  { id: 'd-3', name: 'HT', unit: '', type: 'line' },
+  { id: 'd-4', name: 'BNB', unit: '', type: 'line' },
+  { id: 'd-5', name: 'PI', unit: '', type: 'line' },
+  { id: 'd-6', name: 'USDT', unit: '', type: 'line', kline: true }
+]
+const xAxis = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+const randomSeriesValue = function() {
+  const array: Array<string | number> = []
+  for (let i = 0; i < xAxis.length; i++) {
+    const value = parseInt(Math.random() * 30 as any)
+    array.push({ value })
+  }
+  return array
+}
+
+const series = {
+  'd-1': randomSeriesValue(),
+  'd-2': randomSeriesValue(),
+  'd-3': randomSeriesValue(),
+  'd-4': randomSeriesValue(),
+  'd-5': randomSeriesValue(),
+  'd-6': randomSeriesValue(),
+}
+
 
 </script>
 
@@ -49,17 +105,17 @@ onMounted(ready)
           </div>
         </el-header>
         <el-main class="p-0 overflow-auto">
-          <div class="pt-3 pb-10">
+          <div class="pt-3 pb-10" v-if="tokenList.length > 0">
             <template v-for="(item, index) in tokenList" :key="index">
               <div class="cursor-pointer">
-                <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item)}">
-                  <div class="inline-flex">
+                <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item, 'id')}">
+                  <span class="inline-flex">
                     <!-- rounded-xl overflow-hidden -->
                     <IconFont rounded :type="item.icon" size="24"></IconFont>
-                  </div>
-                  <div class="ml-1.5">
+                  </span>
+                  <span class="ml-1.5">
                     <span class="text-sm text-global-highTitle">{{ item.name }}</span>
-                  </div>
+                  </span>
                 </router-link>
               </div>
             </template>
@@ -80,12 +136,12 @@ onMounted(ready)
             </span>
           </div>
           <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1">
-            <router-link class="page-switch active" to="?type=1">
+            <router-link class="page-switch" :class="{'active': isRouterActive({ type: 1 }, 'type')}" :to="makeRouterPath({query: { type: 1 }})">
               <IconFont type="icon-danbi" size="24"/>
               <span class="ml-2">挖矿收益</span>
               <IconFont class="ml-1.5" type="icon-star-xuanzhong" size="16"/>
             </router-link>
-            <router-link class="page-switch" to="?type=2">
+            <router-link class="page-switch" :class="{'active': isRouterActive({ type: 2 }, 'type')}" :to="makeRouterPath({query: { type: 2 }})">
               <IconFont type="icon-jiekuan-da" size="24"/>
               <span class="ml-2">利率收益</span>
               <IconFont class="ml-1.5" type="icon-star-weixuanzhong" size="16"/>
@@ -112,37 +168,98 @@ onMounted(ready)
         <div class="mt-3">
           <div class="flex justify-between items-center">
             <div>
-              <el-button plain size="small">
-                <div class="inline-flex items-center px-3 py-0.5">
-                  <IconFont class="flex mr-1" type="icon-plus" size="16"/>
-                  <span class="text-sm">添加矿池</span>
-                </div>
-              </el-button>
+              <UiTransfer title="添加矿池" sub-title="已选矿池" :radios="radios" :selects="selects" @submit="onSumbit">
+                <template #content>
+                  <el-button plain size="small">
+                    <div class="inline-flex items-center px-3 py-0.5">
+                      <IconFont class="flex mr-1" type="icon-plus" size="16"/>
+                      <span class="text-sm">添加矿池</span>
+                    </div>
+                  </el-button>
+                </template>
+
+                <!-- 自定义左侧列表显示内容 -->
+                <template #item="scope">
+                  <span class="text-global-highTitle text-xs font-normal">BTC/ETH-{{ scope.data }}</span>
+                </template>
+                <!-- 自定义右侧列表显示内容 -->
+                <template #result="scope">
+                  <span>BTC/ETH-{{ scope.id }}</span>
+                </template>
+              </UiTransfer>
             </div>
             <div>
               <UiDateDay :shortcuts="[{ value: '7', 'default': true }, '30', '180']"/>
             </div>
           </div>
-          <div>
+          <!--挖矿收益-->
+          <div v-if="isRouterActive({ type: 1 }, 'type')">
+            <div class="h-85">
+              <Echarts :legend="LegendDirection.custom">
+                <!-- 提示框 trigger: 触发方式 -->
+                <EchartsTooltip trigger="axis" />
 
+                <template v-for="(item, index) in legends" :key="index">
+                  <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+                </template>
+
+                <EchartsYaxis :index="0" :position="Position.left"/>
+                <EchartsYaxis :index="1" :position="Position.right"/>
+
+                <!-- 设置X轴 -->
+                <EchartsXaxis :value="xAxis"/>
+
+
+                <!--数据-->
+                <template v-for="(item, index) in legends" :key="index">
+                  <!--
+                    通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
+                    value: 数据
+                  -->
+                  <EchartsSeries :index="index" :color="item.color" :value="series[item.id]"/>
+                </template>
+              </Echarts>
+            </div>
+            <div class="mt-8">
+              <h3 class="text-xl text-global-highTitle text-opacity-85">BTC 所有 APY 池子</h3>
+            </div>
           </div>
+
+          <!--利率收益-->
+          <div v-if="isRouterActive({ type: 2 }, 'type')">
+            <div class="h-85">
+              <Echarts :legend="LegendDirection.custom">
+                <!-- 提示框 trigger: 触发方式 -->
+                <EchartsTooltip trigger="axis" />
+
+                <template v-for="(item, index) in legends" :key="index">
+                  <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+                </template>
+
+                <EchartsYaxis :index="0" :position="Position.left"/>
+                <EchartsYaxis :index="1" :position="Position.right"/>
+
+                <!-- 设置X轴 -->
+                <EchartsXaxis :value="xAxis"/>
+
+
+                <!--数据-->
+                <template v-for="(item, index) in legends" :key="index">
+                  <!--
+                    通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
+                    value: 数据
+                  -->
+                  <EchartsSeries :index="index" :color="item.color" :value="series[item.id]"/>
+                </template>
+              </Echarts>
+            </div>
+            <div class="mt-8">
+              <h3 class="text-xl text-global-highTitle text-opacity-85">借贷 BTC 的所有最佳路径</h3>
+            </div>
+          </div>
+
         </div>
       </div>
-<!--      <div class="p-5">-->
-<!--        <UiDateDay :shortcuts="['7', { value: '30', 'default': true }, '180']"></UiDateDay>-->
-<!--      </div>-->
-
-<!--      <div>{{ date }}</div>-->
-
-<!--      <UiTransfer title="添加币种 & LP" sub-title="已选" :radios="radios" @submit="onSumbit">-->
-<!--        <template #item="scope">-->
-<!--          <span class="text-global-highTitle text-xs font-normal">BTC/ETH-{{ scope.data }}</span>-->
-<!--        </template>-->
-
-<!--        <template #result="scope">-->
-<!--          <span>BTC/ETH-{{ scope.id }}</span>-->
-<!--        </template>-->
-<!--      </UiTransfer>-->
 
     </template>
   </UiLayoutMenu>
@@ -173,5 +290,9 @@ onMounted(ready)
 
 .el-button--small {
   @apply rounded-md text-global-highTitle text-opacity-85;
+  &.is-plain {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
 }
 </style>
