@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { omit, pick } from 'ramda'
+import { pick } from 'ramda'
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, forEach, map, numberUint, toBoolean, toNumber, uuid } from '~/utils/index'
-import { defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
+import { defineEmit, defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/echarts/interface'
 import { calcYAxis } from '~/logic/echarts/series'
 import * as logicLegend from '~/logic/echarts/legend'
-
 import {
   graphic,
   tooltips as makeTooltipOption,
@@ -19,7 +18,10 @@ import {
 import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
 import { viewWidth } from '~/utils/event/scroll'
-import { seriesType, LegendDirection, Direction } from '~/logic/echarts/interface'
+import { tailwind } from '~/logic/echarts/colors'
+import { seriesType, LegendDirection, Direction, iconFontName } from '~/logic/echarts/interface'
+
+const emitEvent = defineEmit(['removeLegend'])
 
 const props = defineProps({
   // 是否开启log效果
@@ -53,6 +55,7 @@ const props = defineProps({
         case LegendDirection.left:
         case LegendDirection.right:
         case LegendDirection.bottom:
+        case LegendDirection.custom:
           status = true
           break
       }
@@ -81,12 +84,6 @@ const compChar = reactive<any>({
   value: void 0,
 })
 
-const [ series ] = useProvide(EchartsOptionName.series)
-const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
-const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
-const [ legend ] = useProvide(EchartsOptionName.legend)
-const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
-
 /**
  * 获取 ref 对象中的数据，并去除空值
  * @param data ref
@@ -95,6 +92,51 @@ const getValue = function(data: any) {
   const value = toRaw(data.value)
   return compact(value)
 }
+
+const [ series ] = useProvide(EchartsOptionName.series)
+const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
+const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
+const [ chartLegends, setChartLegends ] = useProvide(EchartsOptionName.legend)
+const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
+
+// 获取 legend 主题颜色
+// @ts-ignore
+const getLegendTheme = function(item: any, index: number): string {
+  if (item.show) {
+    const data = getValue(series)
+    const color = safeGet(data, `[${index}].itemStyle.color`)
+    if (color) {
+      const keys = Object.keys(tailwind)
+      for (let i = 0, len = keys.length; i < len; i++) {
+        const key = keys[i]
+        const value = tailwind[key]
+        if (value === color) {
+          return key
+        }
+      }
+    }
+    return `chat${index}`
+  }
+  return 'disabled'
+}
+
+// 删除 legend
+// @ts-ignore
+const onRemoveLegend = function(item: any) {
+  const data = toRaw(item)
+  emitEvent('removeLegend', data)
+}
+// 修改 legend 状态
+// @ts-ignore
+const onChangeLegend = function(item: any, index: number) {
+  const array = getValue(chartLegends)
+  const temp = safeGet(array, `${index}`)
+  const data = Object.assign({}, temp, {
+    show: !safeGet(temp, 'show')
+  })
+  setChartLegends(data, index)
+}
+
 
 const getToolTip = function() {
   const array = getValue(tooltip)
@@ -107,7 +149,7 @@ const getToolTip = function() {
 const getLegendRow = function(): number {
   // @ts-ignore
   const echart = toRaw(echartsRef).value
-  const list: any[] = getValue(legend)
+  const list: any[] = getValue(chartLegends)
   return logicLegend.clacLegendRows(list, echart)
 }
 
@@ -128,8 +170,8 @@ const getLegend = function() {
       }
       return opt
     }
-  }, getValue(legend))
-  if (props.legend) {
+  }, getValue(chartLegends))
+  if (props.legend && props.legend !== LegendDirection.custom) {
     const option = { data: compact(data), itemWidth: 14, }
     if (props.legend === LegendDirection.top) {
       safeSet(option, 'top', 0)
@@ -173,7 +215,7 @@ const getYAxisData = function(position: Position) {
 
 // 计算 Y 轴刻度数据
 const getYAxis = function(): any[] {
-  const legends = getValue(legend)
+  const legends = getValue(chartLegends)
   const seriesList = getValue(series)
   const yaxis: any[] = []
   const leftData: any[] = []
@@ -227,7 +269,7 @@ const getYAxis = function(): any[] {
 }
 
 const getYindex = function(): any {
-  const list: any[] = getValue(legend)
+  const list: any[] = getValue(chartLegends)
   return function(i: number): number {
     const item = list[i]
     let index = 0
@@ -347,8 +389,16 @@ const getGrid = function() {
   } else if (props.legend === LegendDirection.right) {
     return {
       top: 15,
-      left: 0,
-      bottom: 0,
+      left: 6,
+      bottom: 6,
+      containLabel: true,
+    }
+  } else if (props.legend === LegendDirection.custom) {
+    return {
+      top: 6,
+      left: 6,
+      right: 6,
+      bottom: 6,
       containLabel: true,
     }
   }
@@ -436,7 +486,56 @@ onUnmounted(function() {
     <div class="hidden">
       <slot></slot>
     </div>
-    <div class="w-full h-full" ref="echartsRef">
-    </div>
+    <template v-if="legend === LegendDirection.custom">
+      <el-container class="h-full">
+        <el-header height="initial" class="p-0">
+          <div class="custom-legend text-kdFang">
+            <template v-for="(item, index) in chartLegends" :key="`${item.value}-${index}`">
+              <div class="item cursor-pointer" :class="getLegendTheme(item, index)" @click="onChangeLegend(item, index)">
+                <div class="flex items-center">
+                  <IconFont class="flex mr-1" :type="iconFontName[item.type]" size="base"></IconFont>
+                  <span class="text-xs font-medium">{{ item.value }}</span>
+                  <span class="inline-block ml-1">
+                  <IconFont class="flex" type="icon-x" size="xs" @click.stop.prevent="onRemoveLegend(item)"></IconFont>
+                </span>
+                </div>
+              </div>
+            </template>
+          </div>
+        </el-header>
+        <el-main class="p-0">
+          <div class="w-full h-full" ref="echartsRef"></div>
+        </el-main>
+      </el-container>
+    </template>
+    <template v-else>
+      <div class="w-full h-full" ref="echartsRef"></div>
+    </template>
   </div>
 </template>
+
+<style scoped lang="scss">
+@mixin theme($name) {
+  &.#{$name} {
+    @apply bg-global-#{$name} bg-opacity-12;
+    @apply border-global-#{$name} border-opacity-12;
+    @apply text-global-#{$name};
+  }
+}
+.custom-legend {
+  .item {
+    padding-top: 3px; padding-bottom: 3px;
+    @apply inline-block px-2.5 rounded-md border border-solid mr-1 my-3 select-none;
+    &:last-child {
+      @apply mr-0;
+    }
+    @for $index from 0 through 10 {
+      $name: "chat#{$index}";
+      @include theme(unquote($name));
+    }
+    &.disabled {
+      @include theme(unquote("disabled"));
+    }
+  }
+}
+</style>

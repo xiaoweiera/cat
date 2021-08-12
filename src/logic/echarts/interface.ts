@@ -2,6 +2,8 @@
  * @file 定义 echarts 中常用的数据格式
  */
 
+export { colors } from './colors'
+
 export enum Direction {
   horizontal = 'horizontal',
   vertical = 'vertical'
@@ -18,7 +20,8 @@ export enum LegendDirection {
   top = 'top',
   left = 'left',
   right = 'right',
-  bottom = 'bottom'
+  bottom = 'bottom',
+  custom = 'custom', // 自定义图例
 }
 
 export enum Unit {
@@ -58,6 +61,11 @@ export enum seriesType {
   log = 'log'
 }
 
+export const iconFontName = {
+  [seriesType.bar]: 'icon-Column',
+  [seriesType.line]: 'icon-Broken_line'
+}
+
 export enum Position {
   left = 'left',
   right = 'right'
@@ -74,17 +82,6 @@ export interface LegendItem {
   value?: string
 }
 
-// 颜色集合
-export const colors = [
-  'rgba(43, 140, 255, 1)',
-  'rgba(56, 214, 0, 1)',
-  'rgba(0, 0, 0, 0.8)',
-  // 'rgba(0, 209, 134)',
-  'rgba(35, 159, 149, 1)',
-  'rgba(0, 198, 225, 1)',
-  'rgba(33, 85, 169, 1)',
-  'rgba(34, 55, 238, 1)',
-  'rgba(161, 31, 240, 1)',
-  'rgba(244, 42, 151, 1)',
-  'rgba(233, 45, 45, 1)'
-]
+
+
+

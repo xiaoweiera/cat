@@ -2,7 +2,7 @@
 import { uuid, map } from '~/utils'
 import { ref } from 'vue'
 // @ts-ignore
-import { Position, seriesType, Direction } from '~/logic/echarts/interface'
+import { Position, seriesType, Direction, LegendDirection, colors } from '~/logic/echarts/interface'
 import { createEchartData, onRemoveLegend, onAddLegend, makeSeriesItem } from '~/logic/demo/chart'
 const echartData = createEchartData()
 
@@ -88,7 +88,7 @@ const onAdd = function() {
         <div class="flex-1 w-1 border-gray-500 border-l border-solid">
           <div class="h-100" :key="key">
             <!-- 堆积图，log 图 --->
-            <Echarts :stack="false" :log="false" :direction="direction">
+            <Echarts :stack="false" :log="false" :direction="direction" :legend="LegendDirection.custom">
               <!-- 提示框 trigger: 触发方式 -->
               <EchartsTooltip trigger="axis" />
               <!--图例-->
@@ -114,7 +114,7 @@ const onAdd = function() {
                     通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
                     value: 数据
                   -->
-                  <EchartsSeries :index="index" :value="toJSON(item)"/>
+                  <EchartsSeries :index="index" :color="colors[index]" :value="toJSON(item)"/>
                 </template>
               </template>
             </Echarts>
