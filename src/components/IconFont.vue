@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isHttp } from '~/utils/index'
+import { isHttp } from '~/utils'
 import { defineProps, computed } from 'vue'
 import { oss } from '~/lib/process'
 
@@ -54,22 +54,32 @@ const ossIconList: string[] = [
 
 // 定义 icon 名称
 const props = defineProps({
+  // 图标名称或者链接地址
   type: {
     type: String,
     required: true,
   },
+  // 图标后缀 (使用阿里云素材时有效)
   suffix: {
     type: String,
     default() {
       return 'svg'
     },
   },
+  // 图标大小
   size: {
     type: String,
     default() {
       return 'xl'
     },
   },
+  // 是否圆角
+  rounded: {
+    type: Boolean,
+    default () {
+      return false
+    }
+  }
 })
 // @ts-ignore
 const src = computed<string>(() => {
@@ -87,28 +97,44 @@ const src = computed<string>(() => {
 })
 // @ts-ignore
 const isAliOSS = computed<boolean>(() => {
-  if (isHttp(props.type) || ossIconList.includes(props.type)) {
-    return true;
-  }
-  return false;
+  return isHttp(props.type) || ossIconList.includes(props.type);
+
 })
 // @ts-ignore
 const iconCode = function() {
   return `<use xlink:href="#${props.type}"></use>`;
 }
+const sizes = {
+  '4xl': 42,
+  '3xl': 32,
+  '2xl': 24,
+  'xl': 20,
+  'base': 16,
+  'xs': 12,
+  'mini': 10
+}
+
+const fontSize = computed<string>(function(): string {
+  const value = sizes[props.size] || props.size
+  const className = [`size-${value}`]
+  if (props.rounded) {
+    className.push('rounded')
+  }
+  return className.join(' ')
+})
 
 </script>
 
 <template>
   <span class="inline-block none-select icon-font" v-if="isAliOSS">
     <template v-if="isHttp(type)">
-      <img class="inline-block none-select" :class="`size-${size}`" :src="src"/>
+      <img class="inline-block none-select" :class="fontSize" :src="src"/>
     </template>
     <template v-else>
-      <img class="inline-block none-select" :class="`icon-${type} size-${size}`" :src="src"/>
+      <img class="inline-block none-select" :class="`icon-${type} ${fontSize}`" :src="src"/>
     </template>
   </span>
-  <i class="icon-font inline-block" v-else>
+  <i class="icon-font inline-block" :class="fontSize" v-else>
     <svg aria-hidden="true" v-html="iconCode()"></svg>
   </i>
 </template>
@@ -145,14 +171,23 @@ const iconCode = function() {
   @if unitless($number) {
     $number: $number * 1px;
   }
-  width: $number;
-  height: $number;
-  max-width: $number;
-  max-height: $number;
-  min-width: $number;
-  min-height: $number;
+  &.icon-font {
+    font-size: $number;
+  }
+  &:not(.icon-font) {
+    width: $number;
+    height: $number;
+    max-width: $number;
+    max-height: $number;
+    min-width: $number;
+    min-height: $number;
+  }
+  &.rounded {
+    border-radius: floor($number / 2);
+    @apply overflow-hidden;
+  }
 }
-
+/*
 .size-4xl {
   @include size(42px);
 }
@@ -178,6 +213,7 @@ const iconCode = function() {
 .size-mini {
   @include size(10px);
 }
+*/
 /*
   快速生成一批尺寸 6，8，10,,,60
 */

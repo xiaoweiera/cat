@@ -193,15 +193,16 @@ provide('ElLocaleInjection', {locale, t, lang: current })
 
 <style scoped lang="scss">
 .date-select-box {
-  @apply rounded bg-global-primary bg-opacity-8 p-0.5 flex;
+  @apply rounded-md bg-global-highTitle bg-opacity-4 p-1 flex;
 }
 .date-item {
   transition: all 0.3s;
-  color: rgba(3, 54, 102, 0.65);
-  @apply inline-block px-2 h-full leading-7 rounded-sm select-none text-sm;
+  @apply inline-block px-2 h-full leading-7 rounded-sm select-none text-sm text-global-highTitle text-opacity-65;
   &.active {
     &:not(.custom-date-picker) {
-      @apply bg-global-white text-global-primary;
+      background: #fefefe;
+      box-shadow: 0 1px 0.25rem rgba(0, 0, 0, 0.1);
+      @apply text-global-primary rounded;
     }
   }
   &.disabled {
