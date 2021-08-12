@@ -29,14 +29,13 @@ export default defineConfig({
         typography(),
     ],
     theme: {
-        borderRadius:{
-            'kd4px':'4px',
-            'kd6px':'6px',
-            'kd8px':'8px',
-            'kd12px':'12px',
-            'kd30px':'30px'
-
-        },
+        // borderRadius:{
+        //     'kd4px':'4px',
+        //     'kd6px':'6px',
+        //     'kd8px':'8px',
+        //     'kd12px':'12px',
+        //     'kd30px':'30px'
+        // },
         extend: {
             fontSize: {
                 'kd10px10px':['10px','10px'],
