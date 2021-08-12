@@ -15,12 +15,12 @@ defineProps({
 
 <template>
   <div class="layout-main flex">
-    <div class="menu-box" :class="menuClass">
+    <div class="menu-box hidden md:block" :class="menuClass">
       <div class="menu-main" :class="menuClass">
         <slot name="menu"></slot>
       </div>
     </div>
-    <div class="flex-1 w-1 ml-8">
+    <div class="flex-1 w-1 md:ml-8">
       <slot name="content"></slot>
     </div>
   </div>

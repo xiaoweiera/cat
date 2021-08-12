@@ -1,15 +1,17 @@
 import dayjs from 'dayjs'
 import { dateYMDFormat } from '~/utils'
+import { colors } from '~/logic/echarts/interface'
 
 export const echartData = function() {
   const legends = [
+    { id: 'd-2', name: '总人数', unit: '人', type: 'bar', color: colors[0] },
     {
       id: 'd-1',
-      name: '投票总数', // 名称
+      name: 'APY', // 名称
       unit: '', // 单位
       type: 'line',  // line / bar
+      kline: true
     },
-    { id: 'd-2', name: '总人数', unit: '人', type: 'bar', kline: true, },
   ]
   const xAxis: string[] = []
   const today = dayjs()

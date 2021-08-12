@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { echartData } from '~/logic/apy2/heco'
 // @ts-ignore
-import { Position, colors, seriesType } from '~/logic/echarts/interface'
+import { Position, seriesType } from '~/logic/echarts/interface'
 const data = echartData()
 </script>
 
@@ -24,7 +24,7 @@ const data = echartData()
         </span>
       </p>
     </div>
-    <div class="h-68 mt-6">
+    <div class="mt-6 h-75">
       <Echarts>
         <!-- 提示框 trigger: 触发方式 -->
         <EchartsTooltip trigger="axis" />
@@ -50,6 +50,10 @@ const data = echartData()
         </template>
       </Echarts>
     </div>
+
+    <div class="mt-6">
+
+    </div>
   </div>
 </template>
 
@@ -65,16 +69,15 @@ h3.title {
     span {
       @apply block;
     }
-  }
-  .sub {
-    &:after {
-      @apply inline-block;
+    .sub {
+      &:after {
+        @apply inline-block;
+      }
     }
   }
 
   @screen md {
     @apply block;
-
     .item {
       @apply inline-block ml-8;
       &:first-child {

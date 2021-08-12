@@ -9,7 +9,7 @@ defineProps({
   shortcuts: {
     type: Array,
     default () {
-      return ['7', '30', '90', 'custom']
+      return [{ value: '7', 'default': true }, '30', '90', 'custom']
     }
   }
 })

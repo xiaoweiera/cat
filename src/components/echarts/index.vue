@@ -74,6 +74,11 @@ const props = defineProps({
   leftColor: {
     type: String,
     default: () => '#2B8DFE'
+  },
+  // 只定义 Class
+  customClass: {
+    type: String,
+    default: () => 'h-full'
   }
 })
 
@@ -436,7 +441,6 @@ const getOption = function() {
     series: getSeries(),
     backgroundColor: '#fff',
   }
-  console.log(data)
   return data
 }
 
@@ -460,7 +464,6 @@ onMounted(function() {
   const echart = toRaw(echartsRef).value
   try {
     const option = getOption()
-    console.log(option)
     setTimeout(function() {
       const char = echarts.init(echart);
       compChar.value = char
@@ -482,11 +485,12 @@ onUnmounted(function() {
 </script>
 
 <template>
-  <div class="w-full h-full">
-    <div class="hidden">
-      <slot></slot>
-    </div>
-    <template v-if="legend === LegendDirection.custom">
+  <!-- 自定义图例且未设置图表高度 -->
+  <template v-if="legend === LegendDirection.custom && customClass === 'h-full'">
+    <div class="w-full h-full">
+      <div class="hidden">
+        <slot></slot>
+      </div>
       <el-container class="h-full">
         <el-header height="initial" class="p-0">
           <div class="custom-legend text-kdFang pt-3">
@@ -504,14 +508,41 @@ onUnmounted(function() {
           </div>
         </el-header>
         <el-main class="p-0">
-          <div class="w-full h-full" ref="echartsRef"></div>
+          <div :class="customClass" ref="echartsRef"></div>
         </el-main>
       </el-container>
-    </template>
-    <template v-else>
-      <div class="w-full h-full" ref="echartsRef"></div>
-    </template>
-  </div>
+    </div>
+  </template>
+  <!--自定义模式-->
+  <template v-else-if="legend === LegendDirection.custom">
+    <div class="w-full">
+      <div class="hidden">
+        <slot></slot>
+      </div>
+      <div class="custom-legend text-kdFang pt-3">
+        <template v-for="(item, index) in chartLegends" :key="`${item.value}-${index}`">
+          <div class="item cursor-pointer" :class="getLegendTheme(item, index)" @click="onChangeLegend(item, index)">
+            <div class="flex items-center">
+              <IconFont class="flex mr-1" :type="iconFontName[item.type]" size="base"></IconFont>
+              <span class="text-xs font-medium">{{ item.value }}</span>
+              <span class="inline-block ml-1">
+                  <IconFont class="flex" type="icon-x" size="xs" @click.stop.prevent="onRemoveLegend(item)"></IconFont>
+                </span>
+            </div>
+          </div>
+        </template>
+      </div>
+      <div :class="customClass" ref="echartsRef"></div>
+    </div>
+  </template>
+  <template v-else>
+    <div class="w-full h-full">
+      <div class="hidden">
+        <slot></slot>
+      </div>
+      <div class="h-full" ref="echartsRef"></div>
+    </div>
+  </template>
 </template>
 
 <style scoped lang="scss">
@@ -523,11 +554,16 @@ onUnmounted(function() {
   }
 }
 .custom-legend {
+  @apply py-1.5;
   .item {
     padding-top: 3px; padding-bottom: 3px;
-    @apply inline-block px-2.5 rounded-md border border-solid mr-1 my-3 select-none;
-    &:last-child {
-      @apply mr-0;
+    width: fit-content;
+    @apply block px-2.5 rounded-md border border-solid my-1.5 select-none;
+    @screen md {
+      @apply inline-block mr-1;
+      &:last-child {
+        @apply mr-0;
+      }
     }
     @for $index from 0 through 10 {
       $name: "chat#{$index}";
