@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 /* 币种分析 */
 </script>
-
 <template>
-  <Apy2Token/>
+    <Apy2Mining />
+
 </template>
 
 
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: apy2
+ layout: apy2
 </route>
 // @formatter:off
