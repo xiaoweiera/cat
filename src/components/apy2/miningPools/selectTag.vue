@@ -8,19 +8,18 @@ const props = defineProps({
 })
 const emitTag=defineEmit(['update:tag'])
 const setTag=setInject('tag')
-const tag=ref(props.list[1])
-const changeTag=(name:string)=>{
-  tag.value=name
-  setTag(name)
-  emitTag('update:tag',name)
+const tag=ref(props.list[1].key)
+const changeTag=(key:string)=>{
+  tag.value=key
+  setTag(key)
+  emitTag('update:tag',key)
 }
-
 
 </script>
 <template>
   <div class="flex items-center rounded-kd12px py-1 font-kdFang bg-global-highTitle bg-opacity-6 ">
       <template v-for="(item,i) in props.list">
-        <span @click="changeTag(item)" :class="tag===item?'selectTag':'tag'" class="py-2 px-3 hand">{{item}}</span>
+        <span @click="changeTag(item.key)" :class="tag===item.key?'selectTag':'tag'" class="py-2 px-3 hand">{{item.name}}</span>
       </template>
   </div>
 </template>

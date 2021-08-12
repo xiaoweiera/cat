@@ -6,14 +6,6 @@ import {ref} from 'vue'
   <div class=" flex justify-center   bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  w-full h-full container ">
       <Apy2BaseHeader class="mt-8"/>
-      <div class="flex mt-6">
-        <div class="max-w-156 w-156 flex-1  mr-8" >
-          <Apy2BaseRotate />
-        </div>
-        <ApyTwoBaseNotice class="mr-8"/>
-        <Apy2BasePlayType />
-      </div>
-      <Apy2BaseWarnTip class="mt-6"/>
       <Apy2Chains class="mt-15"/>
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">
@@ -23,11 +15,11 @@ import {ref} from 'vue'
 <!--        榜单-->
         <Apy2TopListMain  class="w-101.25 pl-8  leftBorder">
           <template #item>
-            <Apy2TopListMiningItem />
+            <Apy2TopListLoanItem />
           </template>
         </Apy2TopListMain>
       </div>
-      <Apy2MiningPoolsMain class="mt-15"/>
+      <Apy2LoanPoolsMain class="mt-15"/>
       <div class="h-50"></div>
     </div>
 
@@ -44,4 +36,3 @@ import {ref} from 'vue'
   border-left:1px solid rgba(3, 54, 102, 0.06);
 }
 </style>
-

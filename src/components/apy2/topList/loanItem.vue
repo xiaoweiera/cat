@@ -39,8 +39,8 @@ const list=[1,2,3,4,5]
           <div class="mt-1 flex items-center flex-wrap  justify-between">
             <div class="flex items-center">
               <span class="text-kd12px18px text-global-highTitle text-opacity-65">Coinwind</span>
-              <IconFont class="text-global-highTitle text-opacity-25 ml-1"   type="icon-BSC"></IconFont>
-              <IconFont class="text-global-highTitle text-opacity-25 ml-1"   type="icon-V"></IconFont>
+              <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"   type="icon-BSC"></IconFont>
+              <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  type="icon-V"></IconFont>
               <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">MDEX 董事会</span>
             </div>
             <div>

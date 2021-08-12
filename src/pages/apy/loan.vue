@@ -2,7 +2,7 @@
 /* 币种分析 */
 </script>
 <template>
-    <Apy2Mining />
+  <Apy2Loan />
 </template>
 
 

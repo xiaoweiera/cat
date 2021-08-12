@@ -411,4 +411,4 @@ export const formatNumber=(v:number)=>{
   return v
 }
 
-// export const tolocaleUpperCase=(str:string)=>str.tolocaleUpperCase();
+export const tolocaleUpperCase=(str:string)=>str?.toUpperCase();

@@ -8,8 +8,8 @@ const [filterType,]=useProvide('filterType')
 </script>
 <template>
   <div>
-  <Apy2MiningPoolsHeader />
-    <Apy2MiningTableMain class="mt-3"/>
+    <Apy2LoanPoolsHeader />
+    <Apy2LoanTableMain class="mt-3"/>
   </div>
 </template>
 <style  lang="scss">
