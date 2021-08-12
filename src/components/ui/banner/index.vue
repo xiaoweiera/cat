@@ -62,6 +62,12 @@ const props = defineProps({
     default () {
       return true
     }
+  },
+  bottomType: {
+    type: String,
+    default () {
+      return 'round'
+    }
   }
 })
 
@@ -95,7 +101,7 @@ const swiperSlideAutoPlay = computed<any>(function() {
 </script>
 
 <template>
-  <Swiper v-if="list.length"
+  <Swiper :class="bottomType" v-if="list.length"
       :initialSlide="0"
       slides-per-view="auto"
       :pagination="{ clickable: true }"
@@ -112,7 +118,20 @@ const swiperSlideAutoPlay = computed<any>(function() {
     </template>
   </Swiper>
 </template>
-<style scoped lang="scss">
+<style   lang="scss">
+.line{
+  .swiper-pagination-bullet{
+    height:3px;
+    width:12px;
+    border-radius: 2px;
+    background: white;
+  }
+  .swiper-pagination-bullet-active{
+    width:24px;
+    border-radius: 2px;
+    background: white;
+  }
+}
 .swiper {
   ::v-deep(.swiper-pagination-bullet) {
     width: 12px;

@@ -8,8 +8,22 @@ export default defineConfig({
         typography(),
     ],
     theme: {
+        width:{
+            'fit':'fit-content'
+        },
+        borderRadius:{
+            'kd4px':'4px',
+            'kd6px':'6px',
+            'kd8px':'8px',
+            'kd12px':'12px',
+            'kd30px':'30px'
+
+        },
         extend: {
             fontSize: {
+                'kd10px10px':['10px','10px'],
+                'kd20px20px':['20px','20px'],
+                'kd11px16px':['11px','16px'],
                 'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],
                 'kd14px20px': ['14px', '20px'],
@@ -91,7 +105,14 @@ export default defineConfig({
                     noSelect:'#A8A8A8',
                     white:'#FFFFFF',
                     grey: '#7b8db1',
-                    money: '#F88923'
+                    money: '#F88923',
+                    plat: '#EBF7FF',
+                    coin: '#E4FDFF',
+                    loan:'#ECFFE6',
+                    noAsk:'#FDF4ED',
+                    coinTxt:'#03B7AB',
+                    loanTxt:'#09B86A',
+                    noAskTxt:'#DA9D00'
                 },
             },
             opacity: {
