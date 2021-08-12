@@ -8,7 +8,7 @@ const cssGlobal = {
     bgHui:'#F1F3F5',
     body: '#F6FAFD',
     bodyTwo:'#F8FBFD',
-    default: '#253E6F',
+    default: '#253E6F', /* 37,62,111 */
     primary: '#2B8DFE',
     highTitle:'#033666', /*3,54,102*/
     mobileBody:'#D8E8FF',

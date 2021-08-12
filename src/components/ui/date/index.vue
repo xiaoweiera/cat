@@ -197,7 +197,8 @@ provide('ElLocaleInjection', {locale, t, lang: current })
 }
 .date-item {
   transition: all 0.3s;
-  @apply inline-block px-2 h-full leading-7 rounded-sm select-none text-sm text-global-highTitle text-opacity-65;
+  @apply inline-block px-2 h-full rounded-sm select-none;
+  @apply whitespace-nowrap leading-7 text-sm text-global-highTitle text-opacity-65;
   &.active {
     &:not(.custom-date-picker) {
       background: #fefefe;
@@ -215,6 +216,7 @@ provide('ElLocaleInjection', {locale, t, lang: current })
 
 .custom-date-picker {
   @extend .date-item;
+  @apply hidden md:inline-block;
   &.active {
     .custom-label {
       @apply hidden;

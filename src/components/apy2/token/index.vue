@@ -19,6 +19,21 @@ import DBList from '@fengqiaogang/dblist'
 // @ts-ignore
 const [ date ] = useProvide('uiDate')
 
+const TabData = {
+  mining: 'mining',
+  deposit: 'deposit'
+}
+
+const tabList = [
+  {
+    id: TabData.mining,
+    name: '挖矿收益'
+  }, {
+    id: TabData.deposit,
+    name: '利率收益'
+  }
+]
+
 // 获取当前路由对象
 const router = useRoute()
 
@@ -38,29 +53,6 @@ const getActiveToken = function() {
 }
 
 const currentTokenId = computed(getActiveToken)
-
-const tabList = [
-  {
-    id: 'mining',
-    name: '挖矿收益'
-  }, {
-    id: 'deposit',
-    name: '利率收益'
-  }
-]
-
-// @ts-ignore
-const radios = [
-  { label: '单币', value: 1 },
-  { label: 'LP', value: 2 }
-]
-const selects = [
-  { label: '选择公链', value: 1 },
-]
-
-const onSumbit = function(value: Array<string | number>) {
-
-}
 
 const isRouterActive = function(item: any, type: string) {
   const $router = toRaw(router)
@@ -137,59 +129,15 @@ onMounted(ready)
           </div>
         </div>
 
-        <div class="mt-8 pt-0.5">
-          <div class="flex justify-between items-center">
-            <p class="flex-1 w-1">
-              <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-xl">BTC 挖矿 APY TOP 10</span>
-              <span class="inline-block leading-6 ml-1.5 text-xs text-global-highTitle text-opacity-45">更新时间：1分钟前</span>
-            </p>
-            <div class="ml-5">
-              <div class="cursor-pointer text-global-highTitle text-opacity-65">
-                <IconFont class="flex" type="icon-xiazai" size="24"/>
-              </div>
-            </div>
+        <div class="mt-8 pt-0.5" :key="currentTokenId">
+          <!--挖矿收益-->
+          <div v-if="isRouterActive({ type: TabData.mining }, 'type')">
+            <Apy2TokenMining/>
           </div>
-          <p class="mt-1.5">
-            <span class="leading-6 text-xs text-global-highTitle text-opacity-45">指标描述：展示选定币种/交易对在单位时间内的资金净流入情况，该指标是使用单位时间内主动买入-主动卖出进行计算的，异常的资金变化可能导致行情出现剧烈波动。</span>
-          </p>
-        </div>
-        <div class="mt-3">
-          <div class="flex justify-between items-center">
-            <div>
-              <UiTransfer title="添加矿池" sub-title="已选矿池" :radios="radios" :selects="selects" @submit="onSumbit">
-                <template #content>
-                  <el-button plain size="small">
-                    <div class="inline-flex items-center px-3 py-0.5">
-                      <IconFont class="flex mr-1" type="icon-plus" size="16"/>
-                      <span class="text-sm">添加矿池</span>
-                    </div>
-                  </el-button>
-                </template>
-
-                <!-- 自定义左侧列表显示内容 -->
-                <template #item="scope">
-                  <span class="text-global-highTitle text-xs font-normal">BTC/ETH-{{ scope.data }}</span>
-                </template>
-                <!-- 自定义右侧列表显示内容 -->
-                <template #result="scope">
-                  <span>BTC/ETH-{{ scope.id }}</span>
-                </template>
-              </UiTransfer>
-            </div>
-            <div>
-              <UiDateDay :shortcuts="[{ value: '7', 'default': true }, '30', '180']"/>
-            </div>
+          <!--利率收益-->
+          <div v-else-if="isRouterActive({ type: TabData.deposit }, 'type')">
+            <Apy2TokenDeposit/>
           </div>
-          <template v-for="item in tabList" :key="item.id">
-            <!--挖矿收益-->
-            <div v-if="item.id === 'mining' && isRouterActive({ type: item.id }, 'type')">
-              <Apy2TokenMining :key="currentTokenId"/>
-            </div>
-            <!--利率收益-->
-            <div v-else-if="item.id === 'deposit' && isRouterActive({ type: item.id }, 'type')">
-              <Apy2TokenDeposit :key="currentTokenId"/>
-            </div>
-          </template>
         </div>
       </div>
     </template>
