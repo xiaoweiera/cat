@@ -8,9 +8,6 @@ export default defineConfig({
         typography(),
     ],
     theme: {
-        width:{
-            'fit':'fit-content'
-        },
         borderRadius:{
             'kd4px':'4px',
             'kd6px':'6px',

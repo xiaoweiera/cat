@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
-import {chains} from '~/logic/apyTwo/mining/config'
+import {chains} from '~/logic/apy2/config'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 const props = defineProps({

@@ -8,8 +8,6 @@ const [filterType,]=useProvide('filterType')
 </script>
 <template>
   <div>
-    {{tag[0]}}
-    {{filterType}}
   <Apy2MiningPoolsHeader />
   </div>
 </template>

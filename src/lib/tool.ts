@@ -410,3 +410,5 @@ export const formatNumber=(v:number)=>{
   if(!v) return 0
   return v
 }
+
+// export const tolocaleUpperCase=(str:string)=>str.tolocaleUpperCase();

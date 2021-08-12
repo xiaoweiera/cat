@@ -26,9 +26,9 @@ const changeTag=(name:string)=>{
 </template>
 <style scoped lang="scss">
 .tag{
-  @apply text-kd24px24px text-global-highTitle text-opacity-45;
+  @apply text-kd24px24px text-global-highTitle text-opacity-45 whitespace-nowrap;
 }
 .selectTag{
-  @apply rounded-kd8px text-kd24px24px text-global-white bg-global-primary font-medium;
+  @apply rounded-kd8px text-kd24px24px text-global-white bg-global-primary font-medium whitespace-nowrap;
 }
 </style>

@@ -92,11 +92,10 @@ const cc='coinTxt'
           </a>
         </div>
         <!-- 下拉 -->
-        <div v-if="i<3"  :class="bgList[i]"  class="confirm bg-global-primary pb-4 pt-4  w-full ">
+        <div v-if="i<3"  :class="bgList[i]"  class="confirm  pb-4 pt-4  w-full ">
           <div class=" px-5">
-            <div class="flex items-center selectClass px-1 rounded-kd6px   justify-between">
+            <div class="flex items-center selectClass px-1 rounded-kd6px   justify-between" >
               <div >
-
                 <el-select filterable :popper-append-to-body="false"   size="small" v-model="selectValue" :placeholder="item.selectText">
                   <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
                   </el-option>
@@ -112,7 +111,7 @@ const cc='coinTxt'
   </div>
 
 </template>
-<style  lang="scss">
+<style   lang="scss">
 .itemContainer{
   @apply relative ;
   .vido{

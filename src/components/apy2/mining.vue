@@ -23,9 +23,9 @@ import {ref} from 'vue'
         <Apy2TopListMain  class="w-101.25 pl-8  leftBorder" />
       </div>
       <Apy2MiningPoolsMain class="mt-15"/>
+      <Apy2TableMain class="mt-3"/>
 
-
-      <div class="h-50">1</div>
+      <div class="h-50"></div>
     </div>
 
   </div>

@@ -17,7 +17,7 @@ const changeTag=(name:string)=>{
 
 </script>
 <template>
-  <div class="flex items-center rounded-kd6px p-0.5 font-kdFang bg-global-white w-fit-content" style="border:1px solid rgba(3, 54, 102, 0.1);">
+  <div class="flex items-center rounded-kd6px p-0.5 font-kdFang bg-global-white w-fit" style="border:1px solid rgba(3, 54, 102, 0.1);">
     <template v-for="(item,i) in props.list">
       <span @click="changeTag(item)" :class="tag===item?'selectTag':'tag'" class="py-1.5 px-3 hand">{{item}}</span>
     </template>
@@ -25,9 +25,9 @@ const changeTag=(name:string)=>{
 </template>
 <style scoped lang="scss">
 .tag{
-  @apply text-kd14px18px text-global-highTitle text-opacity-85;
+  @apply text-kd14px18px text-global-highTitle text-opacity-85 whitespace-nowrap;
 }
 .selectTag{
-  @apply rounded-kd4px text-kd14px18px text-global-white bg-global-primary font-medium;
+  @apply rounded-kd4px text-kd14px18px text-global-white bg-global-primary font-medium whitespace-nowrap;
 }
 </style>
