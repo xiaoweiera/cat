@@ -111,12 +111,12 @@ export const chainConfig = [
     name: 'OEC',
     img: 'https://res.ikingdata.com/nav/apyOec.png',
   },
-  // {
-  //   select: false,
-  //   key: 'polygon',
-  //   name: 'POLYGON',
-  //   img: 'https://res.ikingdata.com/nav/apyHsc.png',
-  // },
+  {
+    select: false,
+    key: 'pos',
+    name: 'POLYGON',
+    img: 'https://res.ikingdata.com/apyTwo/apyPos.png',
+  },
   // {
   //   select: false,
   //   key: 'hsc',
