@@ -52,9 +52,11 @@ export default defineConfig({
                 'kd30px':'30px'
             },
             fontSize: {
+                'kd12px14px':['12px','14px'],
                 'kd10px10px':['10px','10px'],
                 'kd20px20px':['20px','20px'],
                 'kd20px26px':['20px','26px'],
+                'kd26px26px':['26px','26px'],
                 'kd11px16px':['11px','16px'],
                 'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],

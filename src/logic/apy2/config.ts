@@ -1,5 +1,5 @@
 export const chains=[
-    {key:'all',name:'全部',icon:'https://res.ikingdata.com/apyTwo/allChain.jpg'},
+    {key:'all',name:'全部公链',icon:'https://res.ikingdata.com/apyTwo/allChain.jpg'},
     {key:'eth',name:'ETH',icon:'https://res.ikingdata.com/apyTwo/ethChain.jpg'},
     {key:'bsc',name:'BSC',icon:'https://res.ikingdata.com/apyTwo/bscChain.jpg'},
     {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.jpg'},

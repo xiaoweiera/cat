@@ -5,14 +5,17 @@ import I18n from '~/utils/i18n/index'
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 const [tag,]=useProvide('tag')
 const [filterType,]=useProvide('filterType')
-
+const setKey=setInject('key')
+const key=getInject('key')
 const coin=ref('')
 const vLisit=[1,2,3,4]
+const changeKey=()=>{
+  setKey(++key.value[0])}
 </script>
 <template>
-  <div class="loanClass w-full p-4  h-32 flex items-center  bg-global-body rounded-kd4px justify-between ">
+  <div class="loanClass w-full p-4   flex items-center  bg-global-body rounded-kd4px justify-between ">
     <div>
-      <div class="flex">
+      <div class="flex flex-wrap">
         <div class="mr-6">
           <span class="selectTxt">抵押币种</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
@@ -21,25 +24,23 @@ const vLisit=[1,2,3,4]
           </el-select>
         </div>
         <div>
-          <span class="selectTxt">抵押币种</span>
+          <span class="selectTxt">借出币种</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
             <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </div>
       </div>
-
-
-      <div class="flex mt-3 ml-">
+      <div class="flex mt-3 flex-wrap">
         <div class="mr-6">
-          <span class="selectTxt">抵押币种</span>
+          <span class="selectTxt">借贷平台</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
             <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </div>
-        <div>
-          <span class="selectTxt">抵押币种</span>
+        <div class="flex items-center">
+          <span class="selectTxt"  style="text-indent: 2em;">公链</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
             <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
             </el-option>
@@ -49,7 +50,7 @@ const vLisit=[1,2,3,4]
 
     </div>
     <div class="font-kdFang">
-      <div class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-4 hand">
+      <div @click="changeKey()" class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-3 hand">
         <span class="text-kd16px24px text-global-primary  font-medium">重置</span>
       </div>
       <div class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">
