@@ -63,11 +63,14 @@ watch(() => selectX.ts, async (n) => {
 })
 const getData = async () => {
   loading.value = true
+  console.log('5')
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
+  console.log('6',data)
   if (data?.code === 0) {
     loading.value = false
     props.hasData.value = data.data.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
+    console.log('7')
   }
 }
 onMounted(async () => {
@@ -75,7 +78,7 @@ onMounted(async () => {
 })
 watch(() => props.page.value, (n) => {
   param.page = n
-  getData()
+  await getData()
 })
 
 const order = (key: string, i: number) => {
@@ -97,7 +100,7 @@ const order = (key: string, i: number) => {
   props.hasData.value = true
   row.value = -1
   tableData.value = []
-  getData()
+ await getData()
 }
 const timeName=computed(()=>{
   const ts=selectX.ts?selectX.ts:timeParam.value[0].timeEnd
