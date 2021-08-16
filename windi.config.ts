@@ -52,9 +52,11 @@ export default defineConfig({
                 'kd30px':'30px'
             },
             fontSize: {
+                'kd12px14px':['12px','14px'],
                 'kd10px10px':['10px','10px'],
                 'kd20px20px':['20px','20px'],
                 'kd20px26px':['20px','26px'],
+                'kd26px26px':['26px','26px'],
                 'kd11px16px':['11px','16px'],
                 'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],
@@ -64,6 +66,7 @@ export default defineConfig({
                 'kd12px20px': ['12px', '20px'],
                 'kd12px18px': ['12px', '18px'],
                 'kd18px28px': ['18px', '28px'],
+                'kd28px28px': ['28px', '28px'],
                 'kd18px27px': ['18px', '27px'],
                 'kd36px':['36px','140%'],
                 'kd14px0px':['14px','0px'],

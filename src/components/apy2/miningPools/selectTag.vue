@@ -17,7 +17,7 @@ const changeTag=(key:string)=>{
 
 </script>
 <template>
-  <div class="flex items-center rounded-kd12px py-1 font-kdFang bg-global-highTitle bg-opacity-6 ">
+  <div class="flex items-center rounded-kd12px py-1 font-kdFang bg-global-highTitle bg-opacity-6 px-1 ">
       <template v-for="(item,i) in props.list">
         <span @click="changeTag(item.key)" :class="tag===item.key?'selectTag':'tag'" class="py-2 px-3 hand">{{item.name}}</span>
       </template>

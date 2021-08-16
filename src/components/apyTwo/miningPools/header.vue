@@ -7,8 +7,8 @@ const typeList=['全部','单币','LP']
 </script>
 <template>
   <div class="flex items-center">
-    <ApyTwoMiningPoolsSelectTag  :list="tagList" />
-    <ApyTwoMiningPoolsFliter :list="typeList" class="ml-10" />
+    <Apy2MiningPoolsSelectTag  :list="tagList" />
+    <Apy2MiningPoolsFliter :list="typeList" class="ml-10" />
   </div>
 </template>
 <style scoped lang="scss">

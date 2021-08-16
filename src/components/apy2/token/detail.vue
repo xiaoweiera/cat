@@ -62,7 +62,3 @@ const onSumbit = function(value: Array<string | number>) {
   </div>
 </template>
 
-
-<style scoped>
-
-</style>
