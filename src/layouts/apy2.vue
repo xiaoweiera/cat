@@ -7,7 +7,7 @@ import href, { config } from '~/utils/router'
 </script>
 
 <template>
-  <div class="containerbgs bg-global-body md:bg-opacity-100">
+  <div class="containerbgs bg-global-body md:bg-opacity-100 ">
     <HeaderNav title="APY">
       <template #share>
         <!-- 设置分享内容 -->

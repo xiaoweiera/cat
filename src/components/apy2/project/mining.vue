@@ -10,7 +10,7 @@ import {tolocaleUpperCase} from '~/lib/tool'
 </script>
 <template>
   <div class="font-kdFang">
-    loan
+  <Apy2ProjectChartInfo />
   </div>
 </template>
 <style scoped lang="scss">

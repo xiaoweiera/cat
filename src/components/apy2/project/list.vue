@@ -10,18 +10,77 @@ const list=[
   {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
   {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
   {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+
+  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
+  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
+  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
+  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
 ]
-const orderIcon='icon-shuangxiangjiantou'
+
+const orderIndex=ref(0)
 // icon-shuangxiangjiantou-up
 //icon-shuangxiangjiantou-down
+const orderList={
+  0:'icon-shuangxiangjiantou',
+  1:'icon-shuangxiangjiantou-down',
+  2:'icon-shuangxiangjiantou-up'
+}
+const orderData=()=>{
+  if(orderIndex.value===2){
+    orderIndex.value=0
+    return
+  }
+  orderIndex.value++
+}
 </script>
 <template>
   <div>
     <div class="flex my-3 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between">
       <div>项目名称</div>
-      <div>
+      <div @click="orderData()" class="hand">
         <span>TVL</span>
-        <IconFont size="13" class="ml-0.5" :type="orderIcon"/>
+        <IconFont size="13" class="ml-0.5" :type="orderList[orderIndex]"/>
       </div>
     </div>
     <div class=" pb-10" v-if="list.length > 0">

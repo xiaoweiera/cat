@@ -73,6 +73,7 @@ const chain=ref('all')
 </script>
 
 <template>
+  <div class="bgClass">
   <UiLayoutMenu>
     <template #menu>
       <el-container class="h-full text-kdFang">
@@ -102,44 +103,20 @@ const chain=ref('all')
     </template>
 
     <template #content>
-      <div class="p-8 text-kdFang">
-        <div class="flex justify-between">
-          <div class="flex items-center">
-            <IconFont type="icon-facebook-circle-fill" size="40" rounded/>
-            <b class="title ml-2 font-bold text-global-highTitle text-opacity-85">BTC</b>
-            <span class="ml-4 text-xl text-global-highTitle text-opacity-85">$21312.2</span>
-            <span class="ml-2 bg-global-numRed inline-block py-0.5 px-1 rounded">
-              <span class="text-base text-global-white">-3.23%</span>
-            </span>
-          </div>
-          <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1">
-            <template v-for="item in tabList" :key="item.id">
-              <router-link class="page-switch" :class="{'active': isRouterActive({ type: item.id }, 'type')}" :to="makeRouterPath({query: { type: item.id }})">
-                <IconFont type="icon-danbi" size="24"/>
-                <span class="ml-2">{{ item.name }}</span>
-                <IconFont class="ml-1.5" type="icon-star-xuanzhong" size="16"/>
-              </router-link>
-            </template>
-          </div>
-        </div>
-
-        <div class="mt-8 pt-0.5" :key="currentTokenId">
-          <!--挖矿收益-->
-          <div v-if="isRouterActive({ type: TabData.mining }, 'type')">
-            <Apy2TokenMining/>
-          </div>
-          <!--利率收益-->
-          <div v-else-if="isRouterActive({ type: TabData.deposit }, 'type')">
-            <Apy2TokenDeposit/>
-          </div>
-        </div>
+      <div :key="currentTokenId" class="p-8">
+        <Apy2ProjectRight />
       </div>
+
     </template>
   </UiLayoutMenu>
-
+  </div>
 </template>
 
 <style scoped lang="scss">
+.bgClass{
+  background: white;
+  height: calc(100vh - 72px);
+}
 .bottomBor{
   border-bottom: 1px solid rgba(#033666, 0.06);
 }

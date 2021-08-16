@@ -16,10 +16,10 @@ const close=()=>isShow.value=!isShow.value
 <template>
   <div v-if="isShow" class="rounded-kd4px bg-global-numRed bg-opacity-6 text-kd12px16px text-global-numRed flex p-2.5 relative flex items-center justify-between">
    <div class="flex items-center">
-     <IconFont class="flex text-global-numRed " style="transform: scale(1.3)"  type="icon-Warning" size="base"></IconFont>
+     <IconFont class="flex text-global-numRed " style="transform: scale(1.3)"  type="icon-Warning" size="16"></IconFont>
      <span class="ml-3">{{props.des}}</span>
    </div>
-    <IconFont @click="close()" class="flex text-global-numRed hand"  style="transform: scale(1.5)" type="icon-xClose" size="base"></IconFont>
+    <IconFont @click="close()" class="flex text-global-numRed hand"   type="icon-xClose" size="16"></IconFont>
   </div>
 
 </template>
