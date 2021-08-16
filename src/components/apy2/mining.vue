@@ -10,7 +10,7 @@ import {ref} from 'vue'
         <div class="max-w-156 w-156 flex-1  mr-8" >
           <Apy2BaseRotate />
         </div>
-        <ApyTwoBaseNotice class="mr-8"/>
+        <Apy2BaseNotice class="mr-8"/>
         <Apy2BasePlayType />
       </div>
       <Apy2BaseWarnTip class="mt-6"/>

@@ -15,7 +15,6 @@ defineProps({
 })
 // @ts-ignore
 const onChange = function(value: any) {
-  console.log(value)
   emitEvent('update:value', value)
   emitEvent('change', value)
 }

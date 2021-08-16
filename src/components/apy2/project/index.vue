@@ -144,7 +144,7 @@ const chain=ref('all')
     @apply text-global-highTitle font-medium text-opacity-45;
   }
   ::v-deep(input::-ms-input-placeholder) {
-    @apply text-global-numRed text-opacity-45;
+    @apply text-global-highTitle font-medium text-opacity-45;
   }
 
 }

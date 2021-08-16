@@ -36,26 +36,6 @@ const list=[
   {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
   {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
   {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
-  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
-  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
-
-  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
-  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
-  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
-  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
-  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
-
-  {name:'Wqqdj',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
-  {name:'Wjfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wdfisj',href:'https://ww.baidu.com',chains:['heco'],projectType:['v','f']},
-  {name:'Wjfj',href:'https://ww.baidu.com',chains:['eth'],projectType:['v']},
-  {name:'33',href:'https://ww.baidu.com',chains:['hoo'],projectType:['v','f']},
 ]
 
 const orderIndex=ref(0)
