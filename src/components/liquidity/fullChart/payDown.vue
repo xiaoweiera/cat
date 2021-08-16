@@ -103,7 +103,7 @@ const order =async (key: string, i: number) => {
   props.page = 1
   props.hasData.value = true
   row.value = -1
-  tableData.value = []
+  // tableData.value = []
  await getData()
 }
 const timeName=computed(()=>{
