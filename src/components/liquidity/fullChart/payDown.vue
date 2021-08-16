@@ -53,12 +53,12 @@ watch(() => selectX.ts, async (n) => {
   console.log('3')
   param.ordering=orderRules[props.chartType][props.chartId]
   console.log('4')
+  tableData.value = []
   param.ts = n
   param.page = 1
   props.page.value = 1
   props.hasData.value = true
   row.value = -1
-  tableData.value = []
   await getData()
 })
 const getData = async () => {
@@ -140,7 +140,7 @@ const timeName=computed(()=>{
     </div>
     </el-affix>
     <!-- 二次展开-->
-    <div class="flex flex-1 first  flex-col   showY">
+    <div v-if="tableData.length>0" class="flex flex-1 first  flex-col    showY">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium ">
