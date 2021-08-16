@@ -77,8 +77,12 @@ onMounted(async () => {
   await getData()
 })
 watch(() => props.page.value,async (n) => {
-  param.page = n
-  await getData()
+  console.log('55')
+  if(n!==1){
+    console.log('66')
+    param.page = n
+    await getData()
+  }
 })
 
 const order =async (key: string, i: number) => {
