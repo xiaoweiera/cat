@@ -111,8 +111,11 @@ const timeName=computed(()=>{
   console.log(ts,'ts')
   if(!ts) return
   const time=formatTime(ts,'M/DD')
+  console.log(time,'time',lang.current.value)
   if(lang.current.value === 'cn'){
     const timeList=time.split('/')
+    console.log(timeList)
+    console.log(time[0],timeList[1])
     return `${timeList[0]}月${timeList[1]}日`
   }
   return time
