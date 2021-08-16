@@ -107,7 +107,7 @@ const onRemove = function(value: string | number) {
             <el-main class="p-0">
               <div class="h-full overflow-auto">
                 <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeValue">
-                  <div class="mt-2 h-5 flex items-center" v-for="i in 20" :key="i">
+                  <div class="mt-2 flex items-center" v-for="i in 20" :key="i">
                     <el-checkbox :label="i">
                       <slot name="item" :data="i">
                         <span class="text-global-highTitle text-xs font-normal">BTC/ETH</span>
@@ -153,7 +153,15 @@ const onRemove = function(value: string | number) {
   </el-dialog>
 </template>
 
-<style scoped lang="scss">
+<style scoped  lang="scss">
+::v-deep(.el-checkbox){
+  width: 100% !important;
+  @apply flex items-center;
+}
+::v-deep(.el-checkbox__label){
+  width:100%;
+  @apply items-center flex;
+}
 .transfer-box {
   /* 下拉框宽度 */
   .select-box {

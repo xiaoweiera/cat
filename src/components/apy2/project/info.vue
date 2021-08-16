@@ -28,12 +28,13 @@ import {tolocaleUpperCase} from '~/lib/tool'
             <span class="bg-global-numRed  bg-opacity-20 rounded-kd4px px-1 py-0.5 text-kd12px14px text-global-numRed">-3.23%</span>
             <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
             <a class="text-global-primary flex items-center font-kdExp">
-              <IconFont class="mr-1" size="20" type="icon-info2"/>
+              <IconFont class="mr-1" size="20" type="icon-link"/>
               <span class="text-kd14px18px">访问官网</span>
             </a>
             <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
             <div class="text-global-primary flex items-center">
-              <IconFont class="mr-2" size="20" type="icon-info2"/>
+              <IconFont class="mr-2" size="20" type="icon-shenji"/>
+              <IconFont class="mr-2" size="20" type="icon-weishenji"/>
             </div>
             <template v-for="item in ['北京链安','雾漫科技']">
               <a class="text-global-primary mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item }}</a>

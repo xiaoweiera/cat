@@ -7,7 +7,15 @@ export const chains=[
     {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.jpg'},
     {key:'pos',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.jpg'},
 ]
-
+export const selectChains=[
+    {label:'选择公链',value:'all'},
+    {label:'ETH',value:'eth'},
+    {label:'BSC',value:'bsc'},
+    {label:'Heco',value:'heco'},
+    {label:'OEC',value:'oec'},
+    {label:'Hoo',value:'hoo'},
+    {label:'PoS',value:'pos'}
+]
 export const chainsIcon={
     'eth':'https://res.ikingdata.com/apyTwo/ethChain.jpg',
     'bsc':'https://res.ikingdata.com/apyTwo/bscChain.jpg',
