@@ -26,6 +26,5 @@ const data = echartData()
     </div>
   </div>
   <div class="mt-8">
-    <h3 class="text-xl text-global-highTitle text-opacity-85">BTC 所有 APY 池子</h3>
   </div>
 </template>

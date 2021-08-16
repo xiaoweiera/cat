@@ -11,10 +11,6 @@ const tagList=[
   {name:'单币',key:'dan'},
   {name:'LP',key:'lp'}
 ]
-const radios = [
-  { label: '单币', value: 1 },
-  { label: 'LP', value: 2 }
-]
 const type = ref('TVL')
 const selectList = ref(['TVL'])
 const [selectTxt,]=useProvide('selectTxt','')
@@ -25,19 +21,19 @@ const changeTime = (time: any) => {
 }
 </script>
 <template>
-  <div class="font-kdFang">
-    <Apy2ProjectChartInfo/>
-    <div class="mt-3 flex items-center justify-between ">
+  <div class="font-kdFang ">
+    <Apy2ProjectChartInfo title="同类项目数据"/>
+    <div class="mt-3 flex items-center justify-between">
       <div class="flex items-center">
-        <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">
+        <el-select class="sameData" :popper-append-to-body="false" v-model="type" size="small">
           <el-option v-for="item in selectList" :key="item" :label="item" :value="item">
           </el-option>
         </el-select>
-        <UiTransfer title="添加矿池" sub-title="已选矿池"  :radios="radios" :selects="selectChains" @submit="onSumbit">
+        <UiTransfer title="添加项目" sub-title="已选项目"  :selects="selectChains" @submit="onSumbit">
           <template #content>
             <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
               <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
-              <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">添加矿池</span>
+              <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">添加项目</span>
             </div>
           </template>
           <!-- 自定义左侧列表显示内容 -->
@@ -52,26 +48,14 @@ const changeTime = (time: any) => {
       </div>
       <UiDateDay @change="changeTime"/>
     </div>
-<!--    图表echarts-->
+    <!--    图表echarts-->
     <Apy2ProjectChart />
-<!--    表格-->
-    <div class="mt-8">
-      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium">所有挖矿池子</span>
-     <div class="flex items-center justify-between">
-       <div class="flex items-center projectChart">
-         <Apy2MiningPoolsFliter class="my-3 mr-3" :list="tagList"/>
-         <Apy2BaseChains/>
-       </div>
-       <Apy2BaseSelectData placeStr="搜索币种" />
-     </div>
-      <Apy2MiningTableMain />
-    </div>
-
   </div>
 </template>
-<style  lang="scss">
-.projectMining{
- .el-input__inner{
+<style lang="scss">
+.sameData{
+  @apply  bg-global-white;
+  .el-input__inner{
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: none;
     width: 120px !important;
@@ -80,7 +64,6 @@ const changeTime = (time: any) => {
     @apply text-kd14px18px font-medium  text-global-highTitle text-opacity-85 w-30 text-center h-9 flex items-center  text-kd14px18px ;
   }
 }
-
 </style>
 
 

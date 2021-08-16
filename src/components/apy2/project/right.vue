@@ -30,7 +30,7 @@ const selectName = (key: string) => {
     </div>
     <Apy2ProjectMining v-if="activeName==='mining'" />
     <Apy2ProjectLoan v-else-if="activeName==='loan'"/>
-    <Apy2ProjectData v-else/>
+    <Apy2ProjectDataMain v-else/>
   </div>
 </template>
 <style scoped lang="scss">

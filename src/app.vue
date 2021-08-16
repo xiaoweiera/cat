@@ -275,5 +275,13 @@ a {
     padding: 0 !important;
   }
 }
+/* 滑轮样式 */
+.showY::-webkit-scrollbar {
+  height: 8px;
+  @apply w-0.5;
+}
 
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.1);
+}
 </style>

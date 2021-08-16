@@ -104,8 +104,8 @@ const onRemove = function(value: string | number) {
                 </div>
               </div>
             </el-header>
-            <el-main class="p-0">
-              <div class="h-full overflow-auto">
+            <el-main class="p-0 ">
+              <div class="h-full overflow-auto showY">
                 <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeValue">
                   <div class="mt-2 flex items-center" v-for="i in 20" :key="i">
                     <el-checkbox :label="i">

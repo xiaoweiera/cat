@@ -14,8 +14,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="layout-main flex">
-    <div class="menu-box hidden md:block" :class="menuClass">
+  <div class="layout-main flex ">
+    <div class="menu-box hidden md:block " :class="menuClass">
       <div class="menu-main" :class="menuClass">
         <slot name="menu"></slot>
       </div>

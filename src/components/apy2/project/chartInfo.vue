@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import {defineProps} from 'vue'
 const props=defineProps({
-  title:String,
+  title:{
+    type:String,
+    default(){return 'APY Top 10 池子'}
+  },
   des:String
 })
 </script>
@@ -9,7 +12,7 @@ const props=defineProps({
   <div class="font-kdFang mt-8 ">
     <div class="flex justify-between">
       <div>
-        <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mr-1">APY Top 10 池子</span>
+        <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mr-1">{{title}}</span>
         <span class="text-kd12px16px text-global-highTitle text-opacity-45 ml-1">更新时间: </span>
         <span class="text-kd12px16px text-global-highTitle text-opacity-45">xxx分钟前</span>
       </div>

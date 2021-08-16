@@ -96,7 +96,7 @@ const chain=ref('all')
 
           </div>
         </el-header>
-        <el-main class="p-0 overflow-auto">
+        <el-main class="p-0 overflow-auto showY">
          <Apy2ProjectList class="px-1.5"/>
         </el-main>
       </el-container>
@@ -106,7 +106,6 @@ const chain=ref('all')
       <div :key="currentTokenId" class="p-8">
         <Apy2ProjectRight />
       </div>
-
     </template>
   </UiLayoutMenu>
   </div>

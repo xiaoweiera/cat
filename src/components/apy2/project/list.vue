@@ -56,16 +56,16 @@ const orderData=()=>{
 </script>
 <template>
   <div>
-    <div class="flex my-3 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between">
+    <div class="flex my-3 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between showY">
       <div>项目名称</div>
       <div @click="orderData()" class="hand">
         <span>TVL</span>
         <IconFont size="13" class="ml-0.5" :type="orderList[orderIndex]"/>
       </div>
     </div>
-    <div class=" pb-10" v-if="list.length > 0">
+    <div class=" pb-10 showY" v-if="list.length > 0">
       <template v-for="(item, index) in list" >
-        <div class="cursor-pointer h-9 mb-0.2 items-cneter">
+        <div class="cursor-pointer h-9 mb-0.2  ">
           <router-link class="flex items-center  relative " :to="item.href">
             <div>
               <IconFont type="icon-NEW" size="24" class="absolute z-1 "/>
