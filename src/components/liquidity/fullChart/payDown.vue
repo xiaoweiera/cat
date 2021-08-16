@@ -76,7 +76,7 @@ const getData = async () => {
 onMounted(async () => {
   await getData()
 })
-watch(() => props.page.value, (n) => {
+watch(() => props.page.value,async (n) => {
   param.page = n
   await getData()
 })
