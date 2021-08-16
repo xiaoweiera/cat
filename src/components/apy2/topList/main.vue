@@ -8,9 +8,8 @@ const selectTag=(key:string)=>selectName.value=key
 </script>
 <template>
   <div>
-  <ApyTwoTopListHeader />
-    <ApyTwoTopListMiningItem class="mt-3.45" />
-<!--    <ApyTwoTopListLoanItem class="mt-3.45" />-->
+  <Apy2TopListHeader class="mb-3.8"/>
+    <slot name="item"></slot>
   </div>
 </template>
 <style scoped lang="postcss">

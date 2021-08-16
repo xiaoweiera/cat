@@ -2,8 +2,8 @@
 import { ref, defineProps } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
-const tagList=['关注矿池','热门矿池','最新矿池']
-const typeList=['全部','单币','LP']
+const tagList=[{name:'关注矿池',key:'my'},{name:'热门矿池',key:'hot'},{name:'最新矿池',key:'new'}]
+const typeList=[{name:'全部',key:'all'},{name:'单币',key:'dan'},{name:'LP',key:'lp'}]
 const project=ref('all')
 const vLisit=ref([
   {name:'全部项目',key:'all'},
@@ -30,7 +30,6 @@ const searchTxt=ref('')
         <el-input v-model="searchTxt" placeholder="搜索币种/项目"></el-input>
       </div>
     </div>
-
   </div>
 </template>
 <style  lang="scss">

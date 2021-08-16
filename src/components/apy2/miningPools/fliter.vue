@@ -8,18 +8,18 @@ const props = defineProps({
 })
 const setFilterType=setInject('filterType')
 const emitEvent = defineEmit(['update:filterType'])
-const tag=ref('全部')
-const changeTag=(name:string)=>{
-  tag.value=name
-  setFilterType(name)
-  emitEvent('update:filterType',name)
+const tag=ref('all')
+const changeTag=(key:string)=>{
+  tag.value=key
+  setFilterType(key)
+  emitEvent('update:filterType',key)
 }
 
 </script>
 <template>
   <div class="flex items-center rounded-kd6px p-0.5 font-kdFang bg-global-white w-fit" style="border:1px solid rgba(3, 54, 102, 0.1);">
     <template v-for="(item,i) in props.list">
-      <span @click="changeTag(item)" :class="tag===item?'selectTag':'tag'" class="py-1.5 px-3 hand">{{item}}</span>
+      <span @click="changeTag(item.key)" :class="tag===item.key?'selectTag':'tag'" class="py-1.5 px-3 hand">{{item.name}}</span>
     </template>
   </div>
 </template>
