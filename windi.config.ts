@@ -13,7 +13,7 @@ const cssGlobal = {
     highTitle:'#033666', /*3,54,102*/
     mobileBody:'#D8E8FF',
     numGreen:'#00B464',
-    numRed:'#E9592D',
+    numRed:'#E9592D', /*233, 89, 45*/
     time:'#A2A4A8',
     noSelect:'#A8A8A8',
     white:'#FFFFFF',

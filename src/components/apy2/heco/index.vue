@@ -159,7 +159,7 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
       </div>
 
       <div class="mt-6">
-        <el-table class="w-full custom-expand" :data="tableData" :span-method="arraySpanMethod" @row-click="onRowClick">
+        <el-table class="w-full heco-custom-expand" :data="tableData" :span-method="arraySpanMethod" @row-click="onRowClick">
           <template v-for="(item, index) in header" :key="index">
             <template v-if="item.key === 'node_name'">
               <el-table-column :prop="item.key" sortable :label="item.label">
@@ -237,23 +237,25 @@ h3.title {
 </style>
 
 <style lang="scss">
-.el-table.custom-expand {
-  thead {
-    th {
-      @apply border-t border-b border-solid border-global-highTitle border-opacity-6;
-    }
-  }
-  tr {
-    td {
-      @apply border-0;
-      .cell {
-        line-height: 20px;
+.el-table {
+  &.heco-custom-expand {
+    thead {
+      th {
+        @apply border-t border-b border-solid border-global-highTitle border-opacity-6;
       }
     }
-  }
-  td[colspan] {
-    &:only-child {
-      @apply p-3 rounded-md bg-global-bodyTwo border border-solid border-global-highTitle border-opacity-6;
+    tr {
+      td {
+        @apply border-0;
+        .cell {
+          line-height: 20px;
+        }
+      }
+    }
+    td[colspan] {
+      &:only-child {
+        @apply p-3 rounded-md bg-global-bodyTwo border border-solid border-global-highTitle border-opacity-6;
+      }
     }
   }
 }
