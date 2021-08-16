@@ -108,6 +108,7 @@ const order =async (key: string, i: number) => {
 }
 const timeName=computed(()=>{
   const ts=selectX.ts?selectX.ts:timeParam.value[0].timeEnd
+  console.log(ts,'ts')
   if(!ts) return
   const time=formatTime(ts,'M/DD')
   if(lang.current.value === 'cn'){
