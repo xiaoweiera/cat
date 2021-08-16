@@ -81,7 +81,7 @@ watch(() => props.page.value,async (n) => {
   await getData()
 })
 
-const order = (key: string, i: number) => {
+const order =async (key: string, i: number) => {
   if (orderIndex.value !== i && orderIndex.value !== -1) {
     orderType.value = 1;
     orderIndex.value = i
