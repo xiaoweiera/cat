@@ -47,7 +47,7 @@ watch(()=>selectX.ts,async (n)=>{
   props.hasData.value=true
   row.value=-1
   tableData.value=[]
-  // await getData()
+  await getData()
 })
 const getData=async ()=> {
   loading.value=true
