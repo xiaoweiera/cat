@@ -61,5 +61,5 @@ const onDownload = async function(e: Event) {
 </script>
 
 <template>
-  <IconFont class="flex" type="icon-xiazai" size="24" @click="onDownload($event)"/>
+  <IconFont class="flex cursor-pointer" type="icon-xiazai" size="24" @click="onDownload($event)"/>
 </template>

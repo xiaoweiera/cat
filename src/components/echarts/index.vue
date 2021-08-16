@@ -79,6 +79,12 @@ const props = defineProps({
   customClass: {
     type: String,
     default: () => 'h-full'
+  },
+  bgColor: {
+    type: String,
+    default () {
+      return '#ffffff'
+    }
   }
 })
 
@@ -439,8 +445,9 @@ const getOption = function() {
     xAxis: xAxisOpt,
     yAxis: yAxisOpt,
     series: getSeries(),
-    backgroundColor: '#fff',
+    backgroundColor: props.bgColor,
   }
+  console.log(data);
   return data
 }
 

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
-import { dateYMDFormat } from '~/utils'
+import { dateYMDFormat, map } from '~/utils'
 import { colors } from '~/logic/echarts/interface'
+import { getHecoDetail } from '~/api/apy'
 
 export const echartData = function() {
   const legends = [
@@ -38,4 +39,15 @@ export const echartData = function() {
     xAxis,
     series
   }
+}
+
+
+export const getHecoNodeList = async function() {
+  const result = await getHecoDetail()
+  const { list = [] } = result
+  return map(function(item: any){
+    return Object.assign({}, item, {
+      expand: false
+    })
+  }, list)
 }
