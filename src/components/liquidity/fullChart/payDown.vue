@@ -53,12 +53,12 @@ watch(() => selectX.ts, async (n) => {
   console.log('3')
   param.ordering=orderRules[props.chartType][props.chartId]
   console.log('4')
-  tableData.value = []
   param.ts = n
   param.page = 1
   props.page.value = 1
   props.hasData.value = true
   row.value = -1
+  tableData.value = []
   await getData()
 })
 const getData = async () => {
