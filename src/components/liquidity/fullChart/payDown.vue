@@ -50,16 +50,24 @@ watch(() => selectX.ts, async (n) => {
   orderIndex.value=orderSelect.index
   console.log('2',orderType.value,orderTypeName)
   param.sort=orderTypeName[orderType.value].key
+  console.log(param.sort)
   console.log('3')
   param.ordering=orderRules[props.chartType][props.chartId]
   console.log('4')
   param.ts = n
+  console.log('41')
   param.page = 1
+  console.log('42')
   props.page.value = 1
+  console.log('43')
   props.hasData.value = true
+  console.log('44')
   row.value = -1
+  console.log('45')
   tableData.value = []
+  console.log('46')
   await getData()
+  console.log('47')
 })
 const getData = async () => {
   loading.value = true
@@ -77,7 +85,9 @@ onMounted(async () => {
   await getData()
 })
 watch(() => props.page.value,async (n) => {
+  console.log('11')
     param.page = n
+  console.log('22')
     await getData()
 })
 
@@ -100,6 +110,7 @@ const order =async (key: string, i: number) => {
   props.hasData.value = true
   row.value = -1
   tableData.value = []
+  console.log('orderorder')
   await getData()
 }
 const timeName=computed(()=>{
@@ -183,11 +194,11 @@ const timeName=computed(()=>{
           <LiquidityFullChartPayOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol" :address="item.address" :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
         </div>
       </template>
-<!--      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">-->
-<!--        <div v-if="props.hasData.value && loading">{{I18n.liquidity.down.loading}}</div>-->
-<!--        <div v-else-if="props.hasData.value && !loading">{{I18n.liquidity.down.pull}}</div>-->
-<!--        <div v-else>{{I18n.liquidity.down.noMore}}</div>-->
-<!--      </div>-->
+      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
+        <div v-if="props.hasData.value && loading">{{I18n.liquidity.down.loading}}</div>
+        <div v-else-if="props.hasData.value && !loading">{{I18n.liquidity.down.pull}}</div>
+        <div v-else>{{I18n.liquidity.down.noMore}}</div>
+      </div>
     </div>
   </div>
 </template>
