@@ -104,7 +104,7 @@ const order =async (key: string, i: number) => {
   props.hasData.value = true
   row.value = -1
   tableData.value = []
- await getData()
+  await getData()
 }
 const timeName=computed(()=>{
   const ts=selectX.ts?selectX.ts:timeParam.value[0].timeEnd
@@ -120,24 +120,24 @@ const timeName=computed(()=>{
 <template>
   <div class="flex flex-1 flex-col  font-kdFang  w-full   bg-global-white">
     <el-affix :offset="90">
-    <div class="pb-3 bg-global-white flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
-      <div class="font-semibold">
-        <span>{{ tokenOrPairName[0] }}</span>
-        <span class="ml-2">{{I18n.liquidity.down.details}}</span>
-        <span class="ml-4">({{timeName}})</span>
-      </div>
-      <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">{{I18n.liquidity.down.chartTip}} </span>
-    </div>
-    <div class="header bg-global-white  px-2.5 min-h-9 mb-1  flex items-center">
-      <template v-for="(item,i) in payHeader">
-        <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
-          <div class="flex items-center">
-            <span>{{ item.name }}</span>
-            <img v-if="i>1" @click="order(item.key,i)" class="w-2 h-2.5 ml-1 hand" :src="orderIndex===i?orderTypeName[orderType].img:orderTypeName[0].img" alt="">
-          </div>
+      <div class="pb-3 bg-global-white flex items-center relative text-kd18px28px overflow-hidden font-kdFang text-global-default text-opacity-85">
+        <div class="font-semibold">
+          <span>{{ tokenOrPairName[0] }}</span>
+          <span class="ml-2">{{I18n.liquidity.down.details}}</span>
+          <span class="ml-4">({{timeName}})</span>
         </div>
-      </template>
-    </div>
+        <span class="text-global-default text-opacity-65 text-kd12px16px ml-4">{{I18n.liquidity.down.chartTip}} </span>
+      </div>
+      <div class="header bg-global-white  px-2.5 min-h-9 mb-1  flex items-center">
+        <template v-for="(item,i) in payHeader">
+          <div :style="{width:item.width}" :class="item.width?'':'flex-1'" class=" text-kd12px16px text-global-default text-opacity-65">
+            <div class="flex items-center">
+              <span>{{ item.name }}</span>
+              <img v-if="i>1" @click="order(item.key,i)" class="w-2 h-2.5 ml-1 hand" :src="orderIndex===i?orderTypeName[orderType].img:orderTypeName[0].img" alt="">
+            </div>
+          </div>
+        </template>
+      </div>
     </el-affix>
     <!-- 二次展开-->
     <div v-if="tableData.length>0" class="flex flex-1 first  flex-col    showY">
@@ -238,6 +238,7 @@ const timeName=computed(()=>{
 // @formatter:off
 <route lang="yaml">
 meta:
-layout: liquidityLayout
+ layout: liquidityLayout
 </route>
 // @formatter:off
+

@@ -1,3 +1,4 @@
+
 <script lang="ts" setup>
 import { defineProps, onMounted, toRefs,ref,toRaw } from 'vue'
 import * as R from 'ramda'
@@ -40,7 +41,7 @@ const draw = (xData: Array<string>, series: any, legend: Array<string>,selected:
 const allXaxis=ref()
 const echartsRef = ref<any>(null)
 const getChartData=()=>{
-   allXaxis.value=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
+  allXaxis.value=R.sortBy((item) => item, R.uniq(R.concat(props?.chartData?.xaxis,props.priceData.value.xaxis)))
   const xData = getXData(allXaxis.value, paramChart.interval)
   const [legend,selected] = getLegendList(props?.chartData.yaxis,props.priceData.value.yaxis[0],props.coinType.value)
   const row=getLegendRow(toRaw(echartsRef).value,legend)
@@ -89,3 +90,4 @@ onMounted(() => {
     <div ref="echartsRef" :id="props.chartId" class="chartCanvas w-full h-full"></div>
   </div>
 </template>
+
