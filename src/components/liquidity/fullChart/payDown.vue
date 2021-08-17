@@ -106,7 +106,7 @@ const order =async (key: string, i: number) => {
   param.sort = orderTypeName[orderType.value].key
   param.ordering = key
   param.page = 1
-  props.page = 1
+  props.page.value = 1
   props.hasData.value = true
   row.value = -1
   tableData.value = []
