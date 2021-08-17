@@ -59,8 +59,8 @@ export const payOpenHeader=[
     {name: 'TX ID', width: '110px'},
 ]
 export const orderTypeName={
-    0:{key:'',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
-    1:{key:'desc',img:'https://res.ikingdata.com/nav/apyDesc.png'},
-    2:{key:'asc',img:'https://res.ikingdata.com/nav/apyAsc.png'}
+    '0':{key:'',img:'https://res.ikingdata.com/nav/apyNoOrder.png'},
+    '1':{key:'desc',img:'https://res.ikingdata.com/nav/apyDesc.png'},
+    '2':{key:'asc',img:'https://res.ikingdata.com/nav/apyAsc.png'}
 }
 
