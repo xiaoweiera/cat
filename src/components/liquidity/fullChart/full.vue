@@ -85,7 +85,7 @@ const scrollWatch=()=>{
       <!--监听外层，控制 fullScreen 打开全屏或者取消全屏-->
       <FullTrigger/>
     </template>
-  </FullScreen> 
+  </FullScreen>
 </template>
 <style scoped lang="postcss">
 .showY::-webkit-scrollbar {

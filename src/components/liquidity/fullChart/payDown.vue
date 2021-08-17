@@ -77,12 +77,8 @@ onMounted(async () => {
   await getData()
 })
 watch(() => props.page.value,async (n) => {
-  console.log('55')
-  if(n!==1){
-    console.log('66')
     param.page = n
     await getData()
-  }
 })
 
 const order =async (key: string, i: number) => {
@@ -187,11 +183,11 @@ const timeName=computed(()=>{
           <LiquidityFullChartPayOpenDown :token0="item.token0_symbol" :token1="item.token1_symbol" :address="item.address" :pair_id="item.pair_id" :pairName="pairName(item.token0_symbol,item.token1_symbol)"/>
         </div>
       </template>
-      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">
-        <div v-if="props.hasData.value && loading">{{I18n.liquidity.down.loading}}</div>
-        <div v-else-if="props.hasData.value && !loading">{{I18n.liquidity.down.pull}}</div>
-        <div v-else>{{I18n.liquidity.down.noMore}}</div>
-      </div>
+<!--      <div class="w-full mb-1 text-center text-kd12px18px text-global-time">-->
+<!--        <div v-if="props.hasData.value && loading">{{I18n.liquidity.down.loading}}</div>-->
+<!--        <div v-else-if="props.hasData.value && !loading">{{I18n.liquidity.down.pull}}</div>-->
+<!--        <div v-else>{{I18n.liquidity.down.noMore}}</div>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
