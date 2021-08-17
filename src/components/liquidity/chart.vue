@@ -69,9 +69,7 @@ onMounted(() => {
     const pointInPixel= [params.offsetX, params.offsetY];
     if (myChart.containPixel('grid',pointInPixel)) {
       let index=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
-      console.log(index,'chartIndex')
       selectX.index=index
-      console.log('jjjj',allXaxis.value)
       selectX.ts=allXaxis.value[index]
       if(!props.full){
         //改变放大full状态

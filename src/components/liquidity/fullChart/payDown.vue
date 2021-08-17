@@ -43,51 +43,33 @@ orderIndex.value=orderSelect.index
 watch(() => loading.value, (n) => loadingData.value = n)
 //更改图表日期的时候重新得到数据
 watch(() => selectX.ts, async (n) => {
-  console.log('selectX')
-  console.log(orderRules[props.chartType][props.chartId])
   orderType.value=1
   const orderSelect=payHeader.find((item,i)=>item.key===orderRules[props.chartType][props.chartId])
   orderIndex.value=orderSelect.index
-  console.log('2',orderType.value,orderTypeName)
   param.sort=orderTypeName[orderType.value].key
-  console.log(param.sort)
-  console.log('3')
   param.ordering=orderRules[props.chartType][props.chartId]
-  console.log('4')
   param.ts = n
-  console.log('41')
   param.page = 1
-  console.log('42')
   props.page.value = 1
-  console.log('43')
   props.hasData.value = true
-  console.log('44')
   row.value = -1
-  console.log('45')
   tableData.value = []
-  console.log('46')
   await getData()
-  console.log('47')
 })
 const getData = async () => {
   loading.value = true
-  console.log('5')
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
-  console.log('6',data)
   if (data?.code === 0) {
     loading.value = false
     props.hasData.value = data.data.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
-    console.log('7')
   }
 }
 onMounted(async () => {
   await getData()
 })
 watch(() => props.page.value,async (n) => {
-  console.log('11')
     param.page = n
-  console.log('22')
     await getData()
 })
 
@@ -110,7 +92,6 @@ const order =async (key: string, i: number) => {
   props.hasData.value = true
   row.value = -1
   tableData.value = []
-  console.log('orderorder')
   await getData()
 }
 const timeName=computed(()=>{
