@@ -4,9 +4,11 @@ import {ref} from 'vue'
 </script>
 <template>
   <div class=" flex justify-center   bg-global-white  h-full font-kdFang " >
-    <div class="max-w-360  px-20  w-full h-full container ">
-      <Apy2BaseHeader class="mt-8"/>
-      <Apy2Chains class="mt-15"/>
+    <div class="max-w-360  px-20  relative w-full h-full container ">
+      <div class="flex items-center justify-between">
+        <Apy2BaseHeader class="mt-8"/>
+        <Apy2SelectContainerSelectTool class="absolute -top-3  right-7" />
+      </div>
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">
         <div class="flex flex-1 ">
