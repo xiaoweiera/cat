@@ -1,7 +1,12 @@
+/**
+ * @file heco 数据
+ * @author svon.me@gmail.com
+ */
 import dayjs from 'dayjs'
 import { dateYMDFormat, map } from '~/utils'
 import { colors } from '~/logic/echarts/interface'
 import { getHecoDetail } from '~/api/apy'
+import * as API from '~/api/index'
 
 export const echartData = function() {
   const legends = [
@@ -43,6 +48,9 @@ export const echartData = function() {
 
 
 export const getHecoNodeList = async function() {
+  const data = await API.apy.heco.trends()
+  console.log(data)
+
   const result = await getHecoDetail()
   const { list = [] } = result
   return map(function(item: any){
