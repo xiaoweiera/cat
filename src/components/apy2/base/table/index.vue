@@ -99,7 +99,7 @@ const rowClassName = function(scope: any): string {
         <Apy2BaseTableHead :index="0"/>
       </template>
       <template #default="scope">
-        <template v-if="scope.row">
+        <template v-if="scope.row && scope.row['0']">
           <Apy2BaseTableSymbol :key="getTdUUid(scope, 0)" @click="onExpand(scope.row['0'])" :data="scope.row['0']"/>
         </template>
       </template>

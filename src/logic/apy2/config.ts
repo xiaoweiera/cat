@@ -24,3 +24,8 @@ export const chainsIcon={
     'hoo':'https://res.ikingdata.com/apyTwo/hooChain.jpg',
     'pos':'https://res.ikingdata.com/apyTwo/posChain.jpg',
 }
+export const searchStaticToken=[
+    {name:'BTC',id:''},
+    {name:'ETH',id:''},
+    {name:'MDX',id:''},
+]
