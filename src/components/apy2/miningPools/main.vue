@@ -7,8 +7,12 @@ const [tag,]=useProvide('tag')
 const [filterType,]=useProvide('filterType')
 </script>
 <template>
+  <div class="pb-15">
+    <!--表格数据-->
+    <Apy2BaseTable/>
+  </div>
   <div>
-  <Apy2MiningPoolsHeader />
+    <Apy2MiningPoolsHeader />
     <Apy2MiningTableMain class="mt-3"/>
   </div>
 </template>
