@@ -11,7 +11,7 @@ import CreateDB from '~/logic/topic/db'
 import safeGet from '@fengqiaogang/safe-get'
 import * as response from '~/lib/response'
 import { MenuItem, MenuType } from '~/logic/topic/props'
-import { compact } from '~/utils/index'
+import { compact } from '~/utils'
 
 
 const myself: MenuItem = {

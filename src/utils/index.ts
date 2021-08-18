@@ -129,7 +129,7 @@ export const inputBeautify = function(value: string = ''): string {
   text = text.replace(/^@+/i, '')
   return trim(text)
 }
-
+// 千分位计数
 export const formatCash = function (value: string | number = 0): string {
   const number = `${toNumber(value)}`
   const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')

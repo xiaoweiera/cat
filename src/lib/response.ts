@@ -9,5 +9,9 @@ export const check = function<T>(result: any): T | undefined {
   if (code === 0) {
     return safeGet<T>(result, 'data.data')
   }
-  return void 0
+  return safeGet<T>(result, 'data')
+}
+export const asyncCheck = async function<T>(result: any): Promise<T | undefined> {
+  const data = await Promise.resolve(result)
+  return check(data)
 }

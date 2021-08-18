@@ -1,62 +1,73 @@
 <script setup lang="ts">
-import { uuid } from '~/utils'
-import { onMounted, ref, toRaw } from 'vue'
-import { echartData, getHecoNodeList } from '~/logic/apy2/heco'
+import { omit } from 'ramda'
 // @ts-ignore
-import { header } from '~/logic/apy/heco'
+import { formatCash, uuid } from '~/utils'
+import { onMounted, reactive, ref, toRaw } from 'vue'
 // @ts-ignore
-import { Position, seriesType } from '~/logic/echarts/interface'
+import { getHecoTrendsList, getTableList, pcHeader, mobileHeader } from '~/logic/apy2/heco'
+import { HecoDetail, HecoNode } from '~/logic/apy2/interface'
+// @ts-ignore
+import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
 import router from '~/utils/router'
 
-// @ts-ignore
-const chartData = echartData()
-const tableData = ref<any[]>([])
+const detail = reactive<HecoDetail>(new HecoDetail())
 
-onMounted(async function() {
-  const list = await getHecoNodeList()
-  tableData.value = list
+const chartData = reactive<EchartData>(new EchartData())
+const tableData = ref<HecoNode[]>([])
+
+// 投票数
+const updateTrendsData = async function() {
+  const trends = await getHecoTrendsList()
+  detail.votes = trends.votes
+  detail.voters = trends.voters
+  const data = trends.trends ? trends.trends : new EchartData()
+  chartData.legends = data.legends
+  chartData.xAxis = data.xAxis
+  chartData.series = data.series
+}
+// 节点数据
+const updateNodeList = async function() {
+  tableData.value = await getTableList()
+}
+
+onMounted(function() {
+  return Promise.all([ updateTrendsData(), updateNodeList()])
 })
 
 const expandValue = ref<string>('')
 
 // 删除展开的数据
-const onExpandRemove = function(key: string, value: string | number) {
+const onExpandRemove = function(id: string, pid: string, value: string | number): HecoNode[] {
   const list: any[] = toRaw(tableData.value)
-  const db = new DBList(list, key)
   if (value) {
-    const where = { [key]: value }
-    const expandData = db.selectOne<any>(where)
-    if (expandData) {
-      const oldValue: string | number = expandData[`old_${key}`]
-      if (oldValue) {
-        // 修改已展开行的数据状态
-        db.update({ [key]: oldValue }, {
-          expand: false
-        })
-      }
-      // 删除展开行的数据
-      db.remove(where)
-    }
+    const db = new DBList(list, id, pid)
+    db.remove({ [pid]: value })
+    db.update({ [id]: value }, {
+      expand: false
+    })
+    return db.clone<HecoNode>()
   }
-  return db.clone()
+  return list
 }
 
 
 // 展开
-const onExpandOn = function(key: string, id: string, data: any) {
-  const name = data[key]
+const onExpandOn = function(key: string, id: string, data: HecoNode) {
+  const value = data.id
   // 获取删除展开数据后的表格数据
-  const list: any[] = onExpandRemove(key, expandValue.value)
-  const expandData = { data, custom: true }
-  safeSet(expandData, key, id)
-  safeSet(expandData, `old_${key}`, name)
-
+  const list: any[] = onExpandRemove(id, 'pid', expandValue.value)
+  const expandData = omit([key, 'pid', 'dbIndex', 'expand', 'custom'], data)
+  const expandId = uuid()
+  safeSet(expandData, key, expandId)
+  safeSet(expandData, 'pid', value)
+  safeSet(expandData, 'custom', true)
+  safeSet(expandData, 'expand', false)
   let index = 0
   for(let size = list.length; index < size; index++) {
     const item = list[index]
-    if (item[key] === name) {
+    if (item[key] === value) {
       item['expand'] = true
       index += 1
       break
@@ -69,23 +80,25 @@ const onExpandOn = function(key: string, id: string, data: any) {
 
 
 // 展开或者收起图表
-const onChangeExpand = function(data: any) {
-  const key = 'node_name'
-  const name = data[key]
-  const id = uuid(name)
-  if (id === expandValue.value) {
+const onChangeExpand = function(data: HecoNode) {
+  const value = data.id
+  const key = 'id'
+  if (value && value === expandValue.value) {
     // 收起图表
-    tableData.value = onExpandRemove(key, id)
+    tableData.value = onExpandRemove(key, 'pid', value)
     expandValue.value = ''
   } else {
     // 展开图表
-    onExpandOn(key, id, data)
+    onExpandOn(key, value, data)
   }
 }
 
 // @ts-ignore
 const onRowClick = function(row: any) {
-  const data = toRaw(row)
+  const data: HecoNode = toRaw(row)
+  if (data.custom) {
+    return
+  }
   onChangeExpand(data)
 }
 // @ts-ignore
@@ -96,34 +109,37 @@ const onOpen = function(href: string) {
 
 // @ts-ignore
 const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
-  if (expandValue) {
-    const value = row['node_name']
-    if (value === expandValue.value) {
+  if (expandValue.value) {
+    const value = row['pid']
+    if (value && value === expandValue.value) {
       if (columnIndex === 0) {
-        return [1, 7];
+        return [1, pcHeader.length + 1];
       }
       return [0, 0];
     }
   }
-
 }
 
 
 </script>
 
 <template>
-  <div class="bg-global-white">
+  <div class="bg-global-white px-4">
     <div class="w-300 mx-auto max-w-full text-kdFang">
       <div class="text-center">
         <h3 class="title text-global-highTitle text-opacity-85">HECO 节点竞选</h3>
         <p class="description">
         <span class="item">
           <span class="sub">本轮投票总票数</span>
-          <span class="ml-1 text-global-highTitle text-opacity-85">3,642,110 HT</span>
+          <span class="ml-1 text-global-highTitle text-opacity-85">
+            <span>{{ formatCash(detail.votes) }} HT</span>
+          </span>
         </span>
           <span class="item">
           <span class="sub">本轮投票总人数</span>
-          <span class="ml-1 text-global-highTitle text-opacity-85">9058 人</span>
+          <span class="ml-1 text-global-highTitle text-opacity-85">
+            <span>{{ formatCash(detail.voters) }} 人</span>
+          </span>
         </span>
           <span class="item">
           <span class="sub">距本轮投票结束</span>
@@ -132,7 +148,7 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
         </p>
       </div>
       <div class="mt-6 h-75">
-        <Echarts>
+        <Echarts v-if="chartData.xAxis && chartData.xAxis.length > 0">
           <!-- 提示框 trigger: 触发方式 -->
           <EchartsTooltip trigger="axis" />
 
@@ -145,8 +161,6 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
 
           <!-- 设置X轴 -->
           <EchartsXaxis :value="chartData.xAxis"/>
-
-
           <!--数据-->
           <template v-for="(item, index) in chartData.legends" :key="index">
             <!--
@@ -157,26 +171,26 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
           </template>
         </Echarts>
       </div>
-
       <div class="mt-6">
-        <el-table class="w-full heco-custom-expand" :data="tableData" :span-method="arraySpanMethod" @row-click="onRowClick">
-          <template v-for="(item, index) in header" :key="index">
-            <template v-if="item.key === 'node_name'">
-              <el-table-column :prop="item.key" sortable :label="item.label">
-                <template #default="scope">
-                  <Apy2HecoCustom v-if="scope.row.custom" :id="scope.row.data[item.key]"></Apy2HecoCustom>
-                  <span v-else>{{ scope.row[item.key] }}</span>
-                </template>
-              </el-table-column>
-            </template>
-            <template v-else>
-              <el-table-column :prop="item.key" sortable :label="item.label"></el-table-column>
-            </template>
+        <!-- 大屏 -->
+        <div class="hidden md:block">
+          <el-table class="w-full heco-custom-expand" :data="tableData" row-key="id" :span-method="arraySpanMethod" @row-click="onRowClick">
+          <template v-for="(item, index) in pcHeader" :key="index">
+            <el-table-column :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
+              <template v-if="item.key === 'node_name'" #default="scope">
+                <Apy2HecoProject :data="scope.row"/>
+              </template>
+              <template v-else-if="item.render" #default="scope">
+                <div :class="item.className">
+                  <span>{{ item.render(scope.row, item.key) }}</span>
+                </div>
+              </template>
+            </el-table-column>
           </template>
           <el-table-column prop="node_name" label="操作">
             <template #default="scope">
               <div>
-                <el-button type="text" @click.stop.prevent="onOpen('http://www.baidu.com')">
+                <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
                   <span class="text-xs font-medium">去投票</span>
                 </el-button>
                 <el-button type="text">
@@ -187,6 +201,41 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
             </template>
           </el-table-column>
         </el-table>
+        </div>
+        <!-- 手机端 -->
+        <div class="block md:hidden">
+          <el-table class="w-full heco-custom-expand" :data="tableData" row-key="id">
+            <template v-for="(item, index) in mobileHeader" :key="index">
+              <el-table-column :min-width="item.width" :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
+                <template v-if="item.render" #default="scope">
+                  <div class="whitespace-nowrap" :class="item.className">
+                    <span class="inline-block">{{ item.render(scope.row, item.key) }}</span>
+                  </div>
+                </template>
+              </el-table-column>
+            </template>
+            <el-table-column prop="node_name" label="操作">
+              <template #default="scope">
+                <div>
+                  <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
+                    <span class="text-xs font-medium">去投票</span>
+                  </el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+
+      <div class="pt-4 pb-15">
+        <h4 class="text-base text-global-highTitle">投票规则:</h4>
+        <p class="pt-1.5 text-xs whitespace-pre-wrap text-global-default text-opacity-85">
+          <span class="block">
+            1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
+          </span>
+          <span class="block">2 投票周期：节点排名根据用户投票数更新，奖励每6小时发放。</span>
+          <span class="block">3 退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。</span>
+        </p>
       </div>
     </div>
   </div>
@@ -242,6 +291,9 @@ h3.title {
     thead {
       th {
         @apply border-t border-b border-solid border-global-highTitle border-opacity-6;
+        .cell {
+          @apply whitespace-nowrap;
+        }
       }
     }
     tr {

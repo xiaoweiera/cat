@@ -82,6 +82,12 @@ export interface LegendItem {
   value?: string
 }
 
+// 图表数据结构
+export class EchartData {
+  legends: Array<LegendItem> = [];
+  xAxis: Array<XAxisItem | number | string> = [];
+  series: SeriesMap = {}
+}
 
 
 
