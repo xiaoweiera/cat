@@ -93,7 +93,6 @@ const chain=ref('all')
               <IconFont type="icon-sousuo-da" class="text-global-highTitle w-6.5  text-opacity-45 " size="16"/>
               <el-input class="search-box" placeholder="搜索项目" v-model="txt" value=""></el-input>
             </div>
-
           </div>
         </el-header>
         <el-main class="p-0 overflow-auto showY">
