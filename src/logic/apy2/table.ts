@@ -3,38 +3,32 @@
  */
 
 import { omit } from "ramda"
-import { forEach, map } from "~/utils"
+import { forEach, uuid } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
-import safeGet from '@fengqiaogang/safe-get'
+import DBList from '@fengqiaogang/dblist'
 
-const transform = function(list: any[]) {
-  let maxSize = 0
-  forEach(function(item: any) {
-    const size = (item.data?.length || 0) + 1
-    if (size > maxSize) {
-      maxSize = size
-    }
+const transform = function(db: DBList, type: string, list: any[]) {
+  forEach(function(row: any) {
+    const data = omit(['data'], row)
+    const id = uuid()
+    safeSet(data, 'uuid', id)
+    safeSet(data, 'type', type)
+    safeSet(data, 'expand', false)
+    db.insert(data)
+    forEach(function(item: any) {
+      safeSet(item, 'type', 'apy')
+      safeSet(item, 'pid', id)
+      safeSet(item, 'uuid', uuid())
+      db.insert(item)
+    }, row.data)
   }, list)
-  const array: any[] = map(function(item: any) {
-    const result = {}
-    safeSet(result, '0', omit(['data'], item))
-    for(let i = 0; i < maxSize - 1; i++) {
-      const key = `${i + 1}`
-      const value = safeGet<any>(item, `data[${i}]`)
-      safeSet(result, key, value)
-    }
-    return result
-  }, list)
-  return {
-    list: array,
-    rank: maxSize
-  }
+  return db
 }
 
-export const getTableList = async function(type: string, ) {
-  return transform([
+export const getTableList = async function(db: DBList) {
+  return transform(db, 'symbol',[
     {
-      "symbol_alias": "string",
+      "symbol_alias": 'ETH',
       "symbol_price": "string",
       "symbol_change": "string",
       "symbol_contract_addr": "string",
@@ -60,7 +54,7 @@ export const getTableList = async function(type: string, ) {
       ]
     },
     {
-      "symbol_alias": "string",
+      "symbol_alias": Math.random(),
       "symbol_price": "string",
       "symbol_change": "string",
       "symbol_contract_addr": "string",
@@ -89,7 +83,92 @@ export const getTableList = async function(type: string, ) {
       ]
     },
     {
-      "symbol_alias": "string",
+      "symbol_alias": Math.random(),
+      "symbol_price": "string",
+      "symbol_change": "string",
+      "symbol_contract_addr": "string",
+      "symbol_logo": "string",
+      "data": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+      ]
+    }
+  ])
+}
+
+
+export const getTableExpandList = async function (db: DBList, pid: string) {
+  return transform(db, 'children',[
+    {
+      pid,
+      "symbol_alias": 'ETH',
+      "symbol_price": "string",
+      "symbol_change": "string",
+      "symbol_contract_addr": "string",
+      "symbol_logo": "string",
+      "data": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+      ]
+    },
+    {
+      pid,
+      "symbol_alias": 'ETH',
+      "symbol_price": "string",
+      "symbol_change": "string",
+      "symbol_contract_addr": "string",
+      "symbol_logo": "string",
+      "data": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+      ]
+    },
+    {
+      pid,
+      "symbol_alias": 'ETH',
       "symbol_price": "string",
       "symbol_change": "string",
       "symbol_contract_addr": "string",
