@@ -3,7 +3,6 @@ import { defineProps, onBeforeMount } from 'vue'
 import { EchartsOptionName, updateInject, initProps } from '~/logic/echarts/tool'
 import { seriesType } from '~/logic/echarts/interface'
 import safeSet from '@fengqiaogang/safe-set'
-import { Position } from '~/logic/echarts/interface'
 
 const props = defineProps({
   value: {

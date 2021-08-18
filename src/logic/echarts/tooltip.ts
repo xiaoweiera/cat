@@ -3,9 +3,8 @@
  * @author svon.me@gmail.com
  */
 
-import { toArray, forEach } from '~/utils/index'
+import { toArray, forEach, isObject } from '~/utils/index'
 import { SeriesItem, seriesType } from './interface'
-import safeGet from '@fengqiaogang/safe-get'
 import { makeSvg } from '~/logic/echarts/legend'
 import { valueFormatter } from './tool'
 
@@ -22,14 +21,20 @@ interface Params {
   axisValue: string
   // 数据名称（图例名称）
   seriesName: string
+  // x 轴名称
+  name: string;
 }
 
 export const formatter = function(query: any) {
   const list: Params[] = toArray(query)
-  const firstTime = safeGet(list, '[0].data.key')
-  if (firstTime) {
+  const [firstData] : any = list
+  let label : string = ''
+  if (firstData && isObject(firstData)) {
+    label = firstData.name
+  }
+  if (label) {
     const html: string[] = []
-    html.push(`<span class="block text-gray-500">${firstTime}</span>`)
+    html.push(`<span class="block text-gray-500">${label}</span>`)
     forEach(function(data: Params) {
       const name = `<span class="ml-1.5 text-xs text-gray-500">${data.seriesName}</span>`
       const value = `<span class="ml-1.5 text-xs text-gray-500">${valueFormatter(data.data)}</span>`

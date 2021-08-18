@@ -17,18 +17,16 @@ onBeforeMount(requestMediaList)
 
 <template>
   <div v-show="list.length" class="max-w-full">
-    <Swiper
-      class="swiper"
-      :pagination="{ clickable: true }"
-      slides-per-view="auto"
-      :space-between="12"
-      :free-mode="true"
-      :resize-observer="true"
-    >
-      <SwiperSlide v-for="(item, index) in list" :key="index">
-        <ApyAd :url="item.url" :image="item.image"></ApyAd>
-      </SwiperSlide>
-    </Swiper>
+    <div class="mdno carouselContainer">
+      <el-carousel ref="carousel" height="160px" :autoplay="autoplay">
+        <el-carousel-item v-for="(item, i) in list" :key="i">
+          <a :href="item.url" target="_blank">
+            <div v-if="item.flag" class="advTip">广告</div>
+            <img class="comImg" :src="item.image" alt="" />
+          </a>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
   </div>
 </template>
 <style scoped lang="postcss">

@@ -36,7 +36,7 @@ useHead({
 </template>
 <style lang="scss">
 .showY{
-  @apply overFlow-hidden overFlow-y-scroll;
+  @apply overflow-hidden overflow-y-scroll;
 }
 .en .i8n-font-en-inter {
   font-family: i8n-font-inter;
@@ -50,6 +50,8 @@ body {
 .el-loading-spinner .circular{
   display: inline !important;
 }
+
+/*
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;
@@ -64,6 +66,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*/
+
 .el-picker-panel__icon-btn {
   font-size: 12px;
   color: #303133;
@@ -236,6 +240,10 @@ a {
   padding: 0 !important;
 }
 
+.w-fit {
+  width: fit-content;
+}
+
 /* 等宽等高 */
 .equal-width-height {
   width: 100%;
@@ -258,12 +266,22 @@ a {
 /* 去掉 dialog 一些默认内边距 */
 
 .el-dialog.diy-dialog {
-  .el-dialog__header {
-    @apply hidden;
+  &.hidden-header {
+    .el-dialog__header {
+      @apply hidden;
+    }
   }
   .el-dialog__body {
     padding: 0 !important;
   }
 }
+/* 滑轮样式 */
+.showY::-webkit-scrollbar {
+  height: 8px;
+  @apply w-0.5;
+}
 
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0.1);
+}
 </style>

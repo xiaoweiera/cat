@@ -50,6 +50,7 @@
     "dayjs": "^1.10.4",
     "echarts": "^5.1.1",
     "element-plus": "^1.0.2-beta.70",
+    "html2canvas": "^1.2.2",
     "intl-format": "^1.2.0",
     "js-cookie": "^2.2.1",
     "lint-staged": "^11.0.0",

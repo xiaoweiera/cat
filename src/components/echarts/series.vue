@@ -29,7 +29,7 @@ onBeforeMount(() => {
   const option = {
     data: toRaw(props.value),
     itemStyle: {
-      color: props.color
+      color: props.color ? props.color : null
     }
   }
   // 处理阴影渐变色

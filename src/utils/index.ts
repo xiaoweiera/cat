@@ -129,7 +129,7 @@ export const inputBeautify = function(value: string = ''): string {
   text = text.replace(/^@+/i, '')
   return trim(text)
 }
-
+// 千分位计数
 export const formatCash = function (value: string | number = 0): string {
   const number = `${toNumber(value)}`
   const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -335,7 +335,9 @@ export const upperFirst = function(value: string): string {
  * @param str2
  */
 export const equalsIgnoreCase = function(str1: string, str2: string): boolean {
-  return str1.toString().toUpperCase() === str2.toString().toUpperCase()
+  const value1 = str1.toString()
+  const value2 = str2.toString()
+  return value1.toUpperCase() === value2.toUpperCase()
 }
 
 
