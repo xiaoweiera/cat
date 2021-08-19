@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <a v-if="data" class="h-18.5 pl-7 pr-2.5 flex items-center text-kdFang" v-router="'/apy/token'" target="_blank">
+  <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router="'/apy/token'" target="_blank">
     <div>
       <IconFont v-if="data.symbol_logo" :type="data.symbol_logo" size="32"/>
       <IconFont v-else type="icon-morentoken" size="32"/>
@@ -31,4 +31,12 @@ defineProps({
     </div>
   </a>
 </template>
+
+<style scoped lang="scss">
+.symbol-item {
+  @at-root .children &{
+    @apply pl-7;
+  }
+}
+</style>
 
