@@ -9,11 +9,11 @@ import { current } from '~/utils/lang'
 // @ts-ignore
 import { shortcuts, disabledDate, formatResult } from '~/logic/ui/date'
 import safeGet from '@fengqiaogang/safe-get'
-import { defineProps, onMounted, ref, computed, defineEmit, provide } from 'vue'
+import { defineEmits, defineProps, onMounted, ref, computed, provide } from 'vue'
 import { map, forEach, isString, isNumber, isFunction, toArray, isObject, toBoolean } from '~/utils'
 import DateEventName from './eventname'
 
-const emitEvent = defineEmit(['change', 'update:value'])
+const emitEvent = defineEmits(['change', 'update:value'])
 
 const props = defineProps({
   shortcuts: {

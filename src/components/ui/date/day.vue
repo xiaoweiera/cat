@@ -2,8 +2,8 @@
 /**
  * @file 基于 UiDate 组件，抽象出一个只提供日期的选择器
  */
-import { defineEmit, defineProps } from 'vue'
-const emitEvent = defineEmit(['change', 'update:value'])
+import { defineEmits, defineProps } from 'vue'
+const emitEvent = defineEmits(['change', 'update:value'])
 
 defineProps({
   shortcuts: {

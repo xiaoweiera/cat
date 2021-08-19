@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { defineEmit } from 'vue'
+import { defineEmits } from 'vue'
 import { current } from '~/utils/lang'
 
-const emitEvent = defineEmit(['change', 'error'])
+const emitEvent = defineEmits(['change', 'error'])
 
 const callback = `callback_${Date.now()}`
 // @ts-ignore

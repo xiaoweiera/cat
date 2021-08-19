@@ -4,7 +4,7 @@ import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
 import { compact, forEach, map, numberUint, toBoolean, toNumber, uuid } from '~/utils/index'
-import { defineEmit, defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
+import { defineEmits, defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
 import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
 import { Position } from '~/logic/echarts/interface'
 import { calcYAxis } from '~/logic/echarts/series'
@@ -21,7 +21,7 @@ import { viewWidth } from '~/utils/event/scroll'
 import { tailwind } from '~/logic/echarts/colors'
 import { seriesType, LegendDirection, Direction, iconFontName } from '~/logic/echarts/interface'
 
-const emitEvent = defineEmit(['removeLegend'])
+const emitEvent = defineEmits(['removeLegend'])
 
 const props = defineProps({
   // 是否开启log效果
