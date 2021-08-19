@@ -2,6 +2,14 @@
 // 币种基础信息
 import { EchartData } from '~/logic/echarts/interface'
 
+export enum SymbolType {
+  Lp = 'lp',
+  Token = 'token',
+  Child = 'children',
+  Apy = 'apy',
+  name = 'symbol_type'
+}
+
 export interface TokenItem {
   id: string | number
   name: string

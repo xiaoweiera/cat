@@ -8,6 +8,7 @@ import { defineProps, onMounted, ref } from 'vue'
 import { getTableList, getTableExpandList } from '~/logic/apy2/table'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
+import { SymbolType } from '~/logic/apy2/interface'
 
 const db = new DBList([], 'uuid', 'pid')
 
@@ -24,22 +25,24 @@ defineProps({
 
 const getTableDataList = function() {
   const array: any[] = []
-
   const append = function(item: any) {
     const data = {}
     safeSet(data, '0', item)
     forEach(function(apy: any, index: number) {
       safeSet(data, `${index + 1}`, apy)
-    }, db.select({ pid: item.uuid, type: 'apy' }))
+    }, db.select({ pid: item.uuid, [SymbolType.name]: SymbolType.Apy }))
     array.push(data)
   }
-  const symbolList = db.select({type: 'symbol'})
-  for(let i = 0, len = symbolList.length; i < len; i++) {
-    const item: any = symbolList[i]
+  const dataList = db.select({ [SymbolType.name]: [SymbolType.Lp, SymbolType.Token]})
+  for(let i = 0, len = dataList.length; i < len; i++) {
+    const item: any = dataList[i]
     append(item)
-    forEach(function(token: any) {
-      append(token)
-    }, db.select({ pid: item.uuid, type: 'children' }))
+    // 如果当前 symbol 为展开状态
+    if (item.expand) {
+      forEach(function(token: any) {
+        append(token)
+      }, db.select({ pid: item.uuid, [SymbolType.name]: SymbolType.Child }))
+    }
   }
   return array
 }
@@ -69,31 +72,27 @@ const updateData = async function() {
   loading.value = false
 }
 
-const onRowClick = function() {
-}
-
 // @ts-ignore
 const nextList = function() {
   page.value = page.value + 1
   return updateData()
 }
 
-
 onMounted(updateData)
-
 
 // @ts-ignore
 const onExpand = async function(data: any) {
+  if (loading.value) {
+    return false
+  }
   const where = { uuid: data.uuid }
   const expand = !data.expand
   db.update(where, { expand })
-  const children = db.select({ pid: data.uuid, type: 'children' })
-  if (children && children.length > 0) {
-    forEach(function(item: any) {
-      db.remove(item)
-    }, children)
-  } else {
+  const children = db.select({ pid: data.uuid, [SymbolType.name]: SymbolType.Child })
+  if (children && children.length < 1) {
+    loading.value = true
     await getTableExpandList(db, data.uuid)
+    loading.value = false
   }
   tableData.value = getTableDataList()
 }
@@ -111,30 +110,33 @@ const tdKey = function(scope: any, index: number | string) {
 // @ts-ignore
 const rowClassName = function(scope: any): string {
   const row = scope.row
-  return row['0'].type
+  return row['0'][SymbolType.name]
 }
-
+// @ts-ignore
 const isLp = function(scope: any) {
   const data = scope.row['0']
-  return !!(data && data.symbol_type === 'lp');
+  return !!(data && data[SymbolType.name] === SymbolType.Lp);
 }
+// @ts-ignore
 const isToken = function(scope: any) {
   const data = scope.row['0']
-  return !!(data && data.symbol_type === 'token');
+  return !!(data && data[SymbolType.name] === SymbolType.Token);
 }
 
 </script>
 
 <template>
   <Spin :loading="loading">
-    <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName" @row-click="onRowClick">
+    <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName">
       <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
           <Apy2BaseTableHead index="0"/>
         </template>
         <template #default="scope">
-          <Apy2BaseTableSymbolLp v-if="isLp(scope)" :key="tdKey(scope, 0)" @click="onExpand(scope.row['0'])" :data="scope.row['0']"/>
-          <Apy2BaseTableSymbolToken v-else-if="isToken(scope)" :key="tdKey(scope, 0)" :data="scope.row['0']"/>
+          <!-- token 数据可以展开 -->
+          <Apy2BaseTableSymbolToken v-if="isToken(scope)" :key="tdKey(scope, 0)" :data="scope.row['0']" @click="onExpand(scope.row['0'])" />
+          <!-- 其它 -->
+          <Apy2BaseTableSymbolLp v-else :key="tdKey(scope, 0)" :data="scope.row['0']"/>
         </template>
       </el-table-column>
       <template v-for="index in rankValue" :key="index">
@@ -175,6 +177,11 @@ const isToken = function(scope: any) {
   tbody {
     td {
       @extend %reset;
+      &:not(.el-table_1_column_1) {
+        &:hover {
+          background-color: #EDF0F5;
+        }
+      }
     }
     /* 去掉背景色 */
     tr {

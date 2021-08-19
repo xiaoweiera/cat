@@ -7,10 +7,11 @@ import request from '~/lib/service'
 import { asyncCheck } from '~/lib/response'
 
 enum API {
-  list = 'api/apy/ninja/mining_table'
+  list = 'api/apy/ninja/mining_table',
+  expand = '/api/apy/ninja/mining_table/drill_down'
 }
 
-export const getList = function(query: any) {
+export const getList = function<T>(query: any): Promise<T[]> {
   const params = Object.assign({
     apy_type: 'all',
     chain: 'all',
@@ -18,5 +19,14 @@ export const getList = function(query: any) {
     page: 1,
   }, query || {})
   const result = request.get(API.list, { params })
-  return asyncCheck(result)
+  return asyncCheck<T[]>(result)
+}
+
+export const getExpandList = function<T>(query: any): Promise<T[]> {
+  const params = Object.assign({
+    apy_type: 'all',
+    chain: 'all',
+  }, query || {})
+  const result = request.get(API.expand, { params })
+  return asyncCheck<T[]>(result)
 }
