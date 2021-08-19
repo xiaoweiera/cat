@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
+// @ts-ignore
+import { numberUint, toNumber, toInteger } from '~/utils'
+
 defineProps({
   data: {
     type: Object
@@ -12,22 +15,24 @@ defineProps({
   <div class="apy-item">
     <el-popover popper-class="apy-hover-detail" placement="bottom-start" title="" width="fit-content" :show-after="300" trigger="hover" :show-arrow="false" :offset="0">
       <template #reference>
-        <div class="py-2 pl-4 pr-2 text-kdFang">
-          <div>
-            <span class="text-global-numGreen font-bold text-xl">34.33%</span>
-            <span class="ml-1 text-xs text-global-highTitle text-opacity-45">3X</span>
-          </div>
-          <div class="text-xs mt-1">
-            <span class="text-global-highTitle text-opacity-85">Coinwind</span>
-            <span class="text-global-highTitle text-opacity-45 ml-1">TVL</span>
-            <span class="text-global-highTitle text-opacity-85 ml-1">$3.4亿</span>
-          </div>
-          <div class="text-xs mt-1 flex items-center">
-            <IconFont type="icon-BSC" size="14"/>
-            <IconFont type="icon-V" size="14" class="ml-1"/>
-            <span class="inline-block bg-global-highTitle bg-opacity-6 py-0.5 px-1 rounded ml-1">
-              <span class="text-global-highTitle text-opacity-45 ml-1">MDEX 董事会</span>
+        <div class="h-18.5 flex items-center">
+          <div class="pl-4 pr-2 text-kdFang">
+            <div>
+              <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.symbol_change) }}%</span>
+              <span class="ml-1 text-xs text-global-highTitle text-opacity-45">{{ toInteger(data.lever) }}X</span>
+            </div>
+            <div class="text-xs mt-1">
+              <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>
+              <span class="text-global-highTitle text-opacity-45 ml-1">TVL</span>
+              <span class="text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.quota_remain) }}</span>
+            </div>
+            <div class="text-xs mt-1 flex items-center">
+              <IconFont :type="data.chain" size="14"/>
+              <IconFont :type="data.project_category" size="14" class="ml-1"/>
+              <span class="inline-block bg-global-highTitle bg-opacity-6 py-0.5 px-1 rounded ml-1" v-if="data.strategy_tags">
+              <span class="text-global-highTitle text-opacity-45 ml-1">{{ data.strategy_tags }}</span>
             </span>
+            </div>
           </div>
         </div>
       </template>
@@ -40,9 +45,6 @@ defineProps({
   .apy-item {
     transition: all 03s;
     @apply relative;
-    &:hover {
-      background-color: #EDF0F5;
-    }
     .apy-detail {
       @apply w-65;
       background-color: #EDF0F5;

@@ -8,6 +8,7 @@ import { defineProps, onMounted, ref } from 'vue'
 import { getTableList, getTableExpandList } from '~/logic/apy2/table'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
+import { SymbolType } from '~/logic/apy2/interface'
 
 const db = new DBList([], 'uuid', 'pid')
 
@@ -24,58 +25,80 @@ defineProps({
 
 const getTableDataList = function() {
   const array: any[] = []
-
   const append = function(item: any) {
     const data = {}
     safeSet(data, '0', item)
     forEach(function(apy: any, index: number) {
       safeSet(data, `${index + 1}`, apy)
-    }, db.select({ pid: item.uuid, type: 'apy' }))
+    }, db.select({ pid: item.uuid, [SymbolType.name]: SymbolType.Apy }))
     array.push(data)
   }
-  const symbolList = db.select({type: 'symbol'})
-  for(let i = 0, len = symbolList.length; i < len; i++) {
-    const item: any = symbolList[i]
+  const dataList = db.select({ [SymbolType.name]: [SymbolType.Lp, SymbolType.Token]})
+  for(let i = 0, len = dataList.length; i < len; i++) {
+    const item: any = dataList[i]
     append(item)
-    forEach(function(token: any) {
-      append(token)
-    }, db.select({ pid: item.uuid, type: 'children' }))
+    // 如果当前 symbol 为展开状态
+    if (item.expand) {
+      forEach(function(token: any) {
+        append(token)
+      }, db.select({ pid: item.uuid, [SymbolType.name]: SymbolType.Child }))
+    }
   }
   return array
 }
 
-const rankValue = ref<number>(0)
+const page = ref<number>(1)
+const loading = ref<boolean>(true)
+const nextStatus = ref<boolean>(true)
+const rankValue = ref<number>(10)
 const tableData = ref<any[]>([])
 
-const onRowClick = function() {
+const updateData = async function() {
+  loading.value = true
+  try {
+    // @ts-ignore
+    const size = db.size()
+    const { maxLength = 0 } = await getTableList(db, page.value)
+    // @ts-ignore
+    if (size === db.size()) {
+      nextStatus.value = false
+    } else {
+      tableData.value = getTableDataList()
+      rankValue.value = maxLength < 10 ? 10 : maxLength
+    }
+  } catch (e) {
+    console.log(e)
+  }
+  loading.value = false
 }
 
+// @ts-ignore
+const nextList = function() {
+  page.value = page.value + 1
+  return updateData()
+}
 
-onMounted(async function() {
-  await getTableList(db)
-  tableData.value = getTableDataList()
-  rankValue.value = 10
-})
-
+onMounted(updateData)
 
 // @ts-ignore
 const onExpand = async function(data: any) {
+  if (loading.value) {
+    return false
+  }
   const where = { uuid: data.uuid }
   const expand = !data.expand
   db.update(where, { expand })
-  const children = db.select({ pid: data.uuid, type: 'children' })
-  if (children && children.length > 0) {
-    forEach(function(item: any) {
-      db.remove(item)
-    }, children)
-  } else {
+  const children = db.select({ pid: data.uuid, [SymbolType.name]: SymbolType.Child })
+  if (children && children.length < 1) {
+    loading.value = true
     await getTableExpandList(db, data.uuid)
+    loading.value = false
   }
   tableData.value = getTableDataList()
 }
 
 // @ts-ignore
-const getTdUUid = function(scope: any, index: number | string) {
+const tdKey = function(scope: any, index: number | string) {
   const row = scope.row
   if (row) {
     const data = row[index]
@@ -87,36 +110,54 @@ const getTdUUid = function(scope: any, index: number | string) {
 // @ts-ignore
 const rowClassName = function(scope: any): string {
   const row = scope.row
-  return row['0'].type
+  return row['0'][SymbolType.name]
+}
+// @ts-ignore
+const isLp = function(scope: any) {
+  const data = scope.row['0']
+  return !!(data && data[SymbolType.name] === SymbolType.Lp);
+}
+// @ts-ignore
+const isToken = function(scope: any) {
+  const data = scope.row['0']
+  return !!(data && data[SymbolType.name] === SymbolType.Token);
 }
 
 </script>
 
 <template>
-  <el-table class="w-full apy-custom-expand" border :data="tableData" :row-class-name="rowClassName" @row-click="onRowClick">
-    <el-table-column :min-width="'200px'" fixed prop="0">
-      <template #header="scope">
-        <Apy2BaseTableHead :index="0"/>
-      </template>
-      <template #default="scope">
-        <template v-if="scope.row && scope.row['0']">
-          <Apy2BaseTableSymbol :key="getTdUUid(scope, 0)" @click="onExpand(scope.row['0'])" :data="scope.row['0']"/>
-        </template>
-      </template>
-    </el-table-column>
-    <template v-for="index in rankValue" :key="index">
-      <el-table-column :width="200" :prop="`${index}`">
+  <Spin :loading="loading">
+    <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName">
+      <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
-          <Apy2BaseTableHead :index="index"/>
+          <Apy2BaseTableHead index="0"/>
         </template>
         <template #default="scope">
-          <template v-if="scope.row[index]">
-            <Apy2BaseTableItem :data="scope.row" :key="getTdUUid(scope, index)"/>
-          </template>
+          <!-- token 数据可以展开 -->
+          <Apy2BaseTableSymbolToken v-if="isToken(scope)" :key="tdKey(scope, 0)" :data="scope.row['0']" @click="onExpand(scope.row['0'])" />
+          <!-- 其它 -->
+          <Apy2BaseTableSymbolLp v-else :key="tdKey(scope, 0)" :data="scope.row['0']"/>
         </template>
       </el-table-column>
-    </template>
-  </el-table>
+      <template v-for="index in rankValue" :key="index">
+        <el-table-column :width="200" :prop="`${index}`">
+          <template #header="scope">
+            <Apy2BaseTableHead :index="index"/>
+          </template>
+          <template #default="scope">
+            <template v-if="scope.row[index]">
+              <Apy2BaseTableItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+            </template>
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
+    <div class="pt-4 text-center" v-if="nextStatus">
+      <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">
+        <span class="text-sm text-global-highTitle bg-opacity-65">加载更多</span>
+      </span>
+    </div>
+  </Spin>
 </template>
 
 <style lang="scss">
@@ -136,6 +177,11 @@ const rowClassName = function(scope: any): string {
   tbody {
     td {
       @extend %reset;
+      &:not(.el-table_1_column_1) {
+        &:hover {
+          background-color: #EDF0F5;
+        }
+      }
     }
     /* 去掉背景色 */
     tr {

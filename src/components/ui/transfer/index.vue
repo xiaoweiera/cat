@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { difference } from 'ramda'
-import { ref, defineProps, defineEmit, onMounted } from 'vue'
+import { ref, defineProps, defineEmits, onMounted } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { toArray } from '~/utils'
 
-const emitEvent = defineEmit(['change', 'submit'])
+const emitEvent = defineEmits(['change', 'submit'])
 
 const props = defineProps({
   title: {

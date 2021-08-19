@@ -3,5 +3,6 @@
  */
 
 import * as heco from './heco'
+import * as table from './table'
 
-export { heco }
+export { heco, table }

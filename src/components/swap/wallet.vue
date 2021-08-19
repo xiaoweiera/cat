@@ -2,7 +2,7 @@
 import Wallet from '~/utils/ethereum/wallet'
 import { EventType } from '~/utils/ethereum/interface'
 import { getErrorMessageContent } from '~/utils/ethereum/message'
-import { defineEmit, onMounted, ref, defineProps } from 'vue'
+import { defineEmits, onMounted, ref, defineProps } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import Message from '~/utils/message'
 import { sleep } from '~/utils'
@@ -14,7 +14,7 @@ const props = defineProps({
   }
 })
 
-const emitEvent = defineEmit(['change', 'click'])
+const emitEvent = defineEmits(['change', 'click'])
 
 const address = ref<string>('')
 
