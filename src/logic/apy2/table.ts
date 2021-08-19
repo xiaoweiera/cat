@@ -6,10 +6,15 @@ import { omit } from "ramda"
 import { forEach, uuid } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import DBList from '@fengqiaogang/dblist'
+import * as API from '~/api/index'
 
 const transform = function(db: DBList, type: string, list: any[]) {
+  let maxLength = 0
   forEach(function(row: any) {
-    const data = omit(['data'], row)
+    if (maxLength < row.max_length) {
+      maxLength = row.max_length
+    }
+    const data = omit(['table_data', 'max_length'], row)
     const id = uuid()
     safeSet(data, 'uuid', id)
     safeSet(data, 'type', type)
@@ -20,173 +25,17 @@ const transform = function(db: DBList, type: string, list: any[]) {
       safeSet(item, 'pid', id)
       safeSet(item, 'uuid', uuid())
       db.insert(item)
-    }, row.data)
+    }, row.table_data)
   }, list)
-  return db
+  return { db, maxLength }
 }
 
-export const getTableList = async function(db: DBList) {
-  return transform(db, 'symbol',[
-    {
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      "symbol_alias": Math.random(),
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      "symbol_alias": Math.random(),
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    }
-  ])
+export const getTableList = async function(db: DBList, page: number) {
+  const result: any = await API.apy.table.getList({ page })
+  return transform(db, 'symbol', result)
 }
 
 
 export const getTableExpandList = async function (db: DBList, pid: string) {
-  return transform(db, 'children',[
-    {
-      pid,
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      pid,
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      pid,
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    }
-  ])
+  return db
 }

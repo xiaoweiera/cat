@@ -44,18 +44,42 @@ const getTableDataList = function() {
   return array
 }
 
-const rankValue = ref<number>(0)
+const page = ref<number>(1)
+const loading = ref<boolean>(true)
+const nextStatus = ref<boolean>(true)
+const rankValue = ref<number>(10)
 const tableData = ref<any[]>([])
+
+const updateData = async function() {
+  loading.value = true
+  try {
+    // @ts-ignore
+    const size = db.size()
+    const { maxLength = 0 } = await getTableList(db, page.value)
+    // @ts-ignore
+    if (size === db.size()) {
+      nextStatus.value = false
+    } else {
+      tableData.value = getTableDataList()
+      rankValue.value = maxLength < 10 ? 10 : maxLength
+    }
+  } catch (e) {
+    console.log(e)
+  }
+  loading.value = false
+}
 
 const onRowClick = function() {
 }
 
+// @ts-ignore
+const nextList = function() {
+  page.value = page.value + 1
+  return updateData()
+}
 
-onMounted(async function() {
-  await getTableList(db)
-  tableData.value = getTableDataList()
-  rankValue.value = 10
-})
+
+onMounted(updateData)
 
 
 // @ts-ignore
@@ -75,7 +99,7 @@ const onExpand = async function(data: any) {
 }
 
 // @ts-ignore
-const getTdUUid = function(scope: any, index: number | string) {
+const tdKey = function(scope: any, index: number | string) {
   const row = scope.row
   if (row) {
     const data = row[index]
@@ -90,33 +114,48 @@ const rowClassName = function(scope: any): string {
   return row['0'].type
 }
 
+const isLp = function(scope: any) {
+  const data = scope.row['0']
+  return !!(data && data.symbol_type === 'lp');
+}
+const isToken = function(scope: any) {
+  const data = scope.row['0']
+  return !!(data && data.symbol_type === 'token');
+}
+
 </script>
 
 <template>
-  <el-table class="w-full apy-custom-expand" border :data="tableData" :row-class-name="rowClassName" @row-click="onRowClick">
-    <el-table-column :min-width="'200px'" fixed prop="0">
-      <template #header="scope">
-        <Apy2BaseTableHead :index="0"/>
-      </template>
-      <template #default="scope">
-        <template v-if="scope.row && scope.row['0']">
-          <Apy2BaseTableSymbol :key="getTdUUid(scope, 0)" @click="onExpand(scope.row['0'])" :data="scope.row['0']"/>
-        </template>
-      </template>
-    </el-table-column>
-    <template v-for="index in rankValue" :key="index">
-      <el-table-column :width="200" :prop="`${index}`">
+  <Spin :loading="loading">
+    <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName" @row-click="onRowClick">
+      <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
-          <Apy2BaseTableHead :index="index"/>
+          <Apy2BaseTableHead index="0"/>
         </template>
         <template #default="scope">
-          <template v-if="scope.row[index]">
-            <Apy2BaseTableItem :data="scope.row" :key="getTdUUid(scope, index)"/>
-          </template>
+          <Apy2BaseTableSymbolLp v-if="isLp(scope)" :key="tdKey(scope, 0)" @click="onExpand(scope.row['0'])" :data="scope.row['0']"/>
+          <Apy2BaseTableSymbolToken v-else-if="isToken(scope)" :key="tdKey(scope, 0)" :data="scope.row['0']"/>
         </template>
       </el-table-column>
-    </template>
-  </el-table>
+      <template v-for="index in rankValue" :key="index">
+        <el-table-column :width="200" :prop="`${index}`">
+          <template #header="scope">
+            <Apy2BaseTableHead :index="index"/>
+          </template>
+          <template #default="scope">
+            <template v-if="scope.row[index]">
+              <Apy2BaseTableItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+            </template>
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
+    <div class="pt-4 text-center" v-if="nextStatus">
+      <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">
+        <span class="text-sm text-global-highTitle bg-opacity-65">加载更多</span>
+      </span>
+    </div>
+  </Spin>
 </template>
 
 <style lang="scss">
