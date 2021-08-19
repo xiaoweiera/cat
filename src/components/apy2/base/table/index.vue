@@ -5,21 +5,38 @@
  */
 import { forEach } from '~/utils'
 import { defineProps, onMounted, ref } from 'vue'
-import { getTableList, getTableExpandList } from '~/logic/apy2/table'
+import { getTableExpandList, getTableList } from '~/logic/apy2/table'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
 import { SymbolType } from '~/logic/apy2/interface'
 
 const db = new DBList([], 'uuid', 'pid')
 
-defineProps({
+const props = defineProps({
   type: {
     type: String,
     required: true,
+    default: () => 'loan',
     validator: function(value: string) {
       // 类型为挖矿与借贷
       return value === 'mining' || value === 'loan';
     }
+  },
+  // 单利/综合
+  apyType: {
+    type: String,
+    default: () => 'all',
+    validator: function(value: string) {
+      return value === 'all' || value === 'single';
+    }
+  },
+  // 分组
+  groupId: {
+    type: String,
+  },
+  chain: {
+    type: String,
+    default: () => 'all',
   }
 })
 
@@ -58,7 +75,7 @@ const updateData = async function() {
   try {
     // @ts-ignore
     const size = db.size()
-    const { maxLength = 0 } = await getTableList(db, page.value)
+    const { maxLength = 0 } = await getTableList(db, { ...props, page: page.value })
     // @ts-ignore
     if (size === db.size()) {
       nextStatus.value = false
@@ -85,13 +102,13 @@ const onExpand = async function(data: any) {
   if (loading.value) {
     return false
   }
-  const where = { uuid: data.uuid }
   const expand = !data.expand
-  db.update(where, { expand })
-  const children = db.select({ pid: data.uuid, [SymbolType.name]: SymbolType.Child })
+  db.update({ uuid: data.uuid }, { expand })
+  const where = { pid: data.uuid, [SymbolType.name]: SymbolType.Child }
+  const children = db.select(where)
   if (children && children.length < 1) {
     loading.value = true
-    await getTableExpandList(db, data.uuid)
+    await getTableExpandList(db, { ...props, uuid: data.uuid })
     loading.value = false
   }
   tableData.value = getTableDataList()
@@ -110,7 +127,8 @@ const tdKey = function(scope: any, index: number | string) {
 // @ts-ignore
 const rowClassName = function(scope: any): string {
   const row = scope.row
-  return row['0'][SymbolType.name]
+  const data: any = row['0']
+  return data[SymbolType.name]
 }
 // @ts-ignore
 const isLp = function(scope: any) {
@@ -146,7 +164,12 @@ const isToken = function(scope: any) {
           </template>
           <template #default="scope">
             <template v-if="scope.row[index]">
-              <Apy2BaseTableItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+              <template v-if="type === 'mining'">
+                <Apy2BaseTableMiningItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+              </template>
+              <template v-else>
+                <Apy2BaseTableLoanItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+              </template>
             </template>
           </template>
         </el-table-column>

@@ -36,7 +36,7 @@ defineProps({
           </div>
         </div>
       </template>
-      <Apy2BaseTableDetail :data="data"/>
+      <Apy2BaseTableMiningDetail :data="data"/>
     </el-popover>
   </div>
 </template>

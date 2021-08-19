@@ -32,22 +32,24 @@ const transform = function(db: DBList, list: any[], pid: string = '0') {
   return { db, maxLength }
 }
 
-export const getTableList = async function(db: DBList, page: number) {
-  const result = await API.apy.table.getList<any>({ page })
+export const getTableList = async function(db: DBList, query: Object) {
+  const result = await API.apy.table.getList<any>(query)
   return transform(db, result)
 }
 
 
-export const getTableExpandList = async function (db: DBList, uuid: string) {
+export const getTableExpandList = async function (db: DBList, query: any) {
+  const { uuid } = query
   const data = db.selectOne<any>({ uuid })
   if (data) {
     const { symbol_alias } = data
-    const list = await API.apy.table.getExpandList<any>({ symbol_alias })
+    const list = await API.apy.table.getExpandList<any>(Object.assign({ symbol_alias }, omit(['uuid'], query)))
     const result = transform(db, list, uuid)
     forEach(function(item: any) {
       if (item[SymbolType.name] !== SymbolType.Apy) {
         db.update(item, {
-          [SymbolType.name]: SymbolType.Child
+          [SymbolType.name]: SymbolType.Child,
+          visibility: true
         })
       }
     }, db.select({ pid: uuid }))
