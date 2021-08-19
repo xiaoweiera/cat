@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import {defineProps,ref} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
-const tagList=[{name:'关注矿池',key:'my'},{name:'热门矿池',key:'hot'},{name:'最新矿池',key:'new'}]
-const typeList=[{name:'全部',key:'all'},{name:'单币',key:'dan'},{name:'LP',key:'lp'}]
+const props=defineProps({
+  tagList:Object
+})
 const project=ref('all')
 const vLisit=ref([
   {name:'全部项目',key:'all'},
@@ -13,6 +14,8 @@ const vLisit=ref([
   {name:'项目4',key:'4'},
 ])
 const searchTxt=ref('')
+const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'single'},{name:'LP',key:'lp'}])
+
 </script>
 <template>
   <div class="flex items-center font-kdFang flex-wrap justify-between">

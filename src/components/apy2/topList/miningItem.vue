@@ -1,19 +1,25 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import {watch,ref,onMounted } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
-
-const selectName=ref(0)
-const selectTag=(key:string)=>selectName.value=key
-const list=[1,2,3,4,5]
+import {chain} from '~/store/apy2/state'
+import {getMining_rank} from '~/logic/apy2/index'
+import {getInject} from '~/utils/use/state'
+import {chainsIcon} from '~/logic/apy2/config'
+import {project_type} from '~/logic/apy2/config'
+import {formatRulesNumber} from '~/lib/tool'
+const group_id=getInject('group_id')
+const list=ref()
+watch(()=>group_id.value[0], ()=>getData())
+const getData=async ()=>list.value=await getMining_rank(group_id.value[0],chain.value)
+const getIconSize=(type:string)=>type==='lp'?'w-8 h-5':'w-4 h-4'
+const getNewSize=(type:string)=>type==='lp'?'26':'14'
+onMounted(()=>{if(group_id.value[0]){getData()}})
 </script>
-<!--icon-F-->
-<!--icon-V-->
-<!--icon-L-->
 <template>
   <div class="font-kdFang w-full  font-kdExp ">
   <template v-for="(item,i) in list">
-    <div v-if="i<5" :class="i===list.length-1?'':'py-3.1'"  class="flex items-center w-full topBorder">
+    <div v-if="i<5"   class="flex py-3 items-center w-full topBorder">
       <div class=" flex items-center">
         <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;"    :type='`icon-a-${i+1}`'></IconFont>
         <div v-else  class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
@@ -21,19 +27,19 @@ const list=[1,2,3,4,5]
       <div class="flex flex-col w-full ml-3">
         <div class="flex justify-between">
           <div class="flex items-center relative">
-            <IconFont class="text-global-highTitle text-opacity-25 absolute" style="font-size:26px;"   type="icon-NEW"></IconFont>
-            <img class="w-8 h-5" src="https://res.ikingdata.com/apyTwo/hecoChain.jpg" alt="">
-            <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">ETH/USDT</span>
+<!--            <IconFont class="text-global-highTitle text-opacity-25 absolute" :size="getNewSize()"    type="icon-NEW"></IconFont>-->
+            <img  :class="getIconSize(item.symbol_type)" :src="item.symbol_logo" alt="">
+            <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
           </div>
           <div>
-            <span class="mr-1 text-global-numGreen font-bold text-kd20px20px">34.33%</span>
+            <span class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
             <UiPopover class="ml-3 inline-block px-0">
               <template #reference>
-                <IconFont class="text-global-highTitle text-opacity-25" style="font-size:18px;"   type="icon-help"></IconFont>
+                <IconFont class="text-global-highTitle text-opacity-25" size="18"   type="icon-help"></IconFont>
               </template>
               <template #content>
              <div class="min-w-70 relative p-1.3">
-               <ApyTwoTopListMiningTip />
+               <Apy2TopListMiningTip :data="item" />
              </div>
               </template>
             </UiPopover>
@@ -41,14 +47,14 @@ const list=[1,2,3,4,5]
         </div>
         <div class="mt-1 flex items-center flex-wrap justify-between">
           <div class="flex items-center">
-            <span class="text-kd12px18px text-global-highTitle text-opacity-65">Coinwind</span>
-            <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  type="icon-BSC"></IconFont>
-            <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  type="icon-V"></IconFont>
-            <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">MDEX 董事会</span>
+            <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{item.project}}</span>
+            <img class="w-3.5 h-3.5 ml-1" :src="chainsIcon[item.chain]" alt="">
+            <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="`icon-${project_type[item.project_category]}`"></IconFont>
+            <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
           </div>
           <div>
             <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">TVL</span>
-            <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">$3.4亿</span>
+            <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{formatRulesNumber(item.tvl)}}</span>
           </div>
         </div>
       </div>

@@ -19,7 +19,9 @@ defineProps({
       // 类型为挖矿与借贷
       return value === 'mining' || value === 'loan';
     }
-  }
+  },
+  groupId:Number,
+  tableType:String
 })
 
 const getTableDataList = function() {
@@ -89,9 +91,7 @@ const rowClassName = function(scope: any): string {
   const row = scope.row
   return row['0'].type
 }
-
 </script>
-
 <template>
   <el-table class="w-full apy-custom-expand" border :data="tableData" :row-class-name="rowClassName" @row-click="onRowClick">
     <el-table-column :min-width="'200px'" fixed prop="0">

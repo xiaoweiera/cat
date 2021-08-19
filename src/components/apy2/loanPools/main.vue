@@ -9,8 +9,9 @@ const [filterType,]=useProvide('filterType')
 </script>
 <template>
   <div>
-    <Apy2LoanPoolsHeader />
-    <Apy2LoanTableMain  class="mt-3"/>
+    <div class="font-kdFang font-medium text-kd18px24px text-global-highTitle text-opacity-85">抵押借贷最佳路径</div>
+    <Apy2LoanPoolsHeader class="mt-4"/>
+    <Apy2LoanTableMain  />
   </div>
 </template>
 <style  lang="scss">

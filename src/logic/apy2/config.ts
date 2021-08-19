@@ -29,3 +29,12 @@ export const searchStaticToken=[
     {name:'ETH',id:''},
     {name:'MDX',id:''},
 ]
+export const noticType={
+    'announcement':'公告',
+    'tutorial':'教程'
+}
+export const project_type={
+    Vault:'V',
+    Lending:'L',
+    Farm:'F'
+}

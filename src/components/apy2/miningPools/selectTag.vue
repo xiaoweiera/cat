@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref,defineProps,defineEmit } from 'vue'
+import { ref,defineProps,defineEmit,computed } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
@@ -8,18 +8,16 @@ const props = defineProps({
 })
 const emitTag=defineEmit(['update:tag'])
 const setTag=setInject('tag')
-const tag=ref(props.list[1].key)
-const changeTag=(key:string)=>{
-  tag.value=key
-  setTag(key)
-  emitTag('update:tag',key)
+const tag=getInject('tag')
+const changeTag=(id:number | string)=>{
+  setTag(id)
+  emitTag('update:tag',id)
 }
-
 </script>
 <template>
   <div class="flex items-center rounded-kd12px py-1 font-kdFang bg-global-highTitle bg-opacity-6 px-1 ">
       <template v-for="(item,i) in props.list">
-        <span @click="changeTag(item.key)" :class="tag===item.key?'selectTag':'tag'" class="py-2 px-3 hand">{{item.name}}</span>
+        <span @click="changeTag(item.id)" :class="tag[0]===item.id?'selectTag':'tag'" class="py-2 px-3 hand">{{item.name}}</span>
       </template>
   </div>
 </template>

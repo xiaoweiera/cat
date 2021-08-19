@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, defineProps,watch} from 'vue'
+import {ref, defineProps,watch,onMounted} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
@@ -16,6 +16,8 @@ const chains=[
   {name:'PoS',key:'pos'}
 ]
 watch(()=>chain.value[0],(n)=>setChain(n))
+
+
 </script>
 <template>
   <el-select :popper-append-to-body="false" v-model="chain[0]" size="small">

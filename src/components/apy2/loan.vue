@@ -1,6 +1,16 @@
 <script lang="ts" setup>
-// @ts-ignore
-import {ref} from 'vue'
+import {onMounted} from 'vue'
+import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
+import {getLendingGroup} from '~/logic/apy2/index'
+const getGroupData=async ()=>{
+  const result=await getLendingGroup(chain.value)
+  rankingTag.value=result?.ranking
+  tableTag.value=result?.table
+  listTag.value=result?.list
+}
+onMounted(async ()=>{
+  await getGroupData()
+})
 </script>
 <template>
   <div class=" flex justify-center   bg-global-white  h-full font-kdFang " >
@@ -20,6 +30,10 @@ import {ref} from 'vue'
             <Apy2TopListLoanItem />
           </template>
         </Apy2TopListMain>
+      </div>
+      <div class="mt-15">
+        <!--表格数据-->
+        <Apy2BaseTableMain/>
       </div>
       <Apy2LoanPoolsMain class="mt-15"/>
       <div class="h-50"></div>
