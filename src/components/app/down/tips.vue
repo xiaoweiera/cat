@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { defineEmit } from 'vue'
-const emitEvent = defineEmit(['click'])
+import { defineEmits } from 'vue'
+const emitEvent = defineEmits(['click'])
 
 // @ts-ignore
 const onClick = function() {

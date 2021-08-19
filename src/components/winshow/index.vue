@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { uuid } from '~/utils/index'
-import { ref, defineEmit, onMounted, toRaw, onUnmounted } from 'vue'
-const emitEvent = defineEmit(['onload'])
+import { ref, defineEmits, onMounted, toRaw, onUnmounted } from 'vue'
+const emitEvent = defineEmits(['onload'])
 import * as scroll from '~/utils/event/scroll'
 
 const winShowRef = ref<any>(null)

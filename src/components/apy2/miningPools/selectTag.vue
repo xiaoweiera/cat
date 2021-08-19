@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref,defineProps,defineEmit } from 'vue'
+import { ref,defineProps,defineEmits } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
 const props = defineProps({
   list: Object,
 })
-const emitTag=defineEmit(['update:tag'])
+const emitTag=defineEmits(['update:tag'])
 const setTag=setInject('tag')
 const tag=ref(props.list[1].key)
 const changeTag=(key:string)=>{

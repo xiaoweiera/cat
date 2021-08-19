@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
-import { defineEmit } from 'vue'
-const emitEvent = defineEmit(['confirm'])
+import { defineEmits } from 'vue'
+const emitEvent = defineEmits(['confirm'])
 
 const props = defineProps({
   app: {

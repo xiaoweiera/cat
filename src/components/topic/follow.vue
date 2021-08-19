@@ -5,7 +5,7 @@
  */
 
 import { addFollow, unFollow } from '~/logic/topic/follow'
-import { defineProps, ref, defineEmit, computed } from 'vue'
+import { defineProps, ref, defineEmits, computed } from 'vue'
 import { param } from '~/logic/topic/router'
 
 const props = defineProps({
@@ -20,7 +20,7 @@ const props = defineProps({
     }
   }
 })
-const emitEvent = defineEmit(['update:status'])
+const emitEvent = defineEmits(['update:status'])
 
 const folloed = ref<boolean>(false)
 
