@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
-import * as R from 'ramda'
+import { ref,watch } from 'vue'
 import I18n from '~/utils/i18n/index'
-
-const selectName=ref(0)
-const selectTag=(key:string)=>selectName.value=key
-const list=['USDT','BTC','ETH']
+import {rankingTag} from '~/store/apy2/state'
+import {useProvide, setInject, getInject} from '~/utils/use/state'
+const group_id=getInject('group_id')
+watch(()=>rankingTag.value,()=>group_id.value[0]=rankingTag.value[0].id)
+const changeTag=(id:number)=>group_id.value[0]=id
 </script>
 <template>
   <div class="font-kdFang w-93.25 ">
@@ -17,8 +17,8 @@ const list=['USDT','BTC','ETH']
       </div>
     </div>
     <div class="flex items-center mt-3">
-      <template v-for="(item,i) in list">
-        <div :class="i===0?'selectedTag':'tag'" class="hand px-2 py-1">{{item}}</div>
+      <template v-for="(item,i) in rankingTag">
+        <div @click="changeTag(item.id)" :class="group_id[0]===item.id?'selectedTag':'tag'" class="hand px-2 py-1">{{item.name}}</div>
       </template>
     </div>
   </div>

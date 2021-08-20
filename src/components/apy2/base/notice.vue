@@ -1,30 +1,28 @@
 <script setup lang="ts">
-import {ref, defineProps} from 'vue'
+import {ref,onMounted} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-const list=[
-  {type:'top'},
-  {type:'notic'},
-  {type:'notic'},
-  {type:'study'},
-]
-const classList= {
-  top: 'top',
-  notic: 'notic',
-  study: 'study'
+import * as api from '~/api/index'
+import {noticType} from '~/logic/apy2/config'
+const classList= {top: 'top', announcement: 'notic', tutorial: 'study'}
+const data=ref({})
+const getData=async ()=>{
+  const result=await api.apy.common.announcements()
+  data.value=result.data
 }
-const getClass=(type:string)=>classList[type]
+const getClass=(type:string,is_top:boolean)=>classList[is_top?'top':type]
+onMounted(getData())
 </script>
 <template>
   <div class="w-74">
-    <template v-for="(item,i) in list">
-      <a href="/" >
+    <template v-for="(item,i) in data">
+      <a v-router="item.url" >
         <div :class="i===0?'':'mt-4'">
-          <div :class="getClass(item.type)" class="hand">
-            <span class="tip">公告</span>
-            <span class="des">丈夫发烧住院，浙江妈妈带3个孩子回国后确诊 密切接触者达60人</span>
+          <div :class="getClass(item.type,item.is_top)" class="hand min-h-12">
+            <span class="tip">{{noticType[item.type]}}</span>
+            <span class="des min-h-10.5 ">{{item.content}}</span>
           </div>
-          <div  class="mt-0.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(1588889281,'YYYY年M月DD日')}}</div>
+          <div  class="mt-0.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,'YYYY年M月DD日')}}</div>
         </div>
       </a>
     </template>

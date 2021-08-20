@@ -1,26 +1,24 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import {onBeforeMount } from 'vue'
+import {useRoute} from 'vue-router'
 import {chains} from '~/logic/apy2/config'
-import * as R from 'ramda'
-import I18n from '~/utils/i18n/index'
-const props = defineProps({
-  filterData: Object,
-  tagType: String,
-})
-const selectName=ref('all')
-const selectTag=(key:string)=>selectName.value=key
+import {chain} from '~/store/apy2/state'
+import * as lang from '~/utils/lang'
+const route = useRoute()
+const getHref =(key:string)=>`?chain=${key}&lang=${lang.current.value}`
+onBeforeMount(()=>chain.value=route.query.chain || 'all')
 </script>
 <template>
 <div class="flex justify-center items-center font-kdFang flex-wrap">
   <template v-for="item in chains">
-    <div @click="selectTag(item.key)" :class="selectName===item.key?'selectedTag':'tag'" class="content-fit hand mr-12 flex items-center justify-center ">
+    <a :href="getHref(item.key)" :class="chain===item.key?'selectedTag':'tag'" class="content-fit hand mr-12 flex items-center justify-center ">
         <img class="w-8 h-8" :src="item.icon" alt="">
         <div class="ml-1.5 ">{{item.name}}</div>
-    </div>
+    </a>
   </template>
 </div>
 </template>
-<style scoped lang="postcss">
+<style scoped lang="scss">
 .tag{
   @apply  p-2 text-kd24px24px text-global-highTitle font-medium  text-opacity-65;
 }

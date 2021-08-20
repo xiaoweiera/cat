@@ -140,9 +140,7 @@ const isToken = function(scope: any) {
   const data = scope.row['0']
   return !!(data && data[SymbolType.name] === SymbolType.Token);
 }
-
 </script>
-
 <template>
   <Spin :loading="loading">
     <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName">

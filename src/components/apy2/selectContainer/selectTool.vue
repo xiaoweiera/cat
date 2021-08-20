@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 import {chains,searchStaticToken} from '~/logic/apy2/config'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
-const [txt,]=useProvide('txt','s')
+const [txt,]=useProvide('txt','')
 const chain=ref('all')
 const show=ref(false)
 window.addEventListener('click',function(a){

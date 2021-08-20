@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
-import * as R from 'ramda'
-import I18n from '~/utils/i18n/index'
+import { defineProps, onMounted, ref,computed } from 'vue'
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
-const [tag,]=useProvide('tag')
-const [filterType,]=useProvide('filterType')
+import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
+import * as R from 'ramda'
+const [tag,]=useProvide('tag','follow')
+const [filterType,]=useProvide('filterType','all')
+
+const tagList=computed(()=>{
+  if(listTag && listTag.value[0]?.id!=='follow'){
+    listTag.value.unshift({id:'follow',name:'关注矿池'})
+  }
+  return listTag.value
+})
 </script>
 <template>
-  <div class="pb-15">
-    <!--表格数据-->
-    <Apy2BaseTable/>
-  </div>
   <div>
-    <Apy2MiningPoolsHeader />
+    <Apy2MiningPoolsHeader :tagList="tagList" />
     <Apy2MiningTableMain class="mt-3"/>
   </div>
 </template>

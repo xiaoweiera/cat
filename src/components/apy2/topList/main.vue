@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref,reactive, defineProps } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
+import {useProvide, setInject, getInject} from '~/utils/use/state'
+const groupId=reactive({value:''})
+useProvide('group_id')
 
-const selectName=ref(0)
-const selectTag=(key:string)=>selectName.value=key
 </script>
 <template>
   <div>
-  <Apy2TopListHeader class="mb-3.8"/>
+  <Apy2TopListHeader :groupId="groupId" class="mb-3.8"/>
     <slot name="item"></slot>
   </div>
 </template>

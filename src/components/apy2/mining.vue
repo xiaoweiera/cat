@@ -1,6 +1,16 @@
 <script lang="ts" setup>
-// @ts-ignore
-import {ref} from 'vue'
+import {onMounted} from 'vue'
+import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
+import {getMiningGroup} from '~/logic/apy2/index'
+const getGroupData=async ()=>{
+  const result=await getMiningGroup(chain.value)
+  rankingTag.value=result?.ranking
+  tableTag.value=result?.table
+  listTag.value=result?.list
+}
+onMounted(async ()=>{
+  await getGroupData()
+})
 </script>
 <template>
   <div class=" flex justify-center    bg-global-white  h-full font-kdFang " >
@@ -9,7 +19,6 @@ import {ref} from 'vue'
         <Apy2BaseHeader class="mt-8"/>
         <Apy2SelectContainerSelectTool class="absolute -top-3  right-7" />
       </div>
-
       <div class="flex mt-6">
         <div class="max-w-156 w-156 flex-1  mr-8" >
           <Apy2BaseRotate />
@@ -30,6 +39,10 @@ import {ref} from 'vue'
             <Apy2TopListMiningItem />
           </template>
         </Apy2TopListMain>
+      </div>
+      <div class="mt-15">
+        <!--表格数据-->
+        <Apy2BaseTableMain/>
       </div>
       <Apy2MiningPoolsMain class="mt-15"/>
       <div class="h-50"></div>
