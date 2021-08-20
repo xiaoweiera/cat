@@ -36,14 +36,23 @@ const param = {
 const loading = ref(true)
 const loadingData = ref(true)
 const tableData = ref([])
+const orderType=ref(1)  //类型 desc asc ''
+const orderIndex=ref(-1)  //排序的第几个header
+const orderSelect=payHeader.find((item,i)=>item.key===param.ordering)
+orderIndex.value=orderSelect.index
 watch(() => loading.value, (n) => loadingData.value = n)
 //更改图表日期的时候重新得到数据
 watch(() => selectX.ts, async (n) => {
+  console.log('selectX')
+  console.log(orderRules[props.chartType][props.chartId])
   orderType.value=1
   const orderSelect=payHeader.find((item,i)=>item.key===orderRules[props.chartType][props.chartId])
   orderIndex.value=orderSelect.index
+  console.log('2',orderType.value,orderTypeName)
   param.sort=orderTypeName[orderType.value].key
+  console.log('3')
   param.ordering=orderRules[props.chartType][props.chartId]
+  console.log('4')
   param.ts = n
   param.page = 1
   props.page.value = 1
@@ -54,25 +63,29 @@ watch(() => selectX.ts, async (n) => {
 })
 const getData = async () => {
   loading.value = true
+  console.log('5')
   const data = await getDownFirstData(param, props.chartType, pairStore.id)
+  console.log('6',data)
   if (data?.code === 0) {
     loading.value = false
     props.hasData.value = data.data.next ? true : false
     R.map(item => tableData.value.push(item), data?.data?.results)
+    console.log('7')
   }
 }
 onMounted(async () => {
   await getData()
 })
-watch(() => props.page.value, (n) => {
-  param.page = n
-  getData()
+watch(() => props.page.value,async (n) => {
+  console.log('55')
+  if(n!==1){
+    console.log('66')
+    param.page = n
+    await getData()
+  }
 })
-const orderType=ref(1)  //类型 desc asc ''
-const orderIndex=ref(-1)  //排序的第几个header
-const orderSelect=payHeader.find((item,i)=>item.key===param.ordering)
-orderIndex.value=orderSelect.index
-const order = (key: string, i: number) => {
+
+const order =async (key: string, i: number) => {
   if (orderIndex.value !== i && orderIndex.value !== -1) {
     orderType.value = 1;
     orderIndex.value = i
@@ -91,11 +104,11 @@ const order = (key: string, i: number) => {
   props.hasData.value = true
   row.value = -1
   tableData.value = []
-  getData()
+ await getData()
 }
 const timeName=computed(()=>{
   const ts=selectX.ts?selectX.ts:timeParam.value[0].timeEnd
-  if(!ts) return
+  if(!ts) return ''
   const time=formatTime(ts,'M/DD')
   if(lang.current.value === 'cn'){
     const timeList=time.split('/')
@@ -127,7 +140,7 @@ const timeName=computed(()=>{
     </div>
     </el-affix>
     <!-- 二次展开-->
-    <div class="flex flex-1 first  flex-col   showY">
+    <div v-if="tableData.length>0" class="flex flex-1 first  flex-col    showY">
       <template v-for="(item,i) in tableData">
         <div @click="selectRow(i)" :class="row===i?'selectedRow':''" class=" hand   px-2.5  min-h-8.5  font-kdExp items-center flex  text-kd14px18px text-global-highTitle text-opacity-65">
           <a :href="getAddressHref(item.address)" target="_blank" :style="{width:payHeader[0].width}" class="text-global-primary font-medium ">

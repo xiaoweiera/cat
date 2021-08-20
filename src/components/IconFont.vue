@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toUpper } from 'ramda'
 import { isHttp } from '~/utils'
 import { defineProps, computed } from 'vue'
 import { oss } from '~/lib/process'
@@ -79,7 +80,8 @@ const props = defineProps({
     default () {
       return false
     }
-  }
+  },
+
 })
 // @ts-ignore
 const src = computed<string>(() => {
@@ -102,7 +104,20 @@ const isAliOSS = computed<boolean>(() => {
 })
 // @ts-ignore
 const iconCode = function() {
-  return `<use xlink:href="#${props.type}"></use>`;
+  const config = {
+    'BSC': 'icon-BSC',
+    'HOO': 'icon-HOO',
+    'HECO': 'icon-HECO',
+    'ETH': 'icon-ETH',
+    'OEC': 'icon-OK',
+    'POS': 'icon-POS',
+    'FARM': 'icon-F',
+    'VAULT': 'icon-V',
+    'LENDING': 'icon-L'
+  }
+  // @ts-ignore
+  const link: string = config[toUpper(props.type)] || props.type
+  return `<use xlink:href="#${link}"></use>`;
 }
 const sizes = {
   '4xl': 42,

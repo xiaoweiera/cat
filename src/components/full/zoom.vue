@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { toBoolean } from '~/utils/index'
 import { setInject, getInject } from '~/utils/use/state'
-import { defineEmit } from 'vue'
+import { defineEmits } from 'vue'
 
-const emitEvent = defineEmit(['change'])
+const emitEvent = defineEmits(['change'])
 
 const setFullStatus = setInject('fullStatus')
 const fullStatus = getInject('fullStatus')

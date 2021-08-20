@@ -6,7 +6,7 @@ import {  setInject, getInject } from '~/utils/use/state'
 const props = defineProps({
   list: Object,
 })
-const emitTag=defineEmit(['update:tag'])
+const emitTag=defineEmits(['update:tag'])
 const setTag=setInject('tag')
 const tag=getInject('tag')
 const changeTag=(id:number | string)=>{

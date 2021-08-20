@@ -126,6 +126,7 @@ export default defineConfig({
                 'min430px':'430px'
             },
             colors: {
+                green: '#009955',
                 global: cssGlobal,
             },
             opacity: {

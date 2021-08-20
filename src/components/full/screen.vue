@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, watch, ref, defineProps, onMounted, defineEmit } from 'vue'
+import { computed, watch, ref, defineProps, onMounted, defineEmits } from 'vue'
 import { useProvide } from '~/utils/use/state'
 import { toBoolean, uuid } from '~/utils'
 
-const emitEvent = defineEmit(['change'])
+const emitEvent = defineEmits(['change'])
 
 const props = defineProps({
   status: {

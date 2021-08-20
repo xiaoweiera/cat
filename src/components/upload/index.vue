@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmit } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import { uploadImage } from '~/api/res'
 import { messageError } from '~/lib/tool'
 
@@ -30,7 +30,7 @@ defineProps({
   },
 })
 
-const emitEvent = defineEmit(['change', 'remove'])
+const emitEvent = defineEmits(['change', 'remove'])
 
 // const previewSrc = ref<string>('')
 //

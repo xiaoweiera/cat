@@ -23,6 +23,10 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
+    fs: {
+      // Allow serving files from one level up to the project root
+      allow: ['..']
+    }
   },
   resolve: {
     alias: {

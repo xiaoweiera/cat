@@ -6,187 +6,54 @@ import { omit } from "ramda"
 import { forEach, uuid } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import DBList from '@fengqiaogang/dblist'
+import * as API from '~/api/index'
+import { SymbolType } from '~/logic/apy2/interface'
 
-const transform = function(db: DBList, type: string, list: any[]) {
+const transform = function(db: DBList, list: any[], pid: string = '0') {
+  let maxLength = 0
   forEach(function(row: any) {
-    const data = omit(['data'], row)
+    if (maxLength < row.max_length) {
+      maxLength = row.max_length
+    }
+    const data = omit(['table_data', 'max_length'], row)
     const id = uuid()
     safeSet(data, 'uuid', id)
-    safeSet(data, 'type', type)
+    safeSet(data, 'pid', pid)
     safeSet(data, 'expand', false)
     db.insert(data)
     forEach(function(item: any) {
-      safeSet(item, 'type', 'apy')
       safeSet(item, 'pid', id)
-      safeSet(item, 'uuid', uuid())
+      safeSet(item, 'uuid', uuid(`${id} - ${Math.random()}`))
+      // 特别处理，设置 apy 数据类型
+      safeSet(item, SymbolType.name, SymbolType.Apy)
       db.insert(item)
-    }, row.data)
+    }, row.table_data)
   }, list)
-  return db
+  return { db, maxLength }
 }
 
-export const getTableList = async function(db: DBList) {
-  return transform(db, 'symbol',[
-    {
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      "symbol_alias": Math.random(),
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      "symbol_alias": Math.random(),
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    }
-  ])
+export const getTableList = async function(db: DBList, query: Object) {
+  const result = await API.apy.table.getList<any>(query)
+  return transform(db, result)
 }
 
 
-export const getTableExpandList = async function (db: DBList, pid: string) {
-  return transform(db, 'children',[
-    {
-      pid,
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      pid,
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    },
-    {
-      pid,
-      "symbol_alias": 'ETH',
-      "symbol_price": "string",
-      "symbol_change": "string",
-      "symbol_contract_addr": "string",
-      "symbol_logo": "string",
-      "data": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-      ]
-    }
-  ])
+export const getTableExpandList = async function (db: DBList, query: any) {
+  const { uuid } = query
+  const data = db.selectOne<any>({ uuid })
+  if (data) {
+    const { symbol_alias } = data
+    const list = await API.apy.table.getExpandList<any>(Object.assign({ symbol_alias }, omit(['uuid'], query)))
+    const result = transform(db, list, uuid)
+    forEach(function(item: any) {
+      if (item[SymbolType.name] !== SymbolType.Apy) {
+        db.update(item, {
+          [SymbolType.name]: SymbolType.Child,
+          visibility: true
+        })
+      }
+    }, db.select({ pid: uuid }))
+    return result
+  }
+  return { db }
 }

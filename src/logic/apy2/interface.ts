@@ -1,38 +1,50 @@
 
 // 币种基础信息
+import { EchartData } from '~/logic/echarts/interface'
+
+export enum SymbolType {
+  Lp = 'lp',
+  Token = 'token',
+  Child = 'children',
+  Apy = 'apy',
+  name = 'symbol_type'
+}
+
 export interface TokenItem {
   id: string | number
   name: string
   icon: string
   href?: string
 }
-//挖矿页面top5榜单
-export interface mining_rankModel {
-  symbol:string
-  symbol_type:string
-  symbol_alias:string
-  symbol_price:number
-  symbol_change:number
-  symbol_contract_addr:string
-  symbol_logo:string
-  strategy_tags:string
-  chain:string
-  project:string
-  project_category:string
-  tvl:string
-  quota:string
-  quota_used:string
-  quota_used_percent:string
-  quota_remain:string
-  quota_remain_percent:string
-  lever:string
-  single_apy:string
-  single_apy_detail:string
-  compound_apy:string
-  compound_detail:string
-  mortgage_rate:string
-  liquidation_rate:string
-  followed:string
-  new:string
-  market:string
+
+export class HecoDetail{
+  votes: number = 0; // 总票数
+  voters: number = 0; // 总投票人数
+}
+
+export class HecoTrends extends HecoDetail{
+  trends: EchartData | undefined
+}
+
+export class NodeTrends {
+  update_time?: number
+  trends: EchartData | undefined
+}
+
+export class HecoNode {
+  id: string = ''
+  votes: number = 0
+  voters: number = 0
+  node_name: string = ''
+  percent: string = ''
+  user_profit_percent: string = ''
+  apy: string = ''
+  data_type: string = ''
+  area: string = ''
+  node_logo: string = ''
+  website: string = ''
+  address: string = ''
+  update_time: string = ''
+  custom?: boolean = false // 是否为自定义数据
+  expand?: boolean = false // 是否展开数据
 }

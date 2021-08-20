@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref,defineProps,defineEmit } from 'vue'
+import { ref,defineProps,defineEmits } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
@@ -7,7 +7,7 @@ const props = defineProps({
   list: Object,
 })
 const setFilterType=setInject('filterType')
-const emitEvent = defineEmit(['update:filterType'])
+const emitEvent = defineEmits(['update:filterType'])
 const tag=ref('all')
 const changeTag=(key:string)=>{
   tag.value=key
