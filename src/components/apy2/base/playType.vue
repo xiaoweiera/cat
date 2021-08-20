@@ -2,6 +2,8 @@
 import {ref, defineProps} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
+import {chain} from '~/store/apy2/state'
+import {getTokenAndProject} from '~/logic/apy2/index'
 const selectValue=ref('')
 const vLisit=[1,2,3,4]
 const list=[
@@ -66,6 +68,14 @@ const textList={
   3:'text-global-noAskTxt'
 }
 const cc='coinTxt'
+const tokens=ref([])
+const projects=ref([])
+const getData=async ()=>{
+ const [tokenList,projectList]=await getTokenAndProject(chain.value)
+  tokens.value=tokenList
+  projects.value=projectList
+}
+getData()
 </script>
 <template>
   <div class="w-74  font-kdFang relative">
@@ -92,15 +102,20 @@ const cc='coinTxt'
           </a>
         </div>
         <!-- 下拉 -->
-        <div v-if="i<3"  :class="bgList[i]"  class="confirm  pb-4 pt-4  w-full ">
+        <div v-if="i<3"  :class="bgList[i]"  class="confirm   pb-4 pt-4  w-full ">
           <div class=" px-5">
             <div class="flex items-center selectClass px-1 rounded-kd6px   justify-between" >
               <div >
                 <el-select filterable :popper-append-to-body="false"   size="small" v-model="selectValue" :placeholder="item.selectText">
-                  <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
-                  </el-option>
+                  <template v-if="i===1">
+                    <el-option v-for="item in tokens" :key="item.name" :label="item.name" :value="item.name">
+                    </el-option>
+                  </template>
+                  <template v-else>
+                    <el-option v-for="item in projects" :key="item.name" :label="item.name" :value="item.id">
+                    </el-option>
+                  </template>
                 </el-select>
-<!--                <IconFont  style="transform: scale(0.7)" class="relative right-21 top-0.5 text-global-highTitle text-opacity-35"  type="icon-xiajiantou"></IconFont>-->
               </div>
               <span :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</span>
             </div>
@@ -118,7 +133,7 @@ const cc='coinTxt'
     @apply hidden;
   }
   .confirm{
-    @apply left-0 right-0  absolute  invisible ;
+    @apply left-0 right-0  absolute  hidden ;
   }
 }
 .itemContainer:hover{
@@ -135,7 +150,7 @@ const cc='coinTxt'
     box-shadow: 1px 8px 19px -15px rgb(3 54 102 / 78%);
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    @apply  visible ;
+    @apply  block ;
   }
 }
 .selectClass{
