@@ -35,7 +35,7 @@ const orderData=()=>{
     <div class=" pb-10 showY" v-if="data.length > 0">
       <template v-for="item in data" >
         <div class="cursor-pointer h-9 mb-0.2  ">
-          <router-link class="flex items-center  relative " :to="`/${item.id}`">
+          <router-link class="flex items-center  relative " :to="`?id=${item.id}`">
             <div>
               <IconFont v-if="item.is_new" type="icon-NEW" size="24" class="absolute z-1 "/>
               <IconFont :type="item.logo || 'icon-morentoken'" size="24" class="relative left-1.2  top-1.2"/>

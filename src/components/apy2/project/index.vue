@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { onMounted, toRaw, computed,ref,onBeforeMount } from 'vue'
+import { onMounted,ref,watch } from 'vue'
 import { tokenList } from '~/store/apy2/state'
 import { ready } from '~/logic/apy2/token'
 import { useProvide } from '~/utils/use/state'
 import { useRoute } from 'vue-router'
 import {chains} from '~/logic/apy2/config'
-import {chain} from '~/store/apy2/state'
 import * as lang from '~/utils/lang'
 import {getProjectList} from '~/logic/apy2/index'
-
+const chain=ref('all')
 const route = useRoute()
-onBeforeMount(()=>chain.value=route.query.chain || 'all')
+chain.value=route.query.chain || 'all'
 const txt=ref('')
 const projectList=ref([])
 const getData=async ()=>projectList.value=await getProjectList(chain.value,txt.value)
-
+watch(()=>[txt.value,chain.value],()=>{
+  getData()
+})
 onMounted(getData())
-
 </script>
 <template>
   <div class="bgClass">

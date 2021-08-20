@@ -21,13 +21,13 @@ const tableKey= computed(function () {
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between mb-4">
     <Apy2MiningPoolsSelectTag  :list="tagList"   class="mr-10"/>
     <div class="flex items-center">
       <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
     </div>
   </div>
-<Apy2BaseTable type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]" class="mt-4"/>
+<Apy2BaseTable type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]"/>
 </template>
 
 <style lang="scss">

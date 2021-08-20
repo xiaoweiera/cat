@@ -5,7 +5,6 @@ import I18n from '~/utils/i18n/index'
 import {chain} from '~/store/apy2/state'
 import {getTokenAndProject} from '~/logic/apy2/index'
 const selectValue=ref('')
-const vLisit=[1,2,3,4]
 const list=[
   {
     id:0,
