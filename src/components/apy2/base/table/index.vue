@@ -198,7 +198,14 @@ const isToken = function(scope: any) {
   tbody {
     td {
       @extend %reset;
-      &:not(.el-table_1_column_1) {
+      .apy-item {
+        transition: all 03s;
+        @apply relative;
+        .apy-detail {
+          @apply w-65;
+          background-color: #EDF0F5;
+        }
+
         &:hover {
           background-color: #EDF0F5;
         }
@@ -212,5 +219,11 @@ const isToken = function(scope: any) {
       }
     }
   }
+}
+.apy-hover-detail {
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 0 !important;
 }
 </style>

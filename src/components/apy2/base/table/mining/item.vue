@@ -41,21 +41,3 @@ defineProps({
   </div>
 </template>
 
-<style scoped lang="scss">
-  .apy-item {
-    transition: all 03s;
-    @apply relative;
-    .apy-detail {
-      @apply w-65;
-      background-color: #EDF0F5;
-    }
-  }
-</style>
-<style lang="scss">
-.apy-hover-detail {
-  padding: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  border: 0 !important;
-}
-</style>

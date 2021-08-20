@@ -28,11 +28,8 @@ export const getLending_rank=async (group_id:number,chain:string)=>{
     }
 }
 //币种列表
-export const getTokenList=async ()=>{
-    const result=await api.apy.common.getTokenList()
-    if(result.code===0){
-        return result?.data
-    }
+export const getTokenList = () => {
+    return api.apy.common.getTokenList()
 }
 //项目列表
 export const getProjectList=async (chain:string,query:string)=>{
