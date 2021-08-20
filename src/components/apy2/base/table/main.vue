@@ -27,7 +27,9 @@ const tableKey= computed(function () {
       <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
     </div>
   </div>
-<Apy2BaseTable type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]" class="mt-4"/>
+  <div v-if="tag[0]" class="pt-4">
+    <Apy2BaseTable type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]"/>
+  </div>
 </template>
 
 <style lang="scss">

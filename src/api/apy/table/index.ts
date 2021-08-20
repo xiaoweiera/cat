@@ -34,7 +34,7 @@ export const getList = function<T>(query: any): Promise<T[]> {
   const { type } = query
   const params = {
     page: query.page ? query.page : 1,
-    page_size: query.page ? query.page : 10,
+    page_size: query.page_size ? query.page_size : 10,
     apy_type: query.apyType,
     group_id: query.groupId,
     chain: query.chain

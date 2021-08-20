@@ -17,11 +17,9 @@ export const getTokenList = async function() {
       href: router({
         path: config.apyToken,
         query: {
-          id: `${data.id}-${index}`
+          id: data.id
         }
       }),
-      id: `${data.id}-${index}`,
-      name: `${data.name}-${index}`
     })
   }, list)
 }
