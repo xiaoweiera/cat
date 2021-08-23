@@ -43,7 +43,10 @@ export const ready = function() {
   return getTokenList()
 }
 
-export const echartData = function() {
+export const echartData = function(query: Object) {
+  API.apy.token.trend(query).then(function(data) {
+    console.log(data)
+  })
   const legends = [
     {
       id: 'd-1',

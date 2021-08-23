@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useProvide } from '~/utils/use/state'
+import dataEventName from '~/components/ui/date/eventname'
 import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 // @ts-ignore
 import { getTokenDetail, TabCategoryData } from '~/logic/apy2/token'
@@ -19,6 +21,8 @@ const props = defineProps({
     required: true
   }
 })
+
+useProvide(dataEventName.value)
 
 const detail = reactive({
   name: '',
@@ -75,8 +79,8 @@ onMounted(function() {
         <b class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
         <span class="ml-4 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
         <span class="ml-2 bg-global-numRed inline-block py-0.5 px-1 rounded">
-              <span class="text-base text-global-white">{{ toNumber(detail.change) }}%</span>
-            </span>
+          <span class="text-base text-global-white">{{ toNumber(detail.change) }}%</span>
+        </span>
       </div>
 
       <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1">
@@ -89,14 +93,14 @@ onMounted(function() {
         </template>
       </div>
     </div>
-    <div class="mt-8 pt-0.5">
+    <div class="mt-8 pt-0.5" v-if="detail.name">
       <!--挖矿收益-->
       <div v-if="TabCategoryData.mining === active">
-        <Apy2TokenMining/>
+        <Apy2TokenMining :symbol="detail.name" :id="id" :type="TabCategoryData.mining"/>
       </div>
       <!--利率收益-->
       <div v-else-if="TabCategoryData.deposit === active">
-        <Apy2TokenDeposit/>
+        <Apy2TokenDeposit :symbol="detail.name" :id="id" :type="TabCategoryData.deposit"/>
       </div>
     </div>
   </div>
