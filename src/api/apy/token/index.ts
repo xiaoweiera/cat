@@ -29,19 +29,7 @@ export const list = async function(): Promise<TokenItem[]> {
 }
 // 币种详情
 export const detail = async function(query: Object) {
-  try {
-    return await asyncCheck(request.get(API.detail, {
-      params: { cache: true, ...query }
-    }))
-  } catch (e) {
-    return {
-      'name': 'BTC',
-      'icon': 'http://xxxx.jpg',
-      'category': ['mining', 'lend'],
-      'ticker': {
-        'prince': 47500,
-        'change_percent': 30.5
-      }
-    }
-  }
+  return await asyncCheck(request.get(API.detail, {
+    params: { cache: true, ...query }
+  }))
 }

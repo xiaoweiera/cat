@@ -4,7 +4,11 @@
 <template>
   <div>111</div>
   <div>
-    <Apy2BaseTable/>
+    <Apy2PoolDialog>
+      <template #reference>
+        <div>button</div>
+      </template>
+    </Apy2PoolDialog>
   </div>
 </template>
 
