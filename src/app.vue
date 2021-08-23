@@ -262,19 +262,35 @@ a {
   position: absolute;
 }
 
-
-/* 去掉 dialog 一些默认内边距 */
-
-.el-dialog.diy-dialog {
-  &.hidden-header {
+.el-dialog {
+  /* 全屏的弹窗 */
+  &.screen-dialog {
+    margin: 0 !important;
+    width: initial !important;
+    @apply absolute;
+    @apply left-15 top-15 right-15 bottom-15;
+    @apply md:left-15 md:top-20 md:right-15 md:bottom-20;
     .el-dialog__header {
       @apply hidden;
     }
+    .el-dialog__body {
+      padding: 20px !important;
+      @apply h-full;
+    }
   }
-  .el-dialog__body {
-    padding: 0 !important;
+  /* 去掉 dialog 一些默认内边距 */
+  &.diy-dialog {
+    &.hidden-header {
+      .el-dialog__header {
+        @apply hidden;
+      }
+    }
+    .el-dialog__body {
+      padding: 0 !important;
+    }
   }
 }
+
 /* 滑轮样式 */
 .showY::-webkit-scrollbar {
   height: 8px;

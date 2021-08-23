@@ -2,7 +2,7 @@
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getHecoNodeTrends } from '~/logic/apy2/heco'
 import { HecoNode } from '~/logic/apy2/interface'
-import { dateYMDHmFormat } from '~/utils'
+import { dateYMDHmFormat, uuid } from '~/utils'
 // @ts-ignore
 import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
 
@@ -12,6 +12,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const echartKey = ref<string>(uuid())
 
 const updateTime = ref<string>('')
 const active = ref<string>('apy')
@@ -30,7 +32,6 @@ const tabs = [
 // 图表数据
 const updateTrendsData = async function() {
   const data: HecoNode = props.data as any
-  console.log(data)
   const result = await getHecoNodeTrends({
     column: active.value,
     node_name: data.node_name
@@ -41,6 +42,7 @@ const updateTrendsData = async function() {
   chartData.series = trends.series
   // 最后更新时间
   updateTime.value = dateYMDHmFormat(result.update_time)
+  echartKey.value = uuid()
 }
 
 // @ts-ignore
@@ -69,7 +71,7 @@ onMounted(updateTrendsData)
         <EchartsDownload title="下载"/>
       </div>
     </div>
-    <div class="h-52.5">
+    <div class="h-52.5" :key="echartKey">
       <Echarts bg-color="#F8FBFD" v-if="chartData.xAxis && chartData.xAxis.length > 0">
         <!-- 提示框 trigger: 触发方式 -->
         <EchartsTooltip trigger="axis" />

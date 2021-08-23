@@ -11,7 +11,7 @@ import href, { config } from '~/utils/router'
     <HeaderNav title="APY">
       <template #share>
         <!-- 设置分享内容 -->
-        <HeaderShare title="KingData 数据图表" content="加密资产数据分析必备工具"/>
+<!--        <HeaderShare title="KingData 数据图表" content="加密资产数据分析必备工具"/>-->
       </template>
       <template #meta>
         <!-- 设置 seo 信息 -->

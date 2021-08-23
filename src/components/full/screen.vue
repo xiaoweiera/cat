@@ -60,20 +60,3 @@ onMounted(function() {
     </el-dialog>
   </div>
 </template>
-
-<style lang="scss">
-  .el-dialog.screen-dialog {
-    margin: 0 !important;
-    width: initial !important;
-    @apply absolute;
-    @apply left-15 top-15 right-15 bottom-15;
-    @apply md:left-15 md:top-20 md:right-15 md:bottom-20;
-    .el-dialog__header {
-      @apply hidden;
-    }
-    .el-dialog__body {
-      padding: 20px !important;
-      @apply h-full;
-    }
-  }
-</style>

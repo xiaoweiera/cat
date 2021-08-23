@@ -3,9 +3,9 @@
  * @author svon.me@gmail.com
  */
 
+import Url from 'url'
 import { is } from 'ramda'
 import { href } from '~/utils/lang'
-import Url from 'url'
 import { forEach } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 

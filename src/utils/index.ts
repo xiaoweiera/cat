@@ -334,7 +334,7 @@ export const upperFirst = function(value: string): string {
  * @param str1
  * @param str2
  */
-export const equalsIgnoreCase = function(str1: string, str2: string): boolean {
+export const equalsIgnoreCase = function(str1: string | number, str2: string | number): boolean {
   const value1 = str1.toString()
   const value2 = str2.toString()
   return value1.toUpperCase() === value2.toUpperCase()

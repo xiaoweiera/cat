@@ -33,6 +33,7 @@ const props = defineProps({
   // 分组
   groupId: {
     type: String,
+    required: true,
   },
   chain: {
     type: String,
@@ -81,7 +82,7 @@ const updateData = async function() {
       nextStatus.value = false
     } else {
       tableData.value = getTableDataList()
-      rankValue.value = maxLength < 10 ? 10 : maxLength
+      rankValue.value = maxLength < 6 ? 6 : maxLength
     }
   } catch (e) {
     console.log(e)

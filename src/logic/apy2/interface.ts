@@ -15,6 +15,7 @@ export interface TokenItem {
   name: string
   icon: string
   href?: string
+  category?: string[]
 }
 
 export class HecoDetail{

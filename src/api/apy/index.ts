@@ -2,10 +2,9 @@
  * @file apy2 接口
  */
 
-import * as heco from './heco'
-import * as common from './common'
-import * as mining from './mining'
-import * as loan from './loan'
-import * as table from './table'
-
-export { heco,common,mining,loan,table }
+export * as heco from './heco'
+export * as common from './common'
+export * as mining from './mining'
+export * as loan from './loan'
+export * as table from './table'
+export * as token from './token'
