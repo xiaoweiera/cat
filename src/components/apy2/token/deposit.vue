@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { echartData } from '~/logic/apy2/token'
+import { getEchartData } from '~/logic/apy2/token'
 // @ts-ignore
 import { Position, LegendDirection, colors, seriesType } from '~/logic/echarts/interface'
-const data = echartData()
+const data = getEchartData()
 </script>
 
 <template>
