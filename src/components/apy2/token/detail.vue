@@ -1,16 +1,52 @@
 <script setup lang="ts">
+import { map } from '~/utils'
+import { defineProps, onMounted, ref } from 'vue'
+import { getPoolsList } from '~/logic/apy2/token'
+// 定义 props
+import Props from '~/components/apy2/token/props'
+// @ts-ignore
+import { selectChains } from '~/logic/apy2/config'
+import { setInject } from '~/utils/use/state'
+
+// @ts-ignore
+const props = defineProps(Props())
+
+// @ts-ignore
+const setPoolList = setInject('poolList')
+
 // @ts-ignore
 const radios = [
-  { label: '单币', value: 1 },
-  { label: 'LP', value: 2 }
-]
-const selects = [
-  { label: '选择公链', value: 1 },
+  { label: '单币', value: 'token' },
+  { label: 'LP', value: 'lp' }
 ]
 
-const onSumbit = function(value: Array<string | number>) {
+const poolList = ref<any[]>([])
 
+const updatePoolList = async function() {
+  const data: any = await getPoolsList({ pool_type: props.type })
+  if (data && data.length > 0) {
+    poolList.value = [...data]
+  }
 }
+
+// @ts-ignore
+const onSumbit = function(value: Array<string | number>) {
+  const ids = map((item: any) => item.id, value)
+  if (ids && ids.length > 0) {
+    // setPoolList(ids.join(','))
+  }
+}
+
+// @ts-ignore
+const onChange = function(data: object) {
+  console.log(data)
+}
+
+const ready = function() {
+  return updatePoolList()
+}
+
+onMounted(ready)
 
 </script>
 
@@ -35,7 +71,7 @@ const onSumbit = function(value: Array<string | number>) {
   <div class="mt-3">
     <div class="flex justify-between items-center">
       <div>
-        <UiTransfer title="添加矿池" sub-title="已选矿池" :radios="radios" :selects="selects" @submit="onSumbit">
+        <UiTransfer title="添加矿池" sub-title="已选矿池" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange">
           <template #content>
             <el-button plain size="small">
               <div class="inline-flex items-center px-3 py-0.5">
@@ -47,11 +83,11 @@ const onSumbit = function(value: Array<string | number>) {
 
           <!-- 自定义左侧列表显示内容 -->
           <template #item="scope">
-            <span class="text-global-highTitle text-xs font-normal">BTC/ETH-{{ scope.data }}</span>
+            <Apy2TokenPool :data="scope.data"/>
           </template>
           <!-- 自定义右侧列表显示内容 -->
           <template #result="scope">
-            <span>BTC/ETH-{{ scope.id }}</span>
+            <Apy2TokenPool v-if="scope.data" :data="scope.data"/>
           </template>
         </UiTransfer>
       </div>

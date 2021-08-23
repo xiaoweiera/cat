@@ -10,6 +10,11 @@ export enum SymbolType {
   name = 'symbol_type'
 }
 
+export const TabCategoryData = {
+  mining: 'mining',
+  deposit: 'lend'
+}
+
 export interface TokenItem {
   id: string | number
   name: string

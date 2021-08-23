@@ -9,18 +9,18 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
                 item.type = seriesType.line
             }
             return item
-        },trends?.legends)
+        },trends.legends)
         const xAxis = map(function(date: number) {
             const time = dateTime(date)
             const key = dateYMDFormat(time)
             const value = dateMDFormat(time)
             return { key, time, value }
-        }, trends?.xAxis)
+        }, trends.xAxis)
         const series = map(function(list: Array<string | number>) {
             return map(function(value: string | number) {
                 return isObject(value)? value: { value }
             }, list)
-        }, trends?.series)
+        }, trends.series)
         return Object.assign({
             xAxis,
             series,

@@ -4,17 +4,13 @@
 
 import { map } from '~/utils'
 import * as API from '~/api/index'
+import { asyncCheck } from '~/lib/response'
 import router, { config } from '~/utils/router'
 import { TokenItem } from './interface'
 import { echartTransform } from '~/lib/common'
 
 import { tokenList } from '~/store/apy2/state'
 import safeGet from '@fengqiaogang/safe-get'
-
-export const TabCategoryData = {
-  mining: 'mining',
-  deposit: 'lend'
-}
 
 // 获取币种列表数据
 export const getTokenList = async function() {
@@ -44,7 +40,19 @@ export const ready = function() {
   return getTokenList()
 }
 
-export const getEchartData = async function(query: Object) {
+// 趋势图
+export const getEchartData = async function(query: object) {
   const data = await API.apy.token.trend(query)
   return echartTransform(data)
+}
+
+// 获取矿池列表
+export const getPoolsList = function(query: object) {
+  const params: any = {
+    ...query,
+    query: '',
+    chain: 'all',
+    symbol_type: 'lp',
+  }
+  return asyncCheck(API.apy.common.getPoolsList(params))
 }

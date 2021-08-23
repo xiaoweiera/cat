@@ -8,7 +8,8 @@ import { tokenList } from '~/store/apy2/state'
 // @ts-ignore
 import { getParam } from '~/utils/router'
 // @ts-ignore
-import { ready, TabCategoryData } from '~/logic/apy2/token'
+import { ready } from '~/logic/apy2/token'
+import { TabCategoryData } from '~/logic/apy2/interface'
 import { useProvide } from '~/utils/use/state'
 import { uuid, equalsIgnoreCase, toInteger } from '~/utils'
 import DBList from '@fengqiaogang/dblist'

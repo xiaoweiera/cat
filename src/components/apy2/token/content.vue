@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useProvide } from '~/utils/use/state'
 import dataEventName from '~/components/ui/date/eventname'
-import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
+import { computed, defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 // @ts-ignore
-import { getTokenDetail, TabCategoryData } from '~/logic/apy2/token'
+import { getTokenDetail } from '~/logic/apy2/token'
+// @ts-ignore
+import { TabCategoryData } from '~/logic/apy2/interface'
+// @ts-ignore
 import safeGet from '@fengqiaogang/safe-get'
 // @ts-ignore
 import makeRouterPath, { getParam } from '~/utils/router'
@@ -21,7 +24,9 @@ const props = defineProps({
     required: true
   }
 })
-
+// 已选择矿池列表
+useProvide('poolList', '')
+// 日期
 useProvide(dataEventName.value)
 
 const detail = reactive({
