@@ -31,7 +31,7 @@ onMounted(async ()=>{
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">
         <div class="flex flex-1 ">
-          <div class="flex-1  border-1 h-100 mr-8">
+          <div class="flex-1 h-100 mr-8">
             <Apy2ChartMining/>
           </div>
         </div>

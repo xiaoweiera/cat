@@ -1,9 +1,10 @@
 import { omit } from 'ramda'
-import { map, dateTime, dateYMDFormat, dateMDFormat} from '~/utils'
-import { EchartData } from '~/logic/echarts/interface'
+import { map, dateTime, dateYMDFormat, dateMDFormat, isObject} from '~/utils'
+import { EchartData, seriesType,LegendItem } from '~/logic/echarts/interface'
 
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
+        map((item:LegendItem)=>(item.type=item.type || seriesType.line),trends?.legends)
         const xAxis = map(function(date: number) {
             const time = dateTime(date)
             const key = dateYMDFormat(time)
@@ -12,7 +13,7 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
         }, trends?.xAxis)
         const series = map(function(list: Array<string | number>) {
             return map(function(value: string | number) {
-                return { value }
+                return isObject(value)? value: { value }
             }, list)
         }, trends?.series)
         return Object.assign({

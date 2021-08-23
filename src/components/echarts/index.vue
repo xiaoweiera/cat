@@ -447,6 +447,7 @@ const getOption = function() {
     series: getSeries(),
     backgroundColor: props.bgColor,
   }
+  console.log(data)
   return data
 }
 
