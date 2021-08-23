@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, defineProps,computed } from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
-import {tolocaleUpperCase} from '~/lib/tool'
+import {formatRulesNumber} from '~/lib/tool'
 const props=defineProps({
+  name:String,
   tvl:String,
-  des:String
+  remainTvl:String,
+  tvlRate:String
 })
 </script>
 <template>
@@ -12,10 +14,11 @@ const props=defineProps({
     <div class="font-kdExp text-kd14px20px text-global-highTitle text-opacity-85">
       <span>TVL: </span>
       <span>{{tvl}}</span>
+      <span class="ml-1">{{name}}</span>
     </div>
     <div class="font-kdFang mt-1 text-kd12px16px text-global-highTitle text-opacity-45">
       <span>剩余可投额度: </span>
-      <span>{{des}}</span>
+      <span>${{formatRulesNumber(remainTvl)}} ({{tvlRate}}%)</span>
     </div>
   </div>
 </template>

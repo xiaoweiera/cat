@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { difference } from 'ramda'
-import { ref, defineProps, defineEmits, onMounted } from 'vue'
+import { ref, defineProps, defineEmits, onMounted ,watch} from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { toArray } from '~/utils'
-
-const emitEvent = defineEmits(['change', 'submit'])
+const emitEvent = defineEmits(['change', 'submit','changeParam'])
 
 const props = defineProps({
   title: {
@@ -24,18 +23,21 @@ const props = defineProps({
     default () {
       return []
     }
+  },
+  list:{
+    type:Array
   }
 })
 const dialogVisible = ref<boolean>(false)
 const radioValue = ref<string | number>()
 const selectValue = ref<string | number>()
 const checkboxValue = ref<Array<string | number>>([])
-
+const search=ref<string>('')
 onMounted(function() {
   radioValue.value = safeGet(props.radios, '[0].value')
   selectValue.value = safeGet(props.selects, '[0].value')
 })
-
+watch([radioValue,selectValue,search],(n)=>emitEvent('changeParam',{radioValue:n[0],chain:n[1],search:n[2]}))
 // 取消
 const onHidden = function() {
   dialogVisible.value = false;
@@ -96,7 +98,7 @@ const onRemove = function(value: string | number) {
               </div>
               <div class="pt-2 pb-1">
                 <div class="search-box">
-                  <el-input size="small" placeholder="请输入内容" value="">
+                  <el-input size="small" placeholder="请输入内容" v-model="search" value="">
                     <template #prefix>
                       <i class="el-input__icon el-icon-search"></i>
                     </template>
@@ -107,7 +109,7 @@ const onRemove = function(value: string | number) {
             <el-main class="p-0 ">
               <div class="h-full overflow-auto showY">
                 <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeValue">
-                  <div class="mt-2 flex items-center" v-for="i in 20" :key="i">
+                  <div class="mt-2 flex items-center" v-for="i in list" :key="i">
                     <el-checkbox :label="i">
                       <slot name="item" :data="i">
                         <span class="text-global-highTitle text-xs font-normal">BTC/ETH</span>

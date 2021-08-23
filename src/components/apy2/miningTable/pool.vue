@@ -7,10 +7,10 @@ const props=defineProps({
   logo:String,
   name:String,
   like:Boolean,
-  plat:String,
+  project:String,
   chain:String,
-  platType:String,
-  des:String
+  category:String,
+  strategy:String
 })
 const iconSize=computed(()=>props.type==='token'?'24':'16')
 const imgHeight=computed(()=>props.type==='token'?'h-8':'h-6')
@@ -26,15 +26,15 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
     <div>
       <div class="flex items-center">
         <span class="mr-1 text-kd14px20px text-global-highTitle text-opacity-85">{{name}}</span>
-        <IconFont :class="likeClass" :type="like"/>
+        <IconFont  size="16" :class="likeClass" :type="like"/>
       </div>
       <div class="flex items-center">
-        <span class="text-12px18px text-global-highTitle text-opacity-65 mr-1">{{plat}}</span>
+        <span class="text-12px18px text-global-highTitle text-opacity-65 mr-1">{{project}}</span>
         <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[chain]" alt="">
-        <IconFont :type="`icon-${tolocaleUpperCase(platType)}`" size="14"/>
+        <IconFont :type="`icon-${tolocaleUpperCase(category)}`" size="14"/>
       </div>
       <div class="text-12px14px w-fit tracking-wide text-global-highTitle text-opacity-45 px-1 py-0.5 bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
-        {{des}}
+        {{strategy}}
       </div>
     </div>
   </div>

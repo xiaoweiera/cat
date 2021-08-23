@@ -1,30 +1,46 @@
 <script setup lang="ts">
-import {ref, defineProps} from 'vue'
+import {ref, defineProps,onBeforeMount} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon} from '~/logic/apy2/config'
+import {chainsIcon,selectChains} from '~/logic/apy2/config'
 import {tolocaleUpperCase} from '~/lib/tool'
-import {selectChains} from '~/logic/apy2/config'
+const props=defineProps({projectId:Object,pool_type:Object})
+import {getPoolsList} from '~/logic/apy2/index'
 const tagList=[
   {name:'全部',key:'all'},
   {name:'单币',key:'dan'},
   {name:'LP',key:'lp'}
 ]
 const radios = [
-  { label: '单币', value: 1 },
-  { label: 'LP', value: 2 }
+  { label: '单币', value: 'token' },
+  { label: 'LP', value: 'lp' }
 ]
+const chain=getInject('chain')
 const type = ref('TVL')
 const selectList = ref(['TVL'])
 const [selectTxt,]=useProvide('selectTxt','')
-const [chain,]=useProvide('chain','all')
 const [filterType,]=useProvide('filterType','all')
+const dialogSearch=ref('')
 const changeTime = (time: any) => {
   console.log(time)
 }
+const list=ref([])
+const getData=async (projectId,pool_type,chain,type,search)=>{
+  if(projectId) {
+    list.value = await getPoolsList(projectId, pool_type, chain, type, search)
+  }
+}
+onBeforeMount(()=>{
+  getData(props.projectId,props.pool_type,chain.value[0],'single','')
+})
+
+const changeParam=(v:any)=>{
+    getData(props.projectId, props.pool_type, v.chain, v.radioValue, v.search)
+}
 </script>
 <template>
+  {{pool_type}}11
   <div class="font-kdFang">
     <Apy2ProjectChartInfo/>
     <div class="mt-3 flex items-center justify-between ">
@@ -33,7 +49,7 @@ const changeTime = (time: any) => {
           <el-option v-for="item in selectList" :key="item" :label="item" :value="item">
           </el-option>
         </el-select>
-        <UiTransfer title="添加矿池" sub-title="已选矿池"  :radios="radios" :selects="selectChains" @submit="onSumbit">
+        <UiTransfer title="添加矿池" sub-title="已选矿池" :list="list" :radios="radios"   @changeParam="changeParam" :selects="selectChains" @submit="onSumbit">
           <template #content>
             <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
               <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
@@ -66,7 +82,6 @@ const changeTime = (time: any) => {
      </div>
       <Apy2MiningTableMain />
     </div>
-
   </div>
 </template>
 <style  lang="scss">

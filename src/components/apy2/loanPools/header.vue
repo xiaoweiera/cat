@@ -1,16 +1,53 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref, defineProps,onMounted } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
-import {useProvide,  setInject, getInject } from '~/utils/use/state'
-const [tag,]=useProvide('tag')
-const [filterType,]=useProvide('filterType')
+import {getInject,setInject } from '~/utils/use/state'
+import {chain} from '~/store/apy2/state'
+import {chains} from '~/logic/apy2/config'
+import {getProjectList,getTokenList} from '~/logic/apy2/index'
+
+const inCoin=getInject('inCoin')
+const outCoin=getInject('outCoin')
+const chained=getInject('chained')
+const projectId=getInject('projectId')
+
+const setInCoin=setInject('inCoin')
+const setOutCoin=setInject('outCoin')
+const setChained=setInject('chained')
+const setProjectId=setInject('projectId')
+
 const setKey=setInject('key')
 const key=getInject('key')
 const coin=ref('')
-const vLisit=[1,2,3,4]
-const changeKey=()=>{
-  setKey(++key.value[0])}
+
+const projectList=ref(['全部'])
+const tokenList=ref([])
+// const getProjects=async ()=>{
+//   const result=await getProjectList(chain.value,'')
+//   result.unshift({name:'全部'})
+//   projectList.value=result
+// }
+const getTokens=async ()=>{
+  const result=await getTokenList()
+  if(result.length>=2){
+    // setInCoin(result[0].name)
+    // setOutCoin(result[1].name)
+    setInCoin('全部')
+    setOutCoin('全部')
+  }
+  result.unshift({name:'全部'})
+  tokenList.value=result
+}
+const clear=()=>{
+  setProjectId('全部')
+  setChained('全部')
+  setKey(++key.value[0])
+}
+onMounted(()=>{
+  getTokens()
+  // getProjects()
+})
 </script>
 <template>
   <div class="loanClass w-full p-4   flex items-center  bg-global-body rounded-kd4px justify-between ">
@@ -18,15 +55,15 @@ const changeKey=()=>{
       <div class="flex flex-wrap">
         <div class="mr-6">
           <span class="selectTxt">抵押币种</span>
-          <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
-            <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
+          <el-select filterable :popper-append-to-body="false"   size="small" v-model="inCoin[0]" >
+            <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </div>
         <div>
           <span class="selectTxt">借出币种</span>
-          <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
-            <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
+          <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
+            <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </div>
@@ -34,23 +71,22 @@ const changeKey=()=>{
       <div class="flex mt-3 flex-wrap">
         <div class="mr-6">
           <span class="selectTxt">借贷平台</span>
-          <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
-            <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
+          <el-select filterable :popper-append-to-body="false"   size="small" v-model="projectId[0]" >
+            <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
         </div>
         <div class="flex items-center">
           <span class="selectTxt"  style="text-indent: 2em;">公链</span>
-          <el-select filterable :popper-append-to-body="false"   size="small" v-model="coin" >
-            <el-option v-for="item in vLisit" :key="item" :label="item" :value="item">
+          <el-select filterable :popper-append-to-body="false"   size="small" v-model="chained[0]" >
+            <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
           </el-select>
         </div>
       </div>
-
     </div>
     <div class="font-kdFang">
-      <div @click="changeKey()" class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-3 hand">
+      <div @click="clear()" class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-3 hand">
         <span class="text-kd16px24px text-global-primary  font-medium">重置</span>
       </div>
       <div class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">

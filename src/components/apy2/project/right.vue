@@ -1,40 +1,39 @@
 <script setup lang="ts">
-import {ref, defineProps} from 'vue'
+import {ref, defineProps,onMounted,watch} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon} from '~/logic/apy2/config'
 import {tolocaleUpperCase} from '~/lib/tool'
-
-const activeName = ref('mining')
+const props=defineProps({projectId:Object})
+const pool_type = ref('mining')
 const tagKey = ref(0)
 const tags = [
   {name: '挖矿池子', key: 'mining'},
-  {name: '借贷池子', key: 'loan'},
-  {name: '项目数据', ke: 'data'},
+  {name: '借贷池子', key: 'lend'},
+  {name: '项目数据', ke: 'all'},
 ]
 const selectName = (key: string) => {
-  activeName.value = key
+  pool_type.value = key
   tagKey.value++
 }
 </script>
 <template>
   <div class="font-kdFang">
-    <Apy2ProjectInfo/>
+    <Apy2ProjectInfo :projectId="projectId"/>
     <div class="flex items-center mt-8 bottomBorderGang">
       <template v-for="item in tags">
-        <div @click="selectName(item.key)" :class="activeName===item.key?'activeName':'name'" class="activeName mr-12 hand" name="mining">
+        <div @click="selectName(item.key)" :class="pool_type===item.key?'pool_type':'name'" class="pool_type mr-12 hand" name="mining">
           {{ item.name }}
         </div>
       </template>
     </div>
-    <Apy2ProjectMining v-if="activeName==='mining'" />
-    <Apy2ProjectLoan v-else-if="activeName==='loan'"/>
+    <Apy2ProjectMining :activeName="pool_type" :pool_type="pool_type" :projectId="projectId" v-if="pool_type==='mining'" />
+    <Apy2ProjectLoan v-else-if="pool_type==='loan'"/>
     <Apy2ProjectDataMain v-else/>
   </div>
 </template>
 <style scoped lang="scss">
-.activeName {
+.pool_type {
   border-bottom: 2px solid #2B8DFE;
   @apply text-global-primary text-kd18px24px font-medium pb-1.5 hand;
 }

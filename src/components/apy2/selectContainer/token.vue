@@ -3,53 +3,54 @@
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
-import {searchToken} from '~/api/apy2'
 import {useRoute, useRouter} from 'vue-router'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
+import {getTokenSearch} from '~/api/ap/index'
+import {formatRulesNumber} from '~/lib/tool'
+import * as api from '~/api/index'
 const txt=getInject('txt')
+const props = defineProps({pageType: String,chain:String})
 import I18n from '~/utils/i18n/index'
 const allData=ref([]) //请求数据的个数
-const listData=ref([])
-const page=ref(1) //页数
-const size=10 //每页数量
 const initSize=4 //首次加载数量
+const resultNumber=ref(0)
 const param={
-  query:''
+  query:txt.value[0],
+  category:props.pageType,
+  chain:props.chain,
+  page:1,
+  page_size:initSize
 }
 const route = useRoute()
 const router = useRouter()
-const getData=(list:any)=>{
-  const tokenDB=new DBList(list)
-  listData.value=tokenDB.select({}, initSize)
-  // console.log(listData.value)
-}
 //更多
 const addMore=()=>{
-  const tokenDB=new DBList(allData.value)
-  listData.value=tokenDB.select({}, initSize+(size*page.value))
-  console.log(allData.value,'all')
-  console.log(listData.value,'list',page.value)
-  page.value++
+  param.page++
+  getList()
 }
 const getList=async ()=>{
-  page.value=1
   //如果为空则制空
   if(!txt.value[0]){
-    console.log('aa3')
-    listData.value=[]
+    allData.value=[]
     return
   }
-  const result=await searchToken(param)
-  if(result){
-    allData.value=result
-    getData(result)
+  const result=await api.apy.common.getTokenSearch(param)
+  if(result.code===0){
+    if(param.page===1) allData.value=[]
+    resultNumber.value=result.data.length
+    allData.value=allData.value.concat(result.data)
   }else{
-    console.log('11')
-    listData.value=[]
+    allData.value=[]
   }
 }
 watch(()=>txt.value[0],async (n,o)=>{
-  console.log('jj')
+  param.page=1
+  param.query=n
+  getList()
+})
+watch(()=>props.chain,(n)=>{
+  param.chain=n
+  param.page=1
   getList()
 })
 onMounted(()=>{
@@ -58,23 +59,22 @@ onMounted(()=>{
 const getApyColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
 </script>
 <template>
-  <div class=" pt-4 " name="select">
+  <div v-if="allData.length>0" class=" pt-4 " name="select">
     <ul >
       <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang  " name="select">币种</li>
-      <template v-for="item in listData">
-        <div class="flex items-center  h-9 justify-between" name="select">
+      <template v-for="item in allData">
+        <div class="flex items-center hand  h-9 justify-between" name="select">
           <div class="flex items-center" name="select">
-            <img class="w-5 h-5 mr-1" :src="item.logo" alt="" name="select">
+            <img class="w-5 h-5 mr-1" :src="item.icon" alt="" name="select">
             <span class="text-kd14px14px text-global-highTitle font-kdExp" name="select">{{item.name}}</span>
           </div>
           <div class="flex items-center" name="select">
             <span class="text-kd13px18px text-global-highTitle text-opacity-65 font-kdFang" name="select">最高 APY</span>
-            <span :class="getApyColor(item.apy)" class="ml-1 text-kd14px14px font-kdExp font-bold" name="select">{{item.apy}}%</span>
+            <span :class="getApyColor(item.max_mining_apy)" class="ml-1 text-kd14px14px font-kdExp font-bold" name="select">{{formatRulesNumber(item.max_mining_apy)}}%</span>
           </div>
         </div>
       </template>
-
-      <li v-if="allData.length>initSize && allData.length!==listData.length" @click="addMore" class="more hand " name="select">查看更多</li>
+      <li v-if="resultNumber===initSize" @click="addMore" class="more hand " name="select">查看更多</li>
     </ul>
   </div>
 
