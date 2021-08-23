@@ -48,3 +48,55 @@ export class HecoNode {
   custom?: boolean = false // 是否为自定义数据
   expand?: boolean = false // 是否展开数据
 }
+export interface projectParam {
+  chain:string
+  query:string
+}
+export interface poolsParam {
+  projectId:number
+  pool_type:string
+  chain:string
+  symbol_type:string
+  query:string
+}
+export interface addDialog {
+  radioValue:string
+  chain:string
+  search:string
+}
+export interface tokenSearch {
+  query:string
+  category:string
+  chain:string
+  page:number
+  page_size:number
+}
+export interface poolSearch {
+  query:string
+  pool_type:string
+  chain:string
+  page:number
+  page_size:number
+}
+export interface miningPoolParam{
+  group_id:number
+  symbol_type:string
+  project_id:number
+  query:string
+  chain:string
+  ordering:string
+  page:number
+  page_size:number
+}
+export interface loanPoolParam{
+  lend_symbol:number
+  loan_symbol:string
+  project_id:number
+  chain:string
+  page:number
+  page_size:number
+}
+export interface miningChart{
+  chain:string
+  symbol:string
+}

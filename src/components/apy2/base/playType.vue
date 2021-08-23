@@ -111,7 +111,7 @@ getData()
                     </el-option>
                   </template>
                   <template v-else>
-                    <el-option v-for="item in projects" :key="item.name" :label="item.name" :value="item.id">
+                    <el-option v-for="item in projects" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </template>
                 </el-select>

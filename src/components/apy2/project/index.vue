@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted,ref,watch } from 'vue'
+import { onMounted,ref,watch,reactive,computed } from 'vue'
 import { tokenList } from '~/store/apy2/state'
 import { ready } from '~/logic/apy2/token'
 import { useProvide } from '~/utils/use/state'
@@ -7,13 +7,20 @@ import { useRoute } from 'vue-router'
 import {chains} from '~/logic/apy2/config'
 import * as lang from '~/utils/lang'
 import {getProjectList} from '~/logic/apy2/index'
-const chain=ref('all')
+// const projectId=reactive({value:0})
 const route = useRoute()
-chain.value=route.query.chain || 'all'
+const [chain,setChain]=useProvide('chain','all')
+setChain(route.query.chain || 'all')
+
+const projectId=computed(()=>
+{
+  if(route.query.id) return route.query.id
+  if(projectList.value[0]) return projectList.value[0].id
+})
 const txt=ref('')
 const projectList=ref([])
-const getData=async ()=>projectList.value=await getProjectList(chain.value,txt.value)
-watch(()=>[txt.value,chain.value],()=>{
+const getData=async ()=>projectList.value=await getProjectList(chain.value[0],txt.value)
+watch(()=>[txt.value,chain.value[0]],()=>{
   getData()
 })
 onMounted(getData())
@@ -28,7 +35,7 @@ onMounted(getData())
             <div class="flex items-center ">
               <IconFont type="icon-quanbu"  size="20" class="w-4.75 text-global-primary  whitespace-nowrap" />
               <div class="allChain ">
-                <el-select    size="small" v-model="chain" >
+                <el-select    size="small" v-model="chain[0]" >
                   <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
                   </el-option>
                 </el-select>
@@ -42,14 +49,14 @@ onMounted(getData())
           </div>
         </el-header>
         <el-main class="p-0 overflow-auto showY">
-         <Apy2ProjectList :data="projectList" class="px-1.5"/>
+         <Apy2ProjectList :projectId="projectId"  :data="projectList" />
         </el-main>
       </el-container>
     </template>
 
     <template #content>
       <div  class="p-8">
-        <Apy2ProjectRight />
+        <Apy2ProjectRight :key="projectId" :projectId="projectId"/>
       </div>
     </template>
   </UiLayoutMenu>

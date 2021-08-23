@@ -1,6 +1,7 @@
 /**
  * @file API 响应结果校验
  */
+//@ts-ignore
 import safeGet from '@fengqiaogang/safe-get'
 
 // 判断状态码

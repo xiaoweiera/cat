@@ -7,7 +7,8 @@ import {chainsIcon} from '~/logic/apy2/config'
 import {tolocaleUpperCase,formatRulesNumber} from '~/lib/tool'
 import {getProjectList} from '~/logic/apy2/index'
 const props=defineProps({
-  data:Object
+  data:Object,
+  projectId:Number
 })
 const orderIndex=ref(0)
 const orderList={
@@ -25,22 +26,22 @@ const orderData=()=>{
 </script>
 <template>
   <div>
-    <div class="flex my-3 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between showY">
+    <div class="flex my-3 px-1.5 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between showY">
       <div>项目名称</div>
       <div @click="orderData()" class="hand">
         <span>TVL</span>
-        <IconFont size="13" class="ml-0.5" :type="orderList[orderIndex]"/>
+<!--        <IconFont size="13" class="ml-0.5" :type="orderList[orderIndex]"/>-->
       </div>
     </div>
-    <div class=" pb-10 showY" v-if="data.length > 0">
+    <div class=" pb-10 showY " v-if="data.length > 0">
       <template v-for="item in data" >
-        <div class="cursor-pointer h-9 mb-0.2  ">
-          <router-link class="flex items-center  relative " :to="`?id=${item.id}`">
+        <div :class="item.id==projectId?'itemSelected':''" class="cursor-pointer h-9  item   " >
+          <router-link class="flex items-center  relative px-1.5  h-full" :to="`?id=${item.id}`">
             <div>
               <IconFont v-if="item.is_new" type="icon-NEW" size="24" class="absolute z-1 "/>
-              <IconFont :type="item.logo || 'icon-morentoken'" size="24" class="relative left-1.2  top-1.2"/>
+              <IconFont :type="item.logo || 'icon-morentoken'" size="24" class="relative left-1.2  "/>
             </div>
-            <div class="ml-3 mt-1.3 flex items-center  justify-between flex-1">
+            <div class="ml-3  flex items-center  justify-between flex-1">
               <div class="flex items-center">
                 <div class="text-kd14px18px  text-global-highTitle font-kdExp mr-1.5">{{item.name}}</div>
                 <div class="flex items-center">
@@ -62,8 +63,13 @@ const orderData=()=>{
   </div>
 
 </template>
-<style  lang="scss">
-
+<style scoped  lang="scss">
+.item:hover{
+  @apply bg-global-highTitle bg-opacity-6 rounded-kd4px;
+}
+.itemSelected{
+  @apply bg-global-highTitle bg-opacity-6 rounded-kd4px;
+}
 .loanClass{
   .el-input__inner{
     border: 1px solid rgba(3, 54, 102, 0.06)!important;

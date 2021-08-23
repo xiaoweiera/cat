@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref,defineProps} from 'vue'
 import {chains,searchStaticToken} from '~/logic/apy2/config'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 const [txt,]=useProvide('txt','')
 const chain=ref('all')
 const show=ref(false)
+const props = defineProps({pageType: String})
 window.addEventListener('click',function(a){
   const name=a.target.attributes?.name?.value
   if(name!=='select') show.value=false
@@ -38,8 +39,8 @@ const focusTxt=()=>show.value=true
       </div>
       <div name="select"  v-if="txt[0] && show"  class="h-102.5 showY mt-1 pl-4 pr-2 pb-2 flex flex-col ">
         <div name="select"  class="bottomBorder"></div>
-        <Apy2SelectContainerToken name="select" />
-        <Apy2SelectContainerPool name="select" />
+        <Apy2SelectContainerToken :chain="chain" :pageType="props.pageType" name="select" />
+        <Apy2SelectContainerPool :chain="chain" :pageType="props.pageType" name="select" />
       </div>
     </div>
   </div>

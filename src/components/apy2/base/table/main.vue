@@ -7,12 +7,10 @@ const [tag,set]=useProvide('tag','my')
 const [filterType]=useProvide('filterType','all')
 const typeList=ref([{name:'综合',key:'all'},{name:'单利',key:'single'}])
 const tagList=computed(()=>{
-
   if(tableTag && tableTag.value[0]?.id!=='my'){
     tableTag.value.unshift({id:'my',name:'自选'})
     set(tableTag.value[1]?.id)
   }
-  console.log(tableTag.value,'00')
   return tableTag.value
 })
 const tableKey= computed(function () {
@@ -27,7 +25,7 @@ const tableKey= computed(function () {
       <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
     </div>
   </div>
-<Apy2BaseTable type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]"/>
+<Apy2BaseTable v-if="tag[0]" type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]"/>
 </template>
 
 <style lang="scss">

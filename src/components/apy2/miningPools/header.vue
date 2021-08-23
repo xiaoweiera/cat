@@ -1,21 +1,29 @@
 <script setup lang="ts">
-import {defineProps,ref} from 'vue'
+import {defineProps,ref,watch,onMounted} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
+import {chain} from '~/store/apy2/state'
+import {  setInject, getInject } from '~/utils/use/state'
+import {getProjectList} from '~/logic/apy2/index'
 const props=defineProps({
   tagList:Object
 })
 const project=ref('all')
-const vLisit=ref([
-  {name:'全部项目',key:'all'},
-  {name:'项目1',key:'1'},
-  {name:'项目2',key:'2'},
-  {name:'项目3',key:'3'},
-  {name:'项目4',key:'4'},
+const setProject=setInject('project')
+const setTxt=setInject('txt')
+const projectList=ref([
+  {name:'全部项目',id:'all'}
 ])
-const searchTxt=ref('')
-const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'single'},{name:'LP',key:'lp'}])
-
+const txt=ref('')
+watch(project,()=>setProject(project.value))
+watch(txt,()=>setTxt(txt.value))
+const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'token'},{name:'LP',key:'lp'}])
+const getProject=async ()=>{
+  const result=await getProjectList(chain.value,'')
+  projectList.value=projectList.value.concat(result)
+  console.log(projectList.value,'pppppp',result)
+}
+onMounted(()=>getProject())
 </script>
 <template>
   <div class="flex items-center font-kdFang flex-wrap justify-between">
@@ -24,13 +32,13 @@ const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'single'},{name
       <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
       <div class="apyProject mr-3">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
-          <el-option v-for="item in vLisit" :key="item.key" :label="item.name" :value="item.key">
+          <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </div>
       <div class="apySearch mr-3 px-4 py-2 rounded-kd6px  flex items-center h-9" >
         <IconFont type="icon-sousuo-da1" class="mr-2 text-global-highTitle text-opacity-45" size="12"></IconFont>
-        <el-input v-model="searchTxt" placeholder="搜索币种/项目"></el-input>
+        <el-input v-model="txt" placeholder="搜索币种/项目"></el-input>
       </div>
     </div>
   </div>
