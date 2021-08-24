@@ -1,11 +1,11 @@
 export const chains=[
-    {key:'all',name:'全部公链',icon:'https://res.ikingdata.com/apyTwo/allChain.jpg'},
-    {key:'eth',name:'ETH',icon:'https://res.ikingdata.com/apyTwo/ethChain.jpg'},
-    {key:'bsc',name:'BSC',icon:'https://res.ikingdata.com/apyTwo/bscChain.jpg'},
-    {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.jpg'},
-    {key:'oec',name:'OEC',icon:'https://res.ikingdata.com/apyTwo/oecChain.jpg'},
-    {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.jpg'},
-    {key:'pos',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.jpg'},
+    {key:'all',name:'全部公链',icon:'https://res.ikingdata.com/apyTwo/allChain.png'},
+    {key:'eth',name:'ETH',icon:'https://res.ikingdata.com/apyTwo/ethChain.png'},
+    {key:'bsc',name:'BSC',icon:'https://res.ikingdata.com/apyTwo/bscChain.png'},
+    {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.png'},
+    {key:'oec',name:'OEC',icon:'https://res.ikingdata.com/apyTwo/oecChain.png'},
+    {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.png'},
+    {key:'pos',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.png'},
 ]
 export const selectChains=[
     {label:'选择公链',value:'all'},
@@ -17,12 +17,12 @@ export const selectChains=[
     {label:'PoS',value:'pos'}
 ]
 export const chainsIcon={
-    'eth':'https://res.ikingdata.com/apyTwo/ethChain.jpg',
-    'bsc':'https://res.ikingdata.com/apyTwo/bscChain.jpg',
-    'heco':'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    'oec':'https://res.ikingdata.com/apyTwo/oecChain.jpg',
-    'hoo':'https://res.ikingdata.com/apyTwo/hooChain.jpg',
-    'pos':'https://res.ikingdata.com/apyTwo/posChain.jpg',
+    'eth':'https://res.ikingdata.com/apyTwo/ethChain.png',
+    'bsc':'https://res.ikingdata.com/apyTwo/bscChain.png',
+    'heco':'https://res.ikingdata.com/apyTwo/hecoChain.png',
+    'oec':'https://res.ikingdata.com/apyTwo/oecChain.png',
+    'hoo':'https://res.ikingdata.com/apyTwo/hooChain.png',
+    'polygon':'https://res.ikingdata.com/apyTwo/posChain.png',
     'hsc':'https://res.ikingdata.com/nav/apyHsc.png',
 }
 export const searchStaticToken=[

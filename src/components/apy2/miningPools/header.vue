@@ -5,10 +5,12 @@ import I18n from '~/utils/i18n/index'
 import {chain} from '~/store/apy2/state'
 import {  setInject, getInject } from '~/utils/use/state'
 import {getProjectList} from '~/logic/apy2/index'
+import {chains} from '~/logic/apy2/config'
 const props=defineProps({
   tagList:Object
 })
 const project=ref('all')
+const chained=ref('all')
 const setProject=setInject('project')
 const setTxt=setInject('txt')
 const projectList=ref([
@@ -32,6 +34,12 @@ onMounted(()=>getProject())
       <div class="apyProject mr-3">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
           <el-option v-for="item in projectList"  :label="item.name" :value="item.id">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="apyProject mr-3">
+        <el-select filterable :popper-append-to-body="false" v-model="chained"   size="small" >
+          <el-option v-for="item in chains"  :label="item.name" :value="item.key">
           </el-option>
         </el-select>
       </div>

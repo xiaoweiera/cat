@@ -9,6 +9,10 @@ enum API {
     mining_best10 = '/api/apy/ninja/project/mining_best10',
 }
 //top10图表
-export const mining_best10 =(param:projectMiningChart)=> request({url:API.mining_best10, params:param, method: 'get'})
+export const mining_best10 =(param:projectMiningChart)=> {
+    console.log('最后参数',param)
+    request({url:API.mining_best10, params:param, method: 'get'}
+    )
+}
 
 

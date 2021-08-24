@@ -46,11 +46,9 @@ const getChart=async ()=>{
   console.log(res)
 }
 const onSumbit=(v:any)=>{
-  const poolsId=R.map(v=>v.id,v)
+  const poolsId=R.join(',',R.map(v=>v.id,v))
   param.pools=poolsId
-  console.log(param)
   getChart()
-
 }
 </script>
 <template>

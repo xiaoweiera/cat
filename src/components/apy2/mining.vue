@@ -52,7 +52,9 @@ onMounted(async ()=>{
         <!--表格数据-->
         <Apy2BaseTableMain/>
       </div>
-      <Apy2MiningPoolsMain class="mt-15"/>
+      <div class="mt-15">
+        <Apy2MiningPoolsMain/>
+      </div>
       <div class="h-50"></div>
     </div>
 
