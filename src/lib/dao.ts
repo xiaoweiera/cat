@@ -75,7 +75,6 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
       if (status) {
         // 设置 token
         const token = getUserAuth(config)
-        console.log('token = "%s"', token)
         if (token) {
           config.headers.Authorization = `Token ${token}`
         }
