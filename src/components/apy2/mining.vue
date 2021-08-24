@@ -19,6 +19,7 @@ onMounted(async ()=>{
 })
 </script>
 <template>
+<!--  <Apy2Calculator class="mt-20 mb-10 ml-10"/>-->
   <div class=" flex justify-center    bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  relative  w-full h-full container ">
       <div class="flex items-center justify-between">
