@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
 // @ts-ignore
-import { numberUint, toNumber } from '~/utils'
+import { numberUint, toNumber, toBoolean } from '~/utils'
 
 defineProps({
   data: {
     type: Object
+  },
+  type: {
+    type: String,
+    required: true,
   }
 })
 </script>
@@ -24,7 +28,7 @@ defineProps({
               <span class="inline-block whitespace-nowrap max-w-full truncate">{{ data.symbol_alias }}</span>
             </span>
           </el-tooltip>
-          <IconFont class="ml-1 text-global-highTitle text-opacity-45" type="icon-star-weixuanzhong" size="16"/>
+          <Apy2BaseFollow class="ml-1" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
         </div>
         <div class="mt-1 text-xs flex items-center">
           <span class="inline-block mr-1 text-global-highTitle text-opacity-85">${{ numberUint(data.symbol_price) }}</span>

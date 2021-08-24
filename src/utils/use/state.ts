@@ -4,7 +4,7 @@
  */
 
 import { inject, provide, ref, toRaw, watch } from 'vue'
-import { upperFirst, isUndefined } from '~/utils/index'
+import { upperFirst, isUndefined, debounce } from '~/utils'
 
 type SetCallback = (value?: any, index?: number | string) => void
 const autoValue = function(value?: any): Array<any> {
@@ -29,6 +29,7 @@ export const useProvide = function<T>(name: string, value?: any): any[] {
   }
   provide(name, set)
   provide(`get${upperFirst(name)}`, () => state)
+  provide(`${upperFirst(name)}state`, state)
   const merge = function(data: any) {
     const [ oldValue = {} ] = state.value
     const newValue = Object.assign({}, oldValue, data)
@@ -44,6 +45,22 @@ export const useWatch = function<T>(name: string, callback: SetCallback, value?:
     watch(state, callback)
   }
   return array
+}
+
+export const getState = function(name: string) {
+  const key = `${upperFirst(name)}state`
+  return inject(key)
+}
+
+export const watchState = function(name: string, callback: SetCallback) {
+  const state = getState(name)
+  if (state && callback) {
+    const app = debounce<SetCallback>(callback)
+    // @ts-ignore
+    watch(state, app)
+    app(state)
+  }
+  return state
 }
 
 export const getInject = function(name: string) {

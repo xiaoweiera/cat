@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useProvide } from '~/utils/use/state'
 import dataEventName from '~/components/ui/date/eventname'
-import { computed, defineProps, onMounted, reactive, ref, toRaw } from 'vue'
+import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 // @ts-ignore
 import { getTokenDetail } from '~/logic/apy2/token'
 // @ts-ignore

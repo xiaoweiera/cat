@@ -22,7 +22,7 @@ export const getTokenList = async function() {
         path: config.apyToken,
         query: {
           id: data.id,
-          category
+          category: category ? category : ''
         }
       }),
     })

@@ -2,12 +2,14 @@
  * @file 表格数据
  */
 
-import { omit } from "ramda"
-import { forEach, uuid } from '~/utils'
+import { omit } from 'ramda'
+import { forEach, map, toNumber, uuid } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import DBList from '@fengqiaogang/dblist'
 import * as API from '~/api/index'
 import { SymbolType } from '~/logic/apy2/interface'
+import { echartTransform } from '~/lib/common'
+import { EchartData, LegendItem, SeriesItem, seriesType } from '~/logic/echarts/interface'
 
 const transform = function(db: DBList, list: any[], pid: string = '0') {
   let maxLength = 0
@@ -56,4 +58,72 @@ export const getTableExpandList = async function (db: DBList, query: any) {
     return result
   }
   return { db }
+}
+
+// 弹窗详情
+export const getDetail = async function(query: object) {
+  try {
+    return await API.apy.table.getDetail(query)
+  } catch (e) {
+    return {
+      'id': 2,
+      'symbol': 'HBTC/HT',
+      'symbol_logo': 'http://xx.jpg',
+      'chain': 'bsc',
+      'pool_type': 'mining',
+      'strategy_tags': 'vault,farm',
+      'apy': 23.5,
+      'tvl': 23456,
+      'project': 'CoinWind',
+      'project_logo': 'http://x.jpg',
+      'quota_remain': 2344,
+      'single_apy': 23,
+      'compound_apy': 20,
+      'single_apy_detail': 'USD-25%',
+      'compound_detail': '',
+      'followed': true,
+      'project_url': '',
+    }
+  }
+}
+
+// 池子走势图
+export const getPoolTrends = async function(query: object) {
+  const data = await API.apy.table.trends<EchartData>(query)
+  return echartTransform(data)
+}
+
+export const getTop5 = async function(query: object) {
+  const result: any = await API.apy.table.top5(query)
+  let apy_max = result.apy_max
+  const chart = new EchartData()
+  chart.key = uuid()
+  const legend: LegendItem = {
+    name: '',
+    show: false,
+    id: 'top5',
+    type: seriesType.bar
+  }
+  forEach(function(item: any) {
+    const { project } = item
+    chart.xAxis.push({ value: project })
+  }, result.data)
+
+  const series: SeriesItem[] = map(function(item: any) {
+    const apy = toNumber(item.apy)
+    if (apy > apy_max) {
+      apy_max = apy
+    }
+    return { value: apy }
+  }, result.data)
+
+  chart.legends.push(legend)
+  chart.series[legend.id] = series
+  return { chart, max: apy_max }
+}
+
+// 池子 Top5 对比
+export const getPoolDiff = async function(query: object) {
+  const result = await API.apy.table.diff<EchartData>(query)
+  return echartTransform(result)
 }
