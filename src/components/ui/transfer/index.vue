@@ -123,13 +123,7 @@ const onRemove = function(value: string | number) {
                 <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeValue">
                   <div class="mt-2 flex items-center" v-for="i in list" :key="i">
                     <el-checkbox :label="i">
-<<<<<<< HEAD
-                      <slot name="item" :data="i">
-<!--                        <span class="text-global-highTitle text-xs font-normal">BTC/ETH</span>-->
-                      </slot>
-=======
                       <slot name="item" :data="i"></slot>
->>>>>>> da78153bc214424cfe0bf99bd327d209c648932b
                     </el-checkbox>
                   </div>
                 </el-checkbox-group>
