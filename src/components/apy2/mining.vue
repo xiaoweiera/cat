@@ -1,18 +1,25 @@
 <script lang="ts" setup>
 import {onMounted} from 'vue'
-import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
-import {getMiningGroup} from '~/logic/apy2/index'
+import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
+import {getMiningGroup,getTokenAndProject} from '~/logic/apy2/index'
 const getGroupData=async ()=>{
   const result=await getMiningGroup(chain.value)
   rankingTag.value=result?.ranking
   tableTag.value=result?.table
   listTag.value=result?.list
 }
+const getData=async ()=>{
+  const [tokenData,projectData]=await getTokenAndProject(chain.value)
+  tokenList.value=tokenData
+  projectList.value=projectData
+}
 onMounted(async ()=>{
+  await getData()
   await getGroupData()
 })
 </script>
 <template>
+  {{rankingTag}}--
   <div class=" flex justify-center    bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  relative  w-full h-full container ">
       <div class="flex items-center justify-between">
@@ -36,7 +43,7 @@ onMounted(async ()=>{
           </div>
         </div>
 <!--        榜单-->
-        <Apy2TopListMain  class="w-101.25 pl-8  leftBorder">
+        <Apy2TopListMain type="mining"  class="w-101.25 pl-8  leftBorder">
           <template #item>
             <Apy2TopListMiningItem />
           </template>

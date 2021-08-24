@@ -5,44 +5,6 @@ import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
 const props=defineProps({data:Object})
 const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
-const tableData=[
-  {
-    plat:'CoinWind',
-    platLogo:'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    platDes:'COW 策略',
-    platIcon:'bsc',
-    loanAmount:'15578 (20%)',
-    mortRate:125.01,
-    clearRate:115,
-    gainLogo:'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    gainCoin:'ETH',
-    gain:34.33,
-    gainDes:'25% USDC + 5% LHB',
-    loanLogo:'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    loanCoin:'ETH',
-    loanRate:34.33,
-    loanRateDes:'25% USDC + 5% LHB',
-    cost:32.19
-  },
-  {
-    plat:'CoinWind',
-    platLogo:'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    platDes:'COW 策略',
-    platIcon:'bsc',
-    loanAmount:'15578 (20%)',
-    mortRate:15.01,
-    clearRate:215,
-    gainLogo:'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    gainCoin:'BTC',
-    gain:11.33,
-    gainDes:'25% USDC + 5% LHB',
-    loanLogo:'https://res.ikingdata.com/apyTwo/hecoChain.jpg',
-    loanCoin:'BTC',
-    loanRate:24.33,
-    loanRateDes:'25% USDC + 5% LHB',
-    cost:-52.19
-  }
-]
 </script>
 <template>
   <div>
@@ -69,7 +31,7 @@ const tableData=[
       </el-table-column>
       <el-table-column prop="loanRate" label="借出利率" align="center"   sortable>
         <template #default="scope">
-          <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol_alias" :value="scope.row.lending_apy" :des="scope.row.lending_single_apy_detail"/>
+          <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_apy_detail"/>
         </template>
       </el-table-column>
       <el-table-column prop="cost" label="真实成本(借出金额)"   sortable>

@@ -18,7 +18,7 @@ onMounted(getData())
     <div>
       <div class="flex items-center relative">
         <div class="relative">
-          <IconFont v-if="data.is_new" class="absolute" size="30" type="icon-NEW"/>
+          <IconFont v-if="data.new" class="absolute" size="30" type="icon-NEW"/>
           <IconFont size="60" :type="data.logo || 'icon-morentoken'"/>
         </div>
         <div class="ml-3">

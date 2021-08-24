@@ -51,6 +51,7 @@ const onSubmit = function() {
 
 // 选择左侧或修改右侧数据时
 const onChangeValue = function(value: Array<string | number>) {
+  console.log(value,'--')
   emitEvent('change', value)
 }
 // @ts-ignore
@@ -112,7 +113,7 @@ const onRemove = function(value: string | number) {
                   <div class="mt-2 flex items-center" v-for="i in list" :key="i">
                     <el-checkbox :label="i">
                       <slot name="item" :data="i">
-                        <span class="text-global-highTitle text-xs font-normal">BTC/ETH</span>
+<!--                        <span class="text-global-highTitle text-xs font-normal">BTC/ETH</span>-->
                       </slot>
                     </el-checkbox>
                   </div>
@@ -131,7 +132,7 @@ const onRemove = function(value: string | number) {
             <template v-for="id in checkboxValue" :key="id">
               <div class="result-item flex items-center">
                 <div class="flex-1 w-1">
-                  <slot name="result" :id="id">
+                  <slot name="result" :id="id" :data="id">
                     <span>{{ id }}</span>
                   </slot>
                 </div>

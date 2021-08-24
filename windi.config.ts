@@ -55,6 +55,7 @@ export default defineConfig({
                 'kd40px':'40px'
             },
             fontSize: {
+                'kd12px12px':['12px','12px'],
                 'kd12px14px':['12px','14px'],
                 'kd10px10px':['10px','10px'],
                 'kd20px20px':['20px','20px'],
@@ -71,6 +72,7 @@ export default defineConfig({
                 'kd18px28px': ['18px', '28px'],
                 'kd28px28px': ['28px', '28px'],
                 'kd18px27px': ['18px', '27px'],
+                'kd18px24px':['18px','24px'],
                 'kd36px':['36px','140%'],
                 'kd14px0px':['14px','0px'],
                 'kd10px16px':['10px','16px'],
@@ -108,6 +110,7 @@ export default defineConfig({
                 'kd13px18px':['13px','18px'],
                 'kd17px17px':['17px','17px'],
                 'kd32px32px':['32px','32px'],
+                'kd25px28px':['25px','28px'],
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',

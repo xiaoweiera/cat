@@ -23,6 +23,7 @@ export const chainsIcon={
     'oec':'https://res.ikingdata.com/apyTwo/oecChain.jpg',
     'hoo':'https://res.ikingdata.com/apyTwo/hooChain.jpg',
     'pos':'https://res.ikingdata.com/apyTwo/posChain.jpg',
+    'hsc':'https://res.ikingdata.com/nav/apyHsc.png',
 }
 export const searchStaticToken=[
     {name:'BTC',id:''},

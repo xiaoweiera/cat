@@ -4,31 +4,26 @@ import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon,selectChains} from '~/logic/apy2/config'
+import {getProjectMiningTop10Chart} from '~/logic/apy2/index'
 import {tolocaleUpperCase} from '~/lib/tool'
 const props=defineProps({projectId:Object,pool_type:Object})
 import {getPoolsList} from '~/logic/apy2/index'
-const tagList=[
-  {name:'全部',key:'all'},
-  {name:'单币',key:'dan'},
-  {name:'LP',key:'lp'}
-]
-const radios = [
-  { label: '单币', value: 'token' },
-  { label: 'LP', value: 'lp' }
-]
+const tagList=[{name:'全部',key:'all'}, {name:'单币',key:'dan'}, {name:'LP',key:'lp'}]
+const radios = [{ label: '单币', value: 'token' }, { label: 'LP', value: 'lp' }]
 const chain=getInject('chain')
 const type = ref('TVL')
-const selectList = ref(['TVL'])
+const selectList = ref(['TVL','APY'])
 const [selectTxt,]=useProvide('selectTxt','')
 const [filterType,]=useProvide('filterType','all')
+const pools=ref([])
 const dialogSearch=ref('')
 const changeTime = (time: any) => {
   console.log(time)
 }
 const list=ref([])
-const getData=async (projectId,pool_type,chain,type,search)=>{
-  if(projectId) {
-    list.value = await getPoolsList(projectId, pool_type, chain, type, search)
+const getData=async (project_id,pool_type,chain,type,search)=>{
+  if(project_id) {
+    list.value = await getPoolsList(project_id, pool_type, chain, type, search)
   }
 }
 onBeforeMount(()=>{
@@ -38,9 +33,27 @@ onBeforeMount(()=>{
 const changeParam=(v:any)=>{
     getData(props.projectId, props.pool_type, v.chain, v.radioValue, v.search)
 }
+const param={
+  from_ts:0,
+  to_ts:0,
+  project_id:props.projectId,
+  pools:pools.value,
+  field1:type.value
+}
+const getChart=async ()=>{
+  console.log(param,'axios')
+  const res=await getProjectMiningTop10Chart(param)
+  console.log(res)
+}
+const onSumbit=(v:any)=>{
+  const poolsId=R.map(v=>v.id,v)
+  param.pools=poolsId
+  console.log(param)
+  getChart()
+
+}
 </script>
 <template>
-  {{pool_type}}11
   <div class="font-kdFang">
     <Apy2ProjectChartInfo/>
     <div class="mt-3 flex items-center justify-between ">
@@ -58,11 +71,11 @@ const changeParam=(v:any)=>{
           </template>
           <!-- 自定义左侧列表显示内容 -->
           <template #item="scope">
-            <Apy2BaseAddPoolDialogItem class="w-full"/>
+            <Apy2BaseAddPoolDialogItem :data="scope.data" class="w-full"/>
           </template>
           <!-- 自定义右侧列表显示内容 -->
           <template #result="scope">
-            <Apy2BaseAddPoolDialogItem class="w-full"/>
+            <Apy2BaseAddPoolDialogItem :data="scope.data" class="w-full"/>
           </template>
         </UiTransfer>
       </div>

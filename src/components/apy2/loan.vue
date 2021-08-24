@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import {onMounted} from 'vue'
-import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
-import {getLendingGroup} from '~/logic/apy2/index'
+import {chain,rankingTag,tableTag,listTag,tokenList} from '~/store/apy2/state'
+import {getLendingGroup,getTokenList} from '~/logic/apy2/index'
 const getGroupData=async ()=>{
   const result=await getLendingGroup(chain.value)
+  console.log(result,'group')
   rankingTag.value=result?.ranking
   tableTag.value=result?.table
   listTag.value=result?.list
 }
+const getTokens=async ()=>tokenList.value=await getTokenList()
 onMounted(async ()=>{
+  await getTokens()
   await getGroupData()
 })
 </script>
@@ -22,10 +25,12 @@ onMounted(async ()=>{
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">
         <div class="flex flex-1 ">
-          <div class="flex-1  border-1 h-100 mr-8">图表</div>
+          <div class="flex-1 h-100 mr-8">
+            <Apy2ChartLoan/>
+          </div>
         </div>
 <!--        榜单-->
-        <Apy2TopListMain  class="w-101.25 pl-8  leftBorder">
+        <Apy2TopListMain type="loan"  class="w-101.25 pl-8  leftBorder">
           <template #item>
             <Apy2TopListLoanItem />
           </template>
@@ -33,7 +38,7 @@ onMounted(async ()=>{
       </div>
       <div class="mt-15">
         <!--表格数据-->
-        <Apy2BaseTableMain/>
+<!--        <Apy2BaseTableMain/>-->
       </div>
       <Apy2LoanPoolsMain class="mt-15"/>
       <div class="h-50"></div>

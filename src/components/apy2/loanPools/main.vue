@@ -45,8 +45,6 @@ const more=()=>{
 }
 </script>
 <template>
-  {{resultNumber}}
-  {{clearData}}
   <div>
     <div class="font-kdFang font-medium text-kd18px24px text-global-highTitle text-opacity-85">抵押借贷最佳路径</div>
     <Apy2LoanPoolsHeader  class="mt-4"/>

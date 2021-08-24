@@ -38,7 +38,7 @@ onMounted(()=>{if(group_id.value[0]){getData()}})
                   <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
                 </template>
                 <template #content>
-                  <div class="min-w-70 relative p-1.3">
+                  <div class="min-w-70 relative  p-1.3">
                     <Apy2TopListLoanTip :data="item" />
                   </div>
                 </template>

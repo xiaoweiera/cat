@@ -11,20 +11,19 @@ onBeforeMount(()=>chain.value=route.query.chain || 'all')
 <template>
 <div class="flex justify-center items-center font-kdFang flex-wrap">
   <template v-for="item in chains">
-    <a :href="getHref(item.key)" :class="chain===item.key?'selectedTag':'tag'" class="content-fit hand mr-12 flex items-center justify-center ">
+    <a :href="getHref(item.key)" :class="chain===item.key?'selectedTag':'tag'" class="content-fit hand  flex items-center justify-center ">
         <img class="w-8 h-8" :src="item.icon" alt="">
-        <div class="ml-1.5 ">{{item.name}}</div>
+        <div class="ml-1.5 ">{{item.name==='全部公链'?'全部':item.name}}</div>
     </a>
   </template>
 </div>
 </template>
 <style scoped lang="scss">
 .tag{
-  @apply  p-2 text-kd24px24px text-global-highTitle font-medium  text-opacity-65;
+  @apply mr-12 rounded-kd8px p-2 text-kd24px24px text-global-highTitle font-medium  text-opacity-65;
 }
 .selectedTag{
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 1px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  @apply p-2  text-kd24px24px text-global-primary font-medium;
+  @apply p-2 mr-12  text-kd24px24px text-global-primary font-medium rounded-kd8px;
 }
 </style>

@@ -3,13 +3,14 @@ import { ref,reactive, defineProps } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
+const props=defineProps({type:String})
 const groupId=reactive({value:''})
 useProvide('group_id')
 
 </script>
 <template>
   <div>
-  <Apy2TopListHeader :groupId="groupId" class="mb-3.8"/>
+  <Apy2TopListHeader :type="props.type" :groupId="groupId" class="mb-3.8"/>
     <slot name="item"></slot>
   </div>
 </template>

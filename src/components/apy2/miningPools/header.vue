@@ -21,7 +21,6 @@ const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'token'},{name:
 const getProject=async ()=>{
   const result=await getProjectList(chain.value,'')
   projectList.value=projectList.value.concat(result)
-  console.log(projectList.value,'pppppp',result)
 }
 onMounted(()=>getProject())
 </script>
@@ -32,7 +31,7 @@ onMounted(()=>getProject())
       <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
       <div class="apyProject mr-3">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
-          <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
+          <el-option v-for="item in projectList"  :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </div>

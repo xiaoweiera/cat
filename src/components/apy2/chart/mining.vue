@@ -1,30 +1,55 @@
 <script setup lang="ts">
-import { ref,defineProps,onMounted,reactive } from 'vue'
+import { ref,defineProps,onMounted,reactive,watch } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
 import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
-import {getTop10Chart} from '~/logic/apy2/index'
+import {getMiningTop10Chart} from '~/logic/apy2/index'
 import {echartTransform} from '~/lib/common'
+import {chain,tokenList} from '~/store/apy2/state'
 const props = defineProps({
   list: Object,
 })
+const token=ref('BTC')
+const moreToken=ref('')
+const showNumber=ref(5)
+const keyNumber=ref(0)
 const chartData = reactive<EchartData>(new EchartData())
 const getChart=async ()=>{
-  const result=await getTop10Chart()
+  const result=await getMiningTop10Chart({chain:chain.value,symbol:token.value})
   const data=echartTransform(result)
   chartData.legends = data.legends
   chartData.xAxis = data.xAxis
   chartData.series = data.series
   console.log(chartData,'数据')
 }
-
+const selectToken=(name:string)=>token.value=name
+watch(token,(n)=>{
+  getChart()
+  keyNumber.value++
+})
+watch(moreToken,(n)=>token.value=n)
 onMounted(getChart())
-
 </script>
 <template>
-<div class="w-full h-full">
-  <Echarts v-if="chartData.xAxis && chartData.xAxis.length > 0">
+<div class="w-full h-full font-kdFang top10Project">
+  <div>
+    <span  class="text-kd25px28px font-medium text-global-highTitle text-opacity-85">单币挖矿收益率 Top 10</span>
+    <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 ml-3 text-kd14px18px ">更多图表 <IconFont  type="icon-right" size="12"/></a>
+  </div>
+  <div class="flex items-center  mt-4">
+    <div class="flex items-center">
+      <template v-for="item in tokenList.slice(0,showNumber)">
+        <span @click="selectToken(item.name)"  :class="token===item.name?'selectTag':'tag'" class="hand">{{item.name}}</span>
+      </template>
+    </div>
+    <el-select v-if="tokenList.length>showNumber" filterable placeholder="选择其他币种" :popper-append-to-body="false" v-model="moreToken"  class="ml-1"  size="small" >
+      <el-option v-for="item in tokenList.slice(showNumber,tokenList.length)" :label="item.name" :value="item.name">
+      </el-option>
+    </el-select>
+  </div>
+<!--  图表-->
+  <Echarts :key="keyNumber" v-if="chartData.xAxis && chartData.xAxis.length > 0">
     <!-- 提示框 trigger: 触发方式 -->
     <EchartsTooltip trigger="axis" />
 
@@ -48,11 +73,24 @@ onMounted(getChart())
   </Echarts>
 </div>
 </template>
-<style scoped lang="scss">
+<style  lang="scss">
 .tag{
-  @apply text-kd14px18px text-global-highTitle text-opacity-85 whitespace-nowrap;
+  @apply px-2 py-1 text-kd14px18px mr-2 font-medium text-global-highTitle text-opacity-85 whitespace-nowrap;
 }
 .selectTag{
-  @apply rounded-kd4px text-kd14px18px text-global-white bg-global-primary font-medium whitespace-nowrap;
+  @apply mr-2 rounded-kd4px text-kd14px18px text-global-primary px-2 py-1 bg-global-primary  bg-opacity-8 font-medium whitespace-nowrap;
 }
+.top10Project{
+  @apply  bg-global-white;
+  .el-input__inner{
+    border: 1px solid rgba(3, 54, 102, 0.06) !important;
+    background: none;
+    padding-left:4px !important;
+    @apply text-kd14px18px font-medium  text-global-highTitle text-opacity-85 w-35 text-center h-9 flex items-center  text-kd14px18px ;
+  }
+  .el-icon-arrow-up{
+    @apply mt-0.5;
+  }
+}
+
 </style>

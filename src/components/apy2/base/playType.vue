@@ -2,8 +2,8 @@
 import {ref, defineProps} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
-import {chain} from '~/store/apy2/state'
-import {getTokenAndProject} from '~/logic/apy2/index'
+import {chain,tokenList,projectList} from '~/store/apy2/state'
+import {getTokenAndProject,getTokenList} from '~/logic/apy2/index'
 const selectValue=ref('')
 const list=[
   {
@@ -69,12 +69,6 @@ const textList={
 const cc='coinTxt'
 const tokens=ref([])
 const projects=ref([])
-const getData=async ()=>{
- const [tokenList,projectList]=await getTokenAndProject(chain.value)
-  tokens.value=tokenList
-  projects.value=projectList
-}
-getData()
 </script>
 <template>
   <div class="w-74  font-kdFang relative">
@@ -107,11 +101,11 @@ getData()
               <div >
                 <el-select filterable :popper-append-to-body="false"   size="small" v-model="selectValue" :placeholder="item.selectText">
                   <template v-if="i===1">
-                    <el-option v-for="item in tokens" :key="item.name" :label="item.name" :value="item.name">
+                    <el-option v-for="item in tokenList" :key="item.name" :label="item.name" :value="item.name">
                     </el-option>
                   </template>
                   <template v-else>
-                    <el-option v-for="item in projects" :key="item.id" :label="item.name" :value="item.id">
+                    <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </template>
                 </el-select>

@@ -15,7 +15,6 @@ export interface TokenItem {
   name: string
   icon: string
   href?: string
-  category?: string[]
 }
 
 export class HecoDetail{
@@ -54,7 +53,7 @@ export interface projectParam {
   query:string
 }
 export interface poolsParam {
-  projectId:number
+  project_id:number
   pool_type:string
   chain:string
   symbol_type:string
@@ -100,4 +99,15 @@ export interface loanPoolParam{
 export interface miningChart{
   chain:string
   symbol:string
+}
+export interface loanChart{
+  chain:string
+  symbol:string
+}
+export interface projectMiningChart{
+  from_ts:string
+  to_ts:string
+  project_id:number
+  pools:Array<number>
+  field1:number
 }

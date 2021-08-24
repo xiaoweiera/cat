@@ -5,8 +5,7 @@ const getRes=(obj:any)=>{
     }
     return obj
 }
-import { miningPoolParam,loanPoolParam,miningChart} from '~/logic/apy2/interface'
-import {echartTransform} from '~/lib/common'
+import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart} from '~/logic/apy2/interface'
 //挖矿分组
 export const getMiningGroup=async (chain:string)=>{
     const result=await api.apy.mining.mining_group({chain:chain})
@@ -28,7 +27,10 @@ export const getLending_rank=async (group_id:number,chain:string)=>{
     return getRes(result)
 }
 //币种列表
-export const getTokenList = async () =>api.apy.common.getTokenList()
+export const getTokenList = async ()=>{
+    const result=await api.apy.common.getTokenList()
+    return getRes(result)
+}
 //项目列表
 export const getProjectList=async (chain:string,query:string)=>{
     const result=await api.apy.common.getProjectList({chain:chain,query:query})
@@ -44,8 +46,8 @@ export const getProjectDetail=async (projectId:number)=>{
     return getRes(result)
 }
 //矿池列表
-export const getPoolsList=async (projectId:number,pool_type:string,chain:string,symbol_type:string,query:string)=>{
-    const result=await api.apy.common.getPoolsList({projectId,pool_type,chain,symbol_type,query})
+export const getPoolsList=async (project_id:number,pool_type:string,chain:string,symbol_type:string,query:string)=>{
+    const result=await api.apy.common.getPoolsList({project_id,pool_type,chain,symbol_type,query})
     return getRes(result)
 }
 //挖矿池子列表
@@ -59,11 +61,20 @@ export const getLoanPools=async (param:loanPoolParam)=>{
     return getRes(result)
 }
 //挖矿top10图表
-export const getTop10Chart=async (param:miningChart)=>{
+export const getMiningTop10Chart=async (param:miningChart)=>{
     const result=await api.apy.mining.mining_best10(param)
-    const res=getRes(result)
-    console.log( echartTransform(res),'aaaa',res,'bb')
     return getRes(result)
 }
+//借贷top10图表
+export const getLoanTop10Chart=async (param:miningChart)=>{
+    const result=await api.apy.loan.lending_best10(param)
+    return getRes(result)
+}
+//项目挖矿top10图表
+export const getProjectMiningTop10Chart=async (param:projectMiningChart)=>{
+    const result=await api.apy.project.mining_best10(param)
+    return getRes(result)
+}
+
 
 
