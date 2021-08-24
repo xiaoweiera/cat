@@ -41,13 +41,15 @@ const onClick = function() {
     <div @click="onClick">
       <slot name="reference"></slot>
     </div>
-    <el-dialog top="0" v-model="status" custom-class="screen-dialog" :show-close="false" :lock-scroll="true" :append-to-body="true" @opened="onShow" @close="onClose">
-      <div class="w-full h-full" v-if="opened">
-        <slot name="content" :status="status">
-          <Apy2PoolDetail/>
-        </slot>
-      </div>
-    </el-dialog>
+    <template v-if="status">
+      <el-dialog top="0" v-model="status" custom-class="screen-dialog" :show-close="false" :lock-scroll="true" :append-to-body="true" @opened="onShow" @close="onClose">
+        <div class="w-full h-full" v-if="opened">
+          <slot name="content" :status="status">
+            <Apy2PoolDetail id="20" type="loan"/>
+          </slot>
+        </div>
+      </el-dialog>
+    </template>
   </div>
 </template>
 

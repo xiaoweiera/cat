@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pick } from 'ramda'
+import { pick, omit } from 'ramda'
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as echarts from 'echarts'
 import * as resize from '~/utils/event/resize'
@@ -19,7 +19,7 @@ import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
 import { viewWidth } from '~/utils/event/scroll'
 import { tailwind } from '~/logic/echarts/colors'
-import { seriesType, LegendDirection, Direction, iconFontName } from '~/logic/echarts/interface'
+import { seriesType, LegendDirection, Direction } from '~/logic/echarts/interface'
 
 const emitEvent = defineEmits(['removeLegend'])
 
@@ -120,6 +120,7 @@ const getLegendTheme = function(item: any, index: number): string {
       const keys = Object.keys(tailwind)
       for (let i = 0, len = keys.length; i < len; i++) {
         const key = keys[i]
+        // @ts-ignore
         const value = tailwind[key]
         if (value === color) {
           return key
@@ -256,7 +257,8 @@ const getYAxis = function(): any[] {
       }
       return numberUint(value)
     })
-    return Object.assign({}, option, value, { position })
+    const opt = Object.assign({}, option, value, { position })
+    return { ...opt, ...omit(['axisLabel', 'position'], yaxisData) }
   }
 
   const colorKey = 'axisLabel.textStyle.color'

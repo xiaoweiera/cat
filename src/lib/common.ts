@@ -1,5 +1,5 @@
 import { omit } from 'ramda'
-import { map, dateTime, dateYMDFormat, dateMDFormat, isObject} from '~/utils'
+import { uuid, map, dateTime, dateYMDFormat, dateMDFormat, isObject} from '~/utils'
 import { EchartData, seriesType,LegendItem } from '~/logic/echarts/interface'
 
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
@@ -24,7 +24,8 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
         return Object.assign({
             xAxis,
             series,
-            legends
+            legends,
+            key: uuid(),
         }, omit(['xAxis', 'series', 'legends'], trends))
     }
 }

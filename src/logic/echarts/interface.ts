@@ -73,7 +73,7 @@ export enum Position {
 
 export interface LegendItem {
   name: string // 名称
-  unit: string // 单位
+  unit?: string // 单位
   id: string | number // id
   kline?: boolean // 是否为价格线
   type?: seriesType // echarts 展示图形类型 line / bar ...
@@ -84,6 +84,7 @@ export interface LegendItem {
 
 // 图表数据结构
 export class EchartData {
+  key?: string;
   legends: Array<LegendItem> = [];
   xAxis: Array<XAxisItem | number | string> = [];
   series: SeriesMap = {}
