@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
 // @ts-ignore
-import { numberUint, toNumber } from '~/utils'
+import { numberUint, toNumber, toBoolean } from '~/utils'
 
 defineProps({
   data: {
     type: Object
+  },
+  type: {
+    type: String,
+    required: true,
   }
 })
 </script>
@@ -23,7 +27,7 @@ defineProps({
             <span class="inline-block whitespace-nowrap max-w-full truncate">{{ data.symbol_alias }}</span>
           </span>
         </el-tooltip>
-        <IconFont class="inline-block text-global-highTitle text-opacity-45 ml-1.5" type="icon-star-weixuanzhong" size="16"/>
+        <Apy2BaseFollow class="ml-1 lp-follow" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
       </div>
       <div class="ml-2">
         <IconFont class="text-global-default text-opacity-35" type="icon-tiaozhuan" size="16"/>
@@ -36,6 +40,11 @@ defineProps({
 .symbol-item {
   @at-root .children &{
     @apply pl-7;
+  }
+}
+.lp-follow {
+  @at-root .children &{
+    @apply hidden;
   }
 }
 </style>

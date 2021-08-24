@@ -8,7 +8,7 @@ import { defineProps, onMounted, ref } from 'vue'
 import { getTableExpandList, getTableList } from '~/logic/apy2/table'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
-import { SymbolType } from '~/logic/apy2/interface'
+import { SymbolType, TabCategoryData } from '~/logic/apy2/interface'
 
 const db = new DBList([], 'uuid', 'pid')
 
@@ -16,10 +16,10 @@ const props = defineProps({
   type: {
     type: String,
     required: true,
-    default: () => 'loan',
+    default: () => TabCategoryData.mining,
     validator: function(value: string) {
       // 类型为挖矿与借贷
-      return value === 'mining' || value === 'loan';
+      return value === TabCategoryData.mining || value === TabCategoryData.lend;
     }
   },
   // 单利/综合
@@ -151,9 +151,9 @@ const isToken = function(scope: any) {
         </template>
         <template #default="scope">
           <!-- token 数据可以展开 -->
-          <Apy2BaseTableSymbolToken v-if="isToken(scope)" :key="tdKey(scope, 0)" :data="scope.row['0']" @click="onExpand(scope.row['0'])" />
+          <Apy2BaseTableSymbolToken v-if="isToken(scope)" :type="type" :key="tdKey(scope, 0)" :data="scope.row['0']" @click="onExpand(scope.row['0'])" />
           <!-- 其它 -->
-          <Apy2BaseTableSymbolLp v-else :key="tdKey(scope, 0)" :data="scope.row['0']"/>
+          <Apy2BaseTableSymbolLp v-else :type="type" :key="tdKey(scope, 0)" :data="scope.row['0']"/>
         </template>
       </el-table-column>
       <template v-for="index in rankValue" :key="index">

@@ -12,7 +12,10 @@ export enum SymbolType {
 
 export const TabCategoryData = {
   mining: 'mining',
-  deposit: 'lend'
+  lend: 'lend',
+  // 以下两个不建议使用
+  deposit: 'lend',
+  loan: 'lend'
 }
 
 export interface TokenItem {
