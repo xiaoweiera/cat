@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { difference } from 'ramda'
-import { ref, defineProps, defineEmits, onMounted ,watch} from 'vue'
+import { ref, defineProps, defineEmits, onMounted, watch, toRaw } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { toArray } from '~/utils'
+import DBList from '@fengqiaogang/dblist'
 const emitEvent = defineEmits(['change', 'submit','changeParam'])
 
 const props = defineProps({
@@ -25,7 +26,10 @@ const props = defineProps({
     }
   },
   list:{
-    type:Array
+    type: Array,
+    default () {
+      return []
+    }
   }
 })
 const dialogVisible = ref<boolean>(false)
@@ -37,7 +41,14 @@ onMounted(function() {
   radioValue.value = safeGet(props.radios, '[0].value')
   selectValue.value = safeGet(props.selects, '[0].value')
 })
-watch([radioValue,selectValue,search],(n)=>emitEvent('changeParam',{radioValue:n[0],chain:n[1],search:n[2]}))
+watch([radioValue,selectValue,search],(n)=>{
+  const data = {
+    radioValue: n[0],
+    chain: n[1],
+    search:n[2]
+  }
+  emitEvent('changeParam', data)
+})
 // 取消
 const onHidden = function() {
   dialogVisible.value = false;
@@ -112,9 +123,13 @@ const onRemove = function(value: string | number) {
                 <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeValue">
                   <div class="mt-2 flex items-center" v-for="i in list" :key="i">
                     <el-checkbox :label="i">
+<<<<<<< HEAD
                       <slot name="item" :data="i">
 <!--                        <span class="text-global-highTitle text-xs font-normal">BTC/ETH</span>-->
                       </slot>
+=======
+                      <slot name="item" :data="i"></slot>
+>>>>>>> da78153bc214424cfe0bf99bd327d209c648932b
                     </el-checkbox>
                   </div>
                 </el-checkbox-group>
@@ -129,15 +144,19 @@ const onRemove = function(value: string | number) {
         </div>
         <div class="h-76 mt-2">
           <div class="h-full p-3 overflow-auto border border-global-highTitle border-opacity-6 rounded-md bg-global-bodyTwo">
-            <template v-for="id in checkboxValue" :key="id">
+            <template v-for="(value, index) in checkboxValue" :key="index">
               <div class="result-item flex items-center">
                 <div class="flex-1 w-1">
+<<<<<<< HEAD
                   <slot name="result" :id="id" :data="id">
                     <span>{{ id }}</span>
                   </slot>
+=======
+                  <slot name="result" :data="value"></slot>
+>>>>>>> da78153bc214424cfe0bf99bd327d209c648932b
                 </div>
                 <div class="ml-3">
-                  <div class="cursor-pointer" @click="onRemove(id)">
+                  <div class="cursor-pointer" @click="onRemove(value)">
                     <IconFont type="icon-x" class="text-xs"/>
                   </div>
                 </div>
