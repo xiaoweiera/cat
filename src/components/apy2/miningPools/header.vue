@@ -54,7 +54,7 @@ onMounted(()=>getProject())
         </div>
       </div>
 
-      <div class="apySearch mr-3 px-4 py-2 rounded-kd6px  flex items-center h-9" >
+      <div class="apySearch  px-4 py-2 rounded-kd6px  flex items-center h-9" >
         <IconFont type="icon-sousuo-da1" class="mr-2 text-global-highTitle text-opacity-45" size="12"></IconFont>
         <el-input v-model="txt" placeholder="搜索币种/项目"></el-input>
       </div>

@@ -11,8 +11,8 @@ const [filterType,]=useProvide('filterType','all')
 const [chained]=useProvide('chained','all')
 const resultNumber=ref(0)
 const param={
-  symbol_type:'all',
-  // project_id:props.projectId,
+  // symbol_type:'all',
+  project_id:props.projectId,
   project_id:'all',
   query:'',
   chain:chained.value[0],

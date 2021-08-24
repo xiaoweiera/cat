@@ -88,7 +88,8 @@ const onSumbit=(v:any)=>{
 
     <!--    表格-->
     <div class="mt-8">
-      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium">所有借贷池子</span>
+      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mb-3 block">所有借贷池子</span>
+      <Apy2ProjectLoanList :projectId="props.projectId" />
     </div>
   </div>
 </template>
