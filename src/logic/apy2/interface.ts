@@ -116,6 +116,6 @@ export interface projectMiningChart{
   from_ts:string
   to_ts:string
   project_id:number
-  pools:Array<number>
+  pools:string
   field1:number
 }

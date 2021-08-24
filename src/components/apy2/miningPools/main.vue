@@ -27,25 +27,23 @@ const tagList=computed(()=>{
   }
   return listTag.value
 })
-const getList=async ()=>{
+const getList=async (clear:boolean)=>{
     const res=await getMiningPools(param)
-    resultNumber.value=res.length
-    listData.value=listData.value.concat(res)
-    console.log(res,'result')
+  resultNumber.value=res.length
+  listData.value=clear?res:listData.value.concat(res)
 }
 watch(()=>[tag.value[0],filterType.value[0],project.value[0],txt.value[0]],(n)=>{
   if(!tag.value[0]) return
   param.page=1
-  listData.value=[]
   param.group_id=n[0]
   param.symbol_type=n[1]
   param.project_id=n[2]
   param.query=n[3]
-  getList()
+  getList(true)
 })
 const more=()=>{
 param.page++
-  getList()
+  getList(false)
 }
 </script>
 <template>

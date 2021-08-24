@@ -45,15 +45,12 @@ const orderData=()=>{
               <div class="flex items-center">
                 <div class="text-kd14px18px  text-global-highTitle font-kdExp mr-1.5">{{item.name}}</div>
                 <div class="flex items-center">
-                  <template v-for="chain in item.chains">
-                    <img class="w-3.5 h-3.5 mr-1.5" :src="chainsIcon[chain]" alt="">
-                  </template>
-                  <template v-for="type in item.category">
-                    <IconFont class="mr-1.5" :type="`icon-${tolocaleUpperCase(R.slice(0,1,type))}`" size="14"/>
+                  <template v-for="(chain,i) in item.chains">
+                    <IconFont class=" mr-1.5" size="14" :type="chainsIcon[chain]"/>
                   </template>
                 </div>
               </div>
-              <div class="text-14px18px text-global-highTitle text-opacity-85 font-kdExp">${{formatRulesNumber(item.tvl,false)}}</div>
+              <div class="text-kd14px18px text-global-highTitle text-opacity-85 font-kdExp">${{formatRulesNumber(item.tvl,false)}}</div>
             </div>
 
           </router-link>

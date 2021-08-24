@@ -19,29 +19,29 @@ const param={
   page_size:4
 }
 const listData=ref([])
-const getList=async ()=>{
+const getList=async (clear:boolean)=>{
   param.lend_symbol=param.lend_symbol==='全部'?'all':param.lend_symbol
   param.loan_symbol=param.loan_symbol==='全部'?'all':param.loan_symbol
   param.chain=param.chain==='全部'?'all':param.chain
   param.project_id=param.project_id==='全部'?'all':param.project_id
   const res=await getLoanPools(param)
   resultNumber.value=res.length
+  listData.value=clear?res:listData.value.concat(res)
   listData.value=listData.value.concat(res)
   console.log(res,'result')
 }
 watch(()=>[inCoin.value[0],outCoin.value[0],projectId.value[0],chained.value[0]],(n)=>{
   param.page=1
-  listData.value=[]
   param.lend_symbol=n[0]
   param.loan_symbol=n[1]
   param.project_id=n[2]
   param.chain=n[3]
-  getList()
+  getList(true)
 
 })
 const more=()=>{
   param.page++
-  getList()
+  getList(false)
 }
 </script>
 <template>
