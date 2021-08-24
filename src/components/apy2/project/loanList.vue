@@ -43,13 +43,13 @@ watch(()=>[tag.value[0],filterType.value[0],project.value[0],txt.value[0],chaine
   getList(true)
 })
 const more=()=>{
-param.page++
+  param.page++
   getList(false)
 }
 </script>
 <template>
   <div>
-    <Apy2MiningPoolsHeader :hasCustom="true" :hasProject="true" :type="true" :hasChain="false" :tagList="tagList" />
+    <Apy2MiningPoolsHeader :hasCustom="true" :type="true" :hasChain="true" :tagList="tagList" />
     <Apy2MiningTableMain :data="listData" class="mt-3"/>
   </div>
   <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">加载更多</div>

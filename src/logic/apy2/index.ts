@@ -5,7 +5,7 @@ const getRes=(obj:any)=>{
     }
     return obj
 }
-import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart} from '~/logic/apy2/interface'
+import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart,projectLoanChart,projectDetailChart,projectSameChart,projectMiningList,projectLoanList} from '~/logic/apy2/interface'
 //挖矿分组
 export const getMiningGroup=async (chain:string)=>{
     const result=await api.apy.mining.mining_group({chain:chain})
@@ -75,6 +75,32 @@ export const getProjectMiningTop10Chart=async (param:projectMiningChart)=>{
     const result=await api.apy.project.mining_best10(param)
     return getRes(result)
 }
+//项目借贷top10图表
+export const getProjectLoanTop10Chart=async (param:projectLoanChart)=>{
+    const result=await api.apy.project.lending_best10(param)
+    return getRes(result)
+}
+//项目数据总览图表
+export const getDetail_chart=async (param:projectDetailChart)=>{
+    const result=await api.apy.project.detail_chart(param)
+    return getRes(result)
+}
+//同类项目数据图表
+export const getSame_category=async (param:projectSameChart)=>{
+    const result=await api.apy.project.same_category(param)
+    return getRes(result)
+}
+//项目挖矿列表
+export const getProjectMining_pools=async (param:projectMiningList)=>{
+    const result=await api.apy.project.mining_pools(param)
+    return getRes(result)
+}
+//项目借贷列表
+export const getProjectLending_pools=async (param:projectLoanList)=>{
+    const result=await api.apy.project.lending_pools(param)
+    return getRes(result)
+}
+
 
 
 

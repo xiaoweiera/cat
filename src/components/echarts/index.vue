@@ -543,7 +543,7 @@ onUnmounted(function() {
     </div>
   </template>
   <template v-else>
-    <div class="w-full h-full">
+    <div class="w-full h-full" :class="customClass">
       <div class="hidden">
         <slot></slot>
       </div>

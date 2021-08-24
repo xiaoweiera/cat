@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {onMounted} from 'vue'
-import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
+import {chain,rankingTag,tableTag,listTag,tokenList,projectList,waring} from '~/store/apy2/state'
 import {getMiningGroup,getTokenAndProject} from '~/logic/apy2/index'
 const getGroupData=async ()=>{
   const result=await getMiningGroup(chain.value)
@@ -32,7 +32,7 @@ onMounted(async ()=>{
         <Apy2BaseNotice class="mr-8"/>
         <Apy2BasePlayType />
       </div>
-      <Apy2BaseWarnTip class="mt-6"/>
+      <Apy2BaseWarnTip :des="waring" class="mt-6"/>
       <Apy2Chains class="mt-15"/>
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">

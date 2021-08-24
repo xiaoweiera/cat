@@ -21,7 +21,6 @@ const getChart=async ()=>{
   chartData.legends = data.legends
   chartData.xAxis = data.xAxis
   chartData.series = data.series
-  console.log(chartData,'数据')
 }
 const selectToken=(name:string)=>token.value=name
 watch(token,(n)=>{

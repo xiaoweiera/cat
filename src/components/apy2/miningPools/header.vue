@@ -7,42 +7,53 @@ import {  setInject, getInject } from '~/utils/use/state'
 import {getProjectList} from '~/logic/apy2/index'
 import {chains} from '~/logic/apy2/config'
 const props=defineProps({
-  tagList:Object
+  tagList:Object,
+  hasCustom:Boolean,
+  hasChain:Boolean,
+  type:Boolean,
+  hasProject:Boolean
 })
 const project=ref('all')
 const chained=ref('all')
 const setProject=setInject('project')
+const setChained=setInject('chained')
 const setTxt=setInject('txt')
 const projectList=ref([
   {name:'全部项目',id:'all'}
 ])
 const txt=ref('')
 watch(project,()=>setProject(project.value))
+watch(chained,()=>setChained(chained.value))
 watch(txt,()=>setTxt(txt.value))
 const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'token'},{name:'LP',key:'lp'}])
 const getProject=async ()=>{
-  const result=await getProjectList(chain.value,'')
-  projectList.value=projectList.value.concat(result)
+  if(props.hasProject){
+    const result=await getProjectList(chain.value,'')
+    projectList.value=projectList.value.concat(result)
+  }
 }
 onMounted(()=>getProject())
 </script>
 <template>
   <div class="flex items-center font-kdFang flex-wrap justify-between">
-    <Apy2MiningPoolsSelectTag  :list="tagList"   class="mr-10"/>
-    <div class="flex">
-      <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
-      <div class="apyProject mr-3">
+    <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList"   class="mr-10"/>
+    <div class="flex" :class="props.hasCustom?'':'justify-between   w-full'">
+      <div class="flex ">
+      <Apy2MiningPoolsFliter v-if="props.type" class="mr-3"  :list="typeList" />
+      <div v-if="props.hasProject" class="apyProject mr-3">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
           <el-option v-for="item in projectList"  :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </div>
-      <div class="apyProject mr-3">
-        <el-select filterable :popper-append-to-body="false" v-model="chained"   size="small" >
-          <el-option v-for="item in chains"  :label="item.name" :value="item.key">
-          </el-option>
-        </el-select>
+        <div v-if="props.hasChain" class="apyProject mr-3">
+          <el-select filterable :popper-append-to-body="false" v-model="chained"   size="small" >
+            <el-option v-for="item in chains"  :label="item.name" :value="item.key">
+            </el-option>
+          </el-select>
+        </div>
       </div>
+
       <div class="apySearch mr-3 px-4 py-2 rounded-kd6px  flex items-center h-9" >
         <IconFont type="icon-sousuo-da1" class="mr-2 text-global-highTitle text-opacity-45" size="12"></IconFont>
         <el-input v-model="txt" placeholder="搜索币种/项目"></el-input>

@@ -41,8 +41,8 @@ const orderData=()=>{
               <IconFont v-if="item.is_new" type="icon-NEW" size="24" class="absolute z-1 "/>
               <IconFont :type="item.logo || 'icon-morentoken'" size="24" class="relative left-1.2  "/>
             </div>
-            <div class="ml-3  flex items-center  justify-between flex-1">
-              <div class="flex items-center">
+            <div class="ml-3  flex items-center  justify-between flex-1 ">
+              <div class="flex items-center flex-wrap">
                 <div class="text-kd14px18px  text-global-highTitle font-kdExp mr-1.5">{{item.name}}</div>
                 <div class="flex items-center">
                   <template v-for="(chain,i) in item.chains">

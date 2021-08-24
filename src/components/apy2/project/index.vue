@@ -10,6 +10,7 @@ import {getProjectList} from '~/logic/apy2/index'
 // const projectId=reactive({value:0})
 const route = useRoute()
 const [chain,setChain]=useProvide('chain','all')
+const [projectInfo,]=useProvide('projectInfo',{})
 setChain(route.query.chain || 'all')
 
 const projectId=computed(()=>

@@ -116,3 +116,40 @@ export interface projectMiningChart{
   pools:string
   field1:number
 }
+export interface projectLoanChart{
+  from_ts:string
+  to_ts:string
+  project_id:number
+  pools:string
+}
+export interface projectDetailChart{
+  from_ts:string
+  to_ts:string
+  project_id:number
+  field1:string
+}
+export interface projectSameChart{
+  projects:string
+  is_lend:boolean
+  from_ts:string
+  to_ts:string
+  project_id:number
+  field1:string
+}
+export interface projectMiningList{
+  symbol_type:string
+  project_id:string
+  query:string
+  chain:string
+  ordering:string
+  page:number
+  page_size:number
+}
+export interface projectLoanList{
+  project_id:string
+  query:string
+  chain:string
+  ordering:string
+  page:number
+  page_size:number
+}

@@ -3,13 +3,16 @@ import {ref, defineProps, onMounted} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import { formatRulesNumber} from '~/lib/tool'
+import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {getProjectDetail} from '~/logic/apy2/index'
 
 const props = defineProps({projectId: Object})
+const setProjectInfo=setInject('projectInfo')
 const data = ref({})
 const getData = async () =>{
   if(!props.projectId) return
   data.value = await getProjectDetail(props.projectId)
+  setProjectInfo(data.value)
 }
 onMounted(getData())
 </script>

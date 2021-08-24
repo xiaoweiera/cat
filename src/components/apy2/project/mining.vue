@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import {ref, defineProps,onBeforeMount} from 'vue'
+import {ref, defineProps,onBeforeMount,reactive,onMounted,watch} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
+import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
+import {echartTransform} from '~/lib/common'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon,selectChains} from '~/logic/apy2/config'
 import {getProjectMiningTop10Chart} from '~/logic/apy2/index'
@@ -11,39 +13,54 @@ import {getPoolsList} from '~/logic/apy2/index'
 const tagList=[{name:'全部',key:'all'}, {name:'单币',key:'dan'}, {name:'LP',key:'lp'}]
 const radios = [{ label: '单币', value: 'token' }, { label: 'LP', value: 'lp' }]
 const chain=getInject('chain')
-const type = ref('TVL')
-const selectList = ref(['TVL','APY'])
-const [selectTxt,]=useProvide('selectTxt','')
-const [filterType,]=useProvide('filterType','all')
+const type = ref('tvl')
+const selectList = ref([{name:'TVL',key:'tvl'},{name:'APY',key:'apy'}])
+const chartData = reactive<EchartData>(new EchartData())
 const pools=ref([])
 const dialogSearch=ref('')
-const changeTime = (time: any) => {
-  console.log(time)
-}
 const list=ref([])
+const key=ref(0)
+const loading=ref(true)
+const param=reactive({
+  from_ts:0,
+  to_ts:0,
+  project_id:props.projectId,
+  pools:pools.value,
+  field1:type.value
+})
+//改变时间
+const changeTime = (time: any) => {
+  param.from_ts=time[0].toString().slice(0,time[0].toString().length-3)
+  param.to_ts=time[1].toString().slice(0,time[1].toString().length-3)
+  getChart()
+}
+//改变TVL APY
+watch(()=>type.value,(n)=>{
+  param.field1=n
+  getChart()
+})
 const getData=async (project_id,pool_type,chain,type,search)=>{
   if(project_id) {
     list.value = await getPoolsList(project_id, pool_type, chain, type, search)
   }
 }
 onBeforeMount(()=>{
-  getData(props.projectId,props.pool_type,chain.value[0],'single','')
+  getData(props.projectId,props.pool_type,'all','token','')
 })
 
 const changeParam=(v:any)=>{
-    getData(props.projectId, props.pool_type, v.chain, v.radioValue, v.search)
+  getData(props.projectId, props.pool_type, v.chain, v.radioValue, v.search)
 }
-const param={
-  from_ts:0,
-  to_ts:0,
-  project_id:props.projectId,
-  pools:pools.value,
-  field1:type.value
-}
+
 const getChart=async ()=>{
-  console.log(param,'axios')
-  const res=await getProjectMiningTop10Chart(param)
-  console.log(res)
+  loading.value=true
+  const result=await getProjectMiningTop10Chart(param)
+  loading.value=false
+  const data=echartTransform(result)
+  key.value++
+  chartData.legends = data.legends
+  chartData.xAxis = data.xAxis
+  chartData.series = data.series
 }
 const onSumbit=(v:any)=>{
   const poolsId=R.join(',',R.map(v=>v.id,v))
@@ -52,12 +69,12 @@ const onSumbit=(v:any)=>{
 }
 </script>
 <template>
-  <div class="font-kdFang">
+  <div class="font-kdFang relative">
     <Apy2ProjectChartInfo/>
     <div class="mt-3 flex items-center justify-between ">
       <div class="flex items-center">
         <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">
-          <el-option v-for="item in selectList" :key="item" :label="item" :value="item">
+          <el-option v-for="item in selectList" :label="item.name" :value="item.key">
           </el-option>
         </el-select>
         <UiTransfer title="添加矿池" sub-title="已选矿池" :list="list" :radios="radios"   @changeParam="changeParam" :selects="selectChains" @submit="onSumbit">
@@ -79,25 +96,19 @@ const onSumbit=(v:any)=>{
       </div>
       <UiDateDay @change="changeTime"/>
     </div>
-<!--    图表echarts-->
-    <Apy2ProjectChart />
-<!--    表格-->
+    <!--    图表echarts-->
+    <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />
+
+    <!--    表格-->
     <div class="mt-8">
-      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium">所有挖矿池子</span>
-     <div class="flex items-center justify-between">
-       <div class="flex items-center projectChart">
-         <Apy2MiningPoolsFliter class="my-3 mr-3" :list="tagList"/>
-         <Apy2BaseChains/>
-       </div>
-       <Apy2BaseSelectData placeStr="搜索币种" />
-     </div>
-      <Apy2MiningTableMain />
+      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mb-3 block">所有挖矿池子</span>
+      <Apy2ProjectMiningList :projectId="props.projectId" />
     </div>
   </div>
 </template>
 <style  lang="scss">
 .projectMining{
- .el-input__inner{
+  .el-input__inner{
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: none;
     width: 120px !important;
@@ -108,6 +119,7 @@ const onSumbit=(v:any)=>{
 }
 
 </style>
+
 
 
 

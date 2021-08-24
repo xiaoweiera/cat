@@ -1,27 +1,60 @@
 <script setup lang="ts">
-import {ref, defineProps} from 'vue'
+import {ref, defineProps,onBeforeMount,reactive,onMounted,watch,computed} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
+import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
+import {echartTransform} from '~/lib/common'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon} from '~/logic/apy2/config'
+import {chainsIcon,selectChains} from '~/logic/apy2/config'
+import {getDetail_chart} from '~/logic/apy2/index'
 import {tolocaleUpperCase} from '~/lib/tool'
-import {selectChains} from '~/logic/apy2/config'
-const tagList=[
-  {name:'全部',key:'all'},
-  {name:'单币',key:'dan'},
-  {name:'LP',key:'lp'}
-]
-const type = ref('TVL')
-const selectList = ref(['TVL'])
-const chartTypeList=ref([
-  {name:'日活数量',key:'dayUser'}
+const props=defineProps({projectId:Object})
+const selectList=ref([
+  {name:'TVL',key:'tvl'},
+  {name:'用户总收益',key:'reward_cap'},
+  {name:'借款总额',key:'borrowed'},
+  {name:'存款总额',key:'tvl_and_borrowd'},
+  {name:'总池子数',key:'pool_length'},
+  {name:'单币池子数',key:'token_pool_length'},
+  {name:'LP池子数',key:'lp_pool_length'},
 ])
-const chartType=ref('dayUser')
-const [selectTxt,]=useProvide('selectTxt','')
-const [chain,]=useProvide('chain','all')
-const [filterType,]=useProvide('filterType','all')
+const chain=getInject('chain')
+const projectInfo=getInject('projectInfo')
+const type = ref('tvl')
+const chartData = reactive<EchartData>(new EchartData())
+const projects=ref([])
+const dialogSearch=ref('')
+const list=ref([])
+const key=ref(0)
+const loading=ref(true)
+const param=reactive({
+  from_ts:0,
+  to_ts:0,
+  project_id:props.projectId,
+  field1:type.value
+})
+//改变时间
 const changeTime = (time: any) => {
-  console.log(time)
+  param.from_ts=time[0].toString().slice(0,time[0].toString().length-3)
+  param.to_ts=time[1].toString().slice(0,time[1].toString().length-3)
+  getChart()
+}
+const typeItem=computed(()=>R.find(item=>item.key===type.value,selectList.value))
+//改变TVL等
+watch(()=>type.value,(n)=>{
+  param.field1=n
+  getChart()
+})
+const getChart=async ()=>{
+  loading.value=true
+  const result=await getDetail_chart(param)
+  console.log(result,'jjjjj')
+  loading.value=false
+  const data=echartTransform(result)
+  key.value++
+  chartData.legends = data.legends
+  chartData.xAxis = data.xAxis
+  chartData.series = data.series
 }
 </script>
 <template>
@@ -30,33 +63,28 @@ const changeTime = (time: any) => {
     <div class="mt-3 flex items-center justify-between">
       <div class="flex items-center">
         <el-select class="mr-3" :popper-append-to-body="false" v-model="type" size="small">
-          <el-option v-for="item in selectList" :key="item" :label="item" :value="item">
-          </el-option>
-        </el-select>
-
-        <el-select :popper-append-to-body="false" v-model="chartType" size="small">
-          <el-option v-for="item in chartTypeList" :key="item.key" :label="item.name" :value="item.key">
+          <el-option v-for="item in selectList" :label="item.name" :value="item.key">
           </el-option>
         </el-select>
       </div>
       <UiDateDay @change="changeTime"/>
     </div>
     <div class="flex items-center my-3">
-      <div class="righBorder pr-12">
-        <div class="dataTxt pr-12 ">TVL</div>
-        <div class="dataNumber">$212124.11</div>
+      <div class=" pr-12">
+        <div class="dataTxt pr-12 ">{{typeItem.name}}</div>
+        <div class="dataNumber mt-0.5">$212124.11</div>
       </div>
-      <div class="righBorder px-12" >
-        <div class="dataTxt">TVL</div>
-        <div class="dataNumber">$212124.11</div>
-      </div>
-      <div class="pl-12">
-        <div class="dataTxt">TVL</div>
-        <div class="dataNumber">$212124.11</div>
-      </div>
+<!--      <div class="righBorder px-12" >-->
+<!--        <div class="dataTxt">TVL</div>-->
+<!--        <div class="dataNumber">$212124.11</div>-->
+<!--      </div>-->
+<!--      <div class="pl-12">-->
+<!--        <div class="dataTxt">TVL</div>-->
+<!--        <div class="dataNumber">$212124.11</div>-->
+<!--      </div>-->
     </div>
     <!--    图表echarts-->
-    <Apy2ProjectChart />
+    <Apy2ProjectChart :custom="false" :loading="loading" :key="key" :chartData="chartData"  />
   </div>
 </template>
 <style  lang="scss">
