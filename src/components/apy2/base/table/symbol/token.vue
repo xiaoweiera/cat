@@ -6,6 +6,10 @@ import { numberUint, toNumber } from '~/utils'
 defineProps({
   data: {
     type: Object
+  },
+  type: {
+    type: String,
+    required: true,
   }
 })
 </script>
@@ -24,7 +28,7 @@ defineProps({
               <span class="inline-block whitespace-nowrap max-w-full truncate">{{ data.symbol_alias }}</span>
             </span>
           </el-tooltip>
-          <IconFont class="ml-1 text-global-highTitle text-opacity-45" type="icon-star-weixuanzhong" size="16"/>
+          <Apy2BaseFollo :type="type" :value="data.symbol_alias"/>
         </div>
         <div class="mt-1 text-xs flex items-center">
           <span class="inline-block mr-1 text-global-highTitle text-opacity-85">${{ numberUint(data.symbol_price) }}</span>

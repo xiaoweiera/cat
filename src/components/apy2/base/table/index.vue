@@ -163,7 +163,7 @@ const isToken = function(scope: any) {
           </template>
           <template #default="scope">
             <template v-if="scope.row[index]">
-              <template v-if="type === 'mining'">
+              <template v-if="type === 'mining'" id="20">
                 <Apy2BaseTableMiningItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
               </template>
               <template v-else>
