@@ -141,13 +141,7 @@ const onRemove = function(value: string | number) {
             <template v-for="(value, index) in checkboxValue" :key="index">
               <div class="result-item flex items-center">
                 <div class="flex-1 w-1">
-<<<<<<< HEAD
-                  <slot name="result" :id="id" :data="id">
-                    <span>{{ id }}</span>
-                  </slot>
-=======
                   <slot name="result" :data="value"></slot>
->>>>>>> da78153bc214424cfe0bf99bd327d209c648932b
                 </div>
                 <div class="ml-3">
                   <div class="cursor-pointer" @click="onRemove(value)">
