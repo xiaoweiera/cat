@@ -4,7 +4,8 @@
 
 <template>
   <div class="p-5">
-    <Apy2BaseTable apy-type="all" group-id="my" chain="all"/>
+<!--    <Apy2BaseTable apy-type="all" group-id="my" chain="all"/>-->
+    <Apy2BaseFollowMultiple/>
   </div>
 </template>
 

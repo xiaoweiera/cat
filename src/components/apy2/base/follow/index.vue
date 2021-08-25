@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, computed } from 'vue'
 import { TabCategoryData } from '~/logic/apy2/interface'
-import * as API from '~/api/index'
+import { setFollow } from '~/logic/apy2/follow'
 import { isEmpty } from '~/utils'
 import { messageError, messageSuccess } from '~/lib/tool'
 import safeGet from '@fengqiaogang/safe-get'
@@ -56,7 +56,7 @@ const onClick = async function() {
     type: props.type,
   }
   try {
-    await API.apy.common.setFollow(query)
+    await setFollow(query)
     follow.value = !follow.value;
     messageSuccess('已收藏')
   } catch (e) {
