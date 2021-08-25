@@ -27,7 +27,7 @@ const props=defineProps({
     </div>
     <div class="flex mt-1.5 items-center">
       <span class="label">杠杆倍数</span>
-      <span class="txt ml-1">{{data.lever}}x</span>
+      <span v-if="data.lever" class="txt ml-1">{{data.lever}}x</span>
     </div>
     <div class="flex flex-col mt-1.5 relative">
       <div class="label whitespace-nowrap">APY构成</div>

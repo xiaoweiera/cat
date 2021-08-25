@@ -7,7 +7,7 @@ import {getLending_rank} from '~/logic/apy2/index'
 import {getInject} from '~/utils/use/state'
 import {chainsIcon} from '~/logic/apy2/config'
 import {project_type} from '~/logic/apy2/config'
-import {formatRulesNumber} from '~/lib/tool'
+import {formatRulesNumber,getIconType} from '~/lib/tool'
 const group_id=getInject('group_id')
 const list=ref()
 watch(()=>group_id.value[0], ()=>getData())
@@ -19,6 +19,8 @@ onMounted(()=>{if(group_id.value[0]){getData()}})
 <template>
   <div class="font-kdFang w-full  font-kdExp ">
     <template v-for="(item,i) in list">
+      <UiPopover class=" inline-block  w-full">
+        <template #reference>
       <div v-if="i<5"   class="flex py-3 items-center w-full topBorder">
         <div class=" flex items-center">
           <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;"    :type='`icon-a-${i+1}`'></IconFont>
@@ -33,32 +35,30 @@ onMounted(()=>{if(group_id.value[0]){getData()}})
             </div>
             <div>
               <span class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
-              <UiPopover class="ml-3 inline-block px-0">
-                <template #reference>
-                  <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
-                </template>
-                <template #content>
-                  <div class="min-w-70 relative  p-1.3">
-                    <Apy2TopListLoanTip :data="item" />
-                  </div>
-                </template>
-              </UiPopover>
+              <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
             </div>
           </div>
           <div class="mt-1 flex items-center flex-wrap  justify-between">
             <div class="flex items-center">
               <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{item.project}}</span>
               <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[item.chain]"></IconFont>
-              <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="`icon-${project_type[item.project_category]}`"></IconFont>
+              <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
               <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">MDEX 董事会</span>
             </div>
-            <div>
+            <div class="flex items-center">
               <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">可借金额</span>
               <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{formatRulesNumber(item.quota_remain)}}</span>
             </div>
           </div>
         </div>
       </div>
+          </template>
+        <template #content>
+          <div class="min-w-70 relative  p-1.3">
+            <Apy2TopListLoanTip :data="item" />
+          </div>
+        </template>
+      </UiPopover>
     </template>
   </div>
 </template>
