@@ -68,7 +68,7 @@ const onClick = async function() {
 </script>
 
 <template>
-  <IconFont v-login @click.stop.prevent="onClick" class="follow-button cursor-pointer" :class="{ 'active': active }" type="icon-star-weixuanzhong" size="16"/>
+  <IconFont v-login @click.stop.prevent="onClick" class="follow-button cursor-pointer" :class="{ 'active': active }" :type="active ? 'icon-star-xuanzhong' : 'icon-star-weixuanzhong'" size="16"/>
 </template>
 
 <style lang="scss" scoped>
