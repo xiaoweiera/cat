@@ -24,7 +24,18 @@ export interface TokenItem {
   icon: string
   href?: string
 }
-
+export interface ProjectItem {
+  apy:number
+  category:Array<string>
+  chains:Array<string>
+  id: string | number
+  is_lend:boolean
+  logo:string
+  name:string
+  new:boolean
+  strategy_tags:string
+  tvl:number
+}
 export class HecoDetail{
   votes: number = 0; // 总票数
   voters: number = 0; // 总投票人数

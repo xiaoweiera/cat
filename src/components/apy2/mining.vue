@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {onMounted} from 'vue'
-import {chain,rankingTag,tableTag,listTag,tokenList,projectList,waring} from '~/store/apy2/state'
+import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
 import {getMiningGroup,getTokenAndProject} from '~/logic/apy2/index'
 const getGroupData=async ()=>{
   const result=await getMiningGroup(chain.value)

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {ref, defineProps} from 'vue'
+import {ref, defineProps,watch} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import {chain,tokenList,projectList} from '~/store/apy2/state'
 import {getTokenAndProject,getTokenList} from '~/logic/apy2/index'
-const selectValue=ref('')
+const plat=ref('')
+const coin=ref('')
+const loan=ref('')
 const list=[
   {
     id:0,
@@ -69,6 +71,8 @@ const textList={
 const cc='coinTxt'
 const tokens=ref([])
 const projects=ref([])
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
+const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 <template>
   <div class="w-74  font-kdFang relative">
@@ -88,29 +92,39 @@ const projects=ref([])
             <img class=" w-13 h-13 " :src="item.logo" alt="">
             <div class="invisible text-kd10px10px  font-medium  mt-1">撑高度</div>
           </div>
-
           <a href="/"  class="vido hand absolute right-5 top-3.5 flex flex-col items-center">
             <img class="w-10 h-10 ml-0.8 " :src="item.video" alt="">
             <div :class="textList[i]" class="text-kd10px10px relative z-10 font-medium  mt-1.5">相关资料</div>
           </a>
         </div>
         <!-- 下拉 -->
-        <div v-if="i<3"  :class="bgList[i]"  class="confirm   pb-4 pt-4  w-full ">
+        <div v-if="i<3"  :class="bgList[i]"  class="confirm px-3   pb-4 pt-4  w-full ">
           <div class=" px-5">
-            <div class="flex items-center selectClass px-1 rounded-kd6px   justify-between" >
-              <div >
-                <el-select filterable :popper-append-to-body="false"   size="small" v-model="selectValue" :placeholder="item.selectText">
-                  <template v-if="i===1">
-                    <el-option v-for="item in tokenList" :key="item.name" :label="item.name" :value="item.name">
+            <div class="flex items-center selectClass  rounded-kd6px   justify-between" >
+              <div class="pl-2 pr-1">
+                <div v-if="i===0" class="flex items-center" >
+                  <el-select  filterable :popper-append-to-body="false"   size="small" v-model="plat" :placeholder="item.selectText">
+                    <el-option  v-for="item in projectList"  :label="item.name" :value="item.id">
                     </el-option>
-                  </template>
-                  <template v-else>
-                    <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
+                  </el-select>
+                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
+                </div>
+                <div v-if="i===1"   class="flex items-center">
+                  <el-select  filterable :popper-append-to-body="false"   size="small" v-model="coin" :placeholder="item.selectText">
+                    <el-option  v-for="item in tokenList"  :label="item.name" :value="item.name">
                     </el-option>
-                  </template>
-                </el-select>
+                  </el-select>
+                  <a v-router.blank="tokenUrl(selectValue)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
+                </div>
+                <div v-if="i===2"   class="flex items-center">
+                  <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
+                    <el-option  v-for="item in projectList"  :label="item.name" :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <a v-router.blank="platUrl(loan)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
+                </div>
               </div>
-              <span :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</span>
+
             </div>
           </div>
         </div>

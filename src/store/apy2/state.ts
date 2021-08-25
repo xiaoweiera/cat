@@ -1,10 +1,10 @@
 
 // 币种数据
 import { ref } from 'vue'
-import { TokenItem } from '~/logic/apy2/interface'
+import { TokenItem,ProjectItem} from '~/logic/apy2/interface'
 
 export const tokenList = ref<TokenItem[]>([])
-export const projectList=ref([])
+export const projectList=ref<ProjectItem[]>([])
 export const chain=ref('all')
 export const tokens=ref([])
 export const rankingTag=ref([])
