@@ -15,7 +15,6 @@ const db = new DBList([], 'uuid', 'pid')
 const props = defineProps({
   type: {
     type: String,
-    required: true,
     default: () => TabCategoryData.mining,
     validator: function(value: string) {
       // 类型为挖矿与借贷
@@ -142,6 +141,13 @@ const isToken = function(scope: any) {
   return !!(data && data[SymbolType.name] === SymbolType.Token);
 }
 
+// 重新加载
+// @ts-ignore
+const reload = function() {
+  page.value = 1
+  return updateData()
+}
+
 </script>
 <template>
   <Spin :loading="loading">
@@ -177,7 +183,7 @@ const isToken = function(scope: any) {
     </el-table>
     <div class="pt-4 flex">
       <div v-if="groupId === 'my'">
-        <Apy2BaseFollowMultiple/>
+        <Apy2BaseFollowMultiple :type="type" @success="reload"/>
       </div>
       <div class="flex-1 text-center" v-if="nextStatus">
         <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">

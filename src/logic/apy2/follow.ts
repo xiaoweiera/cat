@@ -9,6 +9,6 @@ export const setFollow = function(query: object) {
   return API.apy.common.setFollow(query as any)
 }
 
-export const symbolList = function() {
-  return API.apy.common.symbolList()
+export const symbolList = function(query: object) {
+  return API.apy.common.symbolList(query)
 }

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { difference } from 'ramda'
-import { ref, defineProps, defineEmits, onMounted, watch } from 'vue'
+import { ref, defineProps, defineEmits, onMounted, watch, computed, toRaw } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
-import { toArray } from '~/utils'
+import { toArray, map } from '~/utils'
+import DBList from '@fengqiaogang/dblist'
 const emitEvent = defineEmits(['change', 'submit','changeParam'])
 
 const props = defineProps({
@@ -34,13 +35,12 @@ const props = defineProps({
 const dialogVisible = ref<boolean>(false)
 const radioValue = ref<string | number>()
 const selectValue = ref<string | number>()
+
 const checkboxValue = ref<Array<string | number>>([])
-const search=ref<string>('')
-onMounted(function() {
-  radioValue.value = safeGet(props.radios, '[0].value')
-  selectValue.value = safeGet(props.selects, '[0].value')
-})
-watch([radioValue,selectValue,search],(n)=>{
+
+const search = ref<string>('')
+
+watch([radioValue, selectValue, search],(n)=>{
   const data = {
     radioValue: n[0],
     chain: n[1],
@@ -48,6 +48,18 @@ watch([radioValue,selectValue,search],(n)=>{
   }
   emitEvent('changeParam', data)
 })
+
+const getCheckboxList = function() {
+  const ids = toRaw(checkboxValue.value)
+  const array: any[] = toRaw(props.list)
+  const db = new DBList(array)
+  return db.select({ id: ids })
+}
+
+// 已选择数据
+// @ts-ignore
+const checkboxList = computed<any[]>(getCheckboxList)
+
 // 取消
 const onHidden = function() {
   dialogVisible.value = false;
@@ -55,23 +67,30 @@ const onHidden = function() {
 // 确认
 // @ts-ignore
 const onSubmit = function() {
-  emitEvent('submit', toArray(checkboxValue.value))
+  const value = getCheckboxList()
+  emitEvent('submit', value)
   onHidden();
 }
 
-// 选择左侧或修改右侧数据时
-const onChangeValue = function(value: Array<string | number>) {
-  console.log(value,'--')
-  emitEvent('change', value)
-}
 // @ts-ignore
-const onRemove = function(value: string | number) {
+const onRemove = function(data: any) {
+  const value = safeGet<string | number>(data, 'id')
   const list: Array<string | number> = toArray(checkboxValue.value)
   // 计算差集，得到未删除的数据
   const array:Array<string | number> = difference(list, [value])
-  onChangeValue(array)
   checkboxValue.value = array
 }
+
+onMounted(function() {
+  radioValue.value = safeGet(props.radios, '[0].value')
+  selectValue.value = safeGet(props.selects, '[0].value')
+  const array: any[] = toRaw(props.list)
+  if (array.length > 0) {
+    const db = new DBList(array)
+    const list = db.select({ checked: true })
+    checkboxValue.value = map((item: any) => item.id, list)
+  }
+})
 
 </script>
 
@@ -119,10 +138,10 @@ const onRemove = function(value: string | number) {
             </el-header>
             <el-main class="p-0 ">
               <div class="h-full overflow-auto showY">
-                <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeValue">
-                  <div class="mt-2 flex items-center" v-for="i in list" :key="i">
-                    <el-checkbox :label="i">
-                      <slot name="item" :data="i"></slot>
+                <el-checkbox-group class="block w-full" v-model="checkboxValue">
+                  <div class="mt-2 flex items-center" v-for="item in list" :key="item.id">
+                    <el-checkbox :label="item.id">
+                      <slot :key="item.id" name="item" :data="item"></slot>
                     </el-checkbox>
                   </div>
                 </el-checkbox-group>
@@ -137,14 +156,14 @@ const onRemove = function(value: string | number) {
         </div>
         <div class="h-76 mt-2">
           <div class="h-full p-3 overflow-auto border border-global-highTitle border-opacity-6 rounded-md bg-global-bodyTwo">
-            <template v-for="(value, index) in checkboxValue" :key="index">
+            <template v-for="(value, index) in checkboxList" :key="index">
               <div class="result-item flex items-center">
                 <div class="flex-1 w-1">
                   <slot name="result" :data="value"></slot>
                 </div>
                 <div class="ml-3">
                   <div class="cursor-pointer" @click="onRemove(value)">
-                    <IconFont type="icon-x" class="text-xs"/>
+                    <IconFont class="text-global-highTitle text-xs" type="icon-x" size="12"/>
                   </div>
                 </div>
               </div>
