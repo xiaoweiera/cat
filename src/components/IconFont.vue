@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toUpper } from 'ramda'
-import { isHttp } from '~/utils'
+import { equalsIgnoreCase, isHttp } from '~/utils'
 import { defineProps, computed } from 'vue'
 import { oss } from '~/lib/process'
 
@@ -112,12 +112,22 @@ const iconCode = function() {
     'OEC': 'icon-OK',
     'POS': 'icon-POS',
     'POLYGON': 'icon-POS',
-    'FARM': 'icon-F',
-    'VAULT': 'icon-V',
-    'LENDING': 'icon-L'
+    // 项目类型
+    'Farm': 'icon-F',
+    'Vault': 'icon-V',
+    'Lending': 'icon-L',
+    'Borrow': 'icon-B',
+    'Supply': 'icon-S',
+    'Deposit': 'icon-D',
+    'Staking': 'icon-S',
+    'Liquidity': 'icon-L',
   }
-  // @ts-ignore
-  const link: string = config[toUpper(props.type)] || props.type
+  let link: string = props.type
+  for(const name in config) {
+    if (equalsIgnoreCase(name, props.type)) {
+      link = config[name]
+    }
+  }
   return `<use xlink:href="#${link}"></use>`;
 }
 const sizes = {

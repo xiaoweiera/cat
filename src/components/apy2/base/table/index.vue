@@ -75,14 +75,14 @@ const updateData = async function() {
   loading.value = true
   try {
     // @ts-ignore
-    const size = db.size()
+    const size = db.size() // 请求前数据长度
     const { maxLength = 0 } = await getTableList(db, { ...props, page: page.value })
     // @ts-ignore
-    if (size === db.size()) {
-      nextStatus.value = false
-    } else {
+    if (db.size() > size) { // 请求完成后的数据长度如果大于请求前的数据长度
       tableData.value = getTableDataList()
       rankValue.value = maxLength < 6 ? 6 : maxLength
+    } else {
+      nextStatus.value = false
     }
   } catch (e) {
     console.log(e)
@@ -141,13 +141,14 @@ const isToken = function(scope: any) {
   const data = scope.row['0']
   return !!(data && data[SymbolType.name] === SymbolType.Token);
 }
+
 </script>
 <template>
   <Spin :loading="loading">
     <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName">
       <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
-          <Apy2BaseTableHead index="0"/>
+          <Apy2BaseTableHead/>
         </template>
         <template #default="scope">
           <!-- token 数据可以展开 -->
@@ -162,22 +163,27 @@ const isToken = function(scope: any) {
             <Apy2BaseTableHead :index="index"/>
           </template>
           <template #default="scope">
-            <template v-if="scope.row[index]">
-              <template v-if="type === 'mining'" id="20">
+            <template v-if="scope.row[index] && TabCategoryData">
+              <template v-if="type === TabCategoryData.mining">
                 <Apy2BaseTableMiningItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
               </template>
               <template v-else>
-                <Apy2BaseTableLoanItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+                <Apy2BaseTableLendItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
               </template>
             </template>
           </template>
         </el-table-column>
       </template>
     </el-table>
-    <div class="pt-4 text-center" v-if="nextStatus">
-      <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">
-        <span class="text-sm text-global-highTitle bg-opacity-65">加载更多</span>
-      </span>
+    <div class="pt-4 flex">
+      <div v-if="groupId === 'my'">
+        <Apy2BaseFollowMultiple/>
+      </div>
+      <div class="flex-1 text-center" v-if="nextStatus">
+        <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">
+          <span class="text-sm text-global-highTitle bg-opacity-65">加载更多</span>
+        </span>
+      </div>
     </div>
   </Spin>
 </template>

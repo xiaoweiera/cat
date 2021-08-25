@@ -3,17 +3,17 @@ import { defineProps } from 'vue'
 // 定义 props
 import Props from '~/components/apy2/token/props'
 
+// @ts-ignore
 const props = defineProps(Props())
-
 
 </script>
 
 <template>
   <div>
     <!-- 币种描述 -->
-    <Apy2TokenDetail :symbol="symbol" :id="id" :type="type"/>
+    <Apy2TokenDetail :symbol="symbol" :type="type"/>
     <div :key="trendKey">
-      <Apy2TokenTrend :symbol="symbol" :id="id" :type="type"/>
+      <Apy2TokenTrend :symbol="symbol" :type="type"/>
     </div>
   </div>
   <div class="mt-8">

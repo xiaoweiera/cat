@@ -5,11 +5,6 @@ const Props = function() {
       type: String,
       required: true
     },
-    // 币种ID
-    id: {
-      type: String,
-      required: true
-    },
     // 池子类型
     type: {
       type: String,

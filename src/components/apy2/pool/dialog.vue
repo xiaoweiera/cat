@@ -54,7 +54,7 @@ const onClick = function() {
 
 
 <template>
-  <div>
+  <div v-login>
     <div @click="onClick">
       <slot name="reference"></slot>
     </div>

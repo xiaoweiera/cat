@@ -39,13 +39,13 @@ defineProps({
       <div>
         <span class="label">APY构成</span>
       </div>
-      <div class="flex items-center mt-1">
+      <div class="flex items-center mt-1" v-if="data.single_apy_detail">
         <span class="label dot">单利收益</span>
-        <span class="ml-1 text-xs text-global-highTitle">COW 3.35% + COW 3.35%</span>
+        <span class="ml-1 text-xs text-global-highTitle">{{ data.single_apy_detail }}</span>
       </div>
-      <div class="flex items-center mt-1">
+      <div class="flex items-center mt-1" v-if="data.compound_detail">
         <span class="label dot">复利收益</span>
-        <span class="ml-1 text-xs text-global-highTitle">COW 3.35% + COW 3.35%</span>
+        <span class="ml-1 text-xs text-global-highTitle">{{ data.compound_detail }}</span>
       </div>
     </div>
     <div class="item-row flex items-center">

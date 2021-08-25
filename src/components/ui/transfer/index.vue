@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { difference } from 'ramda'
-import { ref, defineProps, defineEmits, onMounted, watch, toRaw } from 'vue'
+import { ref, defineProps, defineEmits, onMounted, watch } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { toArray } from '~/utils'
-import DBList from '@fengqiaogang/dblist'
 const emitEvent = defineEmits(['change', 'submit','changeParam'])
 
 const props = defineProps({
@@ -184,6 +183,9 @@ const onRemove = function(value: string | number) {
     }
   }
   &:not(.search) {
+    .radio-list {
+      @apply w-full;
+    }
     .data-list, .result-box {
       @apply w-40.5;
     }

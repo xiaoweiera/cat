@@ -4,7 +4,6 @@
  */
 
 import { omit } from 'ramda'
-import { map } from '~/utils'
 import request from '~/lib/service'
 import { asyncCheck } from '~/lib/response'
 import { TabCategoryData } from '~/logic/apy2/interface'
@@ -22,17 +21,11 @@ const API ={
 }
 
 // 币种列表
-export const list = async function(): Promise<TokenItem[]> {
-  const list = await asyncCheck(request.get(API.tokenList, {
+export const list = function() {
+  const result = request.get(API.tokenList, {
     // params: { cache: true }
-  }))
-  return map(function(item: TokenItem) {
-    const { id, name } = item
-    if (id) {
-      return item
-    }
-    return { ...item, id: name }
-  }, list)
+  })
+  return asyncCheck<TokenItem[]>(result)
 }
 // 币种详情
 export const detail = function(query: Object) {

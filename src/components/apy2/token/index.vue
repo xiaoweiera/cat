@@ -11,7 +11,7 @@ import { getParam } from '~/utils/router'
 import { ready } from '~/logic/apy2/token'
 import { TabCategoryData } from '~/logic/apy2/interface'
 import { useProvide } from '~/utils/use/state'
-import { uuid, equalsIgnoreCase, toInteger } from '~/utils'
+import { uuid, equalsIgnoreCase } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 
 // @ts-ignore
@@ -20,26 +20,25 @@ const [ date ] = useProvide('uiDate')
 
 // 获取
 const getActiveTokenId = function(): string | number {
-  const value = getParam<string | number>('id')
+  const value = getParam<string | number>('symbol')
   if (value) {
     return value as string
   }
   const list = tokenList.value
   const [ first ] = list
-  return first?.id
+  return first?.name
 }
 
 const getTabList = function() {
-  const id = getActiveTokenId()
-  const db = new DBList(toRaw(tokenList.value), 'id')
-  const symbol = db.selectOne<any>({ id: toInteger(id) })
+  const db = new DBList(toRaw(tokenList.value), 'name')
+  const symbol = db.selectOne<any>({ name: getActiveTokenId() })
   if (symbol && symbol.category && symbol.category.length > 0) {
     const tab = new DBList([
       {
         id: TabCategoryData.mining,
         name: '挖矿收益',
       }, {
-        id: TabCategoryData.deposit,
+        id: TabCategoryData.lend,
         name: '利率收益'
       }
     ], 'id')
@@ -59,10 +58,10 @@ const contentKey = computed(function() {
 })
 
 // @ts-ignore
-const isRouterActive = function(id: string | number) {
+const isRouterActive = function(data: string | number) {
   const value = getActiveTokenId()
   if (value) {
-    return equalsIgnoreCase(value, id);
+    return equalsIgnoreCase(value, data);
   }
   return false
 }
@@ -88,7 +87,7 @@ onBeforeMount(ready)
           <div class="pt-3 pb-10" v-if="tokenList.length > 0">
             <template v-for="(item, index) in tokenList" :key="index">
               <div class="cursor-pointer">
-                <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.id)}">
+                <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
                   <span class="inline-flex">
                     <IconFont rounded v-if="item.icon" :type="item.icon" size="24"></IconFont>
                     <IconFont v-else type="icon-morentoken" size="40"/>
@@ -105,8 +104,8 @@ onBeforeMount(ready)
     </template>
 
     <template #content>
-      <div class="p-8" v-if="getActiveTokenId()">
-        <Apy2TokenContent :key="contentKey" :id="getActiveTokenId()" :category="tabList"/>
+      <div class="p-8" v-if="tabList.length > 0">
+        <Apy2TokenContent :key="contentKey" :symbol="getActiveTokenId()" :category="tabList"/>
       </div>
     </template>
   </UiLayoutMenu>

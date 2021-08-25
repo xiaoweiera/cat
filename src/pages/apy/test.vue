@@ -1,14 +1,10 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
-  <div>111</div>
-  <div>
-    <Apy2PoolDialog>
-      <template #reference>
-        <div>button</div>
-      </template>
-    </Apy2PoolDialog>
+  <div class="p-5">
+    <Apy2BaseTable apy-type="all" group-id="my" chain="all"/>
   </div>
 </template>
 

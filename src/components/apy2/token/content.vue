@@ -15,7 +15,7 @@ import { toNumber } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 
 const props = defineProps({
-  id: {
+  symbol: {
     type: String,
     required: true
   },
@@ -38,7 +38,7 @@ const detail = reactive({
 const active = ref<string>('')
 
 const upDetail = async function() {
-  const data: any = await getTokenDetail(props.id)
+  const data: any = await getTokenDetail(props.symbol)
   detail.name = safeGet<string>(data, 'name')
   detail.icon = safeGet<string>(data, 'icon')
   detail.prince = safeGet<number>(data, 'ticker.prince')
@@ -62,9 +62,7 @@ onMounted(function() {
       active.value = key
       upDetail()
     } else {
-      console.log(category)
       const id = safeGet<string>(category, '[0].id')
-      console.log('auto category : %s', id)
       if (id) {
         const url = getUrl(id)
         window.location.replace(url)
@@ -98,14 +96,14 @@ onMounted(function() {
         </template>
       </div>
     </div>
-    <div class="mt-8 pt-0.5" v-if="detail.name">
+    <div class="mt-8 pt-0.5">
       <!--挖矿收益-->
       <div v-if="TabCategoryData.mining === active">
-        <Apy2TokenMining :symbol="detail.name" :id="id" :type="TabCategoryData.mining"/>
+        <Apy2TokenMining :symbol="detail.name" :type="TabCategoryData.mining"/>
       </div>
       <!--利率收益-->
       <div v-else-if="TabCategoryData.deposit === active">
-        <Apy2TokenDeposit :symbol="detail.name" :id="id" :type="TabCategoryData.deposit"/>
+        <Apy2TokenDeposit :symbol="detail.name" :type="TabCategoryData.deposit"/>
       </div>
     </div>
   </div>

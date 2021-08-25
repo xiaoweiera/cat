@@ -19,7 +19,7 @@ defineProps({
           <div class="h-18.5 flex items-center">
             <div class="pl-4 pr-2 text-kdFang">
               <div>
-                <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.symbol_change) }}%</span>
+                <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.apy) }}%</span>
               </div>
               <div class="text-xs mt-1 whitespace-nowrap max-w-full truncate">
                 <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>
@@ -36,7 +36,7 @@ defineProps({
             </div>
           </div>
         </template>
-        <Apy2BaseTableLoanDetail :data="data"/>
+        <Apy2BaseTableLendDetail :data="data"/>
       </el-popover>
     </div>
   </Apy2PoolDialog>

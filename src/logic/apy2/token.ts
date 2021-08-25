@@ -21,7 +21,7 @@ export const getTokenList = async function() {
       href: router({
         path: config.apyToken,
         query: {
-          id: data.id,
+          symbol: data.name,
           category: category ? category : ''
         }
       }),
@@ -31,8 +31,8 @@ export const getTokenList = async function() {
   return array
 }
 
-export const getTokenDetail = function(id: string) {
-  return API.apy.token.detail({ id })
+export const getTokenDetail = function(name: string) {
+  return API.apy.token.detail({ name })
 }
 
 // 初始化，加载币种数据
