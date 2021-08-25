@@ -24,7 +24,7 @@ const API ={
 // 币种列表
 export const list = async function(): Promise<TokenItem[]> {
   const list = await asyncCheck(request.get(API.tokenList, {
-    params: { cache: true }
+    // params: { cache: true }
   }))
   return map(function(item: TokenItem) {
     const { id, name } = item

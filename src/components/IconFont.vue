@@ -130,7 +130,9 @@ const sizes = {
   'mini': 10
 }
 
+// @ts-ignore
 const fontSize = computed<string>(function(): string {
+  // @ts-ignore
   const value = sizes[props.size] || props.size
   const className = [`size-${value}`]
   if (props.rounded) {
