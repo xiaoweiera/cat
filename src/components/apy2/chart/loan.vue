@@ -10,7 +10,7 @@ import {chain,tokenList} from '~/store/apy2/state'
 const props = defineProps({
   list: Object,
 })
-const token=ref('BTC')
+const token=ref('ETH')
 const moreToken=ref('')
 const showNumber=ref(5)
 const keyNumber=ref(0)
