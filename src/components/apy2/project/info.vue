@@ -2,7 +2,8 @@
 import {ref, defineProps, onMounted} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
-import { formatRulesNumber} from '~/lib/tool'
+import { formatRulesNumber,formatDefaultTime} from '~/lib/tool'
+
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {getProjectDetail} from '~/logic/apy2/index'
 
@@ -41,7 +42,7 @@ onMounted(getData())
             <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
             <a class="text-global-primary flex items-center font-kdExp hand" :href="data.project_url" target="_blank">
               <IconFont class="mr-1" size="20" type="icon-link"/>
-              <span class="text-kd14px18px">访问官网</span>
+              <a v-router.blank="data.project_url" class="text-kd14px18px">访问官网</a>
             </a>
             <div class="flex items-center" v-if="data.safety">
               <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
@@ -102,18 +103,18 @@ onMounted(getData())
       <!-- 项目描述-->
       <div class="font-kdFang text-kd14px18px py-4 bottomBorder">
         <div class="text-global-highTitle text-opacity-65">项目描述</div>
-        <div class="text-global-highTitle mt-1">{{ data.project_description || '无' }}</div>
+        <div class="text-global-highTitle mt-1">{{ data.project_description || '-' }}</div>
       </div>
-      <!-- 公告-->
-      <!--      <template v-for="item in [1,2]">-->
-      <!--        <div class="flex items-center mt-4 ">-->
-      <!--          <span class="flex items-center bg-global-primary bg-opacity-10 rounded-kd4px px-1 py-0.5">-->
-      <!--            <IconFont type="icon-laba" class="text-global-primary" size="16" ></IconFont>-->
-      <!--            <span class="ml-1 text-kd12px16px text-global-primary">公告</span>-->
-      <!--          </span>-->
-      <!--          <span class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-85">丈夫发烧住院，浙江妈妈带3个孩子回国后确诊密切接触者达60人</span>-->
-      <!--        </div>-->
-      <!--      </template>-->
+            <template v-for="item in data.announcements">
+              <a v-router.blank="item.url" v-if="item.type==='announcement'" class="flex items-center mt-4 ">
+                <span class="flex items-center bg-global-primary bg-opacity-10 rounded-kd4px px-1 py-0.5">
+                  <IconFont type="icon-laba" class="text-global-primary" size="16" ></IconFont>
+                  <span class="ml-1 text-kd12px16px text-global-primary">公告</span>
+                </span>
+                <span class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-85">{{item.content}}</span>
+                <span  class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,'YYYY年M月DD日')}}</span>
+              </a>
+            </template>
       <Apy2BaseWarnTip class="mt-4" des="风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。"/>
     </div>
   </div>
