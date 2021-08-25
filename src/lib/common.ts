@@ -4,7 +4,7 @@ import { EchartData, seriesType,LegendItem } from '~/logic/echarts/interface'
 
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
-        const legends = map(function(item: LegendItem) {
+        const legends = map(function(item: LegendItem,i:number) {
             if (!item.type) {
                 item.type = seriesType.line
             }

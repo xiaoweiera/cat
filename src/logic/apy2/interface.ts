@@ -167,3 +167,13 @@ export interface projectLoanList{
   page:number
   page_size:number
 }
+export interface tokenMiningPoolParam{
+  project_id:number
+  symbol:string
+  symbol_type:string
+  query:string
+  chain:string
+  ordering:string
+  page:number
+  page_size:number
+}

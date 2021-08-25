@@ -5,7 +5,7 @@ const getRes=(obj:any)=>{
     }
     return obj
 }
-import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart,projectLoanChart,projectDetailChart,projectSameChart,projectMiningList,projectLoanList} from '~/logic/apy2/interface'
+import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart,projectLoanChart,projectDetailChart,projectSameChart,projectMiningList,projectLoanList,tokenMiningPoolParam} from '~/logic/apy2/interface'
 //挖矿分组
 export const getMiningGroup=async (chain:string)=>{
     const result=await api.apy.mining.mining_group({chain:chain})
@@ -100,6 +100,12 @@ export const getProjectLending_pools=async (param:projectLoanList)=>{
     const result=await api.apy.project.lending_pools(param)
     return getRes(result)
 }
+//token挖矿列表
+export const getProjectTokenMining_pools=async (param:tokenMiningPoolParam)=>{
+    const result=await api.apy.mining.tokenMining_pools(param)
+    return getRes(result)
+}
+
 
 
 

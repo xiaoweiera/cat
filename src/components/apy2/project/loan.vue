@@ -8,6 +8,7 @@ import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon,selectChains} from '~/logic/apy2/config'
 import {getProjectLoanTop10Chart} from '~/logic/apy2/index'
 import {tolocaleUpperCase} from '~/lib/tool'
+import DBList from '@fengqiaogang/dblist'
 const props=defineProps({projectId:Object,pool_type:Object})
 import {getPoolsList} from '~/logic/apy2/index'
 const chain=getInject('chain')
@@ -31,8 +32,9 @@ const changeTime = (time: any) => {
 }
 const getData=async (project_id,pool_type,chain,type,search)=>{
   if(project_id) {
-    list.value = await getPoolsList(project_id, pool_type, chain, type, search)
-    console.log(list.value)
+    const res= await getPoolsList(project_id, pool_type, chain, type, search)
+    const dbRes=new DBList(res)
+    list.value=dbRes.clone()
   }
 }
 onBeforeMount(()=>{

@@ -17,6 +17,7 @@ const props = defineProps(Props())
     </div>
   </div>
   <div class="mt-8">
-    <h3 class="text-xl text-global-highTitle text-opacity-85">BTC 所有 APY 池子</h3>
+    <h3 class="text-xl text-global-highTitle text-opacity-85 mb-3">BTC 所有 APY 池子</h3>
+    <Apy2TokenMiningList :symbol="symbol" />
   </div>
 </template>

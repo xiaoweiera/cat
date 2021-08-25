@@ -8,6 +8,7 @@ import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon,selectChains} from '~/logic/apy2/config'
 import {getSame_category,getProjectList} from '~/logic/apy2/index'
 import {tolocaleUpperCase} from '~/lib/tool'
+import DBList from '@fengqiaogang/dblist'
 const props=defineProps({projectId:Object})
 const tagList=[{name:'全部',key:'all'}, {name:'单币',key:'dan'}, {name:'LP',key:'lp'}]
 const chain=getInject('chain')
@@ -40,7 +41,9 @@ watch(()=>type.value,(n)=>{
   getChart()
 })
 const getData=async (chain,search)=>{
-    list.value = await getProjectList( chain, search)
+  const res= await getProjectList( chain, search)
+  const dbRes=new DBList(res)
+  list.value=dbRes.clone()
 }
 onBeforeMount(()=>{
   getData('all','')

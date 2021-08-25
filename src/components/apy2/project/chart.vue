@@ -10,7 +10,7 @@ const props=defineProps({
 <template>
   <Spin :loading="loading">
   <div class="w-full  h-full relative">
-    <Echarts :key="keyNumber" v-if="chartData.xAxis && chartData.xAxis.length > 0" custom-class="w-full h-45 md:h-77.5 "  :legend="props.custom?LegendDirection.custom:LegendDirection.bottom">
+    <Echarts  v-if="chartData.xAxis && chartData.xAxis.length > 0" custom-class="w-full h-45 md:h-77.5 "  :legend="props.custom?LegendDirection.custom:LegendDirection.bottom">
       <!-- 提示框 trigger: 触发方式 -->
       <EchartsTooltip trigger="axis" />
 
