@@ -111,6 +111,7 @@ const iconCode = function() {
     'ETH': 'icon-ETH',
     'OEC': 'icon-OK',
     'POS': 'icon-POS',
+    'POLYGON': 'icon-POS',
     'FARM': 'icon-F',
     'VAULT': 'icon-V',
     'LENDING': 'icon-L'
