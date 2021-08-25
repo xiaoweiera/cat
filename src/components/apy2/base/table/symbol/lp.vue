@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { defineProps } from "vue"
+import { defineProps, computed } from "vue"
 // @ts-ignore
 import { numberUint, toNumber, toBoolean } from '~/utils'
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object
   },
@@ -12,10 +12,20 @@ defineProps({
     required: true,
   }
 })
+// @ts-ignore
+const href = computed(function() {
+  const data: any = props.data
+  const symbol = data.symbol_alias
+  return {
+    path: '/apy/token',
+    query: { symbol }
+  }
+})
+
 </script>
 
 <template>
-  <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router="'/apy/token'" target="_blank">
+  <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router="href" target="_blank">
     <div>
       <IconFont v-if="data.symbol_logo" :type="data.symbol_logo" size="32"/>
       <IconFont v-else type="icon-morentoken" size="32"/>
