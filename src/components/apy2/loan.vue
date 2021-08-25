@@ -20,7 +20,7 @@ onMounted(async ()=>{
     <div class="max-w-360  px-20  relative w-full h-full container ">
       <div class="flex items-center justify-between">
         <Apy2BaseHeader class="mt-8"/>
-        <Apy2SelectContainerSelectTool pageType="lend" class="absolute -top-3  right-7" />
+        <Apy2SelectContainerSelectTool type="loan" pageType="lend" class="absolute -top-3  right-7" />
       </div>
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">

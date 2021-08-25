@@ -412,3 +412,4 @@ export const formatNumber=(v:number)=>{
 }
 
 export const tolocaleUpperCase=(str:string)=>str?.toUpperCase();
+export const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`

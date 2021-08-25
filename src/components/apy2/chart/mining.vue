@@ -10,7 +10,7 @@ import {chain,tokenList} from '~/store/apy2/state'
 const props = defineProps({
   list: Object,
 })
-const token=ref('ETH')
+const token=ref()
 const moreToken=ref('')
 const showNumber=ref(5)
 const keyNumber=ref(0)
@@ -21,14 +21,13 @@ const getChart=async ()=>{
   chartData.legends = data.legends
   chartData.xAxis = data.xAxis
   chartData.series = data.series
+  keyNumber.value++
 }
 const selectToken=(name:string)=>token.value=name
-watch(token,(n)=>{
-  getChart()
-  keyNumber.value++
-})
+watch(token,(n)=>getChart())
+watch(()=>tokenList.value,(n)=>token.value=n.length>0?n[0].name:'')
 watch(moreToken,(n)=>token.value=n)
-onMounted(getChart())
+// onMounted(getChart())
 </script>
 <template>
 <div class="w-full h-full font-kdFang top10Project">
