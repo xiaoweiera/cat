@@ -26,7 +26,7 @@ defineProps({
                 <div class="text-xs mt-1">
                   <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>
                   <span class="text-global-highTitle text-opacity-45 ml-1">TVL</span>
-                  <span class="text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.quota_remain) }}</span>
+                  <span class="text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.tvl) }}</span>
                 </div>
                 <div class="text-xs mt-1 flex items-center">
                   <IconFont :type="data.chain" size="14"/>

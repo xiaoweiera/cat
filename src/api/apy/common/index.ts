@@ -46,8 +46,10 @@ interface FollowQuery {
 }
 
 // 代币分类列表
-export const symbolList = function() {
-    const result = axios.get('/api/apy/ninja/symbols')
+export const symbolList = function(query: object) {
+    const result = axios.get('/api/apy/ninja/symbols', {
+        params: query
+    })
     return asyncCheck<Array<{ name: string, followed: boolean }>>(result)
 }
 
