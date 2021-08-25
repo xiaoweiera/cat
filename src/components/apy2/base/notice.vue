@@ -19,7 +19,7 @@ onMounted(getData())
 <template>
   <div class="w-74">
     <template v-for="(item,i) in data">
-      <a v-router="item.url" v-if="i<4" >
+      <a v-router="item.url" target="_blank" v-if="i<4" >
         <div :class="i===0?'':'mt-4'">
           <div :class="getClass(item.type,item.is_top)" class="hand min-h-12">
             <span class="tip">{{noticType[item.type]}}</span>
