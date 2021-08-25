@@ -24,7 +24,7 @@ onMounted(async ()=>{
     <div class="max-w-360  px-20  relative  w-full h-full container ">
       <div class="flex items-center justify-between">
         <Apy2BaseHeader class="mt-8"/>
-        <Apy2SelectContainerSelectTool pageType="mining" class="absolute -top-3  right-7" />
+        <Apy2SelectContainerSelectTool type="mining" pageType="mining" class="absolute -top-3  right-7" />
       </div>
       <div class="flex mt-6">
         <div class="max-w-156 w-156 flex-1  mr-8" >
@@ -33,7 +33,7 @@ onMounted(async ()=>{
         <Apy2BaseNotice class="mr-8"/>
         <Apy2BasePlayType />
       </div>
-      <Apy2BaseWarnTip :des="waring" class="mt-6"/>
+      <Apy2BaseWarnTip  class="mt-6"/>
       <Apy2Chains class="mt-15"/>
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">

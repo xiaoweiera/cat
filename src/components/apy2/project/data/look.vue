@@ -7,7 +7,7 @@ import {echartTransform} from '~/lib/common'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon,selectChains} from '~/logic/apy2/config'
 import {getDetail_chart} from '~/logic/apy2/index'
-import {tolocaleUpperCase} from '~/lib/tool'
+import {formatRulesNumber} from '~/lib/tool'
 const props=defineProps({projectId:Object})
 const selectList=ref([
   {name:'TVL',key:'tvl'},
@@ -43,12 +43,14 @@ const typeItem=computed(()=>R.find(item=>item.key===type.value,selectList.value)
 //改变TVL等
 watch(()=>type.value,(n)=>{
   param.field1=n
+  console.log(projectInfo.value[0])
+  console.log(type.value)
+  console.log(projectInfo.value[0][type.value])
   getChart()
 })
 const getChart=async ()=>{
   loading.value=true
   const result=await getDetail_chart(param)
-  console.log(result,'jjjjj')
   loading.value=false
   const data=echartTransform(result)
   key.value++
@@ -72,7 +74,7 @@ const getChart=async ()=>{
     <div class="flex items-center my-3">
       <div class=" pr-12">
         <div class="dataTxt pr-12 ">{{typeItem.name}}</div>
-        <div class="dataNumber mt-0.5">$212124.11</div>
+        <div class="dataNumber mt-0.5">${{formatRulesNumber(projectInfo[0][type])}}</div>
       </div>
 <!--      <div class="righBorder px-12" >-->
 <!--        <div class="dataTxt">TVL</div>-->

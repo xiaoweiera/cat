@@ -24,9 +24,9 @@ onMounted(() => {
 <template>
   <div class="font-kdFang w-full  font-kdExp ">
     <template v-for="(item,i) in list">
-      <UiPopover class="inline-block  w-full">
+      <UiPopover v-if="i<5"  class="inline-block  w-full">
         <template #reference>
-      <div v-if="i<5" class="flex py-3 items-center w-full topBorder">
+      <div class="flex py-3 items-center w-full topBorder">
         <div class=" flex items-center">
           <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" :type='`icon-a-${i+1}`'></IconFont>
           <div v-else class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">
