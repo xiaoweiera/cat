@@ -10,6 +10,9 @@ export const check = function<T>(result: any): T {
   if (code === 0) {
     return safeGet<T>(result, 'data.data')
   }
+  if (code === 1) {
+    throw safeGet<T>(result, 'data')
+  }
   return safeGet<T>(result, 'data')
 }
 export const asyncCheck = async function<T>(result: any): Promise<T> {

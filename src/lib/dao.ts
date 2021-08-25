@@ -22,6 +22,8 @@ const getUserAuth = function (config: AxiosRequestConfig): string {
   if (cookie) {
     const authorization = safeGet(config, 'params.Authorization')
     if (authorization) {
+      const params = omit(['Authorization'], safeGet(config, 'params'))
+      safeSet(config, 'params', params)
       return cookie
     }
     // 判断当前接口地址是否需要携带 cookie

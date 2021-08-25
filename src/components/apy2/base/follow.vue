@@ -3,6 +3,9 @@ import { defineProps, ref, computed } from 'vue'
 import { TabCategoryData } from '~/logic/apy2/interface'
 import * as API from '~/api/index'
 import { isEmpty } from '~/utils'
+import { messageError, messageSuccess } from '~/lib/tool'
+import safeGet from '@fengqiaogang/safe-get'
+
 const props = defineProps({
   // 是否是池子，否则为单币
   pool: {
@@ -50,13 +53,15 @@ const onClick = async function() {
   const query: any = {
     pool: props.pool,
     value: props.value,
-    type: getActiveValue(),
+    type: props.type,
   }
   try {
     await API.apy.common.setFollow(query)
     follow.value = !follow.value;
+    messageSuccess('已收藏')
   } catch (e) {
-    console.log(e)
+    const message = safeGet(e, 'message') || '收藏失败，请稍后再试'
+    messageError(message)
   }
 }
 
