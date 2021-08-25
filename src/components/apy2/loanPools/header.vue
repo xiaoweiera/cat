@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, defineProps,onMounted } from 'vue'
+import { ref, defineProps,onMounted,defineEmits } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
 import {chain} from '~/store/apy2/state'
 import {chains} from '~/logic/apy2/config'
 import {getProjectList,getTokenList} from '~/logic/apy2/index'
-
+const emitEvent = defineEmits([ 'search'])
 const inCoin=getInject('inCoin')
 const outCoin=getInject('outCoin')
 const chained=getInject('chained')
@@ -23,11 +23,11 @@ const coin=ref('')
 
 const projectList=ref(['全部'])
 const tokenList=ref([])
-// const getProjects=async ()=>{
-//   const result=await getProjectList(chain.value,'')
-//   result.unshift({name:'全部'})
-//   projectList.value=result
-// }
+const getProjects=async ()=>{
+  const result=await getProjectList(chain.value,'')
+  result.unshift({name:'全部'})
+  projectList.value=result
+}
 const getTokens=async ()=>{
   const result=await getTokenList()
   if(result.length>=2){
@@ -40,13 +40,18 @@ const getTokens=async ()=>{
   tokenList.value=result
 }
 const clear=()=>{
+  setInCoin('全部')
+  setOutCoin('全部')
   setProjectId('全部')
   setChained('全部')
   setKey(++key.value[0])
 }
+const search=()=>{
+  emitEvent('search')
+}
 onMounted(()=>{
   getTokens()
-  // getProjects()
+  getProjects()
 })
 </script>
 <template>
@@ -89,7 +94,7 @@ onMounted(()=>{
       <div @click="clear()" class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-3 hand">
         <span class="text-kd16px24px text-global-primary  font-medium">重置</span>
       </div>
-      <div class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">
+      <div @click="search()" class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">
         <iconFont type="icon-sousuo-da1" class="text-global-white mr-3" size="16" />
         <span class="text-kd16px24px text-global-white  font-medium">搜索</span>
       </div>
