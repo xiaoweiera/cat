@@ -334,10 +334,11 @@ export const upperFirst = function(value: string): string {
  * @param str1
  * @param str2
  */
-export const equalsIgnoreCase = function(str1: string | number = '', str2: string | number = ''): boolean {
-  const value1 = str1.toString()
-  const value2 = str2.toString()
-  return toUpper(value1) === toUpper(value2)
+export const equalsIgnoreCase = function(str1: string = '', str2: string = ''): boolean {
+  if (str1 && str2) {
+    return toUpper(str1) === toUpper(str2)
+  }
+  return false
 }
 
 

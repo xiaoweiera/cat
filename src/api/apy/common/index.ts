@@ -45,6 +45,12 @@ interface FollowQuery {
     multiple?: boolean
 }
 
+// 代币分类列表
+export const symbolList = function() {
+    const result = axios.get('/api/apy/ninja/symbols')
+    return asyncCheck<Array<{ name: string, followed: boolean }>>(result)
+}
+
 export const setFollow = function(query: FollowQuery) {
     let url: string
     const values = toArray(query.value)
