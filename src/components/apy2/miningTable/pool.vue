@@ -2,7 +2,10 @@
 import { ref, defineProps,computed } from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
 import {tolocaleUpperCase} from '~/lib/tool'
+import { toBoolean } from '~/utils'
 const props=defineProps({
+  id:Number,
+  followed:Boolean,
   type:String,
   logo:String,
   name:String,
@@ -26,8 +29,9 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
     <div>
       <div class="flex items-center">
         <span class="mr-1 text-kd14px20px text-global-highTitle text-opacity-85">{{name}}</span>
-        <IconFont  size="16" :class="likeClass" :type="like"/>
+        <Apy2BaseFollow class="ml-1 lp-follow" :pool="true" type="mining" :value="name" :status="toBoolean(followed)"/>
       </div>
+
       <div class="flex items-center">
         <span class="text-12px18px text-global-highTitle text-opacity-65 mr-1">{{project}}</span>
         <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[chain]" alt="">
