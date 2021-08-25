@@ -8,6 +8,7 @@ import { is } from 'ramda'
 import { href } from '~/utils/lang'
 import { forEach } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
+import safeGet from '@fengqiaogang/safe-get'
 
 interface Query {
   [key: string]: number | string | undefined
@@ -59,7 +60,13 @@ export const install = function(vue: any) {
   vue.directive('router', (el: HTMLElement, binding: Binding) => {
     const value = router(binding.value)
     if (value) {
+      const { modifiers } = binding
       el.setAttribute('href', value)
+      if (safeGet(modifiers, 'blank')) {
+        el.setAttribute('target', '_blank')
+      } else {
+        el.removeAttribute('target')
+      }
     }
   })
 }

@@ -2,6 +2,7 @@
 import { defineProps, computed } from "vue"
 // @ts-ignore
 import { numberUint, toNumber, toBoolean } from '~/utils'
+import { SymbolType } from '~/logic/apy2/interface'
 
 const props = defineProps({
   data: {
@@ -15,17 +16,20 @@ const props = defineProps({
 // @ts-ignore
 const href = computed(function() {
   const data: any = props.data
-  const symbol = data.symbol_alias
-  return {
-    path: '/apy/token',
-    query: { symbol }
+  if (data.symbol_type === SymbolType.Child) {
+    const symbol = data.symbol_alias
+    return {
+      path: '/apy/token',
+      query: { symbol }
+    }
   }
+  return null
 })
 
 </script>
 
 <template>
-  <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router="href" target="_blank">
+  <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router.blank="href">
     <div>
       <IconFont v-if="data.symbol_logo" :type="data.symbol_logo" size="32"/>
       <IconFont v-else type="icon-morentoken" size="32"/>
@@ -39,7 +43,7 @@ const href = computed(function() {
         </el-tooltip>
         <Apy2BaseFollow class="ml-1 lp-follow" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
       </div>
-      <div class="ml-2">
+      <div class="ml-2" v-if="href">
         <IconFont class="text-global-default text-opacity-35" type="icon-tiaozhuan" size="16"/>
       </div>
     </div>
