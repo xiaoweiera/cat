@@ -4,26 +4,22 @@ import { getEchartData } from '~/logic/apy2/token'
 import { watchState } from '~/utils/use/state'
 import dataEventName, { getDateValue } from '~/components/ui/date/eventname'
 import { uuid } from '~/utils'
+import { Position, LegendDirection, EchartData } from '~/logic/echarts/interface'
 
-// @ts-ignore
-import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
 import Props from './props'
 
 const loading = ref<boolean>(false)
 const echartKey = ref<string>('')
 const echartData = reactive<EchartData>(new EchartData())
 
-// 定义 props
 const props = defineProps(Props())
 
 const updateData = async function(date: any, pools: number[]) {
   loading.value = true
-  const { from_ts = 0, to_ts = 0 } = date
   const query = {
+    ...date,
+    ...props,
     pools: pools.join(','),
-    from_ts: Math.floor(from_ts / 1000),
-    to_ts: Math.floor(to_ts / 1000),
-    ...props
   }
   const result = await getEchartData(query)
   echartKey.value = uuid(JSON.stringify(query))

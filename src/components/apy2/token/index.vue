@@ -58,10 +58,10 @@ const contentKey = computed(function() {
 })
 
 // @ts-ignore
-const isRouterActive = function(data: string | number) {
+const isRouterActive = function(data: string) {
   const value = getActiveTokenId()
   if (value) {
-    return equalsIgnoreCase(value, data);
+    return equalsIgnoreCase(value as string, data);
   }
   return false
 }
@@ -104,7 +104,7 @@ onBeforeMount(ready)
     </template>
 
     <template #content>
-      <div class="p-8" v-if="tabList.length > 0">
+      <div class="p-8" v-if="tabList.length > 0 && getActiveTokenId()">
         <Apy2TokenContent :key="contentKey" :symbol="getActiveTokenId()" :category="tabList"/>
       </div>
     </template>

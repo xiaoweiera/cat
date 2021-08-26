@@ -90,15 +90,15 @@ onMounted(function() {
         </template>
       </div>
     </div>
-    <div class="mt-8 pt-0.5">
+    <div class="mt-8 pt-0.5" v-if="detail.name">
       <!--挖矿收益-->
-      <div v-if="TabCategoryData.mining === active">
-        <Apy2TokenMining :symbol="detail.name" :type="TabCategoryData.mining"/>
-      </div>
+      <template v-if="TabCategoryData.mining === active">
+        <Apy2TokenMining :symbol="detail.name" :type="active" :key="active"/>
+      </template>
       <!--利率收益-->
-      <div v-else-if="TabCategoryData.deposit === active">
-        <Apy2TokenDeposit :symbol="detail.name" :type="TabCategoryData.deposit"/>
-      </div>
+      <template v-else-if="TabCategoryData.deposit === active">
+        <Apy2TokenDeposit :symbol="detail.name" :type="active" :key="active"/>
+      </template>
     </div>
   </div>
 

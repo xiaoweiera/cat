@@ -28,22 +28,19 @@ export const list = function() {
   return asyncCheck<TokenItem[]>(result)
 }
 // 币种详情
-export const detail = function(query: Object) {
+export const detail = function(query: object) {
   return asyncCheck(request.get(API.detail, {
     params: { ...query }
   }))
 }
 // 矿池趋势图(top10)
-export const trend = function(query: Object) {
+export const trend = function(query: object) {
   const type = safeGet<string>(query, 'type')
+  const params = omit(['type'], query)
   if (type === TabCategoryData.mining) {
-    return asyncCheck<EchartData>(request.get(API.trend[TabCategoryData.mining], {
-      params: { ...omit(['type'], query) }
-    }))
+    return asyncCheck<EchartData>(request.get(API.trend[TabCategoryData.mining], { params }))
   }
   if (type === TabCategoryData.deposit) {
-    return asyncCheck<EchartData>(request.get(API.trend[TabCategoryData.deposit], {
-      params: { ...omit(['type'], query) }
-    }))
+    return asyncCheck<EchartData>(request.get(API.trend[TabCategoryData.deposit], { params }))
   }
 }
