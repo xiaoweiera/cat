@@ -2,7 +2,7 @@
 import { defineProps, onMounted, ref,computed,watch } from 'vue'
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
-import {getProjectMining_pools} from '~/logic/apy2/index'
+import {getProjectLending_pools} from '~/logic/apy2/index'
 import * as R from 'ramda'
 const props=defineProps({projectId:Object})
 const [project,]=useProvide('project','all')
@@ -11,16 +11,16 @@ const [filterType,]=useProvide('filterType','all')
 const [chained]=useProvide('chained','all')
 const resultNumber=ref(0)
 const param={
-  lend_symbol:inCoin.value[0],
-  loan_symbol:outCoin.value[0],
   project_id:'all',
+  query:'',
   chain:'all',
+  ordering:'desc',
   page:1,
   page_size:4
 }
 const listData=ref([])
 const getList=async (clear:boolean)=>{
-  const res=await getProjectMining_pools(param)
+  const res=await getProjectLending_pools(param)
   resultNumber.value=res.length
   listData.value=clear?res:listData.value.concat(res)
 }
