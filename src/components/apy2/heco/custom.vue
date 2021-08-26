@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import I18n from '~/utils/i18n/index'
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getHecoNodeTrends } from '~/logic/apy2/heco'
 import { dateYMDHmFormat, uuid, debounce } from '~/utils'
-import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
+import { EchartData, Position } from '~/logic/echarts/interface'
 
 const props = defineProps({
   name: {
@@ -21,11 +22,10 @@ const chartData = reactive<EchartData>(new EchartData())
 // @ts-ignore
 const tabs = [
   { label: 'APY', key: 'apy' },
-  { label: '得票数', key: 'votes' },
-  { label: '得票占比', key: 'percent' },
-  { label: '参与人数', key: 'voters' },
+  { label: I18n.apy.heco.head.voters, key: 'votes' },
+  { label: I18n.apy.heco.head.percent, key: 'percent' },
+  { label: I18n.apy.heco.head.participants, key: 'voters' },
 ]
-
 
 // 图表数据
 const updateTrendsData = debounce<any>(async () => {
