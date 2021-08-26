@@ -3,8 +3,8 @@ import { defineProps, reactive } from 'vue'
 import { watchState } from '~/utils/use/state'
 import { getPoolTrends } from '~/logic/apy2/table'
 import dataEventName, { getDateValue } from '~/components/ui/date/eventname'
-// @ts-ignore
-import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
+import { chartFormatter } from '~/lib/common'
+import { Position, EchartData } from '~/logic/echarts/interface'
 
 const props = defineProps({
   type: {
@@ -58,7 +58,7 @@ watchState(dataEventName.value, upData)
       <template v-if="echartData.xAxis && echartData.xAxis.length > 0">
         <Echarts :key="echartData.key">
           <!-- 提示框 trigger: 触发方式 -->
-          <EchartsTooltip trigger="axis" />
+          <EchartsTooltip trigger="axis" :formatter="chartFormatter"/>
 
           <template v-for="(item, index) in echartData.legends" :key="index">
             <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
