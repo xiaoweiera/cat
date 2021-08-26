@@ -17,10 +17,8 @@ const props = defineProps({
 const href = computed(function() {
   const data: any = props.data
   if (data.symbol_type === SymbolType.Child) {
-    const symbol = data.symbol_alias
-    return {
-      path: '/apy/token',
-      query: { symbol }
+    if (data.symbol_origin) {
+      return { path: '/apy/token', query: { symbol: data.symbol_origin } }
     }
   }
   return null

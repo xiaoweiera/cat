@@ -3,7 +3,7 @@
 import { toUpper } from 'ramda'
 import { defineProps } from "vue"
 // @ts-ignore
-import { numberUint, toNumber, toInteger } from '~/utils'
+import { numberUint, toNumber, toInteger, upperFirst } from '~/utils'
 
 defineProps({
   data: {
@@ -17,13 +17,13 @@ defineProps({
   <div class="apy-detail pt-2.5 pb-3 px-4 text-kdFang">
     <div class="item-row flex items-center">
       <span class="label">公链类型</span>
-      <IconFont :type="data.chain" size="14"/>
+      <IconFont class="ml-1" :type="data.chain" size="14"/>
       <span class="ml-1 text-xs text-global-highTitle">{{ toUpper(data.chain) }}</span>
     </div>
-    <div class="item-row flex items-center">
+    <div class="item-row flex items-center" v-if="data.project_category">
       <span class="label">矿池类型</span>
-      <IconFont :type="data.project_category" size="14" class="ml-1"/>
-      <span class="ml-1 text-xs text-global-highTitle">存款收益</span>
+      <IconFont class="ml-1" :type="data.project_category" size="14"/>
+      <span class="ml-1 text-xs text-global-highTitle">{{ upperFirst(data.project_category) }}</span>
     </div>
     <div class="item-row flex items-center" v-if="data.strategy_tags">
       <span class="label">矿池标签</span>
