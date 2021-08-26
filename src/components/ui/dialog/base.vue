@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref,defineProps} from 'vue'
 const props=defineProps({data:Object})
-const oepnDialog=ref(true)
+const oepnDialog=ref(false)
 const open=()=>{
   oepnDialog.value=true
 }
