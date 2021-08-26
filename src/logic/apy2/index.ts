@@ -27,8 +27,8 @@ export const getLending_rank=async (group_id:number,chain:string)=>{
     return getRes(result)
 }
 //币种列表
-export const getTokenList = async ()=>{
-    const result=await api.apy.common.getTokenList()
+export const getTokenList = async (project?:string,chain?:string,query?:string)=>{
+    const result=await api.apy.common.getTokenList({project,chain,query})
     return getRes(result)
 }
 //项目列表
@@ -103,6 +103,11 @@ export const getProjectLending_pools=async (param:projectLoanList)=>{
 //token挖矿列表
 export const getProjectTokenMining_pools=async (param:tokenMiningPoolParam)=>{
     const result=await api.apy.mining.tokenMining_pools(param)
+    return getRes(result)
+}
+//利润计算器
+export const getCalculator=async (param:loanPoolParam)=>{
+    const result=await api.apy.common.getCalculator(param)
     return getRes(result)
 }
 
