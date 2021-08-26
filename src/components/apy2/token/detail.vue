@@ -7,6 +7,7 @@ import Props from '~/components/apy2/token/props'
 // @ts-ignore
 import { selectChains } from '~/logic/apy2/config'
 import { setInject } from '~/utils/use/state'
+import DBList from '@fengqiaogang/dblist'
 
 // @ts-ignore
 const props = defineProps(Props())
@@ -22,31 +23,26 @@ const radios = [
 
 const poolList = ref<any[]>([])
 
+// @ts-ignore
 const updatePoolList = async function() {
   const data: any = await getPoolsList({ pool_type: props.type })
   if (data && data.length > 0) {
-    poolList.value = [...data]
+    const db = new DBList(data)
+    poolList.value = db.clone()
   }
+  return []
 }
 
 // @ts-ignore
-const onSumbit = function(value: Array<string | number>) {
-  const ids = map((item: any) => item.id, value)
-  if (ids && ids.length > 0) {
-    // setPoolList(ids.join(','))
-  }
+const onSumbit = function(list: any[]) {
+  const value = map((item: any) => item.id, list)
+  setPoolList(value)
 }
 
 // @ts-ignore
 const onChange = function(data: object) {
   console.log(data)
 }
-
-const ready = function() {
-  return updatePoolList()
-}
-
-onMounted(ready)
 
 </script>
 
@@ -71,7 +67,7 @@ onMounted(ready)
   <div class="mt-3">
     <div class="flex justify-between items-center">
       <div>
-        <UiTransfer title="添加矿池" sub-title="已选矿池" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange">
+        <UiTransfer title="添加矿池" sub-title="已选矿池" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange" :onload="updatePoolList">
           <template #content>
             <el-button plain size="small">
               <div class="inline-flex items-center px-3 py-0.5">

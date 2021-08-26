@@ -4,7 +4,7 @@
  */
 
 import { inject, provide, ref, toRaw, watch } from 'vue'
-import { upperFirst, isUndefined, debounce } from '~/utils'
+import { upperFirst, isUndefined, debounce, toArray, map } from '~/utils'
 
 type SetCallback = (value?: any, index?: number | string) => void
 const autoValue = function(value?: any): Array<any> {
@@ -52,15 +52,20 @@ export const getState = function(name: string) {
   return inject(key)
 }
 
-export const watchState = function(name: string, callback: SetCallback) {
-  const state = getState(name)
-  if (state && callback) {
+export const watchState = function(names: string | string[], callback: SetCallback) {
+  const states = map(function(key: string) {
+    return getState(key)
+  }, toArray(names))
+  if (states && callback) {
     const app = debounce<SetCallback>(callback)
     // @ts-ignore
-    watch(state, app)
-    app(state)
+    watch(states, app)
+    app(...states)
   }
-  return state
+  if (states.length > 1) {
+    return states
+  }
+  return states[0]
 }
 
 export const getInject = function(name: string) {

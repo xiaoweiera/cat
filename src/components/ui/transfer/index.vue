@@ -30,9 +30,15 @@ const props = defineProps({
     default () {
       return []
     }
+  },
+  onload: {
+    type: Function,
+    default () {
+      return () => []
+    }
   }
 })
-const dialogVisible = ref<boolean>(false)
+const dialogVisible = ref<boolean>(true)
 const radioValue = ref<string | number>()
 const selectValue = ref<string | number>()
 
@@ -40,13 +46,13 @@ const checkboxValue = ref<Array<string | number>>([])
 
 const search = ref<string>('')
 
-watch([radioValue, selectValue, search],(n)=>{
-  const data = {
-    radioValue: n[0],
-    chain: n[1],
-    search:n[2]
+watch([radioValue, selectValue, search],(data: any[])=>{
+  const value = {
+    radioValue: data[0],
+    chain: data[1],
+    search: data[2]
   }
-  emitEvent('changeParam', data)
+  emitEvent('changeParam', value)
 })
 
 const getCheckboxList = function() {
@@ -62,8 +68,23 @@ const checkboxList = computed<any[]>(getCheckboxList)
 
 // 取消
 const onHidden = function() {
-  dialogVisible.value = false;
+  dialogVisible.value = false // 关闭弹窗
+  checkboxValue.value = [] // 取消所有已选择数据
 }
+
+// @ts-ignore
+const onShow = async function() {
+  dialogVisible.value = true
+  const array = await props.onload()
+  if (array.length > 0) {
+    const db = new DBList(array)
+    const list = db.select({ checked: true })
+    checkboxValue.value = map((item: any) => item.id, list)
+  } else {
+    checkboxValue.value = [] // 默认选中数据
+  }
+}
+
 // 确认
 // @ts-ignore
 const onSubmit = function() {
@@ -84,23 +105,17 @@ const onRemove = function(data: any) {
 onMounted(function() {
   radioValue.value = safeGet(props.radios, '[0].value')
   selectValue.value = safeGet(props.selects, '[0].value')
-  const array: any[] = toRaw(props.list)
-  if (array.length > 0) {
-    const db = new DBList(array)
-    const list = db.select({ checked: true })
-    checkboxValue.value = map((item: any) => item.id, list)
-  }
 })
 
 </script>
 
 <template>
-  <div @click="dialogVisible = true">
+  <div @click="onShow">
     <slot name="content"></slot>
   </div>
   <el-dialog custom-class="diy-dialog" :title="title" v-model="dialogVisible" width="fit-content" destroy-on-close show-close>
     <div class="px-5 py-1.5 flex transfer-box" :class="{'search': selects.length > 0}">
-      <div class="data-list max-h-full relative">
+      <div class="data-list max-h-full relative" v-if="dialogVisible">
         <div class="absolute left-0 top-0 right-0 bottom-0">
           <el-container class="h-full">
             <el-header height="initial" class="p-0">

@@ -2,9 +2,16 @@
 import { defineProps } from 'vue'
 // 定义 props
 import Props from '~/components/apy2/token/props'
+import { useProvide } from '~/utils/use/state'
+import dataEventName from '~/components/ui/date/eventname'
 
 // @ts-ignore
 const props = defineProps(Props())
+
+// 定义已选择矿池列表
+useProvide('poolList')
+// 日期
+useProvide(dataEventName.value)
 
 </script>
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useProvide } from '~/utils/use/state'
-import dataEventName from '~/components/ui/date/eventname'
 import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 // @ts-ignore
 import { getTokenDetail } from '~/logic/apy2/token'
@@ -24,10 +22,6 @@ const props = defineProps({
     required: true
   }
 })
-// 已选择矿池列表
-useProvide('poolList', '')
-// 日期
-useProvide(dataEventName.value)
 
 const detail = reactive({
   name: '',
