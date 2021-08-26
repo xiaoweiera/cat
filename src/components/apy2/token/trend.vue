@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { flatten } from 'ramda'
 import { reactive, ref, defineProps, toRaw } from 'vue'
 import { getEchartData } from '~/logic/apy2/token'
 import { watchState } from '~/utils/use/state'
@@ -9,7 +8,6 @@ import { uuid } from '~/utils'
 // @ts-ignore
 import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
 import Props from './props'
-import safeGet from '@fengqiaogang/safe-get'
 
 const loading = ref<boolean>(false)
 const echartKey = ref<string>('')

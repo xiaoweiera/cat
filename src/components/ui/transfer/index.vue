@@ -38,7 +38,7 @@ const props = defineProps({
     }
   }
 })
-const dialogVisible = ref<boolean>(true)
+const dialogVisible = ref<boolean>(false)
 const radioValue = ref<string | number>()
 const selectValue = ref<string | number>()
 
