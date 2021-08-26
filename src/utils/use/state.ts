@@ -81,6 +81,7 @@ export const setInject = function(name: string): SetCallback {
   return inject<SetCallback>(name) as any
 }
 export const updateInject = function(name: string, ...args: any[]): boolean {
+  console.warn('⚠️ 该方法不推荐使用, 请使用 setInject')
   if (name) {
     const set = setInject(name)
     if (set) {

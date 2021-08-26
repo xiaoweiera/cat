@@ -80,6 +80,8 @@ export interface LegendItem {
   position?: Position
   show?: boolean
   value?: string
+  index?: number
+  [key: string]: any
 }
 
 // 图表数据结构

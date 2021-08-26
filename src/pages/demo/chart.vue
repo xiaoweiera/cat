@@ -9,7 +9,7 @@ const echartData = createEchartData()
 const key = ref<string>(uuid())
 
 // @ts-ignore
-const direction = ref<Direction>(Direction.vertical)
+const direction = ref<Direction>(Direction.horizontal)
 
 const sync = function(){
   key.value = uuid()
@@ -101,11 +101,14 @@ const onAdd = function() {
                 -->
                 <EchartsLegend :index="index" :value="item.name" :show="item.show" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
 
+                <!-- 设置X轴 -->
+                <EchartsXaxis :value="echartData.xAxis"/>
+
                 <EchartsYaxis :index="0" :position="Position.left"/>
                 <EchartsYaxis :index="1" :position="Position.right"/>
 
-                <!-- 设置X轴 -->
-                <EchartsXaxis :value="echartData.xAxis"/>
+
+
 
 
                 <!--数据-->
