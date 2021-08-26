@@ -117,5 +117,35 @@ export default {
     apyName:{
         apy:'APY',
         avgApy:'Average APY'
+    },
+    heco: {
+        title: 'HECO Node Election',
+        description: {
+            votes: 'Total voting number',
+            voters: 'Total participants',
+            dateEnd: 'Until the end of this round'
+        },
+        button: {
+            vote: 'Vote',
+            expand: 'Expand',
+            off: 'Off'
+        },
+        note: {
+            label: 'Voting rules',
+            texts: [
+                '1.Voting method Users can vote for candidates by staking HT. 1HT represents 1 vote and can only vote for one candidate. The election will have 11 main nodes and 11 candidate nodes; the top 11 candidates in the ranking are the main nodes, and No. 12-22 are candidate nodes.',
+                '2.Voting Period The node ranking is updated according to the number of user votes, and rewards are issued every 6 hours.',
+                '3.Exit Mechanism Users can redeem HT and exit the node voting at any time, and the redeemed HT will be locked in about 3 days before receiving.'
+            ]
+        },
+        head: {
+            name: 'Name',
+            region: 'Region',
+            participants: 'Participants',
+            voters: 'Votes',
+            percent: 'Percentage of votes',
+            ratio: 'Revenue ratio',
+            operation: 'Operation'
+        }
     }
 };

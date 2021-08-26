@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getHecoNodeTrends } from '~/logic/apy2/heco'
-import { HecoNode } from '~/logic/apy2/interface'
-import { dateYMDHmFormat, uuid } from '~/utils'
-// @ts-ignore
+import { dateYMDHmFormat, uuid, debounce } from '~/utils'
 import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
 
 const props = defineProps({
-  data: {
-    type: Object,
+  name: {
+    type: String,
     required: true
   }
 })
@@ -30,11 +28,10 @@ const tabs = [
 
 
 // 图表数据
-const updateTrendsData = async function() {
-  const data: HecoNode = props.data as any
+const updateTrendsData = debounce<any>(async () => {
   const result = await getHecoNodeTrends({
     column: active.value,
-    node_name: data.node_name
+    node_name: props.name
   })
   const trends = result.trends ? result.trends : new EchartData()
   chartData.legends = trends.legends
@@ -43,12 +40,11 @@ const updateTrendsData = async function() {
   // 最后更新时间
   updateTime.value = dateYMDHmFormat(result.update_time)
   echartKey.value = uuid()
-}
+})
 
-// @ts-ignore
 const onChangeActive = function(value: string) {
   active.value = value
-  setTimeout(updateTrendsData)
+  return updateTrendsData()
 }
 
 onMounted(updateTrendsData)
@@ -71,8 +67,8 @@ onMounted(updateTrendsData)
         <EchartsDownload title="下载"/>
       </div>
     </div>
-    <div class="h-52.5" :key="echartKey">
-      <Echarts bg-color="#F8FBFD" v-if="chartData.xAxis && chartData.xAxis.length > 0">
+    <div class="h-52.5" :key="echartKey" v-if="chartData.xAxis && chartData.xAxis.length > 0">
+      <Echarts bg-color="#F8FBFD" :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
         <EchartsTooltip trigger="axis" />
 

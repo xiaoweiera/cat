@@ -122,5 +122,35 @@ export default {
     apyName:{
         apy:'APY',
         avgApy:'平均APY'
+    },
+    heco: {
+        title: 'HECO 节点竞选',
+        description: {
+            votes: '本轮投票总票数',
+            voters: '本轮投票总人数',
+            dateEnd: '距本轮投票结束'
+        },
+        button: {
+            vote: '去投票',
+            expand: '展开图表',
+            off: '收起图表'
+        },
+        note: {
+            label: '投票规则',
+            texts: [
+              '1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。',
+              '2 投票周期：节点排名根据用户投票数更新，奖励每6小时发放。',
+              '3 退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。'
+            ]
+        },
+        head: {
+            name: '节点名称',
+            region: '所在地区',
+            participants: '参与人数',
+            voters: '总票数',
+            percent: '得票占比',
+            ratio: '收益分成比例',
+            operation: '操作'
+        }
     }
 };

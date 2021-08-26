@@ -5,6 +5,7 @@
 
 import { omit } from 'ramda'
 import * as API from '~/api/index'
+import I18n from '~/utils/i18n/index'
 import { HecoNode, HecoTrends, NodeTrends } from './interface'
 import { map, dateTime, dateYMDFormat, dateMDFormat, toNumber, formatCash } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
@@ -65,6 +66,7 @@ const render = function(item: HecoNode, key: string): string {
     break
   case 'percent':
   case 'rate':
+  case 'user_profit_percent':
     data = `${value}%`
     break
   case 'apy':
@@ -77,23 +79,23 @@ const render = function(item: HecoNode, key: string): string {
 }
 
 export const pcHeader: Array<Head> = [
-  { label: '节点名称', key: 'node_name', fixed: 'left'},
-  { label: '所在地区', key: 'area' },
-  { label: '参与人数', key: 'voters', sortable: true, render },
-  { label: '总票数', key: 'votes', sortable: true, render },
-  { label: '得票占比', key: 'percent', sortable: true, render },
-  { label: '收益分成比例', key: 'user_profit_percent', sortable: true, render },
+  { label: I18n.apy.heco.head.name, key: 'node_name' },
+  { label: I18n.apy.heco.head.region, key: 'area' },
+  { label: I18n.apy.heco.head.participants, key: 'voters', sortable: true, render },
+  { label: I18n.apy.heco.head.voters, key: 'votes', sortable: true, render },
+  { label: I18n.apy.heco.head.percent, key: 'percent', sortable: true, render },
+  { label: I18n.apy.heco.head.ratio, key: 'user_profit_percent', sortable: true, render },
   { label: 'APY', key: 'apy', sortable: true, className: 'text-green font-bold text-xl whitespace-nowrap', render},
 ]
 
 export const mobileHeader: Array<Head> = [
-  { label: '节点名称', key: 'node_name', fixed: 'left'},
+  { label: I18n.apy.heco.head.name, key: 'node_name', fixed: 'left'},
   { label: 'APY', key: 'apy', width: '100px', sortable: true, className: 'text-green font-bold text-xl', render},
-  { label: '所在地区', key: 'area' },
-  { label: '参与人数', key: 'voters', width: '100px', sortable: true, render },
-  { label: '总票数', key: 'votes', width: '100px', sortable: true, render },
-  { label: '得票占比', key: 'percent', width: '100px', sortable: true, render },
-  { label: '收益分成比例', key: 'user_profit_percent', width: '130px', sortable: true, render },
+  { label: I18n.apy.heco.head.region, key: 'area' },
+  { label: I18n.apy.heco.head.participants, key: 'voters', width: '100px', sortable: true, render },
+  { label: I18n.apy.heco.head.voters, key: 'votes', width: '100px', sortable: true, render },
+  { label: I18n.apy.heco.head.percent, key: 'percent', width: '100px', sortable: true, render },
+  { label: I18n.apy.heco.head.ratio, key: 'user_profit_percent', width: '130px', sortable: true, render },
 ]
 
 
