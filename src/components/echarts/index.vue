@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pick } from 'ramda'
+import { pick, omit } from 'ramda'
 import { onMounted, reactive, ref, toRaw, watch, onUnmounted } from 'vue'
 import { compact, debounce, map, uuid } from '~/utils'
 import { useProvide } from '~/utils/use/state'
@@ -9,6 +9,7 @@ import { Direction, XAxisItem, LegendDirection } from '~/logic/echarts/interface
 import * as config from '~/logic/echarts/config'
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as resize from '~/utils/event/resize'
+import safeSet from '@fengqiaogang/safe-set'
 
 import { graphic, tooltips as makeTooltipOption, xAxis as makeXAxisOption } from '~/lib/chartOption'
 
@@ -38,10 +39,13 @@ const chartId = ref<string>(uuid())
 
 // hover 提示配置信息
 const getToolTip = function() {
-  const array = getValue(tooltip)
+  const [tips] = getValue<any>(tooltip)
   const option = makeTooltipOption()
-  return Object.assign({}, option, array[0], {
-    formatter: logicToolTip.formatter,
+  const callback = function(data: any) {
+    return logicToolTip.formatter(data, tips.formatter)
+  }
+  return Object.assign({}, option, tips, {
+    formatter: callback,
   })
 }
 
@@ -52,7 +56,6 @@ const getLegend = function() {
     return { show: false }
   }
   const list = getValue<LegendItem>(chartLegends)
-  console.log(list)
   return config.getLegend(list, props)
 }
 
@@ -89,6 +92,21 @@ const getChartDom = function(): HTMLCanvasElement {
   return toRaw(echartsRef).value
 }
 
+const getBasisOption = function() {
+  const legend = getLegend()
+  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
+  // 垂直方向
+  if (Direction.vertical === props.direction) {
+    safeSet(gridOption, 'left', '3%')
+    safeSet(gridOption, 'right', 15)
+  }
+  return {
+    graphic: graphic(30), // 背景
+    grid: gridOption, // 容器配置
+    backgroundColor: props.bgColor, // 背景颜色
+  }
+}
+
 const getOption = function() {
   let xAxisOpt: any
   let yAxisOpt: any
@@ -107,32 +125,31 @@ const getOption = function() {
   }
   return {
     legend, // 图例配置数据
-    tooltip: getToolTip(),
     xAxis: xAxisOpt, // X 轴配置数据
     yAxis: yAxisOpt, // Y 轴配置数据
+    tooltip: getToolTip(),
     series: getSeries(yAxisTempData), // series 数据
-    graphic: graphic(30), // 背景
-    grid: gridOption, // 容器配置
-    backgroundColor: props.bgColor, // 背景颜色
+    ...getBasisOption()
   }
 }
 
 // 刷新 chart 数据
 const sync = debounce(async () => {
-  const option = getOption()
   try {
     if (compChar.value) {
       const char = compChar.value
-      console.log(1, option)
+      const option = getOption()
+      char.clear()
       char.setOption(option, {
         notMerge: true,
-        replaceMerge: ['series', 'legend', 'yAxis', 'xAxis', 'grid']
+        lazyUpdate: true,
+        silent: true,
       })
     } else {
       const dom = getChartDom()
       const char = echarts.init(dom);
       compChar.value = char
-      console.log(2, option)
+      const option = getOption()
       char.setOption(option)
     }
   } catch (e) {

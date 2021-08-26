@@ -1,6 +1,7 @@
 import { omit } from 'ramda'
 import { uuid, map, dateTime, dateYMDFormat, dateMDFormat, isObject} from '~/utils'
-import { EchartData, seriesType,LegendItem } from '~/logic/echarts/interface'
+import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate } from '~/logic/echarts/interface'
+import safeGet from '@fengqiaogang/safe-get'
 
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
@@ -28,4 +29,10 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
             key: uuid(),
         }, omit(['xAxis', 'series', 'legends'], trends))
     }
+}
+
+export const chartFormatter = function(template: FormatterTemplate, data: FormatterParams) {
+    const detail = safeGet<string>(data, 'data.detail')
+    const html = `<span class="ml-1.5 text-xs text-global-highTitle text-opacity-60">${detail}</span>`
+    return `${template.icon}${template.name}${template.value}${html}`
 }

@@ -90,7 +90,7 @@ const onAdd = function() {
             <!-- 堆积图，log 图 --->
             <Echarts :stack="false" :log="false" :direction="direction" :legend="LegendDirection.custom">
               <!-- 提示框 trigger: 触发方式 -->
-              <EchartsTooltip trigger="axis" />
+              <EchartsTooltip trigger="axis"/>
               <!--图例-->
               <template v-for="(item, index) in echartData.legends" :key="`legend-${index}`">
                 <!--
@@ -100,25 +100,20 @@ const onAdd = function() {
                   position: 通过该字段控制 Series 中对应的数据以那个 Y 轴为纬度展示
                 -->
                 <EchartsLegend :index="index" :value="item.name" :show="item.show" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+              </template>
+              <!-- 设置X轴 -->
+              <EchartsXaxis :value="echartData.xAxis"/>
 
-                <!-- 设置X轴 -->
-                <EchartsXaxis :value="echartData.xAxis"/>
+              <EchartsYaxis :index="0" :position="Position.left"/>
+              <EchartsYaxis :index="1" :position="Position.right"/>
 
-                <EchartsYaxis :index="0" :position="Position.left"/>
-                <EchartsYaxis :index="1" :position="Position.right"/>
-
-
-
-
-
-                <!--数据-->
-                <template v-for="(item, index) in echartData.series" :key="index">
-                  <!--
-                    通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
-                    value: 数据
-                  -->
-                  <EchartsSeries :index="index" :color="colors[index]" :value="toJSON(item)"/>
-                </template>
+              <!--数据-->
+              <template v-for="(item, index) in echartData.series" :key="index">
+                <!--
+                  通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
+                  value: 数据
+                -->
+                <EchartsSeries :index="index" :value="toJSON(item)"/>
               </template>
             </Echarts>
           </div>

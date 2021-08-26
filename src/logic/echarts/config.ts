@@ -237,7 +237,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
   const seriesList = map((item: any, index: number) => {
     const data = getLegendItem(index)
     // 判断是否需要隐藏数据
-    if (!toBoolean(data.show)) {
+    if (!toBoolean(data.show) || toBoolean(data.hidden)) {
       return void 0
     }
     const option: any = {
@@ -251,7 +251,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
       },
       symbol: 'none',
     }
-    safeSet(option, 'itemStyle.color', data.color)
+    safeSet(option, 'itemStyle.color', data.itemStyle.color)
 
 
     if (data.type === seriesType.line) {

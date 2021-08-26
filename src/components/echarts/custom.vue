@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import { toRaw } from 'vue'
+import { toBoolean } from '~/utils'
+import { colorHexToRGBA } from '~/lib/tool'
 import safeGet from '@fengqiaogang/safe-get'
-import { tailwind } from '~/logic/echarts/colors'
-import { compact, toBoolean } from '~/utils'
 import { getInject, setInject } from '~/utils/use/state'
 import { EchartsOptionName } from '~/logic/echarts/tool'
 import { LegendItem, iconFontName } from '~/logic/echarts/interface'
 
-/**
- * 获取 ref 对象中的数据，并去除空值
- * @param data ref
- */
-const getValue = function<T>(data: any): T[] {
-  const value = toRaw(data.value)
-  return compact(value)
-}
-
-const series = getInject(EchartsOptionName.series)
 const chartLegends = getInject(EchartsOptionName.legend)
 const setChartLegends = setInject(EchartsOptionName.legend)
 
@@ -31,9 +21,9 @@ const getLegendTheme = function(item: any): string | undefined {
 
 // 删除 legend
 const onRemoveLegend = function(item: any) {
-  const data = toRaw(item)
-  console.log('remove : ', data)
-  // emitEvent('removeLegend', data)
+  const index = item.index
+  const data = { ...item, hidden: true} // 隐藏
+  setChartLegends(data, index)
 }
 // 修改 legend 状态
 const onChangeLegend = function(item: LegendItem) {
@@ -41,30 +31,6 @@ const onChangeLegend = function(item: LegendItem) {
   const show = toBoolean(safeGet(item, 'show'))
   const data = { ...item, show: !show}
   setChartLegends(data, index)
-}
-
-function colorHexToRGBA(sHex: string, alpha: number = 1) {
-  // 十六进制颜色值的正则表达式
-  const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
-  /* 16进制颜色转为RGB格式 */
-  let sColor = sHex.toLowerCase()
-  if (sColor && reg.test(sColor)) {
-    if (sColor.length === 4) {
-      let sColorNew = '#'
-      for (let i = 1; i < 4; i += 1) {
-        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1))
-      }
-      sColor = sColorNew
-    }
-    // 处理六位的颜色值
-    const sColorChange = []
-    for (let i = 1; i < 7; i += 2) {
-      sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)))
-    }
-    return 'rgba(' + sColorChange.join(',') + ',' + alpha + ')'
-  } else {
-    return sColor
-  }
 }
 
 const makeCss = function(item: LegendItem) {
@@ -82,7 +48,7 @@ const makeCss = function(item: LegendItem) {
 <template>
   <div class="custom-legend text-kdFang pt-3">
     <template v-for="(item, index) in chartLegends" :key="`${item.value}-${index}`">
-      <div class="legend-box" :style="makeCss(item)">
+      <div v-if="item" class="legend-box" :class="{'hidden': item.hidden}" :style="makeCss(item)">
         <div class="item cursor-pointer" :class="getLegendTheme(item)" @click="onChangeLegend(item)">
           <div class="flex items-center">
             <IconFont class="flex mr-1" :type="iconFontName[item.type]" size="base"></IconFont>
@@ -108,11 +74,12 @@ const makeCss = function(item: LegendItem) {
 .custom-legend {
   @apply py-1.5;
   .legend-box {
-    @apply block;
-    @screen md {
-      @apply inline-block mr-1;
-      &:last-child {
-        @apply mr-0;
+    &:not(.hidden) {
+      @screen md {
+        @apply inline-block mr-1;
+        &:last-child {
+          @apply mr-0;
+        }
       }
     }
   }
