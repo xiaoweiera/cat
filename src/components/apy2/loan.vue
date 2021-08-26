@@ -22,6 +22,7 @@ onMounted(async ()=>{
         <Apy2BaseHeader class="mt-8"/>
         <Apy2SelectContainerSelectTool type="loan" pageType="lend" class="absolute -top-3  right-7" />
       </div>
+      <Apy2Chains class="mt-15"/>
       <div class="x-xian mt-6"></div>
       <div class="flex w-full py-6 bottomBorder">
         <div class="flex flex-1 ">

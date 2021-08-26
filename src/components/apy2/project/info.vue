@@ -84,7 +84,7 @@ onMounted(getData())
               <span class="text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">条 (
                 <template v-for="(item,i) in data.chains">
                     <span>{{ item }}</span>
-                      <span v-if="i<data.chains.length && data.chains.length>1">、</span>
+                      <span v-if="i<data.chains.length-1">、</span>
                     </template>)
               </span>
             </div>
