@@ -21,9 +21,9 @@ const API ={
 }
 
 // 币种列表
-export const list = function() {
+export const list = function(query?: object) {
   const result = request.get(API.tokenList, {
-    // params: { cache: true }
+   params:{ ...query }
   })
   return asyncCheck<TokenItem[]>(result)
 }

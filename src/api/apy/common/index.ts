@@ -1,7 +1,7 @@
 import axios from '~/lib/service'
 // 币种列表
 export { list as getTokenList } from '~/api/apy/token/index'
-import { projectParam,poolsParam,tokenSearch,poolSearch } from '~/logic/apy2/interface'
+import { projectParam,poolsParam,tokenSearch,poolSearch,loanPoolParam } from '~/logic/apy2/interface'
 import { toArray, toBoolean } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import { asyncCheck } from '~/lib/response'
@@ -19,6 +19,7 @@ enum API {
     pool='/api/apy/ninja/pools',
     token_search='/api/apy/ninja/token_search',
     pool_search='/api/apy/ninja/pool_search',
+    calculator='/api/apy/ninja/lending_pools/calculator'
 }
 // 公告接口
 export const announcements = ()=>request({  url:API.announcements,   method: 'get'})
@@ -37,7 +38,7 @@ export const getPoolsList= (param:poolsParam)=> request({url:API.pool,params:par
 export const getTokenSearch= (param:tokenSearch)=> request({url:API.token_search,params:param, method: 'get'})
 //池子搜索
 export const getPoolSearch= (param:poolSearch)=> request({url:API.pool_search,params:param, method: 'get'})
-
+export const getCalculator=(param:loanPoolParam)=>request({url:API.calculator,params:param, method: 'get'})
 interface FollowQuery {
     value: string | number | string[] | number[],
     type: string,
