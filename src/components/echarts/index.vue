@@ -366,20 +366,21 @@ const getGrid = function() {
       bottom: 6,
       containLabel: true,
     }
-  } else if (props.legend === LegendDirection.custom) {
-    return {
-      top: 15,
-      left: 15,
-      right: 15,
-      bottom: 15,
-      containLabel: true,
-    }
   }
+  // else if (props.legend === LegendDirection.custom) {
+  //   return {
+  //     top: 15,
+  //     left: 15,
+  //     right: 15,
+  //     bottom: 15,
+  //     containLabel: true,
+  //   }
+  // }
   return {
     top: 15,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    left: 15,
+    right: 15,
+    bottom: 15,
     containLabel: true,
   }
 }
@@ -409,7 +410,6 @@ const getOption = function() {
     series: getSeries(),
     backgroundColor: props.bgColor,
   }
-  console.log(data)
   return data
 }
 

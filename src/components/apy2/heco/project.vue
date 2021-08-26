@@ -9,10 +9,11 @@ defineProps({
 </script>
 
 <template>
-  <Apy2HecoCustom v-if="data.custom" :data="data"/>
-  <div class="flex items-center" v-else>
-    <IconFont class="mr-2" :type="data.node_logo" rounded size="24"/>
-    <span :class="data.className">{{ data.node_name }}</span>
+  <div class="w-full block">
+    <Apy2HecoCustom v-if="data.custom" :name="data.node_name"/>
+    <div class="flex items-center" v-else>
+      <span :class="data.className">{{ data.node_name }}</span>
+    </div>
   </div>
 </template>
 

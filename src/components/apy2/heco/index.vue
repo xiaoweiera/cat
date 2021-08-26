@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { omit } from 'ramda'
-// @ts-ignore
+import I18n from '~/utils/i18n/index'
 import { formatCash, uuid } from '~/utils'
 import { onMounted, reactive, ref, toRaw } from 'vue'
-// @ts-ignore
 import { getHecoTrendsList, getTableList, pcHeader, mobileHeader } from '~/logic/apy2/heco'
 import { HecoDetail, HecoNode } from '~/logic/apy2/interface'
-// @ts-ignore
-import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
+import { EchartData, Position } from '~/logic/echarts/interface'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
 import router from '~/utils/router'
@@ -120,6 +118,13 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
   }
 }
 
+const rowClassName = function(scope: any) {
+  const data: HecoNode = scope.row
+  if (data.custom) {
+    return ''
+  }
+  return 'cursor-pointer'
+}
 
 </script>
 
@@ -127,22 +132,22 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
   <div class="bg-global-white px-4">
     <div class="w-300 mx-auto max-w-full text-kdFang">
       <div class="text-center">
-        <h3 class="title text-global-highTitle text-opacity-85">HECO 节点竞选</h3>
+        <h3 class="title text-global-highTitle text-opacity-85">{{ I18n.apy.heco.title }}</h3>
         <p class="description">
         <span class="item">
-          <span class="sub">本轮投票总票数</span>
+          <span class="sub">{{ I18n.apy.heco.description.votes }}</span>
           <span class="ml-1 text-global-highTitle text-opacity-85">
             <span>{{ formatCash(detail.votes) }} HT</span>
           </span>
         </span>
           <span class="item">
-          <span class="sub">本轮投票总人数</span>
+          <span class="sub">{{ I18n.apy.heco.description.voters }}</span>
           <span class="ml-1 text-global-highTitle text-opacity-85">
             <span>{{ formatCash(detail.voters) }} 人</span>
           </span>
         </span>
           <span class="item">
-          <span class="sub">距本轮投票结束</span>
+          <span class="sub">{{ I18n.apy.heco.description.dateEnd }}</span>
           <span class="ml-1 text-global-highTitle text-opacity-85">05:33:20</span>
         </span>
         </p>
@@ -171,36 +176,37 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
           </template>
         </Echarts>
       </div>
+
       <div class="mt-6">
         <!-- 大屏 -->
         <div class="hidden md:block">
-          <el-table class="w-full heco-custom-expand" :data="tableData" row-key="id" :span-method="arraySpanMethod" @row-click="onRowClick">
-          <template v-for="(item, index) in pcHeader" :key="index">
-            <el-table-column :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
-              <template v-if="item.key === 'node_name'" #default="scope">
-                <Apy2HecoProject :data="scope.row"/>
-              </template>
-              <template v-else-if="item.render" #default="scope">
-                <div :class="item.className">
-                  <span>{{ item.render(scope.row, item.key) }}</span>
+          <el-table class="w-full heco-custom-expand" :data="tableData" row-key="id" :row-class-name="rowClassName" :span-method="arraySpanMethod" @row-click="onRowClick">
+            <template v-for="(item, index) in pcHeader" :key="index">
+              <el-table-column :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
+                <template v-if="item.key === 'node_name'" #default="scope">
+                  <Apy2HecoProject :data="scope.row"/>
+                </template>
+                <template v-else-if="item.render" #default="scope">
+                  <div :class="item.className">
+                    <span>{{ item.render(scope.row, item.key) }}</span>
+                  </div>
+                </template>
+              </el-table-column>
+            </template>
+            <el-table-column prop="node_name" :label="I18n.apy.heco.head.operation">
+              <template #default="scope">
+                <div>
+                  <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
+                    <span class="text-xs font-medium">{{ I18n.apy.heco.button.vote }}</span>
+                  </el-button>
+                  <el-button type="text">
+                    <span class="text-xs font-medium" v-if="scope.row.expand">{{ I18n.apy.heco.button.off }}</span>
+                    <span class="text-xs font-medium" v-else>{{ I18n.apy.heco.button.expand }}</span>
+                  </el-button>
                 </div>
               </template>
             </el-table-column>
-          </template>
-          <el-table-column prop="node_name" label="操作">
-            <template #default="scope">
-              <div>
-                <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
-                  <span class="text-xs font-medium">去投票</span>
-                </el-button>
-                <el-button type="text">
-                  <span class="text-xs font-medium" v-if="scope.row.expand">收起图表</span>
-                  <span class="text-xs font-medium" v-else>展开图表</span>
-                </el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
+          </el-table>
         </div>
         <!-- 手机端 -->
         <div class="block md:hidden">
@@ -218,7 +224,7 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
               <template #default="scope">
                 <div>
                   <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
-                    <span class="text-xs font-medium">去投票</span>
+                    <span class="text-xs font-medium">{{ I18n.apy.heco.button.vote }}</span>
                   </el-button>
                 </div>
               </template>
@@ -228,13 +234,9 @@ const arraySpanMethod = function({ row, column, rowIndex, columnIndex }: any) {
       </div>
 
       <div class="pt-4 pb-15">
-        <h4 class="text-base text-global-highTitle">投票规则:</h4>
+        <h4 class="text-base text-global-highTitle">{{ I18n.apy.heco.note.label }}:</h4>
         <p class="pt-1.5 text-xs whitespace-pre-wrap text-global-default text-opacity-85">
-          <span class="block">
-            1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。
-          </span>
-          <span class="block">2 投票周期：节点排名根据用户投票数更新，奖励每6小时发放。</span>
-          <span class="block">3 退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。</span>
+          <span class="block" v-for="(value, index) in I18n.apy.heco.note.texts" :key="index">{{ value }}</span>
         </p>
       </div>
     </div>
