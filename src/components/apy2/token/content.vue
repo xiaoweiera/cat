@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useProvide } from '~/utils/use/state'
-import dataEventName from '~/components/ui/date/eventname'
 import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 // @ts-ignore
 import { getTokenDetail } from '~/logic/apy2/token'
@@ -24,10 +22,6 @@ const props = defineProps({
     required: true
   }
 })
-// 已选择矿池列表
-useProvide('poolList', '')
-// 日期
-useProvide(dataEventName.value)
 
 const detail = reactive({
   name: '',
@@ -96,15 +90,15 @@ onMounted(function() {
         </template>
       </div>
     </div>
-    <div class="mt-8 pt-0.5">
+    <div class="mt-8 pt-0.5" v-if="detail.name">
       <!--挖矿收益-->
-      <div v-if="TabCategoryData.mining === active">
-        <Apy2TokenMining :symbol="detail.name" :type="TabCategoryData.mining"/>
-      </div>
+      <template v-if="TabCategoryData.mining === active">
+        <Apy2TokenMining :symbol="detail.name" :type="active" :key="active"/>
+      </template>
       <!--利率收益-->
-      <div v-else-if="TabCategoryData.deposit === active">
-        <Apy2TokenDeposit :symbol="detail.name" :type="TabCategoryData.deposit"/>
-      </div>
+      <template v-else-if="TabCategoryData.deposit === active">
+        <Apy2TokenDeposit :symbol="detail.name" :type="active" :key="active"/>
+      </template>
     </div>
   </div>
 

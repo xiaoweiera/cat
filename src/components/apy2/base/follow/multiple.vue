@@ -37,13 +37,14 @@ const upData = async function() {
     type: props.type,
   })
   const db = new DBList(result)
-  list.value = db.clone(function(item: any) {
+  const array = db.clone(function(item: any) {
     item.checked = toBoolean(item.followed);
     return item
   })
+  list.value = array
+  return array
 }
 
-onMounted(upData)
 
 // 保存
 // @ts-ignore
@@ -70,7 +71,7 @@ const onSave = async function(list: any[]) {
 </script>
 
 <template>
-  <UiTransfer v-if="list.length > 0" :title="title" :sub-title="subTitle" :radios="radios" :list="list" @submit="onSave">
+  <UiTransfer :title="title" :sub-title="subTitle" :radios="radios" :list="list" :onload="upData" @submit="onSave">
     <template #content>
       <el-button v-login type="primary" size="medium">
         <div class="py-1.5 px-7">{{ title }}</div>

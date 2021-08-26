@@ -48,11 +48,10 @@ export const getEchartData = async function(query: object) {
 
 // 获取矿池列表
 export const getPoolsList = function(query: object) {
-  const params: any = {
-    ...query,
+  const params: any = Object.assign({
     query: '',
     chain: 'all',
     symbol_type: 'lp',
-  }
+  }, query || {})
   return asyncCheck(API.apy.common.getPoolsList(params))
 }

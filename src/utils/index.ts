@@ -66,8 +66,8 @@ export const debounce = function<T>(callback: Callback, time?: number): T {
     return callback as any
   }
   // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const self = this
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   let timeout: any
   // @ts-ignore
   return function (...args: any[]) {

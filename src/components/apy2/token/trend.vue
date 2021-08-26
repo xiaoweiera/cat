@@ -1,31 +1,25 @@
 <script setup lang="ts">
-import { onMounted, reactive, watch, ref, defineProps } from 'vue'
+import { reactive, ref, defineProps, toRaw } from 'vue'
 import { getEchartData } from '~/logic/apy2/token'
-import { getInject } from '~/utils/use/state'
-import dataEventName from '~/components/ui/date/eventname'
-import { debounce, uuid } from '~/utils'
+import { watchState } from '~/utils/use/state'
+import dataEventName, { getDateValue } from '~/components/ui/date/eventname'
+import { uuid } from '~/utils'
+import { Position, LegendDirection, EchartData } from '~/logic/echarts/interface'
 
-// @ts-ignore
-import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
 import Props from './props'
 
 const loading = ref<boolean>(false)
 const echartKey = ref<string>('')
 const echartData = reactive<EchartData>(new EchartData())
 
-// 定义 props
 const props = defineProps(Props())
 
-const date = getInject(dataEventName.value)
-
-const updateData = debounce<any>(async function() {
-  console.log('pools : ')
+const updateData = async function(date: any, pools: number[]) {
   loading.value = true
-  const [[ from_ts, to_ts ]]: number[][] = date.value
   const query = {
-    from_ts: Math.floor(from_ts / 1000),
-    to_ts: Math.floor(to_ts / 1000),
-    ...props
+    ...date,
+    ...props,
+    pools: pools.join(','),
   }
   const result = await getEchartData(query)
   echartKey.value = uuid(JSON.stringify(query))
@@ -35,11 +29,19 @@ const updateData = debounce<any>(async function() {
     echartData.series = result.series
   }
   loading.value = false
-}, 500)
+}
 
-watch(date, updateData)
+watchState([dataEventName.value, 'poolList'], function(result: any[]) {
+  const date = getDateValue(result[0])
+  let pools = []
+  if (result[1]) {
+    const [ list = [] ] = toRaw(result[1])
+    pools.push(...list)
+  }
+  updateData(date, pools)
+})
 
-onMounted(updateData)
+
 </script>
 
 <template>
