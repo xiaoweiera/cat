@@ -43,7 +43,7 @@ onMounted(()=>{if(group_id.value[0]){getData()}})
               <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{item.project}}</span>
               <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[item.chain]"></IconFont>
               <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
-              <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">MDEX 董事会</span>
+              <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
             </div>
             <div class="flex items-center">
               <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">可借金额</span>

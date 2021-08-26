@@ -1,5 +1,16 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
+import {chain} from '~/store/apy2/state'
+import {getTokenAndProject} from '~/logic/apy2/index'
+const tokenList=ref([])
+const projectList=ref([])
+const getSelectData=async ()=>{
+  console.log('kkjj')
+  const [tokenData,projectData]=await getTokenAndProject(chain.value,false)
+  console.log(tokenData)
+  tokenList.value=tokenData
+  projectList.value=projectData
+}
 const rate=ref(40)
 const marks=ref({
   0: '0°C',
@@ -13,9 +24,10 @@ const marks=ref({
   }
 })
 const getColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
+onMounted(getSelectData())
 </script>
 <template>
-<div class="font-kdFang cal w-120  p-4  bg-global-white rounded-kd4px">
+<div class="font-kdFang cal w-full  p-4  bg-global-white rounded-kd4px">
   <div class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium">真实利率计算器</div>
   <div class="borderGang mt-4"></div>
   <div>

@@ -32,12 +32,12 @@ export const getTokenList = async ()=>{
     return getRes(result)
 }
 //项目列表
-export const getProjectList=async (chain:string,query:string)=>{
-    const result=await api.apy.common.getProjectList({chain:chain,query:query})
+export const getProjectList=async (chain:string,query:string,merge:boolean)=>{
+    const result=await api.apy.common.getProjectList({chain:chain,query:query,merge:merge})
     return getRes(result)
 }
-export const getTokenAndProject=async (chain:string)=>{
-   const [tokenRes,projectRes]= await Promise.all([getTokenList(),getProjectList(chain,'')])
+export const getTokenAndProject=async (chain:string,merge:boolean)=>{
+   const [tokenRes,projectRes]= await Promise.all([getTokenList(),getProjectList(chain,'',merge)])
     return [tokenRes,projectRes]
 }
 //项目相亲
