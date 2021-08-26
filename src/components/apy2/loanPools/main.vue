@@ -25,11 +25,8 @@ const getList=async (clear:boolean)=>{
   param.chain=param.chain==='全部'?'all':param.chain
   param.project_id=param.project_id==='全部'?'all':param.project_id
   const res=await getLoanPools(param)
-  console.log('res',res)
   resultNumber.value=res?.length
   listData.value=clear?res:listData.value.concat(res)
-  listData.value=listData.value?.concat(res)
-  console.log(res,'result')
 }
 watch(()=>[inCoin.value[0],outCoin.value[0],projectId.value[0],chained.value[0]],(n)=>{
   param.page=1

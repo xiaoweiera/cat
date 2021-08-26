@@ -25,7 +25,7 @@ const txt=ref('')
 watch(project,()=>setProject(project.value))
 watch(chained,()=>setChained(chained.value))
 watch(txt,()=>setTxt(txt.value))
-const typeList=ref([{name:'全部',key:'all'},{name:'单利',key:'token'},{name:'LP',key:'lp'}])
+const typeList=ref([{name:'全部',key:'all'},{name:'单币',key:'token'},{name:'LP',key:'lp'}])
 const getProject=async ()=>{
   if(props.hasProject){
     const result=await getProjectList(chain.value,'')
