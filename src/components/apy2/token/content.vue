@@ -80,7 +80,7 @@ onMounted(function() {
         </span>
       </div>
 
-      <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1">
+      <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1" :class="{ 'hidden': category.length <= 1  }">
         <template v-for="item in category" :key="item.id">
           <router-link class="page-switch" :class="{'active': active === item.id}" :to="getUrl(item.id)">
             <IconFont type="icon-danbi" size="24"/>

@@ -3,11 +3,10 @@
  * @file 币种分析
  * @author svon.me@gmail.com
  */
-import { onBeforeMount, computed, toRaw } from 'vue'
+import { trim, toUpper } from 'ramda'
+import { onBeforeMount, computed, toRaw, ref } from 'vue'
 import { tokenList } from '~/store/apy2/state'
-// @ts-ignore
 import { getParam } from '~/utils/router'
-// @ts-ignore
 import { ready } from '~/logic/apy2/token'
 import { TabCategoryData } from '~/logic/apy2/interface'
 import { useProvide } from '~/utils/use/state'
@@ -16,6 +15,8 @@ import DBList from '@fengqiaogang/dblist'
 
 // @ts-ignore
 const [ date ] = useProvide('uiDate')
+
+const search = ref<string>('')
 
 
 // 获取
@@ -66,6 +67,16 @@ const isRouterActive = function(data: string) {
   return false
 }
 
+const menuList = computed(function(){
+  const list = toRaw(tokenList.value)
+  const name = trim(search.value)
+  if (name) {
+    const db = new DBList(list)
+    return db.like({ name: toUpper(name) })
+  }
+  return list
+})
+
 onBeforeMount(ready)
 
 </script>
@@ -76,7 +87,7 @@ onBeforeMount(ready)
       <el-container class="h-full text-kdFang">
         <el-header height="initial" class="p-0">
           <div class="pt-5">
-            <el-input class="search-box" placeholder="请输入内容" value="">
+            <el-input class="search-box" placeholder="请输入内容" v-model="search">
               <template #prefix>
                 <i class="el-input__icon el-icon-search"></i>
               </template>
@@ -85,7 +96,7 @@ onBeforeMount(ready)
         </el-header>
         <el-main class="p-0 overflow-auto">
           <div class="pt-3 pb-10" v-if="tokenList.length > 0">
-            <template v-for="(item, index) in tokenList" :key="index">
+            <template v-for="(item, index) in menuList" :key="index">
               <div class="cursor-pointer">
                 <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
                   <span class="inline-flex">
