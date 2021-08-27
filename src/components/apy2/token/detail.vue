@@ -50,13 +50,13 @@ const onChange = function(data: object) {
   <div>
     <div class="flex justify-between items-center">
       <p class="flex-1 w-1">
-        <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-xl">BTC 挖矿 APY TOP 10</span>
-        <span class="inline-block leading-6 ml-1.5 text-xs text-global-highTitle text-opacity-45">更新时间：1分钟前</span>
+        <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-xl">APY TOP 10</span>
+<!--        <span class="inline-block leading-6 ml-1.5 text-xs text-global-highTitle text-opacity-45">更新时间：1分钟前</span>-->
       </p>
       <div class="ml-5">
         <div class="cursor-pointer text-global-highTitle text-opacity-65">
           <!-- 保存 echarts 图表 -->
-          <EchartsDownload title="收益"/>
+          <EchartsDownload :title="`${symbol}top10`"/>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@ const onChange = function(data: object) {
   <div class="mt-3">
     <div class="flex justify-between items-center">
       <div>
-        <UiTransfer title="添加矿池" sub-title="已选矿池" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange" :onload="updatePoolList">
+        <UiTransfer title="添加矿池" sub-title="已选矿池" :max="10" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange" :onload="updatePoolList">
           <template #content>
             <el-button plain size="small">
               <div class="inline-flex items-center px-3 py-0.5">

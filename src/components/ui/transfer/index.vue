@@ -31,6 +31,10 @@ const props = defineProps({
       return []
     }
   },
+  max: {
+    type: Number,
+    default: () => 0
+  },
   onload: {
     type: Function,
     default () {
@@ -72,11 +76,16 @@ const onChangeList = function(list: string[]) {
   const array2: string[] = map((item: any) => item.id, toRaw(props.list))
   // 排除当前列表中的数据
   const array3: string[] = intersection(array2, array1)
-  console.log('del : ', array3)
   db.remove({ id: array3 })
   // 添加已选择的数据
   db.insert(getCheckboxList(list))
-  checkboxList.value = db.clone()
+  const result = db.clone()
+  if (props.max > 0) {
+    checkboxList.value = result.slice(0, props.max)
+    checkboxValue.value = list.slice(0, props.max)
+  } else {
+    checkboxList.value = result
+  }
 }
 
 
@@ -103,7 +112,7 @@ const onShow = async function() {
 // 确认
 // @ts-ignore
 const onSubmit = function() {
-  const value = getCheckboxList()
+  const value = toRaw(checkboxList.value)
   emitEvent('submit', value)
   onHidden();
 }
@@ -111,10 +120,10 @@ const onSubmit = function() {
 // @ts-ignore
 const onRemove = function(data: any) {
   const value = safeGet<string | number>(data, 'id')
-  const list: Array<string | number> = toArray(checkboxValue.value)
+  const list: Array<string | number> = toArray(checkboxList.value)
   // 计算差集，得到未删除的数据
   const array:Array<string | number> = difference(list, [value])
-  checkboxValue.value = array
+  checkboxList.value = array
 }
 
 onMounted(function() {

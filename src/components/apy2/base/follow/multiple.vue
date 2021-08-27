@@ -1,10 +1,10 @@
 <script setup lang="ts">/**
  * @file 币种多选收藏
  */
-import { reactive, ref, onMounted, defineProps, toRaw, defineEmits } from 'vue'
+import { ref, defineProps, defineEmits, toRaw } from 'vue'
 import { symbolList, setFollow } from '~/logic/apy2/follow'
 import { SymbolType } from '~/logic/apy2/interface'
-import { toBoolean, map } from '~/utils'
+import { toBoolean, map, uuid } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import getProps from '~/components/apy2/base/follow/props'
 import { messageError, messageSuccess } from '~/lib/tool'
@@ -26,17 +26,44 @@ const radios = [
 
 
 const list = ref<any[]>([])
+const followeds = ref<any[]>([])
 
-const upData = async function(query: object = {}) {
+const getSymbolList = async function(query: object = {}) {
   const result = await symbolList({
     type: props.type,
     ...query
   })
-  const db = new DBList(result)
-  const array = db.clone(function(item: any) {
+  const db = new DBList(map(function(item: any) {
+    item.id = uuid(item.id || item.name)
+    return item
+  }, result))
+  return  db.clone(function(item: any) {
     item.checked = toBoolean(item.followed);
     return item
   })
+}
+
+const getFollowedList = async function() {
+  const list = toRaw(followeds.value)
+  if (list.length > 0) {
+    return list
+  }
+  const result = await getSymbolList({
+    followed: true
+  })
+  followeds.value = result
+  return result
+}
+
+const upData = async function(query: object = {}) {
+  const [list1, list2] = await Promise.all([
+    getFollowedList(),
+    getSymbolList(query)
+  ])
+  const db = new DBList()
+  db.insert(list1)
+  db.insert(list2)
+  const array = db.clone()
   list.value = array
   return array
 }
@@ -52,6 +79,7 @@ const onChange = function(data: any) {
 // 保存
 // @ts-ignore
 const onSave = async function(list: any[]) {
+  followeds.value = []
   const query = {
     ...props,
     multiple: true,
