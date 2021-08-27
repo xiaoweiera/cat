@@ -55,19 +55,18 @@ watchState(dataEventName.value, upData)
     <el-header height="initial" class="p-0">
       <div class="flex justify-between items-center">
         <div>
-          <span>{{ title }}</span>
-          <span>更新时间：1分钟前</span>
+          <span class="text-sm text-global-highTitle text-opacity-85">{{ title }}</span>
         </div>
         <div class="flex items-center">
           <slot></slot>
-          <EchartsDownload class="ml-3"/>
+          <EchartsDownload class="ml-3" :title="title"/>
         </div>
       </div>
     </el-header>
     <el-main class="p-0">
       <Echarts :key="echartData.key" :direction="Direction.vertical" :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
-        <EchartsTooltip :trigger="triggerType.none" />
+        <EchartsTooltip/>
 
         <template v-for="(item, index) in echartData.legends" :key="index">
           <EchartsLegend :index="index" :value="item.name" :type="item.type"/>

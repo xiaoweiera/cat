@@ -65,9 +65,20 @@ export const getProps = function() {
   }
 }
 
+const getYAxisData = function(yAxisData: any[]) {
+  return function(position: Position) {
+    for(let i = 0; i < yAxisData.length; i++) {
+      const item: any = yAxisData[i]
+      if (item?.position === position) {
+        return item
+      }
+    }
+  }
+}
 
 // 获取图列数据
-export const getLegend = function(list: LegendItem[], props: any) {
+export const getLegend = function(list: LegendItem[], yAxisData: any[], props: any) {
+  const getYAxisValue = getYAxisData(yAxisData)
   const data = map((item: LegendItem) => {
     if (item.show) {
       // @ts-ignore
@@ -79,7 +90,9 @@ export const getLegend = function(list: LegendItem[], props: any) {
         Object.assign(opt, { itemStyle })
       }
       if (item.position === Position.right) {
-        safeSet(opt, 'itemStyle.color', props.rightColor)
+        const yAxis = getYAxisValue(Position.right)
+        const color = safeGet(yAxis, 'axisLabel.textStyle.color')
+        safeSet(opt, 'itemStyle.color', color)
       }
       return opt
     }
@@ -105,41 +118,39 @@ export const getLegend = function(list: LegendItem[], props: any) {
 // chart Layout 容器配置
 export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement, list: LegendItem[]) {
   const row = logicLegend.clacLegendRows(list, dom)
-  let height = 0
-  if (row <= 1) {
-    height = 35
-  } else {
+  let height: number = 35
+  if (row > 1) {
     height = row * 25
   }
 
   if (legend === LegendDirection.top) {
     return {
       top: height,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      left: 15,
+      right: 15,
+      bottom: 5,
       containLabel: true,
     }
   } else if (legend === LegendDirection.bottom) {
     return {
       top: 15,
-      left: 0,
-      right: 0,
+      left: 15,
+      right: 15,
       bottom: height,
       containLabel: true,
     }
   } else if (legend === LegendDirection.left) {
     return {
-      top: 15,
-      right: 0,
-      bottom: 0,
+      top: 10,
+      right: 10,
+      bottom: 10,
       containLabel: true,
     }
   } else if (legend === LegendDirection.right) {
     return {
-      top: 15,
-      left: 6,
-      bottom: 6,
+      top: 10,
+      left: 10,
+      bottom: 10,
       containLabel: true,
     }
   }
@@ -161,7 +172,7 @@ export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement,
   }
 }
 
-export const getXAxis = function(yAxisData: any[], legends: LegendItem[], seriesList: any[], props: any) {
+export const getYAxis = function(yAxisData: any[], legends: LegendItem[], seriesList: any[], props: any) {
   const leftData: any[] = []
   const rightData: any[] = []
   forEach(function(item: any, index: number) {
@@ -173,18 +184,13 @@ export const getXAxis = function(yAxisData: any[], legends: LegendItem[], series
     }
   }, legends)
 
-  const getYAxisData = function(position: Position) {
-    for(let i = 0; i < yAxisData.length; i++) {
-      const item: any = yAxisData[i]
-      if (item?.position === position) {
-        return item
-      }
-    }
-  }
+  const getYAxisValue = getYAxisData(yAxisData)
 
   const app = function(data: any[], position: Position) {
     const value = calcYAxis(data, props.stack && position === Position.left, props.log)
-    const yaxisData = getYAxisData(position)
+    const yaxisData = getYAxisValue(position)
+    const textStyleKey = 'axisLabel.textStyle'
+    const textStyle = safeGet(yaxisData, textStyleKey)
     const [ option ] = makeYAxisOption(function(value: number) {
       const formatter = safeGet<any>(yaxisData, 'axisLabel.formatter')
       if (formatter) {
@@ -198,8 +204,13 @@ export const getXAxis = function(yAxisData: any[], legends: LegendItem[], series
       }
       return numberUint(value)
     })
+    if (textStyle) {
+      const temp = safeGet(option, textStyleKey) || {}
+      const value = Object.assign(temp, textStyle)
+      safeSet(option, textStyleKey, value)
+    }
     const opt = Object.assign({}, option, value, { position })
-    return { ...opt, ...omit(['axisLabel', 'position'], yaxisData) }
+    return { ...opt, ...omit(['position', 'axisLabel'], yaxisData) }
   }
   const yaxis: any[] = []
   if (leftData.length > 0) {

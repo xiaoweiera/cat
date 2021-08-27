@@ -462,7 +462,13 @@ export const numberUint = function(value: number, unit?: Unit) {
   if (!unit) {
     const number = (`${toInteger(Math.abs(value))}`).replace(/[^0-9]/, '')
     const length = number.length
-    if (length > 8) {
+    if (length > 11) {
+      unit = Unit.hundredBillion
+    } else if (length > 10) {
+      unit = Unit.tenBillion
+    } else if (length > 9) {
+      unit = Unit.billion
+    } else if (length > 8) {
       unit = Unit.hundredMillion
     } else if (length > 4) {
       unit = Unit.tenThousand
@@ -473,10 +479,11 @@ export const numberUint = function(value: number, unit?: Unit) {
   const template = `0 | {data}${unit || ''}`
   if (count > 0) {
     const data = toNumberCeil(count / pow)
-    res = I18n.part(template, data, { data })
+    res = I18n.part(template, data, { data: formatCash(data) })
   } else {
     const data = toNumberCeil(count / pow)
-    res = I18n.part(template, data, { data: `-${Math.abs(data)}` })
+    const temp = formatCash(Math.abs(data))
+    res = I18n.part(template, data, { data: `-${temp}` })
   }
   return res
 }

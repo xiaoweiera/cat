@@ -51,8 +51,14 @@ watchState(dataEventName.value, upData)
 <template>
   <el-container class="h-full">
     <el-header height="initial" class="p-0">
-      <span>{{ title }}</span>
-      <span>更新时间：1分钟前</span>
+      <div class="flex justify-between">
+        <div>
+          <span class="text-sm text-global-highTitle text-opacity-85">{{ title }}</span>
+        </div>
+        <div>
+          <EchartsDownload :title="title"/>
+        </div>
+      </div>
     </el-header>
     <el-main class="p-0">
       <template v-if="echartData.xAxis && echartData.xAxis.length > 0">

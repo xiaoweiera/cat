@@ -2,18 +2,18 @@
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getDetail } from '~/logic/apy2/table'
 // @ts-ignore
-import { forEach, toNumber } from '~/utils'
+import { forEach, toNumber, toBoolean } from '~/utils'
 import { useProvide } from '~/utils/use/state'
 import dataEventName from '~/components/ui/date/eventname'
+import { TabCategoryData } from '~/logic/apy2/interface'
 
 const props = defineProps({
   type: {
     type: String,
-    required: true,
-    default: () => 'mining',
+    default: () => TabCategoryData.mining,
     validator: function(value: string) {
       // 类型为挖矿与借贷
-      return value === 'mining' || value === 'loan';
+      return value === TabCategoryData.mining || value === TabCategoryData.lend;
     }
   },
   id: {
@@ -38,7 +38,7 @@ const tabValue = ref<string>(tab1.value)
 const upDetail = async function() {
   const data = await getDetail(props)
   forEach(function(value: any, key: string) {
-    if (key === 'strategy_tags') {
+    if (key === 'project_tags') {
       const [ icon ]: string[] = value.split(',')
       value = icon
     }
@@ -54,17 +54,39 @@ onMounted(upDetail)
 <template>
   <el-container class="h-full">
     <el-header height="initial" class="p-0" v-if="detail && detail.id">
-      <div class="flex items-center">
-        <IconFont :type="detail.symbol_logo || 'icon-morentoken'" size="32" rounded/>
-        <span class="symbol-name">{{ detail.symbol }}</span>
-        <span class="mr-2">-</span>
-        <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
-        <span class="symbol-name">{{ detail.project }}</span>
-        <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
-        <IconFont class="mr-1.5" :type="detail.strategy_tags" size="24"/>
-        <span class="label">机枪池</span>
+      <div class="flex item-center justify-between">
+        <div class="flex items-center">
+          <IconFont :type="detail.symbol_logo || 'icon-morentoken'" size="32" rounded/>
+          <span class="symbol-name">{{ detail.symbol }}</span>
+          <span class="mr-2">-</span>
+          <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
+          <span class="symbol-name">{{ detail.project }}</span>
+          <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
+          <template v-if="detail.project_tags">
+            <IconFont class="mr-1.5" :type="detail.project_tags" size="24"/>
+            <span class="label">{{ detail.project_tags }}</span>
+          </template>
+        </div>
+        <div class="flex item-center">
+          <div class="mr-3" v-if="type === TabCategoryData.lend">
+            <span class="flex item-center py-2 px-3 rounded bg-global-primary text-global-white cursor-pointer">
+              <IconFont class="flex" type="icon-jisuanqi-xiao"/>
+              <span class="text-sm ml-1">真实利率计算器</span>
+            </span>
+          </div>
+          <div class="mr-3">
+            <Apy2BaseFollow class="text-global-primary py-2 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
+              <span class="text-sm ml-1.5">添加自选</span>
+            </Apy2BaseFollow>
+          </div>
+          <div>
+            <a v-router.blank="detail.project_url" class="cursor-pointer inline-block py-2 px-7.5 rounded border border-global-primary border-opacity-32">
+              <span class="text-global-primary text-sm">去借贷</span>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="flex items-center mt-5 text-xs" v-if="type === 'mining'">
+      <div class="flex items-center mt-5 text-xs" v-if="type === TabCategoryData.mining">
         <div class="whitespace-nowrap self-end">
           <span class="text-global-highTitle text-opacity-45">收益率</span>
           <span class="text-global-numGreen text-4xl ml-1.5">{{ toNumber(detail.apy) }}%</span>
@@ -97,13 +119,13 @@ onMounted(upDetail)
             <span class="text-global-highTitle text-opacity-45">产出币种</span>
           </div>
           <div class="whitespace-nowrap mt-2 text-global-highTitle text-opacity-85">
-            <span class="label">{{ detail.single_apy_detail }} 单利</span>
-            <span class="label">{{ detail.compound_detail }} 复利</span>
+            <span class="label" v-if="detail.single_apy_detail">{{ detail.single_apy_detail }} 单利</span>
+            <span class="label" v-if="detail.compound_detail">{{ detail.compound_detail }} 复利</span>
           </div>
         </div>
       </div>
 
-      <div class="flex items-center mt-5 text-xs" v-else-if="type === 'loan'">
+      <div class="flex items-center mt-5 text-xs" v-else-if="type === TabCategoryData.lend">
         <div class="whitespace-nowrap self-end">
           <span class="text-global-highTitle text-opacity-45">利息</span>
           <span class="text-global-numGreen text-4xl ml-1.5">{{ toNumber(detail.apy) }}%</span>

@@ -32,7 +32,7 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
 }
 
 export const chartFormatter = function(template: FormatterTemplate, data: FormatterParams) {
-    const detail = safeGet<string>(data, 'data.detail')
+    const detail = safeGet<string>(data, 'data.detail') || ''
     const html = `<span class="ml-1.5 text-xs text-global-highTitle text-opacity-60">${detail}</span>`
     return `${template.icon}${template.name}${template.value}${html}`
 }

@@ -1,5 +1,3 @@
-import safeSet from '@fengqiaogang/safe-set'
-
 const colors: string[] = [
   '#2B8CFF', //'rgb(43, 140, 255)',
   '#38D600', // 'rgb(56, 214, 0)',
@@ -20,12 +18,5 @@ const layout = {
   warn: '#FF8C80' // 图表数据为负数时使用
 }
 
-const tailwind = {}
-
-for(let i = 0; i < colors.length; i++) {
-  const value = colors[i]
-  safeSet(tailwind, `chat${i}`, value)
-}
-
-export { layout, tailwind, colors }
+export { layout, colors }
 

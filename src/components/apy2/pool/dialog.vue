@@ -3,15 +3,15 @@ import { useWatch } from '~/utils/use/state'
 import eventName from './eventname'
 import { computed, ref, defineProps } from 'vue'
 import { toBoolean } from '~/utils'
+import { TabCategoryData } from '~/logic/apy2/interface'
 
 defineProps({
   type: {
     type: String,
-    required: true,
-    default: () => 'mining',
+    default: () => TabCategoryData.mining,
     validator: function(value: string) {
       // 类型为挖矿与借贷
-      return value === 'mining' || value === 'loan';
+      return value === TabCategoryData.mining || value === TabCategoryData.lend;
     }
   },
   id: {

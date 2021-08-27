@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { pick, omit } from 'ramda'
+import { pick } from 'ramda'
 import { onMounted, reactive, ref, toRaw, watch, onUnmounted } from 'vue'
 import { compact, debounce, map, uuid } from '~/utils'
 import { useProvide } from '~/utils/use/state'
 import * as echarts from 'echarts'
 import { EchartsOptionName } from '~/logic/echarts/tool'
-import { Direction, XAxisItem, LegendDirection } from '~/logic/echarts/interface'
+import { Direction, XAxisItem, LegendDirection, LegendItem } from '~/logic/echarts/interface'
 import * as config from '~/logic/echarts/config'
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as resize from '~/utils/event/resize'
@@ -15,7 +15,6 @@ import { graphic, tooltips as makeTooltipOption, xAxis as makeXAxisOption } from
 
 const props = defineProps(config.getProps())
 
-const echartsRef = ref<any>(null)
 const compChar = reactive<any>({
   value: void 0,
 })
@@ -49,16 +48,6 @@ const getToolTip = function() {
   })
 }
 
-// 图列配置数据
-const getLegend = function() {
-  if (!props.legend || props.legend === LegendDirection.custom) {
-    // 隐藏
-    return { show: false }
-  }
-  const list = getValue<LegendItem>(chartLegends)
-  return config.getLegend(list, props)
-}
-
 // 获取 X 轴配置数据
 const getXAxis = function() {
   const [ option ] = makeXAxisOption()
@@ -78,7 +67,18 @@ const getYAxis = function() {
   const legends = getValue<LegendItem>(chartLegends)
   const seriesList = getValue<any>(series)
   const yAxisData = getValue<any>(yAxis)
-  return config.getXAxis(yAxisData, legends, seriesList, props)
+  return config.getYAxis(yAxisData, legends, seriesList, props)
+}
+
+// 图列配置数据
+const getLegend = function() {
+  if (!props.legend || props.legend === LegendDirection.custom) {
+    // 隐藏
+    return { show: false }
+  }
+  const list = getValue<LegendItem>(chartLegends)
+  const yAxisData = getValue<any>(yAxis)
+  return config.getLegend(list, yAxisData, props)
 }
 
 // 获取 series 数据
@@ -89,12 +89,13 @@ const getSeries = function(yAxisOption: any[]) {
 }
 
 const getChartDom = function(): HTMLCanvasElement {
-  return toRaw(echartsRef).value
+  const id = chartId.value
+  return document.getElementById(`j-${id}`) as any
 }
 
 const getBasisOption = function() {
-  const legend = getLegend()
-  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
+  // @ts-ignore
+  const gridOption = config.getGrid(props.legend, getChartDom(), getLegend())
   // 垂直方向
   if (Direction.vertical === props.direction) {
     safeSet(gridOption, 'left', '3%')
@@ -110,52 +111,39 @@ const getBasisOption = function() {
 const getOption = function() {
   let xAxisOpt: any
   let yAxisOpt: any
-  const yAxisTempData = getYAxis()
-  const legend = getLegend()
-  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
   // 垂直方向
   if (Direction.vertical === props.direction) {
-    safeSet(gridOption, 'left', '3%')
-    safeSet(gridOption, 'right', 15)
-    xAxisOpt = yAxisTempData
+    xAxisOpt = getYAxis()
     yAxisOpt = getXAxis()
   } else {
     xAxisOpt = getXAxis()
-    yAxisOpt = yAxisTempData
+    yAxisOpt = getYAxis()
   }
   return {
-    legend, // 图例配置数据
+    legend: getLegend(), // 图例配置数据
     xAxis: xAxisOpt, // X 轴配置数据
     yAxis: yAxisOpt, // Y 轴配置数据
     tooltip: getToolTip(),
-    series: getSeries(yAxisTempData), // series 数据
+    series: getSeries(getYAxis()), // series 数据
     ...getBasisOption()
   }
 }
 
 // 刷新 chart 数据
-const sync = debounce(async () => {
-  try {
-    if (compChar.value) {
-      const char = compChar.value
-      const option = getOption()
-      char.clear()
+const sync = debounce<any>(async () => {
+  const char = compChar.value
+  if (char) {
+    const option = getOption()
+    try {
       char.setOption(option, {
         notMerge: true,
-        lazyUpdate: true,
-        silent: true,
+        silent: true
       })
-    } else {
-      const dom = getChartDom()
-      const char = echarts.init(dom);
-      compChar.value = char
-      const option = getOption()
-      char.setOption(option)
+    } catch (e) {
+      // todo
     }
-  } catch (e) {
-    console.log(e)
   }
-}, 200)
+}, 300)
 
 const onResize = function() {
   const char: any = compChar.value
@@ -167,10 +155,8 @@ const onResize = function() {
       }
     })
     setTimeout(function() {
-      const legend = getLegend()
-      const gridOption = config.getGrid(props.legend, getChartDom(), legend)
-      char.setOption({
-        grid: gridOption,
+      char.setOption(getBasisOption(), {
+        replaceMerge: 'grid'
       })
     })
   }
@@ -179,9 +165,17 @@ const onResize = function() {
 
 
 onMounted(function() {
-  sync()
-  watch([series, chartLegends], sync)
-  resize.bind(chartId.value, onResize)
+  const dom = getChartDom()
+  if (dom) {
+    const char = echarts.init(dom);
+    if (char) {
+      compChar.value = char
+      setTimeout(sync)
+    }
+    watch([series, chartLegends], sync)
+    resize.bind(chartId.value, onResize)
+  }
+
 })
 
 onUnmounted(function() {
@@ -203,7 +197,7 @@ onUnmounted(function() {
           <EchartsCustom/>
         </el-header>
         <el-main class="p-0">
-          <div :class="customClass" ref="echartsRef"></div>
+          <div :class="customClass" :id="`j-${chartId}`"></div>
         </el-main>
       </el-container>
     </div>
@@ -216,7 +210,7 @@ onUnmounted(function() {
       </div>
       <!-- 自定义图例 -->
       <EchartsCustom/>
-      <div :class="customClass" ref="echartsRef"></div>
+      <div :class="customClass" :id="`j-${chartId}`"></div>
     </div>
   </template>
   <template v-else>
@@ -224,7 +218,7 @@ onUnmounted(function() {
       <div class="hidden">
         <slot></slot>
       </div>
-      <div class="h-full" ref="echartsRef"></div>
+      <div class="h-full" :id="`j-${chartId}`"></div>
     </div>
   </template>
 </template>
