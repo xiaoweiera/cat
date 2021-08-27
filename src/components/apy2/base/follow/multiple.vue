@@ -24,17 +24,13 @@ const radios = [
   { label: 'LP', value: SymbolType.Lp }
 ]
 
-const Params = reactive<object>({
-  query: '',
-  symbol_type: SymbolType.Token,
-})
 
 const list = ref<any[]>([])
 
-const upData = async function() {
+const upData = async function(query: object = {}) {
   const result = await symbolList({
-    ...toRaw(Params),
     type: props.type,
+    ...query
   })
   const db = new DBList(result)
   const array = db.clone(function(item: any) {
@@ -45,6 +41,13 @@ const upData = async function() {
   return array
 }
 
+
+const onChange = function(data: any) {
+  upData({
+    query: data.search,
+    symbol_type: data.radioValue
+  })
+}
 
 // 保存
 // @ts-ignore
@@ -71,7 +74,7 @@ const onSave = async function(list: any[]) {
 </script>
 
 <template>
-  <UiTransfer :title="title" :sub-title="subTitle" :radios="radios" :list="list" :onload="upData" @submit="onSave">
+  <UiTransfer :title="title" :sub-title="subTitle" :radios="radios" :list="list" :onload="upData" @changeParam="onChange" @submit="onSave">
     <template #content>
       <el-button v-login type="primary" size="medium">
         <div class="py-1.5 px-7">{{ title }}</div>

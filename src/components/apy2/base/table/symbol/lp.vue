@@ -39,7 +39,7 @@ const href = computed(function() {
             <span class="inline-block whitespace-nowrap max-w-full truncate">{{ data.symbol_alias }}</span>
           </span>
         </el-tooltip>
-        <Apy2BaseFollow class="ml-1 lp-follow" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
+        <Apy2BaseFollow class="ml-1 lp-follow text-global-highTitle text-opacity-45" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
       </div>
       <div class="ml-2" v-if="href">
         <IconFont class="text-global-default text-opacity-35" type="icon-tiaozhuan" size="16"/>
