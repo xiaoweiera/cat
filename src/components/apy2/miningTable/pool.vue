@@ -33,11 +33,11 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
       </div>
 
       <div class="flex items-center">
-        <span class="text-12px18px text-global-highTitle text-opacity-65 mr-1">{{project}}</span>
-        <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[chain]" alt="">
-        <IconFont :type="`icon-${tolocaleUpperCase(category)}`" size="14"/>
+        <span v-if="project" class="text-12px18px text-global-highTitle text-opacity-65 mr-1">{{project}}</span>
+        <img v-if="chain" class="w-3.5 h-3.5 mr-1" :src="chainsIcon[chain]" alt="">
+        <IconFont v-if="category" :type="`icon-${tolocaleUpperCase(category)}`" size="14"/>
       </div>
-      <div class="text-12px14px w-fit tracking-wide text-global-highTitle text-opacity-45 px-1 py-0.5 bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
+      <div v-if="strategy" class="text-12px14px w-fit tracking-wide text-global-highTitle text-opacity-45 px-1 py-0.5 bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
         {{strategy}}
       </div>
     </div>

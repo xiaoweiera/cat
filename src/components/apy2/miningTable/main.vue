@@ -4,7 +4,7 @@ import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 const props=defineProps(
     {
-      data:Object
+      data:Object,
     }
 )
 const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'

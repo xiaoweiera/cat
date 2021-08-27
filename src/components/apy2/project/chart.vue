@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
+import { chartFormatter } from '~/lib/common'
 import {defineProps} from 'vue'
 const props=defineProps({
   chartData:Object,
@@ -12,10 +13,10 @@ const props=defineProps({
   <div class="w-full  h-full relative">
     <Echarts  v-if="chartData.xAxis && chartData.xAxis.length > 0" custom-class="w-full h-45 md:h-77.5 "  :legend="props.custom?LegendDirection.custom:LegendDirection.bottom">
       <!-- 提示框 trigger: 触发方式 -->
-      <EchartsTooltip trigger="axis" />
+      <EchartsTooltip trigger="axis"   :formatter="chartFormatter"/>
 
       <template v-for="(item, index) in chartData.legends" :key="index">
-        <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+        <EchartsLegend :index="index" :color="item.color" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
       </template>
 
       <EchartsYaxis :index="0" :position="Position.left"/>
@@ -29,7 +30,7 @@ const props=defineProps({
           通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
           value: 数据
         -->
-        <EchartsSeries :index="index" :color="item.color" :value="chartData.series[item.id]"/>
+        <EchartsSeries :index="index"  :value="chartData.series[item.id]"/>
       </template>
     </Echarts>
   </div>

@@ -13,12 +13,12 @@ const props=defineProps({
   <div class="  items-center">
     <div class="font-kdExp text-kd14px20px text-global-highTitle text-opacity-85">
       <span>TVL: </span>
-      <span>{{tvl}}</span>
+      <span>{{formatRulesNumber(tvl)}}</span>
       <span class="ml-1">{{name}}</span>
     </div>
     <div class="font-kdFang mt-1 text-kd12px16px text-global-highTitle text-opacity-45">
       <span>剩余可投额度: </span>
-      <span>${{formatRulesNumber(remainTvl)}} ({{tvlRate}}%)</span>
+      <span>${{formatRulesNumber(remainTvl)}} ({{formatRulesNumber(tvlRate)}}%)</span>
     </div>
   </div>
 </template>

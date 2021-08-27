@@ -21,7 +21,7 @@ const changeTag=(id:number)=>group_id.value[0]=id
           </div>
         </template>
         <template #content>
-          <Apy2Calculator :chain="chain" />
+          <Apy2Calculator />
         </template>
       </UiDialogBase>
 

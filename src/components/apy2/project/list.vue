@@ -39,7 +39,7 @@ const orderData=()=>{
           <router-link class="flex items-center  relative px-1.5  h-full" :to="`?id=${item.id}`">
             <div>
               <IconFont v-if="item.is_new" type="icon-NEW" size="24" class="absolute z-1 "/>
-              <IconFont :type="item.logo || 'icon-morentoken'" size="24" class="relative left-1.2  "/>
+              <IconFont style="border-radius: 50%;" :type="item.logo || 'icon-morentoken'" size="24" class="relative left-1.2  "/>
             </div>
             <div class="ml-3  flex items-center  justify-between flex-1 ">
               <div class="flex items-center flex-wrap">

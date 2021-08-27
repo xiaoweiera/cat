@@ -4,7 +4,7 @@ export const chains=[
     {key:'bsc',name:'BSC',icon:'https://res.ikingdata.com/apyTwo/bscChain.png'},
     {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.png'},
     {key:'oec',name:'OEC',icon:'https://res.ikingdata.com/apyTwo/oecChain.png'},
-    {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.png'},
+    // {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.png'},
     {key:'pos',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.png'},
 ]
 export const selectChains=[
