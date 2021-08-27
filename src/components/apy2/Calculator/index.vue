@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref,onMounted,watch,computed,defineProps,onBeforeMount} from 'vue'
 import {chain} from '~/store/apy2/state'
-import {getTokenAndProject,getCalculator,getTokenList} from '~/logic/apy2/index'
+import {getCalcProjects,getCalcTokens,getCalculator,} from '~/logic/apy2/index'
 import * as R from 'ramda'
 const props=defineProps({
   chain:String,
@@ -16,9 +16,12 @@ onMounted(()=>{
 onBeforeMount(()=>{
   console.log('pppbefore',props.project_id)
 })
-const tokenList=ref([])
+const tokenList=computed(async ()=>{
+  console.log('get coin')
+  return await getCalcTokens({project:projectItem.name,chain:projectItem.chain})
+})
 const projectList=ref([])
-const projectId=ref()
+const projectName=ref()
 const inCoin=ref('')
 const outCoin=ref('')
 const param={
@@ -29,12 +32,7 @@ const param={
     page:1,
     page_size:4
 }
-const getSelectData=async ()=>{
-  const [tokenData,projectData]=await getTokenAndProject(chain.value,false)
-  console.log(tokenData)
-  tokenList.value=tokenData
-  projectList.value=projectData
-}
+
 const clearRate=ref(340)
 const diYaRate=ref(180)
 const rate=ref(400)
@@ -61,42 +59,58 @@ const marks=ref({
   }
 })
 const getColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
-onMounted(getSelectData())
-const projectItem=computed(()=>R.find(item=>item.id===projectId.value,projectList.value))
+const projectItem=computed(()=>{
+  console.log(projectList.value,projectName.vaue)
+  return R.find(item=>item.name===projectName.value,projectList.value)})
 const getTip=(v:string)=>v+'%'
-const getLabel=(item:any)=>item.chains.length>0?`${item.name} (${item.chains[0]})`:item.name
+const getLabel=(item:any)=>item.chain?`${item.name} (${item.chain})`:item.name
 const getData=async ()=>{
   const res=await getCalculator(param)
   console.log('计算器',res)
-
 }
-watch(()=>projectId.value,async (n)=>{
-  param.project_id=n
-  const res=await getTokenList({})
-})
+const getProject=async ()=>{
+  projectList.value=await getCalcProjects()
+  console.log(projectList.value)
+}
+
 watch(()=>inCoin.value,(n)=>{
   param.lend_symbol=n
 })
 watch(()=>outCoin.value,(n)=>{
   param.loan_symbol=n
 })
+const platSelect=()=>{
+  document.getElementsByClassName('platModel')[0].click()
+}
 const resultNumber=computed(()=>{
 
 })
+onMounted(getProject())
 </script>
 <template>
 <div class="font-kdFang cal w-full  p-4  bg-global-white rounded-kd4px">
   <div class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium">真实利率计算器</div>
   <div class="borderGang mt-4"></div>
-  <div>
+  <div>{{projectItem}}--
     <div class="mt-4 h-11  flex items-center ">
       <div class="selectLabel mr-3 w-14.5">借贷平台</div>
       <div class="h-11 flex-1 rounded-kd6px borSelect flex items-center">
-        <IconFont v-if="projectItem" class="mr-1" size="24" :type="projectItem.logo?projectItem.logo:'icon-morentoken'"/>
-        <el-select v-model="projectId" placeholder="请选择">
-          <el-option v-for="item in projectList"  :label="getLabel(item)" :value="item.id">
+        <div @click="platSelect()" >
+          <div v-if="projectItem"  class="border-1 flex items-center min-w-40 h-full">
+            <IconFont v-if="projectItem" class="mr-1" size="24" :type="projectItem.logo?projectItem.logo:'icon-morentoken'"/>
+            <div class="mr-1 text-global-highTitle font-kdFang text-kd14px18px font-medium">{{projectItem?.name}}</div>
+            <div class="mr-1 text-kd12px14px  font-kdExp rounded-kd4px text-global-highTitle text-opacity-45 px-1 py-0.5 bg-global-highTitle bg-opacity-6 ">{{projectItem?.chain}}</div>
+          </div>
+          <div v-else>
+            <div class="mr-1 text-global-highTitle font-kdFang text-kd14px18px font-medium">请选择</div>
+          </div>
+        </div>
+        <div class="absolute  invisible">
+        <el-select  class=" platModel"  v-model="projectName" placeholder="请选择">
+          <el-option v-for="item in projectList"  :label="getLabel(item)" :value="item.name">
           </el-option>
         </el-select>
+        </div>
       </div>
     </div>
     <div class="mt-4 h-11  flex items-center ">

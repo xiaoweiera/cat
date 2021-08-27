@@ -5,7 +5,7 @@ const getRes=(obj:any)=>{
     }
     return obj
 }
-import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart,projectLoanChart,projectDetailChart,projectSameChart,projectMiningList,projectLoanList,tokenMiningPoolParam} from '~/logic/apy2/interface'
+import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart,projectLoanChart,projectDetailChart,projectSameChart,projectMiningList,projectLoanList,tokenMiningPoolParam,calcToken} from '~/logic/apy2/interface'
 //挖矿分组
 export const getMiningGroup=async (chain:string)=>{
     const result=await api.apy.mining.mining_group({chain:chain})
@@ -110,7 +110,16 @@ export const getCalculator=async (param:loanPoolParam)=>{
     const result=await api.apy.common.getCalculator(param)
     return getRes(result)
 }
-
+//利润计算数据借贷项目列表
+export const getCalcProjects=async ()=>{
+    const result=await api.apy.common.getCalcProjects()
+    return getRes(result)
+}
+//利润计算数据币种列表
+export const getCalcTokens=async (param:calcToken)=>{
+    const result=await api.apy.common.getCalcTokens(param)
+    return getRes(result)
+}
 
 
 

@@ -178,3 +178,7 @@ export interface tokenMiningPoolParam{
   page:number
   page_size:number
 }
+export interface calcToken{
+  project:string
+  chain:string
+}
