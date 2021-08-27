@@ -1,453 +1,191 @@
 <script setup lang="ts">
 import { pick, omit } from 'ramda'
-import * as logicToolTip from '~/logic/echarts/tooltip'
+import { onMounted, reactive, ref, toRaw, watch, onUnmounted } from 'vue'
+import { compact, debounce, map, uuid } from '~/utils'
+import { useProvide } from '~/utils/use/state'
 import * as echarts from 'echarts'
+import { EchartsOptionName } from '~/logic/echarts/tool'
+import { Direction, XAxisItem, LegendDirection } from '~/logic/echarts/interface'
+import * as config from '~/logic/echarts/config'
+import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as resize from '~/utils/event/resize'
-import { compact, forEach, map, numberUint, toBoolean, toNumber, uuid } from '~/utils/index'
-import { defineEmits, defineProps, onMounted, onUnmounted, reactive, ref, toRaw } from 'vue'
-import { EchartsOptionName, useProvide } from '~/logic/echarts/tool'
-import { Position } from '~/logic/echarts/interface'
-import { calcYAxis } from '~/logic/echarts/series'
-import * as logicLegend from '~/logic/echarts/legend'
-import {
-  graphic,
-  tooltips as makeTooltipOption,
-  xAxis as makeXAxisOption,
-  yAxisKline as makeYAxisOption,
-} from '~/lib/chartOption'
-import safeGet from '@fengqiaogang/safe-get'
 import safeSet from '@fengqiaogang/safe-set'
-import { viewWidth } from '~/utils/event/scroll'
-import { tailwind } from '~/logic/echarts/colors'
-import { seriesType, LegendDirection, Direction } from '~/logic/echarts/interface'
 
-const emitEvent = defineEmits(['removeLegend'])
+import { graphic, tooltips as makeTooltipOption, xAxis as makeXAxisOption } from '~/lib/chartOption'
 
-const props = defineProps({
-  // 是否开启log效果
-  log: {
-    type: Boolean,
-    default: () => false
-  },
-  // 是否开启堆积
-  stack: {
-    type: Boolean,
-    default: () => false
-  },
-  // 图形位置
-  direction: {
-    type: String,
-    default: () => Direction.horizontal,
-    validator: (value: string) => {
-      return value === Direction.horizontal || value === Direction.vertical;
-    }
-  },
-  // 图列位置及是否显示
-  legend: {
-    type: [String, Boolean],
-    default(): string {
-      return LegendDirection.bottom
-    },
-    validator (value: string | boolean): boolean {
-      let status = false
-      switch(value) {
-        case LegendDirection.top:
-        case LegendDirection.left:
-        case LegendDirection.right:
-        case LegendDirection.bottom:
-        case LegendDirection.custom:
-          status = true
-          break
-      }
-      if (value === false) {
-        status = true
-      }
-      return status
-    }
-  },
-  // 右侧刻度颜色
-  rightColor: {
-    type: String,
-    default: () => '#F88923'
-  },
-  // 左侧刻度颜色
-  leftColor: {
-    type: String,
-    default: () => '#2B8DFE'
-  },
-  // 只定义 Class
-  customClass: {
-    type: String,
-    default: () => 'h-full'
-  },
-  bgColor: {
-    type: String,
-    default () {
-      return '#ffffff'
-    }
-  }
-})
-
-const echartId = ref<string>(uuid())
+const props = defineProps(config.getProps())
 
 const echartsRef = ref<any>(null)
 const compChar = reactive<any>({
   value: void 0,
 })
 
+const [ series ] = useProvide(EchartsOptionName.series)
+const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
+const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
+const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
+const [ chartLegends ] = useProvide(EchartsOptionName.legend)
+
 /**
  * 获取 ref 对象中的数据，并去除空值
  * @param data ref
  */
-const getValue = function(data: any) {
+const getValue = function<T>(data: any): T[] {
   const value = toRaw(data.value)
-  return compact(value)
+  return compact<T>(value)
 }
 
-const [ series ] = useProvide(EchartsOptionName.series)
-const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
-const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
-const [ chartLegends ] = useProvide(EchartsOptionName.legend)
-const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
+const chartId = ref<string>(uuid())
 
+// hover 提示配置信息
 const getToolTip = function() {
-  const array = getValue(tooltip)
+  const [tips] = getValue<any>(tooltip)
   const option = makeTooltipOption()
-  return Object.assign({}, option, array[0], {
-    formatter: logicToolTip.formatter,
+  const callback = function(data: any) {
+    return logicToolTip.formatter(data, tips.formatter)
+  }
+  return Object.assign({}, option, tips, {
+    formatter: callback,
   })
 }
 
-const getLegendRow = function(): number {
-  // @ts-ignore
-  const echart = toRaw(echartsRef).value
-  const list: any[] = getValue(chartLegends)
-  return logicLegend.clacLegendRows(list, echart)
-}
-
+// 图列配置数据
 const getLegend = function() {
-  const data = map((item: any) => {
-    if (item.show) {
-      // @ts-ignore
-      const code = logicLegend.source[item.type]
-      // @ts-ignore
-      const icon = `path://${code}`
-      const { itemStyle } = item
-      const opt = { icon, name: item.value}
-      if (itemStyle) {
-        Object.assign(opt, { itemStyle })
-      }
-      if (item.position === Position.right) {
-        safeSet(opt, 'itemStyle.color', props.rightColor)
-      }
-      return opt
-    }
-  }, getValue(chartLegends))
-  if (props.legend && props.legend !== LegendDirection.custom) {
-    const option = { data: compact(data), itemWidth: 14, }
-    if (props.legend === LegendDirection.top) {
-      safeSet(option, 'top', 0)
-    } else if (props.legend === LegendDirection.bottom) {
-      safeSet(option, 'bottom', 0)
-    } else if (props.legend === LegendDirection.left) {
-      safeSet(option, 'left', 0)
-      safeSet(option, 'top', 'auto')
-      safeSet(option, 'orient', 'vertical')
-    } else if (props.legend === LegendDirection.right) {
-      safeSet(option, 'right', 0)
-      safeSet(option, 'top', 'auto')
-      safeSet(option, 'orient', 'vertical')
-    }
-    return option
+  if (!props.legend || props.legend === LegendDirection.custom) {
+    // 隐藏
+    return { show: false }
   }
-  // 隐藏
-  return { show: false }
+  const list = getValue<LegendItem>(chartLegends)
+  return config.getLegend(list, props)
 }
 
+// 获取 X 轴配置数据
 const getXAxis = function() {
   const [ option ] = makeXAxisOption()
+  const list = getValue<XAxisItem>(xAxis)
   return map(function(item: any) {
-    const opt = Object.assign({}, option, item)
+    const opt = { ...option, ...item }
+    // 判断是否是横向展示
     if (props.direction === Direction.vertical) {
       return pick(['type', 'data', 'axisTick', 'axisLine'], opt)
     }
     return opt
-  }, getValue(xAxis))
+  }, list)
 }
 
-const getYAxisData = function(position: Position) {
-  const yAxisData = getValue(yAxis)
-  for(let i = 0; i < yAxisData.length; i++) {
-    const item: any = yAxisData[i]
-    if (item?.position === position) {
-      return item
-    }
-  }
+// 获取 Y 轴配置数据
+const getYAxis = function() {
+  const legends = getValue<LegendItem>(chartLegends)
+  const seriesList = getValue<any>(series)
+  const yAxisData = getValue<any>(yAxis)
+  return config.getXAxis(yAxisData, legends, seriesList, props)
 }
 
-// 计算 Y 轴刻度数据
-const getYAxis = function(): any[] {
-  const legends = getValue(chartLegends)
-  const seriesList = getValue(series)
-  const yaxis: any[] = []
-  const leftData: any[] = []
-  const rightData: any[] = []
-  forEach(function(item: any, index: number) {
-    const value = safeGet<any[]>(seriesList, `[${index}].data`)
-    if (item.position === Position.right) {
-      rightData.push(value)
-    } else {
-      leftData.push(value)
-    }
-  }, legends)
-
-  const app = function(data: any[], position: Position) {
-    const value = calcYAxis(data, props.stack && position === Position.left, props.log)
-    const yaxisData = getYAxisData(position)
-    const [ option ] = makeYAxisOption(function(value: number) {
-      const formatter = safeGet<any>(yaxisData, 'axisLabel.formatter')
-      if (formatter) {
-        return formatter(value)
-      }
-      if (props.log) {
-        if (value === 0) {
-          return 0
-        }
-        return numberUint(Math.pow(10, value))
-      }
-      return numberUint(value)
-    })
-    const opt = Object.assign({}, option, value, { position })
-    return { ...opt, ...omit(['axisLabel', 'position'], yaxisData) }
-  }
-
-  const colorKey = 'axisLabel.textStyle.color'
-  if (leftData.length > 0) {
-    const opt = app(leftData, Position.left)
-    safeSet(opt, colorKey, props.leftColor)
-    yaxis.push(opt)
-  }
-  if (rightData.length > 0) {
-    const opt = app(rightData, Position.right)
-    safeSet(opt, colorKey, props.rightColor)
-    yaxis.push(opt)
-  }
-  if (viewWidth() < 768) {
-    return map(function(item: any) {
-      safeSet(item, 'axisLabel.inside', true)
-      return item
-    }, yaxis)
-  }
-  return yaxis
+// 获取 series 数据
+const getSeries = function(yAxisOption: any[]) {
+  const list = getValue<any>(series)
+  const legends = getValue<LegendItem>(chartLegends)
+  return config.getSeries(legends, list, yAxisOption, props)
 }
 
-const getYindex = function(): any {
-  const list: any[] = getValue(chartLegends)
-  return function(i: number): number {
-    const item = list[i]
-    let index = 0
-    if (item.position === Position.right) {
-      index = 1
-    }
-    return Object.assign({ index }, item)
-  }
+const getChartDom = function(): HTMLCanvasElement {
+  return toRaw(echartsRef).value
 }
 
-const getSeries = function() {
-  const app = getYindex()
-  const seriesList = map((item: any, index: number) => {
-    const data = app(index)
-    if (!toBoolean(data.show)) {
-      return void 0
-    }
-    const option: any = Object.assign({
-      name: data.value,
-      type: data.type,
-      connectNulls: true,
-      yAxisIndex: data.index,
-      label: {
-        show: false,
-      },
-      symbol: 'none',
-    }, item)
-    if (data.type === seriesType.line) {
-      // 线条平滑处理
-      option.smooth = true;
-      if (data.index === 1) {
-        // 右侧价格线删除渐变色
-        safeSet(option, 'areaStyle', null)
-      }
-      safeSet(option, 'itemStyle.borderWidth', 1)
-    } else {
-      // 取消阴影部分设置
-      safeSet(option, 'areaStyle', null)
-    }
-    // 右侧价格线使用指定颜色
-    if (data.index === 1) {
-      safeSet(option, 'itemStyle.color', props.rightColor)
-    }
-    if (data.type === seriesType.bar) {
-      // 柱状图最大宽度
-      option.barMaxWidth = 50
-      const color = safeGet(option, 'itemStyle.color')
-      if (color) {
-        safeSet(option, 'itemStyle.color', function(d: any) {
-          // 负数时强制设置为红色
-          if (d.value < 0) {
-            return 'rgba(255, 140, 128, 1)'
-          }
-          return color
-        })
-      }
-    }
-    if (props.stack && data.position === Position.left) {
-      // 开启堆积图
-      option.stack = 'stack'
-    }
-    if (props.log) {
-      option.data = map(function(item: any) {
-        const value: number = item.value
-        if (value || value === 0) {
-          // @ts-ignore
-          let num: number
-          const origin = value
-          if (value > 0) {
-            num = Math.log10(value)
-          } else {
-            num = Math.abs(toNumber(value))
-            num = Math.log10(num) * -1
-          }
-          return Object.assign({}, item, { value: num, origin })
-        }
-        return item
-      }, option.data)
-    }
-    return option
-  }, getValue(series))
-  return compact(seriesList)
-}
-
-const getGrid = function() {
-  const row = getLegendRow()
-  let height = 0
-  if (row <= 1) {
-    height = 35
-  } else {
-    height = row * 25
+const getBasisOption = function() {
+  const legend = getLegend()
+  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
+  // 垂直方向
+  if (Direction.vertical === props.direction) {
+    safeSet(gridOption, 'left', '3%')
+    safeSet(gridOption, 'right', 15)
   }
-
-  if (props.legend === LegendDirection.top) {
-    return {
-      top: height,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      containLabel: true,
-    }
-  } else if (props.legend === LegendDirection.bottom) {
-    return {
-      top: 15,
-      left: 0,
-      right: 0,
-      bottom: height,
-      containLabel: true,
-    }
-  } else if (props.legend === LegendDirection.left) {
-    return {
-      top: 15,
-      right: 0,
-      bottom: 0,
-      containLabel: true,
-    }
-  } else if (props.legend === LegendDirection.right) {
-    return {
-      top: 15,
-      left: 6,
-      bottom: 6,
-      containLabel: true,
-    }
-  }
-  // else if (props.legend === LegendDirection.custom) {
-  //   return {
-  //     top: 15,
-  //     left: 15,
-  //     right: 15,
-  //     bottom: 15,
-  //     containLabel: true,
-  //   }
-  // }
   return {
-    top: 15,
-    left: 15,
-    right: 15,
-    bottom: 15,
-    containLabel: true,
+    graphic: graphic(30), // 背景
+    grid: gridOption, // 容器配置
+    backgroundColor: props.bgColor, // 背景颜色
   }
 }
 
 const getOption = function() {
-  const gridOpt = getGrid()
-  let xAxisOpt
-  let yAxisOpt
+  let xAxisOpt: any
+  let yAxisOpt: any
+  const yAxisTempData = getYAxis()
+  const legend = getLegend()
+  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
   // 垂直方向
   if (Direction.vertical === props.direction) {
-    safeSet(gridOpt, 'left', '3%')
-    safeSet(gridOpt, 'right', 15)
-    xAxisOpt = getYAxis()
+    safeSet(gridOption, 'left', '3%')
+    safeSet(gridOption, 'right', 15)
+    xAxisOpt = yAxisTempData
     yAxisOpt = getXAxis()
   } else {
     xAxisOpt = getXAxis()
-    yAxisOpt = getYAxis()
+    yAxisOpt = yAxisTempData
   }
-
-  const data = {
-    grid: gridOpt,
-    graphic: graphic(30),
+  return {
+    legend, // 图例配置数据
+    xAxis: xAxisOpt, // X 轴配置数据
+    yAxis: yAxisOpt, // Y 轴配置数据
     tooltip: getToolTip(),
-    legend: getLegend(),
-    xAxis: xAxisOpt,
-    yAxis: yAxisOpt,
-    series: getSeries(),
-    backgroundColor: props.bgColor,
+    series: getSeries(yAxisTempData), // series 数据
+    ...getBasisOption()
   }
-  return data
 }
 
-const onResize = function() {
-  const char: any = compChar.value
-  char.resize({
-    silent: true,
-    animation: {
-      duration: 0
-    }
-  })
-  setTimeout(function() {
-    char.setOption({
-      grid: getGrid(),
-    })
-  })
-}
-
-
-onMounted(function() {
-  const echart = toRaw(echartsRef).value
+// 刷新 chart 数据
+const sync = debounce(async () => {
   try {
-    const option = getOption()
-    setTimeout(function() {
-      const char = echarts.init(echart);
+    if (compChar.value) {
+      const char = compChar.value
+      const option = getOption()
+      char.clear()
+      char.setOption(option, {
+        notMerge: true,
+        lazyUpdate: true,
+        silent: true,
+      })
+    } else {
+      const dom = getChartDom()
+      const char = echarts.init(dom);
       compChar.value = char
+      const option = getOption()
       char.setOption(option)
-    })
+    }
   } catch (e) {
     console.log(e)
   }
-  finally {
-    resize.bind(echartId.value, onResize)
+}, 200)
+
+const onResize = function() {
+  const char: any = compChar.value
+  if (char) {
+    char.resize({
+      silent: true,
+      animation: {
+        duration: 0
+      }
+    })
+    setTimeout(function() {
+      const legend = getLegend()
+      const gridOption = config.getGrid(props.legend, getChartDom(), legend)
+      char.setOption({
+        grid: gridOption,
+      })
+    })
   }
+}
+
+
+
+onMounted(function() {
+  sync()
+  watch([series, chartLegends], sync)
+  resize.bind(chartId.value, onResize)
 })
 
 onUnmounted(function() {
-  resize.unbind(echartId.value)
+  resize.unbind(chartId.value)
 })
 
 </script>

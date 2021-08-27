@@ -143,16 +143,16 @@ onMounted(upDetail)
     <el-main class="p-0">
       <div class="flex h-full">
         <div class="flex-1 w-1 pr-4 h-full border-0 border-r border-solid border-highTitle border-opacity-6">
-          <Apy2PoolTrends :type="type" :id="id" title="CoinWind - BTC 相关 APY 走势图"/>
+          <Apy2PoolTrends :type="type" :id="id" title="相关 APY 走势图"/>
         </div>
         <div class="flex-1 w-1 h-full pl-4">
-          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol" title="CoinWind - BTC 相关 APY 走势图">
+          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol" title="Top5 池子对比">
             <el-radio-group v-model="tabValue" size="small">
               <el-radio-button :label="tab1">排行对比</el-radio-button>
               <el-radio-button :label="tab2">趋势对比</el-radio-button>
             </el-radio-group>
           </Apy2PoolTop5>
-          <Apy2PoolDiff v-else-if="tabValue === tab2" :type="type" :symbol="detail.symbol" title="CoinWind - BTC 相关 APY 走势图">
+          <Apy2PoolDiff v-else-if="tabValue === tab2" :type="type" :symbol="detail.symbol" title="Top5 池子对比">
             <el-radio-group v-model="tabValue" size="small">
               <el-radio-button :label="tab1">排行对比</el-radio-button>
               <el-radio-button :label="tab2">趋势对比</el-radio-button>

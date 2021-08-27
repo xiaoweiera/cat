@@ -71,6 +71,29 @@ export enum Position {
   right = 'right'
 }
 
+export interface FormatterTemplate {
+  icon: string
+  name: string
+  value: string
+}
+
+export interface FormatterParams {
+  // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）
+  value: number
+  // 数据图形的颜色
+  color: string
+  // 传入的原始数据项
+  data: SeriesItem
+  // 数据展示类型
+  seriesType: seriesType
+  // x 轴几点名称
+  axisValue: string
+  // 数据名称（图例名称）
+  seriesName: string
+  // x 轴名称
+  name: string;
+}
+
 export interface LegendItem {
   name: string // 名称
   unit?: string // 单位
@@ -80,6 +103,8 @@ export interface LegendItem {
   position?: Position
   show?: boolean
   value?: string
+  index?: number
+  [key: string]: any
 }
 
 // 图表数据结构

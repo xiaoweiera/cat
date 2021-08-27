@@ -4,6 +4,7 @@ import { getEchartData } from '~/logic/apy2/token'
 import { watchState } from '~/utils/use/state'
 import dataEventName, { getDateValue } from '~/components/ui/date/eventname'
 import { uuid } from '~/utils'
+import { chartFormatter } from '~/lib/common'
 import { Position, LegendDirection, EchartData } from '~/logic/echarts/interface'
 
 import Props from './props'
@@ -49,7 +50,7 @@ watchState([dataEventName.value, 'poolList'], function(result: any[]) {
     <div v-if="echartData.xAxis && echartData.xAxis.length > 0">
       <Echarts :key="echartKey" custom-class="h-45 md:h-85" :legend="LegendDirection.custom">
         <!-- 提示框 trigger: 触发方式 -->
-        <EchartsTooltip trigger="axis" />
+        <EchartsTooltip trigger="axis" :formatter="chartFormatter"/>
 
         <template v-for="(item, index) in echartData.legends" :key="index">
           <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>

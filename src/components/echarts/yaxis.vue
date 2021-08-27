@@ -1,30 +1,36 @@
 <script setup lang="ts">
-import { defineProps, onBeforeMount } from 'vue'
-import { EchartsOptionName, updateInject, initProps } from '~/logic/echarts/tool'
 import { isNumber } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
+import { defineProps, onBeforeMount } from 'vue'
+import { EchartsOptionName, updateInject, initProps } from '~/logic/echarts/tool'
+import { layout } from '~/logic/echarts/colors'
+import { Position } from '~/logic/echarts/interface'
 
 const props = defineProps({
   type: {
     type: String,
-    default () {
-      return 'value'
-    }
+    default: () => 'value'
   },
   formatter: {
     type: Function,
   },
-  index: initProps.index(),
-  // 展示位置
-  position: initProps.position(),
+  index: {
+    default: () => 0,
+    ...initProps.index(),
+  },
   min: {
     type: Number
   },
   max: {
     type: Number
-  }
+  },
+  // 根据 position 设置默认值
+  color: {
+    type: String,
+  },
+  // 展示位置
+  position: initProps.position(),
 })
-
 
 onBeforeMount(function() {
   const option = {
@@ -35,13 +41,21 @@ onBeforeMount(function() {
     }
   }
   if (isNumber(props.min)) {
-    // @ts-ignore
     safeSet(option, 'min', props.min)
   }
   if (isNumber(props.max)) {
-    // @ts-ignore
     safeSet(option, 'max', props.max)
   }
+
+  const colorKey = 'axisLabel.textStyle.color'
+  if (props.color) {
+    safeSet(option, colorKey, props.color)
+  } else if (props.position === Position.left){
+    safeSet(option, colorKey, layout.leftColor)
+  } else if (props.position === Position.right) {
+    safeSet(option, colorKey, layout.rightColor)
+  }
+
   updateInject(EchartsOptionName.yAxis, option, props.index)
 })
 

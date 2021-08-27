@@ -21,7 +21,7 @@ export const initProps = {
   index: function() {
     return {
       type: [Number, String],
-      default: () => 0
+      required: true
     }
   },
   position: function() {

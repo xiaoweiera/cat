@@ -13,6 +13,13 @@ const colors: string[] = [
   '#E92D2D', //'rgb(233, 45, 45)'
 ]
 
+const layout = {
+  leftColor: '#2B8DFE',
+  rightColor: '#F88923',
+  bgColor: '#ffffff',
+  warn: '#FF8C80' // 图表数据为负数时使用
+}
+
 const tailwind = {}
 
 for(let i = 0; i < colors.length; i++) {
@@ -20,5 +27,5 @@ for(let i = 0; i < colors.length; i++) {
   safeSet(tailwind, `chat${i}`, value)
 }
 
-export { tailwind, colors }
+export { layout, tailwind, colors }
 

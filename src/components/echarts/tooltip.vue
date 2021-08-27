@@ -11,12 +11,16 @@ const props = defineProps({
       const trigger = [triggerType.item, triggerType.axis, triggerType.none]
       return trigger.includes(value)
     }
+  },
+  formatter: {
+    type: Function
   }
 })
 
 onBeforeMount(function() {
   const option = {
     trigger: props.trigger,
+    formatter: props.formatter
   }
   updateInject(EchartsOptionName.tooltip, option)
 })
