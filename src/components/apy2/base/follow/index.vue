@@ -28,7 +28,7 @@ const onClick = async function() {
   }
   try {
     await setFollow(query)
-    follow.value = !follow.value;
+    follow.value = !getActiveValue();
     messageSuccess('已收藏')
   } catch (e) {
     const message = safeGet(e, 'message') || '收藏失败，请稍后再试'

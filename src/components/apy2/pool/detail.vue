@@ -38,7 +38,7 @@ const tabValue = ref<string>(tab1.value)
 const upDetail = async function() {
   const data = await getDetail(props)
   forEach(function(value: any, key: string) {
-    if (key === 'project_tags') {
+    if (key === 'project_category') {
       const [ icon ]: string[] = value.split(',')
       value = icon
     }
@@ -62,9 +62,9 @@ onMounted(upDetail)
           <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
           <span class="symbol-name">{{ detail.project }}</span>
           <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
-          <template v-if="detail.project_tags">
-            <IconFont class="mr-1.5" :type="detail.project_tags" size="24"/>
-            <span class="label">{{ detail.project_tags }}</span>
+          <template v-if="detail.project_category">
+            <IconFont class="mr-1.5" :type="detail.project_category" size="24"/>
+            <span class="label">{{ detail.project_category }}</span>
           </template>
         </div>
         <div class="flex item-center">

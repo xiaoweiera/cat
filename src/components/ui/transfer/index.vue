@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { difference } from 'ramda'
+import { difference, intersection } from 'ramda'
 import { ref, defineProps, defineEmits, onMounted, watch, computed, toRaw } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { toArray, map } from '~/utils'
@@ -46,6 +46,9 @@ const checkboxValue = ref<Array<string | number>>([])
 
 const search = ref<string>('')
 
+// 已选择数据
+const checkboxList = ref<any[]>([])
+
 watch([radioValue, selectValue, search],(data: any[])=>{
   const value = {
     radioValue: data[0],
@@ -55,16 +58,28 @@ watch([radioValue, selectValue, search],(data: any[])=>{
   emitEvent('changeParam', value)
 })
 
-const getCheckboxList = function() {
-  const ids = toRaw(checkboxValue.value)
+const getCheckboxList = function(id: string[] | string) {
   const array: any[] = toRaw(props.list)
   const db = new DBList(array)
-  return db.select({ id: ids })
+  return db.select({ id: toArray(id) })
 }
 
-// 已选择数据
-// @ts-ignore
-const checkboxList = computed<any[]>(getCheckboxList)
+const onChangeList = function(list: string[]) {
+  const oldArray = toRaw(checkboxList.value)
+  const db = new DBList(oldArray)
+  // 已选中的数据
+  const array1: string[] = map((item: any) => item.id, oldArray)
+  const array2: string[] = map((item: any) => item.id, toRaw(props.list))
+  // 排除当前列表中的数据
+  const array3: string[] = intersection(array2, array1)
+  console.log('del : ', array3)
+  db.remove({ id: array3 })
+  // 添加已选择的数据
+  db.insert(getCheckboxList(list))
+  checkboxList.value = db.clone()
+}
+
+
 
 // 取消
 const onHidden = function() {
@@ -153,7 +168,7 @@ onMounted(function() {
             </el-header>
             <el-main class="p-0 ">
               <div class="h-full overflow-auto showY">
-                <el-checkbox-group class="block w-full" v-model="checkboxValue">
+                <el-checkbox-group class="block w-full" v-model="checkboxValue" @change="onChangeList">
                   <div class="mt-2 flex items-center" v-for="item in list" :key="item.id">
                     <el-checkbox :label="item.id">
                       <slot :key="item.id" name="item" :data="item"></slot>

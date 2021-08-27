@@ -90,7 +90,7 @@ export const ignore: string[] = [
     user.signup,
     user.verify,
     user.logoMail,
-    '/apy/',
+    // '/apy/',
     '/api/v2/commercial',
     ads.commercial, // 广告位
     topic.getMenuList, // 菜单

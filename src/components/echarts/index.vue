@@ -136,7 +136,6 @@ const sync = debounce<any>(async () => {
     const option = getOption()
     try {
       char.setOption(option, {
-        notMerge: true,
         silent: true
       })
     } catch (e) {
