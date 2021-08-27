@@ -39,16 +39,16 @@ const onClick = async function() {
 </script>
 
 <template>
-  <IconFont v-login @click.stop.prevent="onClick" class="follow-button cursor-pointer" :class="{ 'active': active }" :type="active ? 'icon-star-xuanzhong' : 'icon-star-weixuanzhong'" size="16"/>
+  <span class="inline-block cursor-pointer" v-login @click.stop.prevent="onClick">
+    <IconFont class="follow-button" :class="{ 'active': active }" :type="active ? 'icon-star-xuanzhong' : 'icon-star-weixuanzhong'" size="16"/>
+    <slot></slot>
+  </span>
 </template>
 
 <style lang="scss" scoped>
 .follow-button {
   &.active {
     @apply text-global-primary;
-  }
-  &:not(.active) {
-    @apply text-global-highTitle text-opacity-45;
   }
 }
 </style>

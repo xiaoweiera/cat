@@ -2,6 +2,8 @@
 import {onMounted} from 'vue'
 import {chain,rankingTag,tableTag,listTag,tokenList} from '~/store/apy2/state'
 import {getLendingGroup,getTokenList} from '~/logic/apy2/index'
+import { TabCategoryData } from '~/logic/apy2/interface'
+
 const getGroupData=async ()=>{
   const result=await getLendingGroup(chain.value)
   console.log(result,'group')
@@ -39,7 +41,7 @@ onMounted(async ()=>{
       </div>
       <div class="mt-15">
         <!--表格数据-->
-        <Apy2BaseTableMain/>
+        <Apy2BaseTableMain :type="TabCategoryData.lend"/>
       </div>
       <Apy2LoanPoolsMain class="mt-15"/>
       <div class="h-50"></div>

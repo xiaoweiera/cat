@@ -12,7 +12,6 @@ enum DateEventName {
 export const getDateValue = function(date: Ref<number[][]>) {
   if (date) {
     const [ times = [] ] = (date.value ? date.value : toRaw(date)) as number[][]
-    console.log('times : ', times)
     const [ from_ts = 0, to_ts = 0 ] = flatten(times)
     return { from_ts: Math.floor(from_ts / 1000), to_ts: Math.floor(to_ts / 1000) }
   }

@@ -20,7 +20,7 @@ const API ={
     diff: '/api/apy/ninja/poll/mining_top5_chart'
   },
   // 借贷
-  loan: {
+  lend: {
     list: '/api/apy/ninja/lending_table',
     expand: '/api/apy/ninja/lending_table/drill_down',
 

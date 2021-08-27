@@ -118,41 +118,39 @@ export const getLegend = function(list: LegendItem[], yAxisData: any[], props: a
 // chart Layout 容器配置
 export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement, list: LegendItem[]) {
   const row = logicLegend.clacLegendRows(list, dom)
-  let height = 0
-  if (row <= 1) {
-    height = 35
-  } else {
+  let height: number = 35
+  if (row > 1) {
     height = row * 25
   }
 
   if (legend === LegendDirection.top) {
     return {
       top: height,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      left: 15,
+      right: 15,
+      bottom: 5,
       containLabel: true,
     }
   } else if (legend === LegendDirection.bottom) {
     return {
       top: 15,
-      left: 0,
-      right: 0,
+      left: 15,
+      right: 15,
       bottom: height,
       containLabel: true,
     }
   } else if (legend === LegendDirection.left) {
     return {
-      top: 15,
-      right: 0,
-      bottom: 0,
+      top: 10,
+      right: 10,
+      bottom: 10,
       containLabel: true,
     }
   } else if (legend === LegendDirection.right) {
     return {
-      top: 15,
-      left: 6,
-      bottom: 6,
+      top: 10,
+      left: 10,
+      bottom: 10,
       containLabel: true,
     }
   }

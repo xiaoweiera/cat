@@ -2,6 +2,8 @@
 import {onMounted} from 'vue'
 import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
 import {getMiningGroup,getTokenAndProject} from '~/logic/apy2/index'
+import { TabCategoryData } from '~/logic/apy2/interface'
+
 const getGroupData=async ()=>{
   const result=await getMiningGroup(chain.value)
   rankingTag.value=result?.ranking
@@ -51,7 +53,7 @@ onMounted(async ()=>{
       </div>
       <div class="mt-15">
         <!--表格数据-->
-        <Apy2BaseTableMain/>
+        <Apy2BaseTableMain :type="TabCategoryData.mining"/>
       </div>
       <div class="mt-15">
         <Apy2MiningPoolsMain/>

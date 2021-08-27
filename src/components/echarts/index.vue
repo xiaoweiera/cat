@@ -15,7 +15,6 @@ import { graphic, tooltips as makeTooltipOption, xAxis as makeXAxisOption } from
 
 const props = defineProps(config.getProps())
 
-const echartsRef = ref<any>(null)
 const compChar = reactive<any>({
   value: void 0,
 })
@@ -90,13 +89,13 @@ const getSeries = function(yAxisOption: any[]) {
 }
 
 const getChartDom = function(): HTMLCanvasElement {
-  return toRaw(echartsRef).value
+  const id = chartId.value
+  return document.getElementById(`j-${id}`) as any
 }
 
 const getBasisOption = function() {
-  const legend = getLegend()
   // @ts-ignore
-  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
+  const gridOption = config.getGrid(props.legend, getChartDom(), getLegend())
   // 垂直方向
   if (Direction.vertical === props.direction) {
     safeSet(gridOption, 'left', '3%')
@@ -131,28 +130,20 @@ const getOption = function() {
 }
 
 // 刷新 chart 数据
-const sync = debounce(async () => {
-  try {
-    if (compChar.value) {
-      const char = compChar.value
-      const option = getOption()
-      char.clear()
+const sync = debounce<any>(async () => {
+  const char = compChar.value
+  if (char) {
+    const option = getOption()
+    try {
       char.setOption(option, {
         notMerge: true,
-        lazyUpdate: true,
-        silent: true,
+        silent: true
       })
-    } else {
-      const dom = getChartDom()
-      const char = echarts.init(dom);
-      compChar.value = char
-      const option = getOption()
-      char.setOption(option)
+    } catch (e) {
+      // todo
     }
-  } catch (e) {
-    console.log(e)
   }
-}, 200)
+}, 300)
 
 const onResize = function() {
   const char: any = compChar.value
@@ -164,10 +155,8 @@ const onResize = function() {
       }
     })
     setTimeout(function() {
-      const legend = getLegend()
-      const gridOption = config.getGrid(props.legend, getChartDom(), legend)
-      char.setOption({
-        grid: gridOption,
+      char.setOption(getBasisOption(), {
+        replaceMerge: 'grid'
       })
     })
   }
@@ -176,9 +165,17 @@ const onResize = function() {
 
 
 onMounted(function() {
-  sync()
-  watch([series, chartLegends], sync)
-  resize.bind(chartId.value, onResize)
+  const dom = getChartDom()
+  if (dom) {
+    const char = echarts.init(dom);
+    if (char) {
+      compChar.value = char
+      setTimeout(sync)
+    }
+    watch([series, chartLegends], sync)
+    resize.bind(chartId.value, onResize)
+  }
+
 })
 
 onUnmounted(function() {
@@ -200,7 +197,7 @@ onUnmounted(function() {
           <EchartsCustom/>
         </el-header>
         <el-main class="p-0">
-          <div :class="customClass" ref="echartsRef"></div>
+          <div :class="customClass" :id="`j-${chartId}`"></div>
         </el-main>
       </el-container>
     </div>
@@ -213,7 +210,7 @@ onUnmounted(function() {
       </div>
       <!-- 自定义图例 -->
       <EchartsCustom/>
-      <div :class="customClass" ref="echartsRef"></div>
+      <div :class="customClass" :id="`j-${chartId}`"></div>
     </div>
   </template>
   <template v-else>
@@ -221,7 +218,7 @@ onUnmounted(function() {
       <div class="hidden">
         <slot></slot>
       </div>
-      <div class="h-full" ref="echartsRef"></div>
+      <div class="h-full" :id="`j-${chartId}`"></div>
     </div>
   </template>
 </template>

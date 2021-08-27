@@ -63,29 +63,7 @@ export const getTableExpandList = async function (db: DBList, query: any) {
 
 // 弹窗详情
 export const getDetail = async function(query: object) {
-  try {
-    return await API.apy.table.getDetail(query)
-  } catch (e) {
-    return {
-      'id': 2,
-      'symbol': 'HBTC/HT',
-      'symbol_logo': 'http://xx.jpg',
-      'chain': 'bsc',
-      'pool_type': 'mining',
-      'strategy_tags': 'vault,farm',
-      'apy': 23.5,
-      'tvl': 23456,
-      'project': 'CoinWind',
-      'project_logo': 'http://x.jpg',
-      'quota_remain': 2344,
-      'single_apy': 23,
-      'compound_apy': 20,
-      'single_apy_detail': 'USD-25%',
-      'compound_detail': '',
-      'followed': true,
-      'project_url': '',
-    }
-  }
+  return await API.apy.table.getDetail(query)
 }
 
 // 池子走势图

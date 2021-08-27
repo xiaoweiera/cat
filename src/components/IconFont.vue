@@ -125,6 +125,7 @@ const iconCode = function() {
   let link: string = props.type
   for(const name in config) {
     if (equalsIgnoreCase(name, props.type)) {
+      // @ts-ignore
       link = config[name]
     }
   }

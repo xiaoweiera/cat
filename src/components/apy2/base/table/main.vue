@@ -1,8 +1,21 @@
 <script setup lang="ts">
 import { uuid } from '~/utils'
+import { TabCategoryData } from '~/logic/apy2/interface'
 import { defineProps, onMounted, ref,computed } from 'vue'
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
+
+defineProps({
+  type: {
+    type: String,
+    default: () => TabCategoryData.mining,
+    validator: function(value: string) {
+      // 类型为挖矿与借贷
+      return value === TabCategoryData.mining || value === TabCategoryData.lend;
+    }
+  },
+})
+
 const [tag,set]=useProvide('tag','my')
 const [filterType]=useProvide('filterType','all')
 const typeList=ref([{name:'综合',key:'all'},{name:'单利',key:'single'}])
@@ -26,7 +39,7 @@ const tableKey= computed(function () {
     </div>
   </div>
   <div v-if="tag[0]" class="pt-4">
-    <Apy2BaseTable type="mining" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]"/>
+    <Apy2BaseTable :type="type" :key="tableKey" :groupId="tag[0]" :chain="chain" :apyType="filterType[0]"/>
   </div>
 </template>
 

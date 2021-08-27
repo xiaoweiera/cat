@@ -38,6 +38,9 @@ export const clacLegendBoxWidth = function(legends: LegendItem[]): number {
 
 export const clacLegendRows = function(legends: LegendItem[], dom: HTMLElement) {
   const width = clacLegendBoxWidth(legends)
-  const boxWidth = dom.clientWidth - 20 * 2
-  return Math.ceil(width / boxWidth)
+  if (dom && dom.clientWidth) {
+    const boxWidth = dom.clientWidth - 20 * 2
+    return Math.ceil(width / boxWidth)
+  }
+  return 0
 }
