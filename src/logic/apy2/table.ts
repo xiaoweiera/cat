@@ -9,6 +9,7 @@ import DBList from '@fengqiaogang/dblist'
 import * as API from '~/api/index'
 import { SymbolType } from '~/logic/apy2/interface'
 import { echartTransform } from '~/lib/common'
+import { colors } from '~/logic/echarts/colors'
 import { EchartData, LegendItem, SeriesItem, seriesType } from '~/logic/echarts/interface'
 
 const transform = function(db: DBList, list: any[], pid: string = '0') {
@@ -109,12 +110,17 @@ export const getTop5 = async function(query: object) {
     chart.xAxis.push({ value: project })
   }, result.data)
 
-  const series: SeriesItem[] = map(function(item: any) {
+  const series: SeriesItem[] = map(function(item: any, index: number) {
     const apy = toNumber(item.apy)
     if (apy > apy_max) {
       apy_max = apy
     }
-    return { value: apy }
+    return {
+      value: apy,
+      itemStyle: {
+        color: colors[index]
+      }
+    }
   }, result.data)
 
   chart.legends.push(legend)

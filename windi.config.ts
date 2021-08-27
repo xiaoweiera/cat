@@ -1,8 +1,6 @@
 import {defineConfig} from 'vite-plugin-windicss'
 import colors from 'windicss/colors'
 import typography from 'windicss/plugin/typography'
-import * as echart from  './src/logic/echarts/colors'
-
 
 const cssGlobal = {
     bgHui:'#F1F3F5',
@@ -27,7 +25,6 @@ const cssGlobal = {
     coinTxt:'#03B7AB',
     loanTxt:'#09B86A',
     noAskTxt:'#DA9D00',
-    ...echart.tailwind,
 }
 
 export default defineConfig({

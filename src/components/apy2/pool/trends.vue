@@ -30,6 +30,7 @@ const echartData = reactive<EchartData>(new EchartData())
 
 const upData = async function(date: any) {
   const times = getDateValue(date)
+  console.log('times', times)
   const query = {
     ...times,
     type: props.type,

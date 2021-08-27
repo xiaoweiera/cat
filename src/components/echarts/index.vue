@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { pick, omit } from 'ramda'
+import { pick } from 'ramda'
 import { onMounted, reactive, ref, toRaw, watch, onUnmounted } from 'vue'
 import { compact, debounce, map, uuid } from '~/utils'
 import { useProvide } from '~/utils/use/state'
 import * as echarts from 'echarts'
 import { EchartsOptionName } from '~/logic/echarts/tool'
-import { Direction, XAxisItem, LegendDirection } from '~/logic/echarts/interface'
+import { Direction, XAxisItem, LegendDirection, LegendItem } from '~/logic/echarts/interface'
 import * as config from '~/logic/echarts/config'
 import * as logicToolTip from '~/logic/echarts/tooltip'
 import * as resize from '~/utils/event/resize'
@@ -49,16 +49,6 @@ const getToolTip = function() {
   })
 }
 
-// 图列配置数据
-const getLegend = function() {
-  if (!props.legend || props.legend === LegendDirection.custom) {
-    // 隐藏
-    return { show: false }
-  }
-  const list = getValue<LegendItem>(chartLegends)
-  return config.getLegend(list, props)
-}
-
 // 获取 X 轴配置数据
 const getXAxis = function() {
   const [ option ] = makeXAxisOption()
@@ -78,7 +68,18 @@ const getYAxis = function() {
   const legends = getValue<LegendItem>(chartLegends)
   const seriesList = getValue<any>(series)
   const yAxisData = getValue<any>(yAxis)
-  return config.getXAxis(yAxisData, legends, seriesList, props)
+  return config.getYAxis(yAxisData, legends, seriesList, props)
+}
+
+// 图列配置数据
+const getLegend = function() {
+  if (!props.legend || props.legend === LegendDirection.custom) {
+    // 隐藏
+    return { show: false }
+  }
+  const list = getValue<LegendItem>(chartLegends)
+  const yAxisData = getValue<any>(yAxis)
+  return config.getLegend(list, yAxisData, props)
 }
 
 // 获取 series 数据
@@ -94,6 +95,7 @@ const getChartDom = function(): HTMLCanvasElement {
 
 const getBasisOption = function() {
   const legend = getLegend()
+  // @ts-ignore
   const gridOption = config.getGrid(props.legend, getChartDom(), legend)
   // 垂直方向
   if (Direction.vertical === props.direction) {
@@ -110,25 +112,20 @@ const getBasisOption = function() {
 const getOption = function() {
   let xAxisOpt: any
   let yAxisOpt: any
-  const yAxisTempData = getYAxis()
-  const legend = getLegend()
-  const gridOption = config.getGrid(props.legend, getChartDom(), legend)
   // 垂直方向
   if (Direction.vertical === props.direction) {
-    safeSet(gridOption, 'left', '3%')
-    safeSet(gridOption, 'right', 15)
-    xAxisOpt = yAxisTempData
+    xAxisOpt = getYAxis()
     yAxisOpt = getXAxis()
   } else {
     xAxisOpt = getXAxis()
-    yAxisOpt = yAxisTempData
+    yAxisOpt = getYAxis()
   }
   return {
-    legend, // 图例配置数据
+    legend: getLegend(), // 图例配置数据
     xAxis: xAxisOpt, // X 轴配置数据
     yAxis: yAxisOpt, // Y 轴配置数据
     tooltip: getToolTip(),
-    series: getSeries(yAxisTempData), // series 数据
+    series: getSeries(getYAxis()), // series 数据
     ...getBasisOption()
   }
 }

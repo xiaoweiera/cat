@@ -59,7 +59,9 @@ export const watchState = function(names: string | string[], callback: SetCallba
   if (states && callback) {
     const app = debounce<SetCallback>(callback)
     // @ts-ignore
-    watch(states, app)
+    watch(states, app, {
+      deep: true
+    })
     app(...states)
   }
   if (states.length > 1) {

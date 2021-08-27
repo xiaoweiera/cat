@@ -67,7 +67,7 @@ watchState(dataEventName.value, upData)
     <el-main class="p-0">
       <Echarts :key="echartData.key" :direction="Direction.vertical" :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
-        <EchartsTooltip :trigger="triggerType.none" />
+        <EchartsTooltip/>
 
         <template v-for="(item, index) in echartData.legends" :key="index">
           <EchartsLegend :index="index" :value="item.name" :type="item.type"/>

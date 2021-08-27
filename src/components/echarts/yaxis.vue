@@ -2,7 +2,8 @@
 import { isNumber } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import { defineProps, onBeforeMount } from 'vue'
-import { EchartsOptionName, updateInject, initProps } from '~/logic/echarts/tool'
+import { setInject } from '~/utils/use/state'
+import { EchartsOptionName, initProps } from '~/logic/echarts/tool'
 import { layout } from '~/logic/echarts/colors'
 import { Position } from '~/logic/echarts/interface'
 
@@ -32,6 +33,8 @@ const props = defineProps({
   position: initProps.position(),
 })
 
+const update = setInject(EchartsOptionName.yAxis)
+
 onBeforeMount(function() {
   const option = {
     type: props.type,
@@ -55,8 +58,7 @@ onBeforeMount(function() {
   } else if (props.position === Position.right) {
     safeSet(option, colorKey, layout.rightColor)
   }
-
-  updateInject(EchartsOptionName.yAxis, option, props.index)
+  update(option, props.index)
 })
 
 
