@@ -19,6 +19,10 @@ const props = defineProps({
     type: Boolean,
     default: () => true
   },
+  disabled: {
+    type: Boolean,
+    default: () => false
+  },
   color: {
     type: String,
   },
@@ -34,6 +38,7 @@ const sync = function() {
     value: props.value,
     type: props.type,
     show: props.show,
+    disabled: props.disabled,
     position: props.position,
     index,
   }

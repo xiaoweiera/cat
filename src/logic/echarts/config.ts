@@ -248,7 +248,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
   const seriesList = map((item: any, index: number) => {
     const data = getLegendItem(index)
     // 判断是否需要隐藏数据
-    if (!toBoolean(data.show) || toBoolean(data.hidden)) {
+    if (!toBoolean(data.show) || toBoolean(data.disabled)) {
       return void 0
     }
     const option: any = {

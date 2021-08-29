@@ -109,24 +109,22 @@ const getBasisOption = function() {
 }
 
 const getOption = function() {
-  let xAxisOpt: any
-  let yAxisOpt: any
-  // 垂直方向
-  if (Direction.vertical === props.direction) {
-    xAxisOpt = getYAxis()
-    yAxisOpt = getXAxis()
-  } else {
-    xAxisOpt = getXAxis()
-    yAxisOpt = getYAxis()
-  }
-  return {
+  const yData = getYAxis()
+  const opt = {
     legend: getLegend(), // 图例配置数据
-    xAxis: xAxisOpt, // X 轴配置数据
-    yAxis: yAxisOpt, // Y 轴配置数据
     tooltip: getToolTip(),
-    series: getSeries(getYAxis()), // series 数据
+    series: getSeries(yData), // series 数据
     ...getBasisOption()
   }
+  // 垂直方向
+  if (Direction.vertical === props.direction) {
+    safeSet(opt, 'xAxis', yData)
+    safeSet(opt, 'yAxis', getXAxis())
+  } else {
+    safeSet(opt, 'xAxis', getXAxis())
+    safeSet(opt, 'yAxis', yData)
+  }
+  return opt
 }
 
 // 刷新 chart 数据
@@ -136,30 +134,33 @@ const sync = debounce<any>(async () => {
     const option = getOption()
     try {
       char.setOption(option, {
-        silent: true
+        silent: true,
+        // notMerge: true
+        replaceMerge: ['series', 'legend']
       })
     } catch (e) {
+      console.log(e)
       // todo
     }
   }
 }, 300)
 
-const onResize = function() {
-  const char: any = compChar.value
-  if (char) {
-    char.resize({
-      silent: true,
-      animation: {
-        duration: 0
-      }
-    })
-    setTimeout(function() {
-      char.setOption(getBasisOption(), {
-        replaceMerge: 'grid'
-      })
-    })
-  }
-}
+// const onResize = function() {
+//   const char: any = compChar.value
+//   if (char) {
+//     char.resize({
+//       silent: true,
+//       animation: {
+//         duration: 0
+//       }
+//     })
+//     setTimeout(function() {
+//       char.setOption(getBasisOption(), {
+//         replaceMerge: 'grid'
+//       })
+//     })
+//   }
+// }
 
 
 
@@ -172,14 +173,13 @@ onMounted(function() {
       setTimeout(sync)
     }
     watch([series, chartLegends], sync)
-    resize.bind(chartId.value, onResize)
+    // resize.bind(chartId.value, onResize)
   }
-
 })
 
-onUnmounted(function() {
-  resize.unbind(chartId.value)
-})
+// onUnmounted(function() {
+//   resize.unbind(chartId.value)
+// })
 
 </script>
 

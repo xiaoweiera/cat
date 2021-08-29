@@ -123,7 +123,8 @@ export default {
         description: {
             votes: 'Total voting number',
             voters: 'Total participants',
-            dateEnd: 'Until the end of this round'
+            dateEnd: 'Until the end of this round',
+            person: '{value}'
         },
         button: {
             vote: 'Vote',

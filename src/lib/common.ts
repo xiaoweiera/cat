@@ -1,16 +1,32 @@
-import { omit } from 'ramda'
-import { uuid, map, dateTime, dateYMDFormat, dateMDFormat, isObject} from '~/utils'
+import { omit, filter } from 'ramda'
+import { uuid, map, dateTime, dateYMDFormat, dateMDFormat, isObject, toArray } from '~/utils'
 import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate } from '~/logic/echarts/interface'
 import safeGet from '@fengqiaogang/safe-get'
 
+const some = function(list: LegendItem[]) {
+    const array: LegendItem[] = toArray(list)
+    return function(name: string): boolean {
+        const value = filter((item: LegendItem) => item.name === name, array)
+        return value.length > 1
+    }
+}
+
+
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
-        const legends = map(function(item: LegendItem,i:number) {
-            if (!item.type) {
-                item.type = seriesType.line
+        const app = some(trends.legends || [])
+        const legends = map(function(item: LegendItem, index:number) {
+            const data = { ...item }
+            // 未设置图形类型
+            if (!data.type) {
+                // 默认折线图
+                data.type = seriesType.line
             }
-            return item
-        },trends.legends)
+            if (app(data.name)) {
+                data.name = `${data.name}(${index + 1})`
+            }
+            return data
+        }, trends.legends)
         const xAxis = map(function(date: number) {
             const time = dateTime(date)
             const key = dateYMDFormat(time)

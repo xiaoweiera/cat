@@ -128,7 +128,8 @@ export default {
         description: {
             votes: '本轮投票总票数',
             voters: '本轮投票总人数',
-            dateEnd: '距本轮投票结束'
+            dateEnd: '距本轮投票结束',
+            person: '{value} 人'
         },
         button: {
             vote: '去投票',

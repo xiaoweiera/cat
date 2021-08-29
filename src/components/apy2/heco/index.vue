@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { omit } from 'ramda'
 import I18n from '~/utils/i18n/index'
-import { formatCash, uuid } from '~/utils'
+import { formatCash, uuid, toInteger } from '~/utils'
 import { onMounted, reactive, ref, toRaw } from 'vue'
 import { getHecoTrendsList, getTableList, pcHeader, mobileHeader } from '~/logic/apy2/heco'
 import { HecoDetail, HecoNode } from '~/logic/apy2/interface'
@@ -143,7 +143,7 @@ const rowClassName = function(scope: any) {
           <span class="item">
           <span class="sub">{{ I18n.apy.heco.description.voters }}</span>
           <span class="ml-1 text-global-highTitle text-opacity-85">
-            <span>{{ formatCash(detail.voters) }} 人</span>
+            <span>{{ I18n.part(I18n.apy.heco.description.person, toInteger(detail.voters), { value: formatCash(detail.voters) }) }}</span>
           </span>
         </span>
           <span class="item">

@@ -10,27 +10,27 @@ import { LegendItem, iconFontName } from '~/logic/echarts/interface'
 const chartLegends = getInject(EchartsOptionName.legend)
 const setChartLegends = setInject(EchartsOptionName.legend)
 
-// 获取 legend 主题颜色
-const getLegendTheme = function(item: any): string | undefined {
-  if (item.show) {
-    return void 0
+// 是否启用
+const getDisabled = function(item: any): string | undefined {
+  if (item.disabled) {
+    return 'disabled'
   }
-  return 'disabled'
+  return void 0
 }
 
 
 // 删除 legend
 const onRemoveLegend = function(item: any) {
   const index = item.index
-  const data = { ...item, hidden: true} // 隐藏
+  const data = { ...item, show: false} // 隐藏
   setChartLegends(data, index)
 }
 // 修改 legend 状态
 const onChangeLegend = function(item: LegendItem) {
-  const index = item.index
-  const show = toBoolean(safeGet(item, 'show'))
-  const data = { ...item, show: !show}
-  setChartLegends(data, index)
+  const data = toRaw(item)
+  const index = data.index
+  const disabled = toBoolean(safeGet(item, 'disabled'))
+  setChartLegends({ ...item, disabled: !disabled}, index)
 }
 
 const makeCss = function(item: LegendItem) {
@@ -48,8 +48,8 @@ const makeCss = function(item: LegendItem) {
 <template>
   <div class="custom-legend text-kdFang pt-3">
     <template v-for="(item, index) in chartLegends" :key="`${item.value}-${index}`">
-      <div v-if="item" class="legend-box" :class="{'hidden': item.hidden}" :style="makeCss(item)">
-        <div class="item cursor-pointer" :class="getLegendTheme(item)" @click="onChangeLegend(item)">
+      <div v-if="item" class="legend-box" :class="{'hidden': !item.show}" :style="makeCss(item)">
+        <div class="item cursor-pointer" :class="getDisabled(item)" @click="onChangeLegend(item)">
           <div class="flex items-center">
             <IconFont class="flex mr-1" :type="iconFontName[item.type]" size="base"></IconFont>
             <span class="text-xs font-medium">{{ item.value }}</span>
