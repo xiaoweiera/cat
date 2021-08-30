@@ -10,13 +10,13 @@ import {getDetail_chart} from '~/logic/apy2/index'
 import {formatRulesNumber} from '~/lib/tool'
 const props=defineProps({projectId:Object})
 const selectList=ref([
-  {name:'TVL',key:'tvl'},
-  {name:'用户总收益',key:'reward_cap'},
-  {name:'借款总额',key:'borrowed'},
-  {name:'存款总额',key:'tvl_and_borrowd'},
-  {name:'总池子数',key:'pool_length'},
-  {name:'单币池子数',key:'token_pool_length'},
-  {name:'LP池子数',key:'lp_pool_length'},
+  {name:'TVL',key:'tvl',unit:'$'},
+  {name:'用户总收益',key:'reward_cap',unit:'$'},
+  {name:'借款总额',key:'borrowed',unit:'$'},
+  {name:'存款总额',key:'tvl_and_borrowd',unit:'$'},
+  {name:'总池子数',key:'pool_length',unit:'个'},
+  {name:'单币池子数',key:'token_pool_length',unit:'个'},
+  {name:'LP池子数',key:'lp_pool_length',unit:'个'},
 ])
 const chain=getInject('chain')
 const projectInfo=getInject('projectInfo')
@@ -74,7 +74,7 @@ const getChart=async ()=>{
     <div class="flex items-center my-3">
       <div class=" pr-12">
         <div class="dataTxt pr-12 ">{{typeItem.name}}</div>
-        <div class="dataNumber mt-0.5">${{formatRulesNumber(projectInfo[0][type])}}</div>
+        <div class="dataNumber mt-0.5">{{typeItem.unit==='$'?typeItem.unit+formatRulesNumber(projectInfo[0][type]):formatRulesNumber(projectInfo[0][type])+typeItem.unit}}</div>
       </div>
 <!--      <div class="righBorder px-12" >-->
 <!--        <div class="dataTxt">TVL</div>-->

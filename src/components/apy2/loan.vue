@@ -6,7 +6,6 @@ import { TabCategoryData } from '~/logic/apy2/interface'
 
 const getGroupData=async ()=>{
   const result=await getLendingGroup(chain.value)
-  console.log(result,'group')
   rankingTag.value=result?.ranking
   tableTag.value=result?.table
   listTag.value=result?.list

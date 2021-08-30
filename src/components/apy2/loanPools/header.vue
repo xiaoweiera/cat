@@ -24,15 +24,13 @@ const coin=ref('')
 const projectList=ref(['全部'])
 const tokenList=ref([])
 const getProjects=async ()=>{
-  const result=await getProjectList(chain.value,'')
+  const result=await getProjectList(chain.value,'',undefined,true)
   result.unshift({name:'全部'})
   projectList.value=result
 }
 const getTokens=async ()=>{
   const result=await getTokenList()
   if(result.length>=2){
-    // setInCoin(result[0].name)
-    // setOutCoin(result[1].name)
     setInCoin('全部')
     setOutCoin('全部')
   }
