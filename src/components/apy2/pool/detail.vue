@@ -148,13 +148,19 @@ onMounted(upDetail)
         </div>
       </div>
 
-      <div class="py-4" v-if="detail.risk_warning">
+      <div class="py-4" v-if="detail.risk_warning && detail.risk_warning.length > 0">
         <template v-for="(value, index) in detail.risk_warning" :key="index">
           <div class="bg-global-numRed bg-opacity-6 p-2.5 text-global-numRed text-xs">
             <IconFont type="icon-Warning" size="16" class="mr-3"/>
             <span class="inline">{{ value }}</span>
           </div>
         </template>
+      </div>
+      <div class="py-4" v-else>
+        <div class="bg-global-numRed bg-opacity-6 p-2.5 text-global-numRed text-xs">
+          <IconFont type="icon-Warning" size="16" class="mr-3"/>
+          <span class="inline">风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。</span>
+        </div>
       </div>
       <div class="border-0 border-t border-solid border-highTitle border-opacity-6">
         <div class="flex justify-end py-4">
