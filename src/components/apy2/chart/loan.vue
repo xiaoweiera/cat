@@ -5,13 +5,14 @@ import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
 import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
 import {getLoanTop10Chart} from '~/logic/apy2/index'
+import {chartTop} from '~/logic/apy2/config'
 import {echartTransform} from '~/lib/common'
 import {chain,tokenList} from '~/store/apy2/state'
 import { chartFormatter } from '~/lib/common'
 const props = defineProps({
   list: Object,
 })
-const token=ref()
+const token=ref(chartTop[0])
 const moreToken=ref('')
 const showNumber=ref(5)
 const keyNumber=ref(0)
@@ -25,10 +26,9 @@ const getChart=async ()=>{
   keyNumber.value++
 }
 const selectToken=(name:string)=>token.value=name
-watch(()=>tokenList.value,(n)=>token.value=n.length>0?n[0].name:'')
 watch(token,(n)=>getChart())
 watch(moreToken,(n)=>token.value=n)
-// onMounted(getChart())
+onMounted(getChart())
 </script>
 <template>
   <div class="w-full h-full font-kdFang top10Project">
@@ -38,13 +38,15 @@ watch(moreToken,(n)=>token.value=n)
     </div>
     <div class="flex items-center  mt-4">
       <div class="flex items-center">
-        <template v-for="item in tokenList.slice(0,showNumber)">
-          <span @click="selectToken(item.name)"  :class="token===item.name?'selectTag':'tag'" class="hand">{{item.name}}</span>
+        <template v-for="item in chartTop">
+          <span @click="selectToken(item)"  :class="token===item?'selectTag':'tag'" class="hand">{{item}}</span>
         </template>
       </div>
       <el-select v-if="tokenList.length>showNumber" filterable placeholder="选择其他币种" :popper-append-to-body="false" v-model="moreToken"  class="ml-1"  size="small" >
-        <el-option v-for="item in tokenList.slice(showNumber,tokenList.length)" :label="item.name" :value="item.name">
-        </el-option>
+        <template v-for="item in tokenList">
+          <el-option v-if="chartTop.indexOf(item.name)===-1"  :label="item.name" :value="item.name">
+          </el-option>
+        </template>
       </el-select>
     </div>
     <!--  图表-->

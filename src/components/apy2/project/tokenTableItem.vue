@@ -2,7 +2,10 @@
 import {ref, defineProps} from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
 import {getIconType} from '~/lib/tool'
+import { toBoolean } from '~/utils'
 const props = defineProps({
+  id:Number,
+  followed:Boolean,
   logo: String,
   name: String,
   like: Boolean,
@@ -20,7 +23,7 @@ const props = defineProps({
       <div class="ml-1.5">
         <div class="flex items-center">
           <span class="mr-1 text-kd14px20px text-global-highTitle text-opacity-85 font-kdExp">{{ name }}</span>
-          <IconFont class="text-global-highTitle text-opacity-45" type="icon-star-weixuanzhong" size="16"/>
+          <Apy2BaseFollow class="ml-1 lp-follow"  :pool="true" type="lend" :value="id" :status="toBoolean(followed)"/>
         </div>
         <div class="flex items-center">
           <img class="w-3.5 mr-1" :src="chainsIcon[chain]" alt="">

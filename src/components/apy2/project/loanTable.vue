@@ -10,7 +10,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
     <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
       <el-table-column prop="pool" label="借款币种">
         <template #default="scope">
-          <Apy2ProjectTokenTableItem  :logo="scope.row.symbol_logo" :name="scope.row.symbol_alias" :like="scope.row.followed"  :chain="scope.row.chain" :type="scope.row.project_category"  />
+          <Apy2ProjectTokenTableItem :id="scope.row.id" :followed="scope.row.followed"  :logo="scope.row.symbol_logo" :name="scope.row.symbol_alias" :like="scope.row.followed"  :chain="scope.row.chain" :type="scope.row.project_category"  />
         </template>
       </el-table-column>
       <el-table-column prop="tvlNumber" label="可借金额">
