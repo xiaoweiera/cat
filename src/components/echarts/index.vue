@@ -127,9 +127,21 @@ const getOption = function() {
   return opt
 }
 
+const getChar = function() {
+  if (compChar.value) {
+    return compChar.value
+  }
+  const dom = getChartDom()
+  if (dom) {
+    const char = echarts.init(dom)
+    compChar.value = char
+    return char
+  }
+}
+
 // 刷新 chart 数据
-const sync = debounce<any>(async () => {
-  const char = compChar.value
+const sync = debounce<any>( function () {
+  const char = getChar();
   if (char) {
     const option = getOption()
     try {
@@ -163,15 +175,10 @@ const sync = debounce<any>(async () => {
 // }
 
 
-
 onMounted(function() {
   const dom = getChartDom()
   if (dom) {
-    const char = echarts.init(dom);
-    if (char) {
-      compChar.value = char
-      setTimeout(sync)
-    }
+    setTimeout(sync)
     watch([series, chartLegends], sync)
     // resize.bind(chartId.value, onResize)
   }
