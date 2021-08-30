@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, defineProps} from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
-
+import {getIconType} from '~/lib/tool'
 const props = defineProps({
   logo: String,
   name: String,
@@ -24,7 +24,7 @@ const props = defineProps({
         </div>
         <div class="flex items-center">
           <img class="w-3.5 mr-1" :src="chainsIcon[chain]" alt="">
-          <IconFont type="icon-V" size="16"/>
+          <IconFont :type="getIconType(type)" size="16"/>
         </div>
       </div>
     </div>

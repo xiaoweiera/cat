@@ -14,7 +14,7 @@ const tagList=[{name:'全部',key:'all'}, {name:'单币',key:'dan'}, {name:'LP',
 const chain=getInject('chain')
 const projectInfo=getInject('projectInfo')
 const type = ref('tvl')
-const selectList = ref([{name:'TVL',key:'tvl'},{name:'APY',key:'apy'}])
+const selectList = ref([{name:'TVL',key:'tvl'}])
 const chartData = reactive<EchartData>(new EchartData())
 const projects=ref([])
 const dialogSearch=ref('')
@@ -41,7 +41,7 @@ watch(()=>type.value,(n)=>{
   getChart()
 })
 const getData=async (chain,search)=>{
-  const res= await getProjectList( chain, search)
+  const res= await getProjectList( chain, search,undefined,projectInfo.value[0]?.is_lend)
   const dbRes=new DBList(res)
   list.value=dbRes.clone()
 }

@@ -58,6 +58,7 @@ onMounted(()=>{
   getList()
 })
 const getApyColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
+const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 <template>
   <div v-if="allData.length>0" class=" mt-4"  name="select">

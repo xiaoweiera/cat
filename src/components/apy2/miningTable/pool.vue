@@ -37,7 +37,7 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
         <img v-if="chain" class="w-3.5 h-3.5 mr-1" :src="chainsIcon[chain]" alt="">
         <IconFont v-if="category" :type="`icon-${tolocaleUpperCase(category)}`" size="14"/>
       </div>
-      <div v-if="strategy" class="text-12px14px w-fit tracking-wide text-global-highTitle text-opacity-45 px-1 py-0.5 bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
+      <div v-if="strategy"  class="text-12px14px max-h-4.5 flex items-center w-fit tracking-wide text-global-highTitle text-opacity-45 px-1  bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
         {{strategy}}
       </div>
     </div>

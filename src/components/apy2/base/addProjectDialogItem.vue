@@ -23,9 +23,7 @@ const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`
           </template>
           <div class="ml-1 text-kd12px14px text-global-highTitle text-opacity-65">{{props.data?.strategy_tags}}</div>
         </div>
-
       </div>
-      <div class="text-kd12px20px text-global-highTitle text-opacity-85">APY:  <span>{{formatRulesNumber(props.data?.apy)}}</span>%</div>
     </div>
 
   </div>
