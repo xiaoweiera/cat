@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { difference, intersection } from 'ramda'
-import { ref, defineProps, defineEmits, onMounted, watch, computed, toRaw } from 'vue'
+import { ref, defineProps, defineEmits, onMounted, watch, toRaw } from 'vue'
 import safeGet from '@fengqiaogang/safe-get'
 import { toArray, map } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
+import I18n from '~/utils/i18n/index'
 const emitEvent = defineEmits(['change', 'submit','changeParam'])
 
 const props = defineProps({
@@ -13,7 +14,7 @@ const props = defineProps({
   },
   subTitle: {
     type: String,
-    default: () => '已选'
+    default: () => I18n.common.button.selected
   },
   radios: {
     type: Array,
@@ -167,7 +168,7 @@ onMounted(function() {
               </div>
               <div class="pt-2 pb-1">
                 <div class="search-box">
-                  <el-input size="small" placeholder="请输入内容" v-model="search" value="">
+                  <el-input size="small" :placeholder="I18n.common.placeholder.search" v-model="search" value="">
                     <template #prefix>
                       <i class="el-input__icon el-icon-search"></i>
                     </template>
@@ -213,8 +214,8 @@ onMounted(function() {
     </div>
     <template #footer>
       <div class="dialog-bottom" :class="{'search': selects.length > 0}">
-        <el-button @click="onHidden">取 消</el-button>
-        <el-button type="primary" @click="onSubmit">确 定</el-button>
+        <el-button @click="onHidden">{{ I18n.common.button.close }}</el-button>
+        <el-button type="primary" @click="onSubmit">{{ I18n.common.button.confirm }}</el-button>
       </div>
     </template>
   </el-dialog>

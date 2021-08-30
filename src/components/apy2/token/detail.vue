@@ -8,6 +8,7 @@ import Props from '~/components/apy2/token/props'
 import { selectChains } from '~/logic/apy2/config'
 import { setInject } from '~/utils/use/state'
 import DBList from '@fengqiaogang/dblist'
+import I18n from '~/utils/i18n/index'
 
 // @ts-ignore
 const props = defineProps(Props())
@@ -17,8 +18,8 @@ const setPoolList = setInject('poolList')
 
 // @ts-ignore
 const radios = [
-  { label: '单币', value: 'token' },
-  { label: 'LP', value: 'lp' }
+  { label: I18n.apy.token.pool.token, value: 'token' },
+  { label: I18n.apy.token.pool.lp, value: 'lp' }
 ]
 
 const poolList = ref<any[]>([])
@@ -56,23 +57,23 @@ const onChange = function(data: object) {
       <div class="ml-5">
         <div class="cursor-pointer text-global-highTitle text-opacity-65">
           <!-- 保存 echarts 图表 -->
-          <EchartsDownload :title="`${symbol}top10`"/>
+          <UiDownloadButton :title="`${symbol}top10`"/>
         </div>
       </div>
     </div>
     <p class="mt-1.5">
-      <span class="leading-6 text-xs text-global-highTitle text-opacity-45">指标描述：展示选定币种/交易对在单位时间内的资金净流入情况，该指标是使用单位时间内主动买入-主动卖出进行计算的，异常的资金变化可能导致行情出现剧烈波动。</span>
+      <span class="leading-6 text-xs text-global-highTitle text-opacity-45">{{ I18n.apy.token.description }}</span>
     </p>
   </div>
   <div class="mt-3">
     <div class="flex justify-between items-center">
       <div>
-        <UiTransfer title="添加矿池" sub-title="已选矿池" :max="10" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange" :onload="updatePoolList">
+        <UiTransfer :title="I18n.apy.token.pool.add" :sub-title="I18n.apy.token.pool.selected" :max="10" :list="poolList" :radios="radios" :selects="selectChains" @submit="onSumbit" @changeParam="onChange" :onload="updatePoolList">
           <template #content>
             <el-button plain size="small">
               <div class="inline-flex items-center px-3 py-0.5">
                 <IconFont class="flex mr-1" type="icon-plus" size="16"/>
-                <span class="text-sm">添加矿池</span>
+                <span class="text-sm">{{ I18n.apy.token.pool.add }}</span>
               </div>
             </el-button>
           </template>

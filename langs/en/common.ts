@@ -49,7 +49,8 @@ export default {
     close: 'Close',
     review: 'In Review',
     success: 'Completed',
-    danger: 'Not approved'
+    danger: 'Not approved',
+    selected: 'Selected'
   },
   message: {
     verification: 'code',
@@ -74,7 +75,8 @@ export default {
     email:'Please enter your email',
     verification: 'Please enter verification code',
     password: 'Please enter the password',
-    new_password: 'Please enter your password again'
+    new_password: 'Please enter your password again',
+    search: 'Search'
   },
   and: 'And',
   join: 'Join',

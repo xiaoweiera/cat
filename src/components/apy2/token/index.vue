@@ -12,6 +12,7 @@ import { TabCategoryData } from '~/logic/apy2/interface'
 import { useProvide } from '~/utils/use/state'
 import { uuid, equalsIgnoreCase } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
+import I18n from '~/utils/i18n/index'
 
 // @ts-ignore
 const [ date ] = useProvide('uiDate')
@@ -37,10 +38,10 @@ const getTabList = function() {
     const tab = new DBList([
       {
         id: TabCategoryData.mining,
-        name: '挖矿收益',
+        name: I18n.apy.token.mining,
       }, {
         id: TabCategoryData.lend,
-        name: '利率收益'
+        name: I18n.apy.token.lend
       }
     ], 'id')
     return tab.select({ id: symbol.category })
@@ -87,7 +88,7 @@ onBeforeMount(ready)
       <el-container class="h-full text-kdFang">
         <el-header height="initial" class="p-0">
           <div class="pt-5">
-            <el-input class="search-box" placeholder="请输入内容" v-model="search">
+            <el-input class="search-box" :placeholder="I18n.apy.token.search" v-model="search">
               <template #prefix>
                 <i class="el-input__icon el-icon-search"></i>
               </template>
