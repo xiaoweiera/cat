@@ -41,7 +41,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14
       </el-table-column>
       <el-table-column prop="tool" label="操作" width="110px">
         <template #default="scope">
-          <Apy2LoanTableTool   :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url" prop="tool"/>
+          <Apy2LoanTableTool  :data="scope.row" />
         </template>
       </el-table-column>
     </el-table>

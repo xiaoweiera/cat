@@ -43,6 +43,7 @@ watch(()=>props.symbol,(n)=> {
   param.symbol=n
   getList(false)}
 )
+onMounted(getList())
 </script>
 <template>
   <div class="w-full h-full">

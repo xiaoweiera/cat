@@ -8,13 +8,13 @@ const props=defineProps({
 })
 </script>
 <template>
-    <div>
+    <div v-if="value0">
       <span class="font-kdFang  text-kd12px16px text-global-highTitle text-opacity-45">单利收益: </span>
       <span class="font-kdExp text-kd12px16px text-global-highTitle text-opacity-85">{{value0}}</span>
     </div>
-    <div class="font-kdFang  ">
+    <div v-if="value1" class="font-kdFang  ">
       <span class="font-kdFang  text-kd12px16px text-global-highTitle text-opacity-45">复利收益: </span>
-      <span class="font-kdExp text-kd12px16px text-global-highTitle text-opacity-85">{{value0}}</span>
+      <span class="font-kdExp text-kd12px16px text-global-highTitle text-opacity-85">{{value1}}</span>
     </div>
 </template>
 <style scoped lang="scss">

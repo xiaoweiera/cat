@@ -57,13 +57,14 @@ onMounted(()=>{
   getList()
 })
 const getApyColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
   <div v-if="allData.length>0" class=" pt-4 " name="select">
     <ul >
       <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang  " name="select">币种</li>
       <template v-for="item in allData">
-        <div class="flex items-center hand  h-9 justify-between" name="select">
+        <a v-router.blank="tokenUrl(item.name)" class="flex items-center hand  h-9 justify-between" name="select">
           <div class="flex items-center" name="select">
             <img class="w-5 h-5 mr-1" :src="item.icon" alt="" name="select">
             <span class="text-kd14px14px text-global-highTitle font-kdExp" name="select">{{item.name}}</span>
@@ -72,7 +73,7 @@ const getApyColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
             <span class="text-kd13px18px text-global-highTitle text-opacity-65 font-kdFang" name="select">最高 APY</span>
             <span :class="getApyColor(item.max_mining_apy)" class="ml-1 text-kd14px14px font-kdExp font-bold" name="select">{{formatRulesNumber(item.max_mining_apy)}}%</span>
           </div>
-        </div>
+        </a>
       </template>
       <li v-if="resultNumber===initSize" @click="addMore" class="more hand " name="select">查看更多</li>
     </ul>

@@ -42,6 +42,7 @@ watch(()=>props.symbol,(n)=> {
   param.loan_symbol=n
   getList(false)}
 )
+onMounted(getList())
 </script>
 <template>
   <div class="w-full h-full">

@@ -125,7 +125,7 @@ onMounted(getProject())
 </script>
 <template>
 <div class="font-kdFang cal w-full  p-4  bg-global-white rounded-kd4px">
-  <div class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium">真实利率计算器</div>
+  <div class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium text-left">真实利率计算器</div>
   <div class="borderGang mt-4"></div>
   <div>
     <div class="mt-4 h-11  flex items-center  ">
@@ -238,7 +238,8 @@ onMounted(getProject())
     }
   }
   .borderGang{
-    border:0.5px solid rgba(0, 0, 0, 0.04);
+    border:none;
+    border-top:1px solid rgba(0, 0, 0, 0.04);
   }
   .selectLabel{
     @apply text-kd14px18px text-global-highTitle text-opacity-65;

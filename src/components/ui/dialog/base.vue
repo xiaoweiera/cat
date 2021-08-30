@@ -12,8 +12,11 @@ const open=()=>{
     <slot  name="title"></slot>
   </div>
   <el-dialog custom-class="dialogClass" v-model="oepnDialog" :width="customClass">
-     <IconFont @click="oepnDialog=false" size="20" class="text-global-highTitle absolute right-4 top-4.5 hand text-opacity-65" type="icon-xClose"/>
-     <slot name="content"></slot>
+    <div >
+      <IconFont @click="oepnDialog=false" size="20" class="text-global-highTitle absolute right-4 top-4.5 hand text-opacity-65" type="icon-xClose"/>
+      <slot name="content"></slot>
+    </div>
+
   </el-dialog>
 </div>
 </template>

@@ -70,7 +70,8 @@ export class HecoNode {
 export interface projectParam {
   chain:string
   query:string
-  merge:boolean
+  merge:boolean | undefined
+  is_lend:boolean | undefined
 }
 export interface poolsParam {
   project_id:number
