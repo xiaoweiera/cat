@@ -1,14 +1,10 @@
 <script setup lang="ts">
+import { toBoolean } from '~/utils'
 import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
-// @ts-ignore
 import { getTokenDetail } from '~/logic/apy2/token'
-// @ts-ignore
 import { TabCategoryData } from '~/logic/apy2/interface'
-// @ts-ignore
 import safeGet from '@fengqiaogang/safe-get'
-// @ts-ignore
 import makeRouterPath, { getParam } from '~/utils/router'
-// @ts-ignore
 import { toNumber } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 
@@ -28,6 +24,8 @@ const detail = reactive({
   icon: '',
   prince: 0,
   change: 0,
+  mining_followed: false, // 挖矿收藏
+  lend_followed: false    // 借贷收藏
 })
 const active = ref<string>('')
 
@@ -35,8 +33,13 @@ const upDetail = async function() {
   const data: any = await getTokenDetail(props.symbol)
   detail.name = safeGet<string>(data, 'name')
   detail.icon = safeGet<string>(data, 'icon')
+
+  detail.mining_followed = toBoolean(safeGet<boolean>(data, 'mining_followed'))
+  detail.lend_followed = toBoolean(safeGet<boolean>(data, 'lend_followed'))
+
   detail.prince = safeGet<number>(data, 'ticker.prince')
   detail.change = safeGet<number>(data, 'ticker.change_percent')
+
 }
 
 const getUrl = function(value: string): string {
@@ -85,7 +88,8 @@ onMounted(function() {
           <router-link class="page-switch" :class="{'active': active === item.id}" :to="getUrl(item.id)">
             <IconFont type="icon-danbi" size="24"/>
             <span class="ml-2">{{ item.name }}</span>
-            <IconFont class="ml-1.5" type="icon-star-xuanzhong" size="16"/>
+            <!-- 收藏 -->
+            <Apy2BaseFollow class="ml-1.5" :type="item.id" :value="symbol" :status="detail[item.followed]"/>
           </router-link>
         </template>
       </div>

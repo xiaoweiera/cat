@@ -39,9 +39,11 @@ const getTabList = function() {
       {
         id: TabCategoryData.mining,
         name: I18n.apy.token.mining,
+        followed: 'mining_followed'
       }, {
         id: TabCategoryData.lend,
-        name: I18n.apy.token.lend
+        name: I18n.apy.token.lend,
+        followed: 'lend_followed'
       }
     ], 'id')
     return tab.select({ id: symbol.category })
