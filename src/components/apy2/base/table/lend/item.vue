@@ -15,10 +15,10 @@ defineProps({
 <template>
   <Apy2PoolDialog :type="TabCategoryData.lend" :id="data.id">
     <template #reference>
-      <div class="apy-item" :class="{'new-30': data.new }">
+      <div class="apy-item">
       <el-popover popper-class="apy-hover-detail" placement="bottom-start" title="" width="fit-content" :show-after="300" trigger="hover" :show-arrow="false" :offset="0">
         <template #reference>
-          <div class="h-18.5 flex items-center w-full">
+          <div class="h-18.5 flex items-center w-full" :class="{'new-30': data.new }">
             <div class="pl-4 pr-2 text-kdFang w-full">
               <div>
                 <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.apy) }}%</span>
