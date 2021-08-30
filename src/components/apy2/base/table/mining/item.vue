@@ -2,6 +2,7 @@
 import { defineProps } from "vue"
 // @ts-ignore
 import { numberUint, toNumber, toInteger } from '~/utils'
+import { TabCategoryData } from '~/logic/apy2/interface'
 
 defineProps({
   data: {
@@ -12,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-  <Apy2PoolDialog type="mining" :id="data.id">
+  <Apy2PoolDialog :type="TabCategoryData.mining" :id="data.id">
     <template #reference>
       <div class="apy-item">
         <el-popover popper-class="apy-hover-detail" placement="bottom-start" title="" width="fit-content" :show-after="300" trigger="hover" :show-arrow="false" :offset="0">
