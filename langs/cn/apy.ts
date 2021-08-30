@@ -168,4 +168,16 @@ export default {
         },
         description: '指标描述：展示选定币种/交易对在单位时间内的资金净流入情况，该指标是使用单位时间内主动买入-主动卖出进行计算的，异常的资金变化可能导致行情出现剧烈波动。'
     },
+    table: {
+        chain: '公链类型',
+        type: '矿池类型',
+        tag: '矿池标签',
+        interestRate: '利率构成',
+        borrowingLimit: '可借金额',
+        margin: '杠杆倍数',
+        apyTotal: 'APY 构成',
+        single: '单利收益',
+        compound: '复利收益',
+        remaining: '剩余额度'
+    }
 };

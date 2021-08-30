@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
+import I18n from '~/utils/i18n/index'
 // @ts-ignore
 import { numberUint, toNumber } from '~/utils'
 import { TabCategoryData } from '~/logic/apy2/interface'
@@ -25,7 +26,7 @@ defineProps({
               </div>
               <div class="text-xs mt-1 whitespace-nowrap max-w-full truncate">
                 <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>
-                <span class="text-global-highTitle text-opacity-45 ml-1">可借金额</span>
+                <span class="text-global-highTitle text-opacity-45 ml-1">{{ I18n.apy.table.borrowingLimit }}</span>
                 <span class="text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.quota_remain) }} ({{ toNumber(data.quota_remain_percent) }}%)</span>
               </div>
               <div class="text-xs mt-1 flex justify-between">
