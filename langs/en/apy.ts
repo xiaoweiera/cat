@@ -148,5 +148,19 @@ export default {
             ratio: 'Revenue ratio',
             operation: 'Operation'
         }
-    }
+    },
+    token: {
+        mining: 'Farm APY',
+        lend: 'Interest APY',
+        search: 'Search',
+        pool: {
+            add: 'Add pools',
+            selected: 'Selected',
+            list: 'All pools',
+            token: 'Token',
+            lp: 'LP',
+            lends: '借贷的所有最佳路径'
+        },
+        description: '指标描述：展示选定币种/交易对在单位时间内的资金净流入情况，该指标是使用单位时间内主动买入-主动卖出进行计算的，异常的资金变化可能导致行情出现剧烈波动。'
+    },
 };

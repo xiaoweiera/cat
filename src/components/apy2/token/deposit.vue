@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import I18n from '~/utils/i18n/index'
 // 定义 props
 import Props from '~/components/apy2/token/props'
 import { useProvide } from '~/utils/use/state'
@@ -15,16 +16,16 @@ useProvide(dataEventName.value)
 </script>
 
 <template>
-  <div>
+  <UiDownload>
     <!-- 币种描述 -->
     <Apy2TokenDetail/>
     <div>
-      <Apy2TokenTrend :symbol="props.symbol" :id="props.id" :type="props.type"/>
+      <Apy2TokenTrend :symbol="symbol" :id="id" :type="type"/>
     </div>
-  </div>
+  </UiDownload>
   <div class="mt-8">
-    <h3 class="text-xl text-global-highTitle text-opacity-85 mb-3">借贷的所有最佳路径</h3>
-    <Apy2TokenLendingList :symbol="props.symbol"/>
+    <h3 class="text-xl text-global-highTitle text-opacity-85 mb-3">{{ I18n.apy.token.pool.lends }}</h3>
+    <Apy2TokenLendingList :symbol="symbol" :type="type"/>
   </div>
 </template>
 
