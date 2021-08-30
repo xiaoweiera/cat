@@ -28,11 +28,11 @@ defineProps({
               <span class="inline-block whitespace-nowrap max-w-full truncate">{{ data.symbol_alias }}</span>
             </span>
           </el-tooltip>
-          <Apy2BaseFollow class="ml-1" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
+          <Apy2BaseFollow class="ml-1 text-global-highTitle text-opacity-45" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
         </div>
         <div class="mt-1 text-xs flex items-center">
           <span class="inline-block mr-1 text-global-highTitle text-opacity-85">${{ numberUint(data.symbol_price) }}</span>
-          <span class="inline-block p-1 rounded bg-global-numRed bg-opacity-20 text-global-numRed">{{ toNumber(data.symbol_change) }}%</span>
+          <span class="inline-block p-1 rounded bg-global-numRed bg-opacity-20 text-global-numRed" v-if="toNumber(data.symbol_change) > 0">{{ toNumber(data.symbol_change) }}%</span>
         </div>
       </div>
     </div>
