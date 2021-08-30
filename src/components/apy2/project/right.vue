@@ -5,6 +5,7 @@ import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {tolocaleUpperCase} from '~/lib/tool'
 const props=defineProps({projectId:Object})
+const projectInfo=getInject('projectInfo')
 const pool_type = ref('mining')
 const tagKey = ref(0)
 const tags = [
@@ -20,9 +21,9 @@ const selectName = (key: string) => {
 <template>
   <div class="font-kdFang">
     <Apy2ProjectInfo :projectId="projectId"/>
-    <div class="flex items-center mt-8 bottomBorderGang">
+    <div v-if="projectInfo[0]?.id"  class="flex items-center mt-8 bottomBorderGang">
       <template v-for="item in tags">
-        <div @click="selectName(item.key)" :class="pool_type===item.key?'pool_type':'name'" class="pool_type mr-12 hand" name="mining">
+        <div v-if="(projectInfo[0]?.is_lend && item.key==='lend') || item.key!=='lend'"  @click="selectName(item.key)" :class="pool_type===item.key?'pool_type':'name'" class="pool_type mr-12 hand" name="mining">
           {{ item.name }}
         </div>
       </template>
