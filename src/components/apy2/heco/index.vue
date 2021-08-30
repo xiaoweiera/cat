@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { omit } from 'ramda'
 import I18n from '~/utils/i18n/index'
-import { formatCash, uuid, toInteger } from '~/utils'
+import dayjs from 'dayjs'
+import { formatCash, uuid, toInteger, dateTime, dateYMDFormat } from '~/utils'
 import { onMounted, reactive, ref, toRaw } from 'vue'
 import { getHecoTrendsList, getTableList, pcHeader, mobileHeader } from '~/logic/apy2/heco'
 import { HecoDetail, HecoNode } from '~/logic/apy2/interface'
@@ -9,11 +10,27 @@ import { EchartData, Position } from '~/logic/echarts/interface'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
 import router from '~/utils/router'
-
 const detail = reactive<HecoDetail>(new HecoDetail())
 
 const chartData = reactive<EchartData>(new EchartData())
 const tableData = ref<HecoNode[]>([])
+
+const countTimeValue = ref<number | undefined>(void 0)
+
+const getNextTimeValue = function() {
+  const day = dayjs(dateYMDFormat())
+  const keys = [6, 12, 18, 24, 30]
+  let value: number = dateTime(day)
+  const current = dateTime()
+  for(let i = 0; i < keys.length; i ++) {
+    const time = dateTime(day.add(keys[i], 'hour'))
+    if (time > current) {
+      value = time
+      break
+    }
+  }
+  countTimeValue.value = value
+}
 
 // 投票数
 const updateTrendsData = async function() {
@@ -29,10 +46,6 @@ const updateTrendsData = async function() {
 const updateNodeList = async function() {
   tableData.value = await getTableList()
 }
-
-onMounted(function() {
-  return Promise.all([ updateTrendsData(), updateNodeList()])
-})
 
 const expandValue = ref<string>('')
 
@@ -126,6 +139,21 @@ const rowClassName = function(scope: any) {
   return 'cursor-pointer'
 }
 
+const ready = function() {
+  // 更新倒计时
+  getNextTimeValue()
+  // 重新请求
+  return Promise.all([ updateTrendsData(), updateNodeList()])
+}
+
+const watchCountTime = function(date: any) {
+  if (date.hour === '00' && date.minute === '00' && date.second === '00') {
+    return ready()
+  }
+}
+
+onMounted(ready)
+
 </script>
 
 <template>
@@ -148,7 +176,11 @@ const rowClassName = function(scope: any) {
         </span>
           <span class="item">
           <span class="sub">{{ I18n.apy.heco.description.dateEnd }}</span>
-          <span class="ml-1 text-global-highTitle text-opacity-85">05:33:20</span>
+          <span class="ml-1 text-global-highTitle text-opacity-85">
+            <TimeCountdown :value="countTimeValue" @change="watchCountTime">
+              <template #default="date">{{ date.hour }} : {{ date.minute }} : {{ date.second }}</template>
+            </TimeCountdown>
+          </span>
         </span>
         </p>
       </div>
