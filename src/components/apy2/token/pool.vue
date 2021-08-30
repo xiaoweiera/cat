@@ -20,7 +20,6 @@ defineProps({
       </div>
       <div class="flex items-center">
         <IconFont :type="data.chain" size="14"/>
-        <IconFont class="ml-1" :type="data.pool_type" size="14"/>
         <span class="text-global-highTitle text-opacity-65 ml-1">{{ data.strategy_tags }}</span>
       </div>
     </div>

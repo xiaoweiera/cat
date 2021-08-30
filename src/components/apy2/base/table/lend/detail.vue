@@ -31,22 +31,26 @@ defineProps({
         <span class="text-global-highTitle text-opacity-45 ml-1">{{ data.strategy_tags }}</span>
       </span>
     </div>
-    <div class="item-row">
-      <div>
-        <span class="label">利率构成</span>
-      </div>
-      <div class="flex items-center mt-1" v-if="data.single_apy_detail">
-        <span class="label dot">单利收益</span>
-        <span class="ml-1 text-xs text-global-highTitle">{{ data.single_apy_detail }}</span>
-      </div>
-      <div class="flex items-center mt-1" v-if="data.compound_detail">
-        <span class="label dot">复利收益</span>
-        <span class="ml-1 text-xs text-global-highTitle">{{ data.compound_detail }}</span>
+    <div class="item-row flex">
+      <span class="label mr-1">
+        <span class="leading-5">利率构成</span>
+      </span>
+      <div class="leading-5">
+        <div v-if="data.single_apy_detail">
+          <span class="text-xs text-global-highTitle">{{ data.single_apy_detail }}</span>
+        </div>
+        <div class="mt-1" v-if="data.compound_detail">
+          <span class="text-xs text-global-highTitle">{{ data.compound_detail }}</span>
+        </div>
       </div>
     </div>
     <div class="item-row flex items-center">
       <span class="label">可借额度</span>
       <span class="ml-1 text-xs text-global-highTitle text-opacity-45">${{ numberUint(data.quota_remain) }}  ({{ toNumber(data.quota_remain_percent) }}%)</span>
+    </div>
+    <div class="item-row flex items-center text-global-numRed" v-if="data.warining_info">
+      <IconFont type="icon-info2" size="16"/>
+      <span class="text-xs ml-1.5">{{ data.warining_info }}</span>
     </div>
   </div>
 </template>

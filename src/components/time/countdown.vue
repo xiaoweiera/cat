@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // 倒计时
 import dayjs from 'dayjs'
+import { dateTime } from '~/utils'
 // @ts-ignore
-import { ref, defineProps, watch } from 'vue'
+import { ref, defineProps, watch, onMounted, defineEmits } from 'vue'
 // @ts-ignore
 import I18n from '~/utils/i18n/index'
 const format = 'YYYY-MM-DD HH:mm:ss'
@@ -14,12 +15,13 @@ const hour = ref<string>('00')
 const minute = ref<string>('00')
 const second = ref<string>('00')
 const end = ref(0)
-// 监听传入进来的时间值
-// @ts-ignore
-watch(props.value, () => {
-    const time = dayjs(props.value, format)
-    end.value = time.valueOf()
-}, { immediate: true })
+
+const emitEvent = defineEmits(['change'])
+
+const calcEndValue = function() {
+  end.value = dateTime(props.value)
+}
+
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
   const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
@@ -40,6 +42,7 @@ const getSecond = function(duration: number): string {
   const number = parseInt(((duration / 1000) % 60) as any, 10)
   return number < 10 ? `0${number}` : String(number)
 }
+
 // 倒计时
 let intemout: any
 const timeout = () => {
@@ -63,9 +66,29 @@ const timeout = () => {
   minute.value = getMinute(duration)
   // 计算倒计时剩余秒
   second.value = getSecond(duration)
+
+  const res = {
+    day: day.value,
+    hour: hour.value,
+    minute: minute.value,
+    second: second.value
+  }
+  emitEvent('change', res)
+
   intemout = setTimeout(timeout, 1000)
 }
-timeout()
+
+// 监听传入进来的时间值
+// @ts-ignore
+watch(props.value, function(){
+  calcEndValue()
+  timeout()
+}, { immediate: true })
+
+onMounted(function() {
+  calcEndValue()
+  timeout()
+})
 </script>
 
 <template>

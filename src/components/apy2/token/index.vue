@@ -39,9 +39,11 @@ const getTabList = function() {
       {
         id: TabCategoryData.mining,
         name: I18n.apy.token.mining,
+        followed: 'mining_followed'
       }, {
         id: TabCategoryData.lend,
-        name: I18n.apy.token.lend
+        name: I18n.apy.token.lend,
+        followed: 'lend_followed'
       }
     ], 'id')
     return tab.select({ id: symbol.category })
@@ -102,7 +104,7 @@ onBeforeMount(ready)
                 <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
                   <span class="inline-flex">
                     <IconFont rounded v-if="item.icon" :type="item.icon" size="24"></IconFont>
-                    <IconFont v-else type="icon-morentoken" size="40"/>
+                    <IconFont v-else type="icon-morentoken" size="24"/>
                   </span>
                   <span class="ml-1.5">
                     <span class="text-sm text-global-highTitle">{{ item.name }}</span>

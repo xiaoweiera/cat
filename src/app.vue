@@ -300,4 +300,30 @@ a {
 .showY::-webkit-scrollbar-thumb:vertical {
   background: rgba(0, 0, 0, 0.1);
 }
+
+.new-16 {
+  --new-size: 16px;
+}
+.new-24 {
+  --new-size: 24px;
+}
+.new-30 {
+  --new-size: 30px;
+}
+.new-40 {
+  --new-size: 40px;
+}
+[class~=new], [class*=new] {
+  @apply relative;
+  $icon: "https://statics.ikingdata.com/img/new.png";
+  &:after {
+    content: "";
+    @apply absolute left-0 top-0 right-0 bottom-0;
+    background-image: url($icon);
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: var(--new-size);
+  }
+}
+
 </style>

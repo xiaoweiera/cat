@@ -52,10 +52,10 @@ defineProps({
       <span class="label">剩余额度</span>
       <span class="ml-1 text-xs text-global-highTitle text-opacity-45">${{ numberUint(data.quota_remain) }}  ({{ toNumber(data.quota_remain_percent) }}%)</span>
     </div>
-<!--    <div class="item-row flex items-center text-global-numRed">-->
-<!--      <IconFont type="icon-info2" size="16"/>-->
-<!--      <span class="text-xs ml-1.5">投入后需锁仓30天</span>-->
-<!--    </div>-->
+    <div class="item-row flex items-center text-global-numRed" v-if="data.warining_info">
+      <IconFont type="icon-info2" size="16"/>
+      <span class="text-xs ml-1.5">{{ data.warining_info }}</span>
+    </div>
   </div>
 </template>
 

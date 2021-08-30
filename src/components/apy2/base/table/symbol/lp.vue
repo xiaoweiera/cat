@@ -29,8 +29,7 @@ const href = computed(function() {
 <template>
   <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router.blank="href">
     <div>
-      <IconFont v-if="data.symbol_logo" :type="data.symbol_logo" size="32"/>
-      <IconFont v-else type="icon-morentoken" size="32"/>
+      <IconFont :class="{'new-16': data.new }" :type="data.symbol_logo ? data.symbol_logo : 'icon-morentoken'" size="32"/>
     </div>
     <div class="ml-2 flex-1 flex justify-between items-center">
       <div class="flex-1 w-1 items-center flex">
