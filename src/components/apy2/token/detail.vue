@@ -24,12 +24,17 @@ const radios = [
 
 const poolList = ref<any[]>([])
 
-// @ts-ignore
-const updatePoolList = async function() {
-  const data: any = await getPoolsList({ pool_type: props.type })
+const updatePoolList = async function(query?: object) {
+  const param = Object.assign({
+    chain: 'all',
+    symbol_type: radios[0].value
+  }, query || {}, { pool_type: props.type })
+  const data: any = await getPoolsList(param)
   if (data && data.length > 0) {
     const db = new DBList(data)
     poolList.value = db.clone()
+  } else {
+    poolList.value = []
   }
   return []
 }
@@ -41,8 +46,13 @@ const onSumbit = function(list: any[]) {
 }
 
 // @ts-ignore
-const onChange = function(data: object) {
-  console.log(data)
+const onChange = function(data: any) {
+  const query = {
+    query: data.search,
+    chain: data.chain,
+    symbol_type: data.radioValue,
+  }
+  updatePoolList(query)
 }
 
 </script>
