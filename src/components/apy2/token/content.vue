@@ -74,8 +74,7 @@ onMounted(function() {
   <div class="text-kdFang">
     <div class="flex justify-between">
       <div class="flex items-center">
-        <IconFont v-if="detail.icon" :type="detail.icon" size="40" rounded/>
-        <IconFont v-else type="icon-morentoken" size="40"/>
+        <IconFont :type="detail.icon ? detail.icon : 'icon-morentoken'" size="40" rounded/>
         <b class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
         <span class="ml-4 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
         <span class="ml-2 bg-global-numRed inline-block py-0.5 px-1 rounded">

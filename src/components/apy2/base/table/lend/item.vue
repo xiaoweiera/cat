@@ -15,7 +15,7 @@ defineProps({
 <template>
   <Apy2PoolDialog :type="TabCategoryData.lend" :id="data.id">
     <template #reference>
-      <div class="apy-item">
+      <div class="apy-item" :class="{'new-30': data.new }">
       <el-popover popper-class="apy-hover-detail" placement="bottom-start" title="" width="fit-content" :show-after="300" trigger="hover" :show-arrow="false" :offset="0">
         <template #reference>
           <div class="h-18.5 flex items-center w-full">

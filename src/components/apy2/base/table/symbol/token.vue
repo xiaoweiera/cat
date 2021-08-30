@@ -18,8 +18,7 @@ defineProps({
   <div class="h-18.5 px-2.5 flex items-center text-kdFang">
     <div class="flex items-center flex-1">
       <div>
-        <IconFont v-if="data.symbol_logo" :type="data.symbol_logo" size="32"/>
-        <IconFont v-else type="icon-morentoken" size="32"/>
+        <IconFont :class="{'new-24': data.new }" :type="data.symbol_logo ? data.symbol_logo : 'icon-morentoken'" size="32"/>
       </div>
       <div class="mx-2 flex-1">
         <div class="flex w-full items-center">
