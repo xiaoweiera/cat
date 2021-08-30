@@ -52,7 +52,6 @@ const orderData=()=>{
               </div>
               <div class="text-kd14px18px text-global-highTitle text-opacity-85 font-kdExp">${{formatRulesNumber(item.tvl,false)}}</div>
             </div>
-
           </router-link>
         </div>
       </template>

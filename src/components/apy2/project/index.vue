@@ -7,7 +7,6 @@ import { useRoute } from 'vue-router'
 import {chains} from '~/logic/apy2/config'
 import * as lang from '~/utils/lang'
 import {getProjectList} from '~/logic/apy2/index'
-// const projectId=reactive({value:0})
 const route = useRoute()
 const [chain,setChain]=useProvide('chain','all')
 const [projectInfo,]=useProvide('projectInfo',{})
@@ -21,9 +20,7 @@ const projectId=computed(()=>
 const txt=ref('')
 const projectList=ref([])
 const getData=async ()=>projectList.value=await getProjectList(chain.value[0],txt.value)
-watch(()=>[txt.value,chain.value[0]],()=>{
-  getData()
-})
+watch(()=>[txt.value,chain.value[0]],()=>getData())
 onMounted(getData())
 </script>
 <template>

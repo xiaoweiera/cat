@@ -114,7 +114,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
                     <el-option  v-for="item in tokenList"  :label="item.name" :value="item.name">
                     </el-option>
                   </el-select>
-                  <a v-router.blank="tokenUrl(selectValue)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
+                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
                 </div>
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
