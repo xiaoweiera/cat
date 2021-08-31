@@ -11,11 +11,142 @@ export interface Menu {
   badge?: string // 提示标记
   beta?:string//是否是内测
   newTip?:boolean
+  more?: boolean // 展示在更多菜单中
+  header?: boolean // 是否在菜单中展示
   children?: Menu[]
 }
 
+export const headers = [
+  {
+    name: 'Dapp',
+    children: [
+      {
+        name: 'DeFi 排行版',
+        icon: 'icon-paihang',
+        desc: '快速发现高收益矿池',
+        more: true,
+        header: true
+      },
+      {
+        name: 'NFT 排行版',
+        header: true
+      },
+      {
+        name: 'GameFi 排行版',
+        header: true
+      },
+      {
+        name: 'DeFi 新项目',
+        icon: 'icon-defi',
+        desc: '快速发现高收益矿池',
+        more: true,
+        header: true
+      },
+      {
+        name: 'NFT 新项目',
+        header: true
+      },
+      {
+        name: 'GameFi 新项目',
+        header: true
+      },
+    ]
+  },
+  {
+    // DeFi
+    name: I18n.nav.defi.name,
+    children: [
+      {
+        name: '挖矿 APY',
+        href: `${config.apy}/mining`,
+        icon: 'icon-apy',
+        desc: '快速发现高收益矿池',
+        more: true,
+        header: true
+      },
+      {
+        name: '借贷 APR',
+        href: `${config.apy}/loan`,
+        desc: '快速发现高收益矿池',
+        icon: 'icon-APR',
+        more: true,
+        header: true
+      },
+      {
+        name: '项目 APY 分析',
+        href: `${config.apy}/project`,
+        desc: '快速发现高收益矿池',
+        icon: 'icon-xiangmu',
+        more: true,
+        header: true
+      },
+      {
+        name: '币种 APY 分析',
+        href: `${config.apy}/token`,
+        desc: '快速发现高收益矿池',
+        icon: 'icon-bizhong',
+        more: true,
+        header: true
+      },
+      {
+        name: 'HECO 节点 APY',
+        href: `${config.apy}/heco`,
+        desc: '快速发现高收益矿池',
+        icon: 'icon-heco',
+        more: true,
+        header: true
+      },
+    ]
+  },
+  {
+    // '数据'
+    name: I18n.nav.analysis.name,
+    children: [
+      {
+        name: '数据专题',
+        desc: '专业的K线图和聚合交易',
+        icon: 'icon-zhuanti',
+        href: config.topic,
+        more: true,
+        header: true
+      },
+      {
+        name: '数据监控',
+        desc: '专业的K线图和聚合交易',
+        icon: 'icon-jiankong1',
+        href: config.news,
+        more: true,
+        header: true
+      },
+      {
+        name: '数据研报',
+        desc: '专业的K线图和聚合交易',
+        icon: 'icon-yanbao',
+        href: config.reports,
+        more: true,
+        header: true
+      }
+    ]
+  },
+  {
+    // DEX 聪明钱
+    name: I18n.nav.defi.liquidity.name,
+    href: config.liquidity,
+    children: [
+      {
+        name: I18n.nav.defi.liquidity.name,
+        desc: '专业的K线图和聚合交易',
+        icon: 'icon-DEX',
+        href: config.liquidity,
+        more: true
+      }
+    ]
+  },
+]
+
 export const menu: Menu[] = [
   {
+    // DeFi
     name: I18n.nav.defi.name,
     newTip:true,
     children: [

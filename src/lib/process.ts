@@ -5,20 +5,15 @@
 
 import * as config from './config'
 
-interface Env {
-  api: string
+interface Env extends config.Config {
 }
 
-export const development: Env = {
-  api: config.development.api,
-}
+export const development: Env = config.development
 
-export const production: Env = {
-  api: config.production.api,
-}
+export const production: Env = config.production
 
 // 默认线上环境
-let mode = 'production'
+let mode: string
 
 try {
   // mode = import.meta.env.MODE
