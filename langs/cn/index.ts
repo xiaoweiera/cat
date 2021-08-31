@@ -6,6 +6,7 @@ import growthpadShow from './growthpadShow'
 import liquidity from './liquidity'
 import nav from './nav'
 import webTip from './webTip'
+import apyIndex from './apyIndex'
 export default {
   apy,
   common,
@@ -13,5 +14,6 @@ export default {
   growthpadShow,
   nav,
   liquidity,
-  webTip
+  webTip,
+  apyIndex
 }
