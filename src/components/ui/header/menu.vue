@@ -17,14 +17,23 @@ import { headers } from '~/logic/menu'
         </div>
       </div>
       <template v-for="(data, index) in headers" :key="index">
-        <div class="wrap-menu-item" :class="{'active': index === 1}">
-          <div class="menu-content">
-            <span>{{ data.name }}</span>
+        <template v-if="data.children && data.children.length > 0">
+          <div class="wrap-menu-item" :class="{'active': index === 1}">
+            <div class="menu-content">
+              <span>{{ data.name }}</span>
+            </div>
+            <div class="menu-children">
+              <UiHeaderSub :list="data.children"></UiHeaderSub>
+            </div>
           </div>
-          <div class="menu-children">
-            <UiHeaderSub :list="data.children"></UiHeaderSub>
-          </div>
-        </div>
+        </template>
+        <template v-else>
+          <a class="wrap-menu-item" :class="{'active': index === 1}" v-router="data.href">
+            <span class="menu-content">
+              <span>{{ data.name }}</span>
+            </span>
+          </a>
+        </template>
       </template>
     </div>
   </div>
@@ -73,7 +82,7 @@ import { headers } from '~/logic/menu'
     @apply visible opacity-100;
   }
   .menu-content {
-    @apply bg-white text-global-primary;
+    @apply bg-white text-global-primary block;
   }
   .menu-children {
     visibility: visible;

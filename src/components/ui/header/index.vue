@@ -26,6 +26,6 @@ import { env } from '~/lib/process'
 
 <style scoped lang="scss">
 .ui-header {
-  @apply sticky top-0;
+  @apply sticky top-0 z-1000;
 }
 </style>

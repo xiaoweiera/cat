@@ -131,6 +131,7 @@ export const headers = [
   {
     // DEX 聪明钱
     name: I18n.nav.defi.liquidity.name,
+    href: config.liquidity,
     children: [
       {
         name: I18n.nav.defi.liquidity.name,
