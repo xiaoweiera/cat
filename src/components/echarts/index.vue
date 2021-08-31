@@ -144,16 +144,11 @@ const sync = debounce<any>( function () {
   const char = getChar();
   if (char) {
     const option = getOption()
-    try {
-      char.setOption(option, {
-        silent: true,
-        // notMerge: true
-        replaceMerge: ['series', 'legend']
-      })
-    } catch (e) {
-      console.log(e)
-      // todo
-    }
+    char.setOption(option, {
+      silent: true,
+      // notMerge: true
+      replaceMerge: ['series', 'legend']
+    })
   }
 }, 300)
 
@@ -179,7 +174,14 @@ onMounted(function() {
   const dom = getChartDom()
   if (dom) {
     setTimeout(sync)
-    watch([series, chartLegends], sync)
+    watch([series, chartLegends], function() {
+      const char = getChar();
+      if (char) {
+        char.clear()
+        compChar.value = null
+        sync()
+      }
+    })
     // resize.bind(chartId.value, onResize)
   }
 })
@@ -203,7 +205,7 @@ onMounted(function() {
           <EchartsCustom/>
         </el-header>
         <el-main class="p-0">
-          <div :class="customClass" :id="`j-${chartId}`"></div>
+          <div :class="customClass" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
         </el-main>
       </el-container>
     </div>
@@ -216,7 +218,7 @@ onMounted(function() {
       </div>
       <!-- 自定义图例 -->
       <EchartsCustom/>
-      <div :class="customClass" :id="`j-${chartId}`"></div>
+      <div :class="customClass" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
     </div>
   </template>
   <template v-else>
@@ -224,7 +226,7 @@ onMounted(function() {
       <div class="hidden">
         <slot></slot>
       </div>
-      <div class="h-full" :id="`j-${chartId}`"></div>
+      <div class="h-full" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
     </div>
   </template>
 </template>
