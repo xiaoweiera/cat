@@ -82,7 +82,7 @@ import { headers } from '~/logic/menu'
     @apply visible opacity-100;
   }
   .menu-content {
-    @apply bg-white text-global-primary block;
+    @apply bg-white text-global-primary;
   }
   .menu-children {
     visibility: visible;
