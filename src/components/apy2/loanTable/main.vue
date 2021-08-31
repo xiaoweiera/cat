@@ -24,22 +24,22 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14
           <Apy2LoanTableClearNumber :value0="scope.row.mortgage_rate" :value1="scope.row.liquidation_rate"/>
         </template>
       </el-table-column>
-      <el-table-column prop="gain" label="抵押收益" align="center"  sortable>
+      <el-table-column prop="gain" label="抵押收益" :align="I18n.apyIndex.mortgage"  sortable>
         <template #default="scope">
           <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_single_apy_detail"/>
         </template>
       </el-table-column>
-      <el-table-column prop="loanRate" label="借出利率" align="center"   sortable>
+      <el-table-column prop="loanRate" :label="I18n.apyIndex.borrowApy" align="center"   sortable>
         <template #default="scope">
           <Apy2LoanTableGain :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
         </template>
       </el-table-column>
-      <el-table-column prop="cost" label="真实成本(借出金额)"   sortable>
+      <el-table-column prop="cost"  :label="`${I18n.apyIndex.cost}(${I18n.apyIndex.borrowNumber})`"   sortable>
         <template #default="scope">
          <Apy2LoanTableCost :value="scope.row.real_apy"/>
         </template>
       </el-table-column>
-      <el-table-column prop="tool" label="操作" width="110px">
+      <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
           <Apy2LoanTableTool  :data="scope.row" />
         </template>

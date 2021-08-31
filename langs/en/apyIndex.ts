@@ -72,5 +72,9 @@ export default{
     borrowAmount:'可借额度',
     interestGroup:'利率构成',
     loanListDes:'抵押借贷最佳路径',
-    plat:'Platform'
+    plat:'Platform',
+    mortgage:'Mortgage Interest',
+    borrowApy:'Borrow APY',
+    borrowNumber:'Borrow Remaining',
+    cost:'True cost',
 }

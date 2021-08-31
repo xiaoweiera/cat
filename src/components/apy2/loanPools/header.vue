@@ -64,7 +64,7 @@ onMounted(()=>{
           </el-select>
         </div>
         <div>
-          <span class="selectTxt">借出币种</span>
+          <span class="selectTxt ">借出币种</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
             <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
@@ -80,7 +80,7 @@ onMounted(()=>{
           </el-select>
         </div>
         <div class="flex items-center">
-          <span class="selectTxt"  style="text-indent: 2em;">{{I18n.apyIndex.loanListChain}}</span>
+          <span class="selectTxt "  style="text-indent: 2em;">{{I18n.apyIndex.loanListChain}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="chained[0]" >
             <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
