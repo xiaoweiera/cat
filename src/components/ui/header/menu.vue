@@ -5,7 +5,7 @@ import { headers } from '~/logic/menu'
 <template>
   <div class="text-kdFang text-white h-15 pt-2.5">
     <div class="wrap-menu-box flex font-medium">
-      <div class="wrap-menu-item menu-more active">
+      <div class="wrap-menu-item menu-more">
         <div class="menu-content">
           <span class="px-1.5 flex items-center">
             <IconFont class="default" type="icon-gengduo1" size="24"></IconFont>
@@ -17,7 +17,7 @@ import { headers } from '~/logic/menu'
         </div>
       </div>
       <template v-for="(data, index) in headers" :key="index">
-        <div class="wrap-menu-item">
+        <div class="wrap-menu-item" :class="{'active': index === 1}">
           <div class="menu-content">
             <span>{{ data.name }}</span>
           </div>

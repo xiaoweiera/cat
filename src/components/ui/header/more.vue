@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { menu } from '~/logic/menu'
+import { headers } from '~/logic/menu'
 </script>
 
 <template>
@@ -7,11 +7,11 @@ import { menu } from '~/logic/menu'
     <!-- 更多菜单左侧空白部分 -->
     <div class="pl-10">
       <ul class="clearfix">
-        <li class="items" v-for="(data, index) in menu" :key="index">
+        <li class="items" v-for="(data, index) in headers" :key="index">
           <label>{{ data.name }}</label>
           <template v-if="data.children">
             <div class="wrap-item-box" v-for="(item, idx) in data.children" :key="`${index}-${idx}`">
-              <a class="clearfix" v-router="item.href">
+              <a class="clearfix" v-router="item.href" v-if="item.more">
                 <div class="float-left pr-2">
                   <IconFont :type="item.icon" size="40"/>
                 </div>

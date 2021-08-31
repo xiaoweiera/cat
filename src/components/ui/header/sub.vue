@@ -14,7 +14,9 @@ defineProps({
       <div class="sub-content text-global-highTitle text-opacity-65">
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">
-            <a class="sub-menu-item" :class="{'active': index === 0}" v-router="data.href">{{ data.name }}</a>
+            <template v-if="data.header">
+              <a class="sub-menu-item" :class="{'active': index === 0}" v-router="data.href">{{ data.name }}</a>
+            </template>
           </template>
         </div>
       </div>
