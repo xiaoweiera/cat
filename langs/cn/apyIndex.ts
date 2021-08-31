@@ -97,8 +97,29 @@ export default{
     trendCompare:'趋势对比',
     poolCompare:'池子对比',
     relatedLoanTrend:'相关借贷指标走势图',
-    loanTopBest:'{value} 借款 TOP5 最优利率对比图'
-
-
+    loanTopBest:'{value} 借款 TOP5 最优利率对比图',
+    unitTiao:'条',
+    projectDes:'项目描述',
+    timeFormat:'YYYY年M月DD日',
+    miningPool:'挖矿池子',
+    loanPool:'借贷池子',
+    projectData:'项目数据',
+    selectedPool:'已选矿池',
+    allMiningPool:'所有挖矿池子',
+    allLoanPool:'所有借贷池子',
+    addLoanPool:'添加借贷池子',
+    projectLook:{
+        userMoney:'用户总收益',
+        borrowMoney:'借款总额',
+        intoMoney:'存款总额',
+        poolNumber:'总池子数',
+        singlePoolNumber:'单币池子数',
+        lpPoolNumber:'LP池子数',
+        unit:'个'
+    },
+    addProject:'添加项目',
+    selectedProject:'已选项目',
+    loanMoneyCoin:'借款币种',
+    loanApr:'借款APR'
 
 }

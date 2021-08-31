@@ -2,6 +2,7 @@
 import { onMounted,ref,watch,reactive,computed } from 'vue'
 import { tokenList } from '~/store/apy2/state'
 import { ready } from '~/logic/apy2/token'
+import I18n from '~/utils/i18n/index'
 import { useProvide } from '~/utils/use/state'
 import { useRoute } from 'vue-router'
 import {chains} from '~/logic/apy2/config'
@@ -42,7 +43,7 @@ onMounted(getData())
             <IconFont type="icon-gang" size="16" class=" relative right-5.5 text-global-highTitle text-opacity-12"/>
             <div class="flex items-center flex-1 -ml-5 ">
               <IconFont type="icon-sousuo-da" class="text-global-highTitle w-6.5  text-opacity-45 " size="16"/>
-              <el-input class="search-box" placeholder="搜索项目" v-model="txt" value=""></el-input>
+              <el-input class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt" value=""></el-input>
             </div>
           </div>
         </el-header>

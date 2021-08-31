@@ -27,7 +27,7 @@ const orderData=()=>{
 <template>
   <div>
     <div class="flex my-3 px-1.5 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between showY">
-      <div>{{I18n.apyIndex.projectName}}</div>
+      <div>{{I18n.apyIndex.project}}</div>
       <div @click="orderData()" class="hand">
         <span>TVL</span>
 <!--        <IconFont size="13" class="ml-0.5" :type="orderList[orderIndex]"/>-->

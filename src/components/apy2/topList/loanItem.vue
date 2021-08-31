@@ -36,7 +36,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
                     <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
                   </div>
                   <div>
-                    <span class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
+                    <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'"  class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
                     <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
                   </div>
                 </div>
