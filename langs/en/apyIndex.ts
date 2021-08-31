@@ -55,5 +55,6 @@ export default{
     moreToken:'More Token',
     selectCoins:'Select other coins',
     farmApyList:'Farm APY List',
-    calculator:'真实利率计算器',
+    calculator:'calculator',
+    lever:'杠杆倍数'
 }

@@ -56,5 +56,6 @@ export default{
     selectCoins:'选择其他币种',
     farmApyList:'挖矿收益榜单',
     calculator:'真实利率计算器',
+    lever:'杠杆倍数'
 
 }
