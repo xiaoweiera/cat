@@ -31,7 +31,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
               <div class="flex flex-col w-full ml-3 flex-wrap">
                 <div class="flex justify-between">
                   <div class="flex items-center relative">
-                    <span class="text-kd12px16px text-global-highTitle text-opacity-65">借出币</span>
+                    <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{I18n.apyIndex.loanCoin}}</span>
                     <img class="w-5 h-5 ml-1" :src="item.symbol_logo" alt="">
                     <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
                   </div>
@@ -48,7 +48,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
                     <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
                   </div>
                   <div class="flex items-center">
-                    <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">可借金额</span>
+                    <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">{{I18n.apyIndex.borrowMoney}}</span>
                     <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{formatRulesNumber(item.quota_remain)}}</span>
                   </div>
                 </div>

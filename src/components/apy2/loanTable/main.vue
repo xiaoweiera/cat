@@ -9,12 +9,12 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14
 <template>
   <div>
     <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
-      <el-table-column prop="palt" width="170px"  label="平台">
+      <el-table-column prop="palt" width="170px"  :label="I18n.apyIndex.plat">
         <template #default="scope">
           <Apy2LoanTablePlat :logo="scope.row.project_logo" :chain="scope.row.chain" :name="scope.row.project" :des="scope.row.strategy_tags"/>
         </template>
       </el-table-column>
-      <el-table-column prop="loanAmount" width="170px" label="可借额度">
+      <el-table-column prop="loanAmount" width="170px" :label="I18n.apyIndex.borrowAmount">
         <template #default="scope">
           <Apy2LoanTableLoanAmount :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
         </template>

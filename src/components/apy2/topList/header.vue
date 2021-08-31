@@ -12,7 +12,7 @@ const changeTag=(id:number)=>group_id.value[0]=id
   <div class="font-kdFang w-93.25 ">
     <div class="flex justify-between items-center">
       <span v-if="props.type==='mining'" class="text-kd25px28px font-medium text-global-highTitle  text-opacity-85">{{I18n.apyIndex.farmApyList}}</span>
-      <span v-else class="text-kd18px24px font-medium text-global-highTitle  text-opacity-85">借贷利率榜</span>
+      <span v-else class="text-kd18px24px font-medium text-global-highTitle  text-opacity-85">{{I18n.apyIndex.loanList}}</span>
       <UiDialogBase  customClass="480px">
         <template #title>
           <div v-if="props.type==='loan'" class="flex items-center btnCount py-1 px-2 hand">

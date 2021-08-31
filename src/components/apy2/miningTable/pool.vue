@@ -3,6 +3,7 @@ import { ref, defineProps,computed } from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
 import {tolocaleUpperCase} from '~/lib/tool'
 import { toBoolean } from '~/utils'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({
   id:Number,
   followed:Boolean,

@@ -4,7 +4,7 @@ import { TabCategoryData } from '~/logic/apy2/interface'
 import { defineProps, onMounted, ref,computed } from 'vue'
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
-
+import I18n from '~/utils/i18n/index'
 defineProps({
   type: {
     type: String,
@@ -18,10 +18,10 @@ defineProps({
 
 const [tag,set]=useProvide('tag','my')
 const [filterType]=useProvide('filterType','all')
-const typeList=ref([{name:'综合',key:'all'},{name:'单利',key:'single'}])
+const typeList=ref([{name:I18n.apyIndex.total,key:'all'},{name:I18n.apyIndex.single,key:'single'}])
 const tagList=computed(()=>{
   if(tableTag && tableTag.value[0]?.id!=='my'){
-    tableTag.value.unshift({id:'my',name:'自选'})
+    tableTag.value.unshift({id:'my',name:I18n.apyIndex.my})
     set(tableTag.value[1]?.id)
   }
   return tableTag.value

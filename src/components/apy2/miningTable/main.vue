@@ -12,7 +12,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
 <template>
 <div>
   <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
-    <el-table-column prop="pool" label="矿池">
+    <el-table-column prop="pool" :label="I18n.apyIndex.pools">
       <template #default="scope">
         <Apy2PoolDialog type="mining" :id="scope.row.id">
           <template #reference>
@@ -21,12 +21,12 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
         </Apy2PoolDialog>
           </template>
     </el-table-column>
-    <el-table-column prop="tvlNumber" label="TVL/可投额度">
+    <el-table-column prop="tvlNumber" :label="`TVL/${I18n.apyIndex.hasMoney}`">
       <template #default="scope">
         <Apy2MiningTableTvlNumber :name="scope.row.symbol" :tvl="scope.row.tvl" :remainTvl="scope.row.quota_remain" :tvlRate="scope.row.quota_remain_percent"/>
       </template>
     </el-table-column>
-    <el-table-column prop="apyGroup" label="APY 构成" >
+    <el-table-column prop="apyGroup" :label="I18n.apyIndex.apyGroup" >
       <template #default="scope">
         <Apy2MiningTableApyGroup :value0="scope.row.single_apy_detail" :value1="scope.row.compound_detail"/>
       </template>
@@ -36,7 +36,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
         <Apy2MiningTableApy :apy="scope.row.apy" :des="scope.row.lever"/>
       </template>
     </el-table-column>
-    <el-table-column prop="tool" label="操作" width="75px">
+    <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="75px">
       <template #default="scope">
         <Apy2MiningTableTool :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
       </template>
