@@ -54,7 +54,7 @@ onMounted(async ()=>{
       </div>
       <div class="mt-15">
         <!--表格数据-->
-<!--        <Apy2BaseTableMain :type="TabCategoryData.mining"/>-->
+        <Apy2BaseTableMain :type="TabCategoryData.mining"/>
       </div>
       <div class="mt-15">
         <Apy2MiningPoolsMain/>
