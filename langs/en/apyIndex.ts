@@ -61,7 +61,7 @@ export default{
     selectCoins:'Select other coins',
     farmApyList:'Farm APY List',
     loanList:'借贷利率榜',
-    calculator:'Real interest calculator',
+    calculator:'Calculator',
     lever:'Margin',
     projects:'Projects',
     all:'All',
