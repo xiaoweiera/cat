@@ -19,12 +19,12 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14
           <Apy2LoanTableLoanAmount :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
         </template>
       </el-table-column>
-      <el-table-column prop="clearNumber"   label="最低抵押率/清算率" sortable >
+      <el-table-column prop="clearNumber"   :label="`${I18n.apyIndex.lowestLtv}/${I18n.apyIndex.clearRatio}`" sortable >
         <template #default="scope">
           <Apy2LoanTableClearNumber :value0="scope.row.mortgage_rate" :value1="scope.row.liquidation_rate"/>
         </template>
       </el-table-column>
-      <el-table-column prop="gain" label="抵押收益" :align="I18n.apyIndex.mortgage"  sortable>
+      <el-table-column prop="gain" :label="I18n.apyIndex.mortgageInterest" :align="I18n.apyIndex.mortgage"  sortable>
         <template #default="scope">
           <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_single_apy_detail"/>
         </template>
