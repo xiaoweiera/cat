@@ -3,6 +3,7 @@ export default{
     apply:'申请收录',
     platDes:'{chain} 条公链，{project} 个项目，{pool} 个池子，收录最全，支持跨链对比，历史趋势，APP 提醒',
     allChain:'全部公链',
+    chain:'选择公链',
     search:'搜索币种',
     notice:'公告',
     tutorial:'教程',
@@ -47,4 +48,13 @@ export default{
     project:'项目名称',
     projectTutorial:'项目教程',
     comLink:'访问官网',
+    pools:'池子',
+    tokens:'币种',
+    highApy:'最高 APY',
+    ok:'确定',
+    moreToken:'更多币种',
+    selectCoins:'选择其他币种',
+    farmApyList:'挖矿收益榜单',
+    calculator:'真实利率计算器',
+
 }

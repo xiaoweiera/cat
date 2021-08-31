@@ -2,6 +2,7 @@
 
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
+import I18n from '~/utils/i18n/index'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
@@ -11,7 +12,7 @@ import {formatRulesNumber,getIconType} from '~/lib/tool'
 import * as api from '~/api/index'
 const txt=getInject('txt')
 const props = defineProps({pageType: String,chain:String})
-import I18n from '~/utils/i18n/index'
+
 const allData=ref([]) //请求数据的个数
 const initSize=4 //首次加载数量
 const resultNumber=ref(0)
@@ -63,7 +64,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 <template>
   <div v-if="allData.length>0" class=" mt-4"  name="select">
     <ul>
-      <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">池子</li>
+      <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">{{I18n.apyIndex.pools}}</li>
       <template v-for="item in allData">
         <div class="flex items-center  h-9 justify-between" name="select">
           <div class="flex items-center" name="select">
@@ -80,7 +81,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
         </div>
       </template>
-      <li name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">查看更多</li>
+      <li name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">{{I18n.apyIndex.more}}</li>
     </ul>
   </div>
 

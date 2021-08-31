@@ -34,7 +34,7 @@ onMounted(getChart())
   <div class="w-full h-full font-kdFang top10Project">
     <div>
       <span  class="text-kd18px24px font-medium text-global-highTitle text-opacity-85">单币借贷利率</span>
-      <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 ml-3 text-kd14px18px ">更多币种 <IconFont  type="icon-right" size="12"/></a>
+      <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 ml-3 text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>
     </div>
     <div class="flex items-center  mt-4">
       <div class="flex items-center">
@@ -42,7 +42,7 @@ onMounted(getChart())
           <span @click="selectToken(item)"  :class="token===item?'selectTag':'tag'" class="hand">{{item}}</span>
         </template>
       </div>
-      <el-select v-if="tokenList.length>showNumber" filterable placeholder="选择其他币种" :popper-append-to-body="false" v-model="moreToken"  class="ml-1"  size="small" >
+      <el-select v-if="tokenList.length>showNumber" filterable :placeholder="I18n.apyIndex.selectCoins" :popper-append-to-body="false" v-model="moreToken"  class="ml-1"  size="small" >
         <template v-for="item in tokenList">
           <el-option v-if="chartTop.indexOf(item.name)===-1"  :label="item.name" :value="item.name">
           </el-option>
