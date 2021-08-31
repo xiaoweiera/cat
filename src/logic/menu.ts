@@ -106,7 +106,7 @@ export const headers = [
         name: '数据专题',
         desc: '专业的K线图和聚合交易',
         icon: 'icon-zhuanti',
-        href: config.news,
+        href: config.topic,
         more: true,
         header: true
       },
@@ -114,7 +114,7 @@ export const headers = [
         name: '数据监控',
         desc: '专业的K线图和聚合交易',
         icon: 'icon-jiankong1',
-        href: config.topic,
+        href: config.news,
         more: true,
         header: true
       },
@@ -136,7 +136,7 @@ export const headers = [
         name: I18n.nav.defi.liquidity.name,
         desc: '专业的K线图和聚合交易',
         icon: 'icon-DEX',
-        href: config.reports,
+        href: config.liquidity,
         more: true
       }
     ]
