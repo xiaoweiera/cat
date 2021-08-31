@@ -14,8 +14,62 @@ export interface Menu {
   children?: Menu[]
 }
 
+export const headers = [
+  {
+    name: 'Dapp',
+    children: [
+      { name: 'DeFi 排行版' },
+      { name: 'NFT 排行版' },
+      { name: 'GameFi 排行版' },
+      { name: 'DeFi 新项目' },
+      { name: 'GameFi 新项目' },
+    ]
+  },
+  {
+    // DeFi
+    name: I18n.nav.defi.name,
+    children: [
+      { name: '挖矿 APY', href: `${config.apy}/mining` },
+      { name: '借贷 APR', href: `${config.apy}/loan` },
+      { name: '项目 APY 分析', href: `${config.apy}/project` },
+      { name: '币种 APY 分析', href: `${config.apy}/token` },
+      { name: 'HECO 节点 APY', href: `${config.apy}/heco` },
+    ]
+  },
+  {
+    // '数据'
+    name: I18n.nav.analysis.name,
+    children: [
+      {
+        name: I18n.nav.analysis.hData.name,
+        desc: I18n.nav.analysis.hData.desc,
+        icon: 'https://res.ikingdata.com/icon/24.svg',
+        href: config.news
+      },
+      {
+        name: I18n.nav.analysis.chart.name,
+        desc: I18n.nav.analysis.chart.desc,
+        icon: 'https://res.ikingdata.com/icon/table.svg',
+        href: config.topic,
+      },
+      {
+        name: I18n.nav.analysis.report.name,
+        desc: I18n.nav.analysis.report.desc,
+        icon: 'https://res.ikingdata.com/icon/report.svg',
+        href: config.reports
+      }
+    ]
+  },
+  {
+    // DEX 聪明钱
+    name: I18n.nav.defi.liquidity.name,
+    children: []
+  },
+]
+
 export const menu: Menu[] = [
   {
+    // DeFi
     name: I18n.nav.defi.name,
     newTip:true,
     children: [
