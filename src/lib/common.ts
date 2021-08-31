@@ -1,22 +1,14 @@
-import { omit, filter } from 'ramda'
-import { uuid, map, dateTime, dateYMDFormat, dateMDFormat, isObject, toArray } from '~/utils'
+import { omit, pick } from 'ramda'
+import { uuid, map, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, convertInterval, dateFormat } from '~/utils'
 import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate } from '~/logic/echarts/interface'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 
-const some = function(list: LegendItem[]) {
-    const array: LegendItem[] = toArray(list)
-    return function(name: string): boolean {
-        const value = filter((item: LegendItem) => item.name === name, array)
-        return value.length > 1
-    }
-}
-
 
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
+        const interval = convertInterval(safeGet<string>(trends, 'interval') || '1D')
         //@ts-ignore
-        const app = some(trends.legends || [])
         const legends = map(function(item: LegendItem, index:number) {
             const data = { ...item }
             // 未设置图形类型
@@ -24,26 +16,29 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
                 // 默认折线图
                 data.type = seriesType.line
             }
-            // if (app(data.name)) {
-            //     data.name = `${data.name}(${index + 1})`
-            // }
             return data
         }, trends.legends)
+
         const xAxis = map(function(date: number) {
             const time = dateTime(date)
-            const key = dateYMDFormat(time)
-            const value = dateMDFormat(time)
-            return { key, time, value }
+            if (interval.type === 'h') {
+                const date = dateYMDHmFormat(time)
+                return { time, date, value: dateFormat(time, 'DD HH:mm') }
+            } else {
+                const date = dateYMDFormat(time)
+                return { time, date, value: date }
+            }
         }, trends.xAxis)
+
         const db = new DBList(legends, 'id')
         const series = map(function(list: Array<string | number>, id: string) {
             const legend = db.selectOne<LegendItem>({ id })
             const unit = safeGet<string>(legend, 'unit') || ''
-            return map(function(value: string | number | object) {
+            return map(function(value: string | number | object, index: number) {
                 if (isObject(value)) {
-                    return Object.assign({ unit }, value)
+                    return Object.assign({ unit }, pick(['time', 'date'], xAxis[index]), value)
                 }
-                return { value, unit }
+                return { value, unit, ...pick(['time', 'date'], xAxis[index]) }
             }, list)
         }, trends.series)
         return Object.assign({

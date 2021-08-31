@@ -9,8 +9,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="h-12.5">
-    <div v-if="list.length > 0" class="sub-menu-box px-20 flex items-center justify-between text-kdFang bg-white">
+  <div class="h-12.5 bg-white">
+    <div v-if="list.length > 0" class="sub-menu-box px-20 flex items-center justify-between text-kdFang">
       <div class="sub-content text-global-highTitle text-opacity-65">
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">

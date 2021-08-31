@@ -3,7 +3,11 @@
 </script>
 
 <template>
-  <div>test</div>
+  <div>
+    <div v-for="i in 100" :key="i">
+      <div>test</div>
+    </div>
+  </div>
 </template>
 
 <style scoped>

@@ -1,5 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { headers } from '~/logic/menu'
+import { toArray, map } from '~/utils'
+import DBList from '@fengqiaogang/dblist'
+const getChildren = function(list: any[]) {
+  const db = new DBList(toArray(list))
+  return db.select({ header: true })
+}
+
+const menus = computed(function() {
+  return map(function(data: any) {
+    data.children = getChildren(data.children)
+    return data
+  }, headers)
+})
+
 </script>
 
 <template>
@@ -16,8 +31,8 @@ import { headers } from '~/logic/menu'
           <UiHeaderMore></UiHeaderMore>
         </div>
       </div>
-      <template v-for="(data, index) in headers" :key="index">
-        <template v-if="data.children && data.children.length > 0">
+      <template v-for="(data, index) in menus" :key="index">
+        <template v-if="data.children.length > 0">
           <div class="wrap-menu-item" :class="{'active': index === 1}">
             <div class="menu-content">
               <span>{{ data.name }}</span>
@@ -29,9 +44,12 @@ import { headers } from '~/logic/menu'
         </template>
         <template v-else>
           <a class="wrap-menu-item" :class="{'active': index === 1}" v-router="data.href">
-            <span class="menu-content">
+            <div class="menu-content">
               <span>{{ data.name }}</span>
-            </span>
+            </div>
+            <div class="menu-children">
+              <UiHeaderSub :list="[]"></UiHeaderSub>
+            </div>
           </a>
         </template>
       </template>
@@ -60,8 +78,8 @@ import { headers } from '~/logic/menu'
     transform: rotateY(180deg);
   }
   .menu-children {
-    @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1000;
     transition: all 0.3s;
+    @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1000;
   }
   &.menu-more {
     .active {
