@@ -63,7 +63,7 @@ const onSumbit=(v:any)=>{
 </script>
 <template>
   <div class="font-kdFang">
-    <Apy2ProjectChartInfo/>
+    <Apy2ProjectChartInfo title="APR Top 10 池子" type="lend"/>
     <div class="mt-3 flex items-center justify-between">
       <div class="my-4 flex items-center justify-between w-full">
         <UiTransfer class="" title="添加矿池" sub-title="已选矿池" :list="list"  @changeParam="changeParam"  :selects="selectChains" @submit="onSumbit">

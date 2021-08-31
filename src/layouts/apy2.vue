@@ -7,7 +7,7 @@ import href, { config } from '~/utils/router'
 </script>
 
 <template>
-  <div class="containerbgs bg-global-body md:bg-opacity-100">
+  <div class="containerbgs  md:bg-opacity-100 bg-global-white"  >
     <HeaderNav title="APY">
       <template #share>
         <!-- 设置分享内容 -->
@@ -28,7 +28,11 @@ import href, { config } from '~/utils/router'
   </div>
 </template>
 
-<style scoped lang="scss">
+<style  lang="scss">
+html,
+body {
+  background-color: white !important;
+}
 .router-list {
   a {
     @apply ml-8 opacity-85 text-global-default;

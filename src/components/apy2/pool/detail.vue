@@ -19,7 +19,11 @@ const props = defineProps({
   id: {
     type: [String, Number],
     required: true,
-  }
+  },
+  chain:String,
+  lendCoin:String,
+  loanCoin:String,
+  project_id:Number
 })
 
 // 日期
@@ -69,10 +73,18 @@ onMounted(upDetail)
         </div>
         <div class="flex item-center">
           <div class="mr-3" v-if="type === TabCategoryData.lend">
+            <UiDialogBase :chain="props.chain" :lendCoin="props.lendCoin" :loanCoin="props.loanCoin" :project_id="props.project_id" customClass="480px">
+              <template #title>
             <span class="flex item-center py-2 px-3 rounded bg-global-primary text-global-white cursor-pointer">
               <IconFont class="flex" type="icon-jisuanqi-xiao"/>
-              <span class="text-sm ml-1">真实利率计算器</span>
+              <span class="text-sm ml-1">真实2利率计算器</span>
             </span>
+              </template>
+              <template #content>
+                <Apy2Calculator />
+              </template>
+            </UiDialogBase>
+
           </div>
           <div class="mr-3">
             <Apy2BaseFollow class="text-global-primary py-2 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
@@ -192,7 +204,15 @@ onMounted(upDetail)
   </el-container>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+
+.calc{
+  .el-dialog__body{
+    padding:0px !important;
+    padding-top:0px !important;
+  }
+}
+
 .symbol-name {
   font-size: 1.625rem;
   @apply ml-1.5 mr-2 text-global-highTitle text-opacity-85;

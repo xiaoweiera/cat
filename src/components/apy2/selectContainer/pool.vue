@@ -7,7 +7,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon} from '~/logic/apy2/config'
 import {getPoolSearch} from '~/api/ap/index'
-import {formatRulesNumber} from '~/lib/tool'
+import {formatRulesNumber,getIconType} from '~/lib/tool'
 import * as api from '~/api/index'
 const txt=getInject('txt')
 const props = defineProps({pageType: String,chain:String})
@@ -71,7 +71,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
             <span name="select" class="text-kd14px14px text-global-highTitle font-kdExp">{{item.symbol}}</span>
             <span name="select" class="text-kd14px14px text-global-highTitle text-opacity-65 font-kdExp ml-1">{{item.project}}</span>
             <img name="select" class="w-3.5 h-3.5 ml-1" :src="chainsIcon[item.chain]" alt="">
-            <IconFont name="select" type="icon-V" size="14" class="ml-1"/>
+            <IconFont name="select" :type="getIconType(item.project_category)" size="14" class="ml-1"/>
              <div name="select" v-if="item.strategy_tags" class="bg-global-highTitle bg-opacity-6 px-1 py-0.5 rounded-kd4px ml-1 text-kd12px14px text-global-highTitle text-opacity-45">{{item.strategy_tags}}</div>
           </div>
           <div name="select" class="flex items-center">

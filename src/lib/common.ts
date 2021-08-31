@@ -14,6 +14,7 @@ const some = function(list: LegendItem[]) {
 
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
+        //@ts-ignore
         const app = some(trends.legends || [])
         const legends = map(function(item: LegendItem, index:number) {
             const data = { ...item }
@@ -22,9 +23,9 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
                 // 默认折线图
                 data.type = seriesType.line
             }
-            if (app(data.name)) {
-                data.name = `${data.name}(${index + 1})`
-            }
+            // if (app(data.name)) {
+            //     data.name = `${data.name}(${index + 1})`
+            // }
             return data
         }, trends.legends)
         const xAxis = map(function(date: number) {
@@ -49,6 +50,6 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
 
 export const chartFormatter = function(template: FormatterTemplate, data: FormatterParams) {
     const detail = safeGet<string>(data, 'data.detail') || ''
-    const html = `<span class="ml-1.5 text-xs text-global-highTitle text-opacity-60">${detail}</span>`
+    const html = detail? `<span  class="ml-1.5 text-xs text-global-highTitle text-opacity-60">(${detail})</span>`:``
     return `${template.icon}${template.name}${template.value}${html}`
 }

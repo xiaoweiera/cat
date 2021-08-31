@@ -15,50 +15,53 @@ const getData=async ()=>list.value=await getLending_rank(group_id.value[0],chain
 const getIconSize=(type:string)=>type==='lp'?'w-8 h-5':'w-4 h-4'
 const getNewSize=(type:string)=>type==='lp'?'26':'14'
 onMounted(()=>{if(group_id.value[0]){getData()}})
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
   <div class="font-kdFang w-full  font-kdExp ">
     <template v-for="(item,i) in list">
-      <UiPopover v-if="i<5"  class=" inline-block  w-full">
-        <template #reference>
-      <div   class="flex py-3 items-center w-full topBorder">
-        <div class=" flex items-center">
-          <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;"    :type='`icon-a-${i+1}`'></IconFont>
-          <div v-else  class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
-        </div>
-        <div class="flex flex-col w-full ml-3 flex-wrap">
-          <div class="flex justify-between">
-            <div class="flex items-center relative">
-              <span class="text-kd12px16px text-global-highTitle text-opacity-65">借出币</span>
-              <img class="w-5 h-5 ml-1" :src="item.symbol_logo" alt="">
-              <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
+      <a v-router.blank="tokenUrl(item.symbol_alias)">
+        <UiPopover v-if="i<5"  class=" inline-block  w-full">
+          <template #reference>
+            <div   class="flex py-3 items-center w-full topBorder">
+              <div class=" flex items-center">
+                <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;"    :type='`icon-a-${i+1}`'></IconFont>
+                <div v-else  class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
+              </div>
+              <div class="flex flex-col w-full ml-3 flex-wrap">
+                <div class="flex justify-between">
+                  <div class="flex items-center relative">
+                    <span class="text-kd12px16px text-global-highTitle text-opacity-65">借出币</span>
+                    <img class="w-5 h-5 ml-1" :src="item.symbol_logo" alt="">
+                    <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
+                  </div>
+                  <div>
+                    <span class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
+                    <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
+                  </div>
+                </div>
+                <div class="mt-1 flex items-center flex-wrap  justify-between">
+                  <div class="flex items-center">
+                    <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{item.project}}</span>
+                    <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[item.chain]"></IconFont>
+                    <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
+                    <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">可借金额</span>
+                    <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{formatRulesNumber(item.quota_remain)}}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <span class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
-              <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
-            </div>
-          </div>
-          <div class="mt-1 flex items-center flex-wrap  justify-between">
-            <div class="flex items-center">
-              <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{item.project}}</span>
-              <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[item.chain]"></IconFont>
-              <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
-              <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
-            </div>
-            <div class="flex items-center">
-              <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">可借金额</span>
-              <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{formatRulesNumber(item.quota_remain)}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
           </template>
-        <template #content>
-          <div class="min-w-70 relative  p-1.3">
-            <Apy2TopListLoanTip :data="item" />
-          </div>
-        </template>
-      </UiPopover>
+          <template #content>
+            <div class="min-w-70 relative  p-1.3">
+              <Apy2TopListLoanTip :data="item" />
+            </div>
+          </template>
+        </UiPopover>
+      </a>
     </template>
   </div>
 </template>

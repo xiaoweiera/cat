@@ -33,10 +33,10 @@ const list=[
     title:'我要借款',
     des0:'去选择',
     des1:'利息最低',
-    des2:'的平台',
+    des2:'的币种',
     logo:'https://res.ikingdata.com/apyTwo/loanType.png',
     video:'https://res.ikingdata.com/apyTwo/loanVideo.png',
-    selectText:'选择平台'
+    selectText:'选择币种'
   },
   {
     id:3,
@@ -71,7 +71,7 @@ const textList={
 const cc='coinTxt'
 const tokens=ref([])
 const projects=ref([])
-const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=lend`
 const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 <template>
@@ -118,10 +118,13 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
                 </div>
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
-                    <el-option  v-for="item in projectList"  :label="item.name" :value="item.id">
-                    </el-option>
+                   <template v-for="item in tokenList">
+                     <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name">
+                     </el-option>
+                   </template>
+
                   </el-select>
-                  <a v-router.blank="platUrl(loan)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
+                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">确定</a>
                 </div>
               </div>
 
