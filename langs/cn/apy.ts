@@ -173,7 +173,7 @@ export default {
         type: '矿池类型',
         tag: '矿池标签',
         interestRate: '利率构成',
-        borrowingLimit: '可借金额',
+        borrowingLimit: '可借',
         margin: '杠杆倍数',
         apyTotal: 'APY 构成',
         single: '单利收益',

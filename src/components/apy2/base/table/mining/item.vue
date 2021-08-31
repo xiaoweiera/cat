@@ -21,12 +21,17 @@ defineProps({
             <div class="h-18.5 flex items-center w-full" :class="{'new-30': data.new }">
               <div class="pl-4 pr-2 text-kdFang w-full">
                 <div>
-                  <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.apy) }}%</span>
+                  <template v-if="toNumber(data.apy) > 0">
+                    <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.apy) }}%</span>
+                  </template>
+                  <template v-else>
+                    <span class="text-global-numRed font-bold text-xl">{{ toNumber(data.apy) }}%</span>
+                  </template>
                   <span class="ml-1 text-xs text-global-highTitle text-opacity-45" v-if="toInteger(data.lever) > 0">{{ toInteger(data.lever) }}X</span>
                 </div>
                 <div class="text-xs mt-1">
                   <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>
-                  <span class="text-global-highTitle text-opacity-45 ml-1">TVL</span>
+                  <span class="text-global-highTitle text-opacity-45 ml-1">TVL:</span>
                   <span class="text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.tvl) }}</span>
                 </div>
                 <div class="text-xs mt-1 flex justify-between">

@@ -168,7 +168,7 @@ export default {
         type: 'Type',
         tag: 'Tag',
         interestRate: 'Interest rate',
-        borrowingLimit: 'Borrowing limit',
+        borrowingLimit: 'Liquidity',
         margin: 'Margin',
         apyTotal: 'Total',
         single: 'Single',

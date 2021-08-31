@@ -2,6 +2,7 @@ import { omit, filter } from 'ramda'
 import { uuid, map, dateTime, dateYMDFormat, dateMDFormat, isObject, toArray } from '~/utils'
 import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate } from '~/logic/echarts/interface'
 import safeGet from '@fengqiaogang/safe-get'
+import DBList from '@fengqiaogang/dblist'
 
 const some = function(list: LegendItem[]) {
     const array: LegendItem[] = toArray(list)
@@ -34,9 +35,15 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
             const value = dateMDFormat(time)
             return { key, time, value }
         }, trends.xAxis)
-        const series = map(function(list: Array<string | number>) {
-            return map(function(value: string | number) {
-                return isObject(value)? value: { value }
+        const db = new DBList(legends, 'id')
+        const series = map(function(list: Array<string | number>, id: string) {
+            const legend = db.selectOne<LegendItem>({ id })
+            const unit = safeGet<string>(legend, 'unit') || ''
+            return map(function(value: string | number | object) {
+                if (isObject(value)) {
+                    return Object.assign({ unit }, value)
+                }
+                return { value, unit }
             }, list)
         }, trends.series)
         return Object.assign({
