@@ -19,13 +19,13 @@ const setProject=setInject('project')
 const setChained=setInject('chained')
 const setTxt=setInject('txt')
 const projectList=ref([
-  {name:'全部项目',id:'all'}
+  {name:I18n.apyIndex.projects,id:'all'}
 ])
 const txt=ref('')
 watch(project,()=>setProject(project.value))
 watch(chained,()=>setChained(chained.value))
 watch(txt,()=>setTxt(txt.value))
-const typeList=ref([{name:'全部',key:'all'},{name:'单币',key:'token'},{name:'LP',key:'lp'}])
+const typeList=ref([{name:I18n.apyIndex.all,key:'all'},{name:I18n.apyIndex.singleCoin,key:'token'},{name:'LP',key:'lp'}])
 const getProject=async ()=>{
   if(props.hasProject){
     const result=await getProjectList(chain.value,'')
@@ -56,7 +56,7 @@ onMounted(()=>getProject())
 
       <div class="apySearch  px-4 py-2 rounded-kd6px  flex items-center h-9" >
         <IconFont type="icon-sousuo-da1" class="mr-2 text-global-highTitle text-opacity-45" size="12"></IconFont>
-        <el-input v-model="txt" placeholder="搜索币种/项目"></el-input>
+        <el-input v-model="txt" :placeholder="I18n.apyIndex.searchAll"></el-input>
       </div>
     </div>
   </div>

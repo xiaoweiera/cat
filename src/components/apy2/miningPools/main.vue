@@ -4,6 +4,7 @@ import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
 import {getMiningPools} from '~/logic/apy2/index'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
 const [tag,setTag]=useProvide('tag','my')
 const [project,]=useProvide('project','all')
 const [txt,]=useProvide('txt','')
@@ -23,7 +24,7 @@ const param={
 const listData=ref([])
 const tagList=computed(()=>{
   if(listTag && listTag.value[0]?.id!=='my'){
-    listTag.value.unshift({id:'my',name:'自选'})
+    listTag.value.unshift({id:'my',name:I18n.apyIndex.my})
     setTag(listTag.value[1]?.id)
   }
   return listTag.value
@@ -52,7 +53,7 @@ param.page++
     <Apy2MiningPoolsHeader :hasCustom="true" :hasProject="true" :type="true" :hasChain="false" :tagList="tagList" />
     <Apy2MiningTableMain :data="listData" class="mt-3"/>
   </div>
-  <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">加载更多</div>
+  <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
 </template>
 <style  lang="scss">
 

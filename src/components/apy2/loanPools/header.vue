@@ -21,27 +21,27 @@ const setKey=setInject('key')
 const key=getInject('key')
 const coin=ref('')
 
-const projectList=ref(['全部'])
+const projectList=ref([I18n.apyIndex.all])
 const tokenList=ref([])
 const getProjects=async ()=>{
   const result=await getProjectList(chain.value,'',undefined,true)
-  result.unshift({name:'全部'})
+  result.unshift({name:I18n.apyIndex.all})
   projectList.value=result
 }
 const getTokens=async ()=>{
   const result=await getTokenList()
   if(result.length>=2){
-    setInCoin('全部')
-    setOutCoin('全部')
+    setInCoin(I18n.apyIndex.all)
+    setOutCoin(I18n.apyIndex.all)
   }
-  result.unshift({name:'全部'})
+  result.unshift({name:I18n.apyIndex.all})
   tokenList.value=result
 }
 const clear=()=>{
-  setInCoin('全部')
-  setOutCoin('全部')
-  setProjectId('全部')
-  setChained('全部')
+  setInCoin(I18n.apyIndex.all)
+  setOutCoin(I18n.apyIndex.all)
+  setProjectId(I18n.apyIndex.all)
+  setChained(I18n.apyIndex.all)
   setKey(++key.value[0])
 }
 const search=()=>{
@@ -64,7 +64,7 @@ onMounted(()=>{
           </el-select>
         </div>
         <div>
-          <span class="selectTxt">借出币种</span>
+          <span class="selectTxt ">借出币种</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
             <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
@@ -80,7 +80,7 @@ onMounted(()=>{
           </el-select>
         </div>
         <div class="flex items-center">
-          <span class="selectTxt"  style="text-indent: 2em;">公链</span>
+          <span class="selectTxt "  style="text-indent: 2em;">{{I18n.apyIndex.loanListChain}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="chained[0]" >
             <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
@@ -94,7 +94,7 @@ onMounted(()=>{
       </div>
       <div @click="search()" class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">
         <iconFont type="icon-sousuo-da1" class="text-global-white mr-3" size="16" />
-        <span class="text-kd16px24px text-global-white  font-medium">搜索</span>
+        <span class="text-kd16px24px text-global-white  font-medium">{{I18n.apyIndex.searchTxt}}</span>
       </div>
     </div>
   </div>
