@@ -60,7 +60,7 @@ import { headers } from '~/logic/menu'
     transform: rotateY(180deg);
   }
   .menu-children {
-    @apply fixed top-15 left-0 right-0 opacity-0 invisible z-100;
+    @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1000;
     transition: all 0.3s;
   }
   &.menu-more {
