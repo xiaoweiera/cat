@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import {ref, defineProps,onMounted,watch} from 'vue'
 import * as R from 'ramda'
-import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {tolocaleUpperCase} from '~/lib/tool'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({projectId:Object})
 const projectInfo=getInject('projectInfo')
 const pool_type = ref('mining')
 const tagKey = ref(0)
 const tags = [
-  {name: '挖矿池子', key: 'mining'},
-  {name: '借贷池子', key: 'lend'},
-  {name: '项目数据', ke: 'all'},
+  {name: I18n.apyIndex.miningPool, key: 'mining'},
+  {name: I18n.apyIndex.loanPool, key: 'lend'},
+  {name: I18n.apyIndex.projectData, ke: 'all'},
 ]
 const selectName = (key: string) => {
   pool_type.value = key

@@ -53,13 +53,10 @@ const status = computed<boolean>(function() {
 const onClick = function() {
   set(true)
 }
-
 </script>
-
-
 <template>
   <div v-login>
-    <div @click="onClick">
+    <div class="j-pool-detail" @click="onClick">
       <slot name="reference"></slot>
     </div>
     <template v-if="status">

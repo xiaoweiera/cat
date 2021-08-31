@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {ref, defineProps, onMounted} from 'vue'
 import * as R from 'ramda'
-import I18n from '~/utils/i18n/index'
 import { formatRulesNumber,formatDefaultTime} from '~/lib/tool'
+import I18n from '~/utils/i18n/index'
 
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {getProjectDetail} from '~/logic/apy2/index'
@@ -42,7 +42,7 @@ onMounted(getData())
             <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
             <a class="text-global-primary flex items-center font-kdExp hand" :href="data.project_url" target="_blank">
               <IconFont class="mr-1" size="20" type="icon-link"/>
-              <a v-router.blank="data.project_url" class="text-kd14px18px">访问官网</a>
+              <a v-router.blank="data.project_url" class="text-kd14px18px">{{I18n.apyIndex.comLink}}</a>
             </a>
             <div class="flex items-center" v-if="data.safety">
               <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
@@ -51,37 +51,36 @@ onMounted(getData())
                 <!--              <IconFont class="mr-2" size="20" type="icon-weishenji"/>-->
               </div>
               <template v-for="item in data.safety">
-                <a class="text-global-primary mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item
-                  }}</a>
+                <a class="text-global-primary mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item }}</a>
               </template>
             </div>
           </div>
         </div>
         <span class="text-global-white bg-global-primary px-3 py-2  flex items-center absolute right-0 rounded-kd4px">
       <IconFont type="icon-jiaocheng" size="16"/>
-      <a :href="data.tutorial_url" target="_blank" class="ml-1 text-kd14px18px font-medium hand">项目教程</a>
+      <a :href="data.tutorial_url" target="_blank" class="ml-1 text-kd14px18px font-medium hand">{{I18n.apyIndex.projectTutorial}}</a>
     </span>
       </div>
       <!--  数字-->
       <div class="tbBorder py-4 mt-4">
         <div class="min-h-12 flex font-kdFang ">
           <div class="flex-1 rightBorder">
-            <div class="titleTxt mr-6">项目总 TVL (多链)</div>
+            <div class="titleTxt mr-6">{{I18n.apyIndex.projectTvl}}</div>
             <div class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
               ${{ formatRulesNumber(data.tvl, false) }}
             </div>
           </div>
           <div class="flex-1 rightBorder ml-6 ">
-            <div class="titleTxt">用户总收益 (多链)</div>
+            <div class="titleTxt">{{I18n.apyIndex.userMoney}}</div>
             <div class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
               ${{ formatRulesNumber(data.reward_cap, false) }}
             </div>
           </div>
           <div class="flex-1 rightBorder ml-6 ">
-            <div class="titleTxt">支持公链</div>
+            <div class="titleTxt">{{I18n.apyIndex.supprotChain}}</div>
             <div v-if="data.chains" class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
               <span>{{ data.chains.length }}</span>
-              <span class="text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">条 (
+              <span class="text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">{{I18n.apyIndex.unitTiao}} (
                 <template v-for="(item,i) in data.chains">
                     <span>{{ item }}</span>
                       <span v-if="i<data.chains.length-1">、</span>
@@ -90,10 +89,10 @@ onMounted(getData())
             </div>
           </div>
           <div class="flex-1  ml-6 ">
-            <div class="titleTxt">池子个数</div>
+            <div class="titleTxt">{{I18n.apyIndex.poolNumber}}</div>
             <div class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
               <span>{{ data.token_pool_length || 0 }}</span>
-              <span class="mr-3 text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">单币</span>
+              <span class="mr-3 text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">{{I18n.apyIndex.singleCoin}}</span>
               <span>{{ data.lp_pool_length || 0 }}</span>
               <span class="text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">LP</span>
             </div>
@@ -102,17 +101,17 @@ onMounted(getData())
       </div>
       <!-- 项目描述-->
       <div class="font-kdFang text-kd14px18px py-4 bottomBorder">
-        <div class="text-global-highTitle text-opacity-65">项目描述</div>
+        <div class="text-global-highTitle text-opacity-65">{{I18n.apyIndex.projectDes}}</div>
         <div class="text-global-highTitle mt-1">{{ data.project_description || '-' }}</div>
       </div>
             <template v-for="item in data.announcements">
               <a v-router.blank="item.url" v-if="item.type==='announcement'" class="flex items-center mt-4 ">
                 <span class="flex items-center bg-global-primary bg-opacity-10 rounded-kd4px px-1 py-0.5">
                   <IconFont type="icon-laba" class="text-global-primary" size="16" ></IconFont>
-                  <span class="ml-1 text-kd12px16px text-global-primary">公告</span>
+                  <span class="ml-1 text-kd12px16px text-global-primary">{{I18n.apyIndex.notice}}</span>
                 </span>
                 <span class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-85">{{item.content}}</span>
-                <span  class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,'YYYY年M月DD日')}}</span>
+                <span  class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,I18n.apyIndex.timeFormat)}}</span>
               </a>
             </template>
       <Apy2BaseWarnTip class="mt-4" des="风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。"/>
