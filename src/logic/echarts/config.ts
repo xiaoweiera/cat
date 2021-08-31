@@ -142,7 +142,7 @@ export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement,
   } else if (legend === LegendDirection.left) {
     return {
       top: 10,
-      right: 10,
+      right: 20,
       bottom: 10,
       containLabel: true,
     }
