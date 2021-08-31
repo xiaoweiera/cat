@@ -73,7 +73,7 @@ const onSumbit=(v:any)=>{
 </script>
 <template>
   <div class="font-kdFang relative">
-    <Apy2ProjectChartInfo/>
+    <Apy2ProjectChartInfo title="APY Top 10 池子" type="mining"/>
     <div class="mt-3 flex items-center justify-between ">
       <div class="flex items-center">
         <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">

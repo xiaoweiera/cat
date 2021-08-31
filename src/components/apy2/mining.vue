@@ -2,6 +2,7 @@
 import {onMounted} from 'vue'
 import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
 import {getMiningGroup,getTokenAndProject} from '~/logic/apy2/index'
+
 import { TabCategoryData } from '~/logic/apy2/interface'
 
 const getGroupData=async ()=>{

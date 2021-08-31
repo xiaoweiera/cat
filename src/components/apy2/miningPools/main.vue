@@ -18,7 +18,7 @@ const param={
   chain:chain.value,
   ordering:'desc',
   page:1,
-  page_size:4
+  page_size:10
 }
 const listData=ref([])
 const tagList=computed(()=>{

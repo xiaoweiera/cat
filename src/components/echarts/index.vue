@@ -99,7 +99,7 @@ const getBasisOption = function() {
   // 垂直方向
   if (Direction.vertical === props.direction) {
     safeSet(gridOption, 'left', '3%')
-    safeSet(gridOption, 'right', 15)
+    safeSet(gridOption, 'right', 35)
   }
   return {
     graphic: graphic(30), // 背景

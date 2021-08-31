@@ -18,7 +18,7 @@ const param={
   chain:chained.value[0],
   ordering:'desc',
   page:1,
-  page_size:4
+  page_size:10
 }
 const listData=ref([])
 const getList=async (clear:boolean)=>{

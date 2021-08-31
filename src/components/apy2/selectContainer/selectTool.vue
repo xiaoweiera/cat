@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref,defineProps} from 'vue'
 import {chains,searchStaticToken} from '~/logic/apy2/config'
+import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 const [txt,]=useProvide('txt','')
 const chain=ref('all')
@@ -28,7 +29,7 @@ const focusTxt=()=>show.value=true
         </div>
         <IconFont type="icon-gang" name="select"  size="14" class=" relative right-5.8  ml-1 text-global-highTitle text-opacity-12"/>
         <div class="flex items-center flex-1 -ml-5.5 search " name="select" >
-          <el-input name="select"  @focus="focusTxt()" class="search-box" placeholder="搜索币种" v-model="txt[0]" value=""></el-input>
+          <el-input name="select"  @focus="focusTxt()" class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt[0]" value=""></el-input>
         </div>
         <template v-for="item in searchStaticToken">
           <div name="select"  :id="item.ids" class="bg-global-primary hand bg-opacity-10 py-0.75 px-2.25 ml-3 rounded-kd40px text-kd13px18px font-medium text-global-primary ">{{item.name}}</div>

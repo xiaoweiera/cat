@@ -17,7 +17,11 @@ defineProps({
   id: {
     type: [String, Number],
     required: true,
-  }
+  },
+  chain:String,
+  lendCoin:String,
+  loanCoin:String,
+  project_id:Number
 })
 
 

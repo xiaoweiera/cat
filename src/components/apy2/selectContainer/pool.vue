@@ -2,16 +2,17 @@
 
 <script lang="ts" setup>
 import DBList from '@fengqiaogang/dblist'
+import I18n from '~/utils/i18n/index'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 import {chainsIcon} from '~/logic/apy2/config'
 import {getPoolSearch} from '~/api/ap/index'
-import {formatRulesNumber} from '~/lib/tool'
+import {formatRulesNumber,getIconType} from '~/lib/tool'
 import * as api from '~/api/index'
 const txt=getInject('txt')
 const props = defineProps({pageType: String,chain:String})
-import I18n from '~/utils/i18n/index'
+
 const allData=ref([]) //请求数据的个数
 const initSize=4 //首次加载数量
 const resultNumber=ref(0)
@@ -63,7 +64,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 <template>
   <div v-if="allData.length>0" class=" mt-4"  name="select">
     <ul>
-      <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">池子</li>
+      <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">{{I18n.apyIndex.pools}}</li>
       <template v-for="item in allData">
         <div class="flex items-center  h-9 justify-between" name="select">
           <div class="flex items-center" name="select">
@@ -71,7 +72,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
             <span name="select" class="text-kd14px14px text-global-highTitle font-kdExp">{{item.symbol}}</span>
             <span name="select" class="text-kd14px14px text-global-highTitle text-opacity-65 font-kdExp ml-1">{{item.project}}</span>
             <img name="select" class="w-3.5 h-3.5 ml-1" :src="chainsIcon[item.chain]" alt="">
-            <IconFont name="select" type="icon-V" size="14" class="ml-1"/>
+            <IconFont name="select" :type="getIconType(item.project_category)" size="14" class="ml-1"/>
              <div name="select" v-if="item.strategy_tags" class="bg-global-highTitle bg-opacity-6 px-1 py-0.5 rounded-kd4px ml-1 text-kd12px14px text-global-highTitle text-opacity-45">{{item.strategy_tags}}</div>
           </div>
           <div name="select" class="flex items-center">
@@ -80,7 +81,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
         </div>
       </template>
-      <li name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">查看更多</li>
+      <li name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">{{I18n.apyIndex.more}}</li>
     </ul>
   </div>
 
