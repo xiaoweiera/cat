@@ -151,7 +151,7 @@ const reload = function() {
 </script>
 <template>
   <Spin :loading="loading">
-    <el-table class="w-full apy-custom-expand min-h-100" border :data="tableData" :row-class-name="rowClassName">
+    <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName">
       <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
           <Apy2BaseTableHead/>
