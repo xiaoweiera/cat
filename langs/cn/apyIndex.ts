@@ -77,6 +77,28 @@ export default{
     borrowApy:'借出利率',
     borrowNumber:'借出金额',
     cost:'真实成本',
+    projectTvl:'项目总TVL(多链)',
+    userMoney:'用户总收益(多链)',
+    supprotChain:'支持公链',
+    poolNumber:'池子个数',
+    projectView:'项目数据总览',
+    addPool:'添加矿池',
+    unaudited:'未审计',
+    dayUser:'日活用户',
+    projectRevenue:'项目收入',
+    platCoinPrice:'平台币价格',
+    sameProjectData:'同类项目数据',
+    loanRouter:'借贷 {value} 的最佳路径',
+    lowestLtv:'最低抵押率',
+    clearRatio:'清算率',
+    mortgageInterest:'抵押收益',
+    rankCompare:'排行对比',
+    trend:'走势图',
+    trendCompare:'趋势对比',
+    poolCompare:'池子对比',
+    relatedLoanTrend:'相关借贷指标走势图',
+    loanTopBest:'{value} 借款 TOP5 最优利率对比图'
+
 
 
 }
