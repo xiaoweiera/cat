@@ -32,8 +32,7 @@ const upData = async function(date: any) {
   const times = getDateValue(date)
   const query = {
     type: props.type,
-    // symbol: props.symbol,
-    symbol: 'ETH',
+    symbol: props.symbol,
     ...times
   }
   const { chart: result, max } = await getTop5(query)
