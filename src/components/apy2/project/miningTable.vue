@@ -16,7 +16,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
         <template #default="scope">
           <Apy2PoolDialog type="mining" :id="scope.row.id">
             <template #reference>
-              <Apy2MiningTablePool class="hand"   :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed"  :des="scope.row.strategy" />
+              <Apy2MiningTablePool class="hand" :isNew="scope.row.new"   :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed"  :des="scope.row.strategy" />
             </template>
           </Apy2PoolDialog>
         </template>

@@ -56,10 +56,10 @@ onMounted(getData())
             </div>
           </div>
         </div>
-        <span class="text-global-white bg-global-primary px-3 py-2  flex items-center absolute right-0 rounded-kd4px">
-      <IconFont type="icon-jiaocheng" size="16"/>
-      <a :href="data.tutorial_url" target="_blank" class="ml-1 text-kd14px18px font-medium hand">{{I18n.apyIndex.projectTutorial}}</a>
-    </span>
+        <a v-if="data.tutorial_url" :href="data.tutorial_url"  class="text-global-white hand bg-global-primary px-3 py-2  flex items-center absolute right-0 rounded-kd4px">
+          <IconFont type="icon-jiaocheng" size="16"/>
+          <span  target="_blank" class="ml-1 text-kd14px18px font-medium hand">{{I18n.apyIndex.projectTutorial}}</span>
+         </a>
       </div>
       <!--  数字-->
       <div class="tbBorder py-4 mt-4">

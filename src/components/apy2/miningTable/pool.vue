@@ -14,7 +14,8 @@ const props=defineProps({
   project:String,
   chain:String,
   category:String,
-  strategy:String
+  strategy:String,
+  isNew:Boolean
 })
 const iconSize=computed(()=>props.type==='token'?'24':'16')
 const imgHeight=computed(()=>props.type==='token'?'h-8':'h-6')
@@ -24,8 +25,8 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
 <template>
   <div class="font-kdExp flex items-center">
     <div class="relative mr-2">
-      <IconFont type="icon-NEW" class="absolute" :size="iconSize"/>
-      <img :class="imgHeight" class="w-8" src="https://res.ikingdata.com/apyTwo/hecoChain.jpg" alt="">
+      <IconFont v-if="isNew" type="icon-NEW" class="absolute" :size="iconSize"/>
+      <img :class="imgHeight" class="w-8" :src="logo" alt="">
     </div>
     <div>
       <div class="flex items-center">
