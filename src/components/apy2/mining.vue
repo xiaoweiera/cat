@@ -23,45 +23,37 @@ onMounted(async ()=>{
 </script>
 <template>
 <!--  <Apy2Calculator class="mt-20 mb-10 ml-10"/>-->
-  <div class=" flex justify-center    bg-global-white  h-full font-kdFang " >
+  <div class=" flex flex-col items-center justify-center mb-10   bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  relative  w-full h-full container ">
-      <div class="flex items-center justify-between">
-        <Apy2BaseHeader class="mt-8"/>
-        <Apy2SelectContainerSelectTool type="mining" pageType="mining" class="absolute -top-3  right-7" />
-      </div>
-      <div class="flex mt-6">
-        <div class="max-w-156 w-156 flex-1  mr-8" >
-          <Apy2BaseRotate />
+      <div class="mt-12 flex justify-between">
+        <Apy2BaseHeader class=" flex flex-col flex-wrap" />
+        <div>
+          <Apy2BasePlayType />
         </div>
-        <Apy2BaseNotice class="mr-8"/>
-        <Apy2BasePlayType />
       </div>
-      <Apy2BaseWarnTip  class="mt-6"/>
-      <Apy2Chains class="mt-15"/>
-      <div class="x-xian mt-6"></div>
-      <div class="flex w-full py-6 bottomBorder">
+      <Apy2Chains class="mt-12"/>
+      <div class="flex w-full  mt-4 pb-6 bottomBorder ">
         <div class="flex flex-1 ">
           <div class="flex-1 h-100 mr-8">
-            <Apy2ChartMining/>
+            <Apy2ChartMining class="w-full"/>
           </div>
         </div>
-<!--        榜单-->
-        <Apy2TopListMain type="mining"  class="w-101.25 pl-8  leftBorder">
+        <!--        榜单-->
+        <Apy2TopListMain type="mining"  class="w-101.25 p-3 topListShadow  ">
           <template #item>
             <Apy2TopListMiningItem />
           </template>
         </Apy2TopListMain>
       </div>
-      <div class="mt-15">
+      <Apy2BaseNotice class="mt-12"/>
+      <div class="mt-12">
         <!--表格数据-->
         <Apy2BaseTableMain :type="TabCategoryData.mining"/>
       </div>
-      <div class="mt-15">
+      <div class="mt-12">
         <Apy2MiningPoolsMain/>
       </div>
-      <div class="h-50"></div>
     </div>
-
   </div>
 </template>
 <style scoped>
@@ -71,8 +63,9 @@ onMounted(async ()=>{
 .bottomBorder{
   border-bottom:1px solid rgba(3, 54, 102, 0.06);
 }
-.leftBorder{
-  border-left:1px solid rgba(3, 54, 102, 0.06);
+.topListShadow{
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
 }
 </style>
 
