@@ -6,6 +6,7 @@ import { config } from '~/utils/router'
 import DBList from '@fengqiaogang/dblist'
 import { getLocation } from '~/utils/router'
 import { forEach, map, toBoolean } from '~/utils'
+import safeGet from '@fengqiaogang/safe-get'
 
 const primaryKey = 'id'
 const foreignKey = 'pid'
@@ -18,11 +19,18 @@ const getActiveValue = function($router: any, db: DBList, key: string) {
     path = config.topic
   }
   // 缩小查找范围
-  const result = db.childrenDeepFlatten({ [primaryKey]: key })
-  const temp = new DBList([], primaryKey, foreignKey, foreignKeyValue)
-  temp.insert(result)
-  const list = temp.like<any>({ href: path })
-  return list.length > 0 ? list[list.length - 1] : undefined
+  const result = db.childrenDeepFlatten<any>({ [primaryKey]: key })
+  let value: any
+  for(let index = result.length - 1; index >= 0; index--) {
+    const href = safeGet<string>(result[index], 'href')
+    if (href) {
+      if (href === path || path.includes(href) || href.includes(path)) {
+        value = result[index]
+        break
+      }
+    }
+  }
+  return value
 }
 
 const init = function() {

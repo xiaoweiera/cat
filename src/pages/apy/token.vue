@@ -10,6 +10,6 @@
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: apy2
+  layout: base
 </route>
 // @formatter:off

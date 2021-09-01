@@ -29,7 +29,7 @@ import href, { config } from '~/utils/router'
   </div>
 </template>
 
-<style  lang="scss">
+<style lang="scss">
 html,
 body {
   background-color: white !important;

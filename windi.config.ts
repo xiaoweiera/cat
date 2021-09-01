@@ -130,9 +130,9 @@ export default defineConfig({
                 green: '#009955',
                 global: cssGlobal,
             },
-            opacity: {
-                85: '.85',
-            },
+            // opacity: {
+            //     85: '.85',
+            // },
             typography: {
                 DEFAULT: {
                     css: {

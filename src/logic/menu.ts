@@ -102,6 +102,7 @@ export const headers = [
   {
     // '数据'
     name: I18n.nav.analysis.name,
+    href: config.topic,
     children: [
       {
         name: '数据专题',
@@ -142,6 +143,32 @@ export const headers = [
         more: true
       }
     ]
+  },
+  {
+    name: 'GrowthPad',
+    desc: I18n.nav.service.growthPad.desc,
+    href: config.growthpad,
+    children: [
+      {
+        name: 'GrowthPad',
+        href: config.growthpad,
+        icon: 'icon-growthpad',
+        desc: '专业的K线图和聚合交易',
+        more: true,
+        header: true
+      },
+      // { name: '案例' },
+      {
+        name: I18n.nav.service.growthPad.children.project.name,
+        href:'http://ikingdata.mikecrm.com/kbZDdCb?utm_source=https://kingdata.com',
+        header: true
+      },
+      {
+        name: I18n.nav.service.growthPad.children.about.name,
+        href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c?utm_source=https://kingdata.com',
+        header: true
+      },
+    ],
   },
 ]
 
