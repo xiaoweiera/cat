@@ -73,7 +73,6 @@ const moreData = reactive<object>({
     transform: rotateY(180deg);
   }
   .menu-children {
-    transition: all 0.3s;
     @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1000;
   }
   &.menu-more {
