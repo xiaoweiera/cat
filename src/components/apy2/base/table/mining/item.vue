@@ -18,7 +18,7 @@ defineProps({
       <div class="apy-item">
         <el-popover popper-class="apy-hover-detail" placement="bottom-start" title="" width="fit-content" :show-after="300" trigger="hover" :show-arrow="false" :offset="0">
           <template #reference>
-            <div class="h-18.5 flex items-center w-full" :class="{'new-30': data.new }">
+            <div class="h-18.5 flex items-center w-full cursor-pointer" :class="{'new-30': data.new }">
               <div class="pl-4 pr-2 text-kdFang w-full">
                 <div>
                   <template v-if="toNumber(data.apy) > 0">
@@ -43,7 +43,7 @@ defineProps({
                   </span>
                   </div>
                   <div class="text-global-highTitle text-opacity-25">
-                    <IconFont type="icon-info2" size="16"/>
+                    <IconFont v-if="data.warining_info" type="icon-info2" size="16"/>
                   </div>
                 </div>
               </div>
