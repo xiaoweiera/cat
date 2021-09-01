@@ -9,8 +9,8 @@ const lookChart=`/apy/token?symbol=${props.tokenName}`
 </script>
 <template>
   <div class="text-kd12px16px  text-global-primary  text-right font-medium font-kdFang">
-    <a  v-router.blank="project_url"  class="hand block">{{I18n.apyIndex.farm}}</a>
-    <a v-router.blank="lookChart"   class="mt-1 hand block">{{I18n.apyIndex.viewChart}}</a>
+    <a  v-router.blank="project_url"  class="hand block">{{I18n.apyIndex.miningFarm}}</a>
+    <div    class="mt-1 hand block">{{I18n.apyIndex.viewChart}}</div>
   </div>
 </template>
 <style scoped lang="scss">

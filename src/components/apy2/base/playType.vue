@@ -98,32 +98,39 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </a>
         </div>
         <!-- 下拉 -->
-        <div  :class="bgList[i]"  class="confirm  pb-4 pt-4   ">
+        <div  :class="bgList[i]"  class="confirm   pb-4 pt-4   ">
           <div class="px-5" >
             <div class="flex items-center selectClass  rounded-kd6px   justify-between" >
               <div class="pl-2  ">
-                <div v-if="i===0"   class="flex items-center items-center pr-0">
+                <div v-if="i===0"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="plat" :placeholder="item.selectText">
-                    <el-option  v-for="item in projectList"  :label="item.name" :value="item.id">
-                    </el-option>
+                    <template  v-for="item in projectList">
+                      <a v-router.blank="platUrl(plat)"  >
+                    <el-option   :label="item.name" :value="item.id"> </el-option>
+                      </a>
+                    </template>
                   </el-select>
-                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 ml-4.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
+<!--                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 ml-4.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
                 <div v-if="i===1"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="coin" :placeholder="item.selectText">
-                    <el-option  v-for="item in tokenList"  :label="item.name" :value="item.name">
-                    </el-option>
+                    <template v-for="item in tokenList" >
+                      <a v-router.blank="tokenUrl(coin)" >
+                        <el-option   :label="item.name" :value="item.name"></el-option>
+                      </a>
+                    </template>
                   </el-select>
-                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 ml-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
+<!--                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 ml-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
                     <template v-for="item in tokenList">
-                      <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name">
-                      </el-option>
+                      <a v-router.blank="tokenUrl(loan)" >
+                      <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name"></el-option>
+                      </a>
                     </template>
                   </el-select>
-                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 mr-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
+<!--                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 mr-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
               </div>
 

@@ -9,6 +9,7 @@ const props=defineProps({
 })
 </script>
 <template>
+  <div class="w-full h-full">
     <div v-if="value0">
       <span class="font-kdFang  text-kd12px16px text-global-highTitle text-opacity-45">{{I18n.apyIndex.singleInterest}}: </span>
       <span class="font-kdExp text-kd12px16px text-global-highTitle text-opacity-85">{{value0}}</span>
@@ -17,6 +18,7 @@ const props=defineProps({
       <span class="font-kdFang  text-kd12px16px text-global-highTitle text-opacity-45">{{I18n.apyIndex.compoundInterest}}: </span>
       <span class="font-kdExp text-kd12px16px text-global-highTitle text-opacity-85">{{value1}}</span>
     </div>
+  </div>
 </template>
 <style scoped lang="scss">
 </style>

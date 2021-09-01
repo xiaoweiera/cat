@@ -13,17 +13,17 @@ const changeTag=(id:number)=>group_id.value[0]=id
     <div class="flex justify-between items-center">
       <span v-if="props.type==='mining'" class="text-kd20px24px font-medium text-global-highTitle  text-opacity-85">{{I18n.apyIndex.farmApyList}}</span>
       <span v-else class="text-kd18px24px font-medium text-global-highTitle  text-opacity-85">{{I18n.apyIndex.loanList}}</span>
-      <UiDialogBase  customClass="480px">
-        <template #title>
-          <div v-if="props.type==='loan'" class="flex items-center btnCount py-1 px-2 hand">
-            <img class="w-4 h-4" src="https://res.ikingdata.com/apyTwo/count.jpg" alt="">
-            <span class="ml-0.5 text-global-primary text-kd14px18px">{{I18n.apyIndex.calculator}}</span>
-          </div>
-        </template>
-        <template #content>
-          <Apy2Calculator />
-        </template>
-      </UiDialogBase>
+<!--      <UiDialogBase  customClass="480px">-->
+<!--        <template #title>-->
+<!--          <div v-if="props.type==='loan'" class="flex items-center btnCount py-1 px-2 hand">-->
+<!--            <img class="w-4 h-4" src="https://res.ikingdata.com/apyTwo/count.jpg" alt="">-->
+<!--            <span class="ml-0.5 text-global-primary text-kd14px18px">{{I18n.apyIndex.calculator}}</span>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--        <template #content>-->
+<!--          <Apy2Calculator />-->
+<!--        </template>-->
+<!--      </UiDialogBase>-->
 
     </div>
     <div class="flex items-center mt-3">

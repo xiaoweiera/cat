@@ -19,26 +19,42 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
             <Apy2MiningTablePool class="hand" :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed" :project="scope.row.project" :chain="scope.row.chain" :category="scope.row.project_category" :des="scope.row.strategy" />
             </template>
         </Apy2PoolDialog>
-          </template>
+      </template>
     </el-table-column>
     <el-table-column prop="tvlNumber" :label="`TVL/${I18n.apyIndex.hasMoney}`">
       <template #default="scope">
-        <Apy2MiningTableTvlNumber :name="scope.row.symbol" :tvl="scope.row.tvl" :remainTvl="scope.row.quota_remain" :tvlRate="scope.row.quota_remain_percent"/>
+        <Apy2PoolDialog type="mining" :id="scope.row.id">
+          <template #reference>
+            <Apy2MiningTableTvlNumber class="hand" :name="scope.row.symbol" :tvl="scope.row.tvl" :remainTvl="scope.row.quota_remain" :tvlRate="scope.row.quota_remain_percent"/>
+          </template>
+        </Apy2PoolDialog>
       </template>
     </el-table-column>
     <el-table-column prop="apyGroup" :label="I18n.apyIndex.apyGroup" >
       <template #default="scope">
-        <Apy2MiningTableApyGroup :value0="scope.row.single_apy_detail" :value1="scope.row.compound_detail"/>
+        <Apy2PoolDialog type="mining" :id="scope.row.id">
+          <template #reference>
+            <Apy2MiningTableApyGroup class="hand" :value0="scope.row.single_apy_detail" :value1="scope.row.compound_detail"/>
+          </template>
+        </Apy2PoolDialog>
       </template>
     </el-table-column>
     <el-table-column prop="apy" label="APY" width="140px"   sortable>
       <template #default="scope">
-        <Apy2MiningTableApy :apy="scope.row.apy" :des="scope.row.lever"/>
+        <Apy2PoolDialog type="mining" :id="scope.row.id">
+          <template #reference>
+            <Apy2MiningTableApy class="hand" :apy="scope.row.apy" :des="scope.row.lever"/>
+          </template>
+        </Apy2PoolDialog>
       </template>
     </el-table-column>
     <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="75px">
       <template #default="scope">
-        <Apy2MiningTableTool :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+        <Apy2PoolDialog type="mining" :id="scope.row.id">
+          <template #reference>
+            <Apy2MiningTableTool class="hand" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+          </template>
+        </Apy2PoolDialog>
       </template>
     </el-table-column>
   </el-table>

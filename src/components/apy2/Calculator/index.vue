@@ -269,6 +269,9 @@ onMounted(getProject())
     height: 16px;
     position: relative;
   }
+  .el-dialog .el-dialog__body {
+    padding: 0px 40px 0px 0px !important;
+  }
 }
 
 </style>

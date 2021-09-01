@@ -13,7 +13,7 @@ const selectList=ref([
   {name:'TVL',key:'tvl',unit:'$'},
   {name:I18n.apyIndex.projectLook.userMoney,key:'reward_cap',unit:'$'},
   {name:I18n.apyIndex.projectLook.borrowMoney,key:'borrowed',unit:'$'},
-  {name:I18n.apyIndex.projectLook.intoMoney,key:'tvl_and_borrowd',unit:'$'},
+  {name:I18n.apyIndex.projectLook.intoMoney,key:'supplied',unit:'$'},
   {name:I18n.apyIndex.projectLook.poolNumber,key:'pool_length',unit:I18n.apyIndex.projectLook.unit},
   {name:I18n.apyIndex.projectLook.singlePoolNumber,key:'token_pool_length',unit:I18n.apyIndex.projectLook.unit},
   {name:I18n.apyIndex.projectLook.lpPoolNumber,key:'lp_pool_length',unit:I18n.apyIndex.projectLook.unit},

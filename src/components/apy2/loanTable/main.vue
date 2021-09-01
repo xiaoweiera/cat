@@ -4,6 +4,7 @@ import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
 const props=defineProps({data:Object})
+const lookChartUrl=(name:string)=>`/apy/token?symbol=${name}`
 const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
 </script>
 <template>
@@ -11,32 +12,44 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14
     <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
       <el-table-column prop="palt" width="170px"  :label="I18n.apyIndex.plat">
         <template #default="scope">
-          <Apy2LoanTablePlat :logo="scope.row.project_logo" :chain="scope.row.chain" :name="scope.row.project" :des="scope.row.strategy_tags"/>
+          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
+            <Apy2LoanTablePlat :logo="scope.row.project_logo" :chain="scope.row.chain" :name="scope.row.project" :des="scope.row.strategy_tags"/>
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="loanAmount" width="170px" :label="I18n.apyIndex.borrowAmount">
         <template #default="scope">
-          <Apy2LoanTableLoanAmount :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
+          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
+            <Apy2LoanTableLoanAmount :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="clearNumber"   :label="`${I18n.apyIndex.lowestLtv}/${I18n.apyIndex.clearRatio}`" sortable >
         <template #default="scope">
-          <Apy2LoanTableClearNumber :value0="scope.row.mortgage_rate" :value1="scope.row.liquidation_rate"/>
+          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
+            <Apy2LoanTableClearNumber :value0="scope.row.mortgage_rate" :value1="scope.row.liquidation_rate"/>
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="gain" :label="I18n.apyIndex.mortgageInterest" :align="I18n.apyIndex.mortgage"  sortable>
         <template #default="scope">
-          <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_single_apy_detail"/>
+          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
+            <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_single_apy_detail"/>
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="loanRate" :label="I18n.apyIndex.borrowApy" align="center"   sortable>
         <template #default="scope">
-          <Apy2LoanTableGain :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
+          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
+            <Apy2LoanTableGain :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="cost"  :label="`${I18n.apyIndex.cost}(${I18n.apyIndex.borrowNumber})`"   sortable>
         <template #default="scope">
-         <Apy2LoanTableCost :value="scope.row.real_apy"/>
+          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
+            <Apy2LoanTableCost :value="scope.row.real_apy"/>
+          </a>
         </template>
       </el-table-column>
       <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">

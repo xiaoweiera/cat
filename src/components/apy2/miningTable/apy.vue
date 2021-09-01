@@ -9,8 +9,10 @@ const props=defineProps({
 const apyClass=computed(()=>props.apy>=0?'text-global-numGreen':'text-global-numRed')
 </script>
 <template>
+  <div class="w-full h-full">
     <div  :class="apyClass" class="font-kdExp text-kd20px26px font-bold whitespace-nowrap">{{formatRulesNumber(apy)}}%</div>
     <div v-if="des" class="font-kdFang text-kd12px16px text-global-highTitle text-opacity-65">{{des}}</div>
+  </div>
 </template>
 <style scoped lang="scss">
 </style>
