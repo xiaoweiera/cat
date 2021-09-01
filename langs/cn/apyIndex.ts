@@ -1,7 +1,9 @@
 export default{
     title:'DeFi 挖矿APY大全',
     apply:'申请收录',
-    platDes:'{chain} 条公链，{project} 个项目，{pool} 个池子，收录最全，支持跨链对比，历史趋势，APP 提醒',
+    miningTitle:'DeFi 挖矿APY大全',
+    loanTitle:'发现优质矿池 APR',
+    platDes:'{chain} 条公链，{project} 个项目，{pool} 个池子，支持跨链对比，历史趋势，APP 提醒。',
     allChain:'全部公链',
     chain:'选择公链',
     loanListChain:'公链',

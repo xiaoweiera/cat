@@ -38,17 +38,17 @@ const list=[
     video:'https://res.ikingdata.com/apyTwo/loanVideo.png',
     selectText:I18n.apyIndex.selectCoin
   },
-  {
-    id:3,
-    title:'我没有条件',
-    des0:'什么',
-    des1:'高收益平台',
-    des2:'就',
-    des3:'投什么',
-    logo:'https://res.ikingdata.com/apyTwo/noType.png',
-    video:'https://res.ikingdata.com/apyTwo/noVideo.png',
-    selectText:'选择平台'
-  },
+  // {
+  //   id:3,
+  //   title:'我没有条件',
+  //   des0:'什么',
+  //   des1:'高收益平台',
+  //   des2:'就',
+  //   des3:'投什么',
+  //   logo:'https://res.ikingdata.com/apyTwo/noType.png',
+  //   video:'https://res.ikingdata.com/apyTwo/noVideo.png',
+  //   selectText:'选择平台'
+  // },
 ]
 const bgList={
   0:'bg-global-plat ',
@@ -75,11 +75,11 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=lend
 const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 <template>
-  <div class="w-74  font-kdFang relative">
+  <div class="  font-kdFang relative flex">
     <template v-for="(item,i) in list">
-      <div   :class="i!==3?bgList[i]:'hand '+bgList[i]"  class="itemContainer mb-1.5 h-19   py-4.25 px-5 rounded-kd6px" >
-        <div class="flex items-center justify-between">
-          <div>
+      <div   :class="i!==3?bgList[i]:'hand '+bgList[i]"  class="itemContainer ml-3 px-5 py-4  min-w-61.5  w-fit   rounded-kd6px" >
+        <div class="flex items-center justify-between" style="white-space: pre;">
+          <div >
             <div :class="textList[i]" class="text-kd16px16px  font-medium ">{{item.title}}</div>
             <div :class="textList[i]" class="mt-1.5 font-medium">
               <span  class="text-kd12px16px ">{{item.des0}}</span>
@@ -88,43 +88,42 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
               <span :class="desList[i]"  v-if="item.des3" class="text-kd11px16px text-global-white px-1.5 py-0.25 mx-1 bg-opacity-65 rounded-kd30px">{{item.des3}}</span>
             </div>
           </div>
-          <div class="imgLogo  text-center absolute right-5 top-3.5   flex flex-col items-center">
-            <img class=" w-13 h-13 " :src="item.logo" alt="">
+          <div class="imgLogo  text-center   ml-5  flex flex-col items-center" >
+            <img class=" min-w-12 min-h-12 w-12 h-12 " :src="item.logo" alt="">
             <div class="invisible text-kd10px10px  font-medium  mt-1">撑高度</div>
           </div>
-          <a href="/"  class="vido hand absolute right-5 top-3.5 flex flex-col items-center">
-            <img class="w-10 h-10 ml-0.8 " :src="item.video" alt="">
+          <a  href="/" class=" vido hand  text-center  ml-5  flex flex-col items-center" >
+            <img class="min-w-10 w-10 h-10 mx-1 my-1 " :src="item.video" alt="">
             <div :class="textList[i]" class="text-kd10px10px relative z-10 font-medium  mt-1.5">相关资料</div>
           </a>
         </div>
         <!-- 下拉 -->
-        <div v-if="i<3"  :class="bgList[i]"  class="confirm px-3   pb-4 pt-4  w-full ">
-          <div class=" px-5">
+        <div  :class="bgList[i]"  class="confirm  pb-4 pt-4   ">
+          <div class="px-5" >
             <div class="flex items-center selectClass  rounded-kd6px   justify-between" >
-              <div class="pl-2 pr-1">
-                <div v-if="i===0" class="flex items-center" >
+              <div class="pl-2  ">
+                <div v-if="i===0"   class="flex items-center items-center pr-0">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="plat" :placeholder="item.selectText">
                     <el-option  v-for="item in projectList"  :label="item.name" :value="item.id">
                     </el-option>
                   </el-select>
-                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
+                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 ml-4.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
                 </div>
-                <div v-if="i===1"   class="flex items-center">
+                <div v-if="i===1"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="coin" :placeholder="item.selectText">
                     <el-option  v-for="item in tokenList"  :label="item.name" :value="item.name">
                     </el-option>
                   </el-select>
-                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
+                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 ml-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
                 </div>
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
-                   <template v-for="item in tokenList">
-                     <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name">
-                     </el-option>
-                   </template>
-
+                    <template v-for="item in tokenList">
+                      <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name">
+                      </el-option>
+                    </template>
                   </el-select>
-                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
+                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 mr-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>
                 </div>
               </div>
 

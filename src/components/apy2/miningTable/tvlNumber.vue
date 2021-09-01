@@ -2,6 +2,7 @@
 import { ref, defineProps,computed } from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
 import {formatRulesNumber,getBoolean} from '~/lib/tool'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({
   name:String,
   tvl:String,
@@ -17,7 +18,7 @@ const props=defineProps({
 <!--      <span class="ml-1">{{name}}</span>-->
     </div>
     <div v-if="getBoolean(remainTvl) || getBoolean(tvlRate)" class="font-kdFang mt-1 text-kd12px16px text-global-highTitle text-opacity-45">
-      <span>剩余可投额度: </span>
+      <span>{{I18n.apyIndex.remainHasMoney}}: </span>
       <span>${{formatRulesNumber(remainTvl)}} ({{formatRulesNumber(tvlRate)}}%)</span>
     </div>
   </div>

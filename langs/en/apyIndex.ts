@@ -1,6 +1,8 @@
 export default{
     title:'DeFi Farm APY List',
     apply:'Apply',
+    miningTitle:'DeFi Farm APY List',
+    loanTitle:'发现优质矿池 APR',
     platDes:'{chain} public chains, {project} projects, {pool} pools, the most comprehensive collection, support for cross-chain comparison, historical trends, APP reminder',
     allChain:'All',
     chain:'Chain',

@@ -3,7 +3,7 @@ import {onMounted} from 'vue'
 import {chain,rankingTag,tableTag,listTag,tokenList} from '~/store/apy2/state'
 import {getLendingGroup,getTokenList} from '~/logic/apy2/index'
 import { TabCategoryData } from '~/logic/apy2/interface'
-
+import I18n from '~/utils/i18n/index'
 const getGroupData=async ()=>{
   const result=await getLendingGroup(chain.value)
   rankingTag.value=result?.ranking
@@ -17,36 +17,44 @@ onMounted(async ()=>{
 })
 </script>
 <template>
-  <div class=" flex justify-center   bg-global-white  h-full font-kdFang " >
-    <div class="max-w-360  px-20  relative w-full h-full container ">
-      <div class="flex items-center justify-between">
-        <Apy2BaseHeader class="mt-8"/>
-        <Apy2SelectContainerSelectTool type="loan" pageType="lend" class="absolute -top-3  right-7" />
+  <div class=" flex flex-col items-center justify-center mb-10   bg-global-white  h-full font-kdFang " >
+    <div class="max-w-360  px-20  relative  w-full h-full container ">
+      <div class="mt-12 flex justify-between">
+        <Apy2BaseHeader :title="I18n.apyIndex.loanTitle" class=" flex flex-col flex-wrap" />
+        <div>
+          <Apy2BasePlayType />
+        </div>
       </div>
-      <Apy2Chains class="mt-15"/>
-      <div class="x-xian mt-6"></div>
-      <div class="flex w-full py-6 bottomBorder">
+      <Apy2Chains class="mt-12"/>
+
+      <div class="flex w-full  mt-4 pb-6 bottomBorder ">
         <div class="flex flex-1 ">
           <div class="flex-1 h-100 mr-8">
-            <Apy2ChartLoan/>
+            <Apy2ChartLoan class="w-full"/>
           </div>
         </div>
-<!--        榜单-->
-        <Apy2TopListMain type="loan"  class="w-101.25 pl-8  leftBorder">
+        <!--        榜单-->
+        <Apy2TopListMain type="loan"  class="w-101.25 pt-3 px-3 topListShadow  ">
           <template #item>
-            <Apy2TopListLoanItem />
+            <Apy2TopListLoanItem class="min-h-92.5" />
           </template>
         </Apy2TopListMain>
       </div>
-      <div class="mt-15">
+      <Apy2BaseNotice class="mt-12"/>
+      <div class="mt-12">
         <!--表格数据-->
         <Apy2BaseTableMain :type="TabCategoryData.lend"/>
       </div>
-      <Apy2LoanPoolsMain class="mt-15"/>
-      <div class="h-50"></div>
+      <div class="mt-12">
+        <Apy2LoanPoolsMain/>
+      </div>
     </div>
-
   </div>
+
+
+
+
+
 </template>
 <style scoped>
 .x-xian{
@@ -55,7 +63,8 @@ onMounted(async ()=>{
 .bottomBorder{
   border-bottom:1px solid rgba(3, 54, 102, 0.06);
 }
-.leftBorder{
-  border-left:1px solid rgba(3, 54, 102, 0.06);
+.topListShadow{
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
 }
 </style>

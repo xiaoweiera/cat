@@ -13,7 +13,7 @@ export const domain = 'https://kingdata.com'
 
 export const iconFont = [
   // apy
-  '//at.alicdn.com/t/font_2735019_3b8ymdhnwn4.js',
+  '//at.alicdn.com/t/font_2735019_h0q73uvhwz.js',
   // 行情&流动性呀
   '//at.alicdn.com/t/font_2596648_yr82ex0wlja.js',
   // 通用
