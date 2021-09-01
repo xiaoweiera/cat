@@ -11,13 +11,14 @@ const props = defineProps({
 // 空格式
 const moreData = reactive<object>({
   name: '',
-  children: props.menus
+  children: props.menus,
+  subHeader: true
 })
 
 </script>
 
 <template>
-  <div class="text-kdFang text-white h-15 pt-2.5">
+  <div class="text-kdFang text-white">
     <div class="wrap-menu-box flex font-medium">
       <!-- 更多菜单 -->
       <UiHeaderMenucontent class="wrap-menu-item menu-more" :data="moreData">

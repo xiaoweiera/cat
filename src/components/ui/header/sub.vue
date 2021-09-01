@@ -9,8 +9,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="h-12.5 bg-white">
-    <div v-if="list.length > 0" class="sub-menu-box px-20 flex items-center justify-between text-kdFang">
+  <div class="bg-white ui-header-sub">
+    <div v-if="list.length > 0" class="h-full px-20 flex items-center justify-between text-kdFang">
       <div class="sub-content text-global-highTitle text-opacity-65">
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">
@@ -26,8 +26,7 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-.sub-menu-box {
-  @apply h-full;
+.ui-header-sub {
   border-bottom: 1px solid rgba(#1A1F36, 0.25);
   box-shadow: 0 1px 0 rgba(#fff, 0.08);
 }

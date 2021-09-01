@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps} from 'vue'
+import { defineProps } from 'vue'
 
 defineProps({
   data: {
@@ -20,7 +20,9 @@ defineProps({
         </slot>
       </div>
     </a>
-    <slot name="children" :list="data.children"></slot>
+    <template v-if="data.subHeader">
+      <slot name="children" :list="data.children"></slot>
+    </template>
   </div>
 </template>
 

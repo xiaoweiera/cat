@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { env } from '~/lib/process'
 import { headers } from '~/logic/menu'
 import { config } from '~/utils/router'
 import DBList from '@fengqiaogang/dblist'
 import { getLocation } from '~/utils/router'
-import { toArray, forEach, map, toBoolean } from '~/utils'
+import { forEach, map, toBoolean } from '~/utils'
 
 const primaryKey = 'id'
 const foreignKey = 'pid'
@@ -25,7 +25,7 @@ const getActiveValue = function($router: any, db: DBList, key: string) {
   return list.length > 0 ? list[list.length - 1] : undefined
 }
 
-const menus = computed(function() {
+const init = function() {
   const $router = getLocation()
   const db = new DBList([], primaryKey, foreignKey, foreignKeyValue)
   db.insert(db.flatten(headers, 'children'))
@@ -46,38 +46,89 @@ const menus = computed(function() {
     const active = toBoolean(value)
     db.update({ [primaryKey]: ids }, { active })
 
+    const sub = db.select({ header: true, [foreignKey]: key })
+
+    db.update(item, { subHeader: sub.length > 0 })
+
   }, db.select({ [foreignKey]: foreignKeyValue }))
 
   return db.childrenDeep()
+}
+
+const menus = ref<any[]>(init())
+
+const isShowSub = computed<boolean>(function(): boolean{
+  const list = menus.value
+  let status = false
+  for(let i = 0, len = list.length; i < len; i++) {
+    const item = list[i]
+    if (item.subHeader) {
+      if (item && item.active && item.children) {
+        status = true
+        break
+      }
+    }
+  }
+  return status
 })
 
 </script>
 
 <template>
-  <div class="ui-header">
+  <div class="ui-header sticky top-0 z-1000" :class="{'sub-header': isShowSub}">
     <div class="bg-global-darkblue px-6 flex justify-between">
       <div class="flex items-center">
         <a class="inline-block" v-router="env.dashboard">
           <img class="min-w-28" src="https://res.ikingdata.com/common/logo-white.svg">
         </a>
-        <div class="ml-10">
+        <div class="ml-10 ui-header-menu">
           <!-- 导航菜单 -->
-          <UiHeaderMenu :menus="menus"/>
+          <UiHeaderMenu class="pt-2.5 h-full" :menus="menus"/>
         </div>
       </div>
       <!-- 右侧用户相关内容 -->
       <UiHeaderUser/>
     </div>
-    <div>
+    <div class="extend">
       <!-- 占位符, 实际内容在 UiHeaderMenu 呈现 -->
       <UiHeaderSub></UiHeaderSub>
+      <div class="hidden">
+        <span class="top-header"></span>
+      </div>
     </div>
   </div>
 </template>
 
+<style lang="scss">
+/* 设置导航高度 */
+@mixin mainHeaderSpace ($height) {
+  & ~ main {
+    --ui-header-height: $height;
+    .top-header {
+      top: $height;
+    }
+  }
+}
 
-<style scoped lang="scss">
 .ui-header {
-  @apply sticky top-0 z-1000;
+  .extend {
+    @apply hidden;
+  }
+  $height: 60px;
+  $subHeight: 50px;
+
+  .ui-header-menu {
+    height: $height;
+  }
+  .ui-header-sub {
+    height: $subHeight;
+  }
+  @include mainHeaderSpace($height);
+  &.sub-header {
+    @include mainHeaderSpace($height + $subHeight);
+    .extend {
+      @apply block;
+    }
+  }
 }
 </style>
