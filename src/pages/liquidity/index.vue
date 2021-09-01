@@ -57,6 +57,6 @@ window.addEventListener('resize', function() {
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: liquidityLayout
+  layout: base
 </route>
 // @formatter:off

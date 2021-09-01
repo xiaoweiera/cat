@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    <div v-for="i in 100" :key="i">
+    <div v-for="i in 5" :key="i">
       <div>test</div>
     </div>
   </div>
@@ -17,6 +17,6 @@
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: index
+  layout: all
 </route>
 // @formatter:off

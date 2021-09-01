@@ -5,4 +5,5 @@
   <div>
     <router-view />
   </div>
+  <UiFooter/>
 </template>

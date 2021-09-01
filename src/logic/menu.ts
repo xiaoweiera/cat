@@ -102,6 +102,7 @@ export const headers = [
   {
     // '数据'
     name: I18n.nav.analysis.name,
+    href: config.topic,
     children: [
       {
         name: '数据专题',
