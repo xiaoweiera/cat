@@ -4,17 +4,12 @@ import {chain} from '~/store/apy2/state'
 import {getCalcProjects,getCalcTokens,getCalculator,} from '~/logic/apy2/index'
 import {formatRulesNumber} from '~/lib/tool'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({
   chain:String,
   lendCoin:String,
   loanCoin:String,
   project_id:Number
-})
-onMounted(()=>{
-  console.log('ppp',props.project_id,props.chain)
-})
-onBeforeMount(()=>{
-  console.log('pppbefore',props.project_id)
 })
 
 const projectList=ref([])
@@ -94,7 +89,7 @@ watch(()=>[inCoin.value,outCoin.value],async(n)=>{
           transform:clearRate.value>diYaRate.value? 'translate(4px, -8px)':'translate(-40px,-8px)' ,
           color: 'rgba(3, 54, 102, 0.45)'
         },
-        label: reactive(`清算率${clearRate.value}%`)
+        label: reactive(`${I18n.apyIndex.clearRatio}${clearRate.value}%`)
       },
       [diYaRate.value]: {
         style: {
@@ -104,7 +99,7 @@ watch(()=>[inCoin.value,outCoin.value],async(n)=>{
           transform: clearRate.value>diYaRate.value? 'translate(-62px,-8px)':'translate(4px,-8px)',
           color: 'rgba(3, 54, 102, 0.45)'
         },
-        label: reactive(`最低抵押率${diYaRate.value}%`)
+        label: reactive(`${I18n.apyIndex.lowestLtv}${diYaRate.value}%`)
       }
     }
     getReal_Data()
@@ -125,11 +120,11 @@ onMounted(getProject())
 </script>
 <template>
 <div class="font-kdFang cal w-full  p-4  bg-global-white rounded-kd4px">
-  <div class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium text-left">真实利率计算器</div>
+  <div class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium text-left">{{I18n.apyIndex.realCalculator}}</div>
   <div class="borderGang mt-4"></div>
   <div>
     <div class="mt-4 h-11  flex items-center  ">
-      <div class="selectLabel mr-3 w-14.5">借贷平台</div>
+      <div class="selectLabel mr-3 w-14.5">{{I18n.apyIndex.loanPlat}}</div>
       <div class="h-11 flex-1 rounded-kd6px borSelect flex items-center">
         <div @click="platSelect()"  class="hand">
           <div v-if="projectItem?.id"  class="flex items-center min-w-40 h-full">
@@ -139,11 +134,11 @@ onMounted(getProject())
             <IconFont type="icon-arrow-down" size="12" class="text-global-highTitle text-opacity-12"/>
           </div>
           <div v-else>
-            <div class="mr-1 text-global-highTitle font-kdFang text-kd14px18px font-medium">请选择</div>
+            <div class="mr-1 text-global-highTitle font-kdFang text-kd14px18px font-medium">{{I18n.apyIndex.pleaseSelect}}</div>
           </div>
         </div>
         <div class="absolute  invisible">
-        <el-select  class=" platModel"  v-model="projectName" placeholder="请选择">
+        <el-select  class=" platModel"  v-model="projectName" :placeholder="I18n.apyIndex.pleaseSelect">
           <el-option v-for="item in projectList"  :label="getLabel(item)" :value="item.id">
           </el-option>
         </el-select>
@@ -151,10 +146,10 @@ onMounted(getProject())
       </div>
     </div>
     <div class="mt-4 h-11 coin  flex items-center ">
-      <div class="selectLabel mr-3 w-14.5">抵押币种</div>
+      <div class="selectLabel mr-3 w-14.5">{{I18n.apyIndex.diyaCoin}}</div>
       <div class="h-11 flex-1 rounded-kd6px borSelect flex items-center">
         <IconFont v-if="inCoinItem" class="mr-1" style="border-radius: 50%;" size="24" :type="inCoinItem.icon?inCoinItem.icon:'icon-morentoken'"/>
-        <el-select  class=" platModel"  v-model="inCoin" placeholder="请选择">
+        <el-select  class=" platModel"  v-model="inCoin" :placeholder="I18n.apyIndex.pleaseSelect">
           <template  v-for="item in tokenList?.supply_tokens">
             <el-option v-if="item.name!==outCoin"   :label="item.name" :value="item.name">
             </el-option>
@@ -163,7 +158,7 @@ onMounted(getProject())
       </div>
     </div>
     <div class="mt-4 h-13.5 coin  flex items-center ">
-      <div class="selectLabel mr-3 w-14.5">抵押率</div>
+      <div class="selectLabel mr-3 w-14.5">{{I18n.apyIndex.diyaRato}}</div>
       <div class="h-11 flex-1 relative font-kdExp">
         <div class=" -top-2.5 absolute flex justify-between  w-95 text-global-highTitle text-opacity-45 ">
           <span>100%</span>
@@ -173,10 +168,10 @@ onMounted(getProject())
       </div>
     </div>
     <div class="mt-4 h-11 coin  flex items-center ">
-      <div class="selectLabel mr-3 w-14.5">借出币种</div>
+      <div class="selectLabel mr-3 w-14.5">{{I18n.apyIndex.jiechuCoin}}</div>
         <div class="h-11 flex-1 rounded-kd6px borSelect flex items-center">
           <IconFont v-if="outCoinItem" class="mr-1" style="border-radius: 50%;" size="24" :type="outCoinItem.icon?outCoinItem.icon:'icon-morentoken'"/>
-          <el-select  class=" platModel"  v-model="outCoin" placeholder="请选择">
+          <el-select  class=" platModel"  v-model="outCoin" :placeholder="I18n.apyIndex.pleaseSelect">
             <template  v-for="item in tokenList?.borrow_tokens">
               <el-option v-if="item.name!==inCoin"  :label="item.name" :value="item.name">
               </el-option>
@@ -191,7 +186,7 @@ onMounted(getProject())
 
   <div class="bg-global-primary bg-opacity-4 py-3 rounded-kd6px px-3">
     <div class="flex items-center justify-between mb-4">
-      <div class="desLabel">抵押收益：</div>
+      <div class="desLabel">{{I18n.apyIndex.mortgage}}：</div>
       <div v-if="calcResult.id" class="font-kdExp">
         <span :class="getColor(calcResult.lending_apy)" class="mr-1.5 text-kd20px20px font-bold ">{{formatRulesNumber(calcResult.lending_apy)}}%</span>
         <span v-if="calcResult.lending_single_apy_detail" class="text-global-highTitle text-opacity-65 text-kd12px16px">{{formatRulesNumber(calcResult.lending_single_apy_detail)}}</span>
@@ -199,7 +194,7 @@ onMounted(getProject())
       <div v-else>-</div>
     </div>
     <div class="flex items-center justify-between mb-4">
-      <div class="desLabel">借款成本：</div>
+      <div class="desLabel">{{I18n.apyIndex.jiekuanMoney}}：</div>
       <div v-if="calcResult.id" class="font-kdExp">
         <span :class="getColor(calcResult.apy)" class="mr-1.5 text-kd20px20px font-bold ">{{formatRulesNumber(calcResult.apy)}}%</span>
         <span v-if="calcResult.apy_detail" class="text-global-highTitle text-opacity-65 text-kd12px16px">{{formatRulesNumber(calcResult.apy_detail)}}</span>
@@ -207,15 +202,15 @@ onMounted(getProject())
       <div v-else>-</div>
     </div>
     <div class="flex items-center justify-between mb-4">
-      <div class="desLabel">当前抵押率：</div>
+      <div class="desLabel">{{I18n.apyIndex.nowRato}}：</div>
       <div  class="font-kdExp">
         <span :class="getColor(rate)" class="mr-1.5 text-kd20px20px font-bold ">{{rate}}%</span>
-        <span v-if="minMortgage && calcResult.mortgage_rate!==0" class="text-global-numRed font-medium text-kd12px16px"> (不得低于 {{minMortgage}}%)</span>
+        <span v-if="minMortgage && calcResult.mortgage_rate!==0" class="text-global-numRed font-medium text-kd12px16px"> ({{I18n.apyIndex.noLow}} {{minMortgage}}%)</span>
       </div>
     </div>
     <div class="borderGang mb-4"></div>
     <div class="flex items-center justify-between h-7 ">
-      <div class="desLabel">真实利率：</div>
+      <div class="desLabel">{{I18n.apyIndex.realRato}}：</div>
       <div v-if="calcResult.id && rate>=minMortgage" class="font-kdExp">
         <span :class="getColor(real_rate)" class="mr-1.5 text-kd28px28px font-bold ">{{real_rate}}%</span>
         <span class="text-global-highTitle text-opacity-65 text-kd12px16px">${{formatRulesNumber(calcResult.lending_apy)}}% - (${{formatRulesNumber(calcResult.apy)}}% / ${{rate}}%)</span>

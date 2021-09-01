@@ -19,7 +19,6 @@ const close=()=>isShow.value=!isShow.value
       <IconFont class="flex text-global-numRed " style="transform: scale(1.3)"  type="icon-Warning" size="16"></IconFont>
       <span class="ml-3">{{props.des}}</span>
     </div>
-    <IconFont @click="close()" class="flex text-global-numRed hand"   type="icon-xClose" size="16"></IconFont>
   </div>
 
 </template>

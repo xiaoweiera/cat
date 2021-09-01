@@ -63,6 +63,7 @@ export default{
     selectCoins:'选择其他币种',
     farmApyList:'挖矿收益榜单',
     loanList:'借贷利率榜',
+    realCalculator:'真实利率计算器',
     calculator:'真实利率计算器',
     lever:'杠杆倍数',
     projects:'全部项目',
@@ -122,6 +123,14 @@ export default{
     addProject:'添加项目',
     selectedProject:'已选项目',
     loanMoneyCoin:'借款币种',
-    loanApr:'借款APR'
-
+    loanApr:'借款APR',
+    loanPlat:'借贷平台',
+    pleaseSelect:'请选择',
+    diyaCoin:'抵押币种',
+    diyaRato:'抵押率',
+    jiechuCoin:'借出币种',
+    jiekuanMoney:'借款成本',
+    nowRato:'当前抵押率',
+    noLow:'不得低于',
+    realRato:'真实利率'
 }

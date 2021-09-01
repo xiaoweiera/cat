@@ -54,6 +54,7 @@ onMounted(async ()=>{
         <Apy2MiningPoolsMain/>
       </div>
     </div>
+    <Apy2BaseWaringTxt class="mt-12"/>
   </div>
 </template>
 <style scoped>
