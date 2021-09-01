@@ -50,6 +50,6 @@ img {
   margin-top: 17px;
 }
 .tipShow {
-  @apply absolute right-0 top-full pt-2.5 z-50;
+  @apply absolute right-0 top-full pt-2.5 z-1001;
 }
 </style>
