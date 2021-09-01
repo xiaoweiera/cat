@@ -7,6 +7,7 @@ import { toArray, forEach, isObject, isFunction } from '~/utils/index'
 import { FormatterTemplate, FormatterParams } from './interface'
 import { makeSvg } from '~/logic/echarts/legend'
 import { valueFormatter } from './tool'
+import safeGet from '@fengqiaogang/safe-get'
 
 type Callback = (template: FormatterTemplate, param: FormatterParams) => string
 
@@ -15,7 +16,7 @@ export const formatter = function(query: any, callback?: Callback) {
   const [firstData] : any = list
   let label : string = ''
   if (firstData && isObject(firstData)) {
-    label = firstData.name
+    label = safeGet<string>(firstData, 'data.date') || firstData.name
   }
   if (label) {
     const html: string[] = []
