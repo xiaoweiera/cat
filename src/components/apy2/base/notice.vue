@@ -19,8 +19,8 @@ onMounted(getData())
 <template>
   <div class="flex items-center w-full">
     <template  v-for="(item,i) in data">
-      <a v-router.blank="item.url" class="flex-1 flex flex-wrap " target="_blank" v-if="i<3" >
-          <div class="flex items-center justify-between flex-wrap  relative">
+      <a v-router.blank="item.url" class="flex-1 flex" target="_blank" v-if="i<3" >
+          <div class="flex items-center flex-wrap w-full justify-between  relative">
           <div class="flex items-center">
             <div :class="getClass(item.type,item.is_top)" class="hand ">
               <span class="tip">{{noticType[item.type]}}</span>

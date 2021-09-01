@@ -2,7 +2,7 @@
 import {onMounted} from 'vue'
 import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
 import {getMiningGroup,getTokenAndProject} from '~/logic/apy2/index'
-
+import I18n from '~/utils/i18n/index'
 import { TabCategoryData } from '~/logic/apy2/interface'
 
 const getGroupData=async ()=>{
@@ -26,7 +26,7 @@ onMounted(async ()=>{
   <div class=" flex flex-col items-center justify-center mb-10   bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  relative  w-full h-full container ">
       <div class="mt-12 flex justify-between">
-        <Apy2BaseHeader class=" flex flex-col flex-wrap" />
+        <Apy2BaseHeader :title="I18n.apyIndex.miningTitle" class=" flex flex-col flex-wrap" />
         <div>
           <Apy2BasePlayType />
         </div>
@@ -39,9 +39,9 @@ onMounted(async ()=>{
           </div>
         </div>
         <!--        榜单-->
-        <Apy2TopListMain type="mining"  class="w-101.25 p-3 topListShadow  ">
+        <Apy2TopListMain type="mining"  class="w-101.25 pt-3 px-3 topListShadow  ">
           <template #item>
-            <Apy2TopListMiningItem />
+            <Apy2TopListMiningItem class="min-h-92.5" />
           </template>
         </Apy2TopListMain>
       </div>

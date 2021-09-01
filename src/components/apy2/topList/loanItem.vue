@@ -23,7 +23,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
       <a v-router.blank="tokenUrl(item.symbol_alias)">
         <UiPopover v-if="i<5"  class=" inline-block  w-full">
           <template #reference>
-            <div   class="flex py-3 items-center w-full topBorder">
+            <div :class="i===4?'pb-3':'pb-3'"   class="flex pt-3 items-center w-full topBorder">
               <div class=" flex items-center">
                 <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;"    :type='`icon-a-${i+1}`'></IconFont>
                 <div v-else  class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
