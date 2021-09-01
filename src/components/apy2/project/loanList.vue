@@ -4,6 +4,7 @@ import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chain,rankingTag,tableTag,listTag} from '~/store/apy2/state'
 import {getProjectLending_pools} from '~/logic/apy2/index'
 import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({projectId:Object})
 const [project,]=useProvide('project','all')
 const [txt,]=useProvide('txt','')
@@ -41,7 +42,7 @@ onMounted(getList(false))
     <Apy2MiningPoolsHeader :hasCustom="false" :hasProject="false"  :type="false" :hasChain="true"  />
     <Apy2ProjectLoanTable  :data="listData" class="mt-3"/>
   </div>
-  <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">加载更多</div>
+  <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
 </template>
 <style  lang="scss">
 
