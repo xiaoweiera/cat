@@ -49,12 +49,8 @@ onMounted(async ()=>{
         <Apy2LoanPoolsMain/>
       </div>
     </div>
+    <Apy2BaseWaringTxt class="mt-12"/>
   </div>
-
-
-
-
-
 </template>
 <style scoped>
 .x-xian{
