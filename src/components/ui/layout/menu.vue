@@ -14,9 +14,9 @@ defineProps({
 </script>
 
 <template>
-  <div class="layout-main flex ">
+  <div class="layout-main flex">
     <div class="menu-box hidden md:block " :class="menuClass">
-      <div class="menu-main" :class="menuClass">
+      <div class="menu-main top-header" :class="menuClass">
         <slot name="menu"></slot>
       </div>
     </div>
@@ -32,7 +32,7 @@ defineProps({
   @screen xl {
     @apply w-320 mx-auto;
     .menu-main {
-      @apply top-18 left-1/2 bottom-0 fixed overflow-auto;
+      @apply left-1/2 bottom-0 fixed overflow-auto;
       transform: translateX(-40rem);
     }
   }

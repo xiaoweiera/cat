@@ -1,7 +1,8 @@
 <template>
   <div class="circleContainer"></div>
   <div class="bg-global-body md:bg-opacity-100">
-    <LiquidityWebHeader />
+<!--    <LiquidityWebHeader />-->
+    <UiHeader/>
     <main class="w-full flex justify-center">
       <router-view />
     </main>
