@@ -28,16 +28,13 @@ const onSwitchLang = function() {
 
     <span class="split">|</span>
 
-<!--    <span class="flex cursor-pointer">-->
-<!--      <IconFont class="flex" type="icon-yonghu1" size="22"/>-->
-<!--    </span>-->
     <!-- 登录/注册 -->
     <HeaderLogin></HeaderLogin>
 
-    <div class="hidden xl:flex bg-white py-2 px-3 items-center ml-4 text-global-primary rounded cursor-pointer">
-      <IconFont class="flex" type="icon-qianbao" size="22"/>
-      <span class="ml-1.5 inline-block whitespace-nowrap">链接钱包</span>
-    </div>
+<!--    <div class="hidden xl:flex bg-white py-2 px-3 items-center ml-4 text-global-primary rounded cursor-pointer">-->
+<!--      <IconFont class="flex" type="icon-qianbao" size="22"/>-->
+<!--      <span class="ml-1.5 inline-block whitespace-nowrap">链接钱包</span>-->
+<!--    </div>-->
   </div>
 </template>
 
