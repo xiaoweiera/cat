@@ -57,14 +57,14 @@ onMounted(()=>{
     <div>
       <div class="flex flex-wrap">
         <div class="mr-6">
-          <span class="selectTxt">抵押币种</span>
+          <span class="selectTxt">{{I18n.apyIndex.diyaCoin}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="inCoin[0]" >
             <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </div>
         <div>
-          <span class="selectTxt ">借出币种</span>
+          <span class="selectTxt ">{{I18n.apyIndex.jiechuCoin}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
             <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
@@ -73,7 +73,7 @@ onMounted(()=>{
       </div>
       <div class="flex mt-3 flex-wrap">
         <div class="mr-6">
-          <span class="selectTxt">借贷平台</span>
+          <span class="selectTxt">{{I18n.apyIndex.loanPlat}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="projectId[0]" >
             <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
@@ -90,7 +90,7 @@ onMounted(()=>{
     </div>
     <div class="font-kdFang">
       <div @click="clear()" class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-3 hand">
-        <span class="text-kd16px24px text-global-primary  font-medium">重置</span>
+        <span class="text-kd16px24px text-global-primary  font-medium">{{I18n.apyIndex.clearData}}</span>
       </div>
       <div @click="search()" class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">
         <iconFont type="icon-sousuo-da1" class="text-global-white mr-3" size="16" />
