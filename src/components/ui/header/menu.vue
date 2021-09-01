@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { headers } from '~/logic/menu'
-import { toArray, map } from '~/utils'
-import DBList from '@fengqiaogang/dblist'
-const getChildren = function(list: any[]) {
-  const db = new DBList(toArray(list))
-  return db.select({ header: true })
-}
+import { defineProps, reactive } from 'vue'
 
-const menus = computed(function() {
-  return map(function(data: any) {
-    data.children = getChildren(data.children)
-    return data
-  }, headers)
+const props = defineProps({
+  menus: {
+    type: Array,
+    default: () => []
+  }
+})
+
+// 空格式
+const moreData = reactive<object>({
+  name: '',
+  children: props.menus
 })
 
 </script>
@@ -20,38 +19,30 @@ const menus = computed(function() {
 <template>
   <div class="text-kdFang text-white h-15 pt-2.5">
     <div class="wrap-menu-box flex font-medium">
-      <div class="wrap-menu-item menu-more">
-        <div class="menu-content">
+      <!-- 更多菜单 -->
+      <UiHeaderMenucontent class="wrap-menu-item menu-more" :data="moreData">
+        <template #label>
           <span class="px-1.5 flex items-center">
             <IconFont class="default" type="icon-gengduo1" size="24"></IconFont>
             <IconFont class="active" type="icon-gengduo" size="24"></IconFont>
           </span>
-        </div>
-        <div class="menu-children px-6">
-          <UiHeaderMore></UiHeaderMore>
-        </div>
-      </div>
-      <template v-for="(data, index) in menus" :key="index">
-        <template v-if="data.children.length > 0">
-          <div class="wrap-menu-item" :class="{'active': index === 1}">
-            <div class="menu-content">
-              <span>{{ data.name }}</span>
-            </div>
-            <div class="menu-children">
-              <UiHeaderSub :list="data.children"></UiHeaderSub>
-            </div>
+        </template>
+        <template #children="scope">
+          <div class="menu-children px-6">
+            <UiHeaderMore :list="scope.list"></UiHeaderMore>
           </div>
         </template>
-        <template v-else>
-          <a class="wrap-menu-item" :class="{'active': index === 1}" v-router="data.href">
-            <div class="menu-content">
-              <span>{{ data.name }}</span>
-            </div>
+      </UiHeaderMenucontent>
+
+      <!-- 快捷菜单 -->
+      <template v-for="(data, index) in menus" :key="index">
+        <UiHeaderMenucontent class="wrap-menu-item" :data="data">
+          <template #children="scope">
             <div class="menu-children">
-              <UiHeaderSub :list="[]"></UiHeaderSub>
+              <UiHeaderSub :list="scope.list"></UiHeaderSub>
             </div>
-          </a>
-        </template>
+          </template>
+        </UiHeaderMenucontent>
       </template>
     </div>
   </div>
@@ -60,6 +51,9 @@ const menus = computed(function() {
 <style scoped lang="scss">
 
 %active {
+  /* 通过 theme 获取 tailwind 中定义的颜色值 */
+  --menu-content-bg: theme('colors.global.darkblue');
+  --menu-content-text: theme('colors.white');
   &:before, &:after {
     $bg: "/assets/ui/header/menu.png?r=1";
     @apply absolute h-full w-14.5 top-0;
@@ -71,10 +65,10 @@ const menus = computed(function() {
     @apply opacity-0 invisible cursor-pointer;
   }
   &:before {
-    @apply -left-6.5
+    left: -25px;
   }
   &:after {
-    @apply -right-6.5;
+    right: -25px;
     transform: rotateY(180deg);
   }
   .menu-children {
@@ -88,6 +82,7 @@ const menus = computed(function() {
     .default {
       @apply flex;
     }
+    /* 更多菜单背景图 */
     &:before, &:after {
       $bg: "/assets/ui/header/darkmenu.png?r=1";
       background-image: url($bg);
@@ -96,26 +91,25 @@ const menus = computed(function() {
 }
 
 %animation {
+  --menu-content-bg: theme('colors.white');
+  --menu-content-text: theme('colors.global.primary');
   &:before, &:after {
     @apply visible opacity-100;
-  }
-  .menu-content {
-    @apply bg-white text-global-primary;
   }
   .menu-children {
     visibility: visible;
     opacity: 1;
   }
-
   &.menu-more{
+    --menu-content-bg: #0056C3;
     .default {
       @apply hidden;
     }
     .active {
       @apply flex;
     }
-    .menu-content, .menu-children {
-      background-color: #0056C3;
+    .menu-children {
+      background-color: var(--menu-content-bg);
     }
   }
 }
@@ -124,11 +118,6 @@ const menus = computed(function() {
   @apply h-full;
   .wrap-menu-item {
     @extend %active;
-    @apply h-full px-8 relative;
-    min-width: 104px;
-    .menu-content {
-      @apply h-full flex items-center text-base cursor-pointer;
-    }
   }
   &:not(:hover) {
     .wrap-menu-item {

@@ -55,6 +55,7 @@ export const headers = [
   {
     // DeFi
     name: I18n.nav.defi.name,
+    href: `${config.apy}/mining`,
     children: [
       {
         name: '挖矿 APY',
