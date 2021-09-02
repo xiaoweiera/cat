@@ -27,19 +27,22 @@ onMounted(async ()=>{
       </div>
       <Apy2Chains class="mt-12"/>
 
-      <div class="flex w-full  mt-4 pb-6 bottomBorder ">
-        <div class="flex flex-1 ">
-          <div class="flex-1 h-100 mr-8">
-            <Apy2ChartLoan class="w-full"/>
+      <div class="flex w-full    mt-4 pb-6 bottomBorder">
+        <div class="flex flex-1  ">
+          <div class="flex-1  mr-8">
+            <Apy2ChartLoan class="w-full h-85.5 "/>
           </div>
         </div>
         <!--        榜单-->
-        <Apy2TopListMain type="loan"  class="w-101.25 pt-3 px-3 topListShadow  ">
+        <Apy2TopListMain type="mining"  class="w-101.25   pt-3 pl-8  leftBorder    ">
           <template #item>
-            <Apy2TopListLoanItem class="min-h-92.5" />
+            <Apy2TopListLoanItem  />
           </template>
         </Apy2TopListMain>
       </div>
+
+
+
       <Apy2BaseNotice class="mt-12"/>
       <div class="mt-12">
         <!--表格数据-->
@@ -58,6 +61,9 @@ onMounted(async ()=>{
 }
 .bottomBorder{
   border-bottom:1px solid rgba(3, 54, 102, 0.06);
+}
+.leftBorder{
+  border-left:1px solid rgba(3, 54, 102, 0.06);
 }
 .topListShadow{
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 1px 2px rgba(0, 0, 0, 0.1);
