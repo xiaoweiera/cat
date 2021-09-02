@@ -46,12 +46,17 @@ onMounted(getData())
             <div class="flex items-center" v-if="data.safety">
               <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
               <div class="text-global-primary flex items-center">
-                <IconFont class="mr-2" size="20" type="icon-shenji"/>
-                <!--              <IconFont class="mr-2" size="20" type="icon-weishenji"/>-->
+                <div v-if="data.safety.length>0" class="flex items-center ">
+                  <IconFont class="mr-2" size="20" type="icon-shenji"/>
+                  <template v-for="item in data.safety">
+                    <a v-router.blank="item.link" class="text-global-primary mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item.department }}</a>
+                  </template>
+                </div>
+                <div v-else class="flex items-center ">
+                  <IconFont class="mr-2" size="20" type="icon-weishenji"/>
+                  <span class="text-global-numRed">{{I18n.apyIndex.unaudited}}</span>
+                </div>
               </div>
-              <template v-for="item in data.safety">
-                <a class="text-global-primary mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item }}</a>
-              </template>
             </div>
           </div>
         </div>

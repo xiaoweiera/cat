@@ -150,7 +150,7 @@ const reload = function() {
 
 </script>
 <template>
-  <Spin :loading="loading">
+  <Spin v-if="tableData.length>0 || groupId !== 'my'" :loading="loading">
     <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName">
       <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
@@ -181,7 +181,7 @@ const reload = function() {
         </el-table-column>
       </template>
     </el-table>
-    <div class="pt-4 flex">
+    <div  class="pt-4 flex">
       <div v-if="groupId === 'my'">
         <Apy2BaseFollowMultiple :type="type" @success="reload"/>
       </div>
@@ -192,6 +192,7 @@ const reload = function() {
       </div>
     </div>
   </Spin>
+  <Apy2BaseNoData v-else :type="props.type" />
 </template>
 
 <style lang="scss">
