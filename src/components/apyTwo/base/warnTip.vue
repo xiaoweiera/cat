@@ -6,7 +6,7 @@ const props=defineProps(
     {
       des:{
         type:String,
-        default:'风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。'
+        default:I18n.apyIndex.warningDes
       }
     }
 )

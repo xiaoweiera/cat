@@ -7,7 +7,7 @@ import {getLending_rank} from '~/logic/apy2/index'
 import {getInject} from '~/utils/use/state'
 import {chainsIcon} from '~/logic/apy2/config'
 import {project_type} from '~/logic/apy2/config'
-import {formatRulesNumber,getIconType} from '~/lib/tool'
+import {formatRulesNumber,getIconType,tolocaleLowerCase} from '~/lib/tool'
 const group_id=getInject('group_id')
 const list=ref()
 watch(()=>group_id.value[0], ()=>getData())
@@ -43,7 +43,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
                 <div class="mt-1 flex items-center flex-wrap  justify-between">
                   <div class="flex items-center">
                     <span class="text-kd12px18px text-global-highTitle text-opacity-65 font-kdExp">{{item.project}}</span>
-                    <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[item.chain]"></IconFont>
+                    <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[tolocaleLowerCase(item.chain)]"></IconFont>
                     <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
                     <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
                   </div>

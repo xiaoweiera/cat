@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chainsIcon} from '~/logic/apy2/config'
-import {tolocaleUpperCase,formatRulesNumber} from '~/lib/tool'
+import {formatRulesNumber,tolocaleLowerCase} from '~/lib/tool'
 import {getProjectList} from '~/logic/apy2/index'
 const props=defineProps({
   data:Object,
@@ -48,7 +48,7 @@ const orderData=()=>{
                   <template v-for="(chain,i) in item.chains">
                     <div :class="`-z-${i}`" class=" flex items-center justify-center relative -ml-2.5  "  style="border-radius: 50%;background:#F0F3F6;width:20px;height:20px;">
                       <div class="w-full h-full flex items-center justify-center relative items-center" style="border-radius: 50%;background:white;width:18px;height:18px;">
-                         <img :src="chainsIcon[chain]" class="   " style="border-radius:1px;background:white;width:12px;height:12px;" alt="">
+                        <img :src="chainsIcon[tolocaleLowerCase(chain)]" class="   " style="border-radius:1px;background:white;width:12px;height:12px;" alt="">
                       </div>
                     </div>
 <!--                    <IconFont class=" mr-1.5 bg-global-white" size="14"  :type="chainsIcon[chain]"/>-->

@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {chainsIcon} from '~/logic/apy2/config'
 import {project_type} from '~/logic/apy2/config'
-import {formatRulesNumber,getIconType} from '~/lib/tool'
+import {formatRulesNumber,getIconType,tolocaleLowerCase} from '~/lib/tool'
 const props=defineProps({
   data:Object
 })
@@ -13,7 +13,7 @@ const props=defineProps({
   <div class="font-kdFang ">
     <div v-if="data.chain" class="flex items-center">
       <span class="labelName">{{I18n.apyIndex.chainType}}</span>
-      <img class="w-3.5 h-3.5 mx-1" :src="chainsIcon[data.chain]" alt="">
+      <img class="w-3.5 h-3.5 mx-1" :src="chainsIcon[tolocaleLowerCase(data.chain)]" alt="">
       <span class="txt">{{data.chain}}</span>
     </div>
     <div v-if="data.project_category" class="flex mt-1.5 items-center">

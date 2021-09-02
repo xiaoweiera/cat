@@ -118,7 +118,7 @@ onMounted(getData())
                 <span  class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,I18n.apyIndex.timeFormat)}}</span>
               </a>
             </template>
-      <Apy2BaseWarnTip class="mt-4" des="风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。"/>
+      <Apy2BaseWarnTip class="mt-4" :des="I18n.apyIndex.warningDes"/>
     </div>
   </div>
 </template>

@@ -17,7 +17,7 @@ onMounted(async ()=>{
 })
 </script>
 <template>
-  <div class=" flex flex-col items-center justify-center mb-10   bg-global-white  h-full font-kdFang " >
+  <div class=" flex flex-col items-center justify-center mb-16   bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  relative  w-full h-full container ">
       <div class="mt-12 flex justify-between items-center">
         <Apy2BaseHeader :title="I18n.apyIndex.loanTitle" class=" flex flex-col flex-wrap justify-center" />
@@ -34,7 +34,7 @@ onMounted(async ()=>{
           </div>
         </div>
         <!--        榜单-->
-        <Apy2TopListMain type="mining"  class="w-101.25   pt-3 pl-8  leftBorder    ">
+        <Apy2TopListMain type="lend"  class="w-101.25   pt-3 pl-8  leftBorder    ">
           <template #item>
             <Apy2TopListLoanItem  />
           </template>

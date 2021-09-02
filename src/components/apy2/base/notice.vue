@@ -27,7 +27,7 @@ onMounted(getData())
               <span class="des min-h-10.5 ">{{item.content}}</span>
             </div>
           </div>
-          <div  class="mt-0.5  text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,'YYYY年M月DD日')}}</div>
+          <div  class="mt-0.5  text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,I18n.apyIndex.timeFormat)}}</div>
         </div>
       </a>
       <img v-if="i<data.length"  class="h-4 mx-6 " src="https://res.ikingdata.com/apyTwo/huiGang.png" alt="">

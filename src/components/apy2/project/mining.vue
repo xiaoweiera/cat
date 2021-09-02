@@ -72,7 +72,7 @@ const onSumbit=(v:any)=>{
 }
 </script>
 <template>
-  <div class="font-kdFang relative">
+  <div class="font-kdFang relative mb-12">
     <Apy2ProjectChartInfo :title="`APY Top 10 ${I18n.apyIndex.pools}`" type="mining"/>
     <div class="mt-3 flex items-center justify-between ">
       <div class="flex items-center">

@@ -6,7 +6,7 @@ export const chains=[
     {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.png'},
     {key:'oec',name:'OEC',icon:'https://res.ikingdata.com/apyTwo/oecChain.png'},
     // {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.png'},
-    {key:'pos',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.png'},
+    {key:'polygon',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.png'},
 ]
 export const selectChains=[
     {label:I18n.apyIndex.chain,value:'all'},

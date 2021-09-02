@@ -307,7 +307,7 @@ a {
 }
 
 .showY::-webkit-scrollbar-thumb:vertical {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0);
 }
 
 .new-16 {

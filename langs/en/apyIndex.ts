@@ -137,5 +137,6 @@ export default{
     clearData:'Reset',
     loanAllRouter:'All best ways to borrow',
     warning:'Waring',
-    description: ''
+    description: '',
+    warningDes:'Risk warning: the data of this station comes from the public data of various platforms. The safety audit of the included contents is not conducted in this station, and the contents do not constitute investment suggestions. Please pay attention to the risks.'
 }
