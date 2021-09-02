@@ -12,7 +12,7 @@ const [filterType,]=useProvide('filterType','all')
 const [chained]=useProvide('chained','all')
 const resultNumber=ref(0)
 const param={
-  project_id:'all',
+  project_id:props.projectId,
   query:'',
   chain:'all',
   ordering:'desc',

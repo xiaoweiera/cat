@@ -16,8 +16,8 @@ const getColor=computed(()=>props.value>=0?'text-global-numGreen':'text-global-n
       <img class="w-4 h-4 mr-1" :src="logo" alt="">
         <span class="text-kd12px16px text-global-highTitle">{{name}}</span>
     </div>
-    <div :class="getColor" class="text-kd20px26px font-bold">{{formatRulesNumber(value)}}%</div>
-    <div class="text-kd12px16px text-highTitle text-opacity-65">{{des}}</div>
+    <div :class="getColor" class="text-kd20px26px font-bold font-kdExp">{{formatRulesNumber(value)}}%</div>
+    <div class="text-kd12px16px text-highTitle text-opacity-65 font-kdExp">{{des}}</div>
   </div>
 </template>
 <style scoped lang="scss">

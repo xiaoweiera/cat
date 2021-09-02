@@ -77,7 +77,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 <template>
   <div class="  font-kdFang relative flex">
     <template v-for="(item,i) in list">
-      <div   :class="i!==3?bgList[i]:'hand '+bgList[i]"  class="itemContainer ml-3 px-5 py-4  min-w-61.5  w-fit   rounded-kd6px" >
+      <div   :class="i!==3?bgList[i]:'hand '+bgList[i]"  class="itemContainer ml-3 px-5 py-2.5  min-w-61.5  w-fit   rounded-kd6px" >
         <div class="flex items-center justify-between" style="white-space: pre;">
           <div >
             <div :class="textList[i]" class="text-kd16px16px  font-medium ">{{item.title}}</div>
@@ -90,27 +90,27 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
           <div class="imgLogo  text-center   ml-5  flex flex-col items-center" >
             <img class=" min-w-12 min-h-12 w-12 h-12 " :src="item.logo" alt="">
-<!--            <div class="invisible text-kd10px10px  font-medium  mt-1">撑高度</div>-->
+            <!--            <div class="invisible text-kd10px10px  font-medium  mt-1">撑高度</div>-->
           </div>
           <a  href="/" class=" vido hand  text-center  ml-5  flex flex-col items-center" >
             <img class="min-w-10 w-10 h-10 mx-1 my-1 " :src="item.video" alt="">
-<!--            <div :class="textList[i]" class="text-kd10px10px  relative z-10 font-medium  mt-1.5">相关资料</div>-->
+            <!--            <div :class="textList[i]" class="text-kd10px10px  relative z-10 font-medium  mt-1.5">相关资料</div>-->
           </a>
         </div>
         <!-- 下拉 -->
         <div  :class="bgList[i]"  class="confirm   pb-4 pt-4   ">
           <div class="px-5" >
             <div class="flex items-center selectClass  rounded-kd6px   justify-between" >
-              <div class="pl-2  ">
+              <div class="pl-2 w-full ">
                 <div v-if="i===0"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="plat" :placeholder="item.selectText">
                     <template  v-for="item in projectList">
                       <a v-router.blank="platUrl(plat)"  >
-                    <el-option   :label="item.name" :value="item.id"> </el-option>
+                        <el-option   :label="item.name" :value="item.id"> </el-option>
                       </a>
                     </template>
                   </el-select>
-<!--                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 ml-4.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
+                  <!--                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 ml-4.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
                 <div v-if="i===1"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="coin" :placeholder="item.selectText">
@@ -120,17 +120,17 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
                       </a>
                     </template>
                   </el-select>
-<!--                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 ml-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
+                  <!--                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 ml-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
                     <template v-for="item in tokenList">
                       <a v-router.blank="tokenUrl(loan)" >
-                      <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name"></el-option>
+                        <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name"></el-option>
                       </a>
                     </template>
                   </el-select>
-<!--                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 mr-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
+                  <!--                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 mr-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
               </div>
 
@@ -174,8 +174,15 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
   .el-input__inner{
     border: 0px solid rgb(0,0,0,0) !important;
     background: none;
+    width:230px;
+    padding-right:0px !important;
     padding-left:4px !important;
     @apply text-global-highTitle text-opacity-45  text-kd14px18px ;
   }
+  .el-select--small{
+    width: 100% !important;
+  }
+
 }
+
 </style>

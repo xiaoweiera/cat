@@ -44,9 +44,14 @@ const orderData=()=>{
             <div class="ml-3  flex items-center  justify-between flex-1 ">
               <div class="flex items-center flex-wrap">
                 <div class="text-kd14px18px  text-global-highTitle font-kdExp mr-1.5">{{item.name}}</div>
-                <div class="flex items-center">
+                <div class="flex items-center  relative m-1.4">
                   <template v-for="(chain,i) in item.chains">
-                    <IconFont class=" mr-1.5" size="14" :type="chainsIcon[chain]"/>
+                    <div :class="`z-${item.chains.length-i}`" class=" min-w-5    w-5.5 h-5.5 min-h-5 flex items-center justify-center relative -ml-2.4  "  style="border-radius: 50%;background:rgba(3, 54, 102, 0.06);border:2px solid #F1F3F5;">
+                      <div class="w-full h-full flex items-center justify-center relative items-center" style="border-radius: 50%;background:white">
+                        <img :src="chainsIcon[chain]" class="min-w-3  w-3 h-3 min-h-3 w-full h-full  bg-opacity-45   " style="border-radius: 50%;background:white" alt="">
+                      </div>
+                    </div>
+<!--                    <IconFont class=" mr-1.5 bg-global-white" size="14"  :type="chainsIcon[chain]"/>-->
                   </template>
                 </div>
               </div>

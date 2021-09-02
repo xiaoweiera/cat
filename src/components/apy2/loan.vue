@@ -19,8 +19,8 @@ onMounted(async ()=>{
 <template>
   <div class=" flex flex-col items-center justify-center mb-10   bg-global-white  h-full font-kdFang " >
     <div class="max-w-360  px-20  relative  w-full h-full container ">
-      <div class="mt-12 flex justify-between">
-        <Apy2BaseHeader :title="I18n.apyIndex.loanTitle" class=" flex flex-col flex-wrap" />
+      <div class="mt-12 flex justify-between items-center">
+        <Apy2BaseHeader :title="I18n.apyIndex.loanTitle" class=" flex flex-col flex-wrap justify-center" />
         <div>
           <Apy2BasePlayType />
         </div>

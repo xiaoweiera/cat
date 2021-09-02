@@ -13,7 +13,7 @@ const getData=async ()=>{
   data.value=result.data
   waring.value=R.find(item=>item?.type==='warning',result.data)?.content
 }
-const getClass=(type:string,is_top:boolean)=>classList[is_top?'top':type]
+const getClass=(type:string,is_top:boolean)=>classList[is_top?'top':type==='waring'?'top':type]
 onMounted(getData())
 </script>
 <template>

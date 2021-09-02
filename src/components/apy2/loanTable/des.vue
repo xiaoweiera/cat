@@ -8,6 +8,6 @@ const props=defineProps({
 </script>
 <template class="font-kdExp">
   <div class="text-kd14px20px text-global-highTitle text-opacity-85">
-      <span>{{formatRulesNumber(value)}}</span>
+      <span class="font-kdExp">{{formatRulesNumber(value)}}</span>
   </div>
 </template>

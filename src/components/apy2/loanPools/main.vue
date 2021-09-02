@@ -48,7 +48,7 @@ onMounted(getList(true))
 </script>
 <template>
   <div>
-    <div class="font-kdFang font-medium text-kd18px24px text-global-highTitle text-opacity-85">{{I18n.apyIndex.loanListDes}}</div>
+    <div class="font-kdFang font-medium text-kd20px24px text-global-highTitle text-opacity-85">{{I18n.apyIndex.loanListDes}}</div>
     <Apy2LoanPoolsHeader  @search="search" class="mt-4"/>
     <Apy2LoanTableMain :data="listData"  :key="key[0]" />
   </div>

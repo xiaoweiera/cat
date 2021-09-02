@@ -10,8 +10,8 @@ const props=defineProps({
 <template class="font-kdExp">
   <div class="text-kd14px20px text-global-highTitle text-opacity-85">
     $<span v-if="value || valueRate">
-      <span>{{formatRulesNumber(value)}}</span>
-      <span class="ml-1">({{formatRulesNumber(valueRate)}}%)</span>
+      <span class="font-kdExp">{{formatRulesNumber(value)}}</span>
+      <span class="ml-1 font-kdExp">({{formatRulesNumber(valueRate)}}%)</span>
     </span>
     <span v-else>-</span>
 
