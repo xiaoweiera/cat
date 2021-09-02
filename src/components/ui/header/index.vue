@@ -83,8 +83,8 @@ const isShowSub = computed<boolean>(function(): boolean{
 </script>
 
 <template>
-  <div class="ui-header sticky top-0 z-1000" :class="{'sub-header': isShowSub}">
-    <div class="bg-global-darkblue px-6 flex justify-between">
+  <div class="ui-header" :class="{'sub-header': isShowSub}">
+    <div class="bg-global-darkblue px-6 flex justify-between fixed top-0 left-0 right-0 z-1000">
       <div class="flex items-center">
         <a class="inline-block" v-router="env.dashboard">
           <img class="min-w-28" src="https://res.ikingdata.com/common/logo-white.svg">
@@ -110,6 +110,7 @@ const isShowSub = computed<boolean>(function(): boolean{
 <style lang="scss">
 /* 设置导航高度 */
 @mixin mainHeaderSpace ($height) {
+  height: $height;
   & ~ main {
     --ui-header-height: $height;
     .top-header {
@@ -119,11 +120,11 @@ const isShowSub = computed<boolean>(function(): boolean{
 }
 
 .ui-header {
+  $height: 60px;
+  $subHeight: 50px;
   .extend {
     @apply hidden;
   }
-  $height: 60px;
-  $subHeight: 50px;
 
   .ui-header-menu {
     height: $height;

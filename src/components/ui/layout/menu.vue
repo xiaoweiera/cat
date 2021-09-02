@@ -6,21 +6,19 @@
 import { defineProps } from 'vue'
 
 defineProps({
-  menuClass: {
-    type: String,
-    default: () => 'w-60'
+  menuWidth: {
+    type: Number,
+    default: () => 240
   }
 })
 </script>
 
 <template>
-  <div class="layout-main flex">
-    <div class="menu-box hidden md:block " :class="menuClass">
-      <div class="menu-main top-header" :class="menuClass">
-        <slot name="menu"></slot>
-      </div>
+  <div class="layout-main">
+    <div class="menu-main top-header" :style="{'width': `${menuWidth}px`}">
+      <slot name="menu"></slot>
     </div>
-    <div class="flex-1 w-1 md:ml-8">
+    <div class="layout-main-box" :style="{'marginLeft': `${menuWidth}px`}">
       <slot name="content"></slot>
     </div>
   </div>
@@ -29,6 +27,9 @@ defineProps({
 <style scoped lang="scss">
 .layout-main {
   @apply w-full;
+  .menu-main {
+    @apply hidden md:block float-left;
+  }
   @screen xl {
     @apply w-320 mx-auto;
     .menu-main {
