@@ -24,9 +24,9 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
 </script>
 <template>
   <div class="font-kdExp flex items-center">
-    <div class="relative mr-2">
+    <div class="relative mr-2" >
       <IconFont v-if="isNew" type="icon-NEW" class="absolute" :size="iconSize"/>
-      <img :class="imgHeight" class="w-8" :src="logo" alt="">
+      <img :class="imgHeight" style="border-radius: 50%;"  class="w-8" :src="logo" alt="">
     </div>
     <div>
       <div class="flex items-center">

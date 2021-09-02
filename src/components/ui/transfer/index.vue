@@ -143,9 +143,9 @@ onMounted(function() {
       <div class="data-list max-h-full relative" v-if="dialogVisible">
         <div class="absolute left-0 top-0 right-0 bottom-0">
           <el-container class="h-full">
-            <el-header height="initial" class="p-0">
+            <el-header height="initial" class="p-0 ">
               <div class="flex">
-                <div class="radio-list">
+                <div v-if="props.radios" class="radio-list w-full flex-1 ">
                   <el-radio-group v-model="radioValue" size="small" class="w-full">
                     <template v-for="(item, index) in radios" :key="index">
                       <el-radio-button class="w-1/2" :label="item.value">
@@ -156,8 +156,8 @@ onMounted(function() {
                     </template>
                   </el-radio-group>
                 </div>
-                <div class="select-box ml-3" v-if="selects.length > 0">
-                  <el-select size="small" v-model="selectValue">
+                <div :class="props.radios?'ml-3':''" class="select-box flex-1" v-if="selects.length > 0">
+                  <el-select size="small" class="w-full" v-model="selectValue">
                     <template v-for="(item, index) in selects" :key="index">
                       <el-option :value="item.value" :label="item.label">
                         <slot name="select" :data="item"></slot>
@@ -166,7 +166,7 @@ onMounted(function() {
                   </el-select>
                 </div>
               </div>
-              <div class="pt-2 pb-1">
+              <div class="pt-2 pb-1 flex-1">
                 <div class="search-box">
                   <el-input size="small" :placeholder="I18n.common.placeholder.search" v-model="search" value="">
                     <template #prefix>
@@ -222,6 +222,9 @@ onMounted(function() {
 </template>
 
 <style scoped  lang="scss">
+::v-deep(.el-select){
+  width: 100% !important;
+}
 ::v-deep(.el-checkbox){
   width: 100% !important;
   @apply flex items-center;
@@ -276,4 +279,5 @@ onMounted(function() {
     @apply inline-block;
   }
 }
+
 </style>

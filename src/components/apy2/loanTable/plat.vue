@@ -11,9 +11,9 @@ const props=defineProps({
 </script>
 <template>
   <div class="flex items-center font-kdExp">
-    <div class="relative mr-2">
+    <div class="relative mr-2" >
       <IconFont type="icon-NEW" class="absolute" size="24"/>
-      <IconFont size="32" :type="logo?logo:'icon-morentoken'"></IconFont>
+      <IconFont size="32" style="border-radius: 50%;" :type="logo?logo:'icon-morentoken'"></IconFont>
     </div>
     <div>
       <div class="flex items-center text-kd14px20px text-global-highTitle text-opacity-85">

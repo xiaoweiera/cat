@@ -24,7 +24,7 @@ useProvide(dataEventName.value)
     </div>
   </UiDownload>
   <div class="mt-8">
-    <h3 class="text-xl text-global-highTitle text-opacity-85 mb-3">{{ I18n.apy.token.pool.lends }}</h3>
+    <h3 class="text-kd18px24px text-global-highTitle  text-opacity-85 mb-3">{{ I18n.apy.token.pool.lends }}</h3>
     <Apy2TokenLendingList :symbol="symbol" :type="type"/>
   </div>
 </template>

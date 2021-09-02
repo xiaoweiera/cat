@@ -97,7 +97,7 @@ onBeforeMount(ready)
             </el-input>
           </div>
         </el-header>
-        <el-main class="p-0 overflow-auto">
+        <el-main class="p-0 overflow-auto showY">
           <div class="pt-3 pb-10" v-if="tokenList.length > 0">
             <template v-for="(item, index) in menuList" :key="index">
               <div class="cursor-pointer">
@@ -116,7 +116,6 @@ onBeforeMount(ready)
         </el-main>
       </el-container>
     </template>
-
     <template #content>
       <div class="p-8" v-if="tabList.length > 0 && getActiveTokenId()">
         <Apy2TokenContent :key="contentKey" :symbol="getActiveTokenId()" :category="tabList"/>
