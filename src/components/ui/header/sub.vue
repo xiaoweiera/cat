@@ -27,7 +27,7 @@ defineProps({
 
 <style scoped lang="scss">
 .ui-header-sub {
-  border-bottom: 1px solid rgba(#1A1F36, 0.25);
+  border-bottom: 1px solid rgba(#033666, 0.06);
   box-shadow: 0 1px 0 rgba(#fff, 0.08);
 }
 .sub-content {

@@ -20,19 +20,14 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
               <div class="menu-label hidden lg:block">
                 <span class="text-lg">{{ data.label }}</span>
               </div>
-              <template v-if="index > 0">
-                <input class="menu-active hidden" :id="`footer-menu-${index}`" type="checkbox" name="`footer-menu-${index}`">
-              </template>
-              <template v-else>
-                <input class="menu-active hidden" :id="`footer-menu-${index}`" type="checkbox" checked name="`footer-menu-${index}`">
-              </template>
+              <input class="menu-active hidden" :id="`footer-menu-${index}`" type="checkbox" name="`footer-menu-${index}`">
               <label class="menu-label cursor-pointer block lg:hidden" :for="`footer-menu-${index}`">
                 <span class="select-none w-full flex justify-between items-center">
                   <span class="text-base">{{ data.label }}</span>
                   <IconFont class="arrow" type="icon-arrow-down" size="16"/>
                 </span>
               </label>
-              <div class="pt-6 menu-content">
+              <div class="pt-3 lg:pt-6 menu-content">
                 <template v-for="(item, idx) in data.children" :key="`${index}-${idx}`">
                   <template v-if="item.href">
                     <a class="menu-item text-sm hover:text-global-primary" v-router="item.href">{{ item.name }}</a>
@@ -63,32 +58,16 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
                 <IconFont class="arrow" type="icon-arrow-down" size="16"/>
               </span>
             </label>
-            <div class="pt-6 w-27 menu-content">
+            <div class="pt-3 lg:pt-6 w-27 menu-content">
               <div class="menu-item">
                 <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
-                  <div class="border border-solid border-global-highTitle border-opacity-25 rounded">
-                    <div class="py-1.5 px-2.5 flex items-center">
-                      <IconFont class="flex" type="icon-android" size="24"/>
-                      <div class="ml-2 whitespace-nowrap">
-                        <p class="block download"></p>
-                        <p class="block text-xs">App Store</p>
-                      </div>
-                    </div>
-                  </div>
+                  <img class="block" src="https://res.ikingdata.com/common/download_apple.jpg">
                 </UiFooterHover>
               </div>
 
               <div class="menu-item">
                 <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
-                  <div class="border border-solid border-global-highTitle border-opacity-25 rounded">
-                    <div class="py-1.5 px-2.5 flex items-center">
-                      <IconFont class="flex" type="icon-android" size="24"/>
-                      <div class="ml-2 whitespace-nowrap">
-                        <p class="block download"></p>
-                        <p class="block text-xs">Android</p>
-                      </div>
-                    </div>
-                  </div>
+                  <img class="block" src="https://res.ikingdata.com/common/download_android.jpg">
                 </UiFooterHover>
               </div>
             </div>
@@ -168,7 +147,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
     background: url($url) no-repeat center / contain;
   }
   .menu-item {
-    @apply mb-4 block;
+    @apply mb-3 lg:mb-4 block;
     &:last-child {
       @apply mb-0;
     }

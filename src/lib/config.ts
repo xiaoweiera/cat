@@ -18,7 +18,7 @@ export const iconFont = [
   // 行情&流动性呀
   '//at.alicdn.com/t/font_2596648_yr82ex0wlja.js',
   // 通用
-  '//at.alicdn.com/t/font_2596380_ztv82szy8oa.js'
+  '//at.alicdn.com/t/font_2596380_hvgkdrgm9ja.js'
 ]
 
 export const development: Config = {

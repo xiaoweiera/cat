@@ -136,7 +136,7 @@ export const headers = [
       {
         name: '借贷 APR',
         href: `${config.apy}/loan`,
-        desc: '快速发现高收益矿池',
+        desc: '找到抵押借贷最佳路径',
         icon: 'icon-APR',
         more: true,
         header: true
@@ -144,7 +144,7 @@ export const headers = [
       {
         name: '项目 APY 分析',
         href: `${config.apy}/project`,
-        desc: '快速发现高收益矿池',
+        desc: '项目自身、池子数据',
         icon: 'icon-xiangmu',
         more: true,
         header: true
@@ -152,7 +152,7 @@ export const headers = [
       {
         name: '币种 APY 分析',
         href: `${config.apy}/token`,
-        desc: '快速发现高收益矿池',
+        desc: '币种相关存借信息',
         icon: 'icon-bizhong',
         more: true,
         header: true
@@ -160,7 +160,7 @@ export const headers = [
       {
         name: 'HECO 节点 APY',
         href: `${config.apy}/heco`,
-        desc: '快速发现高收益矿池',
+        desc: 'HECO节点竞选APY',
         icon: 'icon-heco',
         more: true,
         header: true
@@ -174,7 +174,7 @@ export const headers = [
     children: [
       {
         name: '数据专题',
-        desc: '专业的K线图和聚合交易',
+        desc: '轻松查看核心业务数据',
         icon: 'icon-zhuanti',
         href: config.topic,
         more: true,
@@ -182,7 +182,7 @@ export const headers = [
       },
       {
         name: '数据监控',
-        desc: '专业的K线图和聚合交易',
+        desc: '不错过任何交易机会',
         icon: 'icon-jiankong1',
         href: config.news,
         more: true,
@@ -190,7 +190,7 @@ export const headers = [
       },
       {
         name: '数据研报',
-        desc: '专业的K线图和聚合交易',
+        desc: '更深、更全的项目研究',
         icon: 'icon-yanbao',
         href: config.reports,
         more: true,
@@ -205,7 +205,7 @@ export const headers = [
     children: [
       {
         name: I18n.nav.defi.liquidity.name,
-        desc: '专业的K线图和聚合交易',
+        desc: '流动性资金来龙去脉一目了然',
         icon: 'icon-DEX',
         href: config.liquidity,
         more: true
@@ -221,7 +221,7 @@ export const headers = [
         name: 'GrowthPad',
         href: config.growthpad,
         icon: 'icon-growthpad',
-        desc: '专业的K线图和聚合交易',
+        desc: '做任务赢奖励',
         more: true,
         header: true
       },

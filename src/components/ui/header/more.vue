@@ -17,14 +17,17 @@ defineProps({
         <li class="items" v-for="(data, index) in list" :key="index">
           <label>{{ data.name }}</label>
           <template v-if="data.children">
-            <div class="wrap-item-box" v-for="(item, idx) in data.children" :class="{ 'active': item.active }" :key="`${index}-${idx}`">
+            <div class="wrap-item-box" v-for="(item, idx) in data.children" :key="`${index}-${idx}`">
               <a class="clearfix" v-router="item.href" v-if="item.more">
                 <div class="float-left pr-2">
                   <IconFont :type="item.icon" size="40"/>
                 </div>
                 <div class="float-left">
-                  <h3 class="text-sm">{{ item.name }}</h3>
-                  <p class="text-xs text-white text-opacity-65">{{ item.desc }}</p>
+                  <h3 class="flex items-center">
+                    <span class="text-sm font-medium">{{ item.name }}</span>
+                    <IconFont class="ml-1 arrow" type="icon-a-rightarrow" size="12"></IconFont>
+                  </h3>
+                  <p class="text-xs text-white text-opacity-65 font-light">{{ item.desc }}</p>
                 </div>
               </a>
             </div>
@@ -41,6 +44,11 @@ defineProps({
     @apply pl-38; /* logo 宽度 w-28 + margin-left 10 */
     .wrap-men-main {
       @apply pl-6;
+    }
+  }
+  @screen xl {
+    .wrap-men-main {
+      @apply pl-10;
     }
   }
 }
@@ -73,6 +81,7 @@ defineProps({
     &:last-child {
       @apply mb-0;
     }
+    /*
     &.active, &:hover {
       a {
         &[href] {
@@ -80,6 +89,16 @@ defineProps({
             @apply text-global-primary;
           }
         }
+      }
+    }
+    */
+    .arrow {
+      @apply flex opacity-0 invisible;
+      transition: all 0.2s;
+    }
+    &:hover {
+      .arrow {
+        @apply opacity-100 visible;
       }
     }
   }

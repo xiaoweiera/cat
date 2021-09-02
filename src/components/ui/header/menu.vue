@@ -24,8 +24,7 @@ const moreData = reactive<object>({
       <UiHeaderMenucontent class="wrap-menu-item menu-more" :data="moreData">
         <template #label>
           <span class="px-1.5 flex items-center">
-            <IconFont class="default" type="icon-gengduo1" size="24"></IconFont>
-            <IconFont class="active" type="icon-gengduo" size="24"></IconFont>
+            <IconFont class="flex" type="icon-gengduo1" size="24"></IconFont>
           </span>
         </template>
         <template #children="scope">
@@ -76,12 +75,6 @@ const moreData = reactive<object>({
     @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1000;
   }
   &.menu-more {
-    .active {
-      @apply hidden;
-    }
-    .default {
-      @apply flex;
-    }
     /* 更多菜单背景图 */
     &:before, &:after {
       $bg: "/assets/ui/header/darkmenu.png?r=1";
@@ -102,12 +95,6 @@ const moreData = reactive<object>({
   }
   &.menu-more{
     --menu-content-bg: #0056C3;
-    .default {
-      @apply hidden;
-    }
-    .active {
-      @apply flex;
-    }
     .menu-children {
       background-color: var(--menu-content-bg);
     }
