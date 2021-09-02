@@ -7,5 +7,5 @@ const props=defineProps({
 })
 </script>
 <template>
-    <div :class="value>=0?'text-global-numGreen':'text-global-numRed'" class="text-kd26px26px font-bold">{{formatRulesNumber(value)}}%</div>
+    <div :class="value>=0?'text-global-numGreen':'text-global-numRed'" class="text-kd26px26px font-bold font-kdExp">{{formatRulesNumber(value)}}%</div>
 </template>

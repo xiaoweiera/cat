@@ -6,12 +6,12 @@ import {waring} from '~/store/apy2/state'
 import * as api from '~/api/index'
 import * as R from 'ramda'
 import {noticType} from '~/logic/apy2/config'
-const classList= {top: 'top', announcement: 'notic', tutorial: 'study'}
+const classList= {top: 'top', announcement: 'notic', tutorial: 'study',warning:'warning'}
 const data=ref({})
 const getData=async ()=>{
   const result=await api.apy.common.announcements()
   data.value=result.data
-  waring.value=R.find(item=>item?.type==='warning',result.data)?.content
+  // waring.value=R.find(item=>item?.type==='warning',result.data)?.content
 }
 const getClass=(type:string,is_top:boolean)=>classList[is_top?'top':type]
 onMounted(getData())
@@ -19,7 +19,7 @@ onMounted(getData())
 <template>
   <div class="flex items-center w-full">
     <template  v-for="(item,i) in data">
-      <a v-router.blank="item.url" class="flex-1 flex" target="_blank" v-if="i<3" >
+      <a   v-router.blank="item.url" class="flex-1 flex" target="_blank" v-if="i<3 && data.type!=='waring'"   >
           <div class="flex items-center flex-wrap w-full justify-between  relative">
           <div class="flex items-center">
             <div :class="getClass(item.type,item.is_top)" class="hand ">
@@ -30,7 +30,7 @@ onMounted(getData())
           <div  class="mt-0.5  text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,'YYYY年M月DD日')}}</div>
         </div>
       </a>
-      <img v-if="i<2"  class="h-4 mx-6 " src="https://res.ikingdata.com/apyTwo/huiGang.png" alt="">
+      <img v-if="i<data.length"  class="h-4 mx-6 " src="https://res.ikingdata.com/apyTwo/huiGang.png" alt="">
     </template>
 
   </div>
@@ -47,6 +47,15 @@ onMounted(getData())
   }
 }
 .notic{
+  .tip{
+    border-radius: 4px;
+    @apply px-1 py-0.5 text-kd13px18px text-global-primary  bg-global-primary bg-opacity-10 font-medium;
+  }
+  .des {
+    @apply ml-1 text-kd13px18px  text-global-highTitle text-opacity-85;
+  }
+}
+.warning{
   .tip{
     border-radius: 4px;
     @apply px-1 py-0.5 text-kd13px18px text-global-primary  bg-global-primary bg-opacity-10 font-medium;

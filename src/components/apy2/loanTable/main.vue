@@ -5,11 +5,11 @@ import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
 const props=defineProps({data:Object})
 const lookChartUrl=(name:string)=>`/apy/token?symbol=${name}`
-const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400;font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
+const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
 </script>
 <template>
   <div>
-    <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
+    <el-table :header-cell-style="getHeaderClass()" align="center" header-align="center" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
       <el-table-column prop="palt" width="170px"  :label="I18n.apyIndex.plat">
         <template #default="scope">
           <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">

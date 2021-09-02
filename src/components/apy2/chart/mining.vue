@@ -33,7 +33,7 @@ onMounted(getChart())
 <template>
 <div class="w-full h-full font-kdFang top10Project">
   <div>
-    <span  class="text-kd20px24px font-medium text-global-highTitle text-opacity-85">{{I18n.apyIndex.miningChartTitle}} Top 5</span>
+    <span  class="text-kd20px24px font-medium text-global-highTitle text-opacity-85" style="font-size:20px !important;">{{I18n.apyIndex.miningChartTitle}} Top 5</span>
     <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 ml-3 text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>
   </div>
   <div class="flex items-center  mt-4">

@@ -33,7 +33,8 @@ export const searchStaticToken=[
 ]
 export const noticType={
     'announcement':I18n.apyIndex.notice,
-    'tutorial':I18n.apyIndex.tutorial
+    'tutorial':I18n.apyIndex.tutorial,
+    'warning':I18n.apyIndex.warning
 }
 export const project_type={
     Vault:'V',

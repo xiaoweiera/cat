@@ -43,20 +43,20 @@ onMounted(() => {
                       <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{ item.symbol }}</span>
                     </div>
                     <div class="flex items-center">
-                      <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'" class="mr-1  font-bold text-kd20px20px">{{ formatRulesNumber(item.apy) }}%</span>
-                      <IconFont class="text-global-highTitle text-opacity-25" size="18" type="icon-help"></IconFont>
+                      <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'" class="mr-1  font-bold text-kd20px20px font-kdExp">{{ formatRulesNumber(item.apy) }}%</span>
+                      <IconFont class="text-global-highTitle text-opacity-25" size="20" type="icon-help"></IconFont>
                     </div>
                   </div>
-                  <div class="mt-1 flex items-center flex-wrap justify-between">
+                  <div class="mt-1 flex items-center flex-wrap justify-between  ">
                     <div class="flex items-center">
-                      <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{ item.project }}</span>
+                      <span class="text-kd12px18px font-kdExp text-global-highTitle text-opacity-65">{{ item.project }}</span>
                       <img class="w-3.5 h-3.5 ml-1" :src="chainsIcon[item.chain]" alt="">
                       <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14" :type="getIconType(item.project_category)"></IconFont>
                       <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{ item.strategy_tags }}</span>
                     </div>
-                    <div v-if="item.tvl">
+                    <div v-if="item.tvl" class="h-4.5 flex items-center">
                       <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">TVL</span>
-                      <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{ formatRulesNumber(item.tvl) }}</span>
+                      <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 font-kdExp ">${{ formatRulesNumber(item.tvl) }}</span>
                     </div>
                   </div>
                 </div>

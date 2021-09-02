@@ -31,25 +31,25 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
               <div class="flex flex-col w-full ml-3 flex-wrap">
                 <div class="flex justify-between">
                   <div class="flex items-center relative">
-                    <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{I18n.apyIndex.loanCoin}}</span>
+                    <span class="text-kd12px16px font-kdExp text-global-highTitle text-opacity-65">{{I18n.apyIndex.loanCoin}}</span>
                     <img class="w-5 h-5 ml-1" :src="item.symbol_logo" alt="">
                     <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
                   </div>
                   <div>
-                    <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'"  class="mr-1 text-global-numGreen font-bold text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
+                    <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'"  class="mr-1 text-global-numGreen font-bold font-kdExp text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
                     <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
                   </div>
                 </div>
                 <div class="mt-1 flex items-center flex-wrap  justify-between">
                   <div class="flex items-center">
-                    <span class="text-kd12px18px text-global-highTitle text-opacity-65">{{item.project}}</span>
+                    <span class="text-kd12px18px text-global-highTitle text-opacity-65 font-kdExp">{{item.project}}</span>
                     <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[item.chain]"></IconFont>
                     <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
                     <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
                   </div>
-                  <div class="flex items-center">
-                    <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal">{{I18n.apyIndex.borrowMoney}}</span>
-                    <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 ">${{formatRulesNumber(item.quota_remain)}}</span>
+                  <div class="flex items-center items-center">
+                    <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal font-kdExp">{{I18n.apyIndex.borrowMoney}}</span>
+                    <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 font-kdExp ">${{formatRulesNumber(item.quota_remain)}}</span>
                   </div>
                 </div>
               </div>

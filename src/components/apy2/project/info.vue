@@ -30,8 +30,7 @@ onMounted(getData())
             <div class="text-kd28px28px font-kdExp font-bold text-global-highTitle text-opacity-85">{{ data.name }}
             </div>
             <template v-for="tip in data.category">
-              <span class="ml-2 bg-global-highTitle bg-opacity-6 rounded-kd4px px-1 py-0.5 text-global-highTitle text-kd12px14px text-opacity-45">{{ tip
-                }}</span>
+              <span class="ml-2 bg-global-highTitle bg-opacity-6 rounded-kd4px px-1 py-0.5 text-global-highTitle text-kd12px14px text-opacity-45">{{ tip }}</span>
             </template>
           </div>
           <div class="flex items-center mt-2 font-kdExp">
@@ -70,7 +69,7 @@ onMounted(getData())
               ${{ formatRulesNumber(data.tvl, false) }}
             </div>
           </div>
-          <div class="flex-1 rightBorder ml-6 ">
+          <div v-if="data.reward_cap" class="flex-1 rightBorder ml-6 ">
             <div class="titleTxt">{{I18n.apyIndex.userMoney}}</div>
             <div class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
               ${{ formatRulesNumber(data.reward_cap, false) }}
@@ -88,13 +87,13 @@ onMounted(getData())
               </span>
             </div>
           </div>
-          <div class="flex-1  ml-6 ">
+          <div  class="flex-1  ml-6 ">
             <div class="titleTxt">{{I18n.apyIndex.poolNumber}}</div>
-            <div class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
-              <span>{{ data.token_pool_length || 0 }}</span>
-              <span class="mr-3 text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">{{I18n.apyIndex.singleCoin}}</span>
-              <span>{{ data.lp_pool_length || 0 }}</span>
-              <span class="text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">LP</span>
+            <div  class="font-kdExp font-bold text-kd26px26px text-global-highTitle text-opacity-85 mt-1">
+              <span v-if="data.token_pool_length">{{ data.token_pool_length || 0 }}</span>
+              <span v-if="data.token_pool_length" class="mr-3 text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">{{I18n.apyIndex.singleCoin}}</span>
+              <span v-if="data.lp_pool_length ">{{ data.lp_pool_length || 0 }}</span>
+              <span v-if="data.lp_pool_length " class="text-kd12px18px font-medium font-kdFang text-global-highTitle ml-0.8 ">LP</span>
             </div>
           </div>
         </div>

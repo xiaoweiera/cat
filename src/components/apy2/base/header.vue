@@ -13,8 +13,9 @@ const props=defineProps({
         <img class="w-4 h-4" src="https://res.ikingdata.com/apyTwo/apply.png" alt="">
         <a v-router.blank="'http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com'" class="ml-1 font-medium ">{{I18n.apyIndex.apply}}</a>
       </div>
+
     </div>
-    <Apy2BaseInfo/>
+    <Apy2BaseInfo />
   </div>
 </template>
 <style scoped lang="postcss">

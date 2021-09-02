@@ -32,7 +32,7 @@ const tableKey= computed(function () {
 </script>
 
 <template>
-  <div class="flex items-center justify-between mb-4">
+  <div class="flex items-center justify-between mb-4 flex-wrap">
     <Apy2MiningPoolsSelectTag  :list="tagList"   class="mr-10"/>
     <div class="flex items-center" v-if="type==='mining'">
       <Apy2MiningPoolsFliter class="mr-3"  :list="typeList" />
