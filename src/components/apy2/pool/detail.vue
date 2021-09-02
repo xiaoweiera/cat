@@ -174,15 +174,9 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
         </template>
       </div>
       <div class="py-4" v-else>
-<<<<<<< HEAD
-        <div class="bg-global-numRed bg-opacity-6 p-2.5 text-global-numRed text-xs">
-          <IconFont type="icon-Warning" size="16" class="mr-3"/>
-          <span class="inline">{{I18n.apyIndex.warningDes}}</span>
-=======
         <div class="bg-global-numRed bg-opacity-6 p-2.5 text-global-numRed text-xs flex items-center">
           <IconFont type="icon-Warning" size="16" class="mr-3 flex"/>
-          <span class="inline">风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。</span>
->>>>>>> f42d7ea922a04147765e5c7c3ca1eb23f93056ad
+          <span class="inline">{{I18n.apyIndex.warningDes}}</span>
         </div>
       </div>
       <div class="border-0 border-t border-solid border-highTitle border-opacity-6">
