@@ -179,6 +179,16 @@ export interface tokenMiningPoolParam{
   page:number
   page_size:number
 }
+export interface tokenLendingPoolParam{
+  project_id:number
+  lend_symbol:string
+  loan_symbol:string
+  chain:string
+  ordering:string
+  sort:string
+  page:number
+  page_size:number
+}
 export interface calcToken{
   project:string
   chain:string

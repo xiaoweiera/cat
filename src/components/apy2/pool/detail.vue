@@ -52,7 +52,7 @@ const upDetail = async function() {
 }
 
 onMounted(upDetail)
-
+const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 
 <template>
@@ -63,9 +63,11 @@ onMounted(upDetail)
           <IconFont :type="detail.symbol_logo || 'icon-morentoken'" size="32" rounded/>
           <span class="symbol-name">{{ detail.symbol }}</span>
           <span class="mr-2">-</span>
-          <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
-          <span class="symbol-name">{{ detail.project }}</span>
-          <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
+          <a v-router.blank="projectUrl(detail.project_id)">
+            <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
+            <span class="symbol-name">{{ detail.project }}</span>
+            <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
+          </a>
           <template v-if="detail.project_category">
             <IconFont class="mr-1.5" :type="detail.project_category" size="24"/>
             <span class="label">{{ detail.project_category }}</span>
@@ -73,18 +75,17 @@ onMounted(upDetail)
         </div>
         <div class="flex item-center">
           <div class="mr-3" v-if="type === TabCategoryData.lend">
-            <UiDialogBase :chain="props.chain" :lendCoin="props.lendCoin" :loanCoin="props.loanCoin" :project_id="props.project_id" customClass="480px">
-              <template #title>
-            <span class="flex item-center py-2 px-3 rounded bg-global-primary text-global-white cursor-pointer">
-              <IconFont class="flex" type="icon-jisuanqi-xiao"/>
-              <span class="text-sm ml-1">真实2利率计算器</span>
-            </span>
-              </template>
-              <template #content>
-                <Apy2Calculator />
-              </template>
-            </UiDialogBase>
-
+<!--            <UiDialogBase :chain="props.chain" :lendCoin="props.lendCoin" :loanCoin="props.loanCoin" :project_id="props.project_id" customClass="480px">-->
+<!--              <template #title>-->
+<!--            <span class="flex item-center py-2 px-3 rounded bg-global-primary text-global-white cursor-pointer">-->
+<!--              <IconFont class="flex" type="icon-jisuanqi-xiao"/>-->
+<!--              <span class="text-sm ml-1">真实利率计算器</span>-->
+<!--            </span>-->
+<!--              </template>-->
+<!--              <template #content>-->
+<!--                <Apy2Calculator :chain="detail.chain" :project_id="detail.project_id"  />-->
+<!--              </template>-->
+<!--            </UiDialogBase>-->
           </div>
           <div class="mr-3">
             <Apy2BaseFollow class="text-global-primary py-2 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">

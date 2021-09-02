@@ -25,9 +25,8 @@ const open=()=>{
   .el-dialog__header{
     display: none;
   }
-  .el-dialog__body{
-    padding:0px !important;
-    padding-left:0px;
+  .el-dialog .el-dialog__body {
+    padding: 0px 40px 0px 0px !important;
   }
 }
 </style>

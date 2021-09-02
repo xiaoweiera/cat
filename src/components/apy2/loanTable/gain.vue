@@ -11,7 +11,7 @@ const props=defineProps({
 const getColor=computed(()=>props.value>=0?'text-global-numGreen':'text-global-numRed')
 </script>
 <template>
-  <div class="font-kdExp">
+  <div class="font-kdExp  text-center">
     <div class="flex items-center justify-center">
       <img class="w-4 h-4 mr-1" :src="logo" alt="">
         <span class="text-kd12px16px text-global-highTitle">{{name}}</span>
