@@ -51,7 +51,8 @@ param.page++
 <template>
   <div>
     <Apy2MiningPoolsHeader :hasCustom="true" :hasProject="true" :type="true" :hasChain="false" :tagList="tagList" />
-    <Apy2MiningTableMain :data="listData" class="mt-3"/>
+    <Apy2MiningTableMain v-if="listData.length>0" :data="listData" class="mt-3"/>
+    <Apy2BaseNoData v-else type="list"  class="mt-4"/>
   </div>
   <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
 </template>

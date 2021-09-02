@@ -15,7 +15,7 @@ const list=[
     des1:I18n.apyIndex.playType.plat.high,
     des2:I18n.apyIndex.playType.plat.des2,
     logo:'https://res.ikingdata.com/apyTwo/platType.png',
-    video:'https://res.ikingdata.com/apyTwo/platVideo.png',
+    video:'https://res.ikingdata.com/apyTwo/platVideo2.png',
     selectText:I18n.apyIndex.selectPlat
   },
   {
@@ -77,7 +77,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 <template>
   <div class="  font-kdFang relative flex">
     <template v-for="(item,i) in list">
-      <div   :class="i!==3?bgList[i]:'hand '+bgList[i]"  class="itemContainer ml-3 px-5 py-2.5  min-w-61.5  w-fit   rounded-kd6px" >
+      <div   :class="i!==3?bgList[i]:' '+bgList[i]"  class="itemContainer ml-3 px-5 py-2.5  min-w-61.5  w-fit   rounded-kd6px" >
         <div class="flex items-center justify-between" style="white-space: pre;">
           <div >
             <div :class="textList[i]" class="text-kd16px16px  font-medium ">{{item.title}}</div>

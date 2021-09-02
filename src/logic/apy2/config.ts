@@ -41,4 +41,4 @@ export const project_type={
     Lending:'L',
     Farm:'F'
 }
-export const chartTop=['BTC','ETH','USDC','DAI','MDX','BNB']
+export const chartTop=['BTC','ETH','USDC','DAI','MDX','BNB','CAKE','HT','OKB','MATIC','UNI']
