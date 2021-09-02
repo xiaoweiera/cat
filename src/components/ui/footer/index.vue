@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { env } from '~/lib/process'
 import { footers } from '~/logic/menu'
+import { ref } from 'vue'
+
+const weChat = ref<string>('https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo')
+const telegram = ref<string>('https://t.me/KingDataCN')
+const twitter = ref<string>('https://twitter.com/KingData_com')
+const weibo = ref<string>('https://weibo.com/u/5553600723')
 
 </script>
 
@@ -31,6 +37,13 @@ import { footers } from '~/logic/menu'
                   <template v-if="item.href">
                     <a class="menu-item text-sm hover:text-global-primary" v-router="item.href">{{ item.name }}</a>
                   </template>
+                  <template v-else-if="item.qrcode">
+                    <div class="menu-item">
+                      <UiFooterHover :href="item.qrcode" :desc="item.desc">
+                        <span class="text-sm">{{ item.name }}</span>
+                      </UiFooterHover>
+                    </div>
+                  </template>
                   <template v-else>
                     <span class="menu-item text-sm">{{ item.name }}</span>
                   </template>
@@ -51,24 +64,33 @@ import { footers } from '~/logic/menu'
               </span>
             </label>
             <div class="pt-6 w-27 menu-content">
-              <a class="block border border-solid border-global-highTitle border-opacity-25 rounded menu-item">
-                <div class="py-1.5 px-2.5 flex items-center">
-                  <IconFont class="flex" type="icon-apple" size="24"/>
-                  <div class="ml-2 whitespace-nowrap">
-                    <p class="block download"></p>
-                    <p class="block text-xs">App Store</p>
+              <div class="menu-item">
+                <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
+                  <div class="border border-solid border-global-highTitle border-opacity-25 rounded">
+                    <div class="py-1.5 px-2.5 flex items-center">
+                      <IconFont class="flex" type="icon-android" size="24"/>
+                      <div class="ml-2 whitespace-nowrap">
+                        <p class="block download"></p>
+                        <p class="block text-xs">App Store</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </a>
-              <a class="block border border-solid border-global-highTitle border-opacity-25 rounded menu-item">
-                <div class="py-1.5 px-2.5 flex items-center">
-                  <IconFont class="flex" type="icon-android" size="24"/>
-                  <div class="ml-2 whitespace-nowrap">
-                    <p class="block download"></p>
-                    <p class="block text-xs">Android</p>
+                </UiFooterHover>
+              </div>
+
+              <div class="menu-item">
+                <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
+                  <div class="border border-solid border-global-highTitle border-opacity-25 rounded">
+                    <div class="py-1.5 px-2.5 flex items-center">
+                      <IconFont class="flex" type="icon-android" size="24"/>
+                      <div class="ml-2 whitespace-nowrap">
+                        <p class="block download"></p>
+                        <p class="block text-xs">Android</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </UiFooterHover>
+              </div>
             </div>
           </li>
         </ul>
@@ -90,15 +112,28 @@ import { footers } from '~/logic/menu'
           </a>
         </div>
         <div class="flex items-center mt-5 lg:mt-0">
-          <a class="cursor-pointer" href="mailto:kingdata@jinse.com">
-            <IconFont type="icon-email" class="cursor-pointer"/>
-          </a>
-          <IconFont type="icon-telegram" class="ml-6 cursor-pointer"/>
-          <a class="inline-block ml-6" v-router.blank="'https://twitter.com/KingData_com'">
+<!--          <a class="cursor-pointer" href="mailto:kingdata@jinse.com">-->
+<!--            <IconFont type="icon-email" class="cursor-pointer"/>-->
+<!--          </a>-->
+
+          <div class="flex">
+            <UiFooterHover :href="telegram" desc="扫码加入电报群">
+              <IconFont type="icon-telegram" class="flex"/>
+            </UiFooterHover>
+          </div>
+
+
+          <a class="inline-block ml-6" v-router.blank="twitter">
             <IconFont type="icon-twitter" class="flex"/>
           </a>
-          <IconFont type="icon-wechat" class="ml-6 cursor-pointer"/>
-          <a class="inline-block ml-6" v-router.blank="'https://weibo.com/u/5553600723'">
+
+          <div class="flex ml-6">
+            <UiFooterHover :href="weChat" desc="扫码加入微信群">
+              <IconFont type="icon-wechat" class="flex"/>
+            </UiFooterHover>
+          </div>
+
+          <a class="inline-block ml-6" v-router.blank="weibo">
             <IconFont type="icon-weibo1" class="flex"/>
           </a>
         </div>

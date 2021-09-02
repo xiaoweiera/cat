@@ -6,6 +6,7 @@ export interface Menu {
   key?: string
   icon?: string
   href?: string
+  qrcode?: string // 二维码地址
   desc?: string
   query?: any // url 携带参数
   badge?: string // 提示标记
@@ -69,8 +70,12 @@ export const footers = [
         href: 'http://ikingdata.mikecrm.com/ijyjMFO'
       }, {
         name: '数据指标收录',
+        qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
+        desc: '数据指标收录'
       }, {
         name: '数据研报服务',
+        qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
+        desc: '数据研报服务'
       }, {
         name: '数据导航收录',
         href: 'https://jinshuju.net/f/ZjRZdR'

@@ -262,6 +262,11 @@ a {
   position: absolute;
 }
 
+.custom-popover {
+  min-width: 1px !important;
+  padding: 0 !important;
+}
+
 .el-dialog {
   /* 全屏的弹窗 */
   &.screen-dialog {
