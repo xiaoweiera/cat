@@ -33,10 +33,10 @@ export const footers = [
     label: 'DeFi',
     children: [
       {
-        name: '挖矿 APY',
+        name: I18n.menu.apy.mining,
         href: `${config.apy}/mining`,
       }, {
-        name: '借贷 APR',
+        name: I18n.menu.apy.loan,
         href: `${config.apy}/loan`,
       }, {
         name: I18n.nav.defi.liquidity.name, // 'DEX 聪明钱'
