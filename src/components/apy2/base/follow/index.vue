@@ -40,8 +40,10 @@ const onClick = async function() {
 
 <template>
   <span class="inline-block cursor-pointer" v-login @click.stop.prevent="onClick">
-    <IconFont class="follow-button" :class="{ 'active': active }" :type="active ? 'icon-star-xuanzhong' : 'icon-star-weixuanzhong'" size="16"/>
-    <slot></slot>
+    <span class="flex items-center">
+      <IconFont class="follow-button" :class="{ 'active': active }" :type="active ? 'icon-star-xuanzhong' : 'icon-star-weixuanzhong'" size="16"/>
+      <slot></slot>
+    </span>
   </span>
 </template>
 

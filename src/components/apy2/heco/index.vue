@@ -160,23 +160,23 @@ onMounted(ready)
   <div class="bg-global-white px-4">
     <div class="w-300 mx-auto max-w-full text-kdFang">
       <div class="text-center">
-        <h3 class="title text-global-highTitle text-opacity-85">{{ I18n.apy.heco.title }}</h3>
+        <h3 class="title text-kdExp font-medium text-global-highTitle text-opacity-85">{{ I18n.apy.heco.title }}</h3>
         <p class="description">
         <span class="item">
           <span class="sub">{{ I18n.apy.heco.description.votes }}</span>
           <span class="ml-1 text-global-highTitle text-opacity-85">
-            <span>{{ formatCash(detail.votes) }} HT</span>
+            <span class="text-kdExp leading-6">{{ formatCash(detail.votes) }} HT</span>
           </span>
         </span>
           <span class="item">
           <span class="sub">{{ I18n.apy.heco.description.voters }}</span>
           <span class="ml-1 text-global-highTitle text-opacity-85">
-            <span>{{ I18n.part(I18n.apy.heco.description.person, toInteger(detail.voters), { value: formatCash(detail.voters) }) }}</span>
+            <span class="text-kdExp leading-6">{{ I18n.part(I18n.apy.heco.description.person, toInteger(detail.voters), { value: formatCash(detail.voters) }) }}</span>
           </span>
         </span>
           <span class="item">
           <span class="sub">{{ I18n.apy.heco.description.dateEnd }}</span>
-          <span class="ml-1 text-global-highTitle text-opacity-85">
+          <span class="ml-1 text-global-highTitle text-opacity-85 text-kdExp leading-6">
             <TimeCountdown :value="countTimeValue" @change="watchCountTime">
               <template #default="date">{{ date.hour }} : {{ date.minute }} : {{ date.second }}</template>
             </TimeCountdown>
@@ -219,8 +219,13 @@ onMounted(ready)
                   <Apy2HecoProject :data="scope.row"/>
                 </template>
                 <template v-else-if="item.render" #default="scope">
-                  <div :class="item.className">
-                    <span>{{ item.render(scope.row, item.key) }}</span>
+                  <div class="text-sm text-global-highTitle">
+                    <span class="text-kdExp leading-6" :class="item.className">{{ item.render(scope.row, item.key) }}</span>
+                  </div>
+                </template>
+                <template v-else #default="scope">
+                  <div class="text-sm text-global-highTitle">
+                    <span class="text-kdExp leading-6" :class="item.className">{{ scope.row[item.key] }}</span>
                   </div>
                 </template>
               </el-table-column>
@@ -246,8 +251,13 @@ onMounted(ready)
             <template v-for="(item, index) in mobileHeader" :key="index">
               <el-table-column :min-width="item.width" :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
                 <template v-if="item.render" #default="scope">
-                  <div class="whitespace-nowrap" :class="item.className">
-                    <span class="inline-block">{{ item.render(scope.row, item.key) }}</span>
+                  <div class="text-sm text-global-highTitle">
+                    <span class="text-kdExp leading-6" :class="item.className">{{ item.render(scope.row, item.key) }}</span>
+                  </div>
+                </template>
+                <template v-else #default="scope">
+                  <div class="text-sm text-global-highTitle">
+                    <span class="text-kdExp leading-6" :class="item.className">{{ scope.row[item.key] }}</span>
                   </div>
                 </template>
               </el-table-column>
@@ -265,9 +275,9 @@ onMounted(ready)
         </div>
       </div>
 
-      <div class="pt-4 pb-15">
+      <div class="pt-4 pb-16">
         <h4 class="text-base text-global-highTitle">{{ I18n.apy.heco.note.label }}:</h4>
-        <p class="pt-1.5 text-xs whitespace-pre-wrap text-global-default text-opacity-85">
+        <p class="pt-1.5 text-sm leading-5 whitespace-pre-wrap text-global-default text-opacity-85">
           <span class="block" v-for="(value, index) in I18n.apy.heco.note.texts" :key="index">{{ value }}</span>
         </p>
       </div>
@@ -282,7 +292,7 @@ onMounted(ready)
 }
 h3.title {
   font-size: 2rem;
-  @apply pt-10 pb-6;
+  @apply pt-12 pb-6 leading-8;
 }
 .description {
   @apply text-sm text-global-default text-opacity-65 flex items-center justify-around;

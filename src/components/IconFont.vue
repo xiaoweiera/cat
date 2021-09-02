@@ -252,10 +252,12 @@ i {
 }
 
 .border {
+  /*
   @apply border border-solid border-global-border;
   &.circle {
     border-radius: 50%;
   }
+  */
 }
 
 </style>
