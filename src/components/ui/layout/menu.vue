@@ -19,12 +19,18 @@ defineProps({
       <slot name="menu"></slot>
     </div>
     <div class="layout-main-box" :style="{'marginLeft': `${menuWidth}px`}">
-      <slot name="content"></slot>
+      <div class="leftBorder ml-8">
+        <slot name="content"></slot>
+      </div>
+
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.leftBorder{
+  border-left: 1px solid rgba(3, 54, 102, 0.06);
+}
 .layout-main {
   @apply w-full;
   .menu-main {

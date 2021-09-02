@@ -77,9 +77,9 @@ onMounted(function() {
         <IconFont :type="detail.icon ? detail.icon : 'icon-morentoken'" size="40" rounded/>
         <b class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
         <span class="ml-4 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
-        <span class="ml-2 bg-global-numRed inline-block py-0.5 px-1 rounded">
-          <span class="text-base text-global-white">{{ toNumber(detail.change) }}%</span>
-        </span>
+        <div class="ml-2 bg-global-numRed flex items-center  pt-0.5 px-1 font-kdExp rounded">
+          <div style="font-size: 16px;" class="text-global-white flex items-center">{{ toNumber(detail.change) }}%</div>
+        </div>
       </div>
 
       <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1" :class="{ 'hidden': category.length <= 1  }">

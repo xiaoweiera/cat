@@ -61,7 +61,7 @@ const onChange = function(data: any) {
   <div>
     <div class="flex justify-between items-center">
       <p class="flex-1 w-1">
-        <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-xl">APY TOP 10</span>
+        <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-kd18px24px">APY TOP 10</span>
 <!--        <span class="inline-block leading-6 ml-1.5 text-xs text-global-highTitle text-opacity-45">更新时间：1分钟前</span>-->
       </p>
       <div class="ml-5">

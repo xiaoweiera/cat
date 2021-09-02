@@ -92,10 +92,10 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
             <img class=" min-w-12 min-h-12 w-12 h-12 " :src="item.logo" alt="">
             <!--            <div class="invisible text-kd10px10px  font-medium  mt-1">撑高度</div>-->
           </div>
-          <a  href="/" class=" vido hand  text-center  ml-5  flex flex-col items-center" >
+          <div  href="/" class=" vido   text-center  ml-5  flex flex-col items-center" >
             <img class="min-w-10 w-10 h-10 mx-1 my-1 " :src="item.video" alt="">
             <!--            <div :class="textList[i]" class="text-kd10px10px  relative z-10 font-medium  mt-1.5">相关资料</div>-->
-          </a>
+          </div>
         </div>
         <!-- 下拉 -->
         <div  :class="bgList[i]"  class="confirm   pb-4 pt-4   ">

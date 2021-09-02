@@ -23,7 +23,7 @@ onMounted(getData())
       <div class="flex items-center relative">
         <div class="relative">
           <IconFont v-if="data.new" class="absolute" size="30" type="icon-NEW"/>
-          <IconFont size="60" :type="data.logo || 'icon-morentoken'"/>
+          <IconFont rounded border  size="60" :type="data.logo || 'icon-morentoken'"/>
         </div>
         <div class="ml-3">
           <div class="flex items-center">
@@ -38,23 +38,23 @@ onMounted(getData())
             <span class="mr-1 text-global-highTitle text-kd14px18px">{{ data.platform_token }}</span>
             <span class="mr-1 text-global-highTitle text-kd14px18px">${{ formatRulesNumber(data.platform_token_price) }}</span>
             <!--            <span class="bg-global-numRed  bg-opacity-20 rounded-kd4px px-1 py-0.5 text-kd12px14px text-global-numRed">-3.23%</span>-->
-            <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
-            <a class="text-global-primary flex items-center font-kdExp hand" :href="data.project_url" target="_blank">
+            <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2 w-0.25 " type="icon-gang"/>
+            <a class="text-global-primary flex items-center font-kdExp ml-4 hand" :href="data.project_url" target="_blank">
               <IconFont class="mr-1" size="20" type="icon-link"/>
               <a v-router.blank="data.project_url" class="text-kd14px18px">{{I18n.apyIndex.comLink}}</a>
             </a>
             <div class="flex items-center" v-if="data.safety">
-              <IconFont class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
-              <div class="text-global-primary flex items-center">
+              <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2 w-0.25" type="icon-gang"/>
+              <div class="text-global-primary flex items-center ml-4">
                 <div v-if="data.safety.length>0" class="flex items-center ">
                   <IconFont class="mr-2" size="20" type="icon-shenji"/>
                   <template v-for="item in data.safety">
-                    <a v-router.blank="item.link" class="text-global-primary mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item.department }}</a>
+                    <a v-router.blank="item.link" class="text-global-primary  mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item.department }}</a>
                   </template>
                 </div>
                 <div v-else class="flex items-center ">
-                  <IconFont class="mr-2" size="20" type="icon-weishenji"/>
-                  <span class="text-global-numRed">{{I18n.apyIndex.unaudited}}</span>
+                  <IconFont class="mr-1" size="20" type="icon-weishenji"/>
+                  <span class="text-global-numRed  text-kd14px18px">{{I18n.apyIndex.unaudited}}</span>
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@ onMounted(getData())
         </div>
       </div>
       <!-- 项目描述-->
-      <div class="font-kdFang text-kd14px18px py-4 bottomBorder">
+      <div class="font-kdFang text-kd14px22px py-4 bottomBorder">
         <div class="text-global-highTitle text-opacity-65">{{I18n.apyIndex.projectDes}}</div>
         <div class="text-global-highTitle mt-1">{{ data.project_description || '-' }}</div>
       </div>

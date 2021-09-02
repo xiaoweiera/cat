@@ -2,7 +2,7 @@ export default{
     title:'DeFi Farm APY List',
     apply:'Apply',
     miningTitle:'DeFi Farm APY List',
-    loanTitle:'发现优质矿池 APR',
+    loanTitle:'Find High-quality Farming Pool APR',
     platDes:'{chain} public chains, {project} projects, {pool} pools, the most comprehensive collection, support for cross-chain comparison, historical trends, APP reminder',
     allChain:'All',
     chain:'Chain',
@@ -22,13 +22,13 @@ export default{
         },
         coin:{
             title:'I have tokens',
-            des1:'Platform with the',
+            des1:'Project with the',
             high:'highest',
             des2:'APY'
         },
         loan:{
             title:'I want to borrow',
-            des1:'Platform with the',
+            des1:'Project with the',
             high:'lowest',
             des2:'APY'
         }
