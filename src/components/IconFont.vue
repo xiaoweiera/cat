@@ -81,7 +81,12 @@ const props = defineProps({
       return false
     }
   },
-
+  border: {
+    type: Boolean,
+    default () {
+      return false
+    }
+  }
 })
 // @ts-ignore
 const src = computed<string>(() => {
@@ -155,7 +160,7 @@ const fontSize = computed<string>(function(): string {
 </script>
 
 <template>
-  <span class="inline-block none-select icon-font" v-if="isAliOSS">
+  <span v-if="isAliOSS" class="none-select icon-font" :class="{'border': border, 'circle': rounded}">
     <template v-if="isHttp(type)">
       <img class="inline-block none-select" :class="fontSize" :src="src"/>
     </template>
@@ -163,25 +168,31 @@ const fontSize = computed<string>(function(): string {
       <img class="inline-block none-select" :class="`icon-${type} ${fontSize}`" :src="src"/>
     </template>
   </span>
-  <i class="icon-font inline-block" :class="fontSize" v-else>
-    <svg aria-hidden="true" v-html="iconCode()"></svg>
-  </i>
+  <span v-else class="inline-block" :class="{'border': border, 'circle': rounded}">
+    <i class="icon-font flex" :class="fontSize">
+      <svg aria-hidden="true" v-html="iconCode()"></svg>
+    </i>
+  </span>
 </template>
 
 <style lang="scss">
 .icon-font{
   display: inline-block;
-  font-style: normal;
-  line-height: 0;
-  text-transform: none;
-  vertical-align: -.125em;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  fill: currentColor;
-  overflow: hidden;
-  & > svg {
-    width: 1em;
-    height: 1em;
+}
+i {
+  &.icon-font {
+    font-style: normal;
+    line-height: 0;
+    text-transform: none;
+    vertical-align: -.125em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    fill: currentColor;
+    overflow: hidden;
+    & > svg {
+      width: 1em;
+      height: 1em;
+    }
   }
 }
 </style>
@@ -217,33 +228,6 @@ const fontSize = computed<string>(function(): string {
   }
 }
 /*
-.size-4xl {
-  @include size(42px);
-}
-
-.size-3xl {
-  @include size(32px);
-}
-
-.size-2xl {
-  @include size(24px);
-}
-.size-xl {
-  &:not(.icon-new) {
-    @include size(20px);
-  }
-}
-.size-base {
-  @include size(16px);
-}
-.size-xs {
-  @include size(12px);
-}
-.size-mini {
-  @include size(10px);
-}
-*/
-/*
   快速生成一批尺寸 6，8，10,,,60
 */
 @for $index from 6 through 60 {
@@ -253,7 +237,6 @@ const fontSize = computed<string>(function(): string {
     }
   }
 }
-
 
 .icon-loading {
   transform-origin: 50% 50%;
@@ -267,4 +250,12 @@ const fontSize = computed<string>(function(): string {
 .icon-plus {
   @include size(42px);
 }
+
+.border {
+  @apply border border-solid border-global-border;
+  &.circle {
+    border-radius: 50%;
+  }
+}
+
 </style>

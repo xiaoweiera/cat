@@ -20,27 +20,27 @@ defineProps({
           <template #reference>
             <div class="h-18.5 flex items-center w-full cursor-pointer" :class="{'new-30': data.new }">
               <div class="pl-4 pr-2 text-kdFang w-full">
-                <div>
+                <div class="flex">
                   <template v-if="toNumber(data.apy) > 0">
-                    <span class="text-global-numGreen font-bold text-xl">{{ toNumber(data.apy) }}%</span>
+                    <span class="text-kdExp text-global-numGreen font-bold text-xl leading-5">{{ toNumber(data.apy) }}%</span>
                   </template>
                   <template v-else>
-                    <span class="text-global-numRed font-bold text-xl">{{ toNumber(data.apy) }}%</span>
+                    <span class="text-kdExp text-global-numRed font-bold text-xl">{{ toNumber(data.apy) }}%</span>
                   </template>
-                  <span class="ml-1 text-xs text-global-highTitle text-opacity-45" v-if="toInteger(data.lever) > 0">{{ toInteger(data.lever) }}X</span>
+                  <span class="text-kdExp ml-1 text-xs text-global-highTitle text-opacity-45" v-if="toInteger(data.lever) > 0">{{ toInteger(data.lever) }}X</span>
                 </div>
-                <div class="text-xs mt-1">
+                <div class="text-xs leading-3 mt-1">
                   <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>
                   <span class="text-global-highTitle text-opacity-45 ml-1">TVL:</span>
-                  <span class="text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.tvl) }}</span>
+                  <span class="text-kdExp text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.tvl) }}</span>
                 </div>
-                <div class="text-xs mt-1 flex justify-between">
+                <div class="text-xs flex justify-between mt-1">
                   <div class="flex items-center">
                     <IconFont :type="data.chain" size="14"/>
                     <IconFont :type="data.project_category" size="14" class="ml-1"/>
                     <span class="inline-block bg-global-highTitle bg-opacity-6 py-0.5 px-1 rounded ml-1" v-if="data.strategy_tags">
-                    <span class="text-global-highTitle text-opacity-45 ml-1">{{ data.strategy_tags }}</span>
-                  </span>
+                      <span class="text-global-highTitle text-opacity-45 text-xs leading-3.5">{{ data.strategy_tags }}</span>
+                    </span>
                   </div>
                   <div class="text-global-highTitle text-opacity-25">
                     <IconFont v-if="data.warining_info" type="icon-info2" size="16"/>

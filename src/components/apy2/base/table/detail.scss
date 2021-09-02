@@ -8,8 +8,8 @@
       @apply mt-0;
     }
   }
-  .label {
-    @apply text-xs text-global-highTitle text-opacity-45;
+  .apy-label {
+    @apply text-xs text-global-highTitle text-opacity-45 min-w-10;
   }
   .dot {
     @apply relative pl-5.5;

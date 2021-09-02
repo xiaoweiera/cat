@@ -240,6 +240,10 @@ a {
   padding: 0 !important;
 }
 
+.leading-3\.5 {
+  line-height: 0.875rem;
+}
+
 .w-fit {
   width: fit-content;
 }

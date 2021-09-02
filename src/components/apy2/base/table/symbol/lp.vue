@@ -28,8 +28,9 @@ const href = computed(function() {
 
 <template>
   <a v-if="data" class="h-18.5 symbol-item px-2.5 flex items-center text-kdFang" v-router.blank="href">
-    <div>
-      <IconFont :class="{'new-16': data.new }" :type="data.symbol_logo ? data.symbol_logo : 'icon-morentoken'" size="32"/>
+    <div class="flex">
+      <IconFont class="lp-token" :class="{'new-16': data.new }" :type="data.symbol_logo ? data.symbol_logo : 'icon-morentoken'" size="32" rounded border/>
+      <IconFont class="lp-child" :class="{'new-16': data.new }" :type="data.symbol_logo ? data.symbol_logo : 'icon-morentoken'" size="24" rounded border/>
     </div>
     <div class="ml-2 flex-1 flex justify-between items-center">
       <div class="flex-1 w-1 items-center flex">
@@ -56,6 +57,18 @@ const href = computed(function() {
 .lp-follow {
   @at-root .children &{
     @apply hidden;
+  }
+}
+.lp-token {
+  @apply flex;
+  @at-root .children & {
+    @apply hidden;
+  }
+}
+.lp-child {
+  @apply hidden;
+  @at-root .children & {
+    @apply flex;
   }
 }
 </style>
