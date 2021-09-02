@@ -9,7 +9,7 @@ import { getTableExpandList, getTableList } from '~/logic/apy2/table'
 import DBList from '@fengqiaogang/dblist'
 import safeSet from '@fengqiaogang/safe-set'
 import { SymbolType, TabCategoryData } from '~/logic/apy2/interface'
-
+import I18n from '~/utils/i18n/index'
 const db = new DBList([], 'uuid', 'pid')
 
 const props = defineProps({
@@ -187,7 +187,7 @@ const reload = function() {
       </div>
       <div class="flex-1 text-center" v-if="nextStatus">
         <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">
-          <span class="text-sm text-global-highTitle bg-opacity-65">加载更多</span>
+          <span class="text-sm text-global-highTitle bg-opacity-65">{{I18n.apyIndex.more}}</span>
         </span>
       </div>
     </div>

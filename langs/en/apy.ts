@@ -151,7 +151,7 @@ export default {
     },
     token: {
         mining: 'Farm APY',
-        lend: 'Interest APY',
+        lend: 'Borrow APR',
         search: 'Search',
         pool: {
             add: 'Add pools',
