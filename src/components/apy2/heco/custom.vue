@@ -64,7 +64,7 @@ onMounted(updateTrendsData)
       </div>
       <div class="flex items-center text-global-highTitle text-opacity-45">
         <span class="text-xs mr-4">更新时间: {{ updateTime }}</span>
-        <EchartsDownload title="下载"/>
+        <UiDownloadButton :title="active" size="16"/>
       </div>
     </div>
     <div class="h-52.5" :key="echartKey" v-if="chartData.xAxis && chartData.xAxis.length > 0">

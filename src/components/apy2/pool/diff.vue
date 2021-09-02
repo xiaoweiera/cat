@@ -53,11 +53,11 @@ watchState(dataEventName.value, upData)
     <el-header height="initial" class="p-0">
       <div class="flex justify-between items-center">
         <div>
-          <span class="text-sm text-global-highTitle text-opacity-85">{{ title }}</span>
+          <span class="text-sm leading-5 font-medium text-global-highTitle text-opacity-85">{{ title }}</span>
         </div>
         <div class="flex items-center">
           <slot></slot>
-          <EchartsDownload class="ml-3" :title="title"/>
+          <UiDownloadButton class="ml-3" :title="title" size="16"/>
         </div>
       </div>
     </el-header>

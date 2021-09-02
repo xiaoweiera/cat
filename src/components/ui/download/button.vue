@@ -11,6 +11,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  size: {
+    type: Number,
+    default: () => 24
+  }
 })
 
 const getDownloadContent = getInject('downloadContent')
@@ -81,7 +85,7 @@ const onDownload = async (event: Event) => {
 <template>
   <div class="inline-block" @click="onDownload($event)">
     <slot>
-      <IconFont class="flex cursor-pointer" type="icon-xiazai" size="20"/>
+      <IconFont class="flex cursor-pointer" type="icon-xiazai" :size="size"/>
     </slot>
   </div>
 </template>

@@ -20,7 +20,7 @@ export const makeSvg = function(type: seriesType, color?: string) {
   if (color) {
     style = `color: ${color}`
   }
-  return `<span class="icon-font inline-block text-base" style="${style}">${svg}</span>`
+  return `<i class="icon-font inline-block text-base" style="${style}">${svg}</i>`
 }
 
 export const clacLegendBoxWidth = function(legends: LegendItem[]): number {

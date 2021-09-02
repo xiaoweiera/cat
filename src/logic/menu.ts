@@ -33,10 +33,10 @@ export const footers = [
     label: 'DeFi',
     children: [
       {
-        name: '挖矿 APY',
+        name: I18n.menu.apy.mining,
         href: `${config.apy}/mining`,
       }, {
-        name: '借贷 APR',
+        name: I18n.menu.apy.loan,
         href: `${config.apy}/loan`,
       }, {
         name: I18n.nav.defi.liquidity.name, // 'DEX 聪明钱'
@@ -126,41 +126,41 @@ export const headers = [
     href: `${config.apy}/mining`,
     children: [
       {
-        name: '挖矿 APY',
+        name: I18n.menu.apy.mining, // '挖矿 APY',
         href: `${config.apy}/mining`,
         icon: 'icon-apy',
-        desc: '快速发现高收益矿池',
+        desc: I18n.menu.desc.apy.mining,
         more: true,
         header: true
       },
       {
-        name: '借贷 APR',
+        name: I18n.menu.apy.loan,// '借贷 APR',
         href: `${config.apy}/loan`,
-        desc: '找到抵押借贷最佳路径',
+        desc: I18n.menu.desc.apy.loan,
         icon: 'icon-APR',
         more: true,
         header: true
       },
       {
-        name: '项目 APY 分析',
+        name: I18n.menu.apy.project, // '项目 APY 分析'
         href: `${config.apy}/project`,
-        desc: '项目自身、池子数据',
+        desc: I18n.menu.desc.apy.project,
         icon: 'icon-xiangmu',
         more: true,
         header: true
       },
       {
-        name: '币种 APY 分析',
+        name: I18n.menu.apy.token, // '币种 APY 分析'
         href: `${config.apy}/token`,
-        desc: '币种相关存借信息',
+        desc: I18n.menu.desc.apy.token,
         icon: 'icon-bizhong',
         more: true,
         header: true
       },
       {
-        name: 'HECO 节点 APY',
+        name: I18n.menu.apy.heco, // 'HECO 节点 APY'
         href: `${config.apy}/heco`,
-        desc: 'HECO节点竞选APY',
+        desc: I18n.menu.desc.apy.heco,
         icon: 'icon-heco',
         more: true,
         header: true

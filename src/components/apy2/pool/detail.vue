@@ -61,11 +61,11 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
       <div class="flex item-center justify-between">
         <div class="flex items-center">
           <IconFont :type="detail.symbol_logo || 'icon-morentoken'" size="32" rounded/>
-          <span class="symbol-name">{{ detail.symbol }}</span>
+          <span class="symbol-name font-semibold text-kdExp">{{ detail.symbol }}</span>
           <span class="mr-2">-</span>
-          <a v-router.blank="projectUrl(detail.project_id)">
+          <a class="flex items-center" v-router.blank="projectUrl(detail.project_id)">
             <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
-            <span class="symbol-name">{{ detail.project }}</span>
+            <span class="symbol-name font-semibold text-kdExp">{{ detail.project }}</span>
             <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
           </a>
           <template v-if="detail.project_category">
@@ -88,40 +88,42 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 <!--            </UiDialogBase>-->
           </div>
           <div class="mr-3">
-            <Apy2BaseFollow class="text-global-primary py-2 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
-              <span class="text-sm ml-1.5">添加自选</span>
+            <Apy2BaseFollow class="text-global-primary flex items-center h-8.5 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
+              <span class="text-sm ml-1.5 text-sm leading-4">添加自选</span>
             </Apy2BaseFollow>
           </div>
           <div>
-            <a v-router.blank="detail.project_url" class="cursor-pointer inline-block py-2 px-7.5 rounded border border-global-primary border-opacity-32">
-              <span class="text-global-primary text-sm">去借贷</span>
+            <a v-router.blank="detail.project_url" class="cursor-pointer flex items-center  h-8.5 px-7.5 rounded border border-global-primary border-opacity-32">
+              <span class="text-global-primary text-sm leading-4">去借贷</span>
             </a>
           </div>
         </div>
       </div>
       <div class="flex items-center mt-5 text-xs" v-if="type === TabCategoryData.mining">
-        <div class="whitespace-nowrap self-end">
-          <span class="text-global-highTitle text-opacity-45">收益率</span>
-          <span class="text-global-numGreen text-4xl ml-1.5">{{ toNumber(detail.apy) }}%</span>
+        <div class="whitespace-nowrap flex items-end">
+          <span class="text-global-highTitle text-xs leading-5 text-opacity-45">收益率</span>
+          <span class="text-kdExp flex text-global-numGreen text-4xl leading-9 ml-1.5">
+            <span class="font-semibold">{{ toNumber(detail.apy) }}%</span>
+          </span>
         </div>
         <div class="split"></div>
         <div>
-          <div class="whitespace-nowrap">
+          <div class="whitespace-nowrap text-xs">
             <span class="text-global-highTitle text-opacity-45">TVL: </span>
-            <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.tvl) }}</span>
+            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ toNumber(detail.tvl) }}</span>
           </div>
           <div class="whitespace-nowrap mt-2">
             <span class="text-global-highTitle text-opacity-45">可投额度: </span>
-            <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.quota_remain) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
+            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ toNumber(detail.quota_remain) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
           </div>
         </div>
         <div class="split"></div>
         <div>
-          <div class="whitespace-nowrap">
+          <div class="whitespace-nowrap text-xs">
             <span class="text-global-highTitle text-opacity-45">单利: </span>
             <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.single_apy) }}</span>
           </div>
-          <div class="whitespace-nowrap mt-2">
+          <div class="whitespace-nowrap mt-2 text-xs">
             <span class="text-global-highTitle text-opacity-45">复利: </span>
             <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.compound_apy) }}</span>
           </div>
@@ -139,19 +141,21 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
       </div>
 
       <div class="flex items-center mt-5 text-xs" v-else-if="type === TabCategoryData.lend">
-        <div class="whitespace-nowrap self-end">
-          <span class="text-global-highTitle text-opacity-45">利息</span>
-          <span class="text-global-numGreen text-4xl ml-1.5">{{ toNumber(detail.apy) }}%</span>
+        <div class="whitespace-nowrap flex items-end">
+          <span class="text-global-highTitle text-xs leading-5 text-opacity-45">利息</span>
+          <span class="text-kdExp flex text-global-numGreen text-4xl leading-9 ml-1.5">
+            <span class="font-semibold">{{ toNumber(detail.apy) }}%</span>
+          </span>
         </div>
         <div class="split"></div>
         <div>
-          <div class="whitespace-nowrap mt-2">
+          <div class="whitespace-nowrap text-xs">
             <span class="text-global-highTitle text-opacity-45">可借额度: </span>
-            <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.quota_remain) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
+            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ toNumber(detail.quota_remain) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
           </div>
         </div>
         <div class="split"></div>
-        <div>
+        <div class="text-xs">
           <div class="whitespace-nowrap">
             <span class="text-global-highTitle text-opacity-45">利率构成</span>
           </div>
@@ -170,9 +174,15 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
         </template>
       </div>
       <div class="py-4" v-else>
+<<<<<<< HEAD
         <div class="bg-global-numRed bg-opacity-6 p-2.5 text-global-numRed text-xs">
           <IconFont type="icon-Warning" size="16" class="mr-3"/>
           <span class="inline">{{I18n.apyIndex.warningDes}}</span>
+=======
+        <div class="bg-global-numRed bg-opacity-6 p-2.5 text-global-numRed text-xs flex items-center">
+          <IconFont type="icon-Warning" size="16" class="mr-3 flex"/>
+          <span class="inline">风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。</span>
+>>>>>>> f42d7ea922a04147765e5c7c3ca1eb23f93056ad
         </div>
       </div>
       <div class="border-0 border-t border-solid border-highTitle border-opacity-6">
@@ -205,7 +215,7 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
   </el-container>
 </template>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 
 .calc{
   .el-dialog__body{
