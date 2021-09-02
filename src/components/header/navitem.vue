@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
 import { current } from '~/utils/lang'
-import { toNumber } from '~/utils/index'
+import { toNumber } from '~/utils'
 const props = defineProps({
   list: {
     type: Array,

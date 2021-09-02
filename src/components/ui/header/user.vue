@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import I18n from '~/utils/i18n/index'
 import { href, nextLang } from '~/utils/lang'
-const download = 'https://www.kingdata.com/download'
+import { env } from '~/lib/process'
 
 const onSwitchLang = function() {
   const url = href(window.location.href, nextLang())
@@ -20,13 +20,13 @@ const onSwitchLang = function() {
       <span class="ml-1.5 inline-block whitespace-nowrap">{{ I18n.common.lang }}</span>
     </span>
 
-    <span class="split">|</span>
+    <span class="split hidden lg:inline-block">|</span>
 
-    <a v-router.blank="download" class="inline-block">
+    <a v-router.blank="env.appDownload" class="hidden lg:inline-block">
       <span class="inline-block whitespace-nowrap">{{I18n.common.nav.download }}</span>
     </a>
 
-    <span class="split">|</span>
+    <span class="split inline-block">|</span>
 
     <!-- 登录/注册 -->
     <HeaderLogin></HeaderLogin>
@@ -40,6 +40,6 @@ const onSwitchLang = function() {
 
 <style scoped lang="scss">
 .split {
-  @apply inline-block mx-4 text-white text-opacity-65;
+  @apply mx-4 text-white text-opacity-65;
 }
 </style>

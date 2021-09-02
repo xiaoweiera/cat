@@ -85,11 +85,16 @@ const isShowSub = computed<boolean>(function(): boolean{
 <template>
   <div class="ui-header" :class="{'sub-header': isShowSub}">
     <div class="bg-global-darkblue px-6 flex justify-between fixed top-0 left-0 right-0 z-1000">
-      <div class="flex items-center">
-        <a class="inline-block" v-router="env.dashboard">
+      <div class="flex items-center ui-header-menu">
+        <!-- 移动端导航 -->
+        <UiHeaderMobile class="mr-4 block lg:hidden" :menus="menus"/>
+
+        <a class="inline-block select-none" v-router="env.dashboard">
           <img class="min-w-28" src="https://res.ikingdata.com/common/logo-white.svg">
         </a>
-        <div class="ml-10 ui-header-menu">
+
+        <!-- PC端导航 -->
+        <div class="ml-10 h-full hidden lg:block">
           <!-- 导航菜单 -->
           <UiHeaderMenu class="pt-2.5 h-full" :menus="menus"/>
         </div>
@@ -111,8 +116,10 @@ const isShowSub = computed<boolean>(function(): boolean{
 /* 设置导航高度 */
 @mixin mainHeaderSpace ($height) {
   height: $height;
+  .top-header {
+    top: $height;
+  }
   & ~ main {
-    --ui-header-height: $height;
     .top-header {
       top: $height;
     }
@@ -122,9 +129,6 @@ const isShowSub = computed<boolean>(function(): boolean{
 .ui-header {
   $height: 60px;
   $subHeight: 50px;
-  .extend {
-    @apply hidden;
-  }
 
   .ui-header-menu {
     height: $height;
@@ -133,10 +137,16 @@ const isShowSub = computed<boolean>(function(): boolean{
     height: $subHeight;
   }
   @include mainHeaderSpace($height);
-  &.sub-header {
-    @include mainHeaderSpace($height + $subHeight);
-    .extend {
-      @apply block;
+
+  .extend {
+    @apply hidden;
+  }
+  @screen lg {
+    &.sub-header {
+      @include mainHeaderSpace($height + $subHeight);
+      .extend {
+        @apply block;
+      }
     }
   }
 }

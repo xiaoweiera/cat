@@ -23,7 +23,7 @@ const moreData = reactive<object>({
       <!-- 更多菜单 -->
       <UiHeaderMenucontent class="wrap-menu-item menu-more" :data="moreData">
         <template #label>
-          <span class="px-1.5 flex items-center">
+          <span class="px-1.5 flex">
             <IconFont class="flex" type="icon-gengduo1" size="24"></IconFont>
           </span>
         </template>
