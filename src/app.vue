@@ -47,6 +47,11 @@ useHead({
 body {
   -webkit-overflow-scrolling: touch;
 }
+
+.overflow-init {
+  overflow: inherit !important;
+}
+
 .el-loading-spinner .circular{
   display: inline !important;
 }

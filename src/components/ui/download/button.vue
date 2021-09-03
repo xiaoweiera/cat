@@ -33,18 +33,20 @@ const searchDom = function(dom?: HTMLElement, tagName?: string): any {
 }
 
 const getDom = function(event: Event) {
-  if (getDownloadContent) {
-    const [ app ] = getDownloadContent.value
-    if (app && isFunction(app)) {
-      return app()
-    }
-  }
+  // if (getDownloadContent) {
+  //   const [ app ] = getDownloadContent.value
+  //   if (app && isFunction(app)) {
+  //     return app()
+  //   }
+  // }
   const target: any = event.target
+  // const result = searchDom(target, 'canvas')
+  // if (result) {
+  //   const [, root] = result
+  //   return root
+  // }
   const result = searchDom(target, 'canvas')
-  if (result) {
-    const [, root] = result
-    return root
-  }
+  return result[0]
 }
 
 const head = function() {

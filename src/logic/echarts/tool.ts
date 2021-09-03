@@ -39,12 +39,16 @@ export const valueFormatter = function(data: SeriesItem): string {
   if (isNumber(data) || isString(data)) {
     data = { value: data } as any
   }
-  let value = '-'
-  if (data.value && isNumber(data.value)) {
-    if (data.origin && isNumber(data.origin)) {
-      value = numberUint(data.origin as number)
+  let value: any = '-'
+  if (data.value) {
+    if (isNumber(data.value)) {
+      if (data.origin && isNumber(data.origin)) {
+        value = numberUint(data.origin as number)
+      } else {
+        value = numberUint(data.value as number)
+      }
     } else {
-      value = numberUint(data.value as number)
+      value = data.value
     }
   }
   if (data.unit) {

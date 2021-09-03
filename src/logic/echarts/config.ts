@@ -90,9 +90,12 @@ export const getLegend = function(list: LegendItem[], yAxisData: any[], props: a
         Object.assign(opt, { itemStyle })
       }
       if (item.position === Position.right) {
-        const yAxis = getYAxisValue(Position.right)
-        const color = safeGet(yAxis, 'axisLabel.textStyle.color')
-        safeSet(opt, 'itemStyle.color', color)
+        const autoColor = safeGet(item, 'itemStyle.color')
+        if (!autoColor) {
+          const yAxis = getYAxisValue(Position.right)
+          const color = safeGet(yAxis, 'axisLabel.textStyle.color')
+          safeSet(opt, 'itemStyle.color', color)
+        }
       }
       return opt
     }
@@ -268,8 +271,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
       },
       symbol: 'none',
     }
-    safeSet(option, 'itemStyle.color', data.itemStyle.color)
-
+    safeSet(option, 'itemStyle.color', safeGet<string>(data, 'itemStyle.color'))
 
     if (data.type === seriesType.line) {
       // 线条平滑处理
@@ -285,9 +287,12 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
     }
     // 使用 Y 轴刻度为坐标参照时
     if (data.index === 1) {
-      // 获取颜色
-      const color = safeGet(yAxisOption, '[1].axisLabel.textStyle.color')
-      safeSet(option, 'itemStyle.color', color)
+      const autoColor = safeGet<string>(data, 'itemStyle.color')
+      if (!autoColor) {
+        // 获取Y轴颜色
+        const color = safeGet(yAxisOption, '[1].axisLabel.textStyle.color')
+        safeSet(option, 'itemStyle.color', color)
+      }
     }
     if (data.type === seriesType.bar) {
       // 柱状图最大宽度

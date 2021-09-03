@@ -41,6 +41,7 @@ const upData = async function(date: any) {
     echartData.legends = result.legends
     echartData.xAxis = result.xAxis
     echartData.series = result.series
+    echartData.yAxis = result.yAxis
   }
 }
 
@@ -60,18 +61,18 @@ watchState(dataEventName.value, upData)
         </div>
       </div>
     </el-header>
-    <el-main class="p-0">
+    <el-main class="p-0 overflow-init">
       <template v-if="echartData.xAxis && echartData.xAxis.length > 0">
         <Echarts :key="echartData.key">
           <!-- 提示框 trigger: 触发方式 -->
           <EchartsTooltip trigger="axis" :formatter="chartFormatter"/>
 
           <template v-for="(item, index) in echartData.legends" :key="index">
-            <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+            <EchartsLegend :index="index" :value="item.name" :color="item.color" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
           </template>
 
-          <EchartsYaxis :index="0" :position="Position.left"/>
-          <EchartsYaxis :index="1" :position="Position.right"/>
+          <EchartsYaxis :index="0" :position="Position.left" :unit="echartData.yAxis.left"/>
+          <EchartsYaxis :index="1" :position="Position.right" :unit="echartData.yAxis.right"/>
 
           <!-- 设置X轴 -->
           <EchartsXaxis :value="echartData.xAxis"/>
@@ -90,5 +91,6 @@ watchState(dataEventName.value, upData)
     </el-main>
   </el-container>
 </template>
+
 
 

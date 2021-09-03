@@ -41,6 +41,7 @@ const updateTrendsData = async function() {
   chartData.legends = data.legends
   chartData.xAxis = data.xAxis
   chartData.series = data.series
+  chartData.yAxis = data.yAxis
 }
 // 节点数据
 const updateNodeList = async function() {
@@ -190,11 +191,11 @@ onMounted(ready)
           <EchartsTooltip trigger="axis" />
 
           <template v-for="(item, index) in chartData.legends" :key="index">
-            <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+            <EchartsLegend :index="index" :value="item.name" :color="item.color" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
           </template>
 
-          <EchartsYaxis :index="0" :position="Position.left"/>
-          <EchartsYaxis :index="1" :position="Position.right"/>
+          <EchartsYaxis :index="0" :position="Position.left" :unit="chartData.yAxis.left"/>
+          <EchartsYaxis :index="1" :position="Position.right" :unit="chartData.yAxis.right"/>
 
           <!-- 设置X轴 -->
           <EchartsXaxis :value="chartData.xAxis"/>

@@ -3,7 +3,7 @@ import { isNumber } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import { defineProps, onBeforeMount } from 'vue'
 import { setInject } from '~/utils/use/state'
-import { EchartsOptionName, initProps } from '~/logic/echarts/tool'
+import { EchartsOptionName, initProps, valueFormatter } from '~/logic/echarts/tool'
 import { layout } from '~/logic/echarts/colors'
 import { Position } from '~/logic/echarts/interface'
 
@@ -45,7 +45,11 @@ onBeforeMount(function() {
     position: props.position,
     axisLabel: {
       formatter: function(value: string | number, option: object = {}) {
-        const res = `${value}${props.unit || ''}`
+        const data: any = {
+          value: `${value}`,
+          unit: props.unit
+        }
+        const res = valueFormatter(data)
         if (props.formatter) {
           return props.formatter({ ...option, value: res })
         }

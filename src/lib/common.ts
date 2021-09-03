@@ -1,6 +1,6 @@
 import { omit, pick } from 'ramda'
 import { uuid, map, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, convertInterval, dateFormat } from '~/utils'
-import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate } from '~/logic/echarts/interface'
+import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate, YAxis } from '~/logic/echarts/interface'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 
@@ -8,6 +8,10 @@ import DBList from '@fengqiaogang/dblist'
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
         const interval = convertInterval(safeGet<string>(trends, 'interval') || '1D')
+        const yAxis: YAxis = {
+            left: '',
+            right: ''
+        }
         //@ts-ignore
         const legends = map(function(item: LegendItem, index:number) {
             const data = { ...item }
@@ -15,6 +19,13 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
             if (!data.type) {
                 // 默认折线图
                 data.type = seriesType.line
+            }
+            if (item.unit) {
+                if (item.kline) {
+                    yAxis.right = item.unit
+                } else {
+                    yAxis.left = item.unit
+                }
             }
             return data
         }, trends.legends)
@@ -42,6 +53,7 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
             }, list)
         }, trends.series)
         return Object.assign({
+            yAxis,
             xAxis,
             series,
             legends,
