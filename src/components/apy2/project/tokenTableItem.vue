@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, defineProps} from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
-import {getIconType} from '~/lib/tool'
+import {getIconType,tolocaleLowerCase} from '~/lib/tool'
 import { toBoolean } from '~/utils'
 const props = defineProps({
   id:Number,
@@ -26,7 +26,7 @@ const props = defineProps({
           <Apy2BaseFollow class="ml-1 lp-follow"  :pool="true" type="lend" :value="id" :status="toBoolean(followed)"/>
         </div>
         <div class="flex items-center">
-          <img class="w-3.5 mr-1" :src="chainsIcon[chain]" alt="">
+          <img class="w-3.5 mr-1" :src="chainsIcon[tolocaleLowerCase(chain)]" alt="">
           <IconFont :type="getIconType(type)" size="16"/>
         </div>
       </div>

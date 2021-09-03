@@ -5,7 +5,11 @@ import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
 import {chain} from '~/store/apy2/state'
 import {chains} from '~/logic/apy2/config'
+import * as lang from '~/utils/lang'
+
+
 import {getProjectList,getTokenList} from '~/logic/apy2/index'
+const langType=ref('')
 const emitEvent = defineEmits([ 'search'])
 const inCoin=getInject('inCoin')
 const outCoin=getInject('outCoin')
@@ -48,39 +52,41 @@ const search=()=>{
   emitEvent('search')
 }
 onMounted(()=>{
+  langType.value=lang.current.value
+  console.log(langType.value,'jjj')
   getTokens()
   getProjects()
 })
 </script>
 <template>
-  <div class="loanClass w-full p-4   flex items-center  bg-global-body rounded-kd4px justify-between ">
-    <div>
-      <div class="flex flex-wrap">
-        <div class="mr-6">
-          <span class="selectTxt">{{I18n.apyIndex.diyaCoin}}</span>
+  <div class="loanClass w-full md:p-4 p-3 flex-wrap   flex items-center  bg-global-body rounded-kd4px justify-between " >
+    <div class="flex items-center flex-wrap  ">
+      <div class="flex md:mr-6 mr-3 flex-col flex-wrap">
+        <div class="flex items-center">
+          <span :class="langType==='en'?'min-w-23':''"  class="selectTxt">{{I18n.apyIndex.diyaCoin}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="inCoin[0]" >
             <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </div>
-        <div>
-          <span class="selectTxt ">{{I18n.apyIndex.jiechuCoin}}</span>
-          <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
-            <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
-            </el-option>
-          </el-select>
-        </div>
-      </div>
-      <div class="flex mt-3 flex-wrap">
-        <div class="mr-6">
-          <span class="selectTxt">{{I18n.apyIndex.loanPlat}}</span>
+        <div class="mt-3 flex items-center">
+          <span :class="langType==='en'?'min-w-23':''" class="selectTxt">{{I18n.apyIndex.loanPlat}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="projectId[0]" >
             <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
         </div>
+      </div>
+      <div class="flex flex-col  flex-wrap">
         <div class="flex items-center">
-          <span class="selectTxt "  style="text-indent: 2em;">{{I18n.apyIndex.loanListChain}}</span>
+          <span :class="langType==='en'?'min-w-23':''" class="selectTxt ">{{I18n.apyIndex.jiechuCoin}}</span>
+          <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
+            <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="flex mt-3 items-center">
+          <span :class="langType==='en'?'min-w-23':''" class="selectTxt "  style="text-indent: 2em;">{{I18n.apyIndex.loanListChain}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="chained[0]" >
             <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
@@ -88,16 +94,17 @@ onMounted(()=>{
         </div>
       </div>
     </div>
-    <div class="font-kdFang">
-      <div @click="clear()" class="btnBorder w-40 text-center rounded-kd6px py-2.25 px-3 mb-3 hand">
-        <span class="text-kd16px24px text-global-primary  font-medium">{{I18n.apyIndex.clearData}}</span>
+    <div class="font-kdFang md:mt-0 mt-3 flex md:flex-col flex-row  ">
+      <div @click="clear()" class="btnBorder md:w-40 w-38.5 md:h-10.5 h-7 md:mr-0  mr-1.5  flex items-center justify-center text-center rounded-kd6px py-1.5 md:py-2.25 px-3 md:mb-3 hand">
+        <span class="text-kd12px16px md:text-kd16px24px text-global-primary   font-medium">{{I18n.apyIndex.clearData}}</span>
       </div>
-      <div @click="search()" class="bg-global-primary  w-40 text-center rounded-kd6px py-2.25 px-3 hand">
+      <div @click="search()" class="bg-global-primary md:h-10.5 h-7 md:ml-0 ml-1.5  flex items-center justify-center   md:w-40 w-38.5 text-center rounded-kd6px py-1.5 md:py-2.25 px-3 hand">
         <iconFont type="icon-sousuo-da1" class="text-global-white mr-3" size="16" />
-        <span class="text-kd16px24px text-global-white  font-medium">{{I18n.apyIndex.searchTxt}}</span>
+        <span class="text-kd12px16px md:text-kd16px24px text-global-white  font-medium">{{I18n.apyIndex.searchTxt}}</span>
       </div>
     </div>
   </div>
+
 </template>
 <style  lang="scss">
 
@@ -107,14 +114,15 @@ onMounted(()=>{
     background: none;
     border-radius: 6px;
     padding-left:12px !important;
-    @apply text-global-highTitle text-opacity-45 h-10.5 w-75 bg-global-white  text-kd14px18px ;
+    @apply text-global-highTitle text-opacity-45 md:h-10.5 md:w-75 w-24.7 md:10.5 h-7 bg-global-white  text-kd14px18px ;
   }
   .btnBorder{
     border:1px solid rgba(43, 141, 254, 0.25);
   }
   .selectTxt{
-  @apply mr-3 text-kd14px18px text-global-highTitle text-opacity-85;
+  @apply md:mr-3 mr-1.5 md:text-kd14px18px text-kd12px16px block text-right  text-global-highTitle text-opacity-85;
   }
+
   .el-input__suffix{
     @apply flex items-center;
   }

@@ -35,26 +35,25 @@ const getProject=async ()=>{
 onMounted(()=>getProject())
 </script>
 <template>
-  <div class="flex items-center font-kdFang flex-wrap justify-between">
-    <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList"   class="mr-10"/>
-    <div class="flex" :class="props.hasCustom?'':'justify-between   w-full'">
-      <div class="flex ">
-      <Apy2MiningPoolsFliter v-if="props.type" class="mr-3"  :list="typeList" />
-      <div v-if="props.hasProject" class="apyProject mr-3">
+  <div class="flex items-center font-kdFang flex-wrap md:justify-between ">
+    <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList"   class="md:mr-10 "/>
+    <div class="flex flex-col md:flex-row  mt-3 md:mt-0" :class="props.hasCustom?'':'justify-between   w-full'">
+      <div class="flex   ">
+        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3 flex-1  "  :list="typeList" />
+         <div v-if="props.hasProject" class="apyProject    flex-1 md:mr-3">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
           <el-option v-for="item in projectList"  :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </div>
-        <div v-if="props.hasChain" class="apyProject mr-3">
+        <div v-if="props.hasChain" class="apyProject  mr-3">
           <el-select filterable :popper-append-to-body="false" v-model="chained"   size="small" >
             <el-option v-for="item in chains"  :label="item.name" :value="item.key">
             </el-option>
           </el-select>
         </div>
       </div>
-
-      <div class="apySearch  px-4 py-2 rounded-kd6px  flex items-center h-9" >
+      <div class="apySearch  px-4 py-2 rounded-kd6px  flex items-center h-9 mt-3 md:mt-0" >
         <IconFont type="icon-sousuo-da1" class="mr-2 text-global-highTitle text-opacity-45" size="12"></IconFont>
         <el-input v-model="txt" :placeholder="I18n.apyIndex.searchAll"></el-input>
       </div>
@@ -68,7 +67,7 @@ onMounted(()=>getProject())
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: none;
     padding-left:4px !important;
-    @apply text-kd14px18px font-medium  text-global-highTitle text-opacity-85 w-30 text-center h-9 flex items-center  text-kd14px18px ;
+    @apply text-kd14px18px font-medium  text-global-highTitle text-opacity-85 md:w-30  text-center h-9 flex items-center ;
   }
   .el-icon-arrow-up{
     @apply mt-0.5;

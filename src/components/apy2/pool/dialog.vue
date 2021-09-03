@@ -55,18 +55,21 @@ const onClick = function() {
 }
 </script>
 <template>
-  <div v-login>
-    <div class="j-pool-detail" @click="onClick">
+  <div  v-login>
+    <div class="hidden lg:block" @click="onClick">
+      <slot name="reference"></slot>
+    </div>
+    <div class="block lg:hidden">
       <slot name="reference"></slot>
     </div>
     <template v-if="status">
-      <el-dialog top="0" v-model="status" custom-class="screen-dialog" :show-close="false" :lock-scroll="true" :append-to-body="true" @opened="onShow" @close="onClose">
-        <div class="w-full h-full" v-if="opened">
-          <slot name="content" :status="status">
-            <Apy2PoolDetail :id="id" :type="type"/>
-          </slot>
-        </div>
-      </el-dialog>
+        <el-dialog   top="0" v-model="status" custom-class="screen-dialog" :show-close="false" :lock-scroll="true" :append-to-body="true" @opened="onShow" @close="onClose">
+          <div class="w-full h-full" v-if="opened">
+            <slot name="content" :status="status">
+              <Apy2PoolDetail :id="id" :type="type"/>
+            </slot>
+          </div>
+        </el-dialog>
     </template>
   </div>
 </template>

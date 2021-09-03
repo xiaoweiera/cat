@@ -4,12 +4,13 @@ import I18n from '~/utils/i18n/index'
 import {rankingTag,chain} from '~/store/apy2/state'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 const group_id=getInject('group_id')
+const setGroup_id=setInject('group_id')
 const props=defineProps({type:String})
 watch(()=>rankingTag.value,()=>group_id.value[0]=rankingTag.value[0].id)
-const changeTag=(id:number)=>group_id.value[0]=id
+const changeTag=(id:number)=>setGroup_id(id)
 </script>
 <template>
-  <div class="font-kdFang w-93.25 ">
+  <div class="font-kdFang md:w-93.25 ">
     <div class="flex justify-between items-center">
       <span v-if="props.type==='mining'" class="text-kd20px24px font-medium text-global-highTitle  text-opacity-85">{{I18n.apyIndex.farmApyList}}</span>
       <span v-else class="text-kd20px24px font-medium text-global-highTitle  text-opacity-85">{{I18n.apyIndex.loanList}}</span>
@@ -24,7 +25,6 @@ const changeTag=(id:number)=>group_id.value[0]=id
 <!--          <Apy2Calculator />-->
 <!--        </template>-->
 <!--      </UiDialogBase>-->
-
     </div>
     <div class="flex items-center mt-3">
       <template v-for="(item,i) in rankingTag">

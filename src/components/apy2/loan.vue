@@ -17,43 +17,84 @@ onMounted(async ()=>{
 })
 </script>
 <template>
-  <div class=" flex flex-col items-center justify-center mb-16   bg-global-white  h-full font-kdFang " >
-    <div class="max-w-360  px-20  relative  w-full h-full container ">
-      <div class="mt-12 flex justify-between items-center">
+  <div class=" flex flex-col items-center justify-center md:mb-16 mb-9   bg-global-white  h-full font-kdFang " >
+    <div class="max-w-360 px-4  md:px-20  relative  w-full h-full container ">
+      <div class="mt-4.25 md:mt-12 flex justify-between  items-center">
         <Apy2BaseHeader :title="I18n.apyIndex.loanTitle" class=" flex flex-col flex-wrap justify-center" />
-        <div>
-          <Apy2BasePlayType />
-        </div>
+        <Apy2BasePlayType class="xshidden" />
       </div>
-      <Apy2Chains class="mt-12"/>
-
-      <div class="flex w-full    mt-4 pb-6 bottomBorder">
-        <div class="flex flex-1  ">
-          <div class="flex-1  mr-8">
-            <Apy2ChartLoan class="w-full h-85.5 "/>
+      <Apy2Chains class="md:mt-12 mt-9"/>
+      <div class="flex w-full md:flex-row flex-col   mt-4 md:pb-6   md:border-b-1 border-global-highTitle border-opacity-6">
+        <div class="flex flex-1 md:order-0  mt-4 md:mt-0 order-1 ">
+          <div class="flex-1  md:mr-8">
+            <Apy2ChartLoan class="w-full"/>
           </div>
         </div>
         <!--        榜单-->
-        <Apy2TopListMain type="lend"  class="w-101.25   pt-3 pl-8  leftBorder    ">
+        <Apy2TopListMain type="lend"  class="md:w-101.25 w-full  md:order-1  order-0 pt-3 md:pl-8 border-b-1 md:border-b-0  md:border-l-1 border-global-highTitle border-opacity-6 ">
           <template #item>
             <Apy2TopListLoanItem  />
           </template>
         </Apy2TopListMain>
       </div>
-
-
-
-      <Apy2BaseNotice class="mt-12"/>
-      <div class="mt-12">
+      <!--      <Apy2BaseNotice class="mt-12"/>-->
+      <div class="md:mt-12 mt-9">
         <!--表格数据-->
         <Apy2BaseTableMain :type="TabCategoryData.lend"/>
       </div>
-      <div class="mt-12">
+      <div class="md:mt-12 mt-9">
         <Apy2LoanPoolsMain/>
       </div>
+      <Apy2BaseWaringTxt class="md:mt-12 mt-9  flex justify-center"/>
     </div>
-    <Apy2BaseWaringTxt class="mt-12"/>
+
   </div>
+
+
+
+
+
+
+
+
+
+<!--  <div class=" flex flex-col items-center justify-center mb-16   bg-global-white  h-full font-kdFang " >-->
+<!--    <div class="max-w-360  px-20  relative  w-full h-full container ">-->
+<!--      <div class="mt-12 flex justify-between items-center">-->
+<!--        <Apy2BaseHeader :title="I18n.apyIndex.loanTitle" class=" flex flex-col flex-wrap justify-center" />-->
+<!--        <div>-->
+<!--          <Apy2BasePlayType />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <Apy2Chains class="mt-12"/>-->
+
+<!--      <div class="flex w-full    mt-4 pb-6 bottomBorder">-->
+<!--        <div class="flex flex-1  ">-->
+<!--          <div class="flex-1  mr-8">-->
+<!--            <Apy2ChartLoan class="w-full h-85.5 "/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        榜单&ndash;&gt;-->
+<!--        <Apy2TopListMain type="lend"  class="w-101.25   pt-3 pl-8  leftBorder    ">-->
+<!--          <template #item>-->
+<!--            <Apy2TopListLoanItem  />-->
+<!--          </template>-->
+<!--        </Apy2TopListMain>-->
+<!--      </div>-->
+
+
+
+<!--      <Apy2BaseNotice class="mt-12"/>-->
+<!--      <div class="mt-12">-->
+<!--        &lt;!&ndash;表格数据&ndash;&gt;-->
+<!--        <Apy2BaseTableMain :type="TabCategoryData.lend"/>-->
+<!--      </div>-->
+<!--      <div class="mt-12">-->
+<!--        <Apy2LoanPoolsMain/>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <Apy2BaseWaringTxt class="mt-12"/>-->
+<!--  </div>-->
 </template>
 <style scoped>
 .x-xian{
