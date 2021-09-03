@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { env } from '~/lib/process'
 import { footers } from '~/logic/menu'
-import { ref } from 'vue'
+import I18n from '~/utils/i18n/index'
 
 const weChat = ref<string>('https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo')
 const telegram = ref<string>('https://t.me/KingDataCN')
@@ -49,12 +50,12 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
 
           <li class="menu-list-box">
             <div class="menu-label hidden lg:block">
-              <span class="text-lg">App 下载</span>
+              <span class="text-lg">{{ I18n.common.nav.download }}</span>
             </div>
             <input class="menu-active hidden" id="footer-menu-download" type="checkbox" name="footer-menu-download">
             <label class="menu-label cursor-pointer block lg:hidden" for="footer-menu-download">
               <span class="select-none w-full flex justify-between items-center">
-                <span class="text-base ">App 下载</span>
+                <span class="text-base ">{{ I18n.common.nav.download }}</span>
                 <IconFont class="arrow" type="icon-arrow-down" size="16"/>
               </span>
             </label>

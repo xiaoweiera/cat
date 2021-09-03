@@ -16,7 +16,7 @@ export default {
   nav: {
     apply: '项目申请',
     about: {name:'产品介绍',href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'},
-    download: 'APP下载'
+    download: 'APP 下载'
   },
   time: {
     dd: '天',

@@ -16,7 +16,7 @@ const onSwitchLang = function() {
 <template>
   <div class="flex items-center text-sm text-kdFang text-white">
     <span class="flex items-center cursor-pointer" @click.stop.prevent="onSwitchLang">
-      <IconFont class="flex" type="icon-yuyan" size="22"/>
+      <IconFont class="hidden md:flex" type="icon-yuyan" size="22"/>
       <span class="ml-1.5 inline-block whitespace-nowrap">{{ I18n.common.lang }}</span>
     </span>
 
