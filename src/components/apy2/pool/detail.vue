@@ -2,7 +2,7 @@
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getDetail } from '~/logic/apy2/table'
 // @ts-ignore
-import { forEach, toNumber, toBoolean } from '~/utils'
+import { forEach, toNumber, toBoolean, numberUint } from '~/utils'
 import { useProvide } from '~/utils/use/state'
 import dataEventName from '~/components/ui/date/eventname'
 import { TabCategoryData } from '~/logic/apy2/interface'
@@ -70,7 +70,7 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </a>
           <template v-if="detail.project_category">
             <IconFont class="mr-1.5" :type="detail.project_category" size="24"/>
-            <span class="label">{{ detail.project_category }}</span>
+            <span class="label" v-if="detail.strategy_tags">{{ detail.strategy_tags }}</span>
           </template>
         </div>
         <div class="flex item-center">
@@ -94,7 +94,10 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
           <div>
             <a v-router.blank="detail.project_url" class="cursor-pointer flex items-center  h-8.5 px-7.5 rounded border border-global-primary border-opacity-32">
-              <span class="text-global-primary text-sm leading-4">去借贷</span>
+              <span class="text-global-primary text-sm leading-4">
+                <template v-if="type === TabCategoryData.mining">去挖矿</template>
+                <template v-else>去借贷</template>
+              </span>
             </a>
           </div>
         </div>
@@ -110,22 +113,22 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
         <div>
           <div class="whitespace-nowrap text-xs">
             <span class="text-global-highTitle text-opacity-45">TVL: </span>
-            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ toNumber(detail.tvl) }}</span>
+            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ numberUint(toNumber(detail.tvl)) }}</span>
           </div>
           <div class="whitespace-nowrap mt-2">
             <span class="text-global-highTitle text-opacity-45">可投额度: </span>
-            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ toNumber(detail.quota_remain) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
+            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ numberUint(toNumber(detail.quota_remain)) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
           </div>
         </div>
         <div class="split"></div>
         <div>
           <div class="whitespace-nowrap text-xs">
             <span class="text-global-highTitle text-opacity-45">单利: </span>
-            <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.single_apy) }}</span>
+            <span class="text-global-highTitle text-opacity-85">{{ toNumber(detail.single_apy) }}%</span>
           </div>
           <div class="whitespace-nowrap mt-2 text-xs">
             <span class="text-global-highTitle text-opacity-45">复利: </span>
-            <span class="text-global-highTitle text-opacity-85">${{ toNumber(detail.compound_apy) }}</span>
+            <span class="text-global-highTitle text-opacity-85">{{ toNumber(detail.compound_apy) }}%</span>
           </div>
         </div>
         <div class="split"></div>
@@ -151,7 +154,7 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
         <div>
           <div class="whitespace-nowrap text-xs">
             <span class="text-global-highTitle text-opacity-45">可借额度: </span>
-            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ toNumber(detail.quota_remain) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
+            <span class="text-kdExp text-global-highTitle text-opacity-85">${{ numberUint(toNumber(detail.quota_remain)) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
           </div>
         </div>
         <div class="split"></div>
@@ -188,16 +191,16 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
     <el-main class="p-0">
       <div class="flex h-full">
         <div class="flex-1 w-1 pr-4 h-full border-0 border-r border-solid border-highTitle border-opacity-6">
-          <Apy2PoolTrends :type="type" :id="id" title="相关 APY 走势图"/>
+          <Apy2PoolTrends :type="type" :id="id" title="池子相关数据"/>
         </div>
         <div class="flex-1 w-1 h-full pl-4">
-          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol" title="Top5 池子对比">
+          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol_alias" title="APY Top5 池子对比">
             <el-radio-group v-model="tabValue" size="small">
               <el-radio-button :label="tab1">排行对比</el-radio-button>
               <el-radio-button :label="tab2">趋势对比</el-radio-button>
             </el-radio-group>
           </Apy2PoolTop5>
-          <Apy2PoolDiff v-else-if="tabValue === tab2" :type="type" :symbol="detail.symbol" title="Top5 池子对比">
+          <Apy2PoolDiff v-else-if="tabValue === tab2" :type="type" :symbol="detail.symbol_alias" title="APY Top5 池子对比">
             <el-radio-group v-model="tabValue" size="small">
               <el-radio-button :label="tab1">排行对比</el-radio-button>
               <el-radio-button :label="tab2">趋势对比</el-radio-button>

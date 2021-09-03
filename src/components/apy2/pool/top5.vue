@@ -42,6 +42,7 @@ const upData = async function(date: any) {
     echartData.legends = result.legends
     echartData.xAxis = result.xAxis
     echartData.series = result.series
+    echartData.yAxis = result.yAxis
   }
 }
 
@@ -62,13 +63,13 @@ watchState(dataEventName.value, upData)
         </div>
       </div>
     </el-header>
-    <el-main class="p-0">
+    <el-main class="p-0 overflow-init">
       <Echarts :key="echartData.key" :direction="Direction.vertical" :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
         <EchartsTooltip/>
 
         <template v-for="(item, index) in echartData.legends" :key="index">
-          <EchartsLegend :index="index" :value="item.name" :type="item.type"/>
+          <EchartsLegend :index="index" :color="item.color" :value="item.name" :type="item.type"/>
         </template>
 
         <EchartsYaxis :index="0" :min="0" :max="maxYaxis"/>
@@ -89,5 +90,6 @@ watchState(dataEventName.value, upData)
     </el-main>
   </el-container>
 </template>
+
 
 

@@ -61,7 +61,7 @@ watchState(dataEventName.value, upData)
         </div>
       </div>
     </el-header>
-    <el-main class="p-0">
+    <el-main class="p-0 overflow-init">
       <template v-if="echartData.xAxis && echartData.xAxis.length > 0">
         <Echarts :key="echartData.key">
           <!-- 提示框 trigger: 触发方式 -->

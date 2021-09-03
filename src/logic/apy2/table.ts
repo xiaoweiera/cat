@@ -11,6 +11,7 @@ import { SymbolType } from '~/logic/apy2/interface'
 import { echartTransform } from '~/lib/common'
 import { colors } from '~/logic/echarts/colors'
 import { EchartData, LegendItem, SeriesItem, seriesType } from '~/logic/echarts/interface'
+import safeGet from '@fengqiaogang/safe-get'
 
 const transform = function(db: DBList, list: any[], pid: string = '0') {
   let maxLength = 0
@@ -35,9 +36,16 @@ const transform = function(db: DBList, list: any[], pid: string = '0') {
   return { db, maxLength }
 }
 
-export const getTableList = async function(db: DBList, query: Object) {
-  const result = await API.apy.table.getList<any>(query)
-  return transform(db, result)
+export const getTableList = async function(db: DBList, query: Object = {}) {
+  const page_size = safeGet<number>(query, 'page_size') || 10
+  const result = await API.apy.table.getList<any>({ page_size, ...query })
+  const size = result.length
+  const empty = size <= 0
+  const data = transform(db, result)
+  if (size < page_size) {
+    return { ...data, empty, next: false }
+  }
+  return { ...data, empty, next: true }
 }
 
 

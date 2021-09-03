@@ -3,32 +3,16 @@
  * @author svon.me@gmail.com
  */
 
-import { omit } from 'ramda'
 import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
-import { HecoNode, HecoTrends, NodeTrends } from './interface'
-import { map, dateTime, dateYMDFormat, dateMDFormat, toNumber, formatCash } from '~/utils'
+import * as common from '~/lib/common'
 import DBList from '@fengqiaogang/dblist'
+import { map, toNumber, formatCash } from '~/utils'
+import { HecoNode, HecoTrends, NodeTrends } from './interface'
 import { EchartData } from '~/logic/echarts/interface'
 
 const transform = function(trends?: EchartData): EchartData | undefined {
-  if (trends) {
-    const xAxis = map(function(date: number) {
-      const time = dateTime(date)
-      const key = dateYMDFormat(time)
-      const value = dateMDFormat(time)
-      return { key, time, value }
-    }, trends?.xAxis)
-    const series = map(function(list: Array<string | number>) {
-      return map(function(value: string | number) {
-        return { value }
-      }, list)
-    }, trends?.series)
-    return Object.assign({
-      xAxis,
-      series,
-    }, omit(['xAxis', 'series'], trends))
-  }
+  return common.echartTransform(trends)
 }
 
 // 投票

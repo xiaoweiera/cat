@@ -1,22 +1,17 @@
 <script setup lang="ts">
 import { map } from '~/utils'
-import { defineProps, onMounted, ref } from 'vue'
+import { defineProps, ref } from 'vue'
 import { getPoolsList } from '~/logic/apy2/token'
-// 定义 props
 import Props from '~/components/apy2/token/props'
-// @ts-ignore
 import { selectChains } from '~/logic/apy2/config'
 import { setInject } from '~/utils/use/state'
 import DBList from '@fengqiaogang/dblist'
 import I18n from '~/utils/i18n/index'
 
-// @ts-ignore
 const props = defineProps(Props())
 
-// @ts-ignore
 const setPoolList = setInject('poolList')
 
-// @ts-ignore
 const radios = [
   { label: I18n.apy.token.pool.token, value: 'token' },
   { label: I18n.apy.token.pool.lp, value: 'lp' }

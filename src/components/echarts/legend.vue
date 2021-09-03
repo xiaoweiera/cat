@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, onBeforeMount, watch } from 'vue'
 import { EchartsOptionName, setInject, initProps } from '~/logic/echarts/tool'
-import { colors, seriesType } from '~/logic/echarts/interface'
+import { colors, seriesType, Position } from '~/logic/echarts/interface'
 import safeSet from '@fengqiaogang/safe-set'
 
 
@@ -45,7 +45,10 @@ const sync = function() {
   if (props.color) {
     safeSet(data, 'itemStyle.color', props.color)
   } else {
-    safeSet(data, 'itemStyle.color', colors[index])
+    if (props.position !== Position.right) {
+      // 给左侧数据，设置默认颜色
+      safeSet(data, 'itemStyle.color', colors[index])
+    }
   }
   update(data, index)
 }

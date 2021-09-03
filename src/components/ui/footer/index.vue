@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { env } from '~/lib/process'
 import { footers } from '~/logic/menu'
-import { ref } from 'vue'
+import I18n from '~/utils/i18n/index'
 
 const weChat = ref<string>('https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo')
 const telegram = ref<string>('https://t.me/KingDataCN')
@@ -49,24 +50,24 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
 
           <li class="menu-list-box">
             <div class="menu-label hidden lg:block">
-              <span class="text-lg">App 下载</span>
+              <span class="text-lg">{{ I18n.common.nav.download }}</span>
             </div>
             <input class="menu-active hidden" id="footer-menu-download" type="checkbox" name="footer-menu-download">
             <label class="menu-label cursor-pointer block lg:hidden" for="footer-menu-download">
               <span class="select-none w-full flex justify-between items-center">
-                <span class="text-base ">App 下载</span>
+                <span class="text-base ">{{ I18n.common.nav.download }}</span>
                 <IconFont class="arrow" type="icon-arrow-down" size="16"/>
               </span>
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">
               <div class="menu-item">
-                <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
+                <UiFooterHover :href="env.appDownload" :desc="I18n.menu.hover.app">
                   <img class="block" src="https://res.ikingdata.com/common/download_apple.jpg">
                 </UiFooterHover>
               </div>
 
               <div class="menu-item">
-                <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
+                <UiFooterHover :href="env.appDownload" :desc="I18n.menu.hover.app">
                   <img class="block" src="https://res.ikingdata.com/common/download_android.jpg">
                 </UiFooterHover>
               </div>
@@ -96,7 +97,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
 <!--          </a>-->
 
           <div class="flex">
-            <UiFooterHover :href="telegram" desc="扫码加入电报群">
+            <UiFooterHover :href="telegram" :desc="I18n.menu.hover.telegram">
               <IconFont type="icon-telegram" class="flex"/>
             </UiFooterHover>
           </div>
@@ -107,7 +108,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
           </a>
 
           <div class="flex ml-6">
-            <UiFooterHover :href="weChat" desc="扫码加入微信群">
+            <UiFooterHover :href="weChat" :desc="I18n.menu.hover.wechat">
               <IconFont type="icon-wechat" class="flex"/>
             </UiFooterHover>
           </div>

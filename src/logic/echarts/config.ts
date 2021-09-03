@@ -79,6 +79,7 @@ const getYAxisData = function(yAxisData: any[]) {
 // 获取图列数据
 export const getLegend = function(list: LegendItem[], yAxisData: any[], props: any) {
   const getYAxisValue = getYAxisData(yAxisData)
+  const selected = {}
   const data = map((item: LegendItem) => {
     if (item.show) {
       // @ts-ignore
@@ -90,14 +91,20 @@ export const getLegend = function(list: LegendItem[], yAxisData: any[], props: a
         Object.assign(opt, { itemStyle })
       }
       if (item.position === Position.right) {
-        const yAxis = getYAxisValue(Position.right)
-        const color = safeGet(yAxis, 'axisLabel.textStyle.color')
-        safeSet(opt, 'itemStyle.color', color)
+        const autoColor = safeGet(item, 'itemStyle.color')
+        if (!autoColor) {
+          const yAxis = getYAxisValue(Position.right)
+          const color = safeGet(yAxis, 'axisLabel.textStyle.color')
+          safeSet(opt, 'itemStyle.color', color)
+        }
+      }
+      if (item.value) {
+        safeSet(selected, item.value, !item.disabled)
       }
       return opt
     }
   }, list)
-  const option = { data: compact(data), itemWidth: 14, }
+  const option = { data: compact(data), itemWidth: 14, selected }
   if (props.legend === LegendDirection.top) {
     safeSet(option, 'top', 0)
   } else if (props.legend === LegendDirection.left) {
@@ -176,6 +183,10 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
   const leftData: any[] = []
   const rightData: any[] = []
   forEach(function(item: any, index: number) {
+    // 判断是否需要隐藏数据
+    if (!toBoolean(item.show) || toBoolean(item.disabled)) {
+      return void 0
+    }
     const value = safeGet<any[]>(seriesList, `[${index}].data`)
     if (item.position === Position.right) {
       rightData.push(value)
@@ -193,16 +204,22 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
     const textStyle = safeGet(yaxisData, textStyleKey)
     const [ option ] = makeYAxisOption(function(value: number) {
       const formatter = safeGet<any>(yaxisData, 'axisLabel.formatter')
-      if (formatter) {
-        return formatter(value)
-      }
+      let res: string | number = 0
       if (props.log) {
         if (value === 0) {
           return 0
         }
-        return numberUint(Math.pow(10, value))
+        res = numberUint(Math.pow(10, value))
+      } else {
+        res = numberUint(value)
       }
-      return numberUint(value)
+      if (formatter) {
+        return formatter(res, {
+          number: value,
+          log: props.log
+        })
+      }
+      return res
     })
     if (textStyle) {
       const temp = safeGet(option, textStyleKey) || {}
@@ -227,6 +244,11 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
       return item
     }, yaxis)
   }
+  if (yaxis.length === 0) {
+    yaxis.push({
+      type: 'value'
+    })
+  }
   return yaxis
 }
 
@@ -248,7 +270,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
   const seriesList = map((item: any, index: number) => {
     const data = getLegendItem(index)
     // 判断是否需要隐藏数据
-    if (!toBoolean(data.show) || toBoolean(data.disabled)) {
+    if (!toBoolean(data.show)) {
       return void 0
     }
     const option: any = {
@@ -262,8 +284,11 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
       },
       symbol: 'none',
     }
-    safeSet(option, 'itemStyle.color', data.itemStyle.color)
+    if (toBoolean(data.disabled)) {
+      option.data = []
+    }
 
+    safeSet(option, 'itemStyle.color', safeGet<string>(data, 'itemStyle.color'))
 
     if (data.type === seriesType.line) {
       // 线条平滑处理
@@ -279,9 +304,12 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
     }
     // 使用 Y 轴刻度为坐标参照时
     if (data.index === 1) {
-      // 获取颜色
-      const color = safeGet(yAxisOption, '[1].axisLabel.textStyle.color')
-      safeSet(option, 'itemStyle.color', color)
+      const autoColor = safeGet<string>(data, 'itemStyle.color')
+      if (!autoColor) {
+        // 获取Y轴颜色
+        const color = safeGet(yAxisOption, '[1].axisLabel.textStyle.color')
+        safeSet(option, 'itemStyle.color', color)
+      }
     }
     if (data.type === seriesType.bar) {
       // 柱状图最大宽度

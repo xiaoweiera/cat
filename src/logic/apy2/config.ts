@@ -9,13 +9,13 @@ export const chains=[
     {key:'polygon',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.png'},
 ]
 export const selectChains=[
-    {label:I18n.apyIndex.chain,value:'all'},
-    {label:'ETH',value:'eth'},
-    {label:'BSC',value:'bsc'},
-    {label:'Heco',value:'heco'},
-    {label:'OEC',value:'oec'},
-    {label:'Hoo',value:'hoo'},
-    {label:'PoS',value:'pos'}
+    {label: I18n.apyIndex.chain, value:'all'},
+    {label:'ETH', value:'eth'},
+    {label:'BSC', value:'bsc'},
+    {label:'Heco', value:'heco'},
+    {label:'OEC', value:'oec'},
+    {label:'Hoo', value:'hoo'},
+    {label:'PoS', value:'pos'}
 ]
 export const chainsIcon={
     'eth':'https://res.ikingdata.com/apyTwo/ethChain.png',

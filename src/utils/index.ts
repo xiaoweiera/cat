@@ -21,7 +21,8 @@ import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from 'uuid'
 import dayjs from 'dayjs'
 import safeGet from '@fengqiaogang/safe-get'
 import { formatRulesPrice } from '~/lib/tool'
-
+import { current, Language } from '~/utils/lang'
+import * as tools from '~/lib/tool'
 export { isNil } from 'ramda'
 
 export const sleep = function(callback: () => void, time: number = 1000) {
@@ -427,63 +428,12 @@ export const dateAdd = function(time: any, interval?: string) {
   return dateTime(date.add(number, type as any).valueOf())
 }
 
-export enum Unit {
-  unit = '',
-  ten = '十',
-  hundred = '百',
-  thousand = '千',
-  tenThousand = '万',
-  hundredThousand = '十万',
-  million = '百万',
-  tenMillion = '千万',
-  hundredMillion = '亿',
-  billion = '十亿',
-  tenBillion = '百亿',
-  hundredBillion = '千亿'
-}
-
-const unitPow = {
-  [Unit.unit]: 1,
-  [Unit.ten]: 10,
-  [Unit.hundred]: 100,
-  [Unit.thousand]: 1000,
-  [Unit.tenThousand]: 10000,
-  [Unit.hundredThousand]: 100000,
-  [Unit.million]: 1000000,
-  [Unit.tenMillion]: 10000000,
-  [Unit.hundredMillion]: 100000000,
-  [Unit.billion]: 1000000000,
-  [Unit.tenBillion]: 10000000000,
-  [Unit.hundredBillion]: 100000000000,
-}
-
-export const numberUint = function(value: number, unit?: Unit) {
-  const count = formatRulesPrice(value, false)
-  if (!unit) {
-    const number = (`${toInteger(Math.abs(value))}`).replace(/[^0-9]/, '')
-    const length = number.length
-    if (length > 11) {
-      unit = Unit.hundredBillion
-    } else if (length > 10) {
-      unit = Unit.tenBillion
-    } else if (length > 9) {
-      unit = Unit.billion
-    } else if (length > 8) {
-      unit = Unit.hundredMillion
-    } else if (length > 4) {
-      unit = Unit.tenThousand
-    }
+// 格式化数字
+export const numberUint = function(value: number) {
+  // 当前环境是中文，则使用中文方式格式化
+  if (current.value === Language.cn) {
+    return tools.aboutCn(value)
   }
-  let res: string | number
-  const pow = unit ? unitPow[unit] : 1
-  const template = `0 | {data}${unit || ''}`
-  if (count > 0) {
-    const data = toNumberCeil(count / pow)
-    res = I18n.part(template, data, { data: formatCash(data) })
-  } else {
-    const data = toNumberCeil(count / pow)
-    const temp = formatCash(Math.abs(data))
-    res = I18n.part(template, data, { data: `-${temp}` })
-  }
-  return res
+  // 默认使用英文方式格式化
+  return tools.aboutEn(value)
 }

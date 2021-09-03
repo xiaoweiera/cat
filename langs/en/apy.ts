@@ -165,9 +165,9 @@ export default {
     },
     table: {
         chain: 'Chain',
-        type: 'Type',
-        tag: 'Tag',
-        interestRate: 'Interest rate',
+        type: 'Pool Type',
+        tag: 'Strategy Tag',
+        interestRate: 'Pool APY Info APY',
         borrowingLimit: 'Liquidity',
         margin: 'Margin',
         apyTotal: 'Total',

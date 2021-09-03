@@ -34,8 +34,8 @@ onMounted(async() => {
       <!-- 没有登录 -->
       <div class="flex items-center">
         <span class="whitespace-nowrap" @click.stop="goLogin">{{I18n.common.login }}</span>
-        <img class="w-0.5 h-0.5 ml-1 mr-1 Z" src="https://res.ikingdata.com/nav/dian.png" alt=""/>
-        <span class="whitespace-nowrap" @click.stop="goRegister">{{I18n.common.register }}</span>
+        <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" src="https://res.ikingdata.com/nav/dian.png" alt=""/>
+        <span class="whitespace-nowrap hidden md:inline-block" @click.stop="goRegister">{{I18n.common.register }}</span>
       </div>
     </div>
     <ElDialog v-model="visible" custom-class="dialog-login" :append-to-body="true" :before-close="handleClose">

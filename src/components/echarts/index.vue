@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { pick } from 'ramda'
 import { onMounted, reactive, ref, toRaw, watch, onUnmounted } from 'vue'
-import { compact, debounce, map, uuid } from '~/utils'
+import { compact, debounce, map, toBoolean, uuid } from '~/utils'
 import { useProvide } from '~/utils/use/state'
 import * as echarts from 'echarts'
 import { EchartsOptionName } from '~/logic/echarts/tool'
@@ -12,6 +12,8 @@ import * as resize from '~/utils/event/resize'
 import safeSet from '@fengqiaogang/safe-set'
 
 import { graphic, tooltips as makeTooltipOption, xAxis as makeXAxisOption } from '~/lib/chartOption'
+import safeGet from '@fengqiaogang/safe-get'
+import DBList from '@fengqiaogang/dblist'
 
 const props = defineProps(config.getProps())
 
@@ -23,7 +25,7 @@ const [ series ] = useProvide(EchartsOptionName.series)
 const [ yAxis ] = useProvide(EchartsOptionName.yAxis)
 const [ xAxis ] = useProvide(EchartsOptionName.xAxis)
 const [ tooltip ] = useProvide(EchartsOptionName.tooltip)
-const [ chartLegends ] = useProvide(EchartsOptionName.legend)
+const [ chartLegends, setChartLegends ] = useProvide(EchartsOptionName.legend)
 
 /**
  * 获取 ref 对象中的数据，并去除空值
@@ -33,6 +35,20 @@ const getValue = function<T>(data: any): T[] {
   const value = toRaw(data.value)
   return compact<T>(value)
 }
+
+const onChangeLegendsDisabled = function(name: string, disabled: boolean) {
+  const list = getValue<LegendItem>(chartLegends)
+  for(let i = 0; i < list.length; i++) {
+    const item = list[i]
+    if (item.value === name) {
+      const index = item.index
+      const data = { ...item, disabled: !disabled }
+      setChartLegends(data, index)
+      break
+    }
+  }
+}
+
 
 const chartId = ref<string>(uuid())
 
@@ -134,10 +150,20 @@ const getChar = function() {
   const dom = getChartDom()
   if (dom) {
     const char = echarts.init(dom)
+    // 监听图例的开关
+    char.on('legendselectchanged', function(data: object) {
+      const name = safeGet<string>(data, 'name')
+      if (name) {
+        const status = toBoolean(safeGet<boolean>(data, `selected.${name}`))
+        onChangeLegendsDisabled(name, status)
+      }
+    })
     compChar.value = char
     return char
   }
 }
+
+let onload = false
 
 // 刷新 chart 数据
 const sync = debounce<any>( function () {
@@ -147,28 +173,30 @@ const sync = debounce<any>( function () {
     char.setOption(option, {
       silent: true,
       // notMerge: true
-      replaceMerge: ['series', 'legend']
+      replaceMerge: ['series', 'legend', 'yAxis', 'xAxis']
     })
+    onload = true
   }
 }, 300)
 
-// const onResize = function() {
-//   const char: any = compChar.value
-//   if (char) {
-//     char.resize({
-//       silent: true,
-//       animation: {
-//         duration: 0
-//       }
-//     })
-//     setTimeout(function() {
-//       char.setOption(getBasisOption(), {
-//         replaceMerge: 'grid'
-//       })
-//     })
-//   }
-// }
-
+const onResize = function() {
+  if (onload) {
+    const char = getChar();
+    if (char) {
+      char.resize({
+        silent: true,
+        animation: {
+          duration: 0
+        }
+      })
+      setTimeout(function() {
+        char.setOption(getBasisOption(), {
+          replaceMerge: 'grid'
+        })
+      })
+    }
+  }
+}
 
 onMounted(function() {
   const dom = getChartDom()
@@ -182,13 +210,13 @@ onMounted(function() {
         sync()
       }
     })
-    // resize.bind(chartId.value, onResize)
+    resize.bind(chartId.value, onResize)
   }
 })
 
-// onUnmounted(function() {
-//   resize.unbind(chartId.value)
-// })
+onUnmounted(function() {
+  resize.unbind(chartId.value)
+})
 
 </script>
 

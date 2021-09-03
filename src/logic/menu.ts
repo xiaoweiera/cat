@@ -48,36 +48,36 @@ export const footers = [
     label: I18n.nav.analysis.name, // '数据'
     children: [
       {
-        name: '数据专题',
+        name: I18n.menu.data.topic,
         href: config.topic,
       }, {
-        name: '数据监控',
+        name: I18n.menu.data.news,
         href: config.news,
       }, {
-        name: '数据研报',
+        name: I18n.menu.data.reports,
         href: config.reports,
       }
     ]
   },
   {
-    label: '相关服务',
+    label: I18n.menu.service.title,
     children: [
       {
-        name: 'GrowthPad 收录',
+        name: I18n.menu.service.growthPad,
         href: 'http://ikingdata.mikecrm.com/kbZDdCb'
       }, {
-        name: 'APY 大全收录',
+        name: I18n.menu.service.apy,
         href: 'http://ikingdata.mikecrm.com/ijyjMFO'
       }, {
-        name: '数据指标收录',
+        name: I18n.menu.service.news,
         qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
-        desc: '数据指标收录'
+        desc: I18n.menu.hover.wechat
       }, {
-        name: '数据研报服务',
+        name: I18n.menu.service.reports,
         qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
-        desc: '数据研报服务'
+        desc: I18n.menu.hover.wechat
       }, {
-        name: '数据导航收录',
+        name: I18n.menu.service.topic,
         href: 'https://jinshuju.net/f/ZjRZdR'
       }
     ]
@@ -173,24 +173,24 @@ export const headers = [
     href: config.topic,
     children: [
       {
-        name: '数据专题',
-        desc: '轻松查看核心业务数据',
+        name: I18n.menu.data.topic,
+        desc: I18n.menu.desc.data.topic,
         icon: 'icon-zhuanti',
         href: config.topic,
         more: true,
         header: true
       },
       {
-        name: '数据监控',
-        desc: '不错过任何交易机会',
+        name: I18n.menu.data.news,
+        desc: I18n.menu.desc.data.news,
         icon: 'icon-jiankong1',
         href: config.news,
         more: true,
         header: true
       },
       {
-        name: '数据研报',
-        desc: '更深、更全的项目研究',
+        name: I18n.menu.data.reports,
+        desc: I18n.menu.desc.data.reports,
         icon: 'icon-yanbao',
         href: config.reports,
         more: true,
@@ -200,12 +200,12 @@ export const headers = [
   },
   {
     // DEX 聪明钱
-    name: I18n.nav.defi.liquidity.name,
+    name: I18n.menu.liquidity.liquidity,
     href: config.liquidity,
     children: [
       {
-        name: I18n.nav.defi.liquidity.name,
-        desc: '流动性资金来龙去脉一目了然',
+        name: I18n.menu.liquidity.liquidity,
+        desc: I18n.menu.desc.liquidity.liquidity,
         icon: 'icon-DEX',
         href: config.liquidity,
         more: true
@@ -213,19 +213,18 @@ export const headers = [
     ]
   },
   {
-    name: 'GrowthPad',
+    name: I18n.menu.growthPad.growthPad,
     desc: I18n.nav.service.growthPad.desc,
     href: config.growthpad,
     children: [
       {
-        name: 'GrowthPad',
+        name: I18n.menu.growthPad.growthPad,
         href: config.growthpad,
         icon: 'icon-growthpad',
-        desc: '做任务赢奖励',
+        desc: I18n.menu.desc.growthPad.growthPad,
         more: true,
         header: true
       },
-      // { name: '案例' },
       {
         name: I18n.nav.service.growthPad.children.project.name,
         href:'http://ikingdata.mikecrm.com/kbZDdCb?utm_source=https://kingdata.com',

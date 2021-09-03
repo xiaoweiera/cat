@@ -104,13 +104,20 @@ export interface LegendItem {
   show?: boolean
   value?: string
   index?: number
+  color?: string
   [key: string]: any
+}
+
+export interface YAxis {
+  left: string | undefined,
+  right: string | undefined
 }
 
 // 图表数据结构
 export class EchartData {
   key?: string;
   legends: Array<LegendItem> = [];
+  yAxis: YAxis = { left: '', right: '' }; // Y 轴刻度单位
   xAxis: Array<XAxisItem | number | string> = [];
   series: SeriesMap = {}
 }
