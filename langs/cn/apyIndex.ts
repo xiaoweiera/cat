@@ -1,9 +1,9 @@
 export default{
-    title:'DeFi 挖矿APY大全',
+    title:'快速发现高收益矿池',
     apply:'申请收录',
-    miningTitle:'DeFi 挖矿APY大全',
-    loanTitle:'发现优质矿池 APR',
-    platDes:'{chain} 条公链，{project} 个项目，{pool} 个池子，支持跨链对比，历史趋势，APP 提醒。',
+    miningTitle:'快速发现高收益矿池',
+    loanTitle:'快速发现借贷最佳路径',
+    platDes:'{chain} 条公链，{project} 个项目，{pool} 个池子，支持链对比，历史趋势，APP 提醒',
     allChain:'全部公链',
     chain:'选择公链',
     loanListChain:'公链',
@@ -22,7 +22,7 @@ export default{
         },
         coin:{
             title:'我有币',
-            des1:'去选择',
+            des1:'去投',
             high:'收益最高',
             des2:'的平台'
         },
@@ -41,7 +41,7 @@ export default{
     loanChartTitle:'单币借贷利率',
     chainType:'公链类型',
     poolType:'矿池类型',
-    poolTag:'矿池标签',
+    poolTag:'矿池策略',
     apyGroup:'APY 构成',
     singleInterest:'单利收益',
     compoundInterest:'复利收益',
@@ -135,8 +135,13 @@ export default{
     noLow:'不得低于',
     realRato:'真实利率',
     clearData:'重置',
-    loanAllRouter:'借贷的所有最佳路径',
+    loanAllRouter:'借贷 {token} 的所有最佳路径',
     warning:'警告',
     description: '风险提示：本站数据来源于各平台',
-    warningDes:'风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。'
+    warningDes:'风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。',
+    tokenMining:'挖矿相关APY',
+    tokenLending:'借贷相关APR',
+    tokenMiningTitle:'挖 {token} 收益率前10的池子',
+    tokenLendingTitle:'借贷 {token} 利息最低的前10池子',
+    tokenMiningListTitle:'{token} 所有池子 APY',
 }

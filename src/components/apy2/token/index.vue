@@ -38,11 +38,11 @@ const getTabList = function() {
     const tab = new DBList([
       {
         id: TabCategoryData.mining,
-        name: I18n.apy.token.mining,
+        name: I18n.apyIndex.tokenMining,
         followed: 'mining_followed'
       }, {
         id: TabCategoryData.lend,
-        name: I18n.apy.token.lend,
+        name: I18n.apyIndex.tokenLending,
         followed: 'lend_followed'
       }
     ], 'id')

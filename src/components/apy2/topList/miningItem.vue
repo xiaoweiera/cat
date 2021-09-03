@@ -33,7 +33,7 @@ onMounted(() => {
                 <div class=" flex items-center">
                   <IconFont v-if="i<3" class="xshidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="32" :type='`icon-a-${i+1}`'></IconFont>
                   <IconFont v-if="i<3" class="mdhidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="24" :type='`icon-a-${i+1}`'></IconFont>
-                  <div v-else class="mx-1.3 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">
+                  <div v-else class="md:mx-2.4 mx-1.3 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">
                     {{ i + 1 }}
                   </div>
                 </div>
