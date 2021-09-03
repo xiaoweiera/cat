@@ -26,69 +26,86 @@ onMounted(async() => {
 // const activeTab = ref('1')
 </script>
 <template>
-  <div class="flex flex-col">
-    <div ref="video" class="xshidden absolute hero-money hidden mixed">
-      <video muted="“muted”" class="hero-money" autoplay="true" loop="true">
-        <source
-          src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
-          type="video/mp4"
-        />
-      </video>
-    </div>
-    <!--    手机端banner-->
-    <GrowthpadIndexMobileBanner />
-    <div class="mainContainer">
-      <div class="xshidden hero w-full flex-wrap flex justify-between">
-        <div class="titleDes mdhidden"></div>
-        <div class="mxWidth font-kdFang i8n-font-en-inter">
-          <div class="titleTxt i8n-font-en-Barlow">GrowthPad</div>
-          <div class="titleTxt i8n-font-en-Barlow">
-            {{ I18n.growthpadShow.title }}
+  <div class="containerbgs bg-global-body md:bg-opacity-100">
+    <div class="flex flex-col justify-center items-center">
+      <div ref="video" class="xshidden absolute hero-money hidden mixed">
+        <video muted="“muted”" class="hero-money" autoplay="true" loop="true">
+          <source
+            src="https://res.ikingdata.com/nav/moneyVideoSmall.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <!--    手机端banner-->
+      <GrowthpadIndexMobileBanner />
+      <div class="mainContainer">
+        <div class="xshidden hero w-full flex-wrap flex justify-between">
+          <div class="titleDes mdhidden"></div>
+          <div class="mxWidth font-kdFang i8n-font-en-inter">
+            <div class="titleTxt i8n-font-en-Barlow">GrowthPad</div>
+            <div class="titleTxt i8n-font-en-Barlow">
+              {{ I18n.growthpadShow.title }}
+            </div>
+            <div
+              class="
+                text-kd12px22px
+                md:text-kd14px22px
+                text-global-default
+                opacity-65
+                mt-4
+                md:mt-6
+                i8n-font-en-inter
+              "
+            >
+              <div>{{ I18n.growthpadShow.des }}</div>
+            </div>
+            <GrowthpadSummary />
+            <div class="flex flex-wrap md:mt-8.25 relative z-30 items-center">
+              <div class="suport i8n-font-en-inter">
+                {{ I18n.growthpadShow.supproted }}
+              </div>
+              <template v-for="item in platList">
+                <img class="mr-3 md:mr-4 h-4 md:h-5 mt-4" :src="item" alt="" />
+              </template>
+            </div>
+            <!--   申请入驻 联系方式-->
+            <GrowthpadIndexTelPlat class="xshidden" />
           </div>
           <div
-            class="
-              text-kd12px22px
-              md:text-kd14px22px
-              text-global-default
-              opacity-65
-              mt-4
-              md:mt-6
-              i8n-font-en-inter
-            "
-          >
-            <div>{{ I18n.growthpadShow.des }}</div>
-          </div>
-          <GrowthpadSummary />
-          <div class="flex flex-wrap md:mt-8.25 relative z-30 items-center">
-            <div class="suport i8n-font-en-inter">
-              {{ I18n.growthpadShow.supproted }}
-            </div>
-            <template v-for="item in platList">
-              <img class="mr-3 md:mr-4 h-4 md:h-5 mt-4" :src="item" alt="" />
-            </template>
-          </div>
-          <!--   申请入驻 联系方式-->
-          <GrowthpadIndexTelPlat class="xshidden" />
+            ref="positionContainer"
+            class="xshidden hero-money mt-6 md:mt-0 xl:ml-10.5 xl:mt-0"
+          ></div>
         </div>
-        <div
-          ref="positionContainer"
-          class="xshidden hero-money mt-6 md:mt-0 xl:ml-10.5 xl:mt-0"
-        ></div>
-      </div>
-      <!--    pc banner-->
-      <GrowthpadIndexPcBanner />
-      <!--  即将开始-->
-      <div class="progress text-left mt-4 md:mt-20">
-        <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
-      </div>
+        <!--    pc banner-->
+        <GrowthpadIndexPcBanner />
+        <!--  即将开始-->
+        <div class="progress text-left mt-4 md:mt-20">
+          <GrowthpadProjects :title="I18n.growthpadShow.projectState" />
+        </div>
 
-      <GrowthpadIndexTelPlat class="mdhidden" />
-      <GrowthpadExamplefooter />
+        <GrowthpadIndexTelPlat class="mdhidden" />
+        <GrowthpadExamplefooter />
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+
+@media screen and (max-width: 768px) {
+  .containerbgs {
+    background-image: url('https://res.ikingdata.com/nav/kongtouBg.png');
+    background-size: cover;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .containerbgs {
+    background-image: url('https://res.ikingdata.com/nav/kgBodytopBg.jpg');
+    background-size: cover;
+  }
+}
+
 .suport {
   @apply mt-4 min-w-7.5 text-global-default opacity-65 mr-3 md:mr-4 text-kd14px22px;
 }

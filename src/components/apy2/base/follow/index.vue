@@ -5,6 +5,7 @@ import { isEmpty } from '~/utils'
 import { messageError, messageSuccess } from '~/lib/tool'
 import safeGet from '@fengqiaogang/safe-get'
 import getProps from '~/components/apy2/base/follow/props'
+import I18n from '~/utils/i18n/index'
 
 const props = defineProps(getProps())
 
@@ -35,10 +36,12 @@ const onClick = async function() {
   try {
     await setFollow(query)
     follow.value = !getActiveValue();
-    messageSuccess('已收藏')
+    messageSuccess(I18n.apy.pool.added)
   } catch (e) {
-    const message = safeGet(e, 'message') || '收藏失败，请稍后再试'
-    messageError(message)
+    const message = safeGet<string>(e, 'message')
+    if (message) {
+      messageError(message)
+    }
   } finally {
     setTimeout(() => {
       flag = false

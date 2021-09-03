@@ -46,7 +46,7 @@ defineProps({
     </div>
     <div class="item-row flex items-center">
       <span class="apy-label">{{ I18n.apy.table.borrowingLimit }}</span>
-      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">${{ numberUint(data.quota_remain) }}  ({{ toNumber(data.quota_remain_percent) }}%)</span>
+      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">${{ numberUint(toNumber(data.quota_remain)) }}  ({{ toNumber(data.quota_remain_percent) }}%)</span>
     </div>
     <div class="item-row flex items-center text-global-numRed" v-if="data.warining_info">
       <IconFont type="icon-info2" size="16"/>

@@ -174,5 +174,22 @@ export default {
         single: 'Single',
         compound: 'Compound',
         remaining: 'Remaining ratio'
+    },
+    pool: {
+        mining: 'Deposit',
+        lean: 'Borrow',
+        apy: 'APY',
+        remainingRatio: 'Remaining ratio',
+        single: 'Single',
+        compound: 'Compound',
+
+        favorite: 'Favorite',
+        added: 'Added',
+        apr: 'APR',
+        info: 'Info',
+        poolData: 'Pool Data',
+        apyTop5: 'APY TOP5 Pools Comparison',
+        ranking: 'Ranking',
+        trending: 'Trending',
     }
 };

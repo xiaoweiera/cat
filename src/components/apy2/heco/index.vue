@@ -115,8 +115,10 @@ const onRowClick = function(row: any) {
 }
 // @ts-ignore
 const onOpen = function(href: string) {
-  const src = router(href)
-  window.open(src)
+  if (href) {
+    const src = router(href)
+    window.open(src)
+  }
 }
 
 // @ts-ignore
@@ -234,7 +236,7 @@ onMounted(ready)
             <el-table-column prop="node_name" :label="I18n.apy.heco.head.operation">
               <template #default="scope">
                 <div>
-                  <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
+                  <el-button type="text" @click.stop.prevent="onOpen(scope.row.jump_url)">
                     <span class="text-xs font-medium">{{ I18n.apy.heco.button.vote }}</span>
                   </el-button>
                   <el-button type="text">
@@ -266,7 +268,7 @@ onMounted(ready)
             <el-table-column prop="node_name" label="操作">
               <template #default="scope">
                 <div>
-                  <el-button type="text" @click.stop.prevent="onOpen(scope.row.address)">
+                  <el-button type="text" @click.stop.prevent="onOpen(scope.row.jump_url)">
                     <span class="text-xs font-medium">{{ I18n.apy.heco.button.vote }}</span>
                   </el-button>
                 </div>

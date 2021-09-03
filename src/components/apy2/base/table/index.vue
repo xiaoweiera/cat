@@ -188,6 +188,9 @@ const reload = function() {
   </div>
   <div v-else>
     <Apy2BaseNoData :type="props.type" :group-id="groupId"/>
+    <div class="pt-4" v-if="groupId === 'my'">
+      <Apy2BaseFollowMultiple :type="type" @success="reload"/>
+    </div>
   </div>
 </template>
 

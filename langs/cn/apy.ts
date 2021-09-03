@@ -179,5 +179,24 @@ export default {
         single: '单利收益',
         compound: '复利收益',
         remaining: '剩余额度'
+    },
+    pool: {
+        mining: '去挖矿',
+        lean: '去借贷',
+        apy: '收益率',
+        remainingRatio: '可投额度',
+        single: '单利',
+        compound: '复利',
+
+        favorite: '添加自选',
+        added: '已收藏',
+        apr: '利率',
+        info: '产出币种',
+        poolData: '池子相关数据',
+        apyTop5: 'APY TOP5池子对比',
+        ranking: '排行对比',
+        trending: '趋势对比',
+
     }
 };
+

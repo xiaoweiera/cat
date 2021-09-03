@@ -89,14 +89,14 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
           <div class="mr-3">
             <Apy2BaseFollow class="text-global-primary flex items-center h-8.5 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
-              <span class="text-sm ml-1.5 text-sm leading-4">添加自选</span>
+              <span class="text-sm ml-1.5 text-sm leading-4">{{ I18n.apy.pool.favorite }}</span>
             </Apy2BaseFollow>
           </div>
           <div>
             <a v-router.blank="detail.project_url" class="cursor-pointer flex items-center  h-8.5 px-7.5 rounded border border-global-primary border-opacity-32">
               <span class="text-global-primary text-sm leading-4">
-                <template v-if="type === TabCategoryData.mining">去挖矿</template>
-                <template v-else>去借贷</template>
+                <template v-if="type === TabCategoryData.mining">{{ I18n.apy.pool.mining }}</template>
+                <template v-else>{{ I18n.apy.pool.lean }}</template>
               </span>
             </a>
           </div>
@@ -104,7 +104,7 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
       </div>
       <div class="flex items-center mt-5 text-xs" v-if="type === TabCategoryData.mining">
         <div class="whitespace-nowrap flex items-end">
-          <span class="text-global-highTitle text-xs leading-5 text-opacity-45">收益率</span>
+          <span class="text-global-highTitle text-xs leading-5 text-opacity-45">{{ I18n.apy.pool.apy }}</span>
           <span class="text-kdExp flex text-global-numGreen text-4xl leading-9 ml-1.5">
             <span class="font-semibold">{{ toNumber(detail.apy) }}%</span>
           </span>
@@ -116,36 +116,36 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
             <span class="text-kdExp text-global-highTitle text-opacity-85">${{ numberUint(toNumber(detail.tvl)) }}</span>
           </div>
           <div class="whitespace-nowrap mt-2">
-            <span class="text-global-highTitle text-opacity-45">可投额度: </span>
+            <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.pool.remainingRatio }}: </span>
             <span class="text-kdExp text-global-highTitle text-opacity-85">${{ numberUint(toNumber(detail.quota_remain)) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
           </div>
         </div>
         <div class="split"></div>
         <div>
           <div class="whitespace-nowrap text-xs">
-            <span class="text-global-highTitle text-opacity-45">单利: </span>
+            <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.pool.single }}: </span>
             <span class="text-global-highTitle text-opacity-85">{{ toNumber(detail.single_apy) }}%</span>
           </div>
           <div class="whitespace-nowrap mt-2 text-xs">
-            <span class="text-global-highTitle text-opacity-45">复利: </span>
+            <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.pool.compound }}: </span>
             <span class="text-global-highTitle text-opacity-85">{{ toNumber(detail.compound_apy) }}%</span>
           </div>
         </div>
         <div class="split"></div>
         <div>
           <div class="whitespace-nowrap">
-            <span class="text-global-highTitle text-opacity-45">产出币种</span>
+            <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.pool.info }}</span>
           </div>
           <div class="whitespace-nowrap mt-2 text-global-highTitle text-opacity-85">
-            <span class="label" v-if="detail.single_apy_detail">{{ detail.single_apy_detail }} 单利</span>
-            <span class="label" v-if="detail.compound_detail">{{ detail.compound_detail }} 复利</span>
+            <span class="label" v-if="detail.single_apy_detail">{{ detail.single_apy_detail }} {{ I18n.apy.pool.single }}</span>
+            <span class="label" v-if="detail.compound_detail">{{ detail.compound_detail }} {{ I18n.apy.pool.compound }}</span>
           </div>
         </div>
       </div>
 
       <div class="flex items-center mt-5 text-xs" v-else-if="type === TabCategoryData.lend">
         <div class="whitespace-nowrap flex items-end">
-          <span class="text-global-highTitle text-xs leading-5 text-opacity-45">利息</span>
+          <span class="text-global-highTitle text-xs leading-5 text-opacity-45">{{ I18n.apy.interest }}</span>
           <span class="text-kdExp flex text-global-numGreen text-4xl leading-9 ml-1.5">
             <span class="font-semibold">{{ toNumber(detail.apy) }}%</span>
           </span>
@@ -153,14 +153,14 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
         <div class="split"></div>
         <div>
           <div class="whitespace-nowrap text-xs">
-            <span class="text-global-highTitle text-opacity-45">可借额度: </span>
+            <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.borrowAmount }}: </span>
             <span class="text-kdExp text-global-highTitle text-opacity-85">${{ numberUint(toNumber(detail.quota_remain)) }} ({{ toNumber(detail.quota_remain_percent) }}%)</span>
           </div>
         </div>
         <div class="split"></div>
         <div class="text-xs">
           <div class="whitespace-nowrap">
-            <span class="text-global-highTitle text-opacity-45">利率构成</span>
+            <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.interestGroup }}</span>
           </div>
           <div class="whitespace-nowrap mt-2 text-global-highTitle text-opacity-85">
             <span class="label">{{ detail.apy_detail }}</span>
@@ -191,19 +191,19 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
     <el-main class="p-0">
       <div class="flex h-full">
         <div class="flex-1 w-1 pr-4 h-full border-0 border-r border-solid border-highTitle border-opacity-6">
-          <Apy2PoolTrends :type="type" :id="id" title="池子相关数据"/>
+          <Apy2PoolTrends :type="type" :id="id" :title="I18n.apy.pool.poolData"/>
         </div>
         <div class="flex-1 w-1 h-full pl-4">
-          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol_alias" title="APY Top5 池子对比">
+          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol_alias" :title="I18n.apy.pool.apyTop5">
             <el-radio-group v-model="tabValue" size="small">
-              <el-radio-button :label="tab1">排行对比</el-radio-button>
-              <el-radio-button :label="tab2">趋势对比</el-radio-button>
+              <el-radio-button :label="tab1">{{ I18n.apy.pool.ranking }}</el-radio-button>
+              <el-radio-button :label="tab2">{{ I18n.apy.pool.trending }}</el-radio-button>
             </el-radio-group>
           </Apy2PoolTop5>
-          <Apy2PoolDiff v-else-if="tabValue === tab2" :type="type" :symbol="detail.symbol_alias" title="APY Top5 池子对比">
+          <Apy2PoolDiff v-else-if="tabValue === tab2" :type="type" :symbol="detail.symbol_alias" :title="I18n.apy.pool.apyTop5">
             <el-radio-group v-model="tabValue" size="small">
-              <el-radio-button :label="tab1">排行对比</el-radio-button>
-              <el-radio-button :label="tab2">趋势对比</el-radio-button>
+              <el-radio-button :label="tab1">{{ I18n.apy.pool.ranking }}</el-radio-button>
+              <el-radio-button :label="tab2">{{ I18n.apy.pool.trending }}</el-radio-button>
             </el-radio-group>
           </Apy2PoolDiff>
         </div>
