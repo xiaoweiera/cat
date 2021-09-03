@@ -332,7 +332,9 @@ a {
   $icon: "https://statics.ikingdata.com/img/new.png";
   &:after {
     content: "";
-    @apply absolute left-0 top-0 right-0 bottom-0;
+    @apply absolute left-0 top-0;
+    width: var(--new-size);
+    height: var(--new-size);
     background-image: url($icon);
     background-position: left top;
     background-repeat: no-repeat;

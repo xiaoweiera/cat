@@ -37,12 +37,12 @@ const transform = function(db: DBList, list: any[], pid: string = '0') {
 }
 
 export const getTableList = async function(db: DBList, query: Object = {}) {
-  const page = safeGet<number>(query, 'page') || 10
-  const result = await API.apy.table.getList<any>({ page, ...query })
+  const page_size = safeGet<number>(query, 'page_size') || 10
+  const result = await API.apy.table.getList<any>({ page_size, ...query })
   const size = result.length
   const empty = size <= 0
   const data = transform(db, result)
-  if (size < page) {
+  if (size < page_size) {
     return { ...data, empty, next: false }
   }
   return { ...data, empty, next: true }

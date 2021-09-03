@@ -64,7 +64,7 @@ const getTableDataList = function() {
   return array
 }
 
-const page = ref<number>(10)
+const page = ref<number>(1)
 const loading = ref<boolean>(true)
 const nextStatus = ref<boolean>(true)
 const rankValue = ref<number>(10)
