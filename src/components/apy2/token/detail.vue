@@ -22,7 +22,8 @@ const poolList = ref<any[]>([])
 const updatePoolList = async function(query?: object) {
   const param = Object.assign({
     chain: 'all',
-    symbol_type: radios[0].value
+    symbol_type: radios[0].value,
+    symbol_alias: props.symbol,
   }, query || {}, { pool_type: props.type })
   const data: any = await getPoolsList(param)
   if (data && data.length > 0) {

@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { forEach, toArray } from '~/utils'
+import { forEach, toArray, compact } from '~/utils'
 import { LegendItem, seriesType, iconFontName } from './interface'
 import { flatten } from 'ramda'
 
@@ -28,6 +28,7 @@ export const makeSvg = function(type: seriesType, color?: string) {
 export const clacLegendBoxWidth = function(legends: LegendItem[]): number {
   let width = 0
   forEach((item: LegendItem, index: number) => {
+    console.log(item)
     let name = item.value || item.name
     name = `${name || ''}`
     const len = name.length
@@ -35,12 +36,12 @@ export const clacLegendBoxWidth = function(legends: LegendItem[]): number {
     if (index > 0) {
       width += 15
     }
-  }, flatten(toArray(legends)))
+  }, compact(flatten(toArray(legends))))
   return width
 }
 
 export const clacLegendRows = function(legends: LegendItem[], dom: HTMLElement) {
-  const width = clacLegendBoxWidth(legends)
+  const width = clacLegendBoxWidth(legends || [])
   if (dom && dom.clientWidth) {
     const boxWidth = dom.clientWidth - 20 * 2
     return Math.ceil(width / boxWidth)
