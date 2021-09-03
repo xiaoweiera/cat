@@ -5,8 +5,7 @@
  */
 
 import { defineProps, computed } from 'vue'
-// @ts-ignore
-import { Position, colors } from '~/logic/echarts/interface'
+import { Position } from '~/logic/echarts/interface'
 import { toBoolean } from '~/utils'
 
 /*
@@ -62,7 +61,7 @@ const getAreaStatus = computed(function() {
         show: 是否显示
         position: 通过该字段控制 Series 中对应的数据以那个 Y 轴为纬度展示
       -->
-      <EchartsLegend :index="index" :value="item.name" :color="colors[index]" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+      <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
     </template>
     <!-- 设置Y轴 -->
     <!--
