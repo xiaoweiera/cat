@@ -79,6 +79,7 @@ const getYAxisData = function(yAxisData: any[]) {
 // 获取图列数据
 export const getLegend = function(list: LegendItem[], yAxisData: any[], props: any) {
   const getYAxisValue = getYAxisData(yAxisData)
+  const selected = {}
   const data = map((item: LegendItem) => {
     if (item.show) {
       // @ts-ignore
@@ -97,10 +98,13 @@ export const getLegend = function(list: LegendItem[], yAxisData: any[], props: a
           safeSet(opt, 'itemStyle.color', color)
         }
       }
+      if (item.value) {
+        safeSet(selected, item.value, !item.disabled)
+      }
       return opt
     }
   }, list)
-  const option = { data: compact(data), itemWidth: 14, }
+  const option = { data: compact(data), itemWidth: 14, selected }
   if (props.legend === LegendDirection.top) {
     safeSet(option, 'top', 0)
   } else if (props.legend === LegendDirection.left) {
@@ -179,6 +183,10 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
   const leftData: any[] = []
   const rightData: any[] = []
   forEach(function(item: any, index: number) {
+    // 判断是否需要隐藏数据
+    if (!toBoolean(item.show) || toBoolean(item.disabled)) {
+      return void 0
+    }
     const value = safeGet<any[]>(seriesList, `[${index}].data`)
     if (item.position === Position.right) {
       rightData.push(value)
@@ -236,6 +244,11 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
       return item
     }, yaxis)
   }
+  if (yaxis.length === 0) {
+    yaxis.push({
+      type: 'value'
+    })
+  }
   return yaxis
 }
 
@@ -257,7 +270,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
   const seriesList = map((item: any, index: number) => {
     const data = getLegendItem(index)
     // 判断是否需要隐藏数据
-    if (!toBoolean(data.show) || toBoolean(data.disabled)) {
+    if (!toBoolean(data.show)) {
       return void 0
     }
     const option: any = {
@@ -271,6 +284,10 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
       },
       symbol: 'none',
     }
+    if (toBoolean(data.disabled)) {
+      option.data = []
+    }
+
     safeSet(option, 'itemStyle.color', safeGet<string>(data, 'itemStyle.color'))
 
     if (data.type === seriesType.line) {
