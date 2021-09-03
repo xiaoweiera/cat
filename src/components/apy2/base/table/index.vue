@@ -64,7 +64,7 @@ const getTableDataList = function() {
   return array
 }
 
-const page = ref<number>(1)
+const page = ref<number>(10)
 const loading = ref<boolean>(true)
 const nextStatus = ref<boolean>(true)
 const rankValue = ref<number>(10)
@@ -73,16 +73,11 @@ const tableData = ref<any[]>([])
 const updateData = async function() {
   loading.value = true
   try {
-    // @ts-ignore
-    const size = db.size() // 请求前数据长度
-    const { maxLength = 0 } = await getTableList(db, { ...props, page: page.value })
-    // @ts-ignore
-    if (db.size() > size) { // 请求完成后的数据长度如果大于请求前的数据长度
-      tableData.value = getTableDataList()
-      rankValue.value = maxLength < 6 ? 6 : maxLength
-    } else {
-      nextStatus.value = false
-    }
+    const { maxLength = 0, next } = await getTableList(db, { ...props, page: page.value })
+    console.log('next ', next)
+    rankValue.value = maxLength < 6 ? 6 : maxLength
+    nextStatus.value = next
+    tableData.value = getTableDataList()
   } catch (e) {
     console.log(e)
   }
@@ -150,7 +145,7 @@ const reload = function() {
 
 </script>
 <template>
-  <Spin v-if="tableData.length>0 || groupId !== 'my'" :loading="loading">
+  <div v-if="tableData.length > 0">
     <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName">
       <el-table-column :width="200" fixed prop="0">
         <template #header="scope">
@@ -191,8 +186,10 @@ const reload = function() {
         </span>
       </div>
     </div>
-  </Spin>
-  <Apy2BaseNoData v-else :type="props.type" />
+  </div>
+  <div v-else>
+    <Apy2BaseNoData :type="props.type" :group-id="groupId"/>
+  </div>
 </template>
 
 <style lang="scss">
