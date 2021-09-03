@@ -60,24 +60,24 @@ export const footers = [
     ]
   },
   {
-    label: '相关服务',
+    label: I18n.menu.service.title,
     children: [
       {
-        name: 'GrowthPad 收录',
+        name: I18n.menu.service.growthPad,
         href: 'http://ikingdata.mikecrm.com/kbZDdCb'
       }, {
-        name: 'APY 大全收录',
+        name: I18n.menu.service.apy,
         href: 'http://ikingdata.mikecrm.com/ijyjMFO'
       }, {
-        name: '数据指标收录',
+        name: I18n.menu.service.news,
         qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
-        desc: '数据指标收录'
+        desc: I18n.menu.hover.wechat
       }, {
-        name: '数据研报服务',
+        name: I18n.menu.service.reports,
         qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
-        desc: '数据研报服务'
+        desc: I18n.menu.hover.wechat
       }, {
-        name: '数据导航收录',
+        name: I18n.menu.service.topic,
         href: 'https://jinshuju.net/f/ZjRZdR'
       }
     ]

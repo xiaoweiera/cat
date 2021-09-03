@@ -36,5 +36,18 @@ export default {
     growthPad: {
       growthPad: '做任务赢奖励'
     },
+  },
+  service: {
+    title: '相关服务',
+    growthPad: 'GrowthPad 收录',
+    apy: 'APY 大全收录',
+    news: '数据指标收录',
+    reports: '数据研报服务',
+    topic: '数据导航收录',
+  },
+  hover: {
+    app: '扫码下载 App',
+    telegram: '扫码加入电报群',
+    wechat: '扫码加入微信群'
   }
 }

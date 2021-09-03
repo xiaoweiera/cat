@@ -36,5 +36,18 @@ export default {
     growthPad: {
       growthPad: 'Do tasks, earn crypto'
     },
+  },
+  service: {
+    title: 'Service',
+    growthPad: 'Apply to GrowthPad',
+    apy: 'Apply to APY List',
+    news: 'Apply to Data Metric',
+    reports: 'Data Report Service',
+    topic: 'Apply to Data Nav',
+  },
+  hover: {
+    app: 'Download App',
+    telegram: 'Join Telegram Group',
+    wechat: 'Join WeChat Group'
   }
 }

@@ -61,13 +61,13 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">
               <div class="menu-item">
-                <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
+                <UiFooterHover :href="env.appDownload" :desc="I18n.menu.hover.app">
                   <img class="block" src="https://res.ikingdata.com/common/download_apple.jpg">
                 </UiFooterHover>
               </div>
 
               <div class="menu-item">
-                <UiFooterHover :href="env.appDownload" desc="扫码下载APP">
+                <UiFooterHover :href="env.appDownload" :desc="I18n.menu.hover.app">
                   <img class="block" src="https://res.ikingdata.com/common/download_android.jpg">
                 </UiFooterHover>
               </div>
@@ -97,7 +97,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
 <!--          </a>-->
 
           <div class="flex">
-            <UiFooterHover :href="telegram" desc="扫码加入电报群">
+            <UiFooterHover :href="telegram" :desc="I18n.menu.hover.telegram">
               <IconFont type="icon-telegram" class="flex"/>
             </UiFooterHover>
           </div>
@@ -108,7 +108,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
           </a>
 
           <div class="flex ml-6">
-            <UiFooterHover :href="weChat" desc="扫码加入微信群">
+            <UiFooterHover :href="weChat" :desc="I18n.menu.hover.wechat">
               <IconFont type="icon-wechat" class="flex"/>
             </UiFooterHover>
           </div>

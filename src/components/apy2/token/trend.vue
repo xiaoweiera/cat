@@ -56,7 +56,7 @@ watchState([dataEventName.value, 'poolList'], function(result: any[]) {
           <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
         </template>
 
-        <EchartsYaxis :index="0" :position="Position.left"/>
+        <EchartsYaxis :index="0" :position="Position.left" unit="%"/>
         <EchartsYaxis :index="1" :position="Position.right"/>
 
         <!-- 设置X轴 -->

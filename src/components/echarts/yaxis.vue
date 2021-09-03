@@ -25,6 +25,10 @@ const props = defineProps({
   max: {
     type: Number
   },
+  unit: {
+    type: String,
+    default: () => '',
+  },
   // 根据 position 设置默认值
   color: {
     type: String,
@@ -40,7 +44,13 @@ onBeforeMount(function() {
     type: props.type,
     position: props.position,
     axisLabel: {
-      formatter: props.formatter
+      formatter: function(value: string | number, option: object = {}) {
+        const res = `${value}${props.unit || ''}`
+        if (props.formatter) {
+          return props.formatter({ ...option, value: res })
+        }
+        return res
+      }
     }
   }
   if (isNumber(props.min)) {

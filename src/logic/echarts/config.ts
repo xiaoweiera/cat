@@ -193,16 +193,22 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
     const textStyle = safeGet(yaxisData, textStyleKey)
     const [ option ] = makeYAxisOption(function(value: number) {
       const formatter = safeGet<any>(yaxisData, 'axisLabel.formatter')
-      if (formatter) {
-        return formatter(value)
-      }
+      let res: string | number = 0
       if (props.log) {
         if (value === 0) {
           return 0
         }
-        return numberUint(Math.pow(10, value))
+        res = numberUint(Math.pow(10, value))
+      } else {
+        res = numberUint(value)
       }
-      return numberUint(value)
+      if (formatter) {
+        return formatter(res, {
+          number: value,
+          log: props.log
+        })
+      }
+      return res
     })
     if (textStyle) {
       const temp = safeGet(option, textStyleKey) || {}

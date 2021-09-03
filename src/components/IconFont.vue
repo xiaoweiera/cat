@@ -160,7 +160,7 @@ const fontSize = computed<string>(function(): string {
 </script>
 
 <template>
-  <span v-if="isAliOSS" class="none-select icon-font" :class="{'border': border, 'circle': rounded}">
+  <span v-if="isAliOSS" class="none-select icon-font" :class="{'icon-border': border, 'icon-circle': rounded}">
     <template v-if="isHttp(type)">
       <img class="inline-block none-select" :class="fontSize" :src="src"/>
     </template>
@@ -168,7 +168,7 @@ const fontSize = computed<string>(function(): string {
       <img class="inline-block none-select" :class="`icon-${type} ${fontSize}`" :src="src"/>
     </template>
   </span>
-  <span v-else class="inline-block" :class="{'border': border, 'circle': rounded}">
+  <span v-else class="inline-block" :class="{'icon-border': border, 'icon-circle': rounded}">
     <i class="icon-font flex" :class="fontSize">
       <svg aria-hidden="true" v-html="iconCode()"></svg>
     </i>
@@ -215,11 +215,13 @@ i {
     font-size: $number;
   }
   &:not(.icon-font) {
-    width: $number;
-    height: $number;
-    max-width: $number;
-    max-height: $number;
+    /*
+     width: $number;
+     max-width: $number;
+    */
     min-width: $number;
+    height: $number;
+    max-height: $number;
     min-height: $number;
   }
   &.rounded {
@@ -251,12 +253,13 @@ i {
   @include size(42px);
 }
 
-.border {
+.icon-circle {
+  border-radius: 50%;
+}
+
+.icon-border {
   /*
   @apply border border-solid border-global-border;
-  &.circle {
-    border-radius: 50%;
-  }
   */
 }
 

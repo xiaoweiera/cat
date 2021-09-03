@@ -104,7 +104,7 @@ const onAdd = function() {
               <!-- 设置X轴 -->
               <EchartsXaxis :value="echartData.xAxis"/>
 
-              <EchartsYaxis :index="0" :position="Position.left"/>
+              <EchartsYaxis :index="0" :position="Position.left" unit="%"/>
               <EchartsYaxis :index="1" :position="Position.right"/>
 
               <!--数据-->
