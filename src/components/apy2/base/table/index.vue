@@ -175,7 +175,7 @@ const reload = function() {
         </el-table-column>
       </template>
     </el-table>
-    <div  class="pt-4 flex">
+    <div class="pt-4 flex">
       <div v-if="groupId === 'my'">
         <Apy2BaseFollowMultiple :type="type" @success="reload"/>
       </div>

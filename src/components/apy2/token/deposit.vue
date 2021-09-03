@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps,computed } from 'vue'
 import I18n from '~/utils/i18n/index'
 // 定义 props
 import Props from '~/components/apy2/token/props'
@@ -12,19 +12,20 @@ const props = defineProps(Props())
 useProvide('poolList', '')
 // 日期
 useProvide(dataEventName.value)
-
+const title=computed(()=>I18n.template(I18n.apyIndex.loanAllRouter,{token:props.symbol}) )
 </script>
 
 <template>
+
   <UiDownload>
     <!-- 币种描述 -->
-    <Apy2TokenDetail/>
+    <Apy2TokenDetail :symbol="symbol" :type="type"/>
     <div>
       <Apy2TokenTrend :symbol="symbol" :id="id" :type="type"/>
     </div>
   </UiDownload>
   <div class="mt-8">
-    <h3 class="text-kd18px24px text-global-highTitle  text-opacity-85 mb-3">{{ I18n.apy.token.pool.lends }}</h3>
+    <h3 class="text-kd18px24px text-global-highTitle  text-opacity-85 mb-3">{{ title}}</h3>
     <Apy2TokenLendingList :symbol="symbol" :type="type"/>
   </div>
 </template>

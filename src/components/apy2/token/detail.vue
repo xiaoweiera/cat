@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { map } from '~/utils'
-import { defineProps, ref } from 'vue'
+import { defineProps, ref,computed } from 'vue'
 import { getPoolsList } from '~/logic/apy2/token'
 import Props from '~/components/apy2/token/props'
 import { selectChains } from '~/logic/apy2/config'
@@ -50,14 +50,21 @@ const onChange = function(data: any) {
   }
   updatePoolList(query)
 }
-
+const title=computed(()=>{
+if(props.type==='mining'){
+  return I18n.template(I18n.apyIndex.tokenMiningTitle,{token:props.symbol})
+}else{
+  return I18n.template(I18n.apyIndex.tokenLendingTitle,{token:props.symbol})
+}
+})
 </script>
-
 <template>
   <div>
     <div class="flex justify-between items-center">
       <p class="flex-1 w-1">
-        <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-kd18px24px">APY TOP 10</span>
+<!--        tokenMiningTitle:'{token} APY TOP 10 POOLS',-->
+<!--        tokenLendTitle:'{token} BORROW APR '-->
+        <span class="inline-block leading-6 align-middle text-global-highTitle text-opacity-85 text-kd18px24px">{{title}}</span>
 <!--        <span class="inline-block leading-6 ml-1.5 text-xs text-global-highTitle text-opacity-45">更新时间：1分钟前</span>-->
       </p>
       <div class="ml-5">
@@ -67,9 +74,9 @@ const onChange = function(data: any) {
         </div>
       </div>
     </div>
-    <p class="mt-1.5">
-      <span class="leading-6 text-xs text-global-highTitle text-opacity-45">{{ I18n.apy.token.description }}</span>
-    </p>
+<!--    <p class="mt-1.5">-->
+<!--      <span class="leading-6 text-xs text-global-highTitle text-opacity-45">{{ I18n.apy.token.description }}</span>-->
+<!--    </p>-->
   </div>
   <div class="mt-3">
     <div class="flex justify-between items-center">
