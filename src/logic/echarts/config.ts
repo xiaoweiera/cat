@@ -125,6 +125,7 @@ export const getLegend = function(list: LegendItem[], yAxisData: any[], props: a
 // chart Layout 容器配置
 export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement, list: LegendItem[]) {
   const row = logicLegend.clacLegendRows(list, dom)
+  console.log('row', row)
   let height: number = 35
   if (row > 1) {
     height = row * 25
@@ -182,12 +183,14 @@ export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement,
 export const getYAxis = function(yAxisData: any[], legends: LegendItem[], seriesList: any[], props: any) {
   const leftData: any[] = []
   const rightData: any[] = []
+  const yaxis: any[] = []
+
   forEach(function(item: any, index: number) {
+    let value = safeGet<any[]>(seriesList, `[${index}].data`)
     // 判断是否需要隐藏数据
     if (!toBoolean(item.show) || toBoolean(item.disabled)) {
-      return void 0
+      value = []
     }
-    const value = safeGet<any[]>(seriesList, `[${index}].data`)
     if (item.position === Position.right) {
       rightData.push(value)
     } else {
@@ -229,7 +232,7 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
     const opt = Object.assign({}, option, value, { position })
     return { ...opt, ...omit(['position', 'axisLabel'], yaxisData) }
   }
-  const yaxis: any[] = []
+
   if (leftData.length > 0) {
     const opt = app(leftData, Position.left)
     yaxis.push(opt)
@@ -243,11 +246,6 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
       safeSet(item, 'axisLabel.inside', true)
       return item
     }, yaxis)
-  }
-  if (yaxis.length === 0) {
-    yaxis.push({
-      type: 'value'
-    })
   }
   return yaxis
 }

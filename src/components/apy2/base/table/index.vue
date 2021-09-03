@@ -74,7 +74,6 @@ const updateData = async function() {
   loading.value = true
   try {
     const { maxLength = 0, next } = await getTableList(db, { ...props, page: page.value })
-    console.log('next ', next)
     rankValue.value = maxLength < 6 ? 6 : maxLength
     nextStatus.value = next
     tableData.value = getTableDataList()
