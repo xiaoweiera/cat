@@ -19,8 +19,14 @@ const getActiveValue = function(): boolean {
 // @ts-ignore
 const active = computed<boolean>(getActiveValue)
 
+let flag = false
+
 // @ts-ignore
 const onClick = async function() {
+  if (flag) {
+    return
+  }
+  flag = true
   const query: any = {
     pool: props.pool,
     value: props.value,
@@ -33,6 +39,10 @@ const onClick = async function() {
   } catch (e) {
     const message = safeGet(e, 'message') || '收藏失败，请稍后再试'
     messageError(message)
+  } finally {
+    setTimeout(() => {
+      flag = false
+    }, 300)
   }
 }
 

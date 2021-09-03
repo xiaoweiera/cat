@@ -23,7 +23,7 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
             const time = dateTime(date)
             if (interval.type === 'h') {
                 const date = dateYMDHmFormat(time)
-                return { time, date, value: dateFormat(time, 'DD HH:mm') }
+                return { time, date, value: dateFormat(time, 'MM/DD HH:mm') }
             } else {
                 const date = dateYMDFormat(time)
                 return { time, date, value: date }
