@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {defineProps} from 'vue'
-import {chainsIcon,tolocaleLowerCase} from '~/logic/apy2/config'
+import {chainsIcon} from '~/logic/apy2/config'
 import * as R from 'ramda'
 import {formatRulesNumber,tolocaleUpperCase} from '~/lib/tool'
 const props=defineProps({data:Object})
