@@ -5,7 +5,7 @@ import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 const props=defineProps({type:String})
 const groupId=reactive({value:''})
-useProvide('group_id')
+const [group_id]=useProvide('group_id')
 
 </script>
 <template>

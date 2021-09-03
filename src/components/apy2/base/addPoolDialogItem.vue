@@ -15,7 +15,7 @@ const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`
         <span class="text-global-highTitle text-opacity-65"><span><span class="text-kd12px20px ">TVL</span>: </span><span class="text-kd12px20px ">${{formatRulesNumber(props.data?.tvl)}}</span></span>
       </div>
       <div class="flex items-center">
-        <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[props.data?.chain]" alt="">
+        <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[tolocaleUpperCase(props.data?.chain)]" alt="">
         <IconFont v-if="props.data?.pool_type" :type="getIconType(props.data?.pool_type)" size="14"/>
         <div class="ml-1 text-kd12px14px text-global-highTitle text-opacity-65">{{props.data?.strategy_tags}}</div>
       </div>

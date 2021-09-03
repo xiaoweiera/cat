@@ -13,8 +13,9 @@ const group_id = getInject('group_id')
 const list = ref()
 watch(() => group_id.value[0], () => getData())
 const getData = async () => list.value = await getMining_rank(group_id.value[0], chain.value)
-const getIconSize = (type: string) => type === 'lp' ? 'w-8 h-5' : 'w-4 h-4'
-const getNewSize = (type: string) => type === 'lp' ? '26' : '14'
+const getIconSize = (type: string) => type === 'lp' ? 'w-8 h-5' : 'w-5 h-5'
+const getNewSize = (type: string) => type === 'lp' ? '16' : '16'
+watch(()=>group_id.value[0],()=>{getData()})
 onMounted(() => {
   if (group_id.value[0]) {
     getData()
@@ -30,21 +31,25 @@ onMounted(() => {
             <template #reference>
               <div :class="i===4?'pb-3':'pb-3'" class="flex pt-3 items-center w-full topBorder">
                 <div class=" flex items-center">
-                  <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" :type='`icon-a-${i+1}`'></IconFont>
-                  <div v-else class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">
+                  <IconFont v-if="i<3" class="xshidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="32" :type='`icon-a-${i+1}`'></IconFont>
+                  <IconFont v-if="i<3" class="mdhidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="24" :type='`icon-a-${i+1}`'></IconFont>
+                  <div v-else class="mx-1.3 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">
                     {{ i + 1 }}
                   </div>
                 </div>
                 <div class="flex flex-col w-full ml-3">
                   <div class="flex justify-between">
                     <div class="flex items-center relative">
-                      <!--            <IconFont class="text-global-highTitle text-opacity-25 absolute" :size="getNewSize()"    type="icon-NEW"></IconFont>-->
+                      <IconFont v-if="item.new" class="text-global-highTitle text-opacity-25 absolute -top-0.2 -left-0.2" :size="getNewSize(item.symbol_type)"    type="icon-NEW"></IconFont>
                       <img :class="getIconSize(item.symbol_type)" :src="item.symbol_logo" alt="">
+<!--                      <IconFont class="xshidden" :type="item.symbol_logo" :class="{'new-24': item.new}"  size="32"/>-->
+<!--                      <IconFont class="mdhidden" :type="item.symbol_logo" :class="{'new-16': item.new}"  size="24"/>-->
                       <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{ item.symbol }}</span>
                     </div>
                     <div class="flex items-center">
-                      <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'" class="mr-1  font-bold text-kd20px20px font-kdExp">{{ formatRulesNumber(item.apy) }}%</span>
-                      <IconFont class="text-global-highTitle text-opacity-25" size="20" type="icon-help"></IconFont>
+                      <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'" class="mr-1  font-bold md:text-kd20px20px  text-kd16px16px font-kdExp">{{ formatRulesNumber(item.apy) }}%</span>
+                      <IconFont class="xshidden text-global-highTitle text-opacity-25" size="20" type="icon-help"></IconFont>
+                      <IconFont class="mdhidden text-global-highTitle text-opacity-25" size="16" type="icon-help"></IconFont>
                     </div>
                   </div>
                   <div class="mt-1 flex items-center flex-wrap justify-between  ">
@@ -63,14 +68,13 @@ onMounted(() => {
               </div>
             </template>
             <template #content>
-              <div class="min-w-70 relative p-1.3">
+              <div class="min-w-70 relative p-1.3 ">
                 <Apy2TopListMiningTip :data="item"/>
               </div>
             </template>
           </UiPopover>
         </template>
       </Apy2PoolDialog>
-
     </template>
   </div>
 </template>

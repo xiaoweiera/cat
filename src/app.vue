@@ -314,12 +314,31 @@ a {
 .showY::-webkit-scrollbar-thumb:vertical {
   background: rgba(0, 0, 0, 0);
 }
+.showX{
+  @apply overflow-hidden overflow-x-scroll;
+}
+/* 滑轮样式 */
+.showX::-webkit-scrollbar {
+  height: 0px;
+}
 
+.showX::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0);
+}
+.containerBottomBor{
+  border-bottom:1.5px solid #F0F0F0;
+}
+.new-14 {
+  --new-size: 14px;
+}
 .new-16 {
   --new-size: 16px;
 }
 .new-24 {
   --new-size: 24px;
+}
+.new-26 {
+  --new-size: 26px;
 }
 .new-30 {
   --new-size: 30px;

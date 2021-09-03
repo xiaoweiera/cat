@@ -5,7 +5,7 @@ import I18n from '~/utils/i18n/index'
 import {  setInject, getInject } from '~/utils/use/state'
 import { EchartData, Position, seriesType } from '~/logic/echarts/interface'
 import {getMiningTop10Chart} from '~/logic/apy2/index'
-import {chartTop} from '~/logic/apy2/config'
+import {chartTop,chartTopMobile} from '~/logic/apy2/config'
 import {echartTransform} from '~/lib/common'
 import {chain,tokenList} from '~/store/apy2/state'
 import { chartFormatter } from '~/lib/common'
@@ -31,26 +31,37 @@ watch(moreToken,(n)=>token.value=n)
 onMounted(getChart())
 </script>
 <template>
-<div class="w-full h-full font-kdFang top10Project">
-  <div>
-    <span  class="text-kd20px24px font-medium text-global-highTitle text-opacity-85" style="font-size:20px !important;">{{I18n.apyIndex.miningChartTitle}} Top 5</span>
-    <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 ml-3 text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>
+<div class=" w-full  md:h-full font-kdFang top10Project">
+  <div class="flex items-center">
+    <span  class="text-kd18px24px md:text-kd20px24px md:mr-3 mr-1.5 font-medium text-global-highTitle text-opacity-85" style="font-size:20px !important;">{{I18n.apyIndex.miningChartTitle}} Top 5</span>
+    <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 flex items-center  text-kd12px16px md:text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>
   </div>
-  <div class="flex items-center  mt-4">
-    <div class="flex items-center">
+  <div class="flex items-center mt-3.25 md:mt-4 ">
+    <div class="xshidden flex items-center">
       <template v-for="item in chartTop">
+        <span @click="selectToken(item)"  :class="token===item?'selectTag':'tag'" class="hand">{{item}}</span>
+      </template>
+    </div>
+    <div class="mdhidden flex items-center">
+      <template v-for="item in chartTopMobile">
         <span @click="selectToken(item)"  :class="token===item?'selectTag':'tag'" class="hand">{{item}}</span>
       </template>
     </div>
     <el-select  filterable :placeholder="I18n.apyIndex.selectCoins" :popper-append-to-body="false" v-model="moreToken"  class="ml-1"  size="small" >
       <template v-for="item in tokenList">
-        <el-option v-if="chartTop.indexOf(item.name)===-1"  :label="item.name" :value="item.name">
-        </el-option>
+        <div class="xshidden">
+          <el-option v-if="chartTop.indexOf(item.name)===-1"  :label="item.name" :value="item.name">
+          </el-option>
+        </div>
+        <div class="mdhidden">
+          <el-option v-if="chartTopMobile.indexOf(item.name)===-1"  :label="item.name" :value="item.name">
+          </el-option>
+        </div>
       </template>
     </el-select>
   </div>
 <!--  图表-->
-  <Echarts :key="keyNumber" v-if="chartData.xAxis && chartData.xAxis.length > 0">
+  <Echarts class="h-45  md:h-85.5" :key="keyNumber" v-if="chartData.xAxis && chartData.xAxis.length > 0">
     <!-- 提示框 trigger: 触发方式 -->
     <EchartsTooltip trigger="axis"   :formatter="chartFormatter"/>
 
@@ -87,10 +98,18 @@ onMounted(getChart())
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: none;
     padding-left:4px !important;
-    @apply text-kd14px18px font-medium  text-global-highTitle text-opacity-85 w-35 text-center h-9 flex items-center  text-kd14px18px ;
+    @apply text-kd12px16px md:text-kd14px18px font-medium    text-global-highTitle text-opacity-85 w-35 text-center h-7 md:h-9 flex items-center  text-kd14px18px w-29 md:w-30 important ;
   }
   .el-icon-arrow-up{
-    @apply mt-0.5;
+    @apply -mt-1 md:mt-0.5 ;
+  }
+ input::-webkit-input-placeholder{
+    font-weight: 400;
+    @apply text-global-highTitle text-kd12px16px md:text-kd14px18px text-opacity-45;
+  }
+ input::-ms-input-placeholder {
+    font-weight: 400;
+    @apply text-global-highTitle text-kd12px16px md:text-kd14px18px text-opacity-45;
   }
 }
 

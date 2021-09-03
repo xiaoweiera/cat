@@ -2,7 +2,7 @@
 import {defineProps} from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
 import * as R from 'ramda'
-import {formatRulesNumber,tolocaleUpperCase} from '~/lib/tool'
+import {formatRulesNumber,tolocaleUpperCase,tolocaleLowerCase} from '~/lib/tool'
 const props=defineProps({data:Object})
 const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`
 </script>
@@ -16,7 +16,7 @@ const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`
         </div>
         <div class="flex items-center">
           <template v-for="item in props.data.chains">
-            <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[item]" alt="">
+            <img class="w-3.5 h-3.5 mr-1" :src="chainsIcon[tolocaleLowerCase(item)]" alt="">
           </template>
           <template v-for="item in props.data.category">
             <IconFont class="mr-1" :type="getIconType(item)" size="14"/>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, defineProps,computed } from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
-import {tolocaleUpperCase} from '~/lib/tool'
+import {tolocaleUpperCase,tolocaleLowerCase} from '~/lib/tool'
 import { toBoolean } from '~/utils'
 import I18n from '~/utils/i18n/index'
 const props=defineProps({
@@ -25,8 +25,8 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
 <template>
   <div class="font-kdExp flex items-center">
     <div class="relative mr-2" >
-      <IconFont v-if="isNew" type="icon-NEW" class="absolute" :size="iconSize"/>
-      <img :class="imgHeight" style="border-radius: 50%;"  class="w-8" :src="logo" alt="">
+      <IconFont class="xshidden" :type="logo" :class="{'new-24': isNew}"  size="32"/>
+      <IconFont class="mdhidden" :type="logo" :class="{'new-16': isNew}"  size="24"/>
     </div>
     <div>
       <div class="flex items-center">
@@ -35,11 +35,11 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
       </div>
 
       <div class="flex items-center">
-        <span v-if="project" class="text-12px18px text-global-highTitle text-opacity-65 mr-1">{{project}}</span>
-        <img v-if="chain" class="w-3.5 h-3.5 mr-1" :src="chainsIcon[chain]" alt="">
+        <span v-if="project" class="text-kd12px18px text-global-highTitle text-opacity-65 md:mr-1 w-max">{{project}}</span>
+        <img v-if="chain" class="w-3.5 h-3.5 mr-1" :src="chainsIcon[tolocaleLowerCase(chain)]" alt="">
         <IconFont v-if="category" :type="`icon-${tolocaleUpperCase(category)}`" size="14"/>
       </div>
-      <div v-if="strategy"  class="text-12px14px max-h-4.5 flex items-center w-fit tracking-wide text-global-highTitle text-opacity-45 px-1  bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
+      <div v-if="strategy" class="text-kd10px10px md:text-kd12px14px max-h-4.5 flex items-center w-fit tracking-wide text-global-highTitle text-opacity-45 px-1  bg-global-highTitle bg-opacity-6 text-center rounded-kd4px">
         {{strategy}}
       </div>
     </div>

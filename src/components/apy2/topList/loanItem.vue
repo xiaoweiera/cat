@@ -25,8 +25,9 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
           <template #reference>
             <div :class="i===4?'pb-3':'pb-3'"   class="flex pt-3 items-center w-full topBorder">
               <div class=" flex items-center">
-                <IconFont v-if="i<3" class="text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;"    :type='`icon-a-${i+1}`'></IconFont>
-                <div v-else  class="mx-2.9 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
+                <IconFont v-if="i<3" class="xshidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="32" :type='`icon-a-${i+1}`'></IconFont>
+                <IconFont v-if="i<3" class="mdhidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="24" :type='`icon-a-${i+1}`'></IconFont>
+                <div v-else  class="mx-1.3 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
               </div>
               <div class="flex flex-col w-full ml-3 flex-wrap">
                 <div class="flex justify-between">
@@ -56,7 +57,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
             </div>
           </template>
           <template #content>
-            <div class="min-w-70 relative  p-1.3">
+            <div class="min-w-70 relative  p-1.3 ">
               <Apy2TopListLoanTip :data="item" />
             </div>
           </template>

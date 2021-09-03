@@ -42,3 +42,4 @@ export const project_type={
     Farm:'F'
 }
 export const chartTop=['BTC','ETH','USDC','DAI','MDX','BNB','CAKE','HT','OKB','MATIC','UNI']
+export const chartTopMobile=['BTC','ETH','USDC','DAI']
