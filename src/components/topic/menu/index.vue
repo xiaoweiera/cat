@@ -91,7 +91,7 @@
           </span>
           <span>
             <template v-if="len(item.children)">
-              <IconFont class="flex" type="up" size="mini" suffix="png"></IconFont>
+<!--              <IconFont class="flex" type="up" size="mini" suffix="png"></IconFont>-->
             </template>
           </span>
         </span>

@@ -24,6 +24,11 @@ export const getProps = function() {
       type: Boolean,
       default: () => false
     },
+    // 是否启用阴影 （type = line 时有效）
+    area: {
+      type: Boolean,
+      default: () => false
+    },
     // 图形位置
     direction: {
       type: String,
@@ -310,7 +315,7 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
     if (data.type === seriesType.bar) {
       // 柱状图最大宽度
       option.barMaxWidth = 50
-      const color = safeGet(option, 'itemStyle.color')
+      const color = safeGet<string>(option, 'itemStyle.color')
       if (color) {
         safeSet(option, 'itemStyle.color', function(d: any) {
           // 负数时强制设置为红色
@@ -318,6 +323,26 @@ export const getSeries = function(legends: LegendItem[], result: any[], yAxisOpt
             return layout.warn
           }
           return color
+        })
+      }
+    } else {
+      if (props.area && data.index !== 1) {
+        let areaColor = 'rgba(43, 141, 255, 0.2)'
+        const color = safeGet<string>(option, 'itemStyle.color')
+        if (color) {
+          areaColor = color
+        }
+        safeSet(option, 'areaStyle.normal.color', {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          globalCoord: false,
+          colorStops: [
+            { offset: 0, color: areaColor },
+            { offset: 1, color: '#fff' },
+          ],
         })
       }
     }

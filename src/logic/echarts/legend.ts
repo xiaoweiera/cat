@@ -28,8 +28,7 @@ export const makeSvg = function(type: seriesType, color?: string) {
 export const clacLegendBoxWidth = function(legends: LegendItem[]): number {
   let width = 0
   forEach((item: LegendItem, index: number) => {
-    console.log(item)
-    let name = item.value || item.name
+    let name = item?.value || item?.name
     name = `${name || ''}`
     const len = name.length
     width += len * 9 + 14

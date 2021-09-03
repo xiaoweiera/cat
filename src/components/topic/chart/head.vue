@@ -63,9 +63,9 @@ const saveChart = function(e: Event) {
             <slot name="timeEnd"></slot>
           </div>
           <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
-          <span class="bg-global-primary follow-btn small">
-            <IconFont type="icon-plus" class="text-white"></IconFont>
-            <span class="ml-1">关注</span>
+          <span class="bg-global-primary follow-btn small inline-flex items-center">
+            <IconFont type="icon-plus" class="text-white align-middle	"></IconFont>
+            <span class="ml-1 inline-block">关注</span>
           </span>
           </TopicFollow>
         </div>
@@ -105,10 +105,9 @@ const saveChart = function(e: Event) {
                   <!-- 关注按钮 -->
                   <div class="inline-block mr-3" v-if="!followed">
                     <TopicFollow :id="data.chartId" v-model:status="followed">
-                      <span class="bg-global-primary follow-btn">
-                        <IconFont type="icon-plus" class="text-white"></IconFont>
-<!--                        <span class="ml-1">{{ I18n.liquidity.mainHeader.follow }}</span>-->
-                        <span class="ml-1">关注</span>
+                      <span class="bg-global-primary follow-btn inline-flex">
+                        <IconFont type="icon-plus" class="text-white align-middle	"></IconFont>
+                        <span class="ml-1 inline-block">关注</span>
                       </span>
                     </TopicFollow>
                   </div>
@@ -158,7 +157,6 @@ const saveChart = function(e: Event) {
               <TopicFollow :class="{'ml-3': !followed}" :id="data.chartId" v-model:status="followed">
                 <span class="bg-global-primary follow-btn small">
                   <IconFont type="icon-plus" class="text-white"></IconFont>
-<!--                  <span class="ml-1">{{ I18n.liquidity.mainHeader.follow }}</span>-->
                   <span class="ml-1">关注</span>
                 </span>
               </TopicFollow>

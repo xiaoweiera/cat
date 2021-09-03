@@ -51,7 +51,7 @@ const getAreaStatus = computed(function() {
 </script>
 
 <template>
-  <Echarts :stack="stackStatus" :log="logStatus">
+  <Echarts :stack="stackStatus" :log="logStatus" :area="getAreaStatus">
     <!-- 提示框 trigger: 触发方式 -->
     <EchartsTooltip trigger="axis" />
     <!--图例-->
@@ -81,7 +81,7 @@ const getAreaStatus = computed(function() {
         通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
         value: 数据
       -->
-      <EchartsSeries :index="index" :value="item.data" :color="colors[index]" :area="getAreaStatus"/>
+      <EchartsSeries :index="index" :value="item.data"/>
     </template>
   </Echarts>
 </template>
