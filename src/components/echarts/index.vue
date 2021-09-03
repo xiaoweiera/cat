@@ -110,8 +110,9 @@ const getChartDom = function(): HTMLCanvasElement {
 }
 
 const getBasisOption = function() {
+  const legend = getLegend()
   // @ts-ignore
-  const gridOption = config.getGrid(props.legend, getChartDom(), getLegend())
+  const gridOption = config.getGrid(props.legend, getChartDom(), legend.data)
   // 垂直方向
   if (Direction.vertical === props.direction) {
     safeSet(gridOption, 'left', '3%')

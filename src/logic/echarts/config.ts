@@ -125,12 +125,10 @@ export const getLegend = function(list: LegendItem[], yAxisData: any[], props: a
 // chart Layout 容器配置
 export const getGrid = function(legend: LegendDirection, dom: HTMLCanvasElement, list: LegendItem[]) {
   const row = logicLegend.clacLegendRows(list, dom)
-  console.log('row', row)
   let height: number = 35
   if (row > 1) {
-    height = row * 25
+    height = row * 25 + 10
   }
-
   if (legend === LegendDirection.top) {
     return {
       top: height,
