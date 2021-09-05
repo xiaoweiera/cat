@@ -49,7 +49,7 @@ onMounted(getList(true))
 <template>
   <div>
     <div class="font-kdFang font-medium text-kd20px24px text-global-highTitle text-opacity-85">{{I18n.apyIndex.loanListDes}}</div>
-    <Apy2LoanPoolsHeader  @search="search" class="mt-4"/>
+    <Apy2LoanPoolsHeader  @search="search" class="mt-4 md:mb-0 mb-3"/>
     <Apy2LoanTableMain v-if="listData.length>0" :data="listData"  :key="key[0]" />
     <Apy2BaseNoData v-else type="list" class="mt-4" />
   </div>

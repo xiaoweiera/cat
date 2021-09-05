@@ -103,7 +103,7 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
           </a>
         </template>
       </el-table-column>
-      <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">
+      <el-table-column prop="tool" align="right" :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
           <Apy2LoanTableTool  :data="scope.row" />
         </template>

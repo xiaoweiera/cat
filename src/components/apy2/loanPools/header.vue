@@ -94,10 +94,10 @@ onMounted(()=>{
       </div>
     </div>
     <div class="font-kdFang md:mt-0 mt-3 flex md:flex-col flex-row  ">
-      <div @click="clear()" class="btnBorder md:w-40 w-38.5 md:h-10.5 h-7 md:mr-0  mr-1.5  flex items-center justify-center text-center rounded-kd6px py-1.5 md:py-2.25 px-3 md:mb-3 hand">
+      <div @click="clear()" class="btnBorder md:w-40 w-36.5  md:h-10.5 h-7 md:mr-0  mr-1.5  flex items-center justify-center text-center rounded-kd6px py-1.5 md:py-2.25 px-3 md:mb-3 hand">
         <span class="text-kd12px16px md:text-kd16px24px text-global-primary   font-medium">{{I18n.apyIndex.clearData}}</span>
       </div>
-      <div @click="search()" class="bg-global-primary md:h-10.5 h-7 md:ml-0 ml-1.5  flex items-center justify-center   md:w-40 w-38.5 text-center rounded-kd6px py-1.5 md:py-2.25 px-3 hand">
+      <div @click="search()" class="bg-global-primary md:h-10.5 h-7 md:ml-0 ml-1.5  flex items-center justify-center   md:w-40 w-36.5 text-center rounded-kd6px py-1.5 md:py-2.25 px-3 hand">
         <iconFont type="icon-sousuo-da1" class="text-global-white mr-3" size="16" />
         <span class="text-kd12px16px md:text-kd16px24px text-global-white  font-medium">{{I18n.apyIndex.searchTxt}}</span>
       </div>
@@ -113,7 +113,7 @@ onMounted(()=>{
     background: none;
     border-radius: 6px;
     padding-left:12px !important;
-    @apply text-global-highTitle text-opacity-45 md:h-10.5 md:w-75 w-24.7 md:10.5 h-7 bg-global-white  text-kd14px18px ;
+    @apply text-global-highTitle text-opacity-45 md:h-10.5 md:w-75 w-23 md:10.5 h-7 bg-global-white  text-kd14px18px ;
   }
   .btnBorder{
     border:1px solid rgba(43, 141, 254, 0.25);
