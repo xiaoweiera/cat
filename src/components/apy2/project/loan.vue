@@ -18,6 +18,7 @@ const dialogSearch=ref('')
 const list=ref([])
 const key=ref(0)
 const loading=ref(true)
+const pcTip=reactive({value:false})
 const param=reactive({
   from_ts:0,
   to_ts:0,
@@ -65,23 +66,29 @@ const onSumbit=(v:any)=>{
   <div class="font-kdFang mb-12">
     <Apy2ProjectChartInfo :title="`APR Top 10 ${I18n.apyIndex.pools}`" type="lend"/>
     <div class="mt-3 flex items-center justify-between">
-      <div class="my-4 flex items-center justify-between w-full">
-        <UiTransfer class="" :title="I18n.apyIndex.addPool" :sub-title="I18n.apyIndex.selectedPool" :list="list"  @changeParam="changeParam"  :selects="selectChains" @submit="onSumbit">
-          <template #content>
-            <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit  flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
-              <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
-              <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">{{I18n.apyIndex.addLoanPool}}</span>
-            </div>
-          </template>
-          <!-- 自定义左侧列表显示内容 -->
-          <template #item="scope">
-            <Apy2BaseAddTokenDialogItem :data="scope.data" class="w-full"/>
-          </template>
-          <!-- 自定义右侧列表显示内容 -->
-          <template #result="scope">
-            <Apy2BaseAddTokenDialogItem :data="scope.data" class="w-full"/>
-          </template>
-        </UiTransfer>
+      <div class="my-4 flex items-center justify-between w-full flex-wrap">
+        <div class="xshidden">
+          <UiTransfer  :title="I18n.apyIndex.addPool" :sub-title="I18n.apyIndex.selectedPool" :list="list"  @changeParam="changeParam"  :selects="selectChains" @submit="onSumbit">
+            <template #content>
+              <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit  flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
+                <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
+                <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">{{I18n.apyIndex.addLoanPool}}</span>
+              </div>
+            </template>
+            <!-- 自定义左侧列表显示内容 -->
+            <template #item="scope">
+              <Apy2BaseAddTokenDialogItem :data="scope.data" class="w-full"/>
+            </template>
+            <!-- 自定义右侧列表显示内容 -->
+            <template #result="scope">
+              <Apy2BaseAddTokenDialogItem :data="scope.data" class="w-full"/>
+            </template>
+          </UiTransfer>
+        </div>
+        <div @click="pcTip.value=true" class="px-4 mdhidden mb-3 whitespace-nowrap rounded-kd6px w-30 h-8.5 w-fit  flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
+          <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
+          <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">{{I18n.apyIndex.addLoanPool}}</span>
+        </div>
         <UiDateDay @change="changeTime"/>
       </div>
     </div>
@@ -94,6 +101,7 @@ const onSumbit=(v:any)=>{
       <Apy2ProjectLoanList :projectId="props.projectId" />
     </div>
   </div>
+  <UiDialogPcTip :pcTip="pcTip"/>
 </template>
 <style scoped lang="scss">
 

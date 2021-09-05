@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {defineProps} from 'vue'
+import {defineProps,reactive} from 'vue'
 import {chainsIcon} from '~/logic/apy2/config'
 import * as R from 'ramda'
-import {formatRulesNumber,tolocaleUpperCase} from '~/lib/tool'
+import {formatRulesNumber,tolocaleUpperCase,tolocaleLowerCase} from '~/lib/tool'
 const props=defineProps({data:Object})
 const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`
+
 </script>
 <template>
   <div class="font-kdExp w-full ">

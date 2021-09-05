@@ -53,7 +53,6 @@ const search=()=>{
 }
 onMounted(()=>{
   langType.value=lang.current.value
-  console.log(langType.value,'jjj')
   getTokens()
   getProjects()
 })

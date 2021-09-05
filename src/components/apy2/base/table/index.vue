@@ -141,7 +141,7 @@ const reload = function() {
   page.value = 1
   return updateData()
 }
-
+const submitAdd=()=>document.getElementsByClassName('addNew')[0].children[0].children[0].click()
 </script>
 <template>
   <div v-if="tableData.length > 0">
@@ -187,9 +187,9 @@ const reload = function() {
     </div>
   </div>
   <div v-else>
-    <Apy2BaseNoData :type="props.type" :group-id="groupId"/>
-    <div class="pt-4" v-if="groupId === 'my'">
-      <Apy2BaseFollowMultiple :type="type" @success="reload"/>
+    <Apy2BaseNoData @submit="submitAdd" :type="props.type" :group-id="groupId"/>
+    <div  class="pt-4  addNew"   v-if="groupId === 'my'" >
+      <Apy2BaseFollowMultiple    :type="type" @success="reload"/>
     </div>
   </div>
 </template>

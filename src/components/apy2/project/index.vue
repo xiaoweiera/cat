@@ -54,7 +54,7 @@ onMounted(getData())
     </template>
 
     <template #content>
-      <div  class="p-8">
+      <div  class="md:p-8 p-4">
         <Apy2ProjectRight :key="projectId" :projectId="projectId"/>
       </div>
     </template>

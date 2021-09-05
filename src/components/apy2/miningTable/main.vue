@@ -51,11 +51,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
     </el-table-column>
     <el-table-column prop="tool" :label="I18n.apyIndex.operate" align="right" width="75px">
       <template #default="scope">
-        <Apy2PoolDialog type="mining" :id="scope.row.id">
-          <template #reference>
-            <Apy2MiningTableTool class="hand" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
-          </template>
-        </Apy2PoolDialog>
+        <Apy2MiningTableTool class="hand" :id="scope.row.id"  :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
       </template>
     </el-table-column>
   </el-table>
@@ -99,11 +95,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
     </el-table-column>
     <el-table-column prop="tool" :label="I18n.apyIndex.operate" align="right" width="75px">
       <template #default="scope">
-        <Apy2PoolDialog type="mining" :id="scope.row.id">
-          <template #reference>
-            <Apy2MiningTableTool class="hand" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
-          </template>
-        </Apy2PoolDialog>
+        <Apy2MiningTableTool class="hand" :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
       </template>
     </el-table-column>
   </el-table>

@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="layout-main">
+  <div class="layout-main xshidden">
     <div class="menu-main top-header" :style="{'width': `${menuWidth}px`}">
       <slot name="menu"></slot>
     </div>
@@ -22,8 +22,10 @@ defineProps({
       <div class="leftBorder ml-8">
         <slot name="content"></slot>
       </div>
-
     </div>
+  </div>
+  <div class="layout-main mdhidden">
+    <slot name="content"></slot>
   </div>
 </template>
 

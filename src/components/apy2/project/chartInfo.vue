@@ -17,7 +17,7 @@ const props=defineProps({
 <!--        <span class="text-kd12px16px text-global-highTitle text-opacity-45 ml-1">更新时间: </span>-->
 <!--        <span class="text-kd12px16px text-global-highTitle text-opacity-45">xxx分钟前</span>-->
       </div>
-  <EchartsDownload class="text-global-highTitle text-opacity-65 hand" size="16" :title="title"/>
+  <EchartsDownload class="text-global-highTitle xshidden text-opacity-65 hand" size="16" :title="title"/>
     </div>
     <div class="mt-1.5 text-kd12px16px text-global-highTitle text-opacity-45">{{I18n.apyIndex.description}}</div>
   </div>

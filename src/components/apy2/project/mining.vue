@@ -21,6 +21,7 @@ const pools=ref([])
 const dialogSearch=ref('')
 const list=ref([])
 const key=ref(0)
+const pcTip=reactive({value:false})
 const loading=ref(true)
 const param=reactive({
   from_ts:0,
@@ -70,32 +71,43 @@ const onSumbit=(v:any)=>{
   param.pools=poolsId
   getChart()
 }
+const openTip=()=>pcTip.value=true
 </script>
 <template>
   <div class="font-kdFang relative mb-12">
     <Apy2ProjectChartInfo :title="`APY Top 10 ${I18n.apyIndex.pools}`" type="mining"/>
-    <div class="mt-3 flex items-center justify-between ">
-      <div class="flex items-center">
+    <div class="mt-3 flex items-center justify-between flex-wrap  ">
+      <div class="flex items-center md:mb-0 mb-3 ">
         <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">
           <el-option v-for="item in selectList" :label="item.name" :value="item.key">
           </el-option>
         </el-select>
-        <UiTransfer :title="I18n.apyIndex.addPool" :sub-title="I18n.apyIndex.selectedPool" :list="list" :radios="radios"   @changeParam="changeParam" :selects="selectChains" @submit="onSumbit">
-          <template #content>
-            <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
-              <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
-              <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">{{I18n.apyIndex.addPool}}</span>
-            </div>
-          </template>
-          <!-- 自定义左侧列表显示内容 -->
-          <template #item="scope">
-            <Apy2BaseAddPoolDialogItem :data="scope.data" class="w-full"/>
-          </template>
-          <!-- 自定义右侧列表显示内容 -->
-          <template #result="scope">
-            <Apy2BaseAddPoolDialogItem :data="scope.data" class="w-full"/>
-          </template>
-        </UiTransfer>
+        <div class="xshidden">
+          <UiTransfer :title="I18n.apyIndex.addPool" :sub-title="I18n.apyIndex.selectedPool" :list="list" :radios="radios"   @changeParam="changeParam" :selects="selectChains" @submit="onSumbit">
+            <template #content>
+              <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
+                <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
+                <span class="text-global-highTitle whitespace-nowrap text-opacity-85 text-kd14px18px font-medium">{{I18n.apyIndex.addPool}}</span>
+              </div>
+            </template>
+            <!-- 自定义左侧列表显示内容 -->
+            <template #item="scope">
+              <Apy2BaseAddPoolDialogItem :data="scope.data" class="w-full"/>
+            </template>
+            <!-- 自定义右侧列表显示内容 -->
+            <template #result="scope">
+              <Apy2BaseAddPoolDialogItem :data="scope.data" class="w-full"/>
+            </template>
+          </UiTransfer>
+        </div>
+        <div class="mdhidden" @click="openTip">
+          <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
+            <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
+            <span class="text-global-highTitle whitespace-nowrap text-opacity-85 text-kd14px18px font-medium">{{I18n.apyIndex.addPool}}</span>
+          </div>
+          <UiDialogPcTip  :pcTip="pcTip"/>
+        </div>
+
       </div>
       <UiDateDay @change="changeTime"/>
     </div>

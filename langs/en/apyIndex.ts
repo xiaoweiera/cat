@@ -137,7 +137,7 @@ export default{
     clearData:'Reset',
     loanAllRouter:'All Best Ways To Borrow',
     warning:'Waring',
-    description: '',
+    description: 'Risk warning: the data of this station comes from the public data of various platforms.',
     warningDes:'Risk warning: the data of this station comes from the public data of various platforms. The safety audit of the included contents is not conducted in this station, and the contents do not constitute investment suggestions. Please pay attention to the risks.',
     tokenMining:'All Farm APY',
     tokenLending:'ALL Borrow APR',

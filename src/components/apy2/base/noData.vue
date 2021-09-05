@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps,defineEmits } from 'vue'
 import I18n from '~/utils/i18n/index'
 import { TabCategoryData } from '~/logic/apy2/interface'
-
+const emitEvent = defineEmits(['submit'])
 const props= defineProps({
   // 类型
   type: {
@@ -13,6 +13,7 @@ const props= defineProps({
     type: String,
   },
 })
+const goSubmit=()=>emitEvent('submit')
 </script>
 <template>
   <div class="h-60 flex items-center justify-center borderClass font-kdFang">
@@ -23,14 +24,14 @@ const props= defineProps({
         <div v-if="type=== TabCategoryData.mining ">
           <span class="mt-2 text-kd12px16px text-global-highTitle text-opacity-45">
             <span>请点击下方</span>
-            <span class="text-global-primary">"添加币种 & LP"</span>
+            <span @click="goSubmit" class="text-global-primary hand">"添加币种 & LP"</span>
             <span>按钮添加你关注的币种或 LP</span>
           </span>
         </div>
         <div v-if="type=== TabCategoryData.lend">
           <span class="mt-2 text-kd12px16px text-global-highTitle text-opacity-45">
             <span>请点击下方</span>
-            <span class="text-global-primary">"添加币种"</span>
+            <span @click="goSubmit" class="text-global-primary hand">"添加币种"</span>
             <span>按钮添加你关注的币种</span>
           </span>
         </div>

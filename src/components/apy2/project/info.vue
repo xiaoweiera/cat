@@ -38,14 +38,14 @@ onMounted(getData())
             <span class="mr-1 text-global-highTitle text-kd14px18px">{{ data.platform_token }}</span>
             <span class="mr-1 text-global-highTitle text-kd14px18px">${{ formatRulesNumber(data.platform_token_price) }}</span>
             <!--            <span class="bg-global-numRed  bg-opacity-20 rounded-kd4px px-1 py-0.5 text-kd12px14px text-global-numRed">-3.23%</span>-->
-            <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2 w-0.25 " type="icon-gang"/>
-            <a class="text-global-primary flex items-center font-kdExp ml-4 hand" :href="data.project_url" target="_blank">
+            <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2  " type="icon-gang"/>
+            <a class="text-global-primary flex items-center font-kdExp  hand" :href="data.project_url" target="_blank">
               <IconFont class="mr-1" size="20" type="icon-link"/>
               <a v-router.blank="data.project_url" class="text-kd14px18px">{{I18n.apyIndex.comLink}}</a>
             </a>
             <div class="flex items-center" v-if="data.safety">
-              <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2 w-0.25" type="icon-gang"/>
-              <div class="text-global-primary flex items-center ml-4">
+              <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
+              <div class="text-global-primary flex items-center">
                 <div v-if="data.safety.length>0" class="flex items-center ">
                   <IconFont class="mr-2" size="20" type="icon-shenji"/>
                   <template v-for="item in data.safety">
