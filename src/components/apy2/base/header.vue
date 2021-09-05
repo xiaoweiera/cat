@@ -13,7 +13,7 @@ const props=defineProps({
         <img class="w-4 h-4" src="https://res.ikingdata.com/apyTwo/apply.png" alt="">
         <a v-router.blank="'http://ikingdata.mikecrm.com/ijyjMFO?utm_source=https://apy.kingdata.com'" class="ml-1 font-medium md:text-kd14px18px text-kd12px16px  ">{{I18n.apyIndex.apply}}</a>
       </div>
-    </div>
+    </div> 
     <Apy2BaseInfo />
   </div>
 </template>
