@@ -117,7 +117,7 @@ onBeforeMount(ready)
       </el-container>
     </template>
     <template #content>
-      <div class="p-8" v-if="tabList.length > 0 && getActiveTokenId()">
+      <div class="md:p-8 p-4" v-if="tabList.length > 0 && getActiveTokenId()">
         <Apy2TokenContent :key="contentKey" :symbol="getActiveTokenId()" :category="tabList"/>
       </div>
     </template>

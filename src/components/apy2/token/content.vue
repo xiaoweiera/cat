@@ -72,21 +72,23 @@ onMounted(function() {
 
 <template>
   <div class="text-kdFang">
-    <div class="flex justify-between">
-      <div class="flex items-center">
-        <IconFont :type="detail.icon ? detail.icon : 'icon-morentoken'" size="40" rounded/>
-        <b class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
-        <span class="ml-4 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
-        <div class="ml-2 bg-global-numRed flex items-center  pt-0.5 px-1 font-kdExp rounded">
-          <div style="font-size: 16px;" class="text-global-white flex items-center">{{ toNumber(detail.change) }}%</div>
+    <div class="flex justify-between md:flex-row flex-col">
+      <div class="flex items-center font-kdExp">
+        <IconFont class="xshidden" :type="detail.icon ? detail.icon : 'icon-morentoken'" size="40" rounded/>
+        <IconFont class="mdhidden" :type="detail.icon ? detail.icon : 'icon-morentoken'" size="32" rounded/>
+        <b style="font-size:24px;" class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
+        <span class="md:ml-4 ml-2 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
+        <div class="ml-2 bg-global-numRed flex items-center  pt-0.5 px-1 font-kdExp md:rounded rounded-kd4px">
+          <div  class="text-global-white flex items-center md:text-kd16px24px text-kd14px18px">{{ toNumber(detail.change) }}%</div>
         </div>
       </div>
 
-      <div class="flex items-center rounded-xl bg-global-highTitle bg-opacity-6 p-1" :class="{ 'hidden': category.length <= 1  }">
+      <div class="flex items-center md:rounded-xl rounded-kd12px md:mt-0 mt-8 bg-global-highTitle bg-opacity-6 p-1" :class="{ 'hidden': category.length <= 1  }">
         <template v-for="item in category" :key="item.id">
-          <router-link class="page-switch" :class="{'active': active === item.id}" :to="getUrl(item.id)">
-            <IconFont type="icon-danbi" size="24"/>
-            <span class="ml-2">{{ item.name }}</span>
+          <router-link class="page-switch flex-1  text-center flex justify-center " :class="{'active': active === item.id}" :to="getUrl(item.id)">
+            <IconFont class="xshidden" type="icon-danbi" size="24"/>
+            <IconFont class="mdhidden" type="icon-danbi" size="20"/>
+            <span class="ml-2 text-kd12px16px w-fit whitespace-nowrap">{{ item.name }}</span>
             <!-- 收藏 -->
             <Apy2BaseFollow class="ml-1.5" :type="item.id" :value="symbol" :status="detail[item.followed]"/>
           </router-link>
@@ -113,7 +115,7 @@ onMounted(function() {
 }
 
 .page-switch {
-  @apply inline-block h-9 flex items-center px-3.5 rounded-lg overflow-hidden text-global-highTitle text-opacity-65;
+  @apply inline-block h-9 flex items-center px-3.5  rounded-lg overflow-hidden text-global-highTitle text-opacity-65;
   &.active {
     @apply bg-global-white text-global-primary text-opacity-100;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.1);

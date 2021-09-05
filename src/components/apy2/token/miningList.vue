@@ -23,7 +23,6 @@ const param={
 }
 const listData=ref([])
 const getList=async (clear:boolean)=>{
-  console.log(param,'mmmm')
   const res=await getProjectTokenMining_pools(param)
   resultNumber.value=res.length
   listData.value=clear?res:listData.value.concat(res)

@@ -38,15 +38,15 @@ onMounted(()=>getProject())
   <div class="flex items-center font-kdFang flex-wrap md:justify-between ">
     <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList"   class="md:mr-10 "/>
     <div class="flex flex-col md:flex-row  mt-3 md:mt-0" :class="props.hasCustom?'':'justify-between   w-full'">
-      <div class="flex   ">
-        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3 flex-1  "  :list="typeList" />
-         <div v-if="props.hasProject" class="apyProject    flex-1 md:mr-3">
+      <div class="flex   flex-wrap">
+        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3 flex-1 mb-3 min-w-33   "  :list="typeList" />
+         <div v-if="props.hasProject" class="apyProject min-w-33     flex-1 md:mr-3">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
           <el-option v-for="item in projectList"  :label="item.name" :value="item.id">
           </el-option>
         </el-select>
       </div>
-        <div v-if="props.hasChain" class="apyProject  mr-3">
+        <div v-if="props.hasChain" class="apyProject    w-6/12  md:w-auto  mr-3">
           <el-select filterable :popper-append-to-body="false" v-model="chained"   size="small" >
             <el-option v-for="item in chains"  :label="item.name" :value="item.key">
             </el-option>
@@ -67,7 +67,7 @@ onMounted(()=>getProject())
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: none;
     padding-left:4px !important;
-    @apply text-kd14px18px font-medium  text-global-highTitle text-opacity-85 md:w-30  text-center h-9 flex items-center ;
+    @apply md:text-kd14px18px  font-medium  text-global-highTitle text-opacity-85 md:w-30  text-center h-9 flex items-center ;
   }
   .el-icon-arrow-up{
     @apply mt-0.5;
@@ -79,7 +79,7 @@ onMounted(()=>getProject())
     border: none;
     background: none;
     padding-left:0px !important;
-    @apply text-kd14px18px text-global-highTitle text-opacity-45;
+    @apply md:text-kd14px18px text-kd12px16px text-global-highTitle text-opacity-45;
   }
 }
 </style>
