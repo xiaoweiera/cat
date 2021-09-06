@@ -68,7 +68,7 @@ onBeforeMount(async () => {
             <div class="search-box h-14 flex items-center" v-login>
               <el-input v-model="search" placeholder="搜索" @change="onSearch">
                 <template #prefix>
-                  <IconFont type="icon-sousuo" class="ml-1.5 text-base"></IconFont>
+                  <IconFont type="icon-sousuo" class="flex text-base"></IconFont>
                 </template>
               </el-input>
             </div>
@@ -97,13 +97,16 @@ onBeforeMount(async () => {
 
 <style scoped lang="scss">
   .menu-box {
-    box-shadow: 4px 0 12px rgb(44 140 248 / 8%);
+    box-shadow: 0.25rem 0 0.75rem rgba(44,140,248,0.08);
   }
   .search-box {
     border-bottom: 1px solid rgba(37,62,111,.04);
     ::v-deep(input) {
       border: 0;
       background: none;
+    }
+    ::v-deep(.el-input__prefix) {
+      @apply top-1/2 h-5 transform -translate-y-1/2;
     }
   }
 </style>

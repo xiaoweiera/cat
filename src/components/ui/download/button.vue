@@ -85,7 +85,7 @@ const onDownload = async (event: Event) => {
 </script>
 
 <template>
-  <div class="inline-block" @click="onDownload($event)">
+  <div class="inline-block" @click="onDownload($event)" :title="title">
     <slot>
       <IconFont class="flex cursor-pointer" type="icon-xiazai" :size="size"/>
     </slot>
