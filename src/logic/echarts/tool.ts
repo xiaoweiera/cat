@@ -3,11 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-
-export * from '~/utils/use/state'
-import { Position, SeriesItem, Unit } from './interface'
+import { Position, SeriesItem } from './interface'
 import { isNumber, isString, numberUint } from '~/utils/index'
 
+export * from '~/utils/use/state'
 
 export enum EchartsOptionName {
   series = 'series',
@@ -52,13 +51,11 @@ export const valueFormatter = function(data: SeriesItem): string {
     }
   }
   if (data.unit) {
-    // 判断是否是金额
-    switch (data.unit) {
-    case Unit.a:
-    case Unit.a1:
-    case Unit.a2:
-    case Unit.a3:
-      return `${data.unit} ${value}`
+    if (['$', '＄', '¥', '￥'].includes(data.unit)){
+      return `${data.unit}${value}`
+    }
+    if (['%'].includes(data.unit)){
+      return `${value}${data.unit}`
     }
     return `${value} ${data.unit}`
   }

@@ -37,6 +37,7 @@ const updateTrendsData = debounce<any>(async () => {
   chartData.legends = trends.legends
   chartData.xAxis = trends.xAxis
   chartData.series = trends.series
+  chartData.yAxis = trends.yAxis
   // 最后更新时间
   updateTime.value = dateYMDHmFormat(result.update_time)
   echartKey.value = uuid()
@@ -76,7 +77,8 @@ onMounted(updateTrendsData)
           <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
         </template>
 
-        <EchartsYaxis :index="0"/>
+        <EchartsYaxis :index="0" :unit="chartData.yAxis.left"/>
+        <EchartsYaxis :index="1" :unit="chartData.yAxis.right"/>
 
         <!-- 设置X轴 -->
         <EchartsXaxis :value="chartData.xAxis"/>
