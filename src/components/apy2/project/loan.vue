@@ -47,14 +47,14 @@ const changeParam=(v:any)=>{
 }
 
 const getChart=async ()=>{
-  loading.value=true
-  const result=await getProjectLoanTop10Chart(param)
-  loading.value=false
-  const data=echartTransform(result)
   key.value++
-  chartData.legends = data.legends
-  chartData.xAxis = data.xAxis
-  chartData.series = data.series
+  // loading.value=true
+  // const result=await getProjectLoanTop10Chart(param)
+  // loading.value=false
+  // const data=echartTransform(result)
+  // chartData.legends = data.legends
+  // chartData.xAxis = data.xAxis
+  // chartData.series = data.series
 }
 const onSumbit=(v:any)=>{
   const poolsId=R.join(',',R.map(v=>v.id,v))
@@ -93,7 +93,8 @@ const onSumbit=(v:any)=>{
       </div>
     </div>
     <!--    图表echarts-->
-        <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />
+    <Apy2TopContainer :key="key" class="mt-4"  type="lend"  :paramData="param" :project="true"/>
+<!--        <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />-->
 
     <!--    表格-->
     <div class="mt-8">

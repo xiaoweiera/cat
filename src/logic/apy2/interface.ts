@@ -119,11 +119,13 @@ export interface loanPoolParam{
 }
 export interface miningChart{
   chain:string
-  symbol:string
+  group_id:number
+  interval:number | string
 }
 export interface loanChart{
   chain:string
-  symbol:string
+  group_id:number
+  interval:number | string
 }
 export interface projectMiningChart{
   from_ts:string

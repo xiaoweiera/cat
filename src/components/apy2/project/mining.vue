@@ -27,7 +27,7 @@ const param=reactive({
   from_ts:0,
   to_ts:0,
   project_id:props.projectId,
-  pools:pools.value,
+  pools:'',
   field1:type.value
 })
 //改变时间
@@ -57,14 +57,15 @@ const changeParam=(v:any)=>{
 }
 
 const getChart=async ()=>{
-  loading.value=true
-  const result=await getProjectMiningTop10Chart(param)
-  loading.value=false
-  const data=echartTransform(result)
+  // loading.value=true
   key.value++
-  chartData.legends = data.legends
-  chartData.xAxis = data.xAxis
-  chartData.series = data.series
+  // const result=await getProjectMiningTop10Chart(param)
+  // loading.value=false
+  // const data=echartTransform(result)
+  // key.value++
+  // chartData.legends = data.legends
+  // chartData.xAxis = data.xAxis
+  // chartData.series = data.series
 }
 const onSumbit=(v:any)=>{
   const poolsId=R.join(',',R.map(v=>v.id,v))
@@ -112,7 +113,8 @@ const openTip=()=>pcTip.value=true
       <UiDateDay @change="changeTime"/>
     </div>
     <!--    图表echarts-->
-    <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />
+    <Apy2TopContainer :key="key" class="mt-4"  type="mining"  :paramData="param" :project="true"/>
+<!--    <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />-->
 
     <!--    表格-->
     <div class="mt-8">

@@ -39,7 +39,7 @@ onMounted(()=>getProject())
     <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList"   class="md:mr-10 w-12/12 md:w-max  min-h-9"/>
     <div class="flex flex-col md:flex-row  mt-3 md:mt-0" :class="props.hasCustom?'':'justify-between   w-full'">
       <div class="flex   flex-wrap">
-        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3 flex-1 md:mb-3 min-w-33 min-h-9   "  :list="typeList" />
+        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3  md:w-max md:mb-3 min-w-33 min-h-9   "  :list="typeList" />
          <div v-if="props.hasProject" class="apyProject min-w-33     flex-1 md:mr-3 min-h-9">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
           <el-option v-for="item in projectList"  :label="item.name" :value="item.id">

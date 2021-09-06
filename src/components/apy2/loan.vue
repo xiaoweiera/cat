@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {onMounted} from 'vue'
-import {chain,rankingTag,tableTag,listTag,tokenList} from '~/store/apy2/state'
-import {getLendingGroup,getTokenList} from '~/logic/apy2/index'
+import {chain,rankingTag,tableTag,listTag,tokenList,projectList} from '~/store/apy2/state'
+import {getLendingGroup,getTokenList,getTokenAndProject} from '~/logic/apy2/index'
 import { TabCategoryData } from '~/logic/apy2/interface'
 import I18n from '~/utils/i18n/index'
 const getGroupData=async ()=>{
@@ -10,9 +10,14 @@ const getGroupData=async ()=>{
   tableTag.value=result?.table
   listTag.value=result?.list
 }
-const getTokens=async ()=>tokenList.value=await getTokenList()
+const getData=async ()=>{
+  const [tokenData,projectData]=await getTokenAndProject(chain.value)
+  tokenList.value=tokenData
+  projectList.value=projectData
+}
+// const getTokens=async ()=>tokenList.value=await getTokenList()
 onMounted(async ()=>{
-  await getTokens()
+  await getData()
   await getGroupData()
 })
 </script>
@@ -24,19 +29,20 @@ onMounted(async ()=>{
         <Apy2BasePlayType class="xshidden" />
       </div>
       <Apy2Chains class="md:mt-12 mt-9"/>
-      <div class="flex w-full md:flex-row flex-col   mt-4 md:pb-6   md:border-b-1 border-global-highTitle border-opacity-6">
-        <div class="flex flex-1 md:order-0  mt-4 md:mt-0 order-1 ">
-          <div class="flex-1  md:mr-8">
-            <Apy2ChartLoan class="w-full"/>
-          </div>
-        </div>
-        <!--        榜单-->
-        <Apy2TopListMain type="lend"  class="md:w-101.25 w-full  md:order-1  order-0 pt-3 md:pl-8 border-b-1 md:border-b-0  md:border-l-1 border-global-highTitle border-opacity-6 ">
-          <template #item>
-            <Apy2TopListLoanItem  />
-          </template>
-        </Apy2TopListMain>
-      </div>
+      <Apy2TopContainer :header="true"  type="lend"/>
+<!--      <div class="flex w-full md:flex-row flex-col   mt-4 md:pb-6   md:border-b-1 border-global-highTitle border-opacity-6">-->
+<!--        <div class="flex flex-1 md:order-0  mt-4 md:mt-0 order-1 ">-->
+<!--          <div class="flex-1  md:mr-8">-->
+<!--            <Apy2ChartLoan class="w-full"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        榜单&ndash;&gt;-->
+<!--        <Apy2TopListMain type="lend"  class="md:w-101.25 w-full  md:order-1  order-0 pt-3 md:pl-8 border-b-1 md:border-b-0  md:border-l-1 border-global-highTitle border-opacity-6 ">-->
+<!--          <template #item>-->
+<!--            <Apy2TopListLoanItem  />-->
+<!--          </template>-->
+<!--        </Apy2TopListMain>-->
+<!--      </div>-->
       <!--      <Apy2BaseNotice class="mt-12"/>-->
       <div class="md:mt-12 mt-9">
         <!--表格数据-->
