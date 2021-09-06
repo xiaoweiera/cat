@@ -4,7 +4,7 @@ import { setFollow } from '~/logic/apy2/follow'
 import { isEmpty } from '~/utils'
 import { messageError, messageSuccess } from '~/lib/tool'
 import safeGet from '@fengqiaogang/safe-get'
-import getProps from '~/components/apy2/base/follow/props'
+import getProps from './props'
 import I18n from '~/utils/i18n/index'
 
 const props = defineProps(getProps())
@@ -36,7 +36,12 @@ const onClick = async function() {
   try {
     await setFollow(query)
     follow.value = !getActiveValue();
-    messageSuccess(I18n.apy.pool.added)
+    if (follow.value) {
+      messageSuccess(I18n.apy.pool.added)
+    } else {
+      messageSuccess(I18n.apy.pool.cancel)
+    }
+    
   } catch (e) {
     const message = safeGet<string>(e, 'message')
     if (message) {

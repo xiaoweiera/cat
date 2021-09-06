@@ -191,6 +191,7 @@ export default {
 
         favorite: '添加自选',
         added: '已收藏',
+        cancel: '已取消',
         apr: '利率',
         info: '产出币种',
         poolData: '池子相关数据',

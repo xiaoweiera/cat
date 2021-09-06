@@ -186,6 +186,7 @@ export default {
 
         favorite: 'Favorite',
         added: 'Added',
+        cancel: 'Cancelled',
         apr: 'APR',
         info: 'Info',
         poolData: 'Pool Data',

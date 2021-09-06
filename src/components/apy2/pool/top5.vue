@@ -72,7 +72,7 @@ watchState(dataEventName.value, upData)
           <EchartsLegend :index="index" :color="item.color" :value="item.name" :type="item.type"/>
         </template>
 
-        <EchartsYaxis :index="0" :min="0" :max="maxYaxis"/>
+        <EchartsYaxis :index="0" :min="0" :max="maxYaxis" :unit="echartData.yAxis.left"/>
 
         <!-- 设置X轴 -->
         <EchartsXaxis :value="echartData.xAxis"/>
