@@ -37,9 +37,9 @@ onMounted(function(){
   const dom = getContent()
   if (dom) {
     const value = props.href ? router(props.value) : props.value
-    console.log(value)
     QrCode.toCanvas(dom, value, {
       margin: 0,
+      // @ts-ignore
       width: props.width,
       height: props.height
     })
