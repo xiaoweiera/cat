@@ -68,40 +68,51 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
   <div class="font-kdFang w-full p-4  font-kdExp  bgShadow">
+
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
     <div class=" overflow-hidden h-74 overflow-y-auto showY">
     <template v-for="(item,i) in list">
       <Apy2PoolDialog v-if="props.type==='mining'" type="mining" :id="item.id">
         <template #reference>
-          <UiPopover v-if="i<5"  class="inline-block   w-full">
+          <el-popover placement="top" :width="350" trigger="hover">
             <template #reference>
               <div  class="flex topBorder  items-center w-full p-2">
                 <Apy2TopContainerItem  :item="item" :i="i"/>
               </div>
             </template>
-            <template #content>
-              <div class="min-w-70 relative p-1.3 ">
-                <Apy2TopListMiningTip :data="item"/>
-              </div>
-            </template>
-          </UiPopover>
+            <div class="min-w-70  p-1.3 ">
+              <Apy2TopListMiningTip class="absolute " v-if="props.type==='mining'" :data="item"/>
+              <Apy2TopListLoanTip v-else :data="item"/>
+            </div>
+          </el-popover>
+<!--          <UiPopover v-if="i<5"  class="inline-block   w-full">-->
+<!--            <template #reference>-->
+<!--              <div  class="flex topBorder  items-center w-full p-2">-->
+<!--                <Apy2TopContainerItem  :item="item" :i="i"/>-->
+<!--              </div>-->
+<!--            </template>-->
+<!--            <template #content>-->
+<!--              <div class="min-w-70 relative p-1.3 ">-->
+<!--                <Apy2TopListMiningTip :data="item"/>-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </UiPopover>-->
         </template>
       </Apy2PoolDialog>
       <div v-else>
         <a  v-router.blank="tokenUrl(item.symbol_alias)" >
-          <UiPopover v-if="i<5"  class="inline-block   w-full">
+          <el-popover placement="top" :width="350" trigger="hover">
             <template #reference>
               <div  class="flex topBorder  items-center w-full p-2">
                 <Apy2TopContainerItem  :item="item" :i="i"/>
               </div>
             </template>
-            <template #content>
-              <div class="min-w-70  p-1.3 ">
-                <Apy2TopListMiningTip class="absolute " v-if="props.type==='mining'" :data="item"/>
-                <Apy2TopListLoanTip v-else :data="item"/>
-              </div>
-            </template>
-          </UiPopover>
+            <div class="min-w-70  p-1.3 ">
+              <Apy2TopListMiningTip class="absolute " v-if="props.type==='mining'" :data="item"/>
+              <Apy2TopListLoanTip v-else :data="item"/>
+            </div>
+          </el-popover>
+
         </a>
       </div>
     </template>

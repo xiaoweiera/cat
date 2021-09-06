@@ -51,7 +51,7 @@ const props=defineProps({
 }
 .roundTip{
   font-size: 40px;
-  @apply text-global-highTitle text-opacity-45 absolute bottom-3;
+  @apply text-global-highTitle text-opacity-45 absolute -bottom-1.9;
 }
 .labelName{
   @apply text-global-highTitle text-opacity-45 text-kd12px16px;

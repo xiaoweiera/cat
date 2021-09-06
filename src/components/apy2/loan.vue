@@ -29,7 +29,7 @@ onMounted(async ()=>{
         <Apy2BasePlayType class="xshidden" />
       </div>
       <Apy2Chains class="md:mt-12 mt-9"/>
-      <div class="md:mt-6 mt-3 flex md:justify-between">
+      <div class="md:mt-6 mt-3 flex md:justify-between ">
         <span  class="text-kd20px24px font-medium text-global-highTitle text-opacity-85">{{I18n.apyIndex.loanChartTitle}} Top 5</span>
         <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 ml-3 text-kd14px18px flex items-center ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>
       </div>

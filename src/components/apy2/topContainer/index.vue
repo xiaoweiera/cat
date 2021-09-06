@@ -4,6 +4,7 @@ import {getTopData} from '~/logic/apy2/index'
 import {rankingTag,chain} from '~/store/apy2/state'
 import {echartTransform} from '~/lib/common'
 import { EchartData } from '~/logic/echarts/interface'
+import I18n from '~/utils/i18n/index'
 const props=defineProps({
   header:Boolean,
   type:String,
@@ -49,17 +50,17 @@ const getChartData=async ()=>{
 watch(()=>token.value,()=>getChartData())
 const title=computed(()=>{
  if(props.type==='mining' && props.header){
-   return  `当前 ${token.name} 收益榜单`
+   return     I18n.template(I18n.apyIndex.topTitleMining,{token:token.name})
  }else if(props.type==='lend' && props.header){
-   return  `当前 ${token.name} 借贷利率榜单`
+   return     I18n.template(I18n.apyIndex.topTitleLending,{token:token.name})
  }else if(props.type==='mining' && props.project){
-   return `当前 APY Top 5 池子`
+   return    I18n.template(I18n.apyIndex.projectTitleMining)
  }else if(props.type==='lend' && props.project){
-   return `当前 APR Top 5 池子`
+   return I18n.template(I18n.apyIndex.projectTitleLending)
  }else if(props.type==='mining' && props.token){
-   return `当前 ${props.symbol} 挖矿 APY TOP 5`
+   return I18n.template(I18n.apyIndex.tokenTitleMining,{token:props.symbol})
  }else if(props.type==='lend' && props.token){
-   return `当前 ${props.symbol} 借贷 APR TOP 5`
+   return I18n.template(I18n.apyIndex.tokenTitleLeding,{token:props.symbol})
  }
 })
 onMounted(getChartData())
@@ -70,7 +71,8 @@ onMounted(getChartData())
   <div class="flex md:flex-row flex-col">
 <!--    <div class="border-1  border-global-numRed h-full flex-1">e</div>-->
     <Apy2TopContainerChart :chartData="chartData" class="flex-1 h-88  min-h-88 order-1 md:order-0 "   />
-    <Apy2TopContainerList :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class="w-90 min-w-90 min-h-78 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
+
+    <Apy2TopContainerList :class="(props.header )?'md:w-90 md:min-w-90':'md:w-87 md:min-w-87'" :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class=" min-h-78 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
   </div>
 
 </div>

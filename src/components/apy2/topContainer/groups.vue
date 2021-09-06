@@ -20,7 +20,7 @@ watch(()=>moreToken.value, (n) => {
 const defaultShowNumber=5
 </script>
 <template>
-  <div class="newTopList">
+  <div class="newTopList h-6.5">
     <div class="flex items-center flex-wrap  mt-3.25 md:mt-4 ">
       <div class="xshidden flex items-center">
         <template v-for="item in rankingTag.slice(0,defaultShowNumber)">
@@ -62,7 +62,7 @@ const defaultShowNumber=5
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: none;
     padding-left: 4px !important;
-    @apply text-kd12px16px md:text-kd14px18px font-medium    text-global-highTitle text-opacity-85  text-center h-7 md:h-8.5 flex items-center  text-kd14px18px w-30 md:w-31 important ;
+    @apply text-kd12px16px md:text-kd14px18px font-medium    text-global-highTitle text-opacity-85  text-center h-7 md:h-8.5 flex items-center  text-kd14px18px w-30 md:w-33 important ;
   }
 
   .el-icon-arrow-up {

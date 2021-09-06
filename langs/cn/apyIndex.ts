@@ -144,4 +144,11 @@ export default{
     tokenMiningTitle:'挖 {token} 收益率前5的池子',
     tokenLendingTitle:'借贷 {token} 利息最低的前5池子',
     tokenMiningListTitle:'{token} 所有池子 APY',
+
+    topTitleMining:'当前 {token} 收益榜单',
+    topTitleLending:'当前 {token} 借贷利率榜单',
+    projectTitleMining:'当前 APY Top 5 池子',
+    projectTitleLending:'当前 APR Top 5 池子',
+    tokenTitleMining:'当前 {token} 挖矿 APY TOP 5',
+    tokenTitleLeding:'当前 {token} 借贷 APR TOP 5'
 }
