@@ -15,7 +15,7 @@ export default {
     liquidity: 'DEX 聪明钱'
   },
   growthPad: {
-    growthPad: 'Growthpad'
+    growthPad: 'GrowthPad'
   },
   desc: {
     apy: {

@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import BigNumber from 'bignumber.js'
 import DBList from '@fengqiaogang/dblist'
 import { flatten, pick, omit } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
@@ -262,6 +263,23 @@ export const calcYAxis = function(series: any[], stack: boolean = false, log: bo
     minValue = min(array)
     maxValue = max(array)
   }
+
+  let interval: any = new BigNumber(maxValue)
+  interval = interval.minus(minValue)
+  interval = interval.times(0.1, 10)
+  interval = Math.floor(interval.toNumber())
+
+  const maxTemp = new BigNumber(maxValue).plus(interval).toNumber()
+  const minTemp = new BigNumber(minValue).minus(interval).toNumber()
+  if (maxValue < maxTemp) {
+    maxValue = maxTemp
+  }
+  if (minValue > 0 && minTemp > 0) {
+    minValue = minTemp
+  } else if (minValue < 0 && minValue > minTemp) {
+    minValue = minTemp
+  }
+
   if (log) {
     if (minValue > 0) {
       minValue = Math.log10(minValue)
