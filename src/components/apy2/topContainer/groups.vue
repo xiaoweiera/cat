@@ -17,22 +17,23 @@ watch(()=>moreToken.value, (n) => {
   props.token.value = item.id
   props.token.name = item.name
 })
+const defaultShowNumber=5
 </script>
 <template>
   <div class="newTopList">
-    <div class="flex items-center mt-3.25 md:mt-4 ">
+    <div class="flex items-center flex-wrap  mt-3.25 md:mt-4 ">
       <div class="xshidden flex items-center">
-        <template v-for="item in rankingTag.slice(0,1)">
+        <template v-for="item in rankingTag.slice(0,defaultShowNumber)">
           <span @click="selectToken(item)" :class="token.value===item.id?'selectTag':'tag'" class="hand">{{ item.name }}</span>
         </template>
       </div>
-      <div class="mdhidden flex items-center">
-        <template v-for="item in rankingTag.slice(0,1)">
+      <div class="mdhidden flex items-center mb-3 ">
+        <template v-for="item in rankingTag.slice(0,defaultShowNumber)">
           <span @click="selectToken(item)" :class="token.value===item.id?'selectTag':'tag'" class="hand">{{ item.name }}</span>
         </template>
       </div>
-      <el-select filterable :placeholder="I18n?.apyIndex.selectCoins" :popper-append-to-body="false" v-model="moreToken" class="ml-1" size="small">
-        <template v-for="item in rankingTag.slice(1,rankingTag.length)">
+      <el-select v-if="defaultShowNumber<rankingTag.length" filterable :placeholder="I18n?.apyIndex.selectCoins" :popper-append-to-body="false" v-model="moreToken" class="ml-1" size="small">
+        <template v-for="item in rankingTag.slice(defaultShowNumber,rankingTag.length)">
           <div class="xshidden">
             <el-option :label="item.name" :value="item.id">
             </el-option>

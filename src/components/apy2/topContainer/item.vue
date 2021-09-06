@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {watch, ref, onMounted,defineProps} from 'vue'
+import {watch, ref, onMounted,defineProps,computed} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import { colors } from '~/logic/apy2/config'
 import {chainsIcon} from '~/logic/apy2/config'
 import {formatRulesNumber, getIconType,tolocaleLowerCase} from '~/lib/tool'
 const props=defineProps({item:Object,i:Number})
+const type=computed((name:string)=>getIconType(name))
 </script>
 <template>
     <div class=" flex items-center">
@@ -29,7 +30,7 @@ const props=defineProps({item:Object,i:Number})
         <div class="flex items-center">
           <span class="text-kd12px18px font-kdExp text-global-highTitle text-opacity-65">{{ item.project }}</span>
           <IconFont class=" ml-1  flex items-center" size="14"  :type="chainsIcon[tolocaleLowerCase(item.chain)]"/>
-          <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14" type="icon-V"></IconFont>
+          <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14" :type="getIconType(item?.project_category)"></IconFont>
           <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{ item.strategy_tags }}</span>
         </div>
         <div v-if="item.tvl" class="h-4.5 flex items-center">

@@ -3,8 +3,8 @@ import { uuid, map, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, convertI
 import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate, YAxis } from '~/logic/echarts/interface'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
-
-
+import {chainsIcon} from '~/logic/apy2/config'
+import {tolocaleLowerCase,getIconType} from '~/lib/tool'
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
         const interval = convertInterval(safeGet<string>(trends, 'interval') || '1D')
@@ -40,16 +40,19 @@ export const echartTransform = function(trends?: EchartData): EchartData | undef
                 return { time, date, value: date }
             }
         }, trends.xAxis)
-
         const db = new DBList(legends, 'id')
         const series = map(function(list: Array<string | number>, id: string) {
             const legend = db.selectOne<LegendItem>({ id })
             const unit = safeGet<string>(legend, 'unit') || ''
+            const chain=safeGet<string>(legend, 'chain') || ''
+            console.log(chain,'-----')
+            const project_category=safeGet<string>(legend, 'project_category') || ''
+            const strategy_tags=safeGet<string>(legend, 'strategy_tags') || ''
             return map(function(value: string | number | object, index: number) {
                 if (isObject(value)) {
-                    return Object.assign({ unit }, pick(['time', 'date'], xAxis[index]), value)
+                    return Object.assign({ unit,chain,project_category,strategy_tags }, pick(['time', 'date'], xAxis[index]), value)
                 }
-                return { value, unit, ...pick(['time', 'date'], xAxis[index]) }
+                return { value, unit,chain,project_category,strategy_tags, ...pick(['time', 'date'], xAxis[index]) }
             }, list)
         }, trends.series)
         return Object.assign({
@@ -66,4 +69,18 @@ export const chartFormatter = function(template: FormatterTemplate, data: Format
     const detail = safeGet<string>(data, 'data.detail') || ''
     const html = detail? `<span  class="ml-1.5 text-xs text-global-highTitle text-opacity-60">(${detail})</span>`:``
     return `${template.icon}${template.name}${template.value}${html}`
+}
+
+export const chartFormatterAll = function(template: FormatterTemplate, data: FormatterParams) {
+    const detail = safeGet<string>(data, 'data.detail') || ''
+    const chain=safeGet<string>(data, 'data.chain') || ''
+    const project_category=safeGet<string>(data, 'data.project_category') || ''
+    const strategy_tags=safeGet<string>(data, 'data.strategy_tags') || ''
+    //@ts-ignore
+    const chainHtml=`<span><IconFont size="14" type="${chainsIcon[tolocaleLowerCase(chain)]}"/></span>`
+    const typeHtml=`<span><IconFont size="14" type="${getIconType(project_category)}"/></span>`
+    const tagsHtml=strategy_tags?`<span  class="text-kd12px14px text-global-highTitle text-opacity-45 rounded-kd4px bg-global-highTitle bg-opacity-6 px-1 ml-1 py-0.5">${strategy_tags}</span>`:''
+    console.log(chainHtml,typeHtml)
+    const html = detail? `<span  class="ml-1.5 text-xs text-global-highTitle text-opacity-60">(${detail})</span>`:``
+    return `${template.icon}${template.name}${chainHtml}${template.value}${tagsHtml}${html}`
 }

@@ -92,6 +92,8 @@ export interface FormatterParams {
   seriesName: string
   // x 轴名称
   name: string;
+  //链
+  chain:string;
 }
 
 export interface LegendItem {

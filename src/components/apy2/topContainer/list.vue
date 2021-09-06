@@ -69,7 +69,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 <template>
   <div class="font-kdFang w-full p-4  font-kdExp  bgShadow">
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
-    <div class=" overflow-hidden h-72.5 overflow-y-auto showY">
+    <div class=" overflow-hidden h-74 overflow-y-auto showY">
     <template v-for="(item,i) in list">
       <Apy2PoolDialog v-if="props.type==='mining'" type="mining" :id="item.id">
         <template #reference>
@@ -96,8 +96,8 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
               </div>
             </template>
             <template #content>
-              <div class="min-w-70 relative p-1.3 ">
-                <Apy2TopListMiningTip v-if="props.type==='mining'" :data="item"/>
+              <div class="min-w-70  p-1.3 ">
+                <Apy2TopListMiningTip class="absolute " v-if="props.type==='mining'" :data="item"/>
                 <Apy2TopListLoanTip v-else :data="item"/>
               </div>
             </template>

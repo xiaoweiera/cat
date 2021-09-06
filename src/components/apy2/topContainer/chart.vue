@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
-import { chartFormatter } from '~/lib/common'
+import { chartFormatterAll } from '~/lib/common'
 import {defineProps,onMounted} from 'vue'
 const props=defineProps({
   chartData:Object,
-})
-onMounted(()=>{
-  console.log(props.chartData,'kk')
 })
 </script>
 <template>
@@ -15,7 +12,7 @@ onMounted(()=>{
 <!--      custom-class="w-full h-45 md:h-77.5 "-->
       <Echarts  v-if="chartData.xAxis && chartData.xAxis.length > 0"  :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
-        <EchartsTooltip trigger="axis"   :formatter="chartFormatter"/>
+        <EchartsTooltip trigger="axis"   :formatter="chartFormatterAll"/>
 
         <template v-for="(item, index) in chartData.legends" :key="index">
           <EchartsLegend :index="index" :color="item.color" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>

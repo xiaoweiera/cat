@@ -11,7 +11,7 @@ const props=defineProps({
 })
 </script>
 <template>
-  <div class="font-kdFang ">
+  <div class="font-kdFang  relative z-99999 ">
     <div v-if="data.chain" class="flex items-center">
       <span class="labelName">{{I18n.apyIndex.chainType}}</span>
       <img class="w-3.5 h-3.5 mx-1" :src="chainsIcon[tolocaleLowerCase(data.chain)]" alt="">

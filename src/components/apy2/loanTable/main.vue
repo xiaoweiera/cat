@@ -25,7 +25,7 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
           </a>
         </template>
       </el-table-column>
-      <el-table-column prop="clearNumber"  width="240px"  :label="`${I18n.apyIndex.lowestLtv}/${I18n.apyIndex.clearRatio}`" sortable >
+      <el-table-column prop="clearNumber"  width="200px"  :label="`${I18n.apyIndex.lowestLtv}/${I18n.apyIndex.clearRatio}`" sortable >
         <template #default="scope">
           <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
             <Apy2LoanTableClearNumber :value0="scope.row.mortgage_rate" :value1="scope.row.liquidation_rate"/>
