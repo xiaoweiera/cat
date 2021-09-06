@@ -146,7 +146,8 @@ export default {
             voters: 'Votes',
             percent: 'Percentage of votes',
             ratio: 'Revenue ratio',
-            operation: 'Operation'
+            operation: 'Operation',
+            update: 'Update time'
         }
     },
     token: {

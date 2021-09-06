@@ -151,7 +151,8 @@ export default {
             voters: '总票数',
             percent: '得票占比',
             ratio: '收益分成比例',
-            operation: '操作'
+            operation: '操作',
+            update: '更新时间'
         }
     },
     token: {
