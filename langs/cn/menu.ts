@@ -15,7 +15,7 @@ export default {
     liquidity: 'DEX 聪明钱'
   },
   growthPad: {
-    growthPad: 'Growthpad'
+    growthPad: 'GrowthPad'
   },
   desc: {
     apy: {
@@ -49,5 +49,8 @@ export default {
     app: '扫码下载 App',
     telegram: '扫码加入电报群',
     wechat: '扫码加入微信群'
+  },
+  footer: {
+    desc: '数据赋能 DeFi，快人一步遇见财富',
   }
 }

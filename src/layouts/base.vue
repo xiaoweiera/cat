@@ -7,7 +7,6 @@
     <main>
       <router-view />
     </main>
-    <slot></slot>
   </div>
 </template>
 

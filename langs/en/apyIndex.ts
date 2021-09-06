@@ -23,13 +23,13 @@ export default{
         coin:{
             title:'Have Token',
             des1:'Find the',
-            high:'highest',
+            high:'Highest',
             des2:'APY project'
         },
         loan:{
             title:'Want To Borrow',
             des1:'Find the',
-            high:'lowest',
+            high:'Lowest',
             des2:'APR project'
         }
     },
@@ -43,8 +43,8 @@ export default{
     poolType:'Type',
     poolTag:'Tag',
     apyGroup:'APY Info',
-    singleInterest:'Token APR',
-    compoundInterest:'Compound APY',
+    singleInterest: 'Single', // 'Token APR',
+    compoundInterest: 'Compound', // 'Compound APY',
     remainRatio:'Remaining',
     hasMoney:'Remaining',
     remainHasMoney:'Remaining',
@@ -52,7 +52,7 @@ export default{
     lendFarm:'Borrow',
     viewChart:'Chart',
     viewToken:'View Token',
-    searchAll:'Search token/project',
+    searchAll:'Search Token/Project',
     project:'Project',
     projectTutorial:'Tutorial',
     comLink:'Link',

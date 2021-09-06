@@ -8,15 +8,6 @@ import { defineProps, computed } from 'vue'
 import { Position } from '~/logic/echarts/interface'
 import { toBoolean } from '~/utils'
 
-/*
-interface data {
-  detail: ChartDetail
-  legends: Array<any>
-  xAxis: Array<any>
-  yAxis: Array<any>
-}
-*/
-
 const props = defineProps({
   data: {
     type: Object,

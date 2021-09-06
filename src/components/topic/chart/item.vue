@@ -61,7 +61,7 @@ const onLoad = async function() {
   <FullScreen>
     <template #default="scope">
       <!-- 全屏 -->
-      <div v-if="scope.status" class="h-full" :class="`j-big-${echartDetail.chartId}`">
+      <div v-if="scope.status" class="h-full">
         <TopicChartFull :option="fullEchartDetail"/>
       </div>
       <template v-else>

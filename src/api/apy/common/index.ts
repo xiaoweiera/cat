@@ -1,10 +1,13 @@
-import axios from '~/lib/service'
 // 币种列表
+import { pick, toUpper } from 'ramda'
+import axios from '~/lib/service'
 export { list as getTokenList } from '~/api/apy/token/index'
 import { projectParam,poolsParam,tokenSearch,poolSearch,loanPoolParam,calcToken } from '~/logic/apy2/interface'
-import { toArray, toBoolean } from '~/utils'
+import { map, forEach, toArray, toBoolean, isEmpty } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import { asyncCheck } from '~/lib/response'
+import DBList from '@fengqiaogang/dblist'
+import safeGet from '@fengqiaogang/safe-get'
 
 const request=async (param:any)=>{
     const result=await axios(param)
@@ -31,12 +34,49 @@ interface FollowQuery {
     multiple?: boolean
 }
 
+interface SymbolItem {
+    name: string,
+    followed: boolean
+    checked?: boolean
+    word?: string
+}
+
+let initSymbolList = false
+const symbolDB = new DBList([], 'name')
+
 // 代币分类列表
-export const symbolList = function(query: object) {
-    const result = axios.get('/api/apy/ninja/symbols', {
-        params: query
-    })
-    return asyncCheck<Array<{ name: string, followed: boolean }>>(result)
+export const symbolList = async function(query: object): Promise<SymbolItem[]> {
+    if (!initSymbolList) {
+        initSymbolList = true
+        const type = safeGet<string>(query, 'type')
+        const result = axios.get('/api/apy/ninja/symbols', {
+            params: { type, pool_type: type }
+        })
+        const data = await asyncCheck<SymbolItem[]>(result)
+        const list = map(function(item: SymbolItem){
+            item.checked = toBoolean(item.followed)
+            item.word = toUpper(item.name)
+            return item
+        }, data)
+        symbolDB.insert(list)
+    }
+    const where: any = {}
+    forEach(function(value: any, key: string) {
+        if (!isEmpty(value, true)) {
+            where[key] = value
+        }
+    }, pick(['symbol_type', 'followed'], query))
+    // 根据条件，精准筛选
+    let value = symbolDB.select<SymbolItem>(where)
+    if (safeGet<string>(query, 'query')) {
+        const db = new DBList(value, 'name')
+        const like = {
+            word: toUpper(safeGet<string>(query, 'query'))
+        }
+        // 根据搜索词模糊搜索
+        value = db.like<SymbolItem>(like)
+    }
+    return value
 }
 
 export const setFollow = function(query: FollowQuery) {

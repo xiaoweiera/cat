@@ -9,15 +9,22 @@ import safeGet from '@fengqiaogang/safe-get'
 import { useRoute } from 'vue-router'
 import { toRaw } from 'vue'
 
+
 // 获取 url 对象
 export const getLocation = function() {
   const location = useRoute()
   const $router = toRaw(location)
+  if ($router) {
+    return {
+      // @ts-ignore
+      path: $router.path.value,
+      // @ts-ignore
+      query: $router.query.value,
+    }
+  }
   return {
-    // @ts-ignore
-    path: $router.path.value,
-    // @ts-ignore
-    query: $router.query.value,
+    path: window.location.pathname,
+    query: {}
   }
 }
 // 获取参数

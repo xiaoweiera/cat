@@ -55,6 +55,11 @@ watchState([dataEventName.value, 'poolList'], function(result: any[]) {
 <!--    <div v-if="echartData.xAxis && echartData.xAxis.length > 0">-->
 <!--      <Echarts :key="echartKey" custom-class="h-45 md:h-85" :legend="LegendDirection.custom">-->
 <!--        &lt;!&ndash; 提示框 trigger: 触发方式 &ndash;&gt;-->
+<!--&lt;!&ndash;        <EchartsTooltip trigger="axis" :formatter="chartFormatter"/>&ndash;&gt;-->
+<!--  <Spin :loading="loading">-->
+<!--    <div v-if="echartData.xAxis && echartData.xAxis.length > 0">-->
+<!--      <Echarts :key="echartKey" custom-class="h-45 md:h-85" :legend="false">-->
+<!--        &lt;!&ndash; 提示框 trigger: 触发方式 &ndash;&gt;-->
 <!--        <EchartsTooltip trigger="axis" :formatter="chartFormatter"/>-->
 
 <!--        <template v-for="(item, index) in echartData.legends" :key="index">-->

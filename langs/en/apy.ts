@@ -121,9 +121,9 @@ export default {
     heco: {
         title: 'HECO Node Election',
         description: {
-            votes: 'Total voting number',
-            voters: 'Total participants',
-            dateEnd: 'Until the end of this round',
+            votes: 'Total Voting Number',
+            voters: 'Total Participants',
+            dateEnd: 'Until The End Of This Round',
             person: '{value}'
         },
         button: {
@@ -146,7 +146,8 @@ export default {
             voters: 'Votes',
             percent: 'Percentage of votes',
             ratio: 'Revenue ratio',
-            operation: 'Operation'
+            operation: 'Operation',
+            update: 'Update time'
         }
     },
     token: {
@@ -167,10 +168,10 @@ export default {
         chain: 'Chain',
         type: 'Pool Type',
         tag: 'Strategy Tag',
-        interestRate: 'Pool APY Info APY',
+        interestRate: 'APR Info',
         borrowingLimit: 'Liquidity',
         margin: 'Margin',
-        apyTotal: 'Total',
+        apyTotal: 'APY Info',
         single: 'Single',
         compound: 'Compound',
         remaining: 'Remaining ratio'
@@ -191,5 +192,14 @@ export default {
         apyTop5: 'APY TOP5 Pools Comparison',
         ranking: 'Ranking',
         trending: 'Trending',
+    },
+    tips: {
+        addToken: 'Add Token',
+        addTokenLp: 'Add Token & LP',
+        title: 'You did‘t add favorite',
+        click: 'Please click the',
+        addTokenDesc: 'button below to add favorite',
+        addTokenLpDesc: 'button below to add favorite',
+        noData: 'No Data'
     }
 };

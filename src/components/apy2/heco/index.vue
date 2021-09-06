@@ -217,7 +217,7 @@ onMounted(ready)
         <div class="hidden md:block">
           <el-table class="w-full heco-custom-expand" :data="tableData" row-key="id" :row-class-name="rowClassName" :span-method="arraySpanMethod" @row-click="onRowClick">
             <template v-for="(item, index) in pcHeader" :key="index">
-              <el-table-column :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
+              <el-table-column :width="item.width" :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
                 <template v-if="item.key === 'node_name'" #default="scope">
                   <Apy2HecoProject :data="scope.row"/>
                 </template>
@@ -252,7 +252,7 @@ onMounted(ready)
         <div class="block md:hidden">
           <el-table class="w-full heco-custom-expand" :data="tableData" row-key="id">
             <template v-for="(item, index) in mobileHeader" :key="index">
-              <el-table-column :min-width="item.width" :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
+              <el-table-column :width="item.width" :prop="item.key" :sortable="item.sortable" :label="item.label" :fixed="item.fixed">
                 <template v-if="item.render" #default="scope">
                   <div class="text-sm text-global-highTitle">
                     <span class="text-kdExp leading-6" :class="item.className">{{ item.render(scope.row, item.key) }}</span>

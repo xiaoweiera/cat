@@ -93,9 +93,11 @@ const saveChart = function(e: Event) {
               <div class="flex flex-wrap items-center flex-col-reverse md:flex-row">
                 <div class="inline-flex items-center justify-end">
                   <!-- 保存 -->
-                  <a class="btn-border cursor-pointer" @click="saveChart">
-                    <IconFont type="icon-download"/>
-                  </a>
+                  <UiDownloadButton :title="data.name">
+                    <a class="btn-border cursor-pointer">
+                      <IconFont type="icon-download"/>
+                    </a>
+                  </UiDownloadButton>
                   <!-- 缩放按钮 -->
                   <span class="btn-border ml-3">
                     <FullZoom/>
@@ -175,7 +177,7 @@ const saveChart = function(e: Event) {
 <style scoped lang="scss">
 .follow-btn {
   border-radius: 34px;
-  @apply text-xs text-white inline-block;
+  @apply text-xs text-white flex items-center;
   &:not(.small) {
     @apply py-1.5 px-2
   }
