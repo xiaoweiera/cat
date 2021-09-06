@@ -127,6 +127,78 @@ export const getCalcTokens=async (param:calcToken)=>{
     return getRes(result)
 }
 
+//新榜单数据
+export const getTopData=async (type:string,  project:boolean, token:boolean,param:miningChart | projectMiningChart)=>{
+    let result
+    // mining
+    if(type==='mining' && !project && !token){
+        console.log('首页挖矿')
+       result=await api.apy.mining.mining_best10(param)
+    }
+    // lend
+    if(type==='lend' && !project && !token){
+        console.log('首页借贷')
+        result=await api.apy.loan.lending_best10(param)
+    }
+    // projectMining
+    if(type==='mining' && project && !token){
+        console.log('Project挖矿')
+        result=await api.apy.project.mining_best10(param)
+    }
+    // projectLend
+    if(type==='lend' && project && !token){
+        console.log('Project借贷')
+        result =await api.apy.project.lending_best10(param)
+    }
+    // tokenMining
+    if(type==='mining' && !project && token){
+        console.log('token挖矿')
+        result =await api.apy.project.tokenMining_best10(param)
+    }
+    // tokenLend
+    if(type==='lend' && !project && token){
+        console.log('token借贷')
+        result =await api.apy.project.tokenLending_best10(param)
+    }
+    return getRes(result)
+}
+export const getAllRank=async (type:string,project:string,token:string,param:object)=>{
+    let result
+    console.log('榜单')
+    // mining
+    if(type==='mining' && !project && !token){
+        console.log('首页挖矿')
+        result=await api.apy.mining.mining_rank(param)
+    }
+    // lend
+    if(type==='lend' && !project && !token){
+        console.log('首页借贷')
+        result=await api.apy.loan.lending_rank(param)
+    }
+    // projectMining
+    if(type==='mining' && project && !token){
+        console.log('Project挖矿')
+        result=await api.apy.project.mining_rank(param)
+    }
+    // projectLend
+    if(type==='lend' && project && !token){
+        console.log('Project借贷')
+        result =await api.apy.project.lending_rank(param)
+    }
+    // tokenMining
+    if(type==='mining' && !project && token){
+        console.log('token挖矿')
+        result =await api.apy.project.tokenMining_rank(param)
+    }
+    // tokenLend
+    if(type==='lend' && !project && token){
+        console.log('token借贷top')
+        result =await api.apy.project.tokenLending_rank(param)
+    }
+    return getRes(result)
+
+}
+
 
 
 

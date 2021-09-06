@@ -21,6 +21,7 @@ const title=computed(()=>I18n.template(I18n.apyIndex.tokenMiningListTitle,{token
     <!-- 币种描述 -->
     <Apy2TokenDetail :symbol="symbol" :type="type"/>
     <div :key="trendKey">
+
       <Apy2TokenTrend :symbol="symbol" :type="type"/>
     </div>
   </UiDownload>

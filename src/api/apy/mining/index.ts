@@ -4,7 +4,7 @@ const request=async (param:any)=>{
    const result=await axios(param)
     return result?.data
 }
-import { miningPoolParam,miningChart,tokenMiningPoolParam} from '~/logic/apy2/interface'
+import { miningPoolParam,tokenMiningPoolParam} from '~/logic/apy2/interface'
 enum API {
     mining_group = '/api/apy/ninja/mining_group',
     mining_rank = '/api/apy/ninja/mining_rank',
@@ -20,7 +20,7 @@ export const mining_group =(param:any)=> request({url:API.mining_group, params:p
 //矿池列表
 export const mining_pools =(param:miningPoolParam)=> request({url:API.mining_pools, params:param, method: 'get'})
 //top10图表
-export const mining_best10 =(param:miningChart)=> request({url:API.mining_best10, params:param, method: 'get'})
+export const mining_best10 =(param:object)=> request({url:API.mining_best10, params:param, method: 'get'})
 //token矿池列表
 export const tokenMining_pools =(param:tokenMiningPoolParam)=> request({url:API.tokenMining_pools, params:param, method: 'get'})
 
