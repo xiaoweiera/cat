@@ -1,11 +1,11 @@
 <script setup lang="ts">/**
  * @file 币种多选收藏
  */
-import { ref, defineProps, defineEmits, toRaw } from 'vue'
+import { ref, defineProps, defineEmits } from 'vue'
 import { symbolList, setFollow } from '~/logic/apy2/follow'
 import { SymbolType } from '~/logic/apy2/interface'
-import { toBoolean, map, uuid } from '~/utils'
-import DBList from '@fengqiaogang/dblist'
+import { map } from '~/utils'
+import I18n from '~/utils/i18n/index'
 import getProps from '~/components/apy2/base/follow/props'
 import { messageError, messageSuccess } from '~/lib/tool'
 import safeGet from '@fengqiaogang/safe-get'
@@ -15,13 +15,13 @@ const props = defineProps(getProps())
 const emitEvent = defineEmits(['success'])
 
 // @ts-ignore
-const title = ref<string>('添加币种 & LP')
+const title = ref<string>(I18n.apy.tips.addTokenLp)
 // @ts-ignore
-const subTitle = ref<string>('已选')
+const subTitle = ref<string>(I18n.common.button.selected)
 // @ts-ignore
 const radios = [
-  { label: '单币', value: SymbolType.Token },
-  { label: 'LP', value: SymbolType.Lp }
+  { label: I18n.apy.token.pool.token, value: SymbolType.Token },
+  { label: I18n.apy.token.pool.lp, value: SymbolType.Lp }
 ]
 
 
@@ -29,43 +29,16 @@ const list = ref<any[]>([])
 const followeds = ref<any[]>([])
 
 const getSymbolList = async function(query: object = {}) {
-  const result = await symbolList({
+  return symbolList({
     type: props.type,
     ...query
   })
-  const db = new DBList(map(function(item: any) {
-    item.id = uuid(item.id || item.name)
-    return item
-  }, result))
-  return  db.clone(function(item: any) {
-    item.checked = toBoolean(item.followed);
-    return item
-  })
-}
-
-const getFollowedList = async function() {
-  const list = toRaw(followeds.value)
-  if (list.length > 0) {
-    return list
-  }
-  const result = await getSymbolList({
-    followed: true
-  })
-  followeds.value = result
-  return result
 }
 
 const upData = async function(query: object = {}) {
-  const [list1, list2] = await Promise.all([
-    getFollowedList(),
-    getSymbolList(query)
-  ])
-  const db = new DBList()
-  db.insert(list1)
-  db.insert(list2)
-  const array = db.clone()
-  list.value = array
-  return array
+  const value = await getSymbolList(query)
+  list.value = value
+  return value
 }
 
 
@@ -87,15 +60,16 @@ const onSave = async function(list: any[]) {
   }
   try {
     await setFollow(query)
-    messageSuccess('已收藏')
-
+    messageSuccess(I18n.apy.pool.added)
     emitEvent('success')
 
     return upData()
 
   } catch (e) {
-    const message = safeGet(e, 'message') || '收藏失败，请稍后再试'
-    messageError(message)
+    const message = safeGet<string>(e, 'message')
+    if (message) {
+      messageError(message)
+    }
   }
 }
 

@@ -20,24 +20,24 @@ const goSubmit=()=>emitEvent('submit')
     <div class="text-center">
       <!-- 自选币种 -->
       <template v-if="groupId === 'my'">
-        <div class="text-global-highTitle text-opacity-85 text-kd16px24px">您未添加自选</div>
+        <div class="text-global-highTitle text-opacity-85 text-kd16px24px">{{ I18n.apy.tips.title }}</div>
         <div v-if="type=== TabCategoryData.mining ">
           <span class="mt-2 text-kd12px16px text-global-highTitle text-opacity-45">
-            <span>请点击下方</span>
-            <span @click="goSubmit" class="text-global-primary hand">"添加币种 & LP"</span>
-            <span>按钮添加你关注的币种或 LP</span>
+            <span>{{ I18n.apy.tips.click }}</span>
+            <span @click="goSubmit" class="text-global-primary hand">"{{ I18n.apy.tips.addTokenLp }}"</span>
+            <span>{{ I18n.apy.tips.addTokenLpDesc }}</span>
           </span>
         </div>
         <div v-if="type=== TabCategoryData.lend">
           <span class="mt-2 text-kd12px16px text-global-highTitle text-opacity-45">
-            <span>请点击下方</span>
-            <span @click="goSubmit" class="text-global-primary hand">"添加币种"</span>
-            <span>按钮添加你关注的币种</span>
+            <span>{{ I18n.apy.tips.click }}</span>
+            <span @click="goSubmit" class="text-global-primary hand">"{{ I18n.apy.tips.addToken }}"</span>
+            <span>{{ I18n.apy.tips.addTokenDesc }}</span>
           </span>
         </div>
       </template>
       <template v-else>
-        <div class="text-global-highTitle text-opacity-85 text-kd16px24px">暂无数据</div>
+        <div class="text-global-highTitle text-opacity-85 text-kd16px24px">{{ I18n.apy.tips.noData }}</div>
       </template>
     </div>
   </div>

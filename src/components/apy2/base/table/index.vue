@@ -138,6 +138,7 @@ const isToken = function(scope: any) {
 // 重新加载
 // @ts-ignore
 const reload = function() {
+  db.clear() // 清空数据
   page.value = 1
   return updateData()
 }

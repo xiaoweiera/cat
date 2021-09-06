@@ -197,7 +197,15 @@ export default {
         apyTop5: 'APY TOP5池子对比',
         ranking: '排行对比',
         trending: '趋势对比',
-
+    },
+    tips: {
+        addToken: '添加币种',
+        addTokenLp: '添加币种 & LP',
+        title: '您未添加自选',
+        click: '请点击下方',
+        addTokenDesc: '按钮添加你关注的币种',
+        addTokenLpDesc: '按钮添加你关注的币种或 LP',
+        noData: '暂无数据'
     }
 };
 

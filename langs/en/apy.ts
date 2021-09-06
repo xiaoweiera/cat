@@ -192,5 +192,14 @@ export default {
         apyTop5: 'APY TOP5 Pools Comparison',
         ranking: 'Ranking',
         trending: 'Trending',
+    },
+    tips: {
+        addToken: 'Add Token',
+        addTokenLp: 'Add Token & LP',
+        title: 'You did‘t add favorite',
+        click: 'Please click the',
+        addTokenDesc: 'button below to add favorite',
+        addTokenLpDesc: 'button below to add favorite',
+        noData: 'No Data'
     }
 };

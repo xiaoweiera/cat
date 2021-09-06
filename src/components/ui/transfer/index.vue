@@ -104,7 +104,9 @@ const onShow = async function() {
   if (array.length > 0) {
     const db = new DBList(array)
     const list = db.select({ checked: true })
-    checkboxValue.value = map((item: any) => item.id, list)
+    const ids = map((item: any) => item.id, list)
+    checkboxValue.value = ids
+    onChangeList(ids)
   } else {
     checkboxValue.value = [] // 默认选中数据
   }
@@ -121,10 +123,12 @@ const onSubmit = function() {
 // @ts-ignore
 const onRemove = function(data: any) {
   const value = safeGet<string | number>(data, 'id')
-  const list: Array<string | number> = toArray(checkboxList.value)
+  const list: Array<string> = toArray(checkboxValue.value)
   // 计算差集，得到未删除的数据
-  const array:Array<string | number> = difference(list, [value])
-  checkboxList.value = array
+  // @ts-ignore
+  const array:Array<string> = difference(list, [value])
+  checkboxValue.value = array
+  onChangeList(array)
 }
 
 onMounted(function() {
