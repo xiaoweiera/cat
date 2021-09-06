@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <UiHover :width="102">
+  <UiHover width="inherit">
     <template #label>
       <div>
         <a class="hidden md:block cursor-pointer">
@@ -23,10 +23,14 @@ defineProps({
       </div>
     </template>
     <template #content>
-      <div class="w-21.5 h-21.5">
-        <UiQrcode width="86" height="86" href :value="href"></UiQrcode>
+      <div class="text-center">
+        <div class="inline-block">
+          <UiQrcode width="90" height="90" href :value="href"></UiQrcode>
+        </div>
       </div>
-      <div class="pt-1 text-center text-xs text-global-highTitle text-opacity-85">{{ desc }}</div>
+      <div class="pt-1 text-center whitespace-nowrap">
+        <span class="text-xs text-global-highTitle text-opacity-85">{{ desc }}</span>
+      </div>
     </template>
   </UiHover>
 </template>

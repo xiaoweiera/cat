@@ -49,7 +49,7 @@ watchState([dataEventName.value, 'poolList'], function(result: any[]) {
 <template>
   <Spin :loading="loading">
     <div v-if="echartData.xAxis && echartData.xAxis.length > 0">
-      <Echarts :key="echartKey" custom-class="h-45 md:h-85" :legend="LegendDirection.custom">
+      <Echarts :key="echartKey" custom-class="h-45 md:h-85" :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
         <EchartsTooltip trigger="axis" :formatter="chartFormatter"/>
 

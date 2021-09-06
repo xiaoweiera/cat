@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { env } from '~/lib/process'
 import { headers } from '~/logic/menu'
 import { config } from '~/utils/router'
@@ -7,6 +7,7 @@ import DBList from '@fengqiaogang/dblist'
 import { getLocation } from '~/utils/router'
 import { forEach, map, toBoolean } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
+import { useRoute } from 'vue-router'
 
 const primaryKey = 'id'
 const foreignKey = 'pid'
@@ -64,6 +65,11 @@ const init = function() {
 }
 
 const menus = ref<any[]>(init())
+
+watch(useRoute(), function() {
+  const value = init()
+  menus.value = value
+})
 
 const isShowSub = computed<boolean>(function(): boolean{
   const list = menus.value

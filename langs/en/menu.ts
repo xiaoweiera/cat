@@ -47,7 +47,10 @@ export default {
   },
   hover: {
     app: 'Download App',
-    telegram: 'Join Telegram Group',
-    wechat: 'Join WeChat Group'
+    telegram: 'Telegram Group',
+    wechat: 'WeChat Group'
+  },
+  footer: {
+    desc: 'Data Empowering DeFi, Early to Discover Wealth',
   }
 }

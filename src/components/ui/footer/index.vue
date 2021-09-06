@@ -87,7 +87,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
               <img class="min-w-28" src="https://res.ikingdata.com/common/logo.svg">
             </div>
             <div class="md:ml-6">
-              <span class="text-sm">数据赋能 DeFi，快人一步遇见财富</span>
+              <span class="text-sm">{{ I18n.menu.footer.desc }}</span>
             </div>
           </a>
         </div>
