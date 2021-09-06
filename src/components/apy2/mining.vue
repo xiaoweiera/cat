@@ -25,10 +25,10 @@ onMounted(async ()=>{
 <template>
   <div class=" flex flex-col items-center justify-center md:mb-16 mb-9   bg-global-white  h-full font-kdFang " >
     <div class="max-w-360 px-4  md:px-20  relative  w-full h-full container ">
-<!--      <div class="mt-4.25 md:mt-12 flex justify-between  items-center">-->
-<!--        <Apy2BaseHeader :title="I18n.apyIndex.miningTitle" class=" flex flex-col flex-wrap justify-center" />-->
-<!--          <Apy2BasePlayType class="xshidden" />-->
-<!--      </div>-->
+      <div class="mt-4.25 md:mt-12 flex justify-between  items-center">
+        <Apy2BaseHeader :title="I18n.apyIndex.miningTitle" class=" flex flex-col flex-wrap justify-center" />
+          <Apy2BasePlayType class="xshidden" />
+      </div>
       <Apy2Chains class="md:mt-12 mt-9"/>
       <Apy2TopContainer :header="true"  type="mining"/>
 <!--      <div class="flex w-full md:flex-row flex-col   mt-4 md:pb-6   md:border-b-1 border-global-highTitle border-opacity-6">-->
@@ -45,14 +45,14 @@ onMounted(async ()=>{
 <!--        </Apy2TopListMain>-->
 <!--      </div>-->
 <!--      <Apy2BaseNotice class="mt-12"/>-->
-<!--      <div class="md:mt-12 mt-9">-->
-<!--        &lt;!&ndash;表格数据&ndash;&gt;-->
-<!--        <Apy2BaseTableMain :type="TabCategoryData.mining"/>-->
-<!--      </div>-->
-<!--      <div class="md:mt-12 mt-9">-->
-<!--        <Apy2MiningPoolsMain/>-->
-<!--      </div>-->
-<!--      <Apy2BaseWaringTxt class="md:mt-12 mt-9  flex justify-center"/>-->
+      <div class="md:mt-12 mt-9">
+        <!--表格数据-->
+        <Apy2BaseTableMain :type="TabCategoryData.mining"/>
+      </div>
+      <div class="md:mt-12 mt-9">
+        <Apy2MiningPoolsMain/>
+      </div>
+      <Apy2BaseWaringTxt class="md:mt-12 mt-9  flex justify-center"/>
     </div>
 
   </div>
