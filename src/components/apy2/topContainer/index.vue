@@ -70,7 +70,7 @@ onMounted(getChartData())
   <div class="flex md:flex-row flex-col">
 <!--    <div class="border-1  border-global-numRed h-full flex-1">e</div>-->
     <Apy2TopContainerChart :chartData="chartData" class="flex-1 h-88  min-h-88 order-1 md:order-0 "   />
-    <Apy2TopContainerList :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class="w-80 min-w-80 min-h-78 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
+    <Apy2TopContainerList :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class="w-90 min-w-90 min-h-78 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
   </div>
 
 </div>

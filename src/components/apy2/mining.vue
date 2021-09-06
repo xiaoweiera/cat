@@ -49,14 +49,14 @@ onMounted(async ()=>{
 <!--        </Apy2TopListMain>-->
 <!--      </div>-->
 <!--      <Apy2BaseNotice class="mt-12"/>-->
-<!--      <div class="md:mt-12 mt-9">-->
-<!--        &lt;!&ndash;表格数据&ndash;&gt;-->
-<!--        <Apy2BaseTableMain :type="TabCategoryData.mining"/>-->
-<!--      </div>-->
-<!--      <div class="md:mt-12 mt-9">-->
-<!--        <Apy2MiningPoolsMain/>-->
-<!--      </div>-->
-<!--      <Apy2BaseWaringTxt class="md:mt-12 mt-9  flex justify-center"/>-->
+      <div class="md:mt-12 mt-9">
+        <!--表格数据-->
+        <Apy2BaseTableMain :type="TabCategoryData.mining"/>
+      </div>
+      <div class="md:mt-12 mt-9">
+        <Apy2MiningPoolsMain/>
+      </div>
+      <Apy2BaseWaringTxt class="md:mt-12 mt-9  flex justify-center"/>
     </div>
 
   </div>

@@ -141,7 +141,7 @@ export default{
     warningDes:'Risk warning: the data of this station comes from the public data of various platforms. The safety audit of the included contents is not conducted in this station, and the contents do not constitute investment suggestions. Please pay attention to the risks.',
     tokenMining:'All Farm APY',
     tokenLending:'All Borrow APR',
-    tokenMiningTitle:'{token} APY TOP 10 Pools',
-    tokenLendingTitle:'{token} Borrow APR Top 10 Pools',
+    tokenMiningTitle:'{token} APY TOP 5 Pools',
+    tokenLendingTitle:'{token} Borrow APR Top 5 Pools',
     tokenMiningListTitle:'{token} ALL POOLS APY',
 }
