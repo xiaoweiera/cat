@@ -58,9 +58,9 @@ export const valueFormatter = function(data: SeriesItem): string {
     case Unit.a1:
     case Unit.a2:
     case Unit.a3:
-      return `${data.unit}${value}`
+      return `${data.unit} ${value}`
     }
-    return `${value}${data.unit}`
+    return `${value} ${data.unit}`
   }
   return value
 }

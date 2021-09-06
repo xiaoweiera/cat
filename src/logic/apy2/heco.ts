@@ -67,18 +67,18 @@ export const pcHeader: Array<Head> = [
   { label: I18n.apy.heco.head.region, key: 'area' },
   { label: I18n.apy.heco.head.participants, key: 'voters', sortable: true, render },
   { label: I18n.apy.heco.head.voters, key: 'votes', sortable: true, render },
-  { label: I18n.apy.heco.head.percent, key: 'percent', sortable: true, render },
-  { label: I18n.apy.heco.head.ratio, key: 'user_profit_percent', sortable: true, render },
+  { label: I18n.apy.heco.head.percent, key: 'percent', sortable: true, render, width: '200px' },
+  { label: I18n.apy.heco.head.ratio, key: 'user_profit_percent', sortable: true, render, width: '150px' },
   { label: 'APY', key: 'apy', sortable: true, className: 'text-green font-bold text-xl whitespace-nowrap', render},
 ]
 
 export const mobileHeader: Array<Head> = [
   { label: I18n.apy.heco.head.name, key: 'node_name', fixed: 'left'},
-  { label: 'APY', key: 'apy', width: '100px', sortable: true, className: 'text-green font-bold text-xl', render},
+  { label: 'APY', key: 'apy', width: '120px', sortable: true, className: 'text-green font-bold text-xl', render},
   { label: I18n.apy.heco.head.region, key: 'area' },
   { label: I18n.apy.heco.head.participants, key: 'voters', width: '100px', sortable: true, render },
   { label: I18n.apy.heco.head.voters, key: 'votes', width: '100px', sortable: true, render },
-  { label: I18n.apy.heco.head.percent, key: 'percent', width: '100px', sortable: true, render },
+  { label: I18n.apy.heco.head.percent, key: 'percent', width: '200px', sortable: true, render },
   { label: I18n.apy.heco.head.ratio, key: 'user_profit_percent', width: '130px', sortable: true, render },
 ]
 

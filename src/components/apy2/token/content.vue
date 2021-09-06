@@ -4,7 +4,7 @@ import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 import { getTokenDetail } from '~/logic/apy2/token'
 import { TabCategoryData } from '~/logic/apy2/interface'
 import safeGet from '@fengqiaogang/safe-get'
-import makeRouterPath, { getParam } from '~/utils/router'
+import makeRouterPath, { getParam, getLocation } from '~/utils/router'
 import { toNumber } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 
@@ -39,12 +39,12 @@ const upDetail = async function() {
 
   detail.prince = safeGet<number>(data, 'ticker.prince')
   detail.change = safeGet<number>(data, 'ticker.change_percent')
-
 }
 
 const getUrl = function(value: string): string {
-  const query = { category: value }
-  const data: any = { query }
+  const { path } = getLocation()
+  const query = { symbol: props.symbol, category: value }
+  const data: any = { path, query }
   return makeRouterPath(data)
 }
 
@@ -61,8 +61,7 @@ onMounted(function() {
     } else {
       const id = safeGet<string>(category, '[0].id')
       if (id) {
-        const url = getUrl(id)
-        window.location.replace(url)
+        window.location.replace(getUrl(id))
       }
     }
   }

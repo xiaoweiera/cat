@@ -121,9 +121,9 @@ export default {
     heco: {
         title: 'HECO Node Election',
         description: {
-            votes: 'Total voting number',
-            voters: 'Total participants',
-            dateEnd: 'Until the end of this round',
+            votes: 'Total Voting Number',
+            voters: 'Total Participants',
+            dateEnd: 'Until The End Of This Round',
             person: '{value}'
         },
         button: {
@@ -167,10 +167,10 @@ export default {
         chain: 'Chain',
         type: 'Pool Type',
         tag: 'Strategy Tag',
-        interestRate: 'Pool APY Info APY',
+        interestRate: 'APR Info',
         borrowingLimit: 'Liquidity',
         margin: 'Margin',
-        apyTotal: 'Total',
+        apyTotal: 'APY Info',
         single: 'Single',
         compound: 'Compound',
         remaining: 'Remaining ratio'

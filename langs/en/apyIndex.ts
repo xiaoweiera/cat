@@ -23,13 +23,13 @@ export default{
         coin:{
             title:'Have Token',
             des1:'Find the',
-            high:'highest',
+            high:'Highest',
             des2:'APY project'
         },
         loan:{
             title:'Want To Borrow',
             des1:'Find the',
-            high:'lowest',
+            high:'Lowest',
             des2:'APR project'
         }
     },
@@ -43,8 +43,8 @@ export default{
     poolType:'Type',
     poolTag:'Tag',
     apyGroup:'APY Info',
-    singleInterest:'Token APR',
-    compoundInterest:'Compound APY',
+    singleInterest: 'Single', // 'Token APR',
+    compoundInterest: 'Compound', // 'Compound APY',
     remainRatio:'Remaining',
     hasMoney:'Remaining',
     remainHasMoney:'Remaining',
@@ -52,7 +52,7 @@ export default{
     lendFarm:'Borrow',
     viewChart:'Chart',
     viewToken:'View Token',
-    searchAll:'Search token/project',
+    searchAll:'Search Token/Project',
     project:'Project',
     projectTutorial:'Tutorial',
     comLink:'Link',
@@ -139,8 +139,8 @@ export default{
     warning:'Waring',
     description: 'Risk warning: the data of this station comes from the public data of various platforms.',
     warningDes:'Risk warning: the data of this station comes from the public data of various platforms. The safety audit of the included contents is not conducted in this station, and the contents do not constitute investment suggestions. Please pay attention to the risks.',
-    tokenMining:'All Farm APY',
-    tokenLending:'ALL Borrow APR',
+    tokenMining:'all Farm APY',
+    tokenLending:'aLL Borrow APR',
     tokenMiningTitle:'{token} APY TOP 10 POOLS',
     tokenLendingTitle:'{token} BORROW APR ',
     tokenMiningListTitle:'{token} ALL POOLS APY',
