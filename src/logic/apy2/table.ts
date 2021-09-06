@@ -89,7 +89,7 @@ export const getTop5 = async function(query: object) {
     name: '',
     show: false,
     id: 'top5',
-    type: seriesType.bar
+    type: seriesType.bar,
   }
   forEach(function(item: any) {
     const { project } = item
@@ -103,6 +103,7 @@ export const getTop5 = async function(query: object) {
     }
     return {
       value: apy,
+      unit: "%",
       itemStyle: {
         color: colors[index]
       }
@@ -111,6 +112,10 @@ export const getTop5 = async function(query: object) {
 
   chart.legends.push(legend)
   chart.series[legend.id] = series
+  // @ts-ignore
+  chart.yAxis = {
+    left: "%"
+  }
   return { chart, max: apy_max }
 }
 

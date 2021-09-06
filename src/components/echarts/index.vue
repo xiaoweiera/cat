@@ -234,7 +234,11 @@ onUnmounted(function() {
           <EchartsCustom/>
         </el-header>
         <el-main class="p-0">
-          <div :class="customClass" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
+          <div :class="customClass">
+            <div class="h-full chart-box">
+              <div class="chart-fit" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
+            </div>
+          </div>
         </el-main>
       </el-container>
     </div>
@@ -247,7 +251,11 @@ onUnmounted(function() {
       </div>
       <!-- 自定义图例 -->
       <EchartsCustom/>
-      <div :class="customClass" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
+      <div :class="customClass">
+        <div class="h-full chart-box">
+          <div class="chart-fit" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
+        </div>
+      </div>
     </div>
   </template>
   <template v-else>
@@ -255,7 +263,18 @@ onUnmounted(function() {
       <div class="hidden">
         <slot></slot>
       </div>
-      <div class="h-full" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
+      <div class="h-full chart-box">
+        <div class="chart-fit" :style="`background-color: ${bgColor}`" :id="`j-${chartId}`"></div>
+      </div>
     </div>
   </template>
 </template>
+
+<style lang="scss" scoped>
+.chart-box {
+  @apply relative;
+  .chart-fit {
+    @apply absolute left-0 right-0 top-0 bottom-0;
+  }
+}
+</style>
