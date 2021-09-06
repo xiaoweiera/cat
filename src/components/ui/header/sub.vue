@@ -33,7 +33,7 @@ defineProps({
 .sub-content {
   @apply h-full;
   .sub-menu-item {
-    @apply h-full flex items-center px-2 ml-8 font-medium;
+    @apply h-full flex items-center px-2 ml-8 font-normal;
     &:first-child {
       @apply ml-0;
     }

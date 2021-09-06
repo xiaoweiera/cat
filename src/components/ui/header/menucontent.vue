@@ -32,7 +32,7 @@ defineProps({
   .menu-content {
     @apply px-8 h-full cursor-pointer whitespace-nowrap block;
     .label-box {
-      @apply h-full flex items-center text-base;
+      @apply h-full flex items-center text-base font-normal;
       background-color: var(--menu-content-bg);
     }
     color: var(--menu-content-text);
