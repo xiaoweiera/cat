@@ -32,6 +32,7 @@ const navIsSelect = (path: string): string => {
   return 'text-global-default opacity-85'
 }
 onBeforeMount(() => {
+  console.log(titleName)
   useHead({
     title: titleName,
     meta: [
@@ -48,9 +49,8 @@ onBeforeMount(() => {
 })
 </script>
 <template>
-
-  <HeaderNav>
-  </HeaderNav>
+<!--  <HeaderNav></HeaderNav>-->
+  <div class="hidden"></div>
 </template>
 <style lang="scss" scoped>
 .tipContainer {

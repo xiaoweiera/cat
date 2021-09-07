@@ -195,7 +195,7 @@ export default {
         apr: '利率',
         info: '产出币种',
         poolData: '池子相关数据',
-        apyTop5: 'APY TOP5池子对比',
+        apyTop5: 'APY TOP 5 池子对比',
         ranking: '排行对比',
         trending: '趋势对比',
     },
