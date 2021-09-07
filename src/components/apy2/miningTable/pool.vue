@@ -31,7 +31,7 @@ const likeClass=computed(()=>props.like?'text-global-primary':'text-global-highT
     <div>
       <div class="flex items-center">
         <span class="mr-1 text-kd14px20px text-global-highTitle text-opacity-85">{{name}}</span>
-        <Apy2BaseFollow class="ml-1 lp-follow" :pool="true" type="mining" :value="id" :status="toBoolean(followed)"/>
+        <Apy2BaseFollow class="ml-1 lp-follow text-global-highTitle text-opacity-45" :pool="true" type="mining" :value="id" :status="toBoolean(followed)"/>
       </div>
 
       <div class="flex items-center">

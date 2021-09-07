@@ -47,7 +47,7 @@ onMounted(async ()=>{
 <!--          </template>-->
 <!--        </Apy2TopListMain>-->
 <!--      </div>-->
-      <!--      <Apy2BaseNotice class="mt-12"/>-->
+            <Apy2BaseNotice class="mt-12"/>
       <div class="md:mt-12 mt-9">
         <!--表格数据-->
         <Apy2BaseTableMain :type="TabCategoryData.lend"/>

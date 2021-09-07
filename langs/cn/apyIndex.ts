@@ -154,7 +154,6 @@ export default{
     goMining:'去挖矿',
     goLending:'去借贷',
 
-
     pageMining:{
         title:'快速发现高收益矿池',
         content:''
