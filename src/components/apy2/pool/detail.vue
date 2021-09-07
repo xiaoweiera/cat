@@ -60,11 +60,11 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
     <el-header height="initial" class="p-0" v-if="detail && detail.id">
       <div class="flex item-center justify-between">
         <div class="flex items-center">
-          <IconFont :type="detail.symbol_logo || 'icon-morentoken'" size="32" rounded/>
+          <IconFont :type="detail.symbol_logo" size="32" rounded/>
           <span class="symbol-name font-semibold text-kdExp">{{ detail.symbol }}</span>
           <span class="mr-2">-</span>
           <a class="flex items-center" v-router.blank="projectUrl(detail.project_id)">
-            <IconFont :type="detail.project_logo || 'icon-morentoken'" size="32" rounded/>
+            <IconFont :type="detail.project_logo" size="32" rounded/>
             <span class="symbol-name font-semibold text-kdExp">{{ detail.project }}</span>
             <IconFont class="mr-1.5" :type="detail.chain" size="24"/>
           </a>

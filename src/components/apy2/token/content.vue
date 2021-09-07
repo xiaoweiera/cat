@@ -73,8 +73,8 @@ onMounted(function() {
   <div class="text-kdFang">
     <div class="flex justify-between md:flex-row flex-col">
       <div class="flex items-center font-kdExp">
-        <IconFont class="xshidden" :type="detail.icon ? detail.icon : 'icon-morentoken'" size="40" rounded/>
-        <IconFont class="mdhidden" :type="detail.icon ? detail.icon : 'icon-morentoken'" size="32" rounded/>
+        <IconFont class="xshidden" :type="detail.icon" size="40" rounded/>
+        <IconFont class="mdhidden" :type="detail.icon" size="32" rounded/>
         <b style="font-size:24px;" class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
         <span class="md:ml-4 ml-2 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
         <div class="ml-2 bg-global-numRed flex items-center  pt-0.5 px-1 font-kdExp md:rounded rounded-kd4px">
