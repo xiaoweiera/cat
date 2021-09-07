@@ -5,18 +5,8 @@
  */
 
 import { defineProps, computed } from 'vue'
-// @ts-ignore
-import { Position, colors } from '~/logic/echarts/interface'
+import { Position } from '~/logic/echarts/interface'
 import { toBoolean } from '~/utils'
-
-/*
-interface data {
-  detail: ChartDetail
-  legends: Array<any>
-  xAxis: Array<any>
-  yAxis: Array<any>
-}
-*/
 
 const props = defineProps({
   data: {
@@ -51,7 +41,7 @@ const getAreaStatus = computed(function() {
 </script>
 
 <template>
-  <Echarts :stack="stackStatus" :log="logStatus">
+  <Echarts :stack="stackStatus" :log="logStatus" :area="getAreaStatus">
     <!-- 提示框 trigger: 触发方式 -->
     <EchartsTooltip trigger="axis" />
     <!--图例-->
@@ -62,7 +52,7 @@ const getAreaStatus = computed(function() {
         show: 是否显示
         position: 通过该字段控制 Series 中对应的数据以那个 Y 轴为纬度展示
       -->
-      <EchartsLegend :index="index" :value="item.name" :color="colors[index]" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
+      <EchartsLegend :index="index" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
     </template>
     <!-- 设置Y轴 -->
     <!--
@@ -81,7 +71,7 @@ const getAreaStatus = computed(function() {
         通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
         value: 数据
       -->
-      <EchartsSeries :index="index" :value="item.data" :color="colors[index]" :area="getAreaStatus"/>
+      <EchartsSeries :index="index" :value="item.data"/>
     </template>
   </Echarts>
 </template>

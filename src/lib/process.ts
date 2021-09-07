@@ -5,29 +5,25 @@
 
 import * as config from './config'
 
-interface Env {
-  api: string
+interface Env extends config.Config {
 }
 
-export const development: Env = {
-  api: config.development.api,
-}
+export const development: Env = config.development
 
-export const production: Env = {
-  api: config.production.api,
-}
-
-// 默认线上环境
-let mode = 'production'
-
-try {
-  // mode = import.meta.env.MODE
-  // @ts-ignore
-  mode = process.env.NODE_ENV
-} catch (e) {
-  mode = 'production'
-}
+export const production: Env = config.production
 
 export const oss = 'https://res.ikingdata.com'
 
-export const env: Env = mode === 'production' ? production : development
+// 默认线上环境
+// let mode: string
+
+// try {
+//   // mode = import.meta.env.MODE
+//   // @ts-ignore
+//   mode = process.env.NODE_ENV
+// } catch (e) {
+//   mode = 'production'
+// }
+// export const env: Env = mode === 'production' ? production : development
+
+export const env: Env = production

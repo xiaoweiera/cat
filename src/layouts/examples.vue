@@ -4,7 +4,8 @@
 <template>
   <div class="circleContainer"></div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">
-    <Nav class="relative"></Nav>
+<!--    <Nav class="relative"></Nav>-->
+    <UiHeader/>
     <main>
       <router-view />
     </main>

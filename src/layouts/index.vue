@@ -1,5 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <router-view />
+  <UiHeader/>
+  <div>
+    <router-view />
+  </div>
+  <UiFooter/>
 </template>

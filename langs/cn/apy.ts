@@ -122,5 +122,91 @@ export default {
     apyName:{
         apy:'APY',
         avgApy:'平均APY'
+    },
+    heco: {
+        title: 'HECO 节点竞选',
+        description: {
+            votes: '本轮投票总票数',
+            voters: '本轮投票总人数',
+            dateEnd: '距本轮投票结束',
+            person: '{value} 人'
+        },
+        button: {
+            vote: '去投票',
+            expand: '展开图表',
+            off: '收起图表'
+        },
+        note: {
+            label: '投票规则',
+            texts: [
+              '1 投票方式：用户通过质押 HT 的方式向候选人投票，1HT代表1票，仅能投给一个候选人，本次竞选开放11个主节点，11个备选节点；HT质押量排名前11的候选人为主节点，第12-22名为备选节点。',
+              '2 投票周期：节点排名根据用户投票数更新，奖励每6小时发放。',
+              '3 退出机制：投票用户可随时退出节点投票并取回HT，取回的HT锁定大约3天后到账。'
+            ]
+        },
+        head: {
+            name: '节点名称',
+            region: '所在地区',
+            participants: '参与人数',
+            voters: '总票数',
+            percent: '得票占比',
+            ratio: '收益分成比例',
+            operation: '操作',
+            update: '更新时间'
+        }
+    },
+    token: {
+        mining: '挖矿收益',
+        lend: '利率收益',
+        search: '搜索币种',
+        pool: {
+            add: '添加矿池',
+            selected: '已选池子',
+            list: 'APY 所有池子',
+            token: '单币',
+            lp: 'LP',
+            lends: '借贷的所有最佳路径'
+        },
+        description: '指标描述：展示选定币种/交易对在单位时间内的资金净流入情况，该指标是使用单位时间内主动买入-主动卖出进行计算的，异常的资金变化可能导致行情出现剧烈波动。'
+    },
+    table: {
+        chain: '公链类型',
+        type: '矿池类型',
+        tag: '矿池标签',
+        interestRate: '利率构成',
+        borrowingLimit: '可借',
+        margin: '杠杆倍数',
+        apyTotal: 'APY 构成',
+        single: '单利收益',
+        compound: '复利收益',
+        remaining: '剩余额度'
+    },
+    pool: {
+        mining: '去挖矿',
+        lean: '去借贷',
+        apy: '收益率',
+        remainingRatio: '可投额度',
+        single: '单利',
+        compound: '复利',
+
+        favorite: '添加自选',
+        added: '已收藏',
+        cancel: '已取消',
+        apr: '利率',
+        info: '产出币种',
+        poolData: '池子相关数据',
+        apyTop5: 'APY TOP 5 池子对比',
+        ranking: '排行对比',
+        trending: '趋势对比',
+    },
+    tips: {
+        addToken: '添加币种',
+        addTokenLp: '添加币种 & LP',
+        title: '您未添加自选',
+        click: '请点击下方',
+        addTokenDesc: '按钮添加你关注的币种',
+        addTokenLpDesc: '按钮添加你关注的币种或 LP',
+        noData: '暂无数据'
     }
 };
+

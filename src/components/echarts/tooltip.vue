@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, onBeforeMount } from 'vue'
-import { EchartsOptionName, updateInject } from '~/logic/echarts/tool'
+import { EchartsOptionName, setInject } from '~/logic/echarts/tool'
 import { triggerType } from '~/logic/echarts/interface'
 
 const props = defineProps({
@@ -11,14 +11,26 @@ const props = defineProps({
       const trigger = [triggerType.item, triggerType.axis, triggerType.none]
       return trigger.includes(value)
     }
+  },
+  formatter: {
+    type: Function
   }
 })
 
+const set = setInject(EchartsOptionName.tooltip)
+
 onBeforeMount(function() {
-  const option = {
-    trigger: props.trigger,
+  if (triggerType.none === props.trigger) {
+    set({
+      show: false
+    })
+  } else {
+    const option = {
+      trigger: props.trigger,
+      formatter: props.formatter
+    }
+    set(option)
   }
-  updateInject(EchartsOptionName.tooltip, option)
 })
 
 </script>

@@ -16,7 +16,7 @@ export default {
   nav: {
     apply: '项目申请',
     about: {name:'产品介绍',href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c'},
-    download: 'APP下载'
+    download: 'APP 下载'
   },
   time: {
     dd: '天',
@@ -42,7 +42,8 @@ export default {
     close: '取消',
     review: '审核中',
     success: '审核完成',
-    danger: '审核未通过'
+    danger: '审核未通过',
+    selected: '已选'
   },
   message: {
     verification: '获取验证码',
@@ -67,7 +68,8 @@ export default {
     email:'请输入邮箱',
     verification: '请输入验证码',
     password: '请输入密码',
-    new_password: '请再次输入密码'
+    new_password: '请再次输入密码',
+    search: '搜索'
   },
   and: '及',
   join: '加入',

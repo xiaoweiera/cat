@@ -2,14 +2,65 @@ import {defineConfig} from 'vite-plugin-windicss'
 import colors from 'windicss/colors'
 import typography from 'windicss/plugin/typography'
 
+const cssGlobal = {
+    bgHui:'#F1F3F5',
+    body: '#F6FAFD',
+    bodyTwo:'#F8FBFD',
+    default: '#253E6F', /* 37,62,111 */
+    primary: '#2B8DFE', /* 43, 141, 254 */
+    highTitle:'#033666', /*3,54,102*/
+    mobileBody:'#D8E8FF',
+    numGreen:'#00B464',
+    numRed:'#E9592D', /*233, 89, 45*/
+    darkblue: '#006FF7',
+    time:'#A2A4A8',
+    noSelect:'#A8A8A8',
+    white:'#FFFFFF',
+    grey: '#7b8db1',
+    money: '#F88923',
+    disabled: '#cccccc', // 禁用，灰色
+    plat: '#EBF7FF',
+    coin: '#E4FDFF',
+    loan:'#ECFFE6',
+    noAsk:'#FDF4ED',
+    coinTxt:'#03B7AB',
+    loanTxt:'#09B86A',
+    noAskTxt:'#DA9D00',
+    border: '#F0F3F6'
+}
+
 export default defineConfig({
     darkMode: 'class',
     plugins: [
         typography(),
     ],
     theme: {
+        // borderRadius:{
+        //     'kd4px':'4px',
+        //     'kd6px':'6px',
+        //     'kd8px':'8px',
+        //     'kd12px':'12px',
+        //     'kd30px':'30px'
+        // },
         extend: {
+            borderRadius:{
+                'kd4px':'4px',
+                'kd6px':'6px',
+                'kd8px':'8px',
+                'kd12px':'12px',
+                'kd24px':'24px',
+                'kd30px':'30px',
+                'kd38px':'38px',
+                'kd40px':'40px'
+            },
             fontSize: {
+                'kd12px12px':['12px','12px'],
+                'kd12px14px':['12px','14px'],
+                'kd10px10px':['10px','10px'],
+                'kd20px20px':['20px','20px'],
+                'kd20px26px':['20px','26px'],
+                'kd26px26px':['26px','26px'],
+                'kd11px16px':['11px','16px'],
                 'kd14px16px':['14px','16px'],
                 'kd14px22px': ['14px', '22px'],
                 'kd14px20px': ['14px', '20px'],
@@ -18,7 +69,10 @@ export default defineConfig({
                 'kd12px20px': ['12px', '20px'],
                 'kd12px18px': ['12px', '18px'],
                 'kd18px28px': ['18px', '28px'],
+                'kd18px18px': ['18px', '18px'],
+                'kd28px28px': ['28px', '28px'],
                 'kd18px27px': ['18px', '27px'],
+                'kd18px24px':['18px','24px'],
                 'kd36px':['36px','140%'],
                 'kd14px0px':['14px','0px'],
                 'kd10px16px':['10px','16px'],
@@ -55,6 +109,8 @@ export default defineConfig({
                 'kd13px20px':['13px','20px'],
                 'kd13px18px':['13px','18px'],
                 'kd17px17px':['17px','17px'],
+                'kd32px32px':['32px','32px'],
+                'kd25px28px':['25px','28px'],
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
@@ -72,30 +128,13 @@ export default defineConfig({
                 'min288px':'288px',
                 'min430px':'430px'
             },
-            borderRadius:{
-                'kd12px':'12px'
-            },
             colors: {
-                global: {
-                    bgHui:'#F1F3F5',
-                    body: '#F6FAFD',
-                    bodyTwo:'#F8FBFD',
-                    default: '#253E6F',
-                    primary: '#2B8DFE',
-                    highTitle:'#033666',
-                    mobileBody:'#D8E8FF',
-                    numGreen:'#00B464',
-                    numRed:'#E9592D',
-                    time:'#A2A4A8',
-                    noSelect:'#A8A8A8',
-                    white:'#FFFFFF',
-                    grey: '#7b8db1',
-                    money: '#F88923'
-                },
+                green: '#009955',
+                global: cssGlobal,
             },
-            opacity: {
-                85: '.85',
-            },
+            // opacity: {
+            //     85: '.85',
+            // },
             typography: {
                 DEFAULT: {
                     css: {

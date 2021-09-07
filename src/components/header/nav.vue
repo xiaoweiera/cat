@@ -84,7 +84,7 @@ onMounted(function() {
           </a>
           <div class="betweenIcon hidden md:block">|</div>
           <!-- 登录/注册 -->
-          <HeaderLogin></HeaderLogin>
+          <HeaderLogin class="text-global-default"></HeaderLogin>
         </div>
       </slot>
       <div class="hidden">

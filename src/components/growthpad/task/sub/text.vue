@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, reactive, ref, toRaw, defineEmit } from 'vue'
+import { computed, defineProps, reactive, ref, toRaw, defineEmits } from 'vue'
 import { addressEnum, getValueStatus } from './value'
 // @ts-ignore
 import rules from './rule'
@@ -11,7 +11,7 @@ import activity from '~/logic/growthpad/activity'
 import Message from '~/utils/message'
 import TaskType from '~/logic/growthpad/tasktype'
 
-const emitEvent = defineEmit(['updated'])
+const emitEvent = defineEmits(['updated'])
 
 const props = defineProps({
   // 判断地址名称

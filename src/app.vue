@@ -1,10 +1,17 @@
 <script setup lang="ts">
-
 import '~/styles/font.css'
-
-import { computed } from 'vue'
+import { computed, toRaw } from 'vue'
 import * as lang from '~/utils/lang'
 import { useHead } from '@vueuse/head'
+import { useProvide } from '~/utils/use/state'
+
+//
+const [ titleState ] = useProvide('headerTitle', 'KingData')
+// 默认 seo 信息
+const [ metaState ] = useProvide('headerMeta', {
+  name: 'keywords',
+  content: 'BTC, ETH, EOS, USDT, 波卡, DeFi, DOT,智能投研, 大数据分析, coinmarket, 数字货币数据分析,数字货币行业大数据, 虚拟币数据分析, Coinmarketcap, 中文版 Coinmarketcap, 区块链, 大数据, 数据分析, 比特币, 莱比特, 以太坊, ETH, EOS, 钱包, 共识算法, 舆情分析, cryptocompare, coinmarket, 数字货币数据分析,投资,投资顾问, 智能投资,智投,投资工具,数据分析,数据可视化,Digital currency data analysis, Digital currency industry big data, 数字货币行业大数据, 虚拟币数据分析, Virtual currency data analysis, 中文版Coinmarketcap, blockchain, big data, BTC, 比特币, 莱比特, LTC, 以太坊, ETH, EOS, 钱包, wallet, 共识算法, 舆情分析, Consensus algorithm,cryptocompare, Public opinion analysis 增长平台  GrowthPad',
+})
 
 // @ts-ignore
 const locale = computed(function() {
@@ -18,14 +25,13 @@ const locale = computed(function() {
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
 useHead({
-  title: 'KingData',
-  meta: [
-    {
-      name: 'keywords',
-      content:
-        'BTC, ETH, EOS, USDT, 波卡, DeFi, DOT,智能投研, 大数据分析, coinmarket, 数字货币数据分析,数字货币行业大数据, 虚拟币数据分析, Coinmarketcap, 中文版 Coinmarketcap, 区块链, 大数据, 数据分析, 比特币, 莱比特, 以太坊, ETH, EOS, 钱包, 共识算法, 舆情分析, cryptocompare, coinmarket, 数字货币数据分析,投资,投资顾问, 智能投资,智投,投资工具,数据分析,数据可视化,Digital currency data analysis, Digital currency industry big data, 数字货币行业大数据, 虚拟币数据分析, Virtual currency data analysis, 中文版Coinmarketcap, blockchain, big data, BTC, 比特币, 莱比特, LTC, 以太坊, ETH, EOS, 钱包, wallet, 共识算法, 舆情分析, Consensus algorithm,cryptocompare, Public opinion analysis 增长平台  GrowthPad',
-    },
-  ],
+  title: computed(() => {
+    const [ title ]: string[] = toRaw(titleState.value)
+    return title
+  }),
+  meta: computed(() => {
+    return toRaw(metaState.value)
+  }),
 })
 </script>
 <template>
@@ -36,7 +42,7 @@ useHead({
 </template>
 <style lang="scss">
 .showY{
-  @apply overFlow-hidden overFlow-y-scroll;
+  @apply overflow-hidden overflow-y-scroll;
 }
 .en .i8n-font-en-inter {
   font-family: i8n-font-inter;
@@ -47,9 +53,16 @@ useHead({
 body {
   -webkit-overflow-scrolling: touch;
 }
+
+.overflow-init {
+  overflow: inherit !important;
+}
+
 .el-loading-spinner .circular{
   display: inline !important;
 }
+
+/*
 [class*=' el-icon-'],
 [class^='el-icon-'] {
   font-family: element-icons !important;
@@ -64,6 +77,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*/
+
 .el-picker-panel__icon-btn {
   font-size: 12px;
   color: #303133;
@@ -236,6 +251,14 @@ a {
   padding: 0 !important;
 }
 
+.leading-3\.5 {
+  line-height: 0.875rem;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
 /* 等宽等高 */
 .equal-width-height {
   width: 100%;
@@ -254,16 +277,101 @@ a {
   position: absolute;
 }
 
+.custom-popover {
+  min-width: 1px !important;
+  padding: 0 !important;
+}
 
-/* 去掉 dialog 一些默认内边距 */
+.el-dialog {
+  /* 全屏的弹窗 */
+  &.screen-dialog {
+    margin: 0 !important;
+    width: initial !important;
+    @apply absolute;
+    @apply left-15 top-15 right-15 bottom-15;
+    @apply md:left-15 md:top-20 md:right-15 md:bottom-20;
+    .el-dialog__header {
+      @apply hidden;
+    }
+    .el-dialog__body {
+      padding: 20px !important;
+      @apply h-full;
+    }
+  }
+  /* 去掉 dialog 一些默认内边距 */
+  &.diy-dialog {
+    &.hidden-header {
+      .el-dialog__header {
+        @apply hidden;
+      }
+    }
+    .el-dialog__body {
+      padding: 0 !important;
+    }
+  }
+}
 
-.el-dialog.diy-dialog {
-  .el-dialog__header {
-    @apply hidden;
+/* 滑轮样式 */
+.showY::-webkit-scrollbar {
+  height: 8px;
+  @apply w-0.5;
+}
+
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0);
+}
+.showX{
+  @apply overflow-hidden overflow-x-scroll;
+}
+/* 滑轮样式 */
+.showX::-webkit-scrollbar {
+  height: 0px;
+}
+
+.showX::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0);
+}
+.containerBottomBor{
+  border-bottom:1.5px solid #F0F0F0;
+}
+.new-14 {
+  --new-size: 14px;
+}
+.new-16 {
+  --new-size: 16px;
+}
+.new-24 {
+  --new-size: 24px;
+}
+.new-26 {
+  --new-size: 26px;
+}
+.new-30 {
+  --new-size: 30px;
+}
+.new-40 {
+  --new-size: 40px;
+}
+[class~=new], [class*=new] {
+  @apply relative;
+  $icon: "https://statics.ikingdata.com/img/new.png";
+  &:after {
+    content: "";
+    @apply absolute left-0 top-0;
+    width: var(--new-size);
+    height: var(--new-size);
+    background-image: url($icon);
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: var(--new-size);
   }
-  .el-dialog__body {
-    padding: 0 !important;
-  }
+}
+
+.apy-item-no-data {
+  background-image: url("https://res.ikingdata.com/nav/tableLogo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
 }
 
 </style>

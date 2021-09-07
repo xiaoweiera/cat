@@ -4,7 +4,7 @@
  */
 
 import { inject, provide, ref, toRaw, watch } from 'vue'
-import { upperFirst, isUndefined } from '~/utils/index'
+import { upperFirst, isUndefined, debounce, toArray, map } from '~/utils'
 
 type SetCallback = (value?: any, index?: number | string) => void
 const autoValue = function(value?: any): Array<any> {
@@ -29,6 +29,7 @@ export const useProvide = function<T>(name: string, value?: any): any[] {
   }
   provide(name, set)
   provide(`get${upperFirst(name)}`, () => state)
+  provide(`${upperFirst(name)}state`, state)
   const merge = function(data: any) {
     const [ oldValue = {} ] = state.value
     const newValue = Object.assign({}, oldValue, data)
@@ -46,6 +47,29 @@ export const useWatch = function<T>(name: string, callback: SetCallback, value?:
   return array
 }
 
+export const getState = function(name: string) {
+  const key = `${upperFirst(name)}state`
+  return inject(key)
+}
+
+export const watchState = function(names: string | string[], callback: SetCallback) {
+  const states = map(function(key: string) {
+    return getState(key)
+  }, toArray(names))
+  if (states && callback) {
+    const app = debounce<SetCallback>(callback)
+    // @ts-ignore
+    watch(states, app, {
+      deep: true
+    })
+    app(...states)
+  }
+  if (states.length > 1) {
+    return states
+  }
+  return states[0]
+}
+
 export const getInject = function(name: string) {
   const get = inject(`get${upperFirst(name)}`)
   if (get) {
@@ -59,6 +83,7 @@ export const setInject = function(name: string): SetCallback {
   return inject<SetCallback>(name) as any
 }
 export const updateInject = function(name: string, ...args: any[]): boolean {
+  console.warn('⚠️ 该方法不推荐使用, 请使用 setInject')
   if (name) {
     const set = setInject(name)
     if (set) {

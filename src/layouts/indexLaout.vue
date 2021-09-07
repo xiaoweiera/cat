@@ -6,7 +6,8 @@ const langType = ref(lang.current.value)
 <template>
   <div class="circleContainer"></div>
   <div :id="langType" class="containerbgs bg-global-body md:bg-opacity-100">
-    <Nav class="relative"></Nav>
+<!--    <Nav class="relative"></Nav>-->
+    <UiHeader/>
     <main class="w-full flex justify-center">
       <router-view />
       <Footer />

@@ -3,11 +3,10 @@
  * @author svon.me@gmail.com
  */
 
+import { Position, SeriesItem } from './interface'
+import { isNumber, isString, numberUint } from '~/utils/index'
 
 export * from '~/utils/use/state'
-import { Position, SeriesItem, Unit } from './interface'
-import { isNumber, numberUint } from '~/utils/index'
-
 
 export enum EchartsOptionName {
   series = 'series',
@@ -21,7 +20,7 @@ export const initProps = {
   index: function() {
     return {
       type: [Number, String],
-      default: () => 0
+      required: true
     }
   },
   position: function() {
@@ -36,24 +35,29 @@ export const initProps = {
 }
 
 export const valueFormatter = function(data: SeriesItem): string {
-  let value = '-'
-  if (data.value && isNumber(data.value)) {
-    if (data.origin && isNumber(data.origin)) {
-      value = numberUint(data.origin as number)
+  if (isNumber(data) || isString(data)) {
+    data = { value: data } as any
+  }
+  let value: any = '-'
+  if (data.value) {
+    if (isNumber(data.value)) {
+      if (data.origin && isNumber(data.origin)) {
+        value = numberUint(data.origin as number)
+      } else {
+        value = numberUint(data.value as number)
+      }
     } else {
-      value = numberUint(data.value as number)
+      value = data.value
     }
   }
   if (data.unit) {
-    // 判断是否是金额
-    switch (data.unit) {
-    case Unit.a:
-    case Unit.a1:
-    case Unit.a2:
-    case Unit.a3:
+    if (['$', '＄', '¥', '￥'].includes(data.unit)){
       return `${data.unit}${value}`
     }
-    return `${value}${data.unit}`
+    if (['%'].includes(data.unit)){
+      return `${value}${data.unit}`
+    }
+    return `${value} ${data.unit}`
   }
   return value
 }

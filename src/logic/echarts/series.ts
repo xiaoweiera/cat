@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import BigNumber from 'bignumber.js'
 import DBList from '@fengqiaogang/dblist'
 import { flatten, pick, omit } from 'ramda'
 import safeGet from '@fengqiaogang/safe-get'
@@ -19,7 +20,7 @@ import {
   max,
   min,
   dateAdd,
-  convertInterval, dateFormat,
+  convertInterval, dateFormat, toNumber,
 } from '~/utils/index'
 
 import { XAxisItem, SeriesItem, SeriesMap } from './interface'
@@ -242,7 +243,7 @@ export const calcSeries = function(legends: any[], xAxis: XAxisItem[], trends: {
 }
 
 // 计算Y轴数据
-export const calcYAxis = function(series: any[], stack: boolean = false, log: boolean = false) {
+export const calcYAxis = function(series: any[], stack: boolean = false, log: boolean = false, MaxValue?: number, MinValue?: number) {
   const splitNumber = 4
   const array: number[][] = []
   forEach(function(list: any[], j: number) {
@@ -254,14 +255,47 @@ export const calcYAxis = function(series: any[], stack: boolean = false, log: bo
   let maxValue = 0
   // 是否开启堆积图
   if (stack) {
-    const minList = map((item: number[]) => subtract(item), array)
-    const maxList = map((item: number[]) => add(item), array)
-    minValue = min(minList)
-    maxValue = max(maxList)
+    if (isNumber(MaxValue)) {
+      maxValue = toNumber(MaxValue)
+    } else {
+      const maxList = map((item: number[]) => add(item), array)
+      maxValue = max(maxList)
+    }
+    if (isNumber(MinValue)) {
+      minValue = toNumber(MinValue)
+    } else {
+      const minList = map((item: number[]) => subtract(item), array)
+      minValue = min(minList)
+    }
   } else {
-    minValue = min(array)
-    maxValue = max(array)
+    if (isNumber(MaxValue)) {
+      maxValue = toNumber(MaxValue)
+    } else {
+      maxValue = max(array)
+    }
+    if (isNumber(MinValue)) {
+      minValue = toNumber(MinValue)
+    } else {
+      minValue = min(array)
+    }
   }
+
+  let interval: any = new BigNumber(maxValue)
+  interval = interval.minus(minValue)
+  interval = interval.times(0.1, 10)
+  interval = Math.floor(interval.toNumber())
+
+  const maxTemp = new BigNumber(maxValue).plus(interval).toNumber()
+  const minTemp = new BigNumber(minValue).minus(interval).toNumber()
+  if (maxValue < maxTemp) {
+    maxValue = maxTemp
+  }
+  if (minValue > 0 && minTemp > 0) {
+    minValue = minTemp
+  } else if (minValue < 0 && minValue > minTemp) {
+    minValue = minTemp
+  }
+
   if (log) {
     if (minValue > 0) {
       minValue = Math.log10(minValue)

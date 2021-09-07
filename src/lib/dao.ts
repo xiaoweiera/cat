@@ -4,7 +4,7 @@
  */
 
 import Url from 'url'
-import { includes } from 'ramda'
+import { includes, omit } from 'ramda'
 import I18n from '~/utils/i18n/index'
 import { production as env } from '~/lib/process'
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
@@ -20,6 +20,12 @@ import { cache as apiCacheList } from '~/api/pathname'
 const getUserAuth = function (config: AxiosRequestConfig): string {
   const cookie = getUserTooken()
   if (cookie) {
+    const authorization = safeGet(config, 'params.Authorization')
+    if (authorization) {
+      const params = omit(['Authorization'], safeGet(config, 'params'))
+      safeSet(config, 'params', params)
+      return cookie
+    }
     // 判断当前接口地址是否需要携带 cookie
     // 此处接口为 true 时为不携带
     const status = urlSome(config, ignore)
@@ -44,6 +50,10 @@ const isKinddataDomain = function(config: AxiosRequestConfig): boolean {
 }
 
 const getCacheStatus = function(config: AxiosRequestConfig): boolean {
+  const cache = safeGet<boolean>(config, 'params.cache')
+  if (cache) {
+    return true
+  }
   const url = config.url
   return includes(url, apiCacheList)
 }
@@ -61,16 +71,15 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
   const service = Axios.create(setting)
   service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
+      // 判断是否需要缓存
       const cacheStatus = getCacheStatus(config)
       const status = isKinddataDomain(config)
-
       if (status) {
         // 设置 token
         const token = getUserAuth(config)
         if (token) {
           config.headers.Authorization = `Token ${token}`
         }
-
         // 设置当前系统语言环境
         safeSet(config, 'params.lang', current.value)
         safeSet(config, 'headers.accept-language', current.value)
@@ -90,11 +99,12 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
          * const params = { id: "1", name: "aaa" }
          * 替换后为 "xxx/1/aaa/xxx"
          */
-        const url = I18n.template(config.url, parameter)
-        config.url = url
+        config.url = I18n.template(config.url, parameter)
       }
       // 处理缓存逻辑
       if (cacheStatus) {
+        // 删除缓存标识
+        config.params = omit(['cache'], config.params)
         const key = cache.makeKey(config.url, config.params)
         // 如果缓存中有数据，则中断请求
         if (cache.has(key)) {
@@ -129,9 +139,8 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
     (error) => {
       // 判断是否是由缓存终端请求引起的错误
       if (safeGet<boolean>(error, 'cache')) {
-        const response = safeGet<any>(error, 'data')
         // console.log(response.data)
-        return response
+        return safeGet<any>(error, 'data')
       }
       return Promise.reject(error)
     },

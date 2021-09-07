@@ -30,77 +30,37 @@ onMounted(async() => {
 
 <template>
   <div v-if="!isLogin">
-    <div
-      class="
-        hand
-        text-global-default
-        opacity-85
-        text-kd16px24px
-        font-normal
-        flex
-        items-center
-      "
-    >
+    <div class="hand opacity-85 text-kd16px24px font-normal flex items-center">
       <!-- 没有登录 -->
       <div class="flex items-center">
-        <span class="whitespace-nowrap" @click.stop="goLogin">{{
-          I18n.common.login
-        }}</span>
-        <img
-          class="w-0.5 h-0.5 ml-1 mr-1 Z"
-          src="https://res.ikingdata.com/nav/dian.png"
-          alt=""
-        />
-        <span class="whitespace-nowrap" @click.stop="goRegister">{{
-          I18n.common.register
-        }}</span>
+        <span class="whitespace-nowrap" @click.stop="goLogin">{{I18n.common.login }}</span>
+        <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" src="https://res.ikingdata.com/nav/dian.png" alt=""/>
+        <span class="whitespace-nowrap hidden md:inline-block" @click.stop="goRegister">{{I18n.common.register }}</span>
       </div>
     </div>
-    <ElDialog
-      v-model="visible"
-      custom-class="dialog-login"
-      :append-to-body="true"
-      :before-close="handleClose"
-    >
+    <ElDialog v-model="visible" custom-class="dialog-login" :append-to-body="true" :before-close="handleClose">
       <!-- 显示注册 -->
-      <UserRegister
-        v-if="
-          loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'register'
-        "
-      >
+      <UserRegister v-if="loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'register'">
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
-            <a
-              class="inline-block font-normal link hand"
-              @click="goDialogLogin"
-            >
+            <a class="inline-block font-normal link hand" @click="goDialogLogin">
               <span>{{ I18n.common.switchLogin }}</span>
             </a>
           </div>
         </div>
       </UserRegister>
       <!-- 显示注册 -->
-      <UserMailRegister
-        v-if="
-          loginTypeStatus.type === 'email' &&
-            loginTypeStatus.name === 'register'
-        "
-      >
+      <UserMailRegister v-if="loginTypeStatus.type === 'email' && loginTypeStatus.name === 'register'">
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
-            <a
-              class="inline-block font-normal link hand"
-              @click="goDialogLogin"
-            ><span>{{ I18n.common.switchLogin }}</span></a>
+            <a class="inline-block font-normal link hand" @click="goDialogLogin">
+              <span>{{ I18n.common.switchLogin }}</span>
+            </a>
           </div>
         </div>
       </UserMailRegister>
       <!-- 显示登录 -->
-      <UserLogin
-        v-if="
-          loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'login'
-        "
-      >
+      <UserLogin v-if="loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'login'">
         <div class="pt-4.5 pb-2.5 flex justify-between items-center">
           <div @click="goDialogLogin">
             <a class="inline-block font-normal link hand">
@@ -114,11 +74,7 @@ onMounted(async() => {
           </div>
         </div>
       </UserLogin>
-      <UserMailLogin
-        v-if="
-          loginTypeStatus.type === 'email' && loginTypeStatus.name === 'login'
-        "
-      >
+      <UserMailLogin v-if="loginTypeStatus.type === 'email' && loginTypeStatus.name === 'login'">
         <div class="pt-4.5 pb-2.5 flex justify-between items-center">
           <div @click="goDialogLogin">
             <a class="inline-block font-normal link hand">
@@ -132,33 +88,19 @@ onMounted(async() => {
           </div>
         </div>
       </UserMailLogin>
-      <UserForgetPwd
-        v-if="
-          loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'forget'
-        "
-      >
+      <UserForgetPwd v-if="loginTypeStatus.type === 'tel' && loginTypeStatus.name === 'forget'">
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
-            <a
-              class="inline-block font-normal link hand"
-              @click="goDialogLogin"
-            >
+            <a class="inline-block font-normal link hand" @click="goDialogLogin">
               <span>{{ I18n.common.switchLogin }}</span>
             </a>
           </div>
         </div>
       </UserForgetPwd>
-      <UserMailForgetPwd
-        v-if="
-          loginTypeStatus.type === 'email' && loginTypeStatus.name === 'forget'
-        "
-      >
+      <UserMailForgetPwd v-if="loginTypeStatus.type === 'email' && loginTypeStatus.name === 'forget'">
         <div class="pt-4.5 pb-2.5">
           <div class="flex items-center justify-center">
-            <a
-              class="inline-block font-normal link hand"
-              @click="goDialogLogin"
-            >
+            <a class="inline-block font-normal link hand" @click="goDialogLogin">
               <span>{{ I18n.common.switchLogin }}</span>
             </a>
           </div>

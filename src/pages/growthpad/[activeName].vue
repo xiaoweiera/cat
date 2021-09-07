@@ -83,6 +83,6 @@ onBeforeMount(() => {
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: examples
+  layout: all
 </route>
 // @formatter:off

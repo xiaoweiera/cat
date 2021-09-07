@@ -114,8 +114,8 @@ export const chainConfig = [
   // {
   //   select: false,
   //   key: 'polygon',
-  //   name: 'POLYGON',
-  //   img: 'https://res.ikingdata.com/nav/apyHsc.png',
+  //   name: 'POS',
+  //   img: 'https://res.ikingdata.com/apyTwo/apyPos.png',
   // },
   // {
   //   select: false,

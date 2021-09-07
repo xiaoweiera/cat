@@ -1,0 +1,84 @@
+<script setup lang="ts">
+import {watch,ref,onMounted } from 'vue'
+import * as R from 'ramda'
+import I18n from '~/utils/i18n/index'
+import {chain} from '~/store/apy2/state'
+import {getLending_rank} from '~/logic/apy2/index'
+import {getInject} from '~/utils/use/state'
+import {chainsIcon} from '~/logic/apy2/config'
+import {project_type} from '~/logic/apy2/config'
+import {formatRulesNumber,getIconType,tolocaleLowerCase} from '~/lib/tool'
+const group_id=getInject('group_id')
+const list=ref()
+watch(()=>group_id.value[0], ()=>getData())
+const getData=async ()=>list.value=await getLending_rank(group_id.value[0],chain.value)
+const getIconSize=(type:string)=>type==='lp'?'w-8 h-5':'w-4 h-4'
+const getNewSize=(type:string)=>type==='lp'?'26':'14'
+onMounted(()=>{if(group_id.value[0]){getData()}})
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
+</script>
+<template>
+  <div class="font-kdFang w-full  font-kdExp ">
+    <template v-for="(item,i) in list">
+      <a v-router.blank="tokenUrl(item.symbol_alias)">
+        <UiPopover v-if="i<5"  class=" inline-block  w-full">
+          <template #reference>
+            <div :class="i===4?'pb-3':'pb-3'"   class="flex pt-3 items-center w-full topBorder">
+              <div class=" flex items-center">
+                <IconFont v-if="i<3" class="xshidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="32" :type='`icon-a-${i+1}`'></IconFont>
+                <IconFont v-if="i<3" class="mdhidden text-global-highTitle text-opacity-25 absolute relative" style="font-size:38px;" size="24" :type='`icon-a-${i+1}`'></IconFont>
+                <div v-else  class="md:mx-2.4 mx-1.3 text-kd24px24px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{i+1}}</div>
+              </div>
+              <div class="flex flex-col w-full ml-3 flex-wrap">
+                <div class="flex justify-between">
+                  <div class="flex items-center relative">
+                    <span class="text-kd12px16px font-kdExp text-global-highTitle text-opacity-65">{{I18n.apyIndex.loanCoin}}</span>
+                    <img class="w-5 h-5 ml-1" :src="item.symbol_logo" alt="">
+                    <span class="ml-1 text-kd14px20px font-kdExp text-global-highTitle">{{item.symbol}}</span>
+                  </div>
+                  <div>
+                    <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'"  class="mr-1 text-global-numGreen font-bold font-kdExp text-kd20px20px">{{formatRulesNumber(item.apy)}}%</span>
+                    <IconFont class="text-global-highTitle text-opacity-25" size="18"  type="icon-help"></IconFont>
+                  </div>
+                </div>
+                <div class="mt-1 flex items-center flex-wrap  justify-between">
+                  <div class="flex items-center">
+                    <span class="text-kd12px18px text-global-highTitle text-opacity-65 font-kdExp">{{item.project}}</span>
+                    <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="chainsIcon[tolocaleLowerCase(item.chain)]"></IconFont>
+                    <IconFont class="text-global-highTitle text-opacity-25 ml-1" size="14"  :type="getIconType(item.project_category)"></IconFont>
+                    <span class="ml-1 px-1 text-kd12px14px text-global-highTitle bg-global-highTitle bg-opacity-6 rounded-kd4px  text-opacity-45 font-kdExp">{{item.strategy_tags}}</span>
+                  </div>
+                  <div class="flex items-center items-center">
+                    <span class="text-kd12px12px text-global-highTitle text-opacity-45 font-normal font-kdExp">{{I18n.apyIndex.borrowMoney}}</span>
+                    <span class="ml-1 text-kd12px12px text-global-highTitle text-opacity-85 font-kdExp ">${{formatRulesNumber(item.quota_remain)}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template #content>
+            <div class="min-w-70 relative  p-1.3 ">
+              <Apy2TopListLoanTip :data="item" />
+            </div>
+          </template>
+        </UiPopover>
+      </a>
+    </template>
+  </div>
+</template>
+<style scoped lang="scss">
+.topBorder{
+  border-top: 1px solid rgba(3, 54, 102, 0.06);
+}
+.tag{
+  @apply mr-2  text-kd14px18px text-global-highTitle font-medium  text-opacity-65;
+}
+.selectedTag{
+  border-radius: 6px;
+  @apply mr-2 text-kd14px18px text-global-primary font-medium bg-global-primary bg-opacity-8;
+}
+.btnCount{
+  border: 1px solid rgba(43, 141, 254, 0.32);
+  border-radius: 4px;
+}
+</style>

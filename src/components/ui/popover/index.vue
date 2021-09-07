@@ -11,12 +11,12 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative ui-popover">
+  <div class="relative  ui-popover">
     <div class="cursor-pointer">
       <slot name="reference"></slot>
     </div>
     <div
-      class="text-global-default whitespace-pre-wrap placement-box p-2 text-xs"
+      class="text-global-default z-11  whitespace-pre-wrap placement-box p-2 text-xs"
       :class="`placement-${placement}`"
     >
       <slot name="content"></slot>

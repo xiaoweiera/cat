@@ -90,7 +90,7 @@ export const ignore: string[] = [
     user.signup,
     user.verify,
     user.logoMail,
-    '/apy/',
+    // '/apy/',
     '/api/v2/commercial',
     ads.commercial, // 广告位
     topic.getMenuList, // 菜单
@@ -144,6 +144,7 @@ export const LoginStatus: string[] = [
 
 // 将一下接口加入到缓存中
 export const cache: string[] = [
+    // 'api/apy/ninja/mining_table'
     /*
     topic.getMenuList, // 菜单
     topic.recommend, // 推荐数据

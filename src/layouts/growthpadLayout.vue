@@ -1,7 +1,8 @@
 <template>
   <div class="circleContainer"></div>
   <div class="containerbgs bg-global-body md:bg-opacity-100">
-    <GrowthPadNav class="relative"></GrowthPadNav>
+<!--    <GrowthPadNav class="relative"></GrowthPadNav>-->
+    <UiHeader/>
     <main class="w-full flex justify-center">
       <router-view />
       <Footer />

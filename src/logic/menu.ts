@@ -6,16 +6,243 @@ export interface Menu {
   key?: string
   icon?: string
   href?: string
+  qrcode?: string // 二维码地址
   desc?: string
   query?: any // url 携带参数
   badge?: string // 提示标记
   beta?:string//是否是内测
   newTip?:boolean
+  more?: boolean // 展示在更多菜单中
+  header?: boolean // 是否在菜单中展示
   children?: Menu[]
 }
 
+
+export const footers = [
+  // {
+  //   label: 'Dapp',
+  //   children: [
+  //     { name: 'DeFi 排行榜' },
+  //     { name: 'NFT 排行榜' },
+  //     { name: 'GameFi 排行榜' },
+  //     { name: 'DeFi 新项目' },
+  //     { name: 'NFT 新项目' },
+  //     { name: 'GameFi 新项目' }
+  //   ]
+  // },
+  {
+    label: 'DeFi',
+    children: [
+      {
+        name: I18n.menu.apy.mining,
+        href: `${config.apy}/mining`,
+      }, {
+        name: I18n.menu.apy.loan,
+        href: `${config.apy}/loan`,
+      }, {
+        name: I18n.nav.defi.liquidity.name, // 'DEX 聪明钱'
+        href: config.liquidity,
+      }
+    ]
+  },
+  {
+    label: I18n.nav.analysis.name, // '数据'
+    children: [
+      {
+        name: I18n.menu.data.topic,
+        href: config.topic,
+      }, {
+        name: I18n.menu.data.news,
+        href: config.news,
+      }, {
+        name: I18n.menu.data.reports,
+        href: config.reports,
+      }
+    ]
+  },
+  {
+    label: I18n.menu.service.title,
+    children: [
+      {
+        name: I18n.menu.service.growthPad,
+        href: 'http://ikingdata.mikecrm.com/kbZDdCb'
+      }, {
+        name: I18n.menu.service.apy,
+        href: 'http://ikingdata.mikecrm.com/ijyjMFO'
+      }, {
+        name: I18n.menu.service.news,
+        qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
+        desc: I18n.menu.hover.wechat
+      }, {
+        name: I18n.menu.service.reports,
+        qrcode: 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo',
+        desc: I18n.menu.hover.wechat
+      }, {
+        name: I18n.menu.service.topic,
+        href: 'https://jinshuju.net/f/ZjRZdR'
+      }
+    ]
+  }
+]
+
+export const headers = [
+  // {
+  //   name: 'Dapp',
+  //   children: [
+  //     {
+  //       name: 'DeFi 排行版',
+  //       icon: 'icon-paihang',
+  //       desc: '快速发现高收益矿池',
+  //       more: true,
+  //       header: true
+  //     },
+  //     {
+  //       name: 'NFT 排行版',
+  //       header: true
+  //     },
+  //     {
+  //       name: 'GameFi 排行版',
+  //       header: true
+  //     },
+  //     {
+  //       name: 'DeFi 新项目',
+  //       icon: 'icon-defi',
+  //       desc: '快速发现高收益矿池',
+  //       more: true,
+  //       header: true
+  //     },
+  //     {
+  //       name: 'NFT 新项目',
+  //       header: true
+  //     },
+  //     {
+  //       name: 'GameFi 新项目',
+  //       header: true
+  //     },
+  //   ]
+  // },
+  {
+    // DeFi
+    name: I18n.nav.defi.name,
+    href: `${config.apy}/mining`,
+    children: [
+      {
+        name: I18n.menu.apy.mining, // '挖矿 APY',
+        href: `${config.apy}/mining`,
+        icon: 'icon-apy',
+        desc: I18n.menu.desc.apy.mining,
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.menu.apy.loan,// '借贷 APR',
+        href: `${config.apy}/loan`,
+        desc: I18n.menu.desc.apy.loan,
+        icon: 'icon-APR',
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.menu.apy.project, // '项目 APY 分析'
+        href: `${config.apy}/project`,
+        desc: I18n.menu.desc.apy.project,
+        icon: 'icon-xiangmu',
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.menu.apy.token, // '币种 APY 分析'
+        href: `${config.apy}/token`,
+        desc: I18n.menu.desc.apy.token,
+        icon: 'icon-bizhong',
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.menu.apy.heco, // 'HECO 节点 APY'
+        href: `${config.apy}/heco`,
+        desc: I18n.menu.desc.apy.heco,
+        icon: 'icon-heco',
+        more: true,
+        header: true
+      },
+    ]
+  },
+  {
+    // '数据'
+    name: I18n.nav.analysis.name,
+    href: config.topic,
+    children: [
+      {
+        name: I18n.menu.data.topic,
+        desc: I18n.menu.desc.data.topic,
+        icon: 'icon-zhuanti',
+        href: config.topic,
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.menu.data.news,
+        desc: I18n.menu.desc.data.news,
+        icon: 'icon-jiankong1',
+        href: config.news,
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.menu.data.reports,
+        desc: I18n.menu.desc.data.reports,
+        icon: 'icon-yanbao',
+        href: config.reports,
+        more: true,
+        header: true
+      }
+    ]
+  },
+  {
+    // DEX 聪明钱
+    name: I18n.menu.liquidity.liquidity,
+    href: config.liquidity,
+    children: [
+      {
+        name: I18n.menu.liquidity.liquidity,
+        desc: I18n.menu.desc.liquidity.liquidity,
+        icon: 'icon-DEX',
+        href: config.liquidity,
+        more: true
+      }
+    ]
+  },
+  {
+    name: I18n.menu.growthPad.growthPad,
+    desc: I18n.nav.service.growthPad.desc,
+    href: config.growthpad,
+    children: [
+      {
+        name: I18n.menu.growthPad.growthPad,
+        href: config.growthpad,
+        icon: 'icon-growthpad',
+        desc: I18n.menu.desc.growthPad.growthPad,
+        more: true,
+        header: true
+      },
+      {
+        name: I18n.nav.service.growthPad.children.project.name,
+        href:'http://ikingdata.mikecrm.com/kbZDdCb?utm_source=https://kingdata.com',
+        header: true
+      },
+      {
+        name: I18n.nav.service.growthPad.children.about.name,
+        href:'https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c?utm_source=https://kingdata.com',
+        header: true
+      },
+    ],
+  },
+]
+
 export const menu: Menu[] = [
   {
+    // DeFi
     name: I18n.nav.defi.name,
     newTip:true,
     children: [
@@ -23,7 +250,15 @@ export const menu: Menu[] = [
         name: I18n.nav.defi.apy.name,
         desc: I18n.nav.defi.apy.desc,
         icon: 'https://res.ikingdata.com/icon/apy.svg',
-        href: config.apy
+        href: config.apy,
+        children: [
+          {
+            name: '币种分析',
+            desc: '币种分析',
+            icon: 'https://res.ikingdata.com/icon/24.svg',
+            href: `${config.apy}/token`
+          }
+        ]
       },
       {
         name: I18n.nav.defi.liquidity.name,

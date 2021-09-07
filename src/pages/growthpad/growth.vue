@@ -79,6 +79,6 @@ const personLabel = I18n.growthpad.growthpad.dashboard.reward.person
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: examples
+  layout: all
 </route>
 // @formatter:off

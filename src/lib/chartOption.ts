@@ -13,6 +13,7 @@ export const grid = function() {
 
 export const tooltips = function (getModel?: Function, unit?: string) {
   const option: any = {
+    show: true,
     padding: [8, 10, 8, 10],
     trigger: 'axis',
     extraCssText: 'z-index:21',

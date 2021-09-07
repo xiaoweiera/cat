@@ -117,5 +117,90 @@ export default {
     apyName:{
         apy:'APY',
         avgApy:'Average APY'
+    },
+    heco: {
+        title: 'HECO Node Election',
+        description: {
+            votes: 'Total Voting Number',
+            voters: 'Total Participants',
+            dateEnd: 'Until The End Of This Round',
+            person: '{value}'
+        },
+        button: {
+            vote: 'Vote',
+            expand: 'Expand',
+            off: 'Off'
+        },
+        note: {
+            label: 'Voting rules',
+            texts: [
+                '1.Voting method Users can vote for candidates by staking HT. 1HT represents 1 vote and can only vote for one candidate. The election will have 11 main nodes and 11 candidate nodes; the top 11 candidates in the ranking are the main nodes, and No. 12-22 are candidate nodes.',
+                '2.Voting Period The node ranking is updated according to the number of user votes, and rewards are issued every 6 hours.',
+                '3.Exit Mechanism Users can redeem HT and exit the node voting at any time, and the redeemed HT will be locked in about 3 days before receiving.'
+            ]
+        },
+        head: {
+            name: 'Name',
+            region: 'Region',
+            participants: 'Participants',
+            voters: 'Votes',
+            percent: 'Percentage of votes',
+            ratio: 'Revenue ratio',
+            operation: 'Operation',
+            update: 'Update time'
+        }
+    },
+    token: {
+        mining: 'Farm APY',
+        lend: 'Borrow APR',
+        search: 'Search',
+        pool: {
+            add: 'Add pools',
+            selected: 'Selected',
+            list: 'All pools',
+            token: 'Token',
+            lp: 'LP',
+            lends: 'All best ways to borrow'
+        },
+        description: '指标描述：展示选定币种/交易对在单位时间内的资金净流入情况，该指标是使用单位时间内主动买入-主动卖出进行计算的，异常的资金变化可能导致行情出现剧烈波动。'
+    },
+    table: {
+        chain: 'Chain',
+        type: 'Pool Type',
+        tag: 'Strategy Tag',
+        interestRate: 'APR Info',
+        borrowingLimit: 'Liquidity',
+        margin: 'Margin',
+        apyTotal: 'APY Info',
+        single: 'Single',
+        compound: 'Compound',
+        remaining: 'Remaining ratio'
+    },
+    pool: {
+        mining: 'Deposit',
+        lean: 'Borrow',
+        apy: 'APY',
+        remainingRatio: 'Remaining ratio',
+        single: 'Single',
+        compound: 'Compound',
+
+        favorite: 'Favorite',
+        added: 'Added',
+        cancel: 'Cancelled',
+        apr: 'APR',
+        info: 'Info',
+        poolData: 'Pool Data',
+        apyTop5: 'APY TOP 5 Pools Comparison',
+        ranking: 'Ranking',
+        trending: 'Trending',
+    },
+    tips: {
+        addToken: 'Add Token',
+        addTokenLp: 'Add Token & LP',
+        title: 'You did‘t add favorite',
+        click: 'Please click the',
+        addTokenDesc: 'button below to add favorite',
+        addTokenLpDesc: 'button below to add favorite',
+        noData: 'No Data'
     }
 };

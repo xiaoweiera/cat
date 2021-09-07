@@ -3,8 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import Url from 'url'
 import { is } from 'ramda'
 import { href } from '~/utils/lang'
+import { forEach } from '~/utils'
+import safeSet from '@fengqiaogang/safe-set'
+import safeGet from '@fengqiaogang/safe-get'
 
 interface Query {
   [key: string]: number | string | undefined
@@ -26,12 +30,24 @@ export const router = function(data: string | To): any {
     return href<string>(data as string)
   }
   if (data && is(Object, data)) {
-    const to = href<To>(data as any)
-    const query: string[] = []
-    Object.keys(to.query).forEach((key: string) => {
-      query.push(`${key}=${to.query[key]}`)
-    })
-    return `${to.path}?${query.join('&')}`
+    // @ts-ignore
+    const url = Url.parse(data.path || window.location.href, true)
+    url.search = ''
+    // @ts-ignore
+    const query: any = data.query ? data.query : {}
+    forEach(function(value: string, key: string) {
+      const name = `query.${key}`
+      safeSet(url, name, `${value}`)
+    }, query)
+    const src = Url.format(url)
+    // @ts-ignore
+    if (data.path) {
+      return href<string>(src)
+    } else {
+      const value = href<string>(src)
+      const temp = Url.parse(value)
+      return `?${temp.query}`
+    }
   }
   if (data) {
     return data
@@ -44,7 +60,13 @@ export const install = function(vue: any) {
   vue.directive('router', (el: HTMLElement, binding: Binding) => {
     const value = router(binding.value)
     if (value) {
+      const { modifiers } = binding
       el.setAttribute('href', value)
+      if (safeGet(modifiers, 'blank')) {
+        el.setAttribute('target', '_blank')
+      } else {
+        el.removeAttribute('target')
+      }
     }
   })
 }
