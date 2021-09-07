@@ -150,7 +150,8 @@ export default{
     projectTitleMining:'Current APY Top 5 Pools',
     projectTitleLending:'Current APR Top 5 Pools',
     tokenTitleMining:'Current {token} Farm APY TOP 5',
-    tokenTitleLeding:'Current {token} Borrow APR TOP 5'
+    tokenTitleLeding:'Current {token} Borrow APR TOP 5',
+    goMining:'Deposit'
 
 
 }

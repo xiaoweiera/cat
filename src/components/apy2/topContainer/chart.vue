@@ -5,6 +5,7 @@ import {defineProps,onMounted} from 'vue'
 const props=defineProps({
   chartData:Object,
 })
+console.log(props.chartData)
 </script>
 <template>
     <div  class="w-full h-full  relative">
@@ -17,8 +18,8 @@ const props=defineProps({
           <EchartsLegend :index="index" :color="item.color" :value="item.name" :type="item.type" :position="item.kline ? Position.right : Position.left"/>
         </template>
 
-        <EchartsYaxis :index="0" :position="Position.left"/>
-        <EchartsYaxis :index="1" :position="Position.right"/>
+        <EchartsYaxis :index="0" :position="Position.left" :unit="chartData.yAxis.left"/>
+        <EchartsYaxis :index="1" :position="Position.right" />
 
         <!-- 设置X轴 -->
         <EchartsXaxis :value="chartData.xAxis"/>

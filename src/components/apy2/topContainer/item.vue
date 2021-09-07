@@ -21,7 +21,7 @@ const type=computed((name:string)=>getIconType(name))
         <div class="flex items-center">
           <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'" class="mr-1  font-bold md:text-kd16px16px  text-kd16px16px font-kdExp">{{ formatRulesNumber(item.apy) }}%</span>
           <div class="flex items-center font-kdFang" @click.stop>
-            <a v-router.blank="item.project_url" class="text-global-primary text-kd12px14px">去挖矿</a>
+            <a v-router.blank="item.project_url" class="text-global-primary text-kd12px14px">{{I18n.apyIndex.goMining}}</a>
             <span class="text-global-primary text-kd12px14px ml-1">></span>
           </div>
         </div>
