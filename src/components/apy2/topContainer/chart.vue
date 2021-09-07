@@ -4,8 +4,8 @@ import { chartFormatterAll } from '~/lib/common'
 import {defineProps,onMounted} from 'vue'
 const props=defineProps({
   chartData:Object,
+  loading:Boolean
 })
-console.log(props.chartData)
 </script>
 <template>
     <div  class="w-full h-full  relative">
@@ -32,7 +32,7 @@ console.log(props.chartData)
           <EchartsSeries :index="index"  :value="chartData.series[item.id]"/>
         </template>
       </Echarts>
-      <UiLoading v-else/>
+      <UiLoading v-if="loading"/>
     </div>
 
 </template>

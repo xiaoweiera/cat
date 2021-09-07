@@ -23,9 +23,9 @@ const changeTag=(id:number | string)=>{
 </template>
 <style scoped lang="scss">
 .tag{
-  @apply md:text-kd20px24px text-kd14px14px text-global-highTitle md:py-2 py-1.5 md:px-3 px-5   text-opacity-45 whitespace-nowrap;
+  @apply md:text-kd16px16px text-kd14px14px text-global-highTitle md:py-2 py-1.5 md:px-3 px-5   text-opacity-45 whitespace-nowrap;
 }
 .selectTag{
-  @apply rounded-kd8px text-kd14px14px md:text-kd20px24px text-global-white md:py-2 py-1.5 md:px-3 px-5 bg-global-primary font-medium whitespace-nowrap;
+  @apply rounded-kd8px text-kd14px14px md:text-kd16px16px text-global-white md:py-2 py-1.5 md:px-3 px-5 bg-global-primary font-medium whitespace-nowrap;
 }
 </style>

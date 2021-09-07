@@ -14,7 +14,6 @@ const changeTag=(key:string)=>{
   setFilterType(key)
   emitEvent('update:filterType',key)
 }
-
 </script>
 <template>
   <div class="flex items-center rounded-kd6px p-0.5 font-kdFang bg-global-white w-fit" style="border:1px solid rgba(3, 54, 102, 0.1);">

@@ -16,14 +16,17 @@ const props=defineProps({
 const token=reactive({value:'',name:''})
 const chartData = reactive<EchartData>(new EchartData())
 watch(()=>rankingTag.value,(n)=>{
-  token.value=n[0]?.id
-  token.name=n[0]?.name
+    token.value=n[0]?.id
+    token.name=n[0]?.name
 })
-
+const key=ref(0)
+const loading=ref(false)
 //得到图表数据
 const getChartData=async ()=>{
+
   if(!token.value && props.header) return
   let  result
+  loading.value=true
   if(!props.project && !props.token){
     const param={
       chain:chain.value,
@@ -45,6 +48,8 @@ const getChartData=async ()=>{
   chartData.xAxis = data.xAxis
   chartData.series = data.series
   chartData.yAxis=data.yAxis
+  loading.value=false
+  key.value++
 }
 
 
@@ -68,12 +73,12 @@ onMounted(getChartData())
 </script>
 <template>
 <div>
-  <Apy2TopContainerGroups v-if="props.header" class="mb-3" :token="token" />
+  <Apy2TopContainerGroups :chain="chain" v-if="props.header" class="mb-3" :token="token" />
   <div class="flex md:flex-row flex-col">
 <!--    <div class="border-1  border-global-numRed h-full flex-1">e</div>-->
-    <Apy2TopContainerChart :chartData="chartData" class="flex-1 h-83  min-h-83 order-1 md:order-0 "   />
+    <Apy2TopContainerChart :loading="loading" :key="key" :chartData="chartData" class="flex-1 h-83  min-h-83 order-1 md:order-0 "   />
 
-    <Apy2TopContainerList :class="(props.header )?'md:w-90 md:min-w-90':'md:w-87 md:min-w-87'" :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class=" min-h-76 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
+    <Apy2TopContainerList :key="key" :class="(props.header )?'md:w-90 md:min-w-90':'md:w-87 md:min-w-87'" :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class=" min-h-76 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
   </div>
 
 </div>

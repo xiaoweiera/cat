@@ -26,7 +26,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
       </el-table-column>
       <el-table-column prop="apy" :label="I18n.apyIndex.loanApr" width="140px"   sortable>
         <template #default="scope">
-          <Apy2MiningTableApy :apy="scope.row.apy" :des="scope.row.lever"/>
+          <Apy2MiningTableLever  :apy="scope.row.apy" :des="scope.row.lever"/>
         </template>
       </el-table-column>
       <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">
