@@ -9,10 +9,11 @@ const props=defineProps({item:Object,i:Number})
 const type=computed((name:string)=>getIconType(name))
 </script>
 <template>
+
     <div class=" flex items-center">
       <div  class=" text-kd18px18px text-global-highTitle text-opacity-65 font-kdExp font-bold">{{ i + 1 }}</div>
     </div>
-    <div class="flex flex-col w-full ml-3">
+    <div class="flex flex-col w-full ml-3 ">
       <div class="flex justify-between">
         <div class="flex items-center relative">
           <IconFont  :style="`color:${colors[i]}`"  size="16"  type="icon-Broken_line"></IconFont>
