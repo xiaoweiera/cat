@@ -145,54 +145,57 @@ const reload = function() {
 const submitAdd=()=>document.getElementsByClassName('addNew')[0].children[0].children[0].click()
 </script>
 <template>
-  <div v-if="tableData.length > 0">
-    <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName">
-      <el-table-column :width="200" fixed prop="0">
-        <template #header="scope">
-          <Apy2BaseTableHead/>
-        </template>
-        <template #default="scope">
-          <!-- token 数据可以展开 -->
-          <Apy2BaseTableSymbolToken v-if="isToken(scope)" :type="type" :key="tdKey(scope, 0)" :data="scope.row['0']" @click="onExpand(scope.row['0'])" />
-          <!-- 其它 -->
-          <Apy2BaseTableSymbolLp v-else :type="type" :key="tdKey(scope, 0)" :data="scope.row['0']"/>
-        </template>
-      </el-table-column>
-      <template v-for="index in rankValue" :key="index">
-        <el-table-column :width="200" :prop="`${index}`">
+  <div v-if="!loading">
+    <div v-if="tableData.length > 0">
+      <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName">
+        <el-table-column :width="200" fixed prop="0">
           <template #header="scope">
-            <Apy2BaseTableHead :index="index"/>
+            <Apy2BaseTableHead/>
           </template>
           <template #default="scope">
-            <template v-if="scope.row[index] && TabCategoryData">
-              <template v-if="type === TabCategoryData.mining">
-                <Apy2BaseTableMiningItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
-              </template>
-              <template v-else>
-                <Apy2BaseTableLendItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
-              </template>
-            </template>
+            <!-- token 数据可以展开 -->
+            <Apy2BaseTableSymbolToken v-if="isToken(scope)" :type="type" :key="tdKey(scope, 0)" :data="scope.row['0']" @click="onExpand(scope.row['0'])" />
+            <!-- 其它 -->
+            <Apy2BaseTableSymbolLp v-else :type="type" :key="tdKey(scope, 0)" :data="scope.row['0']"/>
           </template>
         </el-table-column>
-      </template>
-    </el-table>
-    <div class="pt-4 flex">
-      <div v-if="groupId === 'my'">
-        <Apy2BaseFollowMultiple :type="type" @success="reload"/>
-      </div>
-      <div class="flex-1 text-center" v-if="nextStatus">
+        <template v-for="index in rankValue" :key="index">
+          <el-table-column :width="200" :prop="`${index}`">
+            <template #header="scope">
+              <Apy2BaseTableHead :index="index"/>
+            </template>
+            <template #default="scope">
+              <template v-if="scope.row[index] && TabCategoryData">
+                <template v-if="type === TabCategoryData.mining">
+                  <Apy2BaseTableMiningItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+                </template>
+                <template v-else>
+                  <Apy2BaseTableLendItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+                </template>
+              </template>
+            </template>
+          </el-table-column>
+        </template>
+      </el-table>
+      <div class="pt-4 flex">
+        <div v-if="groupId === 'my'">
+          <Apy2BaseFollowMultiple :type="type" @success="reload"/>
+        </div>
+        <div class="flex-1 text-center" v-if="nextStatus">
         <span class="inline-block py-2 px-18 bg-global-highTitle bg-opacity-6 rounded cursor-pointer" @click="nextList">
           <span class="text-sm text-global-highTitle bg-opacity-65">{{I18n.apyIndex.more}}</span>
         </span>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <Apy2BaseNoData @submit="submitAdd" :type="props.type" :group-id="groupId"/>
+      <div  class="pt-4  addNew"   v-if="groupId === 'my'" >
+        <Apy2BaseFollowMultiple    :type="type" @success="reload"/>
       </div>
     </div>
   </div>
-  <div v-else>
-    <Apy2BaseNoData @submit="submitAdd" :type="props.type" :group-id="groupId"/>
-    <div  class="pt-4  addNew"   v-if="groupId === 'my'" >
-      <Apy2BaseFollowMultiple    :type="type" @success="reload"/>
-    </div>
-  </div>
+  <UiLoading v-else class="h-90 "/>
 </template>
 
 <style lang="scss">

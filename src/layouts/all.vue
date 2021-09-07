@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import * as lang from '~/utils/lang'
 </script>
 
 <template>
-  <div class="containerbgs md:bg-opacity-100 bg-global-white"  >
+  <div :class="lang.current.value" class="containerbgs  md:bg-opacity-100 bg-global-white"  >
     <UiHeader/>
     <main>
       <router-view />

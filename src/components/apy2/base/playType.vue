@@ -75,12 +75,12 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=lend
 const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 <template>
-  <div class="  font-kdFang relative flex">
+  <div class="  font-kdFang relative flex i8n-font-Barlow">
     <template v-for="(item,i) in list">
       <div   :class="i!==3?bgList[i]:' '+bgList[i]"  class="itemContainer hand ml-3 px-5 py-2.5  min-w-61.5  w-fit   rounded-kd6px" >
         <div class="flex items-center justify-between" style="white-space: pre;">
           <div >
-            <div :class="textList[i]" class="text-kd16px16px  font-medium ">{{item.title}}</div>
+            <div :class="textList[i]" class="text-kd16px16px  font-medium  i8n-font-Barlow">{{item.title}}</div>
             <div :class="textList[i]" class="mt-1.5 font-medium">
               <span  class="text-kd12px16px ">{{item.des0}}</span>
               <span :class="desList[i]"  class="text-kd11px16px  text-global-white px-1.5 py-0.25 mx-1 bg-opacity-65 rounded-kd30px">{{item.des1}}</span>

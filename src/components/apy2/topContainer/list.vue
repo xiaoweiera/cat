@@ -67,8 +67,7 @@ onMounted(() => {
 const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
-  <div class="font-kdFang w-full p-4  font-kdExp  bgShadow">
-
+  <div class="font-kdFang w-full p-4  font-kdExp relative ke  bgShadow ">
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
     <div class=" overflow-hidden h-74 overflow-y-auto showY">
     <template v-for="(item,i) in list">
@@ -120,6 +119,18 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
   </div>
 </template>
 <style scoped lang="scss">
+.ke::before{
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  left: 0%;
+  top: 46%;
+  border-top: 12px solid transparent;
+  border-right: 19px solid white;
+  border-bottom: 12px solid transparent;
+  transform: translateX(-100%);
+}
 .bgShadow{
  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
 }
