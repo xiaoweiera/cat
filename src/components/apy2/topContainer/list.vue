@@ -67,16 +67,16 @@ onMounted(() => {
 const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
-  <div class="font-kdFang w-full p-4  font-kdExp relative ke  bgShadow ">
+  <div class="font-kdFang w-full pt-4 px-4    font-kdExp relative ke  bgShadow ">
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
-    <div class=" overflow-hidden h-74 overflow-y-auto showY">
+    <div class=" overflow-hidden h-70.5 overflow-y-auto showY">
     <template v-for="(item,i) in list">
       <Apy2PoolDialog v-if="props.type==='mining'" type="mining" :id="item.id">
         <template #reference>
           <el-popover placement="top" :width="350" trigger="hover">
             <template #reference>
               <div  class="flex topBorder  items-center w-full p-2">
-                <Apy2TopContainerItem  :item="item" :i="i"/>
+                <Apy2TopContainerItem :pageType="props.type"  :item="item" :i="i"/>
               </div>
             </template>
             <div class="min-w-70  p-1.3 ">

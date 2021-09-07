@@ -55,7 +55,7 @@ const iconFont = function(props: Props): string {
     const img = `<img class="${imgClassName.join(" ")}" alt="" src="${image}"/>`
     return `<span class="${className.join(" ")}">${img}</span>`
   } else {
-    className.push('inline-block')
+    className.push('inline-flex')
     imgClassName.push('icon-font', 'flex')
     const svg = `<svg aria-hidden="true"><use xlink:href="#${getAlias(props.type)}"></use></svg>`
     const img = `<i class="${imgClassName.join(" ")}">${svg}</i>`

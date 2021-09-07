@@ -151,8 +151,29 @@ export default{
     projectTitleLending:'Current APR Top 5 Pools',
     tokenTitleMining:'Current {token} Farm APY TOP 5',
     tokenTitleLeding:'Current {token} Borrow APR TOP 5',
-    goMining:'Deposit'
+    goMining:'Deposit',
+    goLending:'Borrow',
 
 
+    pageMining:{
+        title:'Early Find and Invest High APY Pools',
+        content:''
+    },
+    pageLoan:{
+        title:'Find the Lowest APR Path to Borrow',
+        content:''
+    },
+    pageProject:{
+        title:'最全DeFi项目数据对比',
+        content:''
+    },
+    pageToken:{
+        title:'最全币种各矿池APY对比',
+        content:''
+    },
+    pageHeco:{
+        title:'全网首家HECO节点竞选数据',
+        content:''
+    }
 }
 

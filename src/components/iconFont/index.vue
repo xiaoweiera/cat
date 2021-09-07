@@ -45,7 +45,7 @@ const iconValue = computed(function() {
 </script>
 
 <template>
-  <span class="inline-block" v-html="iconValue"></span>
+  <span class="inline-flex" v-html="iconValue"></span>
 </template>
 
 <style lang="scss">

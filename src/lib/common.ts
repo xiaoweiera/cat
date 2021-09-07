@@ -87,7 +87,7 @@ export const chartFormatterAll = function(template: FormatterTemplate, data: For
         size: 14,
         className: 'ml-2'
     })
-    const apyHtml=`<span class="text-kd12px16px text-global-highTitle ml-1">:${unit==='$'?unit+formatRulesNumber(apy,false):formatRulesNumber(apy,false)+unit}</span>`
+    const apyHtml=`<span class="text-kd12px16px text-global-highTitle ml-1">${unit==='$'?unit+formatRulesNumber(apy,false):formatRulesNumber(apy,false)+unit}</span>`
     //@ts-ignore
     const typeImg= iconFont({
         type: project_category,

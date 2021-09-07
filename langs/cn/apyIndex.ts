@@ -151,5 +151,28 @@ export default{
     projectTitleLending:'当前 APR Top 5 池子',
     tokenTitleMining:'当前 {token} 挖矿 APY TOP 5',
     tokenTitleLeding:'当前 {token} 借贷 APR TOP 5',
-    goMining:'去挖矿'
+    goMining:'去挖矿',
+    goLending:'去借贷',
+
+
+    pageMining:{
+        title:'快速发现高收益矿池',
+        content:''
+    },
+    pageLoan:{
+        title:'快速发现借贷最佳路径',
+        content:''
+    },
+    pageProject:{
+        title:'最全DeFi项目数据对比',
+        content:''
+    },
+    pageToken:{
+        title:'最全币种各矿池APY对比',
+        content:''
+    },
+    pageHeco:{
+        title:'全网首家HECO节点竞选数据',
+        content:''
+    }
 }
