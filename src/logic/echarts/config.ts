@@ -204,8 +204,8 @@ export const getYAxis = function(yAxisData: any[], legends: LegendItem[], series
   const getYAxisValue = getYAxisData(yAxisData)
 
   const app = function(data: any[], position: Position) {
-    const value = calcYAxis(data, props.stack && position === Position.left, props.log)
     const yaxisData = getYAxisValue(position)
+    const value = calcYAxis(data, props.stack && position === Position.left, props.log, yaxisData.max, yaxisData.min)
     const textStyleKey = 'axisLabel.textStyle'
     const textStyle = safeGet(yaxisData, textStyleKey)
     const [ option ] = makeYAxisOption(function(value: number) {
