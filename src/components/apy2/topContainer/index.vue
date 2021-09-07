@@ -44,6 +44,7 @@ const getChartData=async ()=>{
   chartData.legends = data.legends
   chartData.xAxis = data.xAxis
   chartData.series = data.series
+  chartData.yAxis=data.yAxis
 }
 
 

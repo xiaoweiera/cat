@@ -150,5 +150,6 @@ export default{
     projectTitleMining:'当前 APY Top 5 池子',
     projectTitleLending:'当前 APR Top 5 池子',
     tokenTitleMining:'当前 {token} 挖矿 APY TOP 5',
-    tokenTitleLeding:'当前 {token} 借贷 APR TOP 5'
+    tokenTitleLeding:'当前 {token} 借贷 APR TOP 5',
+    goMining:'去挖矿'
 }
