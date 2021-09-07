@@ -20,14 +20,14 @@ watch(()=>moreToken.value, (n) => {
 const defaultShowNumber=12
 </script>
 <template>
-  <div class="newTopList h-6.5">
+  <div class="newTopList min-h-6.5 ">
     <div class="flex items-center flex-wrap  mt-3.25 md:mt-4 ">
       <div class="xshidden flex items-center">
         <template v-for="item in rankingTag.slice(0,defaultShowNumber)">
           <span @click="selectToken(item)" :class="token.value===item.id?'selectTag':'tag'" class="hand">{{ item.name }}</span>
         </template>
       </div>
-      <div class="mdhidden flex items-center mb-3 ">
+      <div class="mdhidden flex flex-wrap flex items-center mb-3 ">
         <template v-for="item in rankingTag.slice(0,defaultShowNumber)">
           <span @click="selectToken(item)" :class="token.value===item.id?'selectTag':'tag'" class="hand">{{ item.name }}</span>
         </template>

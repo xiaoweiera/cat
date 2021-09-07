@@ -70,7 +70,7 @@ const title=computed(()=>{
 onMounted(getChartData())
 </script>
 <template>
-<div>
+<div class="">
   <Apy2TopContainerGroups :chain="chain" v-if="props.header" class="mb-3" :token="token" />
   <div class="flex md:flex-row flex-col">
 <!--    <div class="border-1  border-global-numRed h-full flex-1">e</div>-->
