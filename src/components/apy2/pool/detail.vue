@@ -188,7 +188,7 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
         </div>
       </div>
     </el-header>
-    <el-main class="p-0">
+    <el-main class="p-0 overflow-init">
       <div class="flex h-full">
         <div class="flex-1 w-1 pr-4 h-full border-0 border-r border-solid border-highTitle border-opacity-6">
           <Apy2PoolTrends :type="type" :id="id" :title="I18n.apy.pool.poolData"/>
