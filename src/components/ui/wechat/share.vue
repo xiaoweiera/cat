@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { wxShare } from '~/lib/wxShare'
-import { defineProps, onMounted } from 'vue'
+import {wxShare} from '~/lib/wxShare'
+import {defineProps, onMounted, watch} from 'vue'
 
 const props = defineProps({
   // 分享标题
@@ -14,13 +14,10 @@ const props = defineProps({
     required: true
   }
 })
-onMounted(() => {
-  // 设置微信分享
-  wxShare(props.title, props.content)
-})
-
+const shareFun = () => wxShare(props.title, props.content)
+watch(props, shareFun)
+onMounted(shareFun)
 </script>
-
 <template>
-<i class="hidden"></i>
+  <i class="hidden"></i>
 </template>

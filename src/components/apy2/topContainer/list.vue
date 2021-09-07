@@ -76,7 +76,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
           <el-popover placement="top" :width="350" trigger="hover">
             <template #reference>
               <div  class="flex topBorder  items-center w-full p-2">
-                <Apy2TopContainerItem  :item="item" :i="i"/>
+                <Apy2TopContainerItem :pageType="props.type"  :item="item" :i="i"/>
               </div>
             </template>
             <div class="min-w-70  p-1.3 ">

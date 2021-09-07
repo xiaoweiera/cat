@@ -5,7 +5,7 @@ import I18n from '~/utils/i18n/index'
 import { colors } from '~/logic/apy2/config'
 import {chainsIcon} from '~/logic/apy2/config'
 import {formatRulesNumber, getIconType,tolocaleLowerCase} from '~/lib/tool'
-const props=defineProps({item:Object,i:Number})
+const props=defineProps({item:Object,i:Number,pageType:String})
 const type=computed((name:string)=>getIconType(name))
 </script>
 <template>
@@ -22,7 +22,8 @@ const type=computed((name:string)=>getIconType(name))
         <div class="flex items-center">
           <span :class="item.apy>=0?'text-global-numGreen':'text-global-numRed'" class="mr-1  font-bold md:text-kd16px16px  text-kd16px16px font-kdExp">{{ formatRulesNumber(item.apy) }}%</span>
           <div class="flex items-center font-kdFang" @click.stop>
-            <a v-router.blank="item.project_url" class="text-global-primary text-kd12px14px">{{I18n.apyIndex.goMining}}</a>
+            <a v-if="props.pageType==='mining'" v-router.blank="item.project_url" class="text-global-primary text-kd12px14px">{{I18n.apyIndex.goMining}}</a>
+            <a v-else v-router.blank="item.project_url" class="text-global-primary text-kd12px14px">{{I18n.apyIndex.goLending}}</a>
             <span class="text-global-primary text-kd12px14px ml-1">></span>
           </div>
         </div>
