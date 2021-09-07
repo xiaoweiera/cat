@@ -17,6 +17,7 @@ window.addEventListener('resize', function() {
 })
 </script>
 <template>
+  <LiquidityWebHeader />
 <!--  <UiDialogWebNewTipMain class="xshidden"/>-->
   <div v-if="!mobile" class="flex w-full contentContainer" style="overflow-x: hidden">
     <LiquiditySideContainer/>

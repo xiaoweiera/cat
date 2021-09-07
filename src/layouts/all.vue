@@ -10,25 +10,13 @@ import * as lang from '~/utils/lang'
     </main>
     <UiFooter/>
   </div>
+  <UiLayout>
+    <template #footer>
+      <UiFooter/>
+    </template>
+  </UiLayout>
 </template>
 
-<style lang="scss">
-html,
-body {
-  background-color: white !important;
-}
-.router-list {
-  a {
-    @apply ml-8 opacity-85 text-global-default;
-    &:first-child {
-      @apply ml-0;
-    }
-  }
-  .router-link-active {
-    @apply text-global-primary;
-  }
-}
-</style>
 
 
 

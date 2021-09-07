@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, onBeforeMount } from 'vue'
+import { defineProps, onBeforeMount, toRaw, watch } from 'vue'
 import { setInject, getInject } from '~/utils/use/state'
 
 const setMeta = setInject('headerMeta')
@@ -18,15 +18,28 @@ const props = defineProps({
   }
 })
 
-onBeforeMount(function() {
-  const meta = state.value
-  const index = meta ? meta.length : 0
+const update = function() {
+  const meta = toRaw(state.value)
   const data = {
     name: props.name,
     content: props.content
   }
-  setMeta(data, index)
-})
+  if (meta.length === 0) {
+    setMeta(data, 0)
+  } else {
+    let index = 0
+    for(let size = meta.length; index < size; index++) {
+      const item = meta[index]
+      if (item.name === props.name) {
+        break
+      }
+    }
+    setMeta(data, index)
+  }
+}
+
+onBeforeMount(update)
+watch(props, update)
 
 </script>
 

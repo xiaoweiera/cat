@@ -190,7 +190,7 @@ export default {
         apr: 'APR',
         info: 'Info',
         poolData: 'Pool Data',
-        apyTop5: 'APY TOP5 Pools Comparison',
+        apyTop5: 'APY TOP 5 Pools Comparison',
         ranking: 'Ranking',
         trending: 'Trending',
     },
