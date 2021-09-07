@@ -157,23 +157,23 @@ export default{
 
     pageMining:{
         title:'Early Find and Invest High APY Pools',
-        content:''
+        content:'Include 5 public chains, 25 projects, 1422 pools'
     },
     pageLoan:{
         title:'Find the Lowest APR Path to Borrow',
-        content:''
+        content:' Include 5 public chains, 25 projects, 1422 pools'
     },
     pageProject:{
-        title:'最全DeFi项目数据对比',
-        content:''
+        title:'The Most Complete DeFi Project Comparison',
+        content:' Include 5 public chains, 25 projects, 1422 pools'
     },
     pageToken:{
-        title:'最全币种各矿池APY对比',
-        content:''
+        title:'The Most Complete Token APY Comparison',
+        content:'Include 5 public chains, 25 projects, 1422 pools'
     },
     pageHeco:{
-        title:'全网首家HECO节点竞选数据',
-        content:''
+        title:'The First HECO Node Election Data',
+        content:'Comparison of HECO node election data trending'
     }
 }
 

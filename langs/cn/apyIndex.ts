@@ -156,22 +156,22 @@ export default{
 
     pageMining:{
         title:'快速发现高收益矿池',
-        content:''
+        content:'收录5条公链，25个项目，1422个池子'
     },
     pageLoan:{
         title:'快速发现借贷最佳路径',
-        content:''
+        content:'收录5条公链，25个项目，1422个池子'
     },
     pageProject:{
         title:'最全DeFi项目数据对比',
-        content:''
+        content:'收录5条公链，25个项目，1422个池子'
     },
     pageToken:{
-        title:'最全币种各矿池APY对比',
-        content:''
+        title:'最全币种矿池APY对比',
+        content:'收录5条公链，25个项目，1422个池子'
     },
     pageHeco:{
         title:'全网首家HECO节点竞选数据',
-        content:''
+        content:'HECO节点竞选数据趋势对比'
     }
 }

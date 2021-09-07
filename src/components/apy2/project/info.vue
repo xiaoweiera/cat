@@ -109,12 +109,12 @@ onMounted(getData())
         <div class="text-global-highTitle mt-1">{{ data.project_description || '-' }}</div>
       </div>
             <template v-for="item in data.announcements">
-              <a v-router.blank="item.url" v-if="item.type==='announcement'" class="flex items-center mt-4 ">
+              <a v-router.blank="item.url" v-if="item.type==='announcement'" class="flex items-center mt-4 flex-wrap ">
                 <span class="flex items-center bg-global-primary bg-opacity-10 rounded-kd4px px-1 py-0.5">
                   <IconFont type="icon-laba" class="text-global-primary" size="16" ></IconFont>
                   <span class="ml-1 text-kd12px16px text-global-primary">{{I18n.apyIndex.notice}}</span>
                 </span>
-                <span class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-85">{{item.content}}</span>
+                <span class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-85 ">{{item.content}}</span>
                 <span  class="ml-1.5 text-kd13px18px text-global-highTitle text-opacity-45">{{formatDefaultTime(item.published_at,I18n.apyIndex.timeFormat)}}</span>
               </a>
             </template>
@@ -138,6 +138,33 @@ onMounted(getData())
 
 .titleTxt {
   @apply text-kd14px18px text-global-highTitle  text-opacity-65;
+}
+.notic{
+  .tip{
+    border-radius: 4px;
+    @apply px-1 py-0.5 text-kd13px18px text-global-primary  bg-global-primary bg-opacity-10 font-medium;
+  }
+  .des {
+    @apply ml-1 text-kd13px18px  text-global-highTitle text-opacity-85;
+  }
+}
+.warning{
+  .tip{
+    border-radius: 4px;
+    @apply px-1 py-0.5 text-kd13px18px text-global-primary  bg-global-primary bg-opacity-10 font-medium;
+  }
+  .des {
+    @apply ml-1 text-kd13px18px  text-global-highTitle text-opacity-85;
+  }
+}
+.announcement{
+  .tip{
+    border-radius: 4px;
+    @apply px-1 py-0.5 text-kd13px18px text-global-numGreen  bg-global-numGreen bg-opacity-10 font-medium;
+  }
+  .des {
+    @apply ml-1 text-kd13px18px  text-global-highTitle text-opacity-85;
+  }
 }
 </style>
 

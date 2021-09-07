@@ -34,7 +34,7 @@ const test=[
 ]
 </script>
 <template>
-  <div class="flex items-center w-full md:flex-row flex-col">
+  <div v-if="data.length>0" class="flex items-center w-full md:flex-row flex-col">
     <template  v-for="(item,i) in data">
       <a   v-router.blank="item.url" class="flex-1 flex" target="_blank" v-if="i<3 && data.type!=='waring'"   >
           <div class="flex items-center flex-wrap w-full justify-between  relative">

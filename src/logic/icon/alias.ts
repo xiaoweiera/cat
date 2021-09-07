@@ -21,15 +21,18 @@ const aliasConfig = {
 }
 
 const getAlias = function(value: string): string {
-  let link: string = value
-  for(const name in aliasConfig) {
-    if (equalsIgnoreCase(name, value)) {
-      // @ts-ignore
-      link = aliasConfig[name]
-      break
+  if (value) {
+    let link: string = value
+    for(const name in aliasConfig) {
+      if (equalsIgnoreCase(name, value)) {
+        // @ts-ignore
+        link = aliasConfig[name]
+        break
+      }
     }
+    return link;
   }
-  return link;
+  return 'icon-morentoken'
 }
 
 

@@ -54,18 +54,20 @@ const ossList: string[] = [
 ]
 
 const getLink = function(value: string, suffix: string = 'svg'): string | undefined {
-  if (isHttp(value) || value.includes('.')) {
-    return value
-  }
-  // 特殊 icon
-  if (value === 'down' && suffix === 'png') {
-    return 'https://res.ikingdata.com/nav/down.png'
-  }
-  if (value === statusRight) {
-    return `${oss}/nav/statusRight.png`
-  }
-  if (ossList.includes(value)) {
-    return `${oss}/icon/${value}.${suffix}`
+  if (value) {
+    if (isHttp(value) || value.includes('.')) {
+      return value
+    }
+    // 特殊 icon
+    if (value === 'down' && suffix === 'png') {
+      return 'https://res.ikingdata.com/nav/down.png'
+    }
+    if (value === statusRight) {
+      return `${oss}/nav/statusRight.png`
+    }
+    if (ossList.includes(value)) {
+      return `${oss}/icon/${value}.${suffix}`
+    }
   }
   return void 0
 }
