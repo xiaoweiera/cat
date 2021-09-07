@@ -3,8 +3,10 @@ import { uuid, map, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, convertI
 import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate, YAxis } from '~/logic/echarts/interface'
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
-import {chainsIcon} from '~/logic/apy2/config'
-import {tolocaleLowerCase,formatRulesNumber,getIconType} from '~/lib/tool'
+import { formatRulesNumber } from '~/lib/tool'
+import iconFont from '~/logic/icon/index'
+
+
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
         const interval = convertInterval(safeGet<string>(trends, 'interval') || '1D')
@@ -80,14 +82,20 @@ export const chartFormatterAll = function(template: FormatterTemplate, data: For
     const strategy_tags=safeGet<string>(data, 'data.strategy_tags') || ''
     // const apyUnit=unit==='$'?unit+apy:apy+unit
     //@ts-ignore
-    const chainHtml=`<span><IconFont size="14" type="${chainsIcon[tolocaleLowerCase(chain)]}"/></span>`
-    //@ts-ignore
-    const chainImg=`<img class="w-3.5 h-3.5 ml-1" src="${chainsIcon[tolocaleLowerCase(chain)]}" alt="">`
+    const chainImg= iconFont({
+        type: chain,
+        size: 14,
+        className: 'ml-2'
+    })
     const apyHtml=`<span class="text-kd12px16px text-global-highTitle ml-1">:${unit==='$'?unit+formatRulesNumber(apy,false):formatRulesNumber(apy,false)+unit}</span>`
     //@ts-ignore
-    const typeImg=`<IconFont size="14" type="${getIconType(project_category)}"/>`
+    const typeImg= iconFont({
+        type: project_category,
+        size: 14,
+        className: 'ml-2'
+    })
     const nameHtml=`<span class="font-kdExp ml-1 text-kd12px16px text-global-highTitle ">${template.name}</span>`
     const projectHtml=`<span class="font-kdExp ml-1 text-kd12px18px text-global-highTitle text-opacity-65">${project}</span>`
     const tagsHtml=strategy_tags?`<span  class="text-kd12px14px text-global-highTitle text-opacity-45 rounded-kd4px bg-global-highTitle bg-opacity-6 px-1 ml-1 py-0.5">${strategy_tags}</span>`:''
-    return `${template.icon}${nameHtml}${projectHtml}${chainImg}${tagsHtml}${apyHtml}`
+    return `${template.icon}${nameHtml}${projectHtml}${chainImg}${typeImg}${tagsHtml}${apyHtml}`
 }
