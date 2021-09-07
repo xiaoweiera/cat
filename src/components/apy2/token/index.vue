@@ -103,8 +103,7 @@ onBeforeMount(ready)
               <div class="cursor-pointer">
                 <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
                   <span class="inline-flex">
-                    <IconFont rounded v-if="item.icon" :type="item.icon" size="24"></IconFont>
-                    <IconFont v-else type="icon-morentoken" size="24"/>
+                    <IconFont rounded :type="item.icon" size="24"></IconFont>
                   </span>
                   <span class="ml-1.5">
                     <span class="text-sm text-global-highTitle">{{ item.name }}</span>
