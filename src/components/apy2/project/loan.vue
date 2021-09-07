@@ -64,7 +64,7 @@ const onSumbit=(v:any)=>{
 </script>
 <template>
   <div class="font-kdFang mb-12">
-    <Apy2ProjectChartInfo :title="`APR Top 10 ${I18n.apyIndex.pools}`" type="lend"/>
+    <Apy2ProjectChartInfo :title="`APR Top 5 ${I18n.apyIndex.pools}`" type="lend"/>
     <div class="mt-3 flex items-center justify-between">
       <div class="my-4 flex items-center justify-between w-full flex-wrap">
         <div class="xshidden">

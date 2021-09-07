@@ -4,7 +4,7 @@ import { EchartData, seriesType,LegendItem, FormatterParams, FormatterTemplate, 
 import safeGet from '@fengqiaogang/safe-get'
 import DBList from '@fengqiaogang/dblist'
 import {chainsIcon} from '~/logic/apy2/config'
-import {tolocaleLowerCase,formatRulesNumber} from '~/lib/tool'
+import {tolocaleLowerCase,formatRulesNumber,getIconType} from '~/lib/tool'
 export const echartTransform = function(trends?: EchartData): EchartData | undefined {
     if (trends) {
         const interval = convertInterval(safeGet<string>(trends, 'interval') || '1D')
@@ -74,18 +74,20 @@ export const chartFormatter = function(template: FormatterTemplate, data: Format
 export const chartFormatterAll = function(template: FormatterTemplate, data: FormatterParams) {
     const chain=safeGet<string>(data, 'data.chain') || ''
     const apy=safeGet<string>(data, 'data.value') || ''
+    const unit=safeGet<string>(data, 'data.unit') || ''
     const project=safeGet<string>(data, 'data.project') || ''
-    // const project_category=safeGet<string>(data, 'data.project_category') || ''
+    const project_category=safeGet<string>(data, 'data.project_category') || ''
     const strategy_tags=safeGet<string>(data, 'data.strategy_tags') || ''
+    // const apyUnit=unit==='$'?unit+apy:apy+unit
     //@ts-ignore
     const chainHtml=`<span><IconFont size="14" type="${chainsIcon[tolocaleLowerCase(chain)]}"/></span>`
     //@ts-ignore
     const chainImg=`<img class="w-3.5 h-3.5 ml-1" src="${chainsIcon[tolocaleLowerCase(chain)]}" alt="">`
-    const apyHtml=`<span class="text-kd12px16px text-global-highTitle ml-1">:$${formatRulesNumber(apy,false)}</span>`
-    // const typeImg=`<IconFont size="14" type="${getIconType(project_category)}"/>`
+    const apyHtml=`<span class="text-kd12px16px text-global-highTitle ml-1">:${unit==='$'?unit+formatRulesNumber(apy,false):formatRulesNumber(apy,false)+unit}</span>`
+    //@ts-ignore
+    const typeImg=`<IconFont size="14" type="${getIconType(project_category)}"/>`
     const nameHtml=`<span class="font-kdExp ml-1 text-kd12px16px text-global-highTitle ">${template.name}</span>`
     const projectHtml=`<span class="font-kdExp ml-1 text-kd12px18px text-global-highTitle text-opacity-65">${project}</span>`
     const tagsHtml=strategy_tags?`<span  class="text-kd12px14px text-global-highTitle text-opacity-45 rounded-kd4px bg-global-highTitle bg-opacity-6 px-1 ml-1 py-0.5">${strategy_tags}</span>`:''
-    // console.log(chainHtml,typeHtml)
     return `${template.icon}${nameHtml}${projectHtml}${chainImg}${tagsHtml}${apyHtml}`
 }

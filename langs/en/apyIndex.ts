@@ -145,11 +145,13 @@ export default{
     tokenLendingTitle:'{token} Borrow APR Top 5 Pools',
     tokenMiningListTitle:'{token} ALL POOLS APY',
 
-    topTitleMining:'当前 {token} 收益榜单',
-    topTitleLending:'当前 {token} 借贷利率榜单',
-    projectTitleMining:'当前 APY Top 5 池子',
-    projectTitleLending:'当前 APR Top 5 池子',
-    tokenTitleMining:'当前 {token} 挖矿 APY TOP 5',
-    tokenTitleLeding:'当前 {token} 借贷 APR TOP 5'
+    topTitleMining:'{token} Farm APY List',
+    topTitleLending:'{token} Borrow APR List',
+    projectTitleMining:'Current APY Top 5 Pools',
+    projectTitleLending:'Current APR Top 5 Pools',
+    tokenTitleMining:'Current {token} Farm APY TOP 5',
+    tokenTitleLeding:'Current {token} Borrow APR TOP 5'
+
+
 }
 

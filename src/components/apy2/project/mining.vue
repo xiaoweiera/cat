@@ -76,7 +76,7 @@ const openTip=()=>pcTip.value=true
 </script>
 <template>
   <div class="font-kdFang relative mb-12">
-    <Apy2ProjectChartInfo :title="`APY Top 10 ${I18n.apyIndex.pools}`" type="mining"/>
+    <Apy2ProjectChartInfo :title="`APY Top 5 ${I18n.apyIndex.pools}`" type="mining"/>
     <div class="mt-3 flex items-center justify-between flex-wrap  ">
       <div class="flex items-center md:mb-0 mb-3 ">
         <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">

@@ -7,8 +7,7 @@ const props=defineProps({
 })
 </script>
 <template>
-
-    <div class="w-full h-full  relative">
+    <div  class="w-full h-full  relative">
 <!--      custom-class="w-full h-45 md:h-77.5 "-->
       <Echarts  v-if="chartData.xAxis && chartData.xAxis.length > 0"  :legend="false">
         <!-- 提示框 trigger: 触发方式 -->
@@ -32,5 +31,9 @@ const props=defineProps({
           <EchartsSeries :index="index"  :value="chartData.series[item.id]"/>
         </template>
       </Echarts>
+      <div v-else class="flex items-center justify-center   w-full   h-full justify-center">
+        <img class="w-50   z-2 mt-4 md:mt-0 mr-4 mb-10" src="https://res.ikingdata.com/nav/loadingState.gif" alt="">
+      </div>
     </div>
+
 </template>
