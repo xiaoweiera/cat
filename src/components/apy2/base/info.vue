@@ -12,7 +12,7 @@ const getData=async ()=>{
 onMounted(getData())
 </script>
 <template>
-  <div  class="md:text-kd14px18px text-kd13px18px text-global-highTitle text-opacity-45 mt-3 w-full">{{title}}</div>
+  <div  class=" i8n-font-inter md:text-kd14px18px text-kd13px18px text-global-highTitle text-opacity-45 mt-3 w-full">{{title}}</div>
 </template>
 <style scoped lang="postcss">
 

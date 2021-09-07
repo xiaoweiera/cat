@@ -30,10 +30,10 @@ onMounted(async ()=>{
           <Apy2BasePlayType class="xshidden" />
       </div>
       <Apy2Chains class="md:mt-12 mt-9"/>
-      <div class="flex items-center md:mt-6 mt-3 md:justify-between ">
-        <span  class="text-kd18px24px md:text-kd20px24px md:mr-3 mr-1.5 font-medium text-global-highTitle text-opacity-85" style="font-size:20px !important;">{{I18n.apyIndex.miningChartTitle}} Top 5</span>
-        <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 flex items-center  text-kd12px16px md:text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>
-      </div>
+<!--      <div class="flex items-center md:mt-6 mt-3 md:justify-between ">-->
+<!--        <span  class="text-kd18px24px md:text-kd20px24px md:mr-3 mr-1.5 font-medium text-global-highTitle text-opacity-85" style="font-size:20px !important;">{{I18n.apyIndex.miningChartTitle}} Top 5</span>-->
+<!--        <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 flex items-center  text-kd12px16px md:text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>-->
+<!--      </div>-->
       <Apy2TopContainer :header="true"  type="mining"/>
 <!--      <div class="flex w-full md:flex-row flex-col   mt-4 md:pb-6   md:border-b-1 border-global-highTitle border-opacity-6">-->
 <!--        <div class="flex flex-1 md:order-0  mt-4 md:mt-0 order-1 ">-->
