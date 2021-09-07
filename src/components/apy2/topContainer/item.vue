@@ -26,7 +26,7 @@ const type=computed((name:string)=>getIconType(name))
           </div>
         </div>
       </div>
-      <div class="mt-1 flex items-center flex-wrap justify-between  ">
+      <div class="mt-0 flex items-center flex-wrap justify-between  ">
         <div class="flex items-center">
           <span class="text-kd12px18px font-kdExp text-global-highTitle text-opacity-65">{{ item.project }}</span>
           <IconFont class=" ml-1  flex items-center" size="14"  :type="chainsIcon[tolocaleLowerCase(item.chain)]"/>
