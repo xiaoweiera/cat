@@ -124,6 +124,17 @@ const rowClassName = function(scope: any): string {
   const data: any = row['0']
   return data[SymbolType.name]
 }
+
+const itemClassName = function(scope: any): string | undefined {
+  const { columnIndex = 0, row = {} } = scope
+  if (columnIndex > 0) {
+    const data = row[columnIndex]
+    if (!data) {
+      return 'apy-item-no-data'
+    }
+  }
+}
+
 // @ts-ignore
 const isLp = function(scope: any) {
   const data = scope.row['0']
@@ -142,12 +153,14 @@ const reload = function() {
   page.value = 1
   return updateData()
 }
-const submitAdd=()=>document.getElementsByClassName('addNew')[0].children[0].children[0].click()
+const submitAdd = ()=> {
+  document.getElementsByClassName('addNew')[0].children[0].children[0].click()
+}
 </script>
 <template>
   <div v-if="!loading">
     <div v-if="tableData.length > 0">
-      <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName">
+      <el-table class="w-full apy-custom-expand min-h-60" border :data="tableData" :row-class-name="rowClassName" :cell-class-name="itemClassName">
         <el-table-column :width="200" fixed prop="0">
           <template #header="scope">
             <Apy2BaseTableHead/>
@@ -173,6 +186,9 @@ const submitAdd=()=>document.getElementsByClassName('addNew')[0].children[0].chi
                   <Apy2BaseTableLendItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
                 </template>
               </template>
+              <template v-else>
+                <div class="apy-table-no-data"></div>
+              </template>
             </template>
           </el-table-column>
         </template>
@@ -190,8 +206,8 @@ const submitAdd=()=>document.getElementsByClassName('addNew')[0].children[0].chi
     </div>
     <div v-else>
       <Apy2BaseNoData @submit="submitAdd" :type="props.type" :group-id="groupId"/>
-      <div  class="pt-4  addNew"   v-if="groupId === 'my'" >
-        <Apy2BaseFollowMultiple    :type="type" @success="reload"/>
+      <div class="pt-4 addNew"  v-if="groupId === 'my'" >
+        <Apy2BaseFollowMultiple  :type="type" @success="reload"/>
       </div>
     </div>
   </div>

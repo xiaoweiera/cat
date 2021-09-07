@@ -367,4 +367,11 @@ a {
   }
 }
 
+.apy-item-no-data {
+  background-image: url("https://res.ikingdata.com/nav/tableLogo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
+
 </style>
