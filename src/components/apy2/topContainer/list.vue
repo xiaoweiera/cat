@@ -67,7 +67,8 @@ onMounted(() => {
 const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
-  <div class="font-kdFang w-full pt-4 px-4  topItem   font-kdExp relative ke  bgShadow ">
+  <div class="topItem">
+  <div class="font-kdFang w-full pt-4 px-4     font-kdExp relative ke  bgShadow ">
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
     <div class=" overflow-hidden h-70.5 overflow-y-auto showY">
     <template v-for="(item,i) in list">
@@ -75,12 +76,12 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
         <template #reference>
           <el-popover  popper-class="itemClass" :show-arrow="false" placement="left" :width="350" trigger="hover">
             <template #reference>
-              <div  class="flex topBorder itemBg  items-center w-full p-2">
+              <div  class="flex topBorder  itemBg  items-center w-full p-2">
                 <Apy2TopContainerItem :pageType="props.type"  :item="item" :i="i"/>
               </div>
             </template>
-            <div class="min-w-70  p-1.3 ">
-              <Apy2BaseTableMiningDetail :data="item"/>
+            <div class="min-w-70 xshidden">
+              <Apy2BaseTableMiningDetail  :data="item"/>
 <!--              <Apy2TopListMiningTip class="absolute "  :data="item"/>-->
             </div>
           </el-popover>
@@ -94,7 +95,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
                 <Apy2TopContainerItem  :item="item" :i="i"/>
               </div>
             </template>
-            <div class="min-w-70  p-1.3 ">
+            <div class="min-w-70  xshidden ">
               <Apy2BaseTableLendDetail :data="item"/>
 <!--              <Apy2TopListLoanTip  :data="item"/>-->
             </div>
@@ -105,17 +106,31 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
     </template>
     </div>
   </div>
+  </div>
 </template>
 <style  lang="scss">
 .itemClass {
   background: #EDF0F5 !important;
   padding:0px 0px 0px 0px !important;
   padding-left:0px !important;
+  border:0px solid red !important;
+}
+.itemClass::after{
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  left: 100%;
+  top: 45%;
+  border-top: 7px solid transparent;
+  border-left: 10px solid #EDF0F5;
+  border-bottom: 7px solid transparent;
+  transform: translateX(0%);
+  @apply md:block hidden;
 }
 .topItem{
-
   .itemBg:hover{
-    @apply bg-global-hoverHui;
+    @apply md:bg-global-hoverHui;
   }
   .ke::before{
     position: absolute;
