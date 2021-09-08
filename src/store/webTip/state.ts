@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-const version = 10
+const version = 12
 export const webVersionCn=ref(version)
 export const webVersionEn=ref(version)
 // 是否展示
@@ -14,5 +14,5 @@ export const isShow=(lang:string)=>{
         localStorage.setItem(webVersion,value)
         return true
     }
-    return true
+    return false
 }
