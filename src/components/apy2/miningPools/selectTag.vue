@@ -17,7 +17,7 @@ const changeTag=(id:number | string)=>{
 <template>
   <div class="flex items-center rounded-kd6px py-1 font-kdFang bg-global-highTitle bg-opacity-6 pl-1  showX ">
       <template v-for="(item,i) in props.list">
-        <span @click="changeTag(item.id)" :class="tag[0]===item.id?'selectTag':'tag'" class="hand">{{item.name}}</span>
+        <span v-login @click="changeTag(item.id)" :class="tag[0]===item.id?'selectTag':'tag'" class="hand">{{item.name}}</span>
       </template>
   </div>
 </template>
