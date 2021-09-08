@@ -17,7 +17,7 @@ const foreignKeyValue = '0'
 const getActiveValue = function($router: any, db: DBList, key: string) {
   let path: string = $router.path || window.location.pathname
   if (path === '' || path === '/') {
-    path = config.topic
+    path = `${config.apy}/mining`
   }
   // 缩小查找范围
   const result = db.childrenDeepFlatten<any>({ [primaryKey]: key })
