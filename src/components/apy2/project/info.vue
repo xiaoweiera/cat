@@ -19,6 +19,9 @@ onMounted(getData())
 </script>
 <template>
   <div class="font-kdFang">
+    <div class="hidden" v-if="data.name">
+      <UiHeaderTitle :value="I18n.template(I18n.apyIndex.pageProject.title, { project: data.name })"/>
+    </div>
     <div>
       <div class="flex items-center relative">
         <div class="relative">
@@ -29,6 +32,7 @@ onMounted(getData())
           <div class="flex items-center">
             <div class="text-kd28px28px font-kdExp font-bold text-global-highTitle text-opacity-85">{{ data.name }}
             </div>
+
             <template v-for="tip in data.category">
               <span class="ml-2 bg-global-highTitle bg-opacity-6 rounded-kd4px px-1 py-0.5 text-global-highTitle text-kd12px14px text-opacity-45">{{ tip }}</span>
             </template>

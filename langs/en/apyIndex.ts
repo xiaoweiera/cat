@@ -164,11 +164,11 @@ export default{
         content:' Include 5 public chains, 25 projects, 1422 pools'
     },
     pageProject:{
-        title:'The Most Complete DeFi Project Comparison',
+        title:'{project} Project Comparison',
         content:' Include 5 public chains, 25 projects, 1422 pools'
     },
     pageToken:{
-        title:'The Most Complete Token APY Comparison',
+        title:'{symbol} APY Comparison',
         content:'Include 5 public chains, 25 projects, 1422 pools'
     },
     pageHeco:{
