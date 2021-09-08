@@ -12,7 +12,7 @@ const route = useRoute()
 const [chain,setChain]=useProvide('chain','all')
 const [projectInfo,]=useProvide('projectInfo',{})
 setChain(route.query.chain || 'all')
-
+const origin=route.query.origin
 const projectId=computed(()=>
 {
   if(route.query.id) return route.query.id
@@ -55,7 +55,7 @@ onMounted(getData())
 
     <template #content>
       <div  class="md:p-8 p-4">
-        <Apy2ProjectRight :key="projectId" :projectId="projectId"/>
+        <Apy2ProjectRight :origin="origin" :key="projectId" :projectId="projectId"/>
       </div>
     </template>
   </UiLayoutMenu>

@@ -26,7 +26,8 @@ const cssGlobal = {
     coinTxt:'#03B7AB',
     loanTxt:'#09B86A',
     noAskTxt:'#DA9D00',
-    border: '#F0F3F6'
+    border: '#F0F3F6',
+    hoverHui:'#EDF0F5'
 }
 
 export default defineConfig({

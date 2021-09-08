@@ -75,7 +75,7 @@ const onSumbit=(v:any)=>{
 const openTip=()=>pcTip.value=true
 </script>
 <template>
-  <div class="font-kdFang relative mb-12">
+  <div id="right" class="font-kdFang relative mb-12 ">
     <Apy2ProjectChartInfo :title="`APY Top 5 ${I18n.apyIndex.pools}`" type="mining"/>
     <div class="mt-3 flex items-center justify-between flex-wrap  ">
       <div class="flex items-center md:mb-0 mb-3 ">
@@ -112,6 +112,7 @@ const openTip=()=>pcTip.value=true
       </div>
       <UiDateDay @change="changeTime"/>
     </div>
+
     <!--    图表echarts-->
     <Apy2TopContainer :key="key" class="mt-4"  type="mining"  :paramData="param" :project="true"/>
 <!--    <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />-->
