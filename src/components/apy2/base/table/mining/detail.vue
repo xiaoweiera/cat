@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import I18n from '~/utils/i18n/index'
 import { toUpper } from 'ramda'
 import { defineProps } from "vue"
+import I18n from '~/utils/i18n/index'
 // @ts-ignore
-import { numberUint, toNumber, toInteger, upperFirst } from '~/utils'
+import { toInteger, upperFirst, toNumberCashFormat, toNumberFormat, isEmpty } from '~/utils'
 
 defineProps({
   data: {
@@ -48,9 +48,12 @@ defineProps({
         <span class="ml-1 text-xs text-global-highTitle">{{ data.compound_detail }}</span>
       </div>
     </div>
-    <div class="item-row flex items-center">
+    <div class="item-row flex items-center" :class="{'hidden': isEmpty(data.quota_remain) && isEmpty(data.quota_remain_percent)}">
       <span class="apy-label">{{ I18n.apy.table.remaining }}</span>
-      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">${{ numberUint(toNumber(data.quota_remain)) }}  ({{ toNumber(data.quota_remain_percent) }}%)</span>
+      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">
+        <span v-if="!isEmpty(data.quota_remain)">{{ toNumberCashFormat(data.quota_remain, '$') }}</span>
+        <span v-if="!isEmpty(data.quota_remain_percent)" class="ml-2">({{ toNumberFormat(data.quota_remain_percent, '%') }})</span>
+      </span>
     </div>
     <div class="item-row flex items-center text-global-numRed" v-if="data.warining_info">
       <IconFont type="icon-info2" size="16"/>

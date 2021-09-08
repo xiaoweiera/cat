@@ -9,6 +9,7 @@ import message from '~/utils/message'
 import I18n from '~/utils/i18n/index'
 import {BigNumber} from 'bignumber.js'
 import * as lang from '~/utils/lang'
+import { Language } from '~/utils/lang'
 
 export function colorHexToRGBA(sHex: string, alpha: number = 1) {
   // 十六进制颜色值的正则表达式
@@ -287,11 +288,11 @@ export const aboutEn=(value:any)=>{
   }
 }
 //更改数字文案
-export const numberUnitFormat = (value: any) => {
+export const numberUnitFormat = (value: any, defaultValue = '-') => {
   if (!value ) {
-    return value===0?0:'-'
+    return value === 0 ? 0 : defaultValue
   }
-  if(lang.current.value==='cn'){
+  if( lang.current.value === Language.cn){
     return aboutCn(value)
   }else{
     return aboutEn(value)
@@ -320,9 +321,9 @@ export const getBigNumber=(n:string | number)=>{
   else return parseFloat(newV)
 }
 //数字格式化 约分
-export const getRulesNumber=(v:any,isShowAll:boolean)=>{
+export const getRulesNumber=(v : any, isShowAll: boolean = false, defaultValue = '-')=>{
   if(!v){
-    return v?v:v===0?0:'-'
+    return v ? v : (v === 0 ? 0 : defaultValue)
   }
   const bigV=new BigNumber(v)
   if(bigV.toFixed().indexOf('.')<0){
@@ -345,15 +346,15 @@ export const getRulesNumber=(v:any,isShowAll:boolean)=>{
   }
 }
 //统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
-export const formatRulesNumber=(v:any,isShowAll:boolean)=>{
+export const formatRulesNumber=(v:any, isShowAll: boolean = false, defaultValue = '-')=>{
   if(!v){
-    return v===0?0:'-'
+    return v === 0 ? 0 : defaultValue
   }
   const value=new BigNumber(v)
   if(parseFloat(value.toFixed())>1 || parseFloat(value.toFixed())<-1){
-    return numberUnitFormat(v)
+    return numberUnitFormat(v, defaultValue)
   }else{
-    return getRulesNumber(v,isShowAll)
+    return getRulesNumber(v, isShowAll, defaultValue)
   }
 }
 //统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上

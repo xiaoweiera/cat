@@ -7,7 +7,7 @@ import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
 import * as common from '~/lib/common'
 import DBList from '@fengqiaogang/dblist'
-import { map, toNumber, formatCash } from '~/utils'
+import { map, toNumber, formatCash, toNumberCashFormat } from '~/utils'
 import { HecoNode, HecoTrends, NodeTrends } from './interface'
 import { EchartData } from '~/logic/echarts/interface'
 
@@ -51,10 +51,10 @@ const render = function(item: HecoNode, key: string): string {
   case 'percent':
   case 'rate':
   case 'user_profit_percent':
-    data = `${value}%`
+    data = toNumberCashFormat(value, '%')
     break
   case 'apy':
-    data = `+${value}%`
+    data = toNumberCashFormat(value, '%', '+')
     break
   default:
     data = value

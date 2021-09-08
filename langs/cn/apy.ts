@@ -172,7 +172,7 @@ export default {
     table: {
         chain: '公链类型',
         type: '矿池类型',
-        tag: '矿池标签',
+        tag: '矿池策略',
         interestRate: '利率构成',
         borrowingLimit: '可借',
         margin: '杠杆倍数',
