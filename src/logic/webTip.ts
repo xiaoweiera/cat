@@ -3,6 +3,14 @@ import I18n from '~/utils/i18n/index'
 export const webTipData={
     newData:[
         {
+            name:I18n.webTip.apy.name,
+            img:I18n.webTip.apy.img,
+            title:I18n.webTip.apy.title,
+            href:I18n.webTip.apy.href,
+            contents:I18n.webTip.apy.contents,
+            descs:I18n.webTip.apy.descs
+        },
+        {
             name:I18n.webTip.down.name,
             img:I18n.webTip.down.img,
             title:I18n.webTip.down.title,
@@ -26,6 +34,7 @@ export const webTipData={
             contents:I18n.webTip.liquidity.contents,
             descs:I18n.webTip.liquidity.descs
         },
+
 
     ],
     fixData:[

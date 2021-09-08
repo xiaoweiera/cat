@@ -3,6 +3,20 @@ export default {
     newFeatures:'New Function',
     fixIcon:'🎉',
     fix:'UPDATE',
+
+    apy:{
+        name: ['APY NewLook 🔥'],
+        img: 'https://res.ikingdata.com/apyTwo/apyTipEn.jpg',
+        title: 'APY NewLook 🔥',
+        href: '/apy',
+        contents:[''],
+        descs:[
+            '1. Farm APY has a variety of lists. From the perspective of safe, high APY , and hot projects, users can quickly find the most suitable mining pool for themselves. Such as: Token APY zone, TVL million zone, GameFi zone, etc.; Farm pools includes LP pools, and more choices.',
+            '2. Added a variety of borrow APR lists. Recommendation of the best borrow path to help you quickly find the best route for low-cost borrowing. There is also a real interest rate calculator to comprehensively compare the real borrowing costs and make more correct decisions.',
+            '3. Added project APY analysis. Project information such as TVL, supporting public chains, pools, and audit reports is readily available; similar projects and data comparisons show the advantages and disadvantages at a glance.',
+            '4. Added token APY analysis. It is easy to know which pool is the most profitable and safest for the Token.'
+        ]
+    },
     down:{
         name: ['DEX Drill-down 🔥'],
         img: 'https://res.ikingdata.com/liquidity/dexEn.jpg',

@@ -20,7 +20,7 @@ const data=getInject('data')
             <div class="text-global-default i8n-font-en-inter text-opacity-65 text-kd14px35px">{{item}}</div>
           </template>
         </div>
-    <a :href="data[0].href" target="_blank" class="borRaduis bg-global-primary w-27.5 flex items-center py-2.5 absolute bottom-4 right-6 cursor-pointer   justify-center rounded">
+    <a :href="data[0].href" target="_blank" class="borRaduis bg-global-primary w-27.5 flex items-center py-2.5 absolute -bottom-6 right-6 cursor-pointer   justify-center rounded">
       <span class="text-kd14px18px text-global-white i8n-font-en-barlow font-medium">{{I18n.webTip.go}}</span>
       <img class="w-4 ml-1" style="border-top-right-radius: 100px !important;" src="https://res.ikingdata.com/liquidity/right.png" alt="">
     </a>

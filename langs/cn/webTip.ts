@@ -3,6 +3,19 @@ export default {
     newFeatures:'新增功能',
     fixIcon:'🎉',
     fix:'更新优化',
+    apy:{
+        name: ['APY 焕然一新 🔥'],
+        img: 'https://res.ikingdata.com/apyTwo/apyTipCn.jpg',
+        title: 'APY 焕然一新 🔥',
+        href: '/apy',
+        contents:[''],
+        descs:[
+            '1、挖矿APY拥有多样榜单。从安全、高收益、热点概念项目角度助力您快速发现最适自己的矿池。如：一年翻倍专区，TVL 百万矿区，GameFi 概念专区等；分析矿池收录了LP池，拥有更多选择。',
+            '2、新增借贷 APR 多样榜单。借贷最佳路径推荐，帮助您快速发现低成本借贷最佳路径。并有真实利率计算器，综合对比真实借款成本，做出更正确的决策。',
+            '3、新增项目 APY 分析。TVL、支持公链、池子数、审计报告等项目信息一应俱全；同类项目、数据对比，优劣一目了然。',
+            '4、新增币种 APY 分析。同一 Token 放在哪里收益最高，最安全，一点便知。'
+        ]
+    },
     down:{
         name: ['DEX 数据下钻 🔥'],
         img: 'https://res.ikingdata.com/liquidity/dexCn.jpg',

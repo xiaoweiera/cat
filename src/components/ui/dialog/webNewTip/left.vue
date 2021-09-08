@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="text-kdFang w-55 bord h-full py-6  bor  leftSide">
+  <div class="text-kdFang w-55 bord  py-6  bor  leftSide">
     <UiDialogWebNewTipNew   />
     <div style="border-bottom: 1px solid rgba(37, 62, 111, 0.06);" class="mx-6 h-0.1 my-6"></div>
     <UiDialogWebNewTipFix />

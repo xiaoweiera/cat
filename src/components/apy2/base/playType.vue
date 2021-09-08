@@ -71,8 +71,8 @@ const textList={
 const cc='coinTxt'
 const tokens=ref([])
 const projects=ref([])
-const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=lend`
-const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=lend&origin=index`
+const platUrl=(projectId:number)=>`/apy/project?id=${projectId}&origin=index`
 </script>
 <template>
   <div class="  font-kdFang relative flex i8n-font-Barlow">
@@ -90,11 +90,9 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
           <div class="imgLogo  text-center   ml-5  flex flex-col items-center" >
             <img class=" min-w-12 min-h-12 w-12 h-12 " :src="item.logo" alt="">
-            <!--            <div class="invisible text-kd10px10px  font-medium  mt-1">撑高度</div>-->
           </div>
           <div  href="/" class=" vido   text-center  ml-5  flex flex-col items-center" >
             <img class="min-w-10 w-10 h-10 mx-1 my-1 " :src="item.video" alt="">
-            <!--            <div :class="textList[i]" class="text-kd10px10px  relative z-10 font-medium  mt-1.5">相关资料</div>-->
           </div>
         </div>
         <!-- 下拉 -->
@@ -110,7 +108,6 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
                       </a>
                     </template>
                   </el-select>
-                  <!--                  <a v-router.blank="platUrl(plat)" :class="desList[i]" class="hand w-12.5 ml-4.5 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
                 <div v-if="i===1"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="coin" :placeholder="item.selectText">
@@ -120,7 +117,6 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
                       </a>
                     </template>
                   </el-select>
-                  <!--                  <a v-router.blank="tokenUrl(coin)" :class="desList[i]" class="hand w-12.5 ml-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
@@ -130,7 +126,6 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
                       </a>
                     </template>
                   </el-select>
-                  <!--                  <a v-router.blank="tokenUrl(loan)" :class="desList[i]" class="hand w-12.5 mr-1 text-center h-6.5 flex items-center justify-center rounded-kd4px text-kd12px18px font-medium text-global-white ">{{I18n.apyIndex.ok}}</a>-->
                 </div>
               </div>
 

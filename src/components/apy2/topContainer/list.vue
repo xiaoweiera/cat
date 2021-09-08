@@ -67,48 +67,37 @@ onMounted(() => {
 const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
-  <div class="font-kdFang w-full pt-4 px-4    font-kdExp relative ke  bgShadow ">
+  <div class="topItem">
+  <div class="font-kdFang w-full pt-4 px-4     font-kdExp relative ke  bgShadow ">
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
     <div class=" overflow-hidden h-70.5 overflow-y-auto showY">
     <template v-for="(item,i) in list">
       <Apy2PoolDialog v-if="props.type==='mining'" type="mining" :id="item.id">
         <template #reference>
-          <el-popover placement="top" :width="350" trigger="hover">
+          <el-popover  popper-class="itemClass" :show-arrow="false" placement="left" :width="350" trigger="hover">
             <template #reference>
-              <div  class="flex topBorder  items-center w-full p-2">
+              <div  class="flex topBorder hand  itemBg  items-center w-full p-2">
                 <Apy2TopContainerItem :pageType="props.type"  :item="item" :i="i"/>
               </div>
             </template>
-            <div class="min-w-70  p-1.3 ">
-              <Apy2TopListMiningTip class="absolute " v-if="props.type==='mining'" :data="item"/>
-              <Apy2TopListLoanTip v-else :data="item"/>
+            <div class="min-w-70 xshidden">
+              <Apy2BaseTableMiningDetail  :data="item"/>
+<!--              <Apy2TopListMiningTip class="absolute "  :data="item"/>-->
             </div>
           </el-popover>
-<!--          <UiPopover v-if="i<5"  class="inline-block   w-full">-->
-<!--            <template #reference>-->
-<!--              <div  class="flex topBorder  items-center w-full p-2">-->
-<!--                <Apy2TopContainerItem  :item="item" :i="i"/>-->
-<!--              </div>-->
-<!--            </template>-->
-<!--            <template #content>-->
-<!--              <div class="min-w-70 relative p-1.3 ">-->
-<!--                <Apy2TopListMiningTip :data="item"/>-->
-<!--              </div>-->
-<!--            </template>-->
-<!--          </UiPopover>-->
         </template>
       </Apy2PoolDialog>
       <div v-else>
         <a  v-router.blank="tokenUrl(item.symbol_alias)" >
-          <el-popover placement="top" :width="350" trigger="hover">
+          <el-popover  popper-class="itemClass" :show-arrow="false" :offset="10"  placement="left" :width="350" trigger="hover">
             <template #reference>
-              <div  class="flex topBorder  items-center w-full p-2">
+              <div  class="flex topBorder hand itemBg  items-center w-full p-2">
                 <Apy2TopContainerItem  :item="item" :i="i"/>
               </div>
             </template>
-            <div class="min-w-70  p-1.3 ">
-              <Apy2TopListMiningTip class="absolute " v-if="props.type==='mining'" :data="item"/>
-              <Apy2TopListLoanTip v-else :data="item"/>
+            <div class="min-w-70  xshidden ">
+              <Apy2BaseTableLendDetail :data="item"/>
+<!--              <Apy2TopListLoanTip  :data="item"/>-->
             </div>
           </el-popover>
 
@@ -117,38 +106,64 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
     </template>
     </div>
   </div>
+  </div>
 </template>
-<style scoped lang="scss">
-.ke::before{
+<style  lang="scss">
+.itemClass {
+  background: #EDF0F5 !important;
+  padding:0px 0px 0px 0px !important;
+  padding-left:0px !important;
+  border:0px solid red !important;
+}
+.itemClass::after{
   position: absolute;
   content: '';
   width: 0;
   height: 0;
-  left: 0%;
-  top: 46%;
-  border-top: 12px solid transparent;
-  border-right: 19px solid white;
-  border-bottom: 12px solid transparent;
-  transform: translateX(-100%);
+  left: 100%;
+  top: 45%;
+  border-top: 7px solid transparent;
+  border-left: 10px solid #EDF0F5;
+  border-bottom: 7px solid transparent;
+  transform: translateX(0%);
+  @apply md:block hidden;
 }
-.bgShadow{
- box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
-}
-.topBorder {
-  border-top: 1px solid rgba(3, 54, 102, 0.06);
+.topItem{
+  .itemBg:hover{
+    @apply md:bg-global-hoverHui;
+  }
+  .ke::before{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    left: 0%;
+    top: 46%;
+    border-top: 12px solid transparent;
+    border-right: 19px solid white;
+    border-bottom: 12px solid transparent;
+    transform: translateX(-100%);
+  }
+  .bgShadow{
+    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
+  }
+  .topBorder {
+    border-top: 1px solid rgba(3, 54, 102, 0.06);
+  }
+
+  .tag {
+    @apply mr-2  text-kd14px18px text-global-highTitle font-medium  text-opacity-65;
+  }
+
+  .selectedTag {
+    border-radius: 6px;
+    @apply mr-2 text-kd14px18px text-global-primary font-medium bg-global-primary bg-opacity-8;
+  }
+
+  .btnCount {
+    border: 1px solid rgba(43, 141, 254, 0.32);
+    border-radius: 4px;
+  }
 }
 
-.tag {
-  @apply mr-2  text-kd14px18px text-global-highTitle font-medium  text-opacity-65;
-}
-
-.selectedTag {
-  border-radius: 6px;
-  @apply mr-2 text-kd14px18px text-global-primary font-medium bg-global-primary bg-opacity-8;
-}
-
-.btnCount {
-  border: 1px solid rgba(43, 141, 254, 0.32);
-  border-radius: 4px;
-}
 </style>
