@@ -88,7 +88,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
       <template #default="scope">
         <Apy2PoolDialog type="mining" :id="scope.row.id">
           <template #reference>
-            <Apy2MiningTableApy class="hand" :apy="scope.row.apy" :des="scope.row.lever"/>
+            <Apy2MiningTableLever class="hand" :apy="scope.row.apy" :des="scope.row.lever"/>
           </template>
         </Apy2PoolDialog>
       </template>

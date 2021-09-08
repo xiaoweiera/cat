@@ -3,7 +3,7 @@ import {ref, defineProps} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
-const props=defineProps({data:Object})
+const props=defineProps({data:Object,pageType:Boolean})
 const lookChartUrl=(name:string)=>`/apy/token?symbol=${name}`
 const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
 </script>
@@ -18,14 +18,14 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
           </a>
         </template>
       </el-table-column>
-      <el-table-column prop="loanAmount" width="170px" :label="I18n.apyIndex.borrowAmount">
+      <el-table-column prop="loanAmount" width="150px" :label="I18n.apyIndex.borrowAmount">
         <template #default="scope">
           <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
             <Apy2LoanTableLoanAmount :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
           </a>
         </template>
       </el-table-column>
-      <el-table-column prop="clearNumber"  width="200px"  :label="`${I18n.apyIndex.lowestLtv}/${I18n.apyIndex.clearRatio}`" sortable >
+      <el-table-column prop="clearNumber"  :width="pageType==='tokenLending'?'140px':'200px'"  :label="`${I18n.apyIndex.lowestLtv}/${I18n.apyIndex.clearRatio}`" sortable >
         <template #default="scope">
           <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
             <Apy2LoanTableClearNumber :value0="scope.row.mortgage_rate" :value1="scope.row.liquidation_rate"/>
@@ -53,7 +53,7 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
           </a>
         </template>
       </el-table-column>
-      <el-table-column prop="tool" align="right" :label="I18n.apyIndex.operate" width="110px">
+      <el-table-column prop="tool" align="right"  :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
           <Apy2LoanTableTool  :data="scope.row" />
         </template>

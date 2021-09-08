@@ -44,7 +44,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
         <template #default="scope">
           <Apy2PoolDialog type="mining" class="hand" :id="scope.row.id">
             <template #reference>
-              <Apy2MiningTableApy :apy="scope.row.apy" :des="scope.row.lever"/>
+              <Apy2MiningTableLever  :apy="scope.row.apy" :des="scope.row.lever"/>
             </template>
           </Apy2PoolDialog>
         </template>
