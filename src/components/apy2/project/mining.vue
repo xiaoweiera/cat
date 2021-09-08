@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import {ref, defineProps,onBeforeMount,reactive,onMounted,watch} from 'vue'
+import {ref, defineProps,onBeforeMount,reactive,onMounted,watch, computed} from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
-import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
-import {echartTransform} from '~/lib/common'
-import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon,selectChains} from '~/logic/apy2/config'
-import {getProjectMiningTop10Chart} from '~/logic/apy2/index'
-import {tolocaleUpperCase} from '~/lib/tool'
+import { EchartData } from '~/logic/echarts/interface'
+import { getInject} from '~/utils/use/state'
+import { selectChains } from '~/logic/apy2/config'
 import DBList from '@fengqiaogang/dblist'
 const props=defineProps({projectId:Object,pool_type:Object})
 import {getPoolsList} from '~/logic/apy2/index'
 const tagList=[{name:I18n.apyIndex.all,key:'all'}, {name:I18n.apyIndex.singleCoin,key:'dan'}, {name:'LP',key:'lp'}]
 const radios = [{ label: I18n.apyIndex.singleCoin, value: 'token' }, { label: 'LP', value: 'lp' }]
 const chain=getInject('chain')
-const type = ref('tvl')
-const selectList = ref([{name:'TVL',key:'tvl'},{name:'APY',key:'apy'}])
+const type = ref('apy')
+const selectList = ref([
+  {name:'APY',key:'apy'},
+  {name:'TVL',key:'tvl'},
+])
 const chartData = reactive<EchartData>(new EchartData())
 const pools=ref([])
-const dialogSearch=ref('')
 const list=ref([])
 const key=ref(0)
 const pcTip=reactive({value:false})
 const loading=ref(true)
+const projectInfo = getInject('projectInfo')
+
 const param=reactive({
   from_ts:0,
   to_ts:0,
@@ -41,7 +42,7 @@ watch(()=>type.value,(n)=>{
   param.field1=n
   getChart()
 })
-const getData=async (project_id,pool_type,chain,type,search)=>{
+const getData= async (project_id: any,pool_type: any,chain: any,type: any, search: any) => {
   if(project_id) {
     const res= await getPoolsList(project_id, pool_type, chain, type, search)
     const dbRes=new DBList(res)
@@ -73,15 +74,38 @@ const onSumbit=(v:any)=>{
   getChart()
 }
 const openTip=()=>pcTip.value=true
+
+
+const h3 = computed<string>(function(): string {
+  const [ info ] = projectInfo.value
+  if (info && info.name) {
+    return I18n.template(I18n.apyIndex.pageProject.h3.mining, {
+      project: info.name,
+      pool: I18n.apyIndex.pools
+    })
+  }
+  return `APY Top 5 ${I18n.apyIndex.pools}`
+})
+
+const poolsH3 = computed<string>(function(): string {
+  const [ info ] = projectInfo.value
+  if (info && info.name) {
+    return I18n.template('{project} {value}', {
+      project: info.name,
+      value: I18n.apyIndex.allMiningPool
+    })
+  }
+  return I18n.apyIndex.allMiningPool
+})
+
 </script>
 <template>
   <div id="right" class="font-kdFang relative mb-12 ">
-    <Apy2ProjectChartInfo :title="`APY Top 5 ${I18n.apyIndex.pools}`" type="mining"/>
+    <Apy2ProjectChartInfo :title="h3" type="mining"/>
     <div class="mt-3 flex items-center justify-between flex-wrap  ">
       <div class="flex items-center md:mb-0 mb-3 ">
         <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">
-          <el-option v-for="item in selectList" :label="item.name" :value="item.key">
-          </el-option>
+          <el-option v-for="item in selectList" :label="item.name" :value="item.key"></el-option>
         </el-select>
         <div class="xshidden">
           <UiTransfer :title="I18n.apyIndex.addPool" :sub-title="I18n.apyIndex.selectedPool" :list="list" :radios="radios"   @changeParam="changeParam" :selects="selectChains" @submit="onSumbit">
@@ -119,7 +143,7 @@ const openTip=()=>pcTip.value=true
 
     <!--    表格-->
     <div class="mt-8">
-      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mb-3 block">{{I18n.apyIndex.allMiningPool}}</span>
+      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mb-3 block">{{poolsH3}}</span>
       <Apy2ProjectMiningList :projectId="props.projectId" />
     </div>
   </div>

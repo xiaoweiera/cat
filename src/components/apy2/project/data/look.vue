@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import {ref, defineProps,onBeforeMount,reactive,onMounted,watch,computed} from 'vue'
+import {ref, defineProps, reactive, watch, computed} from 'vue'
 import * as R from 'ramda'
-import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
+import { EchartData } from '~/logic/echarts/interface'
 import {echartTransform} from '~/lib/common'
-import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon,selectChains} from '~/logic/apy2/config'
+import { getInject} from '~/utils/use/state'
 import {getDetail_chart} from '~/logic/apy2/index'
 import {formatRulesNumber} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
@@ -18,12 +17,11 @@ const selectList=ref([
   {name:I18n.apyIndex.projectLook.singlePoolNumber,key:'token_pool_length',unit:I18n.apyIndex.projectLook.unit},
   {name:I18n.apyIndex.projectLook.lpPoolNumber,key:'lp_pool_length',unit:I18n.apyIndex.projectLook.unit},
 ])
-const chain=getInject('chain')
-const projectInfo=getInject('projectInfo')
+const chain = getInject('chain')
+const projectInfo = getInject('projectInfo')
 const type = ref('tvl')
 const chartData = reactive<EchartData>(new EchartData())
-const projects=ref([])
-const dialogSearch=ref('')
+const projects = ref([])
 const list=ref([])
 const key=ref(0)
 const loading=ref(true)
@@ -58,10 +56,22 @@ const getChart=async ()=>{
   chartData.xAxis = data.xAxis
   chartData.series = data.series
 }
+
+const h3 = computed<string>(function(): string {
+  const [ info ] = projectInfo.value
+  if (info && info.name) {
+    return I18n.template(I18n.apyIndex.pageProject.h3.data, {
+      project: info.name,
+      value: I18n.apyIndex.projectView
+    })
+  }
+  return I18n.apyIndex.projectView
+})
+
 </script>
 <template>
   <div class="font-kdFang dataLook">
-    <Apy2ProjectChartInfo :title="I18n.apyIndex.projectView"/>
+    <Apy2ProjectChartInfo :title="h3"/>
     <div class="mt-3 flex items-center justify-between">
       <div class="flex items-center">
         <el-select class="mr-3" :popper-append-to-body="false" v-model="type" size="small">

@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import {ref, defineProps,onMounted,watch} from 'vue'
-import * as R from 'ramda'
-import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {tolocaleUpperCase} from '~/lib/tool'
-import {moveScroll} from '~/lib/scroll'
+import {ref, defineProps } from 'vue'
+import { getInject} from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
-const props=defineProps({projectId:Object,origin:String})
-const projectInfo=getInject('projectInfo')
+const props = defineProps({
+  projectId:Object,
+  origin:String
+})
+
+const projectInfo = getInject('projectInfo')
+
 const pool_type = ref('mining')
 const tagKey = ref(0)
+
 const tags = [
   {name: I18n.apyIndex.miningPool, key: 'mining'},
   {name: I18n.apyIndex.loanPool, key: 'lend'},

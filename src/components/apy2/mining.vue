@@ -29,7 +29,7 @@ onMounted(async ()=>{
         <Apy2BaseHeader :title="I18n.apyIndex.miningTitle" class=" flex flex-col flex-wrap justify-center" />
           <Apy2BasePlayType class="xshidden" />
       </div>
-      <Apy2Chains class="md:mt-12 mt-9"/>
+      <Apy2Chains class="md:mt-10 mt-9"/>
 <!--      <div class="flex items-center md:mt-6 mt-3 md:justify-between ">-->
 <!--        <span  class="text-kd18px24px md:text-kd20px24px md:mr-3 mr-1.5 font-medium text-global-highTitle text-opacity-85" style="font-size:20px !important;">{{I18n.apyIndex.miningChartTitle}} Top 5</span>-->
 <!--        <a href="/apy/token" target="_blank" class="text-global-highTitle text-opacity-65 flex items-center  text-kd12px16px md:text-kd14px18px ">{{I18n.apyIndex.moreToken}} <IconFont  type="icon-right" size="12"/></a>-->

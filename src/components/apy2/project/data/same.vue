@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import {ref, defineProps, onBeforeMount, reactive, onMounted, watch} from 'vue'
+import { ref, defineProps, onBeforeMount, reactive, watch, computed } from 'vue'
 import * as R from 'ramda'
-import {Position, LegendDirection, colors, seriesType, EchartData} from '~/logic/echarts/interface'
+import { EchartData} from '~/logic/echarts/interface'
 import {echartTransform} from '~/lib/common'
-import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon, selectChains} from '~/logic/apy2/config'
+import { getInject} from '~/utils/use/state'
+import { selectChains} from '~/logic/apy2/config'
 import {getSame_category, getProjectList} from '~/logic/apy2/index'
-import {tolocaleUpperCase} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
 
@@ -73,10 +72,22 @@ const onSumbit = (v: any) => {
   param.projects = projectsId
   getChart()
 }
+
+const h3 = computed<string>(function(): string {
+  const [ info ] = projectInfo.value
+  if (info && info.name) {
+    return I18n.template('{project} {value}', {
+      project: info.name,
+      value: I18n.apyIndex.sameProjectData
+    })
+  }
+  return I18n.apyIndex.sameProjectData
+})
+
 </script>
 <template>
   <div class="font-kdFang ">
-    <Apy2ProjectChartInfo :title="I18n.apyIndex.sameProjectData"/>
+    <Apy2ProjectChartInfo :title="h3"/>
     <div class="mt-3 flex items-center justify-between  flex-wrap ">
       <div class="flex items-center md:mb-0 mb-3">
         <el-select class="projectMining" :popper-append-to-body="false" v-model="type" size="small">

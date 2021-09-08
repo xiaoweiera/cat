@@ -26,8 +26,8 @@ const props = defineProps({
           <Apy2BaseFollow class="ml-1 lp-follow"  :pool="true" type="lend" :value="id" :status="toBoolean(followed)"/>
         </div>
         <div class="flex items-center">
-          <img class="w-3.5 mr-1" :src="chainsIcon[tolocaleLowerCase(chain)]" alt="">
-          <IconFont :type="getIconType(type)" size="16"/>
+          <IconFont :type="chain" size="16"></IconFont>
+          <IconFont class="ml-1" :type="type" size="16"/>
         </div>
       </div>
     </div>

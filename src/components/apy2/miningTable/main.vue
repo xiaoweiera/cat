@@ -7,7 +7,9 @@ const props=defineProps(
       data:Object,
     }
 )
-const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
+const getHeaderClass = ()=> {
+  return 'font-family: PingFang SC;font-weight:400; font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
+}
 </script>
 <template>
 <div>
@@ -18,7 +20,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
         <Apy2PoolDialog type="mining" :id="scope.row.id">
           <template #reference>
             <Apy2MiningTablePool class="hand" :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed" :project="scope.row.project" :chain="scope.row.chain" :category="scope.row.project_category" :des="scope.row.strategy" />
-            </template>
+          </template>
         </Apy2PoolDialog>
       </template>
     </el-table-column>

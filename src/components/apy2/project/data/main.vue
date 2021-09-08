@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import {defineProps} from 'vue'
-const props=defineProps({projectId:Object,pool_type:String})
+import { defineProps } from 'vue'
+const props = defineProps({
+  projectId:Object,
+  pool_type:String
+})
 </script>
 
 <template>

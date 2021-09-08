@@ -20,7 +20,7 @@ const props=defineProps({
     <div>
       <div class="flex items-center text-kd14px20px text-global-highTitle text-opacity-85">
         <span class="mr-1">{{name}}</span>
-        <img class="w-3.5" :src="chainsIcon[tolocaleLowerCase(chain)]" alt="">
+        <IconFont class="mr-1" :type="chain" v-if="chain" size="14"></IconFont>
       </div>
       <span v-if="des" class="rounded-kd4px bg-global-highTitle  px-1 py-0.5 text-center bg-opacity-6 text-kd12px14px text-global-highTitle text-opacity-45">{{des}}</span>
     </div>

@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import {ref, defineProps,onBeforeMount,reactive,onMounted,watch} from 'vue'
+import { ref, defineProps, onBeforeMount, reactive, computed } from 'vue'
 import * as R from 'ramda'
-import { Position, LegendDirection, colors, seriesType, EchartData } from '~/logic/echarts/interface'
-import {echartTransform} from '~/lib/common'
-import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {chainsIcon,selectChains} from '~/logic/apy2/config'
-import {getProjectLoanTop10Chart} from '~/logic/apy2/index'
+import { EchartData } from '~/logic/echarts/interface'
+import { getInject} from '~/utils/use/state'
+import { selectChains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
-import {tolocaleUpperCase} from '~/lib/tool'
 import DBList from '@fengqiaogang/dblist'
 const props=defineProps({projectId:Object,pool_type:Object})
 import {getPoolsList} from '~/logic/apy2/index'
 const chain=getInject('chain')
 const chartData = reactive<EchartData>(new EchartData())
 const pools=ref([])
-const dialogSearch=ref('')
 const list=ref([])
 const key=ref(0)
 const loading=ref(true)
 const pcTip=reactive({value:false})
+const projectInfo = getInject('projectInfo')
+
 const param=reactive({
   from_ts:0,
   to_ts:0,
@@ -61,10 +59,33 @@ const onSumbit=(v:any)=>{
   param.pools=poolsId
   getChart()
 }
+
+const h3 = computed<string>(function(): string {
+  const [ info ] = projectInfo.value
+  if (info && info.name) {
+    return I18n.template(I18n.apyIndex.pageProject.h3.loan, {
+      project: info.name,
+      pool: I18n.apyIndex.pools
+    })
+  }
+  return `APR Top 5 ${I18n.apyIndex.pools}`
+})
+
+const poolsH3 = computed<string>(function(): string {
+  const [ info ] = projectInfo.value
+  if (info && info.name) {
+    return I18n.template('{project} {value}', {
+      project: info.name,
+      value: I18n.apyIndex.allLoanPool
+    })
+  }
+  return I18n.apyIndex.allLoanPool
+})
+
 </script>
 <template>
   <div class="font-kdFang mb-12">
-    <Apy2ProjectChartInfo :title="`APR Top 5 ${I18n.apyIndex.pools}`" type="lend"/>
+    <Apy2ProjectChartInfo :title="h3" type="lend"/>
     <div class="mt-3 flex items-center justify-between">
       <div class="my-4 flex items-center justify-between w-full flex-wrap">
         <div class="xshidden">
@@ -98,7 +119,7 @@ const onSumbit=(v:any)=>{
 
     <!--    表格-->
     <div class="mt-8">
-      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mb-3 block">{{I18n.apyIndex.allLoanPool}}</span>
+      <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-medium mb-3 block">{{ poolsH3 }}</span>
       <Apy2ProjectLoanList :projectId="props.projectId" />
     </div>
   </div>
