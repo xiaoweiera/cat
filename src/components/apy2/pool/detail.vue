@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getDetail } from '~/logic/apy2/table'
-import { forEach, toNumber, toBoolean, numberUint, toNumberFormat, toNumberCashFormat, isEmpty } from '~/utils'
+import { forEach, toNumber, toBoolean, toNumberFormat, toNumberCashFormat, isEmpty } from '~/utils'
 import { useProvide } from '~/utils/use/state'
 import dataEventName from '~/components/ui/date/eventname'
 import { TabCategoryData } from '~/logic/apy2/interface'
@@ -116,7 +116,16 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
           <div class="whitespace-nowrap mt-2">
             <span class="text-global-highTitle text-opacity-45">{{ I18n.apy.pool.remainingRatio }}: </span>
-            <span class="text-kdExp text-global-highTitle text-opacity-85">{{ toNumberCashFormat(detail.quota_remain, '$') }} ({{ toNumberFormat(detail.quota_remain_percent, '%') }})</span>
+
+            <template v-if="isEmpty(detail.quota_remain) && isEmpty(detail.quota_remain_percent)">
+              <span class="text-kdExp text-global-highTitle text-opacity-85">-</span>
+            </template>
+            <template v-else>
+              <span class="text-kdExp text-global-highTitle text-opacity-85">
+                <span>{{ toNumberCashFormat(detail.quota_remain, '$') }}</span>
+                <span class="ml-2">({{ toNumberFormat(detail.quota_remain_percent, '%') }})</span>
+              </span>
+            </template>
           </div>
         </div>
         <div class="split"></div>

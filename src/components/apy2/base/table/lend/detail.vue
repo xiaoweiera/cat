@@ -44,13 +44,19 @@ defineProps({
         </div>
       </div>
     </div>
-    <div class="item-row flex items-center" :class="{'hidden': isEmpty(data.quota_remain) && isEmpty(data.quota_remain_percent)}">
+
+    <div class="item-row flex items-center" v-if="isEmpty(data.quota_remain) && isEmpty(data.quota_remain_percent)">
+      <span class="apy-label">{{ I18n.apy.table.borrowingLimit }}</span>
+      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">-</span>
+    </div>
+    <div class="item-row flex items-center" v-else>
       <span class="apy-label">{{ I18n.apy.table.borrowingLimit }}</span>
       <span class="ml-1 text-xs text-global-highTitle text-opacity-45">
         <span v-if="!isEmpty(data.quota_remain)">{{ toNumberCashFormat(data.quota_remain, '$') }}</span>
         <span v-if="!isEmpty(data.quota_remain_percent)" class="ml-2">({{ toNumberFormat(data.quota_remain_percent, '%') }})</span>
       </span>
     </div>
+
     <div class="item-row flex items-center text-global-numRed" v-if="data.warining_info">
       <IconFont type="icon-info2" size="16"/>
       <span class="text-xs ml-1.5">{{ data.warining_info }}</span>
