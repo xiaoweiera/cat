@@ -33,8 +33,8 @@ const selectName = (key: string) => {
     </div>
 <!--    <div class="h-400 border-1">fffff</div>-->
     <Apy2ProjectMining v-if="pool_type==='mining'" :pool_type="pool_type" :projectId="projectId"  />
-<!--    <Apy2ProjectLoan v-else-if="pool_type==='lend'"   :pool_type="pool_type" :projectId="projectId" />-->
-<!--    <Apy2ProjectDataMain v-else  :pool_type="pool_type" :projectId="projectId"/>-->
+    <Apy2ProjectLoan v-else-if="pool_type==='lend'"   :pool_type="pool_type" :projectId="projectId" />
+    <Apy2ProjectDataMain v-else  :pool_type="pool_type" :projectId="projectId"/>
 
   </div>
 </template>
