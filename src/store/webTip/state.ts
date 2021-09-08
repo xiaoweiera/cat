@@ -14,5 +14,5 @@ export const isShow=(lang:string)=>{
         localStorage.setItem(webVersion,value)
         return true
     }
-    return false
+    return true
 }

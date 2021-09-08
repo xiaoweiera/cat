@@ -21,7 +21,7 @@ onMounted(()=>stateValue.value=isShow(lang.current.value))
       <div class="h-fit">
           <div  class="h-full flex ">
             <UiDialogWebNewTipLeft class="borLeft " />
-            <UiDialogWebNewTipRight  class="borLeft pb-10" />
+            <UiDialogWebNewTipRight  class="borLeft pb-10  min-h-150" />
           </div>
       </div>
       <img @click="stateValue=false" class="w-6 absolute top-4 right-4 cursor-pointer" src="https://res.ikingdata.com/liquidity/closeWebTip.png" alt="">
