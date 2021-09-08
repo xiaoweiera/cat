@@ -76,7 +76,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
         <template #reference>
           <el-popover  popper-class="itemClass" :show-arrow="false" placement="left" :width="350" trigger="hover">
             <template #reference>
-              <div  class="flex topBorder  itemBg  items-center w-full p-2">
+              <div  class="flex topBorder hand  itemBg  items-center w-full p-2">
                 <Apy2TopContainerItem :pageType="props.type"  :item="item" :i="i"/>
               </div>
             </template>
@@ -91,7 +91,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
         <a  v-router.blank="tokenUrl(item.symbol_alias)" >
           <el-popover  popper-class="itemClass" :show-arrow="false" :offset="10"  placement="left" :width="350" trigger="hover">
             <template #reference>
-              <div  class="flex topBorder itemBg  items-center w-full p-2">
+              <div  class="flex topBorder hand itemBg  items-center w-full p-2">
                 <Apy2TopContainerItem  :item="item" :i="i"/>
               </div>
             </template>
