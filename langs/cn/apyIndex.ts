@@ -163,11 +163,11 @@ export default{
         content:'收录5条公链，25个项目，1422个池子'
     },
     pageProject:{
-        title:'最全DeFi项目数据对比',
+        title:'{project} 项目数据对比',
         content:'收录5条公链，25个项目，1422个池子'
     },
     pageToken:{
-        title:'最全币种矿池APY对比',
+        title:'{symbol} APY 对比',
         content:'收录5条公链，25个项目，1422个池子'
     },
     pageHeco:{

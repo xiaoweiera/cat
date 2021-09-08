@@ -1,5 +1,12 @@
 
 <script lang="ts">
+import * as util from '~/utils'
+
+console.log(util.toNumberFormat(123456789101112313, '$'))
+console.log(util.toNumberFormat(null, '$'))
+console.log(util.toNumberFormat(12.3, '%'))
+console.log(util.toNumberFormat(null, '%'))
+console.log(util.toNumberCashFormat('123456.78M', '$'))
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toBoolean } from '~/utils'
+import I18n from '~/utils/i18n/index'
 import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
 import { getTokenDetail } from '~/logic/apy2/token'
 import { TabCategoryData } from '~/logic/apy2/interface'
@@ -71,6 +72,9 @@ onMounted(function() {
 
 <template>
   <div class="text-kdFang">
+    <div class="hidden" v-if="symbol">
+      <UiHeaderTitle :value="I18n.template(I18n.apyIndex.pageToken.title, { symbol: symbol })"/>
+    </div>
     <div class="flex justify-between md:flex-row flex-col">
       <div class="flex items-center font-kdExp">
         <IconFont class="xshidden" :type="detail.icon" size="40" rounded/>

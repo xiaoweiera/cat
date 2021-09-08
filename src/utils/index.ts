@@ -5,25 +5,17 @@
 
 import BigNumber from 'bignumber.js'
 import I18n from '~/utils/i18n/index'
-import {
-  flatten,
-  toLower,
-  toUpper,
-  filter,
-  is,
-  trim,
-  isEmpty as _isEmpty,
-  sort as _sort,
-} from 'ramda'
+import { filter, flatten, is, isEmpty as _isEmpty, isNil, sort as _sort, toLower, toUpper, trim } from 'ramda'
 
 //@ts-ignore
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from 'uuid'
 import dayjs from 'dayjs'
 import safeGet from '@fengqiaogang/safe-get'
-import { formatRulesPrice } from '~/lib/tool'
-import { current, Language } from '~/utils/lang'
 import * as tools from '~/lib/tool'
+
 export { isNil } from 'ramda'
+
+const defaultNumberValue = '-'
 
 export const sleep = function(callback: () => void, time: number = 1000) {
   return new Promise(function(resolve) {
@@ -113,15 +105,55 @@ export const toNumber = function (value: string | number = 0, fixed = 2): number
   return toFixed(number, fixed)
 }
 
+export const toNumberCeil = function(value: string | number = 0): number {
+  return tools.formatRulesPrice(value, false)
+  // return toNumber(number.toFixed(fixed))
+}
+
+// 千分位计数
+export const toNumberCash = function (value: string | number = 0): string {
+  if (value === defaultNumberValue) {
+    return value
+  }
+  const data = `${value}`
+  return data.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+export const valueFormat = function(value: string | number, unit: string = '', prefix: string = ''): string {
+  if (isEmpty(value, true) || isNil(value)) {
+    return defaultNumberValue
+  }
+  if (['$', '＄', '¥', '￥'].includes(unit)){
+    return `${prefix}${unit}${value}`
+  }
+  if (['%'].includes(unit)){
+    return `${prefix}${value}${unit}`
+  }
+  return `${prefix}${value} ${unit}`
+}
+
+export const toNumberCashFormat = function(value?: any, unit: string = '', prefix: string = ''): string {
+  if (isEmpty(value, true)) {
+    return defaultNumberValue
+  }
+  const number = tools.formatRulesNumber(value, false, defaultNumberValue)
+  return valueFormat(toNumberCash(number), unit, prefix)
+}
+
+export const toNumberFormat = function(value?: any, unit: string = '', prefix: string = ''): string {
+  if (isEmpty(value, true) || isNil(value)) {
+    return defaultNumberValue
+  }
+  const number = tools.formatRulesNumber(value, false, defaultNumberValue)
+  return valueFormat(number, unit, prefix)
+}
+
 export const toInteger = function(value: string | number = 0): number {
   const number = toNumber(value)
   return parseInt(number as any, 10)
 }
 
-export const toNumberCeil = function(value: string | number = 0): number {
-  return formatRulesPrice(value, false)
-  // return toNumber(number.toFixed(fixed))
-}
+
 
 export const inputBeautify = function(value: string = ''): string {
   // 去掉前后空格
@@ -132,9 +164,11 @@ export const inputBeautify = function(value: string = ''): string {
 }
 // 千分位计数
 export const formatCash = function (value: string | number = 0): string {
-  const number = `${toNumber(value)}`
-  const text = number.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  return text
+  const number = toNumberFormat(value)
+  if (number === defaultNumberValue) {
+    return number
+  }
+  return toNumberCash(number)
 }
 
 // 生成唯一ID
@@ -174,10 +208,7 @@ export const isUndefined = function(value: any, checkUndefined?: boolean): boole
   if (typeof value === check) {
     return true
   }
-  if (checkUndefined && value === check) {
-    return true
-  }
-  return false
+  return !!(checkUndefined && value === check);
 }
 
 export const isString = (value: any): boolean => is(String, value)
@@ -212,7 +243,10 @@ export const isEmpty = function(value: any, checkUndefined?: boolean): boolean {
   if (status) {
     return true
   }
-  return _isEmpty(value)
+  if (_isEmpty(value)) { // 判断 [], '', {}
+    return true
+  }
+  return isNil(value) // 判断 null, undefined
 }
 
 export const isElement = function(value: any) {
@@ -430,10 +464,6 @@ export const dateAdd = function(time: any, interval?: string) {
 
 // 格式化数字
 export const numberUint = function(value: number) {
-  // 当前环境是中文，则使用中文方式格式化
-  if (current.value === Language.cn) {
-    return tools.aboutCn(value)
-  }
-  // 默认使用英文方式格式化
-  return tools.aboutEn(value)
+  return tools.numberUnitFormat(value)
 }
+

@@ -4,7 +4,7 @@
  */
 
 import { Position, SeriesItem } from './interface'
-import { isNumber, isString, numberUint } from '~/utils/index'
+import { isNumber, isString, toNumberCashFormat } from '~/utils/index'
 
 export * from '~/utils/use/state'
 
@@ -38,6 +38,7 @@ export const valueFormatter = function(data: SeriesItem): string {
   if (isNumber(data) || isString(data)) {
     data = { value: data } as any
   }
+  /*
   let value: any = '-'
   if (data.value) {
     if (isNumber(data.value)) {
@@ -60,6 +61,11 @@ export const valueFormatter = function(data: SeriesItem): string {
     return `${value} ${data.unit}`
   }
   return value
+   */
+  if (data.origin) {
+    return toNumberCashFormat(data.origin, data.unit)
+  }
+  return toNumberCashFormat(data.value, data.unit)
 }
 
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import { toBoolean } from '~/utils'
 import { defineProps, computed } from "vue"
-// @ts-ignore
-import { numberUint, toNumber, toBoolean } from '~/utils'
 import { SymbolType } from '~/logic/apy2/interface'
 
 const props = defineProps({

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
 // @ts-ignore
-import { numberUint, toNumber, toBoolean } from '~/utils'
+import { toBoolean, toNumberCashFormat, toNumberFormat } from '~/utils'
 
 defineProps({
   data: {
@@ -30,8 +30,8 @@ defineProps({
           <Apy2BaseFollow class="ml-1 text-global-highTitle text-opacity-45" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
         </div>
         <div class="mt-1 text-xs flex items-center text-kdExp">
-          <span class="inline-block mr-1 text-global-highTitle text-opacity-85" v-if="toNumber(data.symbol_price)">${{ numberUint(toNumber(data.symbol_price)) }}</span>
-          <span class="inline-block py-0.5 px-1 rounded bg-global-numRed bg-opacity-20 text-global-numRed leading-3.5" v-if="toNumber(data.symbol_change) > 0">{{ toNumber(data.symbol_change) }}%</span>
+          <span class="inline-block mr-1 text-global-highTitle text-opacity-85">{{ toNumberCashFormat(data.symbol_price, '$') }}</span>
+          <span class="inline-block py-0.5 px-1 rounded bg-global-numRed bg-opacity-20 text-global-numRed leading-3.5">{{ toNumberFormat(data.symbol_change, '%') }}</span>
         </div>
       </div>
     </div>

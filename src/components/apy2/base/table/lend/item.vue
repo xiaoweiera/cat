@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
 import I18n from '~/utils/i18n/index'
-// @ts-ignore
-import { numberUint, toNumber } from '~/utils'
 import { TabCategoryData } from '~/logic/apy2/interface'
+// @ts-ignore
+import { toNumber, toNumberFormat, toNumberCashFormat, isEmpty } from '~/utils'
 
 defineProps({
   data: {
@@ -23,16 +23,19 @@ defineProps({
             <div class="pl-4 pr-2 text-kdFang w-full">
               <div class="flex text-kdExp leading-5 font-bold text-xl">
                 <template v-if="toNumber(data.apy) > 0">
-                  <span class="text-global-numGreen">{{ toNumber(data.apy) }}%</span>
+                  <span class="text-global-numGreen">{{ toNumberFormat(data.apy, '%') }}</span>
                 </template>
                 <template v-else>
-                  <span class="text-global-numRed">{{ toNumber(data.apy) }}%</span>
+                  <span class="text-global-numRed">{{ toNumberFormat(data.apy, '%') }}</span>
                 </template>
               </div>
-              <div class="text-xs mt-1 whitespace-nowrap max-w-full truncate leading-3">
+              <div class="text-xs mt-1 whitespace-nowrap max-w-full truncate leading-3" :class="{'hidden': isEmpty(data.quota_remain) && isEmpty(data.quota_remain_percent)}">
 <!--                <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>-->
                 <span class="text-global-highTitle text-opacity-45 ml-1">{{ I18n.apy.table.borrowingLimit }}</span>
-                <span class="text-kdExp text-global-highTitle text-opacity-85 ml-1">${{ numberUint(data.quota_remain) }} ({{ toNumber(data.quota_remain_percent) }}%)</span>
+                <span class="text-kdExp text-global-highTitle text-opacity-85 ml-1">
+                  <span v-if="!isEmpty(data.quota_remain)">{{ toNumberCashFormat(data.quota_remain, '$') }}</span>
+                  <span v-if="!isEmpty(data.quota_remain_percent)" class="ml-2">({{ toNumberFormat(data.quota_remain_percent, '%') }})</span>
+                </span>
               </div>
               <div class="text-xs mt-1 flex items-center justify-between">
                 <div class="flex items-center">

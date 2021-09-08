@@ -167,7 +167,7 @@ export default {
     table: {
         chain: 'Chain',
         type: 'Pool Type',
-        tag: 'Strategy Tag',
+        tag: 'Pool Strategy',
         interestRate: 'APR Info',
         borrowingLimit: 'Liquidity',
         margin: 'Margin',

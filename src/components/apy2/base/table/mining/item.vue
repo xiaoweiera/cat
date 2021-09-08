@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
 import I18n from '~/utils/i18n/index'
-// @ts-ignore
-import { numberUint, toNumber, toInteger } from '~/utils'
 import { TabCategoryData } from '~/logic/apy2/interface'
+// @ts-ignore
+import { toInteger, toNumberCashFormat, toNumberFormat, isEmpty, toNumber } from '~/utils'
 
 defineProps({
   data: {
@@ -23,17 +23,17 @@ defineProps({
               <div class="pl-4 pr-2 text-kdFang w-full">
                 <div class="flex">
                   <template v-if="toNumber(data.apy) > 0">
-                    <span class="text-kdExp text-global-numGreen font-bold text-xl leading-5">{{ toNumber(data.apy) }}%</span>
+                    <span class="text-kdExp text-global-numGreen font-bold text-xl leading-5">{{ toNumberFormat(data.apy, '%') }}</span>
                   </template>
                   <template v-else>
-                    <span class="text-kdExp text-global-numRed font-bold text-xl">{{ toNumber(data.apy) }}%</span>
+                    <span class="text-kdExp text-global-numRed font-bold text-xl">{{ toNumberFormat(data.apy, '%') }}</span>
                   </template>
                   <span class="text-kdExp ml-1 text-xs text-global-highTitle text-opacity-45" v-if="toInteger(data.lever) > 0">{{ toInteger(data.lever) }}X</span>
                 </div>
                 <div class="text-xs leading-3 mt-1">
 <!--                  <span class="text-global-highTitle text-opacity-85">{{ data.project }}</span>-->
                   <span class="text-global-highTitle text-opacity-45 ml-1">TVL:</span>
-                  <span class="text-kdExp text-global-highTitle text-opacity-85 ml-1">${{ numberUint(toNumber(data.tvl)) }}</span>
+                  <span class="text-kdExp text-global-highTitle text-opacity-85 ml-1">{{ toNumberCashFormat(data.tvl, '$') }}</span>
                 </div>
                 <div class="text-xs flex items-center justify-between mt-1">
                   <div class="flex items-center">

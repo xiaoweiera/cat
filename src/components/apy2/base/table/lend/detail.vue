@@ -3,7 +3,7 @@ import I18n from '~/utils/i18n/index'
 import { toUpper } from 'ramda'
 import { defineProps } from "vue"
 // @ts-ignore
-import { numberUint, toNumber, toInteger } from '~/utils'
+import { toNumberFormat, toNumberCashFormat, isEmpty } from '~/utils'
 
 defineProps({
   data: {
@@ -31,7 +31,7 @@ defineProps({
         <span class="text-global-highTitle text-opacity-45">{{ data.strategy_tags }}</span>
       </span>
     </div>
-    <div class="item-row flex">
+    <div class="item-row flex" v-if="data.single_apy_detail || data.compound_detail">
       <span class="apy-label mr-1">
         <span class="leading-5">{{ I18n.apy.table.interestRate }}</span>
       </span>
@@ -44,10 +44,19 @@ defineProps({
         </div>
       </div>
     </div>
-    <div class="item-row flex items-center">
+
+    <div class="item-row flex items-center" v-if="isEmpty(data.quota_remain) && isEmpty(data.quota_remain_percent)">
       <span class="apy-label">{{ I18n.apy.table.borrowingLimit }}</span>
-      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">${{ numberUint(toNumber(data.quota_remain)) }}  ({{ toNumber(data.quota_remain_percent) }}%)</span>
+      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">-</span>
     </div>
+    <div class="item-row flex items-center" v-else>
+      <span class="apy-label">{{ I18n.apy.table.borrowingLimit }}</span>
+      <span class="ml-1 text-xs text-global-highTitle text-opacity-45">
+        <span v-if="!isEmpty(data.quota_remain)">{{ toNumberCashFormat(data.quota_remain, '$') }}</span>
+        <span v-if="!isEmpty(data.quota_remain_percent)" class="ml-2">({{ toNumberFormat(data.quota_remain_percent, '%') }})</span>
+      </span>
+    </div>
+
     <div class="item-row flex items-center text-global-numRed" v-if="data.warining_info">
       <IconFont type="icon-info2" size="16"/>
       <span class="text-xs ml-1.5">{{ data.warining_info }}</span>
