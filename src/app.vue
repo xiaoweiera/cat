@@ -373,5 +373,29 @@ a {
   background-position: center;
   background-size: 80%;
 }
+.exp{
+  @apply font-kdExp;
+}
+.fang{
+  @apply font-kdFang;
+}
+.txt45{
+  @apply text-opacity-45;
+}
+.txt65{
+  @apply text-opacity-65;
+}
+.txt85{
+  @apply text-opacity-85;
+}
 
+.bg45{
+  @apply bg-opacity-45;
+}
+.bg65{
+  @apply bg-opacity-65;
+}
+.bg85{
+  @apply bg-opacity-85;
+}
 </style>
