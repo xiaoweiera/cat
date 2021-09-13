@@ -27,7 +27,8 @@ const cssGlobal = {
     loanTxt:'#09B86A',
     noAskTxt:'#DA9D00',
     border: '#F0F3F6',
-    hoverHui:'#EDF0F5'
+    hoverHui:'#EDF0F5',
+    topBg:'#FAFBFC'
 }
 
 export default defineConfig({
