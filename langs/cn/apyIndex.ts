@@ -136,7 +136,7 @@ export default{
     realRato:'真实利率',
     clearData:'重置',
     loanAllRouter:'借贷 {token} 的所有最佳路径',
-    warning:'警告',
+    warning:'风险警告',
     description: '风险提示：本站数据来源于各平台',
     warningDes:'风险提示：本站数据来源于各平台的公开数据，本站井未对收录内容做安全审计，内容不构成投资建议，请注意风险。',
     tokenMining:'挖矿相关APY',

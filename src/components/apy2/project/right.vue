@@ -26,7 +26,6 @@ const selectName = (key: string) => {
   <div class="font-kdFang">
     <Apy2ProjectInfo class="xshidden" :projectId="projectId"/>
     <Apy2ProjectInfoMobile class="mdhidden" :projectId="projectId"/>
-
     <div v-if="projectInfo[0]?.id"  class="flex items-center mt-8 bottomBorderGang">
       <template v-for="item in tags">
         <div v-if="(projectInfo[0]?.is_lend && item.key==='lend') || item.key!=='lend'"  @click="selectName(item.key)" :class="pool_type===item.key?'pool_type':'name'" class="pool_type mr-8 hand" name="mining">
