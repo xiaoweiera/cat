@@ -1,4 +1,5 @@
 export default{
+    disclaimers:'Disclaimers',
     title:'Early Find and Invest High APY Pools',
     apply:'Apply',
     miningTitle:'Early Find and Invest High APY Pools',
@@ -138,7 +139,7 @@ export default{
     loanAllRouter:'All Best Ways To Borrow {token}',
     warning:'Waring',
     description: 'Risk warning: the data of this station comes from the public data of various platforms.',
-    warningDes:'Risk warning: the data of this station comes from the public data of various platforms. The safety audit of the included contents is not conducted in this station, and the contents do not constitute investment suggestions. Please pay attention to the risks.',
+    warningDes:'The data of this station comes from the public data of various platforms. The safety audit of the included contents is not conducted in this station, and the contents do not constitute investment suggestions. Please pay attention to the risks.',
     tokenMining:'All Farm APY',
     tokenLending:'All Borrow APR',
     tokenMiningTitle:'{token} APY TOP 5 Pools',
