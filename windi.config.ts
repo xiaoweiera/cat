@@ -10,9 +10,9 @@ const cssGlobal = {
     primary: '#2B8DFE', /* 43, 141, 254 */
     highTitle:'#033666', /*3,54,102*/
     mobileBody:'#D8E8FF',
-    numGreen:'#00B464',
+    numGreen:'#00B464', /* 0, 180, 100 */
     numRed:'#E9592D', /*233, 89, 45*/
-    darkblue: '#006FF7',
+    darkblue: '#006FF7', /* 0, 111, 247*/
     time:'#A2A4A8',
     noSelect:'#A8A8A8',
     white:'#FFFFFF',
