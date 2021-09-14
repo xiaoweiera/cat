@@ -6,5 +6,6 @@
 import * as apy from './apy/index'
 import * as dapp from './dapp/index'
 import * as nft from './nft/index'
+import * as topRank from './topRank/dapp'
 
-export { apy, dapp, nft }
+export { apy, dapp, nft,topRank }
