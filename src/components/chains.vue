@@ -38,16 +38,16 @@ onBeforeMount(()=> {
 const chainItem=computed(()=>chainData.value?.find(item=>item.slug===chain.value))
 </script>
 <template>
-  <div class="flex   flex-nowrap  xshidden    font-kdFang flex-wrap" >
+  <div class="flex   xshidden    font-kdFang flex-wrap" >
     <template v-for="item in chainData">
-      <a :href="getHref(item.slug)" :class="chain===item.slug?'selectedTag ':'tag'" class="flex hand  rounded-kd20px max-h-9  flex items-center justify-center " style="flex-shrink:0;" >
+      <a :href="getHref(item.slug)" :class="chain===item.slug?'selectedTag ':'tag'" class="flex hand mb-3  rounded-kd20px max-h-9  flex items-center justify-center " style="flex-shrink:0;" >
         <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size="20" :type="item.logo" class="mr-1"/>
         <div >{{item.name===I18n.apyIndex.allChain?I18n.apyIndex.all:item.name}}</div>
       </a>
     </template>
   </div>
   <div class='mdhidden  flex items-center relative w-full'>
-    <IconFont v-if='chainItem' size='20' class='absolute z-1 left-3 ' :type='chainItem?.logo'/>
+    <IconFont v-if='chainItem' :class='chainItem.slug==="all"?"text-global-primary":""' size='20' class='absolute z-1 left-3 ' :type='chainItem?.logo'/>
     <el-select  class=' w-full'  v-model="chain" placeholder="全部">
       <el-option v-for="item in chainData"  :label="item.name" :value="item.slug">
         <a :href='getHref(item.slug)' class='flex items-center  h-full'>
