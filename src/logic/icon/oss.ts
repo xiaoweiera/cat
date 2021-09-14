@@ -4,7 +4,7 @@
  */
 
 import { oss } from '~/lib/process'
-import { isHttp } from '~/utils'
+import { equalsIgnoreCase, isHttp } from '~/utils'
 
 const statusRight = 'status-right' // 右侧箭头
 
@@ -55,6 +55,9 @@ const getLink = function(value: string, suffix: string = 'svg'): string | undefi
   if (value) {
     if (isHttp(value) || value.includes('.')) {
       return value
+    }
+    if (equalsIgnoreCase(value,'SOLANA')) {
+      return 'https://res.ikingdata.com/apyTwo/sol.png'
     }
     // 特殊 icon
     if (value === 'down' && suffix === 'png') {
