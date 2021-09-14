@@ -25,7 +25,6 @@ export const getLocation = function() {
   if (value) {
     location.value = value
     const $router = toRaw(location.value)
-    console.log('location', $router, useRoute())
     if ($router) {
       return {
         // @ts-ignore
