@@ -8,6 +8,7 @@ const props=defineProps({
 const maxValue=810
 //@ts-ignore wei
 const bgWidth=computed(()=>((props.item.users/maxValue)*100)+'%')
+
 </script>
 <template>
   <div v-if='headerData' class="h-14.5 item  relative overflow-hidden  px-3 bg-global-white mt-3 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">

@@ -49,6 +49,7 @@ const ossList: string[] = [
   'up', // up.svg
   'user', // user.svg
   'vector', // vector.svg
+  'sol',//sol.png
 ]
 
 const getLink = function(value: string, suffix: string = 'svg'): string | undefined {

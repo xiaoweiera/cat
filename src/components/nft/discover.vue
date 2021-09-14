@@ -42,7 +42,7 @@ const onSort = function(data: any) {
       </div>
     </div>
     <div class="content mt-3">
-      <DappTabs :position="GroupPosition.dappNew" @change="onGetList"/>
+      <DappTabs :position="GroupPosition.nftNew" @change="onGetList"/>
     </div>
     <div class="content mt-3">
       <UiList>
