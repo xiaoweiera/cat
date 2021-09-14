@@ -19,17 +19,15 @@ export interface Menu {
 
 
 export const footers = [
-  // {
-  //   label: 'Dapp',
-  //   children: [
-  //     { name: 'DeFi 排行榜' },
-  //     { name: 'NFT 排行榜' },
-  //     { name: 'GameFi 排行榜' },
-  //     { name: 'DeFi 新项目' },
-  //     { name: 'NFT 新项目' },
-  //     { name: 'GameFi 新项目' }
-  //   ]
-  // },
+  {
+    label: 'Dapp',
+    children: [
+      { name: 'Dapp 排行榜' },
+      { name: 'NFT 排行榜' },
+      { name: 'Dapp 新项目', href: `${config.dapp}/discover` },
+      { name: 'NFT 新项目', href: `${config.nft}/discover` },
+    ]
+  },
   {
     label: 'DeFi',
     children: [
@@ -86,41 +84,37 @@ export const footers = [
 ]
 
 export const headers = [
-  // {
-  //   name: 'Dapp',
-  //   children: [
-  //     {
-  //       name: 'DeFi 排行版',
-  //       icon: 'icon-paihang',
-  //       desc: '快速发现高收益矿池',
-  //       more: true,
-  //       header: true
-  //     },
-  //     {
-  //       name: 'NFT 排行版',
-  //       header: true
-  //     },
-  //     {
-  //       name: 'GameFi 排行版',
-  //       header: true
-  //     },
-  //     {
-  //       name: 'DeFi 新项目',
-  //       icon: 'icon-defi',
-  //       desc: '快速发现高收益矿池',
-  //       more: true,
-  //       header: true
-  //     },
-  //     {
-  //       name: 'NFT 新项目',
-  //       header: true
-  //     },
-  //     {
-  //       name: 'GameFi 新项目',
-  //       header: true
-  //     },
-  //   ]
-  // },
+  {
+    name: 'Dapp',
+    href: `${config.dapp}/discover`,
+    children: [
+      {
+        name: 'Dapp 排行榜',
+        icon: 'icon-paihang',
+        desc: '快速发现高收益矿池',
+        more: true,
+        header: true
+      },
+      {
+        name: 'NFT 排行版',
+        header: true
+      },
+      {
+        name: 'Dapp 新项目',
+        header: true,
+        href: `${config.dapp}/discover`,
+      },
+      {
+        name: 'NFT 新项目',
+        icon: 'icon-defi',
+        desc: '快速发现高收益矿池',
+        more: true,
+        header: true,
+        href: `${config.nft}/discover`
+      },
+
+    ]
+  },
   {
     // DeFi
     name: I18n.nav.defi.name,

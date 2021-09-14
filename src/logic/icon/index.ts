@@ -13,6 +13,7 @@ interface Props {
   rounded?: boolean
   border?: boolean
   className?: string
+  bright?: boolean
 }
 
 const sizes = {
@@ -49,6 +50,7 @@ const iconFont = function(props: Props): string {
     className.push(props.className)
   }
   const imgClassName = fontSize(props.size as string, toBoolean(props.rounded))
+  imgClassName.push(`icon-${props.type}`)
   if (image) {
     className.push('none-select', 'icon-font')
     imgClassName.push('none-select')
@@ -57,7 +59,7 @@ const iconFont = function(props: Props): string {
   } else {
     className.push('inline-flex')
     imgClassName.push('icon-font', 'flex')
-    const svg = `<svg aria-hidden="true"><use xlink:href="#${getAlias(props.type)}"></use></svg>`
+    const svg = `<svg aria-hidden="true"><use xlink:href="#${getAlias(props.type, props.bright)}"></use></svg>`
     const img = `<i class="${imgClassName.join(" ")}">${svg}</i>`
     return `<span class="${className.join(" ")}">${img}</span>`
   }

@@ -1,19 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import * as API from '~/api/index'
 import { GroupPosition } from '~/logic/dapp/interface'
+import { toNumberCashFormat } from '~/utils'
 
 const list = ref<any[]>([])
+const is_online = ref<boolean>(false)
+const search = ref<string>('')
 
-const onGetList = async function(query: object) {
-  const data = await API.dapp.discover.getList<any[]>(query as any)
-  list.value = data
+const query = {
+  page: 1,
+  page_size: 10,
+  query: ''
+}
+
+const onGetList = async function(value: object) {
+  Object.assign(query, value)
+  const result = await API.dapp.discover.getList<any[]>(query as any)
+  list.value = result
 }
 
 const onSort = function(data: any) {
-  console.log(data)
+  onGetList({
+    page: 1,
+    ...data
+  })
 }
 
+
+onMounted(() => {
+  watch([is_online, search], function(data) {
+    onSort({
+      is_online: data[0],
+      query: data[1]
+    })
+  })
+})
 
 
 </script>
@@ -21,12 +43,21 @@ const onSort = function(data: any) {
 <template>
   <div class="wrap-discover">
     <div class="content">
-      <div class="flex justify-center">
-        <Chains/>
-      </div>
-    </div>
-    <div class="content mt-3">
-      <DappTabs :position="GroupPosition.dappNew" @change="onGetList"/>
+      <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
+        <div class="flex items-center justify-between w-full">
+          <div>
+            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">查看已上线项目</span>
+            <el-switch v-model="is_online"></el-switch>
+          </div>
+          <div>
+            <el-input placeholder="搜索项目" v-model="search" size="small">
+              <template #prefix>
+                <i class="el-input__icon el-icon-search"></i>
+              </template>
+            </el-input>
+          </div>
+        </div>
+      </DappTabs>
     </div>
     <div class="content mt-3">
       <UiList>
@@ -41,8 +72,8 @@ const onSort = function(data: any) {
             <div class="td-price text-global-highTitle text-opacity-65">
               <span>项目类型</span>
             </div>
-            <div class="td-date text-global-highTitle text-opacity-65">
-              <UiSort title="Sale Date / Time" name="date" @onChange="onSort"></UiSort>
+            <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
+              <UiSort title="Sale Date / Time" name="online_time" @onChange="onSort"></UiSort>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span>操作</span>
@@ -51,7 +82,7 @@ const onSort = function(data: any) {
         </template>
       </UiList>
       <!-- 内容 -->
-      <div class="mt-3">
+      <div class="mt-3" v-if="list.length > 0">
         <UiList v-for="(data, index) in list" :key="index">
           <template #content>
             <div class="table-tr">
@@ -61,69 +92,61 @@ const onSort = function(data: any) {
                     <el-avatar class="inline-block" shape="square" :size="80" fit="cover" :src="data.logo"></el-avatar>
                   </div>
                   <div>
-                    <p class="text-lg">{{ data.name }}</p>
-                    <p class="text-sm">{{ data.description }}</p>
+                    <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
+                    <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5">{{ data.description }}</span>
                   </div>
                 </div>
               </div>
               <div class="td-data">
-                <div class="flex items-center">
-                  <IconFont class="text-base" type="Telegram"/>
-                  <span class="text-sm ml-1.5">Telegram</span>
-                  <span class="text-xs ml-1">9999 Num / 9999 Online</span>
-                </div>
-                <div class="flex items-center">
-                  <IconFont class="text-base" type="Twitter"/>
-                  <span class="text-sm ml-1.5">Twitter</span>
-                  <span class="text-xs ml-1">9999M Num / 9999K Online</span>
-                </div>
+                <template v-for="(media, key, j) in data.medias" :key="`${index}-${key}`">
+                  <div class="flex items-center" :class="{'mt-2.5': j > 0}">
+                    <IconFont class="text-base" :type="key" bright/>
+                    <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ key }}</span>
+                    <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                  </div>
+                </template>
               </div>
               <div class="td-price">
                 <div>
                   <div>
                     <template v-for="(item, j) in data.categories" :key="`${index}-${j}`">
-                      <span class="mr-2">{{ item }}</span>
+                      <span class="mr-2 text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
                     </template>
                   </div>
-                  <div>
+                  <div class="pt-3 flex">
                     <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
-                      <IconFont :type="item.logo"/>
+                      <span class="mr-2 flex items-center justify-center w-7 h-7 border border-solid border-global-primary border-opacity-10 rounded-kd28px">
+                        <IconFont :type="item.logo" size="16"/>
+                      </span>
                     </template>
                   </div>
                 </div>
               </div>
-              <div class="td-date">
+              <div class="td-date text-right">
                 <div class="text-sm">
-                  <span>2021.09.01 11:00</span>
+                  <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ data.online_time }}</span>
                 </div>
                 <div class="text-xs">
-                  <span>Asia/Shanghai</span>
+                  <span class="text-global-highTitle text-opacity-85 text-xs leading-3">{{ data.online_timezone }}</span>
                 </div>
-                <div class="text-xs">
-                  <span>剩余时间</span>
-                  <TimeCountdown :value="data.online_time">
-                    <template #default="date">
-                      {{ date.day }} : {{ date.hour }} : {{ date.minute }} : {{ date.second }}
-                    </template>
-                  </TimeCountdown>
+                <div class="text-xs mt-2.5">
+                  <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">剩余时间</span>
+                  <span class="date-box inline-block">
+                    <TimeCountdown :value="data.online_time">
+                      <template #default="date">
+                        <i>{{ date.day }}</i> : <i>{{ date.hour }}</i> : <i>{{ date.minute }}</i> : <i>{{ date.second }}</i>
+                      </template>
+                    </TimeCountdown>
+                  </span>
                 </div>
               </div>
               <div class="td-operation">
-                <p class="flex items-center text-global-darkblue justify-end">
+                <a v-router.blank="data.website" class="flex items-center text-global-darkblue justify-end cursor-pointer">
                   <span class="text-sm">Mint</span>
                   <IconFont type="icon-right" size="xs"/>
-                </p>
+                </a>
                 <div class="pt-3">
-                  <div class="star flex items-center justify-center">
-                    <div class="text-center">
-                      <div class="flex">
-                        <IconFont type="icon-triangle" size="24"/>
-                      </div>
-                      <div class="flex">
-                        <span class="text-sm">124</span>
-                      </div>
-                    </div>
-                  </div>
+                  <DappStar :id="data.id" :value="data.clout" :clouted="data.is_clouted"/>
                 </div>
               </div>
             </div>
@@ -140,50 +163,19 @@ const onSort = function(data: any) {
           </template>
         </UiList>
 
+        <div class="text-center pt-3">
+          <UiButtonMore/>
+        </div>
+      </div>
+      <div class="mt-3" v-else>
+        <div class="border border-solid border-gray">
+          <Empty desc="暂无数据"></Empty>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.wrap-discover {
-  background-color: #FAFBFC;
-  @apply py-15;
-}
-.content {
-  @apply max-w-320 mx-auto;
-}
-.table-tr {
-  @apply flex items-center justify-between;
-  .td-title {
-    @apply w-124;
-  }
-  .td-data {
-    @apply w-71;
-  }
-  .td-price {
-    @apply w-55;
-  }
-  .td-date {
-    @apply w-50;
-  }
-  .td-operation {
-    @apply flex-1 text-right;
-  }
-  .star {
-    @apply w-14 h-12.5 rounded;
-    @apply bg-white border border-solid;
-    @apply border-global-highTitle border-opacity-6;
-    &.active {
-      @apply text-global-darkblue;
-      @apply bg-global-darkblue bg-opacity-8;
-      @apply border-global-darkblue border-opacity-8;
-    }
-  }
-}
-.comment {
-  color: #009C56;
-  @apply py-1.5 pl-3 pr-1.5 rounded-md;
-  @apply bg-global-numGreen bg-opacity-4;
-}
+@import "./list.scss";
 </style>

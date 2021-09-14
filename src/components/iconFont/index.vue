@@ -35,6 +35,13 @@ const props = defineProps({
     default () {
       return false
     }
+  },
+  // 是否使用彩色图表，部分图标支持
+  bright: {
+    type: Boolean,
+    default () {
+      return false
+    }
   }
 })
 
