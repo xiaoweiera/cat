@@ -1,6 +1,6 @@
 <script setup lang="ts" >
 import {defineProps} from 'vue'
-const props=defineProps({
+defineProps({
   item:Object,
   i:Number
 })

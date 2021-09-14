@@ -5,7 +5,6 @@ import {onBeforeMount,ref } from 'vue'
 import {getChains} from '~/logic/topRank/dapp'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
-
 const chain = ref<string>('all')
 
 const getHref =(key:string)=> {
@@ -15,11 +14,15 @@ const getHref =(key:string)=> {
     }
   })
 }
-
+const getData=async ()=>{
+ const data= await getChains()
+  console.log(data,'---')
+}
 
 
 onBeforeMount(()=> {
   chain.value = getParam<string>('chain', 'all') as string
+
 })
 </script>
 <template>

@@ -5,8 +5,9 @@ const request=async (param:any)=>{
     return result?.data
 }
 enum API {
-    chainsList = '/api/apy/ninja/getChains',
+    chainsList = '/api/dapps/v1/chains',
 }
+import {chainModel} from '~/logic/topRank/interface'
 // 得到公链列表
-export const getChains=()=>  request({url:API.chainsList, method: 'get'})
+export const getChains=(param:chainModel)=>  request({url:API.chainsList,params:param,  method: 'get'})
 

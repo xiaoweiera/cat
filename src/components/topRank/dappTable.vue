@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {dappHeader} from '~/logic/topRank/config.ts'
+import {dappHeader} from '~/logic/topRank/config'
 </script>
 <template>
   <div>
