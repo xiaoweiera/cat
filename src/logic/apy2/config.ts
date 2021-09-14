@@ -1,7 +1,7 @@
 import I18n from '~/utils/i18n/index'
 export const chains=[
     {key:'all',name:I18n.apyIndex.allChain,icon:'https://res.ikingdata.com/apyTwo/allChain.png'},
-    // {key:'SOLANA',name:'Solana',icon:'https://res.ikingdata.com/apyTwo/sol.png'},
+    {key:'SOLANA',name:'Solana',icon:'https://res.ikingdata.com/apyTwo/sol.png'},
     {key:'eth',name:'ETH',icon:'https://res.ikingdata.com/apyTwo/ethChain.png'},
     {key:'bsc',name:'BSC',icon:'https://res.ikingdata.com/apyTwo/bscChain.png'},
     {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.png'},
@@ -12,7 +12,7 @@ export const chains=[
 ]
 export const selectChains=[
     {label: I18n.apyIndex.chain, value:'all'},
-    // {label:'Solana',value:'SOLANA'},
+    {label:'Solana',value:'SOLANA'},
     {label:'ETH', value:'eth'},
     {label:'BSC', value:'bsc'},
     {label:'Heco', value:'heco'},
@@ -22,7 +22,7 @@ export const selectChains=[
 
 ]
 export const chainsIcon={
-    // 'Solana':'https://res.ikingdata.com/apyTwo/sol.png',
+    'Solana':'https://res.ikingdata.com/apyTwo/sol.png',
     'eth':'https://res.ikingdata.com/apyTwo/ethChain.png',
     'bsc':'https://res.ikingdata.com/apyTwo/bscChain.png',
     'heco':'https://res.ikingdata.com/apyTwo/hecoChain.png',
