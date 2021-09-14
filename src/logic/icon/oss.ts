@@ -42,11 +42,9 @@ const ossList: string[] = [
   'sina', // sina.svg
   'success', // success.svg
   'table', // table.svg
-  'telegram', // telegram.svg
   'top1', // top1.svg
   'trend', // trend.svg
   'twitter-white', // twitter-white.svg
-  'twitter', // twitter.svg
   'union', // union.svg
   'up', // up.svg
   'user', // user.svg

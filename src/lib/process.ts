@@ -14,6 +14,8 @@ export const production: Env = config.production
 
 export const oss = 'https://res.ikingdata.com'
 
+export const ApiVersion = 'v1'
+
 // 默认线上环境
 let mode: string
 

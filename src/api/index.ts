@@ -4,6 +4,7 @@
  */
 
 import * as apy from './apy/index'
+import * as dapp from './dapp/index'
+import * as nft from './nft/index'
 
-
-export { apy }
+export { apy, dapp, nft }

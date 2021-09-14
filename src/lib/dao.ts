@@ -6,7 +6,7 @@
 import Url from 'url'
 import { includes, omit } from 'ramda'
 import I18n from '~/utils/i18n/index'
-import { production as env } from '~/lib/process'
+import { ApiVersion, production as env } from '~/lib/process'
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import safeSet from '@fengqiaogang/safe-set'
 import { ignore } from '~/api/pathname'
@@ -85,7 +85,7 @@ const Dao = function (option: AxiosRequestConfig | undefined): AxiosInstance {
         safeSet(config, 'headers.accept-language', current.value)
       }
       // 处理 url 中的变量
-      const parameter: any = {}
+      const parameter: any = { version: ApiVersion } // 系统默认版本
       if (config.params) {
         Object.assign(parameter, config.params)
       }

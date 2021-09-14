@@ -371,7 +371,7 @@ export const upperFirst = function(value: string): string {
  */
 export const equalsIgnoreCase = function(str1: string = '', str2: string = ''): boolean {
   if (str1 && str2) {
-    return toUpper(str1) === toUpper(str2)
+    return toUpper(`${str1}`) === toUpper(`${str2}`)
   }
   return false
 }
