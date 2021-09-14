@@ -1,23 +1,28 @@
 import I18n from '~/utils/i18n/index'
 export const chains=[
     {key:'all',name:I18n.apyIndex.allChain,icon:'https://res.ikingdata.com/apyTwo/allChain.png'},
+    // {key:'SOLANA',name:'SOLANA',icon:'https://res.ikingdata.com/apyTwo/sol.png'},
     {key:'eth',name:'ETH',icon:'https://res.ikingdata.com/apyTwo/ethChain.png'},
     {key:'bsc',name:'BSC',icon:'https://res.ikingdata.com/apyTwo/bscChain.png'},
     {key:'heco',name:'Heco',icon:'https://res.ikingdata.com/apyTwo/hecoChain.png'},
     {key:'oec',name:'OEC',icon:'https://res.ikingdata.com/apyTwo/oecChain.png'},
     // {key:'hoo',name:'Hoo',icon:'https://res.ikingdata.com/apyTwo/hooChain.png'},
     {key:'polygon',name:'Pos',icon:'https://res.ikingdata.com/apyTwo/posChain.png'},
+
 ]
 export const selectChains=[
     {label: I18n.apyIndex.chain, value:'all'},
+    // {key:'SOLANA',value:'SOLANA'},
     {label:'ETH', value:'eth'},
     {label:'BSC', value:'bsc'},
     {label:'Heco', value:'heco'},
     {label:'OEC', value:'oec'},
     {label:'Hoo', value:'hoo'},
-    {label:'PoS', value:'pos'}
+    {label:'PoS', value:'pos'},
+
 ]
 export const chainsIcon={
+    // 'SOLANA':'https://res.ikingdata.com/apyTwo/sol.png'
     'eth':'https://res.ikingdata.com/apyTwo/ethChain.png',
     'bsc':'https://res.ikingdata.com/apyTwo/bscChain.png',
     'heco':'https://res.ikingdata.com/apyTwo/hecoChain.png',
