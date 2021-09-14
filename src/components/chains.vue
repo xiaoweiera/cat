@@ -1,42 +1,75 @@
 <script setup lang="ts">
 import router, { getParam } from '~/utils/router'
-import {onBeforeMount,ref } from 'vue'
+import {onBeforeMount,computed,defineProps,ref } from 'vue'
 
 import {getChains} from '~/logic/topRank/dapp'
 import {chains} from '~/logic/apy2/config'
+import {chain} from '~/store/config'
 import I18n from '~/utils/i18n/index'
-
-const chain = ref<string>('all')
-
-const getHref =(key:string)=> {
+const props=defineProps({
+  page:String
+})
+const getHref =(slug:string)=> {
   return router({
     query: {
-      chain: key
+      chain: slug
     }
   })
 }
-
-
-
+const  chainData=ref([{
+  "id": 100,
+  "name": I18n.topRank.chainAll,
+  "slug": "all",
+  "logo": "icon-quanbu"
+}])
+const other={  "id": 101,
+  "name": I18n.topRank.chainOther,
+  "slug": "other",
+  "logo": ""}
+const getData=async ()=>{
+  const res= await getChains(props.page)
+  chainData.value= chainData.value.concat(res)
+  chainData.value.push(other)
+}
 onBeforeMount(()=> {
   chain.value = getParam<string>('chain', 'all') as string
+  getData()
 })
+const chainItem=computed(()=>chainData.value?.find(item=>item.slug===chain.value))
 </script>
 <template>
-  <div class="flex   md:flex-wrap flex-nowrap      font-kdFang flex-wrap md:border-b-1 border-global-highTitle  border-opacity-6" >
-    <template v-for="item in chains">
-      <a :href="getHref(item.key)" :class="chain===item.key?'selectedTag ':'tag'" class="flex hand  rounded-kd20px max-h-9  flex items-center justify-center " style="flex-shrink:0;" >
-        <IconFont size="20" type="" class="mr-1"/>
+  <div class="flex   flex-nowrap  xshidden    font-kdFang flex-wrap" >
+    <template v-for="item in chainData">
+      <a :href="getHref(item.slug)" :class="chain===item.slug?'selectedTag ':'tag'" class="flex hand  rounded-kd20px max-h-9  flex items-center justify-center " style="flex-shrink:0;" >
+        <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size="20" :type="item.logo" class="mr-1"/>
         <div >{{item.name===I18n.apyIndex.allChain?I18n.apyIndex.all:item.name}}</div>
       </a>
     </template>
   </div>
+  <div class='mdhidden  flex items-center relative w-full'>
+    <IconFont v-if='chainItem' size='20' class='absolute z-1 left-3 ' :type='chainItem?.logo'/>
+    <el-select  class=' w-full'  v-model="chain" placeholder="全部">
+      <el-option v-for="item in chainData"  :label="item.name" :value="item.slug">
+        <a :href='getHref(item.slug)' class='flex items-center  h-full'>
+          <IconFont size='20' :type='item.logo'/>
+          <div class='ml-1 text-kd16px24px text-global-highTitle txt85'>{{item.name}}</div>
+        </a>
+      </el-option>
+    </el-select>
+  </div>
 </template>
 <style scoped  lang="scss">
+::v-deep(.el-input__inner){
+  border-radius: 20px;
+  @apply h-9 pl-9.5;
+}
 .tag{
+  border:1px solid rgba(3, 54, 102, 0.1);
   @apply px-3 py-1.5   mr-3  text-kd16px24px text-global-highTitle text-opacity-85 ;
 }
 .selectedTag{
+  border:1px solid rgba(3, 54, 102, 0);
   @apply px-3 py-1.5 bg-global-primary   mr-3  text-kd16px24px text-global-white ;
 }
+
 </style>

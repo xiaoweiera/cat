@@ -8,6 +8,7 @@ import nav from './nav'
 import webTip from './webTip'
 import apyIndex from './apyIndex'
 import menu from './menu'
+import topRank from './topRank'
 export default {
   apy,
   menu,
@@ -17,5 +18,6 @@ export default {
   nav,
   liquidity,
   webTip,
-  apyIndex
+  apyIndex,
+  topRank
 }

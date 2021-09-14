@@ -6,7 +6,7 @@ const getRes=(obj:any)=>{
     return obj
 }
 //挖矿分组
-export const getChains=async (chain:string)=>{
-    const result=await api.getChains()
+export const getChains=async (page:string)=>{
+    const result=await api.getChains({position:page})
     return getRes(result)
 }
