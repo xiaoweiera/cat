@@ -5,7 +5,7 @@ const props=defineProps({
   item:Object,
   i:Number
 })
-//@ts-ignore
+//@ts-ignore wei
 const bgWidth=(100-(20*props.i))+'%'
 </script>
 <template>
