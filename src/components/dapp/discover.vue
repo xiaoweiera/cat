@@ -1,17 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import * as API from '~/api/index'
 import { GroupPosition } from '~/logic/dapp/interface'
-const images = [
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-]
+
+const list = ref<any[]>([])
 
 const onGetList = async function(query: object) {
-  const list = await API.dapp.discover.getList(query as any)
-  console.log(list)
+  const data = await API.dapp.discover.getList<any[]>(query as any)
+  list.value = data
 }
 
 const onSort = function(data: any) {
@@ -43,7 +39,7 @@ const onSort = function(data: any) {
               <span>社媒数据</span>
             </div>
             <div class="td-price text-global-highTitle text-opacity-65">
-              <UiSort title="Mint Price / Supply" name="price" @onChange="onSort"></UiSort>
+              <span>项目类型</span>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65">
               <UiSort title="Sale Date / Time" name="date" @onChange="onSort"></UiSort>
@@ -56,25 +52,18 @@ const onSort = function(data: any) {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3">
-        <UiList>
-          <template #header>
-            <div class="flex">
-              <div class="flex-1">
-                <p class="text-lg">VIDEO GAME DEV SQUAD</p>
-                <p class="text-sm">美国媒体10日报道称，有数据显示，新冠肺炎疫情期间，纽约市在家中死亡的..美国媒体10日报道称，有数据显示，新冠肺炎疫情期间，纽约市在家中死亡的...国...新冠肺炎疫情期间...</p>
-              </div>
-              <div class="ml-4">
-                Featured
-              </div>
-            </div>
-          </template>
+        <UiList v-for="(data, index) in list" :key="index">
           <template #content>
             <div class="table-tr">
               <div class="td-title">
                 <div class="flex">
-                  <template v-for="(src, index) in images" :key="index">
-                    <el-avatar class="inline-block" :class="{'ml-2': index > 0}" shape="square" :size="80" fit="cover" :src="src"></el-avatar>
-                  </template>
+                  <div class="w-20 mr-3">
+                    <el-avatar class="inline-block" shape="square" :size="80" fit="cover" :src="data.logo"></el-avatar>
+                  </div>
+                  <div>
+                    <p class="text-lg">{{ data.name }}</p>
+                    <p class="text-sm">{{ data.description }}</p>
+                  </div>
                 </div>
               </div>
               <div class="td-data">
@@ -90,13 +79,16 @@ const onSort = function(data: any) {
                 </div>
               </div>
               <div class="td-price">
-                <div class="inline-block text-right">
+                <div>
                   <div>
-                    <span class="text-2xl">0.01 ETH</span>
-                    <IconFont type="eth"/>
+                    <template v-for="(item, j) in data.categories" :key="`${index}-${j}`">
+                      <span class="mr-2">{{ item }}</span>
+                    </template>
                   </div>
                   <div>
-                    <span class="text-xs">7,777 Total</span>
+                    <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
+                      <IconFont :type="item.logo"/>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -109,6 +101,11 @@ const onSort = function(data: any) {
                 </div>
                 <div class="text-xs">
                   <span>剩余时间</span>
+                  <TimeCountdown :value="data.online_time">
+                    <template #default="date">
+                      {{ date.day }} : {{ date.hour }} : {{ date.minute }} : {{ date.second }}
+                    </template>
+                  </TimeCountdown>
                 </div>
               </div>
               <div class="td-operation">
