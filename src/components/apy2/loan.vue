@@ -14,7 +14,7 @@ const getData=async ()=>{
   const [tokenData,projectData]=await getTokenAndProject(chain.value)
   tokenList.value=tokenData
   projectList.value=projectData
-}
+} 
 // const getTokens=async ()=>tokenList.value=await getTokenList()
 onMounted(async ()=>{
   await getData()
