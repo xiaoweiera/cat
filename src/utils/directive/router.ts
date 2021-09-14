@@ -15,7 +15,7 @@ interface Query {
 }
 
 interface To {
-  path: string
+  path?: string
   query: Query
 }
 
