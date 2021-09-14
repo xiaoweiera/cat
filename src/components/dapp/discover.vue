@@ -1,30 +1,30 @@
-<script lang="ts">
-  export default {
-    data () {
-      return {
-        list: [{}, {}, {}],
-        images: [
-          'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-        ]
-      }
-    },
-    components: {
-    },
-    methods: {
-      onClick (data: any) {
-        console.log(data)
-      }
-    }
-  }
+<script setup lang="ts">
+
+const images = [
+  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+]
+
+const onSort = function(data: any) {
+  console.log(data)
+}
+
 </script>
 
 <template>
   <div class="wrap-discover">
     <div class="content">
+      <div class="flex justify-center">
+        <Chains/>
+      </div>
+    </div>
+    <div class="content mt-3">
+      <DappTabs/>
+    </div>
+    <div class="content mt-3">
       <UiList>
         <template #content>
           <div class="table-tr">
@@ -35,10 +35,10 @@
               <span>社媒数据</span>
             </div>
             <div class="td-price text-global-highTitle text-opacity-65">
-              <UiSort title="Mint Price / Supply" name="price" @onChange="onClick"></UiSort>
+              <UiSort title="Mint Price / Supply" name="price" @onChange="onSort"></UiSort>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65">
-              <UiSort title="Sale Date / Time" name="date" @onChange="onClick"></UiSort>
+              <UiSort title="Sale Date / Time" name="date" @onChange="onSort"></UiSort>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span>操作</span>

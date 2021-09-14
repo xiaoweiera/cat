@@ -7,19 +7,32 @@
 import { router } from '~/utils/directive/router'
 import safeGet from '@fengqiaogang/safe-get'
 import { useRoute } from 'vue-router'
-import { toRaw } from 'vue'
+import { ref, toRaw, watch } from 'vue'
 
+const location = ref<any>(null)
+
+export const watchRoute = function(callback: () => void) {
+  if (callback && location) {
+    watch(location, callback)
+    return true
+  }
+  return false
+}
 
 // 获取 url 对象
 export const getLocation = function() {
-  const location = useRoute()
-  const $router = toRaw(location)
-  if ($router) {
-    return {
-      // @ts-ignore
-      path: $router.path.value,
-      // @ts-ignore
-      query: $router.query.value,
+  const value = useRoute()
+  if (value) {
+    location.value = value
+    const $router = toRaw(location.value)
+    console.log('location', $router, useRoute())
+    if ($router) {
+      return {
+        // @ts-ignore
+        path: $router.path.value,
+        // @ts-ignore
+        query: $router.query.value,
+      }
     }
   }
   return {
@@ -29,11 +42,11 @@ export const getLocation = function() {
 }
 // 获取参数
 export const getParam = function<T>(key?: string, defaultValue?: T) {
-  const location = getLocation()
+  const data = getLocation()
   if (key) {
-    return safeGet<T>(location, `query.${key}`) || defaultValue
+    return safeGet<T>(data, `query.${key}`) || defaultValue
   }
-  return safeGet<Object>(location, 'query')
+  return safeGet<Object>(data, 'query')
 }
 
 export const config = {

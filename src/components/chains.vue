@@ -1,16 +1,24 @@
 <script setup lang="ts">
+import router, { getParam } from '~/utils/router'
 import {onBeforeMount,ref } from 'vue'
-import {useRoute} from 'vue-router'
+
 import {getChains} from '~/logic/topRank/dapp'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
-import * as lang from '~/utils/lang'
-const route = useRoute()
-const chain=ref('')
-const getHref =(key:string)=>`?chain=${key}&lang=${lang.current.value}`
-onBeforeMount(()=>{
-  chain.value=route.query.chain || 'all'}
-)
+
+const chain = ref<string>('all')
+
+const getHref =(key:string)=> {
+  return router({
+    query: {
+      chain: key
+    }
+  })
+}
+
+onBeforeMount(()=> {
+  chain.value = getParam<string>('chain', 'all') as string
+})
 </script>
 <template>
   <div class="flex   md:flex-wrap flex-nowrap      font-kdFang flex-wrap md:border-b-1 border-global-highTitle  border-opacity-6" >
