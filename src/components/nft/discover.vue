@@ -1,23 +1,26 @@
 <script setup lang="ts">
 import * as API from '~/api/index'
+import { ref } from 'vue'
 import { GroupPosition } from '~/logic/dapp/interface'
-const images = [
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-  'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-]
 
-const onGetList = async function(query: object) {
-  const list = await API.dapp.discover.getList(query as any)
-  console.log(list)
+const list = ref<any[]>([])
+const query = {
+  page: 1,
+  page_size: 10
+}
+
+const onGetList = async function(value: object) {
+  Object.assign(query, value)
+  const data = await API.nft.discover.getList<any[]>(query as any)
+  list.value = data
 }
 
 const onSort = function(data: any) {
-  console.log(data)
+  onGetList({
+    page: 1,
+    ...data
+  })
 }
-
 
 
 </script>
@@ -25,6 +28,15 @@ const onSort = function(data: any) {
 <template>
   <div class="wrap-discover">
     <div class="content">
+      <div class="flex items-center justify-center">
+        <h2 class="mr-3">快速发现 NFT 新项目</h2>
+        <a class="text-white bg-global-darkblue rounded-kd34px px-4 py-2 flex items-center">
+          <IconFont type="icon-shangchuan" size="16"/>
+          <span class="text-sm ml-1.5">提交新项目</span>
+        </a>
+      </div>
+    </div>
+    <div class="content mt-8">
       <div class="flex justify-center">
         <Chains/>
       </div>
@@ -56,14 +68,14 @@ const onSort = function(data: any) {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3">
-        <UiList>
+        <UiList v-for="(data, index) in list" :key="index">
           <template #header>
             <div class="flex">
               <div class="flex-1">
-                <p class="text-lg">VIDEO GAME DEV SQUAD</p>
-                <p class="text-sm">美国媒体10日报道称，有数据显示，新冠肺炎疫情期间，纽约市在家中死亡的..美国媒体10日报道称，有数据显示，新冠肺炎疫情期间，纽约市在家中死亡的...国...新冠肺炎疫情期间...</p>
+                <p class="text-lg">{{ data.name }}</p>
+                <p class="text-sm">{{ data.description }}</p>
               </div>
-              <div class="ml-4">
+              <div class="ml-4" v-if="data.is_featured">
                 Featured
               </div>
             </div>
@@ -72,28 +84,25 @@ const onSort = function(data: any) {
             <div class="table-tr">
               <div class="td-title">
                 <div class="flex">
-                  <template v-for="(src, index) in images" :key="index">
-                    <el-avatar class="inline-block" :class="{'ml-2': index > 0}" shape="square" :size="80" fit="cover" :src="src"></el-avatar>
+                  <template v-for="(src, index) in data.gallery" :key="index">
+                    <el-avatar v-if="index < 5" class="inline-block" :class="{'ml-2': index > 0}" shape="square" :size="80" fit="cover" :src="src"></el-avatar>
                   </template>
                 </div>
               </div>
               <div class="td-data">
-                <div class="flex items-center">
-                  <IconFont class="text-base" type="Telegram"/>
-                  <span class="text-sm ml-1.5">Telegram</span>
-                  <span class="text-xs ml-1">9999 Num / 9999 Online</span>
-                </div>
-                <div class="flex items-center">
-                  <IconFont class="text-base" type="Twitter"/>
-                  <span class="text-sm ml-1.5">Twitter</span>
-                  <span class="text-xs ml-1">9999M Num / 9999K Online</span>
-                </div>
+                <template v-for="(media, key) in data.medias" :key="index">
+                  <div class="flex items-center">
+                    <IconFont class="text-base" :type="key"/>
+                    <span class="text-sm ml-1.5">{{ key }}</span>
+                    <span class="text-xs ml-1">{{ media.total_user }} Num / {{ media.online_user }} Online</span>
+                  </div>
+                </template>
               </div>
               <div class="td-price">
                 <div class="inline-block text-right">
                   <div>
-                    <span class="text-2xl">0.01 ETH</span>
-                    <IconFont type="eth"/>
+                    <span class="text-2xl">{{ data.price }} {{ data.price_unit }}</span>
+                    <IconFont :type="data.price_unit"/>
                   </div>
                   <div>
                     <span class="text-xs">7,777 Total</span>
@@ -102,28 +111,33 @@ const onSort = function(data: any) {
               </div>
               <div class="td-date">
                 <div class="text-sm">
-                  <span>2021.09.01 11:00</span>
+                  <span>{{ data.online_time }}</span>
                 </div>
                 <div class="text-xs">
-                  <span>Asia/Shanghai</span>
+                  <span>{{ data.online_timezone }}</span>
                 </div>
                 <div class="text-xs">
                   <span>剩余时间</span>
+                  <TimeCountdown :value="data.online_time">
+                    <template #default="date">
+                      {{ date.day }} : {{ date.hour }} : {{ date.minute }} : {{ date.second }}
+                    </template>
+                  </TimeCountdown>
                 </div>
               </div>
               <div class="td-operation">
-                <p class="flex items-center text-global-darkblue justify-end">
+                <a v-router="data.website" class="flex items-center text-global-darkblue justify-end">
                   <span class="text-sm">Mint</span>
                   <IconFont type="icon-right" size="xs"/>
-                </p>
+                </a>
                 <div class="pt-3">
                   <div class="star flex items-center justify-center">
                     <div class="text-center">
                       <div class="flex">
                         <IconFont type="icon-triangle" size="24"/>
                       </div>
-                      <div class="flex">
-                        <span class="text-sm">124</span>
+                      <div class="flex justify-center">
+                        <span class="text-sm">{{ data.clout }}</span>
                       </div>
                     </div>
                   </div>
@@ -137,7 +151,7 @@ const onSort = function(data: any) {
                 <IconFont type="icon-comment" size="18"/>
               </div>
               <div>
-                <p class="text-sm whitespace-pre-wrap">评测：赌猿是由120多个特征创建的7777个独特角色的集合。有些罕见特征只出现一次。项目方将在decentraland metaverse的预购土地上建造赌场，赌场收益一部分直接发送到持有者钱包，持有者可参加不对外开放的赌场活动和锦标赛：</p>
+                <p class="text-sm whitespace-pre-wrap">{{ data.comment }}</p>
               </div>
             </div>
           </template>

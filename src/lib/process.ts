@@ -14,16 +14,18 @@ export const production: Env = config.production
 
 export const oss = 'https://res.ikingdata.com'
 
+export const ApiVersion = 'v1'
+
 // 默认线上环境
-// let mode: string
+let mode: string
 
-// try {
-//   // mode = import.meta.env.MODE
-//   // @ts-ignore
-//   mode = process.env.NODE_ENV
-// } catch (e) {
-//   mode = 'production'
-// }
-// export const env: Env = mode === 'production' ? production : development
+try {
+  // mode = import.meta.env.MODE
+  // @ts-ignore
+  mode = process.env.NODE_ENV
+} catch (e) {
+  mode = 'production'
+}
+export const env: Env = mode === 'production' ? production : development
 
-export const env: Env = production
+// export const env: Env = production

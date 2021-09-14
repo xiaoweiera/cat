@@ -7,32 +7,22 @@
 import { router } from '~/utils/directive/router'
 import safeGet from '@fengqiaogang/safe-get'
 import { useRoute } from 'vue-router'
-import { ref, toRaw, watch } from 'vue'
+import { toRaw } from 'vue'
 
-const location = ref<any>(null)
-
-export const watchRoute = function(callback: () => void) {
-  if (callback && location) {
-    watch(location, callback)
-    return true
-  }
-  return false
-}
+let $router: any
 
 // 获取 url 对象
 export const getLocation = function() {
-  const value = useRoute()
-  if (value) {
-    location.value = value
-    const $router = toRaw(location.value)
-    console.log('location', $router, useRoute())
-    if ($router) {
-      return {
-        // @ts-ignore
-        path: $router.path.value,
-        // @ts-ignore
-        query: $router.query.value,
-      }
+  if (!$router) {
+    $router = useRoute()
+  }
+  if ($router) {
+    const data = toRaw($router)
+    return {
+      // @ts-ignore
+      path: data.path.value,
+      // @ts-ignore
+      query: data.query.value,
     }
   }
   return {
