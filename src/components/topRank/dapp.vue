@@ -2,7 +2,7 @@
 import {chainPage} from '~/logic/topRank/config'
 </script>
 <template>
-  <div class="border-1 pt-8  min-h-100 bg-global-topBg ">
+  <div class="border-1 pt-8  pb-13.5 min-h-100 bg-global-topBg ">
     <div class="max-w-360 px-4 md:px-20 mx-auto">
       <div class='flex md:flex-row flex-col items-center'>
         <div class='flex-1 w-full'>
