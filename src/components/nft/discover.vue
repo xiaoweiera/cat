@@ -102,8 +102,11 @@ onMounted(() => {
                 <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
                 <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5">{{ data.description }}</span>
               </div>
-              <div class="ml-4" v-if="data.is_featured">
-                Featured
+              <div class="ml-4" v-show="data.is_featured">
+                <span class="featured">
+                  <IconFont type="icon-featured" size="16"/>
+                  <span class="ml-1">Featured</span>
+                </span>
               </div>
             </div>
           </template>
@@ -191,4 +194,10 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "../dapp/list.scss";
+.featured {
+  background: #F0BF12;
+  font-size: 13px;
+  @apply py-1 px-2 rounded text-white leading-5;
+  @apply flex items-center;
+}
 </style>
