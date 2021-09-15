@@ -75,7 +75,7 @@ const onSort=(v:any)=>{
     <div class="header h-10.5 px-3 xshidden bg-global-white flex items-center rounded-kd6px">
         <template v-for="(item,i) in dappHeader">
           <div :class="i===0?item.width+item.class:item.width+item.class+' ml-6'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
-            <UiSort :key='keyNumber' v-if='item.sort' :sort='param.sort_field===item.key?param.sort_type:""' :title="item.name" :name="item.key" @onChange="onSort"></UiSort>
+            <UiSort :key='keyNumber' v-if='item.sort' :sort='param.sort_field===item.key?param.sort_type:""' :title="item.name" :name="item.key" @change="onSort"></UiSort>
             <span v-else>{{item.name}}</span>
           </div>
         </template>
@@ -83,7 +83,7 @@ const onSort=(v:any)=>{
     <div class="header h-10.5 mdhidden px-3 bg-global-white flex items-center rounded-kd6px">
         <template v-for="(item,i) in dappHeaderMobile">
           <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
-            <UiSort v-if='item.sort' :title="item.name" sort='desc' :name="item.key" @onChange="onSort"></UiSort>
+            <UiSort v-if='item.sort' :title="item.name" sort='desc' :name="item.key" @change="onSort"></UiSort>
             <span v-else>{{item.name}}</span>
           </div>
         </template>

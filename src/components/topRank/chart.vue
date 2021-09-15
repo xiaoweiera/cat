@@ -54,7 +54,7 @@ onMounted(()=>{
       </div>
     </div>
     <div class=" w-full h-full  md:h-50 mt-3  relative">
-      <div ref="echartsRef" id="rankChart" class="chartCanvas w-full h-full"></div>
+      <div  id="rankChart" class="chartCanvas w-full h-full"></div>
     </div>
 <!--    <UiLoading v-if="loading"/>-->
   </div>
