@@ -157,8 +157,8 @@ onMounted(() => {
                 </div>
               </div>
               <div class="td-data">
-                <template v-for="(media, key, j) in data.medias" :key="`${index}-${key}`">
-                  <div class="flex items-center" :class="{'mt-2.5': j > 0}">
+                <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
+                  <div class="flex items-center media-item" v-if="media">
                     <IconFont class="text-base" :type="key" bright/>
                     <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ key }}</span>
                     <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>

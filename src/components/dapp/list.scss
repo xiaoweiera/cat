@@ -46,6 +46,12 @@
       @apply w-4.5 h-4 bg-global-numRed inline-block;
     }
   }
+  .media-item {
+    @apply mt-2.5;
+    &:first-child {
+      @apply mt-0;
+    }
+  }
 }
 .comment {
   color: #009C56;
