@@ -111,7 +111,7 @@ onMounted(() => {
               <span>{{ I18n.dapp.header.type }}</span>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
-              <UiSort :title="I18n.dapp.header.time" name="online_time" @onChange="onSort"></UiSort>
+              <UiSort :title="I18n.dapp.header.time" name="online_time" @change="onSort"></UiSort>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.operate }}</span>

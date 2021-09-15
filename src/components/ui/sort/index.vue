@@ -1,6 +1,31 @@
-<script lang="ts">
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, defineProps, onMounted, defineEmits, inject } from 'vue'
 import safeSet from '@fengqiaogang/safe-set'
+import { isEmpty, uuid, forEach, isFunction } from '~/utils'
+import safeGet from '@fengqiaogang/safe-get'
+
+const emitEvent = defineEmits(['change'])
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: () => ''
+  },
+  name: {
+    type: String,
+    default: () => ''
+  },
+  sort: {
+    type: String,
+    default: () => '',
+    validator: (value: string) => {
+      if (isEmpty(value)) {
+        return true
+      }
+      return value === 'asc' || value === 'desc';
+    }
+  }
+})
 
 const getSortStatus = function(status: string) {
   if (status && status === 'asc') {
@@ -12,54 +37,44 @@ const getSortStatus = function(status: string) {
   }
 }
 
-export default {
-  name: 'sort',
-  props: {
-    title: {
-      type: String,
-      default: () => ''
-    },
-    name: {
-      type: String,
-      default: () => ''
-    },
-    sort: {
-      type: String,
-      default: () => '',
-      validator: (value: string) => {
-        if (value) {
-          if (value === 'asc' || value === 'desc') {
-            return
-          }
-          return false
-        }
-        return true
-      }
-    }
-  },
-  mounted() {
-    // @ts-ignore
-    this.status = this.sort
-  },
-  setup(props: any, context: any) {
-    const status = ref<string>(props.sort)
-    const onChangeSort = () => {
-      const value = getSortStatus(status.value)
-      status.value = value
 
-      if (props.name) {
-        const data = {}
-        safeSet(data, 'sort_field', props.name)
-        safeSet(data, 'sort_type', value)
-        context.emit('onChange', data)
-      } else {
-        context.emit('onChange', {
-          sort: value
-        })
-      }
-    }
+const status = ref<string>('')
 
-    return { status, onChangeSort }
+const setGroup = inject<any>('setSortGroup')
+const group = inject<any>('getSortGroup')
+
+onMounted(function() {
+  if (setGroup && isFunction(setGroup)) {
+    const reset = function() {
+      status.value = ''
+    }
+    setGroup(reset)
+  }
+  status.value = props.sort
+})
+
+const onChangeSort = () => {
+  const value = getSortStatus(status.value)
+  if (group) {
+    // 重置其它排序
+    forEach(function(reset: any) {
+      if (reset && isFunction(reset)) {
+        reset()
+      }
+    }, group.value)
+  }
+  // 设置当前分组的排序状态
+  status.value = value
+
+  if (props.name) {
+    const data = {}
+    safeSet(data, 'sort_field', props.name)
+    safeSet(data, 'sort_type', value)
+    emitEvent('change', data)
+  } else {
+    emitEvent('change', {
+      sort: value
+    })
   }
 }
 </script>

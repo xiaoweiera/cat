@@ -99,7 +99,7 @@ onMounted(() => {
       <!-- 表头 -->
       <UiList class="hidden md:block">
         <template #content>
-          <div class="table-tr">
+          <UiSortGroup class="table-tr">
             <div class="td-title text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.info }}</span>
             </div>
@@ -107,22 +107,22 @@ onMounted(() => {
               <span>{{ I18n.dapp.header.mediaData }}</span>
             </div>
             <div class="td-price text-global-highTitle text-opacity-65">
-              <UiSort title="Mint Price / Supply" name="price" @onChange="onSort"></UiSort>
+              <UiSort title="Mint Price / Supply" name="price" @change="onSort"></UiSort>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65">
-              <UiSort title="Sale Date / Time" name="online_time" @onChange="onSort"></UiSort>
+              <UiSort title="Sale Date / Time" name="online_time" @change="onSort"></UiSort>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.operate }}</span>
             </div>
-          </div>
+          </UiSortGroup>
         </template>
       </UiList>
       <!-- 内容 -->
       <div class="mt-3" v-if="list.length > 0">
         <UiList class="nft-item-box" v-for="(data, index) in list" :key="index">
           <template #header>
-            <div>
+            <div class="flex">
               <div class="flex-1">
                 <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
                 <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5">{{ data.description }}</span>

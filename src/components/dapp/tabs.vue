@@ -3,9 +3,11 @@ import { ref, onMounted, watch, defineProps, defineEmits } from 'vue'
 import { getParam } from '~/utils/router'
 import { useRoute } from 'vue-router'
 import * as API from '~/api/index'
-import { equalsIgnoreCase } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
 import { GroupPosition } from '~/logic/dapp/interface'
+import { chain } from '~/store/config'
+import { equalsIgnoreCase, isEmpty, map } from '~/utils'
+
 const props = defineProps({
   position: {
     type: String,
@@ -22,15 +24,11 @@ const props = defineProps({
       return false
     }
   },
-  chain: {
-    type: String,
-    default: () => 'all'
-  }
 })
 
 const getGroupAll = function() {
   const all: any = {
-    id: 'all',
+    id: '',
     initial: {
       text: '全部类型'
     },
@@ -43,8 +41,6 @@ const getGroupAll = function() {
 
 const list = ref<any[]>(getGroupAll())
 
-
-
 const emitEvent = defineEmits(['change'])
 
 const tabValue = ref<string>('')
@@ -54,29 +50,52 @@ const $router = useRoute()
 const getGroupList = async function() {
   const query: any = {
     position: props.position,
-    chain: props.chain
+    chain: chain.value
   }
   const data = await API.dapp.group.getList<any>(query)
   if (data) {
-
-    list.value = [getGroupAll()].concat(data)
+    list.value = map(function(item: any) {
+      item.href = {
+        'query': {
+          group: item.id,
+          chain: chain.value
+        }
+      }
+      return item
+    }, [getGroupAll()].concat(data))
+  } else {
+    list.value = []
   }
 }
 
-const setType = function() {
-  const value = getParam<string>('group', '')
-  tabValue.value = value as string
+const isActive = function(id: string) {
+  if (id) {
+    return equalsIgnoreCase(`${tabValue.value}`, `${id}`);
+  }
+  return id === tabValue.value
+}
 
+const setType = function(value: string) {
+  if (isEmpty(value)) {
+    value = ''
+  }
+  tabValue.value = value
   emitEvent('change', {
-    chain: props.chain || 'all',
+    chain: chain.value || 'all',
     group_id: value
   })
 }
 
 onMounted(function() {
-  setType()
+  setType(getParam<string>('group', '') as string)
   getGroupList()
-  watch([$router, props], setType)
+  watch([$router, props], function() {
+    setType(getParam<string>('group', '') as string)
+  })
+  watch(chain, async function() {
+    await getGroupList()
+    setType('')
+  })
 })
 
 </script>
@@ -85,7 +104,7 @@ onMounted(function() {
   <div class="md:flex py-3.5">
     <div class="md:flex-1 md:pr-6">
       <template v-for="(item, index) in list" :key="index">
-        <router-link v-if="index < 7" class="tab-item" :class="{'active': equalsIgnoreCase(item.id, tabValue)}" :to="{'query': { group: item.id }}">
+        <router-link v-if="index < 7" :to="item.href" class="tab-item" :class="{'active': isActive(item.id)}">
           <template v-if="safeGet(item, 'initial.image')">
             <div class="initial image">
               <img :src="safeGet(item, 'initial.image')">
