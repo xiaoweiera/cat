@@ -3,7 +3,7 @@
 import {dappHeader,dappHeaderMobile} from '~/logic/topRank/config'
 import {chain} from '~/store/config'
 import {dappList} from '~/logic/topRank/dapp'
-import {reactive,onMounted,ref} from 'vue'
+import {reactive,onMounted,ref,watch} from 'vue'
 import I18n from '~/utils/i18n/index'
 const param=reactive({
   chain:chain.value,
@@ -26,6 +26,7 @@ const more=()=>{
   getData()
 }
 onMounted(()=>getData())
+
 </script>
 <template>
   <div>
