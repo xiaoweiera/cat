@@ -63,3 +63,16 @@ export const dateDiffSecond = function(time: number, now: number = dateTime()): 
   const number = parseInt(((duration / 1000) % 60) as any, 10)
   return number
 }
+
+export const isBefore = function(oldTime: any, now: any = dateTime()): boolean {
+  if (oldTime && now) {
+    const old = toDate(oldTime)
+    return dayjs(now).isSame(old, 'day')
+  }
+  return true
+}
+
+export const isAfter = function(oldTime: any, now: any = dateTime()): boolean {
+  const before = isBefore(oldTime, now)
+  return !before;
+}

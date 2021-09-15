@@ -2,6 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
+import { isAfter } from '~/utils/time'
 import { GroupPosition } from '~/logic/dapp/interface'
 import { toNumberCashFormat, toInteger, toArray, debounce, dateFormat } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
@@ -73,11 +74,11 @@ onMounted(() => {
     <div class="content">
       <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
         <div class="tabs-operate">
-          <div class="mt-4 md:mt-0">
+          <div class="mt-4 md:mt-0 hidden">
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
           </div>
-          <div class="flex items-center">
+          <div class="flex flex-1 items-center md:justify-end">
             <div class="max-w-56 min-w-34">
               <el-input :placeholder="I18n.dapp.group.search" v-model="search" size="small">
                 <template #prefix>
@@ -175,7 +176,7 @@ onMounted(() => {
                     </span>
                   </div>
                 </div>
-                <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap" v-if="data.online_time">
+                <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
                   <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                   <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
