@@ -1,6 +1,7 @@
 import * as chainApi from '~/api/chains'
 //@ts-ignore
 import * as api from '~/api/topRank/dapp'
+import * as apiNft from '~/api/topRank/nft'
 import { dappListModel } from '~/logic/topRank/interface'
 
 const getRes = (obj: any) => {
@@ -16,84 +17,55 @@ export const getChains = async (page: string) => {
 }
 //dapp列表
 export const dappList = async (param: dappListModel) => {
-  // const result=await api.getDappList(param)
-  const result = [
-    {
-      'id': 1,
-      'name': 'Uniswap',
-      'logo': '',
-      'website': 'https://www.uniswap.org',
-      'chain': [{
-        'name': 'BSC',
-        'slug': 'BSC',
-        'logo': '',
+  const result=await api.getDappList(param)
+  return getRes(result)
+}
+export const getChart=async (page:string)=>{
+  let result
+  if(page){
+    result=await api.chart()
+  }else{
+    result=await apiNft.chart()
+  }
+  result={
+    "interval": "7D",
+    "tvl": 234324,
+    "tvl_change_percent": 23.2,
+    "legends": [
+      {
+        "type": "",
+        "color": "red",
+        "kline": false,
+        "unit": "$",
+        "tvl": 324234,
       },
-        {
-          'name': 'BTC',
-          'slug': 'BTC',
-          'logo': '',
-        },
-      ],
-      'category': '借贷',
-      'users': 100,
-      'user_change_percent': 23.,
-      'revenue': 300.234,
-      'revenue_change_percent': 22.2,
-      'tvl': 240,
-      'tvl_change_percent': 43.2,
-      'compare_rate': 99,
-    },
-    {
-      'id': 2,
-      'name': 'wowowow',
-      'logo': '',
-      'website': 'https://www.uniswap.org',
-      'chain': [{
-        'name': 'ETH',
-        'slug': 'ETH',
-        'logo': '',
+    ],
+    "series": [
+      {
+        "value": 120,
+        "detail": ""
       },
-        {
-          'name': 'BTC',
-          'slug': 'BTC',
-          'logo': '',
-        },
-      ],
-      'category': '借贷',
-      'users': 520,
-      'user_change_percent': 23.3,
-      'revenue': 90.234,
-      'revenue_change_percent': 22.2,
-      'tvl': 88.23,
-      'tvl_change_percent': 123.2,
-      'compare_rate': 99,
-    },
-    {
-      'id': 3,
-      'name': 'nihao',
-      'logo': '',
-      'website': 'https://www.uniswap.org',
-      'chain': [{
-        'name': 'OEC',
-        'slug': 'OEC',
-        'logo': '',
+      {
+        "value": 130,
+        "detail": ""
       },
-        {
-          'name': 'BTC',
-          'slug': 'BTC',
-          'logo': '',
-        },
-      ],
-      'category': '借贷',
-      'users': 810,
-      'user_change_percent': 23.3,
-      'revenue': 360.234,
-      'revenue_change_percent': 22.2,
-      'tvl': 620.23,
-      'tvl_change_percent': 53.2,
-      'compare_rate': 99,
-    },
-  ]
+      {
+        "value": 30,
+        "detail": ""
+      },
+      {
+        "value": 50,
+        "detail": ""
+      },
+    ],
+    "xAxis": [
+      1614787200,
+      1614873600,
+      1614960000,
+      1615046400
+    ]
+  }
   return result
-  // return getRes(result)
+  console.log(getRes(result))
+  return getRes(result)
 }
