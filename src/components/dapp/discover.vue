@@ -165,17 +165,17 @@ onMounted(() => {
               </div>
               <div class="td-date">
                 <div class="flex md:block items-center">
-                  <div class="text-sm whitespace-nowrap">
+                  <div class="text-sm whitespace-nowrap" v-if="data.online_time">
                     <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
                   </div>
-                  <div class="text-xs whitespace-nowrap">
+                  <div class="text-xs whitespace-nowrap" v-if="data.online_timezone">
                     <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
                       <span class="mx-1 md:hidden">/</span>
                       <span>{{ data.online_timezone }}</span>
                     </span>
                   </div>
                 </div>
-                <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap">
+                <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap" v-if="data.online_time">
                   <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                   <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
