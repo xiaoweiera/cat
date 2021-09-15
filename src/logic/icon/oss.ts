@@ -4,8 +4,8 @@
  */
 
 import { oss } from '~/lib/process'
-import { equalsIgnoreCase, isHttp } from '~/utils'
 
+import { isHttp,equalsIgnoreCase } from '~/utils'
 const statusRight = 'status-right' // 右侧箭头
 
 // 保存在 Ali OSS 中的图标

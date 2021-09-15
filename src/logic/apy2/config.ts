@@ -1,5 +1,5 @@
 import I18n from '~/utils/i18n/index'
-export const chains=[
+export const chains=[ 
     {key:'all',name:I18n.apyIndex.allChain,icon:'https://res.ikingdata.com/apyTwo/allChain.png'},
     {key:'SOLANA',name:'Solana',icon:'https://res.ikingdata.com/apyTwo/sol.png'},
     {key:'eth',name:'ETH',icon:'https://res.ikingdata.com/apyTwo/ethChain.png'},
