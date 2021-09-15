@@ -133,7 +133,7 @@ onMounted(() => {
                     </div>
                     <div>
                       <span class="block text-lg font-medium text-global-highTitle leading-5 whitespace-pre-wrap">{{ data.name }}</span>
-                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 whitespace-pre-wrap line-clamp-3">{{ data.description }}</span>
+                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 whitespace-pre-wrap line-clamp-3" v-if="data.description">{{ data.description }}</span>
                     </div>
                   </div>
                 </div>
@@ -191,9 +191,7 @@ onMounted(() => {
                 <DappOperation :data="data"/>
               </div>
             </div>
-          </template>
-          <template #footer>
-            <div class="flex comment text-kdFang">
+            <div class="flex comment text-kdFang mt-4" v-if="data.comment">
               <div class="pr-1.5">
                 <IconFont type="icon-comment" size="18"/>
               </div>

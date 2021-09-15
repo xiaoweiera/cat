@@ -126,7 +126,7 @@ onMounted(() => {
             <div class="flex text-kdFang">
               <div class="flex-1">
                 <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
-                <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5">{{ data.description }}</span>
+                <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">{{ data.description }}</span>
               </div>
               <div class="ml-4" v-show="data.is_featured">
                 <span class="featured">
@@ -150,7 +150,7 @@ onMounted(() => {
                       <span class="block text-lg font-medium text-global-highTitle leading-5">
                         <span>{{ data.name }}</span><IconFont class="text-global-golden inline-block leading-5 align-middle ml-1.5" type="icon-featured" size="18"/>
                       </span>
-                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 line-clamp-3">{{ data.description }}</span>
+                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 line-clamp-3" v-if="data.description">{{ data.description }}</span>
                     </div>
                     <DappOperation class="ml-4" :data="data"/>
                   </div>
@@ -203,9 +203,7 @@ onMounted(() => {
                 <DappOperation :data="data"/>
               </div>
             </div>
-          </template>
-          <template #footer>
-            <div class="flex comment text-kdFang">
+            <div class="flex comment text-kdFang mt-4" v-if="data.comment">
               <div class="pr-1.5">
                 <IconFont type="icon-comment" size="18"/>
               </div>
