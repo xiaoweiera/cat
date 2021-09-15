@@ -100,7 +100,7 @@ onMounted(() => {
       <!-- 表头 -->
       <UiList class="hidden md:block">
         <template #content>
-          <div class="table-tr">
+          <div class="table-tr text-kdFang">
             <div class="td-title text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.info }}</span>
             </div>
@@ -123,7 +123,7 @@ onMounted(() => {
       <div class="mt-3" v-if="list.length > 0">
         <UiList v-for="(data, index) in list" :key="index">
           <template #content>
-            <div class="table-tr">
+            <div class="table-tr text-kdFang">
               <div class="td-title flex">
                 <div class="flex-1">
                   <div class="flex">
@@ -192,7 +192,7 @@ onMounted(() => {
             </div>
           </template>
           <template #footer>
-            <div class="flex comment">
+            <div class="flex comment text-kdFang">
               <div class="pr-1.5">
                 <IconFont type="icon-comment" size="18"/>
               </div>

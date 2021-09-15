@@ -6,7 +6,7 @@ const apply = 'http://ikingdata.mikecrm.com/ijyjMFO'
 <template>
   <div class="bg-white">
     <div class="pt-4 md:pt-8 px-4">
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center text-kdFang">
         <h2 class="mr-3 text-global-highTitle text-32 hidden md:block">{{ I18n.dapp.title }}</h2>
         <h2 class="mr-3 text-global-highTitle text-kd22px22px block md:hidden ">{{ I18n.dapp.title }}</h2>
         <a v-router.blank="apply" class="text-white bg-global-darkblue rounded-kd34px px-4 py-2 flex items-center whitespace-nowrap">

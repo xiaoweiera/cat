@@ -102,7 +102,7 @@ onMounted(function() {
 
 <template>
   <div class="md:flex py-3.5">
-    <div class="md:flex-1 md:pr-6">
+    <div class="md:flex-1 md:pr-6 text-kdFang">
       <template v-for="(item, index) in list" :key="index">
         <router-link v-if="index < 7" :to="item.href" class="tab-item" :class="{'active': isActive(item.id)}">
           <template v-if="safeGet(item, 'initial.image')">
@@ -143,7 +143,7 @@ onMounted(function() {
     &:before {
       content: "";
       width: 1px;
-      @apply bg-global-highTitle bg-opacity-1;
+      @apply bg-global-highTitle bg-opacity-10;
       @apply inline-block h-4 mr-3;
     }
   }

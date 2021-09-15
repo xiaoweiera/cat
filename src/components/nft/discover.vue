@@ -70,7 +70,7 @@ onMounted(() => {
   <div class="wrap-discover">
     <div class="content">
       <DappTabs :position="GroupPosition.nftNew" @change="onGetList">
-        <div class="tabs-operate">
+        <div class="tabs-operate text-kdFang">
           <div class="mt-4 md:mt-0">
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
@@ -99,7 +99,7 @@ onMounted(() => {
       <!-- 表头 -->
       <UiList class="hidden md:block">
         <template #content>
-          <UiSortGroup class="table-tr">
+          <UiSortGroup class="table-tr text-kdFang">
             <div class="td-title text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.info }}</span>
             </div>
@@ -122,7 +122,7 @@ onMounted(() => {
       <div class="mt-3" v-if="list.length > 0">
         <UiList class="nft-item-box" v-for="(data, index) in list" :key="index">
           <template #header>
-            <div class="flex">
+            <div class="flex text-kdFang">
               <div class="flex-1">
                 <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
                 <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5">{{ data.description }}</span>
@@ -136,7 +136,7 @@ onMounted(() => {
             </div>
           </template>
           <template #content>
-            <div class="table-tr">
+            <div class="table-tr text-kdFang">
               <div class="td-title">
                 <div class="flex">
                   <template v-for="(src, index) in data.gallery" :key="index">
@@ -204,7 +204,7 @@ onMounted(() => {
             </div>
           </template>
           <template #footer>
-            <div class="flex comment">
+            <div class="flex comment text-kdFang">
               <div class="pr-1.5">
                 <IconFont type="icon-comment" size="18"/>
               </div>
