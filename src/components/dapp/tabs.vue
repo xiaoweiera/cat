@@ -82,8 +82,8 @@ onMounted(function() {
 </script>
 
 <template>
-  <div class="flex py-3.5">
-    <div class="flex-1 pr-6">
+  <div class="md:flex py-3.5">
+    <div class="md:flex-1 md:pr-6">
       <template v-for="(item, index) in list" :key="index">
         <router-link v-if="index < 7" class="tab-item" :class="{'active': equalsIgnoreCase(item.id, tabValue)}" :to="{'query': { group: item.id }}">
           <template v-if="safeGet(item, 'initial.image')">
@@ -118,12 +118,15 @@ onMounted(function() {
 
 <style scoped lang="scss">
 .tabs-other {
-  @apply w-115 flex items-center;
-  &:before {
-    content: "";
-    width: 1px;
-    @apply bg-global-highTitle bg-opacity-1;
-    @apply inline-block h-4 mr-3;
+  @apply flex items-center mt-4;
+  @screen md {
+    @apply w-115 mt-0;
+    &:before {
+      content: "";
+      width: 1px;
+      @apply bg-global-highTitle bg-opacity-1;
+      @apply inline-block h-4 mr-3;
+    }
   }
 }
 

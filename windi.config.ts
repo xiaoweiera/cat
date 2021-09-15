@@ -16,6 +16,7 @@ const cssGlobal = {
     time:'#A2A4A8',
     noSelect:'#A8A8A8',
     white:'#FFFFFF',
+    golden: '#D1A300',
     grey: '#7b8db1',
     money: '#F88923',
     disabled: '#cccccc', // 禁用，灰色

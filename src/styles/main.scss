@@ -49,3 +49,22 @@ html.dark {
     hover:opacity-100 hover:text-teal-600;
   font-size: 0.9em;
 }
+
+@mixin clamp($number: 1) {
+  .line-clamp-#{$number} {
+    display: -webkit-box ;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $number;
+  }
+}
+
+body {
+  @for $i from 1 through 10 {
+    @include clamp($i);
+  }
+}
+
+

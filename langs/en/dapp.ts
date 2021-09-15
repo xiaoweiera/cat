@@ -7,10 +7,10 @@ export default {
   },
   header: {
     info: 'Project information',
-    mediaData: 'media data',
+    mediaData: 'Media data',
     type: 'Type',
-    time: 'online time ',
-    operate: 'operate'
+    time: 'Online time ',
+    operate: 'Operate'
   },
   website: 'Mint',
   timeEnd: 'Time left'

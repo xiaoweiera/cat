@@ -2,7 +2,7 @@
 import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
 import { onMounted, ref, watch } from 'vue'
-import { toArray, toInteger, toNumberCashFormat } from '~/utils'
+import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
 import safeGet from '@fengqiaogang/safe-get'
 
@@ -12,7 +12,17 @@ const search = ref<string>('')
 const page = ref<number>(1)
 const limit = ref<number>(10)
 const total = ref<number>(10) // 默认总条数
+const sortValue = ref<string>('')
 
+const sortList = ref<any>([
+  {
+    label: '按上线时间降序',
+    value: '{"online_time": "desc"}'
+  }, {
+    label: '按上线时间升序',
+    value: '{"online_time": "asc"}'
+  }
+])
 
 const onGetList = async function(value?: object) {
   const param = Object.assign({
@@ -31,12 +41,17 @@ const onGetList = async function(value?: object) {
   list.value.push(...array)
 }
 
-const onSort = function(data?: any) {
+const onSort = debounce<any>(function(data?: any) {
   list.value = []
   const value = Object.assign({}, data ? data : {}, {
     page: 1,
   })
   return onGetList(value)
+})
+
+const onChangeSort = function(value: string) {
+  const data = JSON.parse(value)
+  return onSort(data)
 }
 
 const onNext = function() {
@@ -55,24 +70,34 @@ onMounted(() => {
   <div class="wrap-discover">
     <div class="content">
       <DappTabs :position="GroupPosition.nftNew" @change="onGetList">
-        <div class="flex items-center justify-between w-full">
-          <div>
+        <div class="tabs-operate">
+          <div class="mt-4 md:mt-0">
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
           </div>
-          <div>
-            <el-input :placeholder="I18n.dapp.group.viewOnline" v-model="search" size="small">
-              <template #prefix>
-                <i class="el-input__icon el-icon-search"></i>
-              </template>
-            </el-input>
+          <div class="flex items-center">
+            <div class="max-w-56 min-w-34">
+              <el-input :placeholder="I18n.dapp.group.search" v-model="search" size="small">
+                <template #prefix>
+                  <i class="el-input__icon el-icon-search"></i>
+                </template>
+              </el-input>
+            </div>
+            <div class="max-w-50 min-w-40 ml-4 flex-1 block md:hidden">
+              <el-select v-model="sortValue" @change="onChangeSort" placeholder="请选择排序方式" size="small">
+                <template v-for="(item, index) in sortList" :key="index">
+                  <el-option :label="item.label" :value="item.value"></el-option>
+                </template>
+              </el-select>
+            </div>
           </div>
         </div>
       </DappTabs>
     </div>
 
     <div class="content mt-3">
-      <UiList>
+      <!-- 表头 -->
+      <UiList class="hidden md:block">
         <template #content>
           <div class="table-tr">
             <div class="td-title text-global-highTitle text-opacity-65">
@@ -95,9 +120,9 @@ onMounted(() => {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3" v-if="list.length > 0">
-        <UiList v-for="(data, index) in list" :key="index">
+        <UiList class="nft-item-box" v-for="(data, index) in list" :key="index">
           <template #header>
-            <div class="flex">
+            <div>
               <div class="flex-1">
                 <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
                 <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5">{{ data.description }}</span>
@@ -118,6 +143,17 @@ onMounted(() => {
                     <el-avatar v-if="index < 5" class="inline-block" :class="{'ml-2': index > 0}" shape="square" :size="80" fit="cover" :src="src"></el-avatar>
                   </template>
                 </div>
+                <div class="md:hidden mt-5">
+                  <div class="flex justify-between">
+                    <div>
+                      <span class="block text-lg font-medium text-global-highTitle leading-5">
+                        <span>{{ data.name }}</span><IconFont class="text-global-golden inline-block leading-5 align-middle ml-1.5" type="icon-featured" size="18"/>
+                      </span>
+                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 line-clamp-3">{{ data.description }}</span>
+                    </div>
+                    <DappOperation class="ml-4" :data="data"/>
+                  </div>
+                </div>
               </div>
               <div class="td-data">
                 <template v-for="(media, key, j) in data.medias" :key="`${index}-${key}`">
@@ -129,24 +165,29 @@ onMounted(() => {
                 </template>
               </div>
               <div class="td-price">
-                <div class="inline-block text-right">
+                <div class="flex items-center md:inline-block md:text-right">
                   <div>
                     <span class="text-2xl text-global-numGreen">{{ data.price }} {{ data.price_unit }}</span>
                     <IconFont :type="data.price_unit"/>
                   </div>
-                  <div>
+                  <div class="ml-1 md:ml-0">
                     <span class="text-xs leading-4 text-global-highTitle text-opacity-45">{{ toNumberCashFormat(data.issue_volume, 'Total') }}</span>
                   </div>
                 </div>
               </div>
-              <div class="td-date text-right">
-                <div class="text-sm">
-                  <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ data.online_time }}</span>
+              <div class="td-date">
+                <div class="flex md:block items-center">
+                  <div class="text-sm whitespace-nowrap">
+                    <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
+                  </div>
+                  <div class="text-xs whitespace-nowrap">
+                    <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
+                      <span class="mx-1 md:hidden">/</span>
+                      <span>{{ data.online_timezone }}</span>
+                    </span>
+                  </div>
                 </div>
-                <div class="text-xs">
-                  <span class="text-global-highTitle text-opacity-85 text-xs leading-3">{{ data.online_timezone }}</span>
-                </div>
-                <div class="text-xs mt-2.5">
+                <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap">
                   <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                   <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
@@ -157,14 +198,8 @@ onMounted(() => {
                   </span>
                 </div>
               </div>
-              <div class="td-operation">
-                <a v-router="data.website" class="flex items-center text-global-darkblue justify-end">
-                  <span class="text-sm">{{ I18n.dapp.website }}</span>
-                  <IconFont type="icon-right" size="xs"/>
-                </a>
-                <div class="pt-3">
-                  <DappStar :id="data.id" :value="data.clout" :clouted="data.is_clouted"/>
-                </div>
+              <div class="td-operation hidden md:block">
+                <DappOperation :data="data"/>
               </div>
             </div>
           </template>
@@ -195,9 +230,18 @@ onMounted(() => {
 <style scoped lang="scss">
 @import "../dapp/list.scss";
 .featured {
-  background: #F0BF12;
-  font-size: 13px;
+  @apply text-xs;
   @apply py-1 px-2 rounded text-white leading-5;
   @apply flex items-center;
+  @apply bg-global-golden;
+}
+
+.nft-item-box {
+  ::v-deep(.list-header) {
+    @apply pb-0 hidden;
+    @screen md {
+      @apply pb-4 block;
+    }
+  }
 }
 </style>

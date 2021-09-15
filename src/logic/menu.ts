@@ -90,9 +90,6 @@ export const headers = [
     children: [
       {
         name: I18n.menu.dapp.ranking,
-        icon: 'icon-paihang',
-        desc: '快速发现高收益矿池',
-        more: true,
         header: true
       },
       {
@@ -102,6 +99,9 @@ export const headers = [
       {
         name: I18n.menu.dapp.discover,
         header: true,
+        more: true,
+        desc: '快速发现高收益矿池',
+        icon: 'icon-paihang',
         href: `${config.dapp}/discover`,
       },
       {

@@ -1,23 +1,36 @@
 .wrap-discover {
   background-color: #FAFBFC;
-  @apply pb-15;
+  @apply pb-15 px-4;
 }
 .content {
   @apply max-w-320 mx-auto;
 }
 .table-tr {
-  @apply flex items-center justify-between;
+  @screen md {
+    @apply flex items-center justify-between;
+  }
   .td-title {
-    @apply w-124 pr-20;
+    @screen md {
+      @apply w-124 pr-20;
+    }
   }
   .td-data {
-    @apply w-71;
+    @apply mt-5;
+    @screen md {
+      @apply w-71 mt-0;
+    }
   }
   .td-price {
-    @apply w-55;
+    @apply mt-5;
+    @screen md {
+      @apply w-55 mt-0;
+    }
   }
   .td-date {
-    @apply w-50 pr-10;
+    @apply mt-5;
+    @screen md {
+      @apply mt-0 w-50 pr-10 text-right;
+    }
   }
   .td-operation {
     @apply flex-1 text-right;
@@ -38,4 +51,12 @@
   color: #009C56;
   @apply py-1.5 pl-3 pr-1.5 rounded-md;
   @apply bg-global-numGreen bg-opacity-4;
+}
+
+.tabs-operate {
+  @apply flex w-full;
+  @apply flex-col-reverse; /* 从下往上 */
+  @screen md {
+    @apply items-center justify-between flex-row;
+  }
 }
