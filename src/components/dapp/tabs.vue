@@ -85,7 +85,7 @@ onMounted(function() {
   <div class="flex py-3.5">
     <div class="flex-1 pr-6">
       <template v-for="(item, index) in list" :key="index">
-        <router-link v-if="index < 6" class="tab-item" :class="{'active': equalsIgnoreCase(item.id, tabValue)}" :to="{'query': { group: item.id }}">
+        <router-link v-if="index < 7" class="tab-item" :class="{'active': equalsIgnoreCase(item.id, tabValue)}" :to="{'query': { group: item.id }}">
           <template v-if="safeGet(item, 'initial.image')">
             <div class="initial image">
               <img :src="safeGet(item, 'initial.image')">
@@ -110,7 +110,9 @@ onMounted(function() {
         </router-link>
       </template>
     </div>
-    <div class="tabs-other"></div>
+    <div class="tabs-other">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -131,7 +133,8 @@ onMounted(function() {
     @apply cursor-pointer;
   }
   .text {
-    @apply inline-block py-1.5 px-2.5;
+    transition: all 0.3s;
+    @apply inline-block py-1.5 px-2.5 text-sm text-global-highTitle text-opacity-85;
   }
   .initial {
     @apply block;
@@ -148,8 +151,7 @@ onMounted(function() {
     }
     .text {
       border-radius: 30px;
-      @apply text-global-primary;
-      @apply bg-global-primary bg-opacity-10;
+      @apply font-medium text-global-primary bg-global-primary bg-opacity-10;
     }
   }
   img {

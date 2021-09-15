@@ -1,5 +1,12 @@
-import { equalsIgnoreCase } from '~/utils'
+import { equalsIgnoreCase, isEmpty } from '~/utils'
 
+const brights = {
+  'discard': 'icon-discord',
+  'medium': 'icon-medium',
+  'weibo': 'icon-weibo',
+  'telegram': 'icon-telegram-bright',
+  'twitter': 'icon-twitter-bright'
+}
 
 const aliasConfig = {
   // 简化
@@ -16,6 +23,7 @@ const aliasConfig = {
   'phone': 'icon-shouji',
   'medium':'icon-medium1',
   'discard': 'icon-discord1',
+
   // 链
   'BSC': 'icon-BSC',
   'HOO': 'icon-HOO',
@@ -36,14 +44,26 @@ const aliasConfig = {
   'Liquidity': 'icon-L',
 }
 
-const getAlias = function(value: string): string {
+const getAlias = function(value: string, bright?: boolean): string {
   if (value) {
-    let link: string = value
-    for(const name in aliasConfig) {
-      if (equalsIgnoreCase(name, value)) {
-        // @ts-ignore
-        link = aliasConfig[name]
-        break
+    let link: string = ''
+    if (bright) {
+      for(const name in brights) {
+        if (equalsIgnoreCase(name, value)) {
+          // @ts-ignore
+          link = brights[name]
+          break
+        }
+      }
+    }
+    if (isEmpty(link)) {
+      link = value
+      for(const name in aliasConfig) {
+        if (equalsIgnoreCase(name, value)) {
+          // @ts-ignore
+          link = aliasConfig[name]
+          break
+        }
       }
     }
     return link;

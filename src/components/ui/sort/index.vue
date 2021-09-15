@@ -3,12 +3,12 @@ import { ref } from 'vue'
 import safeSet from '@fengqiaogang/safe-set'
 
 const getSortStatus = function(status: string) {
-  if (status && status === 'ascend') {
+  if (status && status === 'asc') {
     return ''
-  } else if (status && status === 'descend') {
-    return 'ascend'
+  } else if (status && status === 'desc') {
+    return 'asc'
   } else {
-    return 'descend'
+    return 'desc'
   }
 }
 
@@ -28,7 +28,7 @@ export default {
       default: () => '',
       validator: (value: string) => {
         if (value) {
-          if (value === 'ascend' || value === 'descend') {
+          if (value === 'asc' || value === 'desc') {
             return
           }
           return false
@@ -49,7 +49,8 @@ export default {
 
       if (props.name) {
         const data = {}
-        safeSet(data, props.name, value)
+        safeSet(data, 'sort_field', props.name)
+        safeSet(data, 'sort_type', value)
         context.emit('onChange', data)
       } else {
         context.emit('onChange', {
@@ -70,10 +71,10 @@ export default {
         <span>{{ title }}</span>
       </slot>
     </div>
-    <template v-if="status === 'ascend'">
+    <template v-if="status === 'asc'">
       <IconFont type="icon-paixu-shang" size="15"/>
     </template>
-    <template v-else-if="status === 'descend'">
+    <template v-else-if="status === 'desc'">
       <IconFont type="icon-paixu-xia" size="15"/>
     </template>
     <template v-else>
