@@ -1,4 +1,12 @@
 export default {
+  dapp: {
+    ranking: 'Dapp Ranking',
+    discover: 'Dapp New Project'
+  },
+  nft: {
+    ranking: 'NFT Ranking',
+    discover: 'NFT New Project'
+  },
   apy: {
     mining: 'Farm APY',
     loan: 'Borrow APR',

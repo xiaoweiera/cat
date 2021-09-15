@@ -1,4 +1,12 @@
 export default {
+  dapp: {
+    ranking: 'Dapp 排行榜',
+    discover: 'Dapp 新项目'
+  },
+  nft: {
+    ranking: 'NFT 排行版',
+    discover: 'NFT 新项目'
+  },
   apy: {
     mining: '挖矿 APY',
     loan: '借贷APR',

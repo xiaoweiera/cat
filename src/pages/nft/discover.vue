@@ -1,22 +1,16 @@
-<script lang="ts">
-import Discover from "~/components/nft/discover.vue"
-
-export default {
-  name: 'NFT',
-  components: {
-    Discover
-  }
-}
+<script setup lang="ts">
+import I18n from '~/utils/i18n/index'
+const apply = 'http://ikingdata.mikecrm.com/ijyjMFO'
 </script>
 
 <template>
   <div class="pt-8 bg-white">
     <div>
       <div class="flex items-center justify-center">
-        <h2 class="mr-3 text-global-highTitle text-32">快速发现 NFT 新项目</h2>
-        <a class="text-white bg-global-darkblue rounded-kd34px px-4 py-2 flex items-center">
+        <h2 class="mr-3 text-global-highTitle text-32">{{ I18n.nft.title }}</h2>
+        <a v-router.blank="apply" class="text-white bg-global-darkblue rounded-kd34px px-4 py-2 flex items-center">
           <IconFont type="icon-shangchuan" size="16"/>
-          <span class="text-sm ml-1.5">提交新项目</span>
+          <span class="text-sm ml-1.5">{{ I18n.dapp.apply }}</span>
         </a>
       </div>
     </div>
@@ -26,7 +20,7 @@ export default {
       </div>
     </div>
     <div>
-      <Discover/>
+      <NftDiscover/>
     </div>
   </div>
 </template>

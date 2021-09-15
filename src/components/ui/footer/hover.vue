@@ -1,23 +1,33 @@
 <script setup lang="ts">
-import { defineProps } from "vue"
-defineProps({
+import { defineProps, computed } from "vue"
+import { isHttp } from '~/utils'
+
+const props = defineProps({
   desc: {
     type: String
   },
   href: {
-    type: Boolean
+    type: String
   },
 })
+
+const router = computed<string>(function() {
+  if (props.href && isHttp(props.href)) {
+    return props.href
+  }
+  return ''
+})
+
 </script>
 
 <template>
   <UiHover width="inherit">
     <template #label>
       <div>
-        <a class="hidden md:block cursor-pointer">
+        <a class="hidden md:block cursor-pointer" v-router.blank="router">
           <slot></slot>
         </a>
-        <a class="block md:hidden" v-router.blank="href">
+        <a class="block md:hidden" v-router.blank="router">
           <slot></slot>
         </a>
       </div>

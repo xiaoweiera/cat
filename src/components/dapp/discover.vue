@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import * as API from '~/api/index'
+import I18n from '~/utils/i18n/index'
 import { GroupPosition } from '~/logic/dapp/interface'
 import { toNumberCashFormat, toInteger, toArray } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
@@ -57,11 +58,11 @@ onMounted(() => {
       <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
         <div class="flex items-center justify-between w-full">
           <div>
-            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">查看已上线项目</span>
+            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
           </div>
           <div>
-            <el-input placeholder="搜索项目" v-model="search" size="small">
+            <el-input :placeholder="I18n.dapp.group.viewOnline" v-model="search" size="small">
               <template #prefix>
                 <i class="el-input__icon el-icon-search"></i>
               </template>
@@ -75,19 +76,19 @@ onMounted(() => {
         <template #content>
           <div class="table-tr">
             <div class="td-title text-global-highTitle text-opacity-65">
-              <span>项目信息</span>
+              <span>{{ I18n.dapp.header.info }}</span>
             </div>
             <div class="td-data text-global-highTitle text-opacity-65">
-              <span>社媒数据</span>
+              <span>{{ I18n.dapp.header.mediaData }}</span>
             </div>
             <div class="td-price text-global-highTitle text-opacity-65">
-              <span>项目类型</span>
+              <span>{{ I18n.dapp.header.type }}</span>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
-              <UiSort title="Sale Date / Time" name="online_time" @onChange="onSort"></UiSort>
+              <UiSort :title="I18n.dapp.header.time" name="online_time" @onChange="onSort"></UiSort>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
-              <span>操作</span>
+              <span>{{ I18n.dapp.header.operate }}</span>
             </div>
           </div>
         </template>
@@ -141,7 +142,7 @@ onMounted(() => {
                   <span class="text-global-highTitle text-opacity-85 text-xs leading-3">{{ data.online_timezone }}</span>
                 </div>
                 <div class="text-xs mt-2.5">
-                  <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">剩余时间</span>
+                  <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                   <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
                       <template #default="date">
@@ -153,7 +154,7 @@ onMounted(() => {
               </div>
               <div class="td-operation">
                 <a v-router.blank="data.website" class="flex items-center text-global-darkblue justify-end cursor-pointer">
-                  <span class="text-sm">Mint</span>
+                  <span class="text-sm">{{ I18n.dapp.website }}</span>
                   <IconFont type="icon-right" size="xs"/>
                 </a>
                 <div class="pt-3">
@@ -168,7 +169,7 @@ onMounted(() => {
                 <IconFont type="icon-comment" size="18"/>
               </div>
               <div>
-                <p class="text-sm whitespace-pre-wrap">评测：赌猿是由120多个特征创建的7777个独特角色的集合。有些罕见特征只出现一次。项目方将在decentraland metaverse的预购土地上建造赌场，赌场收益一部分直接发送到持有者钱包，持有者可参加不对外开放的赌场活动和锦标赛：</p>
+                <p class="text-sm whitespace-pre-wrap">{{ data.comment }}</p>
               </div>
             </div>
           </template>
@@ -180,7 +181,7 @@ onMounted(() => {
       </div>
       <div class="mt-3" v-else>
         <div class="border border-solid border-gray">
-          <Empty desc="暂无数据"></Empty>
+          <Empty :desc="I18n.apy.tips.noData"></Empty>
         </div>
       </div>
     </div>

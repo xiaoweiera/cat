@@ -43,7 +43,8 @@ export default {
     review: '审核中',
     success: '审核完成',
     danger: '审核未通过',
-    selected: '已选'
+    selected: '已选',
+    more: '加载更多'
   },
   message: {
     verification: '获取验证码',

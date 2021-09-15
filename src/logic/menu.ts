@@ -22,10 +22,10 @@ export const footers = [
   {
     label: 'Dapp',
     children: [
-      { name: 'Dapp 排行榜' },
-      { name: 'NFT 排行榜' },
-      { name: 'Dapp 新项目', href: `${config.dapp}/discover` },
-      { name: 'NFT 新项目', href: `${config.nft}/discover` },
+      { name: I18n.menu.dapp.ranking },
+      { name: I18n.menu.nft.ranking },
+      { name: I18n.menu.dapp.discover, href: `${config.dapp}/discover` },
+      { name: I18n.menu.dapp.discover, href: `${config.nft}/discover` },
     ]
   },
   {
@@ -89,23 +89,23 @@ export const headers = [
     href: `${config.dapp}/discover`,
     children: [
       {
-        name: 'Dapp 排行榜',
+        name: I18n.menu.dapp.ranking,
         icon: 'icon-paihang',
         desc: '快速发现高收益矿池',
         more: true,
         header: true
       },
       {
-        name: 'NFT 排行版',
+        name: I18n.menu.nft.ranking,
         header: true
       },
       {
-        name: 'Dapp 新项目',
+        name: I18n.menu.dapp.discover,
         header: true,
         href: `${config.dapp}/discover`,
       },
       {
-        name: 'NFT 新项目',
+        name: I18n.menu.nft.discover,
         icon: 'icon-defi',
         desc: '快速发现高收益矿池',
         more: true,

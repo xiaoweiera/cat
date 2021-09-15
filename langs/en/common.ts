@@ -50,7 +50,8 @@ export default {
     review: 'In Review',
     success: 'Completed',
     danger: 'Not approved',
-    selected: 'Selected'
+    selected: 'Selected',
+    more: 'Load More'
   },
   message: {
     verification: 'code',

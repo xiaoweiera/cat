@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import * as API from '~/api/index'
+import I18n from '~/utils/i18n/index'
 import { onMounted, ref, watch } from 'vue'
 import { toArray, toInteger, toNumberCashFormat } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
@@ -56,11 +57,11 @@ onMounted(() => {
       <DappTabs :position="GroupPosition.nftNew" @change="onGetList">
         <div class="flex items-center justify-between w-full">
           <div>
-            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">查看已上线项目</span>
+            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
           </div>
           <div>
-            <el-input placeholder="搜索项目" v-model="search" size="small">
+            <el-input :placeholder="I18n.dapp.group.viewOnline" v-model="search" size="small">
               <template #prefix>
                 <i class="el-input__icon el-icon-search"></i>
               </template>
@@ -75,10 +76,10 @@ onMounted(() => {
         <template #content>
           <div class="table-tr">
             <div class="td-title text-global-highTitle text-opacity-65">
-              <span>项目信息</span>
+              <span>{{ I18n.dapp.header.info }}</span>
             </div>
             <div class="td-data text-global-highTitle text-opacity-65">
-              <span>社媒数据</span>
+              <span>{{ I18n.dapp.header.mediaData }}</span>
             </div>
             <div class="td-price text-global-highTitle text-opacity-65">
               <UiSort title="Mint Price / Supply" name="price" @onChange="onSort"></UiSort>
@@ -87,7 +88,7 @@ onMounted(() => {
               <UiSort title="Sale Date / Time" name="online_time" @onChange="onSort"></UiSort>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
-              <span>操作</span>
+              <span>{{ I18n.dapp.header.operate }}</span>
             </div>
           </div>
         </template>
@@ -143,7 +144,7 @@ onMounted(() => {
                   <span class="text-global-highTitle text-opacity-85 text-xs leading-3">{{ data.online_timezone }}</span>
                 </div>
                 <div class="text-xs mt-2.5">
-                  <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">剩余时间</span>
+                  <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                   <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
                       <template #default="date">
@@ -155,7 +156,7 @@ onMounted(() => {
               </div>
               <div class="td-operation">
                 <a v-router="data.website" class="flex items-center text-global-darkblue justify-end">
-                  <span class="text-sm">Mint</span>
+                  <span class="text-sm">{{ I18n.dapp.website }}</span>
                   <IconFont type="icon-right" size="xs"/>
                 </a>
                 <div class="pt-3">
@@ -181,7 +182,7 @@ onMounted(() => {
       </div>
       <div class="mt-3" v-else>
         <div class="border border-solid border-gray">
-          <Empty desc="暂无数据"></Empty>
+          <Empty :desc="I18n.apy.tips.noData"></Empty>
         </div>
       </div>
     </div>
