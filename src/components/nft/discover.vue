@@ -1,38 +1,51 @@
 <script setup lang="ts">
 import * as API from '~/api/index'
 import { onMounted, ref, watch } from 'vue'
-import { toNumberCashFormat } from '~/utils'
+import { toArray, toInteger, toNumberCashFormat } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
+import safeGet from '@fengqiaogang/safe-get'
 
 const list = ref<any[]>([])
 const is_online = ref<boolean>(false)
 const search = ref<string>('')
+const page = ref<number>(1)
+const limit = ref<number>(10)
+const total = ref<number>(10) // 默认总条数
 
-const query = {
-  page: 1,
-  page_size: 10
+
+const onGetList = async function(value?: object) {
+  const param = Object.assign({
+    page: page.value,
+    page_size: limit.value,
+    query: search.value,
+    is_online: is_online.value
+  }, value || {})
+
+  const result = await API.nft.discover.getList<any[]>(param as any)
+  const info = safeGet<any>(result, 'page_info') || {}
+  total.value = toInteger(info.total)
+  page.value = param.page
+
+  const array = toArray(safeGet<any[]>(result, 'results') || [])
+  list.value.push(...array)
 }
 
-const onGetList = async function(value: object) {
-  Object.assign(query, value)
-  const data = await API.nft.discover.getList<any[]>(query as any)
-  list.value = data
-}
-
-const onSort = function(data: any) {
-  onGetList({
+const onSort = function(data?: any) {
+  list.value = []
+  const value = Object.assign({}, data ? data : {}, {
     page: 1,
-    ...data
+  })
+  return onGetList(value)
+}
+
+const onNext = function() {
+  return onGetList({
+    page: page.value + 1
   })
 }
 
 onMounted(() => {
-  watch([is_online, search], function(data) {
-    onSort({
-      is_online: data[0],
-      query: data[1]
-    })
-  })
+  watch([is_online, search], onSort)
 })
 
 </script>
@@ -162,8 +175,8 @@ onMounted(() => {
             </div>
           </template>
         </UiList>
-        <div class="text-center pt-3">
-          <UiButtonMore/>
+        <div class="text-center pt-3" v-show="total > limit * page">
+          <UiButtonMore :request="onNext"/>
         </div>
       </div>
       <div class="mt-3" v-else>

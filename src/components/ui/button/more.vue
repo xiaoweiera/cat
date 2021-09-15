@@ -1,13 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
+import { isFunction } from '~/utils'
+const props = defineProps({
+  request: {
+    type: Function,
+    required: true,
+  }
+})
 
 const loading = ref<boolean>(false)
 
-const onClick = function() {
+const onClick = async function() {
   if (loading.value) {
     return false
   }
   loading.value = true
+  if (props.request && isFunction(props.request)) {
+    try {
+      await Promise.all([
+        props.request()
+      ])
+    } catch (e) {
+      // todo
+    }
+    finally {
+      loading.value = false
+    }
+  }
 }
 </script>
 
