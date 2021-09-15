@@ -2,6 +2,7 @@ export default {
   title: 'Early Find High-quality Dapps',
   apply: 'Apply',
   group: {
+    all: 'All',
     viewOnline: 'View online projects',
     search: 'Search'
   },

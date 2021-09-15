@@ -3,6 +3,7 @@ import { ref, onMounted, watch, defineProps, defineEmits } from 'vue'
 import { getParam } from '~/utils/router'
 import { useRoute } from 'vue-router'
 import * as API from '~/api/index'
+import I18n from '~/utils/i18n/index'
 import safeGet from '@fengqiaogang/safe-get'
 import { GroupPosition } from '~/logic/dapp/interface'
 import { chain } from '~/store/config'
@@ -30,10 +31,10 @@ const getGroupAll = function() {
   const all: any = {
     id: '',
     initial: {
-      text: '全部类型'
+      text: I18n.dapp.group.all
     },
     active: {
-      text: '全部类型'
+      text: I18n.dapp.group.all
     }
   }
   return all

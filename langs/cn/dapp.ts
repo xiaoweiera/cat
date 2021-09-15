@@ -2,6 +2,7 @@ export default {
   title: '快速发现 Dapp 新项目',
   apply: '提交新项目',
   group: {
+    all: '全部类型',
     viewOnline: '查看已上线项目',
     search: '搜索项目'
   },
