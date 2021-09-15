@@ -21,10 +21,7 @@ const tooltips = () => {
     },
     borderWidth: 1.5,
     borderColor: 'rgba(0, 0, 0, 0.06)',
-    confine:true,
-    formatter: (params: any) => {
-      return 'getModel(params,xData)'
-    },
+    confine:true
   }
 }
 

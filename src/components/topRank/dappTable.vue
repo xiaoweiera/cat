@@ -33,6 +33,7 @@ const more=()=>{
   param.page++
   getData()
 }
+onMounted(getData())
 //更改tag
 const onGetList = (value:object)=> param.group_id=value.group_id
 //监听param
@@ -52,7 +53,7 @@ const onSort=(v:any)=>{
       <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
         <div class="flex items-center justify-between w-full">
           <div class='flex items-center'>
-            <IconFont type='icon-gang' class='w-0.1 mx-3 px-0 flex justify-center text-global-highTitle text-opacity-10'/>
+<!--            <IconFont type='icon-gang' class='w-0.1 mx-3 px-0 flex justify-center text-global-highTitle text-opacity-10'/>-->
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">显示对比</span>
             <el-switch v-model="is_Compare"></el-switch>
           </div>
