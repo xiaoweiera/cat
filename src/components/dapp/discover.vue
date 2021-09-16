@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, toRaw } from 'vue'
 import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
 import { isAfter } from '~/utils/time'
@@ -45,8 +45,12 @@ const onGetList = async function(value?: object) {
   page.value = param.page
 
   const array = toArray(safeGet<any[]>(result, 'results') || [])
-  list.value.push(...array)
-
+  if (list.value.length > 0) {
+    const oldList = toArray(toRaw(list.value))
+    list.value = toArray(oldList, array)
+  } else {
+    list.value = array
+  }
   loading.value = false
 }
 

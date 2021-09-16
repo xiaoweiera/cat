@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import I18n from '~/utils/i18n/index'
 const apply = 'http://ikingdata.mikecrm.com/jCRg6mX'
+import { GroupPosition } from '~/logic/dapp/interface'
 </script>
 
 <template>
@@ -17,7 +18,7 @@ const apply = 'http://ikingdata.mikecrm.com/jCRg6mX'
     </div>
     <div class="pt-4 md:pt-6 pb-4 md:pb-3 px-4">
       <div class="flex justify-center">
-        <Chains/>
+        <Chains :page="GroupPosition.nftNew"/>
       </div>
     </div>
     <div>

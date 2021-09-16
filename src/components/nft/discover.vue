@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, toRaw, watch } from 'vue'
 import { isAfter } from '~/utils/time'
 import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat, upperFirst } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
@@ -44,8 +44,12 @@ const onGetList = async function(value?: object) {
   page.value = param.page
 
   const array = toArray(safeGet<any[]>(result, 'results') || [])
-  list.value.push(...array)
-
+  if (list.value.length > 0) {
+    const oldList = toArray(toRaw(list.value))
+    list.value = toArray(oldList, array)
+  } else {
+    list.value = array
+  }
   loading.value = false
 }
 

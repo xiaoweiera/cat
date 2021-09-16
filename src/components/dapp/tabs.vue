@@ -7,7 +7,7 @@ import I18n from '~/utils/i18n/index'
 import safeGet from '@fengqiaogang/safe-get'
 import { GroupPosition } from '~/logic/dapp/interface'
 import { chain } from '~/store/config'
-import { equalsIgnoreCase, isEmpty, map } from '~/utils'
+import { equalsIgnoreCase, isEmpty, map, debounce } from '~/utils'
 
 const props = defineProps({
   position: {
@@ -88,15 +88,17 @@ const setType = function(value: string) {
 }
 
 onMounted(function() {
-  setType(getParam<string>('group', '') as string)
-  getGroupList()
-  watch([$router, props], function() {
+  const onWatchPropsCallback = debounce<any>(function() {
     setType(getParam<string>('group', '') as string)
-  })
-  watch(chain, async function() {
+  }, 500)
+  const onWatchChainCallback = debounce<any>(async function() {
     await getGroupList()
-    setType('')
-  })
+    onWatchPropsCallback()
+  }, 500)
+  getGroupList()
+  watch([props, $router], onWatchPropsCallback)
+  watch([chain], onWatchChainCallback)
+  onWatchPropsCallback()
 })
 
 </script>
