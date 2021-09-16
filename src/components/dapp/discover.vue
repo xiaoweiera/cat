@@ -196,27 +196,32 @@ onMounted(() => {
                 </template>
               </div>
               <div class="td-date">
-                <div class="flex md:block items-center">
-                  <div class="text-sm whitespace-nowrap" v-if="data.online_time">
-                    <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
-                  </div>
-                  <div class="text-xs whitespace-nowrap" v-if="data.online_timezone">
+                <template v-if="data.online_time && isAfter(data.online_time)">
+                  <div class="flex md:block items-center">
+                    <div class="text-sm whitespace-nowrap">
+                      <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
+                    </div>
+                    <div class="text-xs whitespace-nowrap" v-if="data.online_timezone">
                     <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
                       <span class="mx-1 md:hidden">/</span>
                       <span>{{ data.online_timezone }}</span>
                     </span>
+                    </div>
                   </div>
-                </div>
-                <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
-                  <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
-                  <span class="date-box inline-block">
+                  <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
+                    <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
+                    <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
                       <template #default="date">
                         <i>{{ date.day }}</i> : <i>{{ date.hour }}</i> : <i>{{ date.minute }}</i> : <i>{{ date.second }}</i>
                       </template>
                     </TimeCountdown>
                   </span>
-                </div>
+                  </div>
+                </template>
+                <template v-else>
+                  <el-avatar shape="square" fit="fit" :size="80" src="https://res.ikingdata.com/image/dapp/success.png"></el-avatar>
+                </template>
               </div>
               <div class="td-operation hidden md:block">
                 <DappOperation :data="data"/>

@@ -64,15 +64,15 @@ export const dateDiffSecond = function(time: number, now: number = dateTime()): 
   return number
 }
 
-export const isBefore = function(oldTime: any, now: any = dateTime()): boolean {
-  if (oldTime && now) {
+export const isBefore = function(oldTime: any): boolean {
+  if (oldTime) {
     const old = toDate(oldTime)
-    return dayjs(now).isSame(old, 'day')
+    return dayjs(old).isBefore(toDate())
   }
   return true
 }
 
-export const isAfter = function(oldTime: any, now: any = dateTime()): boolean {
-  const before = isBefore(oldTime, now)
+export const isAfter = function(oldTime: any): boolean {
+  const before = isBefore(oldTime)
   return !before;
 }
