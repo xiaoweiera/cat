@@ -4,7 +4,7 @@ import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
 import { isAfter } from '~/utils/time'
 import { GroupPosition } from '~/logic/dapp/interface'
-import { toNumberCashFormat, toInteger, toArray, debounce, dateFormat } from '~/utils'
+import { toNumberCashFormat, toInteger, toArray, debounce, dateFormat, compact } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
 
 const list = ref<any[]>([])
@@ -155,21 +155,29 @@ onMounted(() => {
               </div>
               <div class="td-data">
                 <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
-                  <div class="flex items-center media-item" v-if="media">
+                  <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
                     <IconFont class="text-base" :type="key" bright/>
                     <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ key }}</span>
-                    <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
-                  </div>
+                    <template v-if="media.total_user && media.online_user">
+                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                    </template>
+                    <template v-else-if="media.total_user">
+                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
+                    </template>
+                    <template v-else-if="media.online_user">
+                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                    </template>
+                  </a>
                 </template>
               </div>
               <div class="td-price">
                 <div class="flex items-center md:block">
-                  <div>
+                  <div class="md:pb-3" v-if="data.categories && compact(data.categories).length > 0">
                     <template v-for="(item, j) in data.categories" :key="`${index}-${j}`">
                       <span class="mr-2 text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
                     </template>
                   </div>
-                  <div class="md:pt-3 flex">
+                  <div class="flex">
                     <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
                       <span class="mr-2 flex items-center justify-center w-7 h-7 border border-solid border-global-primary border-opacity-10 rounded-kd28px">
                         <IconFont :type="item.logo" size="16"/>

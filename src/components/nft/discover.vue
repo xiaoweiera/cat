@@ -172,11 +172,19 @@ onMounted(() => {
               </div>
               <div class="td-data">
                 <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
-                  <div class="flex items-center media-item" v-if="media">
+                  <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
                     <IconFont class="text-base" :type="key" bright/>
                     <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ key }}</span>
-                    <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
-                  </div>
+                    <template v-if="media.total_user && media.online_user">
+                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                    </template>
+                    <template v-else-if="media.total_user">
+                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
+                    </template>
+                    <template v-else-if="media.online_user">
+                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                    </template>
+                  </a>
                 </template>
               </div>
               <div class="td-price">

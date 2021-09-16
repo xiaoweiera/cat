@@ -13,6 +13,9 @@
     @screen md {
       @apply w-124 pr-20;
     }
+    .el-avatar {
+      @apply bg-white;
+    }
   }
   .td-data {
     @apply mt-5;
