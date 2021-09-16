@@ -20,11 +20,18 @@ const loading = ref<boolean>(true)
 
 const sortList = ref<any>([
   {
-    label: '按上线时间降序',
+    label: I18n.dapp.sort.timeDesc,
     value: '{"online_time": "desc"}'
   }, {
-    label: '按上线时间升序',
+    label: I18n.dapp.sort.timeAsc,
     value: '{"online_time": "asc"}'
+  },
+  {
+    label: I18n.dapp.sort.priceDesc,
+    value: '{"price": "desc"}'
+  }, {
+    label: I18n.dapp.sort.priceAsc,
+    value: '{"price": "asc"}'
   }
 ])
 
@@ -132,7 +139,9 @@ onMounted(() => {
               <UiSort title="Mint Price / Supply" name="price" @change="onSort"></UiSort>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65">
-              <UiSort title="Sale Date / Time" name="online_time" @change="onSort"></UiSort>
+              <div class="flex justify-end">
+                <UiSort title="Sale Date / Time" name="online_time" @change="onSort"></UiSort>
+              </div>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.operate }}</span>
@@ -149,7 +158,9 @@ onMounted(() => {
                 <div class="flex-1">
                   <span class="block text-lg font-medium text-global-highTitle leading-5">
                     <span>{{ data.name }}</span>
-                    <IconFont class="align-middle text-global-golden ml-1.5" type="icon-featured" size="18"/>
+                    <span class="inline-flex md:hidden ml-1.5 align-middle">
+                      <IconFont class="text-global-golden" type="icon-featured" size="18"/>
+                    </span>
                   </span>
                   <span class="block mt-1.5 md:mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
                     <span class="line-clamp-3">{{ data.description }}</span>
@@ -250,6 +261,12 @@ onMounted(() => {
           <Empty :desc="I18n.apy.tips.noData"></Empty>
         </div>
       </div>
+    </div>
+    <div class="hidden">
+      <UiWechatShare :title="I18n.nft.page.title" :content="I18n.nft.page.content"/>
+
+      <UiHeaderTitle :value="I18n.nft.page.title"/>
+      <UiHeaderMeta name="description" :content="I18n.dapp.meta.description"/>
     </div>
   </div>
 </template>

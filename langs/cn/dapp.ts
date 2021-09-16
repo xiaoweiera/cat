@@ -14,5 +14,18 @@ export default {
     operate: '操作'
   },
   website: '去官网',
-  timeEnd: '剩余时间'
+  timeEnd: '剩余时间',
+  sort: {
+    timeDesc: '按上线时间降序',
+    timeAsc: '按上线时间升序',
+    priceDesc: '按价格降序',
+    priceAsc: '按价格升序'
+  },
+  page: {
+    title: 'KingData Dapp 新项目榜单',
+    content: '快速发现每个人都在谈论的最新 Dapps、DeFi、NFT、游戏和网站。'
+  },
+  meta: {
+    description: 'KingData Dapp 新项目榜单 快速发现每个人都在谈论的最新 Dapps、DeFi、NFT、游戏和网站。'
+  }
 }

@@ -13,6 +13,19 @@ export default {
     time: 'Online time ',
     operate: 'Operate'
   },
-  website: 'Mint',
-  timeEnd: 'Time left'
+  website: 'Go',
+  timeEnd: 'Time left',
+  sort: {
+    timeDesc: 'Descending by online time',
+    timeAsc: 'Ascending by online time',
+    priceDesc: 'Descending by price',
+    priceAsc: 'Ascending by price'
+  },
+  page: {
+    title: 'KingData New Dapp Ranking',
+    content: "Discover the latest Dapps, DeFi, NFT, Games, websites that everyone's talking about."
+  },
+  meta: {
+    description: `KingData New Dapp Ranking Discover the latest Dapps, DeFi, NFT, Games, websites that everyone's talking about.`
+  }
 }

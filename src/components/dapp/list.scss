@@ -18,10 +18,13 @@
       @screen md {
         @apply w-22 h-22;
       }
+      ::v-deep(img) {
+        @apply mx-auto;
+      }
     }
     @at-root .wrap-dapp &{
       @screen md {
-        @apply w-165;
+        @apply flex-1;
       }
     }
   }
@@ -38,13 +41,16 @@
     }
   }
   .td-date {
-    @apply mt-5 hidden;
+    @apply mt-5 hidden pr-10 text-right;
     @screen md {
-      @apply mt-0 w-50 pr-10 text-right block;
+      @apply mt-0 w-52 block;
     }
   }
   .td-operation {
     @apply flex-1 text-right;
+    @at-root .wrap-dapp &{
+      @apply w-15 flex-none;
+    }
   }
 
   .date-box {

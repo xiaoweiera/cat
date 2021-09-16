@@ -20,10 +20,10 @@ const loading = ref<boolean>(true)
 
 const sortList = ref<any>([
   {
-    label: '按上线时间降序',
+    label: I18n.dapp.sort.timeDesc,
     value: '{"online_time": "desc"}'
   }, {
-    label: '按上线时间升序',
+    label: I18n.dapp.sort.timeAsc,
     value: '{"online_time": "asc"}'
   }
 ])
@@ -130,7 +130,9 @@ onMounted(() => {
               <span>{{ I18n.dapp.header.mediaData }}</span>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
-              <UiSort :title="I18n.dapp.header.time" name="online_time" @change="onSort"></UiSort>
+              <div class="flex justify-end">
+                <UiSort :title="I18n.dapp.header.time" name="online_time" @change="onSort"></UiSort>
+              </div>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.operate }}</span>
@@ -240,6 +242,12 @@ onMounted(() => {
           <Empty :desc="I18n.apy.tips.noData"></Empty>
         </div>
       </div>
+    </div>
+    <div class="hidden">
+      <UiWechatShare :title="I18n.dapp.page.title" :content="I18n.dapp.page.content"/>
+
+      <UiHeaderTitle :value="I18n.dapp.page.title"/>
+      <UiHeaderMeta name="description" :content="I18n.dapp.meta.description"/>
     </div>
   </div>
 </template>
