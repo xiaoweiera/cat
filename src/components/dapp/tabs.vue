@@ -7,7 +7,8 @@ import I18n from '~/utils/i18n/index'
 import safeGet from '@fengqiaogang/safe-get'
 import { GroupPosition } from '~/logic/dapp/interface'
 import { chain } from '~/store/config'
-import { equalsIgnoreCase, isEmpty, map, debounce } from '~/utils'
+import { equalsIgnoreCase, isEmpty, debounce } from '~/utils'
+import router from '~/utils/router'
 
 const props = defineProps({
   position: {
@@ -55,15 +56,7 @@ const getGroupList = async function() {
   }
   const data = await API.dapp.group.getList<any>(query)
   if (data) {
-    list.value = map(function(item: any) {
-      item.href = {
-        'query': {
-          group: item.id,
-          chain: chain.value
-        }
-      }
-      return item
-    }, [getGroupAll()].concat(data))
+    list.value = [getGroupAll()].concat(data)
   } else {
     list.value = []
   }
@@ -83,12 +76,21 @@ const triggerEvent = debounce<any>(function(value: string) {
   })
 }, 500)
 
-const setType = function(value: string) {
+const setType = function(value?: string) {
   if (isEmpty(value)) {
     value = ''
   }
-  tabValue.value = value
+  tabValue.value = value as string
   triggerEvent(value)
+}
+
+const getHref = function(item: any, chainValue: string) {
+  return router({
+    'query': {
+      group: item.id,
+      chain: chainValue
+    }
+  })
 }
 
 onMounted(function() {
@@ -111,7 +113,7 @@ onMounted(function() {
   <div class="md:flex py-3.5">
     <div class="md:flex-1 md:pr-6 text-kdFang">
       <template v-for="(item, index) in list" :key="index">
-        <router-link v-if="index < 7" :to="item.href" class="tab-item" :class="{'active': isActive(item.id)}">
+        <router-link v-if="index < 7" :to="getHref(item, chain)" class="tab-item" :class="{'active': isActive(item.id)}">
           <template v-if="safeGet(item, 'initial.image')">
             <div class="initial image">
               <img :src="safeGet(item, 'initial.image')">

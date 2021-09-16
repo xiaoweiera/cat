@@ -1,22 +1,26 @@
 <script setup lang='ts'>
 import router, { getParam } from '~/utils/router'
-import { onBeforeMount, computed, defineProps, ref } from 'vue'
-import {useRoute, useRouter} from 'vue-router'
+import { onBeforeMount, computed, defineProps, ref, watch } from 'vue'
 import { getChains } from '~/logic/topRank/dapp'
-import { chains } from '~/logic/apy2/config'
 import { chain } from '~/store/config'
 import I18n from '~/utils/i18n/index'
-import { changeRouteParam } from '~/lib/tool'
-const RouteModel = useRoute()
-const RouterModel = useRouter()
+import { useRoute } from 'vue-router'
+const $router = useRoute()
+
 const props = defineProps({
-  page: String,
-  to: Boolean,
+  page: {
+    type: String,
+    required: true,
+  },
+  to: {
+    type: Boolean
+  },
 })
 const getHref = (slug: string) => {
   return router({
     query: {
       chain: slug,
+      group: ''
     },
   })
 }
@@ -26,6 +30,7 @@ const chainData = ref([{
   'slug': 'all',
   'logo': 'icon-quanbu',
 }])
+
 const other = {
   'id': 101,
   'name': I18n.topRank.chainOther,
@@ -37,41 +42,38 @@ const getData = async () => {
   chainData.value = chainData.value.concat(res)
   chainData.value.push(other)
 }
-onBeforeMount(() => {
+
+const onChangeChainStatus = function() {
   chain.value = getParam<string>('chain', 'all') as string
+}
+
+onBeforeMount(() => {
+  onChangeChainStatus()
+  watch($router, onChangeChainStatus)
   getData()
 })
-const chainItem = computed(() => chainData.value?.find(item => item.slug === chain.value))
-const changeChain = (slug: string) => {
-  changeRouteParam(RouteModel,RouterModel,{chain:slug,group:undefined})
-  chain.value = slug
-}
+const chainItem = computed(() => {
+  return chainData.value?.find(item => item.slug === chain.value)
+})
+
 </script>
 <template>
   <div class='flex   xshidden    font-kdFang flex-wrap'>
     <template v-for='item in chainData'>
-      <a v-if='to' :href='getHref(item.slug)' :class="chain===item.slug?'selectedTag ':'tag'" class='flex hand mb-3  rounded-kd20px max-h-9  flex items-center justify-center ' style='flex-shrink:0;'>
+      <router-link :to='getHref(item.slug)' :class="chain===item.slug?'selectedTag ':'tag'" class='flex hand mb-3  rounded-kd20px max-h-9  flex items-center justify-center ' style='flex-shrink:0;'>
         <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size='20' :type='item.logo' class='mr-1' />
         <div>{{ item.name === I18n.apyIndex.allChain ? I18n.apyIndex.all : item.name }}</div>
-      </a>
-      <div v-else @click='changeChain(item.slug)' :class="chain===item.slug?'selectedTag ':'tag'" class='flex hand mb-3  rounded-kd20px max-h-9  flex items-center justify-center ' style='flex-shrink:0;'>
-        <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size='20' :type='item.logo' class='mr-1' />
-        <div>{{ item.name === I18n.apyIndex.allChain ? I18n.apyIndex.all : item.name }}</div>
-      </div>
+      </router-link>
     </template>
   </div>
   <div class='mdhidden  flex items-center relative w-full'>
     <IconFont v-if='chainItem' :class='chainItem.slug==="all"?"text-global-primary":""' size='20' class='absolute z-1 left-3 ' :type='chainItem?.logo' />
     <el-select class=' w-full' v-model='chain' placeholder='全部'>
       <el-option v-for='item in chainData' :label='item.name' :value='item.slug'>
-        <a v-if='to' :href='getHref(item.slug)' class='flex items-center  h-full'>
+        <router-link :to='getHref(item.slug)' class='flex items-center  h-full'>
           <IconFont size='20' :type='item.logo' />
           <div class='ml-1 text-kd16px24px text-global-highTitle txt85'>{{ item.name }}</div>
-        </a>
-        <div v-else @click='changeChain(item.slug)' class='flex items-center  h-full'>
-          <IconFont size='20' :type='item.logo' />
-          <div class='ml-1 text-kd16px24px text-global-highTitle txt85'>{{ item.name }}</div>
-        </div>
+        </router-link>
       </el-option>
     </el-select>
   </div>
