@@ -1,12 +1,14 @@
 <script setup lang='ts'>
 import router, { getParam } from '~/utils/router'
 import { onBeforeMount, computed, defineProps, ref } from 'vue'
-
+import {useRoute, useRouter} from 'vue-router'
 import { getChains } from '~/logic/topRank/dapp'
 import { chains } from '~/logic/apy2/config'
 import { chain } from '~/store/config'
 import I18n from '~/utils/i18n/index'
-
+import { changeRouteParam } from '~/lib/tool'
+const RouteModel = useRoute()
+const RouterModel = useRouter()
 const props = defineProps({
   page: String,
   to: Boolean,
@@ -40,7 +42,10 @@ onBeforeMount(() => {
   getData()
 })
 const chainItem = computed(() => chainData.value?.find(item => item.slug === chain.value))
-const changeChain = (slug: string) => chain.value = slug
+const changeChain = (slug: string) => {
+  changeRouteParam(RouteModel,RouterModel,{chain:slug})
+  chain.value = slug
+}
 </script>
 <template>
   <div class='flex   xshidden    font-kdFang flex-wrap'>
