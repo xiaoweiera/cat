@@ -77,7 +77,8 @@ export default {
     verification: 'Please enter verification code',
     password: 'Please enter the password',
     new_password: 'Please enter your password again',
-    search: 'Search'
+    search: 'Search',
+    sort: 'Sort order'
   },
   and: 'And',
   join: 'Join',

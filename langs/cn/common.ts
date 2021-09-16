@@ -70,7 +70,8 @@ export default {
     verification: '请输入验证码',
     password: '请输入密码',
     new_password: '请再次输入密码',
-    search: '搜索'
+    search: '搜索',
+    sort: '请选择排序方式'
   },
   and: '及',
   join: '加入',

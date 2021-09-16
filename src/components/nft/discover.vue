@@ -113,7 +113,7 @@ onMounted(() => {
               </el-input>
             </div>
             <div class="max-w-50 min-w-40 ml-4 flex-1 block md:hidden">
-              <el-select v-model="sortValue" @change="onChangeSort" placeholder="请选择排序方式" size="small">
+              <el-select v-model="sortValue" @change="onChangeSort" :placeholder="I18n.common.placeholder.sort" size="small">
                 <template v-for="(item, index) in sortList" :key="index">
                   <el-option :label="item.label" :value="item.value"></el-option>
                 </template>
