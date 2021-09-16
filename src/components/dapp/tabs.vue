@@ -76,29 +76,33 @@ const isActive = function(id: string) {
   return id === tabValue.value
 }
 
+const triggerEvent = debounce<any>(function(value: string) {
+  emitEvent('change', {
+    chain: chain.value || 'all',
+    group_id: value
+  })
+}, 500)
+
 const setType = function(value: string) {
   if (isEmpty(value)) {
     value = ''
   }
   tabValue.value = value
-  emitEvent('change', {
-    chain: chain.value || 'all',
-    group_id: value
-  })
+  triggerEvent(value)
 }
 
 onMounted(function() {
-  const onWatchPropsCallback = debounce<any>(function() {
+  const onWatchPropsCallback = function() {
     setType(getParam<string>('group', '') as string)
-  }, 500)
-  const onWatchChainCallback = debounce<any>(async function() {
+  }
+  const onWatchChainCallback = async function() {
+    setType()
     await getGroupList()
-    onWatchPropsCallback()
-  }, 500)
-  getGroupList()
+  }
+
   watch([props, $router], onWatchPropsCallback)
   watch([chain], onWatchChainCallback)
-  onWatchPropsCallback()
+  onWatchChainCallback()
 })
 
 </script>
