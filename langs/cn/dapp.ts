@@ -13,13 +13,16 @@ export default {
     time: '上线时间',
     operate: '操作'
   },
-  website: '去官网',
+  website: '去参与',
   timeEnd: '剩余时间',
   sort: {
     timeDesc: '按上线时间降序',
     timeAsc: '按上线时间升序',
     priceDesc: '按价格降序',
     priceAsc: '按价格升序'
+  },
+  status: {
+    success: 'https://res.ikingdata.com/image/dapp/ongoing_cn.png'
   },
   page: {
     title: 'KingData Dapp 新项目榜单',

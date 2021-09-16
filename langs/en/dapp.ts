@@ -21,6 +21,9 @@ export default {
     priceDesc: 'Descending by price',
     priceAsc: 'Ascending by price'
   },
+  status: {
+    success: 'https://res.ikingdata.com/image/dapp/ongoing_en.png'
+  },
   page: {
     title: 'KingData New Dapp Ranking',
     content: "Discover the latest Dapps, DeFi, NFT, Games, websites that everyone's talking about."

@@ -220,7 +220,7 @@ onMounted(() => {
                   </div>
                 </template>
                 <template v-else>
-                  <el-avatar shape="square" fit="fit" :size="80" src="https://res.ikingdata.com/image/dapp/success.png"></el-avatar>
+                  <el-avatar shape="square" fit="fit" :size="80" :src="I18n.dapp.status.success"></el-avatar>
                 </template>
               </div>
               <div class="td-operation hidden md:block">
