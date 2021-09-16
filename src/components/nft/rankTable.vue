@@ -16,23 +16,29 @@ const param=reactive({
   sort_field:'volume',
   sort_type:'desc',
   query:'',
-  page:1,
-  page_size:3
 })
-const list=ref()
+const pageInfo={
+  page:1,
+  page_size:10
+}
+const list=ref([])
 const resultNumber=ref(0)
 const getData=async (clear:boolean)=>{
-  console.log('aa')
-  const res=await nftList(param)
+  const newParam  = {
+    ...param,
+    ...pageInfo
+  }
+  const res=await nftList(newParam)
   if(clear){
+    pageInfo.page=1
     list.value=[]
   }
   console.log(res)
   resultNumber.value=res.page_info.total
-  list.value=res.results
+  list.value=list.value.concat(res.results)
 }
 const more=()=>{
-  param.page++
+  pageInfo.page++
   getData()
 }
 onMounted(getData())
@@ -56,7 +62,7 @@ const onSort=(v:any)=>{
 <template>
   <div class='NftRank'>
     <div>
-      <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
+      <DappTabs :position="GroupPosition.nftRank" @change="onGetList">
         <div class="flex items-center justify-between w-full  ">
           <div class='flex items-center xshidden md:flex-1 '>
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">显示对比</span>
@@ -103,8 +109,7 @@ const onSort=(v:any)=>{
       </div>
 
     </div>
-
-    <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
+    <div @click="more" v-if="list.length<resultNumber" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
   </div>
 </template>
 <style  lang='scss'>

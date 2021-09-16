@@ -38,14 +38,14 @@ const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-
       <!--      24H-->
       <div :class='headerData[4].width' class="content">
         <div :class='getNumberColor(item.h24_volume_change_percent)' class="flex items-center text-kd14px20px exp">
-          <span>{{item.h24_volume_change_percent>=0?'+':'-'}}</span>
+<!--          <span>{{item.h24_volume_change_percent>=0?'+':'-'}}</span>-->
           {{formatRulesNumber(item.h24_volume_change_percent)}}%
         </div>
       </div>
       <!--      7D-->
       <div :class='headerData[5].width' class="content">
         <div :class='getNumberColor(item.d7_volume_change_percent)' class="flex items-center text-kd14px20px exp">
-          <span>{{item.h24_volume_change_percent>=0?'+':'-'}}</span>
+<!--          <span>{{item.h24_volume_change_percent>=0?'+':'-'}}</span>-->
           {{formatRulesNumber(item.d7_volume_change_percent)}}%
         </div>
       </div>

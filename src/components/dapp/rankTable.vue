@@ -15,30 +15,36 @@ const param=reactive({
   interval:'24h',
   sort_field:'users',
   sort_type:'desc',
-  query:'',
-  page:1,
-  page_size:3
+  query:''
 })
-const list=ref()
+const pageInfo={
+    page:1,
+    page_size:10
+}
+const list=ref([])
 const resultNumber=ref(0)
 const getData=async (clear:boolean)=>{
-  console.log('aa')
-  const res=await dappList(param)
+  const newParam  = {
+    ...param,
+    ...pageInfo
+  }
+  const res=await dappList(newParam)
   if(clear){
+    pageInfo.page=1
     list.value=[]
   }
   resultNumber.value=res.page_info.total
-  list.value=res.results
+  list.value=list.value.concat(res.results)
 }
 const more=()=>{
-  param.page++
+  pageInfo.page++
   getData()
 }
 onMounted(getData())
 //更改tag
 const onGetList = (value:object)=> param.group_id=value.group_id
 //监听param
-watch(param,(n)=>getData(true))
+watch(param,(n)=> getData(true))
 watch(()=>chain.value,(n)=>{
   param.chain=n
   getData(true)}
@@ -55,10 +61,9 @@ const onSort=(v:any)=>{
 <template>
   <div class='dappRank'>
     <div>
-      <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
+      <DappTabs :position="GroupPosition.dappRank" @change="onGetList">
         <div class="flex items-center justify-between w-full  ">
           <div class='flex items-center xshidden md:flex-1 '>
-            <!--            <IconFont type='icon-gang' class='w-0.1 mx-3 px-0 flex justify-center text-global-highTitle text-opacity-10'/>-->
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">显示对比</span>
             <el-switch v-model="is_Compare"></el-switch>
           </div>
@@ -91,22 +96,18 @@ const onSort=(v:any)=>{
         <div class="header h-10.5 mdhidden px-3 bg-global-white flex items-center rounded-kd6px">
           <template v-for="(item,i) in dappHeaderMobile">
             <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
-              <UiSort v-if='item.sort' :title="item.name" sort='desc' :name="item.key" @change="onSort"></UiSort>
+              <UiSort :key='keyNumber' v-if='item.sort' :title="item.name" :sort='param.sort_field===item.key?param.sort_type:""' :name="item.key" @change="onSort"></UiSort>
               <span v-else>{{item.name}}</span>
             </div>
           </template>
         </div>
         <template v-for="(item,i) in list">
-
           <DappRankTableItem class='xshidden' :is_Compare='is_Compare' :sortName='param.sort_field' :headerData='dappHeader' :i="i" :item="item"/>
           <DappRankTableItem class='mdhidden' :sortName='param.sort_field' :headerData='dappHeaderMobile' :i="i" :item="item"/>
-
         </template>
       </div>
-
     </div>
-
-    <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
+    <div @click="more" v-if="list.length<resultNumber" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
   </div>
 </template>
 <style  lang='scss'>

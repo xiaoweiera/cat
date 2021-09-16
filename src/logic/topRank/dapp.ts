@@ -27,45 +27,45 @@ export const getChart=async (page:string)=>{
   }else{
     result=await apiNft.chart()
   }
-  result={
-    "interval": "7D",
-    "tvl": 234324,
-    "tvl_change_percent": 23.2,
-    "legends": [
-      {
-        "type": "",
-        "color": "red",
-        "kline": false,
-        "unit": "$",
-        "tvl": 324234,
-      },
-    ],
-    "series": [
-      {
-        "value": 120,
-        "detail": ""
-      },
-      {
-        "value": 130,
-        "detail": ""
-      },
-      {
-        "value": 30,
-        "detail": ""
-      },
-      {
-        "value": 50,
-        "detail": ""
-      },
-    ],
-    "xAxis": [
-      1614787200,
-      1614873600,
-      1614960000,
-      1615046400
-    ]
-  }
-  return result
+  // result={
+  //   "interval": "7D",
+  //   "tvl": 234324,
+  //   "tvl_change_percent": 23.2,
+  //   "legends": [
+  //     {
+  //       "type": "",
+  //       "color": "red",
+  //       "kline": false,
+  //       "unit": "$",
+  //       "tvl": 324234,
+  //     },
+  //   ],
+  //   "series": [
+  //     {
+  //       "value": 120,
+  //       "detail": ""
+  //     },
+  //     {
+  //       "value": 130,
+  //       "detail": ""
+  //     },
+  //     {
+  //       "value": 30,
+  //       "detail": ""
+  //     },
+  //     {
+  //       "value": 50,
+  //       "detail": ""
+  //     },
+  //   ],
+  //   "xAxis": [
+  //     1614787200,
+  //     1614873600,
+  //     1614960000,
+  //     1615046400
+  //   ]
+  // }
+  // return result
   console.log(getRes(result))
   return getRes(result)
 }
