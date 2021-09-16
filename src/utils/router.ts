@@ -49,7 +49,7 @@ export const config = {
   nav: '/nav',
   tih: '/tih',
   reports: 'https://kingdata.com/reports/', // 研究报告
-  news: 'https://kingdata.com/news/', // 7x24小时监控
+  news: 'https://ikingdata.com/news/', // 7x24小时监控
   dapp: '/dapp',
   nft: '/nft',
 }
