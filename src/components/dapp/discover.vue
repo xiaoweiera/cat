@@ -14,6 +14,8 @@ const page = ref<number>(1)
 const limit = ref<number>(10)
 const total = ref<number>(10) // 默认总条数
 const sortValue = ref<string>('')
+const chain = ref<string>('all')
+const group_id = ref<string>('')
 
 const sortList = ref<any>([
   {
@@ -31,7 +33,9 @@ const onGetList = async function(value?: object) {
     page: page.value,
     page_size: limit.value,
     query: search.value,
-    is_online: is_online.value
+    is_online: is_online.value,
+    chain: chain.value,
+    group_id: group_id.value
   }, value || {})
 
   const result = await API.dapp.discover.getList<any[]>(param as any)
@@ -50,6 +54,16 @@ const onSort = debounce<any>(function(data?: any) {
   })
   return onGetList(value)
 }, 500)
+
+const onChangeTab = function(data?: any) {
+  chain.value = safeGet<string>(data, 'chain') || 'all'
+  group_id.value = safeGet<string>(data, 'group_id') || ''
+  list.value = []
+  const value = Object.assign({
+    page: 1,
+  }, data ? data : {})
+  return onGetList(value)
+}
 
 const onChangeSort = function(value: string) {
   const data = JSON.parse(value)
@@ -72,7 +86,7 @@ onMounted(() => {
 <template>
   <div class="wrap-discover">
     <div class="content">
-      <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
+      <DappTabs :position="GroupPosition.dappNew" @change="onChangeTab">
         <div class="tabs-operate">
           <div class="mt-4 md:mt-0 hidden">
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
