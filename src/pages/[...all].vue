@@ -1,16 +1,25 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router'
+import { config, getParam } from '~/utils/router'
 
-const { t } = useI18n()
+onBeforeMount(() => {
+  const router = useRouter()
+  const query: any = getParam<object>()
+  router.replace({
+    path: `${config.apy}/mining`,
+    query: query
+  })
+})
 </script>
 
 <template>
-  <div>
-    {{ t('not-found') }}
+  <div class="min-h-150">
+    <Spin :loading="true"></Spin>
   </div>
 </template>
 
 <route lang="yaml">
 meta:
-  layout: 404
+  layout: all
 </route>
