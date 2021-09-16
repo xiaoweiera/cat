@@ -4,8 +4,8 @@ const grid = () => {
   return {
     left:"0%",
     right:"0%",
-    bottom:"0%",
     top: "0%",
+    bottom:"0%",
     containLabel: false,
   }
 }
@@ -31,36 +31,13 @@ const xAxis = (xdata: any) => {
     axisTick: {
       show: false, // 隐藏刻度线
     },
+    axisLine: {
+      show: false, // 不显示坐标轴线
+    },
     type: 'category',
     boundaryGap:false,
     data: xdata
   }
-  return [
-    {
-      axisTick: {
-        show: false, // 隐藏刻度线
-      },
-      axisLine: {
-        show: false, // 不显示坐标轴线
-      },
-      splitLine: {
-        // 网格线
-        lineStyle: {
-          type: 'dotted', // 设置网格线类型 dotted：虚线   solid:实线
-        },
-        show: false, // 隐藏或显示
-      },
-      type: 'category',
-      data: xdata,
-      axisLabel: {
-        align:'left',
-        margin:14,
-        textStyle: {
-          color: '#00B464',
-        },
-      },
-    },
-  ]
 }
 
 //y轴左侧配置
