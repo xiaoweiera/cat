@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import I18n from '~/utils/i18n/index'
-const apply = 'http://ikingdata.mikecrm.com/ijyjMFO'
+const apply = 'http://ikingdata.mikecrm.com/jCRg6mX'
 </script>
 
 <template>
