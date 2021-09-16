@@ -76,6 +76,7 @@ export const numColor = (value: any) => {
     return toFixedNumber(value, 2)
   }
 }
+export const formatSmallTime = (date: string,format:string) => dayjs(parseInt(`${date}`)).format(format)
 export const formatTime = (date: string,format:string) =>
     dayjs(parseInt(`${date}000`)).format(format)
 export const formatTimeMD = (date: string) =>
@@ -437,7 +438,24 @@ export const formatNumber=(v:number)=>{
   if(!v) return 0
   return v
 }
+// 获取图标
+const chartTipItem = (color: string,v:string) => {
+   const svgType = `<svg t="1626927627838"  class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1456" width="16" height="16"><path d="M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z" fill="${color}" p-id="1457"></path></svg>`
+  const svg = `data:image/svg+xml;base64,${window.btoa(
+    unescape(encodeURIComponent(svgType)),
+  )}`
+  return `<div style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;line-height: 12px;" class='mt-2 md:mt-0 w-50 md:w-full flex items-center break-words whitespace-pre-wrap'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><div class="ml-1">${v}</div> </div>`
+}
 
+export const tipResult = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`
+// 提示文字
+export const getTip = (params: any) => {
+  // 水印 遮盖有问题   需要改改改
+  let time = formatTime(params[0].axisValue,'YYYY-MM-DD')
+  let data=params[0].data //{value:111,detail:''}
+  const result=  chartTipItem('rgba(0, 180, 100, 1)','$'+formatRulesNumber(data.value))
+  return `${tipResult(time)} ${result}`
+}
 export const tolocaleUpperCase=(str:string)=>str?.toUpperCase();
 export const tolocaleLowerCase=(str:string)=>str?.toLowerCase();
 export const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`

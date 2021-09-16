@@ -1,5 +1,6 @@
 
 
+
 const grid = () => {
   return {
     left:"0%",
@@ -10,7 +11,7 @@ const grid = () => {
   }
 }
 
-const tooltips = () => {
+const tooltips = (getTip:Function) => {
   return {
     padding: [8, 10, 8, 10],
     trigger: 'axis',
@@ -21,7 +22,10 @@ const tooltips = () => {
     },
     borderWidth: 1.5,
     borderColor: 'rgba(0, 0, 0, 0.06)',
-    confine:true
+    confine:true,
+    formatter: (value: any) => {
+      return getTip(value)
+    },
   }
 }
 
@@ -75,10 +79,11 @@ const seriesModel=(series:any)=>{
 export const chartConfig = (
   xData: Array<string>,
   series: any,
+  getTip:Function
 ) => {
   return {
     grid: grid(),
-    tooltip: tooltips(),
+    tooltip: tooltips(getTip),
     xAxis: xAxis(xData),
     yAxis:yAxisModel(),
     series:seriesModel(series),

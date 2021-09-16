@@ -9,7 +9,7 @@ import {chainPage} from '~/logic/topRank/config'
           <div class='flex-1 w-full'>
             <DappRankInfo title='快速发现优质 Dapp' />
             <div class="w-full flex justify-center flex-wrap mt-4 md:mt-6">
-              <Chains :page='chainPage.dapp_new'/>
+              <Chains :page='chainPage.dapp_rank'/>
             </div>
           </div>
           <div class='md:ml-6  mt-4 md:mt-0 md:w-129.75   w-full'>
