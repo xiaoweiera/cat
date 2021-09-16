@@ -2,6 +2,7 @@ import { equalsIgnoreCase, isEmpty } from '~/utils'
 
 const brights = {
   'discard': 'icon-discord',
+  'discord': 'icon-discord',
   'medium': 'icon-medium',
   'weibo': 'icon-weibo',
   'telegram': 'icon-telegram-bright',
