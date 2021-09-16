@@ -208,7 +208,7 @@ onMounted(() => {
                     </span>
                     </div>
                   </div>
-                  <div class="text-xs mt-1.5 md:mt-2.5 flex whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
+                  <div class="text-xs mt-1.5 md:mt-2.5 flex justify-end whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
                     <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                     <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
