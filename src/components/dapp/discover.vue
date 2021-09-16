@@ -118,7 +118,7 @@ onMounted(() => {
         </div>
       </DappTabs>
     </div>
-    <div class="content mt-3">
+    <div class="content mt-3 wrap-dapp">
       <!-- 表头 -->
       <UiList class="hidden md:block">
         <template #content>
@@ -128,9 +128,6 @@ onMounted(() => {
             </div>
             <div class="td-data text-global-highTitle text-opacity-65">
               <span>{{ I18n.dapp.header.mediaData }}</span>
-            </div>
-            <div class="td-price text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.type }}</span>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
               <UiSort :title="I18n.dapp.header.time" name="online_time" @change="onSort"></UiSort>
@@ -149,12 +146,31 @@ onMounted(() => {
               <div class="td-title flex">
                 <div class="flex-1">
                   <div class="flex">
-                    <div class="w-20 mr-3">
-                      <el-avatar class="inline-block" shape="square" :size="80" fit="cover" :src="data.logo"></el-avatar>
+                    <div class="mr-3">
+                      <el-avatar shape="square" fit="fit" :src="data.logo"></el-avatar>
                     </div>
                     <div>
-                      <span class="block text-lg font-medium text-global-highTitle leading-5 whitespace-pre-wrap">{{ data.name }}</span>
-                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 whitespace-pre-wrap line-clamp-3" v-if="data.description">{{ data.description }}</span>
+                      <div class="block text-lg font-medium text-global-highTitle leading-5 whitespace-pre-wrap">
+                        <span class="align-middle mr-2">{{ data.name }}</span>
+                        <template v-if="data.categories && compact(data.categories).length > 0">
+                          <template v-for="(item, j) in compact(data.categories)" :key="`${index}-${j}`">
+                            <span v-if="item" class="align-middle text-xs mr-2 hidden md:inline-block text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
+                          </template>
+                        </template>
+                        <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
+                          <span class="align-middle mr-2 hidden md:inline-flex items-center justify-center w-7 h-7 border border-solid border-global-primary border-opacity-10 rounded-kd28px">
+                            <IconFont :type="item.logo" size="16"/>
+                          </span>
+                        </template>
+                      </div>
+                      <div class="mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
+                        <div class="hidden md:inline">
+                          <span class="whitespace-pre-wrap line-clamp-2">{{ data.description }}</span>
+                        </div>
+                        <div class="inline md:hidden">
+                          <span class="whitespace-pre-wrap line-clamp-3">{{ data.description }}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -176,22 +192,6 @@ onMounted(() => {
                     </template>
                   </a>
                 </template>
-              </div>
-              <div class="td-price">
-                <div class="flex items-center md:block">
-                  <div class="md:pb-3" v-if="data.categories && compact(data.categories).length > 0">
-                    <template v-for="(item, j) in data.categories" :key="`${index}-${j}`">
-                      <span class="mr-2 text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
-                    </template>
-                  </div>
-                  <div class="flex">
-                    <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
-                      <span class="mr-2 flex items-center justify-center w-7 h-7 border border-solid border-global-primary border-opacity-10 rounded-kd28px">
-                        <IconFont :type="item.logo" size="16"/>
-                      </span>
-                    </template>
-                  </div>
-                </div>
               </div>
               <div class="td-date">
                 <div class="flex md:block items-center">

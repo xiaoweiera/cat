@@ -144,16 +144,26 @@ onMounted(() => {
       <div class="mt-3" v-if="list.length > 0">
         <UiList class="nft-item-box" v-for="(data, index) in list" :key="index">
           <template #header>
-            <div class="flex text-kdFang">
-              <div class="flex-1">
-                <span class="block text-lg font-medium text-global-highTitle leading-5">{{ data.name }}</span>
-                <span class="block mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">{{ data.description }}</span>
+            <div class="flex">
+              <div class="flex flex-1 text-kdFang">
+                <div class="flex-1">
+                  <span class="block text-lg font-medium text-global-highTitle leading-5">
+                    <span>{{ data.name }}</span>
+                    <IconFont class="align-middle text-global-golden ml-1.5" type="icon-featured" size="18"/>
+                  </span>
+                  <span class="block mt-1.5 md:mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
+                    <span class="line-clamp-3">{{ data.description }}</span>
+                  </span>
+                </div>
+                <div class="ml-4 hidden md:block" v-show="data.is_featured">
+                  <span class="featured">
+                    <IconFont type="icon-featured" size="16"/>
+                    <span class="ml-1">Featured</span>
+                  </span>
+                </div>
               </div>
-              <div class="ml-4" v-show="data.is_featured">
-                <span class="featured">
-                  <IconFont type="icon-featured" size="16"/>
-                  <span class="ml-1">Featured</span>
-                </span>
+              <div class="ml-3 md:hidden">
+                <DappOperation :data="data"/>
               </div>
             </div>
           </template>
@@ -162,19 +172,8 @@ onMounted(() => {
               <div class="td-title">
                 <div class="flex">
                   <template v-for="(src, index) in data.gallery" :key="index">
-                    <el-avatar v-if="index < 5" class="inline-block" :class="{'ml-2': index > 0}" shape="square" :size="80" fit="cover" :src="src"></el-avatar>
+                    <el-avatar v-if="index < 5" class="inline-block" :class="{'ml-2': index > 0}" shape="square" fit="cover" :src="src"></el-avatar>
                   </template>
-                </div>
-                <div class="md:hidden mt-5">
-                  <div class="flex justify-between">
-                    <div>
-                      <span class="block text-lg font-medium text-global-highTitle leading-5">
-                        <span>{{ data.name }}</span><IconFont class="text-global-golden inline-block leading-5 align-middle ml-1.5" type="icon-featured" size="18"/>
-                      </span>
-                      <span class="block mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5 line-clamp-3" v-if="data.description">{{ data.description }}</span>
-                    </div>
-                    <DappOperation class="ml-4" :data="data"/>
-                  </div>
                 </div>
               </div>
               <div class="td-data">
@@ -262,14 +261,5 @@ onMounted(() => {
   @apply py-1 px-2 rounded text-white leading-5;
   @apply flex items-center;
   @apply bg-global-golden;
-}
-
-.nft-item-box {
-  ::v-deep(.list-header) {
-    @apply pb-0 hidden;
-    @screen md {
-      @apply pb-4 block;
-    }
-  }
 }
 </style>

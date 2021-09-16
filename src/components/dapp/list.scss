@@ -14,25 +14,33 @@
       @apply w-124 pr-20;
     }
     .el-avatar {
-      @apply bg-white;
+      @apply bg-white w-16.5 h-16.5;
+      @screen md {
+        @apply w-22 h-22;
+      }
+    }
+    @at-root .wrap-dapp &{
+      @screen md {
+        @apply w-165;
+      }
     }
   }
   .td-data {
-    @apply mt-5;
+    @apply mt-5 hidden;
     @screen md {
-      @apply w-71 mt-0;
+      @apply w-71 mt-0 block;
     }
   }
   .td-price {
-    @apply mt-5;
+    @apply mt-5 hidden;
     @screen md {
-      @apply w-55 mt-0;
+      @apply w-55 mt-0 block;
     }
   }
   .td-date {
-    @apply mt-5;
+    @apply mt-5 hidden;
     @screen md {
-      @apply mt-0 w-50 pr-10 text-right;
+      @apply mt-0 w-50 pr-10 text-right block;
     }
   }
   .td-operation {
