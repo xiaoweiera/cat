@@ -5,11 +5,11 @@ const request=async (param:any)=>{
   return result?.data
 }
 enum API {
-  chainsList = '/api/dapps/v1/chains',
+  nftList = '/api/dapps/v1/rank/nfts',
   chart='/api/dapps/v1/rank/chart/volume'
 }
-import {chainModel} from '~/logic/topRank/interface'
-// 得到公链列表
-export const getChains=(param:chainModel)=>  request({url:API.chainsList,params:param,  method: 'get'})
+import { nftListModel } from '~/logic/topRank/interface'
+// 得到nft列表
+export const getNftList=(param:nftListModel)=>  request({url:API.nftList,params:param,  method: 'get'})
 // 得到nft图表
 export const chart=()=>  request({url:API.chart, method: 'get'})
