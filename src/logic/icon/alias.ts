@@ -23,7 +23,7 @@ const aliasConfig = {
   'phone': 'icon-shouji',
   'medium':'icon-medium1',
   'discard': 'icon-discord1',
-
+  'discord': 'icon-discord1',
   // 链
   'BSC': 'icon-BSC',
   'HOO': 'icon-HOO',

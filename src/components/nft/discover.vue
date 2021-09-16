@@ -3,7 +3,7 @@ import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
 import { onMounted, ref, watch } from 'vue'
 import { isAfter } from '~/utils/time'
-import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat } from '~/utils'
+import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat, upperFirst } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
 import safeGet from '@fengqiaogang/safe-get'
 
@@ -16,6 +16,7 @@ const total = ref<number>(10) // 默认总条数
 const sortValue = ref<string>('')
 const chain = ref<string>('all')
 const group_id = ref<string>('')
+const loading = ref<boolean>(true)
 
 const sortList = ref<any>([
   {
@@ -36,7 +37,7 @@ const onGetList = async function(value?: object) {
     chain: chain.value,
     group_id: group_id.value
   }, value || {})
-
+  loading.value = true
   const result = await API.nft.discover.getList<any[]>(param as any)
   const info = safeGet<any>(result, 'page_info') || {}
   total.value = toInteger(info.total)
@@ -44,6 +45,8 @@ const onGetList = async function(value?: object) {
 
   const array = toArray(safeGet<any[]>(result, 'results') || [])
   list.value.push(...array)
+
+  loading.value = false
 }
 
 const onSort = debounce<any>(function(data?: any) {
@@ -174,7 +177,7 @@ onMounted(() => {
                 <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
                   <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
                     <IconFont class="text-base" :type="key" bright/>
-                    <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ key }}</span>
+                    <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
                     <template v-if="media.total_user && media.online_user">
                       <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
                     </template>
@@ -240,7 +243,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="mt-3" v-else>
-        <div class="border border-solid border-gray">
+        <div v-show="!loading">
           <Empty :desc="I18n.apy.tips.noData"></Empty>
         </div>
       </div>
