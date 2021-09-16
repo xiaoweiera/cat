@@ -43,7 +43,7 @@ onBeforeMount(() => {
 })
 const chainItem = computed(() => chainData.value?.find(item => item.slug === chain.value))
 const changeChain = (slug: string) => {
-  changeRouteParam(RouteModel,RouterModel,{chain:slug})
+  changeRouteParam(RouteModel,RouterModel,{chain:slug,group:undefined})
   chain.value = slug
 }
 </script>
