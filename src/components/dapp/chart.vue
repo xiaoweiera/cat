@@ -47,7 +47,7 @@ onMounted(()=>{
     <div class='flex justify-between items-center'>
       <div class='text-kd14px18px text-global-highTitle txt45'>所有公链总 TVL</div>
       <div  class='flex items-center'>
-        <span class='text-kd26px26px font-bold exp mr-1.5'>${{formatRulesNumber(chartData.tvl)}}</span>
+        <span class='text-kd22px22px md:text-kd26px26px font-bold exp mr-1.5'>${{formatRulesNumber(chartData.tvl)}}</span>
         <span class='text-kd14px18px text-global-numGreen exp h-5.5 w-5.5  flex items-center justify-center text-center mr-1.5 bg-global-numGreen bg-opacity-16 rounded-kd4px'>{{chartData.interval}}</span>
         <span :class='getNumberColor(chartData.tvl_change_percent)' class='text-kd14px18px flex items-center  exp mr-0.5'>
           <span v-if='chartData.tvl_change_percent>=0'>+</span>
@@ -58,7 +58,7 @@ onMounted(()=>{
         </span>
       </div>
     </div>
-    <div class=" w-full h-full  md:h-50  relative">
+    <div class=" w-full  h-26.5  md:h-50  relative">
       <div  id="rankChart" class="chartCanvas w-full h-full"></div>
     </div>
     <!--    <UiLoading v-if="loading"/>-->
