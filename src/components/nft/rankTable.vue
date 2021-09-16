@@ -97,7 +97,7 @@ const onSort=(v:any)=>{
         <div class="header h-10.5 mdhidden px-3 bg-global-white flex items-center rounded-kd6px">
           <template v-for="(item,i) in nftHeader">
             <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
-              <UiSort v-if='item.sort' :title="item.name" sort='desc' :name="item.key" @change="onSort"></UiSort>
+              <UiSort v-if='item.sort' :title="item.name" :sort='param.sort_field===item.key?param.sort_type:""' :name="item.key" @change="onSort"></UiSort>
               <span v-else>{{item.name}}</span>
             </div>
           </template>
