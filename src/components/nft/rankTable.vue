@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 //@ts-ignore
-import {dappHeader,dappHeaderMobile} from '~/logic/topRank/config'
+import {nftHeader} from '~/logic/topRank/config'
 import {chain} from '~/store/config'
 import { GroupPosition } from '~/logic/dapp/interface'
-import {dappList} from '~/logic/topRank/dapp'
+import {nftList} from '~/logic/topRank/nft'
 import {reactive,onMounted,ref,watch} from 'vue'
 import I18n from '~/utils/i18n/index'
 import * as API from '~/api'
@@ -13,7 +13,7 @@ const param=reactive({
   chain:chain.value,
   group_id:'',
   interval:'24h',
-  sort_field:'users',
+  sort_field:'volume',
   sort_type:'desc',
   query:'',
   page:1,
@@ -23,10 +23,11 @@ const list=ref()
 const resultNumber=ref(0)
 const getData=async (clear:boolean)=>{
   console.log('aa')
-  const res=await dappList(param)
+  const res=await nftList(param)
   if(clear){
     list.value=[]
   }
+  console.log(res)
   resultNumber.value=res.page_info.total
   list.value=res.results
 }
@@ -53,12 +54,11 @@ const onSort=(v:any)=>{
 
 </script>
 <template>
-  <div class='dappRank'>
+  <div class='NftRank'>
     <div>
       <DappTabs :position="GroupPosition.dappNew" @change="onGetList">
         <div class="flex items-center justify-between w-full  ">
           <div class='flex items-center xshidden md:flex-1 '>
-            <!--            <IconFont type='icon-gang' class='w-0.1 mx-3 px-0 flex justify-center text-global-highTitle text-opacity-10'/>-->
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">显示对比</span>
             <el-switch v-model="is_Compare"></el-switch>
           </div>
@@ -81,7 +81,7 @@ const onSort=(v:any)=>{
     <div class='showX'>
       <div class=' md:w-full w-227.5'>
         <div class="header h-10.5 px-3 xshidden bg-global-white flex items-center rounded-kd6px">
-          <template v-for="(item,i) in dappHeader">
+          <template v-for="(item,i) in nftHeader">
             <div :class="i===0?item.width+item.class:item.width+item.class+' ml-6'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
               <UiSort :key='keyNumber' v-if='item.sort' :sort='param.sort_field===item.key?param.sort_type:""' :title="item.name" :name="item.key" @change="onSort"></UiSort>
               <span v-else>{{item.name}}</span>
@@ -89,7 +89,7 @@ const onSort=(v:any)=>{
           </template>
         </div>
         <div class="header h-10.5 mdhidden px-3 bg-global-white flex items-center rounded-kd6px">
-          <template v-for="(item,i) in dappHeaderMobile">
+          <template v-for="(item,i) in nftHeader">
             <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
               <UiSort v-if='item.sort' :title="item.name" sort='desc' :name="item.key" @change="onSort"></UiSort>
               <span v-else>{{item.name}}</span>
@@ -97,10 +97,8 @@ const onSort=(v:any)=>{
           </template>
         </div>
         <template v-for="(item,i) in list">
-
-          <DappRankTableItem class='xshidden' :is_Compare='is_Compare' :sortName='param.sort_field' :headerData='dappHeader' :i="i" :item="item"/>
-          <DappRankTableItem class='mdhidden' :sortName='param.sort_field' :headerData='dappHeaderMobile' :i="i" :item="item"/>
-
+          <NftRankTableItem class='xshidden' :is_Compare='is_Compare' :sortName='param.sort_field' :headerData='nftHeader' :i="i" :item="item"/>
+          <NftRankTableItem class='mdhidden' :sortName='param.sort_field' :headerData='nftHeader' :i="i" :item="item"/>
         </template>
       </div>
 
@@ -110,7 +108,7 @@ const onSort=(v:any)=>{
   </div>
 </template>
 <style  lang='scss'>
-.dappRank{
+.NftRank{
   .interval{
     .el-input__inner{
       background: none;
