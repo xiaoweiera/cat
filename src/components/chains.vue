@@ -61,7 +61,7 @@ const chainItem = computed(() => {
   <div class='flex   xshidden    font-kdFang flex-wrap'>
     <template v-for='item in chainData'>
       <router-link :to='getHref(item.slug)' :class="chain===item.slug?'selectedTag ':'tag'" class='flex hand mb-3  rounded-kd20px max-h-9  flex items-center justify-center ' style='flex-shrink:0;'>
-        <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size='20' :type='item.logo' class='mr-1' />
+        <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size='20' :type='item.slug==="all"?"icon-quanbuno-copy":item.logo' class='mr-1' />
         <div>{{ item.name === I18n.apyIndex.allChain ? I18n.apyIndex.all : item.name }}</div>
       </router-link>
     </template>
