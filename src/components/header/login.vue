@@ -30,7 +30,7 @@ onMounted(async() => {
 
 <template>
   <div v-if="!isLogin">
-    <div class="hand opacity-85 text-kd16px24px font-normal flex items-center">
+    <div class="hand opacity-85 text-18 font-normal flex items-center">
       <!-- 没有登录 -->
       <div class="flex items-center">
         <span class="whitespace-nowrap" @click.stop="goLogin">{{I18n.common.login }}</span>

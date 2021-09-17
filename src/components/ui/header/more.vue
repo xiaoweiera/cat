@@ -15,7 +15,7 @@ defineProps({
     <div class="wrap-men-main">
       <ul class="clearfix">
         <li class="items" v-for="(data, index) in list" :key="index">
-          <label>{{ data.name }}</label>
+          <label class="text-14-18">{{ data.name }}</label>
           <template v-if="data.children">
             <div class="wrap-item-box" v-for="(item, idx) in data.children" :key="`${index}-${idx}`">
               <a class="clearfix" v-router="item.href" v-if="item.more">
@@ -24,10 +24,10 @@ defineProps({
                 </div>
                 <div class="float-left">
                   <h3 class="flex items-center">
-                    <span class="text-sm font-medium">{{ item.name }}</span>
+                    <span class="text-16-20 font-r">{{ item.name }}</span>
                     <IconFont class="ml-1 arrow" type="icon-a-rightarrow" size="12"></IconFont>
                   </h3>
-                  <p class="text-xs text-white text-opacity-65 font-light">{{ item.desc }}</p>
+                  <p class="text-12 text-white text-opacity-65 font-light">{{ item.desc }}</p>
                 </div>
               </a>
             </div>
@@ -73,7 +73,7 @@ defineProps({
 
   label {
     border-bottom-width: 1px;
-    @apply text-sm font-medium mb-3;
+    @apply mb-3;
     @apply block pb-3 min-w-39 border-solid border-white border-opacity-25;
   }
   .wrap-item-box {
