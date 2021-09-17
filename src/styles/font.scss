@@ -14,49 +14,13 @@
 .font-color-theme {
   color: #2B8DFE;
 }
+.text-48 { font-size: 3rem; line-height: 3rem; }
+.text-32 { font-size: 2rem; line-height: 2rem; }
 
-/* 数字字体格式 */
-.text-number {
-    @apply font-kdExp;
-}
-
-%family-title {
-    /* 英文字体格式 */
-    @at-root [language=en] &{
-        &:not(.text-number) {
-            @apply font-kdBarlow;
-        }
-    }
-    /* 中文字体格式 */
-    @at-root [language=cn] &{
-        &:not(.text-number) {
-            @apply font-kdFang;
-        }
-    }
-}
-
-%family-inter {
-    /* 英文字体格式 */
-    @at-root [language=en] &{
-        &:not(.text-number) {
-            @apply kdInter;
-        }
-    }
-    /* 中文字体格式 */
-    @at-root [language=cn] &{
-        &:not(.text-number) {
-            @apply kdInter;
-        }
-    }
-}
-
-.text-48 { font-size: 3rem; line-height: 3rem; @extend %family-title; }
-.text-32 { font-size: 2rem; line-height: 2rem; @extend %family-title; }
-
-.text-24 { font-size: 1.5rem; line-height: 1.5rem; @extend %family-title;}
-.text-20 { font-size: 1.25rem; line-height: 1.25rem; @extend %family-title;}
-.text-18 { font-size: 18px; line-height: 1.5rem; @extend %family-title;}
-.text-16 { font-size: 1rem; line-height: 1rem; @extend %family-inter; }
+.text-24 { font-size: 1.5rem; line-height: 1.5rem; }
+.text-20 { font-size: 1.25rem; line-height: 1.25rem; }
+.text-18 { font-size: 18px; line-height: 1.5rem; }
+.text-16 { font-size: 1rem; line-height: 1rem; }
 .text-16-20 { font-size: 1rem; line-height: 1.25rem; }
 
 .text-14 { font-size: 0.875rem; line-height: 18px; }
@@ -66,4 +30,25 @@
 
 .text-13 { font-size: 13px; line-height: 18px; }
 .text-12 { font-size: 0.75rem; line-height: 1rem; }
+
+[class~=text-], [class*=text-] {
+    &:not([class*=text-number]),
+    &:not([class~=text-number]) {
+        /* 英文字体格式 */
+        @at-root [language=en] &{
+            @apply font-kdInter;
+        }
+        /* 中文字体格式 */
+        @at-root [language=cn] &{
+            @apply font-kdFang;
+        }
+    }
+    /* 数字字体格式 */
+    &.text-number {
+        @apply font-kdExp;
+    }
+}
+.font-kdBarlow {
+    font-family: i8n-font-Barlow !important;
+}
 

@@ -5,7 +5,7 @@
 <template>
   <div>
     <div v-for="i in 5" :key="i">
-      <div>test</div>
+      <div class="text-32 font-kdBarlow">test</div>
     </div>
   </div>
 </template>
