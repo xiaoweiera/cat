@@ -101,7 +101,7 @@ onMounted(() => {
       <DappTabs :position="GroupPosition.nftNew" @change="onChangeTab">
         <div class="tabs-operate text-kdFang">
           <div class="mt-4 md:mt-0 hidden">
-            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
+            <span class="mr-1.5 text-14-18 text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
           </div>
           <div class="flex flex-1 items-center justify-end">
@@ -128,23 +128,23 @@ onMounted(() => {
       <!-- 表头 -->
       <UiList class="hidden md:block">
         <template #content>
-          <UiSortGroup class="table-tr text-kdFang">
+          <UiSortGroup class="table-tr">
             <div class="td-title text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.info }}</span>
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.info }}</span>
             </div>
             <div class="td-data text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.mediaData }}</span>
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.mediaData }}</span>
             </div>
-            <div class="td-price text-global-highTitle text-opacity-65">
+            <div class="td-price text-global-highTitle text-opacity-65 text-14-18 font-kdBarlow">
               <UiSort title="Mint Price / Supply" name="price" @change="onSort"></UiSort>
             </div>
-            <div class="td-date text-global-highTitle text-opacity-65">
+            <div class="td-date text-global-highTitle text-opacity-65 text-14-18 font-kdBarlow">
               <div class="flex justify-end">
                 <UiSort title="Sale Date / Time" name="online_time" @change="onSort"></UiSort>
               </div>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.operate }}</span>
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.operate }}</span>
             </div>
           </UiSortGroup>
         </template>
@@ -156,13 +156,13 @@ onMounted(() => {
             <div class="flex">
               <div class="flex flex-1 text-kdFang">
                 <div class="flex-1">
-                  <span class="block text-lg font-medium text-global-highTitle leading-5">
-                    <span>{{ data.name }}</span>
-                    <span class="inline-flex md:hidden ml-1.5 align-middle">
+                  <span class="block text-global-highTitle">
+                    <span class="text-14-18">{{ data.name }}</span>
+                    <span class="inline-flex md:hidden ml-1.5 align-middle leading-5">
                       <IconFont class="text-global-golden" type="icon-featured" size="18"/>
                     </span>
                   </span>
-                  <span class="block mt-1.5 md:mt-3 text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
+                  <span class="block mt-1.5 md:mt-3 text-14-20 font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
                     <span class="line-clamp-3">{{ data.description }}</span>
                   </span>
                 </div>
@@ -191,15 +191,15 @@ onMounted(() => {
                 <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
                   <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
                     <IconFont class="text-base" :type="key" bright/>
-                    <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
+                    <span class="text-14-16 ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
                     <template v-if="media.total_user && media.online_user">
-                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
                     </template>
                     <template v-else-if="media.total_user">
-                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
+                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
                     </template>
                     <template v-else-if="media.online_user">
-                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
                     </template>
                   </a>
                 </template>
@@ -207,11 +207,11 @@ onMounted(() => {
               <div class="td-price">
                 <div class="flex items-center md:inline-block md:text-right">
                   <div>
-                    <span class="text-2xl text-global-numGreen">{{ data.price }} {{ data.price_unit }}</span>
+                    <span class="text-20 text-global-numGreen">{{ data.price }} {{ data.price_unit }}</span>
                     <IconFont :type="data.price_unit"/>
                   </div>
                   <div class="ml-1 md:ml-0">
-                    <span class="text-xs leading-4 text-global-highTitle text-opacity-45">{{ toNumberCashFormat(data.issue_volume, 'Total') }}</span>
+                    <span class="text-12-16 text-global-highTitle text-opacity-45">{{ toNumberCashFormat(data.issue_volume, 'Total') }}</span>
                   </div>
                 </div>
               </div>
@@ -219,21 +219,21 @@ onMounted(() => {
                 <template v-if="data.online_time && isAfter(data.online_time)">
                   <div class="flex md:block items-center">
                     <div class="text-sm whitespace-nowrap">
-                      <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
+                      <span class="text-global-highTitle text-opacity-85 text-14-16 leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
                     </div>
-                    <div class="text-xs whitespace-nowrap" v-if="data.online_timezone">
-                    <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
-                      <span class="mx-1 md:hidden">/</span>
-                      <span>{{ data.online_timezone }}</span>
-                    </span>
+                    <div class="text-12 whitespace-nowrap" v-if="data.online_timezone">
+                      <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
+                        <span class="mx-1 md:hidden">/</span>
+                        <span>{{ data.online_timezone }}</span>
+                      </span>
                     </div>
                   </div>
                   <div class="text-xs mt-1.5 md:mt-2.5 flex justify-end whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
-                    <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
+                    <span class="inline-block text-12 leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                     <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
                       <template #default="date">
-                        <i>{{ date.day }}</i> : <i>{{ date.hour }}</i> : <i>{{ date.minute }}</i> : <i>{{ date.second }}</i>
+                        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> : <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
                       </template>
                     </TimeCountdown>
                   </span>
@@ -247,12 +247,12 @@ onMounted(() => {
                 <DappOperation :data="data"/>
               </div>
             </div>
-            <div class="flex comment text-kdFang mt-4" v-if="data.comment">
+            <div class="flex comment mt-4" v-if="data.comment">
               <div class="pr-1.5">
                 <IconFont type="icon-comment" size="18"/>
               </div>
               <div>
-                <p class="text-sm whitespace-pre-wrap">{{ data.comment }}</p>
+                <p class="text-14-20 whitespace-pre-wrap">{{ data.comment }}</p>
               </div>
             </div>
           </template>
