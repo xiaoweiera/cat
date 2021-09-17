@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import {defineProps,computed} from 'vue'
-import {formatRulesNumber} from '~/lib/tool'
+import {formatRulesNumber,getNumberColor} from '~/lib/tool'
 const props=defineProps({
   headerData:Object,
   item:Object,
   i:Number,
   sortName:String,
-  is_Compare:Boolean
+  is_Compare:Boolean,
+  zIndex:Number
 })
 //@ts-ignore wei
 const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.item.max_stat[props.sortName])*100+'%':'')
 </script>
 <template>
-  <a  v-if='headerData' v-router.blank='item.website' class=" item relative  z-888 hand relative   px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <a  v-if='headerData' v-router.blank='item.website' :class="`z-${zIndex+888}`" class=" item relative   hand relative   px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp text-kd14px20px txt85 md:order-0  whitespace-nowrap   text-center">{{i+1}}</div>
@@ -37,11 +38,14 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
       <!--      用户/变化率-->
       <div :class='headerData[4].width' class="flex flex-col  md:text-right whitespace-nowrap text-center ml-3 md:ml-6 order-6 md:order-4  justify-center">
         <div class="num">{{formatRulesNumber(item.users)}}</div>
-        <div class="text-global-numRed text-kd12px12px exp mt-1">{{formatRulesNumber(item.user_change_percent)}}%</div>
+        <div  class=" text-kd12px12px exp mt-1">
+        <span v-if='item.user_change_percent' :class='getNumberColor(item.user_change_percent)'>{{formatRulesNumber(item.user_change_percent)}}%</span>
+          <span v-else>-</span>
+        </div>
       </div>
       <!--      balance-->
       <div :class='headerData[5].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 order-7 md:order-5 md:ml-6  justify-center">
-        <div class="num">${{formatRulesNumber(item.balance)}}</div>
+        <div v-if='item.balance' class="num">${{formatRulesNumber(item.balance)}}</div>
       </div>
       <!--      volume-->
       <div :class='headerData[6].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 order-8 md:order-6 md:ml-6  justify-center">
@@ -59,12 +63,15 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
 <!--      </div>-->
       <!--      TVL/变化率-->
       <div :class='headerData[7].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 md:ml-6 order-2  md:order-8 justify-center">
-        <div class="num">{{formatRulesNumber(item.tvl)}}</div>
-        <div class="text-global-numRed text-kd12px12px exp mt-1">{{formatRulesNumber(item.tvl_change_percent)}}%</div>
+        <div class="num">${{formatRulesNumber(item.tvl)}}</div>
+        <div class=" text-kd12px12px exp mt-1">
+          <span v-if='item.tvl_change_percent' :class='getNumberColor(item.tvl_change_percent)'>{{formatRulesNumber(item.tvl_change_percent)}}%</span>
+          <span v-else>-</span>
+        </div>
       </div>
       <!--      MCap/TVL-->
       <div :class='headerData[8].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 order-3 md:order-9 md:ml-6  justify-center">
-        <div class="num">{{formatRulesNumber(item.mcap_tvl)}}</div>
+        <div class="num">${{formatRulesNumber(item.mcap_tvl)}}</div>
       </div>
     </div>
 

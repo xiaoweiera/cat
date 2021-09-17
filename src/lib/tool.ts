@@ -460,4 +460,4 @@ export const tolocaleUpperCase=(str:string)=>str?.toUpperCase();
 export const tolocaleLowerCase=(str:string)=>str?.toLowerCase();
 export const getIconType=(name:string)=>`icon-${tolocaleUpperCase(R.slice(0,1,name))}`
 export const getBoolean=(v:number | undefined)=>(v || v===0)?true:false
-export const getNumberColor=(v:number | string | null)=>( v && v >= 0)?'text-global-numGreen':'text-global-numRed'
+export const getNumberColor=(v:number | string | null)=>( (v && v >= 0) || !v)?'text-global-numGreen':'text-global-numRed'

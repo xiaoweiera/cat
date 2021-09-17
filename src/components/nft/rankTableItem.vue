@@ -8,14 +8,15 @@ const props=defineProps({
   item:Object,
   i:Number,
   sortName:String,
-  is_Compare:Boolean
+  is_Compare:Boolean,
+  zIndex:Number
 })
 //@ts-ignore wei
 const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.item.max_stat[props.sortName])*100+'%':'')
 const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-ETH'):'icon-ETH'
 </script>
 <template>
-  <a  v-if='headerData' v-router.blank='item.website' class="px-3 py-1.5 item  relative z-888 hand relative   bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <a  v-if='headerData' v-router.blank='item.website' :class="`z-${zIndex+888}`" class="px-3 py-1.5 item  relative hand relative   bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp md:min-w-7  text-kd14px20px txt85  whitespace-nowrap   text-center">{{i+1}}</div>
@@ -39,16 +40,18 @@ const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-
       </div>
       <!--      24H-->
       <div :class='headerData[4].width' class="content">
-        <div :class='getNumberColor(item.h24_volume_change_percent)' class="flex items-center text-kd14px20px exp">
+        <div  class="flex items-center text-kd14px20px exp">
 <!--          <span>{{item.h24_volume_change_percent>=0?'+':'-'}}</span>-->
-          {{formatRulesNumber(item.h24_volume_change_percent)}}%
+          <div v-if='item.h24_volume_change_percent' :class='getNumberColor(item.h24_volume_change_percent)'>{{formatRulesNumber(item.h24_volume_change_percent)}}%</div>
+          <div v-else>-</div>
         </div>
       </div>
       <!--      7D-->
       <div :class='headerData[5].width' class="content">
-        <div :class='getNumberColor(item.d7_volume_change_percent)' class="flex items-center text-kd14px20px exp">
+        <div  class="flex items-center text-kd14px20px exp">
 <!--          <span>{{item.h24_volume_change_percent>=0?'+':'-'}}</span>-->
-          {{formatRulesNumber(item.d7_volume_change_percent)}}%
+         <div v-if='item.d7_volume_change_percent' :class='getNumberColor(item.d7_volume_change_percent)' >{{formatRulesNumber(item.d7_volume_change_percent)}}%</div>
+          <div v-else>-</div>
         </div>
       </div>
       <!--      Owners-->
