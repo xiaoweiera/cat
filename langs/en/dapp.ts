@@ -30,5 +30,28 @@ export default {
   },
   meta: {
     description: `KingData New Dapp Ranking Discover the latest Dapps, DeFi, NFT, Games, websites that everyone's talking about.`
+  },
+  rank:{
+    title:'Early Find High-quality Dapps',
+    chartTitle:'Total TVL of all chains',
+    comparison:'Comparison',
+    searchProject:'Search',
+    page:{
+      title:'KingData Dapp Ranking',
+      content:'Quickly discover popular Dapps, DeFi, NFTs, games and websites',
+      meta:`KingData Dapp Ranking is a curation of the best new dapp products, every day. Discover the latest Dapps, websites, Games, DeFi and NFT that everyone 's talking about.`
+    },
+    table:{
+      order:'Rank',
+      name:'Name',
+      type:'Type',
+      chain:'Chain',
+      user:'User/Change',
+      balance:'Balance',
+      volume:'Volume',
+      marketcap:'MarketCap',
+      tvl:'TVL/Change',
+      mcap:'MCap/TVL',
+    }
   }
 }

@@ -1,4 +1,5 @@
 <script lang='ts' setup>
+import I18n from '~/utils/i18n/index'
 import { defineProps, onMounted, watch, ref, reactive } from 'vue'
 import { getChart } from '../../logic/topRank/dapp'
 import { EchartData, Position } from '~/logic/echarts/interface'
@@ -44,7 +45,7 @@ onMounted(()=>{
 <template>
   <div  class="w-full h-full  relative">
     <div class='flex justify-between items-center'>
-      <div class='text-kd14px18px text-global-highTitle txt45'>所有公链总 TVL</div>
+      <div class='text-kd14px18px text-global-highTitle txt45 i8n-font-Barlow'>{{I18n.dapp.rank.chartTitle}}</div>
       <div  class='flex items-center'>
         <span class='text-kd22px22px md:text-kd26px26px font-bold exp mr-1.5'>${{formatRulesNumber(chartData.tvl)}}</span>
         <span class='text-kd14px18px text-global-numGreen exp h-5.5 w-5.5  flex items-center justify-center text-center mr-1.5 bg-global-numGreen bg-opacity-16 rounded-kd4px'>{{chartData.interval}}</span>

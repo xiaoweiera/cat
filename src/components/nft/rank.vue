@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {chainPage} from '~/logic/topRank/config'
+import I18n from '~/utils/i18n/index'
 </script>
 <template>
   <div class=" md:pb-13.5 pb-8 min-h-100 bg-global-topBg ">
@@ -7,7 +8,7 @@ import {chainPage} from '~/logic/topRank/config'
       <div class=' bg-global-white'>
         <div class='flex md:flex-row max-w-360 mx-auto  items-end flex-col items-stretch px-4 pb-3 md:px-20 mt-4.5 md:pt-21 items-center'>
           <div class='flex-1 w-full'>
-            <DappRankInfo title='快速发现优质 NFT' class=' text-center flex justify-center' />
+            <DappRankInfo :title='I18n.nft.rank.title' class=' text-center flex justify-center' />
             <div class="w-full flex justify-center flex-wrap mt-4 md:mt-6">
               <Chains :page='chainPage.nft_rank'/>
             </div>

@@ -1,5 +1,6 @@
 <script  lang="ts" setup>
 import {formatRulesNumber,getNumberColor} from '~/lib/tool'
+
 import {defineProps,computed} from 'vue'
 
 const props=defineProps({
@@ -14,15 +15,18 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
 const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-ETH'):'icon-ETH'
 </script>
 <template>
-  <div v-if='headerData' class="h-14.5 item  relative overflow-hidden  px-3 bg-global-white mt-3 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <div v-if='headerData' class="h-14.5 item  hand relative overflow-hidden  px-3 bg-global-white mt-3 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp md:min-w-7  text-kd14px20px txt85  whitespace-nowrap   text-center">{{i+1}}</div>
       <!--     名称-->
-      <div :class='headerData[1].width' class="flex  items-center justify-center   ml-3    truncate  md:ml-6 ">
-        <IconFont :type="item.logo?item.logo:''" size="24"/>
-        <div class="text-kd14px18px text-global-highTitle ml-1.5 fang w-fit  truncate">{{item.name}}</div>
-      </div>
+      <el-tooltip :content="item.name" placement="bottom" effect="light">
+        <div :class='headerData[1].width' class="flex  items-center justify-left   ml-3    truncate  md:ml-6 ">
+          <IconFont :type="item.logo?item.logo:''" size="24"/>
+          <div class="text-kd14px18px text-global-highTitle ml-1.5 fang w-fit  truncate">{{item.name}}</div>
+        </div>
+      </el-tooltip>
+
       <!--      类别-->
       <div :class='headerData[2].width' class="flex items-center   whitespace-nowrap ml-3 md:ml-6  justify-center">
         <template v-for='(typeName,i) in item.categories'>
