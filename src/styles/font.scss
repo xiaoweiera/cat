@@ -31,12 +31,12 @@
 .text-13 { font-size: 13px; line-height: 18px; }
 .text-12 { font-size: 0.75rem; line-height: 1rem; }
 
-
 [class~=text-], [class*=text-] {
-    &:not([class*=text-number]), &:not([class~=text-number]) {
+    &:not([class*=text-number]),
+    &:not([class~=text-number]) {
         /* 英文字体格式 */
         @at-root [language=en] &{
-            @apply font-kdBarlow;
+            @apply font-kdInter;
         }
         /* 中文字体格式 */
         @at-root [language=cn] &{
@@ -47,5 +47,8 @@
     &.text-number {
         @apply font-kdExp;
     }
+}
+.font-kdBarlow {
+    font-family: i8n-font-Barlow !important;
 }
 

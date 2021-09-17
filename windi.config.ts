@@ -126,8 +126,9 @@ export default defineConfig({
             },
             fontFamily: {
                 "kdFang": 'PingFang SC',
-                "kdExp":'D-DIN Exp',
-                "kdBarlow":'i8n-font-Barlow'
+                "kdExp": 'D-DIN Exp',
+                "kdBarlow": "i8n-font-Barlow",
+                "kdInter": "i8n-font-inter",
             },
             margin: {
                 'kd32px': '32px',
