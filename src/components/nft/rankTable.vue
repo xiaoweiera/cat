@@ -8,7 +8,7 @@ import {reactive,onMounted,ref,watch} from 'vue'
 import I18n from '~/utils/i18n/index'
 import * as API from '~/api'
 const keyNumber=ref(0)
-const is_Compare=ref(true)
+const is_Compare=ref(false)
 const loading=ref(false)
 const param=reactive({
   chain:chain.value,
@@ -20,7 +20,7 @@ const param=reactive({
 })
 const pageInfo={
   page:1,
-  page_size:10
+  page_size:50
 }
 const list=ref([])
 const resultNumber=ref(0)
@@ -69,18 +69,18 @@ const onSort=(v:any)=>{
   <div class='NftRank'>
     <div>
       <DappTabs :position="GroupPosition.nftRank" @change="onGetList">
-        <div class="flex items-center justify-between w-full  ">
-          <div class='flex items-center xshidden md:flex-1 '>
+        <div class="flex  justify-end w-full  ">
+          <div class='flex items-center xshidden mr-3 '>
             <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85 i8n-font-inter">{{I18n.dapp.rank.comparison}}</span>
             <el-switch v-model="is_Compare"></el-switch>
           </div>
-          <div class='interval md:order-1 order-2 md:flex-1 ' >
+          <div class='interval md:order-1 order-2 md:mr-3 ' >
             <el-select   v-model="param.interval"   size="small" >
               <el-option v-for="item in ['7d','24h']"  :label="item" :value="item">
               </el-option>
             </el-select>
           </div>
-          <div class='query md:order-2 order-1  flex-1 i8n-font-inter  mr-3 md:mr-0'>
+          <div class='query md:order-2 order-1   i8n-font-inter w-full md:mr-0 mr-3 md:w-auto  md:mr-0'>
             <el-input :placeholder="I18n.dapp.rank.searchProject" v-model="param.query" size="small">
               <template #prefix>
                 <i class="el-input__icon el-icon-search"></i>
@@ -96,17 +96,21 @@ const onSort=(v:any)=>{
         <div class=' md:w-full w-227.5'>
           <div class="header h-10.5 px-3 xshidden bg-global-white flex items-center rounded-kd6px">
             <template v-for="(item,i) in nftHeader">
-              <div :class="i===0?item.width+item.class:item.width+item.class+' ml-6'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
+              <div :class="i===0?item.width+item.class:item.width+item.class+' ml-6'" class="flex whitespace-nowrap h-full   exp text-kd14px18px txt65 text-global-highTitle  ">
+                <div :class='item.key===param.sort_field?"tagBottom":"tagBottomNo"' class='h-full flex items-center'>
                 <UiSort :key='keyNumber' v-if='item.sort' :sort='param.sort_field===item.key?param.sort_type:""' :title="item.name" :name="item.key" @change="onSort"></UiSort>
                 <span v-else>{{item.name}}</span>
+                  </div>
               </div>
             </template>
           </div>
           <div class="header h-10.5 mdhidden px-3 bg-global-white flex items-center rounded-kd6px">
             <template v-for="(item,i) in nftHeader">
-              <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap    exp text-kd14px18px txt65 text-global-highTitle  ">
+              <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap h-full    exp text-kd14px18px txt65 text-global-highTitle  ">
+                <div :class='item.key===param.sort_field?"tagBottom":"tagBottomNo"' class='h-full flex items-center'>
                 <UiSort v-if='item.sort' :title="item.name" :sort='param.sort_field===item.key?param.sort_type:""' :name="item.key" @change="onSort"></UiSort>
                 <span v-else>{{item.name}}</span>
+                </div>
               </div>
             </template>
           </div>
@@ -129,6 +133,12 @@ const onSort=(v:any)=>{
 </template>
 <style  lang='scss'>
 .NftRank{
+  .tagBottom{
+    @apply border-b-2 border-global-primary;
+  }
+  .tagBottomNo{
+    @apply border-b-2 border-global-white;
+  }
   .interval{
     .el-input__inner{
       background: none;
@@ -141,7 +151,7 @@ const onSort=(v:any)=>{
     .el-input__inner{
       background: none;
       height: 34px !important;
-      @apply w-full md:w-45 flex items-center border-global-highTitle border-opacity-10;
+      @apply w-full md:w-40 flex items-center border-global-highTitle border-opacity-10;
     }
   }
 }

@@ -58,11 +58,11 @@ const chainItem = computed(() => {
 
 </script>
 <template>
-  <div class='flex   xshidden    font-kdFang flex-wrap'>
+  <div class='flex   xshidden   font-kdFang flex-wrap'>
     <template v-for='item in chainData'>
       <router-link :to='getHref(item.slug)' :class="chain===item.slug?'selectedTag ':'tag'" class='flex hand mb-3  rounded-kd20px max-h-9  flex items-center justify-center ' style='flex-shrink:0;'>
         <IconFont v-if='item.slug!=="other"' :class="chain==='all'?'text-global-white':item.slug==='all'?'text-global-primary':''" size='20' :type='item.slug==="all"?"icon-quanbuno-copy":item.logo' class='mr-1' />
-        <div>{{ item.name === I18n.apyIndex.allChain ? I18n.apyIndex.all : item.name }}</div>
+        <div class='text-kd14px18px '>{{ item.name === I18n.apyIndex.allChain ? I18n.apyIndex.all : item.name }}</div>
       </router-link>
     </template>
   </div>
@@ -72,7 +72,7 @@ const chainItem = computed(() => {
       <el-option v-for='item in chainData' :label='item.name' :value='item.slug'>
         <router-link :to='getHref(item.slug)' class='flex items-center  h-full'>
           <IconFont size='20' :type='item.logo' />
-          <div class='ml-1 text-kd16px24px text-global-highTitle txt85'>{{ item.name }}</div>
+          <div class='ml-1 text-kd14px18px text-global-highTitle txt85' >{{ item.name }}</div>
         </router-link>
       </el-option>
     </el-select>
@@ -86,11 +86,11 @@ const chainItem = computed(() => {
 
 .tag {
   border: 1px solid rgba(3, 54, 102, 0.1);
-  @apply px-3 py-1.5   mr-3  text-kd16px24px text-global-highTitle text-opacity-85 ;
+  @apply px-2 py-1 mr-3  text-kd16px24px text-global-highTitle text-opacity-85 ;
 }
 
 .selectedTag {
   border: 1px solid rgba(3, 54, 102, 0);
-  @apply px-3 py-1.5 bg-global-primary   mr-3  text-kd16px24px text-global-white ;
+  @apply px-2 py-1 bg-global-primary   mr-3  text-kd16px24px text-global-white ;
 }
 </style>
