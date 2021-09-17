@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '~/styles/font.css'
+import '~/styles/font.scss'
 import { computed, toRaw } from 'vue'
 import * as lang from '~/utils/lang'
 import { useHead } from '@vueuse/head'
@@ -16,9 +16,13 @@ const [ metaState ] = useProvide('headerMeta', {
 // @ts-ignore
 const locale = computed(function() {
   if (lang.current.value === lang.Language.en) {
-    return zhEn
+    return 'zhEn'
   }
-  return zhCn
+  return 'zhCn'
+})
+
+const language = computed<string>(function(): string {
+  return lang.current.value
 })
 
 // https://github.com/vueuse/head
@@ -35,7 +39,7 @@ useHead({
 })
 </script>
 <template>
-  <div>
+  <div :language="language">
     <UiDialogWebNewTipMain class="xshidden"/>
     <router-view />
   </div>

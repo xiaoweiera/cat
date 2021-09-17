@@ -95,7 +95,8 @@ const getHref = function(item: any, chainValue: string) {
 
 onMounted(function() {
   const onWatchPropsCallback = function() {
-    setType(getParam<string>('group', '') as string)
+    const group = getParam<string>('group', '') as string
+    setType(group)
   }
   const onWatchChainCallback = async function() {
     setType()
@@ -104,7 +105,8 @@ onMounted(function() {
 
   watch([props, $router], onWatchPropsCallback)
   watch([chain], onWatchChainCallback)
-  onWatchChainCallback()
+  onWatchPropsCallback()
+  getGroupList()
 })
 
 </script>

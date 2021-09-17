@@ -65,7 +65,7 @@ const moreData = reactive<object>({
     @apply opacity-0 invisible cursor-pointer;
   }
   &:before {
-    left: -25px;
+    left: -25.5px;
   }
   &:after {
     right: -25px;

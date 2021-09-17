@@ -19,7 +19,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
           <template v-for="(data, index) in footers" :key="index">
             <li class="menu-list-box">
               <div class="menu-label hidden lg:block">
-                <span class="text-lg">{{ data.label }}</span>
+                <span class="text-18">{{ data.label }}</span>
               </div>
               <input class="menu-active hidden" :id="`footer-menu-${index}`" type="checkbox" name="`footer-menu-${index}`">
               <label class="menu-label cursor-pointer block lg:hidden" :for="`footer-menu-${index}`">
@@ -31,17 +31,17 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
               <div class="pt-3 lg:pt-6 menu-content">
                 <template v-for="(item, idx) in data.children" :key="`${index}-${idx}`">
                   <template v-if="item.href">
-                    <a class="menu-item text-sm hover:text-global-primary" v-router="item.href">{{ item.name }}</a>
+                    <a class="menu-item text-14-18 hover:text-global-primary" v-router="item.href">{{ item.name }}</a>
                   </template>
                   <template v-else-if="item.qrcode">
                     <div class="menu-item">
                       <UiFooterHover :href="item.qrcode" :desc="item.desc">
-                        <span class="text-sm">{{ item.name }}</span>
+                        <span class="text-14-18">{{ item.name }}</span>
                       </UiFooterHover>
                     </div>
                   </template>
                   <template v-else>
-                    <span class="menu-item text-sm">{{ item.name }}</span>
+                    <span class="menu-item text-14-18">{{ item.name }}</span>
                   </template>
                 </template>
               </div>
@@ -50,7 +50,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
 
           <li class="menu-list-box">
             <div class="menu-label hidden lg:block">
-              <span class="text-lg">{{ I18n.common.nav.download }}</span>
+              <span class="text-18">{{ I18n.common.nav.download }}</span>
             </div>
             <input class="menu-active hidden" id="footer-menu-download" type="checkbox" name="footer-menu-download">
             <label class="menu-label cursor-pointer block lg:hidden" for="footer-menu-download">
@@ -87,7 +87,7 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
               <img class="min-w-28" src="https://res.ikingdata.com/common/logo.svg">
             </div>
             <div class="md:ml-6">
-              <span class="text-sm">{{ I18n.menu.footer.desc }}</span>
+              <span class="text-13">{{ I18n.menu.footer.desc }}</span>
             </div>
           </a>
         </div>

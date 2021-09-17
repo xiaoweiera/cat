@@ -14,7 +14,7 @@ defineProps({
 <template>
   <div class="item-main" :class="{'active': data.active}">
     <a class="menu-content" v-router="data.href">
-      <div class="label-box">
+      <div class="label-box text-16-20 font-r">
         <slot name="label">
           <span>{{ data.name }}</span>
         </slot>
@@ -32,7 +32,7 @@ defineProps({
   .menu-content {
     @apply px-8 h-full cursor-pointer whitespace-nowrap block;
     .label-box {
-      @apply h-full flex items-center text-base font-normal;
+      @apply h-full flex items-center;
       background-color: var(--menu-content-bg);
     }
     color: var(--menu-content-text);

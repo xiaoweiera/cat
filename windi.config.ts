@@ -60,7 +60,6 @@ export default defineConfig({
                 'kd40px':'40px'
             },
             fontSize: {
-                '32': ['2rem', '2rem'],
                 'kd12px12px':['12px','12px'],
                 'kd12px14px':['12px','14px'],
                 'kd10px10px':['10px','10px'],
@@ -120,9 +119,15 @@ export default defineConfig({
                 'kd32px32px':['32px','32px'],
                 'kd25px28px':['25px','28px'],
             },
+            fontWeight: {
+                'b': '600',
+                'm': '500',
+                'r': '400',
+            },
             fontFamily: {
                 "kdFang": 'PingFang SC',
-                "kdExp":'D-DIN Exp'
+                "kdExp":'D-DIN Exp',
+                "kdBarlow":'i8n-font-Barlow'
             },
             margin: {
                 'kd32px': '32px',

@@ -1,0 +1,51 @@
+@font-face {
+    font-family: D-DIN Exp;
+    src: url('/assets/font/D-DINExp.otf');
+}
+@font-face {
+    font-family: i8n-font-Barlow;
+    src: url('/assets/font/BarlowSemiCondensed-Medium.ttf');
+}
+@font-face {
+    font-family: i8n-font-inter;
+    src: url('/assets/font/Inter-Regular.otf');
+}
+
+.font-color-theme {
+  color: #2B8DFE;
+}
+.text-48 { font-size: 3rem; line-height: 3rem; }
+.text-32 { font-size: 2rem; line-height: 2rem; }
+
+.text-24 { font-size: 1.5rem; line-height: 1.5rem; }
+.text-20 { font-size: 1.25rem; line-height: 1.25rem; }
+.text-18 { font-size: 18px; line-height: 1.5rem; }
+.text-16 { font-size: 1rem; line-height: 1rem; }
+.text-16-20 { font-size: 1rem; line-height: 1.25rem; }
+
+.text-14 { font-size: 0.875rem; line-height: 18px; }
+.text-14-16 { font-size: 0.875rem; line-height: 1rem; }
+.text-14-18 { font-size: 0.875rem; line-height: 18px; }
+.text-14-20 { font-size: 0.875rem; line-height: 1.25rem; }
+
+.text-13 { font-size: 13px; line-height: 18px; }
+.text-12 { font-size: 0.75rem; line-height: 1rem; }
+
+
+[class~=text-], [class*=text-] {
+    &:not([class*=text-number]), &:not([class~=text-number]) {
+        /* 英文字体格式 */
+        @at-root [language=en] &{
+            @apply font-kdBarlow;
+        }
+        /* 中文字体格式 */
+        @at-root [language=cn] &{
+            @apply font-kdFang;
+        }
+    }
+    /* 数字字体格式 */
+    &.text-number {
+        @apply font-kdExp;
+    }
+}
+
