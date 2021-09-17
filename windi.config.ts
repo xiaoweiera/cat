@@ -32,20 +32,6 @@ const cssGlobal = {
     topBg:'#FAFBFC'
 }
 
-const font = {
-    '48': ['3rem', '3rem'], // 一级标题
-    '32': ['2rem', '2rem'], // 二级标题
-    '24': ['1.5rem', '1.5rem'], // 三级标题
-    '18': ['18px', '1.5rem'], // 四级标题 24行高
-    '20': ['1.25rem', '1.25rem'], // 20px 20px行高
-    '16': ['1rem', '1rem'], // 五级标题
-    '14': ['0.875rem', '18px'], // 正文
-    '14-16': ['0.875rem', '1rem'], // 正文
-    '14-20': ['0.875rem', '1.25rem'], // 正文，行高 20px
-    '13': ['13px', '18px'],
-    '12': ['0.75rem', '1rem'], // 描述文字 12px
-}
-
 export default defineConfig({
     darkMode: 'class',
     plugins: [
@@ -132,7 +118,6 @@ export default defineConfig({
                 'kd17px17px':['17px','17px'],
                 'kd32px32px':['32px','32px'],
                 'kd25px28px':['25px','28px'],
-                ...font,
             },
             fontWeight: {
                 'b': '600',
