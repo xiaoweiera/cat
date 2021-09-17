@@ -4,7 +4,7 @@ export default {
     discover: 'Dapp 新项目'
   },
   nft: {
-    ranking: 'NFT 排行版',
+    ranking: 'NFT 排行榜',
     discover: 'NFT 新项目'
   },
   apy: {

@@ -22,8 +22,8 @@ export const footers = [
   {
     label: 'Dapp',
     children: [
-      // { name: I18n.menu.dapp.ranking },
-      // { name: I18n.menu.nft.ranking },
+      { name: I18n.menu.dapp.ranking,href:`${config.dapp}/rank` },
+      { name: I18n.menu.nft.ranking,href:`${config.nft}/rank` },
       { name: I18n.menu.dapp.discover, href: `${config.dapp}/discover` },
       { name: I18n.menu.dapp.discover, href: `${config.nft}/discover` },
     ]
@@ -88,14 +88,22 @@ export const headers = [
     name: 'Dapp',
     href: `${config.dapp}/discover`,
     children: [
-      // {
-      //   name: I18n.menu.dapp.ranking,
-      //   header: true
-      // },
-      // {
-      //   name: I18n.menu.nft.ranking,
-      //   header: true
-      // },
+      {
+        name: I18n.menu.dapp.ranking,
+        header: true,
+        more: true,
+        desc: I18n.menu.desc.apy.mining,
+        icon: 'icon-paihang',
+        href: `${config.dapp}/rank`,
+      },
+      {
+        name: I18n.menu.nft.ranking,
+        header: true,
+        more: true,
+        desc: I18n.menu.desc.apy.mining,
+        icon: 'icon-paihang',
+        href: `${config.nft}/rank`,
+      },
       {
         name: I18n.menu.dapp.discover,
         header: true,
