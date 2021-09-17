@@ -153,7 +153,7 @@ onMounted(function() {
     @apply w-115 mt-0;
     &:before {
       content: "";
-      width: 1px;
+      width: 0px;
       @apply bg-global-highTitle bg-opacity-10;
       @apply inline-block h-4 mr-3;
     }

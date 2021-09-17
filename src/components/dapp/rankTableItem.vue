@@ -12,18 +12,15 @@ const props=defineProps({
 const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.item.max_stat[props.sortName])*100+'%':'')
 </script>
 <template>
-  <div v-if='headerData' class="h-14.5 item  hand relative overflow-hidden  px-3 bg-global-white mt-3 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <a  v-if='headerData' v-router.blank='item.website' class=" item relative  z-888 hand relative   px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp text-kd14px20px txt85 md:order-0  whitespace-nowrap   text-center">{{i+1}}</div>
       <!--     名称-->
-      <el-tooltip :content="item.name" placement="bottom" effect="light">
-        <div :class='headerData[1].width' class="flex w-full items-center justify-left  ml-3 md:order-1    truncate  md:ml-6 ">
-          <IconFont :type="item.logo" size="24"/>
-          <div class="text-kd14px18px text-global-highTitle ml-1.5 fang w-fit i8n-font-inter  truncate">{{item.name}}</div>
-        </div>
-      </el-tooltip>
-
+      <div :class='headerData[1].width' class="flex w-full items-center justify-left  ml-3 md:order-1    truncate  md:ml-6 ">
+        <IconFont :type="item.logo" size="24"/>
+        <div class="text-kd14px18px text-global-highTitle ml-1.5 fang w-fit i8n-font-inter  truncate">{{item.name}}</div>
+      </div>
       <!--      类别-->
       <div :class='headerData[2].width' class="flex items-center  whitespace-nowrap ml-3 md:ml-6 order-4 md:order-2  justify-center">
         <template v-for='(typeName,i) in item.categories'>
@@ -34,13 +31,13 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
       <!--      公链-->
       <div :class='headerData[3].width' class="flex  items-center ml-3  md:ml-6 order-5 md:order-3 justify-center">
         <template v-for="(t,i) in item.chains">
-          <IconFont :class='i===item.chains.length-1?"":"mr-1"' :type="t.logo" size="24"/>
+          <IconFont :class='i===item.chains.length-1?"":"mr-1"' :type="t.logo" size="16"/>
         </template>
       </div>
       <!--      用户/变化率-->
       <div :class='headerData[4].width' class="flex flex-col  md:text-right whitespace-nowrap text-center ml-3 md:ml-6 order-6 md:order-4  justify-center">
         <div class="num">{{formatRulesNumber(item.users)}}</div>
-        <div class="text-global-numRed text-kd12px12px exp">{{formatRulesNumber(item.user_change_percent)}}%</div>
+        <div class="text-global-numRed text-kd12px12px exp mt-1">{{formatRulesNumber(item.user_change_percent)}}%</div>
       </div>
       <!--      balance-->
       <div :class='headerData[5].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 order-7 md:order-5 md:ml-6  justify-center">
@@ -63,7 +60,7 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
       <!--      TVL/变化率-->
       <div :class='headerData[7].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 md:ml-6 order-2  md:order-8 justify-center">
         <div class="num">{{formatRulesNumber(item.tvl)}}</div>
-        <div class="text-global-numRed text-kd12px12px exp">{{formatRulesNumber(item.tvl_change_percent)}}%</div>
+        <div class="text-global-numRed text-kd12px12px exp mt-1">{{formatRulesNumber(item.tvl_change_percent)}}%</div>
       </div>
       <!--      MCap/TVL-->
       <div :class='headerData[8].width' class="flex flex-col   md:text-right  whitespace-nowrap text-center ml-3 order-3 md:order-9 md:ml-6  justify-center">
@@ -71,14 +68,14 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
       </div>
     </div>
 
-  </div>
+  </a>
 </template>
 <style scoped lang="scss">
 .item:hover{
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
 .num{
-  @apply text-kd18px18px text-global-highTitle font-kdExp;
+  @apply text-kd16px16px text-global-highTitle font-kdExp;
 }
 .item::before{
   content: '';
@@ -89,6 +86,7 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
   left:0;
   bottom:0;
   width: var(--wv);
+  @apply rounded-kd6px;
 }
 </style>
 
