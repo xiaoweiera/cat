@@ -15,7 +15,7 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
 const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-ETH'):'icon-ETH'
 </script>
 <template>
-  <a  v-if='headerData' v-router.blank='item.website' class="px-3 py-1.5 item  relative z-888 hand relative overflow-hidden   bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <a  v-if='headerData' v-router.blank='item.website' class="px-3 py-1.5 item  relative z-888 hand relative   bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp md:min-w-7  text-kd14px20px txt85  whitespace-nowrap   text-center">{{i+1}}</div>
