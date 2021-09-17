@@ -86,6 +86,7 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
   left:0;
   bottom:0;
   width: var(--wv);
+  @apply rounded-kd6px;
 }
 </style>
 

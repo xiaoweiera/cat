@@ -98,6 +98,7 @@ const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-
   left:0;
   bottom:0;
   width: var(--wv);
+  @apply rounded-kd6px;
 }
 </style>
 
