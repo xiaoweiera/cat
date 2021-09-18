@@ -1,7 +1,7 @@
 import I18n from '~/utils/i18n/index'
 export const dappHeader = [
   { key:'order',name: I18n.dapp.rank.table.order, width: 'w-10.5 ', class: ' i8n-font-Barlow', sort: false },
-  { key:'name',name: I18n.dapp.rank.table.name, width: 'w-58', class: ' i8n-font-Barlow ', sort: false },
+  { key:'name',name: I18n.dapp.rank.table.name, width: 'w-78', class: ' i8n-font-Barlow ', sort: false },
   { key:'categories',name: I18n.dapp.rank.table.type, width: 'w-30', class: ' justify-center i8n-font-Barlow', sort: false },
   { key:'chains',name: I18n.dapp.rank.table.chain, width: 'w-20', class: ' justify-center i8n-font-Barlow', sort: false },
   { key:'users',name: I18n.dapp.rank.table.user, width: 'w-40', class: ' justify-end i8n-font-Barlow', sort: true },
@@ -14,7 +14,7 @@ export const dappHeader = [
 ]
 export const dappHeaderMobile = [
   { key:'order',name: I18n.dapp.rank.table.order, width: 'w-10.5 ', class: ' i8n-font-Barlow', sort: false },
-  { key:'name',name: I18n.dapp.rank.table.name, width: 'w-58', class: ' i8n-font-Barlow', sort: false },
+  { key:'name',name: I18n.dapp.rank.table.name, width: 'w-85', class: ' i8n-font-Barlow', sort: false },
   { key:'tvl',name: I18n.dapp.rank.table.tvl, width: 'w-33', class: ' justify-center  i8n-font-Barlow', sort: true },
   { key:'mcap_tvl',name: I18n.dapp.rank.table.mcap, width: 'w-33', class: ' justify-center   i8n-font-Barlow', sort: true },
   { key:'categories',name: I18n.dapp.rank.table.type, width: 'w-33', class: ' justify-center  i8n-font-Barlow', sort: false },
@@ -28,16 +28,16 @@ export const dappHeaderMobile = [
 
 export const nftHeader = [
   { key:'order',name: I18n.nft.rank.table.order, width: 'w-10.5 md:min-w-7 ', class: ' i8n-font-Barlow', sort: false },
-  { key:'name',name: I18n.nft.rank.table.name, width: 'w-58', class: ' justify-center i8n-font-Barlow', sort: false },
-  { key:'categories',name: I18n.nft.rank.table.type, width: 'w-87', class: ' justify-center i8n-font-Barlow', sort: false },
-  { key:'volume',name: 'Volume', width: 'w-30', class: ' justify-end i8n-font-Barlow', sort: true },
-  { key:'h24_volume_change_percent',name: '24H', width: 'w-46', class: ' justify-end i8n-font-Barlow', sort: true },
-  { key:'d7_volume_change_percent',name: '7D', width: 'w-46', class: ' justify-end i8n-font-Barlow', sort: true },
-  { key:'owners',name: 'Owners', width: 'w-46', class: ' justify-end  i8n-font-Barlow', sort: true },
-  { key:'assets',name: 'Assets', width: 'w-46', class: ' justify-end  i8n-font-Barlow', sort: true },
-  { key:'floor_price',name: 'Floor Price', width: 'w-46', class: ' justify-end  i8n-font-Barlow', sort: true },
-  { key:'avg_price',name: 'Avg Price', width: 'w-46', class: ' justify-end  i8n-font-Barlow', sort: true },
-  { key:'mcap',name: 'MCap', width: 'w-46', class: ' justify-end i8n-font-Barlow ', sort: true },
+  { key:'name',name: I18n.nft.rank.table.name, width: 'w-95', class: ' justify-center i8n-font-Barlow ', sort: false },
+  { key:'categories',name: I18n.nft.rank.table.type, width: 'w-85 ', class: ' justify-center i8n-font-Barlow ', sort: false },
+  { key:'volume',name: 'Volume', width: 'w-42', class: ' justify-end i8n-font-Barlow ', sort: true },
+  { key:'h24_volume_change_percent',name: '24H', width: 'w-42', class: ' justify-end i8n-font-Barlow', sort: true },
+  { key:'d7_volume_change_percent',name: '7D', width: 'w-42', class: ' justify-end i8n-font-Barlow', sort: true },
+  { key:'owners',name: 'Owners', width: 'w-42', class: ' justify-end  i8n-font-Barlow', sort: true },
+  { key:'assets',name: 'Assets', width: 'w-42', class: ' justify-end  i8n-font-Barlow', sort: true },
+  { key:'floor_price',name: 'Floor Price', width: 'w-42', class: ' justify-end  i8n-font-Barlow', sort: true },
+  { key:'avg_price',name: 'Avg Price', width: '', class: ' justify-end  i8n-font-Barlow', sort: true },
+  { key:'mcap',name: 'MCap', width: 'w-42', class: ' justify-end i8n-font-Barlow ', sort: true },
 ]
 
 

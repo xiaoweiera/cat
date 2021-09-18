@@ -16,7 +16,7 @@ const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.i
 const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-ETH'):'icon-ETH'
 </script>
 <template>
-  <a  v-if='headerData' v-router.blank='item.website' :class="`z-${zIndex+888}`" class="px-3 py-1.5 item  relative hand relative   bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <a  v-if='headerData' v-router.blank='item.website'  class="px-3 py-1.5 item  relative hand relative   bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth};z-index:${zIndex+100}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp md:min-w-7  text-kd14px20px txt85  whitespace-nowrap   text-center">{{i+1}}</div>
@@ -68,7 +68,7 @@ const getChainIcon=(chains:any)=>chains.length>0?(chains.logo?chains.logo:'icon-
         <div class="num">{{formatRulesNumber(item.floor_price)}}</div>
       </div>
 <!--      Avg Price-->
-      <div :class='headerData[9].width' class="content">
+      <div v-if='headerData[9].width' :class='headerData[9].width' class="content">
         <IconFont size='12' :type='getChainIcon(item.chains)'/>
         <div class="num">{{formatRulesNumber(item.avg_price)}}</div>
       </div>
