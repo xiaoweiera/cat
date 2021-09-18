@@ -86,7 +86,7 @@ export const footers = [
 export const headers = [
   {
     name: 'Dapp',
-    href: `${config.dapp}/discover`,
+    href: `${config.dapp}/rank`,
     children: [
       {
         name: I18n.menu.dapp.ranking,

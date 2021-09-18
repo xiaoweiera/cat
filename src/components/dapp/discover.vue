@@ -124,18 +124,18 @@ onMounted(() => {
         <template #content>
           <div class="table-tr text-kdFang">
             <div class="td-title text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.info }}</span>
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.info }}</span>
             </div>
             <div class="td-data text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.mediaData }}</span>
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.mediaData }}</span>
             </div>
             <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
-              <div class="flex justify-end">
+              <div class="flex justify-end text-14-18 font-kdBarlow">
                 <UiSort :title="I18n.dapp.header.time" name="online_time" @change="onSort"></UiSort>
               </div>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
-              <span>{{ I18n.dapp.header.operate }}</span>
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.operate }}</span>
             </div>
           </div>
         </template>
@@ -144,7 +144,7 @@ onMounted(() => {
       <div class="mt-3" v-if="list.length > 0">
         <UiList v-for="(data, index) in list" :key="index">
           <template #content>
-            <div class="table-tr text-kdFang">
+            <div class="table-tr">
               <div class="td-title flex">
                 <div class="flex-1">
                   <div class="flex">
@@ -153,10 +153,11 @@ onMounted(() => {
                     </div>
                     <div>
                       <div class="block text-lg font-medium text-global-highTitle leading-5 whitespace-pre-wrap">
-                        <span class="align-middle mr-2">{{ data.name }}</span>
+                        <span class="hidden md:inline text-14-18 align-middle mr-2">{{ data.name }}</span>
+                        <span class="md:hidden text-18-18 align-middle mr-2">{{ data.name }}</span>
                         <template v-if="data.categories && compact(data.categories).length > 0">
                           <template v-for="(item, j) in compact(data.categories)" :key="`${index}-${j}`">
-                            <span v-if="item" class="align-middle text-xs mr-2 hidden md:inline-block text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
+                            <span v-if="item" class="align-middle text-12-14 mr-2 hidden md:inline-block text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
                           </template>
                         </template>
                         <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
@@ -165,12 +166,12 @@ onMounted(() => {
                           </span>
                         </template>
                       </div>
-                      <div class="mt-1.5 md:mt-3 text-xs md:text-sm font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
+                      <div class="mt-1.5 md:mt-3 font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
                         <div class="hidden md:inline">
-                          <span class="whitespace-pre-wrap line-clamp-2">{{ data.description }}</span>
+                          <span class="text-14-20 whitespace-pre-wrap line-clamp-2">{{ data.description }}</span>
                         </div>
                         <div class="inline md:hidden">
-                          <span class="whitespace-pre-wrap line-clamp-3">{{ data.description }}</span>
+                          <span class="text-12-18 whitespace-pre-wrap line-clamp-3">{{ data.description }}</span>
                         </div>
                       </div>
                     </div>
@@ -182,15 +183,15 @@ onMounted(() => {
                 <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
                   <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
                     <IconFont class="text-base" :type="key" bright/>
-                    <span class="text-sm ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
+                    <span class="text-14-16 ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
                     <template v-if="media.total_user && media.online_user">
-                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
                     </template>
                     <template v-else-if="media.total_user">
-                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
+                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
                     </template>
                     <template v-else-if="media.online_user">
-                      <span class="text-xs ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
                     </template>
                   </a>
                 </template>
@@ -199,21 +200,21 @@ onMounted(() => {
                 <template v-if="data.online_time && isAfter(data.online_time)">
                   <div class="flex md:block items-center">
                     <div class="text-sm whitespace-nowrap">
-                      <span class="text-global-highTitle text-opacity-85 text-sm leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
+                      <span class="text-global-highTitle text-opacity-85 text-14-16 leading-3">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
                     </div>
-                    <div class="text-xs whitespace-nowrap" v-if="data.online_timezone">
-                    <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
-                      <span class="mx-1 md:hidden">/</span>
-                      <span>{{ data.online_timezone }}</span>
-                    </span>
+                    <div class="text-12 whitespace-nowrap" v-if="data.online_timezone">
+                      <span class="text-global-highTitle text-opacity-45 text-xs leading-3">
+                        <span class="mx-1 md:hidden">/</span>
+                        <span>{{ data.online_timezone }}</span>
+                      </span>
                     </div>
                   </div>
                   <div class="text-xs mt-1.5 md:mt-2.5 flex justify-end whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
-                    <span class="inline-block text-xs leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
+                    <span class="inline-block text-12 leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
                     <span class="date-box inline-block">
                     <TimeCountdown :value="data.online_time">
                       <template #default="date">
-                        <i>{{ date.day }}</i> : <i>{{ date.hour }}</i> : <i>{{ date.minute }}</i> : <i>{{ date.second }}</i>
+                        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> : <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
                       </template>
                     </TimeCountdown>
                   </span>
@@ -232,7 +233,7 @@ onMounted(() => {
                 <IconFont type="icon-comment" size="18"/>
               </div>
               <div>
-                <p class="text-sm whitespace-pre-wrap">{{ data.comment }}</p>
+                <p class="text-14-20 whitespace-pre-wrap">{{ data.comment }}</p>
               </div>
             </div>
           </template>

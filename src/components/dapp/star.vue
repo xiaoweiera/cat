@@ -43,7 +43,7 @@ const onClick = async function() {
         <IconFont type="icon-triangle" size="24"/>
       </div>
       <div class="flex justify-center">
-        <span class="text-sm">{{ count }}</span>
+        <span class="text-14-16">{{ count }}</span>
       </div>
     </div>
   </div>

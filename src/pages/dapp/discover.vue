@@ -7,9 +7,9 @@ import { GroupPosition } from '~/logic/dapp/interface'
 <template>
   <div class="bg-white">
     <div class="pt-4 md:pt-8 px-4">
-      <div class="flex items-center justify-center text-kdFang">
-        <h2 class="mr-3 text-global-highTitle text-32 hidden md:block">{{ I18n.dapp.title }}</h2>
-        <h2 class="mr-3 text-global-highTitle text-kd22px22px block md:hidden ">{{ I18n.dapp.title }}</h2>
+      <div class="flex items-center justify-center">
+        <h2 class="mr-3 text-global-highTitle text-32 font-kdBarlow hidden md:block">{{ I18n.dapp.title }}</h2>
+        <h2 class="mr-3 text-global-highTitle text-20 font-kdBarlow block md:hidden ">{{ I18n.dapp.title }}</h2>
         <a v-router.blank="apply" class="text-white bg-global-darkblue rounded-kd34px px-4 py-2 flex items-center whitespace-nowrap">
           <IconFont type="icon-shangchuan" size="16"/>
           <span class="text-xs md:text-sm ml-1.5">{{ I18n.dapp.apply }}</span>

@@ -14,7 +14,7 @@ defineProps({
   <div class="text-right">
     <div>
       <a v-router.blank="data.website" class="inline-flex items-center text-global-darkblue justify-end cursor-pointer">
-        <span class="text-sm">{{ I18n.dapp.website }}</span>
+        <span class="text-14-18">{{ I18n.dapp.website }}</span>
         <IconFont type="icon-right" size="xs"/>
       </a>
     </div>

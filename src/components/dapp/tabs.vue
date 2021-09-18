@@ -123,7 +123,7 @@ onMounted(function() {
           </template>
           <template v-else>
             <div class="initial text">
-              <span>{{ safeGet(item, 'initial.text') }}</span>
+              <span class="text-14-18">{{ safeGet(item, 'initial.text') }}</span>
             </div>
           </template>
 
@@ -134,7 +134,7 @@ onMounted(function() {
           </template>
           <template v-else>
             <div class="active text">
-              <span>{{ safeGet(item, 'active.text') }}</span>
+              <span class="text-14-18">{{ safeGet(item, 'active.text') }}</span>
             </div>
           </template>
         </router-link>
@@ -167,7 +167,7 @@ onMounted(function() {
   }
   .text {
     transition: all 0.3s;
-    @apply inline-block py-1.5 px-2.5 text-sm text-global-highTitle text-opacity-85;
+    @apply inline-block py-1.5 px-2.5 text-global-highTitle text-opacity-85;
   }
   .initial {
     @apply block;
