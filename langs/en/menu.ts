@@ -59,6 +59,7 @@ export default {
     wechat: 'WeChat Group'
   },
   footer: {
+    tool: 'Tools',
     desc: 'Data Empowering DeFi, Early to Discover Wealth',
   }
 }
