@@ -1,11 +1,22 @@
-<script setup lang="ts">
-import { defineProps } from 'vue'
-defineProps({
-  list: {
-    type: Array,
-    default: () => []
+<script lang="ts">
+// import { defineProps } from 'vue'
+// defineProps({
+//   list: {
+//     type: Array,
+//     default: () => []
+//   }
+// })
+
+export default {
+  name: 'HeaderSubMenu',
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
   }
-})
+}
+
 </script>
 
 <template>
