@@ -96,7 +96,7 @@ const setUtmSsource = function(data: any, hostname?: string | null | undefined) 
     if (hostname && hostname === '127.0.0.1') {
       return data
     }
-    if (hostname && hostname.includes('kingdata.com')) {
+    if (hostname && hostname.includes('kingdata')) {
       return data
     }
     if (!hostname) {
