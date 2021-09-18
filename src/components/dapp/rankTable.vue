@@ -90,9 +90,9 @@ const onSort=(v:any)=>{
         </div>
       </DappTabs>
     </div>
-    <div class='relative'>
+    <div>
       <div v-if='list.length>0 '  class='showX'>
-        <div class=' md:w-full w-230 '>
+        <div class=' md:w-full w-300'>
           <div class="header h-10.5 px-3 xshidden bg-global-white flex items-center rounded-kd6px">
             <template v-for="(item,i) in dappHeader">
               <div :class="i===0?(item.width+item.class):(item.width+item.class+' ml-6')"  class="flex whitespace-nowrap  h-full   exp text-kd14px18px txt65 text-global-highTitle  ">
@@ -126,7 +126,7 @@ const onSort=(v:any)=>{
       <div v-show="list.length<resultNumber" class='text-center mt-3'>
         <UiButtonMore class='i8n-font-inter' :request="more"/>
       </div>
-      <UiLoading v-if='loading' class='min-h-100 absolute  top-0 z-2'/>
+      <UiLoading v-if='loading' class='min-h-100 fixed left-0 right-0   top-0 bottom-0 z-99999'/>
     </div>
 
   </div>

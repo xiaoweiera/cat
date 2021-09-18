@@ -4,11 +4,11 @@ import I18n from '~/utils/i18n/index'
 <template>
   <NftRank />
   <div class="hidden">
-    <UiWechatShare :title="I18n.nft.page.title" :content="I18n.nft.page.content"/>
+    <UiWechatShare :title="I18n.nft.rank.page.title" :content="I18n.nft.rank.page.content"/>
 
-    <UiHeaderTitle :value="I18n.nft.page.title"/>
-    <UiHeaderMeta name="keywords" :content="I18n.nft.page.meta"/>
-    <UiHeaderMeta name="description" :content="I18n.nft.page.meta"/>
+    <UiHeaderTitle :value="I18n.nft.rank.page.title"/>
+    <UiHeaderMeta name="keywords" :content="I18n.nft.rank.page.meta"/>
+    <UiHeaderMeta name="description" :content="I18n.nft.rank.page.meta"/>
   </div>
 </template>
 
