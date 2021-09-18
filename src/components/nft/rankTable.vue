@@ -114,7 +114,7 @@ const onSort=(v:any)=>{
                 </div>
               </template>
             </div>
-          <template v-for="(item,i) in list">
+          <template v-for="(item,i) in list" :key='i'>
             <NftRankTableItem class='xshidden' :zIndex='list.length-1-i' :is_Compare='is_Compare' :sortName='param.sort_field' :headerData='nftHeader' :i="i" :item="item"/>
             <NftRankTableItem class='mdhidden' :zIndex='list.length-1-i' :sortName='param.sort_field' :headerData='nftHeaderMobile' :i="i" :item="item"/>
           </template>

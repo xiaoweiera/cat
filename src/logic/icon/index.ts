@@ -50,13 +50,13 @@ const iconFont = function(props: Props): string {
     className.push(props.className)
   }
   const imgClassName = fontSize(props.size as string, toBoolean(props.rounded))
-  imgClassName.push(`icon-${props.type}`)
   if (image) {
     className.push('none-select', 'icon-font')
     imgClassName.push('none-select')
     const img = `<img class="${imgClassName.join(" ")}" alt="" src="${image}"/>`
     return `<span class="${className.join(" ")}">${img}</span>`
   } else {
+    imgClassName.push(`icon-${props.type}`)
     className.push('inline-flex')
     imgClassName.push('icon-font', 'flex')
     const svg = `<svg aria-hidden="true"><use xlink:href="#${getAlias(props.type, props.bright)}"></use></svg>`
