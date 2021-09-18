@@ -6,7 +6,7 @@ import I18n from '~/utils/i18n/index'
   <div class=" md:pb-13.5 pb-8 min-h-100 bg-global-topBg ">
     <div class=" mx-auto ">
       <div class=' bg-global-white'>
-        <div class='flex md:flex-row max-w-360 mx-auto  items-end flex-col items-stretch px-4 pb-3 md:px-20 mt-4.5 md:pt-8 items-center'>
+        <div class='flex md:flex-row max-w-360 mx-auto  items-end flex-col items-stretch px-4 pb-3 md:px-20 mt-4.5 md:mt-5 items-center'>
           <div class='flex-1 w-full'>
             <DappRankInfo :title='I18n.nft.rank.title' class=' text-center flex justify-center' />
             <div class="w-full flex justify-center flex-wrap mt-4 md:mt-8">
