@@ -7,6 +7,8 @@ import Url from 'url'
 import { ref } from 'vue'
 import { domain } from '~/lib/config'
 import safeSet from '@fengqiaogang/safe-set'
+import safeGet from '@fengqiaogang/safe-get'
+import { omit } from 'ramda'
 
 export enum Language {
   auto = 'auto', // 自动检测
@@ -83,12 +85,35 @@ const switchLang = function(value?: Language): Language {
   return value || current.value
 }
 
+const setUtmSsource = function(data: any, hostname?: string | null | undefined) {
+  if (data) {
+    const query = safeGet<object>(data, 'query') || {}
+    // 删除
+    safeSet(data, 'query', omit(['utm_source'], query))
+    if (hostname && hostname === 'localhost') {
+      return data
+    }
+    if (hostname && hostname === '127.0.0.1') {
+      return data
+    }
+    if (hostname && hostname.includes('kingdata.com')) {
+      return data
+    }
+    if (!hostname) {
+      return data
+    }
+    // 添加
+    safeSet(data, 'query.utm_source', encodeURI(domain))
+  }
+  return data
+}
+
 const splitJoin = function(href: string, value?: Language): string {
   // @ts-ignore
-  const data = Url.parse(href, true)
+  let data = Url.parse(href, true)
   data.search = ''
   safeSet(data, 'query.lang', switchLang(value))
-  safeSet(data, 'query.utm_source', encodeURI(domain))
+  data = setUtmSsource(data, data.hostname)
   return Url.format(data)
 }
 
@@ -102,8 +127,8 @@ export const href = function <T>(data: Query, lang?: Language): T {
   if (typeof data === 'string') {
     return splitJoin(data, lang) as any
   }
-  const temp: any = {...data}
+  let temp: any = {...data}
   safeSet<T>(temp, 'query.lang', switchLang(lang))
-  safeSet(temp, 'query.utm_source', encodeURI(domain))
+  temp = setUtmSsource(data, temp.path)
   return temp
 }
