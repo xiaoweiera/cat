@@ -7,7 +7,7 @@ onBeforeMount(() => {
   const router = useRouter()
   const query: any = getParam<object>()
   router.replace({
-    path: `${config.apy}/mining`,
+    path: `${config.dapp}/rank`,
     query: query
   })
 })

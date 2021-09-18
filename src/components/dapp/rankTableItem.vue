@@ -13,7 +13,7 @@ const props=defineProps({
 const bgWidth=computed(()=> props.is_Compare?(props.item[props.sortName]/props.item.max_stat[props.sortName])*100+'%':'')
 </script>
 <template>
-  <a  v-if='headerData' v-router.blank='item.website' :class="`z-${zIndex+888}`" class=" item relative   hand relative   px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}`">
+  <a  v-if='headerData' v-router.blank='item.website'   class=" item relative   hand relative   px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}; z-index:${zIndex+100}`">
     <div class='relative z-2  flex items-center w-full   '>
       <!--      排名-->
       <div :class='headerData[0].width' class="exp text-kd14px20px txt85 md:order-0  whitespace-nowrap   text-center">{{i+1}}</div>
