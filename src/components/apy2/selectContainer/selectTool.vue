@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref,defineProps,reactive,onMounted} from 'vue'
+import {ref,defineProps,reactive,onMounted,watch} from 'vue'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
 import {useRoute} from 'vue-router'
@@ -7,7 +7,7 @@ import {useProvide} from '~/utils/use/state'
 const props = defineProps({type:String})
 const [txt,]=useProvide('txt','')
 const chain=ref('all')
-const show=reactive({value:false})
+const show=reactive({state:false})
 const pageType=ref('')
 const changePageType=(type:string)=>pageType.value=type
 const route = useRoute()
@@ -15,10 +15,10 @@ const route = useRoute()
 window.addEventListener('click',function(a){
   //@ts-ignore
   const name=a.target.attributes?.name?.value
-  if(name!=='select') show.value=false
+  console.log(name,'ljlj')
+  if(name!=='select') show.state=false
 });
-const blurTxt=()=>show.value=false
-const focusTxt=()=>show.value=true
+const focusTxt=()=>show.state=true
 onMounted(()=>{
   if(route.path.indexOf('mining')>=0){
     pageType.value='mining'
@@ -28,11 +28,10 @@ onMounted(()=>{
 })
 </script>
 <template>
-  <div style='color:red;'>{{show.value}}2</div>
-  <Apy2SelectContainerSelectModel v-if='!show.value' :show='show' :chain='chain' />
+  <Apy2SelectContainerSelectModel v-if='!show.state' :show='show' :chain='chain' />
   <div v-else class="font-kdFang " name="select" >
-    <div class="bg-global-white rounded-kd24px py-1    selectShadow " name="select"  >
-      <div class="pl-4 pr-2 flex borer-1 items-center w-full" name="select" >
+    <div class="bg-global-white rounded-kd24px   selectShadow " name="select"  >
+      <div class="pl-4 pr-2 h-9 flex borer-1 items-center w-full" name="select" >
         <div class="flex items-center " name="select" >
           <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
           <div class="allChain items-center  " name="select" >
@@ -46,11 +45,11 @@ onMounted(()=>{
         <div  class="flex items-center flex-1 -ml-5.5 search " name="select" >
           <el-input name="select"  @focus="focusTxt()" class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt[0]" value=""></el-input>
         </div>
-        <div name="select"  class="bg-global-primary w-8 h-8 flex justify-center items-center ml-3 " style="border-radius: 50%;">
+        <div name="select"  class="bg-global-primary w-7 h-7 flex justify-center items-center ml-3 " style="border-radius: 50%;">
           <IconFont name="select"  type="icon-sousuo-da" class="text-global-white" size="14"/>
         </div>
       </div>
-      <div name="select"  v-if="txt[0] && show.value"  class="h-auto showY mt-1 pl-4 pr-2 pb-2 flex flex-col ">
+      <div name="select"  v-if="txt[0] && show.state"  class="h-auto showY mt-1 pl-4 pr-2 pb-2 min-h-45  flex flex-col ">
         <div name="select"  class="bottomBorder"></div>
         <div name="select" class='flex items-center mt-4'>
           <div @click='changePageType("mining")' name="select" :class='pageType==="mining"?"typeTaged":"typeTag"' class='mr-4'>挖矿APY</div>
@@ -98,7 +97,7 @@ onMounted(()=>{
     font-size:14px;
     display: inherit;
     padding-left:4px !important;
-    width:250px;
+    width:100%;
     @apply  text-global-highTitle font-medium ;
   }
   ::v-deep(.el-input__suffix){

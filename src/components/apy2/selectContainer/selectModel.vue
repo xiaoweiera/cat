@@ -2,37 +2,34 @@
 import {ref,defineProps,computed,onMounted,toRefs} from 'vue'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
-import {useProvide} from '~/utils/use/state'
+import {useProvide,getInject} from '~/utils/use/state'
 const props = defineProps({show:Object,chain:String})
-const [txt,]=useProvide('txt','')
-const chain=ref('all')
-const {data:value}=toRefs(props.show)
+const txt=getInject('txt')
+const {state:propsShow}=toRefs(props.show)
 const openSelect=()=>{
-
-  console.log('aaa')
-  showParam.value=true
+  propsShow.value=true
 }
-
+const chainName=computed(()=>{
+  const item=chains.find(item=>item.key===props.chain)
+  return item.name
+})
 </script>
 <template>
-  <div style='color:red;'>{{chain}}--{{showParam.value}}</div>
-  <div @click='openSelect' class="font-kdFang border-1 w-75 " name="select" >
-    <div  class="bg-global-highTitle bg-opacity-4 rounded-kd24px py-1 h-9 flex items-center  selectShadow " name="select"  >
-      <div class="pl-4 pr-2 flex borer-1 items-center w-full" name="select" >
+  <div  @click='openSelect()' class="font-kdFang absolute right-0 w-75 hand   " name="select" >
+<!--    <div style='color:red;'>{{propsShow}}</div>-->
+    <div   class="bg-global-highTitle bg-opacity-4 rounded-kd24px  h-9  flex items-center  selectShadow " name="select"  >
+      <div class="pl-4 pr-2 flex borer-1 items-center w-full h-full" name="select" >
         <div class="flex items-center w-30 " name="select" >
           <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
-          <div class="allChain items-center  " name="select" >
-            <el-select name="select"    size="small" v-model="chain" >
-              <el-option name="select"  v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
-              </el-option>
-            </el-select>
-          </div>
+          <div name="select" class='text-global-highTitle text-kd14px18px'>{{chainName}}</div>
+          <IconFont name="select" class='text-global-default text-opacity-35  ml-1.5' size='10' type='icon-arrow-down'/>
         </div>
-        <IconFont type="icon-gang" name="select"  size="14" class=" relative right-5.8  ml-1 text-global-highTitle text-opacity-12"/>
-        <div  class="flex items-center border-1 flex-1 -ml-5.5 search " name="select" >
-          <div class='text-global-highTitle text-opacity-45 text-14'>请输入...</div>
+        <IconFont type="icon-gang" name="select"  size="14" class=" relative right-6  ml-1 text-global-highTitle text-opacity-12"/>
+        <div  class="flex items-center flex-1 -ml-5.5 search w-full h-full " name="select" >
+          <div name="select"  class='text-global-highTitle text-opacity-45 text-14'>{{txt[0]?txt[0]:'请输入...'}}</div>
         </div>
         <div name="select"  class="bg-global-primary w-7 h-7 flex justify-center items-center ml-3 " style="border-radius: 50%;">
+          <div name='select' class=' absolute w-6 h-6'></div>
           <IconFont name="select"  type="icon-sousuo-da" class="text-global-white" size="14"/>
         </div>
       </div>

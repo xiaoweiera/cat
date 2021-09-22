@@ -5,8 +5,8 @@ export default {
 </script>
 
 <template>
-  <div class='w-150  h-full'>
-      <Apy2SelectContainerSelectTool class='w-full '/>
+  <div class='w-140  h-full flex relative'>
+      <Apy2SelectContainerSelectTool class='w-full   mt-1.45'/>
   </div>
 
 </template>
