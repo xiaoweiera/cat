@@ -95,7 +95,7 @@ const onSort=(v:any)=>{
       <div v-if='list.length>0 ' class='showX'>
         <div class=' md:w-full w-370'>
             <div class="header h-10.5 px-3 xshidden bg-global-white flex items-center rounded-kd6px">
-             <template v-for="(item,i) in nftHeader">
+             <template v-for="(item,i) in nftHeader" :key='i'>
                 <div v-if='item.width' :class="i===0?item.width+item.class:item.width+item.class+' ml-6'" class="flex whitespace-nowrap h-full   exp text-kd14px18px txt65 text-global-highTitle  ">
                   <div :class='item.key===param.sort_field?"tagBottom":"tagBottomNo"' class='h-full flex items-center'>
                     <UiSort :key='keyNumber' v-if='item.sort' :sort='param.sort_field===item.key?param.sort_type:""' :title="item.name" :name="item.key" @change="onSort"></UiSort>

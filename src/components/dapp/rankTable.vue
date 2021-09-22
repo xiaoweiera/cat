@@ -105,7 +105,7 @@ const onSort=(v:any)=>{
             </template>
           </div>
           <div class="header h-10.5 mdhidden px-3 bg-global-white flex items-center rounded-kd6px">
-            <template v-for="(item,i) in dappHeaderMobile">
+            <template v-for="(item,i) in dappHeaderMobile" :key='i'>
               <div :class="i===0?item.width+item.class:item.width+item.class+' ml-3'" class="flex whitespace-nowrap h-full    exp text-kd14px18px txt65 text-global-highTitle  ">
                 <div :class='item.key===param.sort_field?"tagBottom":"tagBottomNo"' class='h-full flex items-center'>
                 <UiSort :key='keyNumber' v-if='item.sort' :title="item.name" :sort='param.sort_field===item.key?param.sort_type:""' :name="item.key" @change="onSort"></UiSort>
@@ -114,7 +114,7 @@ const onSort=(v:any)=>{
               </div>
             </template>
           </div>
-          <template v-for="(item,i) in list">
+          <template v-for="(item,i) in list" :key='i'>
             <DappRankTableItem class='xshidden' :zIndex='list.length-1-i' :is_Compare='is_Compare' :sortName='param.sort_field' :headerData='dappHeader' :i="i" :item="item"/>
             <DappRankTableItem class='mdhidden' :zIndex='list.length-1-i' :sortName='param.sort_field' :headerData='dappHeaderMobile' :i="i" :item="item"/>
           </template>
