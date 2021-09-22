@@ -24,9 +24,6 @@ onMounted(async ()=>{
 </script>
 <template>
   <div class=" flex flex-col items-center justify-center md:mb-16 mb-9   bg-global-white  h-full font-kdFang " >
-
-    <Apy2SelectContainerSelectTool type='mining'/>
-
     <div class="max-w-360 px-4  md:px-20  relative  w-full h-full container ">
       <div class="mt-4.25 md:mt-10 flex justify-between  items-center">
         <Apy2BaseHeader :title="I18n.apyIndex.miningTitle" class=" flex flex-col flex-wrap justify-center" />

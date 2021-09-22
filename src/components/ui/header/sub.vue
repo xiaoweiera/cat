@@ -39,10 +39,12 @@ export default {
           </template>
         </div>
       </div>
-      <div class="extend ml-5">
-        <template v-if="sub">
-          <component :is="sub"></component>
-        </template>
+      <div class="extend ml-5 h-full">
+        <div class='hidden md:block h-full'>
+          <template v-if="sub">
+            <component :is="sub"></component>
+          </template>
+        </div>
       </div>
     </div>
   </div>

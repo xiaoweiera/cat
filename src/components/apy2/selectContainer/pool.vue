@@ -23,6 +23,11 @@ const param={
   page:1,
   page_size:initSize
 }
+watch(()=>props?.pageType,(n)=>{
+  param.pool_type=n
+  param.page=1
+  getList()
+})
 const route = useRoute()
 const router = useRouter()
 //更多
@@ -55,6 +60,7 @@ watch(()=>props.chain,(n)=>{
   param.page=1
   getList()
 })
+
 onMounted(()=>{
   getList()
 })
@@ -63,8 +69,8 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 </script>
 <template>
   <div v-if="allData.length>0" class=" mt-4"  name="select">
-    <ul>
-      <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">{{I18n.apyIndex.pools}}</li>
+      <div class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">{{I18n.apyIndex.pools}}</div>
+    <div class='py-1'>
       <template v-for="item in allData">
         <div class="flex items-center  h-9 justify-between" name="select">
           <div class="flex items-center" name="select">
@@ -73,7 +79,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
             <span name="select" class="text-kd14px14px text-global-highTitle text-opacity-65 font-kdExp ml-1">{{item.project}}</span>
             <img name="select" class="w-3.5 h-3.5 ml-1" :src="chainsIcon[tolocaleLowerCase(item.chain)]" alt="">
             <IconFont name="select" :type="getIconType(item.project_category)" size="14" class="ml-1"/>
-             <div name="select" v-if="item.strategy_tags" class="bg-global-highTitle bg-opacity-6 px-1 py-0.5 rounded-kd4px ml-1 text-kd12px14px text-global-highTitle text-opacity-45">{{item.strategy_tags}}</div>
+            <div name="select" v-if="item.strategy_tags" class="bg-global-highTitle bg-opacity-6 px-1 py-0.5 rounded-kd4px ml-1 text-kd12px14px text-global-highTitle text-opacity-45">{{item.strategy_tags}}</div>
           </div>
           <div name="select" class="flex items-center">
             <span name="select" class="text-kd13px18px text-global-highTitle text-opacity-65 font-kdFang">APY</span>
@@ -81,8 +87,9 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           </div>
         </div>
       </template>
-      <li name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">{{I18n.apyIndex.more}}</li>
-    </ul>
+    </div>
+
+      <div name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">{{I18n.apyIndex.more}}</div>
   </div>
 
 </template>
@@ -105,7 +112,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
   @apply text-kdExp text-kd14px20px text-global-default opacity-85;
 }
 .more {
-  @apply text-kd12px16px font-medium font-kdFang  text-global-primary font-normal  mt-2;
+  @apply text-kd12px16px font-medium font-kdFang  text-global-primary font-normal;
 }
 
 .itemLi {

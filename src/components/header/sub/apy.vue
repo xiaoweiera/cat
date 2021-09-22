@@ -5,6 +5,9 @@ export default {
 </script>
 
 <template>
-  <div></div>
+  <div class='w-150  h-full'>
+      <Apy2SelectContainerSelectTool class='w-full '/>
+  </div>
+
 </template>
 
