@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref,defineProps} from 'vue'
-import {chains,searchStaticToken} from '~/logic/apy2/config'
+import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
 const [txt,]=useProvide('txt','')
@@ -16,7 +16,7 @@ const focusTxt=()=>show.value=true
 </script>
 <template>
   <div class="font-kdFang" name="select" >
-    <div class="bg-global-white rounded-kd24px absolute right-0 z-10 top-0 py-1   m-h-12 selectShadow " name="select"  >
+    <div class="bg-global-white rounded-kd24px py-1   m-h-12 selectShadow " name="select"  >
       <div class="pl-4 pr-2 flex borer-1 items-center w-full" name="select" >
         <div class="flex items-center " name="select" >
           <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
@@ -31,15 +31,19 @@ const focusTxt=()=>show.value=true
         <div class="flex items-center flex-1 -ml-5.5 search " name="select" >
           <el-input name="select"  @focus="focusTxt()" class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt[0]" value=""></el-input>
         </div>
-        <template v-for="item in searchStaticToken">
-          <div name="select"  :id="item.ids" class="bg-global-primary hand bg-opacity-10 py-0.75 px-2.25 ml-3 rounded-kd40px text-kd13px18px font-medium text-global-primary ">{{item.name}}</div>
-        </template>
+<!--        <template v-for="item in searchStaticToken">-->
+<!--          <div name="select"  :id="item.ids" class="bg-global-primary hand bg-opacity-10 py-0.75 px-2.25 ml-3 rounded-kd40px text-kd13px18px font-medium text-global-primary ">{{item.name}}</div>-->
+<!--        </template>-->
         <div name="select"  class="bg-global-primary w-8 h-8 flex justify-center items-center ml-3 " style="border-radius: 50%;">
           <IconFont name="select"  type="icon-sousuo-da" class="text-global-white" size="14"/>
         </div>
       </div>
       <div name="select"  v-if="txt[0] && show"  class="h-102.5 showY mt-1 pl-4 pr-2 pb-2 flex flex-col ">
         <div name="select"  class="bottomBorder"></div>
+        <div name="select" class='flex items-center mt-4'>
+          <div class='typeTaged mr-3 '>挖矿APY</div>
+          <div class='typeTag'>借款 ARP</div>
+        </div>
         <Apy2SelectContainerToken :chain="chain" :pageType="props.pageType" name="select" />
         <Apy2SelectContainerPool :chain="chain" :pageType="props.pageType" name="select" />
       </div>
@@ -47,6 +51,12 @@ const focusTxt=()=>show.value=true
   </div>
 </template>
 <style scoped lang="scss">
+.typeTag{
+  @apply px-2 py-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65  rounded-kd36px cursor-pointer;
+}
+.typeTaged{
+  @apply px-2 py-1 text-kd14px18px font-medium text-global-primary bg-global-primary bg-opacity-8 rounded-kd36px curcor-pointer;
+}
 .bottomBorder{
   border-bottom:1px solid rgba(37, 62, 111, 0.08);
 }
