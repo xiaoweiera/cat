@@ -1,11 +1,9 @@
 <script lang="ts">
-// import { defineProps } from 'vue'
-// defineProps({
-//   list: {
-//     type: Array,
-//     default: () => []
-//   }
-// })
+import HeaderSubApy from '~/components/header/sub/apy.vue';
+import HeaderSubDapp from '~/components/header/sub/dapp.vue';
+import HeaderSubData from '~/components/header/sub/data.vue';
+import HeaderSubGrowthPad from '~/components/header/sub/growthpad.vue';
+import HeaderSubLiquidity from '~/components/header/sub/liquidity.vue';
 
 export default {
   name: 'HeaderSubMenu',
@@ -13,7 +11,17 @@ export default {
     list: {
       type: Array,
       default: () => []
+    },
+    sub: {
+      type: String,
     }
+  },
+  components: {
+    HeaderSubApy,
+    HeaderSubDapp,
+    HeaderSubData,
+    HeaderSubGrowthPad,
+    HeaderSubLiquidity,
   }
 }
 
@@ -31,7 +39,11 @@ export default {
           </template>
         </div>
       </div>
-      <div class="extend ml-5"></div>
+      <div class="extend ml-5">
+        <template v-if="sub">
+          <component :is="sub"></component>
+        </template>
+      </div>
     </div>
   </div>
 </template>

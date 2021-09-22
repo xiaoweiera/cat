@@ -95,6 +95,7 @@ export const headers = [
   {
     name: 'Dapp',
     href: `${config.dapp}/rank`,
+    header: 'HeaderSubDapp',
     children: [
       {
         name: I18n.menu.dapp.ranking,
@@ -135,6 +136,7 @@ export const headers = [
     // DeFi
     name: I18n.nav.defi.name,
     href: `${config.apy}/mining`,
+    header: 'HeaderSubApy',
     children: [
       {
         name: I18n.menu.apy.mining, // '挖矿 APY',
@@ -182,6 +184,7 @@ export const headers = [
     // '数据'
     name: I18n.nav.analysis.name,
     href: config.topic,
+    header: 'HeaderSubData',
     children: [
       {
         name: I18n.menu.data.topic,
@@ -213,6 +216,7 @@ export const headers = [
     // DEX 聪明钱
     name: I18n.menu.liquidity.liquidity,
     href: config.liquidity,
+    header: 'HeaderSubLiquidity',
     children: [
       {
         name: I18n.menu.liquidity.liquidity,
@@ -227,6 +231,7 @@ export const headers = [
     name: I18n.menu.growthPad.growthPad,
     desc: I18n.nav.service.growthPad.desc,
     href: config.growthpad,
+    header: 'HeaderSubGrowthPad',
     children: [
       {
         name: I18n.menu.growthPad.growthPad,

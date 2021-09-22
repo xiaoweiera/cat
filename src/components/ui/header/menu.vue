@@ -39,7 +39,12 @@ const moreData = reactive<object>({
         <UiHeaderMenucontent class="wrap-menu-item" :data="data">
           <template #children="scope">
             <div class="menu-children">
-              <UiHeaderSub :list="scope.list"></UiHeaderSub>
+              <template v-if="data.active">
+                <UiHeaderSub :list="scope.list" :sub="data.header"></UiHeaderSub>
+              </template>
+              <template v-else>
+                <UiHeaderSub :list="scope.list"></UiHeaderSub>
+              </template>
             </div>
           </template>
         </UiHeaderMenucontent>
