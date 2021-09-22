@@ -165,8 +165,8 @@ export default{
         content:' Include 5 public chains, 25 projects, 1422 pools'
     },
     pageProject:{
-        title:'{project} Project Comparison',
-        content:' Include 5 public chains, 25 projects, 1422 pools',
+        title:'{project} Project data analysis',
+        content:'{des}',
         h3: {
             mining: '{project} Farm APY Top 5 {pool}',
             loan: '{project} Borrow APR Top 5 {pool}',
