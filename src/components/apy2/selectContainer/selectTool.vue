@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref,defineProps,reactive,onMounted,watch} from 'vue'
+import {ref,defineProps,reactive,onMounted} from 'vue'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
 import {useRoute} from 'vue-router'
@@ -15,7 +15,6 @@ const route = useRoute()
 window.addEventListener('click',function(a){
   //@ts-ignore
   const name=a.target.attributes?.name?.value
-  console.log(name,'ljlj')
   if(name!=='select') show.state=false
 });
 const focusTxt=()=>show.state=true

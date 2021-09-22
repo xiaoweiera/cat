@@ -6,9 +6,7 @@ import {useProvide,getInject} from '~/utils/use/state'
 const props = defineProps({show:Object,chain:String})
 const txt=getInject('txt')
 const {state:propsShow}=toRefs(props.show)
-const openSelect=()=>{
-  propsShow.value=true
-}
+const openSelect=()=>propsShow.value=true
 const chainName=computed(()=>{
   const item=chains.find(item=>item.key===props.chain)
   return item.name
@@ -16,7 +14,6 @@ const chainName=computed(()=>{
 </script>
 <template>
   <div  @click='openSelect()' class="font-kdFang absolute right-0 w-75 hand   " name="select" >
-<!--    <div style='color:red;'>{{propsShow}}</div>-->
     <div   class="bg-global-highTitle bg-opacity-4 rounded-kd24px  h-9  flex items-center  selectShadow " name="select"  >
       <div class="pl-4 pr-2 flex borer-1 items-center w-full h-full" name="select" >
         <div class="flex items-center w-30 " name="select" >
