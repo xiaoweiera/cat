@@ -45,11 +45,11 @@ export const config = {
   apy: '/apy',
   apyToken: '/apy/token',
   liquidity:'/liquidity',
-  bull: '/bull',
-  nav: '/nav',
-  tih: '/tih',
-  reports: 'https://kingdata.com/reports/', // 研究报告
-  news: 'https://ikingdata.com/news/', // 7x24小时监控
+  bull: 'https://kingdata.com/bull', // 板块龙头
+  nav: 'https://kingdata.com/nav', // 数据网站导航
+  tih: 'https://kingdata.com/tih', // 历史的今天
+  reports: 'https://ikingdata.com/reports/', // 研究报告
+  news: 'https://kingdata.com/news/', // 7x24小时监控
   dapp: '/dapp',
   nft: '/nft',
 }

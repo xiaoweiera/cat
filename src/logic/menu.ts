@@ -25,7 +25,7 @@ export const footers = [
       { name: I18n.menu.dapp.ranking,href:`${config.dapp}/rank` },
       { name: I18n.menu.nft.ranking,href:`${config.nft}/rank` },
       { name: I18n.menu.dapp.discover, href: `${config.dapp}/discover` },
-      { name: I18n.menu.dapp.discover, href: `${config.nft}/discover` },
+      { name: I18n.menu.nft.discover, href: `${config.nft}/discover` },
     ]
   },
   {
@@ -56,6 +56,14 @@ export const footers = [
         name: I18n.menu.data.reports,
         href: config.reports,
       }
+    ]
+  },
+  {
+    label: I18n.menu.footer.tool,
+    children: [
+      { name: I18n.nav.dataTools.nav.name, href: config.nav, blank: false },
+      { name: I18n.nav.dataTools.history.name, href: config.tih, blank: false },
+      { name: I18n.nav.dataTools.top.name, href: config.bull, blank: false },
     ]
   },
   {
@@ -101,7 +109,7 @@ export const headers = [
         header: true,
         more: true,
         desc: I18n.menu.desc.apy.mining,
-        icon: 'icon-paihang',
+        icon: 'icon-a-NFTpaihang',
         href: `${config.nft}/rank`,
       },
       {
@@ -109,12 +117,12 @@ export const headers = [
         header: true,
         more: true,
         desc: I18n.menu.desc.apy.mining,
-        icon: 'icon-paihang',
+        icon: 'icon-defi',
         href: `${config.dapp}/discover`,
       },
       {
         name: I18n.menu.nft.discover,
-        icon: 'icon-defi',
+        icon: 'icon-a-NFTxinxiangmu',
         desc: I18n.menu.desc.apy.mining,
         more: true,
         header: true,

@@ -4,11 +4,11 @@ import I18n from '~/utils/i18n/index'
 <template>
   <DappRank />
   <div class="hidden">
-    <UiWechatShare :title="I18n.dapp.page.title" :content="I18n.dapp.page.content"/>
+    <UiWechatShare :title="I18n.dapp.rank.page.title" :content="I18n.dapp.rank.page.content"/>
 
-    <UiHeaderTitle :value="I18n.dapp.page.title"/>
-    <UiHeaderMeta name="keywords" :content="I18n.dapp.page.meta"/>
-    <UiHeaderMeta name="description" :content="I18n.dapp.page.meta"/>
+    <UiHeaderTitle :value="I18n.dapp.rank.page.title"/>
+    <UiHeaderMeta name="keywords" :content="I18n.dapp.rank.page.meta"/>
+    <UiHeaderMeta name="description" :content="I18n.dapp.rank.page.meta"/>
   </div>
 </template>
 

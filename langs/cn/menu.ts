@@ -59,6 +59,7 @@ export default {
     wechat: '扫码加入微信群'
   },
   footer: {
+    tool: '便捷工具',
     desc: '数据赋能 DeFi，快人一步遇见财富',
   }
 }

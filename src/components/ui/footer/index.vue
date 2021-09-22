@@ -31,7 +31,12 @@ const weibo = ref<string>('https://weibo.com/u/5553600723')
               <div class="pt-3 lg:pt-6 menu-content">
                 <template v-for="(item, idx) in data.children" :key="`${index}-${idx}`">
                   <template v-if="item.href">
-                    <a class="menu-item text-14-18 hover:text-global-primary" v-router="item.href">{{ item.name }}</a>
+                    <template v-if="item.blank">
+                      <a class="menu-item text-14-18 hover:text-global-primary" v-router.blank="item.href">{{ item.name }}</a>
+                    </template>
+                    <template v-else>
+                      <a class="menu-item text-14-18 hover:text-global-primary" v-router="item.href">{{ item.name }}</a>
+                    </template>
                   </template>
                   <template v-else-if="item.qrcode">
                     <div class="menu-item">
