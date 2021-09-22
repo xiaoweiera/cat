@@ -164,7 +164,7 @@ export default{
         content:'收录5条公链，25个项目，1422个池子'
     },
     pageProject:{
-        title:'{project} 项目数据对比',
+        title:'{project} 项目数据分析',
         content:'收录5条公链，25个项目，1422个池子',
         h3: {
             mining: '{project} 挖矿 APY Top 5 {pool}',
@@ -173,7 +173,7 @@ export default{
         }
     },
     pageToken:{
-        title:'{symbol} APY 对比',
+        title:'{symbol} APY 数据分析',
         content:'收录5条公链，25个项目，1422个池子'
     },
     pageHeco:{
