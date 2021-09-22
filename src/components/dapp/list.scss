@@ -9,9 +9,6 @@
   @screen md {
     @apply flex items-center justify-between;
   }
-  .el-avatar {
-    @apply bg-white;
-  }
   .td-title {
     @screen md {
       @apply w-124 pr-20;
