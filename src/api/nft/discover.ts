@@ -15,7 +15,7 @@ interface Query {
   page_size: number
 }
 
-export const getList = function<T>(query: Query) {
+export const getList = async function<T>(query: Query) {
   // 默认为全部
   if (isEmpty(query.chain)) {
     query.chain = 'all'
@@ -29,5 +29,9 @@ export const getList = function<T>(query: Query) {
       page_size: 10
     }, query)
   })
-  return asyncCheck<T>(result)
+  try {
+    return await asyncCheck<T>(result)
+  } catch (e) {
+    return {}
+  }
 }
