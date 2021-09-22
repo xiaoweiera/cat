@@ -165,7 +165,7 @@ export default{
     },
     pageProject:{
         title:'{project} 项目数据分析',
-        content:'{des}',
+        content:'收录5条公链，25个项目，1422个池子',
         h3: {
             mining: '{project} 挖矿 APY Top 5 {pool}',
             loan: '{project} 借贷 APR Top 5 {pool}',

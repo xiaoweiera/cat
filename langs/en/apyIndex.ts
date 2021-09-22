@@ -166,7 +166,7 @@ export default{
     },
     pageProject:{
         title:'{project} Project data analysis',
-        content:'{des}',
+        content:'Include 5 public chains, 25 projects, 1422 pools',
         h3: {
             mining: '{project} Farm APY Top 5 {pool}',
             loan: '{project} Borrow APR Top 5 {pool}',
