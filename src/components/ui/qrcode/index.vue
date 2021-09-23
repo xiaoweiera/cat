@@ -2,6 +2,7 @@
 // @ts-ignore
 import QrCode from 'qrcode'
 import router from '~/utils/router'
+import { toNumber } from '~/utils'
 import { defineProps, getCurrentInstance, onMounted } from 'vue'
 
 const instance = getCurrentInstance()
@@ -22,13 +23,18 @@ const props = defineProps({
   height: {
     type: [Number, String],
     required: true
+  },
+  border: {
+    type: Boolean,
+    default: () => false
   }
 })
 
 const getContent = function() {
   const vnode = instance?.vnode
   if (vnode) {
-    return vnode.el
+    const dom: HTMLDivElement = vnode.el as any;
+    return dom.querySelector('canvas');
   }
   return null
 }
@@ -40,8 +46,8 @@ onMounted(function(){
     QrCode.toCanvas(dom, value, {
       margin: 0,
       // @ts-ignore
-      width: props.width,
-      height: props.height
+      width: props.border ? toNumber(props.width) - 8 : props.width,
+      height: props.border ? toNumber(props.height) - 8 : props.height,
     })
   }
 })
@@ -49,7 +55,17 @@ onMounted(function(){
 </script>
 
 <template>
-  <canvas class="inline-block"></canvas>
+  <div class="inline-block" :class="{'border': border}">
+    <canvas></canvas>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.border {
+  padding: 3px;
+  @apply border-solid border-global-highTitle border-opacity-10;
+}
+</style>
+
 
 

@@ -182,6 +182,7 @@ export const messageSuccess = function (text: string): void {
 
 // copy
 export const copyTxt = (text: string, alert?: boolean) => {
+  console.log(text, alert)
   const dom = document.createElement('input')
   dom.setAttribute('value', text)
   document.body.appendChild(dom)
