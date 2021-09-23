@@ -10,6 +10,6 @@ import I18n from '~/utils/i18n/index'
 // @formatter:off
 <route lang="yaml">
 meta:
-layout: base
+  layout: base
 </route>
 // @formatter:off
