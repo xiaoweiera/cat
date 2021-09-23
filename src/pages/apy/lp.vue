@@ -3,13 +3,13 @@ import I18n from '~/utils/i18n/index'
 </script>
 
 <template>
-  <Apy2Token tokenType='token'/>
+  <Apy2Token tokenType='lp'/>
 </template>
 
 
 // @formatter:off
 <route lang="yaml">
 meta:
-  layout: base
+layout: base
 </route>
 // @formatter:off

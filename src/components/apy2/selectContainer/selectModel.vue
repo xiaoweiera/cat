@@ -23,7 +23,7 @@ const chainName=computed(()=>{
         </div>
         <IconFont type="icon-gang" name="select"  size="14" class=" relative right-6  ml-1 text-global-highTitle text-opacity-12"/>
         <div  class="flex items-center flex-1 -ml-5.5 search w-full h-full " name="select" >
-          <div name="select"  class='text-global-highTitle text-opacity-45 text-14'>{{txt[0]?txt[0]:'请输入...'}}</div>
+          <div name="select"  class='text-global-highTitle text-opacity-45 text-14'>{{txt[0]?txt[0]:I18n.apyIndex.search}}</div>
         </div>
         <div name="select"  class="bg-global-primary w-7 h-7 flex justify-center items-center ml-3 " style="border-radius: 50%;">
           <div name='select' class=' absolute w-6 h-6'></div>

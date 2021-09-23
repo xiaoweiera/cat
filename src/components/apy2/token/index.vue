@@ -4,7 +4,7 @@
  * @author svon.me@gmail.com
  */
 import { trim, toUpper } from 'ramda'
-import { onBeforeMount, computed, toRaw, ref } from 'vue'
+import { onBeforeMount,defineProps, computed, toRaw, ref } from 'vue'
 import { tokenList } from '~/store/apy2/state'
 import { getParam } from '~/utils/router'
 import { ready } from '~/logic/apy2/token'
@@ -13,6 +13,8 @@ import { useProvide } from '~/utils/use/state'
 import { uuid, equalsIgnoreCase } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import I18n from '~/utils/i18n/index'
+import router from '~/utils/router'
+const props=defineProps({tokenType:String})
 
 // @ts-ignore
 const [ date ] = useProvide('uiDate')
@@ -79,9 +81,21 @@ const menuList = computed(function(){
   }
   return list
 })
+const getHref = function(tokenType: string) {
+  const query=router({
+    'query': {
+      tokenType: tokenType,
+    }
+  })
+  if(tokenType==='token'){
+    return '/apy/token'+query
+  }else{
+    return '/apy/lp'+query
+  }
+}
 
-onBeforeMount(ready)
-
+//@ts-ignore
+onBeforeMount(ready(props.tokenType))
 </script>
 
 <template>
@@ -90,6 +104,10 @@ onBeforeMount(ready)
       <el-container class="h-full text-kdFang">
         <el-header height="initial" class="p-0">
           <div class="pt-5">
+            <div class='flex items-center  rounded-kd6px p-1 bg-global-highTitle bg-opacity-4'>
+              <router-link  :to="getHref('token')" :class="tokenType==='token'?'taged':'tag'" class='flex-1  text-14-18 hand'>单币</router-link>
+              <router-link  :to="getHref('lp')"  :class="tokenType==='lp'?'taged':'tag'" class='flex-1  text-14-18 hand'>LP</router-link>
+            </div>
             <el-input class="search-box" :placeholder="I18n.apy.token.search" v-model="search">
               <template #prefix>
                 <i class="el-input__icon el-icon-search"></i>
@@ -125,6 +143,12 @@ onBeforeMount(ready)
 </template>
 
 <style scoped lang="scss">
+.tag{
+  @apply h-7 flex items-center justify-center font-medium text-global-highTitle text-opacity-65 rounded-kd4px;
+}
+.taged{
+  @apply h-7 flex items-center justify-center  font-medium text-global-primary text-center bg-global-white rounded-kd4px;
+}
 .search-box {
   border-bottom: 1px solid rgba(#033666, 0.06);
   ::v-deep(input) {

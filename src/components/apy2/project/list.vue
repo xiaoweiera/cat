@@ -30,7 +30,6 @@ const orderData=()=>{
       <div>{{I18n.apyIndex.project}}</div>
       <div @click="orderData()" class="hand">
         <span>TVL</span>
-<!--        <IconFont size="13" class="ml-0.5" :type="orderList[orderIndex]"/>-->
       </div>
     </div>
     <div class=" pb-10 showY " v-if="data.length > 0">

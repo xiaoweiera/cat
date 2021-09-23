@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import {ref,defineProps,reactive,onMounted} from 'vue'
+import {ref,defineProps,reactive,onMounted,toRefs} from 'vue'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
 import {useRoute} from 'vue-router'
 import {useProvide} from '~/utils/use/state'
-const props = defineProps({type:String})
+const props = defineProps({
+  type:String
+})
+
 const [txt,]=useProvide('txt','')
 const chain=ref('all')
 const show=reactive({state:false})
+const tokenLoad=reactive({state:true,number:0})
+const poolLoad=reactive({state:true,number:0})
 const pageType=ref('')
 const changePageType=(type:string)=>pageType.value=type
 const route = useRoute()
@@ -48,14 +53,17 @@ onMounted(()=>{
           <IconFont name="select"  type="icon-sousuo-da" class="text-global-white" size="14"/>
         </div>
       </div>
-      <div name="select"  v-if="txt[0] && show.state"  class="h-auto showY mt-1 pl-4 pr-2 pb-2 min-h-45  flex flex-col ">
+      <div name="select"  v-if="txt[0] && show.state"  class="h-auto showY mt-1 pl-4 pr-2 pb-2 min-h-35  flex flex-col ">
         <div name="select"  class="bottomBorder"></div>
         <div name="select" class='flex items-center mt-4'>
-          <div @click='changePageType("mining")' name="select" :class='pageType==="mining"?"typeTaged":"typeTag"' class='mr-4'>挖矿APY</div>
-          <div @click='changePageType("lend")' name="select" :class='pageType==="lend"?"typeTaged":"typeTag"'>借款 ARP</div>
+          <div @click='changePageType("mining")' name="select" :class='pageType==="mining"?"typeTaged":"typeTag"' class='mr-4'>{{I18n.apyIndex.miningApy}}</div>
+          <div @click='changePageType("lend")' name="select" :class='pageType==="lend"?"typeTaged":"typeTag"'>{{I18n.apyIndex.loanApr}}</div>
         </div>
-        <Apy2SelectContainerToken :chain="chain" :pageType="pageType" name="select" />
-        <Apy2SelectContainerPool :chain="chain" :pageType="pageType" name="select" />
+          <div >
+            <Apy2SelectContainerToken :chain="chain" :load='tokenLoad' :pageType="pageType" name="select" />
+            <Apy2SelectContainerPool :chain="chain" :load='poolLoad' :pageType="pageType" name="select" />
+          </div>
+        <div v-if='!tokenLoad.state && !poolLoad.state && !tokenLoad.number && !poolLoad.number ' class='text-kd14px18px text-global-highTitle text-opacity-45  flex-1 flex items-center justify-center'>{{I18n.apyIndex.noData}}</div>
       </div>
     </div>
   </div>

@@ -11,8 +11,8 @@ import {getPoolSearch} from '~/api/apy2/index'
 import {formatRulesNumber,getIconType,tolocaleLowerCase} from '~/lib/tool'
 import * as api from '~/api/index'
 const txt=getInject('txt')
-const props = defineProps({pageType: String,chain:String})
-
+const props = defineProps({pageType: String,chain:String,load:Boolean})
+const {state:prposLoad,number:propsNumber}=toRefs(props.load)
 const allData=ref([]) //请求数据的个数
 const initSize=4 //首次加载数量
 const resultNumber=ref(0)
@@ -41,6 +41,7 @@ const getList=async ()=>{
     allData.value=[]
     return
   }
+  prposLoad.value=true
   const result=await api.apy.common.getPoolSearch(param)
   if(result.code===0){
     if(param.page===1) allData.value=[]
@@ -49,6 +50,8 @@ const getList=async ()=>{
   }else{
     allData.value=[]
   }
+  propsNumber.value=allData.value.length
+  prposLoad.value=false
 }
 watch(()=>txt.value[0],async (n,o)=>{
   param.page=1

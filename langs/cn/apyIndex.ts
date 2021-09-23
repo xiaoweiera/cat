@@ -2,6 +2,11 @@ export default{
     disclaimers:'免责声明',
     title:'快速发现高收益矿池',
     apply:'申请收录',
+    projectType:{
+        all:'全部',
+        mining:'挖矿',
+        lending:'借贷'
+    },
     miningTitle:'快速发现高收益矿池',
     loanTitle:'快速发现借贷最佳路径',
     platDes:'{chain} 条公链，{project} 个项目，{pool} 个池子，支持链对比，历史趋势，APP 提醒',
@@ -125,7 +130,9 @@ export default{
     addProject:'添加项目',
     selectedProject:'已选项目',
     loanMoneyCoin:'借款币种',
-    loanApr:'借款APR',
+    loanApr:'借款 APR',
+    miningApy:'挖矿 APY',
+    noData:'暂无数据',
     loanPlat:'借贷平台',
     pleaseSelect:'请选择',
     diyaCoin:'抵押币种',
