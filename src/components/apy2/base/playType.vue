@@ -71,7 +71,7 @@ const textList={
 const cc='coinTxt'
 const tokens=ref([])
 const projects=ref([])
-const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=lend&origin=index`
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=mining&origin=index`
 const platUrl=(projectId:number)=>`/apy/project?id=${projectId}&origin=index`
 </script>
 <template>
