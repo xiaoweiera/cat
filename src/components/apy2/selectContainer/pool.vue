@@ -75,23 +75,27 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}`
       <div class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang"  name="select">{{I18n.apyIndex.pools}}</div>
     <div class='py-1'>
       <template v-for="item in allData">
-        <div class="flex items-center  h-9 justify-between" name="select">
-          <div class="flex items-center" name="select">
-            <img name="select" :class="item.symbol_type==='lp'?'w-8':'w-5'" class="h-5 mr-1" :src="item.symbol_logo" alt="">
-            <span name="select" class="text-kd14px14px text-global-highTitle font-kdExp">{{item.symbol}}</span>
-            <span name="select" class="text-kd14px14px text-global-highTitle text-opacity-65 font-kdExp ml-1">{{item.project}}</span>
-            <img name="select" class="w-3.5 h-3.5 ml-1" :src="chainsIcon[tolocaleLowerCase(item.chain)]" alt="">
-            <IconFont name="select" :type="getIconType(item.project_category)" size="14" class="ml-1"/>
-            <div name="select" v-if="item.strategy_tags" class="bg-global-highTitle bg-opacity-6 px-1 py-0.5 rounded-kd4px ml-1 text-kd12px14px text-global-highTitle text-opacity-45">{{item.strategy_tags}}</div>
-          </div>
-          <div name="select" class="flex items-center">
-            <span name="select" class="text-kd13px18px text-global-highTitle text-opacity-65 font-kdFang">APY</span>
-            <span name="select" :class="getApyColor(item.apy)" class="ml-1 text-kd14px14px font-kdExp font-bold">{{formatRulesNumber(item.apy)}}%</span>
-          </div>
-        </div>
+        <Apy2PoolDialog type="mining" :id="item.id">
+          <template #reference>
+            <div class="flex items-center hand  h-9 justify-between" name="select">
+              <div class="flex items-center" name="select">
+                <img name="select" :class="item.symbol_type==='lp'?'w-8':'w-5'" class="h-5 mr-1" :src="item.symbol_logo" alt="">
+                <span name="select" class="text-kd14px14px text-global-highTitle font-kdExp">{{item.symbol}}</span>
+                <span name="select" class="text-kd14px14px text-global-highTitle text-opacity-65 font-kdExp ml-1">{{item.project}}</span>
+                <img name="select" class="w-3.5 h-3.5 ml-1" :src="chainsIcon[tolocaleLowerCase(item.chain)]" alt="">
+                <IconFont name="select" :type="getIconType(item.project_category)" size="14" class="ml-1"/>
+                <div name="select" v-if="item.strategy_tags" class="bg-global-highTitle bg-opacity-6 px-1 py-0.5 rounded-kd4px ml-1 text-kd12px14px text-global-highTitle text-opacity-45">{{item.strategy_tags}}</div>
+              </div>
+              <div name="select" class="flex items-center">
+                <span name="select" class="text-kd13px18px text-global-highTitle text-opacity-65 font-kdFang">APY</span>
+                <span name="select" :class="getApyColor(item.apy)" class="ml-1 text-kd14px14px font-kdExp font-bold">{{formatRulesNumber(item.apy)}}%</span>
+              </div>
+            </div>
+          </template>
+        </Apy2PoolDialog>
+
       </template>
     </div>
-
       <div name="select" v-if="resultNumber===initSize" @click="addMore" class="more hand ">{{I18n.apyIndex.more}}</div>
   </div>
 

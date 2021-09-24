@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref,defineProps,reactive,onMounted,toRefs} from 'vue'
+import { ref, defineProps, reactive, onMounted, watch, toRaw } from 'vue'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
 import {useRoute} from 'vue-router'
@@ -23,6 +23,13 @@ window.addEventListener('click',function(a){
   if(name!=='select') show.state=false
 });
 const focusTxt=()=>show.state=true
+const put=ref(null)
+watch(()=>show.state,(n)=>{
+  if(n){
+    put.value.focus()
+  }
+
+})
 onMounted(()=>{
   if(route.path.indexOf('mining')>=0){
     pageType.value='mining'
@@ -32,41 +39,45 @@ onMounted(()=>{
 })
 </script>
 <template>
-  <Apy2SelectContainerSelectModel v-if='!show.state' :show='show' :chain='chain' />
-  <div v-else class="font-kdFang " name="select" >
-    <div class="bg-global-white rounded-kd24px   selectShadow " name="select"  >
-      <div class="pl-4 pr-2 h-9 flex borer-1 items-center w-full" name="select" >
-        <div class="flex items-center " name="select" >
-          <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
-          <div class="allChain items-center  " name="select" >
-            <el-select name="select"    size="small" v-model="chain" >
-              <el-option name="select"  v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
-              </el-option>
-            </el-select>
+  <div>
+    <Apy2SelectContainerSelectModel v-if='!show.state' :show='show' :chain='chain' />
+    <div v-show='show.state' class="font-kdFang w-full  " name="select" >
+      <div  class="bg-global-white rounded-kd20px  selectShadow  " name="select"  >
+        <div class="pl-4 pr-2 h-9 flex borer-1 items-center w-full" name="select" >
+          <div class="flex items-center " name="select" >
+            <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
+            <div class="allChain items-center  " name="select" >
+              <el-select name="select"    size="small" v-model="chain" >
+                <el-option name="select"  v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <IconFont type="icon-gang" name="select"  size="14" class=" relative right-5.8  ml-1 text-global-highTitle text-opacity-12"/>
+          <div  class="flex items-center flex-1 -ml-5.5 search " name="select" >
+            <el-input ref='put' name="select"  @focus="focusTxt()" class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt[0]" value=""></el-input>
+          </div>
+          <div name="select"  class="bg-global-primary w-7 h-7 flex justify-center items-center ml-3 " style="border-radius: 50%;">
+            <IconFont name="select"  type="icon-sousuo-da" class="text-global-white inputQuery" size="14"/>
           </div>
         </div>
-        <IconFont type="icon-gang" name="select"  size="14" class=" relative right-5.8  ml-1 text-global-highTitle text-opacity-12"/>
-        <div  class="flex items-center flex-1 -ml-5.5 search " name="select" >
-          <el-input name="select"  @focus="focusTxt()" class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt[0]" value=""></el-input>
-        </div>
-        <div name="select"  class="bg-global-primary w-7 h-7 flex justify-center items-center ml-3 " style="border-radius: 50%;">
-          <IconFont name="select"  type="icon-sousuo-da" class="text-global-white" size="14"/>
-        </div>
-      </div>
-      <div name="select"  v-if="txt[0] && show.state"  class="h-auto showY mt-1 pl-4 pr-2 pb-2 min-h-35  flex flex-col ">
-        <div name="select"  class="bottomBorder"></div>
-        <div name="select" class='flex items-center mt-4'>
-          <div @click='changePageType("mining")' name="select" :class='pageType==="mining"?"typeTaged":"typeTag"' class='mr-4'>{{I18n.apyIndex.miningApy}}</div>
-          <div @click='changePageType("lend")' name="select" :class='pageType==="lend"?"typeTaged":"typeTag"'>{{I18n.apyIndex.loanApr}}</div>
-        </div>
-          <div >
+        <div name="select"  v-if="txt[0] && show.state"  class="h-auto showY mt-1 pl-4 pr-2 pb-2 min-h-35  flex flex-col ">
+          <div name="select"  class="bottomBorder"></div>
+          <div name="select" class='flex items-center mt-4'>
+            <div @click='changePageType("mining")' name="select" :class='pageType==="mining"?"typeTaged":"typeTag"' class='mr-4'>{{I18n.apyIndex.miningApy}}</div>
+            <div @click='changePageType("lend")' name="select" :class='pageType==="lend"?"typeTaged":"typeTag"'>{{I18n.apyIndex.loanApr}}</div>
+          </div>
+          <div class='max-h-101 min-h-30 showY relative'>
             <Apy2SelectContainerToken :chain="chain" :load='tokenLoad' :pageType="pageType" name="select" />
-            <Apy2SelectContainerPool :chain="chain" :load='poolLoad' :pageType="pageType" name="select" />
+            <Apy2SelectContainerPool  :chain="chain" :load='poolLoad' :pageType="pageType" name="select" />
+            <div v-if='!tokenLoad.state && !poolLoad.state && !tokenLoad.number && !poolLoad.number ' class='text-kd14px18px absolute top-0 bottom-0 left-0 right-0 text-global-highTitle text-opacity-45  flex-1 flex items-center justify-center'>{{I18n.apyIndex.noData}}</div>
           </div>
-        <div v-if='!tokenLoad.state && !poolLoad.state && !tokenLoad.number && !poolLoad.number ' class='text-kd14px18px text-global-highTitle text-opacity-45  flex-1 flex items-center justify-center'>{{I18n.apyIndex.noData}}</div>
+
+        </div>
       </div>
     </div>
   </div>
+
 </template>
 <style scoped lang="scss">
 .typeTag{

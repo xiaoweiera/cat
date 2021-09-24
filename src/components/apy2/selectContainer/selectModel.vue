@@ -35,9 +35,6 @@ const chainName=computed(()=>{
 </template>
 <style scoped lang="scss">
 
-.selectShadow{
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.1);
-}
 .allChain{
   ::v-deep(.el-input__inner){
     border:none;
