@@ -10,7 +10,7 @@
 
 <style scoped lang="scss">
   .nft-detail {
-    background-color: #e5e5e5;
+    background-color: #FAFBFC;
   }
 </style>
 

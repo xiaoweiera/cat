@@ -184,22 +184,26 @@ const getHref = function(id: string | number): string {
                 </div>
                 <DappOperation class="ml-4 md:hidden" :data="data"/>
               </div>
-              <div class="td-data">
-                <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
-                  <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
-                    <IconFont class="text-base" :type="key" bright/>
-                    <span class="text-14-16 ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
-                    <template v-if="media.total_user && media.online_user">
-                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+              <div class="td-data" @click.stop>
+                <div class="inline-flex flex-col flex-col" @click.stop>
+                  <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
+                    <template v-if="media">
+                      <a v-router.blank="media.project_media_url" class="flex items-center media-item">
+                        <IconFont class="text-base" :type="key" bright/>
+                        <span class="text-14-16 ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
+                        <template v-if="media.total_user && media.online_user">
+                          <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                        </template>
+                        <template v-else-if="media.total_user">
+                          <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
+                        </template>
+                        <template v-else-if="media.online_user">
+                          <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                        </template>
+                      </a>
                     </template>
-                    <template v-else-if="media.total_user">
-                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
-                    </template>
-                    <template v-else-if="media.online_user">
-                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
-                    </template>
-                  </a>
-                </template>
+                  </template>
+                </div>
               </div>
               <div class="td-date">
                 <template v-if="data.online_time && isAfter(data.online_time)">
@@ -223,7 +227,7 @@ const getHref = function(id: string | number): string {
                   <el-avatar shape="square" fit="fit" :size="80" :src="I18n.dapp.status.success"></el-avatar>
                 </template>
               </div>
-              <div class="td-operation hidden md:block">
+              <div class="td-operation hidden md:block" @click.stop>
                 <DappOperation :data="data"/>
               </div>
             </div>

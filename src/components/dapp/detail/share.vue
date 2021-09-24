@@ -39,8 +39,8 @@ onMounted(function() {
               <span class="block">发送分享截图至</span>
               <UiFooterHover :href="discord">
                 <span class="flex items-center justify-center">
-                  <IconFont type="wechat" bright/>
-                  <span class="ml-1 text-global-darkblue">Discard</span>
+                  <IconFont type="discord" bright/>
+                  <span class="ml-1 text-global-darkblue">Discord</span>
                 </span>
               </UiFooterHover>
             </div>

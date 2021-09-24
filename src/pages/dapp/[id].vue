@@ -10,7 +10,7 @@
 
 <style scoped lang="scss">
   .dapp-detail {
-    background-color: #e5e5e5;
+    background-color: #FAFBFC;
   }
 </style>
 

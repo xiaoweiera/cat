@@ -22,7 +22,7 @@ export default {
         // @ts-ignore
         const href = router(this.href)
         if (href) {
-          window.location.href = href
+          window.open(href)
         }
       }
     }
