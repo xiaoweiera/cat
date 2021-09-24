@@ -3,7 +3,7 @@
 import QrCode from 'qrcode'
 import router from '~/utils/router'
 import { toNumber } from '~/utils'
-import { defineProps, getCurrentInstance, onMounted } from 'vue'
+import { defineProps, getCurrentInstance, onMounted, watch } from 'vue'
 
 const instance = getCurrentInstance()
 
@@ -39,10 +39,11 @@ const getContent = function() {
   return null
 }
 
-onMounted(function(){
+const draw = function() {
   const dom = getContent()
   if (dom) {
     const value = props.href ? router(props.value) : props.value
+    console.log('value = "%s"', value)
     QrCode.toCanvas(dom, value, {
       margin: 0,
       // @ts-ignore
@@ -50,7 +51,10 @@ onMounted(function(){
       height: props.border ? toNumber(props.height) - 8 : props.height,
     })
   }
-})
+}
+
+onMounted(draw)
+watch(props, draw)
 
 </script>
 

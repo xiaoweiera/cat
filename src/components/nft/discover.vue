@@ -6,6 +6,7 @@ import { isAfter } from '~/utils/time'
 import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat, upperFirst } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
 import safeGet from '@fengqiaogang/safe-get'
+import { config } from '~/utils/router'
 
 const list = ref<any[]>([])
 const is_online = ref<boolean>(false)
@@ -93,6 +94,10 @@ onMounted(() => {
   watch([is_online, search], onSort)
 })
 
+const getHref = function(id: string | number): string {
+  return `${config.nft}/${id}`
+}
+
 </script>
 
 <template>
@@ -151,7 +156,7 @@ onMounted(() => {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3" v-if="list.length > 0">
-        <UiList class="nft-item-box" v-for="(data, index) in list" :key="index">
+        <UiList class="nft-item-box" v-for="(data, index) in list" :key="index" :href="getHref(data.id)">
           <template #header>
             <div class="flex">
               <div class="flex flex-1 text-kdFang">
@@ -230,13 +235,7 @@ onMounted(() => {
                   </div>
                   <div class="text-xs mt-1.5 md:mt-2.5 flex justify-end whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
                     <span class="inline-block text-12 leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
-                    <span class="date-box inline-block">
-                    <TimeCountdown :value="data.online_time">
-                      <template #default="date">
-                        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> : <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
-                      </template>
-                    </TimeCountdown>
-                  </span>
+                    <TimeRed :value="data.online_time"></TimeRed>
                   </div>
                 </template>
                 <template v-else>

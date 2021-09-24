@@ -1,32 +1,53 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+import { ref, reactive, onMounted, toRaw } from 'vue'
+import * as API from '~/api/index'
+import { forEach, toBoolean } from '~/utils'
+const $router = useRoute()
 
+const loading = ref<boolean>(true)
+const data = reactive<object>({})
+
+const getDetail = async function() {
+  const params: any = toRaw($router.params)
+  const result = await API.dapp.detail.get(params)
+  forEach(function(value: any, key: string) {
+    // @ts-ignore
+    data[key] = value
+  }, result)
+  loading.value = false
+}
+
+onMounted(getDetail)
 </script>
 
 <template>
-  <div class="md:w-250 mx-auto p-6 bg-white rounded-sm">
+  <div v-if="loading" class="md:w-250 mx-auto p-6 bg-white rounded-sm">
+    <div class="min-h-100">
+      <Spin :loading="true"></Spin>
+    </div>
+  </div>
+  <div v-else class="md:w-250 mx-auto p-6 bg-white rounded-sm">
     <div class="flex">
-      <el-avatar class="new-40" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
+      <el-avatar :class="{'new-40': toBoolean(data.is_new)}" shape="square" fit="fit" :size="92" :src="data.logo"></el-avatar>
       <div class="mx-4 flex-1 w-1">
         <div class="flex items-center">
-          <DappDetailTitle/>
+          <DappDetailTitle :data="data"/>
         </div>
-        <p class="text-14-20 mt-2.5 text-global-highTitle text-opacity-85">
-          N.Fans is committed to creating a metaverse of animations and GameFi with and for globally recognized IPs.N.Fans is committed to creating a metaverse of animations and GameFi with and for globally recognized IPs.N.Fans is committed to creating a metaverse of animations and GameFi with and for globally recognized...
-        </p>
+        <p class="text-14-20 mt-2.5 text-global-highTitle text-opacity-85">{{ data.description }}</p>
       </div>
       <div>
-        <DappStar/>
+        <DappStar :id="data.id" :value="data.clout" :clouted="data.is_clouted"/>
       </div>
     </div>
     <div class="mt-6">
-      <DappDetailInfo/>
+      <DappDetailInfo :data="data"/>
     </div>
-    <div class="mt-12">
-      <DappDetailComment/>
-    </div>
-    <div class="mt-12">
-      <DappDetailHelp/>
-    </div>
+    <!--项目测评-->
+    <DappDetailComment :data="data"/>
+    <!--参与方式-->
+    <DappDetailHelp :data="data"/>
+    <!--分享文案-->
     <div class="mt-12">
       <DappDetailShare/>
     </div>

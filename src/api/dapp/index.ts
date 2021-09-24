@@ -7,6 +7,7 @@ import { asyncCheck } from '~/lib/response'
 
 export * as group from './group'
 export * as discover from './discover'
+export * as detail from './detail'
 
 interface StarResult {
   clout: number

@@ -53,16 +53,6 @@
     }
   }
 
-  .date-box {
-    @apply text-global-numRed;
-    i {
-      font-style: normal;
-      line-height: 18px;
-      border-radius: 2px;
-      @apply text-white text-center;
-      @apply w-4.5 h-4 bg-global-numRed inline-block;
-    }
-  }
   .media-item {
     @apply mt-2.5;
     &:first-child {

@@ -1,16 +1,29 @@
 <script setup lang="ts">
+import { compact } from '~/utils'
+import { defineProps } from 'vue'
+defineProps({
+  data: {
+    type: Object,
+    required: true
+  }
+})
 </script>
 
 <template>
 <div class="flex items-center">
-  <span class="text-18 text-global-highTitle">N.Fans</span>
-  <span class="tag text-12-14">nft</span>
-  <span class="tag text-12-14">机枪池</span>
-  <span class="split"></span>
-  <span class="tag warn">
-    <IconFont type="icon-gaofengxian" size="14"/>
-    <span class="text-12-14 ml-0.5">高风险</span>
-  </span>
+  <span class="text-18 text-global-highTitle">{{ data.name }}</span>
+  <template v-if="data.categories && compact(data.categories).length > 0">
+    <template v-for="(value, index) in compact(data.categories)" :key="index">
+      <span class="tag text-12-14">{{ value }}</span>
+    </template>
+  </template>
+  <template v-if="data.high_risk">
+    <span class="split"></span>
+    <span class="tag warn">
+      <IconFont type="icon-gaofengxian" size="14"/>
+      <span class="text-12-14 ml-0.5">高风险</span>
+    </span>
+  </template>
 </div>
 </template>
 

@@ -1,45 +1,63 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+import { ref, reactive, onMounted, toRaw } from 'vue'
+import * as API from '~/api/index'
+import { forEach, toBoolean } from '~/utils'
+const $router = useRoute()
 
+const loading = ref<boolean>(true)
+const data = reactive<object>({})
+
+const getDetail = async function() {
+  const params: any = toRaw($router.params)
+  const result = await API.nft.detail.get(params)
+  forEach(function(value: any, key: string) {
+    // @ts-ignore
+    data[key] = value
+  }, result)
+  loading.value = false
+}
+
+onMounted(getDetail)
 </script>
 
 <template>
-  <div class="md:w-250 mx-auto p-6 bg-white rounded-sm">
+  <div v-if="loading" class="md:w-250 mx-auto p-6 bg-white rounded-sm">
+    <div class="min-h-100">
+      <Spin :loading="true"></Spin>
+    </div>
+  </div>
+  <div v-else class="md:w-250 mx-auto p-6 bg-white rounded-sm">
     <div class="flex items-center">
-      <DappDetailTitle/>
+      <DappDetailTitle :data="data"/>
     </div>
     <div class="flex items-end">
       <div class="mr-4">
         <div class="mt-2">
-          <el-avatar class="mr-2" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
-          <el-avatar class="mr-2" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
-          <el-avatar class="mr-2" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
-          <el-avatar class="mr-2" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
-          <el-avatar class="mr-2" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
-          <el-avatar class="mr-2" shape="square" fit="fit" :size="92" src="http://iph.href.lu/92x92"></el-avatar>
+          <template v-for="(value, index) in data.gallery" :key="index">
+            <el-avatar v-if="value" class="mr-2" shape="square" fit="fit" :size="92" :src="value"></el-avatar>
+          </template>
         </div>
         <div class="mt-2">
-          <p class="text-14-20 mt-2.5 text-global-highTitle text-opacity-85">
-            N.Fans is committed to creating a metaverse of animations and GameFi with and for globally recognized IPs.N.Fans is committed to creating a metaverse of animations and GameFi with and for globally recognized IPs.N.Fans is committed to creating a metaverse of animations and GameFi with and for globally recognized...
-          </p>
+          <p class="text-14-20 mt-2.5 text-global-highTitle text-opacity-85">{{ data.description }}</p>
         </div>
       </div>
       <!-- 点赞 -->
       <div>
-        <DappStar/>
+        <DappStar :id="data.id" :value="data.clout" :clouted="data.is_clouted"/>
       </div>
     </div>
-
+    <!--项目介绍-->
     <div class="mt-4">
-      <NftDetailInfo/>
+      <NftDetailInfo :data="data"/>
     </div>
+    <!--项目测评-->
+    <DappDetailComment :data="data"/>
+    <!--参与方式-->
+    <DappDetailHelp :data="data"/>
+    <!--分享文案-->
     <div class="mt-12">
-      <DappDetailComment/>
-    </div>
-    <div class="mt-12">
-      <DappDetailHelp/>
-    </div>
-    <div class="mt-12">
-      <DappDetailShare/>
+      <DappDetailShare :data="data"/>
     </div>
   </div>
 </template>

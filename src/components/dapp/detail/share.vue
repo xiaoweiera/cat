@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 const link = ref<string>('http://kingdata.com')
+
+const discord = ref<string>('https://discord.gg/c9wTAgeAwz')
+
+onMounted(function() {
+  link.value = window.location.href
+})
 </script>
 
 <template>
@@ -31,10 +37,12 @@ const link = ref<string>('http://kingdata.com')
             </div>
             <div class="px-3 text-14-18">
               <span class="block">发送分享截图至</span>
-              <span class="flex items-center justify-center">
-                <IconFont type="wechat" bright/>
-                <a class="ml-1 text-global-darkblue">Discard</a>
-              </span>
+              <UiFooterHover :href="discord">
+                <span class="flex items-center justify-center">
+                  <IconFont type="wechat" bright/>
+                  <span class="ml-1 text-global-darkblue">Discard</span>
+                </span>
+              </UiFooterHover>
             </div>
           </li>
           <li class="flex-1 w-1">

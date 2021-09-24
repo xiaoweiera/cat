@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, toRaw } from 'vue'
 import * as API from '~/api/index'
+import { config } from '~/utils/router'
 import I18n from '~/utils/i18n/index'
 import { isAfter } from '~/utils/time'
 import { GroupPosition } from '~/logic/dapp/interface'
@@ -87,6 +88,10 @@ onMounted(() => {
   watch([is_online, search], onSort)
 })
 
+const getHref = function(id: string | number): string {
+  return `${config.dapp}/${id}`
+}
+
 
 </script>
 
@@ -142,7 +147,7 @@ onMounted(() => {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3" v-if="list.length > 0">
-        <UiList v-for="(data, index) in list" :key="index">
+        <UiList v-for="(data, index) in list" :key="index" v-login :href="getHref(data.id)">
           <template #content>
             <div class="table-tr">
               <div class="td-title flex">
@@ -211,13 +216,7 @@ onMounted(() => {
                   </div>
                   <div class="text-xs mt-1.5 md:mt-2.5 flex justify-end whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
                     <span class="inline-block text-12 leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
-                    <span class="date-box inline-block">
-                    <TimeCountdown :value="data.online_time">
-                      <template #default="date">
-                        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> : <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
-                      </template>
-                    </TimeCountdown>
-                  </span>
+                    <TimeRed :value="data.online_time"></TimeRed>
                   </div>
                 </template>
                 <template v-else>
