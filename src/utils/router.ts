@@ -44,6 +44,7 @@ export const config = {
   growthpad: '/growthpad',
   apy: '/apy',
   apyToken: '/apy/token',
+  apyLp: '/apy/lp',
   liquidity:'/liquidity',
   bull: 'https://kingdata.com/bull', // 板块龙头
   nav: 'https://kingdata.com/nav', // 数据网站导航

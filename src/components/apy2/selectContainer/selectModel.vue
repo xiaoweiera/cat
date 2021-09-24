@@ -3,7 +3,7 @@ import {ref,defineProps,computed,onMounted,toRefs} from 'vue'
 import {chains} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
 import {useProvide,getInject} from '~/utils/use/state'
-const props = defineProps({show:Object,chain:String})
+const props = defineProps({show:Object,chainIcon:String,chain:String})
 const txt=getInject('txt')
 const {state:propsShow}=toRefs(props.show)
 const openSelect=()=>propsShow.value=true
@@ -17,7 +17,7 @@ const chainName=computed(()=>{
     <div   class="bg-global-highTitle bg-opacity-4 rounded-kd24px  h-9  flex items-center  selectShadow " name="select"  >
       <div class="pl-4 pr-2 flex borer-1 items-center w-full h-full" name="select" >
         <div class="flex items-center w-30 " name="select" >
-          <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
+          <IconFont :type="chainIcon" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
           <div name="select" class='text-global-highTitle text-kd14px18px'>{{chainName}}</div>
           <IconFont name="select" class='text-global-default text-opacity-35  ml-1.5' size='10' type='icon-arrow-down'/>
         </div>

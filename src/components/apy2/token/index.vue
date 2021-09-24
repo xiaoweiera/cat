@@ -84,6 +84,7 @@ const menuList = computed(function(){
 const getHref = function(tokenType: string) {
   const query=router({
     'query': {
+      symbol:'',
       tokenType: tokenType,
     }
   })

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, defineProps, reactive, onMounted, watch, toRaw } from 'vue'
-import {chains} from '~/logic/apy2/config'
+import { ref, defineProps, reactive, onMounted, watch, computed } from 'vue'
+import {chains,chainsIcon} from '~/logic/apy2/config'
 import I18n from '~/utils/i18n/index'
+import {tolocaleLowerCase} from '~/lib/tool'
 import {useRoute} from 'vue-router'
 import {useProvide} from '~/utils/use/state'
 const props = defineProps({
@@ -37,18 +38,23 @@ onMounted(()=>{
     pageType.value='lend'
   }
 })
+const chainIcon=computed(()=>chainsIcon[tolocaleLowerCase(chain.value)])
 </script>
 <template>
   <div>
-    <Apy2SelectContainerSelectModel v-if='!show.state' :show='show' :chain='chain' />
+    <Apy2SelectContainerSelectModel v-if='!show.state' :chainIcon='chainIcon' :show='show' :chain='chain' />
     <div v-show='show.state' class="font-kdFang w-full  " name="select" >
       <div  class="bg-global-white rounded-kd20px  selectShadow  " name="select"  >
         <div class="pl-4 pr-2 h-9 flex borer-1 items-center w-full" name="select" >
           <div class="flex items-center " name="select" >
-            <IconFont type="icon-quanbu" name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
+            <IconFont :type='chainIcon' name="select"   size="20" class="w-4.75 mr-1 text-global-primary  whitespace-nowrap" />
             <div class="allChain items-center  " name="select" >
               <el-select name="select"    size="small" v-model="chain" >
                 <el-option name="select"  v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
+                    <div class='flex-1 flex items-center'>
+                      <IconFont size='18' :type="chainsIcon[tolocaleLowerCase(item.key)]"/>
+                      <div class='ml-1.5'>{{item.name}}</div>
+                    </div>
                 </el-option>
               </el-select>
             </div>

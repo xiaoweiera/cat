@@ -19,7 +19,7 @@ export const getTokenList = async function(tokenType:string) {
     const category = safeGet<string>(data, 'category[0]')
     return Object.assign({}, data, {
       href: router({
-        path: config.apyToken,
+        path: tokenType==='token'?config.apyToken:config.apyLp,
         query: {
           symbol: data.name,
           category: category ? category : ''
@@ -37,7 +37,6 @@ export const getTokenDetail = function(name: string) {
 
 // 初始化，加载币种数据
 export const ready = function(tokenType:string) {
-  console.log(tokenType)
   return getTokenList(tokenType)
 }
 
