@@ -3,6 +3,7 @@ import I18n from '~/utils/i18n/index'
 </script>
 <template>
   <Apy2Project />
+  <UiFixTipApyFixed />
 </template>
 
 

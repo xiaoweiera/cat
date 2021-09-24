@@ -3,6 +3,7 @@ import I18n from '~/utils/i18n/index'
 </script>
 <template>
   <Apy2Loan />
+  <UiFixTipApyFixed />
   <div class="hidden">
     <UiWechatShare :title="I18n.apyIndex.pageLoan.title" :content="I18n.apyIndex.pageLoan.content"/>
 

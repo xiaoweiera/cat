@@ -1,10 +1,8 @@
 <script setup lang='ts'>
 import I18n from '~/utils/i18n/index'
-import { ref,computed } from 'vue'
-
+import { ref } from 'vue'
 const show = ref(false)
 import * as lang from '~/utils/lang'
-
 const apply='http://ikingdata.mikecrm.com/ijyjMFO?lang=en'
 const telegram = 'https://t.me/KingDataCN'
 const twitter = 'https://twitter.com/KingData_com'
@@ -18,31 +16,21 @@ const weChat = 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo'
 //     show.value = false
 //   }
 // })
-const topNumber=computed(()=>{
-  if(window){
-    return window.screen.height
-  }else{
-    return 10000
-  }
-})
 const back=()=>document.body.scrollTop=document.documentElement.scrollTop=0
 </script>
 <template>
-  <div class='fixApyTip'>
-    <div class='h-1000 border-1 w-full'>
-      <div style='height:1055px;border:1px solid red;'></div>
-    </div>
-    <div v-if='!show' class='w-12  fixed right-10 bottom-15 '>
+  <div class='fixApyTip '>
+    <div v-if='!show' class='w-12  fixed z-1  right-5 bottom-20 '>
       <a v-router.blank='apply' class='w-full block  text-center rounded-kd4px py-3 tagShadow hand'>
         <IconFont class='text-global-highTitle text-opacity-65' size='20' type='icon-shangchuan' />
         <div :class='lang.current.value ==="cn"?" w-6 ":""' class='text-12-14 text-global-highTitle text-opacity-65 mx-auto'>
           {{ I18n.common.apply }}
         </div>
       </a>
-<!--      <div  class='w-full block text-center rounded-kd4px py-3 mt-3 tagShadow hand'>-->
-<!--        <IconFont class='text-global-highTitle text-opacity-65' size='20' type='icon-jiaocheng' />-->
-<!--        <div class='text-12-14 text-global-highTitle text-opacity-65'>教程</div>-->
-<!--      </div>-->
+      <!--      <div  class='w-full block text-center rounded-kd4px py-3 mt-3 tagShadow hand'>-->
+      <!--        <IconFont class='text-global-highTitle text-opacity-65' size='20' type='icon-jiaocheng' />-->
+      <!--        <div class='text-12-14 text-global-highTitle text-opacity-65'>教程</div>-->
+      <!--      </div>-->
       <div  class='w-full block  rounded-kd4px h-42  flex flex-col items-center justify-between py-3 mt-3 tagShadow hand'>
 
         <el-popover :append-to-body='false' placement="left" :width='105'   trigger="hover">
@@ -53,7 +41,7 @@ const back=()=>document.body.scrollTop=document.documentElement.scrollTop=0
           </template>
           <div class='w-20  w-fit text-center'>
             <UiQrcode width="80" height="80" href :value="telegram"></UiQrcode>
-<!--            <div class='mt-2 text-12-16 font-medium text-global-default text-opacity-85'>{{ I18n.common.chat.joinTelegram }}</div>-->
+            <!--            <div class='mt-2 text-12-16 font-medium text-global-default text-opacity-85'>{{ I18n.common.chat.joinTelegram }}</div>-->
           </div>
         </el-popover>
         <a v-router.blank='twitter'>
@@ -82,7 +70,7 @@ const back=()=>document.body.scrollTop=document.documentElement.scrollTop=0
   .el-popover{
     min-width:105px !important;
   }
-.el-popper{
+  .el-popper{
     min-width: 105px !important;
   }
   .is-light{
@@ -91,12 +79,7 @@ const back=()=>document.body.scrollTop=document.documentElement.scrollTop=0
   .tagShadow {
     border: 1px solid rgba(0, 0, 0, 0.04);
     box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.1);
+    background:white;
   }
 }
 </style>
-// @formatter:off
-<route lang="yaml">
-meta:
-  layout: base
-</route>
-// @formatter:off

@@ -1,6 +1,7 @@
 export default {
   login: '登录',
   register: '注册',
+  apply:'申请收录',
   resetPassword: '重置密码',
   switchLogin: '返回登录',
   switchRegister: '注册账号',

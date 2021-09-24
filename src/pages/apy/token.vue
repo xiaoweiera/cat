@@ -4,6 +4,7 @@ import I18n from '~/utils/i18n/index'
 
 <template>
   <Apy2Token tokenType='token'/>
+  <UiFixTipApyFixed />
 </template>
 
 
