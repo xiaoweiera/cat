@@ -19,7 +19,7 @@ const weChat = 'https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo'
 const back=()=>document.body.scrollTop=document.documentElement.scrollTop=0
 </script>
 <template>
-  <div class='fixApyTip '>
+  <div class='fixApyTip xshidden'>
     <div v-if='!show' class='w-12  fixed z-1  right-5 bottom-20 '>
       <a v-router.blank='apply' class='w-full block  text-center rounded-kd4px py-3 tagShadow hand'>
         <IconFont class='text-global-highTitle text-opacity-65' size='20' type='icon-shangchuan' />
