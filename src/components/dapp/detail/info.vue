@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import { dateFormat } from '~/utils'
+import { dateFormat, size } from '~/utils'
 import { isAfter } from '~/utils/time'
 
 defineProps({
@@ -9,13 +9,6 @@ defineProps({
     required: true
   }
 })
-
-const size = function(value: Array<any>): number {
-  if (value && value.length > 0) {
-    return value.length;
-  }
-  return 0
-}
 
 </script>
 

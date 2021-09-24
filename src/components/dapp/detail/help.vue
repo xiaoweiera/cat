@@ -28,7 +28,7 @@ defineProps({
       </a>
     </div>
     <div class="mt-2 text-14-20 text-global-highTitle text-opacity-85">
-      <div>{{ data.participation }}</div>
+      <div v-html="data.participation"></div>
     </div>
     <div class="flex items-center mt-3 text-global-highTitle text-opacity-65 text-12">
       <span class="mr-3 text-14">公链使用教程</span>

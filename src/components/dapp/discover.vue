@@ -147,7 +147,7 @@ const getHref = function(id: string | number): string {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3" v-if="list.length > 0">
-        <UiList v-for="(data, index) in list" :key="index" v-login :href="getHref(data.id)">
+        <UiList v-for="(data, index) in list" :key="index" :href="getHref(data.id)">
           <template #content>
             <div class="table-tr">
               <div class="td-title flex">

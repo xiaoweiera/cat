@@ -2,7 +2,7 @@
 import { toUpper } from 'ramda'
 import { isAfter } from '~/utils/time'
 import { defineProps, computed } from 'vue'
-import { toNumberCashFormat, toArray, map, dateFormat } from '~/utils'
+import { toNumberCashFormat, toArray, map, dateFormat, size } from '~/utils'
 
 const props = defineProps({
   data: {
@@ -10,14 +10,6 @@ const props = defineProps({
     required: true
   }
 })
-
-
-const size = function(value: Array<any>): number {
-  if (value && value.length > 0) {
-    return value.length;
-  }
-  return 0
-}
 
 const chainNames = computed<string>(function() {
   const chains = props.data?.chains || []
