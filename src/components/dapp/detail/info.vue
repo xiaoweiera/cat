@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+// @ts-ignore
 import { dateFormat, size } from '~/utils'
 import { isAfter } from '~/utils/time'
 
@@ -25,9 +26,14 @@ defineProps({
         <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">社交媒体</span>
         <template v-if="size(data.medias) > 0">
           <template v-for="(media, key) in data.medias" :key="key">
-            <a v-router.blank="media.project_media_url" class="mr-3 flex" v-if="media">
-              <IconFont class="text-base" :type="key" bright/>
-            </a>
+            <template v-if="media">
+              <UiFooterHover v-if="media.is_qrcode && media.project_media_url" :href="media.project_media_url">
+                <IconFont class="text-base" :type="key" bright/>
+              </UiFooterHover>
+              <a v-else v-router.blank="media.project_media_url" class="mr-3 flex" v-if="media">
+                <IconFont class="text-base" :type="key" bright/>
+              </a>
+            </template>
           </template>
         </template>
         <template v-else>
