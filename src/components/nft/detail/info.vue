@@ -23,8 +23,8 @@ const chainNames = computed<string>(function() {
 
 <template>
   <div class="border-0 border-t border-solid border-global-highTitle border-opacity-6">
-    <div class="py-4 flex text-global-highTitle text-opacity-45">
-      <div class="flex-1 w-1">
+    <div class="py-2 md:py-4 flex text-global-highTitle text-opacity-45">
+      <div class="flex-auto md:flex-1 md:w-1">
         <p class="text-14-18">当前价格</p>
         <div class="text-global-numGreen mt-1">
           <IconFont :type="data.price_unit"/>
@@ -32,7 +32,7 @@ const chainNames = computed<string>(function() {
           <span class="text-12-18">{{ toUpper(data.price_unit) }}</span>
         </div>
       </div>
-      <div class="flex-1 w-1 line">
+      <div class="flex-auto md:flex-1 md:w-1 line">
         <p class="text-14-18">发行数量</p>
         <div class="mt-1">
           <p class="text-26 font-bold text-number text-global-highTitle">
@@ -40,7 +40,7 @@ const chainNames = computed<string>(function() {
           </p>
         </div>
       </div>
-      <div class="flex-1 w-1 line">
+      <div class="flex-auto md:flex-1 md:w-1 line">
         <p class="text-14-18">所在公链</p>
         <div class="text-12-18 text-global-highTitle mt-1">
           <span class="text-26 font-bold text-number">{{ size(data.chains) }}</span>
@@ -50,10 +50,10 @@ const chainNames = computed<string>(function() {
       </div>
     </div>
   </div>
-  <div class="border-0 border-t border-b border-solid border-global-highTitle border-opacity-6">
-    <div class="py-4">
+  <div class="border-0 border-t md:border-b border-solid border-global-highTitle border-opacity-6">
+    <div class="md:pt-1 md:pb-4">
       <div class="flex flex-wrap text-14-18">
-        <div class="w-1/3 pr-8">
+        <div class="wrap-item">
           <div class="flex items-center">
             <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">官网地址</span>
             <span class="truncate flex-1 inline-block">
@@ -62,7 +62,7 @@ const chainNames = computed<string>(function() {
           </div>
         </div>
 
-        <div class="w-1/3">
+        <div class="wrap-item">
           <div class="flex items-center">
             <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">审计公司</span>
             <template v-if="size(data.audit_reports) > 0">
@@ -76,7 +76,7 @@ const chainNames = computed<string>(function() {
           </div>
         </div>
 
-        <div class="w-1/3">
+        <div class="wrap-item">
           <div class="flex items-center">
             <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">社交媒体</span>
             <template v-if="size(data.medias) > 0">
@@ -97,14 +97,14 @@ const chainNames = computed<string>(function() {
           </div>
         </div>
 
-        <div class="w-1/3 mt-3">
+        <div class="wrap-item">
           <div class="flex items-center">
             <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">上线时间</span>
             <span class="text-global-highTitle">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
           </div>
         </div>
 
-        <div class="w-1/3 mt-3">
+        <div class="wrap-item">
           <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">项目状态</span>
           <template v-if="data.online_time && isAfter(data.online_time)">
             <TimeRed :value="data.online_time"></TimeRed>
@@ -123,5 +123,12 @@ const chainNames = computed<string>(function() {
   border-left-width: 1px;
   @apply pl-6;
   @apply border-solid border-global-highTitle border-opacity-10;
+}
+
+.wrap-item {
+  @apply w-full pt-4;
+  @screen md {
+    @apply w-1/3 pr-8 pt-3;
+  }
 }
 </style>

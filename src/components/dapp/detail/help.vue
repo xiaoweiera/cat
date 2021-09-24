@@ -22,7 +22,7 @@ defineProps({
         <IconFont class="mr-1.5" type="join" size="24" bright/>
         <h3 class="text-global-highTitle text-opacity-85 text-18 font-m">参与方式</h3>
       </div>
-      <a v-router.blank="data.website" class="inline-flex items-center text-global-darkblue justify-end cursor-pointer">
+      <a v-router.blank="data.website" class="hidden md:inline-flex items-center text-global-darkblue justify-end cursor-pointer">
         <span class="text-14-18">{{ I18n.dapp.website }}</span>
         <IconFont type="icon-right" size="xs"/>
       </a>

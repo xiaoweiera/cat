@@ -28,21 +28,22 @@ onMounted(getDetail)
     </div>
   </div>
   <div v-else class="md:w-250 mx-auto p-6 bg-white rounded-sm">
-    <div class="flex">
-      <el-avatar :class="{'new-40': toBoolean(data.is_new)}" shape="square" fit="fit" :size="92" :src="data.logo"></el-avatar>
-      <div class="mx-4 flex-1 w-1">
+    <div class="md:flex">
+      <div class="flex justify-center">
+        <el-avatar :class="{'new-40': toBoolean(data.is_new)}" shape="square" fit="fit" :size="92" :src="data.logo"></el-avatar>
+      </div>
+      <div class="md:mx-4 md:flex-1 md:w-1 mt-4 md:mt-0">
         <div class="flex items-center">
           <DappDetailTitle :data="data"/>
         </div>
         <p class="text-14-20 mt-2.5 text-global-highTitle text-opacity-85">{{ data.description }}</p>
       </div>
-      <div>
+      <div class="hidden md:block">
         <DappStar :id="data.id" :value="data.clout" :clouted="data.is_clouted"/>
       </div>
     </div>
-    <div class="mt-6">
-      <DappDetailInfo :data="data"/>
-    </div>
+    <!--项目基础信息-->
+    <DappDetailInfo :data="data"/>
     <!--项目测评-->
     <DappDetailComment :data="data"/>
     <!--参与方式-->

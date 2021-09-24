@@ -28,10 +28,15 @@ onMounted(getDetail)
     </div>
   </div>
   <div v-else class="md:w-250 mx-auto p-6 bg-white rounded-sm">
-    <div class="flex items-center">
-      <DappDetailTitle :data="data"/>
+    <div class="flex md:hidden pb-4">
+      <template v-for="(value, index) in data.gallery" :key="index">
+        <el-avatar v-if="value" class="mr-2" shape="square" fit="fit" :size="64" :src="value"></el-avatar>
+      </template>
     </div>
-    <div class="flex items-end">
+    <div class="flex items-center">
+      <DappDetailTitle class="nft-title" :data="data"/>
+    </div>
+    <div class="hidden md:flex items-end">
       <div class="mr-4">
         <div class="mt-2">
           <template v-for="(value, index) in data.gallery" :key="index">
