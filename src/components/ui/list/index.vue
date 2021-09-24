@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-  <div class="ui-list p-4 rounded-md bg-white" @click="onClick">
+  <div class="ui-list p-4 rounded-md bg-white" :class="{'cursor-pointer': href}" @click="onClick">
     <div class="list-header" :class="{'pb-4': header || $slots.header}">
       <slot name="header">
         <div class="leading-5" v-if="header">
