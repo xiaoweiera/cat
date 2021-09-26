@@ -105,5 +105,14 @@ export default {
     content2:'',
     content3:'',
     comfirm:'加入电报群'
+  },
+  risk: {
+    high: '高风险',
+    medium: '中风险',
+    low: '低风险',
+    unknown: '未知风险'
+  },
+  site: {
+    web: '官网地址'
   }
 }

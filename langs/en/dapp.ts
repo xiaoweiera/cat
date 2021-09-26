@@ -19,7 +19,9 @@ export default {
     timeDesc: 'Descending by online time',
     timeAsc: 'Ascending by online time',
     priceDesc: 'Descending by price',
-    priceAsc: 'Ascending by price'
+    priceAsc: 'Ascending by price',
+    clout: 'Sort by popularity',
+    create_time: 'Sort by latest time'
   },
   status: {
     success: 'https://res.ikingdata.com/image/dapp/ongoing_en.png'
@@ -52,6 +54,36 @@ export default {
       marketcap:'MarketCap',
       tvl:'TVL/Change',
       mcap:'MCap/TVL',
+    }
+  },
+  info: {
+    auditReports: 'Audit',
+    media: 'Media',
+    chain: 'Chain',
+    state: 'State',
+    status: 'On Going',
+    price: 'Price',
+    supply: 'Supply',
+    unit: ''
+  },
+  comment: {
+    title: 'Evaluation'
+  },
+  help: {
+    title: 'Participation Way',
+    tutorial: 'Tutorial',
+    using : '{name}  tutorials'
+  },
+  share: {
+    title: 'Step',
+    label: 'Share',
+    message: 'Share the link 3 times to unlock the fortune code.',
+    step: {
+      count: 'Share to 3',
+      platform: 'any platforms or friends',
+      send: 'Send shared screenshot to',
+      join: 'Join the group',
+      wechat: 'Communicate with industry leaders'
     }
   }
 }

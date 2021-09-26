@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toUpper } from 'ramda'
 import { isAfter } from '~/utils/time'
+import I18n from '~/utils/i18n/index';
 import { defineProps, computed } from 'vue'
 import { toNumberCashFormat, toArray, map, dateFormat, size } from '~/utils'
 
@@ -25,7 +26,7 @@ const chainNames = computed<string>(function() {
   <div class="border-0 border-t border-solid border-global-highTitle border-opacity-6">
     <div class="py-2 md:py-4 flex text-global-highTitle text-opacity-45">
       <div class="flex-auto md:flex-1 md:w-1">
-        <p class="text-14-18">当前价格</p>
+        <p class="text-14-18">{{ I18n.dapp.info.price }}</p>
         <div class="text-global-numGreen mt-1">
           <IconFont :type="data.price_unit"/>
           <span class="text-26 font-bold text-number mx-1">{{ data.price }}</span>
@@ -33,7 +34,7 @@ const chainNames = computed<string>(function() {
         </div>
       </div>
       <div class="flex-auto md:flex-1 md:w-1 line">
-        <p class="text-14-18">发行数量</p>
+        <p class="text-14-18">{{ I18n.dapp.info.supply }}</p>
         <div class="mt-1">
           <p class="text-26 font-bold text-number text-global-highTitle">
             <span>{{ toNumberCashFormat(data.issue_volume, '') }}</span>
@@ -41,11 +42,16 @@ const chainNames = computed<string>(function() {
         </div>
       </div>
       <div class="flex-auto md:flex-1 md:w-1 line">
-        <p class="text-14-18">所在公链</p>
+        <p class="text-14-18">{{ I18n.dapp.info.chain }}</p>
         <div class="text-12-18 text-global-highTitle mt-1">
-          <span class="text-26 font-bold text-number">{{ size(data.chains) }}</span>
-          <span class="mx-0.5">条</span>
-          <span>({{ chainNames }})</span>
+          <template v-if="size(data.chains) > 0">
+            <span class="text-26 font-bold text-number">{{ size(data.chains) }}</span>
+            <span class="mx-0.5" v-show="I18n.dapp.info.unit">{{ I18n.dapp.info.unit }}</span>
+            <span>({{ chainNames }})</span>
+          </template>
+          <template v-else>
+            <span class="text-26 font-bold text-number">0</span>
+          </template>
         </div>
       </div>
     </div>
@@ -55,7 +61,7 @@ const chainNames = computed<string>(function() {
       <div class="flex flex-wrap text-14-18">
         <div class="wrap-item">
           <div class="flex items-center">
-            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">官网地址</span>
+            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">{{ I18n.common.site.web }}</span>
             <span class="truncate flex-1 inline-block">
               <a class="underline text-global-darkblue" v-router.blank="data.website">{{ data.website }}</a>
             </span>
@@ -64,7 +70,7 @@ const chainNames = computed<string>(function() {
 
         <div class="wrap-item">
           <div class="flex items-center">
-            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">审计公司</span>
+            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">{{ I18n.dapp.info.auditReports }}</span>
             <template v-if="size(data.audit_reports) > 0">
               <template v-for="(item, index) in data.audit_reports" :key="index">
                 <a class="mr-3 underline text-global-darkblue" v-router.blank="item.report">{{ item.audit }}</a>
@@ -78,7 +84,7 @@ const chainNames = computed<string>(function() {
 
         <div class="wrap-item">
           <div class="flex items-center">
-            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">社交媒体</span>
+            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">{{ I18n.dapp.info.media }}</span>
             <template v-if="size(data.medias) > 0">
               <template v-for="(media, key) in data.medias" :key="key">
                 <template v-if="media">
@@ -99,18 +105,18 @@ const chainNames = computed<string>(function() {
 
         <div class="wrap-item">
           <div class="flex items-center">
-            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">上线时间</span>
+            <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">{{ I18n.dapp.header.time }}</span>
             <span class="text-global-highTitle">{{ dateFormat(data.online_time, 'YYYY.MM.DD HH:mm') }}</span>
           </div>
         </div>
 
         <div class="wrap-item">
-          <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">项目状态</span>
+          <span class="pr-3 min-w-17 inline-block text-global-highTitle text-opacity-45">{{ I18n.dapp.info.status }}</span>
           <template v-if="data.online_time && isAfter(data.online_time)">
             <TimeRed :value="data.online_time"></TimeRed>
           </template>
           <span v-else>
-            <span class="text-global-highTitle">进行中</span>
+            <span class="text-global-highTitle">{{ I18n.dapp.info.status }}</span>
           </span>
         </div>
       </div>

@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
+import I18n from '~/utils/i18n/index';
+
+defineProps({
+  data: {
+    type: Object,
+    required: true
+  }
+})
+
 const link = ref<string>('http://kingdata.com')
 
 const discord = ref<string>('https://discord.gg/c9wTAgeAwz')
@@ -7,36 +16,38 @@ const discord = ref<string>('https://discord.gg/c9wTAgeAwz')
 onMounted(function() {
   link.value = window.location.href
 })
+
 </script>
 
 <template>
   <div>
     <div class="flex items-center">
       <IconFont class="mr-1.5" type="key" size="24" bright/>
-      <h3 class="text-global-highTitle text-opacity-85 text-18 font-m">解锁财富密码</h3>
+      <h3 class="text-global-highTitle text-opacity-85 text-18 font-m">{{ I18n.dapp.share.title }}</h3>
     </div>
     <div class="flex wrap-share mt-3 text-global-highTitle text-opacity-65">
-      <div class="share-step">
+      <!-- 大屏模式 -->
+      <div class="share-step hidden md:block">
         <ul class="flex text-center">
-          <li class="flex-1 w-1">
+          <li class="flex-1">
             <div class="line">
               <span>
                 <b class="text-16 text-number">1</b>
               </span>
             </div>
-            <div class="px-1 md:px-3 text-14-18">
-              <span class="block">分享至3个</span>
-              <span class="block">任意平台或好友</span>
+            <div class="px-1 md:pl-0 md:pr-3 text-14-18">
+              <span class="block">{{ I18n.dapp.share.step.count }}</span>
+              <span class="block">{{ I18n.dapp.share.step.platform }}</span>
             </div>
           </li>
-          <li class="flex-1 w-1">
+          <li class="flex-1">
             <div class="line">
               <span>
                 <b class="text-16 text-number">2</b>
               </span>
             </div>
             <div class="px-1 md:px-3 text-14-18">
-              <span class="block">发送分享截图至</span>
+              <span class="block">{{ I18n.dapp.share.step.send }}</span>
               <UiFooterHover :href="discord">
                 <span class="flex items-center justify-center">
                   <IconFont type="discord" bright/>
@@ -45,29 +56,56 @@ onMounted(function() {
               </UiFooterHover>
             </div>
           </li>
-          <li class="flex-1 w-1">
+          <li class="flex-1">
             <div class="line">
               <span>
                 <b class="text-16 text-number">3</b>
               </span>
             </div>
             <div class="px-1 md:px-3 text-14-18">
-              <span class="block">加入优质项目讨论群</span>
-              <span class="block">和行业大佬交流信息</span>
+              <span class="block">{{ I18n.dapp.share.step.join }}</span>
+              <span class="block">{{ I18n.dapp.share.step.wechat }}</span>
             </div>
           </li>
         </ul>
       </div>
-      <div class="w-full md:w-80 md:pl-6 flex mt-4 md:mt-0">
+      <!-- 小屏模式 -->
+      <div class="share-step md:hidden">
+        <div class="flex">
+          <div class="dot text-16 text-number">1</div>
+          <div class="ml-1.5 flex-1">
+            <span>{{ I18n.dapp.share.step.count }}</span>
+            <span>{{ I18n.dapp.share.step.platform }}</span>
+          </div>
+        </div>
+        <div class="flex items-start mt-6">
+          <div class="dot text-16 text-number">2</div>
+          <div class="ml-1.5 flex-1">
+            <span class="align-middle">{{ I18n.dapp.share.step.send }}</span>
+            <a class="ml-1 inline-block items-center justify-center" v-router.blank="discord">
+              <IconFont class="align-middle" type="discord" bright/>
+              <span class="align-middle ml-1 text-global-darkblue">Discord</span>
+            </a>
+          </div>
+        </div>
+        <div class="flex items-start mt-6">
+          <div class="dot text-16 text-number">3</div>
+          <div class="ml-1.5 flex-1">
+            <span class="align-middle">{{ I18n.dapp.share.step.join }}</span>
+            <span class="align-middle">{{ I18n.dapp.share.step.wechat }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-full md:w-80 md:pl-6 flex mt-6 md:mt-0">
         <div class="wrap-copy">
           <div class="pr-3">
             <h5 class="text-14-18">
-              <span class="copy-label">分享</span>
+              <span class="copy-label">{{ I18n.dapp.share.label }}</span>
             </h5>
           </div>
           <div class="wrap-copy-button" v-login>
             <el-input class="w-full" :model-value="link" size="small"/>
-            <span class="ml-2 flex cursor-pointer" v-copy.message="link" message="分享 3 次链接，解锁财富密码。">
+            <span class="ml-2 flex cursor-pointer" v-copy.message="link" :message="I18n.dapp.share.message">
               <IconFont type="copy"/>
             </span>
           </div>
@@ -118,6 +156,14 @@ onMounted(function() {
       @apply flex-auto;
     }
   }
+}
+
+.dot {
+  background-color: #09D98E;
+  border-radius: 40px;
+  height: 22px;
+  line-height: 22px;
+  @apply min-w-8 text-center text-white;
 }
 
 ul {

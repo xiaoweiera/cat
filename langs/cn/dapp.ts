@@ -19,7 +19,9 @@ export default {
     timeDesc: '按上线时间降序',
     timeAsc: '按上线时间升序',
     priceDesc: '按价格降序',
-    priceAsc: '按价格升序'
+    priceAsc: '按价格升序',
+    clout: '按热度排序',
+    create_time: '按最新时间排序'
   },
   status: {
     success: 'https://res.ikingdata.com/image/dapp/ongoing_cn.png'
@@ -52,6 +54,36 @@ export default {
       marketcap:'市值',
       tvl:'TVL/变化率',
       mcap:'MCap/TVL',
+    }
+  },
+  info: {
+    auditReports: '审计公司',
+    media: '社交媒体',
+    chain: '所在公链',
+    state: '项目状态',
+    status: '进行中',
+    price: '当前价格',
+    supply: '发行数量',
+    unit: '条'
+  },
+  comment: {
+    title: '项目评测'
+  },
+  help: {
+    title: '参与方式',
+    tutorial: '公链使用教程',
+    using : '{name}  使用教程'
+  },
+  share: {
+    title: '解锁财富密码',
+    label: '分享',
+    message: '分享 3 次链接，解锁财富密码。',
+    step: {
+      count: '分享至3个',
+      platform: '任意平台或好友',
+      send: '发送分享截图至',
+      join: '加入优质项目讨论群',
+      wechat: '和行业大佬交流信息'
     }
   }
 }

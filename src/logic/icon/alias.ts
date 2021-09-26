@@ -9,7 +9,7 @@ const brights = {
   'twitter': 'icon-twitter-bright',
   'wechat': 'icon-wechat-1',
 
-  'key': 'icon-key-1',
+  'key': 'icon-yuechi',
   'join': 'icon-join1',
   'safe': 'icon-safe-1'
 }
