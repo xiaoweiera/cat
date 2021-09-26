@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, toRaw } from 'vue'
 import * as API from '~/api/index'
+import router, { config } from '~/utils/router'
 import I18n from '~/utils/i18n/index'
 import { isAfter } from '~/utils/time'
 import { GroupPosition } from '~/logic/dapp/interface'
-import { toNumberCashFormat, toInteger, toArray, debounce, dateFormat, compact, upperFirst } from '~/utils'
+import { toNumberCashFormat, toInteger, toArray, debounce, dateFormat, compact, upperFirst, toBoolean, size } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
 
 const list = ref<any[]>([])
-const is_online = ref<boolean>(false)
+const is_online = ref<boolean>(true)
 const search = ref<string>('')
 const page = ref<number>(1)
 const limit = ref<number>(10)
@@ -16,15 +17,18 @@ const total = ref<number>(10) // 默认总条数
 const sortValue = ref<string>('')
 const chain = ref<string>('all')
 const group_id = ref<string>('')
+const top_sort = ref<string>('clout')
 const loading = ref<boolean>(true)
 
 const sortList = ref<any>([
   {
-    label: I18n.dapp.sort.timeDesc,
-    value: '{"online_time": "desc"}'
+    key: 'clout',
+    label: '按热度排序',
+    value: '{"top_sort": "clout"}'
   }, {
-    label: I18n.dapp.sort.timeAsc,
-    value: '{"online_time": "asc"}'
+    key: 'create_time',
+    label: '按最新时间排序',
+    value: '{"top_sort": "create_time"}'
   }
 ])
 
@@ -36,13 +40,15 @@ const onGetList = async function(value?: object) {
     query: search.value,
     is_online: is_online.value,
     chain: chain.value,
-    group_id: group_id.value
+    group_id: group_id.value,
+    top_sort: top_sort.value || 'clout',
   }, value || {})
   loading.value = true
   const result = await API.dapp.discover.getList<any[]>(param as any)
   const info = safeGet<any>(result, 'page_info') || {}
   total.value = toInteger(info.total)
   page.value = param.page
+  top_sort.value = param.top_sort
 
   const array = toArray(safeGet<any[]>(result, 'results') || [])
   if (list.value.length > 0) {
@@ -84,8 +90,19 @@ const onNext = function() {
 }
 
 onMounted(() => {
-  watch([is_online, search], onSort)
+  watch([is_online, search], () => {
+    onSort()
+  })
 })
+
+const getHref = function(id: string | number): string {
+  return `${config.dapp}/${id}`
+}
+
+const getSortHref = function(query: string): string {
+  const data: any = { query: JSON.parse(query) }
+  return router(data)
+}
 
 
 </script>
@@ -95,12 +112,16 @@ onMounted(() => {
     <div class="content">
       <DappTabs :position="GroupPosition.dappNew" @change="onChangeTab">
         <div class="tabs-operate">
-          <div class="mt-4 md:mt-0 hidden">
-            <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
-            <el-switch v-model="is_online"></el-switch>
+          <div class="mt-4 md:mt-0 inline-flex items-center text-14-18 pr-3">
+            <el-switch class="mr-1.5" v-model="is_online"></el-switch>
+            <span class="text-sm text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
+            <span class="hidden md:inline-flex items-center" v-for="(item, index) in sortList" :key="index">
+              <span class="split inline-block mx-3"></span>
+              <router-link :to="getSortHref(item.value)" :class="{'text-global-darkblue': top_sort === item.key, 'font-m': top_sort === item.key}" class="cursor-pointer whitespace-nowrap text-global-highTitle text-opacity-65">{{ item.label }}</router-link>
+            </span>
           </div>
           <div class="flex flex-1 items-center md:justify-end">
-            <div class="max-w-56 min-w-34">
+            <div class="max-w-56 min-w-34 flex">
               <el-input :placeholder="I18n.dapp.group.search" v-model="search" size="small">
                 <template #prefix>
                   <i class="el-input__icon el-icon-search"></i>
@@ -129,10 +150,8 @@ onMounted(() => {
             <div class="td-data text-global-highTitle text-opacity-65">
               <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.mediaData }}</span>
             </div>
-            <div class="td-date text-global-highTitle text-opacity-65 flex justify-end">
-              <div class="flex justify-end text-14-18 font-kdBarlow">
-                <UiSort :title="I18n.dapp.header.time" name="online_time" @change="onSort"></UiSort>
-              </div>
+            <div class="td-date text-global-highTitle text-opacity-65">
+              <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.time }}</span>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.operate }}</span>
@@ -142,27 +161,41 @@ onMounted(() => {
       </UiList>
       <!-- 内容 -->
       <div class="mt-3" v-if="list.length > 0">
-        <UiList v-for="(data, index) in list" :key="index">
+        <UiList v-for="(data, index) in list" :key="index" :href="getHref(data.id)">
           <template #content>
             <div class="table-tr">
               <div class="td-title flex">
                 <div class="flex-1">
                   <div class="flex">
                     <div class="mr-3">
-                      <el-avatar shape="square" fit="fit" :src="data.logo"></el-avatar>
+                      <el-avatar :class="{'new-40': toBoolean(data.is_new)}" shape="square" fit="fit" :src="data.logo"/>
                     </div>
                     <div>
                       <div class="block text-lg font-medium text-global-highTitle leading-5 whitespace-pre-wrap">
                         <span class="hidden md:inline text-14-18 align-middle mr-2">{{ data.name }}</span>
                         <span class="md:hidden text-18-18 align-middle mr-2">{{ data.name }}</span>
+
                         <template v-if="data.categories && compact(data.categories).length > 0">
                           <template v-for="(item, j) in compact(data.categories)" :key="`${index}-${j}`">
                             <span v-if="item" class="align-middle text-12-14 mr-2 hidden md:inline-block text-global-primary bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">{{ item }}</span>
                           </template>
                         </template>
+
+                        <template v-if="data.chains && size(data.chains) > 0">
+                          <span class="split mr-2"></span>
+                        </template>
+
                         <template v-for="(item, j) in data.chains" :key="`${index}-${j}`">
                           <span class="align-middle mr-2 hidden md:inline-flex items-center justify-center w-7 h-7 border border-solid border-global-primary border-opacity-10 rounded-kd28px">
                             <IconFont :type="item.logo" size="16"/>
+                          </span>
+                        </template>
+
+                        <template v-if="data.high_risk">
+                          <span class="split align-middle"></span>
+                          <span class="tag warn align-middle">
+                            <IconFont type="icon-gaofengxian" size="14"/>
+                            <span class="text-12-14 ml-0.5">高风险</span>
                           </span>
                         </template>
                       </div>
@@ -179,22 +212,26 @@ onMounted(() => {
                 </div>
                 <DappOperation class="ml-4 md:hidden" :data="data"/>
               </div>
-              <div class="td-data">
-                <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
-                  <a v-router.blank="media.project_media_url" class="flex items-center media-item" v-if="media">
-                    <IconFont class="text-base" :type="key" bright/>
-                    <span class="text-14-16 ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
-                    <template v-if="media.total_user && media.online_user">
-                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+              <div class="td-data" @click.stop>
+                <div class="inline-flex flex-col flex-col" @click.stop>
+                  <template v-for="(media, key) in data.medias" :key="`${index}-${key}`">
+                    <template v-if="media">
+                      <a v-router.blank="media.project_media_url" class="flex items-center media-item">
+                        <IconFont class="text-base" :type="key" bright/>
+                        <span class="text-14-16 ml-1.5 text-global-highTitle text-opacity-85">{{ upperFirst(key) }}</span>
+                        <template v-if="media.total_user && media.online_user">
+                          <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }} / {{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                        </template>
+                        <template v-else-if="media.total_user">
+                          <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
+                        </template>
+                        <template v-else-if="media.online_user">
+                          <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
+                        </template>
+                      </a>
                     </template>
-                    <template v-else-if="media.total_user">
-                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.total_user, 'Num') }}</span>
-                    </template>
-                    <template v-else-if="media.online_user">
-                      <span class="text-12-14 ml-1 text-global-highTitle text-opacity-65 leading-3">{{ toNumberCashFormat(media.online_user, 'Online') }}</span>
-                    </template>
-                  </a>
-                </template>
+                  </template>
+                </div>
               </div>
               <div class="td-date">
                 <template v-if="data.online_time && isAfter(data.online_time)">
@@ -211,20 +248,14 @@ onMounted(() => {
                   </div>
                   <div class="text-xs mt-1.5 md:mt-2.5 flex justify-end whitespace-nowrap" v-if="data.online_time && isAfter(data.online_time)">
                     <span class="inline-block text-12 leading-4 text-global-highTitle text-opacity-45 mr-1">{{ I18n.dapp.timeEnd }}</span>
-                    <span class="date-box inline-block">
-                    <TimeCountdown :value="data.online_time">
-                      <template #default="date">
-                        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> : <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
-                      </template>
-                    </TimeCountdown>
-                  </span>
+                    <TimeRed :value="data.online_time"></TimeRed>
                   </div>
                 </template>
                 <template v-else>
-                  <el-avatar shape="square" fit="fit" :size="80" :src="I18n.dapp.status.success"></el-avatar>
+                  <el-avatar shape="square" fit="fit" :size="80" :src="I18n.dapp.status.success"/>
                 </template>
               </div>
-              <div class="td-operation hidden md:block">
+              <div class="td-operation hidden md:block" @click.stop>
                 <DappOperation :data="data"/>
               </div>
             </div>
@@ -260,4 +291,23 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "./list.scss";
+
+.tag {
+  @apply hidden;
+  @apply ml-1.5 px-2 py-1;
+  @apply text-global-darkblue;
+  @apply bg-global-darkblue bg-opacity-8;
+  border-radius: 20px;
+  &.warn {
+    @apply items-center;
+    @apply text-global-numRed;
+    @apply bg-global-numRed bg-opacity-12;
+  }
+  @screen md {
+    @apply inline-block;
+    &.warn {
+      @apply inline-flex;
+    }
+  }
+}
 </style>

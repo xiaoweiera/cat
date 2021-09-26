@@ -6,7 +6,12 @@ const brights = {
   'medium': 'icon-medium',
   'weibo': 'icon-weibo',
   'telegram': 'icon-telegram-bright',
-  'twitter': 'icon-twitter-bright'
+  'twitter': 'icon-twitter-bright',
+  'wechat': 'icon-wechat-1',
+
+  'key': 'icon-key-1',
+  'join': 'icon-join1',
+  'safe': 'icon-safe-1'
 }
 
 const aliasConfig = {
@@ -43,6 +48,10 @@ const aliasConfig = {
   'Deposit': 'icon-D',
   'Staking': 'icon-S',
   'Liquidity': 'icon-L',
+
+  'key': 'icon-key',
+  'join': 'icon-join',
+  'safe': 'icon-safe'
 }
 
 const getAlias = function(value: string, bright?: boolean): string {

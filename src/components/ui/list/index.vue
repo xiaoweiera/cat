@@ -1,6 +1,11 @@
 <script lang="ts">
+import router from '~/utils/router'
+
 export default {
   props: {
+    href: {
+      type: [String, Object],
+    },
     header: {
       type: String,
       default: () => ''
@@ -9,12 +14,24 @@ export default {
       type: String,
       default: () => ''
     }
+  },
+  methods: {
+    onClick () {
+      // @ts-ignore
+      if (this.href) {
+        // @ts-ignore
+        const href = router(this.href)
+        if (href) {
+          window.open(href)
+        }
+      }
+    }
   }
 }
 </script>
 
 <template>
-  <div class="ui-list p-4 rounded-md bg-white">
+  <div class="ui-list p-4 rounded-md bg-white" :class="{'cursor-pointer': href}" @click="onClick">
     <div class="list-header" :class="{'pb-4': header || $slots.header}">
       <slot name="header">
         <div class="leading-5" v-if="header">
@@ -38,6 +55,7 @@ export default {
 
 <style scoped lang="scss">
 .ui-list {
+  @apply block;
   & + .ui-list {
     @apply mt-3;
   }

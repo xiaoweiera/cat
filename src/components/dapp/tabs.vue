@@ -70,10 +70,15 @@ const isActive = function(id: string) {
 }
 
 const triggerEvent = debounce<any>(function(value: string) {
-  emitEvent('change', {
+  const top_sort = getParam<string>('top_sort', '') as string
+  const data = {
     chain: chain.value || 'all',
     group_id: value
-  })
+  }
+  if (top_sort) {
+    Object.assign(data, { top_sort })
+  }
+  emitEvent('change', data)
 }, 500)
 
 const setType = function(value?: string) {
@@ -150,7 +155,7 @@ onMounted(function() {
 .tabs-other {
   @apply flex items-center mt-4;
   @screen md {
-    @apply w-115 mt-0;
+    @apply min-w-115 mt-0;
     &:before {
       content: "";
       width: 0px;

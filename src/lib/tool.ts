@@ -181,7 +181,7 @@ export const messageSuccess = function (text: string): void {
 }
 
 // copy
-export const copyTxt = (text: string, alert?: boolean) => {
+export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
   const dom = document.createElement('input')
   dom.setAttribute('value', text)
   document.body.appendChild(dom)
@@ -192,7 +192,7 @@ export const copyTxt = (text: string, alert?: boolean) => {
     // messageSuccess(I18n.common.message.copy)
     message.copy({
       value: I18n.common.message.copyAlert,
-      desc: text,
+      desc: msg || text,
     })
   }
 }

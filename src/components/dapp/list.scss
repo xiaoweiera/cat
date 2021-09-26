@@ -9,9 +9,6 @@
   @screen md {
     @apply flex items-center justify-between;
   }
-  .el-avatar {
-    @apply bg-white;
-  }
   .td-title {
     @screen md {
       @apply w-124 pr-20;
@@ -56,16 +53,6 @@
     }
   }
 
-  .date-box {
-    @apply text-global-numRed;
-    i {
-      font-style: normal;
-      line-height: 18px;
-      border-radius: 2px;
-      @apply text-white text-center;
-      @apply w-4.5 h-4 bg-global-numRed inline-block;
-    }
-  }
   .media-item {
     @apply mt-2.5;
     &:first-child {
@@ -84,5 +71,15 @@
   @apply flex-col-reverse; /* 从下往上 */
   @screen md {
     @apply items-center justify-between flex-row;
+  }
+}
+
+.split {
+  width: 1px;
+  @apply h-3;
+  @apply hidden;
+  @apply bg-global-highTitle bg-opacity-10;
+  @screen md {
+    @apply inline-block;
   }
 }

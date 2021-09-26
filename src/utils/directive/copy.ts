@@ -24,18 +24,18 @@ const install = function(vue: any) {
     const { modifiers } = binding
 
     const app = async function(value: string | any, alert: boolean) {
-      if (typeof is(Function, value)) {
+      const msg: string = el.getAttribute('message') as any
+      if (is(Function, value)) {
         try {
           const res = await Promise.resolve(value())
           if (res) {
-            copyTxt(res, !!alert)
+            copyTxt(res, alert, msg)
           }
         } catch (e) {
           // todo
         }
-      }
-      else if (value) {
-        copyTxt(value, !!alert)
+      } else if (value) {
+        copyTxt(value, alert, msg)
       }
     }
 
@@ -44,7 +44,13 @@ const install = function(vue: any) {
       event.prevent(e)
       return app(binding.value, !!modifiers.message)
     }
-    event.bind(vNode, eventName, click, true)
+    if (vNode) {
+      if (vNode.el) {
+        event.bind(vNode.el, eventName, click, true)
+      } else {
+        event.bind(vNode, eventName, click, true)
+      }
+    }
   })
 }
 

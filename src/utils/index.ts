@@ -273,6 +273,19 @@ export const isElement = function(value: any) {
   return false
 }
 
+export const size = function(value: Array<any>): number {
+  if (value) {
+    if (isArray(value)) {
+      return value.length
+    }
+    if (isObject(value)) {
+      const keys = Object.keys(value)
+      return keys.length
+    }
+  }
+  return 0
+}
+
 export const forEach = function(callback: any, data: any) {
   if (callback && data) {
     if (isArray(data)) {
