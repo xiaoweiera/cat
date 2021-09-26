@@ -23,11 +23,11 @@ const loading = ref<boolean>(true)
 const sortList = ref<any>([
   {
     key: 'clout',
-    label: '按热度排序',
+    label: I18n.dapp.sort.clout,
     value: '{"top_sort": "clout"}'
   }, {
     key: 'create_time',
-    label: '按最新时间排序',
+    label: I18n.dapp.sort.create_time,
     value: '{"top_sort": "create_time"}'
   }
 ])
@@ -191,13 +191,10 @@ const getSortHref = function(query: string): string {
                           </span>
                         </template>
 
-                        <template v-if="data.high_risk">
-                          <span class="split align-middle"></span>
-                          <span class="tag warn align-middle">
-                            <IconFont type="icon-gaofengxian" size="14"/>
-                            <span class="text-12-14 ml-0.5">高风险</span>
-                          </span>
-                        </template>
+                        <span class="split align-middle mr-2"></span>
+                        <span class="inline-block align-middle">
+                          <DappDetailRisk :value="data.risk"></DappDetailRisk>
+                        </span>
                       </div>
                       <div class="mt-1.5 md:mt-3 font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
                         <div class="hidden md:inline">

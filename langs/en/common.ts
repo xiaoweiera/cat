@@ -113,5 +113,14 @@ export default {
     content2:'And',
     content3:'Feedback questions',
     comfirm:'Join Telegram'
+  },
+  risk: {
+    high: 'High Risk',
+    medium: 'Medium Risk',
+    low: 'Low Risk',
+    unknown: 'Unknown Risk'
+  },
+  site: {
+    web: 'Website'
   }
 }

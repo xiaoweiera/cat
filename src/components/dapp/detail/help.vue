@@ -20,7 +20,7 @@ defineProps({
     <div class="flex justify-between">
       <div class="flex items-center">
         <IconFont class="mr-1.5" type="join" size="24" bright/>
-        <h3 class="text-global-highTitle text-opacity-85 text-18 font-m">参与方式</h3>
+        <h3 class="text-global-highTitle text-opacity-85 text-18 font-m">{{ I18n.dapp.help.title }}</h3>
       </div>
       <a v-router.blank="data.website" class="hidden md:inline-flex items-center text-global-darkblue justify-end cursor-pointer">
         <span class="text-14-18">{{ I18n.dapp.website }}</span>
@@ -32,11 +32,11 @@ defineProps({
     </div>
     <div class="mt-3 text-global-highTitle text-opacity-65 text-12">
       <div class="hidden md:flex items-center">
-        <span class="text-14">公链使用教程</span>
+        <span class="text-14">{{ I18n.dapp.help.tutorial }}</span>
         <template v-if="data.chains">
           <template v-for="(item, index) in data.chains" :key="index">
             <a class="underline text-14-18 text-global-darkblue ml-3" v-router.blank="item.tutorial">
-              <span>{{ toUpper(item.name) }}  使用教程</span>
+              <span>{{ I18n.template(I18n.dapp.help.using, { name: toUpper(item.name) }) }}</span>
             </a>
           </template>
         </template>

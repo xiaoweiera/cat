@@ -23,11 +23,11 @@ const loading = ref<boolean>(true)
 const sortList = ref<any>([
   {
     key: 'clout',
-    label: '按热度排序',
+    label: I18n.dapp.sort.clout,
     value: '{"top_sort": "clout"}'
   }, {
     key: 'create_time',
-    label: '按最新时间排序',
+    label: I18n.dapp.sort.create_time,
     value: '{"top_sort": "create_time"}'
   }
 ])

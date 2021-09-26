@@ -1,12 +1,28 @@
 <script setup lang="ts">
+import I18n from '~/utils/i18n/index'
 import { compact } from '~/utils'
-import { defineProps } from 'vue'
-defineProps({
+import { defineProps, computed } from 'vue'
+import safeGet from '@fengqiaogang/safe-get'
+
+const props = defineProps({
   data: {
     type: Object,
     required: true
   }
 })
+
+const riskValue = computed<string>(function(): string {
+  const data = props.data
+  const risk = safeGet<string>(data, 'risk')
+  if (risk) {
+    const value = safeGet<string>(I18n.common.risk, risk)
+    if (value) {
+      return value
+    }
+  }
+  return I18n.common.risk.unknown
+})
+
 </script>
 
 <template>
@@ -18,26 +34,24 @@ defineProps({
         <span class="tag text-12-14">{{ value }}</span>
       </template>
     </template>
-    <template v-if="data.high_risk">
-      <span class="split"></span>
-      <span class="tag warn">
-        <IconFont type="icon-gaofengxian" size="14"/>
-        <span class="text-12-14 ml-0.5">高风险</span>
-      </span>
-    </template>
+
+    <span class="split"></span>
+    <span class="inline-block">
+      <DappDetailRisk :value="data.risk"></DappDetailRisk>
+    </span>
   </span>
 </div>
 </template>
 
 <style scoped lang="scss">
-%title-box {
+@mixin title-box(){
   @apply items-center flex-nowrap flex-row;
   .tag-list {
     @apply justify-start;
   }
 }
 .wrap-title {
-  @apply flex-wrap flex-col w-full;
+  @apply w-full;
   .title {
     @apply text-center;
   }
@@ -45,10 +59,10 @@ defineProps({
     @apply flex items-center justify-center;
   }
   @screen md {
-    @extend %title-box;
+    @include title-box();
   }
   &.nft-title {
-    @extend %title-box;
+    @include title-box();
   }
 }
 
@@ -59,11 +73,6 @@ defineProps({
   @apply text-global-darkblue;
   @apply bg-global-darkblue bg-opacity-8;
   border-radius: 20px;
-  &.warn {
-    @apply flex items-center;
-    @apply text-global-numRed;
-    @apply bg-global-numRed bg-opacity-12;
-  }
 }
 .split {
   width: 1px;
