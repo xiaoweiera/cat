@@ -34,15 +34,17 @@ export default {
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">
             <template v-if="data.header">
-              <a class="sub-menu-item text-14-18" :class="{'active': data.active}" v-router="data.href">{{ data.name }}</a>
+              <a class="sub-menu-item text-14-18 whitespace-nowrap" :class="{'active': data.active}" v-router="data.href">{{ data.name }}</a>
             </template>
           </template>
         </div>
       </div>
-      <div class="extend ml-5">
-        <template v-if="sub">
-          <component :is="sub"></component>
-        </template>
+      <div class="extend ml-5 h-full">
+        <div class='hidden md:block h-full'>
+          <template v-if="sub">
+            <component :is="sub"></component>
+          </template>
+        </div>
       </div>
     </div>
   </div>

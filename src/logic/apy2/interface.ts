@@ -72,6 +72,7 @@ export interface projectParam {
   query:string
   merge:boolean | undefined
   is_lend:boolean | undefined
+  project_type:string | undefined
 }
 export interface poolsParam {
   project_id:number

@@ -5,12 +5,13 @@ import DBList from '@fengqiaogang/dblist'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {getTokenSearch} from '~/api/ap/index'
+import {getTokenSearch} from '~/api/apy2/index'
 import {formatRulesNumber} from '~/lib/tool'
 import * as api from '~/api/index'
 const txt=getInject('txt')
-const props = defineProps({pageType: String,chain:String})
+const props = defineProps({pageType: String,chain:String,load:Boolean})
 import I18n from '~/utils/i18n/index'
+const {state:prposLoad,number:propsNumber}=toRefs(props.load)
 const allData=ref([]) //请求数据的个数
 const initSize=4 //首次加载数量
 const resultNumber=ref(0)
@@ -21,6 +22,11 @@ const param={
   page:1,
   page_size:initSize
 }
+watch(()=>props?.pageType,(n)=>{
+  param.category=n
+  param.page=1
+  getList()
+})
 const route = useRoute()
 const router = useRouter()
 //更多
@@ -34,6 +40,7 @@ const getList=async ()=>{
     allData.value=[]
     return
   }
+  prposLoad.value=true
   const result=await api.apy.common.getTokenSearch(param)
   if(result.code===0){
     if(param.page===1) allData.value=[]
@@ -42,6 +49,8 @@ const getList=async ()=>{
   }else{
     allData.value=[]
   }
+  propsNumber.value=allData.value.length
+  prposLoad.value=false
 }
 watch(()=>txt.value[0],async (n,o)=>{
   param.page=1
@@ -60,11 +69,11 @@ const getApyColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
 const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
 </script>
 <template>
-  <div v-if="allData.length>0" class=" pt-4 " name="select">
-    <ul >
-      <li class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang  " name="select">{{I18n.apyIndex.tokens}}</li>
+  <div v-if="allData.length>0" class="mt-4" name="select">
+      <div class="text-global-highTitle opacity-45 text-kd12px16px  text-kdFang" name="select">{{I18n.apyIndex.tokens}}</div>
+    <div class=' py-1'>
       <template v-for="item in allData">
-        <a v-router.blank="tokenUrl(item.name)" class="flex items-center hand  h-9 justify-between" name="select">
+        <a v-router.blank="tokenUrl(item.name)" class="flex items-center hand  h-9  justify-between" name="select">
           <div class="flex items-center" name="select">
             <img class="w-5 h-5 mr-1" :src="item.icon" alt="" name="select">
             <span class="text-kd14px14px text-global-highTitle font-kdExp" name="select">{{item.name}}</span>
@@ -75,8 +84,8 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
           </div>
         </a>
       </template>
-      <li v-if="resultNumber===initSize" @click="addMore" class="more hand " name="select">{{I18n.apyIndex.more}}</li>
-    </ul>
+    </div>
+      <div v-if="resultNumber===initSize" @click="addMore" class="more hand " name="select">{{I18n.apyIndex.more}}</div>
   </div>
 
 </template>
@@ -99,7 +108,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
   @apply text-kdExp text-kd14px20px text-global-default opacity-85;
 }
 .more {
-  @apply text-kd12px16px font-medium font-kdFang  text-global-primary font-normal  mt-2;
+  @apply text-kd12px16px font-medium font-kdFang  text-global-primary font-normal;
 }
 
 .itemLi {

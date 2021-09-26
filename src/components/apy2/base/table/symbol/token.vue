@@ -31,7 +31,7 @@ defineProps({
         </div>
         <div class="mt-1 text-xs flex items-center text-kdExp">
           <span class="inline-block mr-1 text-global-highTitle text-opacity-85">{{ toNumberCashFormat(data.symbol_price, '$') }}</span>
-          <span class="inline-block py-0.5 px-1 rounded bg-global-numRed bg-opacity-20 text-global-numRed leading-3.5">{{ toNumberFormat(data.symbol_change, '%') }}</span>
+          <span :class='data.symbol_change>=0?"bigNumber":"smallNumber"' class="inline-block py-0.5 px-1 rounded  leading-3.5">{{ toNumberFormat(data.symbol_change, '%') }}</span>
         </div>
       </div>
     </div>
@@ -45,6 +45,14 @@ defineProps({
     </div>
   </div>
 </template>
+<style scoped lang='scss'>
+.bigNumber{
+  @apply text-global-numGreen  bg-global-numGreen bg-opacity-20;
+}
+.smallNumber{
+  @apply text-global-numRed bg-global-numRed bg-opacity-20;
+}
+</style>
 
 
 

@@ -1,6 +1,7 @@
 export default {
   login: 'Log In',
   register: 'Sign Up',
+  apply:'Apply',
   resetPassword: 'Reset Password',
   switchLogin: 'Log In',
   switchRegister: 'Create Account',

@@ -24,7 +24,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
           </Apy2PoolDialog>
         </template>
       </el-table-column>
-      <el-table-column prop="tvlNumber" :label="`TVL/${I18n.apyIndex.hasMoney}`">
+      <el-table-column prop="tvlNumber" :label="`TVL/${I18n.apyIndex.hasMoney}`" sortable>
         <template #default="scope">
           <Apy2PoolDialog type="mining" class="hand" :id="scope.row.id">
             <template #reference>
@@ -70,7 +70,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
           </Apy2PoolDialog>
         </template>
       </el-table-column>
-      <el-table-column prop="tvlNumber" width="200px" :label="`TVL/${I18n.apyIndex.hasMoney}`">
+      <el-table-column prop="tvlNumber" width="200px" :label="`TVL/${I18n.apyIndex.hasMoney}`" sortable>
         <template #default="scope">
           <Apy2PoolDialog type="mining" class="hand" :id="scope.row.id">
             <template #reference>

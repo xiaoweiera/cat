@@ -2,6 +2,11 @@ export default{
     disclaimers:'Disclaimers',
     title:'Early Find and Invest High APY Pools',
     apply:'Apply',
+    projectType:{
+        all:'All',
+        mining:'Mining',
+        lending:'Lending'
+    },
     miningTitle:'Early Find and Invest High APY Pools',
     loanTitle:'Find the Lowest APR Path to Borrow',
     platDes:'{chain} chains, {project} projects, {pool} pools, support for cross-chain comparison, historical trends, APP reminder',
@@ -126,6 +131,8 @@ export default{
     selectedProject:'Selected Project',
     loanMoneyCoin:'Token',
     loanApr:'Borrow APR',
+    miningApy:'Mining APY',
+    noData:'No Data',
     loanPlat:'Project',
     pleaseSelect:'Select',
     diyaCoin:'Supply Token',

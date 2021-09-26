@@ -22,6 +22,7 @@ export const selectChains=[
 
 ]
 export const chainsIcon={
+    'all':'https://res.ikingdata.com/apyTwo/allChain.png',
     'solana':'https://res.ikingdata.com/apyTwo/sol.png',
     'eth':'https://res.ikingdata.com/apyTwo/ethChain.png',
     'bsc':'https://res.ikingdata.com/apyTwo/bscChain.png',

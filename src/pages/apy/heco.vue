@@ -4,6 +4,7 @@ import I18n from '~/utils/i18n/index'
 
 <template>
   <Apy2Heco/>
+  <UiFixTipApyFixed />
   <div class="hidden">
     <UiWechatShare :title="I18n.apyIndex.pageHeco.title" :content="I18n.apyIndex.pageHeco.content"/>
 

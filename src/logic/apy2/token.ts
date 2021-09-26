@@ -13,13 +13,13 @@ import { tokenList } from '~/store/apy2/state'
 import safeGet from '@fengqiaogang/safe-get'
 
 // 获取币种列表数据
-export const getTokenList = async function() {
-  const list = await API.apy.token.list()
+export const getTokenList = async function(tokenType:string) {
+  const list = await API.apy.token.list({symbol_type:tokenType})
   const array = map(function(data: TokenItem, index: number){
     const category = safeGet<string>(data, 'category[0]')
     return Object.assign({}, data, {
       href: router({
-        path: config.apyToken,
+        path: tokenType==='token'?config.apyToken:config.apyLp,
         query: {
           symbol: data.name,
           category: category ? category : ''
@@ -36,8 +36,8 @@ export const getTokenDetail = function(name: string) {
 }
 
 // 初始化，加载币种数据
-export const ready = function() {
-  return getTokenList()
+export const ready = function(tokenType:string) {
+  return getTokenList(tokenType)
 }
 
 // 趋势图

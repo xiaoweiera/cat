@@ -13,6 +13,12 @@ const [chain,setChain]=useProvide('chain','all')
 const [projectInfo,]=useProvide('projectInfo',{})
 setChain(route.query.chain || 'all')
 const origin=route.query.origin
+const projectTypeList=[
+  {name:I18n.apyIndex.projectType.all,key:'all'},
+  {name:I18n.apyIndex.projectType.mining,key:'mining'},
+  {name:I18n.apyIndex.projectType.lending,key:'lend'},
+]
+const projectType=ref('all')
 const projectId=computed(()=>
 {
   if(route.query.id) return route.query.id
@@ -20,8 +26,8 @@ const projectId=computed(()=>
 })
 const txt=ref('')
 const projectList=ref([])
-const getData=async ()=>projectList.value=await getProjectList(chain.value[0],txt.value)
-watch(()=>[txt.value,chain.value[0]],()=>getData())
+const getData=async ()=>projectList.value=await getProjectList(chain.value[0],txt.value,null,null,projectType.value)
+watch(()=>[txt.value,chain.value[0],projectType.value],()=>getData())
 onMounted(getData())
 </script>
 <template>
@@ -30,9 +36,12 @@ onMounted(getData())
     <template #menu>
       <el-container class="h-full text-kdFang">
         <el-header height="initial" class="p-0">
-          <div class="pt-5 flex items-center bottomBor w-full">
-            <div class="flex items-center ">
-              <IconFont type="icon-quanbu"  size="20" class="w-4.75 text-global-primary  whitespace-nowrap" />
+          <div class="flex items-center flex-1  pt-8 ">
+            <IconFont type="icon-sousuo-da" class="text-global-highTitle w-6.5  text-opacity-45 " size="16"/>
+            <el-input class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt" value=""></el-input>
+          </div>
+          <div class="flex items-center bottomY w-full justify-between">
+            <div class="flex  items-center ">
               <div class="allChain ">
                 <el-select    size="small" v-model="chain[0]" >
                   <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
@@ -40,10 +49,14 @@ onMounted(getData())
                 </el-select>
               </div>
             </div>
-            <IconFont type="icon-gang" size="16" class=" relative right-5.5 text-global-highTitle text-opacity-12"/>
-            <div class="flex items-center flex-1 -ml-5 ">
-              <IconFont type="icon-sousuo-da" class="text-global-highTitle w-6.5  text-opacity-45 " size="16"/>
-              <el-input class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt" value=""></el-input>
+            <IconFont type="icon-gang" size="15" class=" text-global-highTitle text-opacity-12" />
+            <div class="flex  items-center ">
+              <div class="allChain ">
+                <el-select    size="small" v-model="projectType" >
+                  <el-option v-for="item in projectTypeList" :key="item.key" :label="item.name" :value="item.key">
+                  </el-option>
+                </el-select>
+              </div>
             </div>
           </div>
         </el-header>
@@ -67,8 +80,9 @@ onMounted(getData())
   background: white;
   height: calc(100vh - 72px);
 }
-.bottomBor{
+.bottomY{
   border-bottom: 1px solid rgba(#033666, 0.06);
+  border-top: 1px solid rgba(#033666, 0.06);
 }
 .allChain{
   ::v-deep(.el-input__inner){
@@ -77,11 +91,13 @@ onMounted(getData())
     border-radius: 6px;
     font-size:14px;
     padding-left:4px !important;
-    width:100px;
+    width:96px;
+    height:34px;
     @apply  text-global-highTitle font-medium ;
   }
   ::v-deep(.el-input__suffix){
-    right:16px !important;
+    right:-3px !important;
+    top:1.5px;
   }
 }
 .search-box {
