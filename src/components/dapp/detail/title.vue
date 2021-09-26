@@ -35,10 +35,12 @@ const riskValue = computed<string>(function(): string {
       </template>
     </template>
 
-    <span class="split"></span>
-    <span class="inline-block">
-      <DappDetailRisk :value="data.risk"></DappDetailRisk>
-    </span>
+    <template v-if="data.risk">
+      <span class="split"></span>
+      <span class="inline-block">
+        <DappDetailRisk :value="data.risk"></DappDetailRisk>
+      </span>
+    </template>
   </span>
 </div>
 </template>

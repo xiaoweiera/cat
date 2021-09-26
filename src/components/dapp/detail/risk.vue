@@ -22,7 +22,7 @@ const props = defineProps({
     <IconFont type="icon-difengxian" size="14"/>
     <span class="text-12-14 ml-0.5">{{ I18n.common.risk.low }}</span>
   </span>
-  <span class="risk unknown" v-else>
+  <span class="risk unknown" v-else-if="value === 'unknown'">
     <IconFont type="icon-weizhi" size="14"/>
     <span class="text-12-14 ml-0.5">{{ I18n.common.risk.unknown }}</span>
   </span>
