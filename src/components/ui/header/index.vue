@@ -5,13 +5,33 @@ import { headers } from '~/logic/menu'
 import { config } from '~/utils/router'
 import DBList from '@fengqiaogang/dblist'
 import { getLocation } from '~/utils/router'
-import { forEach, map, toBoolean } from '~/utils'
+import { forEach, map, toBoolean, isString, toArray } from '~/utils'
 import safeGet from '@fengqiaogang/safe-get'
 import { useRoute } from 'vue-router'
 
 const primaryKey = 'id'
 const foreignKey = 'pid'
 const foreignKeyValue = '0'
+
+const match = function(data: any | any[], value: string): boolean {
+  let status: boolean = false
+  const list = toArray(data)
+  for (let i = 0, len = list.length; i < len; i++) {
+    const router = list[i]
+    let reg: RegExp
+    if (isString(router)) {
+      reg = new RegExp(router, 'i')
+    } else {
+      reg = router as any
+      reg.lastIndex = 0
+    }
+    if (reg.test(value)) {
+      status = true
+      break
+    }
+  }
+  return status
+}
 
 // 查找匹配的数据
 const getActiveValue = function($router: any, db: DBList, key: string) {
@@ -24,6 +44,13 @@ const getActiveValue = function($router: any, db: DBList, key: string) {
   let value: any
   for(let index = result.length - 1; index >= 0; index--) {
     const href = safeGet<string>(result[index], 'href')
+    const router = safeGet<string>(result[index], 'router')
+    if (router) {
+      if (match(router, path)) {
+        value = result[index]
+        break
+      }
+    }
     if (href) {
       if (href === path || path.includes(href) || href.includes(path)) {
         value = result[index]
