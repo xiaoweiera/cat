@@ -43,7 +43,7 @@ defineProps({
       </div>
 
       <div class="md:hidden">
-        <span class="text-14 block">公链使用教程</span>
+        <span class="text-14 block">{{ I18n.dapp.help.tutorial }}</span>
         <div class="flex items-center mt-4">
           <template v-if="data.chains">
             <template v-for="(item, index) in data.chains" :key="index">
