@@ -67,7 +67,7 @@ onMounted(function() {
           </div>
           <div class="wrap-copy-button" v-login>
             <el-input class="w-full" :model-value="link" size="small"/>
-            <span class="ml-2 flex" v-copy.message="link">
+            <span class="ml-2 flex cursor-pointer" v-copy.message="link" message="分享 3 次链接，解锁财富密码。">
               <IconFont type="copy"/>
             </span>
           </div>

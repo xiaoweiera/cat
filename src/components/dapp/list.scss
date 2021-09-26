@@ -73,3 +73,13 @@
     @apply items-center justify-between flex-row;
   }
 }
+
+.split {
+  width: 1px;
+  @apply h-3;
+  @apply hidden;
+  @apply bg-global-highTitle bg-opacity-10;
+  @screen md {
+    @apply inline-block;
+  }
+}

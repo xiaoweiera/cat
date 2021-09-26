@@ -3,13 +3,13 @@ import * as API from '~/api/index'
 import I18n from '~/utils/i18n/index'
 import { onMounted, ref, toRaw, watch } from 'vue'
 import { isAfter } from '~/utils/time'
-import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat, upperFirst } from '~/utils'
+import { debounce, toArray, toInteger, toNumberCashFormat, dateFormat, upperFirst, toBoolean } from '~/utils'
 import { GroupPosition } from '~/logic/dapp/interface'
 import safeGet from '@fengqiaogang/safe-get'
-import { config } from '~/utils/router'
+import router, { config } from '~/utils/router'
 
 const list = ref<any[]>([])
-const is_online = ref<boolean>(false)
+const is_online = ref<boolean>(true)
 const search = ref<string>('')
 const page = ref<number>(1)
 const limit = ref<number>(10)
@@ -17,39 +17,37 @@ const total = ref<number>(10) // 默认总条数
 const sortValue = ref<string>('')
 const chain = ref<string>('all')
 const group_id = ref<string>('')
+const top_sort = ref<string>('clout')
 const loading = ref<boolean>(true)
 
 const sortList = ref<any>([
   {
-    label: I18n.dapp.sort.timeDesc,
-    value: '{"online_time": "desc"}'
+    key: 'clout',
+    label: '按热度排序',
+    value: '{"top_sort": "clout"}'
   }, {
-    label: I18n.dapp.sort.timeAsc,
-    value: '{"online_time": "asc"}'
-  },
-  {
-    label: I18n.dapp.sort.priceDesc,
-    value: '{"price": "desc"}'
-  }, {
-    label: I18n.dapp.sort.priceAsc,
-    value: '{"price": "asc"}'
+    key: 'create_time',
+    label: '按最新时间排序',
+    value: '{"top_sort": "create_time"}'
   }
 ])
 
 const onGetList = async function(value?: object) {
   const param = Object.assign({
-    page: page.value,
-    page_size: limit.value,
-    query: search.value,
-    is_online: is_online.value,
-    chain: chain.value,
-    group_id: group_id.value
+    'page': page.value,
+    'page_size': limit.value,
+    'query': search.value,
+    'is_online': is_online.value,
+    'chain': chain.value,
+    'group_id': group_id.value,
+    'top_sort': top_sort.value || 'clout',
   }, value || {})
   loading.value = true
   const result = await API.nft.discover.getList<any[]>(param as any)
   const info = safeGet<any>(result, 'page_info') || {}
   total.value = toInteger(info.total)
   page.value = param.page
+  top_sort.value = param.top_sort
 
   const array = toArray(safeGet<any[]>(result, 'results') || [])
   if (list.value.length > 0) {
@@ -63,11 +61,16 @@ const onGetList = async function(value?: object) {
 
 const onSort = debounce<any>(function(data?: any) {
   list.value = []
-  const value = Object.assign({}, data ? data : {}, {
-    page: 1,
-  })
-  return onGetList(value)
-})
+  if (data) {
+    const value = Object.assign({}, data, {
+      'page': 1,
+    })
+    return onGetList(value)
+  } else {
+    const value = { 'page': 1 }
+    return onGetList(value)
+  }
+}, 500)
 
 const onChangeTab = function(data?: any) {
   chain.value = safeGet<string>(data, 'chain') || 'all'
@@ -91,11 +94,18 @@ const onNext = function() {
 }
 
 onMounted(() => {
-  watch([is_online, search], onSort)
+  watch([is_online, search], () => {
+    onSort()
+  })
 })
 
 const getHref = function(id: string | number): string {
   return `${config.nft}/${id}`
+}
+
+const getSortHref = function(query: string): string {
+  const data: any = { query: JSON.parse(query) }
+  return router(data)
 }
 
 </script>
@@ -105,9 +115,14 @@ const getHref = function(id: string | number): string {
     <div class="content">
       <DappTabs :position="GroupPosition.nftNew" @change="onChangeTab">
         <div class="tabs-operate text-kdFang">
-          <div class="mt-4 md:mt-0 hidden">
+          <div class="mt-4 md:mt-0 inline-flex items-center text-14-18 pr-3">
             <span class="mr-1.5 text-14-18 text-global-highTitle text-opacity-85">{{ I18n.dapp.group.viewOnline }}</span>
             <el-switch v-model="is_online"></el-switch>
+
+            <span class="hidden md:inline-flex items-center" v-for="(item, index) in sortList" :key="index">
+              <span class="split inline-block mx-3"></span>
+              <router-link :to="getSortHref(item.value)" :class="{'text-global-darkblue': top_sort === item.key, 'font-m': top_sort === item.key}" class="cursor-pointer whitespace-nowrap text-global-highTitle text-opacity-65">{{ item.label }}</router-link>
+            </span>
           </div>
           <div class="flex flex-1 items-center justify-end">
             <div class="max-w-56 min-w-34">
@@ -140,6 +155,7 @@ const getHref = function(id: string | number): string {
             <div class="td-data text-global-highTitle text-opacity-65">
               <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.mediaData }}</span>
             </div>
+            <!--
             <div class="td-price text-global-highTitle text-opacity-65 text-14-18 font-kdBarlow">
               <UiSort title="Mint Price / Supply" name="price" @change="onSort"></UiSort>
             </div>
@@ -147,6 +163,13 @@ const getHref = function(id: string | number): string {
               <div class="flex justify-end">
                 <UiSort title="Sale Date / Time" name="online_time" @change="onSort"></UiSort>
               </div>
+            </div>
+            -->
+            <div class="td-price text-global-highTitle text-opacity-65">
+              <span class="text-14-18 font-kdBarlow">Mint Price / Supply</span>
+            </div>
+            <div class="td-date text-global-highTitle text-opacity-65">
+              <span class="text-14-18 font-kdBarlow">Sale Date / Time</span>
             </div>
             <div class="td-operation text-global-highTitle text-opacity-65">
               <span class="text-14-18 font-kdBarlow">{{ I18n.dapp.header.operate }}</span>
@@ -188,7 +211,7 @@ const getHref = function(id: string | number): string {
               <div class="td-title">
                 <div class="flex">
                   <template v-for="(src, index) in data.gallery" :key="index">
-                    <el-avatar v-if="index < 5" class="inline-block" :class="{'ml-2': index > 0}" shape="square" fit="cover" :src="src"></el-avatar>
+                    <el-avatar v-if="index < 5" class="inline-block" :class="{'ml-2': index > 0, 'new-40': index === 0 && toBoolean(data.is_new)}" shape="square" fit="cover" :src="src"/>
                   </template>
                 </div>
               </div>
@@ -243,7 +266,7 @@ const getHref = function(id: string | number): string {
                   </div>
                 </template>
                 <template v-else>
-                  <el-avatar shape="square" fit="fit" :size="80" :src="I18n.dapp.status.success"></el-avatar>
+                  <el-avatar shape="square" fit="fit" :size="80" :src="I18n.dapp.status.success"/>
                 </template>
               </div>
               <div class="td-operation hidden md:block" @click.stop>

@@ -24,17 +24,18 @@ const install = function(vue: any) {
     const { modifiers } = binding
 
     const app = async function(value: string | any, alert: boolean) {
+      const msg: string = el.getAttribute('message') as any
       if (is(Function, value)) {
         try {
           const res = await Promise.resolve(value())
           if (res) {
-            copyTxt(res, alert)
+            copyTxt(res, alert, msg)
           }
         } catch (e) {
           // todo
         }
       } else if (value) {
-        copyTxt(value, alert)
+        copyTxt(value, alert, msg)
       }
     }
 
