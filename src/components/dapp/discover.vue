@@ -191,10 +191,12 @@ const getSortHref = function(query: string): string {
                           </span>
                         </template>
 
-                        <span class="split align-middle mr-2"></span>
-                        <span class="inline-block align-middle">
-                          <DappDetailRisk :value="data.risk"></DappDetailRisk>
-                        </span>
+                        <template v-if="data.risk">
+                          <span class="split align-middle mr-2"></span>
+                          <span class="inline-block align-middle">
+                            <DappDetailRisk :value="data.risk"></DappDetailRisk>
+                          </span>
+                        </template>
                       </div>
                       <div class="mt-1.5 md:mt-3 font-normal text-global-highTitle text-opacity-65 leading-5" v-if="data.description">
                         <div class="hidden md:inline">
@@ -295,11 +297,6 @@ const getSortHref = function(query: string): string {
   @apply text-global-darkblue;
   @apply bg-global-darkblue bg-opacity-8;
   border-radius: 20px;
-  &.warn {
-    @apply items-center;
-    @apply text-global-numRed;
-    @apply bg-global-numRed bg-opacity-12;
-  }
   @screen md {
     @apply inline-block;
     &.warn {
