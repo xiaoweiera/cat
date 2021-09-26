@@ -120,6 +120,7 @@ export const headers = [
         desc: I18n.menu.desc.apy.mining,
         icon: 'icon-defi',
         href: `${config.dapp}/discover`,
+        router: `^${config.dapp}/[\\d]{1,}$`,
       },
       {
         name: I18n.menu.nft.discover,
@@ -127,7 +128,8 @@ export const headers = [
         desc: I18n.menu.desc.apy.mining,
         more: true,
         header: true,
-        href: `${config.nft}/discover`
+        href: `${config.nft}/discover`,
+        router: `^${config.nft}/[\\d]{1,}$`,
       },
 
     ]
