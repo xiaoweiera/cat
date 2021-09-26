@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from 'vue'
+import { ref, onMounted, defineProps, computed } from 'vue'
 import I18n from '~/utils/i18n/index';
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     required: true
@@ -11,7 +11,16 @@ defineProps({
 
 const link = ref<string>('http://kingdata.com')
 
-const discord = ref<string>('https://discord.gg/c9wTAgeAwz')
+const discord = computed<string>(function() {
+  const data = props.data
+  if (data) {
+    const invite_url = data.invite_url
+    if (invite_url) {
+      return invite_url
+    }
+  }
+  return 'https://discord.gg/UfSAhdMyJ3'
+})
 
 onMounted(function() {
   link.value = window.location.href
