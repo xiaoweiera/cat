@@ -69,6 +69,6 @@ onMounted(getDetail)
 
 <style scoped lang="scss">
 .star {
-  @apply h-23 !important;
+  height: 92px !important;
 }
 </style>
