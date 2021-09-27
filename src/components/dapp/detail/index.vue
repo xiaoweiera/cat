@@ -57,7 +57,7 @@ onMounted(getDetail)
 
 
 <style scoped lang="scss">
-  .star {
-    @apply h-23;
-  }
+.star {
+  @apply h-23 !important;
+}
 </style>
