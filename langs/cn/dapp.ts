@@ -77,7 +77,8 @@ export default {
   share: {
     title: '解锁财富密码',
     label: '分享',
-    message: '分享 3 次链接，解锁财富密码。',
+    // message: '分享 3 次链接，解锁财富密码。',
+    message: '我在 KingData 发现一个不错的新项目：{link}，你看看',
     step: {
       count: '分享至3个',
       platform: '任意平台或好友',

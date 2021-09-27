@@ -51,7 +51,8 @@ export default {
     success: 'Completed',
     danger: 'Not approved',
     selected: 'Selected',
-    more: 'Load More'
+    more: 'Load More',
+    share: 'Share'
   },
   message: {
     verification: 'code',

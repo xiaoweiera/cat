@@ -44,7 +44,8 @@ export default {
     success: '审核完成',
     danger: '审核未通过',
     selected: '已选',
-    more: '加载更多'
+    more: '加载更多',
+    share: '去分享'
   },
   message: {
     verification: '获取验证码',
@@ -59,7 +60,7 @@ export default {
     fail: '失败, 请重新验证',
     checked:'注册前请阅读',
     mailError:'邮箱格式不正确',
-    copyAlert: '你已成功复制文案',
+    copyAlert: '你已成功复制',
     checkValue:'请按住滑块，拖动到最右边',
     codeDialog:'滑动获取验证码'
   },

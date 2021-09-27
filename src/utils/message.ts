@@ -38,12 +38,8 @@ const getContent = function(content?: Content | string): string {
   return `<div class="text-center">${text}</div>`
 }
 
-const app = function(
-  title: string,
-  content: string,
-  type: 'alert' | 'confirm',
-): Promise<boolean> {
-  const option = {
+const app = function(title: string, content: string, type: 'alert' | 'confirm', opt?: object): Promise<boolean> {
+  const option = Object.assign({
     customClass: 'directive-message',
     dangerouslyUseHTMLString: true,
     closeOnClickModal: true,
@@ -52,7 +48,8 @@ const app = function(
     showCancelButton: false,
     cancelButtonText: I18n.common.button.close,
     closeOnPressEscape: true,
-  }
+  }, opt ? opt : {})
+
   if (type === 'confirm') {
     option.showCancelButton = true
   }
@@ -70,40 +67,34 @@ const app = function(
   })
 }
 
-const message = function(
-  title: string,
-  content?: Content | string,
-): Promise<boolean> {
+const message = function(title: string, content?: Content | string, opt?: object): Promise<boolean> {
   if (content) {
-    return app(title, getContent(content), 'confirm')
+    return app(title, getContent(content), 'confirm', opt)
   }
-  return app(title, '', 'alert')
+  return app(title, '', 'alert', opt)
 }
 
-message.confirm = function(
-  title: string,
-  content?: Content | string,
-): Promise<boolean> {
-  return message(title, content)
+message.confirm = function(title: string, content?: Content | string, opt?: object): Promise<boolean> {
+  return message(title, content, opt)
 }
 
-message.alert = function(title: string, content?: Content | string) {
+message.alert = function(title: string, content?: Content | string, opt?: object) {
   if (content) {
-    return app(title, getContent(content), 'alert')
+    return app(title, getContent(content), 'alert', opt)
   }
-  return app('', title, 'alert')
+  return app('', title, 'alert', opt)
 }
 
-message.copy = function(content?: Content | string) {
-  return app('', getContent(content), 'alert')
+message.copy = function(content?: Content | string, opt?: object) {
+  return app('', getContent(content), 'alert', opt)
 }
 
-message.custom = function(title?: string, content?: string, type: 'alert' | 'confirm' = 'alert' ) {
+message.custom = function(title?: string, content?: string, type: 'alert' | 'confirm' = 'alert', opt?: object) {
   if (title) {
-    return app(title, content || '', type)
+    return app(title, content || '', type, opt)
   }
   if (content) {
-    return app('', content, type)
+    return app('', content, type, opt)
   }
 }
 
