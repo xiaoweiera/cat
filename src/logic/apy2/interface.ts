@@ -196,3 +196,9 @@ export interface calcToken{
   project:string
   chain:string
 }
+export interface barChart{
+  symbol:string
+  from_ts:string | number
+  to_ts:string | number
+  interval:string
+}

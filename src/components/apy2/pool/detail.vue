@@ -202,7 +202,7 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
           <Apy2PoolTrends :type="type" :id="id" :title="I18n.apy.pool.poolData"/>
         </div>
         <div class="flex-1 w-1 h-full pl-4">
-          <Apy2PoolTop5 v-if="tabValue === tab1" :type="type" :symbol="detail.symbol_alias" :title="I18n.apy.pool.apyTop5">
+          <Apy2PoolTop5  v-if="tabValue === tab1 && detail.id"  :type="type" :symbol="detail.symbol_alias" :title="I18n.apy.pool.apyTop5">
             <el-radio-group v-model="tabValue" size="small">
               <el-radio-button :label="tab1">{{ I18n.apy.pool.ranking }}</el-radio-button>
               <el-radio-button :label="tab2">{{ I18n.apy.pool.trending }}</el-radio-button>

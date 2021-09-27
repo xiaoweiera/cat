@@ -5,7 +5,21 @@ const getRes=(obj:any)=>{
     }
     return obj
 }
-import { miningPoolParam,loanPoolParam,miningChart,projectMiningChart,projectLoanChart,projectDetailChart,projectSameChart,projectMiningList,projectLoanList,tokenMiningPoolParam,calcToken,tokenLendingPoolParam} from '~/logic/apy2/interface'
+import {
+    miningPoolParam,
+    loanPoolParam,
+    miningChart,
+    projectMiningChart,
+    projectLoanChart,
+    projectDetailChart,
+    projectSameChart,
+    projectMiningList,
+    projectLoanList,
+    tokenMiningPoolParam,
+    calcToken,
+    tokenLendingPoolParam,
+    barChart,
+} from '~/logic/apy2/interface'
 //挖矿分组
 export const getMiningGroup=async (chain:string)=>{
     const result=await api.apy.mining.mining_group({chain:chain})
@@ -182,6 +196,10 @@ export const getAllRank=async (type:string,project:string,token:string,param:obj
     if(type==='lend' && !project && token){
         result =await api.apy.project.tokenLending_rank(param)
     }
+    return getRes(result)
+}
+export const getBarChart=async (param:barChart)=>{
+    const result=await api.apy.common.getBarChart(param)
     return getRes(result)
 }
 

@@ -27,6 +27,6 @@ const title=computed(()=>I18n.template(I18n.apyIndex.tokenMiningListTitle,{token
   </UiDownload>
   <div class="mt-8">
     <h3 class="text-kd18px24px text-global-highTitle text-opacity-85 mb-3">{{ title }}</h3>
-    <Apy2TokenMiningList :symbol="symbol" :type="type"/>
+    <Apy2TokenMiningList :symbol="symbol" :type="type" :projectType='projectType'/>
   </div>
 </template>

@@ -18,6 +18,7 @@ const props=defineProps({tokenType:String})
 
 // @ts-ignore
 const [ date ] = useProvide('uiDate')
+const [projectType,setProjectType]=useProvide('projectType')
 
 const search = ref<string>('')
 
@@ -96,7 +97,10 @@ const getHref = function(tokenType: string) {
 }
 
 //@ts-ignore
-onBeforeMount(ready(props.tokenType))
+onBeforeMount(()=>{
+  setProjectType(props.tokenType)
+  ready(props.tokenType)
+})
 </script>
 
 <template>

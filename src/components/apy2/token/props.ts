@@ -10,6 +10,9 @@ const Props = function() {
       type: String,
       required: true
     },
+    projectType:{
+      type:String
+    }
   }
 }
 
