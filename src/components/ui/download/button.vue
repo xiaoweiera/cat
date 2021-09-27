@@ -60,21 +60,27 @@ const head = function() {
 // 保存 canvas
 const saveChart = function(canvas: HTMLCanvasElement) {
   if (canvas) {
-    const type = 'image/png'
-    const strDataURI = canvas.toDataURL(type)
-    const image = strDataURI.replace(type, 'image/octet-stream')
-    const name = props.title ? `${props.title}.png` : (head() || 'download')
-    const downlink = document.createElement('a')
-    downlink.setAttribute('download', name)
-    downlink.download = name
-    downlink.href = image;
-    downlink.click();
+    try {
+      const type = 'image/png'
+      const strDataURI = canvas.toDataURL(type)
+      const image = strDataURI.replace(type, 'image/octet-stream')
+      const name = props.title ? `${props.title}.png` : (head() || 'download')
+      const downlink = document.createElement('a')
+      downlink.setAttribute('download', name)
+      downlink.download = name
+      downlink.href = image;
+      downlink.click();
+    }catch (err){
+      console.log(err)
+    }
+
   }
 }
 
 
 const onDownload = async (event: Event) => {
   const dom = getDom(event)
+  console.log('---',dom)
   if (equalsIgnoreCase(dom.tagName, 'canvas')) {
     saveChart(dom)
   } else {

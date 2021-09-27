@@ -10,11 +10,12 @@ const [project,]=useProvide('project','all')
 const [txt,]=useProvide('txt','')
 const [filterType,]=useProvide('filterType','all')
 const [chained]=useProvide('chained','all')
+const projectType=getInject('projectType')
 const resultNumber=ref(0)
 const param={
   project_id:project.value[0],
   symbol:props.symbol,
-  symbol_type:filterType.value[0],
+  symbol_type:projectType.value[0] ==='lp'?'lp':filterType.value[0],
   query:'',
   chain:chained.value[0],
   ordering:'desc',
@@ -43,11 +44,12 @@ watch(()=>props.symbol,(n)=> {
   param.symbol=n
   getList(false)}
 )
+//@ts-ignore
 onMounted(getList())
 </script>
 <template>
   <div class="w-full h-full">
-    <Apy2MiningPoolsHeader :hasCustom="false" :hasProject="true"  :type="true" :hasChain="true"  />
+    <Apy2MiningPoolsHeader :hasCustom="false" :hasProject="true"  :type="projectType[0]==='lp'?false:true" :hasChain="true"  />
     <Apy2MiningTableMain :data="listData" class="mt-3"/>
   </div>
   <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
