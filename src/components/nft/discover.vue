@@ -17,7 +17,7 @@ const total = ref<number>(10) // 默认总条数
 const sortValue = ref<string>('')
 const chain = ref<string>('all')
 const group_id = ref<string>('')
-const top_sort = ref<string>('clout')
+const top_sort = ref<string>('create_time')
 const loading = ref<boolean>(true)
 
 const sortList = ref<any>([

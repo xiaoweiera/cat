@@ -40,7 +40,7 @@ onMounted(getDetail)
       <div class="mr-4">
         <div class="mt-2">
           <template v-for="(value, index) in data.gallery" :key="index">
-            <el-avatar v-if="value" class="mr-2" shape="square" fit="fit" :size="92" :src="value"></el-avatar>
+            <el-image v-if="value" class="mr-2 w-23 h-23" shape="square" fit="fit" :preview-src-list="[value]" :src="value"/>
           </template>
         </div>
         <div class="mt-2">
