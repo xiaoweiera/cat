@@ -174,7 +174,6 @@ export const getChartMultipleTrends = async function(ids: string[] | number[], q
   const list = uniq(compact<string | number>(ids))
   const params = Object.assign({}, query || {}, {
     chart_ids: list.join(','),
-    cache: true
   })
   try {
     const result = await request.get(topic.multipleTrends, { params })

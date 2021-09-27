@@ -39,6 +39,8 @@ export const getParam = function<T>(key?: string, defaultValue?: T) {
   return safeGet<Object>(data, 'query')
 }
 
+const r = parseInt(Math.random() * 1000 as any)
+
 export const config = {
   topic: '/topic',
   growthpad: '/growthpad',
@@ -48,7 +50,7 @@ export const config = {
   bull: 'https://kingdata.com/bull', // 板块龙头
   nav: 'https://kingdata.com/nav', // 数据网站导航
   tih: 'https://kingdata.com/tih', // 历史的今天
-  reports: 'https://ikingdata.com/reports/', // 研究报告
+  reports: `https://ikingdata.com/reports/?r=${r}`, // 研究报告
   news: 'https://kingdata.com/news/', // 7x24小时监控
   dapp: '/dapp',
   nft: '/nft',
