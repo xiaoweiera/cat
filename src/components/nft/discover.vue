@@ -9,7 +9,7 @@ import safeGet from '@fengqiaogang/safe-get'
 import router, { config } from '~/utils/router'
 
 const list = ref<any[]>([])
-const is_online = ref<boolean>(true)
+const is_online = ref<boolean>(false)
 const search = ref<string>('')
 const page = ref<number>(1)
 const limit = ref<number>(10)

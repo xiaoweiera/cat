@@ -37,7 +37,7 @@ onMounted(getDetail)
       <DappDetailTitle class="nft-title" :data="data"/>
     </div>
     <div class="hidden md:flex items-end">
-      <div class="mr-4">
+      <div class="mr-4 flex-1">
         <div class="mt-2">
           <template v-for="(value, index) in data.gallery" :key="index">
             <el-image v-if="value" class="mr-2 w-23 h-23" shape="square" fit="fit" :preview-src-list="[value]" :src="value"/>
