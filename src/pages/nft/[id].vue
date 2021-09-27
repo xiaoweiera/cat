@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="py-8 nft-detail">
+  <div class="md:py-8 nft-detail">
     <NftDetail/>
   </div>
 </template>

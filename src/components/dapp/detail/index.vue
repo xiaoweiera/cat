@@ -22,12 +22,12 @@ onMounted(getDetail)
 </script>
 
 <template>
-  <div v-if="loading" class="md:w-250 mx-auto p-6 bg-white rounded-sm">
+  <div v-if="loading" class="md:w-250 mx-auto p-4 md:p-6 bg-white rounded-sm">
     <div class="min-h-100">
       <Spin :loading="true"></Spin>
     </div>
   </div>
-  <div v-else class="md:w-250 mx-auto p-6 bg-white rounded-sm">
+  <div v-else class="md:w-250 mx-auto p-4 md:p-6 bg-white rounded-sm">
     <div class="md:flex">
       <div class="flex justify-center">
         <el-avatar :class="{'new-40': toBoolean(data.is_new)}" shape="square" fit="fit" :size="92" :src="data.logo"></el-avatar>

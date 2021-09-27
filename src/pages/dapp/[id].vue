@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="py-8 dapp-detail">
+  <div class="md:py-8 dapp-detail">
     <DappDetail/>
   </div>
 </template>
