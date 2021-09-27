@@ -22,6 +22,10 @@ const discord = computed<string>(function() {
   return 'https://discord.gg/UfSAhdMyJ3'
 })
 
+const copyLink = computed<string>(function() {
+  return I18n.template(I18n.dapp.share.message, { link: link.value })
+})
+
 onMounted(function() {
   link.value = window.location.href
 })
@@ -114,7 +118,7 @@ onMounted(function() {
           </div>
           <div class="wrap-copy-button" v-login>
             <el-input class="w-full" :model-value="link" size="small"/>
-            <span class="ml-2 flex cursor-pointer" v-copy.message="link" :message="I18n.dapp.share.message">
+            <span class="ml-2 flex cursor-pointer" v-copy.message="copyLink">
               <IconFont type="copy"/>
             </span>
           </div>
