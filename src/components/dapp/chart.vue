@@ -37,6 +37,7 @@ onMounted(()=>{
   if (myChart) {
     myChart.dispose();
   }
+  //@ts-ignore
   myChart = echarts.init(myChartDom, 'light')
   getData()
 })
@@ -46,7 +47,7 @@ onMounted(()=>{
   <div  class="w-full h-full  relative">
     <div class='flex justify-between items-center'>
       <div class='text-kd14px18px text-global-highTitle txt45 i8n-font-Barlow'>{{I18n.dapp.rank.chartTitle}}</div>
-      <div  class='flex items-center'>
+      <div  class='flex imyCharttems-center'>
         <span class='text-kd22px22px md:text-kd26px26px text-global-highTitle font-bold exp mr-1.5'>${{formatRulesNumber(chartData.tvl)}}</span>
         <span class='text-kd14px18px text-global-numGreen exp h-5.5 w-5.5  flex items-center justify-center text-center mr-1.5 bg-global-numGreen bg-opacity-16 rounded-kd4px'>{{chartData.interval}}</span>
         <span :class='getNumberColor(chartData.tvl_change_percent)' class='text-kd14px18px flex items-center  exp mr-0.5'>

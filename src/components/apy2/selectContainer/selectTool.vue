@@ -29,7 +29,6 @@ watch(()=>show.state,(n)=>{
   if(n){
     put.value.focus()
   }
-
 })
 onMounted(()=>{
   if(route.path.indexOf('mining')>=0){
@@ -78,7 +77,6 @@ const chainIcon=computed(()=>chainsIcon[tolocaleLowerCase(chain.value)])
             <Apy2SelectContainerPool  :chain="chain" :load='poolLoad' :pageType="pageType" name="select" />
             <div v-if='!tokenLoad.state && !poolLoad.state && !tokenLoad.number && !poolLoad.number ' class='text-kd14px18px absolute top-0 bottom-0 left-0 right-0 text-global-highTitle text-opacity-45  flex-1 flex items-center justify-center'>{{I18n.apyIndex.noData}}</div>
           </div>
-
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ onMounted(()=>{
   getList()
 })
 const getApyColor=(v:number)=>v>=0?'text-global-numGreen':'text-global-numRed'
-const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
+const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}&category=${props.pageType}`
 </script>
 <template>
   <div v-if="allData.length>0" class="mt-4" name="select">

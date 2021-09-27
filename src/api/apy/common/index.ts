@@ -2,7 +2,7 @@
 import { pick, toUpper } from 'ramda'
 import axios from '~/lib/service'
 export { list as getTokenList } from '~/api/apy/token/index'
-import { projectParam,poolsParam,tokenSearch,poolSearch,loanPoolParam,calcToken } from '~/logic/apy2/interface'
+import { projectParam,poolsParam,tokenSearch,poolSearch,loanPoolParam,calcToken,barChart } from '~/logic/apy2/interface'
 import { map, forEach, toArray, toBoolean, isEmpty } from '~/utils'
 import safeSet from '@fengqiaogang/safe-set'
 import { asyncCheck } from '~/lib/response'
@@ -24,7 +24,8 @@ enum API {
     pool_search='/api/apy/ninja/pool_search',
     calculator='/api/apy/ninja/lending_pools/calculator',
     calcProjects='/api/apy/ninja/lend_projects',
-    calcTokens='/api/apy/ninja/lend_project_tokens'
+    calcTokens='/api/apy/ninja/lend_project_tokens',
+    compare='/api/apy/ninja/poll/mining_top5_compare',
 
 }
 interface FollowQuery {
@@ -136,4 +137,7 @@ export const getCalculator=(param:loanPoolParam)=>request({url:API.calculator,pa
 export const getCalcProjects=()=>request({url:API.calcProjects, method: 'get'})
 //利润计算数据币种列表
 export const getCalcTokens=(param:calcToken)=>request({url:API.calcTokens,params:param, method: 'get'})
+//弹框柱状图
+export const getBarChart=(param:barChart)=>request({url:API.compare,params:param, method: 'get'})
+
 

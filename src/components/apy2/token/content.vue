@@ -104,7 +104,7 @@ onMounted(function() {
     <div class="mt-8 pt-0.5" v-if="detail.name">
       <!--挖矿收益-->
       <template v-if="TabCategoryData.mining === active">
-        <Apy2TokenMining :symbol="detail.name" :type="active" :key="active"/>
+        <Apy2TokenMining :symbol="detail.name" :type="active"  :key="active"/>
       </template>
       <!--利率收益-->
       <template v-else-if="TabCategoryData.deposit === active">

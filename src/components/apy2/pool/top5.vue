@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { defineProps, reactive, ref } from 'vue'
+import { defineProps, onMounted, reactive, ref } from 'vue'
+import * as echarts from 'echarts'
+import * as R from 'ramda'
+import { formatRulesNumber } from '~/lib/tool'
+import {colors} from '~/logic/echarts/colors'
+import {getConfig} from '~/logic/chartConfig/leftBar'
+import { getBarChart } from '~/logic/apy2'
 import { watchState } from '~/utils/use/state'
 import { getTop5 } from '~/logic/apy2/table'
 import dataEventName, { getDateValue } from '~/components/ui/date/eventname'
@@ -27,7 +33,9 @@ const props = defineProps({
 })
 const maxYaxis = ref<number>(0)
 const echartData = reactive<EchartData>(new EchartData())
+const data=ref({})
 
+let myChart: any = null
 const upData = async function(date: any) {
   const times = getDateValue(date)
   const query = {
@@ -35,21 +43,13 @@ const upData = async function(date: any) {
     symbol: props.symbol,
     ...times
   }
-  const { chart: result, max } = await getTop5(query)
-  maxYaxis.value = max
-  if (result) {
-    echartData.key = result.key
-    echartData.legends = result.legends
-    echartData.xAxis = result.xAxis
-    echartData.series = result.series
-    echartData.yAxis = result.yAxis
-  }
+  //@ts-ignore
+  data.value=await getBarChart(query)
 }
 
 watchState(dataEventName.value, upData)
 
 </script>
-
 <template>
   <el-container class="h-full">
     <el-header height="initial" class="p-0">
@@ -64,29 +64,7 @@ watchState(dataEventName.value, upData)
       </div>
     </el-header>
     <el-main class="p-0 overflow-init">
-      <Echarts :key="echartData.key" :direction="Direction.vertical" :legend="false">
-        <!-- 提示框 trigger: 触发方式 -->
-        <EchartsTooltip/>
-
-        <template v-for="(item, index) in echartData.legends" :key="index">
-          <EchartsLegend :index="index" :color="item.color" :value="item.name" :type="item.type"/>
-        </template>
-
-        <EchartsYaxis :index="0" :min="0" :max="maxYaxis" :unit="echartData.yAxis.left"/>
-
-        <!-- 设置X轴 -->
-        <EchartsXaxis :value="echartData.xAxis"/>
-
-
-        <!--数据-->
-        <template v-for="(item, index) in echartData.legends" :key="index">
-          <!--
-            通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
-            value: 数据
-          -->
-          <EchartsSeries :index="index" :color="item.color" :value="echartData.series[item.id]"/>
-        </template>
-      </Echarts>
+       <Apy2PoolBarChart :key="echartData.key" :chartData='data' />
     </el-main>
   </el-container>
 </template>
