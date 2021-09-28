@@ -108,7 +108,6 @@ const getYaxis = (data: any) => {
           lineHeight: 20,
           align: 'left',
           height: 40,
-
         },
         tags: {
           lineHeight: 20,

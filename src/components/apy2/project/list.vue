@@ -24,7 +24,7 @@ const orderIndex=ref(0)
       <template v-for="item in data" >
         <div :class="item.id==projectId?'itemSelected':''" class="cursor-pointer h-9  item   " >
           <router-link class="flex items-center  relative px-1.5  h-full" :to="`?id=${item.id}`">
-            <div>
+            <div class='flex'>
               <IconFont v-if="item.is_new" type="icon-NEW" size="20" class="absolute z-1 "/>
               <IconFont style="border-radius: 50%;" :type="item.logo || 'icon-morentoken'" size="20" class="relative left-1.2  "/>
             </div>
