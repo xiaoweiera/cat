@@ -77,7 +77,8 @@ export default {
   share: {
     title: 'Step',
     label: 'Share',
-    message: 'Share the link 3 times to unlock the fortune code.',
+    // message: 'Share the link 3 times to unlock the fortune code.',
+    message: 'A good new project in KingData: {link}, take a look',
     step: {
       count: 'Share to 3',
       platform: 'any platforms or friends',

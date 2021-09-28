@@ -193,6 +193,8 @@ export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
     message.copy({
       value: I18n.common.message.copyAlert,
       desc: msg || text,
+    }, {
+      confirmButtonText: I18n.common.button.share
     })
   }
 }
