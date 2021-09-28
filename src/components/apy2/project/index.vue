@@ -81,7 +81,6 @@ onMounted(getData())
 <style scoped lang="scss">
 .bgClass{
   background: white;
-  height: calc(100vh - 72px);
 }
 .bottomY{
   border-bottom: 1px solid rgba(#033666, 0.06);
