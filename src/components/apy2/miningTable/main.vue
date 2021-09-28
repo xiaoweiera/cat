@@ -12,9 +12,12 @@ const getHeaderClass = ()=> {
   return 'font-family: PingFang SC;font-weight:400; font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
 }
 const onSort=(value:any)=>{
+  //@ts-ignore
   props.param.ordering_field=value.sort_field
+  //@ts-ignore
   props.param.ordering=value.sort_type
 }
+//@ts-ignore
 const getSortType=(key:string)=>props.param.ordering_field===key?'desc':null
 </script>
 <template>

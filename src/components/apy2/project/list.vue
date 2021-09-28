@@ -11,24 +11,12 @@ const props=defineProps({
   projectId:Number
 })
 const orderIndex=ref(0)
-const orderList={
-  0:'icon-shuangxiangjiantou',
-  1:'icon-shuangxiangjiantou-down',
-  2:'icon-shuangxiangjiantou-up'
-}
-const orderData=()=>{
-  if(orderIndex.value===2){
-    orderIndex.value=0
-    return
-  }
-  orderIndex.value++
-}
 </script>
 <template>
   <div>
     <div class="flex my-3 px-1.5 text-kd12px16px font-kdFang text-global-highTitle text-opacity-65 justify-between showY">
       <div>{{I18n.apyIndex.project}}</div>
-      <div @click="orderData()" class="hand">
+      <div class="hand">
         <span>TVL</span>
       </div>
     </div>

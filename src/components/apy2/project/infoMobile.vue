@@ -20,26 +20,33 @@ onMounted(getData())
 <template>
   <div class="font-kdFang">
     <div>
-      <div class="flex items-center relative flex-wrap">
-        <div class="relative">
-          <IconFont v-if="data.new" class="absolute" size="26" type="icon-NEW"/>
-          <IconFont rounded border  size="32" :type="data.logo || 'icon-morentoken'"/>
-        </div>
-        <div class="flex items-center ml-2">
-            <div class="mr-2 text-kd28px28px font-kdExp font-bold text-global-highTitle text-opacity-85">{{ data.name }}</div>
+      <div class="flex items-center relative flex-wrap ">
+        <div class="flex items-center mr-2  justify-between w-full">
+          <div class='flex items-center'>
+            <div class="relative mt-1 ">
+              <IconFont v-if="data.new" class="absolute" size="26" type="icon-NEW"/>
+              <IconFont rounded border  size="32" :type="data.logo || 'icon-morentoken'"/>
+            </div>
+            <div class="mr-2 ml-2 text-kd28px28px font-kdExp font-bold text-global-highTitle text-opacity-85">{{ data.name }}</div>
             <template v-for="tip in data.category">
               <span class="mr-2 bg-global-highTitle bg-opacity-6 rounded-kd4px px-1 py-0.5 text-global-highTitle text-kd12px14px text-opacity-45">{{ tip }}</span>
             </template>
           </div>
-        <div class="flex items-center mt-3 font-kdExp">
-          <IconFont size="20" class="mr-1" :type="data.platform_token_logo || 'icon-morentoken'"/>
-          <span class="mr-1 text-global-highTitle text-kd14px18px">{{ data.platform_token }}</span>
-          <span class="mr-1 text-global-highTitle text-kd14px18px">${{ formatRulesNumber(data.platform_token_price) }}</span>
-          <!--            <span class="bg-global-numRed  bg-opacity-20 rounded-kd4px px-1 py-0.5 text-kd12px14px text-global-numRed">-3.23%</span>-->
 
-
-
+          <UiLayoutMenuButton class="flex md:hidden p-2 bg-global-darkblue  rounded-1/2 cursor-pointer">
+            <IconFont class="text-white" type="icon-sousuo-da1" size="16"/>
+          </UiLayoutMenuButton>
         </div>
+
+      </div>
+      <div class="flex items-center mt-3  font-kdExp">
+        <IconFont size="20" class="mr-1" :type="data.platform_token_logo || 'icon-morentoken'"/>
+        <span class="mr-1 text-global-highTitle text-kd14px18px">{{ data.platform_token }}</span>
+        <span class="mr-1 text-global-highTitle text-kd14px18px">${{ formatRulesNumber(data.platform_token_price) }}</span>
+        <!--            <span class="bg-global-numRed  bg-opacity-20 rounded-kd4px px-1 py-0.5 text-kd12px14px text-global-numRed">-3.23%</span>-->
+
+
+
       </div>
       <div class="flex items-center  mt-2.5 " v-if="data.safety">
         <IconFont size="16" class="text-global-highTitle text-opacity-10 w-0.25" type="icon-gang"/>

@@ -34,11 +34,14 @@ onMounted(getData())
   <div class="bgClass">
   <UiLayoutMenu>
     <template #menu>
-      <el-container class="h-full text-kdFang">
+      <el-container class="h-full text-kdFang px-4 md:px-0 ">
         <el-header height="initial" class="p-0">
-          <div class="flex items-center flex-1  pt-8 ">
+          <div class="flex items-center flex-1 pt-4  md:pt-8 relative  ">
             <IconFont type="icon-sousuo-da" class="text-global-highTitle w-6.5  text-opacity-45 " size="16"/>
             <el-input class="search-box" :placeholder="I18n.apyIndex.search" v-model="txt" value=""></el-input>
+            <UiLayoutMenuButton class="xl:hidden absolute  right-3 transform ">
+              <span class="cursor-pointer text-16-24 text-global-primary">取消</span>
+            </UiLayoutMenuButton>
           </div>
           <div class="flex items-center bottomY w-full justify-between">
             <div class="flex  items-center ">
