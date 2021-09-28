@@ -79,14 +79,19 @@ onMounted(function() {
       <UiHeaderMeta name="description" content="KingData 全球领先的区块链分析搜索引擎，基于区块链交易构成的复杂关系网络，以及行业不同领域的数据特性，运用图计算、机器学习和图构建等技术，为用户提供区块链行业在交易、安全，投研、溯源、可视化、Dapp等领域的专业数据服务。"/>
     </div>
     <div class="flex justify-between md:flex-row flex-col">
-      <div class="flex items-center font-kdExp">
-        <IconFont class="xshidden" :type="detail.icon" size="40" rounded/>
-        <IconFont class="mdhidden" :type="detail.icon" size="32" rounded/>
-        <b style="font-size:24px;" class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
-        <span class="md:ml-4 ml-2 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
-        <div class="ml-2 bg-global-numRed flex items-center  pt-0.5 px-1 font-kdExp md:rounded rounded-kd4px">
-          <div  class="text-global-white flex items-center md:text-kd16px24px text-kd14px18px">{{ toNumber(detail.change) }}%</div>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center font-kdExp">
+          <IconFont class="xshidden" :type="detail.icon" size="40" rounded/>
+          <IconFont class="mdhidden" :type="detail.icon" size="32" rounded/>
+          <b style="font-size:24px;" class="title ml-2 font-bold text-global-highTitle text-opacity-85">{{ detail.name }}</b>
+          <span class="md:ml-4 ml-2 text-xl text-global-highTitle text-opacity-85">${{ toNumber(detail.prince) }}</span>
+          <div class="ml-2 bg-global-numRed flex items-center  pt-0.5 px-1 font-kdExp md:rounded rounded-kd4px">
+            <div class="text-global-white flex items-center md:text-kd16px24px text-kd14px18px">{{ toNumber(detail.change) }}%</div>
+          </div>
         </div>
+        <UiLayoutMenuButton class="flex md:hidden p-2 bg-global-darkblue rounded-1/2 cursor-pointer">
+          <IconFont class="text-white" type="icon-sousuo-da1" size="16"/>
+        </UiLayoutMenuButton>
       </div>
 
       <div class="flex items-center md:rounded-xl rounded-kd12px md:mt-0 mt-8 bg-global-highTitle bg-opacity-6 p-1" :class="{ 'hidden': category.length <= 1  }">

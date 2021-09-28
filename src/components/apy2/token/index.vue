@@ -99,6 +99,7 @@ const getHref = function(tokenType: string) {
 //@ts-ignore
 onBeforeMount(()=>{
   setProjectType(props.tokenType)
+  // @ts-ignore
   ready(props.tokenType)
 })
 </script>
@@ -113,21 +114,24 @@ onBeforeMount(()=>{
               <router-link  :to="getHref('token')" :class="tokenType==='token'?'taged':'tag'" class='flex-1  text-14-18 hand'>单币</router-link>
               <router-link  :to="getHref('lp')"  :class="tokenType==='lp'?'taged':'tag'" class='flex-1  text-14-18 hand'>LP</router-link>
             </div>
-            <el-input class="search-box" :placeholder="I18n.apy.token.search" v-model="search">
-              <template #prefix>
-                <i class="el-input__icon el-icon-search"></i>
-              </template>
-            </el-input>
+            <div class="relative">
+              <el-input class="search-box" :placeholder="I18n.apy.token.search" v-model="search">
+                <template #prefix>
+                  <i class="el-input__icon el-icon-search"></i>
+                </template>
+              </el-input>
+              <UiLayoutMenuButton class="xl:hidden absolute top-1/2 right-3 transform -translate-y-1/2">
+                <span class="cursor-pointer text-16-24 text-global-primary">取消</span>
+              </UiLayoutMenuButton>
+            </div>
           </div>
         </el-header>
         <el-main class="p-0 overflow-auto showY">
           <div class="pt-3 pb-10" v-if="tokenList.length > 0">
             <template v-for="(item, index) in menuList" :key="index">
               <div class="cursor-pointer">
-                <router-link class="flex items-center p-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
-                  <span class="inline-flex">
-                    <IconFont rounded :type="item.icon" size="24"></IconFont>
-                  </span>
+                <router-link class="flex items-center py-1.5 px-4 xl:px-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
+                  <IconFont rounded :type="item.icon" size="24"></IconFont>
                   <span class="ml-1.5">
                     <span class="text-sm text-global-highTitle">{{ item.name }}</span>
                   </span>

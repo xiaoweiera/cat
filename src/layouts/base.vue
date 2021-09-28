@@ -2,7 +2,13 @@
 </script>
 
 <template>
-  <UiLayout/>
+  <UiLayout>
+    <template #footer>
+      <div class="md:hidden">
+        <UiFooter/>
+      </div>
+    </template>
+  </UiLayout>
 </template>
 
 
