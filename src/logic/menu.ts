@@ -170,7 +170,8 @@ export const headers = [
         desc: I18n.menu.desc.apy.token,
         icon: 'icon-bizhong',
         more: true,
-        header: true
+        header: true,
+        router:`${config.apy}/lp`,
       },
       {
         name: I18n.menu.apy.heco, // 'HECO 节点 APY'
