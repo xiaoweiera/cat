@@ -8,11 +8,11 @@ import { TabCategoryData } from '~/logic/apy2/interface'
 const getGroupData=async ()=>{
   const result=await getMiningGroup(chain.value)
   rankingTag.value=result?.ranking
-  console.log(rankingTag.value)
   tableTag.value=result?.table
   listTag.value=result?.list
 }
 const getData=async ()=>{
+
   const [tokenData,projectData]=await getTokenAndProject(chain.value)
   tokenList.value=tokenData
   projectList.value=projectData
