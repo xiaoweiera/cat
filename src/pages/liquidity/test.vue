@@ -13,8 +13,33 @@ const param=reactive({
   to_ts:'0',
   interval:'1D'
 })
+
 const getChartData=async ()=>{
   data.value=await getBarChart(param)
+  console.log(data.value)
+  data.value={
+    series:[{
+      "data": [
+
+
+        12.178555825650397,
+      ]
+    }],
+    xAxis:[{
+      "data": [
+
+
+        {
+          "project": "S",
+          "chain": "BSC",
+          "project_category": "Vault",
+          "strategy_tags": "Alpaca"
+        },
+
+      ]
+    }]
+  }
+  console.log(data.value)
 }
 const getYAxis=()=>{
   const yData =data.value.xAxis[0].data.map((item,i)=>{
@@ -28,7 +53,10 @@ const getYAxis=()=>{
   })
   return yData
 }
-const getSeries=()=>R.map(item=>formatRulesNumber(item),data.value.series[0].data)
+// const getSeries=()=>R.map(item=>formatRulesNumber(item),data.value.series[0].data)
+const getSeries=()=>data.value.series[0].data.map((item,i)=>{
+ return formatRulesNumber(item)
+})
 
 let myChart: any = null
 

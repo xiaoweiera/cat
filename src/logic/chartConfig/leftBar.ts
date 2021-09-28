@@ -25,6 +25,7 @@ const getChainIcon = () => {
     //@ts-ignore
     data[tolocaleUpperCase(item)] = {
       height: 14,
+      width: 14,
       align: 'left',
       backgroundColor: {
         //@ts-ignore
@@ -34,7 +35,6 @@ const getChainIcon = () => {
   }, list)
   return data
 }
-getChainIcon()
 const tooltip = () => {
   return {
     trigger: 'axis',
@@ -42,6 +42,7 @@ const tooltip = () => {
       type: 'shadow',
     },
     formatter: function(value: any) {
+      console.log(value,'k;k;k;')
       const d = JSON.parse(value[0].axisValueLabel)
       return `
       <div class='text-global-highTitle text-opacity-85'>${d.project}</div> 
@@ -56,7 +57,7 @@ const tooltip = () => {
 const grid = () => {
   return {
     top:'4%',
-    left: '3%',
+    left: '8%',
     right: '12%',
     bottom: '3%',
     containLabel: true,
@@ -93,16 +94,27 @@ const getYaxis = (data: any) => {
     axisLabel: {
       show: true,
       color: 'rgba(3, 54, 102, 1)',
+      width:85,
+      margin:0,
       fontFamily: 'D-DIN Exp',
       formatter: function(value: any) {
         const item = JSON.parse(value)
         const cateIcon = item.project_category ? tolocaleUpperCase(R.slice(0, 1, item.project_category)) : ''
-        return `{value|${item.project}}\n{${item.chain}|} {${cateIcon}|} ${item.strategy_tags}`
+        // return `{value|${item.project}}\n{${item.chain}|}{${cateIcon}|}{tags|${item.strategy_tags}}`
+        return `{value|${item.project}}\n{${item.chain}|}{${cateIcon}|}`
       },
       rich: {
         value: {
           lineHeight: 20,
           align: 'left',
+          height: 40,
+
+        },
+        tags: {
+          lineHeight: 20,
+          align: 'left',
+          height: 40,
+
         },
         ...getIcon(),
         ...getChainIcon(),
