@@ -34,16 +34,24 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
       </el-table-column>
       <el-table-column prop="gain" align="center" :label="I18n.apyIndex.mortgageInterest" :align="I18n.apyIndex.mortgage"  sortable>
         <template #default="scope">
-          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
-            <Apy2LoanTableGain :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_apy_detail"/>
-          </a>
+<!--          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">-->
+            <Apy2PoolDialog type="lend" :id="scope.row.lending_id">
+              <template #reference>
+                <Apy2LoanTableGain class='hand' :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_apy_detail"/>
+              </template>
+            </Apy2PoolDialog>
+<!--          </a>-->
         </template>
       </el-table-column>
       <el-table-column prop="loanRate" :label="I18n.apyIndex.borrowApy" align="center"   sortable>
         <template #default="scope">
-          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
-            <Apy2LoanTableGain :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
-          </a>
+<!--          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">-->
+          <Apy2PoolDialog type="lend" :id="scope.row.loaning_id">
+            <template #reference>
+              <Apy2LoanTableGain class='hand' :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
+            </template>
+          </Apy2PoolDialog>
+<!--          </a>-->
         </template>
       </el-table-column>
       <el-table-column prop="cost"  :label="I18n.apyIndex.cost"   sortable>

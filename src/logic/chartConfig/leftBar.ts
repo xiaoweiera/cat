@@ -94,7 +94,7 @@ const getYaxis = (data: any) => {
     axisLabel: {
       show: true,
       color: 'rgba(3, 54, 102, 1)',
-      width:85,
+      width:110,
       margin:0,
       fontFamily: 'D-DIN Exp',
       formatter: function(value: any) {
