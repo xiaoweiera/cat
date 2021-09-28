@@ -101,7 +101,7 @@ const getYaxis = (data: any) => {
         const item = JSON.parse(value)
         const cateIcon = item.project_category ? tolocaleUpperCase(R.slice(0, 1, item.project_category)) : ''
         // return `{value|${item.project}}\n{${item.chain}|}{${cateIcon}|}{tags|${item.strategy_tags}}`
-        return `{value|${item.project}}\n{${item.chain}|}{${cateIcon}|}`
+        return `{value|${item.project}}\n{${item.chain}|}{${cateIcon}|}{tags|${item.strategy_tags}}`
       },
       rich: {
         value: {
