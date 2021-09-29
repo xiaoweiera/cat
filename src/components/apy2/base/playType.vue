@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref, defineProps,watch} from 'vue'
+import hmt from '~/lib/hmt'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import {chain,tokenList,projectList} from '~/store/apy2/state'
@@ -103,7 +104,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}&origin=index`
                 <div v-if="i===0"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="plat" :placeholder="item.selectText">
                     <template  v-for="item in projectList">
-                      <a v-router.blank="platUrl(plat)"  >
+                      <a @click="hmt.event('我已选定平台','mining_project')" v-router.blank="platUrl(plat)"  >
                         <el-option   :label="item.name" :value="item.id"> </el-option>
                       </a>
                     </template>
@@ -112,8 +113,8 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}&origin=index`
                 <div v-if="i===1"   class="flex items-center items-center">
                   <el-select  filterable :popper-append-to-body="false"   size="small" v-model="coin" :placeholder="item.selectText">
                     <template v-for="item in tokenList" >
-                      <a v-router.blank="tokenUrl(coin)" >
-                        <el-option   :label="item.name" :value="item.name"></el-option>
+                      <a   v-router.blank="tokenUrl(coin)" >
+                        <el-option  @click="hmt.event('我有币','mining_token')"  :label="item.name" :value="item.name"></el-option>
                       </a>
                     </template>
                   </el-select>
@@ -121,7 +122,7 @@ const platUrl=(projectId:number)=>`/apy/project?id=${projectId}&origin=index`
                 <div v-if="i===2"   class="flex items-center">
                   <el-select filterable :popper-append-to-body="false"   size="small" v-model="loan" :placeholder="item.selectText">
                     <template v-for="item in tokenList">
-                      <a v-router.blank="tokenUrl(loan)" >
+                      <a @click="hmt.event('我要借款','mining_borrow')" v-router.blank="tokenUrl(loan)" >
                         <el-option  v-if="item.category.indexOf('lend')>=0"   :label="item.name" :value="item.name"></el-option>
                       </a>
                     </template>
