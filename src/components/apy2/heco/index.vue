@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { omit } from 'ramda'
 import I18n from '~/utils/i18n/index'
+import hmt from 'src/lib/hmt'
 import dayjs from 'dayjs'
 import { formatCash, uuid, toInteger, dateTime, dateYMDFormat } from '~/utils'
 import { onMounted, reactive, ref, toRaw } from 'vue'
@@ -116,6 +117,7 @@ const onRowClick = function(row: any) {
 // @ts-ignore
 const onOpen = function(href: string) {
   if (href) {
+    hmt.event('查看图表', 'heco_expand')
     const src = router(href)
     window.open(src)
   }
