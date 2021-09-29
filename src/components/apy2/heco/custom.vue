@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import I18n from '~/utils/i18n/index'
+import hmt from '~/lib/hmt'
 import { defineProps, reactive, ref, onMounted } from 'vue'
 import { getHecoNodeTrends } from '~/logic/apy2/heco'
 import { dateYMDHmFormat, uuid, debounce } from '~/utils'
@@ -48,7 +49,10 @@ const onChangeActive = function(value: string) {
   return updateTrendsData()
 }
 
-onMounted(updateTrendsData)
+onMounted(() => {
+  hmt.event('去投票', 'heco_expand')
+  updateTrendsData()
+})
 
 
 </script>

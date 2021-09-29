@@ -32,6 +32,7 @@ export default defineConfig({
     extensions: [".js", ".es", ".ts", ".vue"],
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
+      'src/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
   build: {
