@@ -28,7 +28,7 @@ const getChart=async ()=>{
 const selectToken=(name:string)=>token.value=name
 watch(token,(n)=>getChart())
 watch(moreToken,(n)=>token.value=n)
-onMounted(getChart())
+onMounted(()=>getChart())
 </script>
 <template>
 <div class=" w-full  md:h-full font-kdFang top10Project">

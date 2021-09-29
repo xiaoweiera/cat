@@ -11,8 +11,9 @@ interface HMT {
   cmd: CMD
   plugins: CMD
   id: string
-  push: (query: string[]) => void,
-  event: (query: string[]) => void
+  push: (...query: string[]) => void
+  event: (...query: string[]) => void
+  click: (...query: string[]) => void
 }
 
 const push = function(args: string[]) {
@@ -49,5 +50,5 @@ hmt.event = function(...args: string[]) {
   const query = toArray('_trackEvent', args)
   return push(query)
 }
-
+hmt.click=(...args: string[]) => hmt.event(...args)
 export default hmt

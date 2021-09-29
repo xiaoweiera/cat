@@ -42,7 +42,6 @@ const tooltip = () => {
       type: 'shadow',
     },
     formatter: function(value: any) {
-      console.log(value,'k;k;k;')
       const d = JSON.parse(value[0].axisValueLabel)
       return `
       <div class='text-global-highTitle text-opacity-85'>${d.project}</div> 
@@ -57,7 +56,7 @@ const tooltip = () => {
 const grid = () => {
   return {
     top:'4%',
-    left: '8%',
+    left: '10%',
     right: '12%',
     bottom: '3%',
     containLabel: true,
@@ -94,7 +93,7 @@ const getYaxis = (data: any) => {
     axisLabel: {
       show: true,
       color: 'rgba(3, 54, 102, 1)',
-      width:110,
+      width:90,
       margin:0,
       fontFamily: 'D-DIN Exp',
       formatter: function(value: any) {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, defineProps,onMounted,defineEmits } from 'vue'
 import * as R from 'ramda'
+import hmt from '~/lib/hmt'
 import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
 import {chain} from '~/store/apy2/state'
@@ -56,6 +57,7 @@ onMounted(()=>{
   getTokens()
   getProjects()
 })
+const baidu=(name:string,key:string)=>hmt.event(name,key)
 </script>
 <template>
   <div class="loanClass w-full md:p-4 p-3 flex-wrap   flex items-center  bg-global-body rounded-kd4px justify-between " >
@@ -64,14 +66,14 @@ onMounted(()=>{
         <div class="flex items-center">
           <span :class="langType==='en'?'min-w-23':''"  class="selectTxt">{{I18n.apyIndex.diyaCoin}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="inCoin[0]" >
-            <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
+            <el-option @click='baidu("借贷最佳路径选择抵押币种","lend_Best_supply")'  v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </div>
         <div class="mt-3 flex items-center">
           <span :class="langType==='en'?'min-w-23':''" class="selectTxt">{{I18n.apyIndex.loanPlat}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="projectId[0]" >
-            <el-option v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
+            <el-option @click='baidu("借贷最佳路径选择平台","lend_Best_project")' v-for="item in projectList" :key="item.id" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
         </div>
@@ -80,14 +82,14 @@ onMounted(()=>{
         <div class="flex items-center">
           <span :class="langType==='en'?'min-w-23':''" class="selectTxt ">{{I18n.apyIndex.jiechuCoin}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="outCoin[0]" >
-            <el-option v-for="item in tokenList"  :label="item.name" :value="item.name">
+            <el-option @click='baidu("借贷最佳路径选择解除币种","lend_Best_borrow")' v-for="item in tokenList"  :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </div>
         <div class="flex mt-3 items-center">
           <span :class="langType==='en'?'min-w-23':''" class="selectTxt "  style="text-indent: 2em;">{{I18n.apyIndex.loanListChain}}</span>
           <el-select filterable :popper-append-to-body="false"   size="small" v-model="chained[0]" >
-            <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
+            <el-option @click='baidu("借贷最佳路径选择公链","lend_Best_chain")' v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
           </el-select>
         </div>

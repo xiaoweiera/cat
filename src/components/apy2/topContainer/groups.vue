@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import {ref, defineProps, onMounted, reactive, watch} from 'vue'
-import {rankingTag} from '~/store/apy2/state'
+import {rankingTag,chain} from '~/store/apy2/state'
 import I18n from '~/utils/i18n/index'
 import * as R from 'ramda'
-
-const props = defineProps({token: Object,chain:String})
+import hmt from '~/lib/hmt'
+const props = defineProps({token: Object,type:String})
 const moreToken = ref('')
 const selectToken = (item: object) => {
+  //@ts-ignore
+  hmt.event('TOP5分组切换',`${props.type}_top_${chain.value}_${item.name}`)
   props.token.value = item.id
   props.token.name = item.name
   moreToken.value=''
@@ -14,6 +16,8 @@ const selectToken = (item: object) => {
 watch(()=>moreToken.value, (n) => {
   if(!n) return
   const item = R.find(item => item.id === n, rankingTag.value)
+  //@ts-ignore
+  hmt.event('TOP5分组切换',`${props.type}_top_${chain.value}_${item.name}`)
   props.token.value = item.id
   props.token.name = item.name
 })

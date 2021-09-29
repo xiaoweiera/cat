@@ -4,7 +4,7 @@ import I18n from '~/utils/i18n/index'
 import { TabCategoryData } from '~/logic/apy2/interface'
 // @ts-ignore
 import { toInteger, toNumberCashFormat, toNumberFormat, isEmpty, toNumber } from '~/utils'
-
+import hmt from '~/lib/hmt'
 defineProps({
   data: {
     type: Object
@@ -19,7 +19,7 @@ defineProps({
       <div class="apy-item">
         <el-popover popper-class="apy-hover-detail" placement="bottom-start" title="" width="fit-content" :show-after="300" trigger="hover" :show-arrow="false" :offset="0">
           <template #reference>
-            <div class="h-18.5 flex items-center w-full cursor-pointer" :class="{'new-30': data.new }">
+            <div  @click="hmt.event('表格部分打开池子详情页','mining_table_poolsinfo')" class="h-18.5 flex items-center w-full cursor-pointer" :class="{'new-30': data.new }">
               <div class="pl-4 pr-2 text-kdFang w-full">
                 <div class="flex">
                   <template v-if="toNumber(data.apy) > 0">
@@ -46,7 +46,7 @@ defineProps({
                   <div class="text-global-highTitle text-opacity-25">
 <!--                    <IconFont v-if="data.warining_info" type="icon-info2" size="16"/>-->
                     <div v-if="data.project_url" @click.stop>
-                      <a class="flex text-global-primary text-xs leading-3" v-router.blank="data.project_url">
+                      <a   @click="hmt.event('表格部分点击去挖矿','mining_table_deposit')" class="flex text-global-primary text-xs leading-3" v-router.blank="data.project_url">
                         <span>{{ I18n.apy.pool.mining }}</span>
                         <IconFont class="flex ml-1" type="icon-right" size="xs"/>
                       </a>

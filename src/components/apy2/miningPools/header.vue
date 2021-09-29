@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineProps,ref,watch,onMounted} from 'vue'
+import hmt from '~/lib/hmt'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
 import {chain} from '~/store/apy2/state'
@@ -22,9 +23,15 @@ const projectList=ref([
   {name:I18n.apyIndex.projects,id:'all'}
 ])
 const txt=ref('')
-watch(project,()=>setProject(project.value))
+watch(project,()=>{
+  hmt.event('底部榜单选择项目', 'mining_list_project')
+  setProject(project.value)
+})
 watch(chained,()=>setChained(chained.value))
-watch(txt,()=>setTxt(txt.value))
+watch(txt,()=>{
+  hmt.event('底部榜单搜索', 'mining_list_search')
+  setTxt(txt.value)
+})
 const typeList=ref([{name:I18n.apyIndex.all,key:'all'},{name:I18n.apyIndex.singleCoin,key:'token'},{name:'LP',key:'lp'}])
 const getProject=async ()=>{
   if(props.hasProject){
@@ -36,10 +43,10 @@ onMounted(()=>getProject())
 </script>
 <template>
   <div class="flex items-center font-kdFang flex-wrap md:justify-between ">
-    <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList"   class="md:mr-10 w-12/12 md:w-max  min-h-9"/>
+    <Apy2MiningPoolsSelectTag  v-if="props.hasCustom" :list="tagList" tagType='list' :type='props.type'   class="md:mr-10 w-12/12 md:w-max  min-h-9"/>
     <div class="flex flex-col md:flex-row  mt-3 md:mt-0" :class="props.hasCustom?'':'justify-between   w-full'">
       <div class="flex   flex-wrap">
-        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3  md:w-max md:mb-3 min-w-33 min-h-9   "  :list="typeList" />
+        <Apy2MiningPoolsFliter v-if="props.type" class="mr-3  md:w-max md:mb-3 min-w-33 min-h-9   " :type='props.type'  :list="typeList" />
          <div v-if="props.hasProject" class="apyProject min-w-33     flex-1 md:mr-3 min-h-9">
         <el-select filterable :popper-append-to-body="false" v-model="project"   size="small" >
           <el-option v-for="item in projectList"  :label="item.name" :value="item.id">

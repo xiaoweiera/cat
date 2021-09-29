@@ -12,10 +12,8 @@ onBeforeMount(()=>chain.value=route.query.chain || 'all')
 </script>
 <template>
 <div class="flex md:justify-center  md:flex-wrap flex-nowrap  showXChain    font-kdFang flex-wrap md:border-b-1 border-global-highTitle  border-opacity-6" >
-  <div  @click="hmt.event('公链切换','`mining_changechain_${chain}`')">asasddd</div>
   <template v-for="item in chains">
-
-    <a     @click="hmt.event('公链切换',`mining_changechain_${chain}`)" :href="getHref(item.key)" :class="chain===item.key?'selectedTag ':'tag'" class="flex hand pr-1.5 pl-0.5   flex items-center justify-center " style="flex-shrink:0;" >
+    <a  @click="hmt.event('公链切换',`mining_changechain_${chain}`)" :href="getHref(item.key)" :class="chain===item.key?'selectedTag ':'tag'" class="flex hand pr-1.5 pl-0.5   flex items-center justify-center " style="flex-shrink:0;" >
         <img class="md:w-8 md:h-8 w-6 h-6" :src="item.icon" alt="">
         <div class="ml-1.5 md:text-kd24px24px text-kd18px18px ">{{item.name===I18n.apyIndex.allChain?I18n.apyIndex.all:item.name}}</div>
     </a>

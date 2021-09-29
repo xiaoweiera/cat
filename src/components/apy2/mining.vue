@@ -27,7 +27,7 @@ onMounted(async ()=>{
     <div class="max-w-360 px-4  md:px-20  relative  w-full h-full container ">
       <div class="mt-4.25 md:mt-10 flex justify-between  items-center">
         <Apy2BaseHeader :title="I18n.apyIndex.miningTitle" class=" flex flex-col flex-wrap justify-center" />
-          <Apy2BasePlayType class="xshidden" />
+          <Apy2BasePlayType type='mining' class="xshidden" />
       </div>
       <Apy2Chains class="md:mt-10 mt-9"/>
       <Apy2TopContainer :header="true"  type="mining"/>

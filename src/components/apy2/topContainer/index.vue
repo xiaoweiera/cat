@@ -70,12 +70,11 @@ const title=computed(()=>{
 onMounted(getChartData())
 </script>
 <template>
-<div class="">
-  <Apy2TopContainerGroups :chain="chain" v-if="props.header" class="mb-3" :token="token" />
+<div>
+  <Apy2TopContainerGroups :chain="chain" v-if="props.header" :type="props.type"  class="mb-3" :token="token" />
   <div class="flex md:flex-row flex-col">
 <!--    <div class="border-1  border-global-numRed h-full flex-1">e</div>-->
-    <Apy2TopContainerChart :loading="loading" :chartData="chartData" class="flex-1 h-83  min-h-83 order-1 md:order-0 "   />
-
+    <Apy2TopContainerChart :loading="loading" :chartData="chartData"  class="flex-1 h-83  min-h-83 order-1 md:order-0 "   />
     <Apy2TopContainerList  :class="(props.header )?'md:w-90 md:min-w-90':'md:w-87 md:min-w-87'" :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class=" min-h-76 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
   </div>
 

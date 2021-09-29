@@ -2,14 +2,19 @@
 import { ref,defineProps,defineEmits } from 'vue'
 import * as R from 'ramda'
 import I18n from '~/utils/i18n/index'
+import hmt from '~/lib/hmt'
 import {  setInject, getInject } from '~/utils/use/state'
 const props = defineProps({
   list: Object,
+  type:String
 })
 const setFilterType=setInject('filterType')
 const emitEvent = defineEmits(['update:filterType'])
 const tag=ref('all')
 const changeTag=(key:string)=>{
+  if(props.type){
+    hmt.event('底部榜单切换币种类型',`${props.type}IconChange`)
+  }
   tag.value=key
   setFilterType(key)
   emitEvent('update:filterType',key)

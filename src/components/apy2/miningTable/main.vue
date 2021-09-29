@@ -2,6 +2,7 @@
 import {ref, defineProps} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
+import hmt from '~/lib/hmt'
 const props=defineProps(
     {
       data:Object,
@@ -19,17 +20,19 @@ const onSort=(value:any)=>{
 }
 //@ts-ignore
 const getSortType=(key:string)=>props.param.ordering_field===key?'desc':null
+const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinfo')
 </script>
+
 <template>
 <div>
   <UiSortGroup class="table-tr">
 <!--  大屏-->
-  <el-table class="xshidden" :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
+  <el-table @click='baidu' class="xshidden" :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
         <el-table-column prop="pool" :label="I18n.apyIndex.pools">
           <template #default="scope">
             <Apy2PoolDialog type="mining" :id="scope.row.id">
               <template #reference>
-                <Apy2MiningTablePool class="hand" :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed" :project="scope.row.project" :chain="scope.row.chain" :category="scope.row.project_category" :des="scope.row.strategy" />
+                <Apy2MiningTablePool  class="hand" :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed" :project="scope.row.project" :chain="scope.row.chain" :category="scope.row.project_category" :des="scope.row.strategy" />
               </template>
             </Apy2PoolDialog>
           </template>
@@ -78,7 +81,7 @@ const getSortType=(key:string)=>props.param.ordering_field===key?'desc':null
   </UiSortGroup>
 <!--  小屏-->
   <UiSortGroup class="table-tr">
-  <el-table class="mdhidden" :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
+  <el-table @click='baidu' class="mdhidden" :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
     <el-table-column prop="pool" fixed width="170px" :label="I18n.apyIndex.pools">
       <template #default="scope">
         <Apy2PoolDialog type="mining" :id="scope.row.id">

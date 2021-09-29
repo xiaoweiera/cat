@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import { onMounted, ref,reactive } from 'vue'
+import hmt from '~/lib/hmt'
 import * as echarts from 'echarts'
 import * as R from 'ramda'
 import { formatRulesNumber } from '~/lib/tool'
@@ -80,7 +81,11 @@ onMounted(()=>{
 
 </script>
 <template>
+<div   @click="hmt.click('我已选定平台','mining_project')">积极</div>
 
+
+
+  <a  @click="hmt.event('我已选定平台','mining_project')"  v-router='`https://www.baiduc.com`' target='_blank'>121</a>
   <div class=' border-1 border-global-numGreen mx-auto my-30' style='width:628px;height:346px;'>
     <div  id="chartBar" class="w-full h-full"></div>
   </div>

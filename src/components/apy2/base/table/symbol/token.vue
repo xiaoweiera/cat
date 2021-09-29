@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { defineProps } from "vue"
+import hmt from '~/lib/hmt'
 // @ts-ignore
 import { toBoolean, toNumberCashFormat, toNumberFormat } from '~/utils'
 
-defineProps({
+const props=defineProps({
   data: {
     type: Object
   },
@@ -12,6 +13,8 @@ defineProps({
     required: true,
   }
 })
+//@ts-ignore
+const baidu=()=> hmt.event('表格部分加入自选',`${props.type}_table_favorite`)
 </script>
 
 <template>
@@ -27,7 +30,7 @@ defineProps({
               <span class="inline-block whitespace-nowrap max-w-full truncate">{{ data.symbol_alias }}</span>
             </span>
           </el-tooltip>
-          <Apy2BaseFollow class="ml-1 text-global-highTitle text-opacity-45" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
+          <Apy2BaseFollow  @click='baidu'   class="ml-1 text-global-highTitle text-opacity-45" :type="type" :value="data.symbol_alias" :status="toBoolean(data.followed)"/>
         </div>
         <div class="mt-1 text-xs flex items-center text-kdExp">
           <span class="inline-block mr-1 text-global-highTitle text-opacity-85">{{ toNumberCashFormat(data.symbol_price, '$') }}</span>

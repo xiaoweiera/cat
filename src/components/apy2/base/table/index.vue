@@ -180,10 +180,10 @@ const submitAdd = ()=> {
             <template #default="scope">
               <template v-if="scope.row[index] && TabCategoryData">
                 <template v-if="type === TabCategoryData.mining">
-                  <Apy2BaseTableMiningItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+                  <Apy2BaseTableMiningItem    :data="scope.row[index]" :key="tdKey(scope, index)"/>
                 </template>
                 <template v-else>
-                  <Apy2BaseTableLendItem :data="scope.row[index]" :key="tdKey(scope, index)"/>
+                  <Apy2BaseTableLendItem   :data="scope.row[index]" :key="tdKey(scope, index)"/>
                 </template>
               </template>
               <template v-else>
