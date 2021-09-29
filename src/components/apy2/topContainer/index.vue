@@ -11,7 +11,8 @@ const props=defineProps({
   project:Boolean,
   token:Boolean,
   paramData:Object,
-  symbol:String
+  symbol:String,
+  page:String
 })
 const token=reactive({value:'',name:''})
 const chartData = reactive<EchartData>(new EchartData())
@@ -75,7 +76,7 @@ onMounted(getChartData())
   <div class="flex md:flex-row flex-col">
 <!--    <div class="border-1  border-global-numRed h-full flex-1">e</div>-->
     <Apy2TopContainerChart :loading="loading" :chartData="chartData"  class="flex-1 h-83  min-h-83 order-1 md:order-0 "   />
-    <Apy2TopContainerList  :class="(props.header )?'md:w-90 md:min-w-90':'md:w-87 md:min-w-87'" :type="props.type" :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class=" min-h-76 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
+    <Apy2TopContainerList  :class="(props.header )?'md:w-90 md:min-w-90':'md:w-87 md:min-w-87'" :type="props.type" :page='props.page' :header="props.header" :project="props.project" :token="props.token" :title="title" :paramData="props.paramData" :tokenItem="token" class=" min-h-76 h-full md:ml-6 order-0 md:order-1 md:mb-0 mb-3" />
   </div>
 
 </div>

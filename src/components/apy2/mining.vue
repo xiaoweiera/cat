@@ -30,7 +30,7 @@ onMounted(async ()=>{
           <Apy2BasePlayType type='mining' class="xshidden" />
       </div>
       <Apy2Chains class="md:mt-10 mt-9"/>
-      <Apy2TopContainer :header="true"  type="mining"/>
+      <Apy2TopContainer :header="true" page='mining'  type="mining"/>
       <Apy2BaseNotice class="md:mt-12 mt-9"/>
       <div class="md:mt-12 mt-9">
         <!--表格数据-->

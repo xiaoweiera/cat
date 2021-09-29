@@ -6,6 +6,7 @@ import {useProvide,  setInject, getInject } from '~/utils/use/state'
 import {chainsIcon} from '~/logic/apy2/config'
 import {formatRulesNumber,tolocaleLowerCase} from '~/lib/tool'
 import {getProjectList} from '~/logic/apy2/index'
+import hmt from '~/lib/hmt'
 const props=defineProps({
   data:Object,
   projectId:Number
@@ -22,8 +23,8 @@ const orderIndex=ref(0)
     </div>
     <div class=" pb-10 showY " v-if="data.length > 0">
       <template v-for="item in data" >
-        <div :class="item.id==projectId?'itemSelected':''" class="cursor-pointer h-9  item   " >
-          <router-link class="flex items-center  relative px-1.5  h-full" :to="`?id=${item.id}`">
+        <div  :class="item.id==projectId?'itemSelected':''" class="cursor-pointer h-9  item   " >
+          <router-link @click="hmt.click('切换项目','project_project')" class="flex items-center  relative px-1.5  h-full" :to="`?id=${item.id}`">
             <div class='flex'>
               <IconFont v-if="item.is_new" type="icon-NEW" size="20" class="absolute z-1 "/>
               <IconFont style="border-radius: 50%;" :type="item.logo || 'icon-morentoken'" size="20" class="relative left-1.2  "/>

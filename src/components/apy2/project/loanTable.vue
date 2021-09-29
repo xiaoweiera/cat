@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref, defineProps} from 'vue'
 import I18n from '~/utils/i18n/index'
+import hmt from '~/lib/hmt'
 import {formatDefaultTime} from '~/lib/tool'
 const props=defineProps({data:Object})
 const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
@@ -8,30 +9,49 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
 <template>
 <!--  big-->
   <div class="xshidden">
-    <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
+    <el-table @click='hmt.click("借贷池子全部池子点击查看图表/打开池子详情页","project_borrow_all_poolsinfo")' :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
       <el-table-column prop="pool" :label="I18n.apyIndex.loanMoneyCoin">
         <template #default="scope">
-          <Apy2ProjectTokenTableItem :id="scope.row.id" :followed="scope.row.followed"  :logo="scope.row.symbol_logo" :name="scope.row.symbol_alias" :like="scope.row.followed"  :chain="scope.row.chain" :type="scope.row.project_category"  />
+          <Apy2PoolDialog type="lend" :id="scope.row.id">
+            <template #reference>
+                <Apy2ProjectTokenTableItem class="hand"  :id="scope.row.id" :followed="scope.row.followed"  :logo="scope.row.symbol_logo" :name="scope.row.symbol_alias" :like="scope.row.followed"  :chain="scope.row.chain" :type="scope.row.project_category"  />
+            </template>
+          </Apy2PoolDialog>
         </template>
       </el-table-column>
       <el-table-column prop="tvlNumber" :label="I18n.apyIndex.borrowMoney">
         <template #default="scope">
-          <Apy2LoanTableLoanAmount :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
+          <Apy2PoolDialog type="lend" :id="scope.row.id">
+            <template #reference>
+              <Apy2LoanTableLoanAmount class="hand"  :value="scope.row.quota_remain" :valueRate="scope.row.quota_remain_percent"/>
+            </template>
+          </Apy2PoolDialog>
+
         </template>
       </el-table-column>
       <el-table-column prop="apyGroup" :label="I18n.apyIndex.interestGroup" >
         <template #default="scope">
-          <Apy2LoanTableDes :value="scope.row.apy_detail"/>
+          <Apy2PoolDialog type="lend" :id="scope.row.id">
+            <template #reference>
+              <Apy2LoanTableDes  class="hand" :value="scope.row.apy_detail"/>
+            </template>
+          </Apy2PoolDialog>
+
         </template>
       </el-table-column>
       <el-table-column prop="apy" :label="I18n.apyIndex.loanApr" width="140px"   sortable>
         <template #default="scope">
-          <Apy2MiningTableLever  :apy="scope.row.apy" :des="scope.row.lever"/>
+          <Apy2PoolDialog type="lend" :id="scope.row.id">
+            <template #reference>
+              <Apy2MiningTableLever class="hand"   :apy="scope.row.apy" :des="scope.row.lever"/>
+            </template>
+          </Apy2PoolDialog>
+
         </template>
       </el-table-column>
       <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
-          <Apy2LoanTableTool :data="scope.row"/>
+          <Apy2LoanTableTool class="hand"  type='project_borrow_all' page='project_borrow_all' :data="scope.row"/>
         </template>
       </el-table-column>
     </el-table>

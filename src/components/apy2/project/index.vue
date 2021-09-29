@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router'
 import {chains} from '~/logic/apy2/config'
 import * as lang from '~/utils/lang'
 import {getProjectList} from '~/logic/apy2/index'
+
 const route = useRoute()
 const [chain,setChain]=useProvide('chain','all')
 const [projectInfo,]=useProvide('projectInfo',{})
@@ -28,7 +29,9 @@ const txt=ref('')
 const projectList=ref([])
 const getData=async ()=>projectList.value=await getProjectList(chain.value[0],txt.value,null,null,projectType.value)
 watch(()=>[txt.value,chain.value[0],projectType.value],()=>getData())
-onMounted(getData())
+onMounted(()=>getData())
+
+
 </script>
 <template>
   <div class="bgClass">
@@ -47,7 +50,7 @@ onMounted(getData())
             <div class="flex  items-center ">
               <div class="allChain ">
                 <el-select    size="small" v-model="chain[0]" >
-                  <el-option v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
+                  <el-option  v-for="item in chains" :key="item.key" :label="item.name" :value="item.key">
                   </el-option>
                 </el-select>
               </div>
@@ -56,7 +59,7 @@ onMounted(getData())
             <div class="flex  items-center ">
               <div class="allChain ">
                 <el-select    size="small" v-model="projectType" >
-                  <el-option v-for="item in projectTypeList" :key="item.key" :label="item.name" :value="item.key">
+                  <el-option   v-for="item in projectTypeList" :key="item.key" :label="item.name" :value="item.key">
                   </el-option>
                 </el-select>
               </div>

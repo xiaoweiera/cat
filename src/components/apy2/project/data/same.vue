@@ -8,7 +8,7 @@ import { selectChains} from '~/logic/apy2/config'
 import {getSame_category, getProjectList} from '~/logic/apy2/index'
 import I18n from '~/utils/i18n/index'
 import DBList from '@fengqiaogang/dblist'
-
+import hmt from '~/lib/hmt'
 const props = defineProps({projectId: Object})
 const tagList = [{name: I18n.apyIndex.all, key: 'all'}, {name: I18n.apyIndex.singleCoin, key: 'dan'}, {
   name: 'LP',
@@ -97,7 +97,7 @@ const h3 = computed<string>(function(): string {
         <div class="xshidden">
           <UiTransfer :title="I18n.apyIndex.addProject" :sub-title="I18n.apyIndex.selectedProject" :list="list" @changeParam="changeParam" :selects="selectChains" @submit="onSumbit">
             <template #content>
-              <div class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
+              <div @click='hmt.click("项目同类数据添加项目","project_data_addprojects")' class="px-4 rounded-kd6px w-30 h-8.5 w-fit ml-3 flex items-center hand" style="border:1px solid rgba(3, 54, 102, 0.1);">
                 <IconFont class="text-global-highTitle text-opacity-85 mr-1" type="icon-add" size="16"/>
                 <span class="text-global-highTitle text-opacity-85 text-kd14px18px font-medium">{{ I18n.apyIndex.addProject }}</span>
               </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref, defineProps} from 'vue'
+import hmt from '~/lib/hmt'
 import I18n from '~/utils/i18n/index'
 import {formatDefaultTime} from '~/lib/tool'
 const props=defineProps(
@@ -8,11 +9,12 @@ const props=defineProps(
     }
 )
 const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
+
 </script>
 <template>
 <!--  big-->
   <div class="xshidden">
-    <el-table :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
+    <el-table @click='hmt.click("挖矿池子全部池子点击查看图表/打开池子详情页","project_farm_all_poolsinfo")' :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
       <el-table-column prop="pool" :label="I18n.apyIndex.pools">
         <template #default="scope">
           <Apy2PoolDialog type="mining" :id="scope.row.id">
@@ -53,7 +55,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
       </el-table-column>
       <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="75px">
         <template #default="scope">
-          <Apy2MiningTableTool :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+          <Apy2MiningTableTool page='project_farm_all' :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
         </template>
       </el-table-column>
     </el-table>

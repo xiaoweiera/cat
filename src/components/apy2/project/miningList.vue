@@ -38,12 +38,12 @@ const more=()=>{
   param.page++
   getList(false)
 }
-onMounted(getList(false))
+onMounted(()=>getList(false))
 </script>
 <template>
   <div class="w-full h-full">
     <Apy2MiningPoolsHeader class=" mb-3"  :hasCustom="false" :hasProject="false"  :type="true" :hasChain="true"  />
-    <Apy2ProjectMiningTable :data="listData" />
+    <Apy2ProjectMiningTable :data="listData"  />
   </div>
   <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>
 </template>

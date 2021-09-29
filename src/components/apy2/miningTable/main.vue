@@ -72,10 +72,9 @@ const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinf
         </el-table-column>
         <el-table-column prop="tool" :label="I18n.apyIndex.operate" align="right" width="75px">
           <template #default="scope">
-            <Apy2MiningTableTool class="hand" :id="scope.row.id"  :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+            <Apy2MiningTableTool class="hand" page='mining' :id="scope.row.id"  :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
           </template>
         </el-table-column>
-
 
   </el-table>
   </UiSortGroup>
@@ -120,7 +119,7 @@ const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinf
     </el-table-column>
     <el-table-column prop="tool"  :label="I18n.apyIndex.operate" align="right" width="75px">
       <template #default="scope">
-        <Apy2MiningTableTool class="hand" :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+        <Apy2MiningTableTool class="hand" page='mining' :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
       </template>
     </el-table-column>
   </el-table>

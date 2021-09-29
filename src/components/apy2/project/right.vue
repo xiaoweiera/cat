@@ -2,6 +2,7 @@
 import {ref, defineProps } from 'vue'
 import { getInject} from '~/utils/use/state'
 import I18n from '~/utils/i18n/index'
+import hmt from '~/lib/hmt'
 const props = defineProps({
   projectId:Object,
   origin:String
@@ -13,13 +14,18 @@ const pool_type = ref('mining')
 const tagKey = ref(0)
 
 const tags = [
-  {name: I18n.apyIndex.miningPool, key: 'mining'},
-  {name: I18n.apyIndex.loanPool, key: 'lend'},
-  {name: I18n.apyIndex.projectData, ke: 'all'},
+  {name: I18n.apyIndex.miningPool, key: 'mining',watch:'project_click_farm'},
+  {name: I18n.apyIndex.loanPool, key: 'lend',watch:'project_click_borrow'},
+  {name: I18n.apyIndex.projectData, ke: 'all',watch:'project_click_data'},
 ]
-const selectName = (key: string) => {
+const selectName = (key: string,name:string,watch:string) => {
+  console.log(name)
+  hmt.event(`点击${name}`,watch)
   pool_type.value = key
   tagKey.value++
+}
+const baidu=(name:string)=>{
+
 }
 </script>
 <template>
@@ -28,7 +34,7 @@ const selectName = (key: string) => {
     <Apy2ProjectInfoMobile class="mdhidden" :projectId="projectId"/>
     <div v-if="projectInfo[0]?.id"  class="flex items-center mt-8 bottomBorderGang">
       <template v-for="item in tags">
-        <div v-if="(projectInfo[0]?.is_lend && item.key==='lend') || item.key!=='lend'"  @click="selectName(item.key)" :class="pool_type===item.key?'pool_type':'name'" class="pool_type mr-8 hand" name="mining">
+        <div  v-if="(projectInfo[0]?.is_lend && item.key==='lend') || item.key!=='lend'"  @click="selectName(item.key,item.name,item.watch)" :class="pool_type===item.key?'pool_type':'name'" class="pool_type mr-8 hand" name="mining">
           {{ item.name }}
         </div>
       </template>

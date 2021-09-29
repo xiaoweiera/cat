@@ -66,7 +66,6 @@ const getData=async ()=>{
   const yAxis=getYAxis()
   const series=getSeries()
   const chartOption=getConfig(yAxis,series)
-  console.log(chartOption,'---')
   myChart.setOption(chartOption)
 }
 onMounted(()=>{
@@ -82,10 +81,7 @@ onMounted(()=>{
 </script>
 <template>
 <div   @click="hmt.click('我已选定平台','mining_project')">积极</div>
-
-
-
-  <a  @click="hmt.event('我已选定平台','mining_project')"  v-router='`https://www.baiduc.com`' target='_blank'>121</a>
+  <a  @click="hmt.click('我已选定平台','mining_project')"  v-router='' target='_blank'>121</a>
   <div class=' border-1 border-global-numGreen mx-auto my-30' style='width:628px;height:346px;'>
     <div  id="chartBar" class="w-full h-full"></div>
   </div>

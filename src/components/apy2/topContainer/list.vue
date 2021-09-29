@@ -17,6 +17,7 @@ const props=defineProps({
   header:Boolean,
   tokenItem:Object,
   title:String,
+  page:String
 })
 const list = ref()
 watch(() => props.tokenItem.value, () => getData())
@@ -77,8 +78,8 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
         <template #reference>
           <el-popover  popper-class="itemClass" :show-arrow="false" placement="left" :width="350" trigger="hover">
             <template #reference>
-              <div @click="hmt.click('TOP5点击池子详情页',`${type}_top5_poolsinfo`)"  class="flex topBorder hand  itemBg  items-center w-full p-2">
-                <Apy2TopContainerItem :pageType="props.type"  :item="item" :i="i"/>
+              <div @click="hmt.click('TOP5点击池子详情页',`${page}_top5_poolsinfo`)"  class="flex topBorder hand  itemBg  items-center w-full p-2">
+                <Apy2TopContainerItem :type='props.type' :pageType="props.page"  :item="item" :i="i"/>
               </div>
             </template>
             <div class="min-w-70 xshidden">
@@ -89,11 +90,11 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
         </template>
       </Apy2PoolDialog>
       <div v-else>
-        <a  @click="hmt.click('TOP5点击池子详情页',`${type}_top5_poolsinfo`)"   v-router.blank="tokenUrl(item.symbol_alias)" >
+        <a  @click="hmt.click('TOP5点击池子详情页',`${page}_top5_poolsinfo`)"   v-router.blank="tokenUrl(item.symbol_alias)" >
           <el-popover  popper-class="itemClass" :show-arrow="false" :offset="10"  placement="left" :width="350" trigger="hover">
             <template #reference>
               <div  class="flex topBorder hand itemBg  items-center w-full p-2">
-                <Apy2TopContainerItem :pageType="props.type" :item="item" :i="i"/>
+                <Apy2TopContainerItem :type='props.type'  :pageType="props.page" :item="item" :i="i"/>
               </div>
             </template>
             <div class="min-w-70  xshidden ">

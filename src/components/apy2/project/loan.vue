@@ -114,7 +114,7 @@ const poolsH3 = computed<string>(function(): string {
       </div>
     </div>
     <!--    图表echarts-->
-    <Apy2TopContainer :key="key" class="mt-4"  type="lend"  :paramData="param" :project="true"/>
+    <Apy2TopContainer :key="key" class="mt-4"  type="lend"  page='project_borrow'  :paramData="param" :project="true"/>
 <!--        <Apy2ProjectChart :custom="true" :loading="loading" :key="key" :chartData="chartData"  />-->
 
     <!--    表格-->

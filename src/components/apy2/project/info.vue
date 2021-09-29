@@ -3,6 +3,7 @@ import I18n from '~/utils/i18n/index'
 import {ref, defineProps, onMounted} from 'vue'
 // @ts-ignore
 import { formatRulesNumber,formatDefaultTime} from '~/lib/tool'
+import hmt from '~/lib/hmt'
 import { setInject } from '~/utils/use/state'
 import {getProjectDetail} from '~/logic/apy2/index'
 import {noticType} from '~/logic/apy2/config'
@@ -45,7 +46,6 @@ onMounted(getData)
           <div class="flex items-center">
             <div class="text-kd28px28px font-kdExp font-bold text-global-highTitle text-opacity-85">{{ data.name }}
             </div>
-
             <template v-for="tip in data.category">
               <span class="ml-2 bg-global-highTitle bg-opacity-6 rounded-kd4px px-1 py-0.5 text-global-highTitle text-kd12px14px text-opacity-45">{{ tip }}</span>
             </template>
@@ -58,7 +58,7 @@ onMounted(getData)
             <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2  " type="icon-gang"/>
             <a class="text-global-primary flex items-center font-kdExp  hand" :href="data.project_url" target="_blank">
               <IconFont class="mr-1" size="20" type="icon-link"/>
-              <a v-router.blank="data.project_url" class="text-kd14px18px">{{I18n.apyIndex.comLink}}</a>
+              <a   @click="hmt.event('点击官网链接','project_weblink')" v-router.blank="data.project_url" class="text-kd14px18px">{{I18n.apyIndex.comLink}}</a>
             </a>
             <div class="flex items-center" v-if="data.safety">
               <IconFont size="16" class="text-global-highTitle text-opacity-10 px-2" type="icon-gang"/>
@@ -66,7 +66,7 @@ onMounted(getData)
                 <div v-if="data.safety.length>0" class="flex items-center ">
                   <IconFont class="mr-2" size="20" type="icon-shenji"/>
                   <template v-for="item in data.safety">
-                    <a v-router.blank="item.link" class="text-global-primary  mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item.department }}</a>
+                    <a @click="hmt.event('点击审计报告','project_audit')" v-router.blank="item.link" class="text-global-primary  mr-2 hand flex items-center font-kdFang text-kd14px18px" style="border-bottom:1px solid #2B8DFE;">{{ item.department }}</a>
                   </template>
                 </div>
                 <div v-else class="flex items-center ">

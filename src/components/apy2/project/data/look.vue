@@ -6,6 +6,7 @@ import {echartTransform} from '~/lib/common'
 import { getInject} from '~/utils/use/state'
 import {getDetail_chart} from '~/logic/apy2/index'
 import {formatRulesNumber} from '~/lib/tool'
+import hmt from '~/lib/hmt'
 import I18n from '~/utils/i18n/index'
 const props=defineProps({projectId:Object})
 const selectList=ref([
@@ -41,11 +42,9 @@ const typeItem=computed(()=>R.find(item=>item.key===type.value,selectList.value)
 //改变TVL等
 watch(()=>type.value,(n)=>{
   param.field1=n
-  console.log(projectInfo.value[0])
-  console.log(type.value)
-  console.log(projectInfo.value[0][type.value])
   getChart()
 })
+const baidu=(name:string)=>hmt.event('切换项目数据总览类型',`project_data_overview_${name}`)
 const getChart=async ()=>{
   loading.value=true
   const result=await getDetail_chart(param)
@@ -75,7 +74,7 @@ const h3 = computed<string>(function(): string {
     <div class="mt-3 flex items-center justify-between">
       <div class="flex items-center">
         <el-select class="mr-3" :popper-append-to-body="false" v-model="type" size="small">
-          <el-option v-for="item in selectList" :label="item.name" :value="item.key">
+          <el-option @click='baidu(item.name)' v-for="item in selectList" :label="item.name" :value="item.key">
           </el-option>
         </el-select>
       </div>
