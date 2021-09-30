@@ -5,14 +5,15 @@ import { defineProps } from 'vue'
 const props=defineProps({
   data:Object,
   page:String,
-  type:String
 })
 const lookChart=`/apy/token?symbol=${props?.data?.symbol_alias}`
 const baidu=()=>{
   let name=''
-  if(props.type==='lend'){
+  if(props.page==='lend_Best_operate'){
     name='借贷最佳路径点击去借贷'
-  }else if(props.type==='project_borrow_all'){
+  }else if(props.page==='project_borrow_all'){
+    name='借贷池子全部池子点击去借贷'
+  }else if(props.page==='token_borrow_all'){
     name='借贷池子全部池子点击去借贷'
   }
   hmt.event(name,`${props.page}_borrow`)

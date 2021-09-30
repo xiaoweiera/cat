@@ -21,7 +21,9 @@ defineProps({
   chain:String,
   lendCoin:String,
   loanCoin:String,
-  project_id:Number
+  project_id:Number,
+  origin:String,
+  dialogType:String
 })
 
 
@@ -66,7 +68,7 @@ const onClick = function() {
         <el-dialog   top="0" v-model="status" custom-class="screen-dialog" :show-close="false" :lock-scroll="true" :append-to-body="true" @opened="onShow" @close="onClose">
           <div class="w-full h-full" v-if="opened">
             <slot name="content" :status="status">
-              <Apy2PoolDetail :id="id" :type="type"/>
+              <Apy2PoolDetail :id="id" :origin='origin' :dialogType='dialogType' :type="type"/>
             </slot>
           </div>
         </el-dialog>

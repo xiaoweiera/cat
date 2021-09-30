@@ -8,9 +8,12 @@ const pcTip=reactive({value:false})
 const lookChart=`/apy/token?symbol=${props.tokenName}`
 const baidu=()=>{
   let name=''
+  let key=''
   if(props.page==='mining'){
     name='底部榜单点击去挖矿'
   }else if(props.page==='project_farm_all'){
+    name='挖矿池子全部池子点击去挖矿'
+  }else if(props.page==='token_farm_all'){
     name='挖矿池子全部池子点击去挖矿'
   }
   hmt.event(name,`${props.page}_deposit`)

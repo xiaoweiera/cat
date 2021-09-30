@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { defineProps, reactive, ref, onMounted } from 'vue'
+import { defineProps, reactive, ref, onMounted,watch } from 'vue'
+import {dialogBaidu} from '~/lib/baidu'
 import { getDetail } from '~/logic/apy2/table'
 import { forEach, toNumber, toBoolean, toNumberFormat, toNumberCashFormat, isEmpty } from '~/utils'
 import { useProvide } from '~/utils/use/state'
@@ -22,7 +23,9 @@ const props = defineProps({
   chain:String,
   lendCoin:String,
   loanCoin:String,
-  project_id:Number
+  project_id:Number,
+  origin:String,
+  dialogType:String
 })
 
 // 日期
@@ -39,7 +42,9 @@ const tabValue = ref<string>(tab1.value)
 
 
 const upDetail = async function() {
+
   const data = await getDetail(props)
+
   forEach(function(value: any, key: string) {
     if (key === 'project_category') {
       const [ icon ]: string[] = value.split(',')
@@ -48,10 +53,20 @@ const upDetail = async function() {
     // @ts-ignore
     detail[key] = value
   }, data)
+  baidu('detail')
 }
 
 onMounted(upDetail)
 const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
+watch(()=>tabValue.value,(n)=>{
+  if(n==='2'){
+    baidu('compare')
+  }
+})
+const baidu=(clickType:string)=>{
+  dialogBaidu(props.origin,props.dialogType,detail.symbol,clickType)
+}
+
 </script>
 
 <template>
@@ -87,12 +102,12 @@ const projectUrl=(projectId:number)=>`/apy/project?id=${projectId}`
 <!--            </UiDialogBase>-->
           </div>
           <div class="mr-3">
-            <Apy2BaseFollow class="text-global-primary flex items-center h-8.5 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
+            <Apy2BaseFollow @click='baidu("my")' class="text-global-primary flex items-center h-8.5 px-3 rounded border border-global-primary border-opacity-32" pool :type="type" :value="id" :status="toBoolean(detail.followed)">
               <span class="text-sm ml-1.5 text-sm leading-4">{{ I18n.apy.pool.favorite }}</span>
             </Apy2BaseFollow>
           </div>
           <div>
-            <a v-router.blank="detail.project_url" class="cursor-pointer flex items-center  h-8.5 px-7.5 rounded border border-global-primary border-opacity-32">
+            <a @click='baidu("go")' v-router.blank="detail.project_url" class="cursor-pointer flex items-center  h-8.5 px-7.5 rounded border border-global-primary border-opacity-32">
               <span class="text-global-primary text-sm leading-4">
                 <template v-if="type === TabCategoryData.mining">{{ I18n.apy.pool.mining }}</template>
                 <template v-else>{{ I18n.apy.pool.lean }}</template>

@@ -3,10 +3,15 @@ import {ref, defineProps} from 'vue'
 import {formatDefaultTime} from '~/lib/tool'
 import I18n from '~/utils/i18n/index'
 import hmt from '~/lib/hmt'
+import {dialogBaidu} from '~/lib/baidu'
 const props=defineProps(
     {
       data:Object,
-      param:Object
+      param:Object,
+      page:String,
+      type:String,
+      origin:String,
+      dialogType:String
     }
 )
 const getHeaderClass = ()=> {
@@ -20,7 +25,15 @@ const onSort=(value:any)=>{
 }
 //@ts-ignore
 const getSortType=(key:string)=>props.param.ordering_field===key?'desc':null
-const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinfo')
+const baidu=()=>{
+  if(props.page==='mining'){
+    hmt.event('底部榜单打开池详情页','mining_list_poolsinfo')
+  }else if(props.page==='token_farm_all'){
+    hmt.event('挖矿池子全部池子点击查看图表/打开池子详情页','token_farm_all_poolsinfo')
+  }
+
+}
+
 </script>
 
 <template>
@@ -30,9 +43,9 @@ const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinf
   <el-table @click='baidu' class="xshidden" :header-cell-style="getHeaderClass()" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
         <el-table-column prop="pool" :label="I18n.apyIndex.pools">
           <template #default="scope">
-            <Apy2PoolDialog type="mining" :id="scope.row.id">
+            <Apy2PoolDialog type="mining" :origin='origin' :dialogType='dialogType' :id="scope.row.id">
               <template #reference>
-                <Apy2MiningTablePool  class="hand" :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed" :project="scope.row.project" :chain="scope.row.chain" :category="scope.row.project_category" :des="scope.row.strategy" />
+                <Apy2MiningTablePool   class="hand" :id="scope.row.id" :followed="scope.row.followed" :type="scope.row.symbol_type" :logo="scope.row.symbol_logo" :name="scope.row.symbol" :like="scope.row.followed" :project="scope.row.project" :chain="scope.row.chain" :category="scope.row.project_category" :des="scope.row.strategy" />
               </template>
             </Apy2PoolDialog>
           </template>
@@ -42,18 +55,18 @@ const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinf
             <UiSort  :title="`TVL/${I18n.apyIndex.hasMoney}`" :sort='getSortType("tvl")' name="tvl" @change="onSort"></UiSort>
           </template>
           <template #default="scope">
-            <Apy2PoolDialog type="mining" :id="scope.row.id">
+            <Apy2PoolDialog type="mining" :origin='origin' :dialogType='dialogType'  :id="scope.row.id">
               <template #reference>
-                <Apy2MiningTableTvlNumber class="hand" :name="scope.row.symbol" :tvl="scope.row.tvl" :remainTvl="scope.row.quota_remain" :tvlRate="scope.row.quota_remain_percent"/>
+                <Apy2MiningTableTvlNumber   class="hand" :name="scope.row.symbol" :tvl="scope.row.tvl" :remainTvl="scope.row.quota_remain" :tvlRate="scope.row.quota_remain_percent"/>
               </template>
             </Apy2PoolDialog>
           </template>
         </el-table-column>
         <el-table-column prop="apyGroup" :label="I18n.apyIndex.apyGroup" >
           <template #default="scope">
-            <Apy2PoolDialog type="mining" :id="scope.row.id">
+            <Apy2PoolDialog type="mining" :origin='origin' :dialogType='dialogType'  :id="scope.row.id">
               <template #reference>
-                <Apy2MiningTableApyGroup class="hand" :value0="scope.row.single_apy_detail" :value1="scope.row.compound_detail"/>
+                <Apy2MiningTableApyGroup   class="hand" :value0="scope.row.single_apy_detail" :value1="scope.row.compound_detail"/>
               </template>
             </Apy2PoolDialog>
           </template>
@@ -63,16 +76,16 @@ const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinf
             <UiSort  title="APY" :sort='getSortType("apy")' name="apy" @change="onSort"></UiSort>
           </template>
           <template #default="scope">
-            <Apy2PoolDialog type="mining" :id="scope.row.id">
+            <Apy2PoolDialog type="mining" :origin='origin' :dialogType='dialogType' :id="scope.row.id">
               <template #reference>
-                <Apy2MiningTableLever class="hand" :apy="scope.row.apy" :des="scope.row.lever"/>
+                <Apy2MiningTableLever   class="hand" :apy="scope.row.apy" :des="scope.row.lever"/>
               </template>
             </Apy2PoolDialog>
           </template>
         </el-table-column>
         <el-table-column prop="tool" :label="I18n.apyIndex.operate" align="right" width="75px">
           <template #default="scope">
-            <Apy2MiningTableTool class="hand" page='mining' :id="scope.row.id"  :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+            <Apy2MiningTableTool   class="hand" :page='props.page' :id="scope.row.id"  :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
           </template>
         </el-table-column>
 
@@ -119,7 +132,7 @@ const baidu=()=>hmt.event('底部榜单打开池详情页','mining_list_poolsinf
     </el-table-column>
     <el-table-column prop="tool"  :label="I18n.apyIndex.operate" align="right" width="75px">
       <template #default="scope">
-        <Apy2MiningTableTool class="hand" page='mining' :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
+        <Apy2MiningTableTool class="hand" :page='props.page' :id="scope.row.id" :tokenName="scope.row.symbol_alias" :project_url="scope.row.project_url"/>
       </template>
     </el-table-column>
   </el-table>

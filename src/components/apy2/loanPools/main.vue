@@ -50,7 +50,7 @@ onMounted(getList(true))
   <div>
     <div class="font-kdFang font-medium text-kd20px24px text-global-highTitle text-opacity-85">{{I18n.apyIndex.loanListDes}}</div>
     <Apy2LoanPoolsHeader  @search="search" class="mt-4 md:mb-0 mb-3"/>
-    <Apy2LoanTableMain v-if="listData.length>0" :data="listData"  :key="key[0]" />
+    <Apy2LoanTableMain page='lend_Best_operate'  v-if="listData.length>0" origin='lend' dialogType='lend' :data="listData"  :key="key[0]" />
     <Apy2BaseNoData v-else type="list" class="mt-4" />
   </div>
   <div @click="more" v-if="resultNumber===param.page_size" class="mx-auto text-kd14px18px text-global-highTitle text-opacity-65 w-50 py-2 text-center mt-4 hand font-kdFang bg-global-highTitle bg-opacity-6 px-3 py-2  rounded-kd4px">{{I18n.apyIndex.more}}</div>

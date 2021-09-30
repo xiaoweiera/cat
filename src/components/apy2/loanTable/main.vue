@@ -4,14 +4,54 @@ import {formatDefaultTime} from '~/lib/tool'
 import hmt from '~/lib/hmt'
 import I18n from '~/utils/i18n/index'
 import {getInject,setInject } from '~/utils/use/state'
-const props=defineProps({data:Object,pageType:Boolean})
+const props=defineProps({
+  data:Object,
+  pageType:Boolean,
+  page:String,
+  origin:String,
+  dialogType:String
+})
 const lookChartUrl=(name:string)=>`/apy/token?symbol=${name}`
 const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 14px;line-height: 18px;color: rgba(3, 54, 102, 0.65);font-weight:400px;'
+const coinBaidu=(type:string)=>{
+  let name=''
+  let key=''
+  if(type==='supply'){
+    if(props.page==='lend_Best_operate'){
+      name='借贷最佳路径打开抵押池子详情'
+      key='lend_list_supply_info'
+    }else if(props.page==='token_borrow_all'){
+      name='币种分析打开抵押池子详情'
+      key='token_list_supply_info'
+    }
+  }else{
+    if(props.page==='lend_Best_operate'){
+      name='借贷最佳路径打开借出池子详情'
+      key='lend_list_borrow_info'
+    }else if(props.page==='token_borrow_all'){
+      name='币种分析打开抵押池子详情'
+      key='token_list_supply_info'
+    }
+  }
+  hmt.event(name,key)
+}
+const itemBaidu=()=>{
+  let name=''
+  let key=''
+  if(props.page==='lend_Best_operate'){
+    name='借贷池子全部池子点击查看图表/打开池子详情页'
+    key='lend_borrow_poolsinfo'
+  }else if(props.page==='token_borrow_all'){
+    name='借贷池子全部池子点击查看图表/打开池子详情页'
+    key='token_borrow_all_poolsinfo'
+  }
+  hmt.event(name,key)
+}
 </script>
 <template>
   <div>
 <!--    大屏-->
-    <el-table class="xshidden"  :header-cell-style="getHeaderClass()" align="center" header-align="center" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
+    <el-table @click='itemBaidu()' class="xshidden"  :header-cell-style="getHeaderClass()" align="center" header-align="center" :data="data" style="width: 100%;border-top:1px solid rgba(3, 54, 102, 0.06);">
       <el-table-column prop="palt" width="170px"  :label="I18n.apyIndex.plat">
         <template #default="scope">
           <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">
@@ -36,9 +76,9 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
       <el-table-column  prop="gain" align="center" :label="I18n.apyIndex.mortgageInterest" :align="I18n.apyIndex.mortgage"  sortable>
         <template #default="scope">
 <!--          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">-->
-            <Apy2PoolDialog type="lend" :id="scope.row.lending_id">
+            <Apy2PoolDialog type="lend" :origin='origin' :dialogType='dialogType' :id="scope.row.lending_id">
               <template #reference>
-                <Apy2LoanTableGain  @click='hmt.click("借贷最佳路径打开抵押池子详情","lend_list_supply_info")' class='hand' :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_apy_detail"/>
+                <Apy2LoanTableGain   @click='coinBaidu("supply")' class='hand' :logo="scope.row.lending_symbol_logo" :name="scope.row.lending_symbol" :value="scope.row.lending_apy" :des="scope.row.lending_apy_detail"/>
               </template>
             </Apy2PoolDialog>
 <!--          </a>-->
@@ -47,9 +87,9 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
       <el-table-column prop="loanRate" :label="I18n.apyIndex.borrowApy" align="center"   sortable>
         <template #default="scope">
 <!--          <a v-router.blank="lookChartUrl(scope.row.symbol_alias)">-->
-          <Apy2PoolDialog type="lend" :id="scope.row.loaning_id">
+          <Apy2PoolDialog type="lend" :origin='origin' :dialogType='dialogType' :id="scope.row.loaning_id">
             <template #reference>
-              <Apy2LoanTableGain @click='hmt.click("借贷最佳路径打开借出池子详情","lend_list_borrow_info")' class='hand' :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
+              <Apy2LoanTableGain @click='coinBaidu("borrow")'  class='hand' :logo="scope.row.symbol_logo" :name="scope.row.symbol" :value="scope.row.apy" :des="scope.row.apy_detail"/>
             </template>
           </Apy2PoolDialog>
 <!--          </a>-->
@@ -64,7 +104,7 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
       </el-table-column>
       <el-table-column prop="tool" align="right"  :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
-          <Apy2LoanTableTool  page='lend_Best_operate' type='lend' :data="scope.row" />
+          <Apy2LoanTableTool  :page='page' type='lend' :data="scope.row" />
         </template>
       </el-table-column>
     </el-table>
@@ -114,7 +154,7 @@ const getHeaderClass=()=>'font-family: PingFang SC; font-weight:400;font-size: 1
       </el-table-column>
       <el-table-column prop="tool" align="right" :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
-          <Apy2LoanTableTool  :data="scope.row" />
+          <Apy2LoanTableTool  :page='page' type='lend' :data="scope.row" />
         </template>
       </el-table-column>
     </el-table>

@@ -3,6 +3,7 @@
  * @file 币种分析
  * @author svon.me@gmail.com
  */
+import hmt from '~/lib/hmt'
 import { trim, toUpper } from 'ramda'
 import { onBeforeMount,defineProps, computed, toRaw, ref } from 'vue'
 import { tokenList } from '~/store/apy2/state'
@@ -14,6 +15,7 @@ import { uuid, equalsIgnoreCase } from '~/utils'
 import DBList from '@fengqiaogang/dblist'
 import I18n from '~/utils/i18n/index'
 import router from '~/utils/router'
+
 const props=defineProps({tokenType:String})
 
 // @ts-ignore
@@ -102,6 +104,7 @@ onBeforeMount(()=>{
   // @ts-ignore
   ready(props.tokenType)
 })
+
 </script>
 
 <template>
@@ -129,8 +132,8 @@ onBeforeMount(()=>{
         <el-main class="p-0 overflow-auto showY">
           <div class="pt-3 pb-10" v-if="tokenList.length > 0">
             <template v-for="(item, index) in menuList" :key="index">
-              <div class="cursor-pointer">
-                <router-link class="flex items-center py-1.5 px-4 xl:px-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
+              <div class="cursor-pointer " >
+                <router-link @click='hmt.click("切换币种","token_token")' class="flex items-center py-1.5 px-4 xl:px-1.5" :to="item.href" :class="{'menu-active': isRouterActive(item.name)}">
                   <IconFont rounded :type="item.icon" size="24"></IconFont>
                   <span class="ml-1.5">
                     <span class="text-sm text-global-highTitle">{{ item.name }}</span>

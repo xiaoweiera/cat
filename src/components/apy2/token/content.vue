@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import hmt from '~/lib/hmt'
 import { toBoolean } from '~/utils'
 import I18n from '~/utils/i18n/index'
 import { defineProps, onMounted, reactive, ref, toRaw } from 'vue'
@@ -67,7 +68,7 @@ onMounted(function() {
     }
   }
 })
-
+const baidu=(name:string,key:string)=>hmt.event(`点击${name}`,`token_${key==='mining'?'farm':'borrow'}`)
 </script>
 
 <template>
@@ -96,7 +97,7 @@ onMounted(function() {
 
       <div class="flex items-center md:rounded-xl rounded-kd12px md:mt-0 mt-8 bg-global-highTitle bg-opacity-6 p-1" :class="{ 'hidden': category.length <= 1  }">
         <template v-for="item in category" :key="item.id">
-          <router-link class="page-switch flex-1  text-center flex justify-center " :class="{'active': active === item.id}" :to="getUrl(item.id)">
+          <router-link @click='baidu(item.name,item.id)' class="page-switch flex-1  text-center flex justify-center " :class="{'active': active === item.id}" :to="getUrl(item.id)">
             <IconFont class="xshidden" type="icon-danbi" size="24"/>
             <IconFont class="mdhidden" type="icon-danbi" size="20"/>
             <span class="ml-2 text-kd12px16px w-fit whitespace-nowrap">{{ item.name }}</span>

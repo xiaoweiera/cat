@@ -51,7 +51,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
       </el-table-column>
       <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
-          <Apy2LoanTableTool class="hand"  type='project_borrow_all' page='project_borrow_all' :data="scope.row"/>
+          <Apy2LoanTableTool class="hand"   page='project_borrow_all' :data="scope.row"/>
         </template>
       </el-table-column>
     </el-table>
@@ -81,7 +81,7 @@ const getHeaderClass=()=>'font-family: PingFang SC;font-weight:400; font-size: 1
       </el-table-column>
       <el-table-column prop="tool" :label="I18n.apyIndex.operate" width="110px">
         <template #default="scope">
-          <Apy2LoanTableTool :data="scope.row"/>
+          <Apy2LoanTableTool  page='project_borrow_all' :data="scope.row"/>
         </template>
       </el-table-column>
     </el-table>

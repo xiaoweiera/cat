@@ -29,7 +29,7 @@ onMounted(async ()=>{
         <Apy2BasePlayType type='lend' class="xshidden" />
       </div>
       <Apy2Chains class="md:mt-10 mt-9"/>
-      <Apy2TopContainer :header="true" page='lend'  type="lend"/>
+      <Apy2TopContainer :header="true" page='lend'  type="lend" origin='lend' dialogType='lend'/>
             <Apy2BaseNotice class="md:mt-12 mt-9"/>
       <div class="md:mt-12 mt-9">
         <!--表格数据-->

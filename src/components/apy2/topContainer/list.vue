@@ -17,7 +17,9 @@ const props=defineProps({
   header:Boolean,
   tokenItem:Object,
   title:String,
-  page:String
+  page:String,
+  origin:String,
+  dialogType:String
 })
 const list = ref()
 watch(() => props.tokenItem.value, () => getData())
@@ -74,7 +76,7 @@ const tokenUrl=(tokenName:string)=>`/apy/token?symbol=${tokenName}`
     <div class="text-kd14px18px font-medium text-global-highTitle mb-2">{{title}}</div>
     <div class=" overflow-hidden h-70.5 overflow-y-auto showY">
     <template v-for="(item,i) in list">
-      <Apy2PoolDialog v-if="props.type==='mining'" type="mining" :id="item.id">
+      <Apy2PoolDialog v-if="props.type==='mining'" type="mining" :origin='origin' :dialogType='dialogType' :id="item.id">
         <template #reference>
           <el-popover  popper-class="itemClass" :show-arrow="false" placement="left" :width="350" trigger="hover">
             <template #reference>
