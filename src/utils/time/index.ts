@@ -1,7 +1,4 @@
-/**
- * @file 时间处理
- * @author svon.me@gmail.com
- */
+
 
 import dayjs, { Dayjs } from 'dayjs'
 import { is } from 'ramda'

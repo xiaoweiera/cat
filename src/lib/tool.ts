@@ -5,11 +5,7 @@
 import dayjs from 'dayjs'
 import * as R from 'ramda'
 import { ElMessage } from 'element-plus'
-import message from '~/utils/message'
-import I18n from '~/utils/i18n/index'
 import {BigNumber} from 'bignumber.js'
-import * as lang from '~/utils/lang'
-import { Language } from '~/utils/lang'
 
 export function colorHexToRGBA(sHex: string, alpha: number = 1) {
   // 十六进制颜色值的正则表达式
@@ -36,22 +32,7 @@ export function colorHexToRGBA(sHex: string, alpha: number = 1) {
 }
 
 
-//apy的特殊处理，别更改
-export const numberFormat = (value: any) => {
-  if (value===null) {
-    return null
-  }
-  const k = 10000
-  //@ts-ignore
-  const sizes = ['', I18n.liquidity.numberUnit.wan, I18n.liquidity.numberUnit.yi,I18n.liquidity.numberUnit.wanyi]
-  if (value < k) {
-    return Math.round(value * 100) / 100
-  }
-  const i: number = Math.floor(Math.log(value) / Math.log(k))
-  const values = parseFloat((value / Math.pow(k, i)).toFixed(2))
-  const unit = sizes[i]
-  return values + unit
-}
+
 
 export const toFixedNumber = (value: any, rounded = 2) => {
   if (!value && value !== 0) {
@@ -155,49 +136,9 @@ export const min_max = (min: any, max: any, v: any) => {
   return [min, max]
 }
 
-export const messageError = function (message: any): void {
-  if (message) {
-    if (typeof message === 'string') {
-      ElMessage.warning(message)
-    } else {
-      const values = R.values(message)
-      const [text]: Array<string> = R.flatten(values)
-      if (text) {
-        ElMessage.warning(text)
-      } else {
-        ElMessage.warning(message)
-      }
-    }
-  }
-}
 
-export const messageSuccess = function (text: string): void {
-  ElMessage({
-    message: text,
-    type: 'success',
-    showClose: false,
-    customClass: 'message-tips',
-  })
-}
 
-// copy
-export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
-  const dom = document.createElement('input')
-  dom.setAttribute('value', text)
-  document.body.appendChild(dom)
-  dom.select()
-  document.execCommand('copy')
-  document.body.removeChild(dom)
-  if (alert) {
-    // messageSuccess(I18n.common.message.copy)
-    message.copy({
-      value: I18n.common.message.copyAlert,
-      desc: msg || text,
-    }, {
-      confirmButtonText: I18n.common.button.share
-    })
-  }
-}
+
 // 更改路由参数
 export const changeRoute = (
     route: any,
@@ -241,16 +182,7 @@ export const subStrByNumber = (str:string,number:number)=>{
   if (!str || str.length<=number) return str
   return str.slice(0, number)+'...'
 }
-//弱提示框
-export const messageTip=(content:string,typeName:string)=>{
-  ElMessage({
-    showClose: true,
-    dangerouslyUseHTMLString:true,
-    message:`<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="https://res.ikingdata.com/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
-    //@ts-ignore
-    type: typeName
-  });
-}
+
 //得到两位小数
 export const getSaveNumber=(v:any,number:number)=>{
   const value=new BigNumber(v)
@@ -295,11 +227,7 @@ export const numberUnitFormat = (value: any, defaultValue = '-') => {
   if (!value ) {
     return value === 0 ? 0 : defaultValue
   }
-  if( lang.current.value === Language.cn){
-    return aboutCn(value)
-  }else{
     return aboutEn(value)
-  }
 }
 //价格约分为 小数点非0两位有效数字，但最高不超过小数点后4位(0000)。
 export const getVNumber=(value:any,zeroIndex:number,isFour:boolean)=>{

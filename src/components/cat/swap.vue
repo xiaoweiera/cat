@@ -1,9 +1,13 @@
 <script lang='ts' setup>
 import { imgSrc } from '~/logic/cat/config'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref,reactive } from 'vue'
 // 设置是否打开
-const setState=ref(false)
+const setState=ref(true)
 const money = ref(2293384.56)
+//滑点
+const sold=reactive({value:0.1})
+//滑点时间 默认1分钟
+const time=reactive({value:1})
 const type = ref('swap')
 const changeType = (name: string) => type.value = name
 const changeSet=()=>setState.value=!setState.value
@@ -29,10 +33,13 @@ const balance = ref(0)
               <div @click='changeType("swap")' :class='type==="swap"?"taged":"tag"'>Swap</div>
               <div @click='changeType("liquidity")' :class='type==="liquidity"?"taged":"tag"'>Liquidity</div>
             </div>
-            <div @click='changeSet()' class='flex items-center relative h-14 w-14 justify-center hand   rounded-kd16px' style='background: #F4F5F6'>
-              <img :src='`${imgSrc}/set.png`' class='w-6 h-6' alt=''>
-              <CatSwapSet v-if='setState' class='absolute top-18 z-10 right-0 '/>
+            <div class='relative'>
+              <div @click='changeSet()' class='flex items-center  h-14 w-14 justify-center hand   rounded-kd16px' style='background: #F4F5F6'>
+                <img :src='`${imgSrc}/set.png`' class='w-6 h-6' alt=''>
+              </div>
+              <CatSwapSet v-if='setState' :sold='sold' :time='time' class='absolute top-18 z-10 right-0 '/>
             </div>
+
           </div>
         </div>
         <!--coin-->
@@ -58,7 +65,7 @@ const balance = ref(0)
             </div>
           </div>
         </div>
-        <img :src='`${imgSrc}/sawp.png`' class='w-12 h-12 sawp mx-auto my-4 bg-global-white rounded-16px' alt=''>
+        <img :src='`${imgSrc}/sawp.png`' class='w-12 h-12 hand sawp mx-auto my-4 bg-global-white rounded-16px' alt=''>
         <!--  token-->
         <div class=' flex h-20  rounded-kd16px  items-center relative  px-4 tokens '>
           <div class=' h-11.5 flex-1  flex items-center'>

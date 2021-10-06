@@ -4,7 +4,6 @@
  */
 
 import BigNumber from 'bignumber.js'
-import I18n from '~/utils/i18n/index'
 import { filter, flatten, is, isEmpty as _isEmpty, isNil, sort as _sort, toLower, toUpper, trim } from 'ramda'
 
 //@ts-ignore
@@ -463,9 +462,9 @@ export const dateDiff = function(time: any, diff: DateType = DateType.day): stri
   const cur = dayjs().format(timeFormat)
   const count = Math.abs(toDate(time).diff(cur, diff))
 
-  if (count > 0 && I18n.common.time.value[diff]) {
-    return I18n.part(I18n.common.time.value[diff], count, { count })
-  }
+  // if (count > 0 && I18n.common.time.value[diff]) {
+  //   return I18n.part(I18n.common.time.value[diff], count, { count })
+  // }
   return '1分钟'
 }
 

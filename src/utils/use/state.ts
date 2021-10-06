@@ -1,7 +1,3 @@
-/**
- * @file echarts 公共方法
- * @author svon.me@gmail.com
- */
 
 import { inject, provide, ref, toRaw, watch } from 'vue'
 import { upperFirst, isUndefined, debounce, toArray, map } from '~/utils'

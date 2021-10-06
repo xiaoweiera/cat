@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import '~/styles/font.scss'
 import { computed, toRaw } from 'vue'
-import * as lang from '~/utils/lang'
 import { useHead } from '@vueuse/head'
 import { useProvide } from '~/utils/use/state'
 
@@ -15,15 +14,11 @@ const [ metaState ] = useProvide('headerMeta', {
 
 // @ts-ignore
 const locale = computed(function() {
-  if (lang.current.value === lang.Language.en) {
-    return 'zhEn'
-  }
-  return 'zhCn'
+
+  return 'zhEn'
 })
 
-const language = computed<string>(function(): string {
-  return lang.current.value
-})
+const language ='en'
 
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,

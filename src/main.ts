@@ -11,13 +11,13 @@ import { createHead } from '@vueuse/head'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './app.vue'
 import './styles/main.scss'
-import directive from '~/utils/directive/index'
-import { iconFont } from '~/lib/config'
+// import directive from '~/utils/directive/index'
+// import { iconFont } from '~/lib/config'
 import * as bootstrap from './bootstrap'
 
 const routes = setupLayouts(generatedRoutes)
 
-bootstrap.iconFont(iconFont)
+// bootstrap.iconFont(iconFont)
 
 const app = createApp(App)
 app.use(createHead())
@@ -26,7 +26,7 @@ const router = createRouter({
   routes,
 })
 app.use(router)
-app.use(directive)
+// app.use(directive)
 const ctx = { app }
 Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
   i.install?.(ctx),
