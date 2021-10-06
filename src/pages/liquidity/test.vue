@@ -4,7 +4,7 @@ const a=ref('red')
 const colorList=[
   'red',
   'blue',
-  'yellow'
+  'yellow2'
 ]
 const change=()=>{
   a.value=a.value==='red'?a.value='green':a.value='red'
