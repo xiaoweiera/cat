@@ -77,7 +77,7 @@ class Translate {
           return reject(error)
         }
         const array = _.filter(files, function(name) {
-          if (name === 'index.ts') {
+          if (name === 'nft.vue.ts') {
             return false
           }
           return true

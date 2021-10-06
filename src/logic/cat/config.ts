@@ -1,0 +1,30 @@
+export const imgSrc='../public/assets/cat'
+export const navList=[
+  {
+    name:'NFT',
+    key:'nft',
+    url:'',
+    child:[
+      {name:'1',url:''},
+      {name:'2',url:''}
+    ],
+  },
+  {
+    name:'Swap',
+    key:'swap',
+    url:'',
+    child:null
+  },
+  {
+    name:'资金池',
+    key:'money',
+    url:'',
+    child:null
+  },
+  {
+    name:'Farm',
+    key:'farm',
+    url:'',
+    child:null
+  }
+]

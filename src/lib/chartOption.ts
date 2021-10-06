@@ -16,7 +16,7 @@ export const tooltips = function (getModel?: Function, unit?: string) {
     show: true,
     padding: [8, 10, 8, 10],
     trigger: 'axis',
-    extraCssText: 'z-index:21',
+    extraCssText: 'z-nft.vue:21',
     backgroundColor: 'rgba(255, 255, 255, 0.8);',
     textStyle: {
       color: 'black',

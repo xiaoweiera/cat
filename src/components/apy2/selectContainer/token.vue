@@ -5,7 +5,7 @@ import DBList from '@fengqiaogang/dblist'
 import { ref,toRefs, reactive,onMounted,watch,defineProps} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useProvide, setInject, getInject} from '~/utils/use/state'
-import {getTokenSearch} from '~/api/apy2/index'
+import {getTokenSearch} from '~/api/apy2/index.vue'
 import {formatRulesNumber} from '~/lib/tool'
 import * as api from '~/api/index'
 const txt=getInject('txt')

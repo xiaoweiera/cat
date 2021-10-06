@@ -7,7 +7,11 @@ const cssGlobal = {
     body: '#F6FAFD',
     bodyTwo:'#F8FBFD',
     default: '#253E6F', /* 37,62,111 */
-    primary: '#2B8DFE', /* 43, 141, 254 */
+    hei:'#141416',
+    primary: '#3772FF', /* 43, 141, 254 */
+    fen:'#EF466F',
+    hui:'#B1B5C3',
+    huiBold:'#777E90',
     highTitle:'#033666', /*3,54,102*/
     mobileBody:'#D8E8FF',
     numGreen:'#00B464', /* 0, 180, 100 */
@@ -51,6 +55,7 @@ export default defineConfig({
                 'kd6px':'6px',
                 'kd8px':'8px',
                 'kd12px':'12px',
+                'kd16px':'16px',
                 'kd20px':'20px',
                 'kd24px':'24px',
                 'kd28px':'28px',

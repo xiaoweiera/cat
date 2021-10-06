@@ -40,7 +40,6 @@ useHead({
 </script>
 <template>
   <div :language="language">
-    <UiDialogWebNewTipMain class="xshidden"/>
     <router-view />
   </div>
 </template>
@@ -55,6 +54,7 @@ useHead({
   font-family: i8n-font-Barlow;
 }
 body {
+
   -webkit-overflow-scrolling: touch;
 }
 

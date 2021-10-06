@@ -41,7 +41,7 @@ const tooltips = (getModel: any,xData:any) => {
   return {
     padding: [8, 10, 8, 10],
     trigger: 'axis',
-    extraCssText: 'z-index:21',
+    extraCssText: 'z-nft.vue:21',
     backgroundColor: 'rgba(255, 255, 255, 0.9);',
     textStyle: {
       color: 'black',

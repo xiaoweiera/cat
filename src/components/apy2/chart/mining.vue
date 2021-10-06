@@ -77,7 +77,7 @@ onMounted(()=>getChart())
     <!--数据-->
     <template v-for="(item, index) in chartData.legends" :key="index">
       <!--
-        通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
+        通过 nft.vue 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
         value: 数据
       -->
       <EchartsSeries :index="index"  :value="chartData.series[item.id]"/>

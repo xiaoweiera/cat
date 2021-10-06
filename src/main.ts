@@ -3,7 +3,7 @@ import { createApp } from 'vue'
 // @ts-ignore
 import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'layouts-generated'
-// import 'element-plus/lib/theme-chalk/index.css'
+// import 'element-plus/lib/theme-chalk/nft.vue.css'
 // @ts-ignore
 import 'virtual:windi.css'
 import 'virtual:windi-devtools'

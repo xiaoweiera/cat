@@ -95,7 +95,7 @@ const onAdd = function() {
               <template v-for="(item, index) in echartData.legends" :key="`legend-${index}`">
                 <!--
                   value: 图例名称
-                  type: 图例对应的图形类型(通过 index 与 series 数据匹配)
+                  type: 图例对应的图形类型(通过 nft.vue 与 series 数据匹配)
                   show: 是否显示
                   position: 通过该字段控制 Series 中对应的数据以那个 Y 轴为纬度展示
                 -->
@@ -110,7 +110,7 @@ const onAdd = function() {
               <!--数据-->
               <template v-for="(item, index) in echartData.series" :key="index">
                 <!--
-                  通过 index 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
+                  通过 nft.vue 与 legend 对应 (legend 中的 position 字段会影响数据的展示)
                   value: 数据
                 -->
                 <EchartsSeries :index="index" :value="toJSON(item)"/>
