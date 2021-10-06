@@ -1,93 +1,68 @@
 <script setup lang='ts'>
-import { onMounted, ref,reactive } from 'vue'
-import hmt from '~/lib/hmt'
-import * as echarts from 'echarts'
-import * as R from 'ramda'
-import { formatRulesNumber } from '~/lib/tool'
-import {colors} from '~/logic/echarts/colors'
-import {getConfig} from '~/logic/chartConfig/leftBar'
-import { getBarChart } from '~/logic/apy2'
-const data=ref({})
-const param=reactive({
-  symbol:'BUSD',
-  from_ts:'0',
-  to_ts:'0',
-  interval:'1D'
-})
-
-const getChartData=async ()=>{
-  data.value=await getBarChart(param)
-  console.log(data.value)
-  data.value={
-    series:[{
-      "data": [
-
-
-        12.178555825650397,
-      ]
-    }],
-    xAxis:[{
-      "data": [
-
-
-        {
-          "project": "S",
-          "chain": "BSC",
-          "project_category": "Vault",
-          "strategy_tags": "Alpaca"
-        },
-
-      ]
-    }]
-  }
-  console.log(data.value)
+import {ref} from 'vue'
+const a=ref('red')
+const colorList=[
+  'red',
+  'blue',
+  'yellow'
+]
+const change=()=>{
+  a.value=a.value==='red'?a.value='green':a.value='red'
 }
-const getYAxis=()=>{
-  const yData =data.value.xAxis[0].data.map((item,i)=>{
-    return {
-      value:JSON.stringify({
-        value:formatRulesNumber(data.value.series[0].data[i]),
-        color:colors.length-1>=i?colors[i]:colors[0],
-        ...item,
-      }),
-    }
-  })
-  return yData
-}
-// const getSeries=()=>R.map(item=>formatRulesNumber(item),data.value.series[0].data)
-const getSeries=()=>data.value.series[0].data.map((item,i)=>{
- return formatRulesNumber(item)
-})
-
-let myChart: any = null
-
-const getData=async ()=>{
-  await getChartData()
-  const yAxis=getYAxis()
-  const series=getSeries()
-  const chartOption=getConfig(yAxis,series)
-  myChart.setOption(chartOption)
-}
-onMounted(()=>{
-  const myChartDom = document.getElementById('chartBar')
-  if (myChart) {
-    myChart.dispose()
-  }
-  //@ts-ignore
-  myChart = echarts.init(myChartDom, 'light')
-  getData()
-})
-
 </script>
 <template>
-<div   @click="hmt.click('我已选定平台','mining_project')">积极</div>
-  <a  @click="hmt.click('我已选定平台','mining_project')"  v-router='' target='_blank'>121</a>
-  <div class=' border-1 border-global-numGreen mx-auto my-30' style='width:628px;height:346px;'>
-    <div  id="chartBar" class="w-full h-full"></div>
-  </div>
+<div class='w-full h-100 border-1 mx-auto text-center pt-30'>
+ <div v-for='item in colorList'>
+   <span :class='`name${item}`'>{{item}}</span>
+ </div>
+  <div @click='change()' class='bian' :style='`--v:${a}`'>啊啊啊</div>
+</div>
+
 </template>
 <style  lang='scss'>
+.bian{
+  background:var(--v);
+}
+$colorList:[
+  red,
+  blue,
+  green,
+  yellow
+];
+@function getColor($c){
+  @return $c
+}
+.yan{
+  background:lighten(getColor(purple),33%)
+}
+@each $item in $colorList{
+  .name#{$item}{
+    color:$item
+  }
+}
+$color:green;
+@mixin border($color){
+  border:1px solid $color;
+}
+.qiantao {
+  & > .zi{
+    color:$color;
+    @include border(yellow);
+  }
 
+}
+
+
+$or:or;
+.txt{
+  $color:blue !global;
+  $border:1px solid blue !global;
+  color:$color
+}
+.wen{
+  col#{or}:$color;
+  border:$border
+}
 </style>
 // @formatter:off
 <route lang="yaml">
