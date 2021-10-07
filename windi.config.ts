@@ -11,6 +11,7 @@ const cssGlobal = {
     primary: '#3772FF', /* 43, 141, 254 */
     fen:'#EF466F',
     hui:'#B1B5C3',
+    buttonHui:'#F4F5F6',
     huiBold:'#777E90',
     highTitle:'#033666', /*3,54,102*/
     mobileBody:'#D8E8FF',

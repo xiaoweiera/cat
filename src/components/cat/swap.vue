@@ -2,8 +2,16 @@
 import { imgSrc } from '~/logic/cat/config'
 import { onMounted, ref,reactive } from 'vue'
 // 设置是否打开
-const setState=ref(true)
+const setState=ref(false)
 const money = ref(2293384.56)
+//swap状态swapState
+const swapState=ref('noWallet') //noWallet noToken noAmount noBalance approve swap
+//弹框选择币
+const isDialog=reactive({value:false})
+//From币
+const fromToken=ref('')
+//To币
+const toToken=ref('')
 //滑点
 const sold=reactive({value:0.1})
 //滑点时间 默认1分钟
@@ -13,8 +21,12 @@ const changeType = (name: string) => type.value = name
 const changeSet=()=>setState.value=!setState.value
 //balance
 const balance = ref(0)
+//选择币弹框出来
+const selectToken=()=>isDialog.value=true
+
 </script>
 <template>
+  <DialogTokens :show='isDialog'/>
   <div class=' w-150  mx-auto flex-col'>
     <div class='text-global-hei'>
       <div class='rounded-kd24px shadow  flex justify-between px-6 py-6 '>
@@ -39,7 +51,6 @@ const balance = ref(0)
               </div>
               <CatSwapSet v-if='setState' :sold='sold' :time='time' class='absolute top-18 z-10 right-0 '/>
             </div>
-
           </div>
         </div>
         <!--coin-->
@@ -72,13 +83,13 @@ const balance = ref(0)
             <div class='w-11.5 h-11.5  flex justify-center'>
               <img :src='`${imgSrc}/logoHand.png`' class='w-8' alt=''>
             </div>
-            <div class='ml-3'>
+            <div class='ml-3 hand'>
               <div class='text-global-hui text-kd14px20px'>To</div>
-              <div class='text-global-fen text-kd16px24px font-semibold'>Select Token</div>
+              <div @click='selectToken()' class='text-global-fen text-kd16px24px font-semibold'>Select Token</div>
             </div>
           </div>
           <div class='w-0.25 h-11.5 absolute left-0 right-0 mx-auto borderRight'></div>
-          <div class=' h-11.5 flex-1 '>
+          <div class=' h-11.5 flex-1'>
             <div class='ml-8 flex flex-col h-full justify-center'>
               <div class='text-global-hui text-kd14px20px'>
                 <span>balance:</span>
@@ -91,10 +102,9 @@ const balance = ref(0)
             </div>
           </div>
         </div>
-        <div class='h-11 rounded-kd12px mt-4  hand bg-global-primary flex justify-center items-center'>
-          <img :src='`${imgSrc}/wallet.png`' class='w-6 h-6' alt=''>
-          <div class='text-global-white ml-1.5 text-kd16px24px font-semibold'>Connect Wallet</div>
-        </div>
+        <!--        确定按钮-->
+        <CatSwapConfrim/>
+
       </div>
     </div>
   </div>
